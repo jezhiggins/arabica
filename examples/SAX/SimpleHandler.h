@@ -56,9 +56,9 @@ public:
 
   /////////////////////////////////////////////////////
   // ErrorHandler
-  virtual void warning(const SAX::SAXException&);
-  virtual void error(const SAX::SAXException&);
-  virtual void fatalError(const SAX::SAXException& exception);
+  virtual void warning(const SAX::SAXParseException&);
+  virtual void error(const SAX::SAXParseException&);
+  virtual void fatalError(const SAX::SAXParseException& exception);
 
   ///////////////////////////////////////////////////////
   // LexicalHandler

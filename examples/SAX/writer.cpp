@@ -1,4 +1,6 @@
-#pragma warning(disable:4786)
+#ifdef _MSC_VER
+#  pragma warning(disable:4786)
+#endif
 
 #include <SAX/XMLReader.h>
 #include <SAX/helpers/FeatureNames.h>

@@ -1,5 +1,6 @@
-
-#pragma warning(disable:4786)
+#ifdef _MSC_VER
+#  pragma warning(disable:4786)
+#endif
 
 #include "SimpleHandler.h"
 #include <iostream>
@@ -92,17 +93,17 @@ void SimpleHandler::skippedEntity(const std::string& name)
 
 /////////////////////////////////////////////////////
 // ErrorHandler
-void SimpleHandler::warning(const SAX::SAXException& exception)
+void SimpleHandler::warning(const SAX::SAXParseException& exception)
 {
   std::cerr << "WARNING: " << exception.what() << std::endl;
 } // warning
 
-void SimpleHandler::error(const SAX::SAXException& exception)
+void SimpleHandler::error(const SAX::SAXParseException& exception)
 {
   std::cerr << "ERROR  : " << exception.what() << std::endl;
 } // error
 
-void SimpleHandler::fatalError(const SAX::SAXException& exception)
+void SimpleHandler::fatalError(const SAX::SAXParseException& exception)
 {
   std::cerr << "FATAL  : " << exception.what() << std::endl;
 } // fatalError
