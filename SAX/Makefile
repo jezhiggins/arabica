@@ -1,16 +1,24 @@
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
+####################################
+# Arabica Makefile
+#
+# I wrote this for GNU Make + GNU tools on Linux.
+# You may have to jiggle it for your own environment.
+# Platforms specific build files gratefully received 
+# at jez@jezuk.co.uk  Thanks :)
+#
+# $Id$
+####################################
 
-# Utilities
-REMOVE = rm -rf
-LINK = ln -sf
-COPY = cp -f
 
-# For GNU make:
-OS_VER := $(shell uname -s | sed -e s/\[\.\ \]/_/g)
-# For other make (like Sun's) you can try:
-# OS_VER:sh =uname -sr | sed -e s/\[\.\ \]/_/g
+####################################
+# ARABICA CONFIG
+# edit for your parser choice - may include more than one USE_*
+PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
+#PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
+####################################
+# TOOLS
+#####
 # C++ compiler
 CXX = gcc
 # preprocessor
@@ -20,38 +28,35 @@ LD = gcc
 # archiver
 AR = ar r
 
-ifeq ($(OS_VER),SunOS)
-CXXFLAGS = -Wall -pthreads -fpic
-else
-CXXFLAGS += -Wall
-endif
+###########
+# Utilities
+REMOVE = rm -rf
+LINK = ln -sf
+COPY = cp -f
 
-LDFLAGS = -shared 
+######################################
+# BUILD FLAGS
+CXXFLAGS += -Wall 
+LDFLAGS += -shared
 
 # Uncomment for optimisations
 CXXFLAGS += -O2
-LDFLAGS  += -O2
-
-# edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
-#PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
+LDFLAGS  += 
 
 # Includes and library directories 
 INCS_DIRS = -I.. 
-#INCS_DIRS = -I.. 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -lstdc++
+DYNAMIC_LIBS =
 
 CXXFLAGS += $(INCS_DIRS)
 LDFLAGS += $(LIBS_DIRS)
 LDFLAGS += $(STATIC_LIBS)
 LDFLAGS += $(DYNAMIC_LIBS)
 
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
-
+######################################
+# SOURCE FILES
 SRCS =  saxlib.cpp \
 	helpers/InputSourceResolver.cpp \
 	../Utils/base64codecvt.cpp \
@@ -69,7 +74,6 @@ SRCS =  saxlib.cpp \
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
-
 
 ##########################
 # High level rules
@@ -109,3 +113,9 @@ clean :
 	$(REMOVE) *.o helpers/*.o wrappers/*.o ../Utils/*.o ../Utils/impl/*.o ../XML/*.o libArabica*  ../bin/libArabica* saxlib.cpp ParserConfig.h ArabicaConfig.h
 
 # End of File
+
+
+
+
+
+
