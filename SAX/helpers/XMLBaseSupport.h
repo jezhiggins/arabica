@@ -96,8 +96,9 @@ private:
     std::ostringstream ss;
     if(location.find(FORWARD_SLASH) == 0)
     {
-      // prepend URI scheme
-      ss << baseURI.substr(0, baseURI.find(SCHEME_MARKER) + SCHEME_MARKER.length());
+      // prepend URI scheme and location
+      size_t schemeLen = baseURI.find(SCHEME_MARKER) + SCHEME_MARKER.length();
+      ss << baseURI.substr(0, baseURI.find(FORWARD_SLASH, schemeLen+1));
     }
     else
     {
