@@ -30,7 +30,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       lexicalHandler_(0),
       indent_(2),
       stream_(&stream),
-      inCDATA_(false)
+      inCDATA_(false),
+      inDTD_(false)
     {
     } // basic_Writer
 
@@ -39,7 +40,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       lexicalHandler_(0),
       indent_(2),
       stream_(&stream),
-      inCDATA_(false)
+      inCDATA_(false),
+      inDTD_(false)
     {
     } // basic_Writer
 
@@ -75,6 +77,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     bool isDtd(const stringT& name);
 
     bool inCDATA_;
+    bool inDTD_;
     int indent_;
     int depth_;
     ostreamT* stream_;
@@ -97,29 +100,29 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
           {
             case UnicodeT::LESS_THAN_SIGN:
               *stream_ << UnicodeT::AMPERSAND
-                       << static_cast<charT>('l')
-                       << static_cast<charT>('t')
+                       << UnicodeT::LOWERCASE_L
+                       << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
               break;
             case UnicodeT::GREATER_THAN_SIGN:
               *stream_ << UnicodeT::AMPERSAND
-                       << static_cast<charT>('g')
-                       << static_cast<charT>('t')
+                       << UnicodeT::LOWERCASE_G
+                       << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
               break;
             case UnicodeT::AMPERSAND:
               *stream_ << UnicodeT::AMPERSAND
-                       << static_cast<charT>('a')
-                       << static_cast<charT>('m')
-                       << static_cast<charT>('p')
+                       << UnicodeT::LOWERCASE_A
+                       << UnicodeT::LOWERCASE_M
+                       << UnicodeT::LOWERCASE_P
                        << UnicodeT::SEMI_COLON;
               break;
             case UnicodeT::QUOTATION_MARK:
               *stream_ << UnicodeT::AMPERSAND
-                       << static_cast<charT>('q')
-                       << static_cast<charT>('u')
-                       << static_cast<charT>('o')
-                       << static_cast<charT>('t')
+                       << UnicodeT::LOWERCASE_Q
+                       << UnicodeT::LOWERCASE_U
+                       << UnicodeT::LOWERCASE_O
+                       << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
               break;
             default:
@@ -135,7 +138,30 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
 template<class string_type>
 void basic_Writer<string_type>::startDocument()
 {
-  *stream_ << "<?xml version=\"1.0\"?>" << std::endl;
+  *stream_ << UnicodeT::LESS_THAN_SIGN
+           << UnicodeT::QUESTION_MARK
+           << UnicodeT::LOWERCASE_X
+           << UnicodeT::LOWERCASE_M
+           << UnicodeT::LOWERCASE_L
+           << UnicodeT::SPACE
+           << UnicodeT::LOWERCASE_V
+           << UnicodeT::LOWERCASE_E
+           << UnicodeT::LOWERCASE_R
+           << UnicodeT::LOWERCASE_S
+           << UnicodeT::LOWERCASE_I
+           << UnicodeT::LOWERCASE_O
+           << UnicodeT::LOWERCASE_N
+           << UnicodeT::EQUALS_SIGN
+           << UnicodeT::QUOTATION_MARK
+           << UnicodeT::NUMBER_1
+           << UnicodeT::FULL_STOP
+           << UnicodeT::NUMBER_0
+           << UnicodeT::QUOTATION_MARK
+           << UnicodeT::QUESTION_MARK
+           << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
+
 
   depth_ = 0;
   inCDATA_ = false;
@@ -242,9 +268,9 @@ bool basic_Writer<string_type>::isDtd(const string_type& name)
 {
   return (name.length() == 5 && 
      name[0] == UnicodeT::LEFT_SQUARE_BRACKET &&
-     name[1] == static_cast<charT>('d') &&
-     name[2] == static_cast<charT>('t') &&
-     name[3] == static_cast<charT>('d') &&
+     name[1] == UnicodeT::LOWERCASE_D &&
+     name[2] == UnicodeT::LOWERCASE_T &&
+     name[3] == UnicodeT::LOWERCASE_D &&
      name[4] == UnicodeT::RIGHT_SQUARE_BRACKET);
 } // isDtd
 
@@ -280,6 +306,46 @@ void basic_Writer<string_type>::doSetProperty(const string_type& name, typename 
 template<class string_type>
 void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
+  inDTD_ = true;
+
+  *stream_ << UnicodeT::LESS_THAN_SIGN
+           << UnicodeT::EXCLAMATION_MARK
+           << UnicodeT::CAPITAL_D
+           << UnicodeT::CAPITAL_O
+           << UnicodeT::CAPITAL_C
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_Y
+           << UnicodeT::CAPITAL_P
+           << UnicodeT::CAPITAL_E
+           << UnicodeT::SPACE
+           << name
+           << UnicodeT::SPACE;
+  if(publicId != stringT())
+    *stream_ << UnicodeT::CAPITAL_P
+             << UnicodeT::CAPITAL_U
+             << UnicodeT::CAPITAL_B
+             << UnicodeT::CAPITAL_L
+             << UnicodeT::CAPITAL_I
+             << UnicodeT::CAPITAL_C
+             << UnicodeT::SPACE
+             << UnicodeT::QUOTATION_MARK
+             << publicId
+             << UnicodeT::QUOTATION_MARK
+             << UnicodeT::SPACE;
+  else
+    *stream_ << UnicodeT::CAPITAL_S
+             << UnicodeT::CAPITAL_Y
+             << UnicodeT::CAPITAL_S
+             << UnicodeT::CAPITAL_T
+             << UnicodeT::CAPITAL_E
+             << UnicodeT::CAPITAL_M;
+  *stream_ << UnicodeT::SPACE
+           << UnicodeT::QUOTATION_MARK
+           << systemId
+           << UnicodeT::QUOTATION_MARK
+           << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
   if(lexicalHandler_)
     lexicalHandler_->startDTD(name, publicId, systemId);
 } // startDTD
@@ -287,6 +353,8 @@ void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& pub
 template<class string_type>
 void basic_Writer<string_type>::endDTD()
 {
+  inDTD_ = false;
+
   if(lexicalHandler_)
     lexicalHandler_->endDTD();
 } // endDTD
@@ -313,11 +381,11 @@ void basic_Writer<string_type>::startCDATA()
   std::cout << UnicodeT::LESS_THAN_SIGN
             << UnicodeT::EXCLAMATION_MARK
             << UnicodeT::LEFT_SQUARE_BRACKET
-            << static_cast<charT>('C')
-            << static_cast<charT>('D')
-            << static_cast<charT>('A')
-            << static_cast<charT>('T')
-            << static_cast<charT>('A')
+            << UnicodeT::CAPITAL_C
+            << UnicodeT::CAPITAL_D
+            << UnicodeT::CAPITAL_A
+            << UnicodeT::CAPITAL_T
+            << UnicodeT::CAPITAL_A
             << UnicodeT::LEFT_SQUARE_BRACKET;
 
   if(lexicalHandler_)
@@ -340,6 +408,16 @@ void basic_Writer<string_type>::endCDATA()
 template<class string_type>
 void basic_Writer<string_type>::comment(const stringT& text)
 {
+  if(!inDTD_)
+    *stream_ << UnicodeT::LESS_THAN_SIGN
+            << UnicodeT::EXCLAMATION_MARK
+            << UnicodeT::HYPHEN_MINUS
+            << UnicodeT::HYPHEN_MINUS
+            << text
+            << UnicodeT::HYPHEN_MINUS
+            << UnicodeT::HYPHEN_MINUS
+            << UnicodeT::GREATER_THAN_SIGN;
+
   if(lexicalHandler_)
     lexicalHandler_->comment(text);
 } // comment
