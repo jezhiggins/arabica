@@ -51,13 +51,13 @@ class basic_DefaultHandler : public basic_EntityResolver<string_type>,
 					public basic_DTDHandler<string_type>,
 					public basic_ContentHandler<string_type>, 
 					public basic_ErrorHandler<string_type>
-{
+
 public:
   typedef string_type stringT;
   typedef basic_InputSource<stringT> InputSourceT;
   typedef basic_Locator<stringT> LocatorT;
   typedef basic_Attributes<stringT> AttributesT;
-  typedef basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+  typedef typename basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
   basic_DefaultHandler() { }
   virtual ~basic_DefaultHandler() { }
