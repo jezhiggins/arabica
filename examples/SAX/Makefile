@@ -23,13 +23,13 @@ WRITER_SRCS = writer.cpp
 WRITER_HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(WRITER_SRCS)))
 WRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(WRITER_SRCS)))
 
-XMLBASE_SRC = xmlbase.cpp
+XMLBASE_SRCS = xmlbase.cpp
 XMLBASE_HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(XMLBASE_SRCS)))
 XMLBASE_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(XMLBASE_SRCS)))
 
 ######################################
 # High level rules
-all : pyx simple_handler writer
+all : pyx simple_handler writer xmlbase
 
 pyx$ : $(PYX_OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(PYX_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
