@@ -129,6 +129,10 @@ SOURCE=.\Parser.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\ParserConfig.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SAXException.h
 # End Source File
 # Begin Source File
@@ -311,6 +315,26 @@ SOURCE=.\filter\Writer.h
 SOURCE=.\parsers\saxgarden.h
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\ParserConfig.tpl
+
+!IF  "$(CFG)" == "SAXlib - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "SAXlib - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build
+InputPath=.\ParserConfig.tpl
+
+"ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	cl /TC /D USE_EXPAT /EP ParserConfig.tpl > ParserConfig.h
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
 # Begin Source File
 
 SOURCE=.\saxlib.cpp
