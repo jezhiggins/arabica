@@ -5,6 +5,7 @@
 
 #include <string>
 #include <DOM/SAX2DOM/SAX2DOM.h>
+#include <SAX/helpers/CatchErrorHandler.h>
 #include <DOM/Utils/Stream.h>
 
 ////////////////////////////////////////////////
@@ -18,6 +19,8 @@ int main(int argc, char* argv[])
 
   { // narrow
     SAX2DOM::Parser<std::string> domParser;
+    SAX::CatchErrorHandler<std::string> eh;
+    domParser.setErrorHandler(eh);
 
 	  for(int i = 1; i < argc; ++i)
     {
@@ -35,9 +38,16 @@ int main(int argc, char* argv[])
         domParser.parse(is);
       } // if(file != "-")
 
-      DOM::Document<std::string> doc = domParser.getDocument();
-
-      std::cout << doc;
+      if(!eh.errorsReported())
+      {
+        DOM::Document<std::string> doc = domParser.getDocument();
+        std::cout << doc;
+      }
+      else
+      {
+        std::cerr << eh.errors() << std::endl;
+        eh.reset();
+      } // if ...
     } // for ...
   } 
 
