@@ -2,9 +2,9 @@
 #//////////////////////////////////////////////
 
 # Utilities
-
 REMOVE = rm -rf
 LINK = ln -sf
+COPY = cp -f
 
 # For GNU make:
 OS_VER := $(shell uname -s | sed -e s/\[\.\ \]/_/g)
@@ -15,6 +15,8 @@ OS_VER := $(shell uname -s | sed -e s/\[\.\ \]/_/g)
 CXX = gcc
 # preprocessor
 CPP = gcc -E
+# linker
+LD = ld
 
 
 #/////////////////////////////////////////////////////////////////////////
@@ -38,7 +40,7 @@ else
 CXXFLAGS = -Wall
 endif
 
-LDFLAGS = -shared -Wl,"-hlibArabica.so.1"
+LDFLAGS = -shared 
 CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
@@ -91,15 +93,13 @@ OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
 all : libArabica.so.1 libArabica.a 
 
 libArabica.so.1 : $(OBJS)
-	$(LINK.cc) -o $@ $(OBJS)
-	cp -f libArabica.so.1 ../bin
-	(cd ../bin; rm -f libArabica.so; ln -s libArabica.so.1 libArabica.so)
-
-#	$(LINK) $@ libArabica.so
+	$(LD) $(LDFLAGS) -o $@ $(OBJS)
+	$(COPY) libArabica.so.1 ../bin
+	(cd ../bin; $(REMOVE) libArabica.so; $(LINK) libArabica.so.1 libArabica.so)
 
 libArabica.a : $(OBJS)
 	ar r $@ $(OBJS)
-	cp -f libArabica.a ../bin
+	$(COPY) libArabica.a ../bin
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -112,7 +112,7 @@ saxlib.cpp : ParserConfig.S saxlib.S ArabicaConfig.S
 
 
 %.o : %.cpp
-	$(COMPILE.cc) -o $@ $<
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
