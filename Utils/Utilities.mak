@@ -56,8 +56,8 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"$(OUTDIR)\Utilities.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\utf16utf8_codecvt.obj" \
-	"$(INTDIR)\iso8859_1utf8_codecvt.obj"
+	"$(INTDIR)\iso8859_1utf8_codecvt.obj" \
+	"$(INTDIR)\utf16utf8_codecvt.obj"
 
 "$(OUTDIR)\Utilities.lib" : "$(OUTDIR)" $(DEF_FILE) $(LIB32_OBJS)
     $(LIB32) @<<
@@ -96,8 +96,8 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"$(OUTDIR)\Utilities.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\utf16utf8_codecvt.obj" \
-	"$(INTDIR)\iso8859_1utf8_codecvt.obj"
+	"$(INTDIR)\iso8859_1utf8_codecvt.obj" \
+	"$(INTDIR)\utf16utf8_codecvt.obj"
 
 "$(OUTDIR)\Utilities.lib" : "$(OUTDIR)" $(DEF_FILE) $(LIB32_OBJS)
     $(LIB32) @<<

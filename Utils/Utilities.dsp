@@ -105,6 +105,10 @@ SOURCE=.\convertstream.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\iso8859_1utf8_codecvt.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\socket_stream.h
 # End Source File
 # Begin Source File
