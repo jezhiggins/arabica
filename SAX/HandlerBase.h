@@ -49,13 +49,14 @@ template<class string_type>
 class basic_HandlerBase : public basic_EntityResolver<string_type>, 
 					public basic_DTDHandler<string_type>,
 					public basic_DocumentHandler<string_type>, 
-					public ErrorHandler
+					public basic_ErrorHandler<string_type>
 {
 public:
   typedef string_name stringT;
   typedef basic_Locator<stringT> LocatorT;
   typedef basic_AttributeList<stringT> AttributeListT;
   typedef basic_InputSource<stringT> InputSourceT;
+  typedef basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
   virtual ~basic_HandlerBase() { }
 
@@ -246,7 +247,7 @@ public:
    * @see basic_ErrorHandler#warning
    * @see basic_SAXParseException
    */
-  virtual void warning(const SAXException& e) { }
+  virtual void warning(const SAXParseExceptionT& e) { }
   /**
    * Receive notification of a recoverable parser error.
    *
@@ -259,7 +260,7 @@ public:
    * @see basic_ErrorHandler#warning
    * @see basic_SAXParseException
    */
-  virtual void error(const SAXException& e) { }
+  virtual void error(const SAXParseExceptionT& e) { }
   /**
    * Report a fatal XML parsing error.
    *
@@ -275,7 +276,7 @@ public:
    * @see basic_ErrorHandler#fatalError
    * @see basic_SAXParseException
    */
-  virtual void fatalError(const SAXException& e) { throw e; }
+  virtual void fatalError(const SAXParseExceptionT& e) { throw e; }
 }; // class HandlerBase
 
 typedef basic_HandlerBase<std::string> HandlerBase;
