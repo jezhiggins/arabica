@@ -285,6 +285,13 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Utils"
+			Filter="">
+			<File
+				RelativePath="Utils\Stream.h">
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
