@@ -32,27 +32,31 @@ class SAX2PYX : public SAX::DefaultHandler
     virtual void warning(const SAX::SAXParseException& e) { fatalError(e); }
     virtual void error(const SAX::SAXParseException& e) { fatalError(e); }
 
+    void setParser(SAX::XMLReader<std::string>& parser) { parser_ = &parser; }
+
   private:
     std::string escape(const std::string& str) const;
+    SAX::XMLReader<std::string>* parser_;
 }; // class SimpleHandler
 
 int main(int argc, char* argv[])
 {
   if(argc == 1) 
-	{
-		std::cout << "Usage : " << argv[0] << " xmlfile ... " << std::endl;
-		return 0;
-	} // if(argc == 0)
+  {
+    std::cout << "Usage : " << argv[0] << " xmlfile ... " << std::endl;
+    return 0;
+  } // if(argc == 0)
 
-	SAX2PYX handler;
+  SAX2PYX handler;
 
-	for(int i = 1; i < argc; ++i)
-	{
+  for(int i = 1; i < argc; ++i)
+  {
     try
     {
       SAX::XMLReader<std::string> myParser;
-		  myParser.setContentHandler(handler);
-		  myParser.setErrorHandler(handler);
+      myParser.setContentHandler(handler);
+      myParser.setErrorHandler(handler);
+      handler.setParser(myParser);
 
       SAX::InputSource is(argv[i]);
       myParser.parse(is);
@@ -61,9 +65,9 @@ int main(int argc, char* argv[])
     {
       std::cerr << "Parse problem " << e.what() << std::endl;
     } // catch  
-	} // for ...
+  } // for ...
 
-	return 0;
+  return 0;
 } // main
 
 
@@ -79,6 +83,11 @@ void SAX2PYX::startElement(const std::string&, const std::string& localName,
               << std::endl;
   } // for ...
 
+  std::cerr << "             " 
+            << parser_->getLineNumber() 
+            << ","
+            << parser_->getColumnNumber() 
+	    << std::endl;
 } // startElement
 
 void SAX2PYX::endElement(const std::string&, const std::string& localName,
