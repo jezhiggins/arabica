@@ -543,7 +543,10 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
     class ErrorHandlerAdaptor : public ISAXErrorHandler 
     {
       public:
-        ErrorHandlerAdaptor() :   errorHandler_(0) { }
+        ErrorHandlerAdaptor() : errorHandler_(0), 
+                                bWarning_(false), bError_(false), bFatal_(false),
+                                eWarning_("none"), eError_("none"), eFatal_("none")
+                                { }
         virtual ~ErrorHandlerAdaptor() { }
 
         void setErrorHandler(SAX::basic_ErrorHandler<stringT>& handler) { errorHandler_ = &handler; }
@@ -554,9 +557,9 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
             /* [in] */ const wchar_t *pwchErrorMessage,
             /* [in] */ HRESULT hrErrorCode)
         {
+          bError_ = true;
           stringT errorMsg(SA_.makeStringT(pwchErrorMessage));
-          if(errorHandler_)
-            errorHandler_->error(SAX::basic_SAXParseException<stringT>(SA_.asStdString(errorMsg), LocatorAdaptor(pLocator)));
+          eError_ = SAXParseExceptionT(SA_.asStdString(errorMsg), LocatorAdaptor(pLocator));
           return S_OK;
         } // error
 
@@ -565,10 +568,10 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
             /* [in] */ const wchar_t *pwchErrorMessage,
             /* [in] */ HRESULT hrErrorCode)
         {
+          bFatal_ = true;
           stringT errorMsg(SA_.makeStringT(pwchErrorMessage));
-          if(errorHandler_)
-            errorHandler_->fatalError(SAX::basic_SAXParseException<stringT>(SA_.asStdString(errorMsg), LocatorAdaptor(pLocator)));
-          return S_OK;
+          eFatal_ = SAXParseExceptionT(SA_.asStdString(errorMsg), LocatorAdaptor(pLocator));
+          return S_FALSE;
         } // fatalError
 
         virtual HRESULT STDMETHODCALLTYPE ignorableWarning( 
@@ -576,11 +579,30 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
             /* [in] */ const wchar_t *pwchErrorMessage,
             /* [in] */ HRESULT hrErrorCode)
         {
+          bWarning_ = true;
           stringT errorMsg(SA_.makeStringT(pwchErrorMessage));
-          if(errorHandler_)
-            errorHandler_->warning(SAX::basic_SAXParseException<stringT>(SA_.asStdString(errorMsg), LocatorAdaptor(pLocator)));
+          eWarning_ = SAXParseExceptionT(SA_.asStdString(errorMsg), LocatorAdaptor(pLocator));
           return S_OK;
         } // ignorableWarning
+
+        void report()
+        {
+          if(!errorHandler_)
+            return;
+
+          bool bWarning = bWarning_;
+          bool bError = bError_;
+          bool bFatal = bFatal_;
+
+          bWarning_ = bError_ = bFatal_ = false;
+
+          if(bFatal)
+            errorHandler_->fatalError(eFatal_);
+          if(bError)
+            errorHandler_->error(eError_);
+          if(bWarning)
+            errorHandler_->warning(eWarning_);
+        } // report
 
         // satisfy COM interface even if we're not a COM object
         long __stdcall QueryInterface(const struct _GUID &riid,void **ppvObject) { return 0; }
@@ -588,6 +610,14 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         unsigned long __stdcall Release() { return 0; }
 
       private:
+        typedef SAX::basic_SAXParseException<stringT> SAXParseExceptionT;
+        bool bWarning_;
+        bool bError_;
+        bool bFatal_;
+        SAXParseExceptionT eWarning_;
+        SAXParseExceptionT eError_;
+        SAXParseExceptionT eFatal_;
+
         SAX::basic_ErrorHandler<stringT>* errorHandler_;
         string_adaptorT SA_;
     }; // class ErrorHandlerAdaptor
@@ -948,6 +978,7 @@ void msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::parse(SAX::basic
     wrapper.punkVal = static_cast<ISequentialStream*>(&sa);
     reader_->parse(wrapper);
   } // if ...
+  errorHandler_.report();
 } // parse
 
 } // namespace SAX
