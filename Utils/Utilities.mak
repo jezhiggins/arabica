@@ -40,6 +40,7 @@ ALL : "$(OUTDIR)\Utilities.lib"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\iso8859_1utf8_codecvt.obj"
 	-@erase "$(INTDIR)\utf16utf8_codecvt.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\Utilities.lib"
@@ -55,7 +56,8 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"$(OUTDIR)\Utilities.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\utf16utf8_codecvt.obj"
+	"$(INTDIR)\utf16utf8_codecvt.obj" \
+	"$(INTDIR)\iso8859_1utf8_codecvt.obj"
 
 "$(OUTDIR)\Utilities.lib" : "$(OUTDIR)" $(DEF_FILE) $(LIB32_OBJS)
     $(LIB32) @<<
@@ -74,6 +76,7 @@ ALL : "$(OUTDIR)\Utilities.lib"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\iso8859_1utf8_codecvt.obj"
 	-@erase "$(INTDIR)\utf16utf8_codecvt.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
@@ -93,7 +96,8 @@ BSC32_SBRS= \
 LIB32=link.exe -lib
 LIB32_FLAGS=/nologo /out:"$(OUTDIR)\Utilities.lib" 
 LIB32_OBJS= \
-	"$(INTDIR)\utf16utf8_codecvt.obj"
+	"$(INTDIR)\utf16utf8_codecvt.obj" \
+	"$(INTDIR)\iso8859_1utf8_codecvt.obj"
 
 "$(OUTDIR)\Utilities.lib" : "$(OUTDIR)" $(DEF_FILE) $(LIB32_OBJS)
     $(LIB32) @<<
@@ -143,6 +147,11 @@ LIB32_OBJS= \
 
 
 !IF "$(CFG)" == "Utilities - Win32 Release" || "$(CFG)" == "Utilities - Win32 Debug"
+SOURCE=.\iso8859_1utf8_codecvt.cpp
+
+"$(INTDIR)\iso8859_1utf8_codecvt.obj" : $(SOURCE) "$(INTDIR)"
+
+
 SOURCE=.\utf16utf8_codecvt.cpp
 
 "$(INTDIR)\utf16utf8_codecvt.obj" : $(SOURCE) "$(INTDIR)"
