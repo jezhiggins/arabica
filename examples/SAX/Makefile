@@ -56,6 +56,7 @@ STATIC_LIBS =
 DYNAMIC_LIBS = -lArabica  -lexpat	
 
 CXXFLAGS += ${INCS_DIRS}
+LDFLAGS += ${LIBS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}
 
 #/////////////////////////////////////////////////////////////////////////

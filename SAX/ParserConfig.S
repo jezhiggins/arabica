@@ -15,35 +15,38 @@ ifndef ParserConfig_h
 define ParserConfig_h
 
 #ifdef USE_LIBXML2
-message("Including libxml2")
 include <SAX/wrappers/saxlibxml2.h>
 undef DEF_SAX_P
 define DEF_SAX_P libxml2_wrapper
 #ifdef _MSC_VER
+message("Including libxml2")
 comment(lib, "libxml2.lib")
 #endif
 #endif
 #ifdef USE_MSXML
+#ifndef _MSC_VER
+error "Can only use MSXML on Windows"
+#endif
 message("Including MSXML")
 include <SAX/wrappers/saxmsxml2.h>
 undef DEF_SAX_P
 define DEF_SAX_P msxml2_wrapper
 #endif 
 #ifdef USE_XERCES1
-message("Including Xerces 1")
 include <SAX/wrappers/saxxerces.h>
 undef DEF_SAX_P
 define DEF_SAX_P xerces_wrapper
 #ifdef _MSC_VER
+message("Including Xerces 1")
 comment(lib, "xerces-c_1.lib")
 #endif
 #endif
 #ifdef USE_XERCES
-message("Including Xerces")
 include <SAX/wrappers/saxxerces.h>
 undef DEF_SAX_P
 define DEF_SAX_P xerces_wrapper
 #ifdef _MSC_VER
+message("Including Xerces")
 comment(lib, "xerces-c_2.lib")
 #endif
 #endif
@@ -54,11 +57,11 @@ undef DEF_SAX_P
 define DEF_SAX_P Garden
 #endif
 #ifdef USE_EXPAT
-message("Including Expat")
 include <SAX/wrappers/saxexpat.h>
 undef DEF_SAX_P
 define DEF_SAX_P expat_wrapper
 #ifdef _MSC_VER
+message("Including Expat")
 comment(lib, "libexpat.lib")
 #endif
 #endif
@@ -78,3 +81,5 @@ endif
 undef DEF_P
 
 endif // ParserConfig_h
+
+

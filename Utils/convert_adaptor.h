@@ -19,7 +19,8 @@
 #include <ostream>
 #include <vector>
 #include <algorithm>
-#if!(_MSC_VER < 1300)
+
+#if defined(_MSC_VER) && (_MSC_VER < 1300)
 #include <minmax.h>
 #endif
 
@@ -69,7 +70,7 @@ const std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, external
   // why 4? both Josuttis and Langer&Kreft use 4.
 
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
-convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::overflow(convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type c)
+typename convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::overflow(int_type c)
 {
   if(traitsT::eq_int_type(traitsT::eof(), c))
     return traitsT::not_eof(c);
@@ -87,7 +88,7 @@ int convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::sync()
 } // sync
 
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
-convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::underflow()
+typename convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::underflow()
 {
 	if(gptr() != 0 && gptr() < egptr())
 	  return (traitsT::to_int_type(*gptr()));
@@ -99,7 +100,7 @@ convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type con
 } // underflow
 
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
-convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::pbackfail(int_type c)
+typename convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::pbackfail(int_type c)
 {
   if(gptr() == eback())
     return traitsT::eof();
@@ -136,10 +137,10 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
 
   bool ok(true);
   const std::codecvt<charT, char, state_t>& cvt =
-#if!(_MSC_VER < 1300)
+#if !defined(_MSC_VER) || (_MSC_VER > 1300)
       std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
 #else
-      std::use_facet(this->getloc(), (std::codecvt<charT, char, traitsT::state_type>*)0, true);
+      std::use_facet(this->getloc(), (std::codecvt<charT, char, typename traitsT::state_type>*)0, true);
 #endif
 
   if(cvt.always_noconv())
@@ -182,7 +183,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
   if(!inBuffer_.capacity())
     growInBuffer();
 
-#if!(_MSC_VER < 1300)
+#if !defined(_MSC_VER) || (_MSC_VER > 1300)
   size_t pbCount = std::min<size_t>(gptr() - eback(), pbSize_);
 #else
   size_t pbCount = min(gptr() - eback(), pbSize_);
@@ -192,10 +193,10 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
          pbCount*sizeof(charT));
 
   const std::codecvt<charT, char, state_t>& cvt =
-#if!(_MSC_VER < 1300)
+#if !defined(_MSC_VER) || (_MSC_VER > 1300)
       std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
 #else
-      std::use_facet(this->getloc(), (std::codecvt<charT, char, traitsT::state_type>*)0, true);
+      std::use_facet(this->getloc(), (std::codecvt<charT, char, typename traitsT::state_type>*)0, true);
 #endif
 
   std::vector<externalCharT> from(inBuffer_.capacity());

@@ -43,7 +43,7 @@ CXXFLAGS += -O2
 LDFLAGS  += -O2 -L../../bin 
 
 # Uncomment for debug version
-CXXFLAGS += -g -D__DEBUG__
+CXXFLAGS += -g 
 
 
 # Includes and library directories 
@@ -121,7 +121,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend $(CPPUNITUI_OBJS) $(CPPUNITFW_OBJS) $(SAXDOM_OBJS) core sax2dom_test ../../bin/sax2dom_test
+	$(REMOVE) .depend $(CPPUNITUI_OBJS) $(CPPUNITFW_OBJS) $(SAXDOM_OBJS) core sax2dom_test domwriter ../../bin/sax2dom_test ../../bin/domwriter
 
 
 #/////////////////////////////////////////////////////////////////////////
