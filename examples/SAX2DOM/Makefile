@@ -32,7 +32,7 @@ CXX = c++
 ifeq ($(OS_VER),SunOS)
 CXXFLAGS = -Wall -pthreads -fpic
 else
-CXXFLAGS = -Wall -pthread -fpic
+CXXFLAGS = -Wall
 endif
 
 LDFLAGS = 
@@ -40,7 +40,7 @@ CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
 CXXFLAGS += -O2
-LDFLAGS  += -O2 -L../../bin -lArabica
+LDFLAGS  += -O2 -L../../bin 
 
 # Uncomment for debug version
 CXXFLAGS += -g -D__DEBUG__
@@ -53,7 +53,7 @@ INCS_DIRS = -I../..
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -L../../bin -lArabica -lxml
+DYNAMIC_LIBS = -L../../bin -lArabica -lexpat
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}
@@ -74,17 +74,25 @@ CPPUNITUI_FILES = TextTestResult.cpp
 CPPUNITUI_SRCS = $(patsubst Text%,CppUnit/textui/Text%,$(CPPUNITUI_FILES))
 CPPUNITUI_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITUI_SRCS))
 
+DOMWRITER_SRCS = DOMWriter.cpp
+DOMWRITER_HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(DOMWRITER_SRCS)))
+DOMWRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(DOMWRITER_SRCS)))
+
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
 # High level rules
 
-all : sax2dom_test
+all : sax2dom_test domwriter
 
 
 sax2dom_test : $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
 	$(LINK.cc) -o $@ $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
 	cp sax2dom_test ../../bin
+
+domwriter : $(DOMWRITER_OBJS)
+	$(LINK.cc)  -o $@ $(DOMWRITER_OBJS)
+	cp domwriter ../../bin
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////

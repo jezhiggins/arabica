@@ -8,10 +8,10 @@
 
 #include <locale>
 
-class base64codecvt : public std::codecvt<char, char, std::char_traits<char>::state_type>
+class base64codecvt : public std::codecvt<char, char, int>
 {
 public:
-  typedef std::char_traits<char>::state_type state_t;
+  typedef int state_t;
 
 protected:
   virtual ~base64codecvt() { }

@@ -6,16 +6,12 @@
 
 all : 
 	cd SAX; ${MAKE}
-	cd Utils; ${MAKE}
-	cd XML; ${MAKE}
 	cd examples; ${MAKE}
 
 # Cleaning up
 
 clean :
 	cd SAX; ${MAKE} clean
-	cd Utils; ${MAKE} clean
-	cd XML; ${MAKE} clean
 	cd examples; ${MAKE} clean
 	rm -f arabica.tar.gz
 	rm -f arabica.zip

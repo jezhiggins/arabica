@@ -32,7 +32,7 @@ CXX = c++
 ifeq ($(OS_VER),SunOS)
 CXXFLAGS = -Wall -pthreads -fpic
 else
-CXXFLAGS = -Wall -pthread -fpic
+CXXFLAGS = -Wall
 endif
 
 LDFLAGS = 
@@ -40,7 +40,7 @@ CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
 CXXFLAGS += -O2
-LDFLAGS  += -O2 -lArabica 
+LDFLAGS  += -O2 
 
 # Uncomment for debug version
 #  CXXFLAGS += -g -D__DEBUG__
@@ -50,10 +50,10 @@ LDFLAGS  += -O2 -lArabica
 INCS_DIRS = -I../.. 
 #INCS_DIRS = -I.. 
 
-LIBS_DIRS = 
+LIBS_DIRS = -L../../bin 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -L../../bin -lArabica -lxml2
+DYNAMIC_LIBS = -lArabica  -lexpat	
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}

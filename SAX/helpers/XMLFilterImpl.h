@@ -51,6 +51,7 @@ public:
   typedef basic_InputSource<stringT> InputSourceT;
   typedef basic_Locator<stringT> LocatorT;
   typedef basic_ErrorHandler<stringT> ErrorHandlerT;
+  typedef typename basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
 
   basic_XMLFilterImpl() : 

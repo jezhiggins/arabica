@@ -43,7 +43,7 @@ CXXFLAGS += -O2
 LDFLAGS  += -O2
 
 # edit for your parser choice - may include more than one
-PARSER_CONFIG = -DUSE_GARDEN
+PARSER_CONFIG = -DUSE_EXPAT
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 # Includes and library directories 
@@ -63,11 +63,19 @@ LDFLAGS += ${DYNAMIC_LIBS}
 
 SRCS =  saxlib.cpp \
 	helpers/InputSourceResolver.cpp \
-	../Utils/utf16utf8_codecvt.cpp \
-	../Utils/base64_codecvt.cpp \
-	../Utils/iso8859_1utf8_codecvt.cpp \
-	../Utils/XMLCharacterClasses.cpp
-   
+	../Utils/base64codecvt.cpp \
+	../Utils/iso88591utf8codecvt.cpp \
+	../Utils/rot13codecvt.cpp \
+	../Utils/utf16beucs2codecvt.cpp \
+	../Utils/utf16leucs2codecvt.cpp \
+	../Utils/utf16utf8codecvt.cpp \
+	../Utils/utf8iso88591codecvt.cpp \
+	../Utils/utf8ucs2codecvt.cpp \
+	../Utils/impl/iso88591_utf8.cpp \
+	../Utils/impl/ucs2_utf16.cpp \
+	../Utils/impl/ucs2_utf8.cpp \
+	../XML/XMLCharacterClasses.cpp
+
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
@@ -98,7 +106,7 @@ libArabica.a : $(OBJS)
 saxlib.cpp : ParserConfig.S saxlib.S
 	$(PREPROCESS.S) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
 	$(PREPROCESS.S) $(PARSER_CONFIG) -o saxlib.cpp saxlib.S 
-	
+
 
 %.o : %.cpp
 	$(COMPILE.cc) -o $@ $<
@@ -122,7 +130,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libArabica*  *~ helpers/*~ core ../bin/libArabica* saxlib.cpp ParserConfig.h
+	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o ../Utils/impl/*.o ../XML/*.o libArabica*  *~ helpers/*~ core ../bin/libArabica* saxlib.cpp ParserConfig.h
 
 
 
