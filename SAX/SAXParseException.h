@@ -78,24 +78,25 @@ public:
 
   basic_SAXParseException(const basic_SAXParseException& rhs) :
     SAXException(rhs),
+    msg_(rhs.msg_),
     publicId_(rhs.publicId_), 
     systemId_(rhs.systemId_),
     lineNumber_(rhs.lineNumber_),
     columnNumber_(rhs.columnNumber_)
   {
-    setMsg();
   } // basic_SAXParseException
 
   basic_SAXParseException& operator=(const basic_SAXParseException& rhs)
   {
-    SAXException::operator =(rhs);
+    SAXException::operator=(rhs);
 
+    msg_ = rhs.msg_;
     publicId_ = rhs.publicId_;
     systemId_ = rhs.systemId_;
     lineNumber_ = rhs.lineNumber_;
     columnNumber_ = rhs.columnNumber_;
 
-    setMsg();
+    return *this;
   } // operator=
 
   virtual ~basic_SAXParseException() throw() { }
@@ -140,7 +141,7 @@ public:
 
   virtual const char* what() const throw()
   {
-    return msg.c_str();
+    return msg_.c_str();
   } // what
 
 private:
@@ -149,10 +150,10 @@ private:
     std::ostringstream str;
     str << "Parse exception at " << lineNumber_ << "," << columnNumber_ << std::endl;
     str << SAXException::what();
-    msg = str.str();
+    msg_ = str.str();
   } // setMsg
 
-  std::string msg;
+  std::string msg_;
 
   stringT publicId_;
   stringT systemId_;
