@@ -118,7 +118,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
 
     virtual unsigned int getLength() const
     {
-      return nodes_.size();
+      return static_cast<unsigned int>(nodes_.size());
     } // getLength
 
     virtual DOM::Node_impl<stringT>* getNamedItemNS(const stringT& namespaceURI, const stringT& localName) const

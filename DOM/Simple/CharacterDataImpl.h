@@ -34,7 +34,7 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     virtual int getLength() const
     {
-      return data_.length();
+      return static_cast<int>(data_.length());
     } // getLength
 
     virtual stringT substringData(int offset, int count) const

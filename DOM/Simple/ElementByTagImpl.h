@@ -84,7 +84,7 @@ class ElementByTagList : public DOM::NodeList_impl<stringT>
       if(changes_ != ownerDoc_->changes())
         populate();
 
-      return nodes_.size();
+      return static_cast<unsigned int>(nodes_.size());
     } // getLength
 
   private:

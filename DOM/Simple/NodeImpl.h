@@ -319,7 +319,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
     virtual unsigned int getLength() const
     {
-      return nodes_.size();
+      return static_cast<unsigned int>(nodes_.size());
     } // getLength
 
     /////////////////////////////////////////////////////////////
