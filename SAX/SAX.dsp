@@ -327,9 +327,16 @@ SOURCE=.\ParserConfig.tpl
 # Begin Custom Build
 InputPath=.\ParserConfig.tpl
 
-"ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	cl /TC /D USE_EXPAT /EP ParserConfig.tpl > ParserConfig.h
+BuildCmds= \
+	cl /TC /D USE_MSXML /EP ParserConfig.tpl > ParserConfig.h \
+	cl /TC /D USE_MSXML /EP saxlib.tpl > saxlib.cpp \
+	
 
+"ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"saxlib.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
 # End Custom Build
 
 !ENDIF 
@@ -338,6 +345,10 @@ InputPath=.\ParserConfig.tpl
 # Begin Source File
 
 SOURCE=.\saxlib.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\saxlib.tpl
 # End Source File
 # End Target
 # End Project
