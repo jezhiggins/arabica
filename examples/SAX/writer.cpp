@@ -17,7 +17,6 @@ int main(int argc, char* argv[])
     return 0;
   } // if(argc < 2)
 
-/*
   { // narrow
     SAX::FeatureNames<std::string> fNames;
     SAX::XMLReader<std::string> parser;
@@ -41,7 +40,7 @@ int main(int argc, char* argv[])
       } // if(file != "-")
     } // for ...
   }
-  */
+
   { // wide
     SAX::FeatureNames<std::wstring> fNames;
     SAX::XMLReader<std::wstring> parser;

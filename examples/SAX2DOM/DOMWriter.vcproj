@@ -113,12 +113,6 @@
 			<File
 				RelativePath="DOMWriter.cpp">
 				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						TreatWChar_tAsBuiltInType="FALSE"/>
-				</FileConfiguration>
-				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
