@@ -3,13 +3,18 @@
 
 #include <locale>
 
-namespace ArabicaInternal {
+namespace Arabica
+{
+namespace Internal 
+{
 
 std::codecvt_base::result ucs2_2_utf8(const wchar_t* from, const wchar_t* from_end, const wchar_t*& from_next,
                                       char* to, char* to_limit, char*& to_next);
 
 std::codecvt_base::result utf8_2_ucs2(const char* from, const char* from_end, const char*& from_next,
                                       wchar_t* to, wchar_t* to_limit, wchar_t*& to_next);
-} // namespace ArabicaInternal
+
+} // namespace Internal
+} // namespace Arabica
 
 #endif

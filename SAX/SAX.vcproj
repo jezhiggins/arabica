@@ -27,8 +27,8 @@
 				RuntimeLibrary="5"
 				TreatWChar_tAsBuiltInType="TRUE"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Debug/SAX.pch"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=""
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
@@ -423,7 +423,8 @@
 				Name="Release|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /EP ArabicaConfig.S &gt; ArabicaConfig.h"
+					CommandLine="cl /TC /EP ArabicaConfig.S &gt; ArabicaConfig.h
+"
 					Outputs="ArabicaConfig.h"/>
 			</FileConfiguration>
 		</File>

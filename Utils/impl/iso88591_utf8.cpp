@@ -24,7 +24,7 @@ namespace {
   };
 } // namespace 
 
-std::codecvt_base::result ArabicaInternal::iso88591_2_utf8(
+std::codecvt_base::result Arabica::Internal::iso88591_2_utf8(
                         const char* from, const char* from_end, const char*& from_next,
                         char* to, char* to_limit, char*& to_next)
 {
@@ -58,7 +58,7 @@ std::codecvt_base::result ArabicaInternal::iso88591_2_utf8(
   return std::codecvt_base::ok;
 } // iso88591_2_utf8
 
-std::codecvt_base::result ArabicaInternal::utf8_2_iso88591(
+std::codecvt_base::result Arabica::Internal::utf8_2_iso88591(
                        const char* from, const char* from_end, const char*& from_next,
                        char* to, char* to_limit, char*& to_next)
 {
