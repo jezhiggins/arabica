@@ -7,6 +7,7 @@
 #include <SAX/InputSource.h>
 #include <iostream>
 #include <SAX/filter/Writer.h>
+#include <SAX/helpers/CatchErrorHandler.h>
 
 ////////////////////////////////////////////////
 int main(int argc, char* argv[])
@@ -21,7 +22,10 @@ int main(int argc, char* argv[])
     SAX::FeatureNames<std::string> fNames;
     SAX::XMLReader<std::string> parser;
     SAX::Writer writer(std::cout);
+    SAX::CatchErrorHandler<std::string> eh;
+
     writer.setParent(parser);
+    writer.setErrorHandler(eh);
 
   	for(int i = 1; i < argc; ++i)
     {
@@ -38,6 +42,12 @@ int main(int argc, char* argv[])
 
         writer.parse(is);
       } // if(file != "-")
+
+      if(eh.errorsReported())
+      {
+        std::cerr << eh.errors() << std::endl;
+        eh.reset();
+      } // if ...
     } // for ...
   }
 
