@@ -42,18 +42,18 @@ CCDEPFLAGS = -E -M
 CXXFLAGS += -O2
 LDFLAGS  += -O2
 
-# Uncomment for debug version
-#  CXXFLAGS += -g -D__DEBUG__
-
+# edit for your parser choice - may include more than one
+PARSER = -DUSE_EXPAT
+#PARSER = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 # Includes and library directories 
-INCS_DIRS = -I.. -I/usr/local/include/stlport -I/opt/gnome2/include/libxml2
+INCS_DIRS = -I.. 
 #INCS_DIRS = -I.. 
 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -lstlport_gcc -L/opt/gnome2/lib -lxml2
+DYNAMIC_LIBS = -lstdc++
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}
@@ -61,8 +61,7 @@ LDFLAGS += ${DYNAMIC_LIBS}
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
-SRCS =  wrappers/saxexpat.cpp \
-	wrappers/saxlibxml2.cpp \
+SRCS =  saxlib.cpp \
 	helpers/InputSourceResolver.cpp \
 	../Utils/utf16utf8_codecvt.cpp 
 
@@ -92,6 +91,10 @@ libSAX.a : $(OBJS)
 #//////////////////////////////////////////////
 
 # Compile rules
+saxlib.cpp : ParserConfig.S saxlib.S
+	$(PREPROCESS.S) -o ParserConfig.h ParserConfig.S
+	$(PREPROCESS.S) -o saxlib.cpp saxlib.S
+	
 
 %.o : %.cpp
 	$(COMPILE.cc) -o $@ $<
