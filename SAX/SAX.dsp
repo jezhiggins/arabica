@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /W3 /GR /GX /O2 /I "..\\" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
 # ADD BASE RSC /l 0x809 /d "NDEBUG"
 # ADD RSC /l 0x809 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -258,15 +258,7 @@ SOURCE=.\ext\Locator2.h
 # Begin Source File
 
 SOURCE=.\wrappers\saxexpat.cpp
-
-!IF  "$(CFG)" == "SAXlib - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "SAXlib - Win32 Debug"
-
 # PROP Exclude_From_Build 1
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -275,16 +267,7 @@ SOURCE=.\wrappers\saxexpat.h
 # Begin Source File
 
 SOURCE=.\wrappers\saxlibxml2.cpp
-
-!IF  "$(CFG)" == "SAXlib - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "SAXlib - Win32 Debug"
-
 # PROP Exclude_From_Build 1
-# SUBTRACT CPP /WX
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -293,6 +276,19 @@ SOURCE=.\wrappers\saxlibxml2.h
 # Begin Source File
 
 SOURCE=.\wrappers\saxmsxml2.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\wrappers\saxxerces.cpp
+
+!IF  "$(CFG)" == "SAXlib - Win32 Release"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "SAXlib - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -321,6 +317,21 @@ SOURCE=.\ParserConfig.tpl
 
 !IF  "$(CFG)" == "SAXlib - Win32 Release"
 
+# Begin Custom Build
+InputPath=.\ParserConfig.tpl
+
+BuildCmds= \
+	cl /TC /D USE_MSXML /EP ParserConfig.tpl > ParserConfig.h \
+	cl /TC /D USE_MSXML /EP saxlib.tpl > saxlib.cpp \
+	
+
+"ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"saxlib.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "SAXlib - Win32 Debug"
 
 # PROP Ignore_Default_Tool 1
@@ -328,8 +339,8 @@ SOURCE=.\ParserConfig.tpl
 InputPath=.\ParserConfig.tpl
 
 BuildCmds= \
-	cl /TC /D USE_MSXML /EP ParserConfig.tpl > ParserConfig.h \
-	cl /TC /D USE_MSXML /EP saxlib.tpl > saxlib.cpp \
+	cl /TC /D USE_EXPAT /D USE_MSXML /D USE_LIBXML2 /D USE_XERCES2 /EP ParserConfig.tpl > ParserConfig.h \
+	cl /TC /D USE_EXPAT /D USE_MSXML /D USE_LIBXML2 /D USE_XERCES2 /EP saxlib.tpl > saxlib.cpp \
 	
 
 "ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
