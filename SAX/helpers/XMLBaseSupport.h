@@ -68,7 +68,7 @@ public:
     if(base.empty())
       return;
 
-    stringT baseURI = absolutise(currentBase(), base);
+    stringT baseURI = absolutiseAndTrim(currentBase(), base);
     bases_.push(std::make_pair(depth_, baseURI));
   } // startElement
 
@@ -94,7 +94,7 @@ private:
       return location;
 
     std::ostringstream ss;
-    if(location.find(FORWARD_SLASH) == 0)
+    if(location[0] == FORWARD_SLASH)
     {
       // prepend URI scheme and location
       size_t schemeLen = baseURI.find(SCHEME_MARKER) + SCHEME_MARKER.length();
@@ -111,6 +111,17 @@ private:
 
     return SA_.makeStringT(ss.str().c_str());
   } // absolutise
+
+  stringT absolutiseAndTrim(const stringT& baseURI, const stringT& location)
+  {
+    static const valueT FORWARD_SLASH = SA_.makeValueT(Arabica::Unicode<char>::SLASH);
+
+    stringT newlocation = absolutise(baseURI, location);
+    if(newlocation[newlocation.length()] == FORWARD_SLASH)
+      return newlocation;
+
+    return newlocation.substr(0, newlocation.rfind(FORWARD_SLASH)+1);
+  } // absolutiseAndTrim
 
   stringT currentBase() const
   {
