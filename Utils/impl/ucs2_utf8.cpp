@@ -12,10 +12,10 @@
 namespace {
   struct Tab
   {
-    char char_mask;
-    char char_value;
+    unsigned char char_mask;
+    unsigned char char_value;
     int shift;
-    wchar_t wide_mask;
+    unsigned long wide_mask;
   };
 
   static const Tab tab[] =
@@ -36,9 +36,11 @@ std::codecvt_base::result Arabica::Internal::ucs2_2_utf8(
 
   while(from_next < from_end)
   {
+    unsigned long fn = static_cast<unsigned long >(*from_next);
+
     for(const Tab *t = tab; t->char_mask; t++)
     {
-      if(*from_next > t->wide_mask )
+      if(fn > t->wide_mask )
         continue;
 
       // is there enough room in outbuffer?
@@ -46,11 +48,11 @@ std::codecvt_base::result Arabica::Internal::ucs2_2_utf8(
         return std::codecvt_base::partial;
 
       int c = t->shift;
-      *to_next++ = static_cast<char>(t->char_value | (*from_next >> c));
+      *to_next++ = static_cast<char>(t->char_value | (fn >> c));
       while(c > 0)
       {
       	c -= 6;
-       	*to_next++ = static_cast<char>(0x80 | ((*from_next >> c) & 0x3F));
+       	*to_next++ = static_cast<char>(0x80 | ((fn >> c) & 0x3F));
       } // while(c > 0)
       break;
     } // for(Tab *t = tab;  t->char_mask; t++)
@@ -58,7 +60,7 @@ std::codecvt_base::result Arabica::Internal::ucs2_2_utf8(
   } // while(from_next < from_end)
 
   return std::codecvt_base::ok;
-} // iso88591_2_utf8
+} // ucs2_2_utf8
 
 std::codecvt_base::result Arabica::Internal::utf8_2_ucs2(
                        const char* from, const char* from_end, const char*& from_next,
@@ -69,23 +71,32 @@ std::codecvt_base::result Arabica::Internal::utf8_2_ucs2(
 
 	while((from_next < from_end) && (to_next < to_limit))
 	{
-    char start = *from_next;
-    *to_next = static_cast<unsigned char>(*from_next);
-    for(const Tab *t = tab; t->char_mask; t++)
+    unsigned char start = static_cast<unsigned char>(*from_next);
+
+    const Tab *t = tab;
+    for(; t->char_mask; ++t)
     {
       if((start & t->char_mask) == t->char_value)
-      {
-        *to_next &= t->wide_mask;
         break;
-      }
+    }
+
+    if((from_next + (t - tab)) >= from_end)
+      break;
+
+    unsigned long wide_mask = t->wide_mask;
+
+    *to_next = start;
+    for(; t != tab; --t)
+    {
       from_next++;
       *to_next = (*to_next << 6) | ((*from_next ^ 0x80) & 0xff);
-    } // for(Tab *t = tab;  t->char_mask; t++)
+    }
+    *to_next &= wide_mask;
 
     ++from_next;
     ++to_next;
   } // while
 
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial;
-} // utf8_2_iso88591
+} // utf8_2_ucs2
 // end of file
