@@ -23,6 +23,7 @@
 #include <SAX/wrappers/XercesFeatureNames.h>
 
 // Xerces Includes
+#include <xercesc/util/XercesDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
@@ -34,10 +35,57 @@
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/util/BinInputStream.hpp>
 #include <xercesc/sax/InputSource.hpp>
+#include <xercesc/sax/Locator.hpp>
+#include <xercesc/util/Janitor.hpp>
+
+#ifndef XERCES_HAS_CPP_NAMESPACE
+#pragma message("No XERCES namespace")
+#define XERCES_CPP_NAMESPACE
+#endif
 
 
 namespace SAX
 {
+
+namespace xerces_implemenation_helper
+{
+    ///////////////////////////////
+    // Xerces platform initializer
+    /**
+     * Class to handle calls to XMLPlatformUtils::Initialize() and
+     * XMLPlatformUtils::Terminate().
+     *
+     * Without such a class, calls to Initialize() and Terminate() may be nested
+     * and cause evil consequences.  Eg. A typical use of the old xerces_wrapper
+     * could have resulted in:
+     * <pre>
+     * // Construct two xerces_wrappers.
+     *     XMLPlatformUtils::Initialize()
+     *     XMLPlatformUtils::Initialize()
+     *     
+     * // do stuff
+     *
+     * // Get rid of one of the xerces_wrappers
+     *     XMLPlatformUtils::Terminate()
+     *     
+     * // do more stuff -- this is _after_ a call to Terminate()...
+     *
+     *     XMLPlatformUtils::Terminate()
+     * </pre>
+     */
+    class xerces_initializer
+    {
+      public:
+      	xerces_initializer() { doInitialize(); count_++; }
+	      ~xerces_initializer() { doTerminate(); }
+
+      private:
+	      void doInitialize();
+	    	void doTerminate();
+      
+        static int count_;
+    };
+} // namespace xerces_implemenation_helper
 
 template<class string_type, class string_adaptor_type = SAX::default_string_adaptor<string_type> >
 class xerces_wrapper : public SAX::basic_XMLReader<string_type>
@@ -83,63 +131,8 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
     virtual void doSetProperty(const stringT& name, std::auto_ptr<typename base::PropertyBase> value);
 
   private:
-
-    ///////////////////////////////
-    // Xerces platform initializer
-    /**
-     * Class to handle calls to XMLPlatformUtils::Initialize() and
-     * XMLPlatformUtils::Terminate().
-     *
-     * Without such a class, calls to Initialize() and Terminate() may be nested
-     * and cause evil consequences.  Eg. A typical use of the old xerces_wrapper
-     * could have resulted in:
-     * <pre>
-     * // Construct two xerces_wrappers.
-     *     XMLPlatformUtils::Initialize()
-     *     XMLPlatformUtils::Initialize()
-     *     
-     * // do stuff
-     *
-     * // Get rid of one of the xerces_wrappers
-     *     XMLPlatformUtils::Terminate()
-     *     
-     * // do more stuff -- this is _after_ a call to Terminate()...
-     *
-     *     XMLPlatformUtils::Terminate()
-     * </pre>
-     */
-    class xerces_initializer
-    {
-      public:
-	xerces_initializer() { doInitialize(); }
-	~xerces_initializer() { doTerminate(); }
-
-	static bool isInitialized() { return count_ > 0; }
-
-  private:
-	void doInitialize()
-	{
-	  if (!count_)
-	  {
-	    XMLPlatformUtils::Initialize();
-	  }
-	  ++count_;
-	}
-	void doTerminate()
-	{
-	  --count_;
-	  if (!count_)
-	  {
-	    XMLPlatformUtils::Terminate();
-	  }
-	}
-
-	static int count_;
-    };
-
     ///////////////////////////////
     // String adaptor for XMLCh
-
     // * For the null-terminated version, we convert the array of XMLCh to a
     //   null-terminated vector of wchar_t.  We then pass &vector[0] to the
     //   parent method.
@@ -199,7 +192,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
 	XMLCh* asXMLChString(const stringT& s) const
 	{
 	  std::string str = base::asStdString(s);
-	  return ::XMLString::transcode(str.c_str());
+	  return XERCES_CPP_NAMESPACE::XMLString::transcode(str.c_str());
 	}
 
     };
@@ -210,7 +203,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
     {
       public:
         LocatorAdaptor() : locator_(0) { }
-        LocatorAdaptor(const ::Locator* const locator) : locator_(locator) { } 
+        LocatorAdaptor(const XERCES_CPP_NAMESPACE::Locator* const locator) : locator_(locator) { } 
         ~LocatorAdaptor() { }
 
         stringT getPublicId() const
@@ -245,17 +238,17 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
           return locator_->getColumnNumber();
         } // getColumnNumber
     
-        void setLocator(const ::Locator* const locator)
+        void setLocator(const XERCES_CPP_NAMESPACE::Locator* const locator)
         {
           locator_ = locator;
         } // setLocator
 
       private:
-        const ::Locator* locator_;
+        const XERCES_CPP_NAMESPACE::Locator* locator_;
         xerces_string_adaptor SA_;
     }; // class LocatorAdaptor
 
-    class DTDHandlerAdaptor : public ::DTDHandler 
+    class DTDHandlerAdaptor : public XERCES_CPP_NAMESPACE::DTDHandler 
     {
       public:
         DTDHandlerAdaptor() : dtdHandler_(0) { }
@@ -295,7 +288,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         xerces_string_adaptor SA_;
     }; // class DTDHandlerAdaptor
 
-    class ContentHandlerAdaptor : public ::ContentHandler 
+    class ContentHandlerAdaptor : public XERCES_CPP_NAMESPACE::ContentHandler 
     {
       public:
         ContentHandlerAdaptor() : contentHandler_(0) { } 
@@ -304,7 +297,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         void setContentHandler(SAX::basic_ContentHandler<stringT>& handler) { contentHandler_ = &handler; }
         SAX::basic_ContentHandler<stringT>* getContentHandler() const { return contentHandler_; }
 
-        virtual void setDocumentLocator(const ::Locator* const locator)
+        virtual void setDocumentLocator(const XERCES_CPP_NAMESPACE::Locator* const locator)
         {
           locator_.setLocator(locator);
           if(contentHandler_) 
@@ -338,7 +331,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         virtual void startElement(const XMLCh* const namespaceUri,
                                   const XMLCh* const localName,
                                   const XMLCh* const rawName,
-                                  const ::Attributes& attrs)
+                                  const XERCES_CPP_NAMESPACE::Attributes& attrs)
         {
           if(contentHandler_)
           {
@@ -398,7 +391,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         class AttributesAdaptor : public SAX::basic_Attributes<stringT>
         {
           public:
-            AttributesAdaptor(const ::Attributes& attrs) : attributes_(attrs) { }
+            AttributesAdaptor(const XERCES_CPP_NAMESPACE::Attributes& attrs) : attributes_(attrs) { }
             ~AttributesAdaptor() { }
 
             /////////////////////////
@@ -432,47 +425,47 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
             // name based query
             virtual int getIndex(const stringT& uri, const stringT& localName) const
             {
-	      ::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));
-	      ::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
+	      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));	      
+        XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
 	      return attributes_.getIndex(&wUri[0], &wLocalName[0]);
             } // getIndex
             virtual int getIndex(const stringT& qName) const
             {
-	      ::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qName));
+	      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qName));
 	      return attributes_.getIndex(&wQName[0]);
             } // getIndex
             virtual stringT getType(const stringT& uri, const stringT& localName) const
             {
-	      ::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));
-	      ::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
+	      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));
+	      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
 	      return SA_.makeStringT(attributes_.getType(&wUri[0], &wLocalName[0]));
             } // getType
             virtual stringT getType(const stringT& qName) const
             {
-	      ::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qName));
+	      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qName));
 	      return SA_.makeStringT(attributes_.getType(&wQName[0]));
             } // getType
             virtual stringT getValue(const stringT& uri, const stringT& localName) const
             {
-	      ::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));
-	      ::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
+	      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));
+	      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
 	      return SA_.makeStringT(attributes_.getValue(&wUri[0], &wLocalName[0]));
             } // getValue
             virtual stringT getValue(const stringT& qname) const
             {
-	      ::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qname));
+	      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qname));
 	      return SA_.makeStringT(attributes_.getValue(&wQName[0]));
             } // getValue
 
           private:
-            const ::Attributes& attributes_;
+            const XERCES_CPP_NAMESPACE::Attributes& attributes_;
 	    xerces_string_adaptor SA_;
 
             AttributesAdaptor();
         }; // class AttributesAdaptor
     }; // class ContentHandlerAdaptor
 
-    class ErrorHandlerAdaptor : public ::ErrorHandler 
+    class ErrorHandlerAdaptor : public XERCES_CPP_NAMESPACE::ErrorHandler 
     {
       public:
         ErrorHandlerAdaptor() :   errorHandler_(0) { }
@@ -481,17 +474,17 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         void setErrorHandler(SAX::ErrorHandler& handler) { errorHandler_ = &handler; }
         SAX::ErrorHandler* getErrorHandler() const { return errorHandler_; }
 
-        virtual void warning(const ::SAXParseException& exception)
+        virtual void warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception)
         {
           handleError(exception, &SAX::ErrorHandler::warning);
         } // warning
 
-        virtual void error(const ::SAXParseException& exception)
+        virtual void error(const XERCES_CPP_NAMESPACE::SAXParseException& exception)
         {
           handleError(exception, &SAX::ErrorHandler::error);
         } // error
 
-        virtual void fatalError(const ::SAXParseException& exception)
+        virtual void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception)
         {
           handleError(exception, &SAX::ErrorHandler::fatalError);
         } // fatalError
@@ -504,7 +497,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
       private:
         typedef void(SAX::ErrorHandler::* ErrorFn)(const SAX::SAXParseException&);
 
-        void handleError(const ::SAXParseException& exception, ErrorFn fn)
+        void handleError(const XERCES_CPP_NAMESPACE::SAXParseException& exception, ErrorFn fn)
         {
           if(!errorHandler_)
             return;
@@ -522,7 +515,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         xerces_string_adaptor SA_;
     }; // class ErrorHandlerAdaptor
 
-    class LexicalHandlerAdaptor : public ::LexicalHandler 
+    class LexicalHandlerAdaptor : public XERCES_CPP_NAMESPACE::LexicalHandler 
     {
       public:
         LexicalHandlerAdaptor() : lexicalHandler_(0) { }
@@ -582,7 +575,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         xerces_string_adaptor SA_;
     }; // class LexicalHandlerAdaptor
 
-    class DeclHandlerAdaptor : public ::DeclHandler 
+    class DeclHandlerAdaptor : public XERCES_CPP_NAMESPACE::DeclHandler 
     {
       public:
         DeclHandlerAdaptor() : declHandler_(0) { }
@@ -636,7 +629,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         xerces_string_adaptor SA_;
     }; // class DeclHandlerAdaptor
 
-    class IStreamAdaptor : public ::BinInputStream
+    class IStreamAdaptor : public XERCES_CPP_NAMESPACE::BinInputStream
     {
       public:
         IStreamAdaptor(std::istream* istream) : istream_(istream), curPos_(0) { }
@@ -659,7 +652,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         unsigned int curPos_;
     }; // IStreamAdaptor
 
-    class InputSourceAdaptor : public ::InputSource
+    class InputSourceAdaptor : public XERCES_CPP_NAMESPACE::InputSource
     {
       public:
         InputSourceAdaptor(SAX::basic_InputSource<stringT>& source) : inputSource_(source) 
@@ -669,7 +662,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         } // InputSourceAdaptor
         virtual ~InputSourceAdaptor() { }
 
-        virtual BinInputStream* makeStream() const
+        virtual XERCES_CPP_NAMESPACE::BinInputStream* makeStream() const
         {
           return new IStreamAdaptor(inputSource_.getByteStream());
         } // makeStream
@@ -682,8 +675,8 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
 
     /////////////////////////////////////////////
     // Member variables
-    std::auto_ptr<xerces_initializer> initializer_;
-    ::SAX2XMLReader* xerces_;
+    std::auto_ptr<xerces_implemenation_helper::xerces_initializer> initializer_;
+    XERCES_CPP_NAMESPACE::SAX2XMLReader* xerces_;
     ContentHandlerAdaptor contentHandlerAdaptor_;
     DTDHandlerAdaptor dtdHandlerAdaptor_;
     ErrorHandlerAdaptor errorHandlerAdaptor_;
@@ -698,16 +691,16 @@ xerces_wrapper<stringT, string_adaptorT>::xerces_wrapper()
 {
   try
   {
-    std::auto_ptr<xerces_initializer> init(new xerces_initializer);
+    std::auto_ptr<xerces_implemenation_helper::xerces_initializer> init(new xerces_implemenation_helper::xerces_initializer);
     initializer_ = init;
   }
-  catch(const XMLException& toCatch)
+  catch(const XERCES_CPP_NAMESPACE::XMLException& toCatch)
   {
     stringT s = SA_.makeStringT(toCatch.getMessage());
     throw SAX::SAXException(SA_.asStdString(s));
   } // catch
 
-  xerces_ = XMLReaderFactory::createXMLReader();
+  xerces_ = XERCES_CPP_NAMESPACE::XMLReaderFactory::createXMLReader();
 
   xerces_->setContentHandler(&contentHandlerAdaptor_);
   xerces_->setDTDHandler(&dtdHandlerAdaptor_);
@@ -729,11 +722,11 @@ bool xerces_wrapper<stringT, string_adaptorT>::getFeature(const stringT& name) c
   {
     return xerces_->getFeature(SA_.asXMLChString(name));
   } // try
-  catch(::SAXNotSupportedException& e) 
+  catch(XERCES_CPP_NAMESPACE::SAXNotSupportedException& e) 
   {
     throw SAX::SAXNotSupportedException(SA_.makeStringT(e.getMessage()));
   } // catch(SAXNotSupportedException& e)
-  catch(::SAXNotRecognizedException& e) 
+  catch(XERCES_CPP_NAMESPACE::SAXNotRecognizedException& e) 
   {
     throw SAX::SAXNotRecognizedException(SA_.makeStringT(e.getMessage()));
   } // catch(SAXNotRecognizedException& e)
@@ -746,11 +739,11 @@ void xerces_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, b
   {
     xerces_->setFeature(SA_.asXMLChString(name), value);
   } // try
-  catch(::SAXNotSupportedException& e) 
+  catch(XERCES_CPP_NAMESPACE::SAXNotSupportedException& e) 
   {
     throw SAX::SAXNotSupportedException(SA_.makeStringT(e.getMessage()));
   } // catch(SAXNotSupportedException& e)
-  catch(::SAXNotRecognizedException& e) 
+  catch(XERCES_CPP_NAMESPACE::SAXNotRecognizedException& e) 
   {
     throw SAX::SAXNotRecognizedException(SA_.makeStringT(e.getMessage()));
   } // catch(SAXNotRecognizedException& e)
@@ -822,9 +815,6 @@ void xerces_wrapper<stringT, string_adaptorT>::parse(SAX::basic_InputSource<stri
     xerces_->parse(isAdaptor);
   } // if ...
 } // parse
-
-template<class stringT, class string_adaptorT>
-int xerces_wrapper<stringT, string_adaptorT>::xerces_initializer::count_ = 0;
 
 } // namespace SAX
 
