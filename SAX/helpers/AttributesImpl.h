@@ -69,7 +69,7 @@ public:
    *
    * @param index The attribute's index (zero-based).
    * @return The Namespace URI, the empty string if none is
-   *         available, or null if the index is out of range.
+   *         available, or if the index is out of range.
    * @see basic_Attributes#getURI
    */
   virtual stringT getURI(unsigned int index) const
@@ -84,7 +84,7 @@ public:
    *
    * @param index The attribute's index (zero-based).
    * @return The attribute's local name, the empty string if 
-   *         none is available, or null if the index if out of range.
+   *         none is available, or if the index if out of range.
    * @see basic_Attributes#getLocalName
    */
   virtual stringT getLocalName(unsigned int index) const
@@ -100,7 +100,7 @@ public:
    *
    * @param index The attribute's index (zero-based).
    * @return The attribute's qualified name, the empty string if 
-   *         none is available, or null if the index is out of bounds.
+   *         none is available, or if the index is out of bounds.
    * @see basic_Attributes#getQName
    */
   virtual stringT getQName(unsigned int index) const
@@ -115,8 +115,8 @@ public:
    * Return an attribute's type by index.
    *
    * @param index The attribute's index (zero-based).
-   * @return The attribute's type, "CDATA" if the type is unknown, or null
-   *         if the index is out of bounds.
+   * @return The attribute's type, "CDATA" if the type is unknown, or an empty
+   * empty string if the index is out of bounds.
    * @see basic_Attributes#getType(int)
    */
   virtual stringT getType(unsigned int index) const
@@ -131,7 +131,7 @@ public:
    * Return an attribute's value by index.
    *
    * @param index The attribute's index (zero-based).
-   * @return The attribute's value or null if the index is out of bounds.
+   * @return The attribute's value or an empty string if the index is out of bounds.
    * @see basic_Attributes#getValue(int)
    */
   virtual stringT getValue(unsigned int index) const
@@ -191,7 +191,7 @@ public:
    * @param uri The Namespace URI, or the empty string for a name
    *        with no explicit Namespace URI.
    * @param localName The local name.
-   * @return The attribute's type, or null if there is no
+   * @return The attribute's type, or an empty string if there is no
    *         matching attribute.
    * @see basic_Attributes#getType(const stringT&,const stringT&)
    */
@@ -211,7 +211,7 @@ public:
    * Look up an attribute's type by qualified (prefixed) name.
    *
    * @param qName The qualified name.
-   * @return The attribute's type, or null if there is no
+   * @return The attribute's type, or an empty string if there is no
    *         matching attribute.
    * @see basic_Attributes#getType(const stringT&)
    */
@@ -232,7 +232,7 @@ public:
    * @param uri The Namespace URI, or the empty string for a name
    *        with no explicit Namespace URI.
    * @param localName The local name.
-   * @return The attribute's value, or null if there is no
+   * @return The attribute's value, or an empty string if there is no
    *         matching attribute.
    * @see basic_Attributes#getValue(const stringT&,const stringT&)
    */
@@ -252,7 +252,7 @@ public:
    * Look up an attribute's value by qualified (prefixed) name.
    *
    * @param qName The qualified name.
-   * @return The attribute's value, or null if there is no
+   * @return The attribute's value, or an empty string if there is no
    *         matching attribute.
    * @see basic_Attributes#getValue(const stringT&)
    */

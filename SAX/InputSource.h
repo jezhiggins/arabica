@@ -128,7 +128,7 @@ public:
   /**
    * Get the public identifier for this input source.
    *
-   * @return The public identifier, or null if none was supplied.
+   * @return The public identifier, or an empty string if none was supplied.
    * @see #setPublicId
    */
   const stringT& getPublicId() const { return publicId_; }
@@ -160,7 +160,7 @@ public:
    * Get the system identifier for this input source.
    *
    * <p>The getEncoding method will return the character encoding
-   * of the object pointed to, or null if unknown.</p>
+   * of the object pointed to, or an empty string if unknown.</p>
    *
    * <p>If the system ID is a URL, it will be fully resolved.</p>
    *
@@ -221,7 +221,7 @@ public:
   /**
    * Get the character encoding for a byte stream or URI.
    *
-   * @return The encoding, or null if none was supplied.
+   * @return The encoding, or an empty string if none was supplied.
    * @see #setByteStream
    * @see #getSystemId
    * @see #getByteStream

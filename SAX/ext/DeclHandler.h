@@ -78,8 +78,8 @@ public:
    * <p>Any parameter entities in the attribute value will be
    * expanded, but general entities will not.</p>
    *
-   * @param eName The name of the associated element.
-   * @param aName The name of the attribute.
+   * @param elementName The name of the associated element.
+   * @param attributeName The name of the attribute.
    * @param type A string representing the attribute type.
    * @param valueDefault A string representing the attribute default
    *        ("#IMPLIED", "#REQUIRED", or "#FIXED") or empty string if
@@ -115,7 +115,7 @@ public:
    * @param name The name of the entity.  If it is a parameter
    *        entity, the name will begin with '%'.
    * @param publicId The declared public identifier of the entity, or
-   *        null if none was declared.
+   *        an empty string if none was declared.
    * @param systemId The declared system identifier of the entity.
    * @see #internalEntityDecl
    * @see basic_DTDHandler#unparsedEntityDecl

@@ -36,27 +36,31 @@ public:
   /**
    *  Returns true unless the attribute value was provided by DTD defaulting.
    *
-   * @param index - The attribute index (zero-based).
+   * @param index The attribute index (zero-based).
    * @return true if the value was found in the XML text, 
    *         false if the value was provided by DTD defaulting.
    * @throws std::out_of_range exception when the supplied index
    *         does not identify an attribute
    */
   virtual bool isSpecified(unsigned int index) const = 0;
+
   /**
    *  Returns true unless the attribute value was provided by DTD defaulting.
    *
-   * @param index - The attribute index (zero-based).
+   * @param qName The XML 1.0 qualified name.
    * @return true if the value was found in the XML text, 
    *         false if the value was provided by DTD defaulting.
    * @throws std::invalid_argument exception when the supplied name
    *         does not identify an attribute
    */
   virtual bool isSpecified(const stringT& qName) const = 0;
+
   /**
    *  Returns true unless the attribute value was provided by DTD defaulting.
    *
-   * @param index - The attribute index (zero-based).
+   * @param uri The Namespace URI, or the empty string if the name has no
+   *         Namespace URI.
+   * @param localName The attribute's local name.
    * @return true if the value was found in the XML text, 
    *         false if the value was provided by DTD defaulting.
    * @throws std::invalid_argument exception when the supplied names

@@ -66,13 +66,13 @@ public:
   /**
    * Resolve an external entity.
    *
-   * <p>Always return null, so that the parser will use the system
-   * identifier provided in the XML document.  This method implements
-   * the SAX default behaviour: application writers can override it
-   * in a subclass to do special translations such as catalog lookups
-   * or URI redirection.</p>
+   * <p>Always return a default-constructed <code>InputSourceT</code>, so that
+   * the parser will use the system identifier provided in the XML document.
+   * This method implements the SAX default behaviour: application writers can
+   * override it in a subclass to do special translations such as catalog
+   * lookups or URI redirection.</p>
    *
-   * @param publicId The public identifer, or null if none is
+   * @param publicId The public identifer, or an empty string if none is
    *                 available.
    * @param systemId The system identifier provided in the XML 
    *                 document.
@@ -96,7 +96,7 @@ public:
    * declared in a document.</p>
    *
    * @param name The notation name.
-   * @param publicId The notation public identifier, or null if not
+   * @param publicId The notation public identifier, or an empty string if not
    *                 available.
    * @param systemId The notation system identifier.
    * @exception SAXException Any SAX exception, possibly
@@ -117,7 +117,7 @@ public:
    * declared in a document.</p>
    *
    * @param name The entity name.
-   * @param publicId The entity public identifier, or null if not
+   * @param publicId The entity public identifier, or an empty string if not
    *                 available.
    * @param systemId The entity system identifier.
    * @param notationName The name of the associated notation.
@@ -210,8 +210,15 @@ public:
    * each element (such as allocating a new tree node or writing
    * output to a file).</p>
    *
-   * @param name The element type name.
-   * @param attributes The specified or defaulted attributes.
+   * @param namespaceURI The Namespace URI, or the empty string if the element
+   *                     has no Namespace URI or if Namespace processing is not
+   *                     being performed.
+   * @param localName The local name (without prefix), or the empty string if
+   *                  Namespace processing is not being performed.
+   * @param qName The qualified name (with prefix), or the empty string if
+   *              qualified names are not available.
+   * @param atts The attributes attached to the element. If there are no
+   *             attributes, it shall be an empty Attributes object.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
    * @see basic_ContentHandler#startElement
@@ -226,8 +233,13 @@ public:
    * each element (such as finalising a tree node or writing
    * output to a file).</p>
    *
-   * @param name The element type name.
-   * @param attributes The specified or defaulted attributes.
+   * @param namespaceURI The Namespace URI, or the empty string if the element
+   *                     has no Namespace URI or if Namespace processing is not
+   *                     being performed.
+   * @param localName The local name (without prefix), or the empty string if
+   *                  Namespace processing is not being performed.
+   * @param qName The qualified name (with prefix), or the empty string if
+   *              qualified names are not available.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
    * @see basic_ContentHandler#endElement
@@ -244,9 +256,6 @@ public:
    * a file).</p>
    *
    * @param ch The characters.
-   * @param start The start position in the character array.
-   * @param length The number of characters to use from the
-   *               character array.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
    * @see basic_ContentHandler#characters
@@ -261,9 +270,6 @@ public:
    * it to a file).</p>
    *
    * @param ch The whitespace characters.
-   * @param start The start position in the character array.
-   * @param length The number of characters to use from the
-   *               character array.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
    * @see basic_ContentHandler#ignorableWhitespace
@@ -279,7 +285,7 @@ public:
    * invoking other methods.</p>
    *
    * @param target The processing instruction target.
-   * @param data The processing instruction data, or null if
+   * @param data The processing instruction data, or an empty string if
    *             none is supplied.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.

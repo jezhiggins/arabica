@@ -94,12 +94,12 @@ public:
    * resolve it fully before reporting it to the application.</p>
    *
    * @param publicId The public identifier of the external entity
-   *        being referenced, or null if none was supplied.
+   *        being referenced, or an empty string if none was supplied.
    * @param systemId The system identifier of the external entity
    *        being referenced.
    * @return An InputSource object describing the new input source,
-   *         or null to request that the parser open a regular
-   *         URI connection to the system identifier.
+   *         or a default-constructed <code>InputSource</code> to request that
+   *         the parser open a regular URI connection to the system identifier.
    * @exception SAXException Any SAX exception.
    * @see basic_InputSource
    */

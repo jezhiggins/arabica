@@ -73,36 +73,39 @@ public:
    * @see #getValue(int)
    */
   virtual int getLength() const = 0;
+
   /**
    * Look up an attribute's Namespace URI by index.
    *
    * @param index The attribute index (zero-based).
    * @return The Namespace URI, or the empty string if none
-   *         is available, or null if the index is out of
-   *         range.
+   *         is available, or if the index is out of range.
    * @see #getLength
    */
   virtual stringT getURI(unsigned int index) const = 0;
+
   /**
    * Look up an attribute's local name by index.
    *
    * @param index The attribute index (zero-based).
    * @return The local name, or the empty string if Namespace
-   *         processing is not being performed, or null
+   *         processing is not being performed, or 
    *         if the index is out of range.
    * @see #getLength
    */
   virtual stringT getLocalName(unsigned int index) const = 0;
+
   /**
    * Look up an attribute's XML 1.0 qualified name by index.
    *
    * @param index The attribute index (zero-based).
    * @return The XML 1.0 qualified name, or the empty string
-   *         if none is available, or null if the index
+   *         if none is available, or if the index
    *         is out of range.
    * @see #getLength
    */
   virtual stringT getQName(unsigned int index) const = 0;
+
   /**
    * Look up an attribute's type by index.
    *
@@ -119,11 +122,12 @@ public:
    * parser will report the type as "NMTOKEN".</p>
    *
    * @param index The attribute index (zero-based).
-   * @return The attribute's type as a string, or null if the
+   * @return The attribute's type as a string, or an empty string if the
    *         index is out of range.
    * @see #getLength
    */
   virtual stringT getType(unsigned int index) const = 0;
+
   /**
    * Look up an attribute's value by index.
    *
@@ -133,7 +137,7 @@ public:
    * single space.</p>
    *
    * @param index The attribute index (zero-based).
-   * @return The attribute's value as a string, or null if the
+   * @return The attribute's value as a string, or an empty string if the
    *         index is out of range.
    * @see #getLength
    */
@@ -160,6 +164,7 @@ public:
    *         appear in the list.
    */
   virtual int getIndex(const stringT& qName) const = 0;
+
   /**
    * Look up an attribute's type by Namespace name.
    *
@@ -169,11 +174,12 @@ public:
    * @param uri The Namespace URI, or the empty String if the
    *        name has no Namespace URI.
    * @param localName The local name of the attribute.
-   * @return The attribute type as a string, or null if the
+   * @return The attribute type as a string, or an empty string if the
    *         attribute is not in the list or if Namespace
    *         processing is not being performed.
    */
   virtual stringT getType(const stringT& uri, const stringT& localName) const = 0;
+
   /**
    * Look up an attribute's type by XML 1.0 qualified name.
    *
@@ -181,32 +187,34 @@ public:
    * of the possible types.</p>
    *
    * @param qName The XML 1.0 qualified name.
-   * @return The attribute type as a string, or null if the
+   * @return The attribute type as a string, or an empty string if the
    *         attribute is not in the list or if qualified names
    *         are not available.
    */
   virtual stringT getType(const stringT& qName) const = 0;
+
   /**
    * Look up an attribute's value by Namespace name.
    *
-   * <p>See {@link #getValue(unsigned int) getValue(unsigned int)} for a description
-   * of the possible values.</p>
+   * <p>See {@link #getValue(unsigned int) getValue(unsigned int)} for a
+   * description of the possible values.</p>
    *
    * @param uri The Namespace URI, or the empty String if the
    *        name has no Namespace URI.
    * @param localName The local name of the attribute.
-   * @return The attribute value as a string, or null if the
+   * @return The attribute value as a string, or an empty string if the
    *         attribute is not in the list.
    */
   virtual stringT getValue(const stringT& uri, const stringT& localName) const = 0;
+
   /**
    * Look up an attribute's value by XML 1.0 qualified name.
    *
-   * <p>See {@link #getValue(unsigned int) getValue(unsigned int)} for a description
-   * of the possible values.</p>
+   * <p>See {@link #getValue(unsigned int) getValue(unsigned int)} for a
+   * description of the possible values.</p>
    *
    * @param qName The XML 1.0 qualified name.
-   * @return The attribute value as a string, or null if the
+   * @return The attribute value as a string, or an empty string if the
    *         attribute is not in the list or if qualified names
    *         are not available.
    */

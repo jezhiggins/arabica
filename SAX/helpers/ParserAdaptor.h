@@ -77,7 +77,7 @@ public:
    * namespace-prefixes.</p>
    *
    * @param name The feature name, as a complete URI.
-   * @param state The requested feature state.
+   * @param value The requested feature value.
    * @exception SAXNotRecognizedException If the feature
    *            name is not known.
    * @exception SAXNotSupportedException If the feature
@@ -178,7 +178,7 @@ public:
   /**
    * Set the DTD handler.
    *
-   * @param resolver The new DTD handler.
+   * @param handler The new DTD handler.
    * @see basic_XMLReader#setEntityResolver
    */
   virtual void setDTDHandler(DTDHandlerT& handler) { dtdHandler_ = &handler; } 
@@ -193,7 +193,7 @@ public:
   /**
    * Set the content handler.
    *
-   * @param resolver The new content handler.
+   * @param handler The new content handler.
    * @see basic_XMLReader#setEntityResolver
    */
   virtual void setContentHandler(ContentHandlerT& handler) { contentHandler_ = &handler; }
@@ -208,7 +208,7 @@ public:
   /**
    * Set the error handler.
    *
-   * @param resolver The new error handler.
+   * @param handler The new error handler.
    * @see basic_XMLReader#setEntityResolver
    */
   virtual void setErrorHandler(ErrorHandler& handler) { errorHandler_ = &handler; }

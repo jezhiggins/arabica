@@ -137,13 +137,15 @@ public:
    * a parse.</p>
    *
    * @param name The feature name, which is a fully-qualified URI.
-   * @param state The requested state of the feature (true or false).
+   * @param value The requested value of the feature (true or false).
    * @exception SAXNotRecognizedException When the
    *            XMLReader does not recognize the feature name.
    * @exception SAXNotSupportedException When the
    *            XMLReader recognizes the feature name but 
    *            cannot set the requested value.
    * @see #getFeature
+   * @see FeatureNames
+   * @see http://www.saxproject.org/apidoc/org/xml/sax/package-summary.html#package_description for a list of SAX2 features.
    */
   virtual void setFeature(const stringT& name, bool value) = 0;
   
@@ -291,7 +293,7 @@ public:
    * has ended.  If a client application wants to terminate 
    * parsing early, it should throw an exception.</p>
    *
-   * @param source The input source for the top-level of the
+   * @param input The input source for the top-level of the
    *        XML document.
    * @see basic_InputSource
    * @see #parse(const stringT&)
@@ -388,7 +390,7 @@ public:
    * extended handlers.</p>
    *
    * @param name The property name, which is a fully-qualified URI.
-   * @param state The requested value for the property.
+   * @param value The requested value for the property.
    * @exception SAXNotRecognizedException When the
    *            XMLReader does not recognize the property name.
    * @exception SAXNotSupportedException When the
@@ -405,6 +407,9 @@ public:
 
 }; // namespace SAX
 
+/* Included to ensure that #include<SAX/XMLReader.h> defines a class called
+ * XMLReader.
+ */
 #include <SAX/ParserConfig.h>
 
 #endif

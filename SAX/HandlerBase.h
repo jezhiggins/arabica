@@ -65,17 +65,17 @@ public:
   /**
    * Resolve an external entity.
    *
-   * <p>Always return null, so that the parser will use the system
-   * identifier provided in the XML document.  This method implements
-   * the SAX default behaviour: application writers can override it
-   * in a subclass to do special translations such as catalog lookups
-   * or URI redirection.</p>
+   * <p>Always return a default-constructed <code>InputSourceT</code>, so that
+   * the parser will use the system identifier provided in the XML document.
+   * This method implements the SAX default behaviour: application writers can
+   * override it in a subclass to do special translations such as catalog
+   * lookups or URI redirection.</p>
    *
-   * @param publicId The public identifer, or null if none is
+   * @param publicId The public identifer, or an empty string if none is
    *                 available.
    * @param systemId The system identifier provided in the XML 
    *                 document.
-   * @return The new input source, or null to require the
+   * @return The new input source, or an empty string to require the
    *         default behaviour.
    * @see basic_EntityResolver#resolveEntity
    */
@@ -95,7 +95,7 @@ public:
    * declared in a document.</p>
    *
    * @param name The notation name.
-   * @param publicId The notation public identifier, or null if not
+   * @param publicId The notation public identifier, or an empty string if not
    *                 available.
    * @param systemId The notation system identifier.
    * @see basic_DTDHandler#notationDecl
@@ -112,7 +112,7 @@ public:
    * declared in a document.</p>
    *
    * @param name The entity name.
-   * @param publicId The entity public identifier, or null if not
+   * @param publicId The entity public identifier, or an empty string if not
    *                 available.
    * @param systemId The entity system identifier.
    * @param notationName The name of the associated notation.
@@ -184,7 +184,6 @@ public:
    * output to a file).</p>
    *
    * @param name The element type name.
-   * @param attributes The specified or defaulted attributes.
    * @see basic_DocumentHandler#endElement
    */
   virtual void endElement(const stringT&) { }
@@ -223,7 +222,7 @@ public:
    * invoking other methods.</p>
    *
    * @param target The processing instruction target.
-   * @param data The processing instruction data, or null if
+   * @param data The processing instruction data, or an empty string if
    *             none is supplied.
    * @see basic_DocumentHandler#processingInstruction
    */

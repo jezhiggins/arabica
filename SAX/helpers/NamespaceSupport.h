@@ -172,8 +172,7 @@ class basic_NamespaceSupport
      * This asymmetry exists to make it easier to look up prefixes
      * for attribute names, where the default prefix is not allowed.</p>
      *
-     * @param prefix The prefix to declare, or null for the empty
-     *        string.
+     * @param prefix The prefix to declare, or the empty string.
      * @param uri The Namespace URI to associate with the prefix.
      * @return true if the prefix was legal, false otherwise
      * @see #processName
@@ -206,14 +205,11 @@ class basic_NamespaceSupport
      * will not.</p>
      *
      * @param qName The raw XML 1.0 name to be processed.
-     * @param parts An array supplied by the caller, capable of
-     *        holding at least three members.
      * @param isAttribute A flag indicating whether this is an
      *        attribute name (true) or an element name (false).
-     * @return The supplied array holding three internalized strings 
-     *        representing the Namespace URI (or empty string), the
-     *        local name, and the raw XML 1.0 name; or null if there
-     *        is an undeclared prefix.
+     * @return A <code>Parts</code> holding three strings representing the
+     *         Namespace URI (or empty string), the local name, and the raw XML
+     *         1.0 name.
      * @see #declarePrefix
      */
     Parts processName(const stringT& qName, bool isAttribute) const
@@ -278,10 +274,8 @@ class basic_NamespaceSupport
      * method with an argument of "".</p>
      *
      * @param uri The Namespace URI.
-     * @param isAttribute true if this prefix is for an attribute
-     *        (and the default Namespace is not allowed).
      * @return One of the prefixes currently mapped to the URI supplied,
-     *         or null if none is mapped or if the URI is assigned to
+     *         or an empty string if none is mapped or if the URI is assigned to
      *         the default Namespace.
      * @see #getPrefixes(const stringT&)
      * @see #getURI

@@ -83,7 +83,7 @@ public:
   /**
    * Return the saved public identifier.
    *
-   * @return The public identifier as a string, or null if none
+   * @return The public identifier as a string, or an empty string if none
    *         is available.
    * @see basic_Locator#getPublicId
    * @see #setPublicId
@@ -92,7 +92,7 @@ public:
   /**
    * Return the saved system identifier.
    *
-   * @return The system identifier as a string, or null if none
+   * @return The system identifier as a string, or an empty string if none
    *         is available.
    * @see basic_Locator#getSystemId
    * @see #setSystemId
@@ -120,7 +120,7 @@ public:
   /**
    * Set the public identifier for this locator.
    *
-   * @param publicId The new public identifier, or null 
+   * @param publicId The new public identifier, or an empty string 
    *        if none is available.
    * @see #getPublicId
    */
@@ -128,7 +128,7 @@ public:
   /**
    * Set the system identifier for this locator.
    *
-   * @param systemId The new system identifier, or null 
+   * @param systemId The new system identifier, or an empty string 
    *        if none is available.
    * @see #getSystemId
    */

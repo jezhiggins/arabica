@@ -93,7 +93,7 @@ public:
   /**
    * Get the public identifier of the entity where the exception occurred.
    *
-   * @return A string containing the public identifier, or null
+   * @return A string containing the public identifier, or an empty string
    *         if none is available.
    * @see basic_Locator#getPublicId
    */
@@ -104,7 +104,7 @@ public:
    * <p>If the system identifier is a URL, it will be resolved
    * fully.</p>
    *
-   * @return A string containing the system identifier, or null
+   * @return A string containing the system identifier, or an empty string
    *         if none is available.
    * @see basic_Locator#getSystemId
    */

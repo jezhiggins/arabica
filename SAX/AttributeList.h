@@ -104,7 +104,7 @@ public:
    * will still be attached.</p>
    *
    * @param i The index of the attribute in the list (starting at 0).
-   * @return The name of the indexed attribute, or null
+   * @return The name of the indexed attribute, or an empty string
    *         if the index is out of range.
    * @see #getLength 
    */
@@ -126,7 +126,7 @@ public:
    *
    * @param i The index of the attribute in the list (starting at 0).
    * @return The attribute type as a string, or
-   *         null if the index is out of range.
+   *         an empty string if the index is out of range.
    * @see #getLength 
    * @see #getType(java.lang.String)
    */
@@ -140,9 +140,9 @@ public:
    *
    * @param i The index of the attribute in the list (starting at 0).
    * @return The attribute value as a string, or
-   *         null if the index is out of range.
+   *         an empty string if the index is out of range.
    * @see #getLength
-   * @see #getValue(java.lang.String)
+   * @see #getValue(stringT)
    */
   virtual const stringT& getValue(int i) const = 0;
 
@@ -159,7 +159,7 @@ public:
    * the application must include the prefix here.</p>
    *
    * @param name The name of the attribute.
-   * @return The attribute type as a string, or null if no
+   * @return The attribute type as a string, or an empty string if no
    *         such attribute exists.
    * @see #getType(int)
    */
@@ -173,10 +173,10 @@ public:
    * <p>If the attribute name has a namespace prefix in the document,
    * the application must include the prefix here.</p>
    *
-   * @param i The index of the attribute in the list.
-   * @return The attribute value as a string, or null if
+   * @param name The name of the attribute in the list.
+   * @return The attribute value as a string, or an empty string if
    *         no such attribute exists.
-   * @see #getValue(int)
+   * @see #getValue(stringT)
    */
   virtual const stringT& getValue(const stringT& name) const = 0;
 
@@ -189,3 +189,4 @@ typedef basic_AttributeList<std::wstring> wAttributeList;
 
 #endif
 // end of file
+

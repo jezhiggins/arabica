@@ -127,7 +127,7 @@ public:
    *
    * @param name The attribute name.
    * @param type The attribute type ("NMTOKEN" for an enumeration).
-   * @param value The attribute value (must not be null).
+   * @param value The attribute value.
    * @see #removeAttribute
    * @see basic_DocumentHandler#startElement
    */
@@ -196,7 +196,7 @@ public:
    * Get the name of an attribute (by position).
    *
    * @param i The position of the attribute in the list.
-   * @return The attribute name as a string, or null if there
+   * @return The attribute name as a string, or an empty string if there
    *         is no attribute at that position.
    * @see basic_AttributeList#getName(int)
    */
@@ -213,7 +213,7 @@ public:
    * @param i The position of the attribute in the list.
    * @return The attribute type as a string ("NMTOKEN" for an
    *         enumeration, and "CDATA" if no declaration was
-   *         read), or null if there is no attribute at
+   *         read), or an empty string if there is no attribute at
    *         that position.
    * @see basic_AttributeList#getType(int)
    */
@@ -228,7 +228,7 @@ public:
    * Get the value of an attribute (by position).
    *
    * @param i The position of the attribute in the list.
-   * @return The attribute value as a string, or null if
+   * @return The attribute value as a string, or an empty string if
    *         there is no attribute at that position.
    * @see basic_AttributeList#getValue(int)
    */

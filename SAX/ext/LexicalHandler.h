@@ -76,9 +76,9 @@ public:
    *
    * @param name The document type name.
    * @param publicId The declared public identifier for the
-   *        external DTD subset, or null if none was declared.
+   *        external DTD subset, or an empty string if none was declared.
    * @param systemId The declared system identifier for the
-   *        external DTD subset, or null if none was declared.
+   *        external DTD subset, or an empty string if none was declared.
    * @see #endDTD
    * @see #startEntity
    */
@@ -180,7 +180,7 @@ public:
    * nested inside start/endDTD and start/endEntity events (if
    * used).</p>
    *
-   * @param ch An holding the comment.
+   * @param text A string holding the comment.
    */
   virtual void comment(const stringT& text) = 0;
 }; // class basic_LexicalHandler

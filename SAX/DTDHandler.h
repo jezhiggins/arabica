@@ -75,9 +75,9 @@ public:
    * reported before any unparsed entities that use it.</p>
    *
    * @param name The notation name.
-   * @param publicId The notation's public identifier, or null if
+   * @param publicId The notation's public identifier, or an empty string if
    *        none was given.
-   * @param systemId The notation's system identifier, or null if
+   * @param systemId The notation's system identifier, or an empty string if
    *        none was given.
    * @exception SAXException Any SAX exception.
    * @see #unparsedEntityDecl
@@ -103,7 +103,7 @@ public:
    *
    * @exception SAXException Any SAX exception.
    * @param name The unparsed entity's name.
-   * @param publicId The entity's public identifier, or null if none
+   * @param publicId The entity's public identifier, or an empty string if none
    *        was given.
    * @param systemId The entity's system identifier.
    * @param notationName The name of the associated notation.
