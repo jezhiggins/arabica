@@ -10,6 +10,6 @@ sax2dom_test
 Debug
 Release
 *.exe
-
+domwriter
 
 

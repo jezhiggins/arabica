@@ -33,17 +33,18 @@ CXXFLAGS = -Wall
 LDFLAGS = 
 
 # Includes and library directories 
-INCS_DIRS = -I.. 
+INCS_DIRS = -I..  -I/usr/include/libxml2
 LIBS_DIRS = 
 
+# OSX includes libxml2
 STATIC_LIBS =
 DYNAMIC_LIBS =  -lxml2 -lstdc++ 
 
-# flag to create a shared library
-LINK_SHARED = -shared
+# link flag to create a shared library
+LINK_SHARED = -dynamiclib
 
-ESUFFIX = 
-LIBSUFFIX = .so
+EXESUFFIX = 
+LIBSUFFIX = .dylib
 
 
 
