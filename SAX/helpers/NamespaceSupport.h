@@ -105,7 +105,7 @@ class basic_NamespaceSupport
     void reset()
     {
       contexts_.clear();
-      contexts_.push_back(Context());
+      contexts_.push_back(Conext());
       contexts_.back().insert(std::make_pair(nsc_.xml, nsc_.xmlns_uri));
     } // reset
 
@@ -255,9 +255,9 @@ class basic_NamespaceSupport
      */
     stringT getURI(const stringT& prefix) const
     {
-      for(contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
+      for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
       {
-        stringMapT::const_iterator u = i->find(prefix);
+        typename stringMapT::const_iterator u = i->find(prefix);
         if(u != i->end())
           return u->second;
       } // for ...
@@ -288,9 +288,9 @@ class basic_NamespaceSupport
      */
     stringT getPrefix(const stringT& uri) const
     {
-      for(contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
+      for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
       {
-        for(stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
+        for(typename stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
           if(u->second == uri)
             return u->first;
       } // for ...
@@ -315,9 +315,9 @@ class basic_NamespaceSupport
     {
       stringListT prefixes;
 
-      for(contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
+      for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
       {
-        for(stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
+        for(typename stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
           if(!u->first.empty())
             prefixes.push_back(u->first);
       } // for ...
@@ -350,9 +350,9 @@ class basic_NamespaceSupport
     {
       stringListT prefixes;
 
-      for(contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
+      for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
       {
-        for(stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
+        for(typename stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
           if(u->second == uri)
             prefixes.push_back(u->first);
       } // for ...
@@ -376,9 +376,9 @@ class basic_NamespaceSupport
     {
       stringListT prefixes;
 
-      for(contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
+      for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
       {
-        for(stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
+        for(typename stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
           prefixes.push_back(u->first);
       } // for ...
        
