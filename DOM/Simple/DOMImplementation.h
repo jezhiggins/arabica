@@ -5,14 +5,15 @@
 #include <DOM/DOMException.h>
 #include <DOM/Simple/DocumentImpl.h>
 #include <DOM/Simple/DocumentTypeImpl.h>
-#include <DOM/Simple/StringAdaptor.h>
+//#include <DOM/Simple/StringAdaptor.h>
+#include <SAX/helpers/StringAdaptor.h>
 
 namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT> class DOMImplementationImpl;
 
-template<class stringT, class string_adaptorT = SimpleDOM::default_string_adaptor<stringT> >
+template<class stringT, class string_adaptorT = SAX::default_string_adaptor<stringT> >
 class DOMImplementation
 {
   public:

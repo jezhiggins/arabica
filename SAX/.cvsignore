@@ -4,3 +4,10 @@ core
 *.so.*
 *.a
 .depend
+ArabicaConfig.h
+ParserConfig.h
+*.dep
+*.plg
+saxlib.cpp
+Debug
+Release

@@ -14,7 +14,6 @@
 #include <DOM/Simple/EntityImpl.h>
 #include <DOM/Simple/NotationImpl.h>
 #include <DOM/Simple/ElementByTagImpl.h>
-#include <DOM/Simple/StringAdaptor.h>
 #include <DOM/Simple/NodeImpl.h>
 
 #include <set>
