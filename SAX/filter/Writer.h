@@ -462,7 +462,7 @@ template<class string_type>
 void basic_Writer<string_type>::endEntity(const stringT& name)
 {
   if(isDtd(name))
-    internalSubset_ = false;
+    internalSubset_ = true;
 
   if(lexicalHandler_)
     lexicalHandler_->endEntity(name);
@@ -520,47 +520,53 @@ void basic_Writer<string_type>::comment(const stringT& text)
 template<class string_type>
 void basic_Writer<string_type>::notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
-  doIndent();
+  if(internalSubset_)
+  {
+    doIndent();
 
-  *stream_ << UnicodeT::LESS_THAN_SIGN
-           << UnicodeT::EXCLAMATION_MARK
-           << UnicodeT::CAPITAL_N
-           << UnicodeT::CAPITAL_O
-           << UnicodeT::CAPITAL_T
-           << UnicodeT::CAPITAL_A
-           << UnicodeT::CAPITAL_T
-           << UnicodeT::CAPITAL_I
-           << UnicodeT::CAPITAL_O
-           << UnicodeT::CAPITAL_N
-           << UnicodeT::SPACE
-           << name;
+    *stream_ << UnicodeT::LESS_THAN_SIGN
+            << UnicodeT::EXCLAMATION_MARK
+            << UnicodeT::CAPITAL_N
+            << UnicodeT::CAPITAL_O
+            << UnicodeT::CAPITAL_T
+            << UnicodeT::CAPITAL_A
+            << UnicodeT::CAPITAL_T
+            << UnicodeT::CAPITAL_I
+            << UnicodeT::CAPITAL_O
+            << UnicodeT::CAPITAL_N
+            << UnicodeT::SPACE
+            << name;
 
-  publicAndSystem(publicId, systemId);
+    publicAndSystem(publicId, systemId);
 
-  *stream_ << UnicodeT::GREATER_THAN_SIGN
-           << std::endl;
+    *stream_ << UnicodeT::GREATER_THAN_SIGN
+            << std::endl;
+  } // if ...
 
-   XMLFilterT::notationDecl(name, publicId, systemId);
+  XMLFilterT::notationDecl(name, publicId, systemId);
 } // notationDecl
 
 template<class string_type>
 void basic_Writer<string_type>::unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName)
 {
-  doIndent();
+  if(internalSubset_)
+  {
+    doIndent();
 
-  startEntityDecl(name);
-  publicAndSystem(publicId, systemId);
+    startEntityDecl(name);
+    publicAndSystem(publicId, systemId);
 
-  *stream_ << UnicodeT::SPACE
-           << UnicodeT::CAPITAL_N
-           << UnicodeT::CAPITAL_D
-           << UnicodeT::CAPITAL_A
-           << UnicodeT::CAPITAL_T
-           << UnicodeT::CAPITAL_A
-           << UnicodeT::SPACE
-           << notationName
-           << UnicodeT::GREATER_THAN_SIGN
-           << std::endl;
+    *stream_ << UnicodeT::SPACE
+             << UnicodeT::CAPITAL_N
+             << UnicodeT::CAPITAL_D
+             << UnicodeT::CAPITAL_A
+             << UnicodeT::CAPITAL_T
+             << UnicodeT::CAPITAL_A
+             << UnicodeT::SPACE
+             << notationName
+             << UnicodeT::GREATER_THAN_SIGN
+             << std::endl;
+  } // if ...
 
   XMLFilterT::unparsedEntityDecl(name, publicId, systemId, notationName);
 } // unparsedEntityDecl
@@ -568,23 +574,27 @@ void basic_Writer<string_type>::unparsedEntityDecl(const stringT& name, const st
 template<class string_type>
 void basic_Writer<string_type>::elementDecl(const stringT& name, const stringT& model)
 {
-  doIndent();
+  if(internalSubset_)
+  {
+    doIndent();
 
-  *stream_ << UnicodeT::LESS_THAN_SIGN
-           << UnicodeT::EXCLAMATION_MARK
-           << UnicodeT::CAPITAL_E
-           << UnicodeT::CAPITAL_L
-           << UnicodeT::CAPITAL_E
-           << UnicodeT::CAPITAL_M
-           << UnicodeT::CAPITAL_E
-           << UnicodeT::CAPITAL_N
-           << UnicodeT::CAPITAL_T
-           << UnicodeT::SPACE
-           << name
-           << UnicodeT::SPACE
-           << model
-           << UnicodeT::GREATER_THAN_SIGN
-           << std::endl;
+    *stream_ << UnicodeT::LESS_THAN_SIGN
+            << UnicodeT::EXCLAMATION_MARK
+            << UnicodeT::CAPITAL_E
+            << UnicodeT::CAPITAL_L
+            << UnicodeT::CAPITAL_E
+            << UnicodeT::CAPITAL_M
+            << UnicodeT::CAPITAL_E
+            << UnicodeT::CAPITAL_N
+            << UnicodeT::CAPITAL_T
+            << UnicodeT::SPACE
+            << name
+            << UnicodeT::SPACE
+            << model
+            << UnicodeT::GREATER_THAN_SIGN
+            << std::endl;
+
+  } // if ...
 
   if(declHandler_)
     declHandler_->elementDecl(name, model);
@@ -594,36 +604,39 @@ template<class string_type>
 void basic_Writer<string_type>::attributeDecl(const stringT& elementName, const stringT& attributeName,
                                const stringT& type, const stringT& valueDefault, const stringT& value)
 {
-  doIndent();
+  if(internalSubset_)
+  {
+    doIndent();
 
-  *stream_ << UnicodeT::LESS_THAN_SIGN
-           << UnicodeT::EXCLAMATION_MARK
-           << UnicodeT::CAPITAL_A
-           << UnicodeT::CAPITAL_T
-           << UnicodeT::CAPITAL_T
-           << UnicodeT::CAPITAL_L
-           << UnicodeT::CAPITAL_I
-           << UnicodeT::CAPITAL_S
-           << UnicodeT::CAPITAL_T
-           << UnicodeT::SPACE
-           << elementName
-           << UnicodeT::SPACE
-           << attributeName
-           << UnicodeT::SPACE
-           << type;
+    *stream_ << UnicodeT::LESS_THAN_SIGN
+            << UnicodeT::EXCLAMATION_MARK
+            << UnicodeT::CAPITAL_A
+            << UnicodeT::CAPITAL_T
+            << UnicodeT::CAPITAL_T
+            << UnicodeT::CAPITAL_L
+            << UnicodeT::CAPITAL_I
+            << UnicodeT::CAPITAL_S
+            << UnicodeT::CAPITAL_T
+            << UnicodeT::SPACE
+            << elementName
+            << UnicodeT::SPACE
+            << attributeName
+            << UnicodeT::SPACE
+            << type;
 
-  if(!valueDefault.empty())
-    *stream_ << UnicodeT::SPACE
-             << valueDefault;
+    if(!valueDefault.empty())
+      *stream_ << UnicodeT::SPACE
+               << valueDefault;
 
-  if(!value.empty())
-    *stream_ << UnicodeT::SPACE
-             << UnicodeT::QUOTATION_MARK
-             << value
-             << UnicodeT::QUOTATION_MARK;
+    if(!value.empty())
+      *stream_ << UnicodeT::SPACE
+               << UnicodeT::QUOTATION_MARK
+               << value
+               << UnicodeT::QUOTATION_MARK;
 
-  *stream_ << UnicodeT::GREATER_THAN_SIGN
-           << std::endl;
+    *stream_ << UnicodeT::GREATER_THAN_SIGN
+             << std::endl;
+  } // if ...
 
   if(declHandler_)
     declHandler_->attributeDecl(elementName, attributeName, type, valueDefault, value);
@@ -632,15 +645,17 @@ void basic_Writer<string_type>::attributeDecl(const stringT& elementName, const 
 template<class string_type>
 void basic_Writer<string_type>::internalEntityDecl(const stringT& name, const stringT& value)
 {
-  doIndent();
-
-  startEntityDecl(name);
-  *stream_ << UnicodeT::SPACE
-           << UnicodeT::QUOTATION_MARK
-           << value
-           << UnicodeT::QUOTATION_MARK
-           << UnicodeT::GREATER_THAN_SIGN
-           << std::endl;
+  if(internalSubset_)
+  {
+    doIndent();
+    startEntityDecl(name);
+    *stream_ << UnicodeT::SPACE
+             << UnicodeT::QUOTATION_MARK
+             << value
+             << UnicodeT::QUOTATION_MARK
+             << UnicodeT::GREATER_THAN_SIGN
+             << std::endl;
+  } // if ...
 
   if(declHandler_)
     declHandler_->internalEntityDecl(name, value);
@@ -649,11 +664,14 @@ void basic_Writer<string_type>::internalEntityDecl(const stringT& name, const st
 template<class string_type>
 void basic_Writer<string_type>::externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
-  doIndent();
-  startEntityDecl(name);
-  publicAndSystem(publicId, systemId);
-  *stream_ << UnicodeT::GREATER_THAN_SIGN
-           << std::endl;
+  if(internalSubset_)
+  {
+    doIndent();
+    startEntityDecl(name);
+    publicAndSystem(publicId, systemId);
+    *stream_ << UnicodeT::GREATER_THAN_SIGN
+            << std::endl;
+  } // if ...
 
   if(declHandler_)
     declHandler_->externalEntityDecl(name, publicId, systemId);
