@@ -208,6 +208,7 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     typedef SAX::basic_InputSource<stringT> inputSourceT;
     typedef SAX::basic_Locator<stringT> locatorT;
     typedef SAX::basic_NamespaceSupport<stringT, string_adaptorT> namespaceSupportT;
+    typedef typename SAX::basic_XMLReader<stringT>::PropertyBase PropertyBaseT;
 
 		expat_wrapper();
 		virtual ~expat_wrapper();
@@ -245,8 +246,8 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     ///////////////////////////////////////////////////
     // properties
   protected:
-    virtual std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> doGetProperty(const stringT& name);
-    virtual void doSetProperty(const stringT& name, std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> value);
+    virtual std::auto_ptr<PropertyBaseT> doGetProperty(const stringT& name);
+    virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value);
 
 	private:
     typename namespaceSupportT::Parts processName(const stringT& qName, bool isAttribute);
@@ -480,26 +481,26 @@ bool expat_wrapper<stringT, string_adaptorT>::do_parse(inputSourceT& source, XML
 
 
 template<class stringT, class string_adaptorT>
-std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+std::auto_ptr<expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
 {
   if(name == properties_.lexicalHandler)
   {
     SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT*>* prop = 
           new SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT*>(lexicalHandler_);
-    return std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
+    return std::auto_ptr<PropertyBaseT>(prop);
   }
   else if(name == properties_.declHandler)
   {
     SAX::basic_XMLReader<stringT>::Property<declHandlerT*>* prop = 
           new SAX::basic_XMLReader<stringT>::Property<declHandlerT*>(declHandler_);
-    return std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
+    return std::auto_ptr<PropertyBaseT>(prop);
   }
   else
     throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA_.asStdString(name));    
 } // doGetProperty
 
 template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name, std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> value)
+void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value)
 {
   if(name == properties_.lexicalHandler)
   {
