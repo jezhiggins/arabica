@@ -32,11 +32,8 @@ class SAX2PYX : public SAX::DefaultHandler
     virtual void warning(const SAX::SAXParseException& e) { fatalError(e); }
     virtual void error(const SAX::SAXParseException& e) { fatalError(e); }
 
-    void setParser(SAX::XMLReader<std::string>& parser) { parser_ = &parser; }
-
   private:
     std::string escape(const std::string& str) const;
-    SAX::XMLReader<std::string>* parser_;
 }; // class SimpleHandler
 
 int main(int argc, char* argv[])
@@ -56,7 +53,6 @@ int main(int argc, char* argv[])
       SAX::XMLReader<std::string> myParser;
       myParser.setContentHandler(handler);
       myParser.setErrorHandler(handler);
-      handler.setParser(myParser);
 
       SAX::InputSource is(argv[i]);
       myParser.parse(is);
@@ -82,12 +78,6 @@ void SAX2PYX::startElement(const std::string&, const std::string& localName,
               << ' ' << escape(atts.getValue(i))
               << std::endl;
   } // for ...
-
-  std::cerr << "             " 
-            << parser_->getLineNumber() 
-            << ","
-            << parser_->getColumnNumber() 
-	    << std::endl;
 } // startElement
 
 void SAX2PYX::endElement(const std::string&, const std::string& localName,
