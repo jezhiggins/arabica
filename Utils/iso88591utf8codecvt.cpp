@@ -5,6 +5,7 @@
 #include "impl/iso88591_utf8.h"
 //---------------------------------------------------------------------------
 // This facet converts from ISO8859:1 (Latin 1) chars to UTF-8 encoded chars.
+using namespace Arabica::convert;
 
 std::codecvt_base::result iso88591utf8codecvt::do_out(std::mbstate_t& /* state */,
                         const char* from,

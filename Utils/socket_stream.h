@@ -32,6 +32,9 @@
 #  define INADDR_NONE             ((in_addr_t) -1)
 #endif
 
+namespace Arabica
+{
+
 ///////////////////////////////////////////////////////////
 // basic_socketbuf declaration
 template<class charT, class traitsT>
@@ -394,6 +397,8 @@ typedef basic_socketstream<char, std::char_traits<char> > socketstream;
 typedef basic_socketbuf<wchar_t, std::char_traits<wchar_t> > wsocketbuf;
 typedef basic_socketstream<wchar_t, std::char_traits<wchar_t> > wsocketstream;
 #endif
+
+} // namespace Arabica
 
 #endif
 //end of file

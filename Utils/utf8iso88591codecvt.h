@@ -8,6 +8,10 @@ namespace std {
 }
 #endif
 
+namespace Arabica
+{
+namespace convert
+{
 class utf8iso88591codecvt : public std::codecvt<char, char, std::mbstate_t>
 {
 protected:
@@ -46,4 +50,6 @@ protected:
   virtual int do_max_length() const throw() { return 3; }
 }; // class utf8iso88591codecvt
 
+} // namespace convert
+} // namespace Arabica
 #endif

@@ -7,6 +7,8 @@
 #include "impl/ucs2_utf8.h"
 //---------------------------------------------------------------------------
 
+using namespace Arabica::convert;
+
 std::codecvt_base::result utf8ucs2codecvt::do_out(std::mbstate_t& /* state */,
                         const wchar_t* from,
                         const wchar_t* from_end,

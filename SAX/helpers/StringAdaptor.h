@@ -56,9 +56,9 @@ public:
   } // toStdString
 
 #ifndef ARABICA_NO_WCHAR_T
-  typedef basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
+  typedef Arabica::convert::basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > widener;
-  typedef basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+  typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > narrower;
 
   std::string makeStringT(const wchar_t* str) const
@@ -84,9 +84,9 @@ public:
 #ifndef ARABICA_NO_WCHAR_T
   default_string_adaptor() :
 #ifndef ARABICA_VS6_WORKAROUND
-    loc_(std::locale(), new utf8ucs2codecvt()),
+    loc_(std::locale(), new Arabica::convert::utf8ucs2codecvt()),
 #else
-    loc_(std::_Addfac(std::locale(), new utf8ucs2codecvt)),
+    loc_(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt)),
 #endif
     n_(),
     w_()
@@ -108,9 +108,9 @@ private:
 template<>
 class default_string_adaptor<std::wstring>
 {
-  typedef basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
+  typedef Arabica::convert::basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > widener;
-  typedef basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+  typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > narrower;
 public:
   wchar_t makeValueT(char c) const 
@@ -152,9 +152,9 @@ public:
 
   default_string_adaptor() :
 #ifndef ARABICA_VS6_WORKAROUND
-    loc_(std::locale(), new utf8ucs2codecvt()),
+    loc_(std::locale(), new Arabica::convert::utf8ucs2codecvt()),
 #else
-    loc_(std::_Addfac(std::locale(), new utf8ucs2codecvt())),
+    loc_(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt())),
 #endif
     n_(), 
     w_()

@@ -15,6 +15,10 @@
 #include <locale>
 
 #include <SAX/ArabicaConfig.h>
+namespace Arabica
+{
+namespace convert
+{
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
 #include <Utils/impl/codecvt_specialisations.h>
@@ -64,5 +68,7 @@ protected:
   virtual int do_max_length() const throw() { return 1; }
 }; // class utf16utf8codecvt
 
+} // namespace convert
+} // namespace Arabica
 #endif
 

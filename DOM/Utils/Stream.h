@@ -40,7 +40,7 @@ namespace DOM
         typedef char_type charT;
         typedef traits_type traitsT;
         typedef std::basic_ostream<charT, traitsT> ostreamT;
-        typedef Unicode<charT> UnicodeT;
+        typedef Arabica::Unicode<charT> UnicodeT;
 
       public:
         escaper(ostreamT& stream) : stream_(stream) { }
@@ -106,7 +106,7 @@ std::basic_ostream<charT, traitsT>&
 operator<<(std::basic_ostream<charT, traitsT>& stream,
            DOM::Node<stringT>& node)
 {
-  typedef Unicode<charT> UnicodeT;
+  typedef Arabica::Unicode<charT> UnicodeT;
 
   switch(node.getNodeType())
   {

@@ -12,6 +12,7 @@ T max(T a, T b) { return a > b ? a : b; }
 }
 #endif
 //---------------------------------------------------------------------------
+using namespace Arabica::convert;
 
 std::codecvt_base::result utf16beucs2codecvt::do_out(std::mbstate_t& /* state */,
                         const wchar_t* from,

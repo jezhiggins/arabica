@@ -1,6 +1,9 @@
 #ifndef ARABICA_XML_UNICODE_CHARACTERS_H
 #define ARABICA_XML_UNICODE_CHARACTERS_H
 
+namespace Arabica
+{
+
 template<typename charT>
 struct Unicode
 {
@@ -279,6 +282,8 @@ template<typename charT>
 const charT Unicode<charT>::LOWERCASE_Z           = 0x7A;
 template<typename charT>
 const charT Unicode<charT>::VERTICAL_BAR          = 0x7C;   // |
+
+} // namespace Arabica
 
 #endif
 

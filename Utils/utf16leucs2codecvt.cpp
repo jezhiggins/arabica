@@ -4,14 +4,17 @@
 #include "utf16leucs2codecvt.h"
 #ifndef ARABICA_NO_WCHAR_T
 #include "impl/ucs2_utf16.h"
+
 #ifdef ARABICA_VS6_WORKAROUND
 namespace std {
 template<typename T>
 T max(T a, T b) { return a > b ? a : b; }
 }
 #endif
-//---------------------------------------------------------------------------
 
+using namespace Arabica::convert;
+
+//---------------------------------------------------------------------------
 std::codecvt_base::result utf16leucs2codecvt::do_out(std::mbstate_t& /* state */,
                         const wchar_t* from,
                         const wchar_t* from_end,

@@ -11,6 +11,11 @@
 #ifndef ARABICA_NO_WCHAR_T
 #include <locale>
 
+namespace Arabica
+{
+namespace convert
+{
+
 #if(_MSC_VER < 1300)
 namespace std {
   typedef ::mbstate_t mbstate_t;
@@ -54,6 +59,9 @@ protected:
 
   virtual int do_max_length() const throw() { return 2; }
 }; // class utf16leucs2codecvt
+
+} // namespace convert
+} // namespace Arabica
 
 #endif // ARABICA_NO_WCHAR_T
 #endif // ARABICA_UTF16LEUCS2_CODECVT_H

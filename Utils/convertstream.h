@@ -47,6 +47,11 @@
 #include <sstream>
 #include <algorithm>
 
+namespace Arabica
+{
+namespace convert
+{
+
 template<typename charT, 
          typename traitsT = std::char_traits<charT>,
          typename fromCharT = charT,
@@ -252,4 +257,6 @@ typedef basic_iconvertstream<wchar_t> converting_iwstringstream;
 typedef basic_oconvertstream<wchar_t> converting_owstringstream;
 #endif
 
+} // namespace convert
+} // namespace Arabica
 #endif

@@ -15,6 +15,11 @@ namespace std {
 }
 #endif
 
+namespace Arabica
+{
+namespace convert
+{
+
 class base64codecvt : public std::codecvt<char, char, std::mbstate_t>
 {
 protected:
@@ -71,5 +76,8 @@ private:
   char getPreviousChar() const;
   void setPreviousChar(char c) const;
 }; // class base64codecvt
+
+} // namespace convert
+} // namespace Arabica
 
 #endif

@@ -25,7 +25,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef basic_XMLReader<stringT> XMLReaderT;
     typedef basic_XMLFilterImpl<stringT> XMLFilterT;
     typedef typename basic_XMLFilterImpl<stringT>::AttributesT AttributesT;
-    typedef Unicode<charT> UnicodeT;
+    typedef Arabica::Unicode<charT> UnicodeT;
   private:
     typedef basic_LexicalHandler<stringT> LexicalHandlerT;
     typedef typename XMLReaderT::InputSourceT InputSourceT;
@@ -100,7 +100,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
         typedef char_type charT;
         typedef traits_type traitsT;
         typedef std::basic_ostream<charT, traitsT> ostreamT;
-        typedef Unicode<charT> UnicodeT;
+        typedef Arabica::Unicode<charT> UnicodeT;
 
       public:
         escaper(ostreamT* stream) : stream_(stream) { }

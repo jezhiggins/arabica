@@ -9,6 +9,8 @@
 static const std::string base64_charset("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
 static const int NO_MORE = 256;
 
+using namespace Arabica::convert;
+
 std::codecvt_base::result base64codecvt::do_out(std::mbstate_t& state,
                         const char* from,
                         const char* from_end,

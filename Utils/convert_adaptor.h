@@ -27,6 +27,11 @@ namespace std {
 #include <minmax.h>
 #endif
 
+namespace Arabica
+{
+namespace convert
+{
+
 template<typename charT, 
          typename traitsT = std::char_traits<charT>,
          typename externalCharT = charT,
@@ -296,4 +301,6 @@ class oconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, toCharT,
     } // rdbuf
 }; // class oconvert_adaptor
 
+} // namespace convert
+} // namespace Arabica
 #endif

@@ -134,7 +134,7 @@ namespace
     std::string hostName = httpURL.substr(colon1, slash1 - (colon1));
     std::string path = httpURL.substr(slash1);
 
-    socketstream* ifs = new socketstream(hostName.c_str(), 80);
+    Arabica::socketstream* ifs = new Arabica::socketstream(hostName.c_str(), 80);
     if(!ifs->is_open())
       return 0;
     *ifs << "GET " << path << " HTTP/1.0" << std::endl;

@@ -5,6 +5,9 @@
 #  include <stddef.h>
 #endif
 
+namespace Arabica
+{
+
 namespace XML
 {
   bool is_char(wchar_t c);
@@ -16,6 +19,7 @@ namespace XML
   bool is_digit(wchar_t c);
   bool is_combining_char(wchar_t c);
   bool is_extender(wchar_t c);
-}; // namespace XML
+} // namespace XML
 
+} // namespace Arabica
 #endif

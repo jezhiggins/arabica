@@ -14,6 +14,10 @@ namespace std {
 }
 #endif
 
+namespace Arabica
+{
+namespace convert
+{
 
 class rot13codecvt : public std::codecvt<char, char, std::mbstate_t>
 {
@@ -62,5 +66,8 @@ private:
                char* to_limit,
                char*& to_next) const;
 }; // class rot13codecvt
+
+} // namespace convert
+} // namespace Arabica
 
 #endif

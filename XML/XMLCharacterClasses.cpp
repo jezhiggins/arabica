@@ -74,7 +74,7 @@ const wchar_t base_char_ranges[][2] =
     { 0xAC00, 0xD7A3 }, { 0, 0 }
 }; // base_char_ranges
 
-bool XML::is_char(wchar_t c)
+bool Arabica::XML::is_char(wchar_t c)
 {
   return (c == Unicode<wchar_t>::HORIZONTAL_TABULATION) ||
          (c == Unicode<wchar_t>::LINE_FEED) ||
@@ -84,7 +84,7 @@ bool XML::is_char(wchar_t c)
          ((c >= 0x10000) && (c <= 0x10FFFF));
 } // is_char
 
-bool XML::is_space(wchar_t c)
+bool Arabica::XML::is_space(wchar_t c)
 {
   return (c == Unicode<wchar_t>::SPACE) ||
          (c == Unicode<wchar_t>::HORIZONTAL_TABULATION) ||
@@ -92,7 +92,7 @@ bool XML::is_space(wchar_t c)
          (c == Unicode<wchar_t>::LINE_FEED);
 } // is_space
 
-bool XML::is_name_char(wchar_t c)
+bool Arabica::XML::is_name_char(wchar_t c)
 {
   return is_letter(c) ||
          is_digit(c) ||
@@ -104,13 +104,13 @@ bool XML::is_name_char(wchar_t c)
          is_extender(c);
 } // is_identifier
 
-bool XML::is_letter(wchar_t c)
+bool Arabica::XML::is_letter(wchar_t c)
 {
   return is_base_char(c) ||
          is_ideographic(c);
 } // is_letter
 
-bool XML::is_base_char(wchar_t c)
+bool Arabica::XML::is_base_char(wchar_t c)
 {
   for(int i=0; base_char_ranges[i][0]; ++i)
   {
@@ -124,14 +124,14 @@ bool XML::is_base_char(wchar_t c)
   return false;
 } // is_base_char
 
-bool XML::is_ideographic(wchar_t c)
+bool Arabica::XML::is_ideographic(wchar_t c)
 {
   return ((c >= 0x4E00) && (c <= 0x9FA5)) ||
          c == 0x3007 ||
          ((c >= 0x3021) && (c <= 0x3029));
 } // is_ideographic
 
-bool XML::is_digit(wchar_t c)
+bool Arabica::XML::is_digit(wchar_t c)
 {
   return ((c >= 0x0030) && (c <= 0x0039)) ||
          ((c >= 0x0660) && (c <= 0x0669)) ||     
@@ -150,7 +150,7 @@ bool XML::is_digit(wchar_t c)
          ((c >= 0x0F20) && (c <= 0x0F29));
 } // is_digit
 
-bool XML::is_combining_char(wchar_t c)
+bool Arabica::XML::is_combining_char(wchar_t c)
 {
 	return ((c >= 0x0300) && (c <= 0x0345)) ||
          ((c >= 0x0360) && (c <= 0x0361)) ||
@@ -249,7 +249,7 @@ bool XML::is_combining_char(wchar_t c)
          (c == 0x309A);
 } // is_combining
 
-bool XML::is_extender(wchar_t c)
+bool Arabica::XML::is_extender(wchar_t c)
 {
   return (c == 0x00B7) ||
          (c == 0x02D0) ||

@@ -6,6 +6,8 @@
 //---------------------------------------------------------------------------
 // This facet converts from ISO8859:1 (Latin 1) chars to UTF-8 encoded chars.
 
+using namespace Arabica::convert;
+
 std::codecvt_base::result utf8iso88591codecvt::do_out(std::mbstate_t& /* state */,
                         const char* from,
                         const char* from_end,

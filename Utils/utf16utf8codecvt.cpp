@@ -7,6 +7,7 @@
 // This facet converts from wide chars to char using the
 // FSS-UTF (UCS2) encoding.
 //
+using namespace Arabica::convert;
 
 std::codecvt_base::result utf16utf8codecvt::do_out(std::mbstate_t& /* state */,
                        const char* from,

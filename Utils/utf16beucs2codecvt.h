@@ -17,6 +17,11 @@ namespace std {
 }
 #endif
 
+namespace Arabica
+{
+namespace convert
+{
+
 class utf16beucs2codecvt : public std::codecvt<wchar_t, char, std::mbstate_t>
 {
 protected:
@@ -54,6 +59,9 @@ protected:
 
   virtual int do_max_length() const throw() { return 2; }
 }; // class utf16beucs2codecvt
+
+} // namespace convert
+} // namespace Arabica
 
 #endif // ARABICA_NO_WCHAR_T
 #endif // ARABICA_UTF16BEUCS2_CODECVT_H
