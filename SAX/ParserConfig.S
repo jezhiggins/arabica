@@ -66,6 +66,11 @@ comment(lib, "libexpat.lib")
 #endif
 #endif
 
+#ifdef _MSC_VER
+comment(lib, "wsock32.lib")
+#endif
+
+
 ifndef NO_DEFAULT_PARSER
 ifdef DEF_SAX_P
 namespace SAX
