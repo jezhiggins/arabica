@@ -10,6 +10,7 @@ transcode
 xmlbase
 libArabica.dll
 *.exe
+*.exe.*
 *.ilk
 *.pdb
 *.dll
