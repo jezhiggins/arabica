@@ -39,10 +39,8 @@
 #include <xercesc/util/Janitor.hpp>
 
 #ifndef XERCES_HAS_CPP_NAMESPACE
-#pragma message("No XERCES namespace")
 #define XERCES_CPP_NAMESPACE
 #endif
-
 
 namespace SAX
 {

@@ -8,6 +8,12 @@
 
 #include <SAX/ParserConfig.h>
 
+#ifndef XERCES_HAS_CPP_NAMESPACE
+#pragma message("No XERCES namespace")
+#else
+#pragma message("XERCES namespace defined")
+#endif
+
 namespace SAX
 {
 
