@@ -1,0 +1,47 @@
+####################################
+# ARABICA CONFIG
+# edit for your parser choice - may include more than one USE_*
+PARSER_CONFIG = -DUSE_LIBXML2 
+#PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
+
+####################################
+# TOOLS
+#####
+MAKE = make
+# C++ compiler
+CXX = gcc 
+# preprocessor
+CPP = gcc -E
+# linker
+LD =  gcc 
+# archiver
+AR = ar r
+
+###########
+# Utilities
+REMOVE = rm -rf
+LINK = ln -sf
+COPY = cp -f
+
+######################################
+# BUILD FLAGS
+# you probably want to set some these according to
+# your parser choice
+# eg DYNAMIC_LIBS = -lexpat
+
+CXXFLAGS = -Wall 
+LDFLAGS = 
+
+# Includes and library directories 
+INCS_DIRS = -I.. 
+LIBS_DIRS = 
+
+STATIC_LIBS =
+DYNAMIC_LIBS =  -lxml2 -lstdc++ 
+
+# you'll only need to change these if you use Cygwin
+EXESUFFIX = 
+LIBSUFFIX = .so
+
+
+
