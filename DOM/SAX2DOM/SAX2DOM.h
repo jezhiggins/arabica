@@ -24,9 +24,10 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 {
     typedef SAX::basic_EntityResolver<stringT> EntityResolverT;
     typedef SAX::basic_ErrorHandler<stringT> ErrorHandlerT;
-    typedef SimpleDOM::EntityImpl<stringT, string_adaptorT > EntityT;
-    typedef SimpleDOM::NotationImpl<stringT, string_adaptorT > NotationT;
-    typedef SimpleDOM::ElementImpl<stringT, string_adaptorT > ElementT;
+    typedef SimpleDOM::EntityImpl<stringT, string_adaptorT> EntityT;
+    typedef SimpleDOM::NotationImpl<stringT, string_adaptorT> NotationT;
+    typedef SimpleDOM::ElementImpl<stringT, string_adaptorT> ElementT;
+    typedef typename SAX::basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
   public:
     Parser() :
@@ -175,20 +176,20 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     ////////////////////////////////////////////////////
     // ErrorHandler
-    virtual void warning(const SAX::SAXParseException& e) 
+    virtual void warning(const SAXParseExceptionT& e) 
     { 
       if(errorHandler_)
         errorHandler_->warning(e);
     } // warning
 
-    virtual void error(const SAX::SAXParseException& e) 
+    virtual void error(const SAXParseExceptionT& e) 
     {
       if(errorHandler_)
         errorHandler_->error(e);
       reset();
     } // error
 
-    virtual void fatalError(const SAX::SAXParseException& e)
+    virtual void fatalError(const SAXParseExceptionT& e)
     {
       if(errorHandler_)
         errorHandler_->fatalError(e);
