@@ -1,23 +1,17 @@
 /*
  * $Id$
  */
-
 #ifdef _MSC_VER
 #pragma warning(disable: 4786 4800)
 #endif
 
 #include <SAX/ParserConfig.h>
-
-#ifndef XERCES_HAS_CPP_NAMESPACE
-#pragma message("No XERCES namespace")
-#else
-#pragma message("XERCES namespace defined")
-#endif
+#include <SAX/wrappers/saxxerces.h>
 
 namespace SAX
 {
 
-namespace xerces_implemenation_helper
+namespace XercesImpl
 {
   void xerces_initializer::doInitialize()
   {
@@ -37,5 +31,4 @@ namespace xerces_implemenation_helper
 } //namespace xerces_implemenation_helper
 
 } // namespace SAX
-
 // end of file

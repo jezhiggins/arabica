@@ -106,7 +106,7 @@ public:
    * @see basic_DTDHandler#notationDecl
    */
   virtual void notationDecl(const stringT& name,
-			    const stringT& publicId,
+                            const stringT& publicId,
                             const stringT& systemId) { }
 
   /**

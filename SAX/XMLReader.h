@@ -367,9 +367,9 @@ public:
     Property<propertyTypeT&>* prop = dynamic_cast<Property<propertyTypeT&>* >(pb.get());
 
     if(!prop)
-      throw std::bad_cast("Property " + name + " is wrong type.");
+      throw SAX::SAXNotSupportedException("Property " + name + " is wrong type.");
 
-    return pro->get();
+    return prop->get();
   } // getProperty
 
   /**

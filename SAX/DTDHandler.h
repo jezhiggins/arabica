@@ -71,7 +71,7 @@ public:
    * That base URI is available from {@link basic_Locator#getSystemId} during
    * this callback, assuming the parser provides a Locator.</p>
    *
-   * <p>At least one of publicId and systemId must be non-null. </p>
+   * <p>At least one of publicId and systemId must be non-empty. </p>
    *
    * <p>There is no guarantee that the notation declaration will be
    * reported before any unparsed entities that use it.</p>

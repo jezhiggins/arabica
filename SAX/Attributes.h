@@ -68,11 +68,11 @@ public:
    * through the list.</p>
    *
    * @return The number of attributes in the list.
-   * @see #getURI(int)
-   * @see #getLocalName(int)
-   * @see #getQName(int)
-   * @see #getType(int)
-   * @see #getValue(int)
+   * @see #getURI(unsigned int)
+   * @see #getLocalName(unsigned int)
+   * @see #getQName(unsigned int)
+   * @see #getType(unsigned int)
+   * @see #getValue(unsigned int)
    */
   virtual int getLength() const = 0;
 

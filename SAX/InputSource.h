@@ -8,6 +8,7 @@
 #include <string>
 
 #include <SAX/ArabicaConfig.h>
+#include <SAX/IStreamHandle.h>
 
 namespace SAX
 {
@@ -18,20 +19,18 @@ namespace SAX
  * <p>This class allows a SAX application to encapsulate information
  * about an input source in a single object, which may include
  * a public identifier, a system identifier, a byte stream (possibly
- * with a specified encoding), and/or a character stream.</p>
+ * with a specified encoding).</p>
  *
  * <p>There are two places that the application will deliver this
  * input source to the parser: as the argument to the Parser.parse
  * method, or as the return value of the EntityResolver.resolveEntity
  * method.</p>
  *
- * <p>The SAX parser will use the InputSource object to determine how
- * to read XML input.  If there is a character stream available, the
- * parser will read that stream directly; if not, the parser will use
- * a byte stream, if available; if neither a character stream nor a
- * byte stream is available, the parser will attempt to open a URI
- * connection to the resource identified by the system
- * identifier.</p>
+ * <p>The SAX parser will use the InputSource object to determine 
+ * how to read XML input.  If there is a byte stream available, 
+ * the parser will read that stream directly; if a byte stream is 
+ * not available, the parser will attempt to open a URI connection 
+ * to the resource identified by the system identifier.</p> 
  *
  * <p>An InputSource object belongs to the application: the SAX parser
  * shall never modify it in any way (it may modify a copy if 
@@ -62,7 +61,11 @@ public:
    * @see #setEncoding
    */
   basic_InputSource() : 
-    byteStream_(0) { }
+    byteStream_(),
+    publicId_(),
+    systemId_(),
+    encoding_()
+    { }
   /**
    * Create a new input source with a system identifier.
    *
@@ -77,14 +80,19 @@ public:
    * @see #setSystemId
    * @see #setByteStream
    * @see #setEncoding
-   * @see #setCharacterStream
    */
   basic_InputSource(const stringT& systemId) : 
-    systemId_(systemId), byteStream_(0) { }
+    byteStream_(),
+    publicId_(),
+    systemId_(systemId), 
+    encoding_()
+    { }
   basic_InputSource(const basic_InputSource& rhs) :
+    byteStream_(rhs.byteStream_),
     publicId_(rhs.publicId_),
     systemId_(rhs.systemId_),
-    byteStream_(rhs.byteStream_) { }
+    encoding_(rhs.encoding_)
+    { }
   /**
    * Create a new input source with a byte stream.
    *
@@ -93,23 +101,55 @@ public:
    * public identifier, and/or setEncoding to specify the object's
    * character encoding.</p>
    *
-   * @param byteStream The raw byte stream containing the document.
+   * @param byteStream The raw byte stream containing the document.  The
+   *                   basic_InputSource does not assume ownership of 
+   *                   this byteStream.
+   * @see #basic_InputSource(std::auto_ptr<std::istream>)
    * @see #setPublicId
    * @see #setSystemId
    * @see #setEncoding
    * @see #setByteStream
-   * @see #setCharacterStream
    */
   basic_InputSource(std::istream& byteStream) :
-      byteStream_(&byteStream) { }
+      byteStream_(byteStream),
+      publicId_(),
+      systemId_(),
+      encoding_()
+    { }
+
+
+  /**
+   * Create a new input source with a byte stream.
+   *
+   * <p>Application writers may use setSystemId to provide a base 
+   * for resolving relative URIs, setPublicId to include a 
+   * public identifier, and/or setEncoding to specify the object's
+   * character encoding.</p>
+   *
+   * @param byteStream The raw byte stream containing the document.  The
+   *                   basic_InputSource assumes ownership of the byteStream 
+   *                   and will delete it when no-longer required. 
+   * @see basic_InputSource(std::istream&) 
+   * @see #setPublicId
+   * @see #setSystemId 
+   * @see #setEncoding 
+   * @see #setByteStream 
+   */
+  basic_InputSource(std::auto_ptr<std::istream> byteStream) :
+      byteStream_(byteStream),
+      publicId_(),
+      systemId_(),
+      encoding_()
+  { }
 
   virtual ~basic_InputSource() { }
 
   basic_InputSource& operator=(const basic_InputSource& rhs)
   {
+    byteStream_ = rhs.byteStream_;
     publicId_ = rhs.publicId_;
     systemId_ = rhs.systemId_;
-    byteStream_ = rhs.byteStream_;
+    encoding_ = rhs.encoding_;
 
     return *this;
   } // operator=
@@ -138,12 +178,12 @@ public:
   /**
    * Set the system identifier for this input source.
    *
-   * <p>The system identifier is optional if there is a byte stream
-   * or a character stream, but it is still useful to provide one,
-   * since the application can use it to resolve relative URIs
-   * and can include it in error messages and warnings (the parser
-   * will attempt to open a connection to the URI only if
-   * there is no byte stream or character stream specified).</p>
+   * <p>The system identifier is optional if there is a byte
+   * stream but it is still useful to provide one, since the
+   * application can use it to resolve relative URIs and can
+   * include it in error messages and warnings (the parser will
+   * attempt to open a connection to the URI only if there is no
+   * byte stream specified).</p>
    *
    * <p>If the application knows the character encoding of the
    * object pointed to by the system identifier, it can register
@@ -175,44 +215,85 @@ public:
   /**
    * Set the byte stream for this input source.
    *
-   * <p>The SAX parser will ignore this if there is also a character
-   * stream specified, but it will use a byte stream in preference
+   * <p>The SAX parser will use a byte stream in preference
    * to opening a URI connection itself.</p>
    *
    * <p>If the application knows the character encoding of the
    * byte stream, it should set it with the setEncoding method.</p>
    *
    * @param byteStream A byte stream containing an XML document or
-   *        other entity.
+   *        other entity. The basic_InputSource does not assume 
+   *                   ownership of byteStream. 
+   * @see #setByteStream(std::auto_ptr<std::istream>) To transfer ownership of 
+   *                                  an std::istream to an  InputSource
    * @see #setEncoding
    * @see #getByteStream
    * @see #getEncoding
    */
   void setByteStream(std::istream& byteStream)
   {
-    byteStream_ = &byteStream;
+    byteStream_ = byteStream;
   } // setByteStream
+
   /**
-   * Get the byte stream for this input source.
+   * Set the byte stream for this input source.
+   *
+   * <p>The SAX parser will use a byte stream in preference to
+   * opening a URI connection itself.</p>
+   *
+   * <p>If the application knows the character encoding of the
+   * byte stream, it should set it with the setEncoding method.</p>
+   *
+   * @param byteStream A byte stream containing an XML document or
+   *                   other entity.  The basic_InputSource assumes 
+   *                   ownership of byteStream. 
+   * @see #setByteStream(std::istream&) 
+   * @see #setEncoding 
+   * @see #getByteStream 
+   * @see #getEncoding 
+   */
+  void setByteStream(std::auto_ptr<std::istream> byteStream)
+  {
+    byteStream_ = byteStream;
+  } // setByteStream
+
+  /**
+   * Get the byte stream for this input source as a <code>std::istream*</code>. 
+   *
+   * <p>The getEncoding method will return the character 
+   * encoding for this byte stream, or an empty string if unknown.</p>
+   * 
+   * @return The byte stream, or null if none was supplied.  No ownership is 
+   *         transfered. 
+   * @see #getEncoding 
+   * @see #setByteStream 
+   */
+  std::istream* getByteStream() const
+  {
+    return byteStream_.get(); 
+  } // getByteStream
+
+  /**
+   * Get the byte stream for this input source as an IStreamHandle.
    *
    * <p>The getEncoding method will return the character
    * encoding for this byte stream, or null if unknown.</p>
    *
-   * @return The byte stream, or null if none was supplied.
+   * @return The byte stream, or null if none was supplied.  Ownership is
+   *         shared between this and the client code.
    * @see #getEncoding
    * @see #setByteStream
    */
-  std::istream* getByteStream() const { return byteStream_ ;}
-
+  IStreamHandle getByteStreamHandle() const
+  {
+    return byteStream_;
+  }
   /** 
    * Set the character encoding, if known.
    *
    * <p>The encoding must be a string acceptable for an
    * XML encoding declaration (see section 4.3.3 of the XML 1.0
    * recommendation).</p>
-   *
-   * <p>This method has no effect when the application provides a
-   * character stream.</p>
    *
    * @param encoding A string describing the character encoding.
    * @see #setSystemId
@@ -232,76 +313,13 @@ public:
 
   ///////////////////////////////////////////////////////////
 private:
+  IStreamHandle byteStream_;
 	stringT publicId_;
 	stringT systemId_;
-  std::istream* byteStream_;
 	stringT encoding_;
 
   bool operator==(const basic_InputSource&); // no implementation
 }; // class basic_InputSource
-
-/* char specialization
-template<>
-basic_InputSource<char>::basic_InputSource(std::istream& byteStream) :
-  byteStream_(&byteStream),
-  charStream_(&byteStream)
-{
-} // basic_InputSource
-
-template<>
-basic_InputSource<char>::basic_InputSource(charStreamT& charStream, bool) :
-  byteStream_(&charStream),
-  charStream_(&charStream)
-{
-} // basic_InputSource
-
-template<>
-void basic_InputSource<char>::setByteStream(std::istream& byteStream)
-{
-  byteStream_ = &byteStream;
-  charStream_ = &byteStream;
-} // setByteStream
-
-template<>
-void basic_InputSource<char>::setCharacterStream(charStreamT& charStream)
-{
-  byteStream_ = &charStream;
-  charStream_ = &charStream;
-} // setCharStream
-*/
-
-/*
-// wchar_t specializations
-template<>
-basic_InputSource<wchar_t>::basic_InputSource(std::istream& byteStream) :
-  byteStream_(&byteStream),
-  charStream_(0)
-{
-} // basic_InputStream
-
-template<>
-basic_InputSource<wchar_t>::basic_InputSource(charStreamT& charStream, bool) :
-  byteStream_(0),
-  charStream_(&charStream)
-{
-} // basic_InputStream
-
-/////////////////////////////
-template<class charT, class traitsT, class allocatorT>
-void basic_InputSource<charT, traitsT, allocatorT>::setByteStream(std::istream& byteStream)
-{
-  byteStream_ = &byteStream;
-  charStream_ = 0;
-} // setByteStream
-
-template<class charT, class traitsT, class allocatorT>
-void basic_InputSource<charT, traitsT, allocatorT>::setCharacterStream(charStreamT& charStream)
-{
-  byteStream_ = 0;
-  charStream_ = &charStream;
-} // setCharStream
-*/
-
 
 typedef basic_InputSource<std::string> InputSource;
 #ifndef ARABICA_NO_WCHAR_T

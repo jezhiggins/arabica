@@ -31,6 +31,10 @@ define ARABICA_NO_CODECVT_SPECIALISATIONS
 define ARABICA_WINDOWS
 #endif
 
+#if defined(_DEBUG) || (__DEBUG__)
+define ARABICA_DEBUG
+#endif
+
 endif // ARABICA_CONFIG_H
 
 

@@ -130,7 +130,7 @@ public:
    * @return The attribute type as a string, or
    *         an empty string if the index is out of range.
    * @see #getLength 
-   * @see #getType(java.lang.String)
+   * @see #getType(const stringT&)
    */
   virtual const stringT& getType(int i) const = 0;
   /**
@@ -178,7 +178,7 @@ public:
    * @param name The name of the attribute in the list.
    * @return The attribute value as a string, or an empty string if
    *         no such attribute exists.
-   * @see #getValue(stringT)
+   * @see #getValue(int)
    */
   virtual const stringT& getValue(const stringT& name) const = 0;
 

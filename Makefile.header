@@ -1,7 +1,7 @@
 ####################################
 # ARABICA CONFIG
 # edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_EXPAT 
+PARSER_CONFIG = -DUSE_XERCES 
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 ####################################

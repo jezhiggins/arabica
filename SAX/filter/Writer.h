@@ -32,24 +32,26 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef typename XMLReaderT::PropertyBase PropertyBase;
 
   public:
-    basic_Writer(ostreamT& stream) :
+    basic_Writer(ostreamT& stream, unsigned int indent = 2) :
       inCDATA_(false),
       inDTD_(false),
-      indent_(2),
+      indent_(indent),
       depth_(0),
       stream_(&stream),
-      lexicalHandler_(0)
+      lexicalHandler_(0),
+      lastTag_(startTag)
     {
     } // basic_Writer
 
-    basic_Writer(ostreamT& stream, XMLReaderT& parent) :
+    basic_Writer(ostreamT& stream, XMLReaderT& parent, unsigned int indent = 2) :
       XMLFilterT(parent),
       inCDATA_(false),
       inDTD_(false),
-      indent_(2),
+      indent_(indent),
       depth_(0),
       stream_(&stream),
-      lexicalHandler_(0)
+      lexicalHandler_(0),
+      lastTag_(startTag)
     {
     } // basic_Writer
 
@@ -89,6 +91,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     int indent_;
     int depth_;
     ostreamT* stream_;
+    enum { startTag, endTag, docTag } lastTag_;
 
     LexicalHandlerT* lexicalHandler_;
     const SAX::PropertyNames<stringT> properties_;
@@ -175,20 +178,21 @@ void basic_Writer<string_type>::startDocument()
            << UnicodeT::QUOTATION_MARK
            << UnicodeT::QUESTION_MARK
            << UnicodeT::GREATER_THAN_SIGN
-           << std::endl;
-
-
+           << UnicodeT::LINE_FEED;
 
   depth_ = 0;
   inCDATA_ = false;
 
   XMLFilterT::startDocument();
+
+  lastTag_ = docTag;
 } // startDocument
 
 template<class string_type>
 void basic_Writer<string_type>::endDocument()
 {
   XMLFilterT::endDocument();
+  lastTag_ = endTag;
 } // endDocument
 
 template<class string_type>
@@ -196,6 +200,8 @@ void basic_Writer<string_type>::startElement(
                               const stringT& namespaceURI, const stringT& localName,
                               const stringT& qName, const AttributesT& atts)
 { 
+  if(lastTag_ == startTag)
+    *stream_ << UnicodeT::LINE_FEED;
   doIndent();
   *stream_ << UnicodeT::LESS_THAN_SIGN << (!qName.empty() ? qName : localName);
   
@@ -212,6 +218,7 @@ void basic_Writer<string_type>::startElement(
 
   *stream_ << UnicodeT::GREATER_THAN_SIGN;
   ++depth_;
+  lastTag_ = startTag;
 
   XMLFilterT::startElement(namespaceURI, localName, qName, atts);
 } // startElement
@@ -222,12 +229,14 @@ void basic_Writer<string_type>::endElement(
                             const stringT& qName)
 {
   --depth_;
-  doIndent();
+  if(lastTag_ == endTag)
+    doIndent();
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::SLASH
            << (!qName.empty() ? qName : localName)
            << UnicodeT::GREATER_THAN_SIGN
            << UnicodeT::LINE_FEED;
+  lastTag_ = endTag;
 
   XMLFilterT::endElement(namespaceURI, localName, qName);
 } // endElement
@@ -281,7 +290,7 @@ template<class string_type>
 void basic_Writer<string_type>::doIndent()
 {
   for(int i = 0; i < depth_; ++i)
-    *stream_ << UnicodeT::SPACE << UnicodeT::SPACE;
+    *stream_ << UnicodeT::SPACE;
 } // doIndent
 
 template<class string_type>

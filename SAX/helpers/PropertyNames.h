@@ -11,18 +11,35 @@
 namespace SAX
 {
 
+/** The core SAX 2 parser properties. */
 template<class string_type, class string_adaptor_type = default_string_adaptor<string_type> >
 struct PropertyNames
 {
-    typedef string_type stringT;
-    typedef string_adaptor_type string_adaptorT;
-
-    const stringT lexicalHandler;
-    const stringT declHandler;
+    /** @name SAX 2 Properties
+     * @{ */
+    /** Register a lexical handler.
+     *
+     * The Lexical Handler is used to see some syntax events that are essential 
+     * in some applications: comments, CDATA delimiters, selected general 
+     * entity inclusions, and the start and end of the DTD (and declaration of 
+     * document element name). 
+     * 
+     * The value assigned must implement SAX::LexicalHandler. 
+     */
+    const string_type lexicalHandler;
+    /** Register a Declaration Handler.
+     *
+     * Used to see most DTD declarations except those treated as lexical
+     * ("document element name is ...") or which are mandatory for all SAX 
+     * parsers (DTDHandler). 
+     * 
+     * The value assigned must implement SAX::DeclHandler */
+    const string_type declHandler;
+    /** @} */
 
     PropertyNames() :
-      lexicalHandler(string_adaptorT().makeStringT("http://xml.org/sax/handlers/LexicalHandler")),
-      declHandler(string_adaptorT().makeStringT("http://xml.org/sax/handlers/DeclHandler"))
+      lexicalHandler(string_adaptor_type().makeStringT("http://xml.org/sax/handlers/LexicalHandler")),
+      declHandler(string_adaptor_type().makeStringT("http://xml.org/sax/handlers/DeclHandler"))
     {
     } // PropertyNames
 }; // struct PropertyNames

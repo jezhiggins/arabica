@@ -46,8 +46,8 @@ namespace SAX
  *     if(systemId == "http://www.myhost.com/today") 
  *     {
  *       // return a special input source
- *       MyReader reader = new MyReader();
- *       return SAX::InputSource(reader);
+ *       MyStream* reader = new MyStream();
+ *       return SAX::InputSource(stream);
  *     } else {
  *       // request default behaviour
  *       return SAX::InputSource();
