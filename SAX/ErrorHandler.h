@@ -39,10 +39,14 @@ namespace SAX
  * @see basic_Parser#setErrorHandler
  * @see basic_SAXParseException 
  */
-class ErrorHandler
+template<class string_type>
+class basic_ErrorHandler
 {
 public:
-	virtual ~ErrorHandler() { };
+  typedef string_type stringT;
+  typedef basic_SAXParseException<stringT> SAXParseExceptionT;
+
+  virtual ~basic_ErrorHandler() { };
 
   /**
    * Receive notification of a warning.
@@ -62,7 +66,7 @@ public:
    *                  SAX parse exception.
    * @see basic_SAXParseException 
    */
-  virtual void warning(const SAXParseException& exception) = 0;
+  virtual void warning(const SAXParseExceptionT& exception) = 0;
   /**
    * Receive notification of a recoverable error.
    *
@@ -86,7 +90,7 @@ public:
    *                  SAX parse exception.
    * @see basic_SAXParseException 
    */
-  virtual void error(const SAXParseException& exception) = 0;
+  virtual void error(const SAXParseExceptionT& exception) = 0;
   /**
    * Receive notification of a non-recoverable error.
    *
@@ -105,8 +109,11 @@ public:
    *                  SAX parse exception.  
    * @see basic_SAXParseException
    */
-  virtual void fatalError(const SAXParseException& exception) = 0;
+  virtual void fatalError(const SAXParseExceptionT& exception) = 0;
 }; // class ErrorHandler
+
+typedef basic_ErrorHandler<std::string> ErrorHandler;
+typedef basic_ErrorHandler<std::wstring> wErrorHandler;
 
 }; // namespace SAX
 
