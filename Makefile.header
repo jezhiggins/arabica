@@ -1,7 +1,7 @@
 ####################################
 # ARABICA CONFIG
 # edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T 
+PARSER_CONFIG = -DUSE_LIBXML2 
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 ####################################
@@ -29,22 +29,21 @@ COPY = cp -f
 # your parser choice
 # eg DYNAMIC_LIBS = -lexpat
 
-CXXFLAGS = -Wall -g
-LDFLAGS = -L/usr/local/lib
-
+CXXFLAGS = -Wall 
+LDFLAGS = 
 
 # Includes and library directories 
 INCS_DIRS = -I.. 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS =  -lexpat -lstdc++ 
+DYNAMIC_LIBS =  -lxml2 -lstdc++ 
 
-# link flag to create a shared library
+# flag to create a shared library
 LINK_SHARED = -shared
 
-EXESUFFIX = .exe
-LIBSUFFIX = .dll
+ESUFFIX = 
+LIBSUFFIX = .so
 
 
 
