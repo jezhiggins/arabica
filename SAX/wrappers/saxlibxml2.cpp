@@ -2,9 +2,14 @@
  * $Id$
  */
 
-#pragma warning(disable: 4786 4800)
+#include <SAX/ParserConfig.h>
 
-#include <SAX/wrappers/saxlibxml2.h>
+#ifdef USE_LIBXML2
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4786 4800)
+#endif
+
 #include <SAX/SAXNotRecognizedException.h>
 
 namespace SAX
@@ -197,4 +202,6 @@ bool lwit_getFeature(xmlParserCtxtPtr context, const char* name)
 } // namespace libxml2_wrapper_impl_tiddle
 
 } // namespace SAX
+
+#endif // USE_LIBXML2
 // end of file

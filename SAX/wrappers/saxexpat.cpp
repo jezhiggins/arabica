@@ -2,9 +2,13 @@
  * $Id$
  */
 
-#pragma warning(disable: 4786)
+#include <SAX/ParserConfig.h>
 
-#include <SAX/wrappers/saxexpat.h>
+#ifdef USE_EXPAT
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4786)
+#endif
 
 namespace SAX
 {
@@ -127,5 +131,7 @@ int ewim_externalEntityRefHandler(XML_Parser parser,
 
 } // namespace expat_wrapper_impl_mumbojumbo
 } // namespace SAX
+
+#endif // USE_EXPAT
 // end of file
 

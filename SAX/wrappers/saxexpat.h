@@ -1,4 +1,4 @@
-#ifndef saxexpat2H
+#ifndef saxexpat2H // -*- C++ -*-
 #define saxexpat2H
 //---------------------------------------------------------------------------
 // A SAX2 wrapper class for expat.
@@ -44,30 +44,30 @@ void ewim_elementDeclaration(void* userData,
                              const XML_Char* name,
                              XML_Content* model);
 void ewim_attListDeclaration(void* userData,
-				                     const XML_Char* elname,
-					                   const XML_Char* attname,
-					                   const XML_Char* att_type,
-					                   const XML_Char* dflt,
-					                   int		isrequired);
+                             const XML_Char* elname,
+                             const XML_Char* attname,
+                             const XML_Char* att_type,
+                             const XML_Char* dflt,
+                             int isrequired);
 void ewim_entityDeclaration(void* userData, 
                             const XML_Char* entityName,
-				                    int is_parameter_entity,
-				                    const XML_Char* value,
-				                    int value_length,
-				                    const XML_Char* base,
-				                    const XML_Char* systemId,
-				                    const XML_Char* publicId,
-				                    const XML_Char* notationName);
+                            int is_parameter_entity,
+                            const XML_Char* value,
+                            int value_length,
+                            const XML_Char* base,
+                            const XML_Char* systemId,
+                            const XML_Char* publicId,
+                            const XML_Char* notationName);
 void ewim_notationDeclaration(void* userData,
-					                    const XML_Char* notationName,
-					                    const XML_Char* base,
-					                    const XML_Char* systemId,
-					                    const XML_Char* publicId);
+                              const XML_Char* notationName,
+                              const XML_Char* base,
+                              const XML_Char* systemId,
+                              const XML_Char* publicId);
 void ewim_startDoctypeDecl(void* userData,
-  				                 const XML_Char* doctypeName,
-					                 const XML_Char* sysid,
-					                 const XML_Char* pubid,
-					                 int has_internal_subset);
+                           const XML_Char* doctypeName,
+                           const XML_Char* sysid,
+                           const XML_Char* pubid,
+                           int has_internal_subset);
 void ewim_endDoctypeDecl(void* userData);
 void ewim_startCdataSection(void* userData);
 void ewim_endCdataSection(void* userData);
@@ -90,26 +90,26 @@ private:
   virtual void elementDeclaration(const XML_Char* name,
                                   const XML_Content* model) = 0;
   virtual void attListDeclaration(const XML_Char* elname,
-					                        const XML_Char* attname,
-					                        const XML_Char* att_type,
-					                        const XML_Char* dflt,
-					                        int	isrequired) = 0;
+                                  const XML_Char* attname,
+                                  const XML_Char* att_type,
+                                  const XML_Char* dflt,
+                                  int	isrequired) = 0;
   virtual void entityDeclaration(const XML_Char* entityName,
-				                         int is_parameter_entity,
-				                         const XML_Char* value,
-				                         int value_length,
-				                         const XML_Char* base,
-				                         const XML_Char* systemId,
-				                         const XML_Char* publicId,
-				                         const XML_Char* notationName) = 0;
+                                 int is_parameter_entity,
+                                 const XML_Char* value,
+                                 int value_length,
+                                 const XML_Char* base,
+                                 const XML_Char* systemId,
+                                 const XML_Char* publicId,
+                                 const XML_Char* notationName) = 0;
   virtual void notationDeclaration(const XML_Char* notationName,
-	  				                       const XML_Char* base,
-		  			                       const XML_Char* systemId,
-			  		                       const XML_Char* publicId) = 0;
+                                   const XML_Char* base,
+                                   const XML_Char* systemId,
+                                   const XML_Char* publicId) = 0;
   virtual void startDoctypeDecl(const XML_Char* doctypeName,
-					                      const XML_Char* sysid,
-					                      const XML_Char* pubid,
-					                      int has_internal_subset) = 0;
+                                const XML_Char* sysid,
+                                const XML_Char* pubid,
+                                int has_internal_subset) = 0;
   virtual void endDoctypeDecl() = 0;
   virtual void startCdataSection() = 0;
   virtual void endCdataSection() = 0;
@@ -248,7 +248,6 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
   protected:
     virtual std::auto_ptr<PropertyBaseT> doGetProperty(const stringT& name);
     virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value);
-
 	private:
     typename namespaceSupportT::Parts processName(const stringT& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
@@ -262,26 +261,26 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     virtual void elementDeclaration(const XML_Char* name,
                                     const XML_Content* model);
     virtual void attListDeclaration(const XML_Char* elname,
-					                          const XML_Char* attname,
-					                          const XML_Char* att_type,
-					                          const XML_Char* dflt,
-					                          int	isrequired);
+                                    const XML_Char* attname,
+                                    const XML_Char* att_type,
+                                    const XML_Char* dflt,
+                                    int	isrequired);
     virtual void entityDeclaration(const XML_Char* entityName,
-				                           int is_parameter_entity,
-				                           const XML_Char* value,
-				                           int value_length,
-				                           const XML_Char* base,
-				                           const XML_Char* systemId,
-				                           const XML_Char* publicId,
-				                           const XML_Char* notationName);
+                                   int is_parameter_entity,
+                                   const XML_Char* value,
+                                   int value_length,
+                                   const XML_Char* base,
+                                   const XML_Char* systemId,
+                                   const XML_Char* publicId,
+                                   const XML_Char* notationName);
     virtual void notationDeclaration(const XML_Char* notationName,
-	  				                         const XML_Char* base,
-		  			                         const XML_Char* systemId,
-			  		                         const XML_Char* publicId);
+                                     const XML_Char* base,
+                                     const XML_Char* systemId,
+                                     const XML_Char* publicId);
     virtual void startDoctypeDecl(const XML_Char* doctypeName,
-					                        const XML_Char* sysid,
-					                        const XML_Char* pubid,
-					                        int has_internal_subset);
+                                  const XML_Char* sysid,
+                                  const XML_Char* pubid,
+                                  int has_internal_subset);
     virtual void endDoctypeDecl();
     virtual void startCdataSection();
     virtual void endCdataSection();
@@ -300,9 +299,9 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
 
     // member variables
     entityResolverT* entityResolver_;
-		dtdHandlerT* dtdHandler_;
-		contentHandlerT* contentHandler_;
-		SAX::ErrorHandler* errorHandler_;
+    dtdHandlerT* dtdHandler_;
+    contentHandlerT* contentHandler_;
+    SAX::ErrorHandler* errorHandler_;
     declHandlerT* declHandler_;
     lexicalHandlerT* lexicalHandler_;
     namespaceSupportT nsSupport_;

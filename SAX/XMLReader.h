@@ -1,4 +1,4 @@
-#ifndef XMLReaderH
+#ifndef XMLReaderH // -*- C++ -*-
 #define XMLReaderH
 
 // XMLReader.h
