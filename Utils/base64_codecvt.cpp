@@ -13,7 +13,7 @@ base64_codecvt::~base64_codecvt()
 {
 } // ~base64_codecvt
 
-std::codecvt_base::result base64_codecvt::do_out(mbstate_t& state,
+std::codecvt_base::result base64_codecvt::do_out(state_t& state,
                         const char* from,
                         const char* from_end,
                         const char*& from_next,
@@ -71,7 +71,7 @@ std::codecvt_base::result base64_codecvt::do_out(mbstate_t& state,
   return ((getState() == 0) && (getCurrentOutChar() == NO_MORE) && (getPreviousChar() == 0)) ? std::codecvt_base::ok : std::codecvt_base::partial;
 } // do_out
 
-std::codecvt_base::result base64_codecvt::do_in(mbstate_t& state,
+std::codecvt_base::result base64_codecvt::do_in(state_t& state,
                        const char* from,
                        const char* from_end,
                        const char*& from_next,
@@ -86,9 +86,10 @@ std::codecvt_base::result base64_codecvt::do_in(mbstate_t& state,
 
   while((from_next != from_end) && (to != to_limit))
   {
-    char c = base64_charset.find(*from_next++);
-    if(c == std::string::npos)
+    size_t i = base64_charset.find(*from_next++);
+    if(i == std::string::npos)
       continue;
+    char c = static_cast<char>(i);
 
     char p = getPreviousChar();
     switch(getState())
@@ -112,17 +113,17 @@ std::codecvt_base::result base64_codecvt::do_in(mbstate_t& state,
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial; 
 } // do_in
 
-std::codecvt_base::result base64_codecvt::do_unshift(mbstate_t& state,
+std::codecvt_base::result base64_codecvt::do_unshift(state_t& state,
                             char* to,
                             char* /* to_limit */,
                             char*& to_next) const
 {
   to_next = to;
-  state = 0;
+  state = state_t(0);
   return codecvt_base::ok;
 } // do_unshift
 
-mbstate_t base64_codecvt::do_encoding() const throw()
+int base64_codecvt::do_encoding() const throw()
 {
   return 0;
 } // do_encoding
@@ -132,7 +133,7 @@ bool base64_codecvt::do_always_noconv() const throw()
   return false;
 } // do_always_noconv
 
-mbstate_t base64_codecvt::do_length(const mbstate_t&,
+int base64_codecvt::do_length(const state_t&,
                         const char* from,
                         const char* end,
                         size_t max) const
@@ -152,20 +153,21 @@ mbstate_t base64_codecvt::do_length(const mbstate_t&,
   return length;
 } // do_length
 
-mbstate_t base64_codecvt::do_max_length() const throw()
+int base64_codecvt::do_max_length() const throw()
 {
   return 2;
 } // do_max_length
 
-mbstate_t base64_codecvt::getState() const
+int base64_codecvt::getState() const
 {
   return (*state_) & 0xff;
 } // getState
 
 void base64_codecvt::nextState() const
 {
-  mbstate_t s = getState();
-  if(++s == 4)
+  state_t s = getState();
+  s = s + 1;
+  if(s == 4)
     s = 0;
 
   *state_ &= 0xffffff00;
