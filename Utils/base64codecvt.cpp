@@ -82,9 +82,14 @@ std::codecvt_base::result base64codecvt::do_in(std::mbstate_t& state,
 
   while((from_next != from_end) && (to != to_limit))
   {
-    size_t i = base64_charset.find(*from_next++);
+    char b = *from_next++;
+    size_t i = base64_charset.find(b);
     if(i == std::string::npos)
+    {
+      if(b == '=')
+        nextState();
       continue;
+    }
     char c = static_cast<char>(i);
 
     char p = getPreviousChar();
@@ -150,6 +155,14 @@ int base64codecvt::do_max_length() const throw()
 {
   return 2;
 } // do_max_length
+
+void base64codecvt::grabState(std::mbstate_t& state) const
+{ 
+  state_ = reinterpret_cast<int*>(&state); 
+  int s = getState();
+  if((s < 0) || (s > 4))
+    *state_ = 0;
+} // grabState
 
 int base64codecvt::getState() const
 {

@@ -59,7 +59,7 @@ private:
   mutable int* state_;
   mutable const char** from_next_;
   mutable const char** from_end_;
-  void grabState(std::mbstate_t& state) const { state_ = reinterpret_cast<int*>(&state); }
+  void grabState(std::mbstate_t& state) const;
   void grabFromNext(const char*& from_next) const { from_next_ = &from_next; }
   void grabFromEnd(const char*& from_end) const { from_end_ = &from_end; }
 
