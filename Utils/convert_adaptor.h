@@ -245,6 +245,6 @@ class iconvert_adaptor : public std::basic_istream<charT, traitsT>
 
   private:
     convert_bufadaptor<charT, traitsT, fromCharT, fromTraitsT> bufadaptor_;
-}; // class basic_socketstream
+}; // class iconvert_adaptor
 
 #endif

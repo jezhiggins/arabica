@@ -3,8 +3,7 @@
 //---------------------------------------------------------------------------
 #include "iso8859_1utf8_codecvt.h"
 //---------------------------------------------------------------------------
-// This facet converts from wide chars to char using the
-// FSS-UTF (UCS2) encoding.
+// This facet converts from ISO8859:1 (Latin 1) chars to UTF-8 encoded chars.
 //
 // Some of this code is derived from work done by Ken Thompson,
 // provided to the X/Open Group.
