@@ -29,13 +29,22 @@ include <SAX/wrappers/saxmsxml2.h>
 undef DEF_SAX_P
 define DEF_SAX_P msxml2_wrapper
 #endif 
-#ifdef USE_XERCES
-pragma message("Including Xerces")
+#ifdef USE_XERCES1
+message("Including Xerces 1")
 include <SAX/wrappers/saxxerces.h>
 undef DEF_SAX_P
 define DEF_SAX_P xerces_wrapper
 #ifdef _MSC_VER
 comment(lib, "xerces-c_1.lib")
+#endif
+#endif
+#ifdef USE_XERCES
+message("Including Xerces")
+include <SAX/wrappers/saxxerces.h>
+undef DEF_SAX_P
+define DEF_SAX_P xerces_wrapper
+#ifdef _MSC_VER
+comment(lib, "xerces-c_2.lib")
 #endif
 #endif
 #ifdef USE_GARDEN
