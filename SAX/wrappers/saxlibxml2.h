@@ -216,6 +216,7 @@ libxml2_wrapper<stringT, string_adaptorT>::libxml2_wrapper() :
   dtdHandler_(0),
   contentHandler_(0),
   errorHandler_(0),
+  declHandler_(0),
   locator_(0),
   parsing_(false),
   namespaces_(true),
