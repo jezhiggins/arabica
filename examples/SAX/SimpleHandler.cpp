@@ -78,7 +78,7 @@ void SimpleHandler::characters(const std::string& ch)
 
 void SimpleHandler::ignorableWhitespace(const std::string& ch)
 {
-	std::cout << "Characters: " << ch << std::endl;
+	std::cout << "Whitespace: " << ch << std::endl;
 } // characters
 
 void SimpleHandler::processingInstruction(const std::string& target, const std::string& data)
