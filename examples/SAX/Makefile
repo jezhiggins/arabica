@@ -6,9 +6,13 @@
 REMOVE = rm -rf
 LINK = ln -sf
 
+# For GNU make:
+OS_VER := $(shell uname -s | sed -e s/\[\.\ \]/_/g)
+# For other make (like Sun's) you can try:
+# OS_VER:sh =uname -sr | sed -e s/\[\.\ \]/_/g
 
 # C/C++ shortcuts
-CPP = /usr/local/bin/gcc
+CXX = c++
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -25,35 +29,37 @@ CPP = /usr/local/bin/gcc
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
-COMPILE_FLAGS = -Wall -c -g
+ifeq ($(OS_VER),SunOS)
+CXXFLAGS = -Wall -pthreads -fpic
+else
+CXXFLAGS = -Wall -pthread -fpic
+endif
 
-LINK_FLAGS = -Wall 
+LDFLAGS = 
+CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
-#  COMPILE_FLAGS += -02
-#  LINK_FLAGS    += -02
+CXXFLAGS += -O2
+LDFLAGS  += -O2 -L../../bin -lstlport_gcc -lSAX -lArabicaUtils -lxml2
 
 # Uncomment for debug version
-#  COMPILE_FLAGS += -g -D__DEBUG__
-#  LINK_FLAGS    += -g -D__DEBUG__
+#  CXXFLAGS += -g -D__DEBUG__
 
 
 # Includes and library directories 
-#INCS_DIRS = -I../.. -I../../include -I/usr/local/include/stlport 
-INCS_DIRS = -I../.. -I../../include
+INCS_DIRS = -I../.. -I/usr/local/include/stlport -I/opt/gnome2/include/libxml2
+#INCS_DIRS = -I.. 
 
-#LIBS_DIRS = -L/usr/local/lib -L../../bin 
-LIBS_DIRS = -L../../bin
+LIBS_DIRS = 
 
-#STATIC_LIBS = -lstlport_gcc -lSAX -lexpat  -lstdc++ 
-STATIC_LIBS = -lSAX -lstdc++
+STATIC_LIBS =
+DYNAMIC_LIBS = -L../../bin -L/opt/gnome2/lib -lstlport_gcc -lSAX -lxml2
 
-PARSER_LIBS = -lexpat
+CXXFLAGS += ${INCS_DIRS}
+LDFLAGS += ${DYNAMIC_LIBS}
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
-
-# Source files
 
 PYX_SRCS = pyx.cpp
 PYX_HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(PYX_SRCS)))
@@ -67,6 +73,7 @@ WRITER_SRCS = writer.cpp
 WRITER_HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(WRITER_SRCS)))
 WRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(WRITER_SRCS)))
 
+
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
@@ -75,15 +82,15 @@ WRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(WRITER_SRCS)))
 all : pyx simple_handler writer
 
 pyx : $(PYX_OBJS)
-	$(CPP) $(PYX_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(PARSER_LIBS) -o pyx 
+	$(LINK.cc) -o $@ $(PYX_OBJS)
 	cp pyx ../../bin
 
 simple_handler : $(SIMPLE_OBJS)
-	$(CPP) $(SIMPLE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(PARSER_LIBS) -o simple_handler 
+	$(LINK.cc) -o $@ $(SIMPLE_OBJS)
 	cp simple_handler ../../bin
 
 writer : $(WRITER_OBJS)
-	$(CPP) $(WRITER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(PARSER_LIBS) -o writer 
+	$(LINK.cc) -o $@ $(WRITER_OBJS)
 	cp writer ../../bin
 
 #/////////////////////////////////////////////////////////////////////////
@@ -92,8 +99,7 @@ writer : $(WRITER_OBJS)
 # Compile rules
 
 %.o : %.cpp
-	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -o $@ $<
-
+	$(COMPILE.cc) -o $@ $<
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -103,7 +109,7 @@ writer : $(WRITER_OBJS)
 depend : .depend
 
 .depend ::
-	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -MM $(SRCS) > .depend
+	$(COMPILE.cc) $(CCDEPFLAGS) ${PYX_SRCS} $(WRITER_SRCS) ${SIMPLE_SRCS} > .depend
 
 -include .depend
 
@@ -114,7 +120,8 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend *.o  core pyx writer simple_handler ../../bin/pyx ../../bin/writer ../../bin/simple_handler
+	$(REMOVE) .depend *.o core pyx writer simple_handler ../../bin/pyx ../../bin/writer ../../bin/simple_handler
+
 
 
 #/////////////////////////////////////////////////////////////////////////

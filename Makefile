@@ -5,18 +5,18 @@
 # High level rules
 
 all : 
-	cd SAX; make 
-	cd Utils; make 
-	cd XML; make 
-	cd examples; make
+	cd SAX; ${MAKE}
+	cd Utils; ${MAKE}
+	cd XML; ${MAKE}
+	cd examples; ${MAKE}
 
 # Cleaning up
 
 clean :
-	cd SAX; make clean
-	cd Utils; make clean
-	cd XML; make clean
-	cd examples; make clean
+	cd SAX; ${MAKE} clean
+	cd Utils; ${MAKE} clean
+	cd XML; ${MAKE} clean
+	cd examples; ${MAKE} clean
 	rm -f arabica.tar.gz
 	rm -f arabica.zip
 

@@ -6,9 +6,13 @@
 REMOVE = rm -rf
 LINK = ln -sf
 
+# For GNU make:
+OS_VER := $(shell uname -s | sed -e s/\[\.\ \]/_/g)
+# For other make (like Sun's) you can try:
+# OS_VER:sh =uname -sr | sed -e s/\[\.\ \]/_/g
 
 # C/C++ shortcuts
-CPP = /usr/local/bin/gcc
+CXX = c++
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -25,36 +29,39 @@ CPP = /usr/local/bin/gcc
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
-COMPILE_FLAGS = -Wall -c -g
+ifeq ($(OS_VER),SunOS)
+CXXFLAGS = -Wall -pthreads -fpic
+else
+CXXFLAGS = -Wall -pthread -fpic
+endif
 
-LINK_FLAGS = -Wall 
+LDFLAGS = 
+CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
-#  COMPILE_FLAGS += -02
-#  LINK_FLAGS    += -02
+CXXFLAGS += -O2
+LDFLAGS  += -O2 -L../../bin -lstlport_gcc -lSAX -lArabicaUtils -lxml2
 
 # Uncomment for debug version
-#  COMPILE_FLAGS += -g -D__DEBUG__
-#  LINK_FLAGS    += -g -D__DEBUG__
+#  CXXFLAGS += -g -D__DEBUG__
 
 
 # Includes and library directories 
-#INCS_DIRS = -I../.. -I../../include -I/usr/local/include/stlport 
-INCS_DIRS = -I../.. -I../../include
+INCS_DIRS = -I../.. -I/usr/local/include/stlport -I/opt/gnome2/include/libxml2
+#INCS_DIRS = -I.. 
 
-#LIBS_DIRS = -L/usr/local/lib -L../../bin 
-LIBS_DIRS = -L../../bin
+LIBS_DIRS = 
 
-#STATIC_LIBS = -lstlport_gcc -lSAX -lexpat  -lstdc++ 
-STATIC_LIBS = -lSAX -lexpat -lstdc++
+STATIC_LIBS =
+DYNAMIC_LIBS = -L../../bin -L/opt/gnome2/lib -lstlport_gcc -lSAX -lxml2
 
-
+CXXFLAGS += ${INCS_DIRS}
+LDFLAGS += ${DYNAMIC_LIBS}
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
-# Source files
-SAXDOM_SRCS = main.cpp test_Attribute.cpp test_Document.cpp test_DocumentFragment.cpp test_DocumentType.cpp test_DOMImplementation.cpp test_Element.cpp test_ProcessingInstruction.cpp test_Siblings.cpp
+SAXDOM_SRCS = main.cpp test_Attribute.cpp test_Document.cpp test_DocumentFragment.cpp test_DocumentType.cpp test_DOMImplementation.cpp test_Element.cpp test_ProcessingInstruction.cpp test_Siblings.cpp test_SAX.cpp
 SAXDOM_HDRS = $(patsubst %.cpp,%.h,$(SAXDOM_SRCS))
 SAXDOM_OBJS = $(patsubst %.cpp,%.o,$(SAXDOM_SRCS))
 
@@ -71,10 +78,11 @@ CPPUNITUI_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITUI_SRCS))
 
 # High level rules
 
-all : SAX2DOM
+all : sax2dom_test
 
-SAX2DOM : $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
-	$(CPP) $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) -o sax2dom_test 
+
+sax2dom_test : $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
+	$(LINK.cc) -o $@ $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
 	cp sax2dom_test ../../bin
 
 #/////////////////////////////////////////////////////////////////////////
@@ -83,8 +91,7 @@ SAX2DOM : $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
 # Compile rules
 
 %.o : %.cpp
-	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -o $@ $<
-
+	$(COMPILE.cc) -o $@ $<
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -94,7 +101,7 @@ SAX2DOM : $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
 depend : .depend
 
 .depend ::
-	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -MM $(SRCS) > .depend
+	$(COMPILE.cc) $(CCDEPFLAGS) $(SAXDOM_SRCS) $(CPPUNITFW_SRCS) $(CPPUNITUI_SRCS) > .depend
 
 -include .depend
 
@@ -105,7 +112,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend core sax2dom_test ../../bin/sax2dom_test $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
+	$(REMOVE) .depend *.o core sax2dom_test ../../bin/sax2dom_test
 
 
 #/////////////////////////////////////////////////////////////////////////

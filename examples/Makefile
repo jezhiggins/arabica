@@ -5,14 +5,14 @@
 # High level rules
 
 all : 
-	cd SAX; make 
-	cd SAX2DOM; make 
+	cd SAX; ${MAKE}
+	cd SAX2DOM; ${MAKE}
 
 # Cleaning up
 
 clean :
-	cd SAX; make clean
-	cd SAX2DOM; make clean
+	cd SAX; ${MAKE} clean
+	cd SAX2DOM; ${MAKE} clean
 
 
 #/////////////////////////////////////////////////////////////////////////

@@ -1,11 +1,18 @@
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
+# Utilities
+
 REMOVE = rm -rf
 LINK = ln -sf
-# C/C++ shortcuts
-CPP = /usr/local/bin/gcc
 
+# For GNU make:
+OS_VER := $(shell uname -s | sed -e s/\[\.\ \]/_/g)
+# For other make (like Sun's) you can try:
+# OS_VER:sh =uname -sr | sed -e s/\[\.\ \]/_/g
+
+# C/C++ shortcuts
+CXX = c++
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -22,33 +29,37 @@ CPP = /usr/local/bin/gcc
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
-COMPILE_FLAGS = -Wall -c -shared
+ifeq ($(OS_VER),SunOS)
+CXXFLAGS = -Wall -pthreads -fpic
+else
+CXXFLAGS = -Wall -pthread -fpic
+endif
 
-LINK_FLAGS = -Wall -Werror -shared -Wl
+LDFLAGS = -shared -Wl,"-hlibArabicaUtils.so.1"
+CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
-#  COMPILE_FLAGS += -02
-#  LINK_FLAGS    += -02
+CXXFLAGS += -O2
+LDFLAGS  += -O2
 
 # Uncomment for debug version
-#  COMPILE_FLAGS += -g -D__DEBUG__
-#  LINK_FLAGS    += -g -D__DEBUG__
+#  CXXFLAGS += -g -D__DEBUG__
 
 
 # Includes and library directories 
-#INCS_DIRS = -I.. -I/usr/local/include/stlport
-INCS_DIRS = -I.. 
+INCS_DIRS = -I.. -I/usr/local/include/stlport -I/opt/gnome2/include/libxml2
+#INCS_DIRS = -I.. 
 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = 
+DYNAMIC_LIBS = -lstlport_gcc -L/opt/gnome2/lib -lxml2
 
+CXXFLAGS += ${INCS_DIRS}
+LDFLAGS += ${DYNAMIC_LIBS}
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
-
-# Source files
 
 SRCS =  utf16utf8_codecvt.cpp iso8859_1utf8_codecvt.cpp
 
@@ -61,16 +72,16 @@ OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
 
 # High level rules
 
-all : libArabicaUtils.a 
+all : libArabicaUtils.so.1 libArabicaUtils.a
 
-libArabicaUtils.so : $(OBJS)
-	$(CPP) $(LIB_DIRS) $(LINK_FLAGS) -o $@ $(OBJS)
-	$(LINK) $@ $@.1
+libArabicaUtils.so.1 : $(OBJS)
+	$(LINK.cc) -o $@ $(OBJS)
+	cp -f libArabicaUtils.so.1 ../bin
+	(cd ../bin; ln -fs libArabicaUtils.so.1 libArabicaUtils.so)
 
 libArabicaUtils.a : $(OBJS)
 	ar r $@ $(OBJS)
-	cp *.a ../bin
-
+	cp -f libArabicaUtils.a ../bin
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -78,8 +89,7 @@ libArabicaUtils.a : $(OBJS)
 # Compile rules
 
 %.o : %.cpp
-	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -o $@ $<
-
+	$(COMPILE.cc) -o $@ $<
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -89,7 +99,7 @@ libArabicaUtils.a : $(OBJS)
 depend : .depend
 
 .depend ::
-	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -MM $(SRCS) > .depend
+	$(COMPILE.cc) $(CCDEPFLAGS) $(SRCS) > .depend
 
 -include .depend
 

@@ -6,10 +6,13 @@
 REMOVE = rm -rf
 LINK = ln -sf
 
+# For GNU make:
+OS_VER := $(shell uname -s | sed -e s/\[\.\ \]/_/g)
+# For other make (like Sun's) you can try:
+# OS_VER:sh =uname -sr | sed -e s/\[\.\ \]/_/g
 
 # C/C++ shortcuts
-CPP = /usr/local/bin/gcc
-
+CXX = c++
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -26,39 +29,42 @@ CPP = /usr/local/bin/gcc
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
-COMPILE_FLAGS = -Wall -c -shared
+ifeq ($(OS_VER),SunOS)
+CXXFLAGS = -Wall -pthreads -fpic
+else
+CXXFLAGS = -Wall -pthread -fpic
+endif
 
-LINK_FLAGS = -Wall -Werror -shared -Wl,-soname,libSAX.so.1
+LDFLAGS = -shared -Wl,"-hlibSAX.so.1"
+CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
-#  COMPILE_FLAGS += -02
-#  LINK_FLAGS    += -02
+CXXFLAGS += -O2
+LDFLAGS  += -O2
 
 # Uncomment for debug version
-#  COMPILE_FLAGS += -g -D__DEBUG__
-#  LINK_FLAGS    += -g -D__DEBUG__
+#  CXXFLAGS += -g -D__DEBUG__
 
 
 # Includes and library directories 
-#INCS_DIRS = -I.. -I/usr/local/include/stlport
-INCS_DIRS = -I.. 
+INCS_DIRS = -I.. -I/usr/local/include/stlport -I/opt/gnome2/include/libxml2
+#INCS_DIRS = -I.. 
 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = 
+DYNAMIC_LIBS = -lstlport_gcc -L/opt/gnome2/lib -lxml2
 
+CXXFLAGS += ${INCS_DIRS}
+LDFLAGS += ${DYNAMIC_LIBS}
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
-# Source files
-PARSER_OPTS = -DUSE_EXPAT
-# define any or all of USE_EXPAT, USE_XERCES, USE_LIBXML2, USE_GARDEN to pull in support
-# for those parsers.  
-
-
-SRCS = saxlib.cpp helpers/InputSourceResolver.cpp ../Utils/utf16utf8_codecvt.cpp 
+SRCS =  wrappers/saxexpat.cpp \
+	wrappers/saxlibxml2.cpp \
+	helpers/InputSourceResolver.cpp \
+	../Utils/utf16utf8_codecvt.cpp 
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
@@ -69,15 +75,18 @@ OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
 
 # High level rules
 
-all : libSAX.a 
+all : libSAX.so.1 libSAX.a 
 
-libSAX.so : $(OBJS)
-	$(CPP) $(LIB_DIRS) $(LINK_FLAGS) -o $@ $(OBJS)
-	$(LINK) $@ $@.1
+libSAX.so.1 : $(OBJS)
+	$(LINK.cc) -o $@ $(OBJS)
+	cp -f libSAX.so.1 ../bin
+	(cd ../bin; rm -f libSAX.so; ln -s libSAX.so.1 libSAX.so)
+
+#	$(LINK) $@ libSAX.so
 
 libSAX.a : $(OBJS)
 	ar r $@ $(OBJS)
-	cp libSAX.a ../bin
+	cp -f libSAX.a ../bin
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -85,14 +94,7 @@ libSAX.a : $(OBJS)
 # Compile rules
 
 %.o : %.cpp
-	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -o $@ $<
-
-saxlib.cpp : saxlib.tpl ParserConfig.h
-	$(CPP) -x c++ -E $(PARSER_OPTS) saxlib.tpl -o saxlib.cpp
-
-ParserConfig.h: ParserConfig.tpl
-	$(CPP) -x c++ -E $(PARSER_OPTS) ParserConfig.tpl -o ParserConfig.h
-
+	$(COMPILE.cc) -o $@ $<
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -102,7 +104,7 @@ ParserConfig.h: ParserConfig.tpl
 depend : .depend
 
 .depend ::
-	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -MM $(SRCS) > .depend
+	$(COMPILE.cc) $(CCDEPFLAGS) $(SRCS) > .depend
 
 -include .depend
 
@@ -113,7 +115,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libSAX*  *~ helpers/*~ core ../bin/libSAX* saxlib.cpp ParserConfig.h
+	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libSAX*  *~ helpers/*~ core ../bin/libSAX*
 
 
 
