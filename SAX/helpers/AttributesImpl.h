@@ -291,11 +291,11 @@ public:
 	  
     int max = atts.getLength();
 	  for(int i = 0; i < max; ++i) 
-      attributes_.push_back(atts.getURI(i),
+      attributes_.push_back(Attr(atts.getURI(i),
                           atts.getLocalName(i),
                           atts.getQName(i),
                           atts.getType(i),
-                          atts.getValue(i));
+                          atts.getValue(i)));
   } // setAttributes
 
   /**
