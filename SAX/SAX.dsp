@@ -466,8 +466,8 @@ SOURCE=.\ParserConfig.S
 InputPath=.\ParserConfig.S
 
 BuildCmds= \
-	cl /TC /D USE_XERCES /EP ParserConfig.S > ParserConfig.h \
-	cl /TC /D USE_XERCES /EP saxlib.S > saxlib.cpp \
+	cl /TC /D USE_MSXML /EP ParserConfig.S > ParserConfig.h \
+	cl /TC /D USE_MSXML /EP saxlib.S > saxlib.cpp \
 	
 
 "ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"

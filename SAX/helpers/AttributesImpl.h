@@ -163,7 +163,7 @@ public:
     {
       const Attr& a = attributes_[i];
 	    if(a.uri_ == uri && a.localName_ == localName)
-        return i;
+        return static_cast<int>(i);
     } // for ...
     return -1;
   } // getIndex
@@ -181,7 +181,7 @@ public:
 	  for(size_t i = 0; i < max; ++i)
     {
 	    if(attributes_[i].qName_ == qName)
-		    return i;
+		    return static_cast<int>(i);
     }
     return -1;
   } // getIndex
