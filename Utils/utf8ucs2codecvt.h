@@ -1,7 +1,7 @@
-#ifndef ARABICA_UTF8UTF16_CODECVT_H
-#define ARABICA_UTF8UTF16_CODECVT_H
+#ifndef ARABICA_UTF8UCS2_CODECVT_H
+#define ARABICA_UTF8UCS2_CODECVT_H
 //---------------------------------------------------------------------------
-// class utf8utf16codecvt
+// class utf8ucs2codecvt
 // This facet converts from Unicode (UCS-2) wchar_ts to
 // char using the UTF-8 encoding.
 //
@@ -20,10 +20,10 @@ namespace std {
 }
 #endif
 
-class utf8utf16codecvt : public std::codecvt<wchar_t, char, std::mbstate_t>
+class utf8ucs2codecvt : public std::codecvt<wchar_t, char, std::mbstate_t>
 {
 protected:
-  virtual ~utf8utf16codecvt() { }
+  virtual ~utf8ucs2codecvt() { }
 
   virtual result do_out(std::mbstate_t&,
                         const wchar_t* from,
@@ -56,6 +56,6 @@ protected:
                         size_t max) const;
 
   virtual int do_max_length() const throw() { return 3; }
-}; // class utf8utf16codecvt
+}; // class utf8ucs2codecvt
 
 #endif

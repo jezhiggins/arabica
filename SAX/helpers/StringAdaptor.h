@@ -6,7 +6,7 @@
 
 #include <string>
 #include <Utils/convertstream.h>
-#include <Utils/utf8utf16codecvt.h>
+#include <Utils/utf8ucs2codecvt.h>
 
 namespace SAX
 {
@@ -74,9 +74,9 @@ public:
 
   default_string_adaptor() :
 #if !(defined _MSC_VER) || !(_MSC_VER < 1300)
-    loc_(std::locale(), new utf8utf16codecvt()),
+    loc_(std::locale(), new utf8ucs2codecvt()),
 #else
-    loc_(std::_Addfac(std::locale(), new utf8utf16codecvt)),
+    loc_(std::_Addfac(std::locale(), new utf8ucs2codecvt)),
 #endif
     n_(),
     w_()
@@ -138,9 +138,9 @@ public:
 
   default_string_adaptor() :
 #if !(defined _MSC_VER) || !(_MSC_VER < 1300)
-    loc_(std::locale(), new utf8utf16codecvt()),
+    loc_(std::locale(), new utf8ucs2codecvt()),
 #else
-    loc_(std::_Addfac(std::locale(), new utf8utf16codecvt)),
+    loc_(std::_Addfac(std::locale(), new utf8ucs2codecvt())),
 #endif
     n_(), 
     w_()

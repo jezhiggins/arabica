@@ -357,6 +357,18 @@
 				RelativePath="..\Utils\socket_stream.h">
 			</File>
 			<File
+				RelativePath="..\Utils\utf16beucs2codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\utf16beucs2codecvt.h">
+			</File>
+			<File
+				RelativePath="..\Utils\utf16leucs2codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\utf16leucs2codecvt.h">
+			</File>
+			<File
 				RelativePath="..\Utils\utf16utf8codecvt.cpp">
 			</File>
 			<File
@@ -369,10 +381,10 @@
 				RelativePath="..\Utils\utf8iso88591codecvt.h">
 			</File>
 			<File
-				RelativePath="..\Utils\utf8utf16codecvt.cpp">
+				RelativePath="..\Utils\utf8ucs2codecvt.cpp">
 			</File>
 			<File
-				RelativePath="..\Utils\utf8utf16codecvt.h">
+				RelativePath="..\Utils\utf8ucs2codecvt.h">
 			</File>
 			<Filter
 				Name="impl"
@@ -384,10 +396,16 @@
 					RelativePath="..\Utils\impl\iso88591_utf8.h">
 				</File>
 				<File
-					RelativePath="..\Utils\impl\utf16_utf8.cpp">
+					RelativePath="..\Utils\impl\ucs2_utf16.cpp">
 				</File>
 				<File
-					RelativePath="..\Utils\impl\utf16_utf8.h">
+					RelativePath="..\Utils\impl\ucs2_utf16.h">
+				</File>
+				<File
+					RelativePath="..\Utils\impl\ucs2_utf8.cpp">
+				</File>
+				<File
+					RelativePath="..\Utils\impl\ucs2_utf8.h">
 				</File>
 			</Filter>
 		</Filter>

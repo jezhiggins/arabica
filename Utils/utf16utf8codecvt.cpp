@@ -2,7 +2,7 @@
 // $Id$
 //---------------------------------------------------------------------------
 #include "utf16utf8codecvt.h"
-#include "impl/utf16_utf8.h"
+#include "impl/ucs2_utf8.h"
 //---------------------------------------------------------------------------
 // This facet converts from wide chars to char using the
 // FSS-UTF (UCS2) encoding.
@@ -16,7 +16,7 @@ std::codecvt_base::result utf16utf8codecvt::do_out(std::mbstate_t& /* state */,
                        wchar_t* to_limit,
                        wchar_t*& to_next) const
 {
-  return ArabicaInternal::utf8_2_utf16(from, from_end, from_next, to, to_limit, to_next);
+  return ArabicaInternal::utf8_2_ucs2(from, from_end, from_next, to, to_limit, to_next);
 } // do_out
 
 std::codecvt_base::result utf16utf8codecvt::do_in(std::mbstate_t& /* state */,
@@ -27,7 +27,7 @@ std::codecvt_base::result utf16utf8codecvt::do_in(std::mbstate_t& /* state */,
                         char* to_limit,
                         char*& to_next) const
 {
-  return ArabicaInternal::utf16_2_utf8(from, from_end, from_next, to, to_limit, to_next);
+  return ArabicaInternal::ucs2_2_utf8(from, from_end, from_next, to, to_limit, to_next);
 } // do_in
 
 std::codecvt_base::result utf16utf8codecvt::do_unshift(std::mbstate_t& /* state */,
