@@ -64,6 +64,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
                             const stringT& qName);
 
     virtual void characters(const stringT& ch);
+    virtual void ignorableWhitespace(const stringT& ch);
 
     virtual void processingInstruction(const stringT& target, const stringT& data);
     virtual void skippedEntity(const stringT& name);
@@ -253,14 +254,24 @@ void basic_Writer<string_type>::characters(const stringT& ch)
 } // characters
 
 template<class string_type>
+void basic_Writer<string_type>::ignorableWhitespace(const stringT& ch)
+{
+  *stream_ << ch;
+
+  XMLFilterT::ignorableWhitespace(ch);
+} // ignorableWhitespace
+
+template<class string_type>
 void basic_Writer<string_type>::processingInstruction(const stringT& target, const stringT& data)
 {
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::QUESTION_MARK
-           << target 
-           << UnicodeT::SPACE
-           << data 
-           << UnicodeT::QUESTION_MARK
+           << target;
+
+  if(data.length())
+    *stream_ << UnicodeT::SPACE << data;
+
+  *stream_ << UnicodeT::QUESTION_MARK
            << UnicodeT::GREATER_THAN_SIGN;
 } // processingInstruction
 
