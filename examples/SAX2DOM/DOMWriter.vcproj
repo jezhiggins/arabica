@@ -35,6 +35,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)/DOMWriter.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -83,6 +84,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)/DOMWriter.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"

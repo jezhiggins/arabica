@@ -13,14 +13,14 @@
 
 int main(int argc, const char* argv[])
 {
-  Arabica::convert::iconvert_adaptor<char> ia(std::cin);
-  Arabica::convert::oconvert_adaptor<char> oa(std::cout);
+  Arabica::convert::iconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > ia(std::cin);
+  Arabica::convert::oconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > oa(std::cout);
 
-  //ia.imbue(std::locale(ia.getloc(), new base64codecvt()));
-  //oa.imbue(std::locale(oa.getloc(), new base64codecvt()));
+  ia.imbue(std::locale(ia.getloc(), new Arabica::convert::utf8ucs2codecvt()));
+  oa.imbue(std::locale(oa.getloc(), new Arabica::convert::utf16beucs2codecvt()));
   while(ia)
   {
-    oa << static_cast<char>(ia.get());
+    oa << static_cast<wchar_t>(ia.get());
     oa.flush();
   } // while
     

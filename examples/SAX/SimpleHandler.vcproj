@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib wsock32.lib"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)/SimpleHandler.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -100,7 +100,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)/SimpleHandler.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"

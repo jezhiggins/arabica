@@ -21,7 +21,7 @@
 
 #include <SAX/ArabicaConfig.h>
 #ifdef ARABICA_VS6_WORKAROUND
-#include <SAX/Utils/impl/VS6Workaround.h>
+#include <Utils/impl/VS6Workaround.h>
 #endif
 
 namespace Arabica
