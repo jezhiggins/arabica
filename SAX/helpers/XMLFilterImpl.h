@@ -7,6 +7,7 @@
 #include <string>
 #include <SAX/XMLFilter.h>
 #include <SAX/helpers/DefaultHandler.h>
+#include <SAX/SAXNotRecognizedException.h>
 
 namespace SAX
 {
