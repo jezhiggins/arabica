@@ -35,8 +35,10 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
   
   if(nodeType == DOM::Node<stringT>::ATTRIBUTE_NODE && prefix == xmlns) 
   {
-    if(namespaceURI == xmlnsURI)
-      return std::make_pair(true, namespaceURI);
+    // DOM mandates xmlns: be bound to a namespace URI, XML Namespace rec
+    // says not - allow for both here
+    if((namespaceURI == xmlnsURI) || (namespaceURI.empty()))
+      return std::make_pair(true, xmlnsURI);
     throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
   } // if(nodeType == DOM::Node<stringT>::ATTRIBUTE_NODE && prefix == xmlns) 
   
