@@ -38,6 +38,7 @@ class convert_bufadaptor : public std::basic_streambuf<charT, traitsT>
   public:
     typedef typename traitsT::int_type int_type;
     typedef std::basic_streambuf<externalCharT, externalTraitsT> externalStreambufT;
+    typedef std::basic_streambuf<charT, traitsT> streambufT;
 
     explicit convert_bufadaptor(externalStreambufT& externalbuf) : externalbuf_(&externalbuf), inEof_(false) { }
     virtual ~convert_bufadaptor() { }
@@ -97,24 +98,24 @@ int convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::sync()
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
 typename convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::underflow()
 {
-	if(gptr() != 0 && gptr() < egptr())
-	  return (traitsT::to_int_type(*gptr()));
+  if(streambufT::gptr() != 0 && streambufT::gptr() < streambufT::egptr())
+    return (traitsT::to_int_type(*streambufT::gptr()));
 
   if(!readIn())
     return traitsT::eof();
     
-  return traitsT::to_int_type(*gptr());
+  return traitsT::to_int_type(*streambufT::gptr());
 } // underflow
 
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
 typename convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::pbackfail(int_type c)
 {
-  if(gptr() == eback())
+  if(streambufT::gptr() == streambufT::eback())
     return traitsT::eof();
 
-  gbump(-1);
+  streambufT::gbump(-1);
   if(!traitsT::eq_int_type(c, traitsT::eof()))
-    *(gptr()) = traitsT::to_char_type(c);
+    *(streambufT::gptr()) = traitsT::to_char_type(c);
   return traitsT::not_eof(c);
 } // pbackfail
 
@@ -138,7 +139,7 @@ void convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::growInB
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
 bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOut()
 {
-  size_t length = pptr() - &outBuffer_[0];
+  size_t length = streambufT::pptr() - &outBuffer_[0];
   if(!length)
     return true;
 
@@ -163,7 +164,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
     do
     {
       externalCharT* to_next;
-      r = cvt.out(outState_, from_next, pptr(), from_next, 
+      r = cvt.out(outState_, from_next, streambufT::pptr(), from_next, 
                   &to[0], &to[0]+length, to_next);
 
       if(r == std::codecvt_base::noconv)
@@ -190,9 +191,9 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
   if(!inBuffer_.capacity())
     growInBuffer();
 
-  size_t pbCount = std::min<size_t>(gptr() - eback(), pbSize_);
+  size_t pbCount = std::min<size_t>(streambufT::gptr() - streambufT::eback(), pbSize_);
   memcpy(&(inBuffer_[0]) + (pbSize_-pbCount)*sizeof(charT),
-         gptr() - pbCount*sizeof(charT),
+         streambufT::gptr() - pbCount*sizeof(charT),
          pbCount*sizeof(charT));
 
   const std::codecvt<charT, char, state_t>& cvt =
@@ -292,19 +293,23 @@ template<typename charT,
 class iconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, fromCharT, fromTraitsT>,
                          public std::basic_istream<charT, traitsT>
 {
+  typedef std::basic_istream<charT, traitsT> baseStreamT;
   typedef std::basic_istream<fromCharT, fromTraitsT> fromStreamT;
+  typedef convert_adaptor_buffer<charT, traitsT, fromCharT, fromTraitsT> baseBufT;
+  protected:
+    using baseBufT::bufadaptor_;
   public:
     explicit iconvert_adaptor(fromStreamT& fromstream) :
-      convert_adaptor_buffer<charT, traitsT, fromCharT, fromTraitsT>(*(fromstream.rdbuf())),
-      std::basic_istream<charT, traitsT>(&bufadaptor_)
+      baseBufT(*(fromstream.rdbuf())),
+      baseStreamT(&bufadaptor_)
       {
       } // iconvert_adaptor
 
     virtual ~iconvert_adaptor() { } 
 
-    convert_bufadaptor<charT,traitsT>* rdbuf() const 
+    baseBufT* rdbuf() const 
     { 
-      return const_cast<convert_bufadaptor<charT, traitsT, fromCharT, fromTraitsT>*>(&bufadaptor_); 
+      return const_cast<baseBufT*>(&bufadaptor_); 
     } // rdbuf
 
     void set_stream(fromStreamT& fromStream) { bufadaptor_.set_buffer(*fromStream.rdbuf()); }
@@ -319,17 +324,21 @@ template<typename charT,
 class oconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, toCharT, toTraitsT>,
                          public std::basic_ostream<charT, traitsT>
 {
+  typedef std::basic_ostream<charT, traitsT> baseStreamT;
   typedef std::basic_ostream<toCharT, toTraitsT> toStreamT;
+  typedef convert_adaptor_buffer<charT, traitsT, toCharT, toTraitsT> baseBufT;
+  protected:
+    using baseBufT::bufadaptor_;
   public:
     explicit oconvert_adaptor(toStreamT &toStream) :
-      convert_adaptor_buffer<charT, traitsT, toCharT, toTraitsT>(*(toStream.rdbuf())),
-      std::basic_ostream<charT, traitsT>(&bufadaptor_)
+      baseBufT(*(toStream.rdbuf())),
+      baseStreamT(&bufadaptor_)
       {
       } // oconvert_adaptor
 
     virtual ~oconvert_adaptor() 
     {
-      flush(); 
+      baseStreamT::flush(); 
     } // ~oconvert_adaptor
 
     convert_bufadaptor<charT, traitsT>* rdbuf() const
