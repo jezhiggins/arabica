@@ -19,7 +19,7 @@ define NO_DEFAULT_PARSER
 include <SAX/XMLReader.h>
 
 #ifdef USE_LIBXML2
-message("Pulling in libxml2")
+message("Pulling in libxml2 wrappers.")
 include <SAX/wrappers/saxlibxml2.cpp>
 #endif
 
@@ -27,19 +27,20 @@ include <SAX/wrappers/saxlibxml2.cpp>
 #ifndef _MSC_VER
 error "USE_MSXML is only valid for VisualC++ builds"
 #else
-message("Nothing to pull in for MSXML")
+message("Nothing to pull in for MSXML.")
 #endif
 #endif 
 
 #ifdef USE_XERCES
-message("Nothing to pull in for Xerces")
+message("Pulling in Xerces wrappers.")
+include <SAX/wrappers/saxxerces.cpp>
 #endif
 
 #ifdef USE_GARDEN
-message("Nothing to pull in for Garden")
+message("Nothing to pull in for Garden.")
 #endif
 
 #ifdef USE_EXPAT
-message("Pulling in Expat")
+message("Pulling in Expat wrappers.")
 include <SAX/wrappers/saxexpat.cpp>
 #endif
