@@ -4,6 +4,7 @@
 #include <SAX/ArabicaConfig.h>
 #include <SAX/helpers/XMLFilterImpl.h>
 #include <SAX/ext/LexicalHandler.h>
+#include <SAX/ext/DeclHandler.h>
 #include <XML/UnicodeCharacters.h>
 #include <SAX/helpers/PropertyNames.h>
 #include <ostream>
@@ -14,7 +15,8 @@ namespace SAX {
 
 template<class string_type>
 class basic_Writer : public basic_XMLFilterImpl<string_type>,
-                     private basic_LexicalHandler<string_type>
+                     private basic_LexicalHandler<string_type>,
+                     private basic_DeclHandler<string_type>
 {
   public:
     typedef string_type stringT;
@@ -28,6 +30,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef Arabica::Unicode<charT> UnicodeT;
   private:
     typedef basic_LexicalHandler<stringT> LexicalHandlerT;
+    typedef basic_DeclHandler<stringT> DeclHandlerT;
     typedef typename XMLReaderT::InputSourceT InputSourceT;
     typedef typename XMLReaderT::PropertyBase PropertyBase;
 
@@ -35,10 +38,12 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     basic_Writer(ostreamT& stream, unsigned int indent = 2) :
       inCDATA_(false),
       inDTD_(false),
+      internalSubset_(true),
       indent_(indent),
       depth_(0),
       stream_(&stream),
       lexicalHandler_(0),
+      declHandler_(0),
       lastTag_(startTag)
     {
     } // basic_Writer
@@ -47,35 +52,36 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       XMLFilterT(parent),
       inCDATA_(false),
       inDTD_(false),
+      internalSubset_(true),
       indent_(indent),
       depth_(0),
       stream_(&stream),
       lexicalHandler_(0),
+      declHandler_(0),
       lastTag_(startTag)
     {
     } // basic_Writer
 
+    virtual void parse(InputSourceT& input);
+
+  protected:
+    // Parser 
+    virtual std::auto_ptr<PropertyBase> doGetProperty(const stringT& name);
+    virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBase> value);
+
+    // ContentHandler
     virtual void startDocument();
     virtual void endDocument();
-
     virtual void startElement(const stringT& namespaceURI, const stringT& localName,
                               const stringT& qName, const AttributesT& atts);
     virtual void endElement(const stringT& namespaceURI, const stringT& localName,
                             const stringT& qName);
-
     virtual void characters(const stringT& ch);
     virtual void ignorableWhitespace(const stringT& ch);
-
     virtual void processingInstruction(const stringT& target, const stringT& data);
     virtual void skippedEntity(const stringT& name);
 
-    virtual void parse(InputSourceT& input);
-
-  protected:
-    virtual std::auto_ptr<PropertyBase> doGetProperty(const stringT& name);
-    virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBase> value);
-
-  private:
+    // Lexical Handler
     virtual void startDTD(const stringT& name, const stringT& publicId, const stringT& systemId);
     virtual void endDTD();
     virtual void startEntity(const stringT& name);
@@ -84,15 +90,33 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     virtual void endCDATA();
     virtual void comment(const stringT& text);
 
+    // DTD Handler
+    virtual void notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId);
+    virtual void unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName);
+
+    // Decl Handler
+    virtual void elementDecl(const stringT& name, const stringT& model);
+    virtual void attributeDecl(const stringT& elementName, const stringT& attributeName,
+                               const stringT& type, const stringT& valueDefault, const stringT& value);
+    virtual void internalEntityDecl(const stringT& name, const stringT& value);
+    virtual void externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId);
+
+
+    /////////////////
+    void startEntityDecl(const stringT& name);
+    void publicAndSystem(const stringT& publicId, const stringT& systemId);
     void doIndent();
     bool isDtd(const stringT& name);
 
+private:
     bool inCDATA_;
     bool inDTD_;
+    bool internalSubset_;
     int indent_;
     int depth_;
     ostreamT* stream_;
     LexicalHandlerT* lexicalHandler_;
+    DeclHandlerT* declHandler_;
     enum { startTag, endTag, docTag } lastTag_;
     const SAX::PropertyNames<stringT> properties_;
 
@@ -109,33 +133,33 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
         escaper(ostreamT* stream) : stream_(stream) { }
         void operator()(charT ch)
         {
-	  if(ch == UnicodeT::LESS_THAN_SIGN)
-	  {
+	        if(ch == UnicodeT::LESS_THAN_SIGN)
+	        {
               *stream_ << UnicodeT::AMPERSAND
                        << UnicodeT::LOWERCASE_L
                        << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
-	      return;
+	            return;
           } // if(ch == UnicodeT::LESS_THAN_SIGN)
           if(ch == UnicodeT::GREATER_THAN_SIGN)
-	  {
+      	  {
               *stream_ << UnicodeT::AMPERSAND
                        << UnicodeT::LOWERCASE_G
                        << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
               return;
-	  } // if(ch == UnicodeT::GREATER_THAN_SIGN)
+	        } // if(ch == UnicodeT::GREATER_THAN_SIGN)
           if(ch == UnicodeT::AMPERSAND)
-	  {
-              *stream_ << UnicodeT::AMPERSAND
+	        {
+            *stream_ << UnicodeT::AMPERSAND
                        << UnicodeT::LOWERCASE_A
                        << UnicodeT::LOWERCASE_M
                        << UnicodeT::LOWERCASE_P
                        << UnicodeT::SEMI_COLON;
-	      return;
+	          return;
           } // if(ch == case UnicodeT::AMPERSAND)
           if(ch == UnicodeT::QUOTATION_MARK)
-	  {
+	        {
               *stream_ << UnicodeT::AMPERSAND
                        << UnicodeT::LOWERCASE_Q
                        << UnicodeT::LOWERCASE_U
@@ -143,10 +167,10 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
                        << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
               return;
-	  } // if(ch == UnicodeT::QUOTATION_MARK)
+	        } // if(ch == UnicodeT::QUOTATION_MARK)
 
           *stream_ << ch;
-        } // operator()
+         } // operator()
 
       private:
         ostreamT* stream_;
@@ -264,15 +288,18 @@ void basic_Writer<string_type>::ignorableWhitespace(const stringT& ch)
 template<class string_type>
 void basic_Writer<string_type>::processingInstruction(const stringT& target, const stringT& data)
 {
-  *stream_ << UnicodeT::LESS_THAN_SIGN
+  if((!inDTD_) || (inDTD_ && internalSubset_))
+  {
+    *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::QUESTION_MARK
            << target;
 
-  if(data.length())
-    *stream_ << UnicodeT::SPACE << data;
+    if(data.length())
+      *stream_ << UnicodeT::SPACE << data;
 
-  *stream_ << UnicodeT::QUESTION_MARK
-           << UnicodeT::GREATER_THAN_SIGN;
+    *stream_ << UnicodeT::QUESTION_MARK
+             << UnicodeT::GREATER_THAN_SIGN;
+  }
 } // processingInstruction
 
 template<class string_type>
@@ -290,6 +317,14 @@ void basic_Writer<string_type>::parse(InputSourceT& input)
     XMLReaderT* parent = getParent();
     if(parent)
       parent->setProperty(properties_.lexicalHandler, static_cast<LexicalHandlerT&>(*this));
+  }
+  catch(...)
+  {  }
+  try 
+  {
+    XMLReaderT* parent = getParent();
+    if(parent)
+      parent->setProperty(properties_.declHandler, static_cast<DeclHandlerT&>(*this));
   }
   catch(...)
   {  }
@@ -329,6 +364,12 @@ std::auto_ptr<basic_Writer<string_type>::PropertyBase> basic_Writer<string_type>
           new XMLReaderT::Property<LexicalHandlerT*>(lexicalHandler_);
     return std::auto_ptr<PropertyBase>(prop);
   }
+  if(name == properties_.declHandler)
+  {
+    XMLReaderT::Property<DeclHandlerT*>* prop = 
+          new XMLReaderT::Property<DeclHandlerT*>(declHandler_);
+    return std::auto_ptr<PropertyBase>(prop);
+  }
 
   return XMLFilterT::doGetProperty(name);
 } // doGetProperty
@@ -351,6 +392,16 @@ void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto
 
     lexicalHandler_ = &(prop->get());
   }
+  if(name == properties_.declHandler)
+  {
+    XMLReaderT::Property<DeclHandlerT&>* prop = 
+          dynamic_cast<XMLReaderT::Property<DeclHandlerT&>*>(value.get());
+
+    if(!prop)
+      throw std::bad_cast();
+
+    declHandler_ = &(prop->get());
+  }
   
   XMLFilterT::doSetProperty(name, value);
 } // doSetProperty
@@ -359,6 +410,7 @@ template<class string_type>
 void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
   inDTD_ = true;
+  depth_ += indent_;
 
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::EXCLAMATION_MARK
@@ -370,32 +422,12 @@ void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& pub
            << UnicodeT::CAPITAL_P
            << UnicodeT::CAPITAL_E
            << UnicodeT::SPACE
-           << name
-           << UnicodeT::SPACE;
-  if(publicId != stringT())
-    *stream_ << UnicodeT::CAPITAL_P
-             << UnicodeT::CAPITAL_U
-             << UnicodeT::CAPITAL_B
-             << UnicodeT::CAPITAL_L
-             << UnicodeT::CAPITAL_I
-             << UnicodeT::CAPITAL_C
-             << UnicodeT::SPACE
-             << UnicodeT::QUOTATION_MARK
-             << publicId
-             << UnicodeT::QUOTATION_MARK
-             << UnicodeT::SPACE;
-  else
-    *stream_ << UnicodeT::CAPITAL_S
-             << UnicodeT::CAPITAL_Y
-             << UnicodeT::CAPITAL_S
-             << UnicodeT::CAPITAL_T
-             << UnicodeT::CAPITAL_E
-             << UnicodeT::CAPITAL_M;
+           << name;
+
+  publicAndSystem(publicId, systemId);
+
   *stream_ << UnicodeT::SPACE
-           << UnicodeT::QUOTATION_MARK
-           << systemId
-           << UnicodeT::QUOTATION_MARK
-           << UnicodeT::GREATER_THAN_SIGN
+           << UnicodeT::LEFT_SQUARE_BRACKET
            << std::endl;
 
   if(lexicalHandler_)
@@ -405,7 +437,12 @@ void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& pub
 template<class string_type>
 void basic_Writer<string_type>::endDTD()
 {
+  *stream_ << UnicodeT::RIGHT_SQUARE_BRACKET
+           << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
   inDTD_ = false;
+  depth_ -= indent_;
 
   if(lexicalHandler_)
     lexicalHandler_->endDTD();
@@ -414,6 +451,9 @@ void basic_Writer<string_type>::endDTD()
 template<class string_type>
 void basic_Writer<string_type>::startEntity(const stringT& name)
 {
+  if(isDtd(name))
+    internalSubset_ = false;
+
   if(lexicalHandler_)
     lexicalHandler_->startEntity(name);
 } // startEntity
@@ -421,6 +461,9 @@ void basic_Writer<string_type>::startEntity(const stringT& name)
 template<class string_type>
 void basic_Writer<string_type>::endEntity(const stringT& name)
 {
+  if(isDtd(name))
+    internalSubset_ = false;
+
   if(lexicalHandler_)
     lexicalHandler_->endEntity(name);
 } // endEntity
@@ -460,7 +503,7 @@ void basic_Writer<string_type>::endCDATA()
 template<class string_type>
 void basic_Writer<string_type>::comment(const stringT& text)
 {
-  if(!inDTD_)
+  if((!inDTD_) || (inDTD_ && internalSubset_))
     *stream_ << UnicodeT::LESS_THAN_SIGN
             << UnicodeT::EXCLAMATION_MARK
             << UnicodeT::HYPHEN_MINUS
@@ -473,6 +516,196 @@ void basic_Writer<string_type>::comment(const stringT& text)
   if(lexicalHandler_)
     lexicalHandler_->comment(text);
 } // comment
+
+template<class string_type>
+void basic_Writer<string_type>::notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
+{
+  doIndent();
+
+  *stream_ << UnicodeT::LESS_THAN_SIGN
+           << UnicodeT::EXCLAMATION_MARK
+           << UnicodeT::CAPITAL_N
+           << UnicodeT::CAPITAL_O
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_A
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_I
+           << UnicodeT::CAPITAL_O
+           << UnicodeT::CAPITAL_N
+           << UnicodeT::SPACE
+           << name;
+
+  publicAndSystem(publicId, systemId);
+
+  *stream_ << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
+   XMLFilterT::notationDecl(name, publicId, systemId);
+} // notationDecl
+
+template<class string_type>
+void basic_Writer<string_type>::unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName)
+{
+  doIndent();
+
+  startEntityDecl(name);
+  publicAndSystem(publicId, systemId);
+
+  *stream_ << UnicodeT::SPACE
+           << UnicodeT::CAPITAL_N
+           << UnicodeT::CAPITAL_D
+           << UnicodeT::CAPITAL_A
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_A
+           << UnicodeT::SPACE
+           << notationName
+           << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
+  XMLFilterT::unparsedEntityDecl(name, publicId, systemId, notationName);
+} // unparsedEntityDecl
+
+template<class string_type>
+void basic_Writer<string_type>::elementDecl(const stringT& name, const stringT& model)
+{
+  doIndent();
+
+  *stream_ << UnicodeT::LESS_THAN_SIGN
+           << UnicodeT::EXCLAMATION_MARK
+           << UnicodeT::CAPITAL_E
+           << UnicodeT::CAPITAL_L
+           << UnicodeT::CAPITAL_E
+           << UnicodeT::CAPITAL_M
+           << UnicodeT::CAPITAL_E
+           << UnicodeT::CAPITAL_N
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::SPACE
+           << name
+           << UnicodeT::SPACE
+           << model
+           << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
+  if(declHandler_)
+    declHandler_->elementDecl(name, model);
+} // elementDecl
+
+template<class string_type>
+void basic_Writer<string_type>::attributeDecl(const stringT& elementName, const stringT& attributeName,
+                               const stringT& type, const stringT& valueDefault, const stringT& value)
+{
+  doIndent();
+
+  *stream_ << UnicodeT::LESS_THAN_SIGN
+           << UnicodeT::EXCLAMATION_MARK
+           << UnicodeT::CAPITAL_A
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_L
+           << UnicodeT::CAPITAL_I
+           << UnicodeT::CAPITAL_S
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::SPACE
+           << elementName
+           << UnicodeT::SPACE
+           << attributeName
+           << UnicodeT::SPACE
+           << type;
+
+  if(!valueDefault.empty())
+    *stream_ << UnicodeT::SPACE
+             << valueDefault;
+
+  if(!value.empty())
+    *stream_ << UnicodeT::SPACE
+             << UnicodeT::QUOTATION_MARK
+             << value
+             << UnicodeT::QUOTATION_MARK;
+
+  *stream_ << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
+  if(declHandler_)
+    declHandler_->attributeDecl(elementName, attributeName, type, valueDefault, value);
+} // attributeDecl
+
+template<class string_type>
+void basic_Writer<string_type>::internalEntityDecl(const stringT& name, const stringT& value)
+{
+  doIndent();
+
+  startEntityDecl(name);
+  *stream_ << UnicodeT::SPACE
+           << UnicodeT::QUOTATION_MARK
+           << value
+           << UnicodeT::QUOTATION_MARK
+           << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
+  if(declHandler_)
+    declHandler_->internalEntityDecl(name, value);
+} // internalEntityDecl
+
+template<class string_type>
+void basic_Writer<string_type>::externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
+{
+  doIndent();
+  startEntityDecl(name);
+  publicAndSystem(publicId, systemId);
+  *stream_ << UnicodeT::GREATER_THAN_SIGN
+           << std::endl;
+
+  if(declHandler_)
+    declHandler_->externalEntityDecl(name, publicId, systemId);
+} // externalEntityDecl
+
+template<class string_type>
+void basic_Writer<string_type>::startEntityDecl(const stringT& name)
+{
+  *stream_ << UnicodeT::LESS_THAN_SIGN
+           << UnicodeT::EXCLAMATION_MARK
+           << UnicodeT::CAPITAL_E
+           << UnicodeT::CAPITAL_N
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_I
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_Y
+           << UnicodeT::SPACE
+           << name;
+} // startEntityDecl
+
+template<class string_type>
+void basic_Writer<string_type>::publicAndSystem(const stringT& publicId, const stringT& systemId)
+{
+  *stream_ << UnicodeT::SPACE;
+
+  if(!publicId.empty())
+    *stream_ << UnicodeT::CAPITAL_P
+             << UnicodeT::CAPITAL_U
+             << UnicodeT::CAPITAL_B
+             << UnicodeT::CAPITAL_L
+             << UnicodeT::CAPITAL_I
+             << UnicodeT::CAPITAL_C
+             << UnicodeT::SPACE
+             << UnicodeT::QUOTATION_MARK
+             << publicId
+             << UnicodeT::QUOTATION_MARK;
+  
+  if(!systemId.empty())
+  {
+    if(publicId.empty())
+      *stream_ << UnicodeT::CAPITAL_S
+               << UnicodeT::CAPITAL_Y
+               << UnicodeT::CAPITAL_S
+               << UnicodeT::CAPITAL_T
+               << UnicodeT::CAPITAL_E
+               << UnicodeT::CAPITAL_M;
+    *stream_ << UnicodeT::SPACE
+             << UnicodeT::QUOTATION_MARK
+             << systemId
+             << UnicodeT::QUOTATION_MARK;
+  } // if ...
+} // publicAndSystem
 
 typedef basic_Writer<std::string> Writer;
 #ifndef ARABICA_NO_WCHAR_T
