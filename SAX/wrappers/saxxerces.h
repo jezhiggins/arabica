@@ -202,9 +202,10 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
 
         typedef std::vector<wchar_t> wVector;
 
+#ifndef ARABICA_NO_WCHAR_T
         string_type makeStringT(const XMLCh* str) const
         {
-          if (str)
+          if(str)
           {
             wVector buffer;
             std::insert_iterator<wVector> inserter(buffer, buffer.begin());
@@ -243,12 +244,40 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
             return base::makeStringT("");
           }
         } // makeStringT
-      
+#else
+        // alternative version for the wchar_t impaired
+        string_type makeStringT(const XMLCh* str) const
+        {
+          if(str)
+          {
+            char* cstr = XERCES_CPP_NAMESPACE::XMLString::transcode(str);
+            string_type st(base::makeStringT(cstr));
+            XERCES_CPP_NAMESPACE::XMLString::release(&cstr);
+            return st;
+          }
+          return base::makeStringT("");
+        } // makeStringT
+
+        string_type makeStringT(const XMLCh* str, int length) const
+        {
+          // this isn't pretty, but Xerces doesn't provide a transcode with takes
+          // a length
+          if(str && length)
+          {
+            std::vector<XMLCh> wv(length + 1);
+            std::copy(str, str+length, std::insert_iterator<std::vector<XMLCh> >(wv, wv.begin()));
+            wv.push_back(0);
+
+            return makeStringT(&wv[0]);
+          }
+          return base::makeStringT("");
+        } // makeStringT
+#endif
         XMLCh* asXMLChString(const string_type& s) const
-	{
-	   std::string str = base::asStdString(s);
-	   return XERCES_CPP_NAMESPACE::XMLString::transcode(str.c_str());
-	} // asXMLChString
+        {
+          std::string str = base::asStdString(s);
+          return XERCES_CPP_NAMESPACE::XMLString::transcode(str.c_str());
+        } // asXMLChString
     }; // class xerces_string_adaptor
 
     ///////////////////////////////
