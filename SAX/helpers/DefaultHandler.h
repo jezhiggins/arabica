@@ -58,7 +58,7 @@ public:
   typedef basic_InputSource<stringT> InputSourceT;
   typedef basic_Locator<stringT> LocatorT;
   typedef basic_Attributes<stringT> AttributesT;
-  typedef typename basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+  typedef basic_SAXParseException<stringT> SAXParseExceptionT;
 
   basic_DefaultHandler() { }
   virtual ~basic_DefaultHandler() { }
@@ -83,7 +83,7 @@ public:
    * @exception SAXException Any SAX exception.
    * @see basic_EntityResolver#resolveEntity
    */
-  virtual InputSourceT resolveEntity(const stringT& publicId, const stringT& systemId)
+  virtual InputSourceT resolveEntity(const stringT& /* publicId */, const stringT& /* systemId */)
   {
     return InputSourceT();
   } // resolveEntity
@@ -105,9 +105,9 @@ public:
    *            wrapping another exception.
    * @see basic_DTDHandler#notationDecl
    */
-  virtual void notationDecl(const stringT& name,
-                            const stringT& publicId,
-                            const stringT& systemId)
+  virtual void notationDecl(const stringT& /* name */,
+                            const stringT& /* publicId */,
+                            const stringT& /* systemId */)
   {
   } // notationDecl
 
@@ -127,10 +127,10 @@ public:
    *            wrapping another exception.
    * @see basic_DTDHandler#unparsedEntityDecl
    */
-  virtual void unparsedEntityDecl(const stringT& name,
-	                                const stringT& publicId,
-                                  const stringT& systemId,
-                                  const stringT& notationName)
+  virtual void unparsedEntityDecl(const stringT& /* name */,
+	                                const stringT& /* publicId */,
+                                  const stringT& /* systemId */,
+                                  const stringT& /* notationName */)
   {
   } // unparsedEntityDecl
 
@@ -147,7 +147,7 @@ public:
    * @see basic_ContentHandler#setDocumentLocator
    * @see basic_Locator
    */
-  virtual void setDocumentLocator(const LocatorT& locator) { }
+  virtual void setDocumentLocator(const LocatorT& /* locator */) { }
 
   /**
    * Receive notification of the beginning of the document.
@@ -189,7 +189,7 @@ public:
    *            wrapping another exception.
    * @see basic_ContentHandler#startPrefixMapping
    */
-  virtual void startPrefixMapping(const stringT& prefix, const stringT& uri) { }
+  virtual void startPrefixMapping(const stringT& /* prefix */, const stringT& /* uri */) { }
   /**
    * Receive notification of the end of a Namespace mapping.
    *
@@ -202,7 +202,7 @@ public:
    *            wrapping another exception.
    * @see basic_ContentHandler#endPrefixMapping
    */
-  virtual void endPrefixMapping(const stringT& prefix) { }
+  virtual void endPrefixMapping(const stringT& /* prefix */) { }
 
   /**
    * Receive notification of the start of an element.
@@ -225,8 +225,8 @@ public:
    *            wrapping another exception.
    * @see basic_ContentHandler#startElement
    */
-  virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName, const AttributesT& atts) { }
+  virtual void startElement(const stringT& /* namespaceURI */, const stringT& /* localName */,
+                            const stringT& /* qName */, const AttributesT& /* atts */) { }
   /**
    * Receive notification of the end of an element.
    *
@@ -246,8 +246,8 @@ public:
    *            wrapping another exception.
    * @see basic_ContentHandler#endElement
    */
-  virtual void endElement(const stringT& namespaceURI, const stringT& localName,
-                          const stringT& qName) { }
+  virtual void endElement(const stringT& /* namespaceURI */, const stringT& /* localName */,
+                          const stringT& /* qName */) { }
 
   /**
    * Receive notification of character data inside an element.
@@ -262,7 +262,7 @@ public:
    *            wrapping another exception.
    * @see basic_ContentHandler#characters
    */
-  virtual void characters(const stringT& ch) { }
+  virtual void characters(const stringT& /* ch */) { }
   /**
    * Receive notification of ignorable whitespace in element content.
    *
@@ -276,7 +276,7 @@ public:
    *            wrapping another exception.
    * @see basic_ContentHandler#ignorableWhitespace
    */
-  virtual void ignorableWhitespace(const stringT& ch) { }
+  virtual void ignorableWhitespace(const stringT& /* ch */) { }
 
   /**
    * Receive notification of a processing instruction.
@@ -293,7 +293,7 @@ public:
    *            wrapping another exception.
    * @see basic_ContentHandler#processingInstruction
    */
-  virtual void processingInstruction(const stringT& target, const stringT& data) { }
+  virtual void processingInstruction(const stringT& /* target */, const stringT& /* data */) { }
 
   /**
    * Receive notification of a skipped entity.
@@ -308,7 +308,7 @@ public:
    *            wrapping another exception.
    * @see basic_ContentHandler#processingInstruction
    */
-  virtual void skippedEntity(const stringT& name) { }
+  virtual void skippedEntity(const stringT& /* name */) { }
 
   /////////////////////////////////////////////////////
   // ErrorHandler
@@ -326,7 +326,7 @@ public:
    * @see basic_ErrorHandler#warning
    * @see SAXParseException
    */
-  virtual void warning(const SAXParseExceptionT& e) { }
+  virtual void warning(const SAXParseExceptionT& /* e */) { }
   /**
    * Receive notification of a recoverable parser error.
    *
@@ -341,7 +341,7 @@ public:
    * @see basic_ErrorHandler#error
    * @see SAXParseException
    */
-  virtual void error(const SAXParseExceptionT& e) { }
+  virtual void error(const SAXParseExceptionT& /* e */) { }
   /**
    * Report a fatal XML parsing error.
    *
@@ -361,6 +361,10 @@ public:
    */
   virtual void fatalError(const SAXParseExceptionT& e) 
   {  
+    throw SAXParseException(e); 
+    // VS.NET refuses throw e; saying the copy constructor is inaccessible
+    // GCC likes throw e; 
+    // one of them, I presume, is wrong
   } // fatalError
 
 private:
