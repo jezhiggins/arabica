@@ -53,10 +53,12 @@ DYNAMIC_LIBS =
 #//////////////////////////////////////////////
 
 # Source files
+PARSER_OPTS = -DUSE_EXPAT
+# define any or all of USE_EXPAT, USE_XERCES, USE_LIBXML2, USE_GARDEN to pull in support
+# for those parsers.  
 
-SRCS = wrappers/saxexpat.cpp helpers/InputSourceResolver.cpp ../Utils/utf16utf8_codecvt.cpp 
-# substitute wrappers/saxlibxml2.cpp if appropriate, or omit completely 
-# if using saxxerces
+
+SRCS = saxlib.cpp helpers/InputSourceResolver.cpp ../Utils/utf16utf8_codecvt.cpp 
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
@@ -77,7 +79,6 @@ libSAX.a : $(OBJS)
 	ar r $@ $(OBJS)
 	cp libSAX.a ../bin
 
-
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
@@ -85,6 +86,12 @@ libSAX.a : $(OBJS)
 
 %.o : %.cpp
 	$(CPP) $(COMPILE_FLAGS) $(INCS_DIRS) -o $@ $<
+
+saxlib.cpp : saxlib.tpl ParserConfig.h
+	$(CPP) -x c++ -E $(PARSER_OPTS) saxlib.tpl -o saxlib.cpp
+
+ParserConfig.h: ParserConfig.tpl
+	$(CPP) -x c++ -E $(PARSER_OPTS) ParserConfig.tpl -o ParserConfig.h
 
 
 #/////////////////////////////////////////////////////////////////////////
@@ -106,7 +113,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libSAX*  *~ helpers/*~ core ../bin/libSAX*
+	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libSAX*  *~ helpers/*~ core ../bin/libSAX* saxlib.cpp ParserConfig.h
 
 
 
