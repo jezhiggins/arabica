@@ -105,7 +105,7 @@ class basic_NamespaceSupport
     void reset()
     {
       contexts_.clear();
-      contexts_.push_back(Conext());
+      contexts_.push_back(Context());
       contexts_.back().insert(std::make_pair(nsc_.xml, nsc_.xmlns_uri));
     } // reset
 
