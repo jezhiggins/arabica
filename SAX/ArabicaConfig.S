@@ -16,7 +16,7 @@ define ARABICA_ARABICA_CONFIG_H
 
 #ifdef ARABICA_NO_WCHAR_T
 #undef ARABICA_NO_WCHAR_T
-define pasty(ARABICA, _NO_WCHAR_T) 1
+define ARABICA_NO_WCHAR_T
 #endif
 
 #ifdef _MSC_VER
@@ -35,6 +35,6 @@ define ARABICA_WINDOWS
 define ARABICA_DEBUG
 #endif
 
-endif // ARABICA_CONFIG_H
+endif
 
 

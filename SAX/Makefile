@@ -37,6 +37,7 @@ SRCS =  saxlib.cpp \
 	../Utils/impl/iso88591_utf8.cpp \
 	../Utils/utf16utf8codecvt.cpp \
 	../Utils/base64codecvt.cpp \
+	../Utils/impl/codecvt_specialisations.cpp \
 	../XML/XMLCharacterClasses.cpp
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
@@ -55,13 +56,13 @@ libArabica($LIBSUFFIX) : $(OBJS)
 ####
 # the .S files depends on symbols defined in this Makefile, hence
 # this slightly wacky rule
-saxlib.cpp : Makefile ParserConfig.h ArabicaConfig.h
+saxlib.cpp : ParserConfig.h ArabicaConfig.h
 	$(CPP) $(PARSER_CONFIG) -o saxlib.cpp saxlib.S 
 
-ParserConfig.h : Makefile
+ParserConfig.h : Makefile ../Makefile.header
 	$(CPP) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
 
-ArabicaConfig.h : Makefile
+ArabicaConfig.h : Makefile ../Makefile.header
 	$(CPP) $(PARSER_CONFIG) -o ArabicaConfig.h ArabicaConfig.S
 
 %.cpp : ArabicaConfig.h ParserConfig.h
