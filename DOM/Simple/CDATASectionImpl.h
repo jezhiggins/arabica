@@ -26,8 +26,8 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
     {
       CharDataT::throwIfReadOnly();
 
-      stringT second = substringData(offset, CharDataT::getLength() - offset);
-      deleteData(offset, CharDataT::getLength() - offset);
+      stringT second = CharDataT::substringData(offset, CharDataT::getLength() - offset);
+      CharDataT::deleteData(offset, CharDataT::getLength() - offset);
 
       CDATASectionImpl* splitNode = new CDATASectionImpl(CharDataT::getOwnerDoc(), second);
       CharDataT::getParentNode()->insertBefore(splitNode, CharDataT::getNextSibling());

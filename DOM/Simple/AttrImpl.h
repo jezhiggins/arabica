@@ -93,10 +93,10 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
       // remove all children
       for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = NodeT::getFirstChild())
-        removeChild(c);
+        NodeT::removeChild(c);
 
       // add a new text node
-      appendChild(new TextImpl<stringT, string_adaptorT>(0, data));
+      NodeT::appendChild(new TextImpl<stringT, string_adaptorT>(0, data));
 
       specified_ = true;
     } // setNodeValue

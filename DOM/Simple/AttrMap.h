@@ -26,7 +26,7 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     /////////////////////////////////////////////////////
     stringT getAttribute(const stringT& name) const
     {
-      DOM::Node_impl<stringT>* attr = getNamedItem(name);
+      DOM::Node_impl<stringT>* attr = MapT::getNamedItem(name);
       return attr ? attr->getNodeValue() : stringT();
     } // getAttribute
 
@@ -34,29 +34,29 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     {
       AttrImpl<stringT, string_adaptorT>* a = new AttrImpl<stringT, string_adaptorT>(MapT::ownerDoc_, name, value);
       a->setOwnerElement(ownerElement_);
-      setNamedItem(a);
+      MapT::setNamedItem(a);
     } // setAttribute
 
     void removeAttribute(const stringT& name)    
     {
-      removeNamedItem(name);
+      MapT::removeNamedItem(name);
       createDefault(name);
     } // removeAttribute
 
     DOM::Attr_impl<stringT>* getAttributeNode(const stringT& name) const    
     {
-      return dynamic_cast<DOM::Attr_impl<stringT>*>(getNamedItem(name));
+      return dynamic_cast<DOM::Attr_impl<stringT>*>(MapT::getNamedItem(name));
     } // getAttributeNode
 
     DOM::Attr_impl<stringT>* setAttributeNode(DOM::Attr_impl<stringT>* newAttr)
     {
       dynamic_cast<AttrImpl<stringT, string_adaptorT>*>(newAttr)->setOwnerElement(ownerElement_);
-      return dynamic_cast<DOM::Attr_impl<stringT>*>(setNamedItem(newAttr));
+      return dynamic_cast<DOM::Attr_impl<stringT>*>(MapT::setNamedItem(newAttr));
     } // setAttributeNode
 
     DOM::Attr_impl<stringT>* removeAttributeNode(DOM::Attr_impl<stringT>* oldAttr)    
     {
-      if(removeNamedItem(oldAttr->getNodeName()) == 0)
+      if(MapT::removeNamedItem(oldAttr->getNodeName()) == 0)
         throw DOM::DOMException(DOM::DOMException::NOT_FOUND_ERR);
       createDefault(oldAttr->getNodeName());
       return oldAttr;
@@ -64,7 +64,7 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     stringT getAttributeNS(const stringT& namespaceURI, const stringT& localName) const    
     {
-      DOM::Node_impl<stringT>* attr = getNamedItemNS(namespaceURI, localName);
+      DOM::Node_impl<stringT>* attr = MapT::getNamedItemNS(namespaceURI, localName);
       return attr ? attr->getNodeValue() : stringT();
     } // getAttributeNS
 
@@ -73,34 +73,34 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
       AttrNSImpl<stringT, string_adaptorT>* a = new AttrNSImpl<stringT, string_adaptorT>(MapT::ownerDoc_, namespaceURI, !namespaceURI.empty(), qualifiedName);
       a->setValue(value);
       a->setOwnerElement(ownerElement_);
-      setNamedItemNS(a);
+      MapT::setNamedItemNS(a);
     } // setAttributeNS
 
     void removeAttributeNS(const stringT& namespaceURI, const stringT& localName)    
     {
-      removeNamedItemNS(namespaceURI, localName);
+      MapT::removeNamedItemNS(namespaceURI, localName);
       createDefault(namespaceURI, localName);
     } // removeAttributeNS
 
     DOM::Attr_impl<stringT>* getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const
     {
-      return dynamic_cast<DOM::Attr_impl<stringT>*>(getNamedItemNS(namespaceURI, localName));
+      return dynamic_cast<DOM::Attr_impl<stringT>*>(MapT::getNamedItemNS(namespaceURI, localName));
     } // getAttributeNodeNS
 
     DOM::Attr_impl<stringT>* setAttributeNodeNS(DOM::Attr_impl<stringT>* newAttr)    
     {
       dynamic_cast<AttrImpl<stringT, string_adaptorT>*>(newAttr)->setOwnerElement(ownerElement_);
-      return dynamic_cast<DOM::Attr_impl<stringT>*>(setNamedItemNS(newAttr));
+      return dynamic_cast<DOM::Attr_impl<stringT>*>(MapT::setNamedItemNS(newAttr));
     } // setAttributeNodeNS
 
     bool hasAttribute(const stringT& name) const    
     {
-      return (getNamedItem(name) != 0);
+      return (MapT::getNamedItem(name) != 0);
     } // hasAttribute
 
     bool hasAttributeNS(const stringT& namespaceURI, const stringT& localName) const    
     {
-      return (getNamedItemNS(namespaceURI, localName) != 0);
+      return (MapT::getNamedItemNS(namespaceURI, localName) != 0);
     } // hasAttributeNS
 
     void setOwnerElement(ElementImpl<stringT, string_adaptorT>* element)

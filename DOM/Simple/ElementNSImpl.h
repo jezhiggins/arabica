@@ -50,7 +50,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
       ElementNSImpl* clone =  dynamic_cast<ElementNSImpl*>(ElementImplT::ownerDoc_->createElementNS(namespaceURI_, ElementImplT::tagName_));
-      cloneChildren(clone, deep);
+      ElementImplT::cloneChildren(clone, deep);
       return clone;
     } // cloneNode
 

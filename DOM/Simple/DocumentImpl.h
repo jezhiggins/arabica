@@ -53,7 +53,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
         changesCount_(0),
         refCount_(0)
     { 
-      setOwnerDoc(this);
+      NodeImplT::setOwnerDoc(this);
     } // DocumentBaseImpl
 
     DocumentImpl(DOM::DOMImplementation<stringT> domImpl) : 
@@ -66,7 +66,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
         changesCount_(0),
         refCount_(0)
     { 
-      setOwnerDoc(this);
+      NodeImplT::setOwnerDoc(this);
     } // DocumentBaseImpl
 
     DocumentImpl(const stringT& namespaceURI,
@@ -82,7 +82,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
         changesCount_(0),
         refCount_(0)
     { 
-      setOwnerDoc(this);
+      NodeImplT::setOwnerDoc(this);
       if(docType)
       {
         if(docType->getOwnerDocument() != 0)
