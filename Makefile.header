@@ -1,7 +1,7 @@
 ####################################
 # ARABICA CONFIG
 # edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_XERCES 
+PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T 
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 ####################################
@@ -29,19 +29,22 @@ COPY = cp -f
 # your parser choice
 # eg DYNAMIC_LIBS = -lexpat
 
-CXXFLAGS = -Wall 
-LDFLAGS = 
+CXXFLAGS = -Wall -g
+LDFLAGS = -L/usr/local/lib
+
 
 # Includes and library directories 
 INCS_DIRS = -I.. 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS =  -lexpat -lstdc++
+DYNAMIC_LIBS =  -lexpat -lstdc++ 
 
-# you'll only need to change these if you use Cygwin
-EXESUFFIX = 
-LIBSUFFIX = .so
+# link flag to create a shared library
+LINK_SHARED = -shared
+
+EXESUFFIX = .exe
+LIBSUFFIX = .dll
 
 
 

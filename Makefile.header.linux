@@ -39,8 +39,10 @@ LIBS_DIRS =
 STATIC_LIBS =
 DYNAMIC_LIBS =  -lxml2 -lstdc++ 
 
-# you'll only need to change these if you use Cygwin
-EXESUFFIX = 
+# flag to create a shared library
+LINK_SHARED = -shared
+
+ESUFFIX = 
 LIBSUFFIX = .so
 
 

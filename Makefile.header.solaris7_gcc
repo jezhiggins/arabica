@@ -42,7 +42,9 @@ LIBS_DIRS = -L$(EXPAT_PATH)/lib
 STATIC_LIBS =
 DYNAMIC_LIBS =  -lexpat -lstdc++ -lsocket
 
-# you'll only need to change these if you use Cygwin
+# link flag to create a shared library
+LINK_SHARED = -shared
+
 EXESUFFIX = 
 LIBSUFFIX = .so
 

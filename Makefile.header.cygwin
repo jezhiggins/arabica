@@ -39,7 +39,9 @@ LIBS_DIRS =
 STATIC_LIBS =
 DYNAMIC_LIBS =  -lexpat -lstdc++
 
-# you'll only need to change these if you use Cygwin
+# link flag to create a shared library
+LINK_SHARED = -shared
+
 EXESUFFIX = .exe
 LIBSUFFIX = .dll
 
