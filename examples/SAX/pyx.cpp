@@ -29,9 +29,8 @@ class SAX2PYX : public SAX::DefaultHandler
     virtual void characters(const std::string& ch);
     virtual void processingInstruction(const std::string& target, const std::string& data);
 
-    virtual void warning(const SAX::SAXException& e) { fatalError(e); }
-    virtual void error(const SAX::SAXException& e) { fatalError(e); }
-    virtual void fatalError(const SAX::SAXException& e);
+    virtual void warning(const SAX::SAXParseException& e) { fatalError(e); }
+    virtual void error(const SAX::SAXParseException& e) { fatalError(e); }
 
   private:
     std::string escape(const std::string& str) const;
@@ -49,20 +48,27 @@ int main(int argc, char* argv[])
 
 	for(int i = 1; i < argc; ++i)
 	{
-    SAX::XMLReader<std::string> myParser;
-		myParser.setContentHandler(handler);
-		myParser.setErrorHandler(handler);
+    try
+    {
+      SAX::XMLReader<std::string> myParser;
+		  myParser.setContentHandler(handler);
+		  myParser.setErrorHandler(handler);
 
-    SAX::InputSource is(argv[i]);
-    myParser.parse(is);
-	}
+      SAX::InputSource is(argv[i]);
+      myParser.parse(is);
+    } // try
+    catch(std::runtime_error& e)
+    {
+      std::cerr << "Parse problem " << e.what() << std::endl;
+    } // catch  
+	} // for ...
 
 	return 0;
 } // main
 
 
-void SAX2PYX::startElement(const std::string& namespaceURI, const std::string& localName,
-                           const std::string& qName, const SAX::Attributes& atts)
+void SAX2PYX::startElement(const std::string&, const std::string& localName,
+                           const std::string&, const SAX::Attributes& atts)
 {
   std::cout << '(' << localName << std::endl;
 
@@ -75,8 +81,8 @@ void SAX2PYX::startElement(const std::string& namespaceURI, const std::string& l
 
 } // startElement
 
-void SAX2PYX::endElement(const std::string& namespaceURI, const std::string& localName,
-                       const std::string& qName)
+void SAX2PYX::endElement(const std::string&, const std::string& localName,
+                       const std::string&)
 {
   std::cout << ')' << localName << std::endl;
 } // endElement
@@ -103,11 +109,5 @@ std::string SAX2PYX::escape(const std::string& str) const
   } // while ...
   return estr;
 } // escape
-
-void SAX2PYX::fatalError(const SAX::SAXException& e)
-{
-  std::cerr << "Parse problem " << e.what() << std::endl;
-  exit(0);
-} // fatalError
 
 // end of file
