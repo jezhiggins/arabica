@@ -11,8 +11,11 @@ OS_VER := $(shell uname -s | sed -e s/\[\.\ \]/_/g)
 # For other make (like Sun's) you can try:
 # OS_VER:sh =uname -sr | sed -e s/\[\.\ \]/_/g
 
-# C/C++ shortcuts
-CXX = c++
+# C++ compiler
+CXX = gcc
+# preprocessor
+CPP = gcc -E
+
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -54,8 +57,8 @@ LIBS_DIRS =
 STATIC_LIBS =
 DYNAMIC_LIBS = -lstdc++
 
-CXXFLAGS += ${INCS_DIRS}
-LDFLAGS += ${DYNAMIC_LIBS}
+CXXFLAGS += $(INCS_DIRS)
+LDFLAGS += $(DYNAMIC_LIBS)
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -103,9 +106,9 @@ libArabica.a : $(OBJS)
 
 # Compile rules
 saxlib.cpp : ParserConfig.S saxlib.S ArabicaConfig.S
-	$(PREPROCESS.S) $(PARSER_CONFIG) -o ArabicaConfig.h ArabicaConfig.S
-	$(PREPROCESS.S) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
-	$(PREPROCESS.S) $(PARSER_CONFIG) -o saxlib.cpp saxlib.S 
+	$(CPP) $(PARSER_CONFIG) -o ArabicaConfig.h ArabicaConfig.S
+	$(CPP) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
+	$(CPP) $(PARSER_CONFIG) -o saxlib.cpp saxlib.S 
 
 
 %.o : %.cpp
