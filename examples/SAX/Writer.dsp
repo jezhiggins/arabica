@@ -96,10 +96,6 @@ SOURCE=.\writer.cpp
 
 SOURCE=..\..\lib\SAX.lib
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\lib\vc6\expat.lib
-# End Source File
 # End Group
 # End Target
 # End Project
