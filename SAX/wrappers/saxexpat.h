@@ -482,7 +482,11 @@ bool expat_wrapper<stringT, string_adaptorT>::do_parse(inputSourceT& source, XML
 } // do_parse
 
 template<class stringT, class string_adaptorT>
+#ifndef ARABICA_VS6_WORKAROUND
 std::auto_ptr<typename expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+#else
+std::auto_ptr<expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+#endif
 {
   if(name == properties_.lexicalHandler)
   {

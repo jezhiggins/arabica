@@ -303,13 +303,21 @@ void libxml2_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, 
 } // setFeature
 
 template<class stringT, class string_adaptorT>
+#ifndef ARABICA_VS6_WORKAROUND
 std::auto_ptr<typename basic_XMLReader<stringT>::PropertyBase> libxml2_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+#else
+std::auto_ptr<basic_XMLReader<stringT>::PropertyBase> libxml2_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+#endif
 {
   if(name == properties_.declHandler)
   {
     typedef SAX::basic_XMLReader<stringT>::Property<declHandlerT *> dhp_type;
     dhp_type *prop = new dhp_type(declHandler_);
+#ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
+#else
+    return std::auto_ptr<SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
+#endif
   }
 
   if(name == properties_.lexicalHandler)
@@ -319,7 +327,11 @@ std::auto_ptr<typename basic_XMLReader<stringT>::PropertyBase> libxml2_wrapper<s
 } // doGetProperty
 
 template<class stringT, class string_adaptorT>
+#ifndef ARABICA_VS6_WORKAROUND
 void libxml2_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name, std::auto_ptr<typename basic_XMLReader<stringT>::PropertyBase> value)
+#else
+void libxml2_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name, std::auto_ptr<basic_XMLReader<stringT>::PropertyBase> value)
+#endif
 {
   if(name == properties_.declHandler)
   {
