@@ -32,7 +32,7 @@ CXX = c++
 ifeq ($(OS_VER),SunOS)
 CXXFLAGS = -Wall -pthreads -fpic
 else
-CXXFLAGS = -Wall -pthread -fpic
+CXXFLAGS = -Wall
 endif
 
 LDFLAGS = -shared -Wl,"-hlibSAX.so.1"
@@ -43,8 +43,8 @@ CXXFLAGS += -O2
 LDFLAGS  += -O2
 
 # edit for your parser choice - may include more than one
-PARSER = -DUSE_EXPAT
-#PARSER = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
+PARSER_CONFIG = -DUSE_EXPAT
+#PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 # Includes and library directories 
 INCS_DIRS = -I.. 
@@ -92,8 +92,8 @@ libSAX.a : $(OBJS)
 
 # Compile rules
 saxlib.cpp : ParserConfig.S saxlib.S
-	$(PREPROCESS.S) -o ParserConfig.h ParserConfig.S
-	$(PREPROCESS.S) -o saxlib.cpp saxlib.S
+	$(PREPROCESS.S) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
+	$(PREPROCESS.S) $(PARSER_CONFIG) -o saxlib.cpp saxlib.S 
 	
 
 %.o : %.cpp
@@ -118,7 +118,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libSAX*  *~ helpers/*~ core ../bin/libSAX*
+	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libSAX*  *~ helpers/*~ core ../bin/libSAX* saxlib.cpp ParserConfig.h
 
 
 

@@ -6,6 +6,7 @@
 #include <XML/UnicodeCharacters.h>
 #include <ostream>
 #include <algorithm>
+#include <typeinfo>
 
 namespace SAX {
 
@@ -85,11 +86,13 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     LexicalHandlerT* lexicalHandler_;
     const SAX::PropertyNames<stringT> properties_;
 
+    template<typename char_type, typename traits_type>
     class escaper
     {
       private:
-        typedef typename WriterT::ostreamT ostreamT;
-        typedef typename WriterT::charT charT;
+        typedef char_type charT;
+        typedef traits_type traitsT;
+        typedef std::basic_ostream<charT, traitsT> ostreamT;
         typedef Unicode<charT> UnicodeT;
 
       public:
@@ -133,6 +136,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       private:
         ostreamT* stream_;
     }; // escaper
+
+    typedef typename escaper<charT, traitsT> escaperT;
 }; // class basic_Writer
 
 template<class string_type>
@@ -190,7 +195,7 @@ void basic_Writer<string_type>::startElement(
              << UnicodeT::EQUALS_SIGN
              << UnicodeT::QUOTATION_MARK;
     stringT value = atts.getValue(i); 
-    std::for_each(value.begin(), value.end(), escaper(stream_));
+    std::for_each(value.begin(), value.end(), escaperT(stream_));
     *stream_ << UnicodeT::QUOTATION_MARK;
   }
 
@@ -220,7 +225,7 @@ template<class string_type>
 void basic_Writer<string_type>::characters(const stringT& ch)
 {
   if(!inCDATA_)
-    std::for_each(ch.begin(), ch.end(), escaper(stream_));
+    std::for_each(ch.begin(), ch.end(), escaperT(stream_));
   else
     *stream_ << ch;
 
@@ -249,9 +254,14 @@ void basic_Writer<string_type>::skippedEntity(const stringT& name)
 template<class string_type>
 void basic_Writer<string_type>::parse(InputSourceT& input)
 {
-  XMLReaderT* parent = getParent();
-  if(parent)
-    parent->setProperty(properties_.lexicalHandler, static_cast<SAX::LexicalHandler&>(*this));
+  try 
+  {
+    XMLReaderT* parent = getParent();
+    if(parent)
+      parent->setProperty(properties_.lexicalHandler, static_cast<SAX::LexicalHandler&>(*this));
+  }
+  catch(...)
+  {  }
 
   XMLFilterT::parse(input);
 } // parse
@@ -275,7 +285,7 @@ bool basic_Writer<string_type>::isDtd(const string_type& name)
 } // isDtd
 
 template<class string_type>
-std::auto_ptr<typename basic_Writer<string_type>::XMLReaderT::PropertyBase> basic_Writer<string_type>::doGetProperty(const string_type& name)
+std::auto_ptr<basic_Writer<string_type>::XMLReaderT::PropertyBase> basic_Writer<string_type>::doGetProperty(const string_type& name)
 {
   if(name == properties_.lexicalHandler)
   {
@@ -288,7 +298,7 @@ std::auto_ptr<typename basic_Writer<string_type>::XMLReaderT::PropertyBase> basi
 } // doGetProperty
 
 template<class string_type>
-void basic_Writer<string_type>::doSetProperty(const string_type& name, typename std::auto_ptr<typename basic_Writer<string_type>::XMLReaderT::PropertyBase> value)
+void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<basic_Writer<string_type>::XMLReaderT::PropertyBase> value)
 {
   if(name == properties_.lexicalHandler)
   {
@@ -300,7 +310,8 @@ void basic_Writer<string_type>::doSetProperty(const string_type& name, typename 
 
     lexicalHandler_ = &(prop->get());
   }
-  return XMLFilterT::doSetProperty(name, value);
+  
+  XMLFilterT::doSetProperty(name, value);
 } // doSetProperty
 
 template<class string_type>

@@ -73,7 +73,7 @@ public:
   } // toStdWString
 
   default_string_adaptor() :
-#if !(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
     loc_(std::locale(), new utf16utf8_codecvt()),
 #else
     loc_(std::_Addfac(std::locale(), new utf16utf8_codecvt)),
@@ -137,7 +137,7 @@ public:
   } // toStdWString
 
   default_string_adaptor() :
-#if !(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
     loc_(std::locale(), new utf16utf8_codecvt()),
 #else
     loc_(std::_Addfac(std::locale(), new utf16utf8_codecvt)),
