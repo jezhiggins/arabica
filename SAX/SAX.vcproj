@@ -315,6 +315,46 @@
 				RelativePath=".\parsers\saxgarden.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Utils"
+			Filter="">
+			<File
+				RelativePath="..\XML\UnicodeCharacters.h">
+			</File>
+			<File
+				RelativePath="..\XML\XMLCharacterClasses.cpp">
+			</File>
+			<File
+				RelativePath="..\XML\XMLCharacterClasses.h">
+			</File>
+			<File
+				RelativePath="..\Utils\base64_codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\base64_codecvt.h">
+			</File>
+			<File
+				RelativePath="..\Utils\convert_adaptor.h">
+			</File>
+			<File
+				RelativePath="..\Utils\convertstream.h">
+			</File>
+			<File
+				RelativePath="..\Utils\iso8859_1utf8_codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\iso8859_1utf8_codecvt.h">
+			</File>
+			<File
+				RelativePath="..\Utils\socket_stream.h">
+			</File>
+			<File
+				RelativePath="..\Utils\utf16utf8_codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\utf16utf8_codecvt.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ParserConfig.S">
 			<FileConfiguration

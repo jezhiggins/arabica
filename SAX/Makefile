@@ -63,7 +63,11 @@ LDFLAGS += ${DYNAMIC_LIBS}
 
 SRCS =  saxlib.cpp \
 	helpers/InputSourceResolver.cpp \
-	../Utils/utf16utf8_codecvt.cpp 
+	../Utils/utf16utf8_codecvt.cpp \
+	../Utils/base64_codecvt.cpp \
+	../Utils/iso8859_1utf8_codecvt.cpp \
+	../Utils/XMLCharacterClasses.cpp
+   
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))

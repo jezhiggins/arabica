@@ -136,9 +136,6 @@
 			<File
 				RelativePath="..\..\lib\SAX.lib">
 			</File>
-			<File
-				RelativePath="..\..\lib\Utilities.lib">
-			</File>
 		</Filter>
 	</Files>
 	<Globals>

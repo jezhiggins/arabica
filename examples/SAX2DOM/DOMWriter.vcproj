@@ -68,11 +68,14 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
+				AdditionalIncludeDirectories="..\..\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="3"
+				TreatWChar_tAsBuiltInType="TRUE"
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
@@ -115,6 +118,12 @@
 						Name="VCCLCompilerTool"
 						TreatWChar_tAsBuiltInType="FALSE"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -122,9 +131,6 @@
 			Filter="">
 			<File
 				RelativePath="..\..\lib\SAX.lib">
-			</File>
-			<File
-				RelativePath="..\..\lib\Utilities.lib">
 			</File>
 		</Filter>
 	</Files>
