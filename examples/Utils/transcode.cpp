@@ -76,40 +76,41 @@ void imbueCodecvts(int argc, const char* argv[])
     } // 
 
     std::string cvt(argv[i]);
-    if(cvt == "rot13")
+    if(input)
     {
-      if(input)
+      if(cvt == "rot13")
         iByteConvertor.imbue(std::locale(iByteConvertor.getloc(), new rot13codecvt()));
-      else
-        oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new rot13codecvt()));
-    }
-    if(cvt == "base64")
-    {
-      if(input)
+      else if(cvt == "base64")
         iByteConvertor.imbue(std::locale(iByteConvertor.getloc(), new base64codecvt()));
-      else
-        oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new base64codecvt()));
-    } 
-    if(cvt == "utf8")
-    {
-      if(input)
+      else if(cvt == "utf8")
         iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf8ucs2codecvt()));
-      else
-        oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf8ucs2codecvt()));
-    } 
-    if(cvt == "utf16be")
-    {
-      if(input)
+      else if(cvt == "utf16be")
         iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf16beucs2codecvt()));
-      else
-        oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16beucs2codecvt()));
-    } 
-    if(cvt == "utf16le")
-    {
-      if(input)
+      else if(cvt == "utf16le")
         iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf16leucs2codecvt()));
       else
+      {
+        std::cerr << cvt << " is not a valid input encoding." << std::endl;
+        std::exit(0);
+      }
+    }
+    else
+    {
+      if(cvt == "rot13")
+        oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new rot13codecvt()));
+      else if(cvt == "base64")
+        oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new base64codecvt()));
+      else if(cvt == "utf8")
+        oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf8ucs2codecvt()));
+      else if(cvt == "utf16be")
+        oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16beucs2codecvt()));
+      else if(cvt == "utf16le")
         oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16leucs2codecvt()));
+      else 
+      {
+        std::cerr << cvt << " is not a valid output encoding." << std::endl;
+        std::exit(0);
+      }
     } 
   } // for ...
 } // imbueCodeCvts
