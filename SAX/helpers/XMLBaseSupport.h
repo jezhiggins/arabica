@@ -18,6 +18,7 @@
 
 #include <stack>
 #include <utility>
+#include <sstream>
 
 namespace SAX
 {
@@ -27,6 +28,7 @@ struct XMLBaseConstants
 {
   typedef string_type stringT;
   typedef string_adaptor_type string_adaptorT;
+  typedef typename string_adaptor_type::value_type valueT;
 
   const stringT xml;
   const stringT xml_uri;
@@ -47,11 +49,11 @@ class XMLBaseSupport
 {
 public:
   typedef string_type stringT;
-  typedef string_adaptor_type stringT;
+  typedef string_adaptor_type stringAdaptorT;
   typedef basic_Attributes<stringT> AttributesT;
 
   XMLBaseSupport() :
-      depth_(0) { }
+      depth_(0), SA_ { }
 
   void setDocumentLocation(const stringT& loc)
   {
@@ -66,7 +68,7 @@ public:
     if(base.empty())
       return;
 
-    stringT baseURI = resolve(getCurrentBase(), base);
+    stringT baseURI = absolutise(getCurrentBase(), base);
     bases_.push(std::make_pair(depth_, baseURI));
   } // startElement
 
@@ -80,14 +82,35 @@ public:
 
   stringT makeAbsolute(const stringT& spec)
   {
-    return resolve(currentBase(), spec);
+    return absolutise(currentBase(), spec);
   } // makeAbsolute
 
 private:
-  private stringT resolve(const stringT& baseURI, const stringT& location)
+  private stringT absolutise(const stringT& baseURI, const stringT& location)
   {
-    // do resolution :)
-  } // resolve
+    static const stringT SCHEME_MARKER = SA_.makeStringT("://");
+    static const valueT FORWARD_SLASH = SA_.makeValueT(Unicode<char>::SLASH);
+
+    if(location.find(SCHEME_MARKER) != -1)
+      return location;
+
+    std::ostringstream ss;
+    if(location.find(FORWARD_SLASH) == 0)
+    {
+      // prepend URI scheme
+      ss << baseURI.substr(0, baseURI.find(SCHEME_MARKER) + SCHEME_MARKER.length());
+    }
+    else
+    {
+      // relative
+      ss << baseURI;
+      if(baseURI.find(FORWARD_SLASH) == baseURI.length()-1)
+        ss << FORWARD_SLASH;
+    }
+    ss << location;
+
+    return SA_.makeStringT(ss.str().c_str());
+  } // absolutise
 
   private stringT currentBase() const
   {
@@ -109,6 +132,7 @@ private:
 
   baseStackT bases_;
   int depth_;
+  stringAdaptorT SA_;
 
   const XMLBaseConstants<stringT, string_adaptorT> xbc_;
 
@@ -117,6 +141,7 @@ private:
   XMLBaseSupport& operator=(const XMLBaseSupport&);
   bool operator==(const XMLBaseSupport&);
 } // class XMLBaseSupport
+
 } // namespace SAX
 
 #endif
