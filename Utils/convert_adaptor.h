@@ -51,6 +51,7 @@ class convert_bufadaptor : public std::basic_streambuf<charT, traitsT>
     virtual int_type pbackfail(int_type c);
 
   private:
+    typedef typename externalTraitsT::int_type external_int_type;
     typedef typename traitsT::state_type state_t;
 
     externalStreambufT* externalbuf_;
@@ -206,7 +207,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
   std::streamsize res = 0;
   if(!inEof_)
   {
-    externalTraitsT::int_type ec = externalbuf_->sgetc();
+    external_int_type ec = externalbuf_->sgetc();
     while((!externalTraitsT::eq_int_type(externalTraitsT::eof(), ec)) && (res != bufferSize_))
     {
       from[res++] = static_cast<externalCharT>(ec);
