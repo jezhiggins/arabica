@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "..\\" /I "\work\include" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "..\\" /I "\work\include" /I "\work\lib" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "USE_EXPAT" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x809 /d "_DEBUG"
 # ADD RSC /l 0x809 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -254,6 +254,15 @@ SOURCE=.\ext\Locator2.h
 # Begin Source File
 
 SOURCE=.\wrappers\saxexpat.cpp
+
+!IF  "$(CFG)" == "SAXlib - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "SAXlib - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -262,6 +271,16 @@ SOURCE=.\wrappers\saxexpat.h
 # Begin Source File
 
 SOURCE=.\wrappers\saxlibxml2.cpp
+
+!IF  "$(CFG)" == "SAXlib - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "SAXlib - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+# SUBTRACT CPP /WX
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -292,5 +311,9 @@ SOURCE=.\filter\Writer.h
 SOURCE=.\parsers\saxgarden.h
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\saxlib.cpp
+# End Source File
 # End Target
 # End Project

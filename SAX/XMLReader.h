@@ -403,16 +403,53 @@ public:
   } // setProperty
 }; // class basic_XMLReader
 
-/**
- * {@link basic_XMLReader basic_XMLReader} instantiated for chars
- */
-typedef basic_XMLReader<std::string> XMLReader;
-/**
- * {@link basic_XMLReader basic_XMLReader} instantiated for wchar_t
- */
-typedef basic_XMLReader<std::wstring> wXMLReader;
-
 }; // namespace SAX
+
+// ifdef ladder to set up the default parser
+#ifdef USE_LIBXML2
+#pragma message("Including libxml2")
+#include <SAX/wrappers/saxlibxml2.h>
+#undef DEF_SAX_P
+#define DEF_SAX_P libxml2_wrapper
+#endif
+#ifdef USE_MSXML
+#pragma message("Including MSXML")
+#include <SAX/wrappers/saxmsxml2.h>
+#undef DEF_SAX_P
+#define DEF_SAX_P msxml2_wrapper
+#endif 
+#ifdef USE_XERCES
+#pragma message("Including Xerces")
+#include <SAX/wrappers/saxxerces.h>
+#undef DEF_SAX_P
+#define DEF_SAX_P xerces_wrapper
+#endif
+#ifdef USE_GARDEN
+#pragma message("Including Garden")
+#include <SAX/parsers/saxgarden.h>
+#undef DEF_SAX_P
+#define DEF_SAX_P Garden
+#endif
+#ifdef USE_EXPAT
+#pragma message("Including Expat")
+#include <SAX/wrappers/saxexpat.h>
+#undef DEF_SAX_P
+#define DEF_SAX_P expat_wrapper
+#endif
+
+#ifndef NO_DEFAULT_PARSER
+#ifdef DEF_SAX_P
+namespace SAX
+{
+  template<class string_type>
+  class XMLReader : public DEF_SAX_P<string_type> { };
+} // namespace SAX
+#else
+#error No default parser defined.
+#endif
+#endif
+
+#undef DEF_P
 
 #endif
 // end of file
