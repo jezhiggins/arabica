@@ -9,8 +9,11 @@
 #include <SAX/InputSource.h>
 #include <SAX/XMLReader.h>
 #include <SAX/SAXParseException.h>
+#include <SAX/SAXNotRecognizedException.h>
+#include <SAX/SAXNotSupportedException.h>
 #include <SAX/ext/LexicalHandler.h>
 #include <SAX/ext/DeclHandler.h>
+#include <SAX/helpers/FeatureNames.h>
 #include <SAX/helpers/PropertyNames.h>
 
 // Xerces Includes
@@ -557,6 +560,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
     LexicalHandlerAdaptor lexicalHandlerAdaptor_;
     DeclHandlerAdaptor declHandlerAdaptor_;
     string_adaptorT SA_;
+    SAX::FeatureNames<stringT, string_adaptorT> features_;
     SAX::PropertyNames<stringT, string_adaptorT> properties_;
 }; // class xerces_wrapper
 

@@ -445,7 +445,7 @@ namespace SAX
   class XMLReader : public DEF_SAX_P<string_type> { };
 } // namespace SAX
 #else
-#error No default parser defined.
+#error "No default parser defined."
 #endif
 #endif
 

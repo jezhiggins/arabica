@@ -5,17 +5,6 @@
 
 #pragma warning(disable:4786)
 
-#include <SAX/parsers/saxgarden.h>
-#include <SAX/wrappers/saxexpat.h>
-#ifdef LIBXML2
-#include <SAX/wrappers/saxlibxml2.h>
-#endif
-#ifdef WIN32
-#include <SAX/wrappers/saxmsxml2.h>
-#endif 
-#ifdef XERCES
-#include <SAX/wrappers/saxxerces.h>
-#endif
 
 #include "SimpleHandler.h"
 #include <SAX/InputSource.h>
@@ -24,19 +13,23 @@
 
 SAX::basic_XMLReader<std::string>* parserFactory(std::string name)
 {
+#ifdef USE_EXPAT
   if(name == "expat")
     return new SAX::expat_wrapper<std::string>;
+#endif
+#ifdef USE_GARDEN
   if(name == "garden")
     return new SAX::Garden;
-#ifdef WIN32
+#endif
+#ifdef USE_MSXML
   if(name == "msxml")
     return new SAX::msxml2_wrapper<std::string>;
 #endif
-#ifdef LIBXML2
+#ifdef USE_LIBXML2
   if(name == "libxml")
     return new SAX::libxml2_wrapper<std::string>;
 #endif
-#ifdef XERCES
+#ifdef USE_XERCES
   if(name == "xerces")
     return new SAX::xerces_wrapper<std::string>;
 #endif

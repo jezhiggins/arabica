@@ -2,6 +2,7 @@
 #define SimpleHandlerH
 
 #include <string>
+#include <SAX/XMLReader.h>
 #include <SAX/EntityResolver.h>
 #include <SAX/DTDHandler.h>
 #include <SAX/ContentHandler.h>
