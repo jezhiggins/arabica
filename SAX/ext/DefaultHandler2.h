@@ -268,7 +268,9 @@ private:
 }; // class basic_DefaultHandler
 
 typedef basic_DefaultHandler2<std::string> DefaultHandler2;
+#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_DefaultHandler2<std::wstring> wDefaultHandler2;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 } // namespace SAX
 

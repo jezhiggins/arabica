@@ -302,7 +302,9 @@ void basic_InputSource<charT, traitsT, allocatorT>::setCharacterStream(charStrea
 
 
 typedef basic_InputSource<std::string> InputSource;
+#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_InputSource<std::wstring> wInputSource;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

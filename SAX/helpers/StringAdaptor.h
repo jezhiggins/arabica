@@ -26,17 +26,22 @@ public:
 
   // only used to constuct error strings - don't have to be highly efficient!
   std::string asStdString(const stringT& str) const;
+#if !(__GNUG__ && (__GNUC__ < 3))
   std::wstring asStdWString(const stringT& str) const;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 }; // class default_string_maker
 
 // specialize for std::string and std::wstring
 template<>
 class default_string_adaptor<std::string>
 {
+#if !(__GNUG__ && (__GNUC__ < 3))
+    private:
   typedef basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > widener;
   typedef basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > narrower;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 public:
   char makeValueT(char c) const { return c; }
 
@@ -48,6 +53,7 @@ public:
   {
     return std::string(str, length);
   } // makeStringT
+#if !(__GNUG__ && (__GNUC__ < 3))
   std::string makeStringT(const wchar_t* str) const
   {
     std::wstring s;
@@ -61,39 +67,50 @@ public:
     n_.str(std::wstring(str, length));
     return n_.str();
   } // makeStringT
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
   const std::string& asStdString(const std::string& str) const
   {
     return str;
   } // toStdString
+#if !(__GNUG__ && (__GNUC__ < 3))
   std::wstring asStdWString(const std::string& str) const
   {
     w_.str(str);
     return w_.str();
   } // toStdWString
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
-  default_string_adaptor() :
+      default_string_adaptor()
+#if !(__GNUG__ && (__GNUC__ < 3))
 #ifndef _MSC_VER
-    loc_(std::locale(), new utf16utf8_codecvt()),
+	: loc_(std::locale(), new utf16utf8_codecvt()),
 #else
-    loc_(std::_Addfac(std::locale(), new utf16utf8_codecvt)),
+      : loc_(std::_Addfac(std::locale(), new utf16utf8_codecvt)),
 #endif
     n_(),
     w_()
+#endif // !(__GNUG__ && (__GNUC__ < 3))
   {
+#if !(__GNUG__ && (__GNUC__ < 3))
     n_.imbue(loc_);
     w_.imbue(loc_);
+#endif // !(__GNUG__ && (__GNUC__ < 3))
   } // default_string_adaptor 
 
 private:
+#if !(__GNUG__ && (__GNUC__ < 3))
   std::locale loc_;
   mutable narrower n_;
   mutable widener w_;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 }; // class default_string_adaptor
 
+#if !(__GNUG__ && (__GNUC__ < 3))
 template<>
 class default_string_adaptor<std::wstring>
 {
+    private:
   typedef basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > widener;
   typedef basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
@@ -154,6 +171,7 @@ private:
   mutable narrower n_;
   mutable widener w_;
 }; // class default_string_adaptor
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 } // namespace SAX
 

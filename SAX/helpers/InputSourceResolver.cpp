@@ -5,7 +5,11 @@
 #pragma warning(disable: 4786)
 
 #include <SAX/helpers/InputSourceResolver.h>
+#if !(__GNUG__ && (__GNUC__ < 3))
 #include <istream>
+#else
+#include <istream.h>
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 #include <fstream>
 #include <Utils/socket_stream.h>
 
@@ -111,6 +115,7 @@ namespace
 
   static bool fileReg = InputSourceResolver::registerResolver("file", fileResolver);
 
+#if !(__GNUG__ && (__GNUC__ < 3))
   std::istream* httpResolver(const std::string& httpURL)
   {
 #ifdef _MSC_VER
@@ -152,6 +157,7 @@ namespace
   } // httpResolver
 
   static bool httpReg = InputSourceResolver::registerResolver("http", httpResolver);
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 } // namespace
 
 // end of file

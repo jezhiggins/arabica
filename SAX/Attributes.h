@@ -224,7 +224,9 @@ public:
 }; // class Attributes
 
 typedef basic_Attributes<std::string> Attributes;
+#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_Attributes<std::wstring> wAttributes;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

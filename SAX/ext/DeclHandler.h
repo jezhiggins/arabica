@@ -126,7 +126,9 @@ public:
 }; // class basic_DeclHandler
 
 typedef basic_DeclHandler<std::string> DeclHandler;
+#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_DeclHandler<std::wstring> wDeclHandler;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

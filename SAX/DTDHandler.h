@@ -118,7 +118,9 @@ public:
 }; // class basic_DTDHandler
 
 typedef basic_DTDHandler<std::string> DTDHandler;
+#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_DTDHandler<std::wstring> wDTDHandler;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

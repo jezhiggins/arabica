@@ -331,7 +331,9 @@ public:
 }; // class basic_ContentHandler
 
 typedef basic_ContentHandler<std::string> ContentHandler;
+#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_ContentHandler<std::wstring> wContentHandler;
+#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 
