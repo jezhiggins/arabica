@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 
 
   SAX::FeatureNames<std::string> fNames;
-  SAX::expat_wrapper<std::string> parser;
+  SAX::XMLReader<std::string> parser;
   SAX::Writer writer(std::cout);
   writer.setParent(parser);
 
