@@ -299,20 +299,15 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       EntityT* entity = new EntityT(0, name, SA_.makeStringT(""), SA_.makeStringT(""), SA_.makeStringT(""));
       declaredEntities_.insert(std::make_pair(name, entity));
       documentType_->addEntity(entity);
-      currentNode_ = entity;
-      currentNode_.appendChild(document_.createTextNode(value));
-      currentNode_ = document_;
+      DOM::Node<stringT> n = entity;
+      n.appendChild(document_.createTextNode(value));
     } // internalEntityDecl
 
     virtual void externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
     {
       EntityT* entity = new EntityT(0, name, publicId, systemId, SA_.makeStringT(""));
-      currentNode_ = entity;
-
       declaredEntities_.insert(std::make_pair(name, entity)); // we'll populate it later
-
       documentType_->addEntity(entity);
-      currentNode_ = document_;
     } // externalEntityDecl
 
     /////////////////////////////////////////////////////////////////////////
