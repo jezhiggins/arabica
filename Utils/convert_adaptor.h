@@ -19,7 +19,7 @@
 #include <vector>
 #include <algorithm>
 
-#ifndef ARABICA_VS6_WORKAROUND
+#ifdef ARABICA_VS6_WORKAROUND
 #include <minmax.h>
 #endif
 
