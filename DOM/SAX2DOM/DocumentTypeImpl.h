@@ -10,10 +10,6 @@ template<class stringT, class string_adaptorT>
 class DocumentType : public SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT>
 {
     typedef SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT> BaseDT;
-    using BaseDT::ownerDoc_;
-    using BaseDT::getElements;
-    using BaseDT::addDefaultAttr;
-
   public:
     DocumentType(const stringT& qualifiedName,
                  const stringT& publicId,
@@ -43,13 +39,13 @@ class DocumentType : public SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT
 
     void addDefaultAttr(const stringT& elementName, const stringT& attributeName, const stringT& attributeValue)
     {
-      SimpleDOM::ElementImpl<stringT, string_adaptorT>* elem = dynamic_cast<SimpleDOM::ElementImpl<stringT, string_adaptorT>*>(getElements()->getNamedItem(elementName));
+      SimpleDOM::ElementImpl<stringT, string_adaptorT>* elem = dynamic_cast<SimpleDOM::ElementImpl<stringT, string_adaptorT>*>(BaseDT::getElements()->getNamedItem(elementName));
       if(elem == 0)
       {
         elem = new SimpleDOM::ElementImpl<stringT, string_adaptorT>(0, elementName);
         addElement(elem);
       }
-      SimpleDOM::AttrImpl<stringT, string_adaptorT>* attr = new SimpleDOM::AttrImpl<stringT, string_adaptorT>(ownerDoc_, attributeName);
+      SimpleDOM::AttrImpl<stringT, string_adaptorT>* attr = new SimpleDOM::AttrImpl<stringT, string_adaptorT>(BaseDT::ownerDoc_, attributeName);
       attr->setValue(attributeValue);
       attr->setSpecified(false);
       elem->setAttributeNode(attr);

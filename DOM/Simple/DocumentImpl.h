@@ -41,11 +41,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 {
     typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
     typedef AttrImpl<stringT, string_adaptorT> AttrImplT;
-    typedef DOM::Document_impl<stringT> DocumentImplT;
-
-    using DocumentImplT::node;
-    using DocumentImplT::getFirstChild;
-
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeWithChildrenT;
   public:
     DocumentImpl() : 
         NodeImplWithChildren<stringT, string_adaptorT>(0),
@@ -407,7 +403,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       } 
 
       if(deep)
-        for(DOM::Node_impl<stringT>* child = getFirstChild(); child != 0; child = child->getNextSibling())
+        for(DOM::Node_impl<stringT>* child = NodeWithChildrenT::getFirstChild(); child != 0; child = child->getNextSibling())
           if((documentType_ != child) && (child != clone->getDocumentElement()))
             clone->appendChild(clone->importNode(child, true));
 
@@ -436,7 +432,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
     } // setElementId
     void removeElementId(AttrImplT* attr)
     {
-      typename std::set<AttrImplT*>::iterator n = idNodes_.find(node);
+      typename std::set<AttrImplT*>::iterator n = idNodes_.find(attr);
       if(n != idNodes_.end())
         idNodes_.erase(n);
     } // removeElementId

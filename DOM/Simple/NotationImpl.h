@@ -11,9 +11,7 @@ template<class stringT, class string_adaptorT>
 class NotationImpl : public DOM::Notation_impl<stringT>,
                      public NodeImplWithChildren<stringT, string_adaptorT>
 {
-    typedef DOM::Notation_impl<stringT> NotationT;
-    using NotationT::ownerDoc_;
-
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeWithChildrenT;
   public:
     NotationImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
                  stringT name,
@@ -48,8 +46,8 @@ class NotationImpl : public DOM::Notation_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      NotationImpl* clone = new NotationImpl(ownerDoc_, name_, publicId_, systemId_);
-      ownerDoc_->orphaned(clone);
+      NotationImpl* clone = new NotationImpl(NodeWithChildrenT::ownerDoc_, name_, publicId_, systemId_);
+      NodeWithChildrenT::ownerDoc_->orphaned(clone);
       return clone;
     } // cloneNode
 

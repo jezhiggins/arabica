@@ -15,10 +15,7 @@ template<class stringT, class string_adaptorT>
 class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
                          public ChildlessNodeImpl<stringT, string_adaptorT>
 {
-    typedef DOM::DocumentType_impl<stringT> DocumentTypeT;
-    using DocumentTypeT::addRef;
-    using DocumentTypeT::releaseRef;
-    using DocumentTypeT::ownerDoc_;
+    typedef ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
   public:
     DocumentTypeImpl(const stringT& qualifiedName,
                      const stringT& publicId,
@@ -43,15 +40,15 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
     // Ref counting
     virtual void addRef()
     {
-      if(ownerDoc_)
-        ownerDoc_->addRef();
+      if(NodeT::ownerDoc_)
+        NodeT::ownerDoc_->addRef();
       else
         ++refCount_;
     } // addRef
     virtual void releaseRef() 
     {
-      if(ownerDoc_)
-        ownerDoc_->releaseRef();
+      if(NodeT::ownerDoc_)
+        NodeT::ownerDoc_->releaseRef();
       else
         if(--refCount_ == 0)
           delete this;
@@ -113,7 +110,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
       notations_.setOwnerDoc(ownerDoc);
       ChildlessNodeImpl<stringT, string_adaptorT>::setOwnerDoc(ownerDoc);
       while(refCount_--)
-        ownerDoc_->addRef();
+        NodeT::ownerDoc_->addRef();
     } // setOwnerDocument
 
     NamedNodeMapImpl<stringT, string_adaptorT>* getElements() 
@@ -130,7 +127,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
     void addEntity(SimpleDOM::EntityImpl<stringT, string_adaptorT>* entity)
     {
       entities_.setReadOnly(false);
-      entity->setOwnerDoc(ownerDoc_);
+      entity->setOwnerDoc(NodeT::ownerDoc_);
       entities_.setNamedItem(entity);
       entities_.setReadOnly(true);
     } // setEntity
@@ -138,7 +135,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
     void addNotation(SimpleDOM::NotationImpl<stringT, string_adaptorT>* notation)
     {
       notations_.setReadOnly(false);
-      notation->setOwnerDoc(ownerDoc_);
+      notation->setOwnerDoc(NodeT::ownerDoc_);
       notations_.setNamedItem(notation);
       notations_.setReadOnly(true);
     } // setNotation
@@ -150,7 +147,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
         delete element;
         return;  // already have an element decl for it
       } // if ...
-      element->setOwnerDoc(ownerDoc_);
+      element->setOwnerDoc(NodeT::ownerDoc_);
       elements_.setNamedItem(element);
     } // addElements
 

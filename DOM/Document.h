@@ -37,6 +37,7 @@ template<class stringT> class Document_impl;
 template<class stringT>
 class Document : public Node<stringT>
 {
+    typedef Node<stringT> NodeT;
   public:
     Document() : Node<stringT>() { }
     Document(Document_impl<stringT>* impl) : Node<stringT>(impl) { }
@@ -101,7 +102,7 @@ class Document : public Node<stringT>
     Element<stringT> getElementById(const stringT& elementId) const { return Element<stringT>(dImpl()->getElementById(elementId)); }
 
   private:
-    Document_impl<stringT>* dImpl() const { return dynamic_cast<Document_impl<stringT>*>(*impl_); }
+    Document_impl<stringT>* dImpl() const { return dynamic_cast<Document_impl<stringT>*>(*NodeT::impl_); }
 
     typedef class Traversal::DocumentTraversal<stringT> DocumentTraversalT;
     friend class Traversal::DocumentTraversal<stringT>;

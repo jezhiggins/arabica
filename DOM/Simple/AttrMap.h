@@ -12,11 +12,6 @@ template<class stringT, class string_adaptorT>
 class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 {
     typedef NamedNodeMapImpl<stringT, string_adaptorT> MapT;
-    using MapT::setAttribute;
-    using MapT::setAttributeNS;
-    using MapT::getDefaultAttrs;
-    using MapT::ownerDoc_;
-
   public:
     AttrMap(DocumentImpl<stringT, string_adaptorT>* ownerDoc) : 
         NamedNodeMapImpl<stringT, string_adaptorT>(ownerDoc),
@@ -37,7 +32,7 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     void setAttribute(const stringT& name, const stringT& value)    
     {
-      AttrImpl<stringT, string_adaptorT>* a = new AttrImpl<stringT, string_adaptorT>(ownerDoc_, name, value);
+      AttrImpl<stringT, string_adaptorT>* a = new AttrImpl<stringT, string_adaptorT>(MapT::ownerDoc_, name, value);
       a->setOwnerElement(ownerElement_);
       setNamedItem(a);
     } // setAttribute
@@ -75,7 +70,7 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     void setAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName, const stringT& value)    
     {
-      AttrNSImpl<stringT, string_adaptorT>* a = new AttrNSImpl<stringT, string_adaptorT>(ownerDoc_, namespaceURI, !namespaceURI.empty(), qualifiedName);
+      AttrNSImpl<stringT, string_adaptorT>* a = new AttrNSImpl<stringT, string_adaptorT>(MapT::ownerDoc_, namespaceURI, !namespaceURI.empty(), qualifiedName);
       a->setValue(value);
       a->setOwnerElement(ownerElement_);
       setNamedItemNS(a);
@@ -159,10 +154,10 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     DOM::NamedNodeMap_impl<stringT>* getDefaultAttrs()
     {
-      if(!ownerDoc_)
+      if(!MapT::ownerDoc_)
         return 0;
 
-      DocumentTypeImpl<stringT, string_adaptorT>* docType = dynamic_cast<DocumentTypeImpl<stringT, string_adaptorT>*>(ownerDoc_->getDoctype());
+      DocumentTypeImpl<stringT, string_adaptorT>* docType = dynamic_cast<DocumentTypeImpl<stringT, string_adaptorT>*>(MapT::ownerDoc_->getDoctype());
       if(docType)
       {
         DOM::Node_impl<stringT>* exemplar = docType->getElements()->getNamedItem(ownerElement_->getNodeName());

@@ -18,8 +18,7 @@ template<class stringT> class Notation_impl;
 template<class stringT>
 class Notation : public Node<stringT>
 {
-    using Node<stringT>::impl;
-
+    typedef Node<stringT> NodeT;
   public:
     Notation() : Node<stringT>() { }
     explicit Notation(Notation_impl<stringT>* impl) : Node<stringT>(dynamic_cast<Node_impl<stringT>*>(impl)) { }
@@ -35,7 +34,7 @@ class Notation : public Node<stringT>
     stringT getSystemId() const { nImpl()->getSystemId(); }
 
   private:
-    Notation_impl<stringT>* nImpl() { return dynamic_cast<Notation_impl<stringT>*>(impl()); }
+    Notation_impl<stringT>* nImpl() { return dynamic_cast<Notation_impl<stringT>*>(NodeT::impl()); }
 }; // class Notation
 
 //////////////////////////////////////////////////////////

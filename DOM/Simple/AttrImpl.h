@@ -15,14 +15,7 @@ template<class stringT, class string_adaptorT>
 class AttrImpl : public DOM::Attr_impl<stringT>,
                  public NodeImplWithChildren<stringT, string_adaptorT>
 {
-    typedef DOM::Attr_impl<stringT> AttrT;
-    using AttrT::ownerDoc_;
-    using AttrT::getNodeValue;
-    using AttrT::setNodeValue;
-    using AttrT::getFirstChild;
-    using AttrT::throwIfReadOnly;
-    using AttrT::setOwnerElement;
-
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
   public:
     AttrImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& name) : 
         DOM::Attr_impl<stringT>(),
@@ -75,7 +68,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      AttrImpl* a = dynamic_cast<AttrImpl*>(ownerDoc_->createAttribute(name_));
+      AttrImpl* a = dynamic_cast<AttrImpl*>(NodeT::ownerDoc_->createAttribute(name_));
       cloneChildren(a);
       a->setSpecified(getSpecified());
       return a;
@@ -89,17 +82,17 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
     virtual stringT getNodeValue() const
     {
       stringT value;
-      for(DOM::Node_impl<stringT>* c = getFirstChild(); c != 0; c = c->getNextSibling())
+      for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
         value += c->getNodeValue();
       return value;
     } // getNodeValue
 
     virtual void setNodeValue(const stringT& data)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       // remove all children
-      for(DOM::Node_impl<stringT>* c = getFirstChild(); c != 0; c = getFirstChild())
+      for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = NodeT::getFirstChild())
         removeChild(c);
 
       // add a new text node
@@ -113,15 +106,15 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
     void setOwnerElement(ElementImpl<stringT, string_adaptorT>* element)
     {
       ownerElement_ = element;
-      if(ownerDoc_)
+      if(NodeT::ownerDoc_)
       {
-        ownerDoc_->adopted(this);  // don't have a parent but are owned
-        DocumentTypeImpl<stringT, string_adaptorT>* docType = dynamic_cast<DocumentTypeImpl<stringT, string_adaptorT>*>(ownerDoc_->getDoctype());
+        NodeT::ownerDoc_->adopted(this);  // don't have a parent but are owned
+        DocumentTypeImpl<stringT, string_adaptorT>* docType = dynamic_cast<DocumentTypeImpl<stringT, string_adaptorT>*>(NodeT::ownerDoc_->getDoctype());
         if(!docType || docType->getElementIds()->empty())
           return;
         std::vector<stringT>* elemIds = docType->getElementIds();
         if(std::find(elemIds->begin(), elemIds->end(), name_) != elemIds->end())
-          ownerDoc_->setElementId(this);
+          NodeT::ownerDoc_->setElementId(this);
       } // if(ownerDoc_)
     } // setOwnerElement
 
@@ -130,7 +123,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
   protected:
     void cloneChildren(AttrImpl* clone) const
     {
-      for(DOM::Node_impl<stringT>* c = getFirstChild(); c != 0; c = c->getNextSibling())
+      for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
         clone->appendChild(c->cloneNode(true));
     } // cloneChildren
 

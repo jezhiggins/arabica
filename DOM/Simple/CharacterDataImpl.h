@@ -11,14 +11,7 @@ template<class stringT, class string_adaptorT>
 class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
                           public ChildlessNodeImpl<stringT, string_adaptorT>
 {
-    typedef DOM::CharacterData_impl<stringT> CharDataT;
-    using CharDataT::appendData;
-    using CharDataT::throwIfReadOnly;
-    using CharDataT::insertData;
-    using CharDataT::deleteData;
-    using CharDataT::replaceData;
-    using CharDataT::setNodeValue;
-
+    typedef ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
   public:
     CharacterDataImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
         ChildlessNodeImpl<stringT, string_adaptorT>(ownerDoc),
@@ -52,14 +45,14 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     virtual void appendData(const stringT& arg)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       data_.append(arg);
     } // appendData
 
     virtual void insertData(int offset, const stringT& arg)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       if(offset > static_cast<int>(data_.length()))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
@@ -69,7 +62,7 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     virtual void deleteData(int offset, int count)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       if(offset > static_cast<int>(data_.length()))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
@@ -79,7 +72,7 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     virtual void replaceData(int offset, int count, const stringT& arg)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       if(offset > static_cast<int>(data_.length()))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
@@ -96,7 +89,7 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     virtual void setNodeValue(const stringT& data)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       data_ = data;
     } // setNodeValue

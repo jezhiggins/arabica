@@ -18,7 +18,7 @@ template<class stringT> class Attr_impl;
 template<class stringT>
 class Attr : public Node<stringT>
 {
-    using Node<stringT>::impl_;
+    typedef Node<stringT> NodeT;
   public:
     Attr() : Node<stringT>() { }
     explicit Attr(Attr_impl<stringT>* impl) : Node<stringT>(impl) { }
@@ -43,7 +43,7 @@ class Attr : public Node<stringT>
     Element<stringT> getOwnerElement() const { return Element<stringT>(attrImpl()->getOwnerElement()); }
 
   private:
-    Attr_impl<stringT>* attrImpl() const { return dynamic_cast<Attr_impl<stringT>*>(*impl_); }
+    Attr_impl<stringT>* attrImpl() const { return dynamic_cast<Attr_impl<stringT>*>(*NodeT::impl_); }
 
     typedef Element<stringT> ElementT;
     friend class Element<stringT>;

@@ -17,8 +17,7 @@ template<class stringT> class Entity_impl;
 template<class stringT>
 class Entity : public Node<stringT>
 {
-    using Node<stringT>::impl; 
-
+    typedef Node<stringT> NodeT;
   public:
     Entity() : Node<stringT>() { }
     explicit Entity(Entity_impl<stringT>* impl) : Node<stringT>(impl) { }
@@ -36,7 +35,7 @@ class Entity : public Node<stringT>
     stringT getNotationName() const { nImpl()->getNotationName(); }
 
   private:
-    Entity_impl<stringT>* nImpl() { return dynamic_cast<Entity_impl<stringT>*>(impl()); }
+    Entity_impl<stringT>* nImpl() { return dynamic_cast<Entity_impl<stringT>*>(NodeT::impl()); }
 }; // class Entity
 
 //////////////////////////////////////////////////////////

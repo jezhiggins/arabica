@@ -21,6 +21,7 @@ template<class stringT, class string_adaptorT> class DocumentImpl;
 template<class stringT, class string_adaptorT>
 class NodeImpl : virtual public DOM::Node_impl<stringT>
 {
+    typedef DOM::Node_impl<stringT> NodeT;
   public:
     NodeImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc) :
       parentNode_(0),
@@ -236,6 +237,7 @@ template<class stringT, class string_adaptorT>
 class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
                              public DOM::NodeList_impl<stringT>
 {
+    typedef NodeImpl<stringT, string_adaptorT> NodeT;
   public:
     NodeImplWithChildren(DocumentImpl<stringT, string_adaptorT>* ownerDoc) :
       NodeImpl<stringT, string_adaptorT>(ownerDoc)
@@ -327,7 +329,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
   protected:
     NodeImpl<stringT, string_adaptorT>* do_insertBefore(NodeImpl<stringT, string_adaptorT>* newChild, NodeImpl<stringT, string_adaptorT>* refChild)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       if(newChild->getNodeType() == DOM::Node<stringT>::DOCUMENT_FRAGMENT_NODE)
       {
@@ -368,7 +370,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
     NodeImpl<stringT, string_adaptorT>* do_replaceChild(NodeImpl<stringT, string_adaptorT>* newChild, NodeImpl<stringT, string_adaptorT>* oldChild)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       if(newChild->getNodeType() == DOM::Node<stringT>::DOCUMENT_FRAGMENT_NODE)
       {
@@ -405,7 +407,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
     NodeImpl<stringT, string_adaptorT>* do_removeChild(NodeImpl<stringT, string_adaptorT>* oldChild)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       nodes_.erase(findChild(oldChild));
 
@@ -453,18 +455,18 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       DocumentImpl<stringT, string_adaptorT>* childDoc = child->getOwnerDoc();
       if(childDoc == 0)
       {
-        child->setOwnerDoc(getOwnerDoc());
+        child->setOwnerDoc(NodeT::getOwnerDoc());
         return;
       } // 
 
-      if(getNodeType() == DOM::Node<stringT>::DOCUMENT_NODE) 
+      if(child->getNodeType() == DOM::Node<stringT>::DOCUMENT_NODE) 
       {
         if(childDoc != dynamic_cast<DocumentImpl<stringT, string_adaptorT>*>(this))
           throw DOM::DOMException(DOM::DOMException::WRONG_DOCUMENT_ERR);
         return;
       } // if(parent is a Document)
 
-      if(getOwnerDocument() && childDoc != getOwnerDocument())
+      if(NodeT::getOwnerDocument() && childDoc != NodeT::getOwnerDocument())
         throw DOM::DOMException(DOM::DOMException::WRONG_DOCUMENT_ERR);
 
       checkChildType(child);
@@ -474,8 +476,8 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
     void markChanged()
     {
-      if(ownerDoc_)
-        ownerDoc_->markChanged();
+      if(NodeT::ownerDoc_)
+        NodeT::ownerDoc_->markChanged();
     } // markChanged
 
     NodeListT nodes_;

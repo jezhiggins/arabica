@@ -11,17 +11,7 @@ template<class stringT, class string_adaptorT>
 class TextImpl : public DOM::Text_impl<stringT>,
                  public CharacterDataImpl<stringT, string_adaptorT>
 {
-    typedef DOM::Text_impl<stringT> TextT;
-    using TextT::splitText;
-    using TextT::throwIfReadOnly;
-    using TextT::getLength;
-    using TextT::getOwnerDoc;
-    using TextT::getParentNode;
-    using TextT::getNextSibling;
-    using TextT::cloneNode;
-    using TextT::ownerDoc_;
-    using TextT::getData;
-
+    typedef CharacterDataImpl<stringT, string_adaptorT> CharDataT;
   public:
     TextImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
         DOM::Text_impl<stringT>(),
@@ -35,13 +25,13 @@ class TextImpl : public DOM::Text_impl<stringT>,
     // DOM::Text methods
     virtual DOM::Text_impl<stringT>* splitText(int offset)
     {
-      throwIfReadOnly();
+      CharDataT::throwIfReadOnly();
 
-      stringT second = substringData(offset, getLength() - offset);
-      deleteData(offset, getLength() - offset);
+      stringT second = substringData(offset, CharDataT::getLength() - offset);
+      deleteData(offset, CharDataT::getLength() - offset);
 
-      TextImpl* splitNode = new TextImpl(getOwnerDoc(), second);
-      getParentNode()->insertBefore(splitNode, getNextSibling());
+      TextImpl* splitNode = new TextImpl(CharDataT::getOwnerDoc(), second);
+      CharDataT::getParentNode()->insertBefore(splitNode, CharDataT::getNextSibling());
       return splitNode;
     } // splitText
 
@@ -54,7 +44,7 @@ class TextImpl : public DOM::Text_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      return ownerDoc_->createTextNode(getData());
+      return CharDataT::ownerDoc_->createTextNode(CharDataT::getData());
     } // cloneNode
 
     virtual stringT getNodeName() const 

@@ -21,6 +21,7 @@ template<class stringT> class Element_impl;
 template<class stringT> 
 class Element : public Node<stringT>
 {
+    typedef Node<stringT> NodeT;
   public:
     Element() : Node<stringT>() { }
     explicit Element(Element_impl<stringT>* impl) : Node<stringT>(impl) { }
@@ -57,7 +58,7 @@ class Element : public Node<stringT>
     bool hasAttributeNS(const stringT& namespaceURI, const stringT& localName) const { return eImpl()->hasAttributeNS(namespaceURI, localName); } 
 
   private:
-    Element_impl<stringT>* eImpl() const { return dynamic_cast<Element_impl<stringT>*>(*impl_); }
+    Element_impl<stringT>* eImpl() const { return dynamic_cast<Element_impl<stringT>*>(*NodeT::impl_); }
 }; // class Element
 
 ///////////////////////////////////////////////////////////

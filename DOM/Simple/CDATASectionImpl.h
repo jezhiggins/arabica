@@ -10,17 +10,7 @@ template<class stringT, class string_adaptorT>
 class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
                          public CharacterDataImpl<stringT, string_adaptorT> 
 {
-    typedef DOM::CDATASection_impl<stringT> CDATASectionT;
-    using CDATASectionT::splitText;
-    using CDATASectionT::throwIfReadOnly;
-    using CDATASectionT::getLength;
-    using CDATASectionT::getOwnerDoc;
-    using CDATASectionT::getParentNode;
-    using CDATASectionT::getNextSibling;
-    using CDATASectionT::cloneNode;
-    using CDATASectionT::ownerDoc_;
-    using CDATASectionT::getData;
-
+    typedef CharacterDataImpl<stringT, string_adaptorT> CharDataT;
   public:
     CDATASectionImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
         CharacterDataImpl<stringT, string_adaptorT>(ownerDoc, data)
@@ -34,13 +24,13 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
     // on a compiler which implemented covariant return types this would return DOM::CDATASection
     virtual DOM::Text_impl<stringT>* splitText(int offset)
     {
-      throwIfReadOnly();
+      CharDataT::throwIfReadOnly();
 
-      stringT second = substringData(offset, getLength() - offset);
-      deleteData(offset, getLength() - offset);
+      stringT second = substringData(offset, CharDataT::getLength() - offset);
+      deleteData(offset, CharDataT::getLength() - offset);
 
-      CDATASectionImpl* splitNode = new CDATASectionImpl(getOwnerDoc(), second);
-      getParentNode()->insertBefore(splitNode, getNextSibling());
+      CDATASectionImpl* splitNode = new CDATASectionImpl(CharDataT::getOwnerDoc(), second);
+      CharDataT::getParentNode()->insertBefore(splitNode, CharDataT::getNextSibling());
       return splitNode;
     } // splitText
 
@@ -53,7 +43,7 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      return ownerDoc_->createCDATASection(getData());
+      return CharDataT::ownerDoc_->createCDATASection(CharDataT::getData());
     } // cloneNode
 
     virtual stringT getNodeName() const 

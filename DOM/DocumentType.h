@@ -20,6 +20,7 @@ template<class stringT> class DocumentType_impl;
 template<class stringT>
 class DocumentType : public Node<stringT>
 {
+    typedef Node<stringT> NodeT;
   public:
     DocumentType() : Node<stringT>(0) { }
     DocumentType(DocumentType_impl<stringT>* impl) : Node<stringT>(impl) { }
@@ -43,7 +44,7 @@ class DocumentType : public Node<stringT>
     stringT getInternalSubset() const { return dtImpl()->getInternalSubset(); }
 
   protected:
-    DocumentType_impl<stringT>* dtImpl() const { return dynamic_cast<DocumentType_impl<stringT>*>(*impl_); }
+    DocumentType_impl<stringT>* dtImpl() const { return dynamic_cast<DocumentType_impl<stringT>*>(*NodeT::impl_); }
 
     typedef DOMImplementation<stringT> DOMImplementationT;
     friend class DOMImplementation<stringT>;

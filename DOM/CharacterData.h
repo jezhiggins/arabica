@@ -16,6 +16,7 @@ template<class stringT> class CharacterData_impl;
 template<class stringT>
 class CharacterData : public Node<stringT>
 {
+    typedef Node<stringT> NodeT;
   public:
     CharacterData() : Node<stringT>() { }
     explicit CharacterData(CharacterData_impl<stringT>* impl) : Node<stringT>(impl) { }
@@ -46,21 +47,21 @@ class CharacterData : public Node<stringT>
     void insertData(int offset, const stringT& arg) 
     { 
       cdImpl()->throwIfReadOnly();
-      chImpl()->insertData(offset, arg); 
+      cdImpl()->insertData(offset, arg); 
     } // insertData
     void deleteData(int offset, int count) 
     { 
       cdImpl()->throwIfReadOnly();
-      chImpl()->deleteData(offset, count); 
+      cdImpl()->deleteData(offset, count); 
     } // deleteData
     void replaceData(int offset, int count, const stringT& arg) 
     { 
       cdImpl()->throwIfReadOnly();
-      chImpl()->replaceData(offset, count); 
+      cdImpl()->replaceData(offset, count); 
     } // replaceData
 
   private:
-    CharacterData_impl<stringT>* cdImpl() { return dynamic_cast<CharacterData<stringT>*>(impl()); }
+    CharacterData_impl<stringT>* cdImpl() { return dynamic_cast<CharacterData<stringT>*>(NodeT::impl()); }
 }; // class CharacterData
 
 ////////////////////////////////////////////////////////////////////

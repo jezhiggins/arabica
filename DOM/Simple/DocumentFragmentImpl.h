@@ -10,10 +10,7 @@ template<class stringT, class string_adaptorT>
 class DocumentFragmentImpl : public DOM::DocumentFragment_impl<stringT>,
                              public NodeImplWithChildren<stringT, string_adaptorT>
 {
-    typedef DOM::DocumentFragment_impl<stringT> DocumentFragmentT;
-    using DocumentFragmentT::ownerDoc_;
-    using DocumentFragmentT::getFirstChild;
-    
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
   public:
     DocumentFragmentImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc) : 
         DOM::DocumentFragment_impl<stringT>(),
@@ -32,9 +29,9 @@ class DocumentFragmentImpl : public DOM::DocumentFragment_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      DOM::Node_impl<stringT>* clone = ownerDoc_->createDocumentFragment();
+      DOM::Node_impl<stringT>* clone = NodeT::ownerDoc_->createDocumentFragment();
       if(deep)
-        for(DOM::Node_impl<stringT>* c = getFirstChild(); c != 0; c = c->getNextSibling())
+        for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
           clone->appendChild(c->cloneNode(true));
       return clone;
     } // cloneNode

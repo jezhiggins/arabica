@@ -17,6 +17,7 @@ template<class stringT> class ProcessingInstruction_impl;
 template<class stringT>
 class ProcessingInstruction : public Node<stringT>
 {
+    typedef Node<stringT> NodeT;
   public:
     ProcessingInstruction() : Node<stringT>(0) { }
     explicit ProcessingInstruction(ProcessingInstruction_impl<stringT>* impl) : Node<stringT>(dynamic_cast<Node_impl<stringT>*>(impl)) { }
@@ -33,7 +34,7 @@ class ProcessingInstruction : public Node<stringT>
     void setData(const stringT& data) { piImpl()->setData(data); }
 
   private:
-    ProcessingInstruction_impl<stringT>* piImpl() const { return dynamic_cast<ProcessingInstruction_impl<stringT>*>(*impl_); }
+    ProcessingInstruction_impl<stringT>* piImpl() const { return dynamic_cast<ProcessingInstruction_impl<stringT>*>(*NodeT::impl_); }
 }; // class DocumentFragment
 
 

@@ -11,11 +11,7 @@ template<class stringT, class string_adaptorT>
 class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT>,
                                   public ChildlessNodeImpl<stringT, string_adaptorT>
 {
-    typedef DOM::ProcessingInstruction_impl<stringT> ProcessingInstructionT;
-    using ProcessingInstructionT::setNodeValue;
-    using ProcessingInstructionT::throwIfReadOnly;
-    using ProcessingInstructionT::ownerDoc_;
-
+    typedef ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
   public:
     ProcessingInstructionImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
                               stringT target,
@@ -55,14 +51,14 @@ class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT
 
     virtual void setNodeValue(const stringT& nodeValue)
     {
-      throwIfReadOnly();
+      NodeT::throwIfReadOnly();
 
       data_ = nodeValue;
     } // setNodeValue
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      return ownerDoc_->createProcessingInstruction(target_, data_);
+      return NodeT::ownerDoc_->createProcessingInstruction(target_, data_);
     } // cloneNode
 
   private:

@@ -16,6 +16,7 @@ template<class stringT> class CDATASection_impl;
 template<class stringT>
 class CDATASection : public Text<stringT>
 {
+    typedef Text<stringT> TextT;
   public:
     CDATASection() : Text<stringT>() { }
     explicit CDATASection(CDATASection_impl<stringT>* impl) : Text<stringT>(impl) { }
@@ -28,8 +29,8 @@ class CDATASection : public Text<stringT>
 
     CDATASection<stringT> splitText(int offset) 
     { 
-      tImpl()->throwIfReadOnly();
-      return static_cast<CDATASection<stringT> >(tImpl()->splitText(offset)); 
+      TextT::tImpl()->throwIfReadOnly();
+      return static_cast<CDATASection<stringT> >(TextT::tImpl()->splitText(offset)); 
     } // splitText
 }; // class CDATASection
 

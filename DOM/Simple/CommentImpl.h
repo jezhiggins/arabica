@@ -11,11 +11,7 @@ template<class stringT, class string_adaptorT>
 class CommentImpl : public DOM::Comment_impl<stringT>,
                     public CharacterDataImpl<stringT, string_adaptorT>
 {
-    typedef DOM::Comment_impl<stringT> CommentT;
-    using CommentT::ownerDoc_;
-    using CommentT::cloneNode;
-    using CommentT::getData;
-
+    typedef CharacterDataImpl<stringT, string_adaptorT> CharDataT;
   public:
     CommentImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
         CharacterDataImpl<stringT, string_adaptorT>(ownerDoc, data)
@@ -33,7 +29,7 @@ class CommentImpl : public DOM::Comment_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      return ownerDoc_->createComment(getData());
+      return CharDataT::ownerDoc_->createComment(CharDataT::getData());
     } // cloneNode
 
     virtual stringT getNodeName() const 

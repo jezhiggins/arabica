@@ -12,13 +12,6 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 {
     typedef typename stringT::size_type size_type;
     typedef AttrImpl<stringT, string_adaptorT> AttrT;
-    using AttrT::cloneNode;
-    using AttrT::ownerDoc_;
-    using AttrT::name_;
-    using AttrT::getSpecified;
-    using AttrT::getPrefix;
-    using AttrT::setPrefix;
-    using AttrT::hasPrefix;
 	
   public:
     AttrNSImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc,
@@ -62,9 +55,9 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
     // DOM::Node methods
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      AttrNSImpl* clone = dynamic_cast<AttrNSImpl*>(ownerDoc_->createAttributeNS(namespaceURI_, name_));
+      AttrNSImpl* clone = dynamic_cast<AttrNSImpl*>(AttrT::ownerDoc_->createAttributeNS(namespaceURI_, AttrT::name_));
       cloneChildren(clone);
-      clone->setSpecified(getSpecified());
+      clone->setSpecified(AttrT::getSpecified());
       return clone;
     } // cloneNode
 
@@ -76,8 +69,8 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
     virtual stringT getPrefix() const 
     { 
       string_adaptorT SA;
-      size_type index = name_.find(SA.makeStringT(":"));
-      return (index != stringT::npos) ? name_.substr(0, index) : stringT();
+      size_type index = AttrT::name_.find(SA.makeStringT(":"));
+      return (index != stringT::npos) ? AttrT::name_.substr(0, index) : stringT();
     } // getPrefix
     
     virtual void setPrefix(const stringT& prefix) 
@@ -87,14 +80,14 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
       if(prefix.empty()) 
       {
-        name_ = localName_;
+        AttrT::name_ = localName_;
         return;
       } // empty prefix
 
       checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, namespaceURI_, DOM::Node<stringT>::ATTRIBUTE_NODE);
 
       string_adaptorT SA;
-      name_ = prefix + SA.makeStringT(":") + localName_; 
+      AttrT::name_ = prefix + SA.makeStringT(":") + localName_; 
     } // setPrefix
 
     virtual stringT getLocalName() const 
@@ -116,7 +109,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
     virtual bool hasPrefix() const 
     { 
       string_adaptorT SA;
-      return (name_.find(SA.makeStringT(":")) != stringT::npos);
+      return (AttrT::name_.find(SA.makeStringT(":")) != stringT::npos);
     } // hasPrefix
 
   private:

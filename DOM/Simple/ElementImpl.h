@@ -13,11 +13,8 @@ template<class stringT, class string_adaptorT>
 class ElementImpl : public DOM::Element_impl<stringT>,
                     public NodeImplWithChildren<stringT, string_adaptorT>
 {
-    typedef DOM::Element_impl<stringT> ElementT;
-    using ElementT::getElementsByTagName;
-    using ElementT::ownerDoc_;
-    using ElementT::cloneNode;
-    using ElementT::getFirstChild;
+  protected:
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
 
   public:
     ElementImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& tagName) : 
@@ -69,7 +66,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
 
     virtual DOM::NodeList_impl<stringT>* getElementsByTagName(const stringT& tagName) const    
     {
-      return new ElementByTagList<stringT, string_adaptorT>(ownerDoc_,
+      return new ElementByTagList<stringT, string_adaptorT>(NodeT::ownerDoc_,
                                                             const_cast<ElementImpl*>(this),
                                                             tagName);
     } // getElementsByTagName
@@ -101,7 +98,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
 
     virtual DOM::NodeList_impl<stringT>* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const    
     {
-      return new ElementByTagList<stringT, string_adaptorT>(ownerDoc_,
+      return new ElementByTagList<stringT, string_adaptorT>(NodeT::ownerDoc_,
                                                             const_cast<ElementImpl*>(this),
                                                             namespaceURI, localName);
     } // getElementsByTagNameNS
@@ -135,7 +132,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      ElementImpl* clone = dynamic_cast<ElementImpl*>(ownerDoc_->createElement(tagName_));
+      ElementImpl* clone = dynamic_cast<ElementImpl*>(NodeT::ownerDoc_->createElement(tagName_));
       cloneChildren(clone, deep);
       return clone;
     } // cloneNode
@@ -174,7 +171,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
       } // for
 
       if(deep)
-        for(DOM::Node_impl<stringT>* c = getFirstChild(); c != 0; c = c->getNextSibling())
+        for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
           clone->appendChild(c->cloneNode(true));
     } // cloneChildren
 

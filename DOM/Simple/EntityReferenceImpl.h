@@ -10,10 +10,7 @@ template<class stringT, class string_adaptorT>
 class EntityReferenceImpl : public DOM::EntityReference_impl<stringT>,
                             public NodeImplWithChildren<stringT, string_adaptorT>
 {
-    typedef DOM::EntityReference_impl<stringT> EntityReferenceT;
-    using EntityReferenceT::ownerDoc_;
-    using EntityReferenceT::readOnly_;
-
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
   public:
     EntityReferenceImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT name) : 
         DOM::EntityReference_impl<stringT>(),
@@ -43,7 +40,7 @@ class EntityReferenceImpl : public DOM::EntityReference_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      return ownerDoc_->createEntityReference(name_);
+      return NodeT::ownerDoc_->createEntityReference(name_);
     } // cloneNode
 
     //////////////////////////////////////////////////////
@@ -51,7 +48,7 @@ class EntityReferenceImpl : public DOM::EntityReference_impl<stringT>,
   private:
     virtual void checkChildType(DOM::Node_impl<stringT>* child)
     {
-      if(readOnly_)
+      if(NodeT::readOnly_)
         throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR);
 
       typename DOM::Node<stringT>::Type type = child->getNodeType();

@@ -16,6 +16,7 @@ template<class stringT> class Text_impl;
 template<class stringT>
 class Text : public CharacterData<stringT>
 {
+    typedef CharacterData<stringT> CharDataT;
   public:
     Text() : CharacterData<stringT>() { }
     explicit Text(Text_impl<stringT>* impl) : CharacterData<stringT>(impl) { }
@@ -32,7 +33,7 @@ class Text : public CharacterData<stringT>
     } // splitText
 
   protected:
-    Text_impl<stringT>* tImpl() const { return dynamic_cast<Text_impl<stringT>*>(impl()); }
+    Text_impl<stringT>* tImpl() const { return dynamic_cast<Text_impl<stringT>*>(CharDataT::impl()); }
 }; // class Text
 
 ////////////////////////////////////////////////////////////////////
