@@ -28,7 +28,7 @@ iso8859_1utf8_codecvt::~iso8859_1utf8_codecvt()
 {
 } // ~iso8859_1utf8_codecvt
 
-std::codecvt_base::result iso8859_1utf8_codecvt::do_out(std::mbstate_t& /* state */,
+std::codecvt_base::result iso8859_1utf8_codecvt::do_in(std::mbstate_t& /* state */,
                         const char* from,
                         const char* from_end,
                         const char*& from_next,
@@ -43,7 +43,8 @@ std::codecvt_base::result iso8859_1utf8_codecvt::do_out(std::mbstate_t& /* state
   {
     for(const Tab *t = tab; t->char_mask; t++)
     {
-      if(*from_next > t->wide_mask )
+      unsigned char fn = static_cast<unsigned char>(*from_next);
+      if(fn > t->wide_mask )
         continue;
 
       // is there enough room in outbuffer?
@@ -51,11 +52,11 @@ std::codecvt_base::result iso8859_1utf8_codecvt::do_out(std::mbstate_t& /* state
         return std::codecvt_base::partial;
 
       int c = t->shift;
-      *to_next++ = static_cast<char>(t->char_value | (*from_next >> c));
+      *to_next++ = static_cast<char>(t->char_value | (fn >> c));
       while(c > 0)
       {
       	c -= 6;
-       	*to_next++ = static_cast<char>(0x80 | ((*from_next >> c) & 0x3F));
+       	*to_next++ = static_cast<char>(0x80 | ((fn >> c) & 0x3F));
       } // while(c > 0)
       break;
     } // for(Tab *t = tab;  t->char_mask; t++)
@@ -65,7 +66,7 @@ std::codecvt_base::result iso8859_1utf8_codecvt::do_out(std::mbstate_t& /* state
   return std::codecvt_base::ok;
 } // do_out
 
-std::codecvt_base::result iso8859_1utf8_codecvt::do_in(std::mbstate_t& /* state */,
+std::codecvt_base::result iso8859_1utf8_codecvt::do_out(std::mbstate_t& /* state */,
                        const char* from,
                        const char* from_end,
                        const char*& from_next,
