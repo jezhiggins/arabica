@@ -64,16 +64,21 @@ public:
   typedef std::basic_string<charT, traitsT> stringT;
   typedef std::basic_string<fromCharT, fromTraitsT> fromStringT;
 
-  explicit basic_iconvertstream(ios_base::openmode mode = in) :
+  explicit basic_iconvertstream(std::ios_base::openmode mode = std::ios_base::in) :
     std::basic_istream<charT, traitsT>( 0 ),
-    stringbuf_(mode | in)
-    { istreamT::init( &stringbuf_ ); }
-  explicit basic_iconvertstream(const stringT& str, ios_base::openmode mode = in)
-		: std::basic_istream<charT, traitsT>(0), stringbuf_(mode | in) 
-    {
-      istreamT::init( &stringbuf_ ); // istreamT::rdbuf(&stringbuf_);
-      str(str);
-    }
+    stringbuf_(mode | std::ios_base::in)
+  { 
+    istreamT::init( &stringbuf_ ); 
+  } // basic_iconvertstream
+
+  explicit basic_iconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::in) : 
+    std::basic_istream<charT, traitsT>(0), 
+    stringbuf_(mode | std::ios_base::in) 
+  {
+    istreamT::init( &stringbuf_ ); // istreamT::rdbuf(&stringbuf_);
+    str(str);
+  } // basic_iconvertstream
+
   virtual ~basic_iconvertstream()
   {}
 
@@ -161,17 +166,22 @@ public:
   typedef std::basic_string<charT, traitsT> stringT;
   typedef std::basic_string<toCharT, toTraitsT> toStringT;
 
-  explicit basic_oconvertstream(ios_base::openmode mode = out) :
-      std::basic_ostream<charT, traitsT>( 0 ),
-      stringbuf_(mode | out)
-    { ostreamT::init( &stringbuf_ ); }
-  explicit basic_oconvertstream(const stringT& str, ios_base::openmode mode = out) :
-      std::basic_ostream<charT, traitsT>( 0 ),
-      stringbuf_(str, mode | out)
-    { std::basic_ios<charT,traitsT>::init( &stringbuf_ ); }
+  explicit basic_oconvertstream(std::ios_base::openmode mode = std::ios_base::out) :
+      std::basic_ostream<charT, traitsT>(0),
+      stringbuf_(mode | std::ios_base::out)
+  { 
+    ostreamT::init( &stringbuf_ ); 
+  } // basic_oconvertstream
+
+  explicit basic_oconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::out) :
+      std::basic_ostream<charT, traitsT>(0),
+      stringbuf_(str, mode | std::ios_base::out)
+  { 
+    std::basic_ios<charT,traitsT>::init( &stringbuf_ ); 
+  } // basic_oconvertstream
 
   virtual ~basic_oconvertstream()
-    {}
+  {}
 
   stringbufT* rdbuf() const
   {

@@ -14,6 +14,7 @@
 #include <SAX/DTDHandler.h>
 #include <SAX/ErrorHandler.h>
 #include <SAX/InputSource.h>
+#include <SAX/SAXNotSupportedException.h>
 
 namespace SAX
 {
