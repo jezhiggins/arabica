@@ -146,7 +146,7 @@ private:
 
 /**
  * expat_wrapper puts an {@link basic_XMLReader XMLReader} interface
- * around <a href='http://expat.sf.net/'>expat</a>.
+ * around <a href='http://www.libexpat.org/'>Expat</a>.
  * <p>
  * For general usage:<br>
  * <code>
@@ -478,9 +478,8 @@ bool expat_wrapper<stringT, string_adaptorT>::do_parse(inputSourceT& source, XML
   return true;
 } // do_parse
 
-
 template<class stringT, class string_adaptorT>
-std::auto_ptr<expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+std::auto_ptr<typename expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
 {
   if(name == properties_.lexicalHandler)
   {
