@@ -64,6 +64,40 @@ class SAXTest : public TestCase
       assertEquals("poop", elem.getAttribute("attr"));
     } // test4
 
+    void test5()
+    {
+      DOM::Document<std::string> d = parse("<stuff:elem attr='something' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Element<std::string> elem = d.getDocumentElement();
+      assertEquals(true, elem.hasNamespaceURI());
+      assertEquals("http://example.com/stuff", elem.getNamespaceURI());
+
+      DOM::Attr<std::string> attr = elem.getAttributeNode("attr");
+      assertEquals(false, attr.hasNamespaceURI());
+    } // test5
+
+    void test6()
+    {
+      DOM::Document<std::string> d = parse("<stuff:elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Element<std::string> elem = d.getDocumentElement();
+      assertEquals(true, elem.hasNamespaceURI());
+      assertEquals("http://example.com/stuff", elem.getNamespaceURI());
+
+      DOM::Attr<std::string> attr = elem.getAttributeNodeNS("http://example.com/stuff", "attr");
+      assertEquals(true, attr.hasNamespaceURI());
+      assertEquals("http://example.com/stuff", attr.getNamespaceURI());
+    } // test6
+
+    void test7()
+    {
+      DOM::Document<std::string> d = parse("<elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Element<std::string> elem = d.getDocumentElement();
+      assertEquals(false, elem.hasNamespaceURI());
+
+      DOM::Attr<std::string> attr = elem.getAttributeNodeNS("http://example.com/stuff", "attr");
+      assertEquals(true, attr.hasNamespaceURI());
+      assertEquals("http://example.com/stuff", attr.getNamespaceURI());
+    } // test7
+
     void test8()
     {
       DOM::Document<std::string> d = parse("<root attr=\"poop\"><child/></root>");
@@ -75,7 +109,17 @@ class SAXTest : public TestCase
       assert(e2.hasAttributes() == true);
       assert(e2.getAttribute("attr") == "poop");
       assert(e2.getFirstChild().getNodeName() == "child");
-    } // test7
+    } // test8
+
+    void test9()
+    {
+      DOM::Document<std::string> d = parse("<elem attr='something' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Element<std::string> elem = d.getDocumentElement();
+      assertEquals(false, elem.hasNamespaceURI());
+
+      DOM::Attr<std::string> attr = elem.getAttributeNode("attr");
+      assertEquals(false, attr.hasNamespaceURI());
+    } // test9
 };
 
 TestSuite* SAXTest_suite() 
@@ -85,10 +129,11 @@ TestSuite* SAXTest_suite()
     suiteOfTests->addTest(new TestCaller<SAXTest>("test2", &SAXTest::test2));
     suiteOfTests->addTest(new TestCaller<SAXTest>("test3", &SAXTest::test3));
     suiteOfTests->addTest(new TestCaller<SAXTest>("test4", &SAXTest::test4));
-//    suiteOfTests->addTest(new TestCaller<SAXTest>("test5", &SAXTest::test5));
-//    suiteOfTests->addTest(new TestCaller<SAXTest>("test6", &SAXTest::test6));
-//    suiteOfTests->addTest(new TestCaller<SAXTest>("test7", &SAXTest::test7));
+    suiteOfTests->addTest(new TestCaller<SAXTest>("test5", &SAXTest::test5));
+    suiteOfTests->addTest(new TestCaller<SAXTest>("test6", &SAXTest::test6));
+    suiteOfTests->addTest(new TestCaller<SAXTest>("test7", &SAXTest::test7));
     suiteOfTests->addTest(new TestCaller<SAXTest>("test8", &SAXTest::test8));
+    suiteOfTests->addTest(new TestCaller<SAXTest>("test9", &SAXTest::test9));
     return suiteOfTests;
 } // MathTest_suite
 
