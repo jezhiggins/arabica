@@ -62,9 +62,7 @@ public:
 }; // class basic_XMLFilter
 
 typedef basic_XMLFilter<std::string> XMLFilter;
-#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_XMLFilter<std::wstring> wXMLFilter;
-#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

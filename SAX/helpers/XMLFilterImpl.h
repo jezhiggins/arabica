@@ -488,9 +488,7 @@ private:
 }; // class basic_XMLFilter
 
 typedef basic_XMLFilterImpl<std::string> XMLFilterImpl;
-#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_XMLFilterImpl<std::wstring> wXMLFilterImpl;
-#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

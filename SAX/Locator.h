@@ -121,9 +121,7 @@ public:
 }; // class Locator
 
 typedef basic_Locator<std::string> Locator;
-#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_Locator<std::wstring> wLocator;
-#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

@@ -107,9 +107,7 @@ public:
 }; // class EntityResolver
 
 typedef basic_EntityResolver<std::string> EntityResolver;
-#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_EntityResolver<std::wstring> wEntityResolver;
-#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

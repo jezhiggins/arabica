@@ -153,9 +153,7 @@ private:
 }; // class basic_SAXParseException
 
 typedef basic_SAXParseException<std::string> SAXParseException;
-#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_SAXParseException<std::wstring> wSAXParseException;
-#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

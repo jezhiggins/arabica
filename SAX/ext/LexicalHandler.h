@@ -186,9 +186,7 @@ public:
 }; // class basic_LexicalHandler
 
 typedef basic_LexicalHandler<std::string> LexicalHandler;
-#if !(__GNUG__ && (__GNUC__ < 3))
 typedef basic_LexicalHandler<std::wstring> wLexicalHandler;
-#endif // !(__GNUG__ && (__GNUC__ < 3))
 
 }; // namespace SAX
 

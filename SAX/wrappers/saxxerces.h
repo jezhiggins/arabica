@@ -34,9 +34,6 @@
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/util/BinInputStream.hpp>
 #include <xercesc/sax/InputSource.hpp>
-#ifdef (__GNUG__ && (__GNUC__ < 3))
-#include <xercesc/util/TransService.hpp>
-#endif
 
 
 namespace SAX
@@ -143,27 +140,17 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
     ///////////////////////////////
     // String adaptor for XMLCh
 
-#if !(__GNUG__ && (__GNUC__ < 3))
     // * For the null-terminated version, we convert the array of XMLCh to a
     //   null-terminated vector of wchar_t.  We then pass &vector[0] to the
     //   parent method.
     // * For the known length version, we convert the the array of XMLCh to a
     //   vector of wchar_t.  We then pass &vector[0] and length to the parent
     //   method.
-#else
-    // * For the null-terminated version, we use the Xerces XMLTranscoder
-    //   classes to convert to a null-terminated utf-8 char array.  We then
-    //   pass this to the parent method.
-    // * For the known length version, we copy the array, append a
-    //   null-character and then do the above.
-#endif
     class xerces_string_adaptor : public string_adaptorT
     {
       public:
 	typedef typename stringT::value_type value_type;
 	typedef string_adaptorT base;
-
-#if !(__GNUG__ && (__GNUC__ < 3))
 
 	typedef std::vector<wchar_t> wVector;
 
@@ -208,99 +195,6 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
 	    return base::makeStringT("");
 	  }
 	}
-#else
-
-	xerces_string_adaptor() : transcoder_(0) { }
-
-	~xerces_string_adaptor() { delete transcoder_; }
-
-	static const int MAX_BUFFER = 4096;
-
-	/* Lazily instantiates a transcoder, but only if
-	 * XMLPlatformUtils::Initialize() has been called.
-	 * @see xerces_initializer */
-	XMLTranscoder* getTranscoder() const
-	{
-	  if (!transcoder_)
-	  {
-	    if (xerces_initializer::isInitialized())
-	    {
-	      // NOTE: We are going to assume that result is always "Ok".
-	      ::XMLTransService::Codes result;
-	      transcoder_ = ::XMLPlatformUtils::fgTransService->makeNewTranscoderFor(XMLUni::fgUTF8EncodingString, result, MAX_BUFFER);
-	    }
-	  }
-	  return transcoder_;
-	}
-
-	char* transcode(const XMLCh* toTranscode) const
-	{
-	  if (0 != getTranscoder())
-	  {
-	    vector<XMLByte> final;
-	    vector<XMLByte> toFill(MAX_BUFFER);
-	    unsigned int charsEaten = 1;
-	    while (*toTranscode && charsEaten)
-	    {
-	      unsigned int srcLen = ::XMLString::stringLen(toTranscode);
-	      // Ensure we have enough space.
-	      toFill.resize(MAX_BUFFER);
-	      // Resize to the number of bytes written.
-	      unsigned int size = 
-		getTranscoder()->transcodeTo(toTranscode,
-					     srcLen,
-					     &toFill[0],
-					     MAX_BUFFER,
-					     charsEaten,
-					     ::XMLTranscoder::UnRep_RepChar);
-
-	      toFill.resize(size);
-	      final.insert(final.end(), toFill.begin(), toFill.end());
-	      toTranscode += charsEaten;
-	    }
-	    final.push_back(0);
-	    char *result = new char[final.size()];
-	    memcpy(result, &final[0], final.size()*sizeof(char));
-	    return result;
-	  }
-	  else
-	  {
-	    char *result = ::XMLString::transcode(toTranscode);
-	    return result;
-	  }
-	}
-
-	// Create a string from a zero-terminated array of XMLCh
-	stringT makeStringT(const XMLCh* str) const
-	{
-	  if (str)
-	  {
-	    ::ArrayJanitor<char> buffer(transcode(str));
-	    return base::makeStringT(&buffer[0]);
-	  }
-	  else
-	  {
-	    return base::makeStringT("");
-	  }
-	}
-	// Create a string from a given number of XMLCh within an array
-	stringT makeStringT(const XMLCh* str, int length) const
-	{
-	  if (str && length)
-	  {
-	    std::vector<XMLCh> nullTerminated(length+1);
-	    nullTerminated.assign(str, str+length+1);
-	    nullTerminated.push_back(0);
-	    ::ArrayJanitor<char> buffer(transcode(&nullTerminated[0]));
-	    return base::makeStringT(&buffer[0]);
-	  }
-	  else
-	  {
-	    return base::makeStringT("");
-	  }
-	}
-
-#endif
 
 	XMLCh* asXMLChString(const stringT& s) const
 	{
@@ -308,10 +202,6 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
 	  return ::XMLString::transcode(str.c_str());
 	}
 
-#if (__GNUG__ && (__GNUC__ < 3))
-      private:
-	mutable XMLTranscoder* transcoder_;
-#endif
     };
 
     ///////////////////////////////
@@ -615,7 +505,6 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
         typedef void(SAX::ErrorHandler::* ErrorFn)(const SAX::SAXParseException&);
 
         void handleError(const ::SAXParseException& exception, ErrorFn fn)
-
         {
           if(!errorHandler_)
             return;
@@ -902,15 +791,7 @@ void xerces_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name
     SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT&>* prop = dynamic_cast<SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT&>*>(value.get());
 
     if(!prop)
-#if (__GNUG__)
-#if (__GNUC__ < 3)
-      throw std::runtime_error("Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
-#else // (__GNUC__ < 3)
-      throw std::bad_cast();
-#endif // (__GNUC__ < 3)
-#else (__GNUG__)
       throw std::bad_cast("Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
-#endif (__GNUG__)
 
     lexicalHandlerAdaptor_.setLexicalHandler(prop->get());
     return;
@@ -920,15 +801,8 @@ void xerces_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name
     SAX::basic_XMLReader<stringT>::Property<SAX::basic_DeclHandler<stringT>&>* prop = dynamic_cast<SAX::basic_XMLReader<stringT>::Property<SAX::basic_DeclHandler<stringT>&>*>(value.get());
 
     if(!prop)
-#if (__GNUG__)
-#if (__GNUC__ < 3)
-      throw std::runtime_error("Property DeclHandler is wrong type, should be SAX::DeclHandler&");
-#else // (__GNUC__ < 3)
-      throw std::bad_cast();
-#endif // (__GNUC__ < 3)
-#else (__GNUG__)
       throw std::bad_cast("Property DeclHandler is wrong type, should be SAX::DeclHandler&");
-#endif (__GNUG__)
+
     declHandlerAdaptor_.setDeclHandler(prop->get());
     return;
   } // if ...
