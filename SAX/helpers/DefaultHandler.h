@@ -51,7 +51,7 @@ class basic_DefaultHandler : public basic_EntityResolver<string_type>,
 					public basic_DTDHandler<string_type>,
 					public basic_ContentHandler<string_type>, 
 					public basic_ErrorHandler<string_type>
-
+{
 public:
   typedef string_type stringT;
   typedef basic_InputSource<stringT> InputSourceT;
