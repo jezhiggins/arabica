@@ -4,6 +4,7 @@
 // XMLFilter.h
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
 #include <string>
 #include <SAX/XMLFilter.h>
 #include <SAX/helpers/DefaultHandler.h>

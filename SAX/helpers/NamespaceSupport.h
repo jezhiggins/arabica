@@ -5,6 +5,7 @@
  * $Id$
  */
 
+#include <SAX/ArabicaConfig.h>
 #include <string>
 #include <map>
 #include <vector>

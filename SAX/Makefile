@@ -43,13 +43,12 @@ CXXFLAGS += -O2
 LDFLAGS  += -O2
 
 # edit for your parser choice - may include more than one
-PARSER_CONFIG = -DUSE_EXPAT
+PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 # Includes and library directories 
 INCS_DIRS = -I.. 
 #INCS_DIRS = -I.. 
-
 LIBS_DIRS = 
 
 STATIC_LIBS =
@@ -103,7 +102,8 @@ libArabica.a : $(OBJS)
 #//////////////////////////////////////////////
 
 # Compile rules
-saxlib.cpp : ParserConfig.S saxlib.S
+saxlib.cpp : ParserConfig.S saxlib.S ArabicaConfig.S
+	$(PREPROCESS.S) $(PARSER_CONFIG) -o ArabicaConfig.h ArabicaConfig.S
 	$(PREPROCESS.S) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
 	$(PREPROCESS.S) $(PARSER_CONFIG) -o saxlib.cpp saxlib.S 
 
@@ -130,7 +130,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o ../Utils/impl/*.o ../XML/*.o libArabica*  *~ helpers/*~ core ../bin/libArabica* saxlib.cpp ParserConfig.h
+	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o ../Utils/impl/*.o ../XML/*.o libArabica*  *~ helpers/*~ core ../bin/libArabica* saxlib.cpp ParserConfig.h ArabicaConfig.h
 
 
 

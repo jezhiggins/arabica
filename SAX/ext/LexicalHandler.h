@@ -5,6 +5,7 @@
 // $Id$
 
 #include <string>
+#include <SAX/ArabicaConfig.h>
 
 namespace SAX 
 {

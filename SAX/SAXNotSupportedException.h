@@ -5,7 +5,7 @@
 // $Id$
 
 
-#include "SAXException.h"
+#include <SAX/SAXException.h>
 
 namespace SAX
 {

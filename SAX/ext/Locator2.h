@@ -4,6 +4,7 @@
 // Locator2.h
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
 #include <SAX/Locator.h>
 
 namespace SAX 

@@ -6,6 +6,7 @@
 // $Id$
 ////////////////////////////////////////////////////////////////
 
+#include <SAX/ArabicaConfig.h>
 #include <SAX/XMLReader.h>
 #include <SAX/SAXParseException.h>
 #include <SAX/InputSource.h>

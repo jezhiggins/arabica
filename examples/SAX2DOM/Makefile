@@ -40,7 +40,7 @@ CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
 CXXFLAGS += -O2
-LDFLAGS  += -O2 -L../../bin 
+LDFLAGS  += -O2 
 
 # Uncomment for debug version
 CXXFLAGS += -g 
@@ -50,12 +50,13 @@ CXXFLAGS += -g
 INCS_DIRS = -I../..
 #INCS_DIRS = -I.. 
 
-LIBS_DIRS = 
+LIBS_DIRS = -L../../bin
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -L../../bin -lArabica -lexpat
+DYNAMIC_LIBS =  -lArabica -lexpat
 
 CXXFLAGS += ${INCS_DIRS}
+LDFLAGS += ${LIBS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}
 
 #/////////////////////////////////////////////////////////////////////////
@@ -121,7 +122,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend $(CPPUNITUI_OBJS) $(CPPUNITFW_OBJS) $(SAXDOM_OBJS) core sax2dom_test domwriter ../../bin/sax2dom_test ../../bin/domwriter
+	$(REMOVE) .depend $(CPPUNITUI_OBJS) $(CPPUNITFW_OBJS) $(SAXDOM_OBJS) $(DOMWRITER_OBJS) core sax2dom_test domwriter ../../bin/sax2dom_test ../../bin/domwriter
 
 
 #/////////////////////////////////////////////////////////////////////////

@@ -1,6 +1,7 @@
 #ifndef SAXWriter_H
 #define SAXWriter_H
 
+#include <SAX/ArabicaConfig.h>
 #include <SAX/helpers/XMLFilterImpl.h>
 #include <SAX/ext/LexicalHandler.h>
 #include <XML/UnicodeCharacters.h>

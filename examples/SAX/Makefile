@@ -53,7 +53,7 @@ INCS_DIRS = -I../..
 LIBS_DIRS = -L../../bin 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -lArabica  -lexpat	
+DYNAMIC_LIBS = -lArabica  -lexpat
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${LIBS_DIRS}

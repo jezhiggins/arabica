@@ -59,6 +59,8 @@
  */
 
 
+#include <SAX/ParserConfig.h>
+#include <SAX/ArabicaConfig.h>
 
 /**
  *  
@@ -76,8 +78,7 @@ template<class string_type> class basic_InputSource;
 template<class string_type> class basic_Locator;
 template<class string_type> class basic_Parser;
 template<class string_type> class basic_SAXParseException;
-
-class ErrorHandler;
+template<class string_type> class basic_ErrorHandler;
 
 typedef basic_AttributeList<std::string> AttributeList;
 typedef basic_DocumentHandler<std::string> DocumentHandler;
@@ -87,6 +88,7 @@ typedef basic_InputSource<std::string> InputSource;
 typedef basic_Locator<std::string> Locator;
 typedef basic_Parser<std::string> Parser;
 typedef basic_SAXParseException<std::string> SAXParseException;
+typedef basic_ErrorHandler<std::string> ErrorHandler;
 
 #ifndef ARABICA_NO_WCHAR_T
 typedef basic_AttributeList<std::wstring> wAttributeList;
@@ -97,6 +99,7 @@ typedef basic_InputSource<std::wstring> wInputSource;
 typedef basic_Locator<std::wstring> wLocator;
 typedef basic_Parser<std::wstring> wParser;
 typedef basic_SAXParseException<std::wstring> wSAXParseException;
+typedef basic_ErrorHandler<std::wstring> wErrorHandler;
 #endif 
 
 }; // namespace SAX

@@ -6,6 +6,8 @@
 
 #include <stdexcept>
 
+#include <SAX/ArabicaConfig.h>
+
 namespace SAX
 {
 

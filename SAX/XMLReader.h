@@ -7,6 +7,8 @@
 #include <string>
 #include <memory>
 
+#include <SAX/ArabicaConfig.h>
+
 #include <SAX/ContentHandler.h>
 #include <SAX/EntityResolver.h>
 #include <SAX/DTDHandler.h>

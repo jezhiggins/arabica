@@ -3,6 +3,8 @@
 // SAX document handler.
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
+
 namespace SAX 
 {
 

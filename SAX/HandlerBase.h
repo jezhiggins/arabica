@@ -4,13 +4,16 @@
 // $Id$
 
 #include <string>
-#include "EntityResolver.h"
-#include "DTDHandler.h"
-#include "DocumentHandler.h"
-#include "ErrorHandler.h"
-#include "Locator.h"
-#include "AttributeList.h"
-#include "SAXException.h"
+
+#include <SAX/ArabicaConfig.h>
+
+#include <SAX/EntityResolver.h>
+#include <SAX/DTDHandler.h>
+#include <SAX/DocumentHandler.h>
+#include <SAX/ErrorHandler.h>
+#include <SAX/Locator.h>
+#include <SAX/AttributeList.h>
+#include <SAX/SAXException.h>
 
 namespace SAX
 {

@@ -1,6 +1,7 @@
 #ifndef saxgarden_h
 #define saxgarden_h
 
+#include <SAX/ArabicaConfig.h>
 #include <boost/spirit.hpp>
 #include <boost/bind.hpp>
 #include <vector>

@@ -43,7 +43,7 @@ CXXFLAGS += -O2
 LDFLAGS  += -O2 
 
 # Uncomment for debug version
-#  CXXFLAGS += -g -D__DEBUG__
+#  CXXFLAGS += -g 
 
 
 # Includes and library directories 
@@ -53,7 +53,7 @@ INCS_DIRS = -I../..
 LIBS_DIRS = -L../../bin 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -lArabica  -lexpat	
+DYNAMIC_LIBS = -lArabica  	
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${LIBS_DIRS}

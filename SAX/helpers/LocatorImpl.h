@@ -4,6 +4,7 @@
 // LocatorImpl.h
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
 #include <string>
 #include <Locator.h>
 

@@ -7,6 +7,9 @@
 #pragma message("Parser is a SAX1 class.  Consider using XMLReader instead.")
 
 #include <string>
+
+#include <SAX/ArabicaConfig.h>
+
 #include <saxfwd.h>
 
 namespace SAX 

@@ -5,7 +5,9 @@
 // $Id$
 
 #include <string>
-#include "XMLReader.h"
+#include <SAX/ArabicaConfig.h>
+
+#include <SAX/XMLReader.h>
 
 namespace SAX
 {

@@ -4,6 +4,7 @@
 // AttributesImpl.h - default implementation of Attributes.
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
 #include <SAX/Attributes.h>
 #include <deque>
 

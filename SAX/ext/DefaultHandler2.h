@@ -4,6 +4,7 @@
 // DefaultHandler.h 
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
 #include <SAX/helpers/DefaultHandler.h>
 #include <SAX/ext/DeclHandler.h>
 #include <SAX/ext/LexicalHandler.h>

@@ -4,6 +4,7 @@
 // Attributes2.h
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
 #include <SAX/Attributes.h>
 
 namespace SAX

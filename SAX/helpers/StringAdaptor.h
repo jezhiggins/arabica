@@ -4,6 +4,8 @@
  * $Id$
  */
 
+#include <SAX/ArabicaConfig.h>
+#include <SAX/XMLReader.h>
 #include <string>
 #include <Utils/convertstream.h>
 #include <Utils/utf8ucs2codecvt.h>

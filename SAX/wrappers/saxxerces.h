@@ -6,6 +6,7 @@
 // $Id$
 //---------------------------------------------------------------------------
 
+#include <SAX/ArabicaConfig.h>
 #include <iterator>
 #include <memory>
 #include <string>

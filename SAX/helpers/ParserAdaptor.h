@@ -5,15 +5,16 @@
 // Adapts a SAX1 Parser to a SAX2 XMLReader.
 // $Id$
 
-#include <XMLReader.h>
-#include <Parser.h>
-#include <DocumentHandler.h>
-#include <helpers/NamespaceSupport.h>
-#include <AttributeList.h>
-#include <helpers/AttributesImpl.h>
-#include <SAXParseException.h>
-#include <SAXNotSupportedException.h>
-#include <SAXNotRecognizedException.h>
+#include <SAX/ArabicaConfig.h>
+#include <SAX/XMLReader.h>
+#include <SAX/Parser.h>
+#include <SAX/DocumentHandler.h>
+#include <SAX/helpers/NamespaceSupport.h>
+#include <SAX/AttributeList.h>
+#include <SAX/helpers/AttributesImpl.h>
+#include <SAX/SAXParseException.h>
+#include <SAX/SAXNotSupportedException.h>
+#include <SAX/SAXNotRecognizedException.h>
 #include <sstream>
 
 namespace SAX

@@ -4,6 +4,7 @@
 // DefaultHandler.h 
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
 #include <string>
 #include <SAX/EntityResolver.h>
 #include <SAX/DTDHandler.h>

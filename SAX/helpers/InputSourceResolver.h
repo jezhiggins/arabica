@@ -1,6 +1,7 @@
 #ifndef InputSourceResolverH
 #define InputSourceResolverH
 
+#include <SAX/ArabicaConfig.h>
 #include <iosfwd>
 #include <map>
 #include <SAX/InputSource.h>

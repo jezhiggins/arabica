@@ -4,6 +4,8 @@
  * $Id$
  */
 
+#include <SAX/ArabicaConfig.h>
+#include <SAX/XMLReader.h>
 #include <SAX/helpers/StringAdaptor.h>
 
 namespace SAX

@@ -4,6 +4,7 @@
 // A SAX2 wrapper class for expat.
 //---------------------------------------------------------------------------
 
+#include <SAX/ArabicaConfig.h>
 #include <SAX/XMLReader.h>
 #include <expat.h>
 

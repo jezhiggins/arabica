@@ -3,6 +3,7 @@
 // SAX default implementation for AttributeList.
 // $Id$
 
+#include <SAX/ArabicaConfig.h>
 #include <AttributeList.h>
 #include <vector>
 #include <algorithm>
