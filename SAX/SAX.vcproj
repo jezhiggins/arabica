@@ -450,7 +450,7 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /EP /D ARABICA_NO_WCHAR_T ArabicaConfig.S &gt; ArabicaConfig.h
+					CommandLine="cl /TC /EP  ArabicaConfig.S &gt; ArabicaConfig.h
 "
 					Outputs="ArabicaConfig.h"/>
 			</FileConfiguration>
