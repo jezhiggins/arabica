@@ -130,7 +130,7 @@
 			Name="Libs"
 			Filter="">
 			<File
-				RelativePath="..\..\lib\SAX.lib">
+				RelativePath="..\..\lib\Arabica.lib">
 			</File>
 		</Filter>
 	</Files>

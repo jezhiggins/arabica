@@ -236,9 +236,12 @@
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
-		<File
-			RelativePath="..\..\lib\SAX.lib">
-		</File>
+		<Filter
+			Name="Libs">
+			<File
+				RelativePath="..\..\lib\Arabica.lib">
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

@@ -35,7 +35,7 @@ else
 CXXFLAGS = -Wall
 endif
 
-LDFLAGS = -shared -Wl,"-hlibSAX.so.1"
+LDFLAGS = -shared -Wl,"-hlibArabica.so.1"
 CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
@@ -43,7 +43,7 @@ CXXFLAGS += -O2
 LDFLAGS  += -O2
 
 # edit for your parser choice - may include more than one
-PARSER_CONFIG = -DUSE_LIBXML2
+PARSER_CONFIG = -DUSE_GARDEN
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 # Includes and library directories 
@@ -78,18 +78,18 @@ OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
 
 # High level rules
 
-all : libSAX.so.1 libSAX.a 
+all : libArabica.so.1 libArabica.a 
 
-libSAX.so.1 : $(OBJS)
+libArabica.so.1 : $(OBJS)
 	$(LINK.cc) -o $@ $(OBJS)
-	cp -f libSAX.so.1 ../bin
-	(cd ../bin; rm -f libSAX.so; ln -s libSAX.so.1 libSAX.so)
+	cp -f libArabica.so.1 ../bin
+	(cd ../bin; rm -f libArabica.so; ln -s libArabica.so.1 libArabica.so)
 
-#	$(LINK) $@ libSAX.so
+#	$(LINK) $@ libArabica.so
 
-libSAX.a : $(OBJS)
+libArabica.a : $(OBJS)
 	ar r $@ $(OBJS)
-	cp -f libSAX.a ../bin
+	cp -f libArabica.a ../bin
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -122,7 +122,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libSAX*  *~ helpers/*~ core ../bin/libSAX* saxlib.cpp ParserConfig.h
+	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o libArabica*  *~ helpers/*~ core ../bin/libArabica* saxlib.cpp ParserConfig.h
 
 
 
