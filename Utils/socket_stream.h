@@ -269,7 +269,7 @@ bool basic_socketbuf<charT, traitsT>::writeSocket()
 
   bool ok(true);
   const std::codecvt<charT, char, state_t>& cvt =
-#if !(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
       std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
 #else
       std::use_facet(this->getloc(), (std::codecvt<charT, char, traitsT::state_type>*)0, true);
@@ -326,7 +326,7 @@ int basic_socketbuf<charT, traitsT>::readSocket()
   if(!inBuffer_.capacity())
     growInBuffer();
 
-#if!(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
   size_t pbCount = std::min<int>(gptr() - eback(), pbSize_);
 #else
   size_t pbCount = min(gptr() - eback(), pbSize_);
@@ -336,7 +336,7 @@ int basic_socketbuf<charT, traitsT>::readSocket()
          pbCount*sizeof(charT));
 
   const std::codecvt<charT, char, state_t>& cvt =
-#if!(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
       std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
 #else
       std::use_facet(this->getloc(), (std::codecvt<charT, char, traitsT::state_type>*)0, true);

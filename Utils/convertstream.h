@@ -81,7 +81,7 @@ public:
   void str(const fromStringT& str)
   {
     // do conversion
-#if !(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
     const std::codecvt<charT, fromCharT, typename traitsT::state_type>& cvt =
       std::use_facet<std::codecvt<charT, fromCharT, typename traitsT::state_type> >(this->getloc());
 #else
@@ -127,7 +127,7 @@ private:
   stringT no_conversion(const fromStringT& str)
   {
     stringT dest;
-#if!(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
     std::copy(str.begin(), str.end(), std::back_inserter(dest));
 #else
     // hack around pre-Standard library
@@ -178,7 +178,7 @@ public:
       return out;
 
     // convert it here
-#if !(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
     const std::codecvt<charT, toCharT, typename traitsT::state_type>& cvt =
       std::use_facet<std::codecvt<charT, toCharT, typename traitsT::state_type> >(this->getloc());
 #else
@@ -229,7 +229,7 @@ private:
   toStringT no_conversion(const stringT& str)
   {
     toStringT dest;
-#if!(_MSC_VER < 1300)
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
     std::copy(str.begin(), str.end(), std::back_inserter(dest));
 #else
     for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i)
