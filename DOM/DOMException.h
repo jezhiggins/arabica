@@ -15,8 +15,6 @@ namespace DOM
 class DOMException : public std::runtime_error
 {
 public:
-  DOMException(int code) : std::runtime_error("DOMException") { }
-
   enum CODE 
   {
     INDEX_SIZE_ERR,
@@ -36,8 +34,52 @@ public:
     INVALID_ACCESS_ERR
   }; // enum CODE
 
-  //virtual const char* what() const throw()
-}; // class Entity
+  DOMException(CODE code) : std::runtime_error("DOMException"), code_(code) { }
+
+  CODE code() const { return code_; }
+
+  virtual const char* what() const throw()
+  {
+    switch(code_)
+    {
+      case INDEX_SIZE_ERR:
+        return "Index size error";
+      case DOMSTRING_SIZE_ERR:
+        return "DOMString size error";
+      case HIERARCHY_REQUEST_ERR:
+        return "Hierarchy request error";
+      case WRONG_DOCUMENT_ERR:
+        return "Wrong Document error";
+      case INVALID_CHARACTER_ERR:
+        return "Invalid Character error";
+      case NO_DATA_ALLOWED_ERR:
+        return "No data allowed error";
+      case NO_MODIFICATION_ALLOWED_ERR:
+        return "No modification allowed error";
+      case NOT_FOUND_ERR:
+        return "Not found error";
+      case NOT_SUPPORTED_ERR:
+        return "Not supported error";
+      case INUSE_ATTRIBUTE_ERR:
+        return "Attribute inuse error";
+      case INVALID_STATE_ERR:
+        return "Invalid state";
+      case SYNTAX_ERR:
+        return "Syntax error";
+      case INVALID_MODIFICATION_ERR:
+        return "Invalid modification error";
+      case NAMESPACE_ERR:
+        return "Namespace error";
+      case INVALID_ACCESS_ERR:
+        return "Invalid access error";
+    } // switch(code_)
+
+    return "DOM error";
+  } // what
+
+private:
+  CODE code_;
+}; // class DOMException
 
 } // namespace DOM
 
