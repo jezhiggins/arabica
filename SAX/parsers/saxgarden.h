@@ -2,6 +2,7 @@
 #define saxgarden_h
 
 #include <boost/spirit.hpp>
+#include <boost/bind.hpp>
 #include <vector>
 #include <string>
 #include <stack>
@@ -72,23 +73,6 @@ private:
   void hexCharacterRef(iterator_t s, iterator_t e);
   void characterRef(iterator_t s, iterator_t e, int base);
 
-
-  typedef void(Garden<string_type>::* xmlp_fn)(iterator_t s, iterator_t e);
-  class binder
-  {
-    public:
-      binder(Garden* p, xmlp_fn f) : p_(p), fn_(f) { }
-
-      void operator()(iterator_t str, iterator_t end) const 
-      {
-        (p_->*fn_)(str, end);
-      } // operator()
-
-    private:
-      Garden* p_;
-      xmlp_fn fn_;
-  }; // class binder
-
   // Start grammar definition
   rule_t prolog, element, Misc, Reference,
                 CDSect, CDStart, CData, CDEnd, 
@@ -97,7 +81,7 @@ private:
                 VersionNum, Eq, EmptyElemTag, STag, content, ETag, Attribute,
                 AttValue, CharData, Comment, 
                 CharRef, EntityRef, EncName, document_,
-                Name, Comment1, S;
+                Name, Comment1, Spaces;
 
   stringT str(iterator_t s, iterator_t e, int trim = 0);
 
@@ -131,8 +115,8 @@ Garden<string_type>::Garden() :
 
   // characters
   chset_t Char("\x9\xA\xD\x20-\xFF");
-  chset_t Sch("\x20\x9\xD\xA");
-  S = +(Sch);
+  chset_t SpaceChar("\x20\x9\xD\xA");
+  Spaces = +(SpaceChar);
   chset_t Letter("\x41-\x5A\x61-\x7A\xC0-\xD6\xD8-\xF6\xF8-\xFF");
   chset_t Digit("0-9");
   chlit_t Extender('\xB7');
@@ -142,55 +126,57 @@ Garden<string_type>::Garden() :
   document_ = prolog >> element >> *Misc;
 
   chset_t CharDataChar (boost::spirit::anychar_p - (chset_t('<') | chset_t('&')));
-  CharData = (*(CharDataChar - boost::spirit::str_p("]]>")))[binder(this, &Garden<string_type>::elementContent)];
+  CharData = (*(CharDataChar - boost::spirit::str_p("]]>")))[boost::bind(&Garden<string_type>::elementContent, this, _1, _2)];
 
   // Section 2.5 - Comments
   Comment =        boost::spirit::str_p("<!--") >> Comment1 >> boost::spirit::str_p("-->");
   Comment1 = *((Char - boost::spirit::ch_p('-')) | (boost::spirit::ch_p('-') >> (Char - boost::spirit::ch_p('-'))));
  
   // Section 2.6 - Processing Instructions
-  PI = boost::spirit::str_p("<?") >> (PITarget)[binder(this, &Garden<string_type>::piTarget)] >> !S >> (PIData)[binder(this, &Garden<string_type>::piData)] >> (boost::spirit::str_p("?>"))[binder(this, &Garden<string_type>::piEnd)];
-  PITarget = Name - boost::spirit::as_lower_d[(boost::spirit::str_p("xml"))];
-  PIData = !(!S >> (*(Char - boost::spirit::str_p("?>"))));
+  PI = boost::spirit::str_p("<?") >> (PITarget)[boost::bind(&Garden<string_type>::piTarget, this, _1, _2)] >> !Spaces >> (PIData)[boost::bind(&Garden<string_type>::piData, this, _1, _2)] >> (boost::spirit::str_p("?>"))[boost::bind(&Garden<string_type>::piEnd, this, _1, _2)];
+  PITarget = Name - boost::spirit::as_lower_d[boost::spirit::str_p("xml")];
+  PIData = !(!Spaces >> (*(Char - boost::spirit::str_p("?>"))));
 
   // Section 2.7 - CDATA
-  CDSect  = CDStart >> (CData)[binder(this, &Garden<string_type>::elementContent)] >> CDEnd;
+  CDSect  = CDStart >> (CData)[boost::bind(&Garden<string_type>::elementContent, this, _1, _2)] >> CDEnd;
   CDStart = boost::spirit::str_p("<![CDATA[");
   CData   = *(Char - boost::spirit::str_p("]]>"));
   CDEnd   = boost::spirit::str_p("]]>");
 
-  prolog =            !XMLDecl >> *Misc >> !(doctypedecl >> *Misc);
-  XMLDecl =        boost::spirit::str_p("<?xml") >> VersionInfo >> !EncodingDecl >> !SDDecl >> !S >> boost::spirit::str_p("?>");
-  VersionInfo =    S >> boost::spirit::str_p("version") >> Eq >> (boost::spirit::ch_p('\'') >> VersionNum >>'\''
+  // bits before the root elemenet
+  prolog = !XMLDecl >> *Misc >> !(doctypedecl >> *Misc);
+  XMLDecl = boost::spirit::str_p("<?xml") >> VersionInfo >> !EncodingDecl >> !SDDecl >> !Spaces >> boost::spirit::str_p("?>");
+  VersionInfo = Spaces >> boost::spirit::str_p("version") >> Eq >> (boost::spirit::ch_p('\'') >> VersionNum >>'\''
                           | boost::spirit::ch_p('"') >> VersionNum >> '"');
-  Eq =                !S >> '=' >> !S;
   chset_t VersionNumCh("A-Za-z0-9_.:-");
   VersionNum =    +(VersionNumCh);
-  Misc =            Comment | S | PI;
-
   doctypedecl =    boost::spirit::str_p("<!DOCTYPE") >> *(Char - (chset_t('[') | '>')) >> !('[' >> *(Char - ']') >> ']') >> '>';
-
-  SDDecl =            S >> boost::spirit::str_p("standalone") >> Eq >> ((boost::spirit::ch_p('\'') >> (boost::spirit::str_p("yes") | boost::spirit::str_p("no")) >> '\'')
+  SDDecl =            Spaces >> boost::spirit::str_p("standalone") >> Eq >> ((boost::spirit::ch_p('\'') >> (boost::spirit::str_p("yes") | boost::spirit::str_p("no")) >> '\'')
                           | (boost::spirit::ch_p('"') >> (boost::spirit::str_p("yes") | boost::spirit::str_p("no")) >> '"'));
 
-  element = STag >> (EmptyElemTag | (boost::spirit::str_p(">"))[binder(this, &Garden<string_type>::closeElement)] >> content >> ETag);
-  STag = '<' >> (Name)[binder(this, &Garden<string_type>::openElement)] >> *(S >> Attribute) >> !S;
-  Attribute = (Name)[binder(this, &Garden<string_type>::attributeName)] >> Eq >> AttValue;
-  EmptyElemTag = (boost::spirit::str_p("/>"))[binder(this, &Garden<string_type>::closeEmptyElement)];
-  ETag = (boost::spirit::str_p("</") >> (Name)[binder(this, &Garden<string_type>::endElementName)] >> !S >> '>')[binder(this, &Garden<string_type>::endElement)];
+  // odd bits
+  Eq =                !Spaces >> '=' >> !Spaces;
+  Misc =            Comment | Spaces | PI;
+
+  // Elements
+  element = STag >> (EmptyElemTag | (boost::spirit::str_p(">"))[boost::bind(&Garden<string_type>::closeElement, this, _1, _2)] >> content >> ETag);
+  STag = '<' >> (Name)[boost::bind(&Garden<string_type>::openElement, this, _1, _2)] >> *(Spaces >> Attribute) >> !Spaces;
+  Attribute = (Name)[boost::bind(&Garden<string_type>::attributeName, this, _1, _2)] >> Eq >> AttValue;
+  EmptyElemTag = (boost::spirit::str_p("/>"))[boost::bind(&Garden<string_type>::closeEmptyElement, this, _1, _2)];
+  ETag = (boost::spirit::str_p("</") >> (Name)[boost::bind(&Garden<string_type>::endElementName, this, _1, _2)] >> !Spaces >> '>')[boost::bind(&Garden<string_type>::endElement, this, _1, _2)];
   
-  AttValue =   '"' >> (*((boost::spirit::anychar_p - (chset_t('<') | '&' | '"')) | Reference))[binder(this, &Garden<string_type>::attributeValue)] >> '"'
-            | '\'' >> (*((boost::spirit::anychar_p - (chset_t('<') | '&' | '\'')) | Reference))[binder(this, &Garden<string_type>::attributeValue)] >> '\'';
+  AttValue =   '"' >> (*((boost::spirit::anychar_p - (chset_t('<') | '&' | '"')) | Reference))[boost::bind(&Garden<string_type>::attributeValue, this, _1, _2)] >> '"'
+            | '\'' >> (*((boost::spirit::anychar_p - (chset_t('<') | '&' | '\'')) | Reference))[boost::bind(&Garden<string_type>::attributeValue, this, _1, _2)] >> '\'';
   
   content =        !CharData >> *((element | Reference | CDSect | Comment | PI) >> !CharData);
 
   // Section 4.1 - Character and entity references
-  CharRef = boost::spirit::str_p("&#") >> (+boost::spirit::digit_p >> ';')[binder(this, &Garden<string_type>::decimalCharacterRef)] |
-            boost::spirit::str_p("&#x") >> (+boost::spirit::xdigit_p >> ';')[binder(this, &Garden<string_type>::hexCharacterRef)];
+  CharRef = boost::spirit::str_p("&#") >> (+boost::spirit::digit_p >> ';')[boost::bind(&Garden<string_type>::decimalCharacterRef, this, _1, _2)] |
+            boost::spirit::str_p("&#x") >> (+boost::spirit::xdigit_p >> ';')[boost::bind(&Garden<string_type>::hexCharacterRef, this, _1, _2)];
   Reference = EntityRef | CharRef;
-  EntityRef = '&' >> (Name >> boost::spirit::ch_p(';'))[binder(this, &Garden<string_type>::entityRef)];
+  EntityRef = '&' >> (Name >> boost::spirit::ch_p(';'))[boost::bind(&Garden<string_type>::entityRef, this, _1, _2)];
 
-  EncodingDecl =    S >> boost::spirit::str_p("encoding") >> Eq >> (boost::spirit::ch_p('"') >> EncName >> '"' |
+  EncodingDecl =    Spaces >> boost::spirit::str_p("encoding") >> Eq >> (boost::spirit::ch_p('"') >> EncName >> '"' |
                           boost::spirit::ch_p('\'') >> EncName >> '\'');
   chset_t EncNameCh = VersionNumCh - chset_t(':');
   EncName =        boost::spirit::alpha_p >> *(EncNameCh);
