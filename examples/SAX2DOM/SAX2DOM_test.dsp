@@ -118,6 +118,10 @@ SOURCE=.\test_ProcessingInstruction.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\test_SAX.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\test_Siblings.cpp
 # End Source File
 # Begin Source File
@@ -194,6 +198,10 @@ SOURCE=.\test_ProcessingInstruction.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\test_SAX.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\test_Siblings.h
 # End Source File
 # Begin Source File
@@ -221,10 +229,6 @@ SOURCE=.\CppUnit\framework\TestSuite.h
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # End Group
-# Begin Source File
-
-SOURCE=..\..\..\..\lib\vc6\expat.lib
-# End Source File
 # Begin Source File
 
 SOURCE=..\..\lib\SAX.lib

@@ -22,6 +22,7 @@
 #include "test_Element.h"
 #include "test_DocumentFragment.h"
 #include "test_Attribute.h"
+#include "test_SAX.h"
 
 class TestRunner
 {
@@ -55,6 +56,7 @@ int main(int argc, char* argv[])
   runner.addTest("ElementTest", ElementTest_suite());
   runner.addTest("DocumentFragmentTest", DocumentFragmentTest_suite());
   runner.addTest("AttributeTest", AttrTest_suite());
+  runner.addTest("SAX2DOMTest", SAXTest_suite());
   runner.run(argc, argv);
 
   return 0;

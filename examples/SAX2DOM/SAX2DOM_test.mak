@@ -59,6 +59,7 @@ CLEAN :
 	-@erase "$(INTDIR)\test_DOMImplementation.obj"
 	-@erase "$(INTDIR)\test_Element.obj"
 	-@erase "$(INTDIR)\test_ProcessingInstruction.obj"
+	-@erase "$(INTDIR)\test_SAX.obj"
 	-@erase "$(INTDIR)\test_Siblings.obj"
 	-@erase "$(INTDIR)\TestCase.obj"
 	-@erase "$(INTDIR)\TestFailure.obj"
@@ -93,9 +94,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\TestResult.obj" \
 	"$(INTDIR)\TestSuite.obj" \
 	"$(INTDIR)\TextTestResult.obj" \
-	"..\..\..\..\lib\vc6\expat.lib" \
 	"..\..\lib\SAX.lib" \
 	"..\..\lib\Utilities.lib" \
+	"$(INTDIR)\test_SAX.obj" \
 	"..\..\SAX\Release\SAX.lib"
 
 "$(OUTDIR)\SAX2DOM_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
@@ -134,6 +135,7 @@ CLEAN :
 	-@erase "$(INTDIR)\test_DOMImplementation.obj"
 	-@erase "$(INTDIR)\test_Element.obj"
 	-@erase "$(INTDIR)\test_ProcessingInstruction.obj"
+	-@erase "$(INTDIR)\test_SAX.obj"
 	-@erase "$(INTDIR)\test_Siblings.obj"
 	-@erase "$(INTDIR)\TestCase.obj"
 	-@erase "$(INTDIR)\TestFailure.obj"
@@ -152,13 +154,13 @@ CLEAN :
 "$(INTDIR)" :
     if not exist "$(INTDIR)/$(NULL)" mkdir "$(INTDIR)"
 
-CPP_PROJ=/nologo /MLd /W3 /Gm /GR /GX /ZI /Od /I "..\..\\" /I "\work\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\SAX2DOM_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MLd /W3 /Gm /GR /GX /ZI /Od /I "..\..\\" /I "\work\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "USE_EXPAT" /Fp"$(INTDIR)\SAX2DOM_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\SAX2DOM_test.bsc" 
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\SAX2DOM_test.pdb" /debug /machine:I386 /out:"$(OUTDIR)\SAX2DOM_test.exe" /pdbtype:sept 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\SAX2DOM_test.pdb" /debug /machine:I386 /out:"$(OUTDIR)\SAX2DOM_test.exe" /pdbtype:sept /libpath:"..\..\lib" /libpath:"\work\lib\vc6" 
 LINK32_OBJS= \
 	"$(INTDIR)\main.obj" \
 	"$(INTDIR)\test_Attribute.obj" \
@@ -174,9 +176,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\TestResult.obj" \
 	"$(INTDIR)\TestSuite.obj" \
 	"$(INTDIR)\TextTestResult.obj" \
-	"..\..\..\..\lib\vc6\expat.lib" \
 	"..\..\lib\SAX.lib" \
-	"..\..\lib\Utilities.lib"
+	"..\..\lib\Utilities.lib" \
+	"$(INTDIR)\test_SAX.obj"
 
 "$(OUTDIR)\SAX2DOM_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -266,6 +268,11 @@ SOURCE=.\test_ProcessingInstruction.cpp
 "$(INTDIR)\test_ProcessingInstruction.obj" : $(SOURCE) "$(INTDIR)"
 
 
+SOURCE=.\test_SAX.cpp
+
+"$(INTDIR)\test_SAX.obj" : $(SOURCE) "$(INTDIR)"
+
+
 SOURCE=.\test_Siblings.cpp
 
 "$(INTDIR)\test_Siblings.obj" : $(SOURCE) "$(INTDIR)"
@@ -304,24 +311,24 @@ SOURCE=.\CppUnit\textui\TextTestResult.cpp
 !IF  "$(CFG)" == "SAX2DOM_test - Win32 Release"
 
 "DOM - Win32 Release" : 
-   cd "\work\JezUK\Arabica\DOM"
+   cd "\work\JezUK\Arabica\src\DOM"
    $(MAKE) /$(MAKEFLAGS) /F .\DOM.mak CFG="DOM - Win32 Release" 
    cd "..\EXAMPLES\SAX2DOM"
 
 "DOM - Win32 ReleaseCLEAN" : 
-   cd "\work\JezUK\Arabica\DOM"
+   cd "\work\JezUK\Arabica\src\DOM"
    $(MAKE) /$(MAKEFLAGS) /F .\DOM.mak CFG="DOM - Win32 Release" RECURSE=1 CLEAN 
    cd "..\EXAMPLES\SAX2DOM"
 
 !ELSEIF  "$(CFG)" == "SAX2DOM_test - Win32 Debug"
 
 "DOM - Win32 Debug" : 
-   cd "\work\JezUK\Arabica\DOM"
+   cd "\work\JezUK\Arabica\src\DOM"
    $(MAKE) /$(MAKEFLAGS) /F .\DOM.mak CFG="DOM - Win32 Debug" 
    cd "..\EXAMPLES\SAX2DOM"
 
 "DOM - Win32 DebugCLEAN" : 
-   cd "\work\JezUK\Arabica\DOM"
+   cd "\work\JezUK\Arabica\src\DOM"
    $(MAKE) /$(MAKEFLAGS) /F .\DOM.mak CFG="DOM - Win32 Debug" RECURSE=1 CLEAN 
    cd "..\EXAMPLES\SAX2DOM"
 
@@ -330,24 +337,24 @@ SOURCE=.\CppUnit\textui\TextTestResult.cpp
 !IF  "$(CFG)" == "SAX2DOM_test - Win32 Release"
 
 "SAXlib - Win32 Release" : 
-   cd "\work\JezUK\Arabica\SAX"
+   cd "\work\JezUK\Arabica\src\SAX"
    $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" 
    cd "..\EXAMPLES\SAX2DOM"
 
 "SAXlib - Win32 ReleaseCLEAN" : 
-   cd "\work\JezUK\Arabica\SAX"
+   cd "\work\JezUK\Arabica\src\SAX"
    $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" RECURSE=1 CLEAN 
    cd "..\EXAMPLES\SAX2DOM"
 
 !ELSEIF  "$(CFG)" == "SAX2DOM_test - Win32 Debug"
 
 "SAXlib - Win32 Debug" : 
-   cd "\work\JezUK\Arabica\SAX"
+   cd "\work\JezUK\Arabica\src\SAX"
    $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" 
    cd "..\EXAMPLES\SAX2DOM"
 
 "SAXlib - Win32 DebugCLEAN" : 
-   cd "\work\JezUK\Arabica\SAX"
+   cd "\work\JezUK\Arabica\src\SAX"
    $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" RECURSE=1 CLEAN 
    cd "..\EXAMPLES\SAX2DOM"
 
