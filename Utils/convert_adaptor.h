@@ -54,16 +54,16 @@ class convert_bufadaptor : public std::basic_streambuf<charT, traitsT>
     void growOutBuffer();
     bool flushOut();
     void growInBuffer();
-    int_type readIn();
+    std::streamsize readIn();
 
-    static const size_t bufferSize_;
-    static const size_t pbSize_;
+    static const std::streamsize bufferSize_;
+    static const std::streamsize pbSize_;
 }; // convert_bufadaptor
 
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
-const size_t convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::bufferSize_ = 1024;
+const std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::bufferSize_ = 1024;
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
-const size_t convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::pbSize_ = 4;
+const std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::pbSize_ = 4;
   // why 4? both Josuttis and Langer&Kreft use 4.
 
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
@@ -90,8 +90,7 @@ convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type con
 	if(gptr() != 0 && gptr() < egptr())
 	  return (traitsT::to_int_type(*gptr()));
 
-  size_t length = readIn();
-  if(!length)
+  if(!readIn())
     return traitsT::eof();
     
   return traitsT::to_int_type(*gptr());
@@ -147,7 +146,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
   {
     // we must do code conversion
     std::vector<externalCharT> to(length);
-    const charT* from_next = outBuffer_.begin();
+    const charT* from_next = &(outBuffer_[0]);
     std::codecvt_base::result r;
 
     do
@@ -175,13 +174,13 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
 } // flushOut
 
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
-convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::readIn()
+std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::readIn()
 {
   if(!inBuffer_.capacity())
     growInBuffer();
 
 #if!(_MSC_VER < 1300)
-  size_t pbCount = std::min<int>(gptr() - eback(), pbSize_);
+  size_t pbCount = std::min<size_t>(gptr() - eback(), pbSize_);
 #else
   size_t pbCount = min(gptr() - eback(), pbSize_);
 #endif
@@ -197,7 +196,7 @@ convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type con
 #endif
 
   std::vector<externalCharT> from(inBuffer_.capacity());
-  int res = externalbuf_.sgetn(&(from[0]), from.capacity());
+  std::streamsize res = externalbuf_.sgetn(&(from[0]), static_cast<std::streamsize>(from.capacity()));
   if(res > 0)
   {
     std::codecvt_base::result r;
@@ -211,7 +210,7 @@ convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type con
       if(r == std::codecvt_base::noconv)
         memcpy(&(inBuffer_[0])+pbSize_, &from[0], res);
       else
-        res = to_next - (&(inBuffer_[0])+pbSize_);
+        res = static_cast<std::streamsize>(to_next - (&(inBuffer_[0])+pbSize_));
       if(r == std::codecvt_base::partial)
         growInBuffer();
     }
@@ -226,7 +225,7 @@ convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type con
 
   setg(&(inBuffer_[0]) + (pbSize_-pbCount), &(inBuffer_[0])+pbSize_, &(inBuffer_[0])+pbSize_+res);
 
-  return res;
+  return static_cast<int_type>(res);
 } // readIn
 
 ////////////////////////////////////////////////////
