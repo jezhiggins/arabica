@@ -209,6 +209,8 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     typedef SAX::basic_InputSource<stringT> inputSourceT;
     typedef SAX::basic_Locator<stringT> locatorT;
     typedef SAX::basic_NamespaceSupport<stringT, string_adaptorT> namespaceSupportT;
+    typedef SAX::basic_ErrorHandler<stringT> errorHandlerT;
+    typedef SAX::basic_SAXParseException<stringT> SAXParseExceptionT;
     typedef typename SAX::basic_XMLReader<stringT>::PropertyBase PropertyBaseT;
 
 		expat_wrapper();
@@ -227,8 +229,8 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     virtual dtdHandlerT* getDTDHandler() const { return dtdHandler_; }
     virtual void setContentHandler(contentHandlerT& handler) { contentHandler_ = &handler; }
     virtual contentHandlerT* getContentHandler() const { return contentHandler_; }
-    virtual void setErrorHandler(SAX::ErrorHandler& handler) { errorHandler_ = &handler; }
-    virtual SAX::ErrorHandler* getErrorHandler() const { return errorHandler_; }
+    virtual void setErrorHandler(errorHandlerT& handler) { errorHandler_ = &handler; }
+    virtual errorHandlerT* getErrorHandler() const { return errorHandler_; }
 
     //////////////////////////////////////////////////
     // Parsing
@@ -302,7 +304,7 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     entityResolverT* entityResolver_;
     dtdHandlerT* dtdHandler_;
     contentHandlerT* contentHandler_;
-    SAX::ErrorHandler* errorHandler_;
+    errorHandlerT* errorHandler_;
     declHandlerT* declHandler_;
     lexicalHandlerT* lexicalHandler_;
     namespaceSupportT nsSupport_;
@@ -569,11 +571,11 @@ void expat_wrapper<stringT, string_adaptorT>::reportError(const std::string& mes
   if(!errorHandler_)
     return;
   
-  SAX::SAXParseException e(message,
-                           SA_.asStdString(publicId_),
-			                     SA_.asStdString(systemId_),
-	                         XML_GetCurrentLineNumber(parser_),
-			                     XML_GetCurrentColumnNumber(parser_));
+  SAXParseExceptionT e(message,
+                       publicId_,
+		       systemId_,
+		       XML_GetCurrentLineNumber(parser_),
+		       XML_GetCurrentColumnNumber(parser_));
   if(fatal)
     errorHandler_->fatalError(e);
   else
