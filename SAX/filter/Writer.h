@@ -267,7 +267,7 @@ void basic_Writer<string_type>::parse(InputSourceT& input)
   {
     XMLReaderT* parent = getParent();
     if(parent)
-      parent->setProperty(properties_.lexicalHandler, static_cast<SAX::LexicalHandler&>(*this));
+      parent->setProperty(properties_.lexicalHandler, static_cast<LexicalHandlerT&>(*this));
   }
   catch(...)
   {  }
