@@ -1,4 +1,4 @@
-<DOCUMENT>
+ï»¿<DOCUMENT>
   <SESSION>
     <SESSION-ID>Doc12.kdfjag4-rjhwueri.xml</SESSION-ID>
   </SESSION>
@@ -37,7 +37,7 @@
           </ATTRIBUTE>
           <ATTRIBUTE>
             <NAME>CityName</NAME>
-            <VALUE>Düsseldorf</VALUE>
+            <VALUE>DÃ¼sseldorf</VALUE>
           </ATTRIBUTE>
         </ROW>
       </METHOD>
@@ -74,7 +74,7 @@
           <ROW-NAME>BillingAddress</ROW-NAME>
           <ATTRIBUTE>
             <NAME>StreetName</NAME>
-            <VALUE>Königsallee</VALUE>
+            <VALUE>KÃ¶nigsallee</VALUE>
           </ATTRIBUTE>
           <ATTRIBUTE>
             <NAME>StreetNumber</NAME>
@@ -82,7 +82,7 @@
           </ATTRIBUTE>
           <ATTRIBUTE>
             <NAME>CityName</NAME>
-            <VALUE>Köln</VALUE>
+            <VALUE>KÃ¶ln</VALUE>
           </ATTRIBUTE>
         </ROW>
       </METHOD>

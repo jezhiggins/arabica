@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<doc xml:base="http://example.org/today/"
+<doc xml:base="http://example.org/today/hotlist.xsp"
      xmlns:xlink="http://www.w3.org/1999/xlink">
   <head>
     <title>Virtual Library</title>
@@ -8,7 +8,7 @@
     <paragraph>See <link xlink:type="simple" xlink:href="new.xml">what's
       new</link>!</paragraph>
     <paragraph>Check out the hot picks of the day!</paragraph>
-    <olist xml:base="/hotpicks/">
+    <olist xml:base="/">
       <item>
         <link xlink:type="simple" xlink:href="pick1.xml">Hot Pick #1</link>
       </item>
