@@ -41,6 +41,16 @@ public:
   typedef string_type stringT;
   typedef basic_Locator<stringT> LocatorT;
 
+  basic_SAXParseException(const std::string& message) :
+    SAXException(message),
+    publicId_(), 
+    systemId_(),
+    lineNumber_(-1),
+    columnNumber_(-1)
+  {
+    setMsg();
+  } // basic_SAXParseException
+
   basic_SAXParseException(const std::string& message,
                           const LocatorT& locator) :
     SAXException(message),
