@@ -11,6 +11,7 @@
 // $Id$
 ///////////////////////////////////////////////////////////////////////
 
+#include <SAX/ArabicaConfig.h>
 #ifndef ARABICA_WINDOWS
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -71,7 +72,7 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
     static const size_t bufferSize_;
     static const size_t pbSize_;
 
-#ifndef _MSC_VER
+#ifndef ARABICA_WINDOWS
     static const int INVALID_SOCKET;
     static const int SOCKET_ERROR;
 #endif
@@ -82,7 +83,7 @@ const size_t basic_socketbuf<charT, traitsT>::bufferSize_ = 1024;
 template<class charT, class traitsT>
 const size_t basic_socketbuf<charT, traitsT>::pbSize_ = 4;
   // why 4? both Josuttis and Langer&Kreft use 4.
-#ifndef _MSC_VER
+#ifndef ARABICA_WINDOWS
 template<class charT, class traitsT>
 const int basic_socketbuf<charT, traitsT>::INVALID_SOCKET = -1;
 template<class charT, class traitsT>
@@ -241,51 +242,15 @@ template<class charT, class traitsT>
 bool basic_socketbuf<charT, traitsT>::writeSocket()
 {
   // write to the socket
-  size_t length = pptr() - &(outBuffer_[0]);
+  charT* from_next = &(outBuffer_[0]);
+  size_t length = pptr() - from_next;
   if(!length)
     return true;
 
-  bool ok(true);
-  const std::codecvt<charT, char, state_t>& cvt =
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
-      std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
-#else
-      std::use_facet(this->getloc(), (std::codecvt<charT, char, traitsT::state_type>*)0, true);
-#endif
+  bool ok = (send(sock_, from_next, length, 0) != SOCKET_ERROR);
 
-  if(cvt.always_noconv())
-    ok = (send(sock_, &(outBuffer_[0]), length, 0) != SOCKET_ERROR);
-  else
-  {
-    // we must do code conversion
-    std::vector<char> to(length);
-    char* to_begin = &(to[0]);
-    const charT* from_next = &(outBuffer_[0]);
-    std::codecvt_base::result r;
-
-    do
-    {
-      char* to_next;
-      r = cvt.out(outState_, from_next, pptr(), from_next,
-                  to_begin, to_begin + length, to_next);
-
-      if(r == std::codecvt_base::noconv)
-      {
-        ok = (send(sock_, from_next, length, 0) != SOCKET_ERROR);
-        break;
-      }
-      ok = (send(sock_, to_begin, to_next - to_begin, 0) != SOCKET_ERROR);
-    }
-    while((r == std::codecvt_base::partial) && (ok));
-
-    ok = ok ? (r != std::codecvt_base::error) : false;
-  } // if(cvt.always_noconv())
- 
   if(ok)
-  {
-    charT* from_next = &(outBuffer_[0]);
     setp(from_next, from_next + outBuffer_.capacity());
-  } // if(ok)
 
   return ok;
 } // writeSocket
@@ -304,54 +269,17 @@ int basic_socketbuf<charT, traitsT>::readSocket()
   if(!inBuffer_.capacity())
     growInBuffer();
 
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
+#ifdef ARABICA_VS6_WORKAROUND
   size_t pbCount = std::min<int>(gptr() - eback(), pbSize_);
 #else
   size_t pbCount = min(gptr() - eback(), pbSize_);
 #endif
-  memcpy(&(inBuffer_[0]) + (pbSize_-pbCount)*sizeof(charT),
+  memcpy(&(inBuffer_[0]) + (pbSize_-pbCount)*sizeof(charT), 
          gptr() - pbCount*sizeof(charT),
          pbCount*sizeof(charT));
 
-  const std::codecvt<charT, char, state_t>& cvt =
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
-      std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
-#else
-      std::use_facet(this->getloc(), (std::codecvt<charT, char, traitsT::state_type>*)0, true);
-#endif
-  std::vector<char> from(inBuffer_.capacity() - pbSize_);
-  int res = recv(sock_, &(from[0]), from.capacity(), 0);
-  if(res > 0)
-  {
-    std::codecvt_base::result r;
-    do
-    {
-      const char* from_begin = &(from[0]);
-      const char* from_next;
-      charT* to_begin = &(inBuffer_[0]) + pbSize_;
-      charT* to_next;
-      charT* to_end = &(inBuffer_[0]) + inBuffer_.capacity();
-
-      r = cvt.in(inState_, from_begin, from_begin + res, from_next,
-                 to_begin, to_end, to_next);
-
-      if(r == std::codecvt_base::noconv)
-        memcpy(to_begin, from_begin, res);
-      else
-        res = to_next - to_begin;
-      if(r == std::codecvt_base::partial)
-        growInBuffer();
-    }
-    while(r == std::codecvt_base::partial);
-
-    if(r == std::codecvt_base::error)
-    {
-      // couldn't convert - let's bail
-      close();
-      return 0;
-    } // if(r == std::codecvt_base::error)
-  }
-  else if(res == 0)
+  int res = recv(sock_, &(inBuffer_[0]) + pbSize_, inBuffer_.capacity() - pbSize_, 0);
+  if(res == 0)
   {
     // server closed the socket
     close();
@@ -359,7 +287,7 @@ int basic_socketbuf<charT, traitsT>::readSocket()
   } // if(res == 0)
   else if(res == SOCKET_ERROR)
   {
-#ifdef _MSC_VER
+#ifdef ARABICA_WINDOWS
     if(GetLastError() == WSAEMSGSIZE)
     {
       // buffer was too small, so make it bigger
@@ -382,7 +310,7 @@ int basic_socketbuf<charT, traitsT>::readSocket()
 template <class charT, class traitsT>
 int basic_socketbuf<charT, traitsT>::closeSocket(int sock) const
 {
-#ifdef _MSC_VER
+#ifdef ARABICA_WINDOWS
   return closesocket(sock);
 #else
   return ::close(sock);
