@@ -1,5 +1,5 @@
-#ifndef base64_codecvtH
-#define base64_codecvtH
+#ifndef ARABICA_BASE64_CODECVT_H
+#define ARABICA_BASE64_CODECVT_H
 ///////////////////////////////////////////
 //
 // $Id$
@@ -8,13 +8,13 @@
 
 #include <locale>
 
-class base64_codecvt : public std::codecvt<char, char, std::char_traits<char>::state_type>
+class base64codecvt : public std::codecvt<char, char, std::char_traits<char>::state_type>
 {
 public:
   typedef std::char_traits<char>::state_type state_t;
 
 protected:
-  virtual ~base64_codecvt();
+  virtual ~base64codecvt() { }
 
   virtual result do_out(state_t& state,
                         const char* from,
@@ -37,9 +37,9 @@ protected:
                        char* to_limit,
                        char*& to_next) const;
 
-  virtual int do_encoding() const throw();
+  virtual int do_encoding() const throw() { return -1; } 
 
-  virtual bool do_always_noconv() const throw();
+  virtual bool do_always_noconv() const throw() { return false; }
 
   virtual int do_length(const state_t&,
                         const char* from,
@@ -66,6 +66,6 @@ private:
   void consumeOutChar() const;
   char getPreviousChar() const;
   void setPreviousChar(char c) const;
-}; // class base64_codecvt
+}; // class base64codecvt
 
 #endif
