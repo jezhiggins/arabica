@@ -195,7 +195,7 @@ void basic_Writer<string_type>::startElement(
                               const stringT& qName, const typename XMLFilterT::AttributesT& atts)
 { 
   doIndent();
-  *stream_ << UnicodeT::LESS_THAN_SIGN << qName;
+  *stream_ << UnicodeT::LESS_THAN_SIGN << (!qName.empty() ? qName : localName);
   
   for(int i = 0; i < atts.getLength(); ++i)
   {
@@ -223,7 +223,7 @@ void basic_Writer<string_type>::endElement(
   doIndent();
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::SLASH
-           << qName 
+           << (!qName.empty() ? qName : localName)
            << UnicodeT::GREATER_THAN_SIGN
            << UnicodeT::LINE_FEED;
 
@@ -244,20 +244,20 @@ void basic_Writer<string_type>::characters(const stringT& ch)
 template<class string_type>
 void basic_Writer<string_type>::processingInstruction(const stringT& target, const stringT& data)
 {
-  std::cout << UnicodeT::LESS_THAN_SIGN
-            << UnicodeT::QUESTION_MARK
-            << target 
-            << UnicodeT::SPACE
-            << data 
-            << UnicodeT::QUESTION_MARK
-            << UnicodeT::GREATER_THAN_SIGN;
+  *stream_ << UnicodeT::LESS_THAN_SIGN
+           << UnicodeT::QUESTION_MARK
+           << target 
+           << UnicodeT::SPACE
+           << data 
+           << UnicodeT::QUESTION_MARK
+           << UnicodeT::GREATER_THAN_SIGN;
 } // processingInstruction
 
 template<class string_type>
 void basic_Writer<string_type>::skippedEntity(const stringT& name)
 {
   if(!isDtd(name))
-    std::cout << UnicodeT::AMPERSAND << name << UnicodeT::SEMI_COLON;
+    *stream_ << UnicodeT::AMPERSAND << name << UnicodeT::SEMI_COLON;
 } // skippedEntity
 
 template<class string_type>
@@ -408,15 +408,15 @@ void basic_Writer<string_type>::startCDATA()
 {
   inCDATA_ = true;
 
-  std::cout << UnicodeT::LESS_THAN_SIGN
-            << UnicodeT::EXCLAMATION_MARK
-            << UnicodeT::LEFT_SQUARE_BRACKET
-            << UnicodeT::CAPITAL_C
-            << UnicodeT::CAPITAL_D
-            << UnicodeT::CAPITAL_A
-            << UnicodeT::CAPITAL_T
-            << UnicodeT::CAPITAL_A
-            << UnicodeT::LEFT_SQUARE_BRACKET;
+  *stream_ << UnicodeT::LESS_THAN_SIGN
+           << UnicodeT::EXCLAMATION_MARK
+           << UnicodeT::LEFT_SQUARE_BRACKET
+           << UnicodeT::CAPITAL_C
+           << UnicodeT::CAPITAL_D
+           << UnicodeT::CAPITAL_A
+           << UnicodeT::CAPITAL_T
+           << UnicodeT::CAPITAL_A
+           << UnicodeT::LEFT_SQUARE_BRACKET;
 
   if(lexicalHandler_)
     lexicalHandler_->startCDATA();
@@ -425,9 +425,9 @@ void basic_Writer<string_type>::startCDATA()
 template<class string_type>
 void basic_Writer<string_type>::endCDATA()
 {
-  std::cout << UnicodeT::RIGHT_SQUARE_BRACKET
-            << UnicodeT::RIGHT_SQUARE_BRACKET
-            << UnicodeT::GREATER_THAN_SIGN;
+  *stream_ << UnicodeT::RIGHT_SQUARE_BRACKET
+           << UnicodeT::RIGHT_SQUARE_BRACKET
+           << UnicodeT::GREATER_THAN_SIGN;
 
   inCDATA_ = false;
 
