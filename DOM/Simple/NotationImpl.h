@@ -11,6 +11,9 @@ template<class stringT, class string_adaptorT>
 class NotationImpl : public DOM::Notation_impl<stringT>,
                      public NodeImplWithChildren<stringT, string_adaptorT>
 {
+    typedef DOM::Notation_impl<stringT> NotationT;
+    using NotationT::ownerDoc_;
+
   public:
     NotationImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
                  stringT name,

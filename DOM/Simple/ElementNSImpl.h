@@ -10,7 +10,16 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT>
 class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 {
-  typedef typename stringT::size_type size_type;
+    typedef typename stringT::size_type size_type;
+    typedef ElementImpl<stringT, string_adaptorT> ElementImplT;
+    using ElementImplT::cloneNode;
+    using ElementImplT::ownerDoc_;
+    using ElementImplT::tagName_;
+    using ElementImplT::getPrefix;
+    using ElementImplT::setPrefix;
+    using ElementImplT::hasPrefix;
+    using ElementImplT::throwIfReadOnly;
+
   public:
     ElementNSImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc,
                 const stringT& namespaceURI,

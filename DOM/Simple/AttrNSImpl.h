@@ -10,7 +10,15 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT>
 class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 {
-  typedef typename stringT::size_type size_type;
+    typedef typename stringT::size_type size_type;
+    typedef AttrImpl<stringT, string_adaptorT> AttrT;
+    using AttrT::cloneNode;
+    using AttrT::ownerDoc_;
+    using AttrT::name_;
+    using AttrT::getSpecified;
+    using AttrT::getPrefix;
+    using AttrT::setPrefix;
+    using AttrT::hasPrefix;
 	
   public:
     AttrNSImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc,

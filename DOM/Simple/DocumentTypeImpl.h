@@ -15,6 +15,10 @@ template<class stringT, class string_adaptorT>
 class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
                          public ChildlessNodeImpl<stringT, string_adaptorT>
 {
+    typedef DOM::DocumentType_impl<stringT> DocumentTypeT;
+    using DocumentTypeT::addRef;
+    using DocumentTypeT::releaseRef;
+    using DocumentTypeT::ownerDoc_;
   public:
     DocumentTypeImpl(const stringT& qualifiedName,
                      const stringT& publicId,

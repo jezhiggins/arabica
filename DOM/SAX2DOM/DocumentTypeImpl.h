@@ -10,6 +10,10 @@ template<class stringT, class string_adaptorT>
 class DocumentType : public SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT>
 {
     typedef SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT> BaseDT;
+    using BaseDT::ownerDoc_;
+    using BaseDT::getElements;
+    using BaseDT::addDefaultAttr;
+
   public:
     DocumentType(const stringT& qualifiedName,
                  const stringT& publicId,

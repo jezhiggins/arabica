@@ -10,6 +10,10 @@ template<class stringT, class string_adaptorT>
 class DocumentFragmentImpl : public DOM::DocumentFragment_impl<stringT>,
                              public NodeImplWithChildren<stringT, string_adaptorT>
 {
+    typedef DOM::DocumentFragment_impl<stringT> DocumentFragmentT;
+    using DocumentFragmentT::ownerDoc_;
+    using DocumentFragmentT::getFirstChild;
+    
   public:
     DocumentFragmentImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc) : 
         DOM::DocumentFragment_impl<stringT>(),

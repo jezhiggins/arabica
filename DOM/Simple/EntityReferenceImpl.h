@@ -10,6 +10,10 @@ template<class stringT, class string_adaptorT>
 class EntityReferenceImpl : public DOM::EntityReference_impl<stringT>,
                             public NodeImplWithChildren<stringT, string_adaptorT>
 {
+    typedef DOM::EntityReference_impl<stringT> EntityReferenceT;
+    using EntityReferenceT::ownerDoc_;
+    using EntityReferenceT::readOnly_;
+
   public:
     EntityReferenceImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT name) : 
         DOM::EntityReference_impl<stringT>(),

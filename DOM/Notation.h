@@ -18,6 +18,8 @@ template<class stringT> class Notation_impl;
 template<class stringT>
 class Notation : public Node<stringT>
 {
+    using Node<stringT>::impl;
+
   public:
     Notation() : Node<stringT>() { }
     explicit Notation(Notation_impl<stringT>* impl) : Node<stringT>(dynamic_cast<Node_impl<stringT>*>(impl)) { }

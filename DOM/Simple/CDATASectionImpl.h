@@ -10,6 +10,17 @@ template<class stringT, class string_adaptorT>
 class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
                          public CharacterDataImpl<stringT, string_adaptorT> 
 {
+    typedef DOM::CDATASection_impl<stringT> CDATASectionT;
+    using CDATASectionT::splitText;
+    using CDATASectionT::throwIfReadOnly;
+    using CDATASectionT::getLength;
+    using CDATASectionT::getOwnerDoc;
+    using CDATASectionT::getParentNode;
+    using CDATASectionT::getNextSibling;
+    using CDATASectionT::cloneNode;
+    using CDATASectionT::ownerDoc_;
+    using CDATASectionT::getData;
+
   public:
     CDATASectionImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
         CharacterDataImpl<stringT, string_adaptorT>(ownerDoc, data)

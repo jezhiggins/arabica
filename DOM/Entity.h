@@ -17,6 +17,8 @@ template<class stringT> class Entity_impl;
 template<class stringT>
 class Entity : public Node<stringT>
 {
+    using Node<stringT>::impl; 
+
   public:
     Entity() : Node<stringT>() { }
     explicit Entity(Entity_impl<stringT>* impl) : Node<stringT>(impl) { }

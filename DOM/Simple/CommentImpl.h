@@ -11,6 +11,11 @@ template<class stringT, class string_adaptorT>
 class CommentImpl : public DOM::Comment_impl<stringT>,
                     public CharacterDataImpl<stringT, string_adaptorT>
 {
+    typedef DOM::Comment_impl<stringT> CommentT;
+    using CommentT::ownerDoc_;
+    using CommentT::cloneNode;
+    using CommentT::getData;
+
   public:
     CommentImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
         CharacterDataImpl<stringT, string_adaptorT>(ownerDoc, data)

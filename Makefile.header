@@ -1,7 +1,7 @@
 ####################################
 # ARABICA CONFIG
 # edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_LIBXML2 
+PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 ####################################
@@ -9,13 +9,13 @@ PARSER_CONFIG = -DUSE_LIBXML2
 #####
 MAKE = make
 # C++ compiler
-CXX = gcc 
+CXX = /home/jez/gcc-3.4.2/bin/gcc 
 # preprocessor
-CPP = gcc -E
+CPP = /home/jez/gcc-3.4.2/bin/gcc -E
 # linker
-LD =  gcc 
+LD =  /home/jez/gcc-3.4.2/bin/gcc 
 # archiver
-AR = ar r
+AR = /home/jez/gcc-3.4.2/bin/ar r
 
 ###########
 # Utilities
@@ -33,18 +33,17 @@ CXXFLAGS = -Wall
 LDFLAGS = 
 
 # Includes and library directories 
-INCS_DIRS = -I..  -I/usr/include/libxml2
-LIBS_DIRS = 
+INCS_DIRS = -I.. -I/home/jez/gcc-3.4.2/include
+LIBS_DIRS = -I/home/jez/gcc-3.4.2/lib 
 
-# OSX includes libxml2
 STATIC_LIBS =
-DYNAMIC_LIBS =  -lxml2 -lstdc++ 
+DYNAMIC_LIBS =  -lexpat -lstdc++
 
 # link flag to create a shared library
-LINK_SHARED = -dynamiclib
+LINK_SHARED = -shared
 
-EXESUFFIX = 
-LIBSUFFIX = .dylib
+EXESUFFIX = .exe
+LIBSUFFIX = .dll
 
 
 

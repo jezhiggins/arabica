@@ -13,6 +13,12 @@ template<class stringT, class string_adaptorT>
 class ElementImpl : public DOM::Element_impl<stringT>,
                     public NodeImplWithChildren<stringT, string_adaptorT>
 {
+    typedef DOM::Element_impl<stringT> ElementT;
+    using ElementT::getElementsByTagName;
+    using ElementT::ownerDoc_;
+    using ElementT::cloneNode;
+    using ElementT::getFirstChild;
+
   public:
     ElementImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& tagName) : 
         DOM::Element_impl<stringT>(),

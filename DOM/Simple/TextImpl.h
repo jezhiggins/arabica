@@ -11,6 +11,17 @@ template<class stringT, class string_adaptorT>
 class TextImpl : public DOM::Text_impl<stringT>,
                  public CharacterDataImpl<stringT, string_adaptorT>
 {
+    typedef DOM::Text_impl<stringT> TextT;
+    using TextT::splitText;
+    using TextT::throwIfReadOnly;
+    using TextT::getLength;
+    using TextT::getOwnerDoc;
+    using TextT::getParentNode;
+    using TextT::getNextSibling;
+    using TextT::cloneNode;
+    using TextT::ownerDoc_;
+    using TextT::getData;
+
   public:
     TextImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
         DOM::Text_impl<stringT>(),

@@ -94,7 +94,7 @@ private:
                                   const XML_Char* attname,
                                   const XML_Char* att_type,
                                   const XML_Char* dflt,
-                                  int	isrequired) = 0;
+                                  int  isrequired) = 0;
   virtual void entityDeclaration(const XML_Char* entityName,
                                  int is_parameter_entity,
                                  const XML_Char* value,
@@ -127,7 +127,7 @@ private:
   friend void ewim_endElement(void*, const char*);
   friend void ewim_processingInstruction(void*, const char*, const char*);
   friend void ewim_elementDeclaration(void*, const XML_Char*, XML_Content*);
-  friend void ewim_attListDeclaration(void*, const XML_Char*, const XML_Char*, const XML_Char*, const XML_Char*,	int);
+  friend void ewim_attListDeclaration(void*, const XML_Char*, const XML_Char*, const XML_Char*, const XML_Char*,  int);
   friend void ewim_entityDeclaration(void*, const XML_Char*, int, const XML_Char*, int, const XML_Char*, const XML_Char*, const XML_Char*, const XML_Char*);
   friend void ewim_notationDeclaration(void*, const XML_Char*, const XML_Char*, const XML_Char*, const XML_Char*);
   friend void ewim_startDoctypeDecl(void*, const XML_Char*, const XML_Char*, const XML_Char*, int);
@@ -198,7 +198,7 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
                public SAX::basic_Locator<string_type>,
                public expat_wrapper_impl_mumbojumbo::expat2base
 {
-	public:
+  public:
     typedef string_type stringT;
     typedef string_adaptor_type string_adaptorT;
     typedef SAX::basic_EntityResolver<stringT> entityResolverT;
@@ -211,10 +211,15 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     typedef SAX::basic_NamespaceSupport<stringT, string_adaptorT> namespaceSupportT;
     typedef SAX::basic_ErrorHandler<stringT> errorHandlerT;
     typedef SAX::basic_SAXParseException<stringT> SAXParseExceptionT;
-    typedef typename SAX::basic_XMLReader<stringT>::PropertyBase PropertyBaseT;
+    typedef SAX::basic_XMLReader<stringT> XMLReaderT;
+    typedef typename XMLReaderT::PropertyBase PropertyBaseT;
+    typedef typename XMLReaderT::template Property<lexicalHandlerT*> getLexicalHandlerT;
+    typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
+    typedef typename XMLReaderT::template Property<declHandlerT*> getDeclHandlerT;
+    typedef typename XMLReaderT::template Property<declHandlerT&> setDeclHandlerT;
 
-		expat_wrapper();
-		virtual ~expat_wrapper();
+    expat_wrapper();
+    virtual ~expat_wrapper();
 
     /////////////////////////////////////////////////
     // Configuration
@@ -251,7 +256,7 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
   protected:
     virtual std::auto_ptr<PropertyBaseT> doGetProperty(const stringT& name);
     virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value);
-	private:
+  private:
     typename namespaceSupportT::Parts processName(const stringT& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
     void checkNotParsing(const stringT& type, const stringT& name) const;
@@ -267,7 +272,7 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
                                     const XML_Char* attname,
                                     const XML_Char* att_type,
                                     const XML_Char* dflt,
-                                    int	isrequired);
+                                    int  isrequired);
     virtual void entityDeclaration(const XML_Char* entityName,
                                    int is_parameter_entity,
                                    const XML_Char* value,
@@ -333,10 +338,10 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
 // expat wrapper definition
 template<class stringT, class string_adaptorT>
 expat_wrapper<stringT, string_adaptorT>::expat_wrapper() :
-	entityResolver_(0),
-	dtdHandler_(0),
-	contentHandler_(0),
-	errorHandler_(0),
+  entityResolver_(0),
+  dtdHandler_(0),
+  contentHandler_(0),
+  errorHandler_(0),
   declHandler_(0),
   lexicalHandler_(0),
   parser_(XML_ParserCreate(0)),
@@ -437,14 +442,14 @@ void expat_wrapper<stringT, string_adaptorT>::parse(inputSourceT& source)
   parsing_ = true;
 
   if(contentHandler_)
-  	contentHandler_->startDocument();
+    contentHandler_->startDocument();
 
   XML_SetParamEntityParsing(parser_, externalResolving_ ? XML_PARAM_ENTITY_PARSING_ALWAYS : XML_PARAM_ENTITY_PARSING_NEVER);
 
   do_parse(source, parser_);
 
   if(contentHandler_)
-  	contentHandler_->endDocument();
+    contentHandler_->endDocument();
 
   parsing_ = false;
 } // parse
@@ -453,10 +458,10 @@ template<class stringT, class string_adaptorT>
 bool expat_wrapper<stringT, string_adaptorT>::do_parse(inputSourceT& source, XML_Parser parser)  
 {
   InputSourceResolver is(source, SA_);
-	if(is.resolve() == 0)
+  if(is.resolve() == 0)
   {
     reportError("Could not resolve XML document", true);
-		return false;
+    return false;
   } // if(is.resolver() == 0)
 
   const int BUFF_SIZE = 10*1024;
@@ -490,18 +495,16 @@ std::auto_ptr<expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrap
 {
   if(name == properties_.lexicalHandler)
   {
-    SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT*>* prop = 
-          new SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT*>(lexicalHandler_);
+    getLexicalHandlerT* prop = new getLexicalHandlerT(lexicalHandler_);
     return std::auto_ptr<PropertyBaseT>(prop);
   }
-  else if(name == properties_.declHandler)
+  if(name == properties_.declHandler)
   {
-    SAX::basic_XMLReader<stringT>::Property<declHandlerT*>* prop = 
-          new SAX::basic_XMLReader<stringT>::Property<declHandlerT*>(declHandler_);
+    getDeclHandlerT* prop = new getDeclHandlerT(declHandler_);
     return std::auto_ptr<PropertyBaseT>(prop);
   }
-  else
-    throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA_.asStdString(name));    
+
+  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA_.asStdString(name));    
 } // doGetProperty
 
 template<class stringT, class string_adaptorT>
@@ -509,8 +512,7 @@ void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name,
 {
   if(name == properties_.lexicalHandler)
   {
-    SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT&>* prop = 
-          dynamic_cast<SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT&>*>(value.get());
+    setLexicalHandlerT* prop = dynamic_cast<setLexicalHandlerT*>(value.get());
 
     if(!prop)
       throw std::bad_cast();
@@ -519,8 +521,7 @@ void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name,
   }
   else if(name == properties_.declHandler)
   {
-    SAX::basic_XMLReader<stringT>::Property<declHandlerT&>* prop = 
-          dynamic_cast<SAX::basic_XMLReader<stringT>::Property<declHandlerT&>*>(value.get());
+    setDeclHandlerT* prop = dynamic_cast<setDeclHandlerT*>(value.get());
 
     if(!prop)
       throw std::bad_cast();
@@ -577,9 +578,9 @@ void expat_wrapper<stringT, string_adaptorT>::reportError(const std::string& mes
   
   SAXParseExceptionT e(message,
                        publicId_,
-		       systemId_,
-		       XML_GetCurrentLineNumber(parser_),
-		       XML_GetCurrentColumnNumber(parser_));
+           systemId_,
+           XML_GetCurrentLineNumber(parser_),
+           XML_GetCurrentColumnNumber(parser_));
   if(fatal)
     errorHandler_->fatalError(e);
   else
@@ -782,11 +783,11 @@ enum XML_Content_Quant {
 typedef struct XML_cp XML_Content;
 
 struct XML_cp {
-  enum XML_Content_Type		type;
-  enum XML_Content_Quant	quant;
-  const XML_Char *		name;
-  unsigned int			numchildren;
-  XML_Content *			children;
+  enum XML_Content_Type    type;
+  enum XML_Content_Quant  quant;
+  const XML_Char *    name;
+  unsigned int      numchildren;
+  XML_Content *      children;
 };
 */
   char concatenator = ' ';
@@ -881,13 +882,13 @@ void expat_wrapper<stringT, string_adaptorT>::attListDeclaration(const XML_Char*
 
 template<class stringT, class string_adaptorT>
 void expat_wrapper<stringT, string_adaptorT>::entityDeclaration(const XML_Char* entityName,
-				                   int is_parameter_entity,
-				                   const XML_Char* value,
-				                   int value_length,
-				                   const XML_Char* base,
-				                   const XML_Char* systemId,
-				                   const XML_Char* publicId,
-				                   const XML_Char* notationName)
+                           int is_parameter_entity,
+                           const XML_Char* value,
+                           int value_length,
+                           const XML_Char* base,
+                           const XML_Char* systemId,
+                           const XML_Char* publicId,
+                           const XML_Char* notationName)
 {
 /*   For internal entities (<!ENTITY foo "bar">), value will
    be non-null and systemId, publicID, and notationName will be null.
@@ -927,9 +928,9 @@ void expat_wrapper<stringT, string_adaptorT>::entityDeclaration(const XML_Char* 
 
 template<class stringT, class string_adaptorT>
 void expat_wrapper<stringT, string_adaptorT>::notationDeclaration(const XML_Char* notationName,
-	  				                 const XML_Char* base,
-		  			                 const XML_Char* systemId,
-			  		                 const XML_Char* publicId)
+                             const XML_Char* base,
+                             const XML_Char* systemId,
+                             const XML_Char* publicId)
 {  
   if(!dtdHandler_)
     return;
@@ -940,9 +941,9 @@ void expat_wrapper<stringT, string_adaptorT>::notationDeclaration(const XML_Char
 
 template<class stringT, class string_adaptorT>
 void expat_wrapper<stringT, string_adaptorT>::startDoctypeDecl(const XML_Char *doctypeName,
-					                const XML_Char *systemId,
-					                const XML_Char *publicId,
-					                int has_internal_subset)
+                          const XML_Char *systemId,
+                          const XML_Char *publicId,
+                          int has_internal_subset)
 {
   if(!lexicalHandler_)
     return;

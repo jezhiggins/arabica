@@ -26,14 +26,20 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef std::basic_ostream<charT, traitsT> ostreamT;
     typedef basic_XMLReader<stringT> XMLReaderT;
     typedef basic_XMLFilterImpl<stringT> XMLFilterT;
+    typedef SAX::basic_DeclHandler<stringT> declHandlerT;
+    typedef SAX::basic_LexicalHandler<stringT> lexicalHandlerT;
     typedef typename basic_XMLFilterImpl<stringT>::AttributesT AttributesT;
     typedef Arabica::Unicode<charT> UnicodeT;
   private:
     typedef basic_LexicalHandler<stringT> LexicalHandlerT;
     typedef basic_DeclHandler<stringT> DeclHandlerT;
     typedef typename XMLReaderT::InputSourceT InputSourceT;
-    typedef typename XMLReaderT::PropertyBase PropertyBase;
-
+    typedef typename XMLReaderT::PropertyBase PropertyBaseT;
+    typedef typename XMLReaderT::template Property<lexicalHandlerT*> getLexicalHandlerT;
+    typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
+    typedef typename XMLReaderT::template Property<declHandlerT*> getDeclHandlerT;
+    typedef typename XMLReaderT::template Property<declHandlerT&> setDeclHandlerT;
+    using XMLFilterT::getParent;
   public:
     basic_Writer(ostreamT& stream, unsigned int indent = 2) :
       inCDATA_(false),
@@ -66,8 +72,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
 
   protected:
     // Parser 
-    virtual std::auto_ptr<PropertyBase> doGetProperty(const stringT& name);
-    virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBase> value);
+    virtual std::auto_ptr<PropertyBaseT> doGetProperty(const stringT& name);
+    virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value);
 
     // ContentHandler
     virtual void startDocument();
@@ -352,23 +358,21 @@ bool basic_Writer<string_type>::isDtd(const string_type& name)
 
 #ifndef ARABICA_VS6_WORKAROUND
 template<class string_type>
-std::auto_ptr<typename basic_Writer<string_type>::PropertyBase> basic_Writer<string_type>::doGetProperty(const string_type& name)
+std::auto_ptr<typename basic_Writer<string_type>::PropertyBaseT> basic_Writer<string_type>::doGetProperty(const string_type& name)
 #else
 template<class string_type>
-std::auto_ptr<basic_Writer<string_type>::PropertyBase> basic_Writer<string_type>::doGetProperty(const string_type& name)
+std::auto_ptr<basic_Writer<string_type>::PropertyBaseT> basic_Writer<string_type>::doGetProperty(const string_type& name)
 #endif
 {
   if(name == properties_.lexicalHandler)
   {
-    XMLReaderT::Property<LexicalHandlerT*>* prop = 
-          new XMLReaderT::Property<LexicalHandlerT*>(lexicalHandler_);
-    return std::auto_ptr<PropertyBase>(prop);
+    getLexicalHandlerT* prop = new getLexicalHandlerT(lexicalHandler_);
+    return std::auto_ptr<PropertyBaseT>(prop);
   }
   if(name == properties_.declHandler)
   {
-    XMLReaderT::Property<DeclHandlerT*>* prop = 
-          new XMLReaderT::Property<DeclHandlerT*>(declHandler_);
-    return std::auto_ptr<PropertyBase>(prop);
+    getDeclHandlerT* prop = new getDeclHandlerT(declHandler_);
+    return std::auto_ptr<PropertyBaseT>(prop);
   }
 
   return XMLFilterT::doGetProperty(name);
@@ -376,26 +380,24 @@ std::auto_ptr<basic_Writer<string_type>::PropertyBase> basic_Writer<string_type>
 
 #ifndef ARABICA_VS6_WORKAROUND
 template<class string_type>
-void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<typename basic_Writer<string_type>::PropertyBase> value)
+void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<typename basic_Writer<string_type>::PropertyBaseT> value)
 #else
 template<class string_type>
-void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<basic_Writer<string_type>::PropertyBase> value)
+void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<basic_Writer<string_type>::PropertyBaseT> value)
 #endif
 {
   if(name == properties_.lexicalHandler)
   {
-    XMLReaderT::Property<LexicalHandlerT&>* prop = 
-          dynamic_cast<XMLReaderT::Property<LexicalHandlerT&>*>(value.get());
+    setLexicalHandlerT* prop = dynamic_cast<setLexicalHandlerT*>(value.get());
 
     if(!prop)
       throw std::bad_cast();
 
     lexicalHandler_ = &(prop->get());
   }
-  if(name == properties_.declHandler)
+  else if(name == properties_.declHandler)
   {
-    XMLReaderT::Property<DeclHandlerT&>* prop = 
-          dynamic_cast<XMLReaderT::Property<DeclHandlerT&>*>(value.get());
+    setDeclHandlerT* prop = dynamic_cast<setDeclHandlerT*>(value.get());
 
     if(!prop)
       throw std::bad_cast();

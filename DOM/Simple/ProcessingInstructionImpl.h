@@ -11,6 +11,11 @@ template<class stringT, class string_adaptorT>
 class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT>,
                                   public ChildlessNodeImpl<stringT, string_adaptorT>
 {
+    typedef DOM::ProcessingInstruction_impl<stringT> ProcessingInstructionT;
+    using ProcessingInstructionT::setNodeValue;
+    using ProcessingInstructionT::throwIfReadOnly;
+    using ProcessingInstructionT::ownerDoc_;
+
   public:
     ProcessingInstructionImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
                               stringT target,

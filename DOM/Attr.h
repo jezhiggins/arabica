@@ -18,6 +18,7 @@ template<class stringT> class Attr_impl;
 template<class stringT>
 class Attr : public Node<stringT>
 {
+    using Node<stringT>::impl_;
   public:
     Attr() : Node<stringT>() { }
     explicit Attr(Attr_impl<stringT>* impl) : Node<stringT>(impl) { }

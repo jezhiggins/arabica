@@ -11,6 +11,14 @@ template<class stringT, class string_adaptorT>
 class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
                           public ChildlessNodeImpl<stringT, string_adaptorT>
 {
+    typedef DOM::CharacterData_impl<stringT> CharDataT;
+    using CharDataT::appendData;
+    using CharDataT::throwIfReadOnly;
+    using CharDataT::insertData;
+    using CharDataT::deleteData;
+    using CharDataT::replaceData;
+    using CharDataT::setNodeValue;
+
   public:
     CharacterDataImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
         ChildlessNodeImpl<stringT, string_adaptorT>(ownerDoc),

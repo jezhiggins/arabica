@@ -11,6 +11,12 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT>
 class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 {
+    typedef NamedNodeMapImpl<stringT, string_adaptorT> MapT;
+    using MapT::setAttribute;
+    using MapT::setAttributeNS;
+    using MapT::getDefaultAttrs;
+    using MapT::ownerDoc_;
+
   public:
     AttrMap(DocumentImpl<stringT, string_adaptorT>* ownerDoc) : 
         NamedNodeMapImpl<stringT, string_adaptorT>(ownerDoc),

@@ -15,6 +15,14 @@ template<class stringT, class string_adaptorT>
 class AttrImpl : public DOM::Attr_impl<stringT>,
                  public NodeImplWithChildren<stringT, string_adaptorT>
 {
+    typedef DOM::Attr_impl<stringT> AttrT;
+    using AttrT::ownerDoc_;
+    using AttrT::getNodeValue;
+    using AttrT::setNodeValue;
+    using AttrT::getFirstChild;
+    using AttrT::throwIfReadOnly;
+    using AttrT::setOwnerElement;
+
   public:
     AttrImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& name) : 
         DOM::Attr_impl<stringT>(),

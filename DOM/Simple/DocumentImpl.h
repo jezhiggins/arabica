@@ -41,6 +41,10 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 {
     typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
     typedef AttrImpl<stringT, string_adaptorT> AttrImplT;
+    typedef DOM::Document_impl<stringT> DocumentImplT;
+
+    using DocumentImplT::node;
+    using DocumentImplT::getFirstChild;
 
   public:
     DocumentImpl() : 

@@ -11,6 +11,11 @@ template<class stringT, class string_adaptorT>
 class EntityImpl : public DOM::Entity_impl<stringT>,
                    public NodeImplWithChildren<stringT, string_adaptorT>
 {
+    typedef DOM::Entity_impl<stringT> EntityT;
+    using EntityT::ownerDoc_;
+    using EntityT::getFirstChild;
+    using EntityT::cloneNode;
+
   public:
     EntityImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
                stringT name,
