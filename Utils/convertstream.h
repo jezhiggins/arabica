@@ -128,7 +128,13 @@ private:
   stringT no_conversion(const fromStringT& str)
   {
     stringT dest;
+#ifndef _MSC_VER
     std::copy(str.begin(), str.end(), std::back_inserter(dest));
+#else
+    // hack around pre-Standard library
+    for(fromStringT::const_iterator i = str.begin(); i != str.end(); ++i)
+      dest += static_cast<charT>(*i);
+#endif
     return dest;
   } // no_conversion
 
@@ -224,8 +230,13 @@ public:
 private:
   toStringT no_conversion(const stringT& str)
   {
-    stringT dest;
+    toStringT dest;
+#ifndef _MSC_VER
     std::copy(str.begin(), str.end(), std::back_inserter(dest));
+#else
+    for(stringT::const_iterator i = str.begin(); i != str.end(); ++i)
+      dest += static_cast<toCharT>(*i);
+#endif
     return dest;
   } // no_conversion
 
