@@ -35,7 +35,7 @@ public:
 
   bool errorsReported() const { return !errors_.empty(); }
   const std::string& errors() const { return errors_; }
-  void reset() { errors_.clear(); }
+  void reset() { errors_.erase(); }
 
 private:
   void hold(const SAXParseExceptionT& exception)
