@@ -39,6 +39,9 @@ template<>
 class default_string_adaptor<std::string>
 {
 public:
+  typedef std::string stringT;
+  typedef std::string::value_type value_type;
+
   char makeValueT(char c) const { return c; }
 
   std::string makeStringT(const char* str) const
@@ -112,6 +115,9 @@ class default_string_adaptor<std::wstring>
   typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > narrower;
 public:
+  typedef std::wstring stringT;
+  typedef std::wstring::value_type value_type;
+
   wchar_t makeValueT(char c) const 
   { 
     return static_cast<wchar_t>(c);
