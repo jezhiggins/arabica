@@ -195,6 +195,9 @@
 					RelativePath=".\helpers\AttributesImpl.h">
 				</File>
 				<File
+					RelativePath="helpers\CatchErrorHandler.h">
+				</File>
+				<File
 					RelativePath=".\helpers\DefaultHandler.h">
 				</File>
 				<File
