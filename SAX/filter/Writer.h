@@ -36,7 +36,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>
     virtual void endDocument();
 
     virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const AttributesT& atts);
+                              const stringT& qName, const typename XMLFilterT::AttributesT& atts);
     virtual void endElement(const stringT& namespaceURI, const stringT& localName,
                             const stringT& qName);
 
@@ -72,7 +72,7 @@ void basic_Writer<string_type>::endDocument()
 template<class string_type>
 void basic_Writer<string_type>::startElement(
                               const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const AttributesT& atts)
+                              const stringT& qName, const typename XMLFilterT::AttributesT& atts)
 { 
   doIndent();
   *stream_ << UnicodeT::LESS_THAN_SIGN << qName;

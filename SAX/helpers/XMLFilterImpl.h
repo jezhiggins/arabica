@@ -200,7 +200,7 @@ public:
     parent_->parse(input);
   } // parse
 
-  virtual std::auto_ptr<PropertyBase> doGetProperty(const stringT& name)
+  virtual std::auto_ptr<typename XMLReaderT::PropertyBase> doGetProperty(const stringT& name)
   {
    	if(parent_)
 	    return parent_->doGetProperty(name);
@@ -208,7 +208,7 @@ public:
     throw new SAXNotRecognizedException("Property: " + name);
   } // doGetProperty
 
-  virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBase> value)
+  virtual void doSetProperty(const stringT& name, typename std::auto_ptr<typename XMLReaderT::PropertyBase> value)
   {
     if(parent_)
     {
@@ -347,7 +347,7 @@ public:
    * @see basic_ContentHandler#startElement
    */
   virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName, const AttributesT& atts) 
+                            const stringT& qName, const typename ContentHandlerT::AttributesT& atts) 
   { 
     if(contentHandler_)
       contentHandler_->startElement(namespaceURI, localName, qName, atts);
@@ -426,7 +426,7 @@ public:
    * @param exception The warning as an exception.
    * @see basic_ErrorHandler#warning
    */
-  virtual void warning(const SAXException& exception) 
+  virtual void warning(const SAXParseException& exception) 
   { 
     if(errorHandler_)
       errorHandler_->warning(exception);
@@ -438,7 +438,7 @@ public:
    * @param exception The error as an exception.
    * @see basic_ErrorHandler#error
    */
-  virtual void error(const SAXException& exception) 
+  virtual void error(const SAXParseException& exception) 
   { 
     if(errorHandler_)
       errorHandler_->error(exception);
@@ -450,7 +450,7 @@ public:
    * @param exception The error as an exception.
    * @see basic_ErrorHandler#fatalError
    */
-  virtual void fatalError(const SAXException& exception) 
+  virtual void fatalError(const SAXParseException& exception) 
   { 
     if(errorHandler_)
       errorHandler_->fatalError(exception);
