@@ -183,7 +183,9 @@ public:
 }; // class AttributeList
 
 typedef basic_AttributeList<std::string> AttributeList;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_AttributeList<std::wstring> wAttributeList;
+#endif
 
 }; // namespace SAX
 

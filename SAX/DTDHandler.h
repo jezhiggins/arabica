@@ -118,7 +118,9 @@ public:
 }; // class basic_DTDHandler
 
 typedef basic_DTDHandler<std::string> DTDHandler;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_DTDHandler<std::wstring> wDTDHandler;
+#endif
 
 }; // namespace SAX
 

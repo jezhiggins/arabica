@@ -65,7 +65,9 @@ public:
 }; // class basic_Locator2
 
 typedef basic_Locator2<std::string> Locator2;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_Locator2<std::wstring> wLocator2;
+#endif 
 
 }; // namespace SAX
 

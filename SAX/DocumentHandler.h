@@ -66,7 +66,9 @@ public:
 }; // class basic_DocumentHandler
 
 typedef basic_DocumentHandler<std::string> DocumentHandler;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_DocumentHandler<std::wstring> wDocumentHandler;
+#endif
 
 }; // namespace SAX
 

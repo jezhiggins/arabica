@@ -163,7 +163,9 @@ private:
 }; // class basic_SAXParseException
 
 typedef basic_SAXParseException<std::string> SAXParseException;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_SAXParseException<std::wstring> wSAXParseException;
+#endif 
 
 }; // namespace SAX
 

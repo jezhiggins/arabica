@@ -280,7 +280,9 @@ public:
 }; // class HandlerBase
 
 typedef basic_HandlerBase<std::string> HandlerBase;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_HandlerBase<std::wstring> wHandlerBase;
+#endif
 
 }; // namespace SAX
 

@@ -88,6 +88,7 @@ typedef basic_Locator<std::string> Locator;
 typedef basic_Parser<std::string> Parser;
 typedef basic_SAXParseException<std::string> SAXParseException;
 
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_AttributeList<std::wstring> wAttributeList;
 typedef basic_DocumentHandler<std::wstring> wDocumentHandler;
 typedef basic_DTDHandler<std::wstring> wDTDHandler;
@@ -96,6 +97,7 @@ typedef basic_InputSource<std::wstring> wInputSource;
 typedef basic_Locator<std::wstring> wLocator;
 typedef basic_Parser<std::wstring> wParser;
 typedef basic_SAXParseException<std::wstring> wSAXParseException;
+#endif 
 
 }; // namespace SAX
 

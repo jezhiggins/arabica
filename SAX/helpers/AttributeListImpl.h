@@ -288,7 +288,9 @@ private:
 }; // class AttributeListImpl
 
 typedef basic_AttributeListImpl<std::string> AttributeListImpl;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_AttributeListImpl<std::wstring> wAttributeListImpl;
+#endif 
 
 }; // namespace SAX
 

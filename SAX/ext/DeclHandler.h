@@ -126,7 +126,9 @@ public:
 }; // class basic_DeclHandler
 
 typedef basic_DeclHandler<std::string> DeclHandler;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_DeclHandler<std::wstring> wDeclHandler;
+#endif 
 
 }; // namespace SAX
 

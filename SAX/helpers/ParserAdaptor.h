@@ -542,7 +542,9 @@ private:
 }; // ParserAdaptor
 
 typedef basic_ParserAdaptor<std::string, char> ParserAdaptor;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_ParserAdaptor<std::wstring, wchar_t> wParserAdaptor;
+#endif
 
 } // namespace SAX
 

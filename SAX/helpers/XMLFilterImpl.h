@@ -500,7 +500,9 @@ private:
 }; // class basic_XMLFilter
 
 typedef basic_XMLFilterImpl<std::string> XMLFilterImpl;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_XMLFilterImpl<std::wstring> wXMLFilterImpl;
+#endif
 
 }; // namespace SAX
 

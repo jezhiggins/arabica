@@ -521,7 +521,9 @@ public:
 }; // class AttributesImpl
 
 typedef basic_AttributesImpl<std::string> AttributesImpl;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_AttributesImpl<std::wstring> wAttributesImpl;
+#endif 
 
 } // namespace SAX
 

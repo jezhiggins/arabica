@@ -160,7 +160,9 @@ private:
 }; // class LocatorImpl
 
 typedef basic_LocatorImpl<std::string> LocatorImpl;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_LocatorImpl<std::wstring> wLocatorImpl;
+#endif
 
 }; // namespace SAX
 

@@ -70,7 +70,9 @@ public:
 }; // class basic_Attributes2
 
 typedef basic_Attributes2<std::string> Attributes2;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_Attributes2<std::wstring> wAttributes2;
+#endif
 
 }; // namespace SAX
 

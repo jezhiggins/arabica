@@ -186,7 +186,9 @@ public:
 }; // class basic_LexicalHandler
 
 typedef basic_LexicalHandler<std::string> LexicalHandler;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_LexicalHandler<std::wstring> wLexicalHandler;
+#endif 
 
 }; // namespace SAX
 

@@ -62,7 +62,9 @@ public:
 }; // class basic_XMLFilter
 
 typedef basic_XMLFilter<std::string> XMLFilter;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_XMLFilter<std::wstring> wXMLFilter;
+#endif 
 
 }; // namespace SAX
 

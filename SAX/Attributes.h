@@ -224,7 +224,9 @@ public:
 }; // class Attributes
 
 typedef basic_Attributes<std::string> Attributes;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_Attributes<std::wstring> wAttributes;
+#endif
 
 }; // namespace SAX
 

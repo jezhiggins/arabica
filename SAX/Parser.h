@@ -154,7 +154,9 @@ public:
 }; // class basic_Parser
 
 typedef basic_Parser<std::string> Parser;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_Parser<std::wstring> wParser;
+#endif 
 
 }; // namespace SAX
 

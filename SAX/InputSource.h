@@ -302,7 +302,9 @@ void basic_InputSource<charT, traitsT, allocatorT>::setCharacterStream(charStrea
 
 
 typedef basic_InputSource<std::string> InputSource;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_InputSource<std::wstring> wInputSource;
+#endif 
 
 }; // namespace SAX
 

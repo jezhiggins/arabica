@@ -107,7 +107,9 @@ public:
 }; // class EntityResolver
 
 typedef basic_EntityResolver<std::string> EntityResolver;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_EntityResolver<std::wstring> wEntityResolver;
+#endif
 
 }; // namespace SAX
 

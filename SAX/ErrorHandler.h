@@ -113,7 +113,9 @@ public:
 }; // class ErrorHandler
 
 typedef basic_ErrorHandler<std::string> ErrorHandler;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_ErrorHandler<std::wstring> wErrorHandler;
+#endif
 
 }; // namespace SAX
 

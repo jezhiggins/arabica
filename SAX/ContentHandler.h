@@ -331,7 +331,9 @@ public:
 }; // class basic_ContentHandler
 
 typedef basic_ContentHandler<std::string> ContentHandler;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_ContentHandler<std::wstring> wContentHandler;
+#endif
 
 }; // namespace SAX
 

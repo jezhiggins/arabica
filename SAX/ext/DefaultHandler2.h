@@ -268,7 +268,9 @@ private:
 }; // class basic_DefaultHandler
 
 typedef basic_DefaultHandler2<std::string> DefaultHandler2;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_DefaultHandler2<std::wstring> wDefaultHandler2;
+#endif 
 
 } // namespace SAX
 

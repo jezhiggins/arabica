@@ -453,7 +453,9 @@ void basic_Writer<string_type>::comment(const stringT& text)
 } // comment
 
 typedef basic_Writer<std::string> Writer;
+#ifndef ARABICA_NO_WCHAR_T
 typedef basic_Writer<std::wstring> wWriter;
+#endif 
 
 } // namespace SAX
 
