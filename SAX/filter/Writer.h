@@ -5,6 +5,7 @@
 #include <SAX/ext/LexicalHandler.h>
 #include <XML/UnicodeCharacters.h>
 #include <ostream>
+#include <algorithm>
 
 namespace SAX {
 
@@ -14,6 +15,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
 {
   public:
     typedef string_type stringT;
+    typedef basic_Writer<stringT> WriterT;
     typedef typename string_type::value_type charT;
     typedef typename string_type::traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
@@ -79,6 +81,55 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
 
     LexicalHandlerT* lexicalHandler_;
     const SAX::PropertyNames<stringT> properties_;
+
+    class escaper
+    {
+      private:
+        typedef typename WriterT::ostreamT ostreamT;
+        typedef typename WriterT::charT charT;
+        typedef Unicode<charT> UnicodeT;
+
+      public:
+        escaper(ostreamT* stream) : stream_(stream) { }
+        void operator()(charT ch)
+        {
+          switch(ch)
+          {
+            case UnicodeT::LESS_THAN_SIGN:
+              *stream_ << UnicodeT::AMPERSAND
+                       << static_cast<charT>('l')
+                       << static_cast<charT>('t')
+                       << UnicodeT::SEMI_COLON;
+              break;
+            case UnicodeT::GREATER_THAN_SIGN:
+              *stream_ << UnicodeT::AMPERSAND
+                       << static_cast<charT>('g')
+                       << static_cast<charT>('t')
+                       << UnicodeT::SEMI_COLON;
+              break;
+            case UnicodeT::AMPERSAND:
+              *stream_ << UnicodeT::AMPERSAND
+                       << static_cast<charT>('a')
+                       << static_cast<charT>('m')
+                       << static_cast<charT>('p')
+                       << UnicodeT::SEMI_COLON;
+              break;
+            case UnicodeT::QUOTATION_MARK:
+              *stream_ << UnicodeT::AMPERSAND
+                       << static_cast<charT>('q')
+                       << static_cast<charT>('u')
+                       << static_cast<charT>('o')
+                       << static_cast<charT>('t')
+                       << UnicodeT::SEMI_COLON;
+              break;
+            default:
+              *stream_ << ch;
+          } // switch
+        } // operator()
+
+      private:
+        ostreamT* stream_;
+    }; // escaper
 }; // class basic_Writer
 
 template<class string_type>
@@ -107,12 +158,15 @@ void basic_Writer<string_type>::startElement(
   *stream_ << UnicodeT::LESS_THAN_SIGN << qName;
   
   for(int i = 0; i < atts.getLength(); ++i)
+  {
     *stream_ << UnicodeT::SPACE 
              << atts.getQName(i) 
              << UnicodeT::EQUALS_SIGN
-             << UnicodeT::QUOTATION_MARK
-             << atts.getValue(i) 
              << UnicodeT::QUOTATION_MARK;
+    stringT value = atts.getValue(i); 
+    std::for_each(value.begin(), value.end(), escaper(stream_));
+    *stream_ << UnicodeT::QUOTATION_MARK;
+  }
 
   *stream_ << UnicodeT::GREATER_THAN_SIGN;
   ++depth_;
@@ -139,7 +193,10 @@ void basic_Writer<string_type>::endElement(
 template<class string_type>
 void basic_Writer<string_type>::characters(const stringT& ch)
 {
-  *stream_ << ch;
+  if(!inCDATA_)
+    std::for_each(ch.begin(), ch.end(), escaper(stream_));
+  else
+    *stream_ << ch;
 
   XMLFilterT::characters(ch);
 } // characters
@@ -286,7 +343,7 @@ void basic_Writer<string_type>::comment(const stringT& text)
   if(lexicalHandler_)
     lexicalHandler_->comment(text);
 } // comment
-    
+
 typedef basic_Writer<std::string> Writer;
 typedef basic_Writer<std::wstring> wWriter;
 
