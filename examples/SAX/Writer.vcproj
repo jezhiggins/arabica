@@ -20,6 +20,8 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm200
+"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\"
 				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
