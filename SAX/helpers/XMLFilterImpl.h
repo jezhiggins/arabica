@@ -83,7 +83,7 @@ public:
    * @return The parent XML reader, or null if none is set.
    * @see #setParent
    */
-  virtual XMLReader* getParent() const { return parent_; }
+  virtual XMLReaderT* getParent() const { return parent_; }
 
   /////////////////////////////////////////////////
   // XMLReader implementation
