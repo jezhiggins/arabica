@@ -10,7 +10,7 @@
 #include <ostream>
 #include <vector>
 #include <algorithm>
-#ifdef _MSC_VER
+#if!(_MSC_VER < 1300)
 #include <minmax.h>
 #endif
 
@@ -126,7 +126,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
 
   bool ok(true);
   const std::codecvt<charT, char, state_t>& cvt =
-#ifndef _MSC_VER
+#if!(_MSC_VER < 1300)
       std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
 #else
       std::use_facet(this->getloc(), (std::codecvt<charT, char, traitsT::state_type>*)0, true);
@@ -171,7 +171,7 @@ convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type con
   if(!inBuffer_.capacity())
     growInBuffer();
 
-#ifndef _MSC_VER
+#if!(_MSC_VER < 1300)
   size_t pbCount = std::min<int>(gptr() - eback(), pbSize_);
 #else
   size_t pbCount = min(gptr() - eback(), pbSize_);
@@ -181,7 +181,7 @@ convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int_type con
          pbCount*sizeof(charT));
 
   const std::codecvt<charT, char, state_t>& cvt =
-#ifndef _MSC_VER
+#if!(_MSC_VER < 1300)
       std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
 #else
       std::use_facet(this->getloc(), (std::codecvt<charT, char, traitsT::state_type>*)0, true);

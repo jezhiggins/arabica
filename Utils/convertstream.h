@@ -58,11 +58,11 @@ public:
   explicit basic_iconvertstream(ios_base::openmode mode = in) :
     std::basic_istream<charT, traitsT>( 0 ),
     stringbuf_(mode | in)
-    { std::basic_ios<charT,traitsT>::init( &stringbuf_ ); }
+    { istreamT::init( &stringbuf_ ); }
   explicit basic_iconvertstream(const stringT& str, ios_base::openmode mode = in)
 		: std::basic_istream<charT, traitsT>(0), stringbuf_(mode | in) 
     {
-      std::basic_ios<charT,traitsT>::init( &stringbuf_ ); // istreamT::rdbuf(&stringbuf_);
+      istreamT::init( &stringbuf_ ); // istreamT::rdbuf(&stringbuf_);
       str(str);
     }
   virtual ~basic_iconvertstream()
@@ -81,7 +81,7 @@ public:
   void str(const fromStringT& str)
   {
     // do conversion
-#ifndef _MSC_VER
+#if !(_MSC_VER < 1300)
     const std::codecvt<charT, fromCharT, typename traitsT::state_type>& cvt =
       std::use_facet<std::codecvt<charT, fromCharT, typename traitsT::state_type> >(this->getloc());
 #else
@@ -127,7 +127,7 @@ private:
   stringT no_conversion(const fromStringT& str)
   {
     stringT dest;
-#ifndef _MSC_VER
+#if!(_MSC_VER < 1300)
     std::copy(str.begin(), str.end(), std::back_inserter(dest));
 #else
     // hack around pre-Standard library
@@ -155,7 +155,7 @@ public:
   explicit basic_oconvertstream(ios_base::openmode mode = out) :
       std::basic_ostream<charT, traitsT>( 0 ),
       stringbuf_(mode | out)
-    { std::basic_ios<charT,traitsT>::init( &stringbuf_ ); }
+    { ostreamT::init( &stringbuf_ ); }
   explicit basic_oconvertstream(const stringT& str, ios_base::openmode mode = out) :
       std::basic_ostream<charT, traitsT>( 0 ),
       stringbuf_(str, mode | out)
@@ -178,7 +178,7 @@ public:
       return out;
 
     // convert it here
-#ifndef _MSC_VER
+#if !(_MSC_VER < 1300)
     const std::codecvt<charT, toCharT, typename traitsT::state_type>& cvt =
       std::use_facet<std::codecvt<charT, toCharT, typename traitsT::state_type> >(this->getloc());
 #else
@@ -229,7 +229,7 @@ private:
   toStringT no_conversion(const stringT& str)
   {
     toStringT dest;
-#ifndef _MSC_VER
+#if!(_MSC_VER < 1300)
     std::copy(str.begin(), str.end(), std::back_inserter(dest));
 #else
     for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i)

@@ -2,7 +2,7 @@
 #define ISO8859_1utf8_codecvtH
 #include <locale>
 
-#ifdef _MSC_VER
+#if(_MSC_VER < 1300)
 namespace std {
   typedef ::mbstate_t mbstate_t;
 }
