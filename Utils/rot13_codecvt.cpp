@@ -23,7 +23,7 @@ std::codecvt_base::result rot13_codecvt::rot13(const char* from,
   to_next = to;
 
   while((to_next != to_limit) && (from_next != from_end) )
-    *to_next++ = table[*from_next++];
+    *to_next++ = table[static_cast<unsigned char>(*from_next++)];
 
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial; 
 } // rot13
