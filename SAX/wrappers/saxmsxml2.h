@@ -308,9 +308,9 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
           if(contentHandler_)
           {
             AttributesAdaptor attrs(pAttributes);
-            contentHandler_->startElement(SA_.makeStringT(pwchNamespaceUri, cchNamespaceUri),
-                                          SA_.makeStringT(pwchLocalName, cchLocalName),
-                                          SA_.makeStringT(pwchQName, cchQName),
+            contentHandler_->startElement(SA_.makeStringT(pwchNamespaceUri, cchNamespaceUri), 
+                                          SA_.makeStringT(pwchLocalName, cchLocalName), 
+                                          SA_.makeStringT(pwchQName, cchQName), 
                                           attrs);
           } // if ...
           return S_OK;
@@ -325,8 +325,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
                                 /* [in] */ int cchQName)
         {
           if(contentHandler_)
-            contentHandler_->endElement(SA_.makeStringT(pwchNamespaceUri, cchNamespaceUri),
-                                        SA_.makeStringT(pwchLocalName, cchLocalName),
+            contentHandler_->endElement(SA_.makeStringT(pwchNamespaceUri, cchNamespaceUri), 
+                                        SA_.makeStringT(pwchLocalName, cchLocalName), 
                                         SA_.makeStringT(pwchQName, cchQName));
           return S_OK;
         } // endElement
@@ -460,8 +460,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
               int index = -1;
               std::wstring wUri(SA_.asStdWString(uri));
               std::wstring wLocalName(SA_.asStdWString(localName));
-              HRESULT hr = attributes_->getIndexFromName(const_cast<unsigned short*>(wUri.data()), wUri.length(),
-                                                         const_cast<unsigned short*>(wLocalName.data()), wLocalName.length(),
+              HRESULT hr = attributes_->getIndexFromName(const_cast<unsigned short*>(wUri.data()), static_cast<int>(wUri.length()),
+                                                         const_cast<unsigned short*>(wLocalName.data()), static_cast<int>(wLocalName.length()),
                                                          &index);
               return index;
             } // getIndex
@@ -470,7 +470,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
             {
               int index = -1;
               std::wstring wQName(SA_.asStdWString(qName));
-              attributes_->getIndexFromQName(const_cast<unsigned short*>(wQName.data()), wQName.length(), &index);
+              attributes_->getIndexFromQName(const_cast<unsigned short*>(wQName.data()), static_cast<int>(wQName.length()), &index);
               return index;
             } // getIndex
 
@@ -480,8 +480,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
               int cchType;
               std::wstring wUri(SA_.asStdWString(uri));
               std::wstring wLocalName(SA_.asStdWString(localName));
-              HRESULT hr = attributes_->getTypeFromName(const_cast<unsigned short*>(wUri.data()), wUri.length(),
-                                                        const_cast<unsigned short*>(wLocalName.data()), wLocalName.length(),
+              HRESULT hr = attributes_->getTypeFromName(const_cast<unsigned short*>(wUri.data()), static_cast<int>(wUri.length()),
+                                                        const_cast<unsigned short*>(wLocalName.data()), static_cast<int>(wLocalName.length()),
                                                         &pwchType, &cchType);
               if (FAILED(hr))
                 return stringT();
@@ -494,7 +494,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
               const wchar_t* pwchType;
               int cchType;
               std::wstring wQName(SA_.asStdWString(qName));
-              HRESULT hr = attributes_->getTypeFromQName(const_cast<unsigned short*>(wQName.data()), wQName.length(),
+              HRESULT hr = attributes_->getTypeFromQName(const_cast<unsigned short*>(wQName.data()), static_cast<int>(wQName.length()),
                                                          &pwchType, &cchType);
               if (FAILED(hr))
                 return stringT();
@@ -508,8 +508,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
               int cchValue;
               std::wstring wUri(SA_.asStdWString(uri));
               std::wstring wLocalName(SA_.asStdWString(localName));
-              HRESULT hr = attributes_->getValueFromName(const_cast<unsigned short*>(wUri.data()), wUri.length(),
-                                                         const_cast<unsigned short*>(wLocalName.data()), wLocalName.length(),
+              HRESULT hr = attributes_->getValueFromName(const_cast<unsigned short*>(wUri.data()), static_cast<int>(wUri.length()),
+                                                         const_cast<unsigned short*>(wLocalName.data()), static_cast<int>(wLocalName.length()),
                                                          &pwchValue, &cchValue);
               if (FAILED(hr))
                 return stringT();
@@ -522,7 +522,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
               const wchar_t* pwchValue;
               int cchValue;
               std::wstring wQName(SA_.asStdWString(qname));
-              HRESULT hr = attributes_->getValueFromQName(const_cast<unsigned short*>(wQName.data()), wQName.length(),
+              HRESULT hr = attributes_->getValueFromQName(const_cast<unsigned short*>(wQName.data()), static_cast<int>(wQName.length()),
                                                           &pwchValue, &cchValue);
               if (FAILED(hr))
                 return stringT();
@@ -952,3 +952,4 @@ void msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::parse(SAX::basic
 
 #endif
 // end of file
+
