@@ -11,3 +11,5 @@ ParserConfig.h
 saxlib.cpp
 Debug
 Release
+libArabica.dll
+
