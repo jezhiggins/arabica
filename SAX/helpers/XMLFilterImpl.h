@@ -103,7 +103,7 @@ public:
    */
   virtual void setFeature(const stringT& name, bool value)
   {
-  	if(parent_)
+  	if(!parent_)
       throw SAXNotRecognizedException("Feature: " + name);
 
     parent_->setFeature(name, value);
