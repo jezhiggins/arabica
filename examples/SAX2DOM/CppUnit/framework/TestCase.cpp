@@ -24,6 +24,16 @@ void TestCase::assertImplementation (bool          condition,
         throw CppUnitException (conditionExpression, lineNumber, fileName); 
 }
 
+// Check for a failed equality assertion 
+void TestCase::assertEquals (std::string        expected, 
+                             std::string        actual,
+                             long        lineNumber,
+                             std::string fileName)
+{ 
+    if (expected != actual) 
+        assertImplementation (false, notEqualsMessage(expected, actual), lineNumber, fileName); 
+}
+
 
 // Check for a failed equality assertion 
 void TestCase::assertEquals (long        expected, 
@@ -110,5 +120,10 @@ std::string TestCase::notEqualsMessage (long expected, long actual)
 std::string TestCase::notEqualsMessage (double expected, double actual)
 { 
     return "expected: " + estring (expected) + " but was: " + estring (actual); 
+}
+
+std::string TestCase::notEqualsMessage (std::string expected, std::string actual)
+{ 
+    return "expected: " + expected + " but was: " + actual; 
 }
 

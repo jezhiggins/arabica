@@ -121,12 +121,20 @@ protected:
                                           long         lineNumber = CPPUNIT_UNKNOWNLINENUMBER,
                                           std::string  fileName = CPPUNIT_UNKNOWNFILENAME);
 
+    void                assertEquals    (std::string        expected, 
+                                         std::string        actual,
+                                          long         lineNumber = CPPUNIT_UNKNOWNLINENUMBER,
+                                          std::string  fileName = CPPUNIT_UNKNOWNFILENAME);
+
     std::string         notEqualsMessage (long         expected, 
                                           long         actual);
 
     std::string         notEqualsMessage (double       expected, 
                                           double       actual);
     
+    std::string         notEqualsMessage (std::string  expected, 
+                                          std::string  actual);
+
 private:
     const std::string   m_name;
 
