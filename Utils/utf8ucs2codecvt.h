@@ -13,6 +13,8 @@
 // $Id$
 //---------------------------------------------------------------------------
 #include <SAX/ArabicaConfig.h>
+#ifndef ARABICA_NO_WCHAR_T
+
 #include <locale>
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
@@ -69,4 +71,5 @@ protected:
 } // namespace convert
 } // namespace Arabica
 
+#endif
 #endif 

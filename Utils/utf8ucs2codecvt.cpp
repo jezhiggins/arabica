@@ -5,6 +5,7 @@
 #include <Utils/impl/ucs2_utf16.h>
 #include <Utils/impl/ucs2_utf8.h>
 //---------------------------------------------------------------------------
+#ifndef ARABICA_NO_WCHAR_T
 
 using namespace Arabica::convert;
 
@@ -79,5 +80,6 @@ int utf8ucs2codecvt::do_length(const std::mbstate_t&,
   return (from_next-from);
 } // do_length
 
+#endif
 // end of file
 

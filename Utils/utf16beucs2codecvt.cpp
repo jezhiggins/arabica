@@ -2,6 +2,7 @@
 // $Id$
 //---------------------------------------------------------------------------
 #include <Utils/utf16beucs2codecvt.h>
+#ifndef ARABICA_NO_WCHAR_T
 #include <Utils/impl/ucs2_utf16.h>
 
 #ifdef ARABICA_VS6_WORKAROUND
@@ -49,5 +50,6 @@ int utf16beucs2codecvt::do_length(const std::mbstate_t&,
   return std::max<int>((end-from), max/2);
 } // do_length
 
+#endif
 // end of file
 
