@@ -42,7 +42,7 @@ DYNAMIC_LIBS =  -lxml2 -lstdc++
 # flag to create a shared library
 LINK_SHARED = -shared
 
-ESUFFIX = 
+EXESUFFIX = 
 LIBSUFFIX = .so
 
 
