@@ -216,7 +216,7 @@ class basic_NamespaceSupport
     Parts processName(const stringT& qName, bool isAttribute) const
     {
       Parts name;
-      unsigned int index = qName.find(nsc_.colon);
+      size_t index = qName.find(nsc_.colon);
 
       if(index == stringT::npos)
       {

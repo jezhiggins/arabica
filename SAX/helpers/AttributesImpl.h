@@ -62,7 +62,7 @@ public:
    */
   virtual int getLength() const
   {
-    return attributes_.size();
+    return static_cast<int>(attributes_.size());
   } // getLength
 
   /**
@@ -158,8 +158,8 @@ public:
    */
   virtual int getIndex(const stringT& uri, const stringT& localName) const
   {
-    int max = attributes_.size();
-	  for(int i = 0; i < max; ++i)
+    size_t max = attributes_.size();
+	  for(size_t i = 0; i < max; ++i)
     {
       const Attr& a = attributes_[i];
 	    if(a.uri_ == uri && a.localName_ == localName)
@@ -177,8 +177,8 @@ public:
    */
   virtual int getIndex(const stringT& qName) const
   {
-	  int max = attributes_.size();
-	  for(int i = 0; i < max; ++i)
+	  size_t max = attributes_.size();
+	  for(size_t i = 0; i < max; ++i)
     {
 	    if(attributes_[i].qName_ == qName)
 		    return i;
@@ -198,8 +198,8 @@ public:
    */
   virtual stringT getType(const stringT& uri, const stringT& localName) const
   {
-    int max = attributes_.size();
-	  for(int i = 0; i < max; ++i) 
+    size_t max = attributes_.size();
+	  for(size_t i = 0; i < max; ++i) 
     {
       const Attr& a = attributes_[i];
 	    if(a.uri_ == uri && a.localName_ == localName) 
@@ -218,8 +218,8 @@ public:
    */
   virtual stringT getType(const stringT& qName) const
   {
-	  int max = attributes_.size();
-	  for(int i = 0; i < max; ++i) 
+	  size_t max = attributes_.size();
+	  for(size_t i = 0; i < max; ++i) 
     {
 	    if(attributes_[i].qName_ == qName) 
 		    return attributes_[i].type_;
@@ -239,8 +239,8 @@ public:
    */
   virtual stringT getValue(const stringT& uri, const stringT& localName) const
   {
-    int max = attributes_.size();
-	  for(int i = 0; i < max; ++i) 
+    size_t max = attributes_.size();
+	  for(size_t i = 0; i < max; ++i) 
     {
       const Attr& a = attributes_[i];
 	    if(a.uri_ == uri && a.localName_ == localName) 
@@ -259,8 +259,8 @@ public:
    */
   virtual stringT getValue(const stringT& qName) const
   {
-	  int max = attributes_.size();
-	  for(int i = 0; i < max; ++i) 
+	  size_t max = attributes_.size();
+	  for(size_t i = 0; i < max; ++i) 
     {
 	    if(attributes_[i].qName_ == qName) 
 		    return attributes_[i].value_;
