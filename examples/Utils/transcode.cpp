@@ -1,5 +1,9 @@
 // transcode.cpp 
 //
+// Warning!  Contains ifdef hackery 
+// 
+///////////////////////////////////
+
 #include <iostream>
 #include <Utils/convert_adaptor.h>
 #include <Utils/utf8iso88591codecvt.h>
@@ -13,21 +17,32 @@
 
 using namespace Arabica::convert;
 
+iconvert_adaptor<char> iByteConvertor(std::cin);
+oconvert_adaptor<char> oByteConvertor(std::cout);
+
+#ifndef ARABICA_NO_WCHAR_T
 typedef iconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > Widener;
 typedef oconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > Narrower;
 
-iconvert_adaptor<char> iByteConvertor(std::cin);
 Widener iCharAdaptor(iByteConvertor);
-
-oconvert_adaptor<char> oByteConvertor(std::cout);
 Narrower oCharAdaptor(oByteConvertor);
+#endif 
 
+void transcode();
 void imbueCodecvts(int argc, const char* argv[]);
 
 int main(int argc, const char* argv[])
 {
   imbueCodecvts(argc, argv);
 
+  transcode();
+
+  return 0;
+} // main
+
+#ifndef ARABICA_NO_WCHAR_T
+void transcode()
+{
   int count = 0;
   wchar_t c = iCharAdaptor.get();
   while(!iCharAdaptor.eof())
@@ -44,14 +59,35 @@ int main(int argc, const char* argv[])
     c = iCharAdaptor.get();
   }
   oCharAdaptor.flush();
+  oByteConvertor.flush(); 
+} // transcode
+#else
+void transcode()
+{
+  int count = 0;
+  char c = iByteConvertor.get();
+  while(!iByteConvertor.eof())
+  {
+    oByteConvertor << c;
+
+    if(count == 1024)
+    {
+      oByteConvertor.flush();
+      count = 0;
+    } // if ... 
+
+    c = iByteConvertor.get();
+  } // while
+
   oByteConvertor.flush();
-  
-  return 0;
-} // main
+} // transcode
+#endif
 
 void imbueCodecvts(int argc, const char* argv[])
 {
+#ifndef ARABICA_NO_WCHAR_T
   oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16beucs2codecvt()));
+#endif
 
   for(int i = 1; i < argc; ++i)
   {
@@ -82,12 +118,14 @@ void imbueCodecvts(int argc, const char* argv[])
         iByteConvertor.imbue(std::locale(iByteConvertor.getloc(), new rot13codecvt()));
       else if(cvt == "base64")
         iByteConvertor.imbue(std::locale(iByteConvertor.getloc(), new base64codecvt()));
+#ifndef ARABICA_NO_WCHAR_T
       else if(cvt == "utf8")
         iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf8ucs2codecvt()));
       else if(cvt == "utf16be")
         iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf16beucs2codecvt()));
       else if(cvt == "utf16le")
         iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf16leucs2codecvt()));
+#endif
       else
       {
         std::cerr << cvt << " is not a valid input encoding." << std::endl;
@@ -100,12 +138,14 @@ void imbueCodecvts(int argc, const char* argv[])
         oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new rot13codecvt()));
       else if(cvt == "base64")
         oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new base64codecvt()));
+#ifndef ARABICA_NO_WCHAR_T
       else if(cvt == "utf8")
         oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf8ucs2codecvt()));
       else if(cvt == "utf16be")
         oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16beucs2codecvt()));
       else if(cvt == "utf16le")
         oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16leucs2codecvt()));
+#endif
       else 
       {
         std::cerr << cvt << " is not a valid output encoding." << std::endl;
