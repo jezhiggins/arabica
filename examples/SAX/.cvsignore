@@ -12,3 +12,4 @@ Release
 *.dep
 *.plg
 pyx___Win32_Debug
+*.exe

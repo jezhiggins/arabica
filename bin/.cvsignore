@@ -5,3 +5,8 @@ pyx
 sax2dom_test
 simple_handler
 writer
+libArabica.dll
+*.exe
+*.ilk
+*.pdb
+*.dll

@@ -9,3 +9,7 @@ sax2dom_test
 *.plg
 Debug
 Release
+*.exe
+
+
+
