@@ -75,7 +75,7 @@
 				EnableFunctionLevelLinking="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Release/SAX.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
@@ -449,8 +449,8 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_XERCES /EP ParserConfig.S &gt; ParserConfig.h
-cl /TC /D USE_XERCES /EP saxlib.S &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_MSXML /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>
@@ -458,8 +458,8 @@ cl /TC /D USE_XERCES /EP saxlib.S &gt; saxlib.cpp
 				Name="Release|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_XERCES /EP ParserConfig.S &gt; ParserConfig.h
-cl /TC /D USE_XERCES /EP saxlib.S &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_MSXML /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>
