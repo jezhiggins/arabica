@@ -200,6 +200,8 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
            << UnicodeT::HYPHEN_MINUS
            << UnicodeT::GREATER_THAN_SIGN;
     break;
+  default: // keep GCC quiet
+	  break;
   } // switch
 
   return stream;
