@@ -40,7 +40,12 @@ public:
 private:
   void hold(const SAXParseExceptionT& exception)
   {
-    errors_ += exception.what();
+    // if I just call exception.what() VS.NET seems to ignore the
+    // dynamic dispatch, and inlines std::exception::what to give "Unknown Exception".
+    // Naughty!
+    // doing this prevents it doing that
+    // GCC got it right
+    errors_ += SAXParseExceptionT(exception).what();
   } // hold
 
   std::string errors_;
