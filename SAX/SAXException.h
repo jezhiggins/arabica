@@ -31,7 +31,7 @@ namespace SAX
 class SAXException : public std::runtime_error
 {
 public:
-  SAXException() : std::runtime_error("Unknown Error")
+  SAXException() : std::runtime_error("Unspecified SAX Exception")
   {
   } // SAXException
 
