@@ -88,8 +88,6 @@ const int basic_socketbuf<charT, traitsT>::INVALID_SOCKET = -1;
 template<class charT, class traitsT>
 const int basic_socketbuf<charT, traitsT>::SOCKET_ERROR = -1;
 #endif
-typedef basic_socketbuf<char, std::char_traits<char> > socketbuf;
-typedef basic_socketbuf<wchar_t, std::char_traits<wchar_t> > wsocketbuf;
 
 ///////////////////////////////////////////////////////////
 // basic_socketbuf definition
@@ -411,9 +409,6 @@ class basic_socketstream : public std::basic_iostream<charT, traitsT>
     basic_socketbuf<charT, traitsT> sockbuf;
 }; // class basic_socketstream
 
-typedef basic_socketstream<char, std::char_traits<char> > socketstream;
-typedef basic_socketstream<wchar_t, std::char_traits<wchar_t> > wsocketstream;
-
 ////////////////////////////////////////////////////////////////
 // basic_socketstream definition
 template<class charT, class traitsT>
@@ -464,6 +459,13 @@ void basic_socketstream<charT, traitsT>::close()
   if(sockbuf.close() == 0)
     setstate(badbit);
 } // close
+
+typedef basic_socketbuf<char, std::char_traits<char> > socketbuf;
+typedef basic_socketstream<char, std::char_traits<char> > socketstream;
+#ifndef ARABICA_NO_WCHAR_T
+typedef basic_socketbuf<wchar_t, std::char_traits<wchar_t> > wsocketbuf;
+typedef basic_socketstream<wchar_t, std::char_traits<wchar_t> > wsocketstream;
+#endif
 
 #endif
 //end of file
