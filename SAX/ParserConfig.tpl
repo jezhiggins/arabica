@@ -50,7 +50,7 @@ include <SAX/wrappers/saxexpat.h>
 undef DEF_SAX_P
 define DEF_SAX_P expat_wrapper
 #ifdef _MSC_VER
-comment(lib, "expat.lib")
+comment(lib, "libexpat.lib")
 #endif
 #endif
 

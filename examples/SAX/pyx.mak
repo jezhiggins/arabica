@@ -36,10 +36,21 @@ INTDIR=.\Release
 OutDir=.\..\bin
 # End Custom Macros
 
+!IF "$(RECURSE)" == "0" 
+
 ALL : "$(OUTDIR)\pyx.exe"
 
+!ELSE 
 
+ALL : "SAXlib - Win32 Release" "$(OUTDIR)\pyx.exe"
+
+!ENDIF 
+
+!IF "$(RECURSE)" == "1" 
+CLEAN :"SAXlib - Win32 ReleaseCLEAN" 
+!ELSE 
 CLEAN :
+!ENDIF 
 	-@erase "$(INTDIR)\pyx.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\pyx.exe"
@@ -60,8 +71,7 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 LINK32_OBJS= \
 	"$(INTDIR)\pyx.obj" \
 	"..\..\lib\SAX.lib" \
-	"..\..\..\..\lib\vc6\expat.lib" \
-	"..\..\lib\Utilities.lib"
+	"..\..\SAX\Release\SAX.lib"
 
 "$(OUTDIR)\pyx.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -76,10 +86,21 @@ INTDIR=.\pyx___Win32_Debug
 OutDir=.\..\..\bin
 # End Custom Macros
 
+!IF "$(RECURSE)" == "0" 
+
 ALL : "$(OUTDIR)\pyx.exe"
 
+!ELSE 
 
+ALL : "SAXlib - Win32 Debug" "$(OUTDIR)\pyx.exe"
+
+!ENDIF 
+
+!IF "$(RECURSE)" == "1" 
+CLEAN :"SAXlib - Win32 DebugCLEAN" 
+!ELSE 
 CLEAN :
+!ENDIF 
 	-@erase "$(INTDIR)\pyx.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
@@ -93,18 +114,16 @@ CLEAN :
 "$(INTDIR)" :
     if not exist "$(INTDIR)/$(NULL)" mkdir "$(INTDIR)"
 
-CPP_PROJ=/nologo /MLd /W3 /Gm /GR /GX /ZI /Od /I "..\..\\" /I "\work\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\pyx.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MLd /W3 /Gm /GR /GX /ZI /Od /I "..\..\\" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\pyx.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\pyx.bsc" 
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\pyx.pdb" /debug /machine:I386 /out:"$(OUTDIR)\pyx.exe" /pdbtype:sept 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\pyx.pdb" /debug /machine:I386 /out:"$(OUTDIR)\pyx.exe" /pdbtype:sept /libpath:"..\..\lib" /libpath:"\work\lib\vc6" 
 LINK32_OBJS= \
 	"$(INTDIR)\pyx.obj" \
-	"..\..\lib\SAX.lib" \
-	"..\..\..\..\lib\vc6\expat.lib" \
-	"..\..\lib\Utilities.lib"
+	"..\..\lib\SAX.lib"
 
 "$(OUTDIR)\pyx.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -158,6 +177,32 @@ SOURCE=.\pyx.cpp
 
 "$(INTDIR)\pyx.obj" : $(SOURCE) "$(INTDIR)"
 
+
+!IF  "$(CFG)" == "pyx - Win32 Release"
+
+"SAXlib - Win32 Release" : 
+   cd "\work\JezUK\Arabica\src\SAX"
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" 
+   cd "..\examples\SAX"
+
+"SAXlib - Win32 ReleaseCLEAN" : 
+   cd "\work\JezUK\Arabica\src\SAX"
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" RECURSE=1 CLEAN 
+   cd "..\examples\SAX"
+
+!ELSEIF  "$(CFG)" == "pyx - Win32 Debug"
+
+"SAXlib - Win32 Debug" : 
+   cd "\work\JezUK\Arabica\src\SAX"
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" 
+   cd "..\examples\SAX"
+
+"SAXlib - Win32 DebugCLEAN" : 
+   cd "\work\JezUK\Arabica\src\SAX"
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" RECURSE=1 CLEAN 
+   cd "..\examples\SAX"
+
+!ENDIF 
 
 
 !ENDIF 

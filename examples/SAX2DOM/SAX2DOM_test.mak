@@ -88,6 +88,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\test_DOMImplementation.obj" \
 	"$(INTDIR)\test_Element.obj" \
 	"$(INTDIR)\test_ProcessingInstruction.obj" \
+	"$(INTDIR)\test_SAX.obj" \
 	"$(INTDIR)\test_Siblings.obj" \
 	"$(INTDIR)\TestCase.obj" \
 	"$(INTDIR)\TestFailure.obj" \
@@ -96,7 +97,6 @@ LINK32_OBJS= \
 	"$(INTDIR)\TextTestResult.obj" \
 	"..\..\lib\SAX.lib" \
 	"..\..\lib\Utilities.lib" \
-	"$(INTDIR)\test_SAX.obj" \
 	"..\..\SAX\Release\SAX.lib"
 
 "$(OUTDIR)\SAX2DOM_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
@@ -154,7 +154,7 @@ CLEAN :
 "$(INTDIR)" :
     if not exist "$(INTDIR)/$(NULL)" mkdir "$(INTDIR)"
 
-CPP_PROJ=/nologo /MLd /W3 /Gm /GR /GX /ZI /Od /I "..\..\\" /I "\work\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "USE_EXPAT" /Fp"$(INTDIR)\SAX2DOM_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MLd /W3 /Gm /GR /GX /ZI /Od /I "..\..\\" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\SAX2DOM_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\SAX2DOM_test.bsc" 
 BSC32_SBRS= \
@@ -170,6 +170,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\test_DOMImplementation.obj" \
 	"$(INTDIR)\test_Element.obj" \
 	"$(INTDIR)\test_ProcessingInstruction.obj" \
+	"$(INTDIR)\test_SAX.obj" \
 	"$(INTDIR)\test_Siblings.obj" \
 	"$(INTDIR)\TestCase.obj" \
 	"$(INTDIR)\TestFailure.obj" \
@@ -177,8 +178,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\TestSuite.obj" \
 	"$(INTDIR)\TextTestResult.obj" \
 	"..\..\lib\SAX.lib" \
-	"..\..\lib\Utilities.lib" \
-	"$(INTDIR)\test_SAX.obj"
+	"..\..\lib\Utilities.lib"
 
 "$(OUTDIR)\SAX2DOM_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
