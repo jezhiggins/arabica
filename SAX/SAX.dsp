@@ -194,6 +194,10 @@ SOURCE=.\helpers\AttributeTypes.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\helpers\CatchErrorHandler.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\helpers\DefaultHandler.h
 # End Source File
 # Begin Source File
