@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
     } // for ...
   }
 
-/*
+
   { // wide
     SAX::XMLReader<std::wstring> parser;
     SAX::wWriter writer(std::wcout);
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 
     writer.parse(is);
   }
-*/
+
   return 0;
 } // main
 

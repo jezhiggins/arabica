@@ -26,6 +26,7 @@ public:
   typedef basic_ContentHandler<stringT> ContentHandlerT;
   typedef basic_InputSource<stringT> InputSourceT;
   typedef basic_AttributesImpl<stringT> AttributesImplT;
+  typedef typename basic_XMLReader<stringT>::PropertyBase PropertyBase;
 
   Garden();
 
@@ -52,9 +53,9 @@ public:
 private:
   void reportError(const std::string& message, bool fatal = false);
 
-  typedef stringT::value_type char_t;
+  typedef typename stringT::value_type char_t;
   typedef std::vector<char_t> vector_t;
-  typedef vector_t::iterator iterator_t;
+  typedef typename vector_t::iterator iterator_t;
   typedef boost::spirit::scanner<iterator_t> scanner_t;
   typedef boost::spirit::rule<scanner_t> rule_t;
 
@@ -95,7 +96,8 @@ private:
 
   std::stack<stringT> elements_;
   AttributesImplT attrs_;
-  AttributesImplT::Attr currentAttr_;
+  typedef typename AttributesImplT::Attr Attr;
+  Attr currentAttr_;
   stringT piTarget_;
   stringT piData_;
   stringT entityRef_;
@@ -231,7 +233,7 @@ void Garden<string_type>::setFeature(const stringT& name, bool value)
 ///////////////////////////////////////
 // properties
 template<class string_type>
-std::auto_ptr<Garden<string_type>::PropertyBase> Garden<string_type>::doGetProperty(const stringT& name)
+std::auto_ptr<typename Garden<string_type>::PropertyBase> Garden<string_type>::doGetProperty(const stringT& name)
 {
   throw SAXNotRecognizedException(name);
 } // doGetProperty
@@ -266,7 +268,7 @@ void Garden<string_type>::parse(InputSourceT& input)
 
   if(contentHandler_)
     contentHandler_->startDocument();
-  rule_t::result_t r = document_.parse(scanner);
+  typename rule_t::result_t r = document_.parse(scanner);
   if(contentHandler_)
     contentHandler_->endDocument();
 

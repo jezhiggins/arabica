@@ -4,8 +4,12 @@
 
 # High level rules
 
-all : 
+all : SAX, examples
+
+SAX: dummy
 	cd SAX; ${MAKE}
+
+examples: dummy
 	cd examples; ${MAKE}
 
 # Cleaning up
@@ -25,7 +29,7 @@ tar: clean
 zip: clean
 	cd ..;  zip -rv9 arabica/arabica.zip arabica -x arabica/arabica.tar.gz -x \*/CVS/\*
 
-
+dummy:
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 

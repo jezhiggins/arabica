@@ -23,22 +23,22 @@ public:
   value_type makeValueT(char c) const;
   stringT makeStringT(const char* str) const;
   stringT makeStringT(const char* str, int length) const;
+#ifndef ARABICA_NO_WCHAR_T
   stringT makeStringT(const wchar_t* str) const;
   stringT makeStringT(const wchar_t* str, int length) const;
+#endif
 
   // only used to constuct error strings - don't have to be highly efficient!
   std::string asStdString(const stringT& str) const;
+#ifndef ARABICA_NO_WCHAR_T
   std::wstring asStdWString(const stringT& str) const;
+#endif
 }; // class default_string_maker
 
 // specialize for std::string and std::wstring
 template<>
 class default_string_adaptor<std::string>
 {
-  typedef basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
-                               char, std::char_traits<char> > widener;
-  typedef basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
-                               char, std::char_traits<char> > narrower;
 public:
   char makeValueT(char c) const { return c; }
 
@@ -50,6 +50,17 @@ public:
   {
     return std::string(str, length);
   } // makeStringT
+  const std::string& asStdString(const std::string& str) const
+  {
+    return str;
+  } // toStdString
+
+#ifndef ARABICA_NO_WCHAR_T
+  typedef basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
+                               char, std::char_traits<char> > widener;
+  typedef basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+                               char, std::char_traits<char> > narrower;
+
   std::string makeStringT(const wchar_t* str) const
   {
     std::wstring s;
@@ -63,19 +74,16 @@ public:
     n_.str(std::wstring(str, length));
     return n_.str();
   } // makeStringT
-
-  const std::string& asStdString(const std::string& str) const
-  {
-    return str;
-  } // toStdString
   std::wstring asStdWString(const std::string& str) const
   {
     w_.str(str);
     return w_.str();
   } // toStdWString
+#endif
 
+#ifndef ARABICA_NO_WCHAR_T
   default_string_adaptor() :
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
     loc_(std::locale(), new utf8ucs2codecvt()),
 #else
     loc_(std::_Addfac(std::locale(), new utf8ucs2codecvt)),
@@ -91,8 +99,12 @@ private:
   std::locale loc_;
   mutable narrower n_;
   mutable widener w_;
+#else
+  default_string_adaptor() { }
+#endif
 }; // class default_string_adaptor
 
+#ifndef ARABICA_NO_WCHAR_T
 template<>
 class default_string_adaptor<std::wstring>
 {
@@ -139,7 +151,7 @@ public:
   } // toStdWString
 
   default_string_adaptor() :
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
     loc_(std::locale(), new utf8ucs2codecvt()),
 #else
     loc_(std::_Addfac(std::locale(), new utf8ucs2codecvt())),
@@ -156,6 +168,7 @@ private:
   mutable narrower n_;
   mutable widener w_;
 }; // class default_string_adaptor
+#endif // ARABICA_NO_WCHAR_T
 
 } // namespace SAX
 

@@ -759,7 +759,7 @@ SAX::basic_EntityResolver<stringT>* xerces_wrapper<stringT, string_adaptorT>::ge
   return 0;
 } // getEntityResolver
 
-#if (defined _MSC_VER) && (_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
 #define typename 
 #endif
 template<class stringT, class string_adaptorT>
@@ -804,7 +804,7 @@ void xerces_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name
   throw SAX::SAXNotRecognizedException("Property not recognized ");    
 } // doSetProperty
 
-#if (defined _MSC_VER) && (_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
 #undef typename 
 #endif
 

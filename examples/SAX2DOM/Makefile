@@ -40,7 +40,7 @@ CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
 CXXFLAGS += -O2
-LDFLAGS  += -O2 
+LDFLAGS  += -O2 -L../../bin 
 
 # Uncomment for debug version
 CXXFLAGS += -g 
@@ -53,7 +53,7 @@ INCS_DIRS = -I../..
 LIBS_DIRS = -L../../bin
 
 STATIC_LIBS =
-DYNAMIC_LIBS =  -lArabica -lexpat
+DYNAMIC_LIBS = -lArabica -lstdc++
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${LIBS_DIRS}

@@ -42,6 +42,7 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <SAX/ArabicaConfig.h>
 #include <locale>
 #include <sstream>
 #include <algorithm>
@@ -84,7 +85,7 @@ public:
   void str(const fromStringT& str)
   {
     // do conversion
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
     const std::codecvt<charT, fromCharT, typename traitsT::state_type>& cvt =
       std::use_facet<std::codecvt<charT, fromCharT, typename traitsT::state_type> >(this->getloc());
 #else
@@ -130,7 +131,7 @@ private:
   stringT no_conversion(const fromStringT& str)
   {
     stringT dest;
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
     std::copy(str.begin(), str.end(), std::back_inserter(dest));
 #else
     // hack around pre-Standard library
@@ -181,7 +182,7 @@ public:
       return out;
 
     // convert it here
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
     const std::codecvt<charT, toCharT, typename traitsT::state_type>& cvt =
       std::use_facet<std::codecvt<charT, toCharT, typename traitsT::state_type> >(this->getloc());
 #else
@@ -232,7 +233,7 @@ private:
   toStringT no_conversion(const stringT& str)
   {
     toStringT dest;
-#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
     std::copy(str.begin(), str.end(), std::back_inserter(dest));
 #else
     for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i)
@@ -245,8 +246,10 @@ private:
 }; // basic_oconvertstream
 
 typedef basic_iconvertstream<char> converting_istringstream;
-typedef basic_iconvertstream<wchar_t> converting_iwstringstream;
 typedef basic_oconvertstream<char> converting_ostringstream;
+#ifndef ARABICA_NO_WCHAR_T
+typedef basic_iconvertstream<wchar_t> converting_iwstringstream;
 typedef basic_oconvertstream<wchar_t> converting_owstringstream;
+#endif
 
 #endif

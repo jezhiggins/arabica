@@ -19,6 +19,16 @@ define ARABICA_CONFIG_H
 define pasty(ARABICA, _NO_WCHAR_T) 1
 #endif
 
+#ifdef _MSC_VER
+#if (_MSC_VER < 1300)
+define ARABICA_VS6_WORKAROUND
+#endif
+#endif
+
+#ifdef _WIN32
+define ARABICA_WINDOWS
+#endif
+
 endif // ARABICA_CONFIG_H
 
 

@@ -115,7 +115,7 @@ namespace
 
   std::istream* httpResolver(const std::string& httpURL)
   {
-#ifdef _MSC_VER
+#ifdef ARABICA_WINDOWS
     WORD wVersionRequested;
     WSADATA wsaData;
     int err;

@@ -12,7 +12,6 @@
 // decryption (or any other transcoding) transparently.  It can 
 // also adapt wchar_t streams to char streams, or vice versa, allowing
 // you to write std::wstrings out as UTF-8 chars to a file, for instance.
-//
 //////////////////////////////////////////////////////
 #include <locale>
 #include <istream>
@@ -20,7 +19,7 @@
 #include <vector>
 #include <algorithm>
 
-#if defined(_MSC_VER) && (_MSC_VER < 1300)
+#ifndef ARABICA_VS6_WORKAROUND
 #include <minmax.h>
 #endif
 
@@ -137,7 +136,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
 
   bool ok(true);
   const std::codecvt<charT, char, state_t>& cvt =
-#if !defined(_MSC_VER) || (_MSC_VER > 1300)
+#ifndef ARABICA_VS6_WORKAROUND
       std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
 #else
       std::use_facet(this->getloc(), (std::codecvt<charT, char, typename traitsT::state_type>*)0, true);
@@ -183,7 +182,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
   if(!inBuffer_.capacity())
     growInBuffer();
 
-#if !defined(_MSC_VER) || (_MSC_VER > 1300)
+#ifndef ARABICA_VS6_WORKAROUND
   size_t pbCount = std::min<size_t>(gptr() - eback(), pbSize_);
 #else
   size_t pbCount = min(gptr() - eback(), pbSize_);
@@ -193,8 +192,8 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
          pbCount*sizeof(charT));
 
   const std::codecvt<charT, char, state_t>& cvt =
-#if !defined(_MSC_VER) || (_MSC_VER > 1300)
-      std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
+#ifndef ARABICA_VS6_WORKAROUND
+    std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
 #else
       std::use_facet(this->getloc(), (std::codecvt<charT, char, typename traitsT::state_type>*)0, true);
 #endif

@@ -11,7 +11,7 @@
 // $Id$
 ///////////////////////////////////////////////////////////////////////
 
-#ifndef _MSC_VER
+#ifndef ARABICA_WINDOWS
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>

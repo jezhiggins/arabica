@@ -410,6 +410,16 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath="ArabicaConfig.S">
+			<FileConfiguration
+				Name="Debug|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					CommandLine="cl /TC /EP ArabicaConfig.S &gt; ArabicaConfig.h"
+					Outputs="ArabicaConfig.h"/>
+			</FileConfiguration>
+		</File>
+		<File
 			RelativePath=".\ParserConfig.S">
 			<FileConfiguration
 				Name="Debug|Win32">
