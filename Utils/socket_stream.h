@@ -2,30 +2,10 @@
 #define basic_socketstreamH
 ///////////////////////////////////////////////////////////////////////
 //
-// socketstream.h 
+// socket_stream.h 
 // 
 // Written by Jez Higgins <jez@jezuk.co.uk>
-// 
-// Copyright 1999-2000 Jez UK Ltd, http://www.jezuk.co.uk/
-//
-// Permission is granted to anyone to use this software for any purpose
-// on any computer system, and redistribute it freely, subject to the 
-// following restrictions:
-//
-// 1. This softwre is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-//
-// 2. The origin of this software must not be misrepresented, either by
-//    explicit claim or by omission.
-// 
-// 3. Altered version must be plainly marked as such, and must not be 
-//    misrepresented as being the original software.
-//
-// 4. If this software is used in any software which is released under
-//    the GNU General Public Licence (GPL), then the terms of that 
-//    licence shall supercede any condition above with which it is 
-//    incompatible.
+// Copyright 1999-2003 Jez UK Ltd, http://www.jezuk.co.uk/
 //
 ///////////////////////////////////////////////////////////////////////
 // $Id$

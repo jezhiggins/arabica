@@ -3,6 +3,15 @@
 //////////////////////////////////////////////////////
 //
 // $Id$
+// Written by Jez Higgins <jez@jezuk.co.uk>
+// Copyright 1999-2003 Jez UK Ltd, http://www.jezuk.co.uk/
+//
+// convert_adaptor is a stream that wraps around another stream.  This
+// may not seem like a big deal, but convert_adaptor applies codecvt
+// facets along the way.  This allows you to apply encryption or 
+// decryption (or any other transcoding) transparently.  It can 
+// also adapt wchar_t streams to char streams, or vice versa, allowing
+// you to write std::wstrings out as UTF-8 chars to a file, for instance.
 //
 //////////////////////////////////////////////////////
 #include <locale>

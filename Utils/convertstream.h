@@ -1,5 +1,5 @@
-#ifndef CONVERTSTREAM_H
-#define CONVERTSTREAM_H
+#ifndef BASIC_CONVERTSTREAM_H
+#define BASIC_CONVERTSTREAM_H
 //////////////////////////////////////////////////////
 //
 // $Id$
@@ -7,6 +7,9 @@
 //////////////////////////////////////////////////////
 //
 // basic_iconvertstream, basic_oconvertstream
+//
+// Written by Jez Higgins <jez@jezuk.co.uk>
+// Copyright 1999-2003 Jez UK Ltd, http://www.jezuk.co.uk/
 //
 // Normal basic_stringstream do not apply the codecvt facet
 // of their locale.  These two streams act exactly like
