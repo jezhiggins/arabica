@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "DOM"=.\DOM\DOM.dsp - Package Owner=<4>
+Project: "ArabicaLib"=.\SAX\SAX.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -15,7 +15,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "DOMWriter"=.\EXAMPLES\SAX2DOM\DOMWriter.dsp - Package Owner=<4>
+Project: "example_DOMWriter"=.\EXAMPLES\SAX2DOM\DOMWriter.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -24,16 +24,13 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name SAXlib
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name XML
+    Project_Dep_Name ArabicaLib
     End Project Dependency
 }}}
 
 ###############################################################################
 
-Project: "SAX2DOM_test"=.\EXAMPLES\SAX2DOM\SAX2DOM_test.dsp - Package Owner=<4>
+Project: "example_SAX2DOMTests"=.\EXAMPLES\SAX2DOM\SAX2DOM_test.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -42,16 +39,13 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name DOM
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name SAXlib
+    Project_Dep_Name ArabicaLib
     End Project Dependency
 }}}
 
 ###############################################################################
 
-Project: "SAXlib"=.\SAX\SAX.dsp - Package Owner=<4>
+Project: "example_SAXPyx"=.\examples\SAX\pyx.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -60,13 +54,13 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name Utilities
+    Project_Dep_Name ArabicaLib
     End Project Dependency
 }}}
 
 ###############################################################################
 
-Project: "SimpleHandler"=.\examples\SAX\SimpleHandler.dsp - Package Owner=<4>
+Project: "example_SAXSimpleHandler"=.\examples\SAX\SimpleHandler.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -75,28 +69,13 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name SAXlib
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name Utilities
+    Project_Dep_Name ArabicaLib
     End Project Dependency
 }}}
 
 ###############################################################################
 
-Project: "Utilities"=.\Utils\Utilities.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "Writer"=.\EXAMPLES\SAX\Writer.dsp - Package Owner=<4>
+Project: "example_SAXWriter"=.\EXAMPLES\SAX\Writer.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -105,25 +84,13 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name SAXlib
+    Project_Dep_Name ArabicaLib
     End Project Dependency
 }}}
 
 ###############################################################################
 
-Project: "XML"=.\XML\XML.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "pyx"=.\examples\SAX\pyx.dsp - Package Owner=<4>
+Project: "example_UtilsTranscode"=.\EXAMPLES\UTILS\transcode.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -132,7 +99,7 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name SAXlib
+    Project_Dep_Name ArabicaLib
     End Project Dependency
 }}}
 

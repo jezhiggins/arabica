@@ -844,7 +844,6 @@ msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::msxml2_wrapper()
   reader_->putContentHandler(&contentHandler_);
   reader_->putErrorHandler(&errorHandler_);
   reader_->putDTDHandler(&dtdHandler_);
-  std::cerr << "MSXML Wrapper handlers registered" << std::endl << std::flush;
 
   VARIANT wrapper;
   wrapper.vt = VT_UNKNOWN;
@@ -852,8 +851,6 @@ msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::msxml2_wrapper()
   reader_->putProperty(L"http://xml.org/sax/properties/lexical-handler", wrapper);
   wrapper.punkVal = static_cast<ISAXDeclHandler*>(&declHandler_);
   reader_->putProperty(L"http://xml.org/sax/properties/declaration-handler", wrapper);
-
-  std::cerr << "MSXML Wrapper initialized" << std::endl << std::flush;
 } // msxml2_wrapper
 
 template<class stringT, class COMInitializerT, class string_adaptorT>

@@ -19,7 +19,11 @@
 #include <vector>
 #include <algorithm>
 
+#include <SAX/ArabicaConfig.h>
 #ifdef ARABICA_VS6_WORKAROUND
+namespace std {
+  typedef ::mbstate_t mbstate_t;
+}
 #include <minmax.h>
 #endif
 
@@ -137,9 +141,9 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
   bool ok(true);
   const std::codecvt<charT, char, state_t>& cvt =
 #ifndef ARABICA_VS6_WORKAROUND
-      std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
+      std::use_facet<std::codecvt<charT, char, std::mbstate_t> >(this->getloc());
 #else
-      std::use_facet(this->getloc(), (std::codecvt<charT, char, typename traitsT::state_type>*)0, true);
+      std::use_facet(this->getloc(), (std::codecvt<charT, char, std::mbstate_t>*)0, true);
 #endif
 
   if(cvt.always_noconv())
@@ -193,9 +197,9 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
 
   const std::codecvt<charT, char, state_t>& cvt =
 #ifndef ARABICA_VS6_WORKAROUND
-    std::use_facet<std::codecvt<charT, char, typename traitsT::state_type> >(this->getloc());
+    std::use_facet<std::codecvt<charT, char, std::mbstate_t> >(this->getloc());
 #else
-      std::use_facet(this->getloc(), (std::codecvt<charT, char, typename traitsT::state_type>*)0, true);
+      std::use_facet(this->getloc(), (std::codecvt<charT, char, std::mbstate_t>*)0, true);
 #endif
 
   std::vector<externalCharT> from(inBuffer_.capacity());

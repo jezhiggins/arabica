@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_DOMWriter", "exampl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_UtilsTranscode", "examples\Utils\transcode.vcproj", "{436B423B-BF20-4B2E-A187-604AF391FBE2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAX2DOMTests", "examples\SAX2DOM\SAX2DOM_test.vcproj", "{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		ConfigName.0 = Debug
@@ -48,6 +50,10 @@ Global
 		{436B423B-BF20-4B2E-A187-604AF391FBE2}.Debug.Build.0 = Debug|Win32
 		{436B423B-BF20-4B2E-A187-604AF391FBE2}.Release.ActiveCfg = Release|Win32
 		{436B423B-BF20-4B2E-A187-604AF391FBE2}.Release.Build.0 = Release|Win32
+		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}.Debug.ActiveCfg = Debug|Win32
+		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}.Debug.Build.0 = Debug|Win32
+		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}.Release.ActiveCfg = Release|Win32
+		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

@@ -7,6 +7,7 @@
 ///////////////////////////////////////////
 
 #include <locale>
+#include <SAX/ArabicaConfig.h>
 
 #ifdef ARABICA_VS6_WORKAROUND
 namespace std {

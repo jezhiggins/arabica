@@ -7,16 +7,20 @@
 ///////////////////////////////////////////
 
 #include <locale>
+#include <SAX/ArabicaConfig.h>
+#ifdef ARABICA_VS6_WORKAROUND
+namespace std {
+  typedef ::mbstate_t mbstate_t;
+}
+#endif
 
-class rot13codecvt : public std::codecvt<char, char, std::char_traits<char>::state_type>
+
+class rot13codecvt : public std::codecvt<char, char, std::mbstate_t>
 {
-public:
-  typedef std::char_traits<char>::state_type state_t;
-
 protected:
   virtual ~rot13codecvt() { }
 
-  virtual result do_out(state_t& state,
+  virtual result do_out(std::mbstate_t& state,
                         const char* from,
                         const char* from_end,
                         const char*& from_next,
@@ -25,7 +29,7 @@ protected:
                         char*& to_next) const 
       { return rot13(from, from_end, from_next, to, to_limit, to_next); }
 
-  virtual result do_in(state_t& state,
+  virtual result do_in(std::mbstate_t& state,
                        const char* from,
                        const char* from_end,
                        const char*& from_next,
@@ -34,7 +38,7 @@ protected:
                        char*& to_next) const
       { return rot13(from, from_end, from_next, to, to_limit, to_next); }
 
-  virtual result do_unshift(state_t&  state,
+  virtual result do_unshift(std::mbstate_t&  state,
                        char* to,
                        char* to_limit,
                        char*& to_next) const;
@@ -43,7 +47,7 @@ protected:
 
   virtual bool do_always_noconv() const throw() { return false; }
 
-  virtual int do_length(const state_t&,
+  virtual int do_length(const std::mbstate_t&,
                         const char* from,
                         const char* end,
                         size_t max) const;

@@ -282,9 +282,6 @@
 				RelativePath=".\wrappers\saxlibxml2.h">
 			</File>
 			<File
-				RelativePath=".\wrappers\saxmsxml2.h">
-			</File>
-			<File
 				RelativePath="wrappers\saxxerces.cpp">
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -415,7 +412,8 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /EP ArabicaConfig.S &gt; ArabicaConfig.h"
+					CommandLine="cl /TC /EP ArabicaConfig.S &gt; ArabicaConfig.h
+"
 					Outputs="ArabicaConfig.h"/>
 			</FileConfiguration>
 		</File>
@@ -445,6 +443,9 @@ cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
 		</File>
 		<File
 			RelativePath=".\saxlib.cpp">
+		</File>
+		<File
+			RelativePath=".\wrappers\saxmsxml2.h">
 		</File>
 	</Files>
 	<Globals>

@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.00"
 	Name="example_SAX2DOMTests"
+	ProjectGUID="{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
