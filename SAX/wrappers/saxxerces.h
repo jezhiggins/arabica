@@ -19,8 +19,8 @@
 #include <SAX/SAXNotSupportedException.h>
 #include <SAX/ext/LexicalHandler.h>
 #include <SAX/ext/DeclHandler.h>
-#include <SAX/helpers/FeatureNames.h>
 #include <SAX/helpers/PropertyNames.h>
+#include <SAX/wrappers/XercesFeatureNames.h>
 
 // Xerces Includes
 #include <xercesc/util/PlatformUtils.hpp>
@@ -53,6 +53,7 @@ class xerces_wrapper : public SAX::basic_XMLReader<string_type>
     typedef SAX::basic_InputSource<stringT> inputSourceT;
     typedef SAX::basic_Locator<stringT> locatorT;
     typedef SAX::basic_XMLReader<stringT> base;
+    typedef SAX::XercesFeatureNames<stringT, string_adaptorT> featuresT;
 
     xerces_wrapper();
 		virtual ~xerces_wrapper();
