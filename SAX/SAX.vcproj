@@ -310,13 +310,13 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\ParserConfig.tpl">
+			RelativePath=".\ParserConfig.S">
 			<FileConfiguration
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_EXPAT /EP ParserConfig.tpl &gt; ParserConfig.h
-cl /TC /D USE_EXPAT /EP saxlib.tpl &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_EXPAT /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_EXPAT /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>
@@ -324,8 +324,8 @@ cl /TC /D USE_EXPAT /EP saxlib.tpl &gt; saxlib.cpp
 				Name="Release|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_XERCES /EP ParserConfig.tpl &gt; ParserConfig.h
-cl /TC /D USE_XERCES /EP saxlib.tpl &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_LIBXML2 /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_LIBXML2 /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>
@@ -334,7 +334,7 @@ cl /TC /D USE_XERCES /EP saxlib.tpl &gt; saxlib.cpp
 			RelativePath=".\saxlib.cpp">
 		</File>
 		<File
-			RelativePath=".\saxlib.tpl">
+			RelativePath=".\saxlib.S">
 		</File>
 	</Files>
 	<Globals>

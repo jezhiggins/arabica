@@ -280,15 +280,7 @@ SOURCE=.\wrappers\saxmsxml2.h
 # Begin Source File
 
 SOURCE=.\wrappers\saxxerces.cpp
-
-!IF  "$(CFG)" == "SAXlib - Win32 Release"
-
 # PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "SAXlib - Win32 Debug"
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -313,16 +305,16 @@ SOURCE=.\parsers\saxgarden.h
 # End Group
 # Begin Source File
 
-SOURCE=.\ParserConfig.tpl
+SOURCE=.\ParserConfig.S
 
 !IF  "$(CFG)" == "SAXlib - Win32 Release"
 
 # Begin Custom Build
-InputPath=.\ParserConfig.tpl
+InputPath=.\ParserConfig.S
 
 BuildCmds= \
-	cl /TC /D USE_MSXML /EP ParserConfig.tpl > ParserConfig.h \
-	cl /TC /D USE_MSXML /EP saxlib.tpl > saxlib.cpp \
+	cl /TC /D USE_MSXML /EP ParserConfig.S > ParserConfig.h \
+	cl /TC /D USE_MSXML /EP saxlib.S > saxlib.cpp \
 	
 
 "ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
@@ -336,11 +328,11 @@ BuildCmds= \
 
 # PROP Ignore_Default_Tool 1
 # Begin Custom Build
-InputPath=.\ParserConfig.tpl
+InputPath=.\ParserConfig.S
 
 BuildCmds= \
-	cl /TC /D USE_EXPAT /D USE_MSXML /D USE_LIBXML2 /D USE_XERCES2 /EP ParserConfig.tpl > ParserConfig.h \
-	cl /TC /D USE_EXPAT /D USE_MSXML /D USE_LIBXML2 /D USE_XERCES2 /EP saxlib.tpl > saxlib.cpp \
+	cl /TC /D USE_MSXML /EP ParserConfig.S > ParserConfig.h \
+	cl /TC /D USE_MSXML /EP saxlib.S > saxlib.cpp \
 	
 
 "ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
@@ -359,7 +351,7 @@ SOURCE=.\saxlib.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\saxlib.tpl
+SOURCE=.\saxlib.S
 # End Source File
 # End Target
 # End Project
