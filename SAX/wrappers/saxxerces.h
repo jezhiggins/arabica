@@ -269,7 +269,7 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
         {
           if(str)
           {
-            xerces_string_janitor<char> cstr = XERCES_CPP_NAMESPACE::XMLString::transcode(str);
+            xerces_string_janitor<char> cstr(XERCES_CPP_NAMESPACE::XMLString::transcode(str));
             return base::makeStringT(cstr.get());
           }
           return base::makeStringT("");
