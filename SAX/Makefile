@@ -9,47 +9,20 @@
 # $Id$
 ####################################
 
-
-####################################
-# ARABICA CONFIG
-# edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
-#PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
-
-####################################
-# TOOLS
-#####
-# C++ compiler
-CXX = gcc
-# preprocessor
-CPP = gcc -E
-# linker
-LD = gcc
-# archiver
-AR = ar r
-
-###########
-# Utilities
-REMOVE = rm -rf
-LINK = ln -sf
-COPY = cp -f
+-include ../Makefile.header
 
 ######################################
-# BUILD FLAGS
-CXXFLAGS += -Wall 
+# ADDITIONAL BUILD FLAGS
+CXXFLAGS += 
 LDFLAGS += -shared
 
-# Uncomment for optimisations
-CXXFLAGS += -O2
-LDFLAGS  += 
+INC_DIRS +=
+LIBS_DIRS +=
 
-# Includes and library directories 
-INCS_DIRS = -I.. 
-LIBS_DIRS = 
+STATIC_LIBS +=
+DYNAMIC_LIBS +=
 
-STATIC_LIBS =
-DYNAMIC_LIBS =
-
+############
 CXXFLAGS += $(INCS_DIRS)
 LDFLAGS += $(LIBS_DIRS)
 LDFLAGS += $(STATIC_LIBS)
@@ -59,18 +32,19 @@ LDFLAGS += $(DYNAMIC_LIBS)
 # SOURCE FILES
 SRCS =  saxlib.cpp \
 	helpers/InputSourceResolver.cpp \
-	../Utils/base64codecvt.cpp \
-	../Utils/iso88591utf8codecvt.cpp \
-	../Utils/rot13codecvt.cpp \
-	../Utils/utf16beucs2codecvt.cpp \
-	../Utils/utf16leucs2codecvt.cpp \
-	../Utils/utf16utf8codecvt.cpp \
-	../Utils/utf8iso88591codecvt.cpp \
 	../Utils/utf8ucs2codecvt.cpp \
-	../Utils/impl/iso88591_utf8.cpp \
-	../Utils/impl/ucs2_utf16.cpp \
 	../Utils/impl/ucs2_utf8.cpp \
 	../XML/XMLCharacterClasses.cpp
+#	../Utils/base64codecvt.cpp \
+#	../Utils/iso88591utf8codecvt.cpp \
+#	../Utils/rot13codecvt.cpp \
+#	../Utils/utf16beucs2codecvt.cpp \
+#	../Utils/utf16leucs2codecvt.cpp \
+#	../Utils/utf16utf8codecvt.cpp \
+#	../Utils/utf8iso88591codecvt.cpp \
+#	../Utils/impl/iso88591_utf8.cpp \
+#	../Utils/impl/ucs2_utf16.cpp \
+
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))

@@ -1,18 +1,11 @@
 
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
+-include Makefile.header
 
+######################################
 # High level rules
-
-all : SAX, examples
-
-SAX: dummy
+all : 
 	cd SAX; ${MAKE}
-
-examples: dummy
 	cd examples; ${MAKE}
-
-# Cleaning up
 
 clean :
 	cd SAX; ${MAKE} clean
@@ -29,8 +22,10 @@ tar: clean
 zip: clean
 	cd ..;  zip -rv9 arabica/arabica.zip arabica -x arabica/arabica.tar.gz -x \*/CVS/\*
 
-dummy:
+
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
 # End of File
+
+
