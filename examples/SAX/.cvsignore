@@ -1,0 +1,9 @@
+*.obj
+core
+*.so
+*.so.*
+*.a
+.depend
+pyx
+writer
+simple_handler

@@ -1,0 +1,7 @@
+*.obj
+core
+*.so
+*.so.*
+*.a
+.depend
+sax2dom_test

@@ -1,0 +1,7 @@
+*.a
+*.so
+*.so.*
+pyx
+sax2dom_test
+simple_handler
+writer
