@@ -887,7 +887,7 @@ SAX::basic_ErrorHandler<stringT>* msxml2_wrapper<stringT, COMInitializerT, strin
 } // getErrorHandler
 
 template<class stringT, class COMInitializerT, class string_adaptorT>
-std::auto_ptr<SAX::basic_XMLReader<stringT>::PropertyBase> msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::doGetProperty(const stringT& name)
+std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::doGetProperty(const stringT& name)
 {
   if(name == properties_.lexicalHandler)
   {
