@@ -41,6 +41,7 @@
 
 #include <locale>
 #include <sstream>
+#include <algorithm>
 
 template<typename charT, 
          typename traitsT = std::char_traits<charT>,
@@ -127,8 +128,7 @@ private:
   stringT no_conversion(const fromStringT& str)
   {
     stringT dest;
-    for(fromStringT::const_iterator i = str.begin(); i != str.end(); ++i)
-      dest += static_cast<charT>(*i);
+    std::copy(str.begin(), str.end(), std::back_inserter(dest));
     return dest;
   } // no_conversion
 
@@ -224,9 +224,8 @@ public:
 private:
   toStringT no_conversion(const stringT& str)
   {
-    toStringT dest;
-    for(stringT::const_iterator i = str.begin(); i != str.end(); ++i)
-      dest += static_cast<toCharT>(*i);
+    stringT dest;
+    std::copy(str.begin(), str.end(), std::back_inserter(dest));
     return dest;
   } // no_conversion
 
