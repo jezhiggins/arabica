@@ -39,10 +39,10 @@ class convert_bufadaptor : public std::basic_streambuf<charT, traitsT>
     typedef typename traitsT::int_type int_type;
     typedef std::basic_streambuf<externalCharT, externalTraitsT> fromStreambufT;
 
-    explicit convert_bufadaptor(fromStreambufT& frombuf) : externalbuf_(frombuf) { }
+    explicit convert_bufadaptor(fromStreambufT& frombuf) : externalbuf_(frombuf), inEof_(false) { }
     virtual ~convert_bufadaptor() { }
   
-    void set_buffer(fromStreambufT& frombuf) { externalbuf_ = &frombuf; }
+    void set_buffer(fromStreambufT& frombuf) { externalbuf_ = &frombuf; inEof_ = false; }
 
   protected:
     virtual int_type overflow(int_type c = traitsT::eof());
@@ -58,6 +58,7 @@ class convert_bufadaptor : public std::basic_streambuf<charT, traitsT>
     state_t outState_;
     std::vector<charT> inBuffer_;
     state_t inState_;
+    bool inEof_;
 
     void growOutBuffer();
     bool flushOut();
@@ -161,7 +162,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
     do
     {
       externalCharT* to_next;
-      r = cvt.out(outState_, from_next, pptr(), from_next,
+      r = cvt.out(outState_, from_next, pptr(), from_next, 
                   &to[0], &to[0]+length, to_next);
 
       if(r == std::codecvt_base::noconv)
@@ -200,24 +201,61 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
       std::use_facet(this->getloc(), (std::codecvt<charT, char, std::mbstate_t>*)0, true);
 #endif
 
-  std::vector<externalCharT> from(inBuffer_.capacity());
-  std::streamsize res = externalbuf_.sgetn(&(from[0]), static_cast<std::streamsize>(from.capacity()));
+  externalCharT from[1024];
+
+  std::streamsize res = 0;
+  if(!inEof_)
+  {
+    externalCharT ec = externalbuf_.sgetc();
+    while((ec != externalTraitsT::eof()) && (res != bufferSize_))
+    {
+      from[res++] = ec;
+      ec = externalbuf_.snextc();
+    }
+    inEof_ = (ec == externalTraitsT::eof());
+  } // if ...
+
+  std::streamsize converted = 0;
   if(res > 0)
   {
     std::codecvt_base::result r;
+    const externalCharT* from_next = from;
     do
     {
-      const externalCharT* from_next;
+      // can't cache this as may reallocate buffer
+      charT* const to = &(inBuffer_[0])+pbSize_;
+      charT* const to_end = &(inBuffer_[0]) + inBuffer_.capacity() - pbSize_;
       charT* to_next;
-      r = cvt.in(inState_, &(from[0]), &(from[0]) + res, from_next,
-                 &(inBuffer_[0])+pbSize_, &(inBuffer_[0]) + inBuffer_.capacity() - pbSize_, to_next);
+
+      externalCharT* const from_end = from + res;
+      
+      r = cvt.in(inState_, from_next, from_end, from_next,
+                 to + converted, to_end, to_next);
 
       if(r == std::codecvt_base::noconv)
-        memcpy(&(inBuffer_[0])+pbSize_, &from[0], res);
+      {
+        memcpy(&(inBuffer_[0])+pbSize_, from, res);
+        converted = res;
+      }
       else
-        res = static_cast<std::streamsize>(to_next - (&(inBuffer_[0])+pbSize_));
+        converted += static_cast<std::streamsize>(to_next - (to + converted));
+
       if(r == std::codecvt_base::partial)
-        growInBuffer();
+      {
+        // haven't done everything
+        if(to_next == to_end)
+          growInBuffer();  // need more room!
+        else
+        {
+          int shortfall = (from + res) - from_next;
+          memcpy(from, from_next, shortfall);
+          res = externalbuf_.sgetn(from + shortfall, static_cast<std::streamsize>(bufferSize_ - shortfall));
+          from_next = &from[0];
+          if(res == 0) // oh dear
+            break; // let's bail!
+          res += shortfall;
+        }
+      } // if(r == std::codecvt_base::partial)
     }
     while(r == std::codecvt_base::partial);
 
@@ -228,7 +266,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
     } // if(r == std::codecvt_base::error)
   }
 
-  setg(&(inBuffer_[0]) + (pbSize_-pbCount), &(inBuffer_[0])+pbSize_, &(inBuffer_[0])+pbSize_+res);
+  setg(&(inBuffer_[0]) + (pbSize_-pbCount), &(inBuffer_[0])+pbSize_, &(inBuffer_[0])+pbSize_+converted);
 
   return static_cast<int_type>(res);
 } // readIn
