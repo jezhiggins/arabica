@@ -828,12 +828,12 @@ msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::msxml2_wrapper()
   reader_.CreateInstance(MSXML_PROGID_NAME);
   if (reader_.GetInterfacePtr() == NULL)
   {
-    std::cout << "MSXML SAX Reader 4.0 not instanciated, trying older versions." 
+    std::cerr << "MSXML SAX Reader 4.0 not instanciated, trying older versions." 
               << std::endl << std::flush;
     reader_.CreateInstance(__uuidof(ISAXXMLReader));
     if (reader_.GetInterfacePtr() == NULL)
     {
-      std::cout << "MSXML SAX Reader (pre-4.0) not instanciated." 
+      std::cerr << "MSXML SAX Reader (pre-4.0) not instanciated." 
                 << std::endl << std::flush;
       exit(1);
     }
@@ -842,7 +842,7 @@ msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::msxml2_wrapper()
   reader_->putContentHandler(&contentHandler_);
   reader_->putErrorHandler(&errorHandler_);
   reader_->putDTDHandler(&dtdHandler_);
-  std::cout << "MSXML Wrapper handlers registered" << std::endl << std::flush;
+  std::cerr << "MSXML Wrapper handlers registered" << std::endl << std::flush;
 
   VARIANT wrapper;
   wrapper.vt = VT_UNKNOWN;
@@ -851,7 +851,7 @@ msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::msxml2_wrapper()
   wrapper.punkVal = static_cast<ISAXDeclHandler*>(&declHandler_);
   reader_->putProperty(L"http://xml.org/sax/properties/declaration-handler", wrapper);
 
-  std::cout << "MSXML Wrapper initialized" << std::endl << std::flush;
+  std::cerr << "MSXML Wrapper initialized" << std::endl << std::flush;
 } // msxml2_wrapper
 
 template<class stringT, class COMInitializerT, class string_adaptorT>
