@@ -1,6 +1,6 @@
 #pragma warning(disable:4786)
 
-#include <SAX/wrappers/saxexpat.h>
+#include <SAX/XMLReader.h>
 #include <SAX/helpers/FeatureNames.h>
 #include <SAX/InputSource.h>
 #include <iostream>

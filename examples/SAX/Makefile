@@ -46,9 +46,9 @@ INCS_DIRS = -I../.. -I../../include
 LIBS_DIRS = -L../../bin
 
 #STATIC_LIBS = -lstlport_gcc -lSAX -lexpat  -lstdc++ 
-STATIC_LIBS = -lSAX -lexpat -lstdc++
+STATIC_LIBS = -lSAX -lstdc++
 
-
+PARSER_LIBS = -lexpat
 
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
@@ -75,15 +75,15 @@ WRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(WRITER_SRCS)))
 all : pyx simple_handler writer
 
 pyx : $(PYX_OBJS)
-	$(CPP) $(PYX_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) -o pyx 
+	$(CPP) $(PYX_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(PARSER_LIBS) -o pyx 
 	cp pyx ../../bin
 
 simple_handler : $(SIMPLE_OBJS)
-	$(CPP) $(SIMPLE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) -o simple_handler 
+	$(CPP) $(SIMPLE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(PARSER_LIBS) -o simple_handler 
 	cp simple_handler ../../bin
 
 writer : $(WRITER_OBJS)
-	$(CPP) $(WRITER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) -o writer 
+	$(CPP) $(WRITER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(PARSER_LIBS) -o writer 
 	cp writer ../../bin
 
 #/////////////////////////////////////////////////////////////////////////

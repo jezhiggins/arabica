@@ -1,10 +1,7 @@
-#pragma hdrstop
-#ifdef __BORLANDC__
-#include <condefs.h>
-#endif
 
+#ifdef _MSC_VER
 #pragma warning(disable:4786)
-
+#endif
 
 #include "SimpleHandler.h"
 #include <SAX/InputSource.h>
@@ -14,17 +11,17 @@
 ////////////////////////////////////////////////
 int main(int argc, char* argv[])
 {
-  if(argc < 3) 
+  if(argc < 2) 
   {
     std::cout << "Usage : " << argv[0] << " xmlfile ... " << std::endl;
     return 0;
   } // if(argc == 0)
 
-	SimpleHandler myHandler;
+  SimpleHandler myHandler;
   SAX::FeatureNames<std::string> fNames;
   SAX::PropertyNames<std::string> pNames;
 
-	for(int i = 2; i < argc; ++i)
+  for(int i = 1; i < argc; ++i)
   {
     SAX::XMLReader<std::string> parser;
 
