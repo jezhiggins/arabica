@@ -44,19 +44,20 @@ namespace SAX {
  * @see basic_EntityResolver
  * @see basic_DTDHandler
  * @see basic_ContentHandler
- * @see ErrorHandler
+ * @see basic_ErrorHandler
  */
 template<class string_type>
 class basic_DefaultHandler : public basic_EntityResolver<string_type>, 
 					public basic_DTDHandler<string_type>,
 					public basic_ContentHandler<string_type>, 
-					public ErrorHandler
+					public basic_ErrorHandler<string_type>
 {
 public:
   typedef string_type stringT;
   typedef basic_InputSource<stringT> InputSourceT;
   typedef basic_Locator<stringT> LocatorT;
   typedef basic_Attributes<stringT> AttributesT;
+  typedef basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
   basic_DefaultHandler() { }
   virtual ~basic_DefaultHandler() { }
@@ -321,10 +322,10 @@ public:
    * @param e The warning information encoded as an exception.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see ErrorHandler#warning
+   * @see basic_ErrorHandler#warning
    * @see SAXParseException
    */
-  virtual void warning(const SAXParseException& e) { }
+  virtual void warning(const SAXParseExceptionT& e) { }
   /**
    * Receive notification of a recoverable parser error.
    *
@@ -336,10 +337,10 @@ public:
    * @param e The warning information encoded as an exception.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see ErrorHandler#warning
+   * @see basic_ErrorHandler#error
    * @see SAXParseException
    */
-  virtual void error(const SAXParseException& e) { }
+  virtual void error(const SAXParseExceptionT& e) { }
   /**
    * Report a fatal XML parsing error.
    *
@@ -354,10 +355,10 @@ public:
    * @param e The error information encoded as an exception.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see ErrorHandler#fatalError
+   * @see basic_ErrorHandler#fatalError
    * @see SAXParseException
    */
-  virtual void fatalError(const SAXParseException& e) 
+  virtual void fatalError(const SAXParseExceptionT& e) 
   {  
   } // fatalError
 
