@@ -41,8 +41,8 @@ int main(int argc, char* argv[])
     } // for ...
   }
 
+/*
   { // wide
-    SAX::FeatureNames<std::wstring> fNames;
     SAX::XMLReader<std::wstring> parser;
     SAX::wWriter writer(std::wcout);
     writer.setParent(parser);
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 
     writer.parse(is);
   }
-
+*/
   return 0;
 } // main
 
