@@ -303,6 +303,18 @@ SOURCE=.\Simple\StringAdaptor.h
 SOURCE=.\Simple\TextImpl.h
 # End Source File
 # End Group
+# Begin Group "SAX2DOM"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\SAX2DOM\DocumentTypeImpl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SAX2DOM\SAX2DOM.h
+# End Source File
+# End Group
 # End Group
 # End Target
 # End Project
