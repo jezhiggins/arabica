@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
   { // narrow
     SAX::FeatureNames<std::string> fNames;
     SAX::XMLReader<std::string> parser;
-    SAX::Writer writer(std::cout);
+    SAX::Writer writer(std::cout, 4);
     SAX::CatchErrorHandler<std::string> eh;
 
     writer.setParent(parser);
