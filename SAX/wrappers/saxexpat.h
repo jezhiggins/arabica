@@ -245,11 +245,11 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     ///////////////////////////////////////////////////
     // properties
   protected:
-    virtual std::auto_ptr<SAX::basic_XMLReader<stringT>::PropertyBase> doGetProperty(const stringT& name);
-    virtual void doSetProperty(const stringT& name, std::auto_ptr<SAX::basic_XMLReader<stringT>::PropertyBase> value);
+    virtual std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> doGetProperty(const stringT& name);
+    virtual void doSetProperty(const stringT& name, std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> value);
 
 	private:
-    namespaceSupportT::Parts processName(const stringT& qName, bool isAttribute);
+    typename namespaceSupportT::Parts processName(const stringT& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
     void checkNotParsing(const stringT& type, const stringT& name) const;
   
@@ -480,26 +480,26 @@ bool expat_wrapper<stringT, string_adaptorT>::do_parse(inputSourceT& source, XML
 
 
 template<class stringT, class string_adaptorT>
-std::auto_ptr<SAX::basic_XMLReader<stringT>::PropertyBase> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
 {
   if(name == properties_.lexicalHandler)
   {
     SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT*>* prop = 
           new SAX::basic_XMLReader<stringT>::Property<lexicalHandlerT*>(lexicalHandler_);
-    return std::auto_ptr<SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
+    return std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
   }
   else if(name == properties_.declHandler)
   {
     SAX::basic_XMLReader<stringT>::Property<declHandlerT*>* prop = 
           new SAX::basic_XMLReader<stringT>::Property<declHandlerT*>(declHandler_);
-    return std::auto_ptr<SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
+    return std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
   }
   else
     throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA_.asStdString(name));    
 } // doGetProperty
 
 template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name, std::auto_ptr<SAX::basic_XMLReader<stringT>::PropertyBase> value)
+void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name, std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase> value)
 {
   if(name == properties_.lexicalHandler)
   {
@@ -555,9 +555,9 @@ int expat_wrapper<stringT, string_adaptorT>::getColumnNumber() const
 } // getColumnNumber
 
 template<class stringT, class string_adaptorT>
-SAX::basic_NamespaceSupport<stringT, string_adaptorT>::Parts expat_wrapper<stringT, string_adaptorT>::processName(const stringT& qName, bool isAttribute)
+typename SAX::basic_NamespaceSupport<stringT, string_adaptorT>::Parts expat_wrapper<stringT, string_adaptorT>::processName(const stringT& qName, bool isAttribute)
 {
-  namespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
+  typename namespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
   if(!p.URI.length() && p.prefix.length())
     reportError(std::string("Undeclared prefix ") + SA_.asStdString(qName));
   return p;
@@ -644,7 +644,7 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
       }
       else
       {
-        namespaceSupportT::Parts attName = processName(attQName, true);
+        typename namespaceSupportT::Parts attName = processName(attQName, true);
         attributes.addAttribute(attName.URI, attName.localName, attName.rawName, emptyString_, value);
       }
     } // while ...
@@ -659,7 +659,7 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
        stringT attQName = attributes.getQName(i);
        if(attQName.find(nsc_.xmlns)) 
        {
-         namespaceSupportT::Parts attName = processName(attQName, true);
+         typename namespaceSupportT::Parts attName = processName(attQName, true);
          attributes.setURI(i, attName.URI);
          attributes.setLocalName(i, attName.localName);
        } // if ...
@@ -667,7 +667,7 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
   } // if(seenDecl)
 
   // at last! report the event
-  namespaceSupportT::Parts name = processName(SA_.makeStringT(qName), false);
+  typename namespaceSupportT::Parts name = processName(SA_.makeStringT(qName), false);
   contentHandler_->startElement(name.URI, name.localName, name.rawName, attributes);
 } // startElement
 
@@ -702,9 +702,9 @@ void expat_wrapper<stringT, string_adaptorT>::endElement(const char* qName)
     return;
   } // if(!namespaces_)
 
-  namespaceSupportT::Parts name = processName(SA_.makeStringT(qName), false);
+  typename namespaceSupportT::Parts name = processName(SA_.makeStringT(qName), false);
   contentHandler_->endElement(name.URI, name.localName, name.rawName);
-  namespaceSupportT::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
+  typename namespaceSupportT::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
   for(int i = 1, end = prefixes.size(); i < end; ++i)
     contentHandler_->endPrefixMapping(prefixes[i]);
   nsSupport_.popContext();
