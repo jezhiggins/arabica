@@ -198,7 +198,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
 #ifndef ARABICA_VS6_WORKAROUND
     std::use_facet<std::codecvt<charT, char, std::mbstate_t> >(this->getloc());
 #else
-      std::use_facet(this->getloc(), (std::codecvt<charT, char, std::mbstate_t>*)0, true);
+    std::use_facet(this->getloc(), (std::codecvt<charT, char, std::mbstate_t>*)0, true);
 #endif
 
   externalCharT from[1024];
@@ -206,13 +206,13 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
   std::streamsize res = 0;
   if(!inEof_)
   {
-    externalCharT ec = externalbuf_.sgetc();
-    while((ec != externalTraitsT::eof()) && (res != bufferSize_))
+    externalTraitsT::int_type ec = externalbuf_.sgetc();
+    while((!externalTraitsT::eq_int_type(externalTraitsT::eof(), ec)) && (res != bufferSize_))
     {
-      from[res++] = ec;
+      from[res++] = static_cast<externalCharT>(ec);
       ec = externalbuf_.snextc();
     }
-    inEof_ = (ec == externalTraitsT::eof());
+    inEof_ = (externalTraitsT::eq_int_type(externalTraitsT::eof(), ec));
   } // if ...
 
   std::streamsize converted = 0;
