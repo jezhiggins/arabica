@@ -5,6 +5,8 @@
 
 #include "SimpleHandler.h"
 #include <SAX/InputSource.h>
+#include <SAX/helpers/FeatureNames.h>
+#include <SAX/helpers/PropertyNames.h>
 #include <iostream>
 #include <sstream>
 
