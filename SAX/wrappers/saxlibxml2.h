@@ -604,7 +604,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXendElement(const xmlChar* qNa
   typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts name = processName(SA_.makeStringT(reinterpret_cast<const char*>(qName)), false);
   contentHandler_->endElement(name.URI, name.localName, name.rawName);
   typename basic_NamespaceSupport<stringT, string_adaptorT>::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
-  for(int i = 1, end = prefixes.size(); i < end; ++i)
+  for(size_t i = 1, end = prefixes.size(); i < end; ++i)
     contentHandler_->endPrefixMapping(prefixes[i]);
   nsSupport_.popContext();
 } // SAXendElement
