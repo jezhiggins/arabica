@@ -21,13 +21,15 @@ struct NamespaceConstants
 
   const stringT xml;
   const stringT xmlns;
+  const stringT xml_uri;
   const stringT xmlns_uri;
   const stringT colon;
 
   NamespaceConstants() :
     xml(string_adaptorT().makeStringT("xml")),
     xmlns(string_adaptorT().makeStringT("xmlns")),
-    xmlns_uri(string_adaptorT().makeStringT("http://www.w3.org/XML/1998/namespace")),
+    xml_uri(string_adaptorT().makeStringT("http://www.w3.org/XML/1998/namespace")),
+    xmlns_uri(string_adaptorT().makeStringT("http://www.w3.org/2000/xmlns/"))
     colon(string_adaptorT().makeStringT(":"))
   {
   } // NamespaceConstants
@@ -107,7 +109,7 @@ class basic_NamespaceSupport
     {
       contexts_.clear();
       contexts_.push_back(Context());
-      contexts_.back().insert(std::make_pair(nsc_.xml, nsc_.xmlns_uri));
+      contexts_.back().insert(std::make_pair(nsc_.xml, nsc_.xml_uri));
     } // reset
 
     ////////////////////////////////////////////////////////////////////
