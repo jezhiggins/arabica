@@ -20,15 +20,15 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>
     typedef Unicode<charT> UnicodeT;
 
     basic_Writer(std::ostream& stream) :
-      stream_(&stream),
-      indent_(2)
+      indent_(2),
+      stream_(&stream)
     {
     } // basic_Writer
 
     basic_Writer(ostreamT& stream, XMLReaderT& parent) :
       XMLFilterT(parent),
-      stream_(&stream),
-      indent_(2)
+      indent_(2),
+      stream_(&stream)
     {
     } // basic_Writer
 
