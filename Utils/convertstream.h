@@ -45,7 +45,6 @@
 #include <locale>
 #include <sstream>
 #include <algorithm>
-#pragma warning(disable: 4244)
 
 template<typename charT, 
          typename traitsT = std::char_traits<charT>,
