@@ -119,7 +119,7 @@ class ElementTest : public TestCase
       elem.setAttribute("attr", "poop");
       elem.appendChild(d.createElement("child"));
 
-      DOM::Element<std::string> e2 = static_cast<DOM::Element<std::string> >(elem.cloneNode(false));
+      DOM::Element<std::string> e2 = DOM::Element<std::string>(elem.cloneNode(false));
       assert(e2.getOwnerDocument() == d);
       assert(e2.getParentNode() == 0);
       assert(e2.hasAttributes() == true);
@@ -134,7 +134,7 @@ class ElementTest : public TestCase
       elem.setAttribute("attr", "poop");
       elem.appendChild(d.createElement("child"));
 
-      DOM::Element<std::string> e2 = static_cast<DOM::Element<std::string> >(elem.cloneNode(true));
+      DOM::Element<std::string> e2 = DOM::Element<std::string>(elem.cloneNode(true));
       assert(e2.getOwnerDocument() == d);
       assert(e2.getParentNode() == 0);
       assert(e2.hasAttributes() == true);

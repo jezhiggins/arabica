@@ -45,7 +45,7 @@ class DocumentTest : public TestCase
       n = d;
 
       assert(n == d);
-      assert(d == static_cast<DOM::Document<std::string> >(n));
+      assert(d == DOM::Document<std::string>(n));
 
       DOM::Document<std::string> d2;
       assert(d != d2);
@@ -113,7 +113,7 @@ class DocumentTest : public TestCase
       d.getFirstChild().appendChild(d.createElement("child2"));
       d.getFirstChild().appendChild(d.createElement("child3"));
 
-      DOM::Document<std::string> clone = static_cast<DOM::Document<std::string> >(d.cloneNode(false));
+      DOM::Document<std::string> clone = DOM::Document<std::string>(d.cloneNode(false));
       assert(clone.getFirstChild() == 0);
     } // test4
 
@@ -125,7 +125,7 @@ class DocumentTest : public TestCase
       d.getFirstChild().appendChild(d.createElement("child2"));
       d.getFirstChild().appendChild(d.createElement("child3"));
 
-      DOM::Document<std::string> clone = static_cast<DOM::Document<std::string> >(d.cloneNode(true));
+      DOM::Document<std::string> clone = DOM::Document<std::string>(d.cloneNode(true));
       assert(clone.getFirstChild().getNodeName() == "root");
       assert(clone.getFirstChild().getFirstChild().getNodeName() == "child");
       assert(clone.getFirstChild().getLastChild().getNodeName() == "child3");
@@ -146,7 +146,7 @@ class DocumentTest : public TestCase
       assert(a2.getOwnerDocument() == d2);
       assert(a2.getChildNodes().getLength() == 1);
       assert(a2.getFirstChild().getNodeValue() == "value");
-      DOM::Attr<std::string> asAttr = static_cast<DOM::Attr<std::string> >(a2);
+      DOM::Attr<std::string> asAttr = DOM::Attr<std::string>(a2);
       assert(asAttr.getSpecified());
       assert(asAttr.getOwnerElement() == 0);
     } // test6
@@ -216,8 +216,8 @@ class DocumentTest : public TestCase
       d.getFirstChild().getLastChild().appendChild(d.createElement("donkey"));
 
       assert(children.getLength() == 5);
-      assert(static_cast<DOM::Element<std::string> >(d.getFirstChild().getFirstChild()).getElementsByTagName("donkey").getLength() == 2);
-      assert(static_cast<DOM::Element<std::string> >(d.getFirstChild()).getElementsByTagName("donkey").getLength() == 4);
+      assert(DOM::Element<std::string>(d.getFirstChild().getFirstChild()).getElementsByTagName("donkey").getLength() == 2);
+      assert(DOM::Element<std::string>(d.getFirstChild()).getElementsByTagName("donkey").getLength() == 4);
     } // test8
 
     void test9()

@@ -43,7 +43,7 @@ class DocumentTypeTest : public TestCase
       n = d;
 
       assert(n == d);
-      assert(d == static_cast<DOM::DocumentType<std::string> >(n));
+      assert(d == DOM::DocumentType<std::string>(n));
 
       DOM::DocumentType<std::string> d2;
       assert(d != d2);

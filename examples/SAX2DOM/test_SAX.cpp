@@ -58,7 +58,7 @@ class SAXTest : public TestCase
     void test4()
     {
       DOM::Document<std::string> d = parse("<root><child attr=\"poop\"/></root>");
-      DOM::Element<std::string> elem = static_cast<DOM::Element<std::string> >(d.getDocumentElement().getFirstChild());
+      DOM::Element<std::string> elem = DOM::Element<std::string>(d.getDocumentElement().getFirstChild());
       assertEquals("child", elem.getNodeName());
       assertEquals(true, elem.hasAttributes());
       assertEquals("poop", elem.getAttribute("attr"));
@@ -69,7 +69,7 @@ class SAXTest : public TestCase
       DOM::Document<std::string> d = parse("<root attr=\"poop\"><child/></root>");
       DOM::Element<std::string> elem = d.getDocumentElement();
 
-      DOM::Element<std::string> e2 = static_cast<DOM::Element<std::string> >(elem.cloneNode(true));
+      DOM::Element<std::string> e2 = DOM::Element<std::string>(elem.cloneNode(true));
       assert(e2.getOwnerDocument() == d);
       assert(e2.getParentNode() == 0);
       assert(e2.hasAttributes() == true);

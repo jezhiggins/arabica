@@ -61,7 +61,7 @@ class PITest : public TestCase
       DOM::ProcessingInstruction<std::string> pi2;
 
       assert(n != pi2);
-      pi2 = static_cast<DOM::ProcessingInstruction<std::string> >(n);
+      pi2 = DOM::ProcessingInstruction<std::string>(n);
       assert(pi == pi2);
       assert(n == pi2);
     } // testConverstion

@@ -118,7 +118,7 @@ class SiblingsTest : public TestCase
       }
 
       DOM::Node<std::string> n = root.getPreviousSibling();
-      DOM::ProcessingInstruction<std::string> p = static_cast<DOM::ProcessingInstruction<std::string> >(n);
+      DOM::ProcessingInstruction<std::string> p = DOM::ProcessingInstruction<std::string>(n);
       assert(p.getTarget() == "target");
       assert(p.getData() == "data");
     } // test2
