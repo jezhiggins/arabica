@@ -272,7 +272,7 @@ int basic_socketbuf<charT, traitsT>::readSocket()
   if(!inBuffer_.capacity())
     growInBuffer();
 
-#ifdef ARABICA_VS6_WORKAROUND
+#ifndef ARABICA_VS6_WORKAROUND
   size_t pbCount = std::min<int>(gptr() - eback(), pbSize_);
 #else
   size_t pbCount = min(gptr() - eback(), pbSize_);

@@ -11,16 +11,16 @@
 #ifndef ARABICA_NO_WCHAR_T
 #include <locale>
 
-namespace Arabica
-{
-namespace convert
-{
-
-#if(_MSC_VER < 1300)
+#ifdef ARABICA_VS6_WORKAROUND
 namespace std {
   typedef ::mbstate_t mbstate_t;
 }
 #endif
+
+namespace Arabica
+{
+namespace convert
+{
 
 class utf16leucs2codecvt : public std::codecvt<wchar_t, char, std::mbstate_t>
 {

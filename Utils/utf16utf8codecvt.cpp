@@ -2,6 +2,7 @@
 // $Id$
 //---------------------------------------------------------------------------
 #include "utf16utf8codecvt.h"
+#ifndef ARABICA_NO_WCHAR_T
 #include "impl/ucs2_utf8.h"
 //---------------------------------------------------------------------------
 // This facet converts from wide chars to char using the
@@ -61,5 +62,6 @@ int utf16utf8codecvt::do_length(const std::mbstate_t&,
   return (from_next-from);
 } // do_length
 
+#endif // ARABICA_NO_WCHAR_T
 // end of file
 
