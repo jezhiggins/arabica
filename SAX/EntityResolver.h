@@ -1,5 +1,5 @@
-#ifndef EntityResolverH
-#define EntityResolverH
+#ifndef ARABICA_ENTITYRESOLVER_H
+#define ARABICA_ENTITYRESOLVER_H
 
 // EntityResolver.h 
 // $Id$

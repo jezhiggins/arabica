@@ -1,5 +1,5 @@
-#ifndef NamespaceSupportH
-#define NamespaceSupportH
+#ifndef ARABICA_NAMESPACE_SUPPORT_H
+#define ARABICA_NAMESPACE_SUPPORT_H
 
 /*
  * $Id$

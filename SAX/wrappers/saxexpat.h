@@ -1,5 +1,5 @@
-#ifndef saxexpat2H // -*- C++ -*-
-#define saxexpat2H
+#ifndef ARABICA_SAX_EXPAT_H 
+#define ARABICA_SAX_EXPAT_H 
 //---------------------------------------------------------------------------
 // A SAX2 wrapper class for expat.
 //---------------------------------------------------------------------------

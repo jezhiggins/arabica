@@ -1,5 +1,5 @@
-#ifndef AttributeListH
-#define AttributeListH
+#ifndef ARABICA_ATTRIBUTES_LIST_H
+#define ARABICA_ATTRIBUTES_LIST_H
 
 // SAX Attribute List Interface.
 // $Id$

@@ -1,5 +1,5 @@
-#ifndef LexicalHandlerH
-#define LexicalHandlerH
+#ifndef ARABICA_LEXICAL_HANDLER_H
+#define ARABICA_LEXICAL_HANDLER_H
 
 // LexicalHandler.h 
 // $Id$

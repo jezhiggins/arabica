@@ -1,5 +1,5 @@
-#ifndef SAXNotSupportedExceptionH
-#define SAXNotSupportedExceptionH
+#ifndef ARARBICA_SAXNOTSUPPORTEDEXCEPTION_H
+#define ARARBICA_SAXNOTSUPPORTEDEXCEPTION_H
 
 // SAXNotSupportedException.h
 // $Id$

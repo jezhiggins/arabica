@@ -1,5 +1,5 @@
-#ifndef ATTRIBUTESIMPL_H
-#define ATTRIBUTESIMPL_H
+#ifndef ARABICA_ATTRIBUTES_IMPL_H
+#define ARABICA_ATTRIBUTES_IMPL_H
 
 // AttributesImpl.h - default implementation of Attributes.
 // $Id$

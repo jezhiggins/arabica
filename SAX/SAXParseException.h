@@ -1,5 +1,5 @@
-#ifndef SAXParseExceptionH
-#define SAXParseExceptionH
+#ifndef ARARBICA_SAXPARSEEXCEPTION_H
+#define ARARBICA_SAXPARSEEXCEPTION_H
 
 // SAXParseException.h
 // $Id$

@@ -1,5 +1,5 @@
-#ifndef Attributes2H
-#define Attributes2H
+#ifndef ARABICA_ATTRIBUTES2_H
+#define ARABICA_ATTRIBUTES2_H
 
 // Attributes2.h
 // $Id$

@@ -1,5 +1,5 @@
-#ifndef HandlerBaseH
-#define HandlerBaseH
+#ifndef ARABICA_HANDLERBASE_H
+#define ARABICA_HANDLERBASE_H
 // SAX default handler base class.
 // $Id$
 

@@ -1,5 +1,5 @@
-#ifndef XMLReaderH // -*- C++ -*-
-#define XMLReaderH
+#ifndef ARABICA_XML_READER_H
+#define ARABICA_XML_READER_H
 
 // XMLReader.h
 // $Id$

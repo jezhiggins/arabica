@@ -1,5 +1,5 @@
-#ifndef saxmsxml2H
-#define saxmsxml2H
+#ifndef ARABICA_SAX_MSXML2_H
+#define ARABICA_SAX_MSXML2_H
 //---------------------------------------------------------------------------
 // A SAX2 wrapper class for MSXML component.
 //

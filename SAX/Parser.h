@@ -1,5 +1,5 @@
-#ifndef ParserH
-#define ParserH
+#ifndef ARABICA_PARSER_H
+#define ARABICA_PARSER_H
 
 // Parser.h
 // $Id$

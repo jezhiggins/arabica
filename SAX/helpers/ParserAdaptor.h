@@ -1,5 +1,5 @@
-#ifndef ParserAdaptorH
-#define ParserAdaptorH
+#ifndef ARABICA_PARSER_ADAPTOR_H
+#define ARABICA_PARSER_ADAPTOR_H
 
 // ParserAdaptor
 // Adapts a SAX1 Parser to a SAX2 XMLReader.

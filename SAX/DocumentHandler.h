@@ -1,5 +1,5 @@
-#ifndef DocumentHandlerH
-#define DocumentHandlerH
+#ifndef ARABICA_DOCUMENTHANDLER_H
+#define ARABICA_DOCUMENTHANDLER_H
 // SAX document handler.
 // $Id$
 

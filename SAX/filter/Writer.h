@@ -1,5 +1,5 @@
-#ifndef SAXWriter_H
-#define SAXWriter_H
+#ifndef ARABICA_SAX_WRITER_H
+#define ARABICA_SAX_WRITER_H
 
 #include <SAX/ArabicaConfig.h>
 #include <SAX/helpers/XMLFilterImpl.h>

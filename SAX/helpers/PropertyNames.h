@@ -1,5 +1,5 @@
-#ifndef PROPERTYNAMES_H
-#define PROPERTYNAMES_H
+#ifndef ARABICA_PROPERTY_NAMES_H
+#define ARABICA_PROPERTY_NAMES_H
 /*
  * $Id$
  */

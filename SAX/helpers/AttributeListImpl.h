@@ -1,5 +1,5 @@
-#ifndef AttributeListImplH
-#define AttributeListImplH
+#ifndef ARABICA_ATTRIBUTES_LIST_IMPL_H
+#define ARABICA_ATTRIBUTES_LIST_IMPL_H
 // SAX default implementation for AttributeList.
 // $Id$
 

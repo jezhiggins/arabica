@@ -1,5 +1,5 @@
-#ifndef AttributesH
-#define AttributesH
+#ifndef ARABICA_ATTRIBUTES_H
+#define ARABICA_ATTRIBUTES_H
 
 // Attributes.h
 // $Id$

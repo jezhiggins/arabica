@@ -11,8 +11,8 @@
 #define comment pasty(#, pragma comment)
 
 
-ifndef ParserConfig_h
-define ParserConfig_h
+ifndef ARABICA_PARSERCONFIG_H
+define ARABICA_PARSERCONFIG_H
 
 #ifdef USE_LIBXML2
 include <SAX/wrappers/saxlibxml2.h>

@@ -1,5 +1,5 @@
-#ifndef DTDHandlerH
-#define DTDHandlerH
+#ifndef ARABICA_DTDHANDLER_H
+#define ARABICA_DTDHANDLER_H
 
 // DTDHandler.h 
 // $Id$

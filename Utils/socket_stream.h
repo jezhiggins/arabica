@@ -1,5 +1,5 @@
-#ifndef basic_socketstreamH
-#define basic_socketstreamH
+#ifndef ARABICA_SOCKET_STREAM_H
+#define ARABICA_SOCKET_STREAM_H
 ///////////////////////////////////////////////////////////////////////
 //
 // socket_stream.h 

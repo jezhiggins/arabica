@@ -1,5 +1,5 @@
-#ifndef InputSourceResolverH
-#define InputSourceResolverH
+#ifndef ARABICA_INPUT_SOURCE_RESOLVER_H
+#define ARABICA_INPUT_SOURCE_RESOLVER_H
 
 #include <SAX/ArabicaConfig.h>
 #include <iosfwd>

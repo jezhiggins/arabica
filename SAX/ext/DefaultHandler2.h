@@ -1,5 +1,5 @@
-#ifndef DEFAULTHANDLER2_H
-#define DEFAULTHANDLER2_H
+#ifndef ARABICA_DEFAULT_HANDLER2_H
+#define ARABICA_DEFAULT_HANDLER2_H
 
 // DefaultHandler.h 
 // $Id$

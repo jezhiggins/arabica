@@ -1,5 +1,5 @@
-#ifndef FEATURENAMES_H
-#define FEATURENAMES_H
+#ifndef ARABICA_FEATURE_NAMES_H
+#define ARABICA_FEATURE_NAMES_H
 /*
  * $Id$
  */

@@ -1,5 +1,5 @@
-#ifndef XMLFilterH
-#define XMLFilterH
+#ifndef ARABICA_XML_FILTER_H
+#define ARABICA_XML_FILTER_H
 
 // XMLFilter.h
 // $Id$

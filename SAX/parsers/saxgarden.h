@@ -1,5 +1,5 @@
-#ifndef saxgarden_h
-#define saxgarden_h
+#ifndef ARABICA_GARDEN_H
+#define ARABICA_GARDEN_H
 
 #include <SAX/ArabicaConfig.h>
 #include <boost/spirit.hpp>

@@ -1,5 +1,5 @@
-#ifndef SAXExceptionH
-#define SAXExceptionH
+#ifndef ARABICA_SAXEXCEPTION_H
+#define ARABICA_SAXEXCEPTION_H
 
 // SAXParseException.h
 // $Id$

@@ -1,5 +1,5 @@
-#ifndef saxxercesH
-#define saxxercesH
+#ifndef ARABICA_SAX_XERCES_H
+#define ARABICA_SAX_XERCES_H
 //---------------------------------------------------------------------------
 // A SAX2 wrapper class for Xerces.
 //

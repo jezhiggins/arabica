@@ -1,5 +1,5 @@
-#ifndef ErrorHandlerH
-#define ErrorHandlerH
+#ifndef ARABICA_ERRORHANDLER_H
+#define ARABICA_ERRORHANDLER_H
 
 // EntityResolver.h 
 // $Id$

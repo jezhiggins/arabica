@@ -1,5 +1,5 @@
-#ifndef saxfwdH
-#define saxfwdH
+#ifndef ARABICA_SAX_FWD_H
+#define ARABICA_SAX_FWD_H
 
 // $Id$
 

@@ -1,5 +1,5 @@
-#ifndef LocatorH
-#define LocatorH
+#ifndef ARABICA_LOCATOR_H
+#define ARABICA_LOCATOR_H
 
 // Locator.h
 // $Id$

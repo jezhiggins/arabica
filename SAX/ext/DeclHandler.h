@@ -1,5 +1,5 @@
-#ifndef DeclHandlerH
-#define DeclHandlerH
+#ifndef ARABICA_DECL_HANDLER_H
+#define ARABICA_DECL_HANDLER_H
 
 // DeclHandler.h 
 // $Id$

@@ -11,8 +11,8 @@
 #define comment pasty(#, pragma comment)
 
 
-ifndef ARABICA_CONFIG_H
-define ARABICA_CONFIG_H
+ifndef ARABICA_ARABICA_CONFIG_H
+define ARABICA_ARABICA_CONFIG_H
 
 #ifdef ARABICA_NO_WCHAR_T
 #undef ARABICA_NO_WCHAR_T

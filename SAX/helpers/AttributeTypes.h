@@ -1,5 +1,5 @@
-#ifndef ATTRIBUTE_TYPES_H
-#define ATTRIBUTE_TYPES_H
+#ifndef ARABICA_ATTRIBUTE_TYPES_H
+#define ARABICA_ATTRIBUTE_TYPES_H
 /*
  * $Id$
  */

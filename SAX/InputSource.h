@@ -1,5 +1,5 @@
-#ifndef SAXInputSourceH
-#define SAXInputSourceH
+#ifndef ARABICA_INPUTSOURCE_H
+#define ARABICA_INPUTSOURCE_H
 
 // InputSource.h
 // $Id$

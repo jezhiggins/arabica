@@ -1,5 +1,5 @@
-#ifndef SAXLIBXML2_H // -*- C++ -*-
-#define SAXLIBXML2_H
+#ifndef ARABICA_SAX_LIBXML2_H 
+#define ARABICA_SAX_LIBXML2_H 
 ////////////////////////////////////////////////////////////////
 // A SAX2 Wrapper for libxml2
 //

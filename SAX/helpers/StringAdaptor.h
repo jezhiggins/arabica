@@ -1,5 +1,5 @@
-#ifndef STRINGADAPTOR_H
-#define STRINGADAPTOR_H
+#ifndef ARABICA_STRING_ADAPTOR_H
+#define ARABICA_STRING_ADAPTOR_H
 /*
  * $Id$
  */

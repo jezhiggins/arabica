@@ -1,5 +1,5 @@
-#ifndef ContentHandlerH
-#define ContentHandlerH
+#ifndef ARABICA_CONTENTHANDLER_H
+#define ARABICA_CONTENTHANDLER_H
 
 // ContentHandler.h 
 // $Id$

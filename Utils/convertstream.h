@@ -1,5 +1,5 @@
-#ifndef BASIC_CONVERTSTREAM_H
-#define BASIC_CONVERTSTREAM_H
+#ifndef ARABICA_CONVERT_STREAM_H
+#define ARABICA_CONVERT_STREAM_H
 //////////////////////////////////////////////////////
 //
 // $Id$
