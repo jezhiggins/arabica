@@ -33,8 +33,10 @@ class convert_bufadaptor : public std::basic_streambuf<charT, traitsT>
     typedef typename traitsT::int_type int_type;
     typedef std::basic_streambuf<externalCharT, externalTraitsT> fromStreambufT;
 
-    convert_bufadaptor(fromStreambufT& frombuf) : externalbuf_(frombuf) { }
+    explicit convert_bufadaptor(fromStreambufT& frombuf) : externalbuf_(frombuf) { }
     virtual ~convert_bufadaptor() { }
+  
+    void set_buffer(fromStreambufT& frombuf) { externalbuf_ = &frombuf; }
 
   protected:
     virtual int_type overflow(int_type c = traitsT::eof());
@@ -231,17 +233,29 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
 
 ////////////////////////////////////////////////////
 // iconvert_adaptor
+template<typename charT, typename traitsT, typename externalCharT, typename externalTraitsT>
+class convert_adaptor_buffer
+{
+  protected:
+    typedef std::basic_streambuf<externalCharT, externalTraitsT> fromStreambufT;
+
+    explicit convert_adaptor_buffer(fromStreambufT& frombuf) : bufadaptor_(frombuf) { }
+
+    convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT> bufadaptor_;
+}; // convert_adaptor_buffer
+
 template<typename charT, 
          typename traitsT = std::char_traits<charT>,
          typename fromCharT = charT,
          typename fromTraitsT = std::char_traits<fromCharT> >
-class iconvert_adaptor : public std::basic_istream<charT, traitsT>
+class iconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, fromCharT, fromTraitsT>,
+                         public std::basic_istream<charT, traitsT>
 {
   typedef std::basic_istream<fromCharT, fromTraitsT> fromStreamT;
   public:
     explicit iconvert_adaptor(fromStreamT& fromstream) :
-      std::basic_istream<charT, traitsT>(&bufadaptor_),
-      bufadaptor_(*(fromstream.rdbuf()))
+      convert_adaptor_buffer<charT, traitsT, fromCharT, fromTraitsT>(*(fromstream.rdbuf())),
+      std::basic_istream<charT, traitsT>(&bufadaptor_)
       {
       } // iconvert_adaptor
 
@@ -251,9 +265,6 @@ class iconvert_adaptor : public std::basic_istream<charT, traitsT>
     { 
       return const_cast<convert_bufadaptor<charT, traitsT, fromCharT, fromTraitsT>*>(&bufadaptor_); 
     } // rdbuf
-
-  private:
-    convert_bufadaptor<charT, traitsT, fromCharT, fromTraitsT> bufadaptor_;
 }; // class iconvert_adaptor
 
 ////////////////////////////////////////////////////////
@@ -262,13 +273,14 @@ template<typename charT,
          typename traitsT = std::char_traits<charT>,
          typename toCharT = charT,
          typename toTraitsT = std::char_traits<toCharT> >
-class oconvert_adaptor : public std::basic_ostream<charT, traitsT>
+class oconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, toCharT, toTraitsT>,
+                         public std::basic_ostream<charT, traitsT>
 {
   typedef std::basic_ostream<toCharT, toTraitsT> toStreamT;
   public:
     explicit oconvert_adaptor(toStreamT &toStream) :
-      std::basic_ostream<charT, traitsT>(&bufadaptor_),
-      bufadaptor_(*(toStream.rdbuf()))
+      convert_adaptor_buffer<charT, traitsT, toCharT, toTraitsT>(*(toStream.rdbuf())),
+      std::basic_ostream<charT, traitsT>(&bufadaptor_)
       {
       } // oconvert_adaptor
 
@@ -278,9 +290,6 @@ class oconvert_adaptor : public std::basic_ostream<charT, traitsT>
     {
       return const_cast<convert_bufadaptor<charT, traitsT, toCharT, toTraitsT>*>(&bufadaptor_); 
     } // rdbuf
-
-  private:
-    convert_bufadaptor<charT, traitsT, toCharT, toTraitsT> bufadaptor_;
 }; // class oconvert_adaptor
 
 #endif
