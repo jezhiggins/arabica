@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<poem> 
-  <line>Roses are red,</line> 
-  <line>Violets are blue.</line> 
-  <line>Sugar is sweet,</line> 
-  <line>and I love you with a line much longer than 15 characters long.</line>
-  <line><![CDATA[ And I am CDATA ]]></line>
-</poem>
+<!DOCTYPE pm:poem [
+  <!ENTITY entity "poop">
+]>
+
+<pm:poem xmlns:pm="urn:example">
+  <pm:line>Roses are red,</pm:line> 
+  <pm:line>Violets are blue.</pm:line> 
+  <pm:line>Sugar is sweet,</pm:line> 
+  <pm:line>and I love you with a pm:line much longer than 15 characters long.</pm:line>
+  <pm:line>I am a line with an undefined &entity; entity.</pm:line>
+  <pm:line><![CDATA[ And I am CDATA ]]></pm:line>
+</pm:poem>

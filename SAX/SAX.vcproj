@@ -212,9 +212,6 @@
 					RelativePath="helpers\CatchErrorHandler.h">
 				</File>
 				<File
-					RelativePath=".\helpers\DefaultHandler.h">
-				</File>
-				<File
 					RelativePath=".\helpers\FeatureNames.h">
 				</File>
 				<File
@@ -332,6 +329,9 @@
 		<Filter
 			Name="Filters"
 			Filter="">
+			<File
+				RelativePath=".\helpers\DefaultHandler.h">
+			</File>
 			<File
 				RelativePath=".\filter\Writer.h">
 			</File>
