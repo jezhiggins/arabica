@@ -90,7 +90,7 @@ private:
     static const stringT SCHEME_MARKER = SA_.makeStringT("://");
     static const valueT FORWARD_SLASH = SA_.makeValueT(Arabica::Unicode<char>::SLASH);
 
-    if(location.find(SCHEME_MARKER) != -1)
+    if(location.find(SCHEME_MARKER) != stringT::npos)
       return location;
 
     std::ostringstream ss;
@@ -161,3 +161,4 @@ typedef basic_XMLBaseSupport<std::wstring> wXMLBaseSupport;
 } // namespace SAX
 
 #endif
+
