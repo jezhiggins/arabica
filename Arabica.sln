@@ -1,29 +1,41 @@
-Microsoft Visual Studio Solution File, Format Version 7.00
+Microsoft Visual Studio Solution File, Format Version 8.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArabicaLib", "SAX\SAX.vcproj", "{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAXSimpleHandler", "examples\SAX\SimpleHandler.vcproj", "{16475ED0-2906-429B-9E73-F2BF2929F6E9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAXWriter", "EXAMPLES\SAX\Writer.vcproj", "{3C6CBC24-07D4-4DE8-A1DF-592C3BC77C56}"
+	ProjectSection(ProjectDependencies) = postProject
+		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAXPyx", "examples\SAX\pyx.vcproj", "{AE33D6D1-0F57-4E97-90AE-696854C5AE71}"
+	ProjectSection(ProjectDependencies) = postProject
+		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_DOMWriter", "examples\SAX2DOM\DOMWriter.vcproj", "{C1CF7801-1681-4F15-8D71-BBC814805AF2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_UtilsTranscode", "examples\Utils\transcode.vcproj", "{436B423B-BF20-4B2E-A187-604AF391FBE2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAX2DOMTests", "examples\SAX2DOM\SAX2DOM_test.vcproj", "{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
-		ConfigName.0 = Debug
-		ConfigName.1 = Release
-	EndGlobalSection
-	GlobalSection(ProjectDependencies) = postSolution
-		{16475ED0-2906-429B-9E73-F2BF2929F6E9}.0 = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
-		{3C6CBC24-07D4-4DE8-A1DF-592C3BC77C56}.0 = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
-		{AE33D6D1-0F57-4E97-90AE-696854C5AE71}.0 = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
-		{C1CF7801-1681-4F15-8D71-BBC814805AF2}.0 = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
-		{436B423B-BF20-4B2E-A187-604AF391FBE2}.0 = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
+		Debug = Debug
+		Release = Release
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}.Debug.ActiveCfg = Debug|Win32

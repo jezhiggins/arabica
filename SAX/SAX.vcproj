@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.00"
+	Version="7.10"
 	Name="ArabicaLib"
 	SccProjectName=""
 	SccLocalPath="">
@@ -56,6 +56,12 @@
 				Culture="2057"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -102,8 +108,16 @@
 				Culture="2057"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
+	<References>
+	</References>
 	<Files>
 		<Filter
 			Name="Header Files"
@@ -118,10 +132,10 @@
 				RelativePath=".\ContentHandler.h">
 			</File>
 			<File
-				RelativePath=".\DTDHandler.h">
+				RelativePath=".\DocumentHandler.h">
 			</File>
 			<File
-				RelativePath=".\DocumentHandler.h">
+				RelativePath=".\DTDHandler.h">
 			</File>
 			<File
 				RelativePath=".\EntityResolver.h">
@@ -133,10 +147,10 @@
 				RelativePath=".\HandlerBase.h">
 			</File>
 			<File
-				RelativePath="IStreamHandle.h">
+				RelativePath=".\InputSource.h">
 			</File>
 			<File
-				RelativePath=".\InputSource.h">
+				RelativePath="IStreamHandle.h">
 			</File>
 			<File
 				RelativePath=".\Locator.h">
@@ -149,6 +163,9 @@
 			</File>
 			<File
 				RelativePath=".\SAXException.h">
+			</File>
+			<File
+				RelativePath=".\saxfwd.h">
 			</File>
 			<File
 				RelativePath=".\SAXNotRecognizedException.h">
@@ -164,9 +181,6 @@
 			</File>
 			<File
 				RelativePath=".\XMLReader.h">
-			</File>
-			<File
-				RelativePath=".\saxfwd.h">
 			</File>
 		</Filter>
 		<Filter
@@ -189,10 +203,10 @@
 					RelativePath=".\helpers\AttributeListImpl.h">
 				</File>
 				<File
-					RelativePath=".\helpers\AttributeTypes.h">
+					RelativePath=".\helpers\AttributesImpl.h">
 				</File>
 				<File
-					RelativePath=".\helpers\AttributesImpl.h">
+					RelativePath=".\helpers\AttributeTypes.h">
 				</File>
 				<File
 					RelativePath="helpers\CatchErrorHandler.h">
@@ -252,12 +266,6 @@
 			Name="Wrappers"
 			Filter="">
 			<File
-				RelativePath="wrappers\XercesFeatureNames.h">
-			</File>
-			<File
-				RelativePath="wrappers\XercesPropertyNames.h">
-			</File>
-			<File
 				RelativePath=".\wrappers\saxexpat.cpp">
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -314,6 +322,12 @@
 			<File
 				RelativePath=".\wrappers\saxxerces.h">
 			</File>
+			<File
+				RelativePath="wrappers\XercesFeatureNames.h">
+			</File>
+			<File
+				RelativePath="wrappers\XercesPropertyNames.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Filters"
@@ -332,15 +346,6 @@
 		<Filter
 			Name="Utils"
 			Filter="">
-			<File
-				RelativePath="..\XML\UnicodeCharacters.h">
-			</File>
-			<File
-				RelativePath="..\XML\XMLCharacterClasses.cpp">
-			</File>
-			<File
-				RelativePath="..\XML\XMLCharacterClasses.h">
-			</File>
 			<File
 				RelativePath="..\Utils\base64codecvt.cpp">
 			</File>
@@ -367,6 +372,9 @@
 			</File>
 			<File
 				RelativePath="..\Utils\socket_stream.h">
+			</File>
+			<File
+				RelativePath="..\XML\UnicodeCharacters.h">
 			</File>
 			<File
 				RelativePath="..\Utils\utf16beucs2codecvt.cpp">
@@ -397,6 +405,12 @@
 			</File>
 			<File
 				RelativePath="..\Utils\utf8ucs2codecvt.h">
+			</File>
+			<File
+				RelativePath="..\XML\XMLCharacterClasses.cpp">
+			</File>
+			<File
+				RelativePath="..\XML\XMLCharacterClasses.h">
 			</File>
 			<Filter
 				Name="impl"
@@ -468,10 +482,10 @@ cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath=".\saxlib.S">
+			RelativePath=".\saxlib.cpp">
 		</File>
 		<File
-			RelativePath=".\saxlib.cpp">
+			RelativePath=".\saxlib.S">
 		</File>
 	</Files>
 	<Globals>
