@@ -97,7 +97,7 @@ public:
 
     // we must do code conversion
     stringT converted;
-    int toBufLen = str.length() + 4; // 4 is arbitrary bit of bonus space
+    size_t toBufLen = str.length() + 4; // 4 is arbitrary bit of bonus space
     charT* to = new charT[toBufLen]; // 4 is arbitrary
     const fromCharT* from_next = str.data();
     typename std::codecvt_base::result r;
@@ -191,7 +191,7 @@ public:
     else
     {
       // we must do code conversion
-      int toBufLen = newstuff.length() + 4; // 4 is arbitrary little bit of extra space
+      size_t toBufLen = newstuff.length() + 4; // 4 is arbitrary little bit of extra space
       toCharT* to = new toCharT[toBufLen];  
       const charT* from_next = newstuff.data();
       typename std::codecvt_base::result r;
