@@ -9,12 +9,12 @@ std::codecvt_base::result Arabica::Internal::utf16_2_ucs2(bool be,
   from_next = from;
   to_next = to;
 
-  while((from_next+2 < from_end) && (to_next < to_limit))
+  while((from_next+1 < from_end) && (to_next < to_limit))
 	{ 
     wchar_t b1 = static_cast<wchar_t>(*from_next++);
     wchar_t b2 = static_cast<wchar_t>(*from_next++);
 
-    *to_next++ = be ? ((b2 << 8) + b1) : ((b1 << 8) + b2);
+    *to_next++ = be ? ((b1 << 8) + b2) : ((b2 << 8) + b1);
   } // while
 
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial;
