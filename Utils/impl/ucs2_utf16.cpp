@@ -2,16 +2,15 @@
 // --------------------------------------------------------------------------
 #include "ucs2_utf16.h"
 // --------------------------------------------------------------------------
-std::codecvt_base::result Arabica::Internal::utf16_2_ucs2(
-                       bool be,
-                       const char* from, const char* from_end, const char*& from_next,
+std::codecvt_base::result Arabica::Internal::utf16_2_ucs2(bool be,
+                       char const* from, char const* from_end, char const*& from_next,
                        wchar_t* to, wchar_t* to_limit, wchar_t*& to_next)
 {
   from_next = from;
   to_next = to;
 
-	while((from_next+2 < from_end) && (to_next < to_limit))
-	{
+  while((from_next+2 < from_end) && (to_next < to_limit))
+	{ 
     wchar_t b1 = static_cast<wchar_t>(*from_next++);
     wchar_t b2 = static_cast<wchar_t>(*from_next++);
 
@@ -21,9 +20,8 @@ std::codecvt_base::result Arabica::Internal::utf16_2_ucs2(
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial;
 } // utf16_2_ucs2
 
-std::codecvt_base::result Arabica::Internal::ucs2_2_utf16(
-                        bool be,
-                        const wchar_t* from, const wchar_t* from_end, const wchar_t*& from_next,
+std::codecvt_base::result Arabica::Internal::ucs2_2_utf16(bool be,
+                        wchar_t const* from, wchar_t const* from_end, wchar_t const*& from_next,
                         char* to, char* to_limit, char*& to_next)
 {
   from_next = from;
@@ -37,6 +35,7 @@ std::codecvt_base::result Arabica::Internal::ucs2_2_utf16(
     wchar_t ch = *from_next;
     unsigned char lb = static_cast<unsigned char>(ch & 0xFF);
     unsigned char hb = static_cast<unsigned char>((ch >> 8) & 0xFF);
+ 
     if(be)
     { // big endian
       *to_next++ = hb;
@@ -53,4 +52,5 @@ std::codecvt_base::result Arabica::Internal::ucs2_2_utf16(
 
   return std::codecvt_base::ok;
 } // ucs2_2_utf8
+
 // end of file
