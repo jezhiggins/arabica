@@ -42,7 +42,7 @@ namespace SAX
  * @see basic_EntityResolver
  * @see basic_DTDHandler
  * @see basic_DocumentHandler
- * @see ErrorHandler
+ * @see basic_ErrorHandler
  * @see basic_HandlerBase
  * @see basic_InputSource
  */
@@ -123,7 +123,7 @@ public:
    * handler immediately.</p>
    *
    * @param handler The error handler.
-   * @see ErrorHandler
+   * @see basic_ErrorHandler
    * @see basic_SAXException
    * @see basic_HandlerBase
    */

@@ -40,7 +40,7 @@ template<class string_type> class basic_Attributes;
  * @version 2.0
  * @see basic_XMLReader
  * @see basic_DTDHandler
- * @see ErrorHandler
+ * @see basic_ErrorHandler
  */
 template<class string_type>
 class basic_ContentHandler
