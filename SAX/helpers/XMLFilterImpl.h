@@ -158,14 +158,14 @@ public:
    * @return The current DTD handler, or null if none was set.
    * @see basic_XMLReader#getDTDHandler
    */
-  virtual DTDHandler* getDTDHandler() const { return dtdHandler_; }
+  virtual DTDHandlerT* getDTDHandler() const { return dtdHandler_; }
   /**
    * Set the content event handler.
    *
    * @param handler The new content handler.
    * @see basic_XMLReader#setContentHandler
    */
-  virtual void setContentHandler(ContentHandler& handler) { contentHandler_ = &handler; }
+  virtual void setContentHandler(ContentHandlerT& handler) { contentHandler_ = &handler; }
   /**
    * Get the content event handler.
    *
