@@ -42,12 +42,12 @@ ALL : "$(OUTDIR)\SimpleHandler.exe"
 
 !ELSE 
 
-ALL : "SAXlib - Win32 Release" "$(OUTDIR)\SimpleHandler.exe"
+ALL : "Utilities - Win32 Release" "SAXlib - Win32 Release" "$(OUTDIR)\SimpleHandler.exe"
 
 !ENDIF 
 
 !IF "$(RECURSE)" == "1" 
-CLEAN :"SAXlib - Win32 ReleaseCLEAN" 
+CLEAN :"SAXlib - Win32 ReleaseCLEAN" "Utilities - Win32 ReleaseCLEAN" 
 !ELSE 
 CLEAN :
 !ENDIF 
@@ -72,12 +72,8 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 LINK32_OBJS= \
 	"$(INTDIR)\SimpleHandler.obj" \
 	"$(INTDIR)\wrapper.obj" \
-	"..\..\..\..\lib\vc6\expat.lib" \
-	"..\..\lib\Utilities.lib" \
-	"..\..\lib\SAX.lib" \
-	"..\..\..\..\lib\vc6\xerces-c_1.lib" \
-	"..\..\..\..\lib\vc6\libxml2.lib" \
-	"..\..\SAX\Release\SAX.lib"
+	"..\..\SAX\Release\SAX.lib" \
+	"..\..\Utils\Release\Utilities.lib"
 
 "$(OUTDIR)\SimpleHandler.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -98,12 +94,12 @@ ALL : "$(OUTDIR)\SimpleHandler.exe" "$(OUTDIR)\SimpleHandler.bsc"
 
 !ELSE 
 
-ALL : "SAXlib - Win32 Debug" "$(OUTDIR)\SimpleHandler.exe" "$(OUTDIR)\SimpleHandler.bsc"
+ALL : "Utilities - Win32 Debug" "SAXlib - Win32 Debug" "$(OUTDIR)\SimpleHandler.exe" "$(OUTDIR)\SimpleHandler.bsc"
 
 !ENDIF 
 
 !IF "$(RECURSE)" == "1" 
-CLEAN :"SAXlib - Win32 DebugCLEAN" 
+CLEAN :"SAXlib - Win32 DebugCLEAN" "Utilities - Win32 DebugCLEAN" 
 !ELSE 
 CLEAN :
 !ENDIF 
@@ -137,15 +133,12 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\SimpleHandler.pdb" /debug /machine:I386 /out:"$(OUTDIR)\SimpleHandler.exe" /pdbtype:sept 
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\SimpleHandler.pdb" /debug /machine:I386 /out:"$(OUTDIR)\SimpleHandler.exe" /pdbtype:sept 
 LINK32_OBJS= \
 	"$(INTDIR)\SimpleHandler.obj" \
 	"$(INTDIR)\wrapper.obj" \
-	"..\..\..\..\lib\vc6\expat.lib" \
-	"..\..\lib\Utilities.lib" \
 	"..\..\lib\SAX.lib" \
-	"..\..\..\..\lib\vc6\xerces-c_1.lib" \
-	"..\..\..\..\lib\vc6\libxml2.lib"
+	"..\..\lib\Utilities.lib"
 
 "$(OUTDIR)\SimpleHandler.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -230,25 +223,51 @@ SOURCE=.\wrapper.cpp
 !IF  "$(CFG)" == "SimpleHandler - Win32 Release"
 
 "SAXlib - Win32 Release" : 
-   cd "\work\JezUK\Arabica\SAX"
+   cd "\work\JezUK\Arabica\src\SAX"
    $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" 
    cd "..\examples\SAX"
 
 "SAXlib - Win32 ReleaseCLEAN" : 
-   cd "\work\JezUK\Arabica\SAX"
+   cd "\work\JezUK\Arabica\src\SAX"
    $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" RECURSE=1 CLEAN 
    cd "..\examples\SAX"
 
 !ELSEIF  "$(CFG)" == "SimpleHandler - Win32 Debug"
 
 "SAXlib - Win32 Debug" : 
-   cd "\work\JezUK\Arabica\SAX"
+   cd "\work\JezUK\Arabica\src\SAX"
    $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" 
    cd "..\examples\SAX"
 
 "SAXlib - Win32 DebugCLEAN" : 
-   cd "\work\JezUK\Arabica\SAX"
+   cd "\work\JezUK\Arabica\src\SAX"
    $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" RECURSE=1 CLEAN 
+   cd "..\examples\SAX"
+
+!ENDIF 
+
+!IF  "$(CFG)" == "SimpleHandler - Win32 Release"
+
+"Utilities - Win32 Release" : 
+   cd "\work\JezUK\Arabica\src\Utils"
+   $(MAKE) /$(MAKEFLAGS) /F .\Utilities.mak CFG="Utilities - Win32 Release" 
+   cd "..\examples\SAX"
+
+"Utilities - Win32 ReleaseCLEAN" : 
+   cd "\work\JezUK\Arabica\src\Utils"
+   $(MAKE) /$(MAKEFLAGS) /F .\Utilities.mak CFG="Utilities - Win32 Release" RECURSE=1 CLEAN 
+   cd "..\examples\SAX"
+
+!ELSEIF  "$(CFG)" == "SimpleHandler - Win32 Debug"
+
+"Utilities - Win32 Debug" : 
+   cd "\work\JezUK\Arabica\src\Utils"
+   $(MAKE) /$(MAKEFLAGS) /F .\Utilities.mak CFG="Utilities - Win32 Debug" 
+   cd "..\examples\SAX"
+
+"Utilities - Win32 DebugCLEAN" : 
+   cd "\work\JezUK\Arabica\src\Utils"
+   $(MAKE) /$(MAKEFLAGS) /F .\Utilities.mak CFG="Utilities - Win32 Debug" RECURSE=1 CLEAN 
    cd "..\examples\SAX"
 
 !ENDIF 
