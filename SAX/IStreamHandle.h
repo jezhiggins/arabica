@@ -390,7 +390,6 @@ void IStreamHandle::release()
 inline
 void IStreamHandle::addRef() const
 {
-    assert(counter_ != 0);
     ++(*counter_);
     ISTREAMHANDLE_POSTCONDITION(*counter_ >= 1);
 }
