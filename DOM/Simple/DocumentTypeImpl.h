@@ -141,6 +141,11 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
 
     void addElement(SimpleDOM::ElementImpl<stringT, string_adaptorT>* element)
     {
+      if(elements_.getNamedItem(element->getNodeName()) != 0)
+      {
+        delete element;
+        return;  // already have an element decl for it
+      } // if ...
       element->setOwnerDoc(ownerDoc_);
       elements_.setNamedItem(element);
     } // addElements
