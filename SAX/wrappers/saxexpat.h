@@ -707,7 +707,7 @@ void expat_wrapper<stringT, string_adaptorT>::endElement(const char* qName)
   typename namespaceSupportT::Parts name = processName(SA_.makeStringT(qName), false);
   contentHandler_->endElement(name.URI, name.localName, name.rawName);
   typename namespaceSupportT::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
-  for(int i = 1, end = prefixes.size(); i < end; ++i)
+  for(size_t i = 1, end = prefixes.size(); i < end; ++i)
     contentHandler_->endPrefixMapping(prefixes[i]);
   nsSupport_.popContext();
 } // endElement
