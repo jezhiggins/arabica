@@ -4,6 +4,7 @@
 #include <SAX/helpers/XMLFilterImpl.h>
 #include <SAX/ext/LexicalHandler.h>
 #include <XML/UnicodeCharacters.h>
+#include <SAX/helpers/PropertyNames.h>
 #include <ostream>
 #include <algorithm>
 #include <typeinfo>
