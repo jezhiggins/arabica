@@ -17,30 +17,44 @@ int main(int argc, char* argv[])
     return 0;
   } // if(argc < 2)
 
+/*
+  { // narrow
+    SAX::FeatureNames<std::string> fNames;
+    SAX::XMLReader<std::string> parser;
+    SAX::Writer writer(std::cout);
+    writer.setParent(parser);
 
-  SAX::FeatureNames<std::string> fNames;
-  SAX::XMLReader<std::string> parser;
-  SAX::Writer writer(std::cout);
-  writer.setParent(parser);
-
-	for(int i = 1; i < argc; ++i)
-  {
-    std::string file(argv[i]);
-    SAX::InputSource is;
-    is.setSystemId(file);
-
-    if(file != "-")
-      writer.parse(is);
-    else
+  	for(int i = 1; i < argc; ++i)
     {
-      is.setSystemId("stdin");
-      is.setByteStream(std::cin);
+      std::string file(argv[i]);
+      SAX::InputSource is;
+      is.setSystemId(file);
 
-      writer.parse(is);
-    } // if(file != "-")
-  } // for ...
+      if(file != "-")
+        writer.parse(is);
+      else
+      { 
+        is.setSystemId("stdin");
+        is.setByteStream(std::cin);
 
-  
+        writer.parse(is);
+      } // if(file != "-")
+    } // for ...
+  }
+  */
+  { // wide
+    SAX::FeatureNames<std::wstring> fNames;
+    SAX::XMLReader<std::wstring> parser;
+    SAX::wWriter writer(std::wcout);
+    writer.setParent(parser);
+
+    SAX::wInputSource is;
+    is.setSystemId(L"stdin");
+    is.setByteStream(std::cin);
+
+    writer.parse(is);
+  }
+
   return 0;
 } // main
 
