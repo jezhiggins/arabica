@@ -199,7 +199,7 @@ void basic_Writer<string_type>::startElement(
                               const stringT& namespaceURI, const stringT& localName,
                               const stringT& qName, const AttributesT& atts)
 { 
-  if(lastTag_ == startTag)
+  if((lastTag_ == startTag) && (indent_ > 0))
     *stream_ << UnicodeT::LINE_FEED;
   doIndent();
   *stream_ << UnicodeT::LESS_THAN_SIGN << (!qName.empty() ? qName : localName);
@@ -216,7 +216,7 @@ void basic_Writer<string_type>::startElement(
   }
 
   *stream_ << UnicodeT::GREATER_THAN_SIGN;
-  ++depth_;
+  depth_ += indent_;
   lastTag_ = startTag;
 
   XMLFilterT::startElement(namespaceURI, localName, qName, atts);
@@ -227,14 +227,15 @@ void basic_Writer<string_type>::endElement(
                             const stringT& namespaceURI, const stringT& localName,
                             const stringT& qName)
 {
-  --depth_;
+  depth_ -= indent_;
   if(lastTag_ == endTag)
     doIndent();
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::SLASH
            << (!qName.empty() ? qName : localName)
-           << UnicodeT::GREATER_THAN_SIGN
-           << UnicodeT::LINE_FEED;
+           << UnicodeT::GREATER_THAN_SIGN;
+  if(indent_ != 0)
+    *stream_ << UnicodeT::LINE_FEED;
   lastTag_ = endTag;
 
   XMLFilterT::endElement(namespaceURI, localName, qName);
