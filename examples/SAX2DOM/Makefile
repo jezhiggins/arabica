@@ -40,20 +40,20 @@ CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
 CXXFLAGS += -O2
-LDFLAGS  += -O2 -L../../bin -lstlport_gcc -lSAX -lArabicaUtils -lxml2
+LDFLAGS  += -O2 -L../../bin -lSAX -lArabicaUtils 
 
 # Uncomment for debug version
-#  CXXFLAGS += -g -D__DEBUG__
+CXXFLAGS += -g -D__DEBUG__
 
 
 # Includes and library directories 
-INCS_DIRS = -I../.. -I/usr/local/include/stlport -I/opt/gnome2/include/libxml2
+INCS_DIRS = -I../..
 #INCS_DIRS = -I.. 
 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -L../../bin -L/opt/gnome2/lib -lstlport_gcc -lSAX -lxml2
+DYNAMIC_LIBS = -L../../bin -lSAX -lexpat 
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}
@@ -61,6 +61,7 @@ LDFLAGS += ${DYNAMIC_LIBS}
 #/////////////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////
 
+# Source files
 SAXDOM_SRCS = main.cpp test_Attribute.cpp test_Document.cpp test_DocumentFragment.cpp test_DocumentType.cpp test_DOMImplementation.cpp test_Element.cpp test_ProcessingInstruction.cpp test_Siblings.cpp test_SAX.cpp
 SAXDOM_HDRS = $(patsubst %.cpp,%.h,$(SAXDOM_SRCS))
 SAXDOM_OBJS = $(patsubst %.cpp,%.o,$(SAXDOM_SRCS))
@@ -112,7 +113,7 @@ depend : .depend
 # Cleaning up
 
 clean :
-	$(REMOVE) .depend *.o core sax2dom_test ../../bin/sax2dom_test
+	$(REMOVE) .depend $(CPPUNITUI_OBJS) $(CPPUNITFW_OBJS) $(SAXDOM_OBJS) core sax2dom_test ../../bin/sax2dom_test
 
 
 #/////////////////////////////////////////////////////////////////////////

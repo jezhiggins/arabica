@@ -9,14 +9,14 @@ using namespace std;
 void TextTestResult::addError (Test *test, CppUnitException *e)
 {
     TestResult::addError (test, e);
-    cerr << "E\n";
+    cerr << "E" << endl;
 
 }
 
 void TextTestResult::addFailure (Test *test, CppUnitException *e)
 {
     TestResult::addFailure (test, e);
-    cerr << "F\n";
+    cerr << "F" << endl;
 
 }
 

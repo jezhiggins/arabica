@@ -47,13 +47,13 @@ LDFLAGS  += -O2
 
 
 # Includes and library directories 
-INCS_DIRS = -I.. -I/usr/local/include/stlport -I/opt/gnome2/include/libxml2
+INCS_DIRS = -I.. 
 #INCS_DIRS = -I.. 
 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -lstlport_gcc -L/opt/gnome2/lib -lxml2
+DYNAMIC_LIBS = -lstdc++
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}

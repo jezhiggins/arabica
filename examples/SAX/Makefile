@@ -40,20 +40,20 @@ CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
 CXXFLAGS += -O2
-LDFLAGS  += -O2 -L../../bin -lstlport_gcc -lSAX -lArabicaUtils -lxml2
+LDFLAGS  += -O2 -lSAX -lArabicaUtils 
 
 # Uncomment for debug version
 #  CXXFLAGS += -g -D__DEBUG__
 
 
 # Includes and library directories 
-INCS_DIRS = -I../.. -I/usr/local/include/stlport -I/opt/gnome2/include/libxml2
+INCS_DIRS = -I../.. 
 #INCS_DIRS = -I.. 
 
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -L../../bin -L/opt/gnome2/lib -lstlport_gcc -lSAX -lxml2
+DYNAMIC_LIBS = -L../../bin -lSAX -lexpat
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}

@@ -25,24 +25,28 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef Unicode<charT> UnicodeT;
   private:
     typedef basic_LexicalHandler<stringT> LexicalHandlerT;
+    typedef typename XMLReaderT::InputSourceT InputSourceT;
+    typedef typename XMLReaderT::PropertyBase PropertyBase;
 
   public:
     basic_Writer(ostreamT& stream) :
-      lexicalHandler_(0),
-      indent_(2),
-      stream_(&stream),
       inCDATA_(false),
-      inDTD_(false)
+      inDTD_(false),
+      indent_(2),
+      depth_(0),
+      stream_(&stream),
+      lexicalHandler_(0)
     {
     } // basic_Writer
 
     basic_Writer(ostreamT& stream, XMLReaderT& parent) :
       XMLFilterT(parent),
-      lexicalHandler_(0),
-      indent_(2),
-      stream_(&stream),
       inCDATA_(false),
-      inDTD_(false)
+      inDTD_(false),
+      indent_(2),
+      depth_(0),
+      stream_(&stream),
+      lexicalHandler_(0)
     {
     } // basic_Writer
 
@@ -99,45 +103,49 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
         escaper(ostreamT* stream) : stream_(stream) { }
         void operator()(charT ch)
         {
-          switch(ch)
-          {
-            case UnicodeT::LESS_THAN_SIGN:
+	  if(ch == UnicodeT::LESS_THAN_SIGN)
+	  {
               *stream_ << UnicodeT::AMPERSAND
                        << UnicodeT::LOWERCASE_L
                        << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
-              break;
-            case UnicodeT::GREATER_THAN_SIGN:
+	      return;
+          } // if(ch == UnicodeT::LESS_THAN_SIGN)
+          if(ch == UnicodeT::GREATER_THAN_SIGN)
+	  {
               *stream_ << UnicodeT::AMPERSAND
                        << UnicodeT::LOWERCASE_G
                        << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
-              break;
-            case UnicodeT::AMPERSAND:
+              return;
+	  } // if(ch == UnicodeT::GREATER_THAN_SIGN)
+          if(ch == UnicodeT::AMPERSAND)
+	  {
               *stream_ << UnicodeT::AMPERSAND
                        << UnicodeT::LOWERCASE_A
                        << UnicodeT::LOWERCASE_M
                        << UnicodeT::LOWERCASE_P
                        << UnicodeT::SEMI_COLON;
-              break;
-            case UnicodeT::QUOTATION_MARK:
+	      return;
+          } // if(ch == case UnicodeT::AMPERSAND)
+          if(ch == UnicodeT::QUOTATION_MARK)
+	  {
               *stream_ << UnicodeT::AMPERSAND
                        << UnicodeT::LOWERCASE_Q
                        << UnicodeT::LOWERCASE_U
                        << UnicodeT::LOWERCASE_O
                        << UnicodeT::LOWERCASE_T
                        << UnicodeT::SEMI_COLON;
-              break;
-            default:
-              *stream_ << ch;
-          } // switch
+              return;
+	  } // if(ch == UnicodeT::QUOTATION_MARK)
+
+          *stream_ << ch;
         } // operator()
 
       private:
         ostreamT* stream_;
     }; // escaper
 
-    typedef typename escaper<charT, traitsT> escaperT;
 }; // class basic_Writer
 
 template<class string_type>
@@ -195,7 +203,7 @@ void basic_Writer<string_type>::startElement(
              << UnicodeT::EQUALS_SIGN
              << UnicodeT::QUOTATION_MARK;
     stringT value = atts.getValue(i); 
-    std::for_each(value.begin(), value.end(), escaperT(stream_));
+    std::for_each(value.begin(), value.end(), escaper<charT, traitsT>(stream_));
     *stream_ << UnicodeT::QUOTATION_MARK;
   }
 
@@ -225,7 +233,7 @@ template<class string_type>
 void basic_Writer<string_type>::characters(const stringT& ch)
 {
   if(!inCDATA_)
-    std::for_each(ch.begin(), ch.end(), escaperT(stream_));
+    std::for_each(ch.begin(), ch.end(), escaper<charT, traitsT>(stream_));
   else
     *stream_ << ch;
 
@@ -285,20 +293,20 @@ bool basic_Writer<string_type>::isDtd(const string_type& name)
 } // isDtd
 
 template<class string_type>
-std::auto_ptr<basic_Writer<string_type>::XMLReaderT::PropertyBase> basic_Writer<string_type>::doGetProperty(const string_type& name)
+std::auto_ptr<typename basic_Writer<string_type>::PropertyBase> basic_Writer<string_type>::doGetProperty(const string_type& name)
 {
   if(name == properties_.lexicalHandler)
   {
     XMLReaderT::Property<LexicalHandlerT*>* prop = 
           new XMLReaderT::Property<LexicalHandlerT*>(lexicalHandler_);
-    return std::auto_ptr<XMLReaderT::PropertyBase>(prop);
+    return std::auto_ptr<PropertyBase>(prop);
   }
 
   return XMLFilterT::doGetProperty(name);
 } // doGetProperty
 
 template<class string_type>
-void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<basic_Writer<string_type>::XMLReaderT::PropertyBase> value)
+void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<typename basic_Writer<string_type>::PropertyBase> value)
 {
   if(name == properties_.lexicalHandler)
   {
