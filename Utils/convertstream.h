@@ -252,7 +252,7 @@ private:
 
 typedef basic_iconvertstream<char> converting_istringstream;
 typedef basic_oconvertstream<char> converting_ostringstream;
-#ifndef ARABICA_NO_WCHAR_T
+#ifndef ARABICA_NO_WSTRING_T
 typedef basic_iconvertstream<wchar_t> converting_iwstringstream;
 typedef basic_oconvertstream<wchar_t> converting_owstringstream;
 #endif

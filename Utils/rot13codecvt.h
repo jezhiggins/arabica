@@ -9,9 +9,7 @@
 #include <locale>
 #include <SAX/ArabicaConfig.h>
 #ifdef ARABICA_VS6_WORKAROUND
-namespace std {
-  typedef ::mbstate_t mbstate_t;
-}
+#include <Utils/impl/VS6Workaround.h>
 #endif
 
 namespace Arabica

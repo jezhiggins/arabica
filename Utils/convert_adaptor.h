@@ -21,10 +21,7 @@
 
 #include <SAX/ArabicaConfig.h>
 #ifdef ARABICA_VS6_WORKAROUND
-namespace std {
-  typedef ::mbstate_t mbstate_t;
-}
-#include <minmax.h>
+#include <SAX/Utils/impl/VS6Workaround.h>
 #endif
 
 namespace Arabica
@@ -191,11 +188,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
   if(!inBuffer_.capacity())
     growInBuffer();
 
-#ifndef ARABICA_VS6_WORKAROUND
   size_t pbCount = std::min<size_t>(gptr() - eback(), pbSize_);
-#else
-  size_t pbCount = min(gptr() - eback(), pbSize_);
-#endif
   memcpy(&(inBuffer_[0]) + (pbSize_-pbCount)*sizeof(charT),
          gptr() - pbCount*sizeof(charT),
          pbCount*sizeof(charT));

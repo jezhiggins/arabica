@@ -8,13 +8,14 @@
 // $Id$
 //---------------------------------------------------------------------------
 #include <SAX/ArabicaConfig.h>
-#ifndef ARABICA_NO_WCHAR_T
 #include <locale>
 
+#ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
+#include <Utils/impl/codecvt_specialisations.h>
+#endif
+
 #ifdef ARABICA_VS6_WORKAROUND
-namespace std {
-  typedef ::mbstate_t mbstate_t;
-}
+#include <Utils/impl/VS6Workaround.h>
 #endif
 
 namespace Arabica
@@ -63,5 +64,4 @@ protected:
 } // namespace convert
 } // namespace Arabica
 
-#endif // ARABICA_NO_WCHAR_T
-#endif // ARABICA_UTF16LEUCS2_CODECVT_H
+#endif 

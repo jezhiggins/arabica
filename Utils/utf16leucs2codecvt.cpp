@@ -2,14 +2,10 @@
 // $Id$
 //---------------------------------------------------------------------------
 #include "utf16leucs2codecvt.h"
-#ifndef ARABICA_NO_WCHAR_T
 #include "impl/ucs2_utf16.h"
 
 #ifdef ARABICA_VS6_WORKAROUND
-namespace std {
-template<typename T>
-T max(T a, T b) { return a > b ? a : b; }
-}
+#include <Utils/impl/VS6Workaround.h>
 #endif
 
 using namespace Arabica::convert;
@@ -54,6 +50,5 @@ int utf16leucs2codecvt::do_length(const std::mbstate_t&,
   return std::max<int>((end-from), max/2);
 } // do_length
 
-#endif // ARABICA_NO_WCHAR_T
 // end of file
 

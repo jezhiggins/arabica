@@ -1,10 +1,9 @@
 //---------------------------------------------------------------------------
 // $Id$
 //---------------------------------------------------------------------------
-#include "utf8ucs2codecvt.h"
-#ifndef ARABICA_NO_WCHAR_T
-#include "impl/ucs2_utf16.h"
-#include "impl/ucs2_utf8.h"
+#include <Utils/utf8ucs2codecvt.h>
+#include <Utils/impl/ucs2_utf16.h>
+#include <Utils/impl/ucs2_utf8.h>
 //---------------------------------------------------------------------------
 
 using namespace Arabica::convert;
@@ -80,6 +79,5 @@ int utf8ucs2codecvt::do_length(const std::mbstate_t&,
   return (from_next-from);
 } // do_length
 
-#endif // ARABICA_NO_WCHAR_T
 // end of file
 

@@ -14,27 +14,26 @@
 //---------------------------------------------------------------------------
 #include <SAX/ArabicaConfig.h>
 
-#ifndef ARABICA_NO_WCHAR_T
 #include <locale>
-
-namespace Arabica
-{
-namespace convert
-{
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
 #include <Utils/impl/codecvt_specialisations.h>
 #endif
 
 #ifdef ARABICA_VS6_WORKAROUND
-namespace std {
-  typedef ::mbstate_t mbstate_t;
-}
+#include <Utils/impl/VS6Workaround.h>
 #endif
+
+namespace Arabica
+{
+namespace convert
+{
 
 class utf16utf8codecvt : public std::codecvt<char, wchar_t, std::mbstate_t>
 {
 protected:
+  typedef std::codecvt_base::result result;
+
   virtual ~utf16utf8codecvt() { }
 
   virtual result do_out(std::mbstate_t&,
@@ -72,8 +71,6 @@ protected:
 
 } // namespace convert
 } // namespace Arabica
-
-#endif // ARABICA_NO_WCHAR_T
 
 #endif
 

@@ -32,6 +32,10 @@
 #  define INADDR_NONE             ((in_addr_t) -1)
 #endif
 
+#ifdef ARABICA_VS6_WORKAROUND
+#include <Utils/impl/VS6Workaround.h>
+#endif 
+
 namespace Arabica
 {
 
@@ -272,11 +276,8 @@ int basic_socketbuf<charT, traitsT>::readSocket()
   if(!inBuffer_.capacity())
     growInBuffer();
 
-#ifndef ARABICA_VS6_WORKAROUND
   size_t pbCount = std::min<int>(gptr() - eback(), pbSize_);
-#else
-  size_t pbCount = min(gptr() - eback(), pbSize_);
-#endif
+
   memcpy(&(inBuffer_[0]) + (pbSize_-pbCount)*sizeof(charT), 
          gptr() - pbCount*sizeof(charT),
          pbCount*sizeof(charT));
@@ -393,7 +394,7 @@ void basic_socketstream<charT, traitsT>::close()
 
 typedef basic_socketbuf<char, std::char_traits<char> > socketbuf;
 typedef basic_socketstream<char, std::char_traits<char> > socketstream;
-#ifndef ARABICA_NO_WCHAR_T
+#ifndef ARABICA_NO_WSTRING_T
 typedef basic_socketbuf<wchar_t, std::char_traits<wchar_t> > wsocketbuf;
 typedef basic_socketstream<wchar_t, std::char_traits<wchar_t> > wsocketstream;
 #endif
