@@ -286,7 +286,10 @@ class oconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, toCharT,
       {
       } // oconvert_adaptor
 
-    virtual ~oconvert_adaptor() { }
+    virtual ~oconvert_adaptor() 
+    {
+      flush(); 
+    } // ~oconvert_adaptor
 
     convert_bufadaptor<charT, traitsT>* rdbuf() const
     {
