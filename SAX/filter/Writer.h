@@ -91,9 +91,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     int indent_;
     int depth_;
     ostreamT* stream_;
-    enum { startTag, endTag, docTag } lastTag_;
-
     LexicalHandlerT* lexicalHandler_;
+    enum { startTag, endTag, docTag } lastTag_;
     const SAX::PropertyNames<stringT> properties_;
 
     template<typename char_type, typename traits_type>
