@@ -47,6 +47,15 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
   public:
     typedef typename traitsT::int_type int_type;
 
+    using std::basic_streambuf<charT, traitsT>::setp;
+    using std::basic_streambuf<charT, traitsT>::setg;
+    using std::basic_streambuf<charT, traitsT>::underflow;
+    using std::basic_streambuf<charT, traitsT>::gptr;
+    using std::basic_streambuf<charT, traitsT>::gbump;
+    using std::basic_streambuf<charT, traitsT>::egptr;
+    using std::basic_streambuf<charT, traitsT>::eback;
+    using std::basic_streambuf<charT, traitsT>::pptr;
+
     basic_socketbuf();
     virtual ~basic_socketbuf();
 
@@ -327,6 +336,9 @@ template<class charT, class traitsT>
 class basic_socketstream : public std::basic_iostream<charT, traitsT>
 {
   public:
+    using std::basic_iostream<charT, traitsT>::setstate;
+    using std::basic_iostream<charT, traitsT>::badbit;
+
     basic_socketstream();
     explicit basic_socketstream(const char* hostname, int port);
 
