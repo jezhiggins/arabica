@@ -19,6 +19,7 @@
 #include <stack>
 #include <utility>
 #include <sstream>
+#include <XML/UnicodeCharacters.h>
 
 namespace SAX
 {
@@ -28,7 +29,6 @@ struct XMLBaseConstants
 {
   typedef string_type stringT;
   typedef string_adaptor_type string_adaptorT;
-  typedef typename string_adaptor_type::value_type valueT;
 
   const stringT xml;
   const stringT xml_uri;
@@ -44,36 +44,35 @@ struct XMLBaseConstants
   } // XMLBaseConstants
 }; // struct XMLBaseConstants
 
-template<class string_type, class string_adaptor_type>
-class XMLBaseSupport
+template<class string_type, class string_adaptor_type = SAX::default_string_adaptor<string_type> >
+class basic_XMLBaseSupport
 {
 public:
   typedef string_type stringT;
   typedef string_adaptor_type stringAdaptorT;
+  typedef typename string_adaptor_type::value_type valueT;
   typedef basic_Attributes<stringT> AttributesT;
 
-  XMLBaseSupport() :
-      depth_(0), SA_ { }
+  basic_XMLBaseSupport() :
+      depth_(0), SA_() { }
 
   void setDocumentLocation(const stringT& loc)
   {
     bases_.push(std::make_pair(-1, loc));
   } // setDocumentLocation
 
-  void startElement(const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName, const AttributesT& atts)
+  void startElement(const AttributesT& atts)
   {
     ++depth_;
-    stringT base = attrs.getValue(xbc_.xml_uri, xbc_.base);
+    stringT base = atts.getValue(xbc_.xml_uri, xbc_.base);
     if(base.empty())
       return;
 
-    stringT baseURI = absolutise(getCurrentBase(), base);
+    stringT baseURI = absolutise(currentBase(), base);
     bases_.push(std::make_pair(depth_, baseURI));
   } // startElement
 
-  void endElement(const stringT& namespaceURI, const stringT& localName, 
-                  const stringT& qName)
+  void endElement()
   {
     if(currentDepth() == depth_)
       bases_.pop();
@@ -86,10 +85,10 @@ public:
   } // makeAbsolute
 
 private:
-  private stringT absolutise(const stringT& baseURI, const stringT& location)
+  stringT absolutise(const stringT& baseURI, const stringT& location)
   {
     static const stringT SCHEME_MARKER = SA_.makeStringT("://");
-    static const valueT FORWARD_SLASH = SA_.makeValueT(Unicode<char>::SLASH);
+    static const valueT FORWARD_SLASH = SA_.makeValueT(Arabica::Unicode<char>::SLASH);
 
     if(location.find(SCHEME_MARKER) != -1)
       return location;
@@ -112,14 +111,14 @@ private:
     return SA_.makeStringT(ss.str().c_str());
   } // absolutise
 
-  private stringT currentBase() const
+  stringT currentBase() const
   {
     if(!bases_.size())
       return stringT();
     return bases_.top().second;
   } // currentBase()
 
-  private int currentDepth() const
+  int currentDepth() const
   {
     if(!bases_.size())
       return -1;
@@ -134,13 +133,18 @@ private:
   int depth_;
   stringAdaptorT SA_;
 
-  const XMLBaseConstants<stringT, string_adaptorT> xbc_;
+  const XMLBaseConstants<stringT, stringAdaptorT> xbc_;
 
   // no impl
-  XMLBaseSupport(const XMLBaseSupport&);
-  XMLBaseSupport& operator=(const XMLBaseSupport&);
-  bool operator==(const XMLBaseSupport&);
-} // class XMLBaseSupport
+  basic_XMLBaseSupport(const basic_XMLBaseSupport&);
+  basic_XMLBaseSupport& operator=(const basic_XMLBaseSupport&);
+  bool operator==(const basic_XMLBaseSupport&);
+}; // class basic_XMLBaseSupport
+
+typedef basic_XMLBaseSupport<std::string> XMLBaseSupport;
+#ifndef ARABICA_NO_WCHAR_T
+typedef basic_XMLBaseSupport<std::wstring> wXMLBaseSupport;
+#endif
 
 } // namespace SAX
 
