@@ -63,7 +63,7 @@ protected:
   virtual int do_length(const std::mbstate_t&,
                         const char* from,
                         const char* end,
-                        size_t max) const;
+                        size_t max) const throw();
 
   virtual int do_max_length() const throw() { return 3; }
 }; // class utf8ucs2codecvt
