@@ -7,6 +7,7 @@
 #include <string>
 #include <SAX/XMLFilter.h>
 #include <SAX/helpers/DefaultHandler.h>
+#include <SAX/helpers/StringAdaptor.h>
 #include <SAX/SAXNotRecognizedException.h>
 
 namespace SAX
@@ -33,21 +34,24 @@ namespace SAX
  * @see basic_ContentHandler
  * @see basic_ErrorHandler
  */
-template<class string_type>
+template<class string_type, class string_adaptor_type = SAX::default_string_adaptor<string_type> >
 class basic_XMLFilterImpl : public basic_XMLFilter<string_type>,
           public basic_EntityResolver<string_type>, 
 					public basic_DTDHandler<string_type>,
 					public basic_ContentHandler<string_type>, 
-					public ErrorHandler
+					public basic_ErrorHandler<string_type>
 {
 public:
   typedef string_type stringT;
+  typedef string_adaptor_type string_adaptorT;
   typedef basic_XMLReader<stringT> XMLReaderT;
   typedef basic_EntityResolver<stringT> EntityResolverT;
   typedef basic_DTDHandler<stringT> DTDHandlerT;
   typedef basic_ContentHandler<stringT> ContentHandlerT;
   typedef basic_InputSource<stringT> InputSourceT;
   typedef basic_Locator<stringT> LocatorT;
+  typedef basic_ErrorHandler<stringT> ErrorHandlerT;
+
 
   basic_XMLFilterImpl() : 
     parent_(0)
@@ -105,7 +109,10 @@ public:
   virtual void setFeature(const stringT& name, bool value)
   {
   	if(!parent_)
-      throw SAXNotRecognizedException("Feature: " + name);
+    {
+      string_adaptorT SA;
+      throw SAXNotRecognizedException(SA.asStdString(SA.makeStringT("Feature: ") + name));
+    } // if ...
 
     parent_->setFeature(name, value);
   } // setFeature
@@ -126,7 +133,10 @@ public:
   virtual bool getFeature(const stringT& name) const
   {
   	if(!parent_)
-      throw SAXNotRecognizedException("Feature: " + name);
+    {
+      string_adaptorT SA;
+      throw SAXNotRecognizedException(SA.asStdString(SA.makeStringT("Feature: ") + name));
+    } // if ...
 
     return parent_->getFeature(name);
   } // setFeature
@@ -179,14 +189,14 @@ public:
    * @param handler The new error handler.
    * @see basic_XMLReader#setErrorHandler
    */
-  virtual void setErrorHandler(ErrorHandler& handler) { errorHandler_ = &handler; }
+  virtual void setErrorHandler(ErrorHandlerT& handler) { errorHandler_ = &handler; }
   /**
    * Get the current error event handler.
    *
    * @return The current error handler, or null if none was set.
    * @see basic_XMLReader#getErrorHandler
    */
-  virtual ErrorHandler* getErrorHandler() const { return errorHandler_; }
+  virtual ErrorHandlerT* getErrorHandler() const { return errorHandler_; }
 
   /**
    * Parse a document.
@@ -205,7 +215,8 @@ public:
    	if(parent_)
 	    return parent_->doGetProperty(name);
 
-    throw new SAXNotRecognizedException("Property: " + name);
+    string_adaptorT SA;
+    throw SAXNotRecognizedException(SA.asStdString(SA.makeStringT("Property: ") + name));
   } // doGetProperty
 
   virtual void doSetProperty(const stringT& name, typename std::auto_ptr<typename XMLReaderT::PropertyBase> value)
@@ -216,7 +227,8 @@ public:
       return;
     } // if(parent_)
 
-    throw new SAXNotRecognizedException("Property: " + name);
+    string_adaptorT SA;
+    throw SAXNotRecognizedException(SA.asStdString(SA.makeStringT("Property: ") + name));
   } // doSetProperty
 
 public:
@@ -426,7 +438,7 @@ public:
    * @param exception The warning as an exception.
    * @see basic_ErrorHandler#warning
    */
-  virtual void warning(const SAXParseException& exception) 
+  virtual void warning(const SAXParseExceptionT& exception) 
   { 
     if(errorHandler_)
       errorHandler_->warning(exception);
@@ -438,7 +450,7 @@ public:
    * @param exception The error as an exception.
    * @see basic_ErrorHandler#error
    */
-  virtual void error(const SAXParseException& exception) 
+  virtual void error(const SAXParseExceptionT& exception) 
   { 
     if(errorHandler_)
       errorHandler_->error(exception);
@@ -450,7 +462,7 @@ public:
    * @param exception The error as an exception.
    * @see basic_ErrorHandler#fatalError
    */
-  virtual void fatalError(const SAXParseException& exception) 
+  virtual void fatalError(const SAXParseExceptionT& exception) 
   { 
     if(errorHandler_)
       errorHandler_->fatalError(exception);
@@ -482,7 +494,7 @@ private:
   EntityResolverT* entityResolver_;
   DTDHandlerT* dtdHandler_;
   ContentHandlerT* contentHandler_;
-  ErrorHandler* errorHandler_;
+  ErrorHandlerT* errorHandler_;
   const LocatorT* locator_;
   basic_DefaultHandler<stringT> defaultHandler_;
 }; // class basic_XMLFilter
