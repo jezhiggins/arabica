@@ -189,29 +189,46 @@ int main(int argc, char* argv[])
     return 0;
   } // if(argc < 2)
 
-  SAX2DOM::Parser<std::string> domParser;
+  /*
+  { // narrow
+    SAX2DOM::Parser<std::string> domParser;
 
-	for(int i = 1; i < argc; ++i)
-  {
-    std::string file(argv[i]);
-    SAX::InputSource is;
-    is.setSystemId(file);
-
-    if(file != "-")
-      domParser.parse(is);
-    else
+	  for(int i = 1; i < argc; ++i)
     {
-      is.setSystemId("stdin");
-      is.setByteStream(std::cin);
+      std::string file(argv[i]);
+      SAX::InputSource is;
+      is.setSystemId(file);
 
-      domParser.parse(is);
-    } // if(file != "-")
+      if(file != "-")
+        domParser.parse(is);
+      else
+      {
+        is.setSystemId("stdin");
+        is.setByteStream(std::cin);
 
-    DOM::Document<std::string> doc = domParser.getDocument();
+        domParser.parse(is);
+      } // if(file != "-")
 
-    std::cout << doc;
-  } // for ...
-  
+      DOM::Document<std::string> doc = domParser.getDocument();
+
+      std::cout << doc;
+    } // for ...
+  } */
+
+  { // wide
+    SAX2DOM::Parser<std::wstring> domParser;
+
+    SAX::wInputSource is;
+    is.setSystemId(L"stdin");
+    is.setByteStream(std::cin);
+
+    domParser.parse(is);
+
+    DOM::Document<std::wstring> doc = domParser.getDocument();
+
+    std::wcout << doc;
+  }
+
   return 0;
 } // main
 
