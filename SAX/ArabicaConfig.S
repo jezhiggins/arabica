@@ -23,6 +23,8 @@ define pasty(ARABICA, _NO_WCHAR_T) 1
 #if (_MSC_VER < 1300)
 define ARABICA_VS6_WORKAROUND
 #endif
+
+define ARABICA_NO_CODECVT_SPECIALISATIONS
 #endif
 
 #ifdef _WIN32

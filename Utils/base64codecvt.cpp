@@ -9,7 +9,7 @@
 static const std::string base64_charset("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
 static const int NO_MORE = 256;
 
-std::codecvt_base::result base64codecvt::do_out(state_t& state,
+std::codecvt_base::result base64codecvt::do_out(std::mbstate_t& state,
                         const char* from,
                         const char* from_end,
                         const char*& from_next,
@@ -67,7 +67,7 @@ std::codecvt_base::result base64codecvt::do_out(state_t& state,
   return ((getState() == 0) && (getCurrentOutChar() == NO_MORE) && (getPreviousChar() == 0)) ? std::codecvt_base::ok : std::codecvt_base::partial;
 } // do_out
 
-std::codecvt_base::result base64codecvt::do_in(state_t& state,
+std::codecvt_base::result base64codecvt::do_in(std::mbstate_t& state,
                        const char* from,
                        const char* from_end,
                        const char*& from_next,
@@ -109,7 +109,7 @@ std::codecvt_base::result base64codecvt::do_in(state_t& state,
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial; 
 } // do_in
 
-std::codecvt_base::result base64codecvt::do_unshift(state_t& state,
+std::codecvt_base::result base64codecvt::do_unshift(std::mbstate_t& state,
                             char* to,
                             char* to_limit,
                             char*& to_next) const
@@ -126,7 +126,7 @@ std::codecvt_base::result base64codecvt::do_unshift(state_t& state,
   return (to_next == to_limit) ? codecvt_base::ok : codecvt_base::partial;
 } // do_unshift
 
-int base64codecvt::do_length(const state_t&,
+int base64codecvt::do_length(const std::mbstate_t&,
                         const char* from,
                         const char* end,
                         size_t max) const
@@ -158,7 +158,7 @@ int base64codecvt::getState() const
 
 void base64codecvt::nextState() const
 {
-  state_t s = getState();
+  int s = getState();
   s = s + 1;
   if(s == 4)
     s = 0;

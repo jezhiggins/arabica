@@ -14,7 +14,10 @@
 //---------------------------------------------------------------------------
 #include <locale>
 
-#if(_MSC_VER < 1300)
+#ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
+#include <Utils/impl/codecvt_specialisations.h>
+#endif
+#ifdef ARABICA_VS6_WORKAROUND
 namespace std {
   typedef ::mbstate_t mbstate_t;
 }
@@ -59,3 +62,4 @@ protected:
 }; // class utf16utf8codecvt
 
 #endif
+
