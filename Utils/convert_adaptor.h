@@ -145,6 +145,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
   else
   {
     // we must do code conversion
+    length += cvt.max_length(); // add a little 
     std::vector<externalCharT> to(length);
     const charT* from_next = &(outBuffer_[0]);
     std::codecvt_base::result r;
@@ -254,5 +255,32 @@ class iconvert_adaptor : public std::basic_istream<charT, traitsT>
   private:
     convert_bufadaptor<charT, traitsT, fromCharT, fromTraitsT> bufadaptor_;
 }; // class iconvert_adaptor
+
+////////////////////////////////////////////////////////
+// oconvert_adaptor
+template<typename charT,
+         typename traitsT = std::char_traits<charT>,
+         typename toCharT = charT,
+         typename toTraitsT = std::char_traits<toCharT> >
+class oconvert_adaptor : public std::basic_ostream<charT, traitsT>
+{
+  typedef std::basic_ostream<toCharT, toTraitsT> toStreamT;
+  public:
+    explicit oconvert_adaptor(toStreamT &toStream) :
+      std::basic_ostream<charT, traitsT>(&bufadaptor_),
+      bufadaptor_(*(toStream.rdbuf()))
+      {
+      } // oconvert_adaptor
+
+    virtual ~oconvert_adaptor() { }
+
+    convert_bufadaptor<charT, traitsT>* rdbuf() const
+    {
+      return const_cast<convert_bufadaptor<charT, traitsT, toCharT, toTraitsT>*>(&bufadaptor_); 
+    } // rdbuf
+
+  private:
+    convert_bufadaptor<charT, traitsT, toCharT, toTraitsT> bufadaptor_;
+}; // class oconvert_adaptor
 
 #endif
