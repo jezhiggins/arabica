@@ -50,7 +50,7 @@ DYNAMIC_LIBS =
 
 # Source files
 
-SRCS =  utf16utf8_codecvt.cpp
+SRCS =  utf16utf8_codecvt.cpp iso8859_1utf8_codecvt.cpp
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
