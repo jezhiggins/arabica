@@ -9,12 +9,6 @@ LIBS_DIRS += -L../../bin
 STATIC_LIBS +=
 DYNAMIC_LIBS += -lArabica
 
-############
-CXXFLAGS += $(INCS_DIRS)
-LDFLAGS += $(LIBS_DIRS)
-LDFLAGS += $(STATIC_LIBS)
-LDFLAGS += $(DYNAMIC_LIBS)
-
 ######################################
 # SOURCE FILES
 PYX_SRCS = pyx.cpp
@@ -33,27 +27,33 @@ WRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(WRITER_SRCS)))
 # High level rules
 all : pyx simple_handler writer
 
-pyx : $(PYX_OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(PYX_OBJS)
-	$(COPY) pyx ../../bin
+pyx$ : $(PYX_OBJS)
+	$(LD) $(LDFLAGS) -o $@ $(PYX_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) pyx$(EXESUFFIX) ../../bin
 
 simple_handler : $(SIMPLE_OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(SIMPLE_OBJS)
-	$(COPY) simple_handler ../../bin
+	$(LD) $(LDFLAGS) -o $@ $(SIMPLE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) simple_handler$(EXESUFFIX) ../../bin
 
 writer : $(WRITER_OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(WRITER_OBJS)
-	$(COPY) writer ../../bin
+	$(LD) $(LDFLAGS) -o $@ $(WRITER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) writer$(EXESUFFIX) ../../bin
 
 ######################
 # Compile rules
 ####
-%.o : %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+-include ../../Makefile.rules
 
 ######################
 # Cleaning up
 clean :
-	$(REMOVE) *.o core pyx writer simple_handler ../../bin/pyx ../../bin/writer ../../bin/simple_handler
+	$(REMOVE) *.o \
+		core \
+		pyx$(EXESUFFIX) \
+		../../bin/pyx$(EXESUFFIX) \
+		writer$(EXESUFFIX) \
+		../../bin/writer$(EXESUFFIX) \
+		simple_handler$(EXESUFFIX) \
+		../../bin/simple_handler$(EXESUFFIX)
 
 # End of File

@@ -1,7 +1,7 @@
 ####################################
 # ARABICA CONFIG
 # edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_EXPAT 
+PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 ####################################
@@ -13,7 +13,7 @@ CXX = gcc
 # preprocessor
 CPP = gcc -E
 # linker
-LD = gcc  
+LD =  gcc 
 # archiver
 AR = ar r
 
@@ -39,6 +39,9 @@ LIBS_DIRS =
 STATIC_LIBS =
 DYNAMIC_LIBS =  -lexpat -lstdc++
 
+# you'll only need to change these if you use Cygwin
+EXESUFFIX = .exe
+LIBSUFFIX = .dll
 
 
 

@@ -13,20 +13,14 @@
 
 ######################################
 # ADDITIONAL BUILD FLAGS
-CXXFLAGS += 
-LDFLAGS += -shared
+CXXFLAGS += -I..
+LDFLAGS += -shared 
 
 INC_DIRS +=
 LIBS_DIRS +=
 
 STATIC_LIBS +=
 DYNAMIC_LIBS +=
-
-############
-CXXFLAGS += $(INCS_DIRS)
-LDFLAGS += $(LIBS_DIRS)
-LDFLAGS += $(STATIC_LIBS)
-LDFLAGS += $(DYNAMIC_LIBS)
 
 ######################################
 # SOURCE FILES
@@ -45,26 +39,16 @@ SRCS =  saxlib.cpp \
 	../Utils/base64codecvt.cpp \
 	../XML/XMLCharacterClasses.cpp
 
-
-
-
-
-
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
 
 ##########################
 # High level rules
-all : libArabica.so.1 libArabica.a 
+all : libArabica($LIBSUFFIX)
 
-libArabica.so.1 : $(OBJS) 
-	$(LD) $(LDFLAGS) -o $@ $(OBJS)
-	$(COPY) libArabica.so.1 ../bin
-	(cd ../bin; $(REMOVE) libArabica.so; $(LINK) libArabica.so.1 libArabica.so)
-
-libArabica.a : $(OBJS)
-	$(AR) $@ $(OBJS)
-	$(COPY) libArabica.a ../bin
+libArabica($LIBSUFFIX) : $(OBJS)
+	$(LD) $(LDFLAGS) -o libArabica$(LIBSUFFIX) $(OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) libArabica$(LIBSUFFIX) ../bin
 
 ######################
 # Compile rules
@@ -80,10 +64,11 @@ ParserConfig.h : Makefile
 ArabicaConfig.h : Makefile
 	$(CPP) $(PARSER_CONFIG) -o ArabicaConfig.h ArabicaConfig.S
 
-%.o : %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
 %.cpp : ArabicaConfig.h ParserConfig.h
+
+Makefile :
+
+-include ../Makefile.rules
 
 #############################################
 # Cleaning up

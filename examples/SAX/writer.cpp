@@ -41,19 +41,6 @@ int main(int argc, char* argv[])
     } // for ...
   }
 
-
-  { // wide
-    SAX::XMLReader<std::wstring> parser;
-    SAX::wWriter writer(std::wcout);
-    writer.setParent(parser);
-
-    SAX::wInputSource is;
-    is.setSystemId(L"stdin");
-    is.setByteStream(std::cin);
-
-    writer.parse(is);
-  }
-
   return 0;
 } // main
 

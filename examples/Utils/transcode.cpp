@@ -17,7 +17,7 @@ int main(int argc, const char* argv[])
   oconvert_adaptor<char> oa(std::cout);
 
   ia.imbue(std::locale(ia.getloc(), new base64codecvt()));
-
+  //oa.imbue(std::locale(oa.getloc(), new base64codecvt()));
   while(ia)
   {
     oa << static_cast<char>(ia.get());

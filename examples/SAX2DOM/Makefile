@@ -9,12 +9,6 @@ LIBS_DIRS += -L../../bin
 STATIC_LIBS +=
 DYNAMIC_LIBS += -lArabica
 
-############
-CXXFLAGS += $(INCS_DIRS)
-LDFLAGS += $(LIBS_DIRS)
-LDFLAGS += $(STATIC_LIBS)
-LDFLAGS += $(DYNAMIC_LIBS)
-
 ######################################
 # SOURCE FILES
 SAXDOM_SRCS = main.cpp test_Attribute.cpp test_Document.cpp test_DocumentFragment.cpp test_DocumentType.cpp test_DOMImplementation.cpp test_Element.cpp test_ProcessingInstruction.cpp test_Siblings.cpp test_SAX.cpp
@@ -38,22 +32,28 @@ DOMWRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(DOMWRITER_SRCS)))
 all : sax2dom_test domwriter
 
 sax2dom_test : $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
-	$(COPY) sax2dom_test ../../bin
+	$(LD) $(LDFLAGS) -o $@ $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) sax2dom_test$(EXESUFFIX) ../../bin
 
 domwriter : $(DOMWRITER_OBJS)
-	$(LD) $(LDFLAGS)  -o $@ $(DOMWRITER_OBJS)
-	$(COPY) domwriter ../../bin
+	$(LD) $(LDFLAGS)  -o $@ $(DOMWRITER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) domwriter$(EXESUFFIX) ../../bin
 
 ######################
 # Compile rules
 ####
-%.o : %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+-include ../../Makefile.rules
 
 ######################
 # Cleaning up
 clean :
-	$(REMOVE) $(CPPUNITUI_OBJS) $(CPPUNITFW_OBJS) $(SAXDOM_OBJS) $(DOMWRITER_OBJS) core sax2dom_test domwriter ../../bin/sax2dom_test ../../bin/domwriter
+	$(REMOVE) $(CPPUNITUI_OBJS) \
+		$(CPPUNITFW_OBJS) \
+		$(SAXDOM_OBJS) \
+		sax2dom_test$(EXESUFFIX) \
+		 ../../bin/sax2dom_test$(EXESUFFIX) \
+		$(DOMWRITER_OBJS) \
+		domwriter$(EXESUFFIX) \
+		 ../../bin/domwriter
 
 # End of File

@@ -9,12 +9,6 @@ LIBS_DIRS += -L../../bin
 STATIC_LIBS +=
 DYNAMIC_LIBS += -lArabica
 
-############
-CXXFLAGS += $(INCS_DIRS)
-LDFLAGS += $(LIBS_DIRS)
-LDFLAGS += $(STATIC_LIBS)
-LDFLAGS += $(DYNAMIC_LIBS)
-
 ######################################
 # SOURCE FILES
 TRANSCODE_SRCS = transcode.cpp
@@ -26,21 +20,22 @@ TRANSCODE_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(TRANSCODE_SRCS)))
 all : transcode
 
 transcode : $(TRANSCODE_OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(TRANSCODE_OBJS)
-	$(COPY) transcode ../../bin
+	$(LD) $(LDFLAGS) -o $@ $(TRANSCODE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) transcode$(EXESUFFIX) ../../bin
 
 
 ######################
 # Compile rules
 ####
-%.o : %.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+-include ../../Makefile.rules
 
 ######################
 # Cleaning up
 
 clean :
-	$(REMOVE) $(TRANSCODE_OBJS) core transcode ../../bin/transcode
+	$(REMOVE) $(TRANSCODE_OBJS) \
+		transcode$(EXESUFFIX) \
+		../../bin/transcode$(EXESUFFIX)
 
 # End of File
 
