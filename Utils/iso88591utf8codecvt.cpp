@@ -48,7 +48,7 @@ int iso88591utf8codecvt::do_length(const std::mbstate_t&,
   while((from_next < end) && (count < max))
   {
     unsigned char fn = static_cast<unsigned char>(*from_next);
-    if(fn && 0x80)
+    if(fn & 0x80)
       ++count;
     ++count;
     ++from_next;

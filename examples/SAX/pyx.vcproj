@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.00"
-	Name="pyx"
+	Name="example_SAXPyx"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

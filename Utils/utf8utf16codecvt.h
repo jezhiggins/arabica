@@ -1,7 +1,7 @@
-#ifndef utf16utf8_codecvtH
-#define utf16utf8_codecvtH
+#ifndef ARABICA_UTF8UTF16_CODECVT_H
+#define ARABICA_UTF8UTF16_CODECVT_H
 //---------------------------------------------------------------------------
-// class utf16tf8_codecvt
+// class utf8utf16codecvt
 // This facet converts from Unicode (UCS-2) wchar_ts to
 // char using the UTF-8 encoding.
 //
@@ -14,16 +14,16 @@
 //---------------------------------------------------------------------------
 #include <locale>
 
-#ifdef _MSC_VER
+#if(_MSC_VER < 1300)
 namespace std {
   typedef ::mbstate_t mbstate_t;
 }
 #endif
 
-class utf16utf8_codecvt : public std::codecvt<wchar_t, char, std::mbstate_t>
+class utf8utf16codecvt : public std::codecvt<wchar_t, char, std::mbstate_t>
 {
 protected:
-  virtual ~utf16utf8_codecvt();
+  virtual ~utf8utf16codecvt() { }
 
   virtual result do_out(std::mbstate_t&,
                         const wchar_t* from,
@@ -46,16 +46,16 @@ protected:
                             char*,
                             char*&) const;
 
-  virtual int do_encoding() const throw();
+  virtual int do_encoding() const throw() { return 0; }
 
-  virtual bool do_always_noconv() const throw();
+  virtual bool do_always_noconv() const throw() { return false; }
 
   virtual int do_length(const std::mbstate_t&,
                         const char* from,
                         const char* end,
                         size_t max) const;
 
-  virtual int do_max_length() const throw();
-}; // class utf16utf8_codecvt
+  virtual int do_max_length() const throw() { return 3; }
+}; // class utf8utf16codecvt
 
 #endif

@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.00"
-	Name="DOMWriter"
+	Name="example_DOMWriter"
 	ProjectGUID="{C1CF7801-1681-4F15-8D71-BBC814805AF2}"
 	Keyword="Win32Proj">
 	<Platforms>

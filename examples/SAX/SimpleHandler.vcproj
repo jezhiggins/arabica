@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.00"
-	Name="SimpleHandler"
+	Name="example_SAXSimpleHandler"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -71,7 +71,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\..\bin"
+			OutputDirectory=".\..\..\bin"
 			IntermediateDirectory=".\Release"
 			ConfigurationType="1"
 			UseOfMFC="0"

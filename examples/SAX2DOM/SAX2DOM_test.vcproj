@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.00"
-	Name="SAX2DOM_test"
+	Name="example_SAX2DOMTests"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -70,7 +70,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
+			OutputDirectory=".\..\..\bin"
 			IntermediateDirectory=".\Release"
 			ConfigurationType="1"
 			UseOfMFC="0"

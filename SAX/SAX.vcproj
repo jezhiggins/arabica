@@ -330,10 +330,10 @@
 				RelativePath="..\XML\XMLCharacterClasses.h">
 			</File>
 			<File
-				RelativePath="..\Utils\base64_codecvt.cpp">
+				RelativePath="..\Utils\base64codecvt.cpp">
 			</File>
 			<File
-				RelativePath="..\Utils\base64_codecvt.h">
+				RelativePath="..\Utils\base64codecvt.h">
 			</File>
 			<File
 				RelativePath="..\Utils\convert_adaptor.h">
@@ -342,26 +342,54 @@
 				RelativePath="..\Utils\convertstream.h">
 			</File>
 			<File
-				RelativePath="..\Utils\iso8859_1utf8_codecvt.cpp">
+				RelativePath="..\Utils\iso88591utf8codecvt.cpp">
 			</File>
 			<File
-				RelativePath="..\Utils\iso8859_1utf8_codecvt.h">
+				RelativePath="..\Utils\iso88591utf8codecvt.h">
 			</File>
 			<File
-				RelativePath="..\Utils\rot13_codecvt.cpp">
+				RelativePath="..\Utils\rot13codecvt.cpp">
 			</File>
 			<File
-				RelativePath="..\Utils\rot13_codecvt.h">
+				RelativePath="..\Utils\rot13codecvt.h">
 			</File>
 			<File
 				RelativePath="..\Utils\socket_stream.h">
 			</File>
 			<File
-				RelativePath="..\Utils\utf16utf8_codecvt.cpp">
+				RelativePath="..\Utils\utf16utf8codecvt.cpp">
 			</File>
 			<File
-				RelativePath="..\Utils\utf16utf8_codecvt.h">
+				RelativePath="..\Utils\utf16utf8codecvt.h">
 			</File>
+			<File
+				RelativePath="..\Utils\utf8iso88591codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\utf8iso88591codecvt.h">
+			</File>
+			<File
+				RelativePath="..\Utils\utf8utf16codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\utf8utf16codecvt.h">
+			</File>
+			<Filter
+				Name="impl"
+				Filter="">
+				<File
+					RelativePath="..\Utils\impl\iso88591_utf8.cpp">
+				</File>
+				<File
+					RelativePath="..\Utils\impl\iso88591_utf8.h">
+				</File>
+				<File
+					RelativePath="..\Utils\impl\utf16_utf8.cpp">
+				</File>
+				<File
+					RelativePath="..\Utils\impl\utf16_utf8.h">
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\ParserConfig.S">

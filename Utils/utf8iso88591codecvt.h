@@ -43,7 +43,7 @@ protected:
                         const char* end,
                         size_t max) const;
 
-  virtual int do_max_length() const throw() { return 2; }
+  virtual int do_max_length() const throw() { return 3; }
 }; // class utf8iso88591codecvt
 
 #endif
