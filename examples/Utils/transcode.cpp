@@ -141,6 +141,16 @@ bool processArgs(int argc, const char* argv[])
   return true;
 } // processArgs
 
+template<class Facet>
+std::locale addFacet(const std::locale& base, Facet* facet)
+{
+#ifndef ARABICA_VS6_WORKAROUND
+  return std::locale(base, facet);
+#else
+  return std::locale(std::_Addfac(base, facet));
+#endif
+} // addFacet
+  
 bool imbueInput(int& argn, int argc, const char* argv[])
 {
   ++argn;
@@ -148,17 +158,18 @@ bool imbueInput(int& argn, int argc, const char* argv[])
     return false;
 
   std::string cvt(argv[argn]);
+
   if(cvt == "rot13")
-    iByteConvertor.imbue(std::locale(iByteConvertor.getloc(), new rot13codecvt()));
+    iByteConvertor.imbue(addFacet(iByteConvertor.getloc(), new rot13codecvt()));
   else if(cvt == "base64")
-    iByteConvertor.imbue(std::locale(iByteConvertor.getloc(), new base64codecvt()));
+    iByteConvertor.imbue(addFacet(iByteConvertor.getloc(), new base64codecvt()));
 #ifndef ARABICA_NO_WCHAR_T
   else if(cvt == "utf8")
-    iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf8ucs2codecvt()));
+    iCharAdaptor.imbue(addFacet(iCharAdaptor.getloc(), new utf8ucs2codecvt()));
   else if(cvt == "utf16be")
-    iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf16beucs2codecvt()));
+    iCharAdaptor.imbue(addFacet(iCharAdaptor.getloc(), new utf16beucs2codecvt()));
   else if(cvt == "utf16le")
-    iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf16leucs2codecvt()));
+    iCharAdaptor.imbue(addFacet(iCharAdaptor.getloc(), new utf16leucs2codecvt()));
 #endif
   else
   {
@@ -175,7 +186,7 @@ bool imbueInput(int& argn, int argc, const char* argv[])
 
   return true;
 } // imbueInput
-  
+
 bool imbueOutput(int& argn, int argc, const char* argv[])
 {
   ++argn;
@@ -184,16 +195,16 @@ bool imbueOutput(int& argn, int argc, const char* argv[])
 
   std::string cvt(argv[argn]);
   if(cvt == "rot13")
-    oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new rot13codecvt()));
+    oByteConvertor.imbue(addFacet(oByteConvertor.getloc(), new rot13codecvt()));
   else if(cvt == "base64")
-    oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new base64codecvt()));
+    oByteConvertor.imbue(addFacet(oByteConvertor.getloc(), new base64codecvt()));
 #ifndef ARABICA_NO_WCHAR_T
   else if(cvt == "utf8")
-    oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf8ucs2codecvt()));
+    oCharAdaptor.imbue(addFacet(oCharAdaptor.getloc(), new utf8ucs2codecvt()));
   else if(cvt == "utf16be")
-    oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16beucs2codecvt()));
+    oCharAdaptor.imbue(addFacet(oCharAdaptor.getloc(), new utf16beucs2codecvt()));
   else if(cvt == "utf16le")
-    oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16leucs2codecvt()));
+    oCharAdaptor.imbue(addFacet(oCharAdaptor.getloc(), new utf16leucs2codecvt()));
 #endif
   else 
   {
