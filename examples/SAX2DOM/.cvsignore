@@ -5,3 +5,7 @@ core
 *.a
 .depend
 sax2dom_test
+*.dep
+*.plg
+Debug
+Release
