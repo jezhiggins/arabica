@@ -292,8 +292,13 @@ bool basic_Writer<string_type>::isDtd(const string_type& name)
      name[4] == UnicodeT::RIGHT_SQUARE_BRACKET);
 } // isDtd
 
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
 template<class string_type>
 std::auto_ptr<typename basic_Writer<string_type>::PropertyBase> basic_Writer<string_type>::doGetProperty(const string_type& name)
+#else
+template<class string_type>
+std::auto_ptr<basic_Writer<string_type>::PropertyBase> basic_Writer<string_type>::doGetProperty(const string_type& name)
+#endif
 {
   if(name == properties_.lexicalHandler)
   {
@@ -305,8 +310,13 @@ std::auto_ptr<typename basic_Writer<string_type>::PropertyBase> basic_Writer<str
   return XMLFilterT::doGetProperty(name);
 } // doGetProperty
 
+#if !(defined _MSC_VER) || !(_MSC_VER < 1300)
 template<class string_type>
 void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<typename basic_Writer<string_type>::PropertyBase> value)
+#else
+template<class string_type>
+void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<basic_Writer<string_type>::PropertyBase> value)
+#endif
 {
   if(name == properties_.lexicalHandler)
   {

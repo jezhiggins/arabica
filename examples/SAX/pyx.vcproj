@@ -26,7 +26,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\pyx___Win32_Debug/pyx.pch"
 				AssemblerListingLocation=".\pyx___Win32_Debug/"
 				ObjectFile=".\pyx___Win32_Debug/"
@@ -40,11 +40,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib wsock32.lib"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile=".\..\..\bin/pyx.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="..\..\lib,\work\lib\vc6"
+				AdditionalLibraryDirectories="..\..\lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\..\bin/pyx.pdb"
 				SubSystem="1"/>
@@ -68,7 +68,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\..\bin"
+			OutputDirectory=".\..\..\bin"
 			IntermediateDirectory=".\Release"
 			ConfigurationType="1"
 			UseOfMFC="0"
@@ -77,13 +77,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\SAXExpat,..\SAXlibxml,..\SAX,..\"
+				AdditionalIncludeDirectories="..\..\"
 				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Release/pyx.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
@@ -96,7 +96,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile=".\..\bin/pyx.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"

@@ -43,7 +43,7 @@ CXXFLAGS += -O2
 LDFLAGS  += -O2
 
 # edit for your parser choice - may include more than one
-PARSER_CONFIG = -DUSE_EXPAT
+PARSER_CONFIG = -DUSE_LIBXML2
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 # Includes and library directories 

@@ -53,7 +53,7 @@ INCS_DIRS = -I../..
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -L../../bin -lSAX -lexpat
+DYNAMIC_LIBS = -L../../bin -lSAX -lxml2
 
 CXXFLAGS += ${INCS_DIRS}
 LDFLAGS += ${DYNAMIC_LIBS}

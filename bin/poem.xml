@@ -1,9 +1,8 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <poem>
-<line>Roses are red,</line>
-<line>Violets are blue.</line>
-<line>Sugar is sweet,</line>
-<line>and I love you.</line>
-<line><![CDATA[ And I am CDATA ]]></line>
+	<line>Roses are red,</line>
+	<line>Violets are blue.</line>
+	<line>Sugar is õ sweet,</line>
+	<line>and I love you.</line>
+	<line><![CDATA[ And I am CDATA ]]></line>
 </poem>
-
