@@ -13,6 +13,7 @@
 #include <map>
 #include <SAX/helpers/FeatureNames.h>
 #include <SAX/helpers/PropertyNames.h>
+#include <SAX/SAXParseException.h>
 
 namespace SAX2DOM
 {
@@ -39,7 +40,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     void setEntityResolver(EntityResolverT& resolver) { entityResolver_ = &resolver; }
     EntityResolverT* getEntityResolver() const { return entityResolver_; }
 
-    void setErrorHandler(ErrorHandlerT& handler) { errorHandler_ = &errorHandler; }
+    void setErrorHandler(ErrorHandlerT& handler) { errorHandler_ = &handler; }
     ErrorHandlerT* getErrorHandler() const { return errorHandler_; }
 
     bool parse(const stringT& systemId)
@@ -76,7 +77,20 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       parser.setFeature(fNames.namespace_prefixes, true);
       //parser.setFeature(fNames.external_general, true);
 
-      parser.parse(source);
+      try 
+      {
+        parser.parse(source);
+      }
+      catch(const DOM::DOMException& de)
+      {
+        document_ = 0;
+
+        if(errorHandler_)
+        {
+          SAXParseExceptionT pe(de.what());
+          errorHandler_->fatalError(pe);
+        } // if ...
+      } // catch
 
       return (document_ != 0);
     } // loadDOM
@@ -104,7 +118,6 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     DOM::Node<stringT> currentNode_;
     DOM::Node<stringT> cachedCurrent_;
 
-    std::string lastError_;
     bool inCDATA_;
     int inEntity_;
     string_adaptorT SA_;
@@ -128,14 +141,27 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       if(currentNode_ == 0)
         return;
 
-      DOM::Element<stringT> elem = document_.createElementNS(namespaceURI, qName);
-      currentNode_.appendChild(elem);
+      try 
+      {
+        DOM::Element<stringT> elem = document_.createElementNS(namespaceURI, qName);
+        currentNode_.appendChild(elem);
 
-      // attributes here
-      for(int i = 0; i < atts.getLength(); ++i)
-        elem.setAttributeNS(atts.getURI(i), atts.getQName(i), atts.getValue(i));
+        // attributes here
+        for(int i = 0; i < atts.getLength(); ++i)
+          elem.setAttributeNS(atts.getURI(i), atts.getQName(i), atts.getValue(i));
 
-      currentNode_ = elem;
+        currentNode_ = elem;
+      }
+      catch(const DOM::DOMException& de)
+      {
+        reset();
+
+        if(errorHandler_)
+        {
+          SAXParseExceptionT pe(de.what());
+          errorHandler_->fatalError(pe);
+        } // if ...
+      } // catch
     } // startElement
 
     virtual void endElement(const stringT& namespaceURI, const stringT& localName,
