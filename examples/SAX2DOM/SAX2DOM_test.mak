@@ -1,20 +1,20 @@
 # Microsoft Developer Studio Generated NMAKE File, Based on SAX2DOM_test.dsp
 !IF "$(CFG)" == ""
-CFG=SAX2DOM_test - Win32 Debug
-!MESSAGE No configuration specified. Defaulting to SAX2DOM_test - Win32 Debug.
+CFG=example_SAX2DOMTests - Win32 Debug
+!MESSAGE No configuration specified. Defaulting to example_SAX2DOMTests - Win32 Debug.
 !ENDIF 
 
-!IF "$(CFG)" != "SAX2DOM_test - Win32 Release" && "$(CFG)" != "SAX2DOM_test - Win32 Debug"
+!IF "$(CFG)" != "example_SAX2DOMTests - Win32 Release" && "$(CFG)" != "example_SAX2DOMTests - Win32 Debug"
 !MESSAGE Invalid configuration "$(CFG)" specified.
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "SAX2DOM_test.mak" CFG="SAX2DOM_test - Win32 Debug"
+!MESSAGE NMAKE /f "SAX2DOM_test.mak" CFG="example_SAX2DOMTests - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "SAX2DOM_test - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "SAX2DOM_test - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "example_SAX2DOMTests - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "example_SAX2DOMTests - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 !ERROR An invalid configuration is specified.
 !ENDIF 
@@ -28,12 +28,12 @@ NULL=nul
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "SAX2DOM_test - Win32 Release"
+!IF  "$(CFG)" == "example_SAX2DOMTests - Win32 Release"
 
-OUTDIR=.\Release
+OUTDIR=.\..\..\bin
 INTDIR=.\Release
 # Begin Custom Macros
-OutDir=.\Release
+OutDir=.\..\..\bin
 # End Custom Macros
 
 !IF "$(RECURSE)" == "0" 
@@ -42,12 +42,12 @@ ALL : "$(OUTDIR)\SAX2DOM_test.exe"
 
 !ELSE 
 
-ALL : "SAXlib - Win32 Release" "DOM - Win32 Release" "$(OUTDIR)\SAX2DOM_test.exe"
+ALL : "ArabicaLib - Win32 Release" "$(OUTDIR)\SAX2DOM_test.exe"
 
 !ENDIF 
 
 !IF "$(RECURSE)" == "1" 
-CLEAN :"DOM - Win32 ReleaseCLEAN" "SAXlib - Win32 ReleaseCLEAN" 
+CLEAN :"ArabicaLib - Win32 ReleaseCLEAN" 
 !ELSE 
 CLEAN :
 !ENDIF 
@@ -72,7 +72,10 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /ML /W3 /GX /O2 /I "..\..\\" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\SAX2DOM_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+"$(INTDIR)" :
+    if not exist "$(INTDIR)/$(NULL)" mkdir "$(INTDIR)"
+
+CPP_PROJ=/nologo /ML /W3 /GR /GX /O2 /I "..\..\\" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\SAX2DOM_test.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\SAX2DOM_test.bsc" 
 BSC32_SBRS= \
@@ -95,16 +98,14 @@ LINK32_OBJS= \
 	"$(INTDIR)\TestResult.obj" \
 	"$(INTDIR)\TestSuite.obj" \
 	"$(INTDIR)\TextTestResult.obj" \
-	"..\..\lib\SAX.lib" \
-	"..\..\lib\Utilities.lib" \
-	"..\..\SAX\Release\SAX.lib"
+	"..\..\lib\Arabica.lib"
 
 "$(OUTDIR)\SAX2DOM_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(LINK32_OBJS)
 <<
 
-!ELSEIF  "$(CFG)" == "SAX2DOM_test - Win32 Debug"
+!ELSEIF  "$(CFG)" == "example_SAX2DOMTests - Win32 Debug"
 
 OUTDIR=.\..\..\bin
 INTDIR=.\Debug
@@ -118,12 +119,12 @@ ALL : "$(OUTDIR)\SAX2DOM_test.exe"
 
 !ELSE 
 
-ALL : "SAXlib - Win32 Debug" "DOM - Win32 Debug" "$(OUTDIR)\SAX2DOM_test.exe"
+ALL : "ArabicaLib - Win32 Debug" "$(OUTDIR)\SAX2DOM_test.exe"
 
 !ENDIF 
 
 !IF "$(RECURSE)" == "1" 
-CLEAN :"DOM - Win32 DebugCLEAN" "SAXlib - Win32 DebugCLEAN" 
+CLEAN :"ArabicaLib - Win32 DebugCLEAN" 
 !ELSE 
 CLEAN :
 !ENDIF 
@@ -177,8 +178,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\TestResult.obj" \
 	"$(INTDIR)\TestSuite.obj" \
 	"$(INTDIR)\TextTestResult.obj" \
-	"..\..\lib\SAX.lib" \
-	"..\..\lib\Utilities.lib"
+	"..\..\lib\Arabica.lib"
 
 "$(OUTDIR)\SAX2DOM_test.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -227,7 +227,7 @@ LINK32_OBJS= \
 !ENDIF 
 
 
-!IF "$(CFG)" == "SAX2DOM_test - Win32 Release" || "$(CFG)" == "SAX2DOM_test - Win32 Debug"
+!IF "$(CFG)" == "example_SAX2DOMTests - Win32 Release" || "$(CFG)" == "example_SAX2DOMTests - Win32 Debug"
 SOURCE=.\main.cpp
 
 "$(INTDIR)\main.obj" : $(SOURCE) "$(INTDIR)"
@@ -308,54 +308,28 @@ SOURCE=.\CppUnit\textui\TextTestResult.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-!IF  "$(CFG)" == "SAX2DOM_test - Win32 Release"
+!IF  "$(CFG)" == "example_SAX2DOMTests - Win32 Release"
 
-"DOM - Win32 Release" : 
-   cd "\work\JezUK\Arabica\src\DOM"
-   $(MAKE) /$(MAKEFLAGS) /F .\DOM.mak CFG="DOM - Win32 Release" 
-   cd "..\EXAMPLES\SAX2DOM"
-
-"DOM - Win32 ReleaseCLEAN" : 
-   cd "\work\JezUK\Arabica\src\DOM"
-   $(MAKE) /$(MAKEFLAGS) /F .\DOM.mak CFG="DOM - Win32 Release" RECURSE=1 CLEAN 
-   cd "..\EXAMPLES\SAX2DOM"
-
-!ELSEIF  "$(CFG)" == "SAX2DOM_test - Win32 Debug"
-
-"DOM - Win32 Debug" : 
-   cd "\work\JezUK\Arabica\src\DOM"
-   $(MAKE) /$(MAKEFLAGS) /F .\DOM.mak CFG="DOM - Win32 Debug" 
-   cd "..\EXAMPLES\SAX2DOM"
-
-"DOM - Win32 DebugCLEAN" : 
-   cd "\work\JezUK\Arabica\src\DOM"
-   $(MAKE) /$(MAKEFLAGS) /F .\DOM.mak CFG="DOM - Win32 Debug" RECURSE=1 CLEAN 
-   cd "..\EXAMPLES\SAX2DOM"
-
-!ENDIF 
-
-!IF  "$(CFG)" == "SAX2DOM_test - Win32 Release"
-
-"SAXlib - Win32 Release" : 
+"ArabicaLib - Win32 Release" : 
    cd "\work\JezUK\Arabica\src\SAX"
-   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" 
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="ArabicaLib - Win32 Release" 
    cd "..\EXAMPLES\SAX2DOM"
 
-"SAXlib - Win32 ReleaseCLEAN" : 
+"ArabicaLib - Win32 ReleaseCLEAN" : 
    cd "\work\JezUK\Arabica\src\SAX"
-   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" RECURSE=1 CLEAN 
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="ArabicaLib - Win32 Release" RECURSE=1 CLEAN 
    cd "..\EXAMPLES\SAX2DOM"
 
-!ELSEIF  "$(CFG)" == "SAX2DOM_test - Win32 Debug"
+!ELSEIF  "$(CFG)" == "example_SAX2DOMTests - Win32 Debug"
 
-"SAXlib - Win32 Debug" : 
+"ArabicaLib - Win32 Debug" : 
    cd "\work\JezUK\Arabica\src\SAX"
-   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" 
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="ArabicaLib - Win32 Debug" 
    cd "..\EXAMPLES\SAX2DOM"
 
-"SAXlib - Win32 DebugCLEAN" : 
+"ArabicaLib - Win32 DebugCLEAN" : 
    cd "\work\JezUK\Arabica\src\SAX"
-   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" RECURSE=1 CLEAN 
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="ArabicaLib - Win32 Debug" RECURSE=1 CLEAN 
    cd "..\EXAMPLES\SAX2DOM"
 
 !ENDIF 

@@ -1,20 +1,20 @@
 # Microsoft Developer Studio Generated NMAKE File, Based on SimpleHandler.dsp
 !IF "$(CFG)" == ""
-CFG=SimpleHandler - Win32 Debug
-!MESSAGE No configuration specified. Defaulting to SimpleHandler - Win32 Debug.
+CFG=example_SAXSimpleHandler - Win32 Debug
+!MESSAGE No configuration specified. Defaulting to example_SAXSimpleHandler - Win32 Debug.
 !ENDIF 
 
-!IF "$(CFG)" != "SimpleHandler - Win32 Release" && "$(CFG)" != "SimpleHandler - Win32 Debug"
+!IF "$(CFG)" != "example_SAXSimpleHandler - Win32 Release" && "$(CFG)" != "example_SAXSimpleHandler - Win32 Debug"
 !MESSAGE Invalid configuration "$(CFG)" specified.
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "SimpleHandler.mak" CFG="SimpleHandler - Win32 Debug"
+!MESSAGE NMAKE /f "SimpleHandler.mak" CFG="example_SAXSimpleHandler - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "SimpleHandler - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "SimpleHandler - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "example_SAXSimpleHandler - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "example_SAXSimpleHandler - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 !ERROR An invalid configuration is specified.
 !ENDIF 
@@ -28,12 +28,12 @@ NULL=nul
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "SimpleHandler - Win32 Release"
+!IF  "$(CFG)" == "example_SAXSimpleHandler - Win32 Release"
 
-OUTDIR=.\..\bin
+OUTDIR=.\..\..\bin
 INTDIR=.\Release
 # Begin Custom Macros
-OutDir=.\..\bin
+OutDir=.\..\..\bin
 # End Custom Macros
 
 !IF "$(RECURSE)" == "0" 
@@ -42,12 +42,12 @@ ALL : "$(OUTDIR)\SimpleHandler.exe"
 
 !ELSE 
 
-ALL : "Utilities - Win32 Release" "SAXlib - Win32 Release" "$(OUTDIR)\SimpleHandler.exe"
+ALL : "ArabicaLib - Win32 Release" "$(OUTDIR)\SimpleHandler.exe"
 
 !ENDIF 
 
 !IF "$(RECURSE)" == "1" 
-CLEAN :"SAXlib - Win32 ReleaseCLEAN" "Utilities - Win32 ReleaseCLEAN" 
+CLEAN :"ArabicaLib - Win32 ReleaseCLEAN" 
 !ELSE 
 CLEAN :
 !ENDIF 
@@ -62,7 +62,7 @@ CLEAN :
 "$(INTDIR)" :
     if not exist "$(INTDIR)/$(NULL)" mkdir "$(INTDIR)"
 
-CPP_PROJ=/nologo /ML /W3 /GR /GX /O2 /I "..\SAX" /I "..\SAXExpat" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\SimpleHandler.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /ML /W3 /GR /GX /O2 /I "..\..\\" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\SimpleHandler.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\SimpleHandler.bsc" 
 BSC32_SBRS= \
@@ -72,15 +72,14 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 LINK32_OBJS= \
 	"$(INTDIR)\SimpleHandler.obj" \
 	"$(INTDIR)\wrapper.obj" \
-	"..\..\SAX\Release\SAX.lib" \
-	"..\..\Utils\Release\Utilities.lib"
+	"..\..\lib\Arabica.lib"
 
 "$(OUTDIR)\SimpleHandler.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
   $(LINK32_FLAGS) $(LINK32_OBJS)
 <<
 
-!ELSEIF  "$(CFG)" == "SimpleHandler - Win32 Debug"
+!ELSEIF  "$(CFG)" == "example_SAXSimpleHandler - Win32 Debug"
 
 OUTDIR=.\..\..\bin
 INTDIR=.\Debug
@@ -94,12 +93,12 @@ ALL : "$(OUTDIR)\SimpleHandler.exe" "$(OUTDIR)\SimpleHandler.bsc"
 
 !ELSE 
 
-ALL : "Utilities - Win32 Debug" "SAXlib - Win32 Debug" "$(OUTDIR)\SimpleHandler.exe" "$(OUTDIR)\SimpleHandler.bsc"
+ALL : "ArabicaLib - Win32 Debug" "$(OUTDIR)\SimpleHandler.exe" "$(OUTDIR)\SimpleHandler.bsc"
 
 !ENDIF 
 
 !IF "$(RECURSE)" == "1" 
-CLEAN :"SAXlib - Win32 DebugCLEAN" "Utilities - Win32 DebugCLEAN" 
+CLEAN :"ArabicaLib - Win32 DebugCLEAN" 
 !ELSE 
 CLEAN :
 !ENDIF 
@@ -137,8 +136,7 @@ LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi3
 LINK32_OBJS= \
 	"$(INTDIR)\SimpleHandler.obj" \
 	"$(INTDIR)\wrapper.obj" \
-	"..\..\lib\SAX.lib" \
-	"..\..\lib\Utilities.lib"
+	"..\..\lib\Arabica.lib"
 
 "$(OUTDIR)\SimpleHandler.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -187,16 +185,16 @@ LINK32_OBJS= \
 !ENDIF 
 
 
-!IF "$(CFG)" == "SimpleHandler - Win32 Release" || "$(CFG)" == "SimpleHandler - Win32 Debug"
+!IF "$(CFG)" == "example_SAXSimpleHandler - Win32 Release" || "$(CFG)" == "example_SAXSimpleHandler - Win32 Debug"
 SOURCE=.\SimpleHandler.cpp
 
-!IF  "$(CFG)" == "SimpleHandler - Win32 Release"
+!IF  "$(CFG)" == "example_SAXSimpleHandler - Win32 Release"
 
 
 "$(INTDIR)\SimpleHandler.obj" : $(SOURCE) "$(INTDIR)"
 
 
-!ELSEIF  "$(CFG)" == "SimpleHandler - Win32 Debug"
+!ELSEIF  "$(CFG)" == "example_SAXSimpleHandler - Win32 Debug"
 
 
 "$(INTDIR)\SimpleHandler.obj"	"$(INTDIR)\SimpleHandler.sbr" : $(SOURCE) "$(INTDIR)"
@@ -206,13 +204,13 @@ SOURCE=.\SimpleHandler.cpp
 
 SOURCE=.\wrapper.cpp
 
-!IF  "$(CFG)" == "SimpleHandler - Win32 Release"
+!IF  "$(CFG)" == "example_SAXSimpleHandler - Win32 Release"
 
 
 "$(INTDIR)\wrapper.obj" : $(SOURCE) "$(INTDIR)"
 
 
-!ELSEIF  "$(CFG)" == "SimpleHandler - Win32 Debug"
+!ELSEIF  "$(CFG)" == "example_SAXSimpleHandler - Win32 Debug"
 
 
 "$(INTDIR)\wrapper.obj"	"$(INTDIR)\wrapper.sbr" : $(SOURCE) "$(INTDIR)"
@@ -220,54 +218,28 @@ SOURCE=.\wrapper.cpp
 
 !ENDIF 
 
-!IF  "$(CFG)" == "SimpleHandler - Win32 Release"
+!IF  "$(CFG)" == "example_SAXSimpleHandler - Win32 Release"
 
-"SAXlib - Win32 Release" : 
+"ArabicaLib - Win32 Release" : 
    cd "\work\JezUK\Arabica\src\SAX"
-   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" 
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="ArabicaLib - Win32 Release" 
    cd "..\examples\SAX"
 
-"SAXlib - Win32 ReleaseCLEAN" : 
+"ArabicaLib - Win32 ReleaseCLEAN" : 
    cd "\work\JezUK\Arabica\src\SAX"
-   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Release" RECURSE=1 CLEAN 
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="ArabicaLib - Win32 Release" RECURSE=1 CLEAN 
    cd "..\examples\SAX"
 
-!ELSEIF  "$(CFG)" == "SimpleHandler - Win32 Debug"
+!ELSEIF  "$(CFG)" == "example_SAXSimpleHandler - Win32 Debug"
 
-"SAXlib - Win32 Debug" : 
+"ArabicaLib - Win32 Debug" : 
    cd "\work\JezUK\Arabica\src\SAX"
-   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" 
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="ArabicaLib - Win32 Debug" 
    cd "..\examples\SAX"
 
-"SAXlib - Win32 DebugCLEAN" : 
+"ArabicaLib - Win32 DebugCLEAN" : 
    cd "\work\JezUK\Arabica\src\SAX"
-   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="SAXlib - Win32 Debug" RECURSE=1 CLEAN 
-   cd "..\examples\SAX"
-
-!ENDIF 
-
-!IF  "$(CFG)" == "SimpleHandler - Win32 Release"
-
-"Utilities - Win32 Release" : 
-   cd "\work\JezUK\Arabica\src\Utils"
-   $(MAKE) /$(MAKEFLAGS) /F .\Utilities.mak CFG="Utilities - Win32 Release" 
-   cd "..\examples\SAX"
-
-"Utilities - Win32 ReleaseCLEAN" : 
-   cd "\work\JezUK\Arabica\src\Utils"
-   $(MAKE) /$(MAKEFLAGS) /F .\Utilities.mak CFG="Utilities - Win32 Release" RECURSE=1 CLEAN 
-   cd "..\examples\SAX"
-
-!ELSEIF  "$(CFG)" == "SimpleHandler - Win32 Debug"
-
-"Utilities - Win32 Debug" : 
-   cd "\work\JezUK\Arabica\src\Utils"
-   $(MAKE) /$(MAKEFLAGS) /F .\Utilities.mak CFG="Utilities - Win32 Debug" 
-   cd "..\examples\SAX"
-
-"Utilities - Win32 DebugCLEAN" : 
-   cd "\work\JezUK\Arabica\src\Utils"
-   $(MAKE) /$(MAKEFLAGS) /F .\Utilities.mak CFG="Utilities - Win32 Debug" RECURSE=1 CLEAN 
+   $(MAKE) /$(MAKEFLAGS) /F .\SAX.mak CFG="ArabicaLib - Win32 Debug" RECURSE=1 CLEAN 
    cd "..\examples\SAX"
 
 !ENDIF 
