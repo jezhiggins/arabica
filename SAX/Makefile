@@ -16,38 +16,23 @@ CXX = gcc
 # preprocessor
 CPP = gcc -E
 # linker
-LD = ld
-
-
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
-# Compile and link flags...
-#
-# -c 		Produce object code.
-# -Wall		Max warning level.
-# -Werror	Treat warnings as errors.
-# -O2 		Turn on medium optimisations.
-# -g            Add debug information.
-# -D            Define symbolic constant.
-# -fPIC         Generate position independent code. 
-# -shared       Produce a sharable object.
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
+LD = gcc
+# archiver
+AR = ar r
 
 ifeq ($(OS_VER),SunOS)
 CXXFLAGS = -Wall -pthreads -fpic
 else
-CXXFLAGS = -Wall
+CXXFLAGS += -Wall
 endif
 
 LDFLAGS = -shared 
-CCDEPFLAGS = -E -M
 
 # Uncomment for optimisations
 CXXFLAGS += -O2
 LDFLAGS  += -O2
 
-# edit for your parser choice - may include more than one
+# edit for your parser choice - may include more than one USE_*
 PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
@@ -60,6 +45,8 @@ STATIC_LIBS =
 DYNAMIC_LIBS = -lstdc++
 
 CXXFLAGS += $(INCS_DIRS)
+LDFLAGS += $(LIBS_DIRS)
+LDFLAGS += $(STATIC_LIBS)
 LDFLAGS += $(DYNAMIC_LIBS)
 
 #/////////////////////////////////////////////////////////////////////////
@@ -80,64 +67,45 @@ SRCS =  saxlib.cpp \
 	../Utils/impl/ucs2_utf8.cpp \
 	../XML/XMLCharacterClasses.cpp
 
-
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
 
 
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
-
+##########################
 # High level rules
-
 all : libArabica.so.1 libArabica.a 
 
-libArabica.so.1 : $(OBJS)
+libArabica.so.1 : $(OBJS) 
 	$(LD) $(LDFLAGS) -o $@ $(OBJS)
 	$(COPY) libArabica.so.1 ../bin
 	(cd ../bin; $(REMOVE) libArabica.so; $(LINK) libArabica.so.1 libArabica.so)
 
 libArabica.a : $(OBJS)
-	ar r $@ $(OBJS)
+	$(AR) $@ $(OBJS)
 	$(COPY) libArabica.a ../bin
 
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
-
+######################
 # Compile rules
-saxlib.cpp : ParserConfig.S saxlib.S ArabicaConfig.S
-	$(CPP) $(PARSER_CONFIG) -o ArabicaConfig.h ArabicaConfig.S
-	$(CPP) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
+####
+# the .S files depends on symbols defined in this Makefile, hence
+# this slightly wacky rule
+saxlib.cpp : Makefile ParserConfig.h ArabicaConfig.h
 	$(CPP) $(PARSER_CONFIG) -o saxlib.cpp saxlib.S 
 
+ParserConfig.h : Makefile
+	$(CPP) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
+
+ArabicaConfig.h : Makefile
+	$(CPP) $(PARSER_CONFIG) -o ArabicaConfig.h ArabicaConfig.S
 
 %.o : %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
+%.cpp : ArabicaConfig.h ParserConfig.h
 
-# Dependencies
-
-depend : .depend
-
-.depend ::
-	$(COMPILE.cc) $(CCDEPFLAGS) $(SRCS) > .depend
-
--include .depend
-
-
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
-
+#############################################
 # Cleaning up
-
 clean :
-	$(REMOVE) .depend *.o helpers/*.o wrappers/*.o ../Utils/*.o ../Utils/impl/*.o ../XML/*.o libArabica*  *~ helpers/*~ core ../bin/libArabica* saxlib.cpp ParserConfig.h ArabicaConfig.h
-
-
-
-#/////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////
+	$(REMOVE) *.o helpers/*.o wrappers/*.o ../Utils/*.o ../Utils/impl/*.o ../XML/*.o libArabica*  ../bin/libArabica* saxlib.cpp ParserConfig.h ArabicaConfig.h
 
 # End of File
