@@ -23,6 +23,10 @@ WRITER_SRCS = writer.cpp
 WRITER_HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(WRITER_SRCS)))
 WRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(WRITER_SRCS)))
 
+XMLBASE_SRC = xmlbase.cpp
+XMLBASE_HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(XMLBASE_SRCS)))
+XMLBASE_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(XMLBASE_SRCS)))
+
 ######################################
 # High level rules
 all : pyx simple_handler writer
@@ -39,6 +43,10 @@ writer : $(WRITER_OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(WRITER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) writer$(EXESUFFIX) ../../bin
 
+xmlbase : $(XMLBASE_OBJS)
+	$(LD) $(LDFLAGS) -o $@ $(XMLBASE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) xmlbase$(EXESUFFIX) ../../bin
+
 ######################
 # Compile rules
 ####
@@ -53,6 +61,8 @@ clean :
 		../../bin/pyx$(EXESUFFIX) \
 		writer$(EXESUFFIX) \
 		../../bin/writer$(EXESUFFIX) \
+		xmlbase$(EXESUFFIX) \
+		../../bin/xmlbase$(EXESUFFIX) \
 		simple_handler$(EXESUFFIX) \
 		../../bin/simple_handler$(EXESUFFIX)
 
