@@ -47,6 +47,7 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
   public:
     typedef typename traitsT::int_type int_type;
 
+#ifndef ARABICA_VS6_WORKAROUND
     using std::basic_streambuf<charT, traitsT>::setp;
     using std::basic_streambuf<charT, traitsT>::setg;
     using std::basic_streambuf<charT, traitsT>::underflow;
@@ -55,6 +56,7 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
     using std::basic_streambuf<charT, traitsT>::egptr;
     using std::basic_streambuf<charT, traitsT>::eback;
     using std::basic_streambuf<charT, traitsT>::pptr;
+#endif 
 
     basic_socketbuf();
     virtual ~basic_socketbuf();
@@ -336,8 +338,10 @@ template<class charT, class traitsT>
 class basic_socketstream : public std::basic_iostream<charT, traitsT>
 {
   public:
+#ifndef ARABICA_VS6_WORKAROUND
     using std::basic_iostream<charT, traitsT>::setstate;
     using std::basic_iostream<charT, traitsT>::badbit;
+#endif 
 
     basic_socketstream();
     explicit basic_socketstream(const char* hostname, int port);
