@@ -141,13 +141,11 @@ private:
   stringT no_conversion(const fromStringT& str)
   {
     stringT dest;
-#ifndef ARABICA_VS6_WORKAROUND
-    std::copy(str.begin(), str.end(), std::back_inserter(dest));
-#else
-    // hack around pre-Standard library
-    for(typename fromStringT::const_iterator i = str.begin(); i != str.end(); ++i)
-      dest += static_cast<charT>(*i);
-#endif
+
+    std::back_insert_iterator<stringT> id(dest);
+    for(typename fromStringT::const_iterator i = str.begin(); i != str.end(); ++i, ++id)
+      *id = static_cast<charT>(*i);
+
     return dest;
   } // no_conversion
 
@@ -248,12 +246,11 @@ private:
   toStringT no_conversion(const stringT& str)
   {
     toStringT dest;
-#ifndef ARABICA_VS6_WORKAROUND
-    std::copy(str.begin(), str.end(), std::back_inserter(dest));
-#else
-    for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i)
-      dest += static_cast<toCharT>(*i);
-#endif
+
+    std::back_insert_iterator<toStringT> id(dest);
+    for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i, ++id)
+      *id = static_cast<toCharT>(*i);
+
     return dest;
   } // no_conversion
 
