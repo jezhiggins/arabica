@@ -4,6 +4,8 @@
 #ifndef CPPUNIT_ESTRING_H
 #define CPPUNIT_ESTRING_H
 
+#include <stdio.h>
+
 
 // Create a string from a const char pointer
 inline std::string estring (const char *cstring)
