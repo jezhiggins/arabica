@@ -16,7 +16,7 @@
 
 #include <SAX/helpers/DefaultHandler.h>
 #include <SAX/InputSource.h>
-#include <SAX/wrappers/saxexpat.h>
+#include <SAX/XMLReader.h>
 #include <iostream>
 
 class SAX2PYX : public SAX::DefaultHandler
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 
 	for(int i = 1; i < argc; ++i)
 	{
-    SAX::expat_wrapper<std::string> myParser;
+    SAX::XMLReader<std::string> myParser;
 		myParser.setContentHandler(handler);
 		myParser.setErrorHandler(handler);
 
