@@ -244,7 +244,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
     virtual ~NodeImplWithChildren() 
     { 
-      for(NodeListT::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
+      for(typename NodeListT::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
         delete (*i);
     } // ~NodeImpl
 
@@ -380,7 +380,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       } // if ...
 
       checkCanAdd(newChild);
-      std::deque<NodeImpl<stringT, string_adaptorT>*>::iterator result = findChild(oldChild);
+      typename std::deque<NodeImpl<stringT, string_adaptorT>*>::iterator result = findChild(oldChild);
       removeIfRequired(newChild);
       *result = newChild;
       newChild->setParentNode(this);
@@ -434,9 +434,9 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
   private:
     typedef std::deque<NodeImpl<stringT, string_adaptorT>*> NodeListT;
 
-    NodeListT::iterator findChild(NodeImpl<stringT, string_adaptorT>* refChild)
+    typename NodeListT::iterator findChild(NodeImpl<stringT, string_adaptorT>* refChild)
     {
-      NodeListT::iterator result = std::find(nodes_.begin(), nodes_.end(), refChild);
+      typename NodeListT::iterator result = std::find(nodes_.begin(), nodes_.end(), refChild);
       if(result == nodes_.end())
         throw DOM::DOMException(DOM::DOMException::NOT_FOUND_ERR);
       return result;

@@ -36,7 +36,7 @@ class EntityImpl : public DOM::Entity_impl<stringT>,
 
     ///////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual DOM::Node<stringT>::Type getNodeType() const
+    virtual typename DOM::Node<stringT>::Type getNodeType() const
     {
       return DOM::Node<stringT>::ENTITY_NODE;
     } // getNodeType
@@ -46,7 +46,7 @@ class EntityImpl : public DOM::Entity_impl<stringT>,
       return name_;
     } // getNodeName
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual typename DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
       EntityImpl* clone = new EntityImpl(ownerDoc_, name_, publicId_, systemId_, notationName_);
       if(deep)
@@ -64,7 +64,7 @@ class EntityImpl : public DOM::Entity_impl<stringT>,
     ///////////////////////////////////////////////
     virtual void checkChildType(DOM::Node_impl<stringT>* child)
     {
-      DOM::Node<stringT>::Type type = child->getNodeType();
+      typename DOM::Node<stringT>::Type type = child->getNodeType();
       if((type != DOM::Node<stringT>::ELEMENT_NODE) && 
          (type != DOM::Node<stringT>::PROCESSING_INSTRUCTION_NODE) && 
          (type != DOM::Node<stringT>::COMMENT_NODE) && 

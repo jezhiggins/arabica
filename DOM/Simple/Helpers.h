@@ -12,7 +12,7 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
                                                 const stringT& prefix, 
                                                 bool hasNamespaceURI, 
                                                 const stringT& namespaceURI, 
-                                                DOM::Node<stringT>::Type nodeType)
+                                                typename DOM::Node<stringT>::Type nodeType)
 {
   string_adaptorT SA;
   const stringT xml = SA.makeStringT("xml");

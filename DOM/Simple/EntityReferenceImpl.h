@@ -50,7 +50,7 @@ class EntityReferenceImpl : public DOM::EntityReference_impl<stringT>,
       if(readOnly_)
         throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR);
 
-      DOM::Node<stringT>::Type type = child->getNodeType();
+      typename DOM::Node<stringT>::Type type = child->getNodeType();
       if((type != DOM::Node<stringT>::ELEMENT_NODE) && 
          (type != DOM::Node<stringT>::PROCESSING_INSTRUCTION_NODE) && 
          (type != DOM::Node<stringT>::COMMENT_NODE) && 

@@ -56,7 +56,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
     /////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual DOM::Node<stringT>::Type getNodeType() const
+    virtual typename DOM::Node<stringT>::Type getNodeType() const
     {
       return DOM::Node<stringT>::ATTRIBUTE_NODE;
     } // getNodeType
@@ -129,7 +129,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
   private:
     virtual void checkChildType(DOM::Node_impl<stringT>* child)
     {
-      DOM::Node<stringT>::Type type = child->getNodeType();
+      typename DOM::Node<stringT>::Type type = child->getNodeType();
       if((type != DOM::Node<stringT>::TEXT_NODE) && 
          (type != DOM::Node<stringT>::ENTITY_REFERENCE_NODE)) 
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);

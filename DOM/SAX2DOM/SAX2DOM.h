@@ -173,20 +173,20 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     ////////////////////////////////////////////////////
     // ErrorHandler
-    virtual void warning(const SAX::SAXException& e) 
+    virtual void warning(const SAX::SAXParseException& e) 
     { 
       if(errorHandler_)
         errorHandler_->warning(e);
     } // warning
 
-    virtual void error(const SAX::SAXException& e) 
+    virtual void error(const SAX::SAXParseException& e) 
     {
       if(errorHandler_)
         errorHandler_->error(e);
       reset();
     } // error
 
-    virtual void fatalError(const SAX::SAXException& e)
+    virtual void fatalError(const SAX::SAXParseException& e)
     {
       if(errorHandler_)
         errorHandler_->fatalError(e);

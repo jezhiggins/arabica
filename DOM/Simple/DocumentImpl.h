@@ -94,7 +94,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     virtual ~DocumentImpl() 
     { 
-      for(std::set<NodeImplT*>::iterator n = orphans_.begin(); n != orphans_.end(); ++n)
+      for(typename std::set<NodeImplT*>::iterator n = orphans_.begin(); n != orphans_.end(); ++n)
         delete *n;
     } // ~DocumentImpl
 
@@ -316,7 +316,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     virtual DOM::Element_impl<stringT>* getElementById(const stringT& elementId) const
     {
-      std::set<AttrImplT*>::const_iterator i = std::find_if(idNodes_.begin(), idNodes_.end(), valueIs<stringT, string_adaptorT>(elementId));
+      typename std::set<AttrImplT*>::const_iterator i = std::find_if(idNodes_.begin(), idNodes_.end(), valueIs<stringT, string_adaptorT>(elementId));
       if(i == idNodes_.end())
         return 0;
       return (*i)->getOwnerElement();
@@ -324,7 +324,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     ////////////////////////////////////////////////////////
     // DOM Node methods 
-    virtual DOM::Node<stringT>::Type getNodeType() const
+    virtual typename DOM::Node<stringT>::Type getNodeType() const
     {
       return DOM::Node<stringT>::DOCUMENT_NODE;
     } // getNodeType
@@ -422,7 +422,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
     } // orphaned
     void adopted(NodeImplT* node)
     {
-      std::set<NodeImplT*>::iterator n = orphans_.find(node);
+      typename std::set<NodeImplT*>::iterator n = orphans_.find(node);
       if(n != orphans_.end())
         orphans_.erase(n);
     } // adopted
@@ -433,15 +433,15 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
     } // setElementId
     void removeElementId(AttrImplT* attr)
     {
-      std::set<AttrImplT*>::iterator n = idNodes_.find(node);
+      typename std::set<AttrImplT*>::iterator n = idNodes_.find(node);
       if(n != idNodes_.end())
         idNodes_.erase(n);
     } // removeElementId
 
   private:
-    virtual void checkChildType(DOM::Node_impl<stringT>* child)
+    virtual void checkChildType(typename DOM::Node_impl<stringT>* child)
     {
-      DOM::Node<stringT>::Type type = child->getNodeType();
+      typename DOM::Node<stringT>::Type type = child->getNodeType();
       if((type != DOM::Node<stringT>::ELEMENT_NODE) && 
          (type != DOM::Node<stringT>::PROCESSING_INSTRUCTION_NODE) && 
          (type != DOM::Node<stringT>::COMMENT_NODE) && 

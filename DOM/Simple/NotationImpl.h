@@ -33,7 +33,7 @@ class NotationImpl : public DOM::Notation_impl<stringT>,
 
     ///////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual DOM::Node<stringT>::Type getNodeType() const
+    virtual typename DOM::Node<stringT>::Type getNodeType() const
     {
       return DOM::Node<stringT>::NOTATION_NODE;
     } // getNodeType

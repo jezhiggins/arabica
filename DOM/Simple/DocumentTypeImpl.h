@@ -87,7 +87,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
 
     //////////////////////////////////////////////////////////
     // DOM::Node methods
-    DOM::Node<stringT>::Type getNodeType() const
+    typename DOM::Node<stringT>::Type getNodeType() const
     {
       return DOM::Node<stringT>::DOCUMENT_TYPE_NODE;
     } // getNodeType

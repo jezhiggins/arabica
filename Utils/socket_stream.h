@@ -47,6 +47,10 @@
 #include <vector>
 #include <cstdlib>
 
+#ifndef INADDR_NONE
+#  define INADDR_NONE             ((in_addr_t) -1)
+#endif
+
 ///////////////////////////////////////////////////////////
 // basic_socketbuf declaration
 template<class charT, class traitsT>
@@ -198,7 +202,7 @@ basic_socketbuf<charT, traitsT>* basic_socketbuf<charT, traitsT>::close()
 } // close;
 
 template<class charT, class traitsT>
-basic_socketbuf<charT, traitsT>::int_type basic_socketbuf<charT, traitsT>::overflow(basic_socketbuf<charT, traitsT>::int_type c)
+typename basic_socketbuf<charT, traitsT>::int_type basic_socketbuf<charT, traitsT>::overflow(typename basic_socketbuf<charT, traitsT>::int_type c)
 {
   if(traitsT::eq_int_type(traitsT::eof(), c))
     return traitsT::not_eof(c);
@@ -218,7 +222,7 @@ int basic_socketbuf<charT, traitsT>::sync()
 } // sync
 
 template<class charT, class traitsT>
-basic_socketbuf<charT, traitsT>::int_type basic_socketbuf<charT, traitsT>::underflow()
+typename basic_socketbuf<charT, traitsT>::int_type basic_socketbuf<charT, traitsT>::underflow()
 {
   if(!is_open())
     return traitsT::eof();
@@ -233,7 +237,7 @@ basic_socketbuf<charT, traitsT>::int_type basic_socketbuf<charT, traitsT>::under
 } // underflow
 
 template<class charT, class traitsT>
-basic_socketbuf<charT, traitsT>::int_type basic_socketbuf<charT, traitsT>::pbackfail(int_type c)
+typename basic_socketbuf<charT, traitsT>::int_type basic_socketbuf<charT, traitsT>::pbackfail(int_type c)
 {
   if(gptr() == eback())
     return traitsT::eof();
@@ -434,14 +438,16 @@ typedef basic_socketstream<wchar_t, std::char_traits<wchar_t> > wsocketstream;
 // basic_socketstream definition
 template<class charT, class traitsT>
 basic_socketstream<charT, traitsT>::basic_socketstream() :
-    std::basic_iostream<charT, traitsT>(&sockbuf)
+    std::basic_iostream<charT, traitsT>( 0 )
 {
+  std::basic_ios<charT,traitsT>::init( &sockbuf );
 } // basic_socketstream
 
 template<class charT, class traitsT>
 basic_socketstream<charT, traitsT>::basic_socketstream(const char* hostname, int port) :
-    std::basic_iostream<charT, traitsT>(&sockbuf)
+    std::basic_iostream<charT, traitsT>( 0 )
 {
+  std::basic_ios<charT,traitsT>::init( &sockbuf );
   open(hostname, port);
 } // basic_socketstream
 

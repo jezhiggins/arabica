@@ -175,7 +175,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
   private:
     virtual void checkChildType(DOM::Node_impl<stringT>* child)
     {
-      DOM::Node<stringT>::Type type = child->getNodeType();
+      typename DOM::Node<stringT>::Type type = child->getNodeType();
       if((type != DOM::Node<stringT>::ELEMENT_NODE) && 
          (type != DOM::Node<stringT>::TEXT_NODE) && 
          (type != DOM::Node<stringT>::COMMENT_NODE) && 

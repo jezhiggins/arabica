@@ -69,7 +69,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
 
     virtual ~NamedNodeMapImpl() 
     { 
-      for(NodeListT::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
+      for(typename NodeListT::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
         delete (*i);
     } // ~NodeImpl
 
@@ -88,7 +88,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
     virtual void setOwnerDoc(DocumentImpl<stringT, string_adaptorT>* ownerDoc)
     {
       ownerDoc_ = ownerDoc;
-      for(NodeListT::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
+      for(typename NodeListT::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
         (*i)->setOwnerDoc(ownerDoc);
     } // setOwnerDoc
 
@@ -162,14 +162,14 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
 
     typedef std::deque<NodeImpl<stringT, string_adaptorT>*> NodeListT;
 
-    NodeImpl<stringT, string_adaptorT>* getNode(NodeListT::const_iterator n) const
+    NodeImpl<stringT, string_adaptorT>* getNode(typename NodeListT::const_iterator n) const
     {
       if(n == nodes_.end())
         return 0;
       return *n;
     } // getNode
 
-    NodeImpl<stringT, string_adaptorT>* setNode(NodeListT::iterator n, NodeImpl<stringT, string_adaptorT>* arg)
+    NodeImpl<stringT, string_adaptorT>* setNode(typename NodeListT::iterator n, NodeImpl<stringT, string_adaptorT>* arg)
     {
       if(n == nodes_.end())
       {
@@ -183,7 +183,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
       return removedNode;
     } // setNode
 
-    NodeImpl<stringT, string_adaptorT>* removeNode(NodeListT::iterator n)
+    NodeImpl<stringT, string_adaptorT>* removeNode(typename NodeListT::iterator n)
     {
       if(n == nodes_.end())
         return 0;
@@ -193,12 +193,12 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
       return removedNode;
     } // removeNode
 
-    NodeListT::iterator findByName(const stringT& name) 
+    typename NodeListT::iterator findByName(const stringT& name) 
     {
       return std::find_if(nodes_.begin(), nodes_.end(), nameIs<stringT, string_adaptorT>(name));
     } // findByName
 
-    NodeListT::iterator findByNamespaceAndName(const stringT& namespaceURI, const stringT& localName) 
+    typename NodeListT::iterator findByNamespaceAndName(const stringT& namespaceURI, const stringT& localName) 
     {
       return std::find_if(nodes_.begin(), nodes_.end(), namespaceAndNameIs<stringT, string_adaptorT>(namespaceURI, localName));
     } // findByName
