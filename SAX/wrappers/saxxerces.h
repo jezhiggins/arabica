@@ -245,10 +245,10 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
         } // makeStringT
       
         XMLCh* asXMLChString(const string_type& s) const
-	      {
-	        std::string str = base::asStdString(s);
-	        return XERCES_CPP_NAMESPACE::XMLString::transcode(str.c_str());
-	      } // asXMLChString
+	{
+	   std::string str = base::asStdString(s);
+	   return XERCES_CPP_NAMESPACE::XMLString::transcode(str.c_str());
+	} // asXMLChString
     }; // class xerces_string_adaptor
 
     ///////////////////////////////
