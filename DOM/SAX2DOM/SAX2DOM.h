@@ -23,6 +23,7 @@ template<class stringT,
 class Parser : private SAX::basic_DefaultHandler2<stringT>
 {
     typedef SAX::basic_EntityResolver<stringT> EntityResolverT;
+    typedef SAX::basic_ErrorHandler<stringT> ErrorHandlerT;
     typedef SimpleDOM::EntityImpl<stringT, string_adaptorT > EntityT;
     typedef SimpleDOM::NotationImpl<stringT, string_adaptorT > NotationT;
     typedef SimpleDOM::ElementImpl<stringT, string_adaptorT > ElementT;
@@ -37,8 +38,8 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     void setEntityResolver(EntityResolverT& resolver) { entityResolver_ = &resolver; }
     EntityResolverT* getEntityResolver() const { return entityResolver_; }
 
-    void setErrorHandler(SAX::ErrorHandler& handler) { errorHandler_ = &errorHandler; }
-    SAX::ErrorHandler* getErrorHandler() const { return errorHandler_; }
+    void setErrorHandler(ErrorHandlerT& handler) { errorHandler_ = &errorHandler; }
+    ErrorHandlerT* getErrorHandler() const { return errorHandler_; }
 
     bool parse(const stringT& systemId)
     {
@@ -109,7 +110,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     std::map<stringT, EntityT*> declaredEntities_;
 
     EntityResolverT* entityResolver_;
-    SAX::ErrorHandler* errorHandler_;
+    ErrorHandlerT* errorHandler_;
     SAX::AttributeTypes<stringT, string_adaptorT> attributeTypes_;
 
   private:
