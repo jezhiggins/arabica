@@ -1,0 +1,8 @@
+USEUNIT("pyx.cpp");
+USELIB("..\bin\sax.lib");
+USELIB("..\..\..\lib\bcb\expat_bcb.lib");
+//---------------------------------------------------------------------------
+This file is used by the project manager only and should be treated like the project file
+
+
+main

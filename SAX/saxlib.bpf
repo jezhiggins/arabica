@@ -1,0 +1,11 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+USEUNIT("helpers\InputSourceResolver.cpp");
+USEUNIT("helpers\utf16utf8_codecvt.cpp");
+//---------------------------------------------------------------------------
+#define Library
+
+// To add a file to the library use the Project menu 'Add to Project'.
+

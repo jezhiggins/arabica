@@ -1,0 +1,23 @@
+# Microsoft Developer Studio Generated Dependency File, included by SimpleHandler.mak
+
+.\SimpleHandler.cpp : \
+	"..\SAX\DocumentHandler.h"\
+	"..\SAX\DTDHandler.h"\
+	"..\SAX\EntityResolver.h"\
+	"..\SAX\ErrorHandler.h"\
+	"..\SAX\export.h"\
+	"..\SAX\HandlerBase.h"\
+	".\SimpleHandler.h"\
+	
+
+.\wrapper.cpp : \
+	"..\SAX\DocumentHandler.h"\
+	"..\SAX\DTDHandler.h"\
+	"..\SAX\EntityResolver.h"\
+	"..\SAX\ErrorHandler.h"\
+	"..\SAX\export.h"\
+	"..\SAX\HandlerBase.h"\
+	"..\SAX\InputSource.h"\
+	"..\SaxExpat\saxexpat.h"\
+	".\SimpleHandler.h"\
+	

@@ -1,0 +1,15 @@
+# Microsoft Developer Studio Generated Dependency File, included by pyx.mak
+
+.\pyx.cpp : \
+	"..\SAX\AttributeList.h"\
+	"..\SAX\DocumentHandler.h"\
+	"..\SAX\DTDHandler.h"\
+	"..\SAX\EntityResolver.h"\
+	"..\SAX\ErrorHandler.h"\
+	"..\SAX\export.h"\
+	"..\SAX\HandlerBase.h"\
+	"..\SAX\InputSource.h"\
+	"..\SAX\SAXException.h"\
+	"..\SAX\SAXParseException.h"\
+	"..\SaxExpat\saxexpat.h"\
+	

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE xsa PUBLIC "-//LM Garshol//DTD XML Software Autoupdate 1.0//EN//XML" 
+                     "http://www.garshol.priv.no/download/xsa/xsa.dtd">
+
+<xsa>
+  <vendor>
+    <name>Jez UK Ltd</name>
+    <email>jez@jezuk.co.uk</email>
+    <url>http://www.jezuk.co.uk/</url>
+  </vendor>
+  <product id="SAX in C++">
+    <name>SAX in C++</name>
+    <version>October2001</version>
+    <last-release>20011015</last-release>
+    <info-url>http://www.jezuk.co.uk/SAX/code</info-url>
+    <changes>&skipme;
+    </changes>
+  </product>
+</xsa>
