@@ -12,6 +12,7 @@
 #include <DOM/SAX2DOM/DocumentTypeImpl.h>
 #include <map>
 #include <SAX/helpers/FeatureNames.h>
+#include <SAX/helpers/PropertyNames.h>
 
 namespace SAX2DOM
 {
