@@ -116,7 +116,7 @@ public:
    *
    * @param index The attribute's index (zero-based).
    * @return The attribute's type, "CDATA" if the type is unknown, or an empty
-   * empty string if the index is out of bounds.
+   *         string if the index is out of bounds.
    * @see basic_Attributes#getType(int)
    */
   virtual stringT getType(unsigned int index) const

@@ -5,7 +5,7 @@
 // $Id$
 
 #include <string>
-#include <SAX/SAXException.h>
+#include <SAX/SAXParseException.h>
 
 namespace SAX
 {
@@ -62,7 +62,7 @@ public:
    *                  SAX parse exception.
    * @see basic_SAXParseException 
    */
-  virtual void warning(const SAXException& exception) = 0;
+  virtual void warning(const SAXParseException& exception) = 0;
   /**
    * Receive notification of a recoverable error.
    *
@@ -86,7 +86,7 @@ public:
    *                  SAX parse exception.
    * @see basic_SAXParseException 
    */
-  virtual void error(const SAXException& exception) = 0;
+  virtual void error(const SAXParseException& exception) = 0;
   /**
    * Receive notification of a non-recoverable error.
    *
@@ -105,7 +105,7 @@ public:
    *                  SAX parse exception.  
    * @see basic_SAXParseException
    */
-  virtual void fatalError(const SAXException& exception) = 0;
+  virtual void fatalError(const SAXParseException& exception) = 0;
 }; // class ErrorHandler
 
 }; // namespace SAX

@@ -155,7 +155,8 @@ public:
    * @return The index of the attribute, or -1 if it does not
    *         appear in the list.
    */
-  virtual int getIndex(const stringT& uri, const stringT& localPart) const = 0;
+  virtual int getIndex(const stringT& uri, const stringT& localName) const = 0;
+
   /**
    * Look up the index of an attribute by XML 1.0 qualified name.
    *
@@ -218,7 +219,7 @@ public:
    *         attribute is not in the list or if qualified names
    *         are not available.
    */
-  virtual stringT getValue(const stringT& qname) const = 0;
+  virtual stringT getValue(const stringT& qName) const = 0;
 
 }; // class Attributes
 

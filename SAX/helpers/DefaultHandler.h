@@ -324,7 +324,7 @@ public:
    * @see ErrorHandler#warning
    * @see SAXParseException
    */
-  virtual void warning(const SAXException&) { }
+  virtual void warning(const SAXParseException& e) { }
   /**
    * Receive notification of a recoverable parser error.
    *
@@ -339,7 +339,7 @@ public:
    * @see ErrorHandler#warning
    * @see SAXParseException
    */
-  virtual void error(const SAXException&) { }
+  virtual void error(const SAXParseException& e) { }
   /**
    * Report a fatal XML parsing error.
    *
@@ -357,7 +357,7 @@ public:
    * @see ErrorHandler#fatalError
    * @see SAXParseException
    */
-  virtual void fatalError(const SAXException& ex) 
+  virtual void fatalError(const SAXParseException& e) 
   {  
   } // fatalError
 

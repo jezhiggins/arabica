@@ -79,7 +79,8 @@ public:
    *         default behaviour.
    * @see basic_EntityResolver#resolveEntity
    */
-  virtual InputSourceT resolveEntity(const stringT&, const stringT&)
+  virtual InputSourceT resolveEntity(const stringT& publicId, 
+				     const stringT& systemId)
   {
     return InputSourceT();
   } // resolverEntity
@@ -100,9 +101,9 @@ public:
    * @param systemId The notation system identifier.
    * @see basic_DTDHandler#notationDecl
    */
-  virtual void notationDecl(const stringT&,
-			                      const stringT&,
-                            const stringT&) { }
+  virtual void notationDecl(const stringT& name,
+			    const stringT& publicId,
+                            const stringT& systemId) { }
 
   /**
    * Receive notification of an unparsed entity declaration.
@@ -118,10 +119,10 @@ public:
    * @param notationName The name of the associated notation.
    * @see basic_DTDHandler#unparsedEntityDecl
    */
-  virtual void unparsedEntityDecl(const stringT&,
-					              const stringT&,
-					              const stringT&,
-                        const stringT&) { }
+  virtual void unparsedEntityDecl(const stringT& name,
+				  const stringT& publicId,
+				  const stringT& systemId,
+				  const stringT& notationName) { }
 
   //////////////////////////////////////////////////////////////////////
   // Default implementation of DocumentHandler interface.
@@ -137,7 +138,7 @@ public:
    * @see basic_DocumentHandler#setDocumentLocator
    * @see basic_Locator
    */
-  virtual void setDocumentLocator(const LocatorT&) { }
+  virtual void setDocumentLocator(const LocatorT& locator) { }
 
   /**
    * Receive notification of the beginning of the document.
@@ -174,7 +175,8 @@ public:
    * @param attributes The specified or defaulted attributes.
    * @see basic_DocumentHandler#startElement
    */
-  virtual void startElement(const stringT&, const AttributeListT&) { }
+  virtual void startElement(const stringT& name,
+			    const AttributeListT& attributes) { }
   /**
    * Receive notification of the end of an element.
    *
@@ -186,7 +188,7 @@ public:
    * @param name The element type name.
    * @see basic_DocumentHandler#endElement
    */
-  virtual void endElement(const stringT&) { }
+  virtual void endElement(const stringT& name) { }
 
   /**
    * Receive notification of character data inside an element.
@@ -199,7 +201,7 @@ public:
    * @param ch The characters.
    * @see basic_DocumentHandler#characters
    */
-  virtual void characters(const stringT&) { }
+  virtual void characters(const stringT& ch) { }
   /**
    * Receive notification of ignorable whitespace in element content.
    *
@@ -211,7 +213,7 @@ public:
    * @param ch The whitespace characters.
    * @see basic_DocumentHandler#ignorableWhitespace
    */
-  virtual void ignorableWhitespace(const stringT&) { }
+  virtual void ignorableWhitespace(const stringT& ch) { }
 
   /**
    * Receive notification of a processing instruction.
@@ -226,7 +228,8 @@ public:
    *             none is supplied.
    * @see basic_DocumentHandler#processingInstruction
    */
-  virtual void processingInstruction(const stringT&, const stringT&) { }
+  virtual void processingInstruction(const stringT& target,
+				     const stringT& data) { }
 
   //////////////////////////////////////////////////////////////////////
   // Default implementation of the ErrorHandler interface.
@@ -243,7 +246,7 @@ public:
    * @see basic_ErrorHandler#warning
    * @see basic_SAXParseException
    */
-  virtual void warning(const SAXException&) { }
+  virtual void warning(const SAXException& e) { }
   /**
    * Receive notification of a recoverable parser error.
    *
@@ -256,7 +259,7 @@ public:
    * @see basic_ErrorHandler#warning
    * @see basic_SAXParseException
    */
-  virtual void error(const SAXException&) { }
+  virtual void error(const SAXException& e) { }
   /**
    * Report a fatal XML parsing error.
    *

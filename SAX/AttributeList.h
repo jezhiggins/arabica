@@ -189,4 +189,3 @@ typedef basic_AttributeList<std::wstring> wAttributeList;
 
 #endif
 // end of file
-

@@ -66,7 +66,7 @@ public:
    * @throws std::invalid_argument exception when the supplied names
    *         does not identify an attribute
    */
-  virtual bool isSpecified(const stringT& uri, const stringT& locaName) const = 0;
+  virtual bool isSpecified(const stringT& uri, const stringT& localName) const = 0;
 }; // class basic_Attributes2
 
 typedef basic_Attributes2<std::string> Attributes2;
