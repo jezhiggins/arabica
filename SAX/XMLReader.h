@@ -62,6 +62,7 @@ public:
   typedef basic_DTDHandler<stringT> DTDHandlerT;
   typedef basic_ContentHandler<stringT> ContentHandlerT;
   typedef basic_InputSource<stringT> InputSourceT;
+  typedef basic_ErrorHandler<stringT> ErrorHandlerT;
 
 	virtual ~basic_XMLReader() { }
 
@@ -237,7 +238,7 @@ public:
    * @param handler The error handler.
    * @see #getErrorHandler
    */
-  virtual void setErrorHandler(SAX::ErrorHandler& handler) = 0;
+  virtual void setErrorHandler(ErrorHandlerT& handler) = 0;
   /**
    * Return the current error handler.
    *
@@ -245,7 +246,7 @@ public:
    *         has been registered.
    * @see #setErrorHandler
    */
-  virtual SAX::ErrorHandler* getErrorHandler() const = 0;
+  virtual ErrorHandlerT* getErrorHandler() const = 0;
 
   //////////////////////////////////////////////////
   // Parsing
