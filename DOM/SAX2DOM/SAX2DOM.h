@@ -72,7 +72,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       } // catch
       parser.setFeature(fNames.namespaces, true);
       parser.setFeature(fNames.namespace_prefixes, true);
-      parser.setFeature(fNames.external_general, true);
+      //parser.setFeature(fNames.external_general, true);
 
       parser.parse(source);
 
@@ -216,7 +216,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       {
         cachedCurrent_ = currentNode_;
         currentNode_ = declaredEntities_[name];
-        if(currentNode_.hasChildNodes() == true) // already populated
+        if(currentNode_ != 0 && currentNode_.hasChildNodes() == true) // already populated
           currentNode_ = 0;
       }
     } // startEntity
