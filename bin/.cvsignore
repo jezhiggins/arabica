@@ -7,6 +7,7 @@ simple_handler
 writer
 domwriter
 transcode
+xmlbase
 libArabica.dll
 *.exe
 *.ilk

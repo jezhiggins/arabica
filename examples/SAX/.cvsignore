@@ -7,6 +7,7 @@ core
 pyx
 writer
 simple_handler
+xmlbase
 Debug
 Release
 *.dep
