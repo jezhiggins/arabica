@@ -37,12 +37,12 @@ class convert_bufadaptor : public std::basic_streambuf<charT, traitsT>
 {
   public:
     typedef typename traitsT::int_type int_type;
-    typedef std::basic_streambuf<externalCharT, externalTraitsT> fromStreambufT;
+    typedef std::basic_streambuf<externalCharT, externalTraitsT> externalStreambufT;
 
-    explicit convert_bufadaptor(fromStreambufT& frombuf) : externalbuf_(frombuf), inEof_(false) { }
+    explicit convert_bufadaptor(externalStreambufT& externalbuf) : externalbuf_(&externalbuf), inEof_(false) { }
     virtual ~convert_bufadaptor() { }
   
-    void set_buffer(fromStreambufT& frombuf) { externalbuf_ = &frombuf; inEof_ = false; }
+    void set_buffer(externalStreambufT& externalbuf) { externalbuf_ = &externalbuf; inEof_ = false; }
 
   protected:
     virtual int_type overflow(int_type c = traitsT::eof());
@@ -53,7 +53,7 @@ class convert_bufadaptor : public std::basic_streambuf<charT, traitsT>
   private:
     typedef typename traitsT::state_type state_t;
 
-    fromStreambufT& externalbuf_;
+    externalStreambufT* externalbuf_;
     std::vector<charT> outBuffer_;
     state_t outState_;
     std::vector<charT> inBuffer_;
@@ -150,7 +150,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
 #endif
 
   if(cvt.always_noconv())
-    std::copy(&outBuffer_[0], &outBuffer_[0] + length, std::ostreambuf_iterator<externalCharT>(&externalbuf_));
+    std::copy(&outBuffer_[0], &outBuffer_[0] + length, std::ostreambuf_iterator<externalCharT>(externalbuf_));
   else
   {
     // we must do code conversion
@@ -167,10 +167,10 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
 
       if(r == std::codecvt_base::noconv)
       {
-        std::copy(&outBuffer_[0], &outBuffer_[0] + length, std::ostreambuf_iterator<externalCharT>(&externalbuf_));
+        std::copy(&outBuffer_[0], &outBuffer_[0] + length, std::ostreambuf_iterator<externalCharT>(externalbuf_));
         break;
       }
-      std::copy(&to[0], to_next, std::ostreambuf_iterator<externalCharT>(&externalbuf_));
+      std::copy(&to[0], to_next, std::ostreambuf_iterator<externalCharT>(externalbuf_));
     }
     while(r == std::codecvt_base::partial);
 
@@ -206,11 +206,11 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
   std::streamsize res = 0;
   if(!inEof_)
   {
-    externalTraitsT::int_type ec = externalbuf_.sgetc();
+    externalTraitsT::int_type ec = externalbuf_->sgetc();
     while((!externalTraitsT::eq_int_type(externalTraitsT::eof(), ec)) && (res != bufferSize_))
     {
       from[res++] = static_cast<externalCharT>(ec);
-      ec = externalbuf_.snextc();
+      ec = externalbuf_->snextc();
     }
     inEof_ = (externalTraitsT::eq_int_type(externalTraitsT::eof(), ec));
   } // if ...
@@ -249,7 +249,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
         {
           int shortfall = (from + res) - from_next;
           memcpy(from, from_next, shortfall);
-          res = externalbuf_.sgetn(from + shortfall, static_cast<std::streamsize>(bufferSize_ - shortfall));
+          res = externalbuf_->sgetn(from + shortfall, static_cast<std::streamsize>(bufferSize_ - shortfall));
           from_next = &from[0];
           if(res == 0) // oh dear
             break; // let's bail!
@@ -277,9 +277,9 @@ template<typename charT, typename traitsT, typename externalCharT, typename exte
 class convert_adaptor_buffer
 {
   protected:
-    typedef std::basic_streambuf<externalCharT, externalTraitsT> fromStreambufT;
+    typedef std::basic_streambuf<externalCharT, externalTraitsT> externalStreambufT;
 
-    explicit convert_adaptor_buffer(fromStreambufT& frombuf) : bufadaptor_(frombuf) { }
+    explicit convert_adaptor_buffer(externalStreambufT& externalbuf) : bufadaptor_(externalbuf) { }
 
     convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT> bufadaptor_;
 }; // convert_adaptor_buffer
@@ -305,6 +305,8 @@ class iconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, fromChar
     { 
       return const_cast<convert_bufadaptor<charT, traitsT, fromCharT, fromTraitsT>*>(&bufadaptor_); 
     } // rdbuf
+
+    void set_stream(fromStreamT& fromStream) { bufadaptor_.set_buffer(*fromStream.rdbuf()); }
 }; // class iconvert_adaptor
 
 ////////////////////////////////////////////////////////
@@ -333,6 +335,8 @@ class oconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, toCharT,
     {
       return const_cast<convert_bufadaptor<charT, traitsT, toCharT, toTraitsT>*>(&bufadaptor_); 
     } // rdbuf
+
+    void set_stream(toStreamT& toStream) { bufadaptor_.set_buffer(*toStream.rdbuf()); }
 }; // class oconvert_adaptor
 
 } // namespace convert
