@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.00"
-	Name="SAXlib"
+	Name="ArabicaLib"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -346,6 +346,12 @@
 			</File>
 			<File
 				RelativePath="..\Utils\iso8859_1utf8_codecvt.h">
+			</File>
+			<File
+				RelativePath="..\Utils\rot13_codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\rot13_codecvt.h">
 			</File>
 			<File
 				RelativePath="..\Utils\socket_stream.h">
