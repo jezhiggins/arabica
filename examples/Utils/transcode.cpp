@@ -11,19 +11,106 @@
 #include <Utils/utf16beucs2codecvt.h>
 #include <Utils/utf16leucs2codecvt.h>
 
+using namespace Arabica::convert;
+
+typedef iconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > Widener;
+typedef oconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > Narrower;
+
+iconvert_adaptor<char> iByteConvertor(std::cin);
+Widener iCharAdaptor(iByteConvertor);
+
+oconvert_adaptor<char> oByteConvertor(std::cout);
+Narrower oCharAdaptor(oByteConvertor);
+
+void imbueCodecvts(int argc, const char* argv[]);
+
 int main(int argc, const char* argv[])
 {
-  Arabica::convert::iconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > ia(std::cin);
-  Arabica::convert::oconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > oa(std::cout);
+  imbueCodecvts(argc, argv);
 
-  ia.imbue(std::locale(ia.getloc(), new Arabica::convert::utf8ucs2codecvt()));
-  oa.imbue(std::locale(oa.getloc(), new Arabica::convert::utf16beucs2codecvt()));
-  while(ia)
+  int count = 0;
+  wchar_t c = iCharAdaptor.get();
+  while(!iCharAdaptor.eof())
   {
-    oa << static_cast<wchar_t>(ia.get());
-    oa.flush();
-  } // while
-    
-	return 0;
+    oCharAdaptor << c;
+
+    if(count == 1024)
+    {
+      oCharAdaptor.flush();
+      oByteConvertor.flush();
+      count = 0;
+    } // if ... 
+
+    c = iCharAdaptor.get();
+  }
+  oCharAdaptor.flush();
+  oByteConvertor.flush();
+  
+  return 0;
 } // main
+
+void imbueCodecvts(int argc, const char* argv[])
+{
+  oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16beucs2codecvt()));
+
+  for(int i = 1; i < argc; ++i)
+  {
+    std::string io(argv[i]);
+
+    bool input = true;
+    if(io == "-i" || io == "--input")
+      input = true;
+    else if(io == "-o" || io == "--output")
+      input = false;
+    else
+    {
+      std::cerr << argv[0] << " [(-i|--input) input-encoding] [(-o|--output) output-encoding] " << std::endl;
+      std::exit(0);
+    } // 
+  
+    ++i;
+    if(i >= argc)
+    {
+      std::cerr << argv[0] << " [(-i|--input) input-encoding] [(-o|--output) output-encoding] " << std::endl;
+      std::exit(0);
+    } // 
+
+    std::string cvt(argv[i]);
+    if(cvt == "rot13")
+    {
+      if(input)
+        iByteConvertor.imbue(std::locale(iByteConvertor.getloc(), new rot13codecvt()));
+      else
+        oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new rot13codecvt()));
+    }
+    if(cvt == "base64")
+    {
+      if(input)
+        iByteConvertor.imbue(std::locale(iByteConvertor.getloc(), new base64codecvt()));
+      else
+        oByteConvertor.imbue(std::locale(oByteConvertor.getloc(), new base64codecvt()));
+    } 
+    if(cvt == "utf8")
+    {
+      if(input)
+        iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf8ucs2codecvt()));
+      else
+        oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf8ucs2codecvt()));
+    } 
+    if(cvt == "utf16be")
+    {
+      if(input)
+        iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf16beucs2codecvt()));
+      else
+        oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16beucs2codecvt()));
+    } 
+    if(cvt == "utf16le")
+    {
+      if(input)
+        iCharAdaptor.imbue(std::locale(iCharAdaptor.getloc(), new utf16leucs2codecvt()));
+      else
+        oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf16leucs2codecvt()));
+    } 
+  } // for ...
+} // imbueCodeCvts
 
