@@ -399,6 +399,9 @@
 				Name="impl"
 				Filter="">
 				<File
+					RelativePath="..\Utils\impl\codecvt_specialisations.cpp">
+				</File>
+				<File
 					RelativePath="..\Utils\impl\codecvt_specialisations.h">
 				</File>
 				<File
@@ -446,8 +449,8 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_MSXML /EP ParserConfig.S &gt; ParserConfig.h
-cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_XERCES /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_XERCES /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>

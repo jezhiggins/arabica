@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "..\\" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "..\\" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x809 /d "_DEBUG"
 # ADD RSC /l 0x809 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -482,8 +482,8 @@ BuildCmds= \
 InputPath=.\ParserConfig.S
 
 BuildCmds= \
-	cl /TC /D USE_MSXML /EP ParserConfig.S > ParserConfig.h \
-	cl /TC /D USE_MSXML /EP saxlib.S > saxlib.cpp \
+	cl /TC /D USE_XERCES /EP ParserConfig.S > ParserConfig.h \
+	cl /TC /D USE_XERCES /EP saxlib.S > saxlib.cpp \
 	
 
 "ParserConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
