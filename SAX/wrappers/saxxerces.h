@@ -66,7 +66,6 @@ std::ostream& operator<<(std::ostream& o, const std::type_info& ti)
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/util/BinInputStream.hpp>
 #include <xercesc/sax/InputSource.hpp>
-#include <xercesc/util/Janitor.hpp>
 
 #include <xercesc/util/TransService.hpp>
 
@@ -194,6 +193,26 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
     // * For the known length version, we convert the the array of XMLCh to a
     //   vector of wchar_t.  We then pass &vector[0] and length to the parent
     //   method.
+    template<typename char_type>
+    class xerces_string_janitor
+    {
+      // Ordinarily you'd expect to be able to use Xerces' Array janitor class.  However,
+      // Windows exes and dlls use seperate heaps, so you can't delete in one module that
+      // was allocated by another.  It's a pita.  The solution here is to use XMLString::release.
+      // Although this simply does a delete[], the deletion occurs in the Xerces DLL, so
+      // it will work correctly.
+    public:
+      xerces_string_janitor(char_type* ptr) : ptr_(ptr) { }
+      ~xerces_string_janitor() { XERCES_CPP_NAMESPACE::XMLString::release(&ptr_); }
+
+      char_type const* const get() const { return ptr_; }
+
+    private:
+      char_type* ptr_;
+      xerces_string_janitor(const xerces_string_janitor&);
+      xerces_string_janitor& operator=(const  xerces_string_janitor&) const;
+    }; // class xerces_string_janitor
+
     class xerces_string_adaptor : public string_adaptorT
     {
       public:
@@ -250,10 +269,8 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
         {
           if(str)
           {
-            char* cstr = XERCES_CPP_NAMESPACE::XMLString::transcode(str);
-            string_type st(base::makeStringT(cstr));
-            XERCES_CPP_NAMESPACE::XMLString::release(&cstr);
-            return st;
+            xerces_string_janitor<char> cstr = XERCES_CPP_NAMESPACE::XMLString::transcode(str);
+            return base::makeStringT(cstr.get());
           }
           return base::makeStringT("");
         } // makeStringT
@@ -553,36 +570,36 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
             // name based query
             virtual int getIndex(const string_type& uri, const string_type& localName) const
             {
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
-              return attributes_.getIndex(&wUri[0], &wLocalName[0]);
+              xerces_string_janitor<XMLCh> wUri(SA_.asXMLChString(uri));
+              xerces_string_janitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
+              return attributes_.getIndex(wUri.get(), wLocalName.get());
             } // getIndex
             virtual int getIndex(const string_type& qName) const
             {
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qName));
-              return attributes_.getIndex(&wQName[0]);
+              xerces_string_janitor<XMLCh> wQName(SA_.asXMLChString(qName));
+              return attributes_.getIndex(wQName.get());
             } // getIndex
             virtual string_type getType(const string_type& uri, const string_type& localName) const
             {
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
-              return SA_.makeStringT(attributes_.getType(&wUri[0], &wLocalName[0]));
+              xerces_string_janitor<XMLCh> wUri(SA_.asXMLChString(uri));
+              xerces_string_janitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
+              return SA_.makeStringT(attributes_.getType(wUri.get(), wLocalName.get()));
             } // getType
             virtual string_type getType(const string_type& qName) const
             {
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qName));
-              return SA_.makeStringT(attributes_.getType(&wQName[0]));
+              xerces_string_janitor<XMLCh> wQName(SA_.asXMLChString(qName));
+              return SA_.makeStringT(attributes_.getType(wQName.get()));
             } // getType
             virtual string_type getValue(const string_type& uri, const string_type& localName) const
             {
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wUri(SA_.asXMLChString(uri));
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
-              return SA_.makeStringT(attributes_.getValue(&wUri[0], &wLocalName[0]));
+              xerces_string_janitor<XMLCh> wUri(SA_.asXMLChString(uri));
+              xerces_string_janitor<XMLCh> wLocalName(SA_.asXMLChString(localName));
+              return SA_.makeStringT(attributes_.getValue(wUri.get(), wLocalName.get()));
             } // getValue
             virtual string_type getValue(const string_type& qname) const
             {
-              XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wQName(SA_.asXMLChString(qname));
-              return SA_.makeStringT(attributes_.getValue(&wQName[0]));
+              xerces_string_janitor<XMLCh> wQName(SA_.asXMLChString(qname));
+              return SA_.makeStringT(attributes_.getValue(wQName.get()));
             } // getValue
 
           private:
@@ -798,10 +815,10 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
         InputSourceAdaptor(const InputSourceT& source) 
         :   inputSource_(source) 
         { 
-            XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wSystemId(SA_.asXMLChString(source.getSystemId()));
-            XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wPublicId(SA_.asXMLChString(source.getPublicId()));
-            setSystemId(&wSystemId[0]);
-            setPublicId(&wPublicId[0]);
+            xerces_string_janitor<XMLCh> wSystemId(SA_.asXMLChString(source.getSystemId()));
+            xerces_string_janitor<XMLCh> wPublicId(SA_.asXMLChString(source.getPublicId()));
+            setSystemId(wSystemId.get());
+            setPublicId(wPublicId.get());
         } // InputSourceAdaptor
         virtual ~InputSourceAdaptor() { }
 
@@ -876,8 +893,8 @@ bool xerces_wrapper<string_type, string_adaptorT>::getFeature(const string_type&
 {
   try 
   {
-    XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wName(SA_.asXMLChString(name));
-    return xerces_->getFeature(&wName[0]);
+    xerces_string_janitor<XMLCh> wName(SA_.asXMLChString(name));
+    return xerces_->getFeature(wName.get());
   } // try
   catch(XERCES_CPP_NAMESPACE::SAXNotSupportedException& e) 
   {
@@ -894,8 +911,8 @@ void xerces_wrapper<string_type, string_adaptorT>::setFeature(const string_type&
 {
   try 
   {
-    XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> wName(SA_.asXMLChString(name));
-    xerces_->setFeature(&wName[0], value);
+    xerces_string_janitor<XMLCh> wName(SA_.asXMLChString(name));
+    xerces_->setFeature(wName.get(), value);
   } // try
   catch(XERCES_CPP_NAMESPACE::SAXNotSupportedException& e) 
   {
@@ -1003,8 +1020,8 @@ void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_ty
 #ifdef SAXXERCES_DEBUG
       std::cerr << "    Setting property to " << externalSchemaLocation_ << std::endl;
 #endif
-      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> toDelete(SA_.asXMLChString(externalSchemaLocation_));
-      xerces_->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalSchemaLocation, &toDelete[0]);
+      xerces_string_janitor<XMLCh> toDelete(SA_.asXMLChString(externalSchemaLocation_));
+      xerces_->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalSchemaLocation, const_cast<XMLCh*>(toDelete.get()));
     }
     else
     {
@@ -1032,8 +1049,8 @@ void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_ty
 #ifdef SAXXERCES_DEBUG
       std::cerr << "    Setting property to " << externalNoNamespaceSchemaLocation_ << std::endl;
 #endif
-      XERCES_CPP_NAMESPACE::ArrayJanitor<XMLCh> toDelete(SA_.asXMLChString(externalNoNamespaceSchemaLocation_));
-      xerces_->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalNoNameSpaceSchemaLocation, &toDelete[0]);
+      xerces_string_janitor<XMLCh> toDelete(SA_.asXMLChString(externalNoNamespaceSchemaLocation_));
+      xerces_->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalNoNameSpaceSchemaLocation, const_cast<XMLCh*>(toDelete.get()));
     }
     else
     {
