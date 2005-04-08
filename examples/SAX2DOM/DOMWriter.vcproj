@@ -35,7 +35,6 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)/DOMWriter.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -139,9 +138,6 @@
 		<Filter
 			Name="Libs"
 			Filter="">
-			<File
-				RelativePath="..\..\lib\Arabica.lib">
-			</File>
 		</Filter>
 	</Files>
 	<Globals>

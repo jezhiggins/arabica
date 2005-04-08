@@ -222,7 +222,12 @@ libxml2_wrapper<stringT, string_adaptorT>::libxml2_wrapper() :
   namespaces_(true),
   prefixes_(true)
 {
-  context_ = xmlCreatePushParserCtxt(libxml2_wrapper_impl_tiddle::lwit_SaxHandler(), reinterpret_cast<void*>(static_cast<libxml2_wrapper_impl_tiddle::libxml2_base*>(this)), 0, 0, 0);
+  context_ = xmlCreatePushParserCtxt(libxml2_wrapper_impl_tiddle::lwit_SaxHandler(), 
+                                     reinterpret_cast<void*>(static_cast<libxml2_wrapper_impl_tiddle::libxml2_base*>(this)), 
+                                     0, 
+                                     0, 
+                                     0);
+  xmlCtxtUseOptions(context_, XML_PARSE_DTDLOAD + XML_PARSE_DTDVALID + XML_PARSE_NOBLANKS);
 } // libxml2_wrapper 
 
 template<class stringT, class string_adaptorT>

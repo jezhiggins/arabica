@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="ArabicaLib"
+	RootNamespace="ArabicaLib"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

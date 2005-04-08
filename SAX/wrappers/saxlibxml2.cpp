@@ -170,6 +170,12 @@ static xmlSAXHandler saxHandler = {
 		0,		// getParameterEntitySAXFunc getParameterEntity;
 		lwit_characters,		// cdataBlockSAXFunc cdataBlock;
 		0,		// externalSubsetSAXFunc externalSubset;
+    0,    //  initialized;
+    /* The following fields are extensions available only on version 2 */
+    0,    // _private
+    0,    // startElementNs
+    0,    // endElementNs;
+    0    // serror;
     };
 
 xmlSAXHandler* lwit_SaxHandler() { return &saxHandler; }
