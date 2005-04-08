@@ -50,7 +50,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       stream_(&stream),
       lexicalHandler_(0),
       declHandler_(0),
-      lastTag_(startTag)
+      lastTag_(startTag),
+      encoding_()
     {
     } // basic_Writer
 
@@ -64,11 +65,49 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       stream_(&stream),
       lexicalHandler_(0),
       declHandler_(0),
-      lastTag_(startTag)
+      lastTag_(startTag),
+      encoding_()
+    {
+    } // basic_Writer
+
+    basic_Writer(ostreamT& stream, const stringT& encoding, unsigned int indent = 2) :
+      inCDATA_(false),
+      inDTD_(false),
+      internalSubset_(true),
+      indent_(indent),
+      depth_(0),
+      stream_(&stream),
+      lexicalHandler_(0),
+      declHandler_(0),
+      lastTag_(startTag),
+      encoding_(encoding)
+    {
+    } // basic_Writer
+
+    basic_Writer(ostreamT& stream, XMLReaderT& parent, const stringT& encoding, unsigned int indent = 2) :
+      XMLFilterT(parent),
+      inCDATA_(false),
+      inDTD_(false),
+      internalSubset_(true),
+      indent_(indent),
+      depth_(0),
+      stream_(&stream),
+      lexicalHandler_(0),
+      declHandler_(0),
+      lastTag_(startTag),
+      encoding_(encoding)
     {
     } // basic_Writer
 
     virtual void parse(InputSourceT& input);
+
+    // setEncoding
+    // Sets the encoding included in the XML declaration.  If not set, then the encoding 
+    // declaration will be omitted.
+    // NOTE:  This is merely a label.  The writer will not perform any transcoding.  It is 
+    // your responsibility to ensure that the data is already properly encoded, or that the 
+    // destination stream will perform any necessary transcoding.
+    void setEncoding(const stringT& encoding) { encoding_ = encoding; }
 
   protected:
     // Parser 
@@ -115,6 +154,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     bool isDtd(const stringT& name);
 
 private:
+    stringT encoding_;
     bool inCDATA_;
     bool inDTD_;
     bool internalSubset_;
@@ -205,8 +245,24 @@ void basic_Writer<string_type>::startDocument()
            << UnicodeT::NUMBER_1
            << UnicodeT::FULL_STOP
            << UnicodeT::NUMBER_0
-           << UnicodeT::QUOTATION_MARK
-           << UnicodeT::QUESTION_MARK
+           << UnicodeT::QUOTATION_MARK;
+
+  if(encoding_.size())
+    *stream_ << UnicodeT::SPACE
+             << UnicodeT::LOWERCASE_E
+             << UnicodeT::LOWERCASE_N
+             << UnicodeT::LOWERCASE_C
+             << UnicodeT::LOWERCASE_O
+             << UnicodeT::LOWERCASE_D
+             << UnicodeT::LOWERCASE_I
+             << UnicodeT::LOWERCASE_N
+             << UnicodeT::LOWERCASE_G
+             << UnicodeT::EQUALS_SIGN
+             << UnicodeT::QUOTATION_MARK
+             << encoding_
+             << UnicodeT::QUOTATION_MARK;
+
+  *stream_ << UnicodeT::QUESTION_MARK
            << UnicodeT::GREATER_THAN_SIGN
            << UnicodeT::LINE_FEED;
 
