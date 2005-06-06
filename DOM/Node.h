@@ -39,7 +39,8 @@ class Node_base
       DOCUMENT_NODE,
       DOCUMENT_TYPE_NODE,
       DOCUMENT_FRAGMENT_NODE,
-      NOTATION_NODE
+      NOTATION_NODE,
+      MAX_TYPE
     }; // Type
 }; // class Node_base
 
