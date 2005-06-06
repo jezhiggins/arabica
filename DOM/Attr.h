@@ -47,7 +47,7 @@ class Attr : public Node<stringT>
 
     typedef Element<stringT> ElementT;
     friend class Element<stringT>;
-}; // class DocumentFragment
+}; // class Attr
 
 
 //////////////////////////////////////////////////////////
