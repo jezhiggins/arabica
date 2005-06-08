@@ -11,11 +11,11 @@ namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT>
-class nameIs : public std::unary_function<NodeImpl<stringT, string_adaptorT>*, bool>
+class nameIs : public std::unary_function<SimpleDOM::NodeImpl<stringT, string_adaptorT>*, bool>
 {
   public:
     nameIs(const stringT& name) : name_(name) { }
-    bool operator()(const NodeImpl<stringT, string_adaptorT>* node) const
+    bool operator()(const SimpleDOM::NodeImpl<stringT, string_adaptorT>* node) const
     {
       return (node->getNodeName() == name_);
     } // operator()

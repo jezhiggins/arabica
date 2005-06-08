@@ -1,7 +1,7 @@
 ####################################
 # ARABICA CONFIG
 # edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
+PARSER_CONFIG = -DUSE_LIBXML2 -DARABICA_NO_WCHAR_T
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 ####################################
@@ -33,11 +33,11 @@ CXXFLAGS = -Wall
 LDFLAGS = 
 
 # Includes and library directories 
-INCS_DIRS = -I.. -I/home/jez/gcc-3.4.2/include
+INCS_DIRS = -I.. -I/home/jez/gcc-3.4.2/include -I/usr/include/libxml2
 LIBS_DIRS = -I/home/jez/gcc-3.4.2/lib 
 
 STATIC_LIBS =
-DYNAMIC_LIBS =  -lexpat -lstdc++
+DYNAMIC_LIBS =  -lxml2 -lstdc++
 
 # link flag to create a shared library
 LINK_SHARED = -shared

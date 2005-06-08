@@ -2,9 +2,13 @@
 #define JEZUK_SimpleDOM_ELEMENTBYTAGIMPL_H
 
 #include <DOM/Node.h>
+#include <DOM/Simple/NodeImpl.h>
 
 namespace SimpleDOM
 {
+
+template<class stringT, class string_adaptorT>
+class DocumentImpl;
 
 template<class stringT, class string_adaptorT>
 class ElementByTagList : public DOM::NodeList_impl<stringT>

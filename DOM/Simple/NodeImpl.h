@@ -6,7 +6,9 @@
 //
 // $Id$
 ////////////////////////////
+
 #include <DOM/Node.h>
+#include <DOM/DOMException.h>
 #include <deque>
 #include <algorithm>
 
