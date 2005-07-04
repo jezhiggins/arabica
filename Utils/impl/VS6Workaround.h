@@ -14,7 +14,7 @@ namespace std {
   template<typename T>
   T max(T a, T b) 
   { 
-    return (a > b) ? b : a; 
+    return (a > b) ? a : b; 
   }
 
   template<typename T>
