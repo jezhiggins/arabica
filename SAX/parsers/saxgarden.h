@@ -239,7 +239,7 @@ std::auto_ptr<typename Garden<string_type>::PropertyBase> Garden<string_type>::d
 } // doGetProperty
 
 template<class string_type>
-void Garden<string_type>::doSetProperty(const stringT& name, std::auto_ptr<Garden<string_type>::PropertyBase> value)
+void Garden<string_type>::doSetProperty(const stringT& name, std::auto_ptr<typename basic_XMLReader<string_type>::PropertyBase> value)
 {
   throw SAXNotRecognizedException(name);
 } // doSetProperty
@@ -264,11 +264,11 @@ void Garden<string_type>::parse(InputSourceT& input)
   iterator_t first = data.begin();
   iterator_t last = data.end();
   scanner_t scanner(first, last);
-  rule_t rool = boost::spirit::real_p;
+  typedef typename boost::spirit::parser_result<rule_t, scanner_t>::type result_t;
 
   if(contentHandler_)
     contentHandler_->startDocument();
-  typename rule_t::result_t r = document_.parse(scanner);
+  result_t r = document_.parse(scanner);
   if(contentHandler_)
     contentHandler_->endDocument();
 
@@ -423,7 +423,7 @@ void Garden<string_type>::characterRef(iterator_t s, iterator_t e, int base)
 
 ///////////////////////////////  
 template<class string_type>
-Garden<string_type>::stringT Garden<string_type>::str(iterator_t s, iterator_t e, int trim)
+typename Garden<string_type>::stringT Garden<string_type>::str(iterator_t s, iterator_t e, int trim)
 {
   stringT str;
   std::copy(s, e, std::inserter(str, str.begin()));
