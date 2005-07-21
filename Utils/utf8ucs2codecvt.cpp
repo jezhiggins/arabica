@@ -43,7 +43,7 @@ std::codecvt_base::result utf8ucs2codecvt::do_unshift(std::mbstate_t& /* state *
 int utf8ucs2codecvt::do_length(const std::mbstate_t&,
                                 const char* from,
                                 const char* end,
-                                size_t max) const
+                                size_t max) const throw()
 {
   size_t count(0);
   const char* from_next = from;

@@ -317,7 +317,7 @@ std::auto_ptr<basic_XMLReader<stringT>::PropertyBase> libxml2_wrapper<stringT, s
 {
   if(name == properties_.declHandler)
   {
-    typedef SAX::basic_XMLReader<stringT>::Property<declHandlerT *> dhp_type;
+    typedef typename SAX::basic_XMLReader<stringT>::Property<declHandlerT *> dhp_type;
     dhp_type *prop = new dhp_type(declHandler_);
 #ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename SAX::basic_XMLReader<stringT>::PropertyBase>(prop);
@@ -341,7 +341,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& nam
 {
   if(name == properties_.declHandler)
   {
-    SAX::basic_XMLReader<stringT>::Property<declHandlerT&>* prop = 
+    typename SAX::basic_XMLReader<stringT>::template Property<declHandlerT&>* prop = 
           dynamic_cast<SAX::basic_XMLReader<stringT>::Property<declHandlerT&>*>(value.get());
 
     if(!prop)
