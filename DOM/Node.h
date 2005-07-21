@@ -50,6 +50,7 @@ class Node : public Node_base
 {
   public:
 	  typedef string_type stringT;
+    typedef string_type string_type;
 
     Node() : impl_() { }
     Node(Node_impl<stringT>* const impl) : impl_(impl) { }
