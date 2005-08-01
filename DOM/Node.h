@@ -45,15 +45,15 @@ class Node_base
 }; // class Node_base
 
 /////////////////////////////////////////////////
-template<class string_type>
+template<class node_string_type>
 class Node : public Node_base
 {
   public:
-	  typedef string_type stringT;
-    typedef string_type string_type;
+	  typedef node_string_type string_type;
+    typedef node_string_type string_type;
 
     Node() : impl_() { }
-    Node(Node_impl<stringT>* const impl) : impl_(impl) { }
+    Node(Node_impl<string_type>* const impl) : impl_(impl) { }
     Node(const Node& rhs) : impl_(rhs.impl_) { }
     virtual ~Node() { }
 
@@ -68,25 +68,25 @@ class Node : public Node_base
       return *this;
     } // operator=
 
-    stringT getNodeName() const { return impl_->getNodeName(); }
+    string_type getNodeName() const { return impl_->getNodeName(); }
 
-    stringT getNodeValue() const { return impl_->getNodeValue(); }
-    void setNodeValue(const stringT& nodeValue) { impl_->setNodeValue(nodeValue); }
+    string_type getNodeValue() const { return impl_->getNodeValue(); }
+    void setNodeValue(const string_type& nodeValue) { impl_->setNodeValue(nodeValue); }
 
     Type getNodeType() const { return impl_->getNodeType(); }
     
     Node getParentNode() const { return impl_->getParentNode(); }
 
-    const NodeList<stringT> getChildNodes() const { return NodeList<stringT>(impl_->getChildNodes()); }
+    const NodeList<string_type> getChildNodes() const { return NodeList<string_type>(impl_->getChildNodes()); }
     
     Node getFirstChild() const { return impl_->getFirstChild(); }
     Node getLastChild() const { return impl_->getLastChild(); }
     Node getPreviousSibling() const { return impl_->getPreviousSibling(); }
     Node getNextSibling() const { return impl_->getNextSibling(); }
 
-    const NamedNodeMap<stringT> getAttributes() const { return NamedNodeMap<stringT>(impl_->getAttributes()); }
+    const NamedNodeMap<string_type> getAttributes() const { return NamedNodeMap<string_type>(impl_->getAttributes()); }
 
-    Document<stringT> getOwnerDocument() const { return impl_->getOwnerDocument(); }
+    Document<string_type> getOwnerDocument() const { return impl_->getOwnerDocument(); }
 
     Node insertBefore(const Node& newChild, const Node& refChild) { return impl_->insertBefore(*newChild.impl_, *refChild.impl_); } 
     Node replaceChild(const Node& newChild, const Node& oldChild) { return impl_->replaceChild(*newChild.impl_, *oldChild.impl_); }
@@ -99,15 +99,15 @@ class Node : public Node_base
 
     void normalize() { impl_->normalize(); }
 
-    bool isSupported(const stringT& feature, const stringT& version) const { return impl_->isSupported(feature, version); }
+    bool isSupported(const string_type& feature, const string_type& version) const { return impl_->isSupported(feature, version); }
 
-    stringT getNamespaceURI() const { return impl_->getNamespaceURI(); }
-    stringT getPrefix() const { return impl_->getPrefix(); }
-    void setPrefix(const stringT& prefix) const { impl_->setPrefix(prefix); }
-    stringT getLocalName() const { return impl_->getLocalName(); }
+    string_type getNamespaceURI() const { return impl_->getNamespaceURI(); }
+    string_type getPrefix() const { return impl_->getPrefix(); }
+    void setPrefix(const string_type& prefix) const { impl_->setPrefix(prefix); }
+    string_type getLocalName() const { return impl_->getLocalName(); }
 
     // additional three methods - since C++ std::string (and by implication
-    // stringT) don't differenciate between a null string and an empty string,
+    // string_type) don't differenciate between a null string and an empty string,
     // but the DOM recommendation does, I have to introduce these three methods 
     // to disambiguate.  If they return false, the corresponding attribute should be
     // considered null.  If they return true, the attribute has been set EVEN IF 
@@ -118,15 +118,15 @@ class Node : public Node_base
     bool hasAttributes() const { return impl_->hasAttributes(); }
 
     // you almost certainly don't need to use this function
-    Node_impl<stringT>* unlying_impl() const { return *impl_; }
+    Node_impl<string_type>* unlying_impl() const { return *impl_; }
 
   protected:
-    Proxy<Node_impl<stringT> > impl_;
+    Proxy<Node_impl<string_type> > impl_;
 
-    typedef class Document<stringT> DocumentT;
-    friend class Document<stringT>;
-    typedef class Events::EventTarget<stringT> EventTargetT;
-    friend class Events::EventTarget<stringT>;
+    typedef class Document<string_type> DocumentT;
+    friend class Document<string_type>;
+    typedef class Events::EventTarget<string_type> EventTargetT;
+    friend class Events::EventTarget<string_type>;
 }; // class Node
 
 ////////////////////////////////////////////////////////////////////
@@ -140,8 +140,6 @@ template<class string_type>
 class Node_impl
 {
   public:
-    typedef string_type stringT;
-
     virtual ~Node_impl() { }
 
     ///////////////////////////////////////////////////////
@@ -151,47 +149,47 @@ class Node_impl
 
     ///////////////////////////////////////////////////////
     // Node methods
-    virtual stringT getNodeName() const = 0;
+    virtual string_type getNodeName() const = 0;
 
-    virtual stringT getNodeValue() const = 0;
-    virtual void setNodeValue(const stringT& nodeValue) = 0;
+    virtual string_type getNodeValue() const = 0;
+    virtual void setNodeValue(const string_type& nodeValue) = 0;
 
     virtual Node_base::Type getNodeType() const = 0;
     
-    virtual Node_impl<stringT>* getParentNode() const = 0;
+    virtual Node_impl<string_type>* getParentNode() const = 0;
 
-    virtual NodeList_impl<stringT>* getChildNodes() const = 0;
+    virtual NodeList_impl<string_type>* getChildNodes() const = 0;
     
-    virtual Node_impl<stringT>* getFirstChild() const = 0;
-    virtual Node_impl<stringT>* getLastChild() const = 0;
+    virtual Node_impl<string_type>* getFirstChild() const = 0;
+    virtual Node_impl<string_type>* getLastChild() const = 0;
 
-    virtual Node_impl<stringT>* getPreviousSibling() const = 0;
-    virtual Node_impl<stringT>* getNextSibling() const = 0;
+    virtual Node_impl<string_type>* getPreviousSibling() const = 0;
+    virtual Node_impl<string_type>* getNextSibling() const = 0;
 
-    virtual NamedNodeMap_impl<stringT>* getAttributes() const = 0;
+    virtual NamedNodeMap_impl<string_type>* getAttributes() const = 0;
 
-    virtual Document_impl<stringT>* getOwnerDocument() const = 0;
+    virtual Document_impl<string_type>* getOwnerDocument() const = 0;
 
-    virtual Node_impl<stringT>* insertBefore(Node_impl<stringT>* newChild, Node_impl<stringT>* refChild) = 0;
-    virtual Node_impl<stringT>* replaceChild(Node_impl<stringT>*  newChild, Node_impl<stringT>* oldChild) = 0;
-    virtual Node_impl<stringT>* removeChild(Node_impl<stringT>*  oldChild) = 0;
-    virtual Node_impl<stringT>* appendChild(Node_impl<stringT>*  newChild) = 0;
+    virtual Node_impl<string_type>* insertBefore(Node_impl<string_type>* newChild, Node_impl<string_type>* refChild) = 0;
+    virtual Node_impl<string_type>* replaceChild(Node_impl<string_type>*  newChild, Node_impl<string_type>* oldChild) = 0;
+    virtual Node_impl<string_type>* removeChild(Node_impl<string_type>*  oldChild) = 0;
+    virtual Node_impl<string_type>* appendChild(Node_impl<string_type>*  newChild) = 0;
 
     virtual bool hasChildNodes() const = 0;
 
-    virtual Node_impl<stringT>* cloneNode(bool deep) const = 0;
+    virtual Node_impl<string_type>* cloneNode(bool deep) const = 0;
 
     virtual void normalize() = 0;
 
-    virtual bool isSupported(const stringT& feature, const stringT& version) const = 0;
+    virtual bool isSupported(const string_type& feature, const string_type& version) const = 0;
 
-    virtual stringT getNamespaceURI() const = 0;
-    virtual stringT getPrefix() const = 0;
-    virtual void setPrefix(const stringT& prefix) = 0;
-    virtual stringT getLocalName() const = 0;
+    virtual string_type getNamespaceURI() const = 0;
+    virtual string_type getPrefix() const = 0;
+    virtual void setPrefix(const string_type& prefix) = 0;
+    virtual string_type getLocalName() const = 0;
 
     // additional methods - since C++ std::string (and by implication
-    // stringT) don't differenciate between a null string and an empty string,
+    // string_type) don't differenciate between a null string and an empty string,
     // but the DOM recommendation does, I have to introduce these three methods 
     // to disambiguate.  If they return false, the corresponding attribute should be
     // considered null.  If they return true, the attribute has been set EVEN IF 
