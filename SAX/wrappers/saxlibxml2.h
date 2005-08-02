@@ -510,16 +510,16 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXstartElement(const xmlChar* q
 
   // OK we're doing Namespaces
   nsSupport_.pushContext();
-  bool seenDecl = false;
   SAX::basic_AttributesImpl<stringT> attributes;
 
   // take a first pass and copy all the attributes, noting any declarations
   if(atts && *atts != 0)
   {
-    while(*atts != 0)
+    const xmlChar** a1 = atts;
+    while(*a1 != 0)
     {
-      stringT attQName = SA_.makeStringT(reinterpret_cast<const char*>(*atts++));
-      stringT value = SA_.makeStringT(reinterpret_cast<const char*>(*atts++));
+      stringT attQName = SA_.makeStringT(reinterpret_cast<const char*>(*a1++));
+      stringT value = SA_.makeStringT(reinterpret_cast<const char*>(*a1++));
 
       // declaration?
       if(attQName.find(nsc_.xmlns) == 0) 
@@ -537,31 +537,22 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXstartElement(const xmlChar* q
                                   attQName, 
                                   emptyString_, 
                                   value);
-        seenDecl = true;
       }
-      else
+    } // while
+
+    while(*atts != 0)
+    {
+      stringT attQName = SA_.makeStringT(reinterpret_cast<const char*>(*atts++));
+      stringT value = SA_.makeStringT(reinterpret_cast<const char*>(*atts++));
+
+      // declaration?
+      if(attQName.find(nsc_.xmlns) != 0) 
       {
         typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts attName = processName(attQName, true);
         attributes.addAttribute(attName.URI, attName.localName, attName.rawName, emptyString_, value);
       }
     } // while ...
   } // if ...
-
-  // if there was a Namespace decl we have to go around again
-  if(seenDecl)
-  {
-     int length = attributes.getLength();
-     for(int i = 0; i < length; ++i)
-     {
-       stringT attQName = attributes.getQName(i);
-       if(attQName.find(nsc_.xmlns)) 
-       {
-         typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts attName = processName(attQName, true);
-         attributes.setURI(i, attName.URI);
-         attributes.setLocalName(i, attName.localName);
-       } // if ...
-     } // for ... 
-  } // if(seenDecl)
 
   // at last! report the event
   typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts name = processName(SA_.makeStringT(reinterpret_cast<const char*>(qName)), false);
