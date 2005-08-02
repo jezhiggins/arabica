@@ -49,7 +49,6 @@ template<class node_string_type>
 class Node : public Node_base
 {
   public:
-	  typedef node_string_type string_type;
     typedef node_string_type string_type;
 
     Node() : impl_() { }
