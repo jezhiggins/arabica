@@ -120,6 +120,12 @@ class SAXTest : public TestCase
       DOM::Attr<std::string> attr = elem.getAttributeNode("attr");
       assertEquals(false, attr.hasNamespaceURI());
     } // test9
+
+    void test10()
+    {
+      DOM::Document<std::string> d = parse("<elem stuff:attr='something' poop:attr='fail' xmlns:stuff='http://example.com/stuff'/>");
+      assert(d == 0);
+    } // test10
 };
 
 TestSuite* SAXTest_suite() 
@@ -134,6 +140,7 @@ TestSuite* SAXTest_suite()
     suiteOfTests->addTest(new TestCaller<SAXTest>("test7", &SAXTest::test7));
     suiteOfTests->addTest(new TestCaller<SAXTest>("test8", &SAXTest::test8));
     suiteOfTests->addTest(new TestCaller<SAXTest>("test9", &SAXTest::test9));
+    suiteOfTests->addTest(new TestCaller<SAXTest>("test10", &SAXTest::test10));
     return suiteOfTests;
 } // MathTest_suite
 
