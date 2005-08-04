@@ -445,6 +445,19 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="XPath"
+			Filter="">
+			<File
+				RelativePath="..\XPath\src\xpath_axis_enumerator.cpp">
+			</File>
+			<File
+				RelativePath="..\XPath\src\xpath_object.cpp">
+			</File>
+			<File
+				RelativePath="..\XPath\src\xpath_parser.cpp">
+			</File>
+		</Filter>
 		<File
 			RelativePath="ArabicaConfig.S">
 			<FileConfiguration
@@ -470,8 +483,8 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_MSXML /EP ParserConfig.S &gt; ParserConfig.h
-cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_GARDEN /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_GARDEN /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>
