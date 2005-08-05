@@ -277,6 +277,8 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
         case DOM::Node<stringT>::COMMENT_NODE:
           newNode = createComment(importedNode->getNodeValue());
           break;
+        default:
+          throw std::runtime_error("Bad node type value in importNode");
       } // switch
 
       if(deep)
