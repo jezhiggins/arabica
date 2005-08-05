@@ -1,5 +1,7 @@
 
+#ifdef _MSC_VER
 #pragma warning(disable:4224 4267)
+#endif
 
 #include <iostream>
 #include "../CppUnit/textui/TextTestResult.h"
