@@ -13,13 +13,13 @@ class ExecutionContext
 {
 public:
   ExecutionContext() : 
-      position_(-1), 
-      last_(-1)
+      position_(static_cast<size_t>(-1)), 
+      last_(static_cast<size_t>(-1))
   { 
   } // ExecutionContext
 
   ExecutionContext(size_t last, const ExecutionContext& parent) : 
-      position_(-1), 
+      position_(static_cast<size_t>(-1)), 
       last_(last),
       variableResolver_(parent.variableResolver_)
   { 
