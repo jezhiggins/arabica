@@ -133,6 +133,8 @@ public:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
           return new StringValue(node.hasNamespaceURI() ? node.getLocalName() : node.getNodeName());
+        default: // put this in to keep gcc quiet
+          ; 
       } // switch ...
     return new StringValue("");
   } // evaluate
@@ -163,6 +165,8 @@ public:
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
           return new StringValue(node.getNamespaceURI());
+        default: // put this in to keep gcc quiet
+          ; 
       } // switch ...
     return new StringValue("");
   } // evaluate
@@ -194,6 +198,8 @@ public:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
           return new StringValue(node.getNodeName());
+        default: // stop gcc generating a warning about unhandled enum values
+          ;
       } // switch ...
     return new StringValue("");
   } // evaluate
