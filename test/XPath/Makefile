@@ -10,7 +10,7 @@ DYNAMIC_LIBS += -lArabica
 
 ######################################
 # SOURCE FILES
-XPATH_SRCS = main.cpp arithmetic_test.cpp axis_enumerator_test.cpp execute_test.cpp logical_test.cpp node_test_test.cpp parse_test.cpp relational_test.cpp step_test.cpp value_test
+XPATH_SRCS = main.cpp arithmetic_test.cpp axis_enumerator_test.cpp execute_test.cpp logical_test.cpp node_test_test.cpp parse_test.cpp relational_test.cpp step_test.cpp value_test.cpp
 XPATH_HDRS = $(patsubst %.cpp,%.h,$(XPATH_SRCS))
 XPATH_OBJS = $(patsubst %.cpp,%.o,$(XPATH_SRCS))
 
@@ -29,7 +29,7 @@ CPPUNITUI_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITUI_SRCS))
 all : xpath_test 
 
 xpath_test : $(XPATH_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(SAXDOM_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(LD) $(LDFLAGS) -o $@ $(XPATH_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) xpath_test$(EXESUFFIX) ../../bin
 
 ######################
