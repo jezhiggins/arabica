@@ -34,9 +34,27 @@ bool nodes_less_than(const DOM::Node<std::string>& n1, const DOM::Node<std::stri
 class NodeSet : public std::vector<DOM::Node<std::string> >
 {
 public:
-  NodeSet() : forward_(true), sorted_(false), std::vector<DOM::Node<std::string> >() { }
-  NodeSet(bool forward) : forward_(forward), sorted_(true), std::vector<DOM::Node<std::string> >() { }
-  NodeSet(const NodeSet& rhs) : forward_(rhs.forward_), sorted_(rhs.sorted_), std::vector<DOM::Node<std::string> >(rhs) { }
+  NodeSet() : 
+    std::vector<DOM::Node<std::string> >(), 
+    forward_(true), 
+    sorted_(false) 
+  { 
+  } // NodeSet
+
+  NodeSet(bool forward) : 
+    std::vector<DOM::Node<std::string> >(), 
+    forward_(forward),
+    sorted_(false)
+  { 
+  } // NodeSet
+
+  NodeSet(const NodeSet& rhs) : 
+    std::vector<DOM::Node<std::string> >(rhs),
+    forward_(rhs.forward_), 
+    sorted_(rhs.sorted_)
+  { 
+  } // NodeSet
+
   NodeSet& operator=(const NodeSet& rhs) 
   {
     forward_ = rhs.forward_;

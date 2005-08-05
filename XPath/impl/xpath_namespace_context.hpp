@@ -20,8 +20,8 @@ public:
 class NamespaceContext
 {
   public:
-    NamespaceContext() { }
-    virtual ~NamespaceContext() = 0 { }
+    NamespaceContext() { } 
+    virtual ~NamespaceContext() { };
 
     virtual std::string namespaceURI(const std::string& prefix) const = 0;
 

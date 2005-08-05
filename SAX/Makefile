@@ -38,7 +38,10 @@ SRCS =  saxlib.cpp \
 	../Utils/utf16utf8codecvt.cpp \
 	../Utils/base64codecvt.cpp \
 	../Utils/impl/codecvt_specialisations.cpp \
-	../XML/XMLCharacterClasses.cpp
+	../XML/XMLCharacterClasses.cpp \
+	../XPath/src/xpath_parser.cpp \
+	../XPath/src/xpath_object.cpp \
+	../XPath/src/xpath_axis_enumerator.cpp
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
@@ -74,7 +77,7 @@ Makefile :
 #############################################
 # Cleaning up
 clean :
-	$(REMOVE) *.o helpers/*.o wrappers/*.o ../Utils/*.o ../Utils/impl/*.o ../XML/*.o libArabica*  ../bin/libArabica* saxlib.cpp ParserConfig.h ArabicaConfig.h
+	$(REMOVE) wrappers/*.o $(OBJS) libArabica*  ../bin/libArabica* saxlib.cpp ParserConfig.h ArabicaConfig.h
 
 # End of File
 

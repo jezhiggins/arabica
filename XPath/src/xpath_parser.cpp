@@ -1,4 +1,7 @@
+#ifdef _MSC_VER
 #pragma warning(disable:4224 4180 4244)
+#endif 
+
 #include <iostream>
 #include <map>
 #include <boost/lexical_cast.hpp>

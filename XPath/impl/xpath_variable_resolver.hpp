@@ -2,6 +2,7 @@
 #define ARABICA_XPATH_VARIABLE_RESOLVER_HPP
 
 #include <boost/shared_ptr.hpp>
+#include <stdexcept>
 
 namespace Arabica
 {

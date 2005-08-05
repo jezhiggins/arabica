@@ -1,7 +1,9 @@
 #ifndef ARABICA_XPATHIC_XPATH_NAMESPACE_NODE_HPP
 #define ARABICA_XPATHIC_XPATH_NAMESPACE_NODE_HPP
 
+#ifdef _MSC_VER
 #pragma warning(disable: 4250)
+#endif
 
 #include <DOM/Simple/DocumentImpl.h>
 #include <DOM/Simple/NodeImpl.h>
