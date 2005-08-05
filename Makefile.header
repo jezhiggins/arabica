@@ -9,13 +9,17 @@ PARSER_CONFIG = -DUSE_LIBXML2 -DARABICA_NO_WCHAR_T
 #####
 MAKE = make
 # C++ compiler
-CXX = /home/jez/gcc-3.4.2/bin/gcc 
+#CXX = /home/jez/gcc-3.4.2/bin/gcc 
+CXX = gcc 
 # preprocessor
-CPP = /home/jez/gcc-3.4.2/bin/gcc -E
+#CPP = /home/jez/gcc-3.4.2/bin/gcc -E
+CPP = gcc -E
 # linker
-LD =  /home/jez/gcc-3.4.2/bin/gcc 
+#LD =  /home/jez/gcc-3.4.2/bin/gcc 
+LD = gcc 
 # archiver
-AR = /home/jez/gcc-3.4.2/bin/ar r
+#AR = /home/jez/gcc-3.4.2/bin/ar r
+AR = ar r
 
 ###########
 # Utilities
@@ -33,8 +37,10 @@ CXXFLAGS = -Wall
 LDFLAGS = 
 
 # Includes and library directories 
-INCS_DIRS = -I.. -I/home/jez/gcc-3.4.2/include -I/usr/include/libxml2
-LIBS_DIRS = -I/home/jez/gcc-3.4.2/lib 
+#INCS_DIRS = -I.. -I/home/jez/gcc-3.4.2/include -I/usr/include/libxml2
+INCS_DIRS = -I.. -I/usr/include/libxml2
+#LIBS_DIRS = -I/home/jez/gcc-3.4.2/lib 
+LIBS_DIRS = 
 
 STATIC_LIBS =
 DYNAMIC_LIBS =  -lxml2 -lstdc++

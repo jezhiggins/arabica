@@ -5,10 +5,12 @@
 # High level rules
 all : 
 	cd SAX; ${MAKE}
+	cd test; ${MAKE}
 	cd examples; ${MAKE}
 
 clean :
 	cd SAX; ${MAKE} clean
+	cd test; ${MAKE} clean
 	cd examples; ${MAKE} clean
 	rm -f arabica.tar.gz
 	rm -f arabica.zip
