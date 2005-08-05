@@ -6,6 +6,7 @@
 #include "../CppUnit/framework/TestCaller.h"
 
 #include <XPath/XPath.hpp>
+#include "value_test.hpp"
 
 using namespace Arabica::XPath;
 

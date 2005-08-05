@@ -105,5 +105,3 @@ TestSuite* StepTest_suite()
 
   return suiteOfTests;
 } // StepTest_suite
-
-  
