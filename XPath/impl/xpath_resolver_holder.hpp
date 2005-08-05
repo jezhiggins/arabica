@@ -31,8 +31,8 @@ public:
     if(rhs == *this)
       return *this;
 
-    unowned_ = rhs_.unowned_;
-    shared_ = rhs_.shared_;
+    unowned_ = rhs.unowned_;
+    shared_ = rhs.shared_;
 
     return *this;
   } // operator=
