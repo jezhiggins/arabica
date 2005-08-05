@@ -4,4 +4,4 @@ all:
 	cd XPath; ${MAKE}
 
 clean:
-	cd XPath; ${MAKE}
+	cd XPath; ${MAKE} clean
