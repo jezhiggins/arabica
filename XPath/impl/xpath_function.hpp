@@ -325,7 +325,7 @@ public:
     double startAt = roundNumber(argAsNumber(1, context, executionContext)) - 1;
     double endAt = roundNumber((argCount() == 3 ? argAsNumber(2, context, executionContext) : Infinity)) + startAt;
 
-    if((endAt < 0) || (endAt < startAt))
+    if((endAt < 0) || (endAt < startAt) || (isNaN(endAt)))
       return new StringValue("");
 
     if(startAt < 0)
