@@ -44,7 +44,7 @@ public:
   NodeSet(bool forward) : 
     std::vector<DOM::Node<std::string> >(), 
     forward_(forward),
-    sorted_(false)
+    sorted_(true)
   { 
   } // NodeSet
 
