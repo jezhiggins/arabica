@@ -10,10 +10,10 @@
 #include <vector>
 #include <map>
 
-#include "CppUnit/textui/TextTestResult.h"
-#include "CppUnit/framework/Test.h"
+#include "../CppUnit/textui/TextTestResult.h"
+#include "../CppUnit/framework/Test.h"
 
-#include "CppUnit/framework/TestSuite.h"
+#include "../CppUnit/framework/TestSuite.h"
 
 #include "test_DOMImplementation.h"
 #include "test_DocumentType.h"

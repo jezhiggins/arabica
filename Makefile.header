@@ -33,14 +33,14 @@ COPY = cp -f
 # your parser choice
 # eg DYNAMIC_LIBS = -lexpat
 
-CXXFLAGS = -Wall 
+CXXFLAGS = -Wall -g
 LDFLAGS = 
 
 # Includes and library directories 
 #INCS_DIRS = -I.. -I/home/jez/gcc-3.4.2/include -I/usr/include/libxml2
 INCS_DIRS = -I.. -I/usr/include/libxml2 -I/usr/local/include
 #LIBS_DIRS = -I/home/jez/gcc-3.4.2/lib 
-LIBS_DIRS = 
+LIBS_DIRS =  
 
 STATIC_LIBS =
 DYNAMIC_LIBS =  -lxml2 -lstdc++

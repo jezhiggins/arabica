@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="example_SAX2DOMTests"
+	Name="test_SAX2DOM"
 	ProjectGUID="{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
 	SccProjectName=""
 	SccLocalPath="">
@@ -172,37 +172,10 @@
 			<File
 				RelativePath=".\test_Siblings.cpp">
 			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestCase.cpp">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestFailure.cpp">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestResult.cpp">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestSuite.cpp">
-			</File>
-			<File
-				RelativePath=".\CppUnit\textui\TextTestResult.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
-			<File
-				RelativePath=".\CppUnit\framework\CppUnitException.h">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\estring.h">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\Guards.h">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\Test.h">
-			</File>
 			<File
 				RelativePath=".\test_Attribute.h">
 			</File>
@@ -222,9 +195,6 @@
 				RelativePath=".\test_Element.h">
 			</File>
 			<File
-				RelativePath=".\test_Notation.h">
-			</File>
-			<File
 				RelativePath=".\test_ProcessingInstruction.h">
 			</File>
 			<File
@@ -232,21 +202,6 @@
 			</File>
 			<File
 				RelativePath=".\test_Siblings.h">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestCaller.h">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestCase.h">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestFailure.h">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestResult.h">
-			</File>
-			<File
-				RelativePath=".\CppUnit\framework\TestSuite.h">
 			</File>
 		</Filter>
 		<Filter
@@ -257,6 +212,54 @@
 			Name="Libs">
 			<File
 				RelativePath="..\..\lib\Arabica.lib">
+			</File>
+		</Filter>
+		<Filter
+			Name="CppUnit">
+			<File
+				RelativePath="..\CppUnit\framework\CppUnitException.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\estring.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\Guards.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\Test.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestCaller.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestCase.cpp">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestCase.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestFailure.cpp">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestFailure.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestResult.cpp">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestResult.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestSuite.cpp">
+			</File>
+			<File
+				RelativePath="..\CppUnit\framework\TestSuite.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\textui\TextTestResult.cpp">
+			</File>
+			<File
+				RelativePath="..\CppUnit\textui\TextTestResult.h">
 			</File>
 		</Filter>
 	</Files>

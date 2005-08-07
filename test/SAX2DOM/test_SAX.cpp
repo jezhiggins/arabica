@@ -1,9 +1,9 @@
 #ifdef _MSC_VER
 #pragma warning(disable: 4786 4250 4503)
 #endif
-#include "CppUnit/framework/TestCase.h"
-#include "CppUnit/framework/TestSuite.h"
-#include "CppUnit/framework/TestCaller.h"
+#include "../CppUnit/framework/TestCase.h"
+#include "../CppUnit/framework/TestSuite.h"
+#include "../CppUnit/framework/TestCaller.h"
 #include <sstream>
 #include <DOM/SAX2DOM/SAX2DOM.h>
 

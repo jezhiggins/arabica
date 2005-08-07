@@ -1,27 +1,30 @@
+#ifdef _MSC_VER
+#pragma warning(disable: 4786 4250 4503)
+#endif
+#include "../CppUnit/framework/TestCase.h"
+#include "../CppUnit/framework/TestSuite.h"
+#include "../CppUnit/framework/TestCaller.h"
 
-#include "CppUnit/framework/TestCase.h"
-#include "CppUnit/framework/TestSuite.h"
-#include "CppUnit/framework/TestCaller.h"
+#include <DOM/Simple/DOMImplementation.h>
 
-#include <SAX2DOM/SAX2DOM.h>
-
-class NotationTest : public TestCase 
+class PITest : public TestCase 
 {
- SAX2DOM::DOMFactory factory;
+  DOM::DOMImplementation<std::string> factory;
 
   public: 
-    NotationTest(std::string name) :
+    PITest(std::string name) :
         TestCase(name) 
     {
-    } // NotationTest
+    } // PITest
     
     void setUp() 
     {
+      factory = SimpleDOM::DOMImplementation<std::string>::getDOMImplementation();
     } // setUp
 
     void testNull() 
     {
-      DOM::Notation<std::string> d;
+      DOM::ProcessingInstruction<std::string> d;
       DOM::Node<std::string> n;
       assert(d == 0);
       assert(n == 0);
@@ -30,8 +33,8 @@ class NotationTest : public TestCase
 
     void testCreate()
     {
-      DOM::Document<std::string> d = factory.newDocument();
-      DOM::Notation<std::string> p = d.createNotation("target", "data");
+      DOM::Document<std::string> d = factory.createDocument("","", 0);
+      DOM::ProcessingInstruction<std::string> p = d.createProcessingInstruction("target", "data");
 
       assert(p.getTarget() == "target");
       assert(p.getData() == "data");
@@ -44,8 +47,8 @@ class NotationTest : public TestCase
 
     void testConversion()
     {
-      DOM::Document<std::string> d = factory.newDocument();
-      DOM::Notation<std::string> pi = d.createNotation("target", "data");
+      DOM::Document<std::string> d = factory.createDocument("","", 0);
+      DOM::ProcessingInstruction<std::string> pi = d.createProcessingInstruction("target", "data");
 
       DOM::Node<std::string> n;
 
@@ -55,18 +58,18 @@ class NotationTest : public TestCase
 
       assert(n == pi);
 
-      DOM::Notation<std::string> pi2;
+      DOM::ProcessingInstruction<std::string> pi2;
 
       assert(n != pi2);
-      pi2 = static_cast<DOM::Notation<std::string> >(n);
+      pi2 = DOM::ProcessingInstruction<std::string>(n);
       assert(pi == pi2);
       assert(n == pi2);
     } // testConverstion
 
     void testEverythingElse()
     {
-      DOM::Document<std::string> d = factory.newDocument();
-      DOM::Notation<std::string> pi = d.createNotation("target", "data");
+      DOM::Document<std::string> d = factory.createDocument("","", 0);
+      DOM::ProcessingInstruction<std::string> pi = d.createProcessingInstruction("target", "data");
 
       assert(pi.getNodeType() == DOM::Node<std::string>::PROCESSING_INSTRUCTION_NODE);
       assert(pi.hasAttributes() == false);
@@ -94,13 +97,13 @@ class NotationTest : public TestCase
     } // 
 };
 
-TestSuite* NotationTest_suite() 
+TestSuite* ProcessingInstructionTest_suite() 
 {
     TestSuite *suiteOfTests = new TestSuite;
-    suiteOfTests->addTest(new TestCaller<NotationTest>("testNull", NotationTest::testNull));
-    suiteOfTests->addTest(new TestCaller<NotationTest>("testCreate", NotationTest::testCreate));
-    suiteOfTests->addTest(new TestCaller<NotationTest>("testConversion", NotationTest::testConversion));
-    suiteOfTests->addTest(new TestCaller<NotationTest>("testEverythingElse", NotationTest::testEverythingElse));
+    suiteOfTests->addTest(new TestCaller<PITest>("testNull", &PITest::testNull));
+    suiteOfTests->addTest(new TestCaller<PITest>("testCreate", &PITest::testCreate));
+    suiteOfTests->addTest(new TestCaller<PITest>("testConversion", &PITest::testConversion));
+    suiteOfTests->addTest(new TestCaller<PITest>("testEverythingElse", &PITest::testEverythingElse));
     return suiteOfTests;
 } // MathTest_suite
 

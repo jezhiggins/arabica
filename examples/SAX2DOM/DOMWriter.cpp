@@ -1,7 +1,9 @@
 // DOMWriter.cpp : Defines the entry point for the application.
 //
 
+#ifdef _MSC_VER
 #pragma warning(disable: 4786 4250 4503)
+#endif
 
 #include <string>
 #include <DOM/SAX2DOM/SAX2DOM.h>
