@@ -8,6 +8,7 @@ writer
 domwriter
 transcode
 xmlbase
+xpath_test
 libArabica.dll
 *.exe
 *.exe.*
