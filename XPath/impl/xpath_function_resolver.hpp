@@ -21,6 +21,8 @@ public:
 class FunctionResolver
 {
 public:
+  virtual ~FunctionResolver() { }
+
   // TODO: should make this a QName
   virtual XPathFunction* resolveFunction(const std::string& name,
                                          const std::vector<XPathExpressionPtr>& argExprs) const = 0; 

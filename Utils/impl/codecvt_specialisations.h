@@ -10,6 +10,8 @@ template<>
 class codecvt<char, wchar_t, std::mbstate_t> 
 {
 protected:
+  virtual ~codecvt();
+
   virtual codecvt_base::result do_out(mbstate_t&,
                                       const char* from,
                                       const char* from_end,

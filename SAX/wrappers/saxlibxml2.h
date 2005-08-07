@@ -41,6 +41,9 @@ extern "C"
 
 class libxml2_base
 {
+  protected:
+    virtual ~libxml2_base() { }
+
   private:
     virtual void SAXstartDocument() = 0;
     virtual void SAXendDocument() = 0;

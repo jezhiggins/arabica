@@ -449,13 +449,82 @@
 			Name="XPath"
 			Filter="">
 			<File
+				RelativePath="..\XPath\impl\xpath_arithmetic.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_ast.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_ast_ids.hpp">
+			</File>
+			<File
 				RelativePath="..\XPath\src\xpath_axis_enumerator.cpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_axis_enumerator.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_compile_context.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_execution_context.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_function.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_function_holder.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_function_resolver.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_grammar.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_logical.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_namespace_context.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_namespace_node.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_node_test.hpp">
 			</File>
 			<File
 				RelativePath="..\XPath\src\xpath_object.cpp">
 			</File>
 			<File
+				RelativePath="..\XPath\impl\xpath_object.hpp">
+			</File>
+			<File
 				RelativePath="..\XPath\src\xpath_parser.cpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_parser.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_relational.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_resolver_holder.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_step.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_union.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_value.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_variable.hpp">
+			</File>
+			<File
+				RelativePath="..\XPath\impl\xpath_variable_resolver.hpp">
 			</File>
 		</Filter>
 		<File

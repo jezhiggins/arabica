@@ -6,6 +6,11 @@
 namespace std
 {
 
+codecvt<char, wchar_t, mbstate_t>::
+~codecvt() 
+{
+} // ~codecvt
+
 ////////////////////////////////////////////////////////////////////////
 codecvt_base::result 
 codecvt<char, wchar_t, mbstate_t>:: 

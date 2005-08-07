@@ -69,6 +69,8 @@ template<class stringT>
 class NamedNodeMap_impl 
 {
   public:
+    virtual ~NamedNodeMap_impl() { }
+
     ///////////////////////////////////////////////////////
     // Ref counting
     virtual void addRef() = 0;

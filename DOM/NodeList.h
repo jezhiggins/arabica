@@ -48,6 +48,8 @@ template<class stringT>
 class NodeList_impl 
 {
   public:
+    virtual ~NodeList_impl() { }
+
     ///////////////////////////////////////////////////////
     // Ref counting
     virtual void addRef() = 0;
