@@ -51,7 +51,9 @@ comment(lib, "xerces-c_2.lib")
 #endif
 #endif
 #ifdef USE_GARDEN
+#ifdef _MSC_VER
 message("Including Garden")
+#endif
 include <SAX/parsers/saxgarden.h>
 undef DEF_SAX_P
 define DEF_SAX_P Garden

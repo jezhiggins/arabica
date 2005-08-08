@@ -41,7 +41,9 @@ message("Pulling in Xerces wrappers.")
 #endif
 
 #ifdef USE_GARDEN
+#ifdef _MSC_VER
 message("Nothing to pull in for Garden.")
+#endif
 #endif
 
 #ifdef USE_EXPAT

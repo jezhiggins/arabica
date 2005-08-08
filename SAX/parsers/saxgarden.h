@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <stack>
+#include <map>
 #include <SAX/XMLReader.h>
 #include <SAX/SAXParseException.h>
 #include <SAX/SAXNotRecognizedException.h>
@@ -375,7 +376,9 @@ void Garden<string_type>::entityRef(iterator_t s, iterator_t e)
   {
     stringT name(str(s, e, 1));
 
-    std::map<stringT, stringT>::iterator ent = declaredEntities_.find(name);
+    typedef typename std::map<stringT, stringT>::iterator entity_iterator;
+
+    entity_iterator ent = declaredEntities_.find(name);
     if(ent != declaredEntities_.end())
     { 
       contentHandler_->characters((*ent).second);
