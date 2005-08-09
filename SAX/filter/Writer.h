@@ -50,8 +50,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       stream_(&stream),
       lexicalHandler_(0),
       declHandler_(0),
-      lastTag_(startTag),
-      encoding_()
+      encoding_(),
+      lastTag_(startTag)
     {
     } // basic_Writer
 
@@ -65,8 +65,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       stream_(&stream),
       lexicalHandler_(0),
       declHandler_(0),
-      lastTag_(startTag),
-      encoding_()
+      encoding_(),
+      lastTag_(startTag)
     {
     } // basic_Writer
 
@@ -79,8 +79,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       stream_(&stream),
       lexicalHandler_(0),
       declHandler_(0),
-      lastTag_(startTag),
-      encoding_(encoding)
+      encoding_(encoding),
+      lastTag_(startTag)
     {
     } // basic_Writer
 
