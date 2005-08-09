@@ -1,0 +1,14 @@
+*.obj
+core
+*.so
+*.so.*
+*.a
+.depend
+*.dep
+*.plg
+Debug
+Release
+*.exe
+xgrep
+
+
