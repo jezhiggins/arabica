@@ -94,8 +94,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       stream_(&stream),
       lexicalHandler_(0),
       declHandler_(0),
-      lastTag_(startTag),
-      encoding_(encoding)
+      encoding_(encoding),
+      lastTag_(startTag)
     {
     } // basic_Writer
 
@@ -154,7 +154,6 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     bool isDtd(const stringT& name);
 
 private:
-    stringT encoding_;
     bool inCDATA_;
     bool inDTD_;
     bool internalSubset_;
@@ -163,6 +162,7 @@ private:
     ostreamT* stream_;
     LexicalHandlerT* lexicalHandler_;
     DeclHandlerT* declHandler_;
+    stringT encoding_;
     enum { startTag, endTag, docTag } lastTag_;
     const SAX::PropertyNames<stringT> properties_;
 
