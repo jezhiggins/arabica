@@ -250,8 +250,9 @@ void Garden<string_type>::doSetProperty(const stringT& name, std::auto_ptr<typen
 template<class string_type>
 void Garden<string_type>::parse(InputSourceT& input)
 {
-  InputSourceResolver is(input, default_string_adaptor<stringT>());
-	if(is.resolve() == 0)
+  default_string_adaptor<stringT> SA;
+  InputSourceResolver is(input, SA);
+  if(is.resolve() == 0)
   {
     reportError("Could not resolve XML document", true);
 		return;
@@ -328,7 +329,7 @@ void Garden<string_type>::endElement(iterator_t s, iterator_t e)
 template<class string_type>
 void Garden<string_type>::attributeName(iterator_t s, iterator_t e)
 {
-  currentAttr_ = AttributesImplT::Attr();
+  currentAttr_ = typename AttributesImplT::Attr();
   currentAttr_.localName_ = str(s, e);
 } // attributeName
 

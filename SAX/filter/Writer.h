@@ -294,7 +294,7 @@ void basic_Writer<string_type>::startElement(
   for(int i = 0; i < atts.getLength(); ++i)
   {
     *stream_ << UnicodeT::SPACE 
-             << atts.getQName(i) 
+             << (!atts.getQName(i).empty() ? atts.getQName(i) : atts.getLocalName(i))
              << UnicodeT::EQUALS_SIGN
              << UnicodeT::QUOTATION_MARK;
     stringT value = atts.getValue(i); 
