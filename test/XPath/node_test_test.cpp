@@ -1,5 +1,5 @@
 #ifdef _MSC_VER
-#pragma warning(disable: 4786 4250 4503 4224)
+#pragma warning(disable: 4786 4250 4503 4224 4180)
 #endif
 #include "../CppUnit/framework/TestCase.h"
 #include "../CppUnit/framework/TestSuite.h"

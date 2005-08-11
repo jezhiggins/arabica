@@ -4,6 +4,10 @@
 // 
 ///////////////////////////////////
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4244)
+#endif
+
 #include <iostream>
 #include <Utils/convert_adaptor.h>
 #include <Utils/utf8iso88591codecvt.h>
