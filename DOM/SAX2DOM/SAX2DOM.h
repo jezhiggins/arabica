@@ -35,6 +35,10 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
         entityResolver_(0),
         errorHandler_(0)
     { 
+      SAX::FeatureNames<stringT> fNames;
+      features_.insert(std::make_pair(fNames.namespaces, true));
+      features_.insert(std::make_pair(fNames.namespace_prefixes, true));
+      features_.insert(std::make_pair(fNames.validation, true));
     } // Parser
 
     void setEntityResolver(EntityResolverT& resolver) { entityResolver_ = &resolver; }
@@ -51,7 +55,6 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     bool parse(SAX::basic_InputSource<stringT>& source)
     {
-      SAX::FeatureNames<stringT> fNames;
       SAX::PropertyNames<stringT> pNames;
       
       DOM::DOMImplementation<stringT> di = SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
@@ -69,9 +72,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       setParserProperty<SAX::basic_LexicalHandler<stringT> >(parser, pNames.lexicalHandler);
       setParserProperty<SAX::basic_DeclHandler<stringT> >(parser, pNames.declHandler);
 
-      parser.setFeature(fNames.namespaces, true);
-      parser.setFeature(fNames.namespace_prefixes, true);
-      //parser.setFeature(fNames.external_general, true);
+      setParserFeatures(parser);
 
       try 
       {
@@ -114,9 +115,13 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     DOM::Node<stringT> currentNode_;
     DOM::Node<stringT> cachedCurrent_;
 
+    typedef std::map<stringT, bool> Features;
+    Features features_;
+
     bool inCDATA_;
     int inEntity_;
     string_adaptorT SA_;
+
     std::map<stringT, EntityT*> declaredEntities_;
 
     EntityResolverT* entityResolver_;
@@ -125,13 +130,19 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
   private:
     template<class interfaceT>
-    void setParserProperty(SAX_parser& parser, const stringT& propertyName)
+    void setParserProperty(SAX_parser& parser, const stringT& propertyName) 
     {
       try {
         parser.setProperty(propertyName, static_cast<interfaceT&>(*this));
       } // try
       catch(SAX::SAXException&) { }
     } // setParserProperty
+
+    void setParserFeatures(SAX_parser& parser) const
+    {
+      for(Features::const_iterator f = features_.begin(), e = features_.end(); f != e; ++f)
+        parser.setFeature(f->first, f->second);
+    } // setParserFeatures
 
     ///////////////////////////////////////////////////////////
     // ContentHandler
