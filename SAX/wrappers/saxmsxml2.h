@@ -20,15 +20,6 @@
 //               The initialization code will now try the 4.0 ID and
 //               then the older (version independant) name.   [kas]
 //
-//
-// Known issues:
-//      1. The destructor (~msxml2_wrapper) should release the COM
-//         interfaces.  It doesn't because of problem 2.
-//
-//      2. The classes don't handle non-initialization well.  Failure
-//         to get the COM interfaces during instance construction will
-//         cause a crash at some later point.
-//
 //---------------------------------------------------------------------------
 
 #include <SAX/ArabicaConfig.h>
@@ -45,10 +36,6 @@
 
 // Include the MSXML definitions.
 #include <msxml2.h>
-
-// Declare the ProgID used in the version dependent MSXML 4.0 library
-// up here rather then buried somewhere in the code.
-#define MSXML_PROGID_NAME   "Msxml2.SAXXMLReader.4.0"
 
 //
 // Declare the 'smart pointer' type to simplify COM handling.
@@ -856,21 +843,15 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
 template<class stringT, class COMInitializerT, class string_adaptorT>
 msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::msxml2_wrapper()
 {
-
-  reader_.CreateInstance(MSXML_PROGID_NAME);
-  if (reader_.GetInterfacePtr() == NULL)
-  {
-    std::cerr << "MSXML SAX Reader 4.0 not instanciated, trying older versions." 
-              << std::endl << std::flush;
+  reader_.CreateInstance("Msxml2.SAXXMLReader.4.0");
+  if(reader_.GetInterfacePtr() == 0)
+    reader_.CreateInstance("Msxml2.SAXXMLReader.3.0");
+  if(reader_.GetInterfacePtr() == 0)
     reader_.CreateInstance(__uuidof(ISAXXMLReader));
-    if (reader_.GetInterfacePtr() == NULL)
-    {
-      std::cerr << "MSXML SAX Reader (pre-4.0) not instanciated." 
-                << std::endl << std::flush;
-      exit(1);
-    }
-  }
-  reader_.AddRef();
+
+  if(reader_.GetInterfacePtr() == 0)
+    throw SAXException("MSXML SAX Reader (pre-4.0) could not be instantiated");
+
   reader_->putContentHandler(&contentHandler_);
   reader_->putErrorHandler(&errorHandler_);
   reader_->putDTDHandler(&dtdHandler_);
@@ -886,6 +867,8 @@ msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::msxml2_wrapper()
 template<class stringT, class COMInitializerT, class string_adaptorT>
 msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::~msxml2_wrapper()
 {
+  if(reader_.GetInterfacePtr())
+    reader_.Release();
 } // ~msxml2_wrapper
 
 template<class stringT, class COMInitializerT, class string_adaptorT>
