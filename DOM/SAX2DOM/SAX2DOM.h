@@ -65,14 +65,10 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 		  parser.setErrorHandler(*this);
       if(entityResolver_)
         parser.setEntityResolver(*entityResolver_);
-      try 
-      {
-        parser.setProperty(pNames.lexicalHandler, static_cast<SAX::basic_LexicalHandler<stringT>&>(*this));
-        parser.setProperty(pNames.declHandler, static_cast<SAX::basic_DeclHandler<stringT>&>(*this));
-      }
-      catch(SAX::SAXException&)
-      {
-      } // catch
+
+      setParserProperty<SAX::basic_LexicalHandler<stringT> >(parser, pNames.lexicalHandler);
+      setParserProperty<SAX::basic_DeclHandler<stringT> >(parser, pNames.declHandler);
+
       parser.setFeature(fNames.namespaces, true);
       parser.setFeature(fNames.namespace_prefixes, true);
       //parser.setFeature(fNames.external_general, true);
@@ -128,6 +124,15 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     SAX::AttributeTypes<stringT, string_adaptorT> attributeTypes_;
 
   private:
+    template<class interfaceT>
+    void setParserProperty(SAX_parser& parser, const stringT& propertyName)
+    {
+      try {
+        parser.setProperty(propertyName, static_cast<interfaceT&>(*this));
+      } // try
+      catch(SAX::SAXException&) { }
+    } // setParserProperty
+
     ///////////////////////////////////////////////////////////
     // ContentHandler
     virtual void endDocument()
