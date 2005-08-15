@@ -108,7 +108,7 @@ xmlSAXHandler* lwit_SaxHandler();
 
 } // namespace libxml2_wrapper_impl_tiddle
 
-template<class string_type, class string_adaptor_type = default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 class libxml2_wrapper : public basic_XMLReader<string_type>,
                         public basic_Locator<string_type>,
                         protected libxml2_wrapper_impl_tiddle::libxml2_base

@@ -116,7 +116,7 @@ namespace XercesImpl
   }; // class xerces_initializer
 } // namespace XercesImpl
 
-template<class string_type, class string_adaptor_type = SAX::default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
 {
   private:

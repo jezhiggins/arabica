@@ -31,7 +31,7 @@
 #include <SAX/ext/LexicalHandler.h>
 #include <SAX/ext/DeclHandler.h>
 #include <SAX/helpers/PropertyNames.h>
-#include <SAX/helpers/StringAdaptor.h>
+#include <Utils/StringAdaptor.h>
 #include <iostream>
 
 // Include the MSXML definitions.
@@ -74,7 +74,7 @@ class COMMultiThreadInitializer
 
 template<class string_type, 
          class COMInitializer_type = COMSingleThreadInitializer,
-         class string_adaptor_type = SAX::default_string_adaptor<string_type> >
+         class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
 {
     public:

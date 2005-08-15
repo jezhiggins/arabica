@@ -1,7 +1,7 @@
 ####################################
 # ARABICA CONFIG
 # edit for your parser choice - may include more than one USE_*
-PARSER_CONFIG = -DUSE_GARDEN
+PARSER_CONFIG = -DUSE_EXPAT -DARABICA_NO_WCHAR_T
 #PARSER_CONFIG = -DUSE_EXPAT -DUSE_LIBXML2 -DUSE_XERCES -DUSE_GARDEN
 
 ####################################
@@ -37,13 +37,13 @@ INCS_DIRS = -I..
 LIBS_DIRS = 
 
 STATIC_LIBS =
-DYNAMIC_LIBS = -lstdc++ 
+DYNAMIC_LIBS =  -lexpat -lstdc++
 
-# flag to create a shared library
+# link flag to create a shared library
 LINK_SHARED = -shared
 
-EXESUFFIX = 
-LIBSUFFIX = .so
+EXESUFFIX = .exe
+LIBSUFFIX = .dll
 
 
 

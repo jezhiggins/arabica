@@ -19,7 +19,7 @@ namespace SAX2DOM
 {
 
 template<class stringT, 
-         class string_adaptorT = SAX::default_string_adaptor<stringT>,
+         class string_adaptorT = Arabica::default_string_adaptor<stringT>,
          class SAX_parser = SAX::XMLReader<stringT> >
 class Parser : private SAX::basic_DefaultHandler2<stringT>
 {

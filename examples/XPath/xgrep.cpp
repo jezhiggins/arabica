@@ -6,8 +6,8 @@
 #endif
 
 #include <string>
-#include <DOM/SAX2DOM/SAX2DOM.h>
 #include <SAX/helpers/CatchErrorHandler.h>
+#include <DOM/SAX2DOM/SAX2DOM.h>
 #include <XPath/XPath.hpp>
 
 ////////////////////////////////////////////////
@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
   {
     std::cout << "Usage : " << argv[0] << " xpath xmlfile ... " << std::endl;
     return 0;
-  } // if(argc < 2)
+  } // if(argc < 3)
 
   Arabica::XPath::XPath xpathParser;
   Arabica::XPath::XPathExpressionPtr xpath = xpathParser.compile(argv[1]);

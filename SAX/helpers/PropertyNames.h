@@ -6,13 +6,13 @@
 
 #include <SAX/ArabicaConfig.h>
 #include <SAX/XMLReader.h>
-#include <SAX/helpers/StringAdaptor.h>
+#include <Utils/StringAdaptor.h>
 
 namespace SAX
 {
 
 /** The core SAX 2 parser properties. */
-template<class string_type, class string_adaptor_type = default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 struct PropertyNames
 {
     /** @name SAX 2 Properties

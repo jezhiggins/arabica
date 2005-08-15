@@ -12,8 +12,8 @@
 #include <SAX/SAXParseException.h>
 #include <SAX/SAXNotRecognizedException.h>
 #include <SAX/helpers/InputSourceResolver.h>
-#include <SAX/helpers/StringAdaptor.h>
 #include <SAX/helpers/AttributesImpl.h>
+#include <Utils/StringAdaptor.h>
 
 namespace SAX {
 
@@ -250,7 +250,7 @@ void Garden<string_type>::doSetProperty(const stringT& name, std::auto_ptr<typen
 template<class string_type>
 void Garden<string_type>::parse(InputSourceT& input)
 {
-  default_string_adaptor<stringT> SA;
+  Arabica::default_string_adaptor<stringT> SA;
   InputSourceResolver is(input, SA);
   if(is.resolve() == 0)
   {

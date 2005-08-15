@@ -4,13 +4,13 @@
  * $Id$
  */
 
-#include <SAX/helpers/StringAdaptor.h>
+#include <Utils/StringAdaptor.h>
 #include <SAX/helpers/PropertyNames.h>
 
 namespace SAX
 {
   template<class string_type,
-           class string_adaptor_type = default_string_adaptor<string_type> >
+           class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
   struct XercesPropertyNames : public PropertyNames<string_type,
                                                     string_adaptor_type>
   {

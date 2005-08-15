@@ -1,5 +1,5 @@
-#ifndef ARABICA_STRING_ADAPTOR_H
-#define ARABICA_STRING_ADAPTOR_H
+#ifndef ARABICA_UTILS_STRING_ADAPTOR_H
+#define ARABICA_UTILS_STRING_ADAPTOR_H
 /*
  * $Id$
  */
@@ -9,7 +9,7 @@
 #include <Utils/convertstream.h>
 #include <Utils/utf8ucs2codecvt.h>
 
-namespace SAX
+namespace Arabica
 {
 
 template<class string_type>
@@ -175,7 +175,7 @@ private:
 }; // class default_string_adaptor
 #endif // ARABICA_NO_WCHAR_T
 
-} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

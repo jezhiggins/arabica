@@ -8,8 +8,8 @@
 #include <string>
 #include <SAX/XMLFilter.h>
 #include <SAX/helpers/DefaultHandler.h>
-#include <SAX/helpers/StringAdaptor.h>
 #include <SAX/SAXNotRecognizedException.h>
+#include <Utils/StringAdaptor.h>
 
 namespace SAX
 {
@@ -35,7 +35,7 @@ namespace SAX
  * @see basic_ContentHandler
  * @see basic_ErrorHandler
  */
-template<class string_type, class string_adaptor_type = SAX::default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 class basic_XMLFilterImpl : public basic_XMLFilter<string_type>,
           public basic_EntityResolver<string_type>, 
 					public basic_DTDHandler<string_type>,

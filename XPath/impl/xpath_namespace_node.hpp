@@ -7,7 +7,7 @@
 
 #include <DOM/Simple/DocumentImpl.h>
 #include <DOM/Simple/NodeImpl.h>
-#include <SAX/helpers/StringAdaptor.h>
+#include <Utils/StringAdaptor.h>
 
 namespace Arabica
 {
@@ -16,7 +16,7 @@ namespace XPath
 
 const DOM::Node_base::Type NAMESPACE_NODE_TYPE = static_cast<DOM::Node_base::Type>(DOM::Node_base::MAX_TYPE + 27);  // 27 is a random choice
 
-template<class stringT, class string_adaptorT = SAX::default_string_adaptor<stringT> >
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class NamespaceNodeImpl : public SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT>
 {
     typedef SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT> NodeT;

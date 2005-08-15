@@ -22,7 +22,7 @@
 #include <SAX/helpers/InputSourceResolver.h>
 #include <SAX/helpers/FeatureNames.h>
 #include <SAX/helpers/PropertyNames.h>
-#include <SAX/helpers/StringAdaptor.h>
+#include <Utils/StringAdaptor.h>
 #include <SAX/helpers/AttributeDefaults.h>
 #include <typeinfo>
 #include <map>
@@ -193,7 +193,7 @@ private:
  * @version $Id$
  * @see SAX::basic_XMLReader
  */
-template<class string_type, class string_adaptor_type = SAX::default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 class expat_wrapper : public SAX::basic_XMLReader<string_type>, 
                public SAX::basic_Locator<string_type>,
                public expat_wrapper_impl_mumbojumbo::expat2base

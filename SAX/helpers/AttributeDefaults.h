@@ -5,12 +5,12 @@
  */
 
 #include <SAX/ArabicaConfig.h>
-#include <SAX/helpers/StringAdaptor.h>
+#include <Utils/StringAdaptor.h>
 
 namespace SAX
 {
 
-template<class string_type, class string_adaptor_type = default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 struct AttributeDefaults
 {
     typedef string_type stringT;
