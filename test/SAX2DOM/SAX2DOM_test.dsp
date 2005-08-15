@@ -1,10 +1,10 @@
-# Microsoft Developer Studio Project File - Name="example_SAX2DOMTests" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="test_SAX2DOM" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
-CFG=example_SAX2DOMTests - Win32 Debug
+CFG=test_SAX2DOM - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
@@ -13,12 +13,12 @@ CFG=example_SAX2DOMTests - Win32 Debug
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "SAX2DOM_test.mak" CFG="example_SAX2DOMTests - Win32 Debug"
+!MESSAGE NMAKE /f "SAX2DOM_test.mak" CFG="test_SAX2DOM - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "example_SAX2DOMTests - Win32 Release" (based on "Win32 (x86) Console Application")
-!MESSAGE "example_SAX2DOMTests - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE "test_SAX2DOM - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "test_SAX2DOM - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -28,7 +28,7 @@ CFG=example_SAX2DOMTests - Win32 Debug
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "example_SAX2DOMTests - Win32 Release"
+!IF  "$(CFG)" == "test_SAX2DOM - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -53,7 +53,7 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 
-!ELSEIF  "$(CFG)" == "example_SAX2DOMTests - Win32 Debug"
+!ELSEIF  "$(CFG)" == "test_SAX2DOM - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -82,8 +82,8 @@ LINK32=link.exe
 
 # Begin Target
 
-# Name "example_SAX2DOMTests - Win32 Release"
-# Name "example_SAX2DOMTests - Win32 Debug"
+# Name "test_SAX2DOM - Win32 Release"
+# Name "test_SAX2DOM - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -129,23 +129,23 @@ SOURCE=.\test_Siblings.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\TestCase.cpp
+SOURCE=..\CppUnit\framework\TestCase.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\TestFailure.cpp
+SOURCE=..\CppUnit\framework\TestFailure.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\TestResult.cpp
+SOURCE=..\CppUnit\framework\TestResult.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\TestSuite.cpp
+SOURCE=..\CppUnit\framework\TestSuite.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\textui\TextTestResult.cpp
+SOURCE=..\CppUnit\textui\TextTestResult.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -153,19 +153,19 @@ SOURCE=.\CppUnit\textui\TextTestResult.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\CppUnitException.h
+SOURCE=..\CppUnit\framework\CppUnitException.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\estring.h
+SOURCE=..\CppUnit\framework\estring.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\Guards.h
+SOURCE=..\CppUnit\framework\Guards.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\Test.h
+SOURCE=..\CppUnit\framework\Test.h
 # End Source File
 # Begin Source File
 

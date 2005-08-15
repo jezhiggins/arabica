@@ -30,21 +30,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "example_SAX2DOMTests"=.\EXAMPLES\SAX2DOM\SAX2DOM_test.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name ArabicaLib
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "example_SAXPyx"=.\examples\SAX\pyx.dsp - Package Owner=<4>
 
 Package=<5>
@@ -101,6 +86,18 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name ArabicaLib
     End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "test_SAX2DOM"=.\test\SAX2DOM\SAX2DOM_test.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
 }}}
 
 ###############################################################################
