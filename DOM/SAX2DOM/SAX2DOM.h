@@ -47,6 +47,22 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     void setErrorHandler(ErrorHandlerT& handler) { errorHandler_ = &handler; }
     ErrorHandlerT* getErrorHandler() const { return errorHandler_; }
 
+    void setFeature(const stringT& name, bool value)
+    {
+      Features::iterator f = features_.find(name);
+      if(f == features_.end())
+        throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA_.asStdString(name));
+      f->second = value;
+    } // setFeature
+
+    bool getFeature(const stringT& name) const
+    {
+      Features::const_iterator f = features_.find(name);
+      if(f == features_.end())
+        throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA_.asStdString(name));
+      return f->second;
+    } // getFeature
+
     bool parse(const stringT& systemId)
     {
       SAX::basic_InputSource<stringT> is(systemId);
@@ -130,7 +146,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
   private:
     template<class interfaceT>
-    void setParserProperty(SAX_parser& parser, const stringT& propertyName) 
+    void setParserProperty(SAX_parser& parser, const stringT& propertyName)
     {
       try {
         parser.setProperty(propertyName, static_cast<interfaceT&>(*this));
