@@ -126,21 +126,46 @@ class SAXTest : public TestCase
       DOM::Document<std::string> d = parse("<elem stuff:attr='something' poop:attr='fail' xmlns:stuff='http://example.com/stuff'/>");
       assert(d == 0);
     } // test10
+
+    void test11()
+    {
+      SAX2DOM::Parser<std::string> parser;
+      assert(parser.getFeature("http://xml.org/sax/features/validation") == true);
+      parser.setFeature("http://xml.org/sax/features/validation", false);
+      assert(parser.getFeature("http://xml.org/sax/features/validation") == false);
+
+      parser.parse("<root attr=\"poop\"><child/></root>");
+    } // test11
+
+    void test12()
+    {
+      SAX2DOM::Parser<std::string> parser;
+      try
+      {
+        parser.getFeature("made up name");
+        assert(false);
+      }
+      catch(const SAX::SAXNotRecognizedException&)
+      {
+      } 
+    } // test12
 };
 
 TestSuite* SAXTest_suite() 
 {
-    TestSuite *suiteOfTests = new TestSuite;
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test1", &SAXTest::test1));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test2", &SAXTest::test2));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test3", &SAXTest::test3));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test4", &SAXTest::test4));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test5", &SAXTest::test5));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test6", &SAXTest::test6));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test7", &SAXTest::test7));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test8", &SAXTest::test8));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test9", &SAXTest::test9));
-    suiteOfTests->addTest(new TestCaller<SAXTest>("test10", &SAXTest::test10));
-    return suiteOfTests;
+  TestSuite *suiteOfTests = new TestSuite;
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test1", &SAXTest::test1));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test2", &SAXTest::test2));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test3", &SAXTest::test3));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test4", &SAXTest::test4));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test5", &SAXTest::test5));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test6", &SAXTest::test6));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test7", &SAXTest::test7));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test8", &SAXTest::test8));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test9", &SAXTest::test9));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test10", &SAXTest::test10));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test11", &SAXTest::test11));
+  suiteOfTests->addTest(new TestCaller<SAXTest>("test12", &SAXTest::test12));
+  return suiteOfTests;
 } // MathTest_suite
 
