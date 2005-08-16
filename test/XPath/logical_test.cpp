@@ -22,49 +22,49 @@ public:
 
   void test1()
   {
-    XPathExpressionPtr orTest(new OrOperator(new BoolValue(false), new BoolValue(false)));
+    XPathExpressionPtr<std::string> orTest(new OrOperator(new BoolValue(false), new BoolValue(false)));
     assertEquals(false, orTest->evaluateAsBool(dummy_));
   } // test1
 
   void test2()
   {
-    XPathExpressionPtr orTest(new OrOperator(new BoolValue(false), new BoolValue(true)));
+    XPathExpressionPtr<std::string> orTest(new OrOperator(new BoolValue(false), new BoolValue(true)));
     assertEquals(true, orTest->evaluateAsBool(dummy_));
   } // test2
 
   void test3()
   {
-    XPathExpressionPtr orTest(new OrOperator(new BoolValue(true), new BoolValue(false)));
+    XPathExpressionPtr<std::string> orTest(new OrOperator(new BoolValue(true), new BoolValue(false)));
     assertEquals(true, orTest->evaluateAsBool(dummy_));
   } // test3
 
   void test4()
   {
-    XPathExpressionPtr orTest(new OrOperator(new BoolValue(true), new BoolValue(true)));
+    XPathExpressionPtr<std::string> orTest(new OrOperator(new BoolValue(true), new BoolValue(true)));
     assertEquals(true, orTest->evaluateAsBool(dummy_));
   } // test4
 
   void test5()
   {
-    XPathExpressionPtr andTest(new AndOperator(new BoolValue(false), new BoolValue(false)));
+    XPathExpressionPtr<std::string> andTest(new AndOperator(new BoolValue(false), new BoolValue(false)));
     assertEquals(false, andTest->evaluateAsBool(dummy_));
   } // test5
 
   void test6()
   {
-    XPathExpressionPtr andTest(new AndOperator(new BoolValue(false), new BoolValue(true)));
+    XPathExpressionPtr<std::string> andTest(new AndOperator(new BoolValue(false), new BoolValue(true)));
     assertEquals(false, andTest->evaluateAsBool(dummy_));
   } // test6
 
   void test7()
   {
-    XPathExpressionPtr andTest(new AndOperator(new BoolValue(true), new BoolValue(false)));
+    XPathExpressionPtr<std::string> andTest(new AndOperator(new BoolValue(true), new BoolValue(false)));
     assertEquals(false, andTest->evaluateAsBool(dummy_));
   } // test7
 
   void test8()
   {
-    XPathExpressionPtr andTest(new AndOperator(new BoolValue(true), new BoolValue(true)));
+    XPathExpressionPtr<std::string> andTest(new AndOperator(new BoolValue(true), new BoolValue(true)));
     assertEquals(true, andTest->evaluateAsBool(dummy_));
   } // test8
 

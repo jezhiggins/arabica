@@ -13,7 +13,7 @@ namespace Arabica
 namespace XPath
 {
 
-class BoolValue : public XPathValue<std::string>, public XPathExpression
+class BoolValue : public XPathValue<std::string>, public XPathExpression<std::string>
 {
 public:
   BoolValue(bool value) :
@@ -41,7 +41,7 @@ private:
   bool value_;
 }; // class BoolValue
 
-class NumericValue : public XPathValue<std::string>, public XPathExpression
+class NumericValue : public XPathValue<std::string>, public XPathExpression<std::string>
 {
 public:
   NumericValue(double value) :
@@ -78,7 +78,7 @@ private:
   double value_;
 }; // class NumberValue
 
-class StringValue : public XPathValue<std::string>, public XPathExpression
+class StringValue : public XPathValue<std::string>, public XPathExpression<std::string>
 {
 public:
   StringValue(const char* value) :
@@ -109,7 +109,7 @@ private:
   std::string value_;
 }; // class StringValue
 
-class NodeSetValue : public XPathValue<std::string>, public XPathExpression
+class NodeSetValue : public XPathValue<std::string>, public XPathExpression<std::string>
 {
 public:
   NodeSetValue(const NodeSet<std::string>& set) : set_(set) { }

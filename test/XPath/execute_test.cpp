@@ -55,7 +55,7 @@ private:
 class TestFunction : public XPathFunction
 {
 public:
-  TestFunction(const std::vector<XPathExpressionPtr>& args) :
+  TestFunction(const std::vector<XPathExpressionPtr<std::string> >& args) :
       XPathFunction(0, 0, args) { }
 
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
@@ -69,7 +69,7 @@ class TestFunctionResolver : public FunctionResolver
 {
 public:
   virtual XPathFunction* resolveFunction(const std::string& name,
-                                         const std::vector<XPathExpressionPtr>& argExprs) const
+                                         const std::vector<XPathExpressionPtr<std::string> >& argExprs) const
   {
     if(name == "test-function")
       return new TestFunction(argExprs);
@@ -160,7 +160,7 @@ public:
 
   void test1()
   {
-    XPathExpressionPtr xpath = parser.compile("root");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -171,7 +171,7 @@ public:
 
   void test2()
   {
-    XPathExpressionPtr xpath = parser.compile("root/child2");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/child2");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -182,7 +182,7 @@ public:
 
   void test3()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -194,7 +194,7 @@ public:
 
   void test4()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*/text()");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*/text()");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -205,13 +205,13 @@ public:
 
   void test5() 
   {
-    XPathExpressionPtr xpath = parser.compile("root/*/text()");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*/text()");
     assertValuesEqual(text_.getNodeValue(), xpath->evaluateAsString(document_));
   } // test5
 
   void test6()
   {
-    XPathExpressionPtr xpath = parser.compile("*");
+    XPathExpressionPtr<std::string> xpath = parser.compile("*");
 
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
     assertValuesEqual(NODE_SET, result->type());
@@ -240,7 +240,7 @@ public:
 
   void test7()
   {
-    XPathExpressionPtr xpath = parser.compile("/root");
+    XPathExpressionPtr<std::string> xpath = parser.compile("/root");
 
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
     assertValuesEqual(NODE_SET, result->type());
@@ -258,7 +258,7 @@ public:
     StandardNamespaceContext nsContext;
     nsContext.addNamespaceDeclaration("urn:something:or:other", "ns");
     parser.setNamespaceContext(nsContext);
-    XPathExpressionPtr xpath = parser.compile("/ns:root");
+    XPathExpressionPtr<std::string> xpath = parser.compile("/ns:root");
     parser.resetNamespaceContext();
 
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
@@ -272,7 +272,7 @@ public:
 
   void test9()
   {
-    XPathExpressionPtr xpath = parser.compile("child2");
+    XPathExpressionPtr<std::string> xpath = parser.compile("child2");
 
     XPathValuePtr<std::string> result = xpath->evaluate(root_);
     assertValuesEqual(NODE_SET, result->type());
@@ -293,7 +293,7 @@ public:
 
   void test11()
   {
-    XPathExpressionPtr xpath = parser.compile("..");
+    XPathExpressionPtr<std::string> xpath = parser.compile("..");
 
     XPathValuePtr<std::string> result = xpath->evaluate(element3_);
     assertValuesEqual(NODE_SET, result->type());
@@ -303,7 +303,7 @@ public:
 
   void test12()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*[2]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[2]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -369,7 +369,7 @@ public:
 
   void test19()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*[position() = 2]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[position() = 2]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -380,7 +380,7 @@ public:
 
   void test20()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*[last()]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[last()]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -390,7 +390,7 @@ public:
 
   void test21()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*[position() != last()]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[position() != last()]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -401,7 +401,7 @@ public:
 
   void test22()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*[position() = 2 or position() = 1]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[position() = 2 or position() = 1]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -412,7 +412,7 @@ public:
 
   void test23()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*[position() = 2 and @two = '1']");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[position() = 2 and @two = '1']");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -422,7 +422,7 @@ public:
 
   void test24()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*[last()][1]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[last()][1]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -432,7 +432,7 @@ public:
 
   void test25()
   {
-    XPathExpressionPtr xpath = parser.compile("root/*[last()][2]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[last()][2]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -441,7 +441,7 @@ public:
 
   void test26()
   {
-    XPathExpressionPtr xpath = parser.compile("/root/child2/spinkle/ancestor::node()[2]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("/root/child2/spinkle/ancestor::node()[2]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -452,7 +452,7 @@ public:
 
   void test27()
   {
-    XPathExpressionPtr xpath = parser.compile("/root/child2/spinkle/ancestor-or-self::node()[2]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("/root/child2/spinkle/ancestor-or-self::node()[2]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
@@ -463,7 +463,7 @@ public:
 
   void test28()
   {
-    XPathExpressionPtr xpath = parser.compile("/root/child2/spinkle/ancestor-or-self::node()[3]");
+    XPathExpressionPtr<std::string> xpath = parser.compile("/root/child2/spinkle/ancestor-or-self::node()[3]");
     XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());

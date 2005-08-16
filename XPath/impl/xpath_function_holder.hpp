@@ -11,9 +11,9 @@ namespace XPath
 {
 
 template<class function_type>
-XPathFunction* CreateFn(const std::vector<XPathExpressionPtr>& argExprs) { return new function_type(argExprs); }
+XPathFunction* CreateFn(const std::vector<XPathExpressionPtr<std::string> >& argExprs) { return new function_type(argExprs); }
 
-typedef XPathFunction* (*CreateFnPtr)(const std::vector<XPathExpressionPtr>& argExprs);
+typedef XPathFunction* (*CreateFnPtr)(const std::vector<XPathExpressionPtr<std::string> >& argExprs);
 
 struct NamedFunction { const char* name; CreateFnPtr creator; };
 
@@ -49,7 +49,7 @@ const NamedFunction FunctionLookupTable[] = { // node-set functions
                                         {0,                  0}
                                       };
 
-class FunctionHolder : public XPathExpression
+class FunctionHolder : public XPathExpression<std::string>
 {
 public:
   FunctionHolder(XPathFunction* func) :
@@ -69,7 +69,7 @@ public:
   } // evaluate
 
   static FunctionHolder* createFunction(const std::string& name, 
-                                        const std::vector<XPathExpressionPtr>& argExprs,
+                                        const std::vector<XPathExpressionPtr<std::string> >& argExprs,
                                         const CompilationContext& context)
   {
     for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)

@@ -8,11 +8,11 @@ namespace Arabica
 namespace XPath
 {
 
-class EqualsOperator : private BinaryExpression, public XPathExpression
+class EqualsOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  EqualsOperator(XPathExpression* lhs, XPathExpression* rhs) :
-       BinaryExpression(lhs, rhs) { }
+  EqualsOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+       BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -22,11 +22,11 @@ public:
   } // evaluate
 }; // class EqualsOperator
 
-class NotEqualsOperator : private BinaryExpression, public XPathExpression
+class NotEqualsOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  NotEqualsOperator(XPathExpression* lhs, XPathExpression* rhs) :
-       BinaryExpression(lhs, rhs) { }
+  NotEqualsOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+       BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -36,11 +36,11 @@ public:
   } // evaluate
 }; // class NotEqualsOperator
 
-class LessThanOperator : private BinaryExpression, public XPathExpression
+class LessThanOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  LessThanOperator(XPathExpression* lhs, XPathExpression* rhs) :
-      BinaryExpression(lhs, rhs) { }
+  LessThanOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -50,11 +50,11 @@ public:
   } // evaluate
 }; // class LessThanOperator
 
-class LessThanEqualsOperator : private BinaryExpression, public XPathExpression
+class LessThanEqualsOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  LessThanEqualsOperator(XPathExpression* lhs, XPathExpression* rhs) :
-      BinaryExpression(lhs, rhs) { }
+  LessThanEqualsOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -64,11 +64,11 @@ public:
   } // evaluate
 }; // class LessThanEqualsOperator
 
-class GreaterThanOperator : private BinaryExpression, public XPathExpression
+class GreaterThanOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  GreaterThanOperator(XPathExpression* lhs, XPathExpression* rhs) :
-      BinaryExpression(lhs, rhs) { }
+  GreaterThanOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -78,11 +78,11 @@ public:
   } // evaluate
 }; // class GreaterThanOperator
 
-class GreaterThanEqualsOperator : private BinaryExpression, public XPathExpression
+class GreaterThanEqualsOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  GreaterThanEqualsOperator(XPathExpression* lhs, XPathExpression* rhs) :
-      BinaryExpression(lhs, rhs) { }
+  GreaterThanEqualsOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const

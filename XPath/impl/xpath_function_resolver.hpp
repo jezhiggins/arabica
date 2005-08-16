@@ -7,7 +7,7 @@ namespace XPath
 {
 
 class XPathFunction;
-class XPathExpressionPtr;
+template<class string_type> class XPathExpressionPtr;
 
 class UndefinedFunctionException : public std::runtime_error
 {
@@ -22,7 +22,7 @@ public:
 
   // TODO: should make this a QName
   virtual XPathFunction* resolveFunction(const std::string& name,
-                                         const std::vector<XPathExpressionPtr>& argExprs) const = 0; 
+                                         const std::vector<XPathExpressionPtr<std::string> >& argExprs) const = 0; 
 }; // class FunctionResolver
 
 class FunctionResolverPtr : public boost::shared_ptr<FunctionResolver> 
@@ -35,7 +35,7 @@ class NullFunctionResolver : public FunctionResolver
 {
 public:
   virtual XPathFunction* resolveFunction(const std::string& name,
-                                         const std::vector<XPathExpressionPtr>& argExprs) const
+                                         const std::vector<XPathExpressionPtr<std::string> >& argExprs) const 
   {
     throw UndefinedFunctionException(name);
   } // resolveVariable

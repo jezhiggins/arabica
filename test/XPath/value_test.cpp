@@ -26,7 +26,7 @@ public:
 
   void test1()
   {
-    XPathExpressionPtr b(new BoolValue(true));
+    XPathExpressionPtr<std::string> b(new BoolValue(true));
     assertEquals(true, b->evaluateAsBool(dummy_));
     assertEquals(1.0, b->evaluateAsNumber(dummy_), 0.0);
     assertEquals("true", b->evaluateAsString(dummy_));
@@ -34,7 +34,7 @@ public:
 
   void test2()
   {
-    XPathExpressionPtr b2(new BoolValue(false));
+    XPathExpressionPtr<std::string> b2(new BoolValue(false));
     assertEquals(false, b2->evaluateAsBool(dummy_));
     assertEquals(0.0, b2->evaluateAsNumber(dummy_), 0.0);
     assertEquals("false", b2->evaluateAsString(dummy_));
@@ -42,7 +42,7 @@ public:
 
   void test3()
   {
-    XPathExpressionPtr n(new NumericValue(99.5));
+    XPathExpressionPtr<std::string> n(new NumericValue(99.5));
     assertEquals(true, n->evaluateAsBool(dummy_));
     assertEquals(99.5, n->evaluateAsNumber(dummy_), 0.0);
     assertEquals("99.5", n->evaluateAsString(dummy_));
@@ -50,7 +50,7 @@ public:
 
   void test4()
   {
-    XPathExpressionPtr n(new NumericValue(0.0));
+    XPathExpressionPtr<std::string> n(new NumericValue(0.0));
     assertEquals(false, n->evaluateAsBool(dummy_));
     assertEquals(0, n->evaluateAsNumber(dummy_), 0);
     assertEquals("0", n->evaluateAsString(dummy_));
@@ -58,20 +58,20 @@ public:
 
   void test5()
   {
-    XPathExpressionPtr s(new StringValue("hello"));
+    XPathExpressionPtr<std::string> s(new StringValue("hello"));
     assertEquals(true, s->evaluateAsBool(dummy_));
     assertEquals("hello", s->evaluateAsString(dummy_));
   } // test5
 
   void test6()
   {
-    XPathExpressionPtr s(new StringValue(""));
+    XPathExpressionPtr<std::string> s(new StringValue(""));
     assertEquals(false, s->evaluateAsBool(dummy_));
   }
 
   void test7()
   {
-    XPathExpressionPtr s(new StringValue("100"));
+    XPathExpressionPtr<std::string> s(new StringValue("100"));
     assertEquals(true, s->evaluateAsBool(dummy_));
     assertEquals(100.0, s->evaluateAsNumber(dummy_), 0.0);
     assertEquals("100", s->evaluateAsString(dummy_));
@@ -79,7 +79,7 @@ public:
 
   void test8()
   {
-    XPathExpressionPtr s(new StringValue("0"));
+    XPathExpressionPtr<std::string> s(new StringValue("0"));
     assertEquals(true, s->evaluateAsBool(dummy_));
     assertEquals(0.0, s->evaluateAsNumber(dummy_), 0.0);
     assertEquals("0", s->evaluateAsString(dummy_));
@@ -87,10 +87,10 @@ public:
 
   void test9()
   {
-    XPathExpressionPtr bt(new BoolValue(true));
-    XPathExpressionPtr st(new StringValue("true"));
-    XPathExpressionPtr bf(new BoolValue(false));
-    XPathExpressionPtr sf(new StringValue(""));
+    XPathExpressionPtr<std::string> bt(new BoolValue(true));
+    XPathExpressionPtr<std::string> st(new StringValue("true"));
+    XPathExpressionPtr<std::string> bf(new BoolValue(false));
+    XPathExpressionPtr<std::string> sf(new StringValue(""));
 
     assertTrue(areEqual(bt->evaluate(dummy_), (st->evaluate(dummy_))));
     assertTrue(areEqual(st->evaluate(dummy_), (bt->evaluate(dummy_))));
@@ -106,10 +106,10 @@ public:
 
   void test10()
   {
-    XPathExpressionPtr bt(new BoolValue(true));
-    XPathExpressionPtr nt(new NumericValue(1.0));
-    XPathExpressionPtr bf(new BoolValue(false));
-    XPathExpressionPtr nf(new NumericValue(0.0));
+    XPathExpressionPtr<std::string> bt(new BoolValue(true));
+    XPathExpressionPtr<std::string> nt(new NumericValue(1.0));
+    XPathExpressionPtr<std::string> bf(new BoolValue(false));
+    XPathExpressionPtr<std::string> nf(new NumericValue(0.0));
 
     assertTrue(areEqual(bt->evaluate(dummy_), (nt->evaluate(dummy_))));
     assertTrue(areEqual(nt->evaluate(dummy_), (bt->evaluate(dummy_))));
@@ -120,7 +120,7 @@ public:
 
   void test11()
   {
-    XPathExpressionPtr nt(new NumericValue(1.0));
+    XPathExpressionPtr<std::string> nt(new NumericValue(1.0));
     XPathValuePtr<std::string> ns = nt->evaluate(dummy_);
 
     assertTrue(areEqual(ns, (nt->evaluate(dummy_))));

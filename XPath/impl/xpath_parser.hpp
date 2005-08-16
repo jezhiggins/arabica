@@ -44,8 +44,8 @@ public:
   XPath();
   ~XPath();
 
-  XPathExpressionPtr compile(const std::string& xpath) const;
-  XPathExpressionPtr compile_expr(const std::string& xpath) const;
+  XPathExpressionPtr<std::string> compile(const std::string& xpath) const;
+  XPathExpressionPtr<std::string> compile_expr(const std::string& xpath) const;
 
   XPathValuePtr<std::string> evaluate(const std::string& xpath, const DOM::Node<std::string>& context) const;
   XPathValuePtr<std::string> evaluate_expr(const std::string& xpath, const DOM::Node<std::string>& context) const;
@@ -66,7 +66,7 @@ public:
   void resetFunctionResolver() { functionResolver_.set(FunctionResolverPtr(new NullFunctionResolver())); }
 
 private:
-  XPathExpressionPtr do_compile(const std::string& xpath, tree_info_t(XPath::*fn)(const std::string& str) const) const;
+  XPathExpressionPtr<std::string> do_compile(const std::string& xpath, tree_info_t(XPath::*fn)(const std::string& str) const) const;
   tree_info_t parse_xpath(const std::string& str) const;
   tree_info_t parse_xpath_expr(const std::string& str) const;
 
@@ -76,14 +76,14 @@ private:
   ResolverHolder<const VariableResolver<std::string> > variableResolver_;
   ResolverHolder<const FunctionResolver> functionResolver_;
 
-  typedef XPathExpression* (*compileFn)(node_iter_t const& i, CompilationContext& context);
+  typedef XPathExpression<std::string>* (*compileFn)(node_iter_t const& i, CompilationContext& context);
   static std::map<int, compileFn> factory_;
   static std::map<int, std::string> names_;
   static const std::map<int, compileFn> createFunctions();
   static const std::map<int, std::string> debugNames();
   static void dump(node_iter_t const& i, int depth);
 
-  friend XPathExpression* Arabica::XPath::compile_expression(node_iter_t const& i, CompilationContext& context);
+  friend XPathExpression<std::string>* Arabica::XPath::compile_expression(node_iter_t const& i, CompilationContext& context);
 
 
   XPath(const XPath&);

@@ -9,11 +9,11 @@ namespace Arabica
 namespace XPath
 {
 
-class UnionExpression : private BinaryExpression, public XPathExpression
+class UnionExpression : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  UnionExpression(XPathExpression* lhs, XPathExpression* rhs) :
-       BinaryExpression(lhs, rhs) { }
+  UnionExpression(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+       BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -23,7 +23,7 @@ public:
       throw RuntimeException("Union operator joins node-sets.  First argument is not a node-set.");
     XPathValuePtr<std::string> p2 = rhs()->evaluate(context, executionContext);
     if(p2->type() != NODE_SET)
-      throw RuntimeException("Union operator joins node-sets.  First argument is not a node-set.");
+      throw RuntimeException("Union operator joins node-sets.  Second argument is not a node-set.");
 
     NodeSet<std::string> ns1(p1->asNodeSet());
     NodeSet<std::string> ns2(p2->asNodeSet());

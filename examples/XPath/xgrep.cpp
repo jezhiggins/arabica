@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
   } // if(argc < 3)
 
   Arabica::XPath::XPath xpathParser;
-  Arabica::XPath::XPathExpressionPtr xpath = xpathParser.compile(argv[1]);
+  Arabica::XPath::XPathExpressionPtr<std::string> xpath = xpathParser.compile(argv[1]);
   
   SAX2DOM::Parser<std::string> domParser;
   SAX::CatchErrorHandler<std::string> eh;

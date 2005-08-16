@@ -8,11 +8,11 @@ namespace Arabica
 namespace XPath
 {
 
-class PlusOperator : private BinaryExpression, public XPathExpression
+class PlusOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  PlusOperator(XPathExpression* lhs, XPathExpression* rhs) : 
-      BinaryExpression(lhs, rhs) { }
+  PlusOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) : 
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const 
@@ -21,11 +21,11 @@ public:
   } // evaluate
 }; // class PlusOperator
 
-class MinusOperator : private BinaryExpression, public XPathExpression
+class MinusOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  MinusOperator(XPathExpression* lhs, XPathExpression* rhs) : 
-      BinaryExpression(lhs, rhs) { }
+  MinusOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) : 
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -34,11 +34,11 @@ public:
   } // evaluate
 }; // class MinusOperator
 
-class MultiplyOperator : private BinaryExpression, public XPathExpression
+class MultiplyOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  MultiplyOperator(XPathExpression* lhs, XPathExpression* rhs) :
-      BinaryExpression(lhs, rhs) { }
+  MultiplyOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -47,11 +47,11 @@ public:
   } // evaluate
 }; // class MultiplyOperator
 
-class DivideOperator : private BinaryExpression, public XPathExpression
+class DivideOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  DivideOperator(XPathExpression* lhs, XPathExpression* rhs) :
-      BinaryExpression(lhs, rhs) { }
+  DivideOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -60,11 +60,11 @@ public:
   } // evaluate
 }; // class DivideOperator
 
-class ModOperator : private BinaryExpression, public XPathExpression
+class ModOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  ModOperator(XPathExpression* lhs, XPathExpression* rhs) :
-      BinaryExpression(lhs, rhs) { }
+  ModOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+      BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -73,11 +73,11 @@ public:
   } // evaluate
 }; // class ModOperator
 
-class UnaryNegative : private UnaryExpression, public XPathExpression
+class UnaryNegative : private UnaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  UnaryNegative(XPathExpression* expr) :
-      UnaryExpression(expr) { }
+  UnaryNegative(XPathExpression<std::string>* expr) :
+      UnaryExpression<std::string>(expr) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const

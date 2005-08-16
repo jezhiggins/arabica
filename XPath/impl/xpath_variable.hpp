@@ -10,7 +10,7 @@ namespace Arabica
 namespace XPath
 {
 
-class Variable : public XPathExpression
+class Variable : public XPathExpression<std::string>
 {
 public:
   Variable(const std::string& name) : name_(name) { }

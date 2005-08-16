@@ -11,6 +11,7 @@ namespace Arabica
 namespace XPath
 {
 
+template<class string_type>
 class XPathExpression
 {
 protected:
@@ -19,19 +20,19 @@ protected:
 public:
   virtual ~XPathExpression() { }
 
-  XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context) const
+  XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context) const
   {
     ExecutionContext executionContext;
     return evaluate(context, executionContext);
   } // evaluate
 
-  virtual bool evaluateAsBool(const DOM::Node<std::string>& context) const { return evaluate(context)->asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<std::string>& context) const { return evaluate(context)->asNumber(); }
-  virtual std::string evaluateAsString(const DOM::Node<std::string>& context) const { return evaluate(context)->asString(); }
-  virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<std::string>& context) const { return evaluate(context)->asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type>& context) const { return evaluate(context)->asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type>& context) const { return evaluate(context)->asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type>& context) const { return evaluate(context)->asString(); }
+  virtual NodeSet<string_type> evaluateAsNodeSet(const DOM::Node<string_type>& context) const { return evaluate(context)->asNodeSet(); }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const Arabica::XPath::ExecutionContext& executionContext) const = 0;
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext& executionContext) const = 0;
 
 private:
   XPathExpression(const XPathExpression&);
@@ -39,16 +40,18 @@ private:
   XPathExpression& operator=(const XPathExpression&);
 }; // class XPathExpression
 
-class XPathExpressionPtr : public boost::shared_ptr<XPathExpression> 
+template<class string_type>
+class XPathExpressionPtr : public boost::shared_ptr<XPathExpression<string_type> > 
 { 
 public:
-  explicit XPathExpressionPtr(XPathExpression* xp) : boost::shared_ptr<XPathExpression>(xp) { }
+  explicit XPathExpressionPtr(XPathExpression<string_type>* xp) : boost::shared_ptr<XPathExpression<string_type> >(xp) { }
 };
 
+template<class string_type>
 class UnaryExpression
 {
 public:
-  UnaryExpression(XPathExpression* expr) :
+  UnaryExpression(XPathExpression<string_type>* expr) :
       expr_(expr) { }
 
 protected:
@@ -57,17 +60,22 @@ protected:
     delete expr_;
   } // ~UnaryExpression
 
-  XPathExpression* expr() const { return expr_; }
+  XPathExpression<string_type>* expr() const { return expr_; }
 
 private:
-  XPathExpression* expr_;
+  XPathExpression<string_type>* expr_;
 }; // class UnaryExpression
 
+template<class string_type>
 class BinaryExpression
 {
 public:
-  BinaryExpression(XPathExpression* lhs, XPathExpression* rhs) :
-      lhs_(lhs), rhs_(rhs) { }
+  BinaryExpression(XPathExpression<string_type>* lhs, 
+                   XPathExpression<string_type>* rhs) :
+      lhs_(lhs), 
+       rhs_(rhs) 
+  { 
+  } // BinaryExpression
 
 protected:
   ~BinaryExpression() 
@@ -76,12 +84,12 @@ protected:
     delete rhs_;
   } // ~BinaryExpression
 
-  XPathExpression* lhs() const { return lhs_; }
-  XPathExpression* rhs() const { return rhs_; }
+  XPathExpression<string_type>* lhs() const { return lhs_; }
+  XPathExpression<string_type>* rhs() const { return rhs_; }
 
 private:
-  XPathExpression* lhs_;
-  XPathExpression* rhs_;
+  XPathExpression<string_type>* lhs_;
+  XPathExpression<string_type>* rhs_;
 }; // class BinaryExpression
 
 } // namespace XPath

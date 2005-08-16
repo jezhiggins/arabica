@@ -8,11 +8,11 @@ namespace Arabica
 namespace XPath
 {
 
-class OrOperator : private BinaryExpression, public XPathExpression
+class OrOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  OrOperator(XPathExpression* lhs, XPathExpression* rhs) :
-       BinaryExpression(lhs, rhs) { }
+  OrOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+       BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
@@ -28,11 +28,11 @@ public:
   } // evaluate
 }; // class OrOperator
 
-class AndOperator : private BinaryExpression, public XPathExpression
+class AndOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
 {
 public:
-  AndOperator(XPathExpression* lhs, XPathExpression* rhs) :
-       BinaryExpression(lhs, rhs) { }
+  AndOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
+       BinaryExpression<std::string>(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const

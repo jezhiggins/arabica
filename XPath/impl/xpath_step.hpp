@@ -17,15 +17,15 @@ namespace Arabica
 namespace XPath
 {
 
-class StepExpression : public XPathExpression
+class StepExpression : public XPathExpression<std::string>
 {
 public:
   StepExpression() { }
-  StepExpression(std::vector<XPathExpression*> predicates) : predicates_(predicates) { }
+  StepExpression(const std::vector<XPathExpression<std::string> *>& predicates) : predicates_(predicates) { }
 
   virtual ~StepExpression()
   { 
-    for(std::vector<XPathExpression*>::iterator p = predicates_.begin(), e = predicates_.end(); p != e; ++p)
+    for(std::vector<XPathExpression<std::string>*>::iterator p = predicates_.begin(), e = predicates_.end(); p != e; ++p)
       delete *p;
   } // ~StepExpression
 
@@ -37,14 +37,16 @@ public:
 protected:
   NodeSet<std::string> applyPredicates(NodeSet<std::string>& nodes, const ExecutionContext& parentContext) const
   {
-    for(std::vector<XPathExpression*>::const_iterator p = predicates_.begin(), e = predicates_.end();
+    for(std::vector<XPathExpression<std::string>*>::const_iterator p = predicates_.begin(), e = predicates_.end();
         (p != e) && (!nodes.empty()); ++p)
       nodes = applyPredicate(nodes, *p, parentContext);
     return nodes;
   } // applyPredicates
 
 private:
-  NodeSet<std::string> applyPredicate(NodeSet<std::string>& nodes, XPathExpression* predicate, const ExecutionContext& parentContext) const
+  NodeSet<std::string> applyPredicate(NodeSet<std::string>& nodes, 
+                                      XPathExpression<std::string>* predicate, 
+                                      const ExecutionContext& parentContext) const
   {
     ExecutionContext executionContext(nodes.size(), parentContext);
     NodeSet<std::string> results(nodes.forward());
@@ -64,7 +66,7 @@ private:
     return results;
   } // applyPredicate
   
-  std::vector<XPathExpression*> predicates_;
+  std::vector<XPathExpression<std::string>*> predicates_;
 }; // StepExpression
 
 class TestStepExpression : public StepExpression
@@ -77,7 +79,8 @@ public:
   {
   } // TestStepExpression
 
-  TestStepExpression(Axis axis, NodeTest* test, std::vector<XPathExpression*> predicates) :
+  TestStepExpression(Axis axis, NodeTest* test, 
+                     const std::vector<XPathExpression<std::string>*>& predicates) :
       StepExpression(predicates),
       axis_(axis),
       test_(test)
@@ -139,7 +142,8 @@ private:
 class ExprStepExpression : public StepExpression
 {
 public:
-  ExprStepExpression(XPathExpression* expr, std::vector<XPathExpression*> predicates) :
+  ExprStepExpression(XPathExpression<std::string>* expr, 
+                     const std::vector<XPathExpression<std::string>*>& predicates) :
       StepExpression(predicates),
       expr_(expr)
   {
@@ -166,7 +170,7 @@ public:
   } // evaluate
 
 private:
-  XPathExpression* expr_;
+  XPathExpression<std::string>* expr_;
   std::vector<XPathExpression*> predicates_;
 }; // class ExprStepExpression
 
@@ -177,11 +181,11 @@ public:
   {
     Axis axis = getAxis(node);
     NodeTest* test = getTest(node, context.namespaceContext());
-    XPathExpression* thing = 0;
+    XPathExpression<std::string>* thing = 0;
     if(!test)
       thing = compile_expression(node++, context);
 
-    std::vector<XPathExpression*> preds;
+    std::vector<XPathExpression<std::string>*> preds;
 
     while((node != end) && (getNodeId(node) == Predicate_id))
     {
@@ -360,7 +364,7 @@ private:
   StepFactory();
 }; // class StepFactory
 
-class RelativeLocationPath : public XPathExpression
+class RelativeLocationPath : public XPathExpression<std::string>
 {
 public:
   typedef std::vector<StepExpression*> StepList;

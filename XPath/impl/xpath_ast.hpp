@@ -18,9 +18,9 @@ typedef boost::spirit::tree_parse_info<str_iter_t> tree_info_t;
 long getNodeId(node_iter_t const& node);
 node_iter_t& skipWhitespace(node_iter_t& node);
 
-class XPathExpression;
+template<class string_type> class XPathExpression;
 class CompilationContext;
-XPathExpression* compile_expression(node_iter_t const& i, CompilationContext& context);
+XPathExpression<std::string>* compile_expression(node_iter_t const& i, CompilationContext& context);
 
 } // namespace XPath
 } // namespace Arabica

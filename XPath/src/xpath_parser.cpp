@@ -56,14 +56,14 @@ void XPath::dump(node_iter_t const& i, int depth)
     dump(c, depth+2);
 } // dump
 
-XPathExpression* createExpression(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createExpression(node_iter_t const& i, CompilationContext& context)
 {
   node_iter_t c = i->children.begin();
   skipWhitespace(c);
   return compile_expression(c, context);
 } // createExpression
 
-XPathExpression* createFunction(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createFunction(node_iter_t const& i, CompilationContext& context)
 {
 //  dump(i);
   node_iter_t c = i->children.begin();
@@ -74,10 +74,10 @@ XPathExpression* createFunction(node_iter_t const& i, CompilationContext& contex
   ++c;
   skipWhitespace(c);
 
-  std::vector<XPathExpressionPtr> args;
+  std::vector<XPathExpressionPtr<std::string> > args;
   while(getNodeId(c) != RightBracket_id)
   {
-    XPathExpressionPtr arg(compile_expression(c++, context));
+    XPathExpressionPtr<std::string> arg(compile_expression(c++, context));
     args.push_back(arg);
 
     skipWhitespace(c);
@@ -87,33 +87,33 @@ XPathExpression* createFunction(node_iter_t const& i, CompilationContext& contex
   return FunctionHolder::createFunction(name, args, context);
 } // createFunction
 
-XPathExpression* createNumber(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createNumber(node_iter_t const& i, CompilationContext& context)
 {
   return new NumericValue(boost::lexical_cast<double>(std::string(i->value.begin(), i->value.end())));
 } // createNumber
 
-XPathExpression* createVariable(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createVariable(node_iter_t const& i, CompilationContext& context)
 {
   return new Variable(std::string(i->value.begin()+1, i->value.end())); // skip $
 } // createVariable
 
-XPathExpression* createLiteral(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createLiteral(node_iter_t const& i, CompilationContext& context)
 {
   std::string str(i->value.begin(), i->value.end());
   return new StringValue(str);
 } // createLiteral
 
-XPathExpression* createBinaryExpression(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createBinaryExpression(node_iter_t const& i, CompilationContext& context)
 {
   node_iter_t c = i->children.begin();
-  XPathExpression* p1 = compile_expression(c, context);
+  XPathExpression<std::string>* p1 = compile_expression(c, context);
   ++c;
 
   do
   {
     long op = getNodeId(c);
     ++c;
-    XPathExpression* p2 = compile_expression(c, context);
+    XPathExpression<std::string>* p2 = compile_expression(c, context);
 
     switch(op)
     {
@@ -201,49 +201,49 @@ RelativeLocationPath::StepList createStepList(node_iter_t const& from, node_iter
   return steps;
 } // createStepList
 
-XPathExpression* createAbsoluteLocationPath(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createAbsoluteLocationPath(node_iter_t const& i, CompilationContext& context)
 {
   return new AbsoluteLocationPath(createStepList(i->children.begin(), i->children.end(), context));
 } // createAbsoluteLocationPath
 
-XPathExpression* createRelativeLocationPath(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createRelativeLocationPath(node_iter_t const& i, CompilationContext& context)
 {
   return new RelativeLocationPath(createStepList(i->children.begin(), i->children.end(), context));
 } // createRelativeLocationPath
 
-XPathExpression* createSingleStepRelativeLocationPath(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createSingleStepRelativeLocationPath(node_iter_t const& i, CompilationContext& context)
 {
   node_iter_t n = i;
   return new RelativeLocationPath(StepFactory::createStep(n, context));
 } // createSingleStepRelativeLocationPath
 
-XPathExpression* createSingleStepAbsoluteLocationPath(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createSingleStepAbsoluteLocationPath(node_iter_t const& i, CompilationContext& context)
 {
   node_iter_t n = i;
   return new AbsoluteLocationPath(StepFactory::createStep(n, context));
 } // createSingleStepAbsoluteLocationPath
 
-XPathExpression* createUnaryExpression(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createUnaryExpression(node_iter_t const& i, CompilationContext& context)
 {
   return compile_expression(i->children.begin(), context);
 } // createUnaryExpression
 
-XPathExpression* createUnaryNegativeExpr(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* createUnaryNegativeExpr(node_iter_t const& i, CompilationContext& context)
 {
   return new UnaryNegative(compile_expression(i+1, context));
 } // createUnaryNegativeExpr
 
-XPathExpressionPtr XPath::compile(const std::string& xpath) const
+XPathExpressionPtr<std::string> XPath::compile(const std::string& xpath) const
 {
   return do_compile(xpath, &XPath::parse_xpath);
 } // compile
 
-XPathExpressionPtr XPath::compile_expr(const std::string& xpath) const
+XPathExpressionPtr<std::string> XPath::compile_expr(const std::string& xpath) const
 {
   return do_compile(xpath, &XPath::parse_xpath_expr);
 } // compile_expr
 
-XPathExpressionPtr XPath::do_compile(const std::string& xpath, tree_info_t(XPath::*fn)(const std::string& str) const) const
+XPathExpressionPtr<std::string> XPath::do_compile(const std::string& xpath, tree_info_t(XPath::*fn)(const std::string& str) const) const
 {
   debugNames();
   createFunctions();
@@ -254,7 +254,7 @@ XPathExpressionPtr XPath::do_compile(const std::string& xpath, tree_info_t(XPath
       throw SyntaxException(xpath);
 
     CompilationContext context(*this, getNamespaceContext(), getFunctionResolver());
-    return XPathExpressionPtr(compile_expression(ast.trees.begin(), context));
+    return XPathExpressionPtr<std::string>(compile_expression(ast.trees.begin(), context));
   } // try
   catch(std::exception& ex) 
   {
@@ -302,7 +302,7 @@ XPathValuePtr<std::string> XPath::evaluate_expr(const std::string& xpath, const 
   return compile_expr(xpath)->evaluate(context, executionContext);
 } // evaluate_expr
 
-XPathExpression* Arabica::XPath::compile_expression(node_iter_t const& i, CompilationContext& context)
+XPathExpression<std::string>* Arabica::XPath::compile_expression(node_iter_t const& i, CompilationContext& context)
 {
   //dump(i);
 
@@ -310,7 +310,7 @@ XPathExpression* Arabica::XPath::compile_expression(node_iter_t const& i, Compil
 
   if(XPath::factory_.find(id) == XPath::factory_.end())
   {
-  //return XPathExpressionPtr();
+  //return XPathExpressionPtr<std::string>();
     XPath::dump(i, 0);
     throw UnsupportedException(XPath::names_[id]);
   }

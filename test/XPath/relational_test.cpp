@@ -22,8 +22,8 @@ public:
 
   void test1()
   {
-    XPathExpressionPtr equals1(new EqualsOperator(new NumericValue(1), new NumericValue(1)));
-    XPathExpressionPtr equals2(new EqualsOperator(new NumericValue(1), new NumericValue(1)));
+    XPathExpressionPtr<std::string> equals1(new EqualsOperator(new NumericValue(1), new NumericValue(1)));
+    XPathExpressionPtr<std::string> equals2(new EqualsOperator(new NumericValue(1), new NumericValue(1)));
 
     assertEquals(true, equals1->evaluateAsBool(dummy_));
     assertEquals(true, equals2->evaluateAsBool(dummy_));
@@ -31,8 +31,8 @@ public:
 
   void test2()
   {
-    XPathExpressionPtr equals1(new EqualsOperator(new NumericValue(1), new NumericValue(2)));
-    XPathExpressionPtr equals2(new EqualsOperator(new NumericValue(2), new NumericValue(1)));
+    XPathExpressionPtr<std::string> equals1(new EqualsOperator(new NumericValue(1), new NumericValue(2)));
+    XPathExpressionPtr<std::string> equals2(new EqualsOperator(new NumericValue(2), new NumericValue(1)));
 
     assertEquals(false, equals1->evaluateAsBool(dummy_));
     assertEquals(false, equals2->evaluateAsBool(dummy_));
@@ -40,35 +40,35 @@ public:
 
   void test3()
   {
-    XPathExpressionPtr equals1(new EqualsOperator(new NumericValue(1), new NumericValue(1)));
+    XPathExpressionPtr<std::string> equals1(new EqualsOperator(new NumericValue(1), new NumericValue(1)));
 
     assertEquals(true, equals1->evaluateAsBool(dummy_));
   } // test3
 
   void test4()
   {
-    XPathExpression* p1 = new StringValue("charlie");
-    XPathExpression* p2 = new StringValue("charlie");
+    XPathExpression<std::string>* p1 = new StringValue("charlie");
+    XPathExpression<std::string>* p2 = new StringValue("charlie");
 
-    XPathExpressionPtr equals1(new EqualsOperator(p1, p2));
+    XPathExpressionPtr<std::string> equals1(new EqualsOperator(p1, p2));
 
     assertEquals(true, equals1->evaluateAsBool(dummy_));
   } // test4
 
   void test5()
   {
-    XPathExpression* p1 = new StringValue("trousers");
-    XPathExpression* p2 = new StringValue("charlie");
+    XPathExpression<std::string>* p1 = new StringValue("trousers");
+    XPathExpression<std::string>* p2 = new StringValue("charlie");
 
-    XPathExpressionPtr equals1(new EqualsOperator(p1, p2));
+    XPathExpressionPtr<std::string> equals1(new EqualsOperator(p1, p2));
 
     assertEquals(false, equals1->evaluateAsBool(dummy_));
   } // test5
 
   void test6()
   {
-    XPathExpressionPtr equals1(new EqualsOperator(new BoolValue(true), new BoolValue(true)));
-    XPathExpressionPtr equals2(new EqualsOperator(new BoolValue(false), new BoolValue(false)));
+    XPathExpressionPtr<std::string> equals1(new EqualsOperator(new BoolValue(true), new BoolValue(true)));
+    XPathExpressionPtr<std::string> equals2(new EqualsOperator(new BoolValue(false), new BoolValue(false)));
 
     assertEquals(true, equals1->evaluateAsBool(dummy_));
     assertEquals(true, equals2->evaluateAsBool(dummy_));
@@ -76,8 +76,8 @@ public:
 
   void test7()
   {
-    XPathExpressionPtr equals1(new EqualsOperator(new BoolValue(true), new BoolValue(false)));
-    XPathExpressionPtr equals2(new EqualsOperator(new BoolValue(false), new BoolValue(true)));
+    XPathExpressionPtr<std::string> equals1(new EqualsOperator(new BoolValue(true), new BoolValue(false)));
+    XPathExpressionPtr<std::string> equals2(new EqualsOperator(new BoolValue(false), new BoolValue(true)));
 
     assertEquals(false, equals1->evaluateAsBool(dummy_));
     assertEquals(false, equals2->evaluateAsBool(dummy_));
@@ -85,10 +85,10 @@ public:
 
   void testLessThan1()
   {
-    XPathExpressionPtr lessThan1(new LessThanOperator(new BoolValue(true), new BoolValue(true)));
-    XPathExpressionPtr lessThan2(new LessThanOperator(new BoolValue(false), new BoolValue(false)));
-    XPathExpressionPtr lessThan3(new LessThanOperator(new BoolValue(true), new BoolValue(false)));
-    XPathExpressionPtr lessThan4(new LessThanOperator(new BoolValue(false), new BoolValue(true)));
+    XPathExpressionPtr<std::string> lessThan1(new LessThanOperator(new BoolValue(true), new BoolValue(true)));
+    XPathExpressionPtr<std::string> lessThan2(new LessThanOperator(new BoolValue(false), new BoolValue(false)));
+    XPathExpressionPtr<std::string> lessThan3(new LessThanOperator(new BoolValue(true), new BoolValue(false)));
+    XPathExpressionPtr<std::string> lessThan4(new LessThanOperator(new BoolValue(false), new BoolValue(true)));
 
     assertEquals(false, lessThan1->evaluateAsBool(dummy_));
     assertEquals(false, lessThan2->evaluateAsBool(dummy_));
@@ -98,10 +98,10 @@ public:
 
   void testLessThan2()
   {
-    XPathExpressionPtr lessThan1(new LessThanOperator(new NumericValue(1.0), new NumericValue(1.0)));
-    XPathExpressionPtr lessThan2(new LessThanOperator(new NumericValue(3.0), new NumericValue(2.0)));
-    XPathExpressionPtr lessThan3(new LessThanOperator(new NumericValue(2.0), new NumericValue(3.0)));
-    XPathExpressionPtr lessThan4(new LessThanOperator(new NumericValue(-1), new NumericValue(1)));
+    XPathExpressionPtr<std::string> lessThan1(new LessThanOperator(new NumericValue(1.0), new NumericValue(1.0)));
+    XPathExpressionPtr<std::string> lessThan2(new LessThanOperator(new NumericValue(3.0), new NumericValue(2.0)));
+    XPathExpressionPtr<std::string> lessThan3(new LessThanOperator(new NumericValue(2.0), new NumericValue(3.0)));
+    XPathExpressionPtr<std::string> lessThan4(new LessThanOperator(new NumericValue(-1), new NumericValue(1)));
 
     assertEquals(false, lessThan1->evaluateAsBool(dummy_));
     assertEquals(false, lessThan2->evaluateAsBool(dummy_));
@@ -111,10 +111,10 @@ public:
 
   void testLessThan3()
   {
-    XPathExpressionPtr lessThan1(new LessThanOperator(new StringValue("1.0"), new StringValue("1.0")));
-    XPathExpressionPtr lessThan2(new LessThanOperator(new StringValue("3.0"), new StringValue("2.0")));
-    XPathExpressionPtr lessThan3(new LessThanOperator(new StringValue("2.0"), new StringValue("3.0")));
-    XPathExpressionPtr lessThan4(new LessThanOperator(new StringValue("-1"), new StringValue("1")));
+    XPathExpressionPtr<std::string> lessThan1(new LessThanOperator(new StringValue("1.0"), new StringValue("1.0")));
+    XPathExpressionPtr<std::string> lessThan2(new LessThanOperator(new StringValue("3.0"), new StringValue("2.0")));
+    XPathExpressionPtr<std::string> lessThan3(new LessThanOperator(new StringValue("2.0"), new StringValue("3.0")));
+    XPathExpressionPtr<std::string> lessThan4(new LessThanOperator(new StringValue("-1"), new StringValue("1")));
 
     assertEquals(false, lessThan1->evaluateAsBool(dummy_));
     assertEquals(false, lessThan2->evaluateAsBool(dummy_));
@@ -124,10 +124,10 @@ public:
 
   void testLessThanEquals1()
   {
-    XPathExpressionPtr lessThanEquals1(new LessThanEqualsOperator(new BoolValue(true), new BoolValue(true)));
-    XPathExpressionPtr lessThanEquals2(new LessThanEqualsOperator(new BoolValue(false), new BoolValue(false)));
-    XPathExpressionPtr lessThanEquals3(new LessThanEqualsOperator(new BoolValue(true), new BoolValue(false)));
-    XPathExpressionPtr lessThanEquals4(new LessThanEqualsOperator(new BoolValue(false), new BoolValue(true)));
+    XPathExpressionPtr<std::string> lessThanEquals1(new LessThanEqualsOperator(new BoolValue(true), new BoolValue(true)));
+    XPathExpressionPtr<std::string> lessThanEquals2(new LessThanEqualsOperator(new BoolValue(false), new BoolValue(false)));
+    XPathExpressionPtr<std::string> lessThanEquals3(new LessThanEqualsOperator(new BoolValue(true), new BoolValue(false)));
+    XPathExpressionPtr<std::string> lessThanEquals4(new LessThanEqualsOperator(new BoolValue(false), new BoolValue(true)));
 
     assertEquals(true, lessThanEquals1->evaluateAsBool(dummy_));
     assertEquals(true, lessThanEquals2->evaluateAsBool(dummy_));
@@ -137,10 +137,10 @@ public:
 
   void testLessThanEquals2()
   {
-    XPathExpressionPtr lessThanEquals1(new LessThanEqualsOperator(new NumericValue(1.0), new NumericValue(1.0)));
-    XPathExpressionPtr lessThanEquals2(new LessThanEqualsOperator(new NumericValue(3.0), new NumericValue(2.0)));
-    XPathExpressionPtr lessThanEquals3(new LessThanEqualsOperator(new NumericValue(2.0), new NumericValue(3.0)));
-    XPathExpressionPtr lessThanEquals4(new LessThanEqualsOperator(new NumericValue(-1), new NumericValue(1)));
+    XPathExpressionPtr<std::string> lessThanEquals1(new LessThanEqualsOperator(new NumericValue(1.0), new NumericValue(1.0)));
+    XPathExpressionPtr<std::string> lessThanEquals2(new LessThanEqualsOperator(new NumericValue(3.0), new NumericValue(2.0)));
+    XPathExpressionPtr<std::string> lessThanEquals3(new LessThanEqualsOperator(new NumericValue(2.0), new NumericValue(3.0)));
+    XPathExpressionPtr<std::string> lessThanEquals4(new LessThanEqualsOperator(new NumericValue(-1), new NumericValue(1)));
 
     assertEquals(true, lessThanEquals1->evaluateAsBool(dummy_));
     assertEquals(false, lessThanEquals2->evaluateAsBool(dummy_));
@@ -150,10 +150,10 @@ public:
 
   void testLessThanEquals3()
   {
-    XPathExpressionPtr lessThanEquals1(new LessThanEqualsOperator(new StringValue("1.0"), new StringValue("1.0")));
-    XPathExpressionPtr lessThanEquals2(new LessThanEqualsOperator(new StringValue("3.0"), new StringValue("2.0")));
-    XPathExpressionPtr lessThanEquals3(new LessThanEqualsOperator(new StringValue("2.0"), new StringValue("3.0")));
-    XPathExpressionPtr lessThanEquals4(new LessThanEqualsOperator(new StringValue("-1"), new StringValue("1")));
+    XPathExpressionPtr<std::string> lessThanEquals1(new LessThanEqualsOperator(new StringValue("1.0"), new StringValue("1.0")));
+    XPathExpressionPtr<std::string> lessThanEquals2(new LessThanEqualsOperator(new StringValue("3.0"), new StringValue("2.0")));
+    XPathExpressionPtr<std::string> lessThanEquals3(new LessThanEqualsOperator(new StringValue("2.0"), new StringValue("3.0")));
+    XPathExpressionPtr<std::string> lessThanEquals4(new LessThanEqualsOperator(new StringValue("-1"), new StringValue("1")));
 
     assertEquals(true, lessThanEquals1->evaluateAsBool(dummy_));
     assertEquals(false, lessThanEquals2->evaluateAsBool(dummy_));
