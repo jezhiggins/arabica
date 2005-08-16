@@ -13,11 +13,6 @@ namespace Arabica
 namespace XPath
 {
 
-class XPathExpression;
-typedef boost::shared_ptr<XPathExpression> XPathExpressionPtr;
-class XPathValue;
-typedef boost::shared_ptr<const XPathValue> XPathValuePtr;
-
 enum ValueType
 {
   ANY ,
@@ -121,6 +116,12 @@ private:
   bool operator==(const XPathValue&);
   XPathValue& operator=(const XPathValue&);
 }; // class XPathValue
+
+class XPathValuePtr : public boost::shared_ptr<const XPathValue> 
+{ 
+public:
+  explicit XPathValuePtr(const XPathValue* v) : boost::shared_ptr<const XPathValue>(v) { }
+};
 
 const double NaN = std::sqrt(-2.0);
 const double Zero = 0.0;

@@ -39,7 +39,11 @@ private:
   XPathExpression& operator=(const XPathExpression&);
 }; // class XPathExpression
 
-typedef boost::shared_ptr<XPathExpression> XPathExpressionPtr;
+class XPathExpressionPtr : public boost::shared_ptr<XPathExpression> 
+{ 
+public:
+  explicit XPathExpressionPtr(XPathExpression* xp) : boost::shared_ptr<XPathExpression>(xp) { }
+};
 
 class UnaryExpression
 {

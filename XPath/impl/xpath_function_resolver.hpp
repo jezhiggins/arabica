@@ -1,16 +1,13 @@
 #ifndef ARABICA_XPATH_FUNCTION_RESOLVER_HPP
 #define ARABICA_XPATH_FUNCTION_RESOLVER_HPP
 
-#include <boost/shared_ptr.hpp>
-
 namespace Arabica
 {
 namespace XPath
 {
 
 class XPathFunction;
-class XPathExpression;
-typedef boost::shared_ptr<XPathExpression> XPathExpressionPtr;
+class XPathExpressionPtr;
 
 class UndefinedFunctionException : public std::runtime_error
 {
