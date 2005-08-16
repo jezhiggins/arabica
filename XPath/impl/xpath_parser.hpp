@@ -472,7 +472,7 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createBinaryEx
         p1 = new AndOperator(p1, p2);
         break;
       case impl::UnionOperator_id:
-        p1 = new UnionExpression(p1, p2);
+        p1 = new UnionExpression<string_type>(p1, p2);
         break;
       default:
         throw UnsupportedException(boost::lexical_cast<string_type>(op));

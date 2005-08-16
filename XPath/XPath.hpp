@@ -33,7 +33,7 @@ xpath_resolver_holder.hpp
 xpath_step.hpp
 xpath_union.hpp
 xpath_value.hpp
-xpath_variable.hpp
+DONE - xpath_variable.hpp
 DONE - xpath_variable_resolver.hpp
 
 xpath_axis_enumerator.cpp

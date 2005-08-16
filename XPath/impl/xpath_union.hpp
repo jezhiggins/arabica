@@ -9,24 +9,26 @@ namespace Arabica
 namespace XPath
 {
 
-class UnionExpression : private BinaryExpression<std::string>, public XPathExpression<std::string>
+template<class string_type>
+class UnionExpression : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
+  typedef BinaryExpression<string_type> baseT;
 public:
-  UnionExpression(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
-       BinaryExpression<std::string>(lhs, rhs) { }
+  UnionExpression(XPathExpression<string_type>* lhs, XPathExpression<string_type>* rhs) :
+       BinaryExpression<string_type>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    XPathValuePtr<std::string> p1 = lhs()->evaluate(context, executionContext);
+    XPathValuePtr<string_type> p1 = baseT::lhs()->evaluate(context, executionContext);
     if(p1->type() != NODE_SET)
       throw RuntimeException("Union operator joins node-sets.  First argument is not a node-set.");
-    XPathValuePtr<std::string> p2 = rhs()->evaluate(context, executionContext);
+    XPathValuePtr<string_type> p2 = baseT::rhs()->evaluate(context, executionContext);
     if(p2->type() != NODE_SET)
       throw RuntimeException("Union operator joins node-sets.  Second argument is not a node-set.");
 
-    NodeSet<std::string> ns1(p1->asNodeSet());
-    NodeSet<std::string> ns2(p2->asNodeSet());
+    NodeSet<string_type> ns1(p1->asNodeSet());
+    NodeSet<string_type> ns2(p2->asNodeSet());
 
     // do the obvious optimizations
     if(ns1.empty())
@@ -36,10 +38,10 @@ public:
 
     ns1.to_document_order();
     ns2.to_document_order();
-    NodeSet<std::string>::const_iterator n1 = ns1.begin(), n1e = ns1.end();
-    NodeSet<std::string>::const_iterator n2 = ns2.begin(), n2e = ns2.end();
+    NodeSet<string_type>::const_iterator n1 = ns1.begin(), n1e = ns1.end();
+    NodeSet<string_type>::const_iterator n2 = ns2.begin(), n2e = ns2.end();
 
-    NodeSet<std::string> result(true);
+    NodeSet<string_type> result(true);
 
     while((n1 != n1e) && (n2 != n2e))
     {
@@ -63,9 +65,9 @@ public:
   } // evaluate
 
 private:
-  XPathValuePtr<std::string> wrap(const NodeSet<std::string>& ns) const
+  XPathValuePtr<string_type> wrap(const NodeSet<string_type>& ns) const
   {
-    return XPathValuePtr<std::string>(new NodeSetValue(ns));
+    return XPathValuePtr<string_type>(new NodeSetValue(ns));
   } // wrap
 }; // UnionExpression
 
