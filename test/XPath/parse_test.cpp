@@ -10,7 +10,7 @@
 
 class ParseTest : public TestCase
 {
-  Arabica::XPath::XPath parser;
+  Arabica::XPath::XPath<std::string> parser;
 
 public:
   ParseTest(std::string name) : TestCase(name)

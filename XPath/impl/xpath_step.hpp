@@ -177,13 +177,13 @@ private:
 class StepFactory
 {
 public:
-  static StepExpression* createStep(node_iter_t& node, node_iter_t const& end, CompilationContext& context)
+  static StepExpression* createStep(node_iter_t& node, node_iter_t const& end, CompilationContext<std::string>& context)
   {
     Axis axis = getAxis(node);
     NodeTest* test = getTest(node, context.namespaceContext());
     XPathExpression<std::string>* thing = 0;
     if(!test)
-      thing = compile_expression(node++, context);
+      thing = XPath<std::string>::compile_expression(node++, context);
 
     std::vector<XPathExpression<std::string>*> preds;
 
@@ -192,7 +192,7 @@ public:
       node_iter_t c = node->children.begin();
       assert(getNodeId(c) == impl::LeftSquare_id);
       ++c;
-      preds.push_back(compile_expression(c, context));
+      preds.push_back(XPath<std::string>::compile_expression(c, context));
       ++c;
       assert(getNodeId(c) == impl::RightSquare_id);
       
@@ -203,7 +203,7 @@ public:
     return new TestStepExpression(axis, test, preds);
   } // createStep
 
-  static StepExpression* createStep(node_iter_t& node, CompilationContext& context)
+  static StepExpression* createStep(node_iter_t& node, CompilationContext<std::string>& context)
   {
     Axis axis = getAxis(node);
     NodeTest* test = getTest(node, context.namespaceContext());
@@ -367,9 +367,6 @@ private:
 class RelativeLocationPath : public XPathExpression<std::string>
 {
 public:
-  typedef std::vector<StepExpression*> StepList;
-
-public:
   RelativeLocationPath(StepExpression* step) : steps_() { steps_.push_back(step); }
   RelativeLocationPath(const StepList& steps) : steps_(steps) { }
 
@@ -401,7 +398,7 @@ class AbsoluteLocationPath : public RelativeLocationPath
 {
 public:
   AbsoluteLocationPath(StepExpression* step) : RelativeLocationPath(step) { }
-  AbsoluteLocationPath(const RelativeLocationPath::StepList& steps) : RelativeLocationPath(steps) { }
+  AbsoluteLocationPath(const StepList& steps) : RelativeLocationPath(steps) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {

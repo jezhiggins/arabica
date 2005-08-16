@@ -79,7 +79,7 @@ public:
 
 class ExecuteTest : public TestCase
 {
-  Arabica::XPath::XPath parser;
+  Arabica::XPath::XPath<std::string> parser;
   DOM::DOMImplementation<std::string> factory_;
   DOM::Document<std::string> document_;
 

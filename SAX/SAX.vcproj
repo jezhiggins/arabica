@@ -234,9 +234,6 @@
 					RelativePath=".\helpers\PropertyNames.h">
 				</File>
 				<File
-					RelativePath=".\helpers\StringAdaptor.h">
-				</File>
-				<File
 					RelativePath=".\helpers\XMLBaseSupport.h">
 				</File>
 				<File
@@ -376,6 +373,9 @@
 			</File>
 			<File
 				RelativePath="..\Utils\socket_stream.h">
+			</File>
+			<File
+				RelativePath="..\Utils\StringAdaptor.h">
 			</File>
 			<File
 				RelativePath="..\XML\UnicodeCharacters.h">
@@ -684,9 +684,6 @@
 				</File>
 				<File
 					RelativePath="..\Dom\Simple\ProcessingInstructionImpl.h">
-				</File>
-				<File
-					RelativePath="..\Dom\Simple\StringAdaptor.h">
 				</File>
 				<File
 					RelativePath="..\Dom\Simple\TextImpl.h">

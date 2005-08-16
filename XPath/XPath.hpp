@@ -12,7 +12,7 @@
 /* To parameterise
 
 DONE - xpath_arithmetic.hpp
-xpath_ast.hpp
+DONE - xpath_ast.hpp
 DONE - xpath_ast_ids.hpp
 xpath_axis_enumerator.hpp
 xpath_compile_context.hpp
@@ -34,6 +34,10 @@ xpath_step.hpp
 xpath_union.hpp
 xpath_value.hpp
 xpath_variable.hpp
-xpath_variable_resolver.hpp
+DONE - xpath_variable_resolver.hpp
+
+xpath_axis_enumerator.cpp
+xpath_object.cpp
+DONE - xpath_parser.cpp
 */
 #endif
