@@ -6,6 +6,7 @@
 #include <boost/lexical_cast.hpp>
 #include <vector>
 #include "xpath_object.hpp"
+#include "xpath_expression.hpp"
 
 namespace Arabica
 {

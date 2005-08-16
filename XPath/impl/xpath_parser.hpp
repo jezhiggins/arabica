@@ -10,6 +10,7 @@
 #include "xpath_grammar.hpp"
 #include "xpath_namespace_context.hpp"
 #include "xpath_function_resolver.hpp"
+#include "xpath_variable_resolver.hpp"
 #include "xpath_resolver_holder.hpp"
 
 namespace Arabica
