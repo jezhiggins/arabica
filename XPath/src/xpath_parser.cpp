@@ -118,19 +118,19 @@ XPathExpression<std::string>* createBinaryExpression(node_iter_t const& i, Compi
     switch(op)
     {
       case PlusOperator_id:
-        p1 = new PlusOperator(p1, p2);
+        p1 = new PlusOperator<std::string>(p1, p2);
         break;
       case MinusOperator_id:
-        p1 = new MinusOperator(p1, p2);
+        p1 = new MinusOperator<std::string>(p1, p2);
         break;
       case MultiplyOperator_id:
-        p1 = new MultiplyOperator(p1, p2);
+        p1 = new MultiplyOperator<std::string>(p1, p2);
         break;
       case DivOperator_id:
-        p1 = new DivideOperator(p1, p2);
+        p1 = new DivideOperator<std::string>(p1, p2);
         break;
       case ModOperator_id:
-        p1 = new ModOperator(p1, p2);
+        p1 = new ModOperator<std::string>(p1, p2);
         break;
       case EqualsOperator_id:
         p1 = new EqualsOperator(p1, p2);
@@ -230,7 +230,7 @@ XPathExpression<std::string>* createUnaryExpression(node_iter_t const& i, Compil
 
 XPathExpression<std::string>* createUnaryNegativeExpr(node_iter_t const& i, CompilationContext& context)
 {
-  return new UnaryNegative(compile_expression(i+1, context));
+  return new UnaryNegative<std::string>(compile_expression(i+1, context));
 } // createUnaryNegativeExpr
 
 XPathExpressionPtr<std::string> XPath::compile(const std::string& xpath) const

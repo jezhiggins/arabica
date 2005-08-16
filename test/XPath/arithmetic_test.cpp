@@ -25,7 +25,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(1);
     XPathExpression<std::string>* p2 = new NumericValue(2);
 
-    XPathExpressionPtr<std::string> add(new PlusOperator(p1, p2));
+    XPathExpressionPtr<std::string> add(new PlusOperator<std::string>(p1, p2));
     assertEquals(1, add.use_count());
 
     add->evaluate(dummy_);
@@ -40,7 +40,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(1);
     XPathExpression<std::string>* p2 = new NumericValue(2);
 
-    XPathExpressionPtr<std::string> minus(new MinusOperator(p1, p2));
+    XPathExpressionPtr<std::string> minus(new MinusOperator<std::string>(p1, p2));
 
     assertEquals(-1.0, minus->evaluateAsNumber(dummy_), 0.0);
   } // test2
@@ -50,16 +50,16 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(3);
     XPathExpression<std::string>* p2 = new NumericValue(2);
 
-    XPathExpressionPtr<std::string> mult(new MultiplyOperator(p1, p2));
+    XPathExpressionPtr<std::string> mult(new MultiplyOperator<std::string>(p1, p2));
 
     assertEquals(6, mult->evaluateAsNumber(dummy_), 0.0);
   } // test3
 
   void test4()
   {
-    XPathExpression<std::string>* mult = new MultiplyOperator(new NumericValue(4), new NumericValue(2));
+    XPathExpression<std::string>* mult = new MultiplyOperator<std::string>(new NumericValue(4), new NumericValue(2));
 
-    XPathExpressionPtr<std::string> minus(new MinusOperator(mult, new NumericValue(2)));
+    XPathExpressionPtr<std::string> minus(new MinusOperator<std::string>(mult, new NumericValue(2)));
 
     assertEquals(8, mult->evaluateAsNumber(dummy_), 0.0);
     assertEquals(6, minus->evaluateAsNumber(dummy_), 0.0);
@@ -70,7 +70,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(12);
     XPathExpression<std::string>* p2 = new NumericValue(2);
 
-    XPathExpressionPtr<std::string> div(new DivideOperator(p1, p2));
+    XPathExpressionPtr<std::string> div(new DivideOperator<std::string>(p1, p2));
 
     assertEquals(6, div->evaluateAsNumber(dummy_), 0.0);
   } // test5
@@ -80,7 +80,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(12);
     XPathExpression<std::string>* p2 = new NumericValue(2);
 
-    XPathExpressionPtr<std::string> mod(new ModOperator(p1, p2));
+    XPathExpressionPtr<std::string> mod(new ModOperator<std::string>(p1, p2));
 
     assertEquals(0, mod->evaluateAsNumber(dummy_), 0.0);
   } // test6
@@ -90,7 +90,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(11);
     XPathExpression<std::string>* p2 = new NumericValue(2);
 
-    XPathExpressionPtr<std::string> div(new DivideOperator(p1, p2));
+    XPathExpressionPtr<std::string> div(new DivideOperator<std::string>(p1, p2));
 
     assertEquals(5.5, div->evaluateAsNumber(dummy_), 0.0);
   } // test7
@@ -100,7 +100,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(11);
     XPathExpression<std::string>* p2 = new NumericValue(4);
 
-    XPathExpressionPtr<std::string> mod(new ModOperator(p1, p2));
+    XPathExpressionPtr<std::string> mod(new ModOperator<std::string>(p1, p2));
 
     assertEquals(3, mod->evaluateAsNumber(dummy_), 0.0);
   } // test8
@@ -110,7 +110,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(5);
     XPathExpression<std::string>* p2 = new NumericValue(2);
 
-    XPathExpressionPtr<std::string> mod(new ModOperator(p1, p2));
+    XPathExpressionPtr<std::string> mod(new ModOperator<std::string>(p1, p2));
 
     assertEquals(1.0, mod->evaluateAsNumber(dummy_), 0.0);
   } // test9
@@ -120,7 +120,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(5);
     XPathExpression<std::string>* p2 = new NumericValue(-2);
 
-    XPathExpressionPtr<std::string> mod(new ModOperator(p1, p2));
+    XPathExpressionPtr<std::string> mod(new ModOperator<std::string>(p1, p2));
 
     assertEquals(1.00, mod->evaluateAsNumber(dummy_), 0.0);
   } // test10
@@ -130,7 +130,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(-5);
     XPathExpression<std::string>* p2 = new NumericValue(2);
 
-    XPathExpressionPtr<std::string> mod(new ModOperator(p1, p2));
+    XPathExpressionPtr<std::string> mod(new ModOperator<std::string>(p1, p2));
 
     assertEquals(-1.0, mod->evaluateAsNumber(dummy_), 0.0);
   } // test11
@@ -140,7 +140,7 @@ public:
     XPathExpression<std::string>* p1 = new NumericValue(-5);
     XPathExpression<std::string>* p2 = new NumericValue(-2);
 
-    XPathExpressionPtr<std::string> mod(new ModOperator(p1, p2));
+    XPathExpressionPtr<std::string> mod(new ModOperator<std::string>(p1, p2));
 
     assertEquals(-1.0, mod->evaluateAsNumber(dummy_), 0.0);
   } // test12
@@ -148,7 +148,7 @@ public:
   void test13()
   {
     XPathExpression<std::string>* p1 = new NumericValue(5);
-    XPathExpressionPtr<std::string> p2(new UnaryNegative(p1));
+    XPathExpressionPtr<std::string> p2(new UnaryNegative<std::string>(p1));
 
     assertEquals(-5.0, p2->evaluateAsNumber(dummy_), 0.0);
   } // test13
@@ -156,7 +156,7 @@ public:
   void test14()
   {
     XPathExpression<std::string>* p1 = new NumericValue(-5);
-    XPathExpressionPtr<std::string> p2(new UnaryNegative(p1));
+    XPathExpressionPtr<std::string> p2(new UnaryNegative<std::string>(p1));
 
     assertEquals(5.0, p2->evaluateAsNumber(dummy_), 0.0);
   } // test14

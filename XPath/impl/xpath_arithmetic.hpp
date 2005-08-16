@@ -8,81 +8,93 @@ namespace Arabica
 namespace XPath
 {
 
-class PlusOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
+template<class string_type>
+class PlusOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
+  typedef BinaryExpression<string_type> baseT;
 public:
-  PlusOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) : 
-      BinaryExpression<std::string>(lhs, rhs) { }
+  PlusOperator(XPathExpression<string_type>* lhs, XPathExpression<string_type>* rhs) : 
+      BinaryExpression<string_type>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const 
   {
-    return NumericValue::createValue(lhs()->evaluateAsNumber(context) + rhs()->evaluateAsNumber(context));
+    return NumericValue::createValue(baseT::lhs()->evaluateAsNumber(context) + baseT::rhs()->evaluateAsNumber(context));
   } // evaluate
 }; // class PlusOperator
 
-class MinusOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
+template<class string_type>
+class MinusOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
+  typedef BinaryExpression<string_type> baseT;
 public:
-  MinusOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) : 
-      BinaryExpression<std::string>(lhs, rhs) { }
+  MinusOperator(XPathExpression<string_type>* lhs, XPathExpression<string_type>* rhs) : 
+      BinaryExpression<string_type>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(lhs()->evaluateAsNumber(context) - rhs()->evaluateAsNumber(context));
+    return NumericValue::createValue(baseT::lhs()->evaluateAsNumber(context) - baseT::rhs()->evaluateAsNumber(context));
   } // evaluate
 }; // class MinusOperator
 
-class MultiplyOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
+template<class string_type>
+class MultiplyOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
+  typedef BinaryExpression<string_type> baseT;
 public:
-  MultiplyOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
-      BinaryExpression<std::string>(lhs, rhs) { }
+  MultiplyOperator(XPathExpression<string_type>* lhs, XPathExpression<string_type>* rhs) :
+      BinaryExpression<string_type>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(lhs()->evaluateAsNumber(context) * rhs()->evaluateAsNumber(context));
+    return NumericValue::createValue(baseT::lhs()->evaluateAsNumber(context) * baseT::rhs()->evaluateAsNumber(context));
   } // evaluate
 }; // class MultiplyOperator
 
-class DivideOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
+template<class string_type>
+class DivideOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
+  typedef BinaryExpression<string_type> baseT;
 public:
-  DivideOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
-      BinaryExpression<std::string>(lhs, rhs) { }
+  DivideOperator(XPathExpression<string_type>* lhs, XPathExpression<string_type>* rhs) :
+      BinaryExpression<string_type>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(lhs()->evaluateAsNumber(context) / rhs()->evaluateAsNumber(context));
+    return NumericValue::createValue(baseT::lhs()->evaluateAsNumber(context) / baseT::rhs()->evaluateAsNumber(context));
   } // evaluate
 }; // class DivideOperator
 
-class ModOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
+template<class string_type>
+class ModOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
+  typedef BinaryExpression<string_type> baseT;
 public:
-  ModOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
-      BinaryExpression<std::string>(lhs, rhs) { }
+  ModOperator(XPathExpression<string_type>* lhs, XPathExpression<string_type>* rhs) :
+      BinaryExpression<string_type>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(static_cast<long>(lhs()->evaluateAsNumber(context)) % static_cast<long>(rhs()->evaluateAsNumber(context)));
+    return NumericValue::createValue(static_cast<long>(baseT::lhs()->evaluateAsNumber(context)) % static_cast<long>(baseT::rhs()->evaluateAsNumber(context)));
   } // evaluate
 }; // class ModOperator
 
-class UnaryNegative : private UnaryExpression<std::string>, public XPathExpression<std::string>
+template<class string_type>
+class UnaryNegative : private UnaryExpression<string_type>, public XPathExpression<string_type>
 {
+  typedef UnaryExpression<string_type> baseT;
 public:
-  UnaryNegative(XPathExpression<std::string>* expr) :
-      UnaryExpression<std::string>(expr) { }
+  UnaryNegative(XPathExpression<string_type>* expr) :
+      UnaryExpression<string_type>(expr) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(-expr()->evaluate(context, executionContext)->asNumber());
+    return NumericValue::createValue(-baseT::expr()->evaluate(context, executionContext)->asNumber());
   } // evaluate
 }; // class UnaryNegative
 
