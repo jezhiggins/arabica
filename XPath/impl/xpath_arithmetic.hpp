@@ -14,8 +14,8 @@ public:
   PlusOperator(XPathExpression* lhs, XPathExpression* rhs) : 
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const 
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const 
   {
     return NumericValue::createValue(lhs()->evaluateAsNumber(context) + rhs()->evaluateAsNumber(context));
   } // evaluate
@@ -27,8 +27,8 @@ public:
   MinusOperator(XPathExpression* lhs, XPathExpression* rhs) : 
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return NumericValue::createValue(lhs()->evaluateAsNumber(context) - rhs()->evaluateAsNumber(context));
   } // evaluate
@@ -40,8 +40,8 @@ public:
   MultiplyOperator(XPathExpression* lhs, XPathExpression* rhs) :
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return NumericValue::createValue(lhs()->evaluateAsNumber(context) * rhs()->evaluateAsNumber(context));
   } // evaluate
@@ -53,8 +53,8 @@ public:
   DivideOperator(XPathExpression* lhs, XPathExpression* rhs) :
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return NumericValue::createValue(lhs()->evaluateAsNumber(context) / rhs()->evaluateAsNumber(context));
   } // evaluate
@@ -66,8 +66,8 @@ public:
   ModOperator(XPathExpression* lhs, XPathExpression* rhs) :
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return NumericValue::createValue(static_cast<long>(lhs()->evaluateAsNumber(context)) % static_cast<long>(rhs()->evaluateAsNumber(context)));
   } // evaluate
@@ -79,8 +79,8 @@ public:
   UnaryNegative(XPathExpression* expr) :
       UnaryExpression(expr) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return NumericValue::createValue(-expr()->evaluate(context, executionContext)->asNumber());
   } // evaluate

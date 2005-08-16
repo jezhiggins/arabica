@@ -13,17 +13,17 @@ namespace Arabica
 namespace XPath
 {
 
-class BoolValue : public XPathValue, public XPathExpression
+class BoolValue : public XPathValue<std::string>, public XPathExpression
 {
 public:
   BoolValue(bool value) :
       value_(value) { }
 
-  static XPathValuePtr createValue(bool value) { return XPathValuePtr(new BoolValue(value)); }
+  static XPathValuePtr<std::string> createValue(bool value) { return XPathValuePtr<std::string>(new BoolValue(value)); }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
-    return XPathValuePtr(new BoolValue(value_));
+    return XPathValuePtr<std::string>(new BoolValue(value_));
   } // evaluate
   virtual bool evaluateAsBool(const DOM::Node<std::string>& context) { return asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<std::string>& context) { return asNumber(); }
@@ -41,15 +41,15 @@ private:
   bool value_;
 }; // class BoolValue
 
-class NumericValue : public XPathValue, public XPathExpression
+class NumericValue : public XPathValue<std::string>, public XPathExpression
 {
 public:
   NumericValue(double value) :
       value_(value) { }
   
-  static XPathValuePtr createValue(double value) { return XPathValuePtr(new NumericValue(value)); }
+  static XPathValuePtr<std::string> createValue(double value) { return XPathValuePtr<std::string>(new NumericValue(value)); }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
     return createValue(value_);
   } // evaluate
@@ -78,7 +78,7 @@ private:
   double value_;
 }; // class NumberValue
 
-class StringValue : public XPathValue, public XPathExpression
+class StringValue : public XPathValue<std::string>, public XPathExpression
 {
 public:
   StringValue(const char* value) :
@@ -86,9 +86,9 @@ public:
   StringValue(const std::string& value) :
       value_(value) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
-    return XPathValuePtr(new StringValue(value_));
+    return XPathValuePtr<std::string>(new StringValue(value_));
   } // evaluate
   virtual bool evaluateAsBool(const DOM::Node<std::string>& context) { return asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<std::string>& context) { return asNumber(); }
@@ -109,14 +109,14 @@ private:
   std::string value_;
 }; // class StringValue
 
-class NodeSetValue : public XPathValue, public XPathExpression
+class NodeSetValue : public XPathValue<std::string>, public XPathExpression
 {
 public:
   NodeSetValue(const NodeSet<std::string>& set) : set_(set) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext)  const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext)  const
   {
-    return XPathValuePtr(this);
+    return XPathValuePtr<std::string>(this);
   } // evaluate
   virtual bool evaluateAsBool(const DOM::Node<std::string>& context) const{ return asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<std::string>& context) const { return asNumber(); }

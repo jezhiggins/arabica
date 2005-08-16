@@ -121,7 +121,7 @@ public:
   void test11()
   {
     XPathExpressionPtr nt(new NumericValue(1.0));
-    XPathValuePtr ns = nt->evaluate(dummy_);
+    XPathValuePtr<std::string> ns = nt->evaluate(dummy_);
 
     assertTrue(areEqual(ns, (nt->evaluate(dummy_))));
   } // test11

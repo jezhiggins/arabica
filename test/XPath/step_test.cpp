@@ -57,7 +57,7 @@ public:
   {
     XPathExpressionPtr step(new TestStepExpression(CHILD, new AnyNodeTest()));
 
-    XPathValuePtr value = step->evaluate(root_);
+    XPathValuePtr<std::string> value = step->evaluate(root_);
     const NodeSet<std::string>& set = value->asNodeSet();
 
     assertEquals(set.size(), 3);
@@ -87,7 +87,7 @@ public:
   {
     XPathExpressionPtr step(new TestStepExpression(CHILD, new NameNodeTest("child2")));
 
-    XPathValuePtr value = step->evaluate(root_);
+    XPathValuePtr<std::string> value = step->evaluate(root_);
     const NodeSet<std::string>& set = value->asNodeSet();
 
     assertEquals(1, set.size());

@@ -15,13 +15,13 @@ public:
   UnionExpression(XPathExpression* lhs, XPathExpression* rhs) :
        BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
-    XPathValuePtr p1 = lhs()->evaluate(context, executionContext);
+    XPathValuePtr<std::string> p1 = lhs()->evaluate(context, executionContext);
     if(p1->type() != NODE_SET)
       throw RuntimeException("Union operator joins node-sets.  First argument is not a node-set.");
-    XPathValuePtr p2 = rhs()->evaluate(context, executionContext);
+    XPathValuePtr<std::string> p2 = rhs()->evaluate(context, executionContext);
     if(p2->type() != NODE_SET)
       throw RuntimeException("Union operator joins node-sets.  First argument is not a node-set.");
 
@@ -63,9 +63,9 @@ public:
   } // evaluate
 
 private:
-  XPathValuePtr wrap(const NodeSet<std::string>& ns) const
+  XPathValuePtr<std::string> wrap(const NodeSet<std::string>& ns) const
   {
-    return XPathValuePtr(new NodeSetValue(ns));
+    return XPathValuePtr<std::string>(new NodeSetValue(ns));
   } // wrap
 }; // UnionExpression
 

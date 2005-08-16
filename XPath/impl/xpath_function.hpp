@@ -27,8 +27,8 @@ protected:
 public:
   virtual ~XPathFunction() { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context, 
-                               const ExecutionContext& executionContext) const = 0;
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
+                                            const ExecutionContext& executionContext) const = 0;
 
 protected:
   size_t argCount() const { return args_.size(); }
@@ -73,8 +73,8 @@ class LastFn : public XPathFunction
 public:
   LastFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 0, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new NumericValue(executionContext.last());
   } // evaluate
@@ -86,8 +86,8 @@ class PositionFn : public XPathFunction
 public:
   PositionFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 0, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new NumericValue(executionContext.position());
   } // evaluate
@@ -99,8 +99,8 @@ class CountFn : public XPathFunction
 public:
   CountFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(1, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new NumericValue(argAsNodeSet(0, context, executionContext).size());
   } // evaluate
@@ -113,8 +113,8 @@ class LocalNameFn : public XPathFunction
 public:
   LocalNameFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     DOM::Node<std::string> node;
     if(argCount() == 0)
@@ -146,8 +146,8 @@ class NamespaceURIFn : public XPathFunction
 public:
   NamespaceURIFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     DOM::Node<std::string> node;
     if(argCount() == 0)
@@ -178,8 +178,8 @@ class NameFn : public XPathFunction
 public:
   NameFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     DOM::Node<std::string> node;
     if(argCount() == 0)
@@ -214,8 +214,8 @@ class StringFn : public XPathFunction
 public:
   StringFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new StringValue((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context));
   } // evaluate
@@ -227,8 +227,8 @@ class ConcatFn : public XPathFunction
 public:
   ConcatFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(2, -1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                              const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     std::string s;
     for(size_t a = 0, ae = argCount(); a < ae; ++a)
@@ -243,8 +243,8 @@ class StartsWithFn : public XPathFunction
 public:
   StartsWithFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(2, 2, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     std::string value = argAsString(0, context, executionContext);
     std::string start = argAsString(1, context, executionContext);
@@ -266,8 +266,8 @@ class ContainsFn : public XPathFunction
 public:
   ContainsFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(2, 2, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new BoolValue(argAsString(0, context, executionContext).find(argAsString(1, context, executionContext)) != std::string::npos);
   } // evaluate
@@ -279,8 +279,8 @@ class SubstringBeforeFn : public XPathFunction
 public:
   SubstringBeforeFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(2, 2, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context, 
-                              const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     std::string value = argAsString(0, context, executionContext);
     size_t splitAt = value.find(argAsString(1, context, executionContext));
@@ -298,8 +298,8 @@ class SubstringAfterFn : public XPathFunction
 public:
   SubstringAfterFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(2, 2, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context, 
-                              const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     std::string value = argAsString(0, context, executionContext);
     std::string split = argAsString(1, context, executionContext);
@@ -318,8 +318,8 @@ class SubstringFn : public XPathFunction
 public:
   SubstringFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(2, 3, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     std::string value = argAsString(0, context, executionContext);
     double startAt = roundNumber(argAsNumber(1, context, executionContext)) - 1;
@@ -343,8 +343,8 @@ class StringLengthFn : public XPathFunction
 public:
   StringLengthFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new NumericValue(((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context)).length());
   } // evaluate
@@ -356,8 +356,8 @@ class NormalizeSpaceFn : public XPathFunction
 public:
   NormalizeSpaceFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     std::string value = ((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context));
     size_t i = 0, ie = value.length();
@@ -389,8 +389,8 @@ class TranslateFn : public XPathFunction
 public:
   TranslateFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(3, 3, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     std::string str = argAsString(0, context, executionContext);
     std::string from = argAsString(1, context, executionContext);
@@ -421,8 +421,8 @@ class BooleanFn : public XPathFunction
 public:
   BooleanFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(1, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new BoolValue(argAsBool(0, context, executionContext));
   } // evaluate
@@ -434,8 +434,8 @@ class NotFn : public XPathFunction
 public:
   NotFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(1, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new BoolValue(!argAsBool(0, context, executionContext));
   }
@@ -447,8 +447,8 @@ class TrueFn : public XPathFunction
 public:
   TrueFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 0, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new BoolValue(true);
   } // evaluate
@@ -460,8 +460,8 @@ class FalseFn : public XPathFunction
 public:
   FalseFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 0, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new BoolValue(false);
   } // evaluate
@@ -478,8 +478,8 @@ class NumberFn : public XPathFunction
 public:
   NumberFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(0, 1, args) { }
   
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     double result = (argCount() > 0) ? argAsNumber(0, context, executionContext) :
                                        StringValue(nodeStringValue(context)).asNumber();
@@ -493,8 +493,8 @@ class SumFn : public XPathFunction
 public:
   SumFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(1, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     double sum = 0;
     NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
@@ -510,8 +510,8 @@ class FloorFn : public XPathFunction
 public:
   FloorFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(1, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context, 
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new NumericValue(std::floor(argAsNumber(0, context, executionContext)));
   } // evaluate
@@ -523,8 +523,8 @@ class CeilingFn : public XPathFunction
 public:
   CeilingFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(1, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context, 
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new NumericValue(std::ceil(argAsNumber(0, context, executionContext)));
   } // evaluate
@@ -536,8 +536,8 @@ class RoundFn : public XPathFunction
 public:
   RoundFn(const std::vector<XPathExpressionPtr>& args) : XPathFunction(1, 1, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context,
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                            const ExecutionContext& executionContext) const
   {
     return new NumericValue(roundNumber(argAsNumber(0, context, executionContext)));
   } // evaluate

@@ -19,7 +19,7 @@ protected:
 public:
   virtual ~XPathExpression() { }
 
-  XPathValuePtr evaluate(const DOM::Node<std::string>& context) const
+  XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context) const
   {
     ExecutionContext executionContext;
     return evaluate(context, executionContext);
@@ -30,8 +30,8 @@ public:
   virtual std::string evaluateAsString(const DOM::Node<std::string>& context) const { return evaluate(context)->asString(); }
   virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<std::string>& context) const { return evaluate(context)->asNodeSet(); }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const Arabica::XPath::ExecutionContext& executionContext) const = 0;
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const Arabica::XPath::ExecutionContext& executionContext) const = 0;
 
 private:
   XPathExpression(const XPathExpression&);

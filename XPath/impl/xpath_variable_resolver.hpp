@@ -15,24 +15,27 @@ public:
   UnboundVariableException(const std::string& thing) : std::runtime_error("The variable '" + thing + "' is undefined.") { }
 }; // class UnboundVariableException
 
+template<class string_type>
 class VariableResolver
 {
 public:
   virtual ~VariableResolver() { }
 
-  virtual XPathValuePtr resolveVariable(const std::string& name) const = 0; 
+  virtual XPathValuePtr<string_type> resolveVariable(const string_type& name) const = 0; 
 }; // class VariableResolver
 
-class VariableResolverPtr : public boost::shared_ptr<VariableResolver>
+template<class string_type>
+class VariableResolverPtr : public boost::shared_ptr<VariableResolver<string_type> >
 {
 public:
-  explicit VariableResolverPtr(VariableResolver* vr) : boost::shared_ptr<VariableResolver>(vr) { }
+  explicit VariableResolverPtr(VariableResolver<string_type>* vr) : boost::shared_ptr<VariableResolver<string_type> >(vr) { }
 }; // class VariableResolverPtr
 
-class NullVariableResolver : public VariableResolver
+template<class string_type>
+class NullVariableResolver : public VariableResolver<string_type>
 {
 public:
-  virtual XPathValuePtr resolveVariable(const std::string& name) const
+  virtual XPathValuePtr<string_type> resolveVariable(const string_type& name) const
   {
     throw UnboundVariableException(name);
   } // resolveVariable

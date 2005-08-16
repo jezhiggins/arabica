@@ -286,7 +286,7 @@ tree_info_t XPath::parse_xpath_expr(const std::string& str) const
   return ast_parse(first, last, xpathg);
 } // parse_xpath_expr
 
-XPathValuePtr XPath::evaluate(const std::string& xpath, const DOM::Node<std::string>& context) const
+XPathValuePtr<std::string> XPath::evaluate(const std::string& xpath, const DOM::Node<std::string>& context) const
 {
   ExecutionContext executionContext;
   executionContext.setVariableResolver(getVariableResolver());
@@ -294,7 +294,7 @@ XPathValuePtr XPath::evaluate(const std::string& xpath, const DOM::Node<std::str
   return compile(xpath)->evaluate(context, executionContext);
 } // evaluate
 
-XPathValuePtr XPath::evaluate_expr(const std::string& xpath, const DOM::Node<std::string>& context) const
+XPathValuePtr<std::string> XPath::evaluate_expr(const std::string& xpath, const DOM::Node<std::string>& context) const
 {
   ExecutionContext executionContext;
   executionContext.setVariableResolver(getVariableResolver());

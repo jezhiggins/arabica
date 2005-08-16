@@ -29,8 +29,8 @@ public:
       delete *p;
   } // ~StepExpression
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const = 0;
-  virtual XPathValuePtr evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const = 0;
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const = 0;
+  virtual XPathValuePtr<std::string> evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const = 0;
 
   bool has_predicates() const { return !predicates_.empty(); }
 
@@ -52,7 +52,7 @@ private:
     for(NodeSet<std::string>::iterator i = nodes.begin(); i != nodes.end(); ++i, ++position)
     {
       executionContext.setPosition(position);
-      XPathValuePtr v = predicate->evaluate(*i, executionContext);
+      XPathValuePtr<std::string> v = predicate->evaluate(*i, executionContext);
 
       if((v->type() == NUMBER) && (position != v->asNumber()))
         continue;
@@ -89,19 +89,19 @@ public:
     delete test_;
   } // StepExpression
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
     NodeSet<std::string> nodes;
     enumerateOver(context, nodes, executionContext);
-    return XPathValuePtr(new NodeSetValue(nodes));
+    return XPathValuePtr<std::string>(new NodeSetValue(nodes));
   } // evaluate
 
-  virtual XPathValuePtr evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const
   {
     NodeSet<std::string> nodes;
     for(NodeSet<std::string>::iterator n = context.begin(); n != context.end(); ++n)
       enumerateOver(*n, nodes, executionContext);
-    return XPathValuePtr(new NodeSetValue(nodes));
+    return XPathValuePtr<std::string>(new NodeSetValue(nodes));
   } // evaluate
 
 private:
@@ -150,16 +150,16 @@ public:
     delete expr_;
   } // ExprStepExpression
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
     if(!has_predicates())
      return expr_->evaluate(context, executionContext);
 
     NodeSet<std::string> ns = expr_->evaluate(context, executionContext)->asNodeSet();
-    return XPathValuePtr(new NodeSetValue(applyPredicates(ns, executionContext)));
+    return XPathValuePtr<std::string>(new NodeSetValue(applyPredicates(ns, executionContext)));
   } // evaluate
 
-  virtual XPathValuePtr evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const
   {
     DOM::Node<std::string> c = context.top();
     return evaluate(c, executionContext);
@@ -375,18 +375,18 @@ public:
       delete *i;
   } // ~LocationPath
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
     NodeSet<std::string> nodes;
     nodes.push_back(context);
 
     for(StepList::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
     {
-      XPathValuePtr v = (*i)->evaluate(nodes, executionContext);
+      XPathValuePtr<std::string> v = (*i)->evaluate(nodes, executionContext);
       nodes = v->asNodeSet();
     } // for ...
 
-    return XPathValuePtr(new NodeSetValue(nodes));
+    return XPathValuePtr<std::string>(new NodeSetValue(nodes));
   } // do_evaluate
 
 private:
@@ -399,7 +399,7 @@ public:
   AbsoluteLocationPath(StepExpression* step) : RelativeLocationPath(step) { }
   AbsoluteLocationPath(const RelativeLocationPath::StepList& steps) : RelativeLocationPath(steps) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
     int type = context.getNodeType();
     if((type == DOM::Node<std::string>::DOCUMENT_NODE) || 

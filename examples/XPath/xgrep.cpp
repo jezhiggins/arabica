@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
     if(!eh.errorsReported())
     {
       DOM::Document<std::string> doc = domParser.getDocument();
-      Arabica::XPath::XPathValuePtr result = xpath->evaluate(doc);
+      Arabica::XPath::XPathValuePtr<std::string> result = xpath->evaluate(doc);
       if(result->asBool())
         std::cout << file << std::endl;
     }

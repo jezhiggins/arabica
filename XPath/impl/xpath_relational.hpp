@@ -14,8 +14,8 @@ public:
   EqualsOperator(XPathExpression* lhs, XPathExpression* rhs) :
        BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return BoolValue::createValue(areEqual(lhs()->evaluate(context, executionContext),
                                            rhs()->evaluate(context, executionContext)));
@@ -28,8 +28,8 @@ public:
   NotEqualsOperator(XPathExpression* lhs, XPathExpression* rhs) :
        BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return BoolValue::createValue(!areEqual(lhs()->evaluate(context, executionContext),
                                             rhs()->evaluate(context, executionContext)));
@@ -42,8 +42,8 @@ public:
   LessThanOperator(XPathExpression* lhs, XPathExpression* rhs) :
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return BoolValue::createValue(isLessThan(lhs()->evaluate(context, executionContext),
                                              rhs()->evaluate(context, executionContext)));
@@ -56,8 +56,8 @@ public:
   LessThanEqualsOperator(XPathExpression* lhs, XPathExpression* rhs) :
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return BoolValue::createValue(isLessThanEquals(lhs()->evaluate(context, executionContext),
                                                    rhs()->evaluate(context, executionContext)));
@@ -70,8 +70,8 @@ public:
   GreaterThanOperator(XPathExpression* lhs, XPathExpression* rhs) :
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return BoolValue::createValue(isGreaterThan(lhs()->evaluate(context, executionContext),
                                                 rhs()->evaluate(context, executionContext)));
@@ -84,8 +84,8 @@ public:
   GreaterThanEqualsOperator(XPathExpression* lhs, XPathExpression* rhs) :
       BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return BoolValue::createValue(isGreaterThanEquals(lhs()->evaluate(context, executionContext),
                                                       rhs()->evaluate(context, executionContext)));

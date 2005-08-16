@@ -47,18 +47,18 @@ public:
   XPathExpressionPtr compile(const std::string& xpath) const;
   XPathExpressionPtr compile_expr(const std::string& xpath) const;
 
-  XPathValuePtr evaluate(const std::string& xpath, const DOM::Node<std::string>& context) const;
-  XPathValuePtr evaluate_expr(const std::string& xpath, const DOM::Node<std::string>& context) const;
+  XPathValuePtr<std::string> evaluate(const std::string& xpath, const DOM::Node<std::string>& context) const;
+  XPathValuePtr<std::string> evaluate_expr(const std::string& xpath, const DOM::Node<std::string>& context) const;
 
   void setNamespaceContext(const NamespaceContext& namespaceContext) { namespaceContext_.set(namespaceContext); }
   void setNamespaceContext(NamespaceContextPtr namespaceContext) { namespaceContext_.set(namespaceContext); }
   const NamespaceContext& getNamespaceContext() const { return namespaceContext_.get(); }
   void resetNamespaceContext() { namespaceContext_.set(NamespaceContextPtr(new NullNamespaceContext())); }
 
-  void setVariableResolver(const VariableResolver& variableResolver) { variableResolver_.set(variableResolver); }
-  void setVariableResolver(VariableResolverPtr variableResolver) { variableResolver_.set(variableResolver); }
-  const VariableResolver& getVariableResolver() const { return variableResolver_.get(); }
-  void resetVariableResolver() { variableResolver_.set(VariableResolverPtr(new NullVariableResolver())); }
+  void setVariableResolver(const VariableResolver<std::string>& variableResolver) { variableResolver_.set(variableResolver); }
+  void setVariableResolver(VariableResolverPtr<std::string> variableResolver) { variableResolver_.set(variableResolver); }
+  const VariableResolver<std::string>& getVariableResolver() const { return variableResolver_.get(); }
+  void resetVariableResolver() { variableResolver_.set(VariableResolverPtr<std::string>(new NullVariableResolver<std::string>())); }
 
   void setFunctionResolver(const FunctionResolver& functionResolver) { functionResolver_.set(functionResolver); }
   void setFunctionResolver(FunctionResolverPtr functionResolver) { functionResolver_.set(functionResolver); }
@@ -73,7 +73,7 @@ private:
   xpath_grammar xpathg_;
 
   ResolverHolder<const NamespaceContext> namespaceContext_;
-  ResolverHolder<const VariableResolver> variableResolver_;
+  ResolverHolder<const VariableResolver<std::string> > variableResolver_;
   ResolverHolder<const FunctionResolver> functionResolver_;
 
   typedef XPathExpression* (*compileFn)(node_iter_t const& i, CompilationContext& context);

@@ -14,8 +14,8 @@ public:
   OrOperator(XPathExpression* lhs, XPathExpression* rhs) :
        BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     // From XPath 1.0 Rec, section 3.4
     // An or expression is evaluated by evaluating each operand and converting its value 
@@ -34,8 +34,8 @@ public:
   AndOperator(XPathExpression* lhs, XPathExpression* rhs) :
        BinaryExpression(lhs, rhs) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     // From XPath 1.0 Rec, section 3.4
     // An and expression is evaluated by evaluating each operand and converting its value 

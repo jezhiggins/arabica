@@ -15,8 +15,8 @@ class Variable : public XPathExpression
 public:
   Variable(const std::string& name) : name_(name) { }
 
-  virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
-                                 const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+                                              const ExecutionContext& executionContext) const
   {
     return executionContext.variableResolver().resolveVariable(name_);
   } // evaluate

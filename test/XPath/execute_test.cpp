@@ -10,15 +10,15 @@
 
 using namespace Arabica::XPath;
 
-class StringVariableResolver : public VariableResolver
+class StringVariableResolver : public VariableResolver<std::string>
 {
 public:
-  virtual XPathValuePtr resolveVariable(const std::string& name) const
+  virtual XPathValuePtr<std::string> resolveVariable(const std::string& name) const
   {
     VarMap::const_iterator n = map_.find(name);
     if(n == map_.end())
       throw UnboundVariableException(name);
-    return XPathValuePtr(new StringValue((*n).second));
+    return XPathValuePtr<std::string>(new StringValue((*n).second));
   } // resolveVariable
 
   void setVariable(const std::string& name, const std::string& value)
@@ -31,15 +31,15 @@ private:
   VarMap map_;
 }; // StringVariableResolver
 
-class NodeSetVariableResolver : public VariableResolver
+class NodeSetVariableResolver : public VariableResolver<std::string>
 {
 public:
-  virtual XPathValuePtr resolveVariable(const std::string& name) const
+  virtual XPathValuePtr<std::string> resolveVariable(const std::string& name) const
   {
     VarMap::const_iterator n = map_.find(name);
     if(n == map_.end())
       throw UnboundVariableException(name);
-    return XPathValuePtr(new NodeSetValue((*n).second));
+    return XPathValuePtr<std::string>(new NodeSetValue((*n).second));
   } // resolveVariable
 
   void setVariable(const std::string& name, const NodeSet<std::string>& value)
@@ -58,8 +58,8 @@ public:
   TestFunction(const std::vector<XPathExpressionPtr>& args) :
       XPathFunction(0, 0, args) { }
 
-  virtual XPathValue* evaluate(const DOM::Node<std::string>& context, 
-                               const ExecutionContext& executionContext) const
+  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
+                                            const ExecutionContext& executionContext) const
   {
     return new StringValue("test-" + context.getLocalName());
   } // evaluate
@@ -161,7 +161,7 @@ public:
   void test1()
   {
     XPathExpressionPtr xpath = parser.compile("root");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -172,7 +172,7 @@ public:
   void test2()
   {
     XPathExpressionPtr xpath = parser.compile("root/child2");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -183,7 +183,7 @@ public:
   void test3()
   {
     XPathExpressionPtr xpath = parser.compile("root/*");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
@@ -195,7 +195,7 @@ public:
   void test4()
   {
     XPathExpressionPtr xpath = parser.compile("root/*/text()");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -213,7 +213,7 @@ public:
   {
     XPathExpressionPtr xpath = parser.compile("*");
 
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -242,7 +242,7 @@ public:
   {
     XPathExpressionPtr xpath = parser.compile("/root");
 
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -261,7 +261,7 @@ public:
     XPathExpressionPtr xpath = parser.compile("/ns:root");
     parser.resetNamespaceContext();
 
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
 
@@ -274,7 +274,7 @@ public:
   {
     XPathExpressionPtr xpath = parser.compile("child2");
 
-    XPathValuePtr result = xpath->evaluate(root_);
+    XPathValuePtr<std::string> result = xpath->evaluate(root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -295,7 +295,7 @@ public:
   {
     XPathExpressionPtr xpath = parser.compile("..");
 
-    XPathValuePtr result = xpath->evaluate(element3_);
+    XPathValuePtr<std::string> result = xpath->evaluate(element3_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -304,7 +304,7 @@ public:
   void test12()
   {
     XPathExpressionPtr xpath = parser.compile("root/*[2]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -314,7 +314,7 @@ public:
 
   void test13()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[2]/comment()", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[2]/comment()", document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -323,7 +323,7 @@ public:
 
   void test14()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[2]/node()[3]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[2]/node()[3]", document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -332,7 +332,7 @@ public:
 
   void test15()
   {
-    XPathValuePtr result = parser.evaluate("root/*[spinkle]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("root/*[spinkle]", document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -341,7 +341,7 @@ public:
 
   void test16()
   {
-    XPathValuePtr result = parser.evaluate("root/*[doesnotmatch]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("root/*[doesnotmatch]", document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
@@ -349,7 +349,7 @@ public:
 
   void test17()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@two = '1']", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = '1']", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // test17
@@ -360,7 +360,7 @@ public:
     svr.setVariable("index", "1");
 
     parser.setVariableResolver(svr);
-    XPathValuePtr result = parser.evaluate("/root/*[@two = $index]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = $index]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
 
@@ -370,7 +370,7 @@ public:
   void test19()
   {
     XPathExpressionPtr xpath = parser.compile("root/*[position() = 2]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -381,7 +381,7 @@ public:
   void test20()
   {
     XPathExpressionPtr xpath = parser.compile("root/*[last()]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -391,7 +391,7 @@ public:
   void test21()
   {
     XPathExpressionPtr xpath = parser.compile("root/*[position() != last()]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
@@ -402,7 +402,7 @@ public:
   void test22()
   {
     XPathExpressionPtr xpath = parser.compile("root/*[position() = 2 or position() = 1]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
@@ -413,7 +413,7 @@ public:
   void test23()
   {
     XPathExpressionPtr xpath = parser.compile("root/*[position() = 2 and @two = '1']");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -423,7 +423,7 @@ public:
   void test24()
   {
     XPathExpressionPtr xpath = parser.compile("root/*[last()][1]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -433,7 +433,7 @@ public:
   void test25()
   {
     XPathExpressionPtr xpath = parser.compile("root/*[last()][2]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
@@ -442,7 +442,7 @@ public:
   void test26()
   {
     XPathExpressionPtr xpath = parser.compile("/root/child2/spinkle/ancestor::node()[2]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -453,7 +453,7 @@ public:
   void test27()
   {
     XPathExpressionPtr xpath = parser.compile("/root/child2/spinkle/ancestor-or-self::node()[2]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -464,7 +464,7 @@ public:
   void test28()
   {
     XPathExpressionPtr xpath = parser.compile("/root/child2/spinkle/ancestor-or-self::node()[3]");
-    XPathValuePtr result = xpath->evaluate(document_);
+    XPathValuePtr<std::string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -473,35 +473,35 @@ public:
 
   void test29()
   {
-    XPathValuePtr result = parser.evaluate("/child::root/child::*[attribute::two = '1']", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/child::root/child::*[attribute::two = '1']", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // test29
 
   void test30()
   {
-    XPathValuePtr result = parser.evaluate("/", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(document_ == result->asNodeSet()[0]);
   } // test30
 
   void test31()
   {
-    XPathValuePtr result = parser.evaluate("/", element1_);
+    XPathValuePtr<std::string> result = parser.evaluate("/", element1_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(document_ == result->asNodeSet()[0]);
   } // test31
 
   void test32()
   {
-    XPathValuePtr result = parser.evaluate("//comment()", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("//comment()", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(comment_ == result->asNodeSet()[0]);
   } // test32
 
   void test33()
   {
-    XPathValuePtr result = parser.evaluate("//comment()", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("//comment()", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(comment_ == result->asNodeSet()[0]);
     assertTrue(result->asNodeSet().forward() == true);
@@ -509,7 +509,7 @@ public:
 
   void test34()
   {
-    XPathValuePtr result = parser.evaluate("//*", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("//*", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(5, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -521,7 +521,7 @@ public:
 
   void test35()
   {
-    XPathValuePtr result = parser.evaluate("//*", element2_);
+    XPathValuePtr<std::string> result = parser.evaluate("//*", element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(5, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -533,7 +533,7 @@ public:
 
   void test36()
   {
-    XPathValuePtr result = parser.evaluate("//*/*", element2_);
+    XPathValuePtr<std::string> result = parser.evaluate("//*/*", element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(4, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -544,7 +544,7 @@ public:
 
   void test37()
   {
-    XPathValuePtr result = parser.evaluate("//*/*/*", element2_);
+    XPathValuePtr<std::string> result = parser.evaluate("//*/*/*", element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(spinkle_ == result->asNodeSet()[0]);
@@ -552,14 +552,14 @@ public:
 
   void test38()
   {
-    XPathValuePtr result = parser.evaluate("//*/*/*/*", element2_);
+    XPathValuePtr<std::string> result = parser.evaluate("//*/*/*/*", element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
   } // test38
 
   void test39()
   {
-    XPathValuePtr result = parser.evaluate("/*/*", element2_);
+    XPathValuePtr<std::string> result = parser.evaluate("/*/*", element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -569,7 +569,7 @@ public:
 
   void test40()
   {
-    XPathValuePtr result = parser.evaluate("/root//*", element2_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root//*", element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(4, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -581,14 +581,14 @@ public:
   // see http://jira.codehaus.org/browse/JAXEN-94
   void test41()
   {
-    XPathValuePtr result = parser.evaluate_expr("2+1-1+1", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("2+1-1+1", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(3.0, result->asNumber(), 0.0);
   } // test41
 
   void testUnion1()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@one|data]", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@one|data]", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -597,7 +597,7 @@ public:
 
   void testUnion2()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[buttle|tuttle]", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[buttle|tuttle]", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
     assertTrue(result->asNodeSet().forward() == true);
@@ -605,7 +605,7 @@ public:
 
   void testUnion3()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[preceding-sibling::child2|@two]", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[preceding-sibling::child2|@two]", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -615,7 +615,7 @@ public:
   void testUnion4()
   {
     try {
-      XPathValuePtr result = parser.evaluate("/root/*[@two|4]", root_);
+      XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two|4]", root_);
     } // try
     catch(RuntimeException re) {
       // yay!
@@ -624,7 +624,7 @@ public:
 
   void testUnion5()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[preceding-sibling::child2|@two|following-sibling::child2]", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[preceding-sibling::child2|@two|following-sibling::child2]", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -634,7 +634,7 @@ public:
 
   void testUnion6()
   {
-    XPathValuePtr result = parser.evaluate_expr("/root/child2|/root/child1", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child2|/root/child1", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -643,7 +643,7 @@ public:
 
   void testUnion7()
   {
-    XPathValuePtr result = parser.evaluate_expr("/root/child1|/root/child2", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child1|/root/child2", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -652,7 +652,7 @@ public:
 
   void testUnion8()
   {
-    XPathValuePtr result = parser.evaluate_expr("/root/child2/@one|/root/child2|/root/child1", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child2/@one|/root/child2|/root/child1", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -662,7 +662,7 @@ public:
 
   void testUnion9()
   {
-    XPathValuePtr result = parser.evaluate_expr("/root/child1/@one|/root/child2/@one|/root/child2|/root/child1", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child1/@one|/root/child2/@one|/root/child2|/root/child1", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(4, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -673,7 +673,7 @@ public:
 
   void testUnion10()
   {
-    XPathValuePtr result = parser.evaluate_expr("/root/child3|/root/child3/preceding-sibling::*", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child3|/root/child3/preceding-sibling::*", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -692,7 +692,7 @@ public:
     svr.setVariable("fruit", ns);
     parser.setVariableResolver(svr);
 
-    XPathValuePtr result = parser.evaluate_expr("$fruit/foo|/root/child3", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit/foo|/root/child3", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element3_ == result->asNodeSet()[0]);
@@ -713,7 +713,7 @@ public:
     svr.setVariable("fruit", ns);
     parser.setVariableResolver(svr);
 
-    XPathValuePtr result = parser.evaluate_expr("$fruit/bar|$fruit/foo", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit/bar|$fruit/foo", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(n1 == result->asNodeSet()[0]);
@@ -728,7 +728,7 @@ public:
     svr.setVariable("fruit", ns);
     parser.setVariableResolver(svr);
 
-    XPathValuePtr result = parser.evaluate_expr("$fruit|/root/child3", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit|/root/child3", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element3_ == result->asNodeSet()[0]);
@@ -743,7 +743,7 @@ public:
     svr.setVariable("fruit", ns);
     parser.setVariableResolver(svr);
 
-    XPathValuePtr result = parser.evaluate_expr("$fruit|/root/child3|$fruit", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit|/root/child3|$fruit", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element3_ == result->asNodeSet()[0]);
@@ -751,7 +751,7 @@ public:
 
   void testPlus1()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[1+1]", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[1+1]", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -759,7 +759,7 @@ public:
 
   void testPlus2()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[1+1+1]", root_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[1+1+1]", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element3_ == result->asNodeSet()[0]);
@@ -767,28 +767,28 @@ public:
 
   void testNodeSetEquality1()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@two = 1]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = 1]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetEquality1
 
   void testNodeSetEquality2()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@two = true()]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = true()]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetEquality2
 
   void testNodeSetEquality3()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@two != false()]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two != false()]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetEquality3
 
   void testNodeSetEquality4()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@* = 1]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@* = 1]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
@@ -796,7 +796,7 @@ public:
 
   void testNodeSetEquality5()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@* = '1']", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@* = '1']", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
@@ -804,7 +804,7 @@ public:
 
   void testNodeSetEquality6()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@* = @one]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@* = @one]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
@@ -812,14 +812,14 @@ public:
 
   void testNodeSetEquality7()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@* = @two]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@* = @two]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetEquality7
 
   void testNodeSetEquality8()
   {
-    XPathValuePtr result = parser.evaluate("/root/child2[-(@two) = -1]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/child2[-(@two) = -1]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -827,7 +827,7 @@ public:
 
   void testNodeSetEquality9()
   {
-    XPathValuePtr result = parser.evaluate("/root/child2[-(@two) - 1 = -2]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/child2[-(@two) - 1 = -2]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -835,7 +835,7 @@ public:
 
   void testCountFn1()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[count(@*) = 4]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[count(@*) = 4]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -843,7 +843,7 @@ public:
 
   void testCountFn2()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[count(@*) = 1]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[count(@*) = 1]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -851,28 +851,28 @@ public:
 
   void testCountFn3()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[count(@*) = 999]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[count(@*) = 999]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
   } // testCountFn3
 
   void testNotFn1()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@two != not(true())]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two != not(true())]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNotFn1
 
   void testNotFn2()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[@two = not(false())]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = not(false())]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNotFn2
 
   void testBooleanFn1()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[boolean(@three)]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[boolean(@three)]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -880,7 +880,7 @@ public:
 
   void testBooleanFn2()
   {
-    XPathValuePtr result = parser.evaluate("/root/*[boolean(1)]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate("/root/*[boolean(1)]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -890,336 +890,336 @@ public:
 
   void testNumberFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("number(true())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("number(true())", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testNumberFn1
 
   void testNumberFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("number(false())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("number(false())", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testNumberFn2
 
   void testNumberFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("number(1.5)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("number(1.5)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.5, result->asNumber(), 0.0);
   } // testNumberFn3
 
   void testNumberFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("number('1.5')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("number('1.5')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.5, result->asNumber(), 0.0);
   } // testNumberFn4
 
   void testNumberFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("number(\"1.5\")", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("number(\"1.5\")", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.5, result->asNumber(), 0.0);
   } // testNumberFn5
 
   void testNumberFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("number(/root/child2/@one)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("number(/root/child2/@one)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testNumberFn6
 
   void testNumberFn7()
   {
-    XPathValuePtr result = parser.evaluate_expr("number('trousers')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("number('trousers')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertTrue(isNaN(result->asNumber()));
   } // testNumberFn7
 
   void testFloorFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor(1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testFloorFn1
 
   void testFloorFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor(1.0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(1.0)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testFloorFn2
 
   void testFloorFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor('1.0')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor('1.0')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testFloorFn3
 
   void testFloorFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor(1.1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(1.1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testFloorFn4
 
   void testFloorFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor(0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(0)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testFloorFn5
 
   void testFloorFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor(-1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(-1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testFloorFn6
 
   void testFloorFn7()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor(-1.0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(-1.0)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testFloorFn7
 
   void testFloorFn8()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor(-1.1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(-1.1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-2.0, result->asNumber(), 0.0);
   } // testFloorFn8
 
   void testFloorFn9()
   {
-    XPathValuePtr result = parser.evaluate_expr("floor('NaN')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("floor('NaN')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertTrue(isNaN(result->asNumber()));
   } // testFloorFn9
 
   void testCeilingFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling(1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testCeilingFn1
 
   void testCeilingFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling(1.0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(1.0)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testCeilingFn2
 
   void testCeilingFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling('1.0')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling('1.0')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testCeilingFn3
 
   void testCeilingFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling(1.1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(1.1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testCeilingFn4
 
   void testCeilingFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling(0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(0)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testCeilingFn5
 
   void testCeilingFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling(-1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(-1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testCeilingFn6
 
   void testCeilingFn7()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling(-1.0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(-1.0)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testCeilingFn7
 
   void testCeilingFn8()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling(-1.1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(-1.1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testCeilingFn8
 
   void testCeilingFn9()
   {
-    XPathValuePtr result = parser.evaluate_expr("ceiling('NaN')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling('NaN')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertTrue(isNaN(result->asNumber()));
   } // testCeilingFn9
 
   void testStringFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(0)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("0", result->asString());
   } // testStringFn1
 
   void testStringFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(true())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(true())", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("true", result->asString());
   } // testStringFn2
 
   void testStringFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(false())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(false())", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("false", result->asString());
   } // testStringFn3
 
   void testStringFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(number('poo'))", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(number('poo'))", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("NaN", result->asString());
   } // testStringFn4
 
   void testStringFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("string('NaN')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string('NaN')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("NaN", result->asString());
   } // testStringFn5
 
   void testRoundFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(1.0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(1.0)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testRoundFn1
 
   void testRoundFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(1.1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(1.1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testRoundFn2
 
   void testRoundFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(1.5)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(1.5)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testRoundFn3
 
   void testRoundFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(1.9)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(1.9)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testRoundFn4
 
   void testRoundFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(-1.0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-1.0)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testRoundFn5
 
   void testRoundFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(-1.1)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-1.1)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testRoundFn6
 
   void testRoundFn7()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(-1.5)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-1.5)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testRoundFn7
 
   void testRoundFn8()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(-1.9)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-1.9)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-2.0, result->asNumber(), 0.0);
   } // testRoundFn8
 
   void testRoundFn9()
   {
-    XPathValuePtr result = parser.evaluate_expr("round('NaN')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round('NaN')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertTrue(isNaN(result->asNumber()));
   } // testRoundFn9
 
   void testRoundFn10()
   {
-    XPathValuePtr result = parser.evaluate_expr("round(-0.4)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-0.4)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-0.0, result->asNumber(), 0.0);
   } // testRoundFn10
 
   void testSumFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("sum(/root)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("sum(/root)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testSumFn1
 
   void testSumFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("sum(/root/child1/@one)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("sum(/root/child1/@one)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testSumFn2
 
   void testSumFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("sum(/root//@one)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("sum(/root//@one)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testSumFn3
 
   void testSumFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("sum(/root/child2/@*)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("sum(/root/child2/@*)", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(4.0, result->asNumber(), 0.0);
   } // testSumFn4
 
   void testConcatFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("concat('a', 'b')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("concat('a', 'b')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("ab", result->asString());
   } // testConcatFn1
 
   void testConcatFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("concat('a', 'b', 'c')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("concat('a', 'b', 'c')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("abc", result->asString());
   } // testConcatFn2
 
   void testConcatFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("concat('a', 'b', 'c', 'd')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("concat('a', 'b', 'c', 'd')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("abcd", result->asString());
   } // testConcatFn3
 
   void testConcatFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("concat(/root/child2/@one, /root/child2/@two, /root/child2/@three)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("concat(/root/child2/@one, /root/child2/@two, /root/child2/@three)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("111", result->asString());
   } // testConcatFn4
@@ -1235,357 +1235,357 @@ public:
 
   void testStartsWithFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("starts-with('hello', 'charlie drake')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("starts-with('hello', 'charlie drake')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testStartsWithFn1
 
   void testStartsWithFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("starts-with('hello', 'hello mother')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("starts-with('hello', 'hello mother')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testStartsWithFn2
 
   void testStartsWithFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("starts-with('hello mother', 'hello')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("starts-with('hello mother', 'hello')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testStartsWithFn3
 
   void testStartsWithFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("starts-with('hello mother', 'hello mother')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("starts-with('hello mother', 'hello mother')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testStartsWithFn4
 
   void testStringLengthFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("string-length('')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length('')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testStringLengthFn1
 
   void testStringLengthFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("string-length('ab')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length('ab')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testStringLengthFn2
 
   void testStringLengthFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("string-length('abcd')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length('abcd')", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(4.0, result->asNumber(), 0.0);
   } // testStringLengthFn3
 
   void testStringLengthFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("string-length(concat('ab', 'cd'))", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length(concat('ab', 'cd'))", document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(4.0, result->asNumber(), 0.0);
   } // testStringLengthFn4
 
   void testStringLengthFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("string-length()", attr_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length()", attr_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testStringLengthFn5
 
   void testStringLengthFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("string-length()", element1_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length()", element1_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testStringLengthFn6
 
   void testContainsFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("contains('hello', 'charlie drake')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('hello', 'charlie drake')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testContainsFn1
 
   void testContainsFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("contains('hello', 'hello mother')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('hello', 'hello mother')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testContainsFn2
 
   void testContainsFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("contains('hello mother', 'hello')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('hello mother', 'hello')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn3
 
   void testContainsFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("contains('hello mother', 'hello mother')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('hello mother', 'hello mother')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn4
 
   void testContainsFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("contains('she heard a call hello mother somewhere in the distance', 'hello')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('she heard a call hello mother somewhere in the distance', 'hello')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn5
 
   void testContainsFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("contains('my dogs says hello mother', 'hello mother')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('my dogs says hello mother', 'hello mother')", document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn6
 
   void testSubstringBeforeFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring-before('1999/04/01', '/')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-before('1999/04/01', '/')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("1999", result->asString());
   } // testSubstringBeforeFn1
 
   void testSubstringBeforeFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring-before('1999/04/01', 'mogadon')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-before('1999/04/01', 'mogadon')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testSubstringBeforeFn2
 
   void testSubstringBeforeFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring-before('1999/04/01', '/01')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-before('1999/04/01', '/01')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("1999/04", result->asString());
   } // testStringBeforeFn3
 
   void testSubstringBeforeFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring-before('1999/04/01', '1')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-before('1999/04/01', '1')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testStringBeforeFn4
 
   void testSubstringAfterFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring-after('1999/04/01', '/')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-after('1999/04/01', '/')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("04/01", result->asString());
   } // testSubstringAfterFn1
 
   void testSubstringAfterFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring-after('1999/04/01', 'mogadon')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-after('1999/04/01', 'mogadon')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testSubstringAfterFn2
 
   void testSubstringAfterFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring-after('1999/04/01', '/01')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-after('1999/04/01', '/01')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testStringAfterFn3
 
   void testSubstringAfterFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring-after('1999/04/01', '19')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-after('1999/04/01', '19')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("99/04/01", result->asString());
   } // testStringAfterFn4
 
   void testSubstringFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', 2, 3)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 2, 3)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("234", result->asString());
   } // testSubstringFn1
 
   void testSubstringFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', 2)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 2)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("2345", result->asString());
   } // testSubstringFn2
 
   void testSubstringFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', 1.5, 2.6)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 1.5, 2.6)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("234", result->asString());
   } // testSubstringFn3
 
   void testSubstringFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', 0, 3)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 0, 3)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("12", result->asString());
   } // testSubstringFn4
 
   void testSubstringFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', 0 div 0, 3)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 0 div 0, 3)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testSubstringFn5
 
   void testSubstringFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', 1, 0 div 0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 1, 0 div 0)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testSubstringFn6
 
   void testSubstringFn7()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', -42, 1 div 0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', -42, 1 div 0)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("12345", result->asString());
   } // testSubstringFn7
 
   void testSubstringFn8()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', -1 div 0, 1 div 0)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', -1 div 0, 1 div 0)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testSubstringFn8
 
   void testSubstringFn9()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', 1, 'NaN')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 1, 'NaN')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testSubstringFn9
 
   void testSubstringFn10()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', NaN)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', NaN)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testSubstringFn10
 
   void testSubstringFn11()
   {
-    XPathValuePtr result = parser.evaluate_expr("substring('12345', NaN, NaN)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', NaN, NaN)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testSubstringFn11
 
   void testNormalizeSpaceFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("normalize-space('12345')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('12345')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("12345", result->asString());
   } // testNormalizeSpaceFn1
 
   void testNormalizeSpaceFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("normalize-space('    12345')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('    12345')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("12345", result->asString());
   } // testNormalizeSpaceFn2
 
   void testNormalizeSpaceFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("normalize-space('12345 ')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('12345 ')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("12345", result->asString());
   } // testNormalizeSpaceFn3
 
   void testNormalizeSpaceFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("normalize-space('    12345    ')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('    12345    ')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("12345", result->asString());
   } // testNormalizeSpaceFn4
 
   void testNormalizeSpaceFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("normalize-space('   12   3   45   ')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('   12   3   45   ')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("12 3 45", result->asString());
   } // testNormalizeSpaceFn5
 
   void testNormalizeSpaceFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("normalize-space('1     2    3   4  5')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('1     2    3   4  5')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("1 2 3 4 5", result->asString());
   } // testNormalizeSpaceFn6
 
   void testTranslateFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("translate('bar','abc','ABC')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("translate('bar','abc','ABC')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("BAr", result->asString());
   } // testTranslateFn1
 
   void testTranslateFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("translate('--aaa--','abc-','ABC')", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("translate('--aaa--','abc-','ABC')", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("AAA", result->asString());
   } // testTranslateFn2
 
   void testLocalNameFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("local-name(/root)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("root", result->asString());
   } // testLocalNameFn1
 
   void testLocalNameFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("local-name(/root/child2/@one)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root/child2/@one)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("one", result->asString());
   } // testLocalNameFn2
 
   void testLocalNameFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("local-name(//comment())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(//comment())", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testLocalNameFn3
 
   void testLocalNameFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("local-name(//processing-instruction())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(//processing-instruction())", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("target", result->asString());
   } // testLocalNameFn4
 
   void testLocalNameFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("local-name()", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name()", root_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("root", result->asString());
   } // testLocalNameFn5
 
   void testLocalNameFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("local-name()", attr_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name()", attr_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("one", result->asString());
   } // testLocalNameFn6
 
   void testLocalNameFn7()
   {
-    XPathValuePtr result = parser.evaluate_expr("local-name(//comment())", comment_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(//comment())", comment_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testLocalNameFn7
 
   void testLocalNameFn8()
   {
-    XPathValuePtr result = parser.evaluate_expr("local-name(//processing-instruction())", processingInstruction_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(//processing-instruction())", processingInstruction_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("target", result->asString());
   } // testLocalNameFn8
@@ -1593,7 +1593,7 @@ public:
   void testLocalNameFn9()
   {
     root_.appendChild(document_.createElementNS("test-uri", "element4"));
-    XPathValuePtr result = parser.evaluate_expr("local-name(/root/*[last()])", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root/*[last()])", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("element4", result->asString());
   } // testLocalNameFn9
@@ -1601,7 +1601,7 @@ public:
   void testLocalNameFn10()
   {
     root_.setAttributeNS("test-uri", "q:woot", "hello");
-    XPathValuePtr result = parser.evaluate_expr("local-name(/root/@*)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root/@*)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("woot", result->asString());
   } // testLocalNameFn10
@@ -1609,63 +1609,63 @@ public:
   void testLocalNameFn11()
   {
     root_.appendChild(document_.createElementNS("test-uri", "q:noob"));
-    XPathValuePtr result = parser.evaluate_expr("local-name(/root/*[last()])", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root/*[last()])", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("noob", result->asString());
   } // testLocalNameFn11
 
   void testNamespaceURIFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(/root)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNamespaceURIFn1
 
   void testNamespaceURIFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(/root/child2/@one)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root/child2/@one)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNamespaceURIFn2
 
   void testNamespaceURIFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(//comment())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(//comment())", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNamespaceURIFn3
 
   void testNamespaceURIFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(//processing-instruction())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(//processing-instruction())", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNamespaceURIFn4
 
   void testNamespaceURIFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri()", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri()", root_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNamespaceURIFn5
 
   void testNamespaceURIFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri()", attr_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri()", attr_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNamespaceURIFn6
 
   void testNamespaceURIFn7()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(//comment())", comment_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(//comment())", comment_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNamespaceURIFn7
 
   void testNamespaceURIFn8()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(//processing-instruction())", processingInstruction_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(//processing-instruction())", processingInstruction_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNamespaceURIFn8
@@ -1673,7 +1673,7 @@ public:
   void testNamespaceURIFn9()
   {
     root_.appendChild(document_.createElementNS("test-uri", "element4"));
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(/root/*[last()])", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root/*[last()])", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("test-uri", result->asString());
   } // testNamespaceURIFn9
@@ -1681,7 +1681,7 @@ public:
   void testNamespaceURIFn10()
   {
     root_.setAttributeNS("test-uri", "q:woot", "hello");
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(/root/@*)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root/@*)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("test-uri", result->asString());
   } // testNamespaceURIFn10
@@ -1689,63 +1689,63 @@ public:
   void testNamespaceURIFn11()
   {
     root_.appendChild(document_.createElementNS("test-uri", "q:noob"));
-    XPathValuePtr result = parser.evaluate_expr("namespace-uri(/root/*[last()])", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root/*[last()])", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("test-uri", result->asString());
   } // testNamespaceURIFn1
   
   void testNameFn1()
   {
-    XPathValuePtr result = parser.evaluate_expr("name(/root)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("root", result->asString());
   } // testNameFn1
 
   void testNameFn2()
   {
-    XPathValuePtr result = parser.evaluate_expr("name(/root/child2/@one)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root/child2/@one)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("one", result->asString());
   } // testNameFn2
 
   void testNameFn3()
   {
-    XPathValuePtr result = parser.evaluate_expr("name(//comment())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(//comment())", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNameFn3
 
   void testNameFn4()
   {
-    XPathValuePtr result = parser.evaluate_expr("name(//processing-instruction())", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(//processing-instruction())", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("target", result->asString());
   } // testNameFn4
 
   void testNameFn5()
   {
-    XPathValuePtr result = parser.evaluate_expr("name()", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name()", root_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("root", result->asString());
   } // testNameFn5
 
   void testNameFn6()
   {
-    XPathValuePtr result = parser.evaluate_expr("name()", attr_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name()", attr_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("one", result->asString());
   } // testNameFn6
 
   void testNameFn7()
   {
-    XPathValuePtr result = parser.evaluate_expr("name(//comment())", comment_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(//comment())", comment_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("", result->asString());
   } // testNameFn7
 
   void testNameFn8()
   {
-    XPathValuePtr result = parser.evaluate_expr("name(//processing-instruction())", processingInstruction_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(//processing-instruction())", processingInstruction_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("target", result->asString());
   } // testNameFn8
@@ -1753,7 +1753,7 @@ public:
   void testNameFn9()
   {
     root_.appendChild(document_.createElementNS("test-uri", "element4"));
-    XPathValuePtr result = parser.evaluate_expr("name(/root/*[last()])", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root/*[last()])", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("element4", result->asString());
   } // testNameFn9
@@ -1761,7 +1761,7 @@ public:
   void testNameFn10()
   {
     root_.setAttributeNS("test-uri", "q:woot", "hello");
-    XPathValuePtr result = parser.evaluate_expr("name(/root/@*)", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root/@*)", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("q:woot", result->asString());
   } // testNameFn10
@@ -1769,42 +1769,42 @@ public:
   void testNameFn11()
   {
     root_.appendChild(document_.createElementNS("test-uri", "q:noob"));
-    XPathValuePtr result = parser.evaluate_expr("name(/root/*[last()])", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root/*[last()])", document_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("q:noob", result->asString());
   } // testNameFn11
 
   void testDocumentOrder1()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(/document/*)", chapters_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/*)", chapters_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("one", result->asString());
   } // testDocumentOrder1
 
   void testDocumentOrder2()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(/document/*[last()])", chapters_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/*[last()])", chapters_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("five", result->asString());
   } // testDocumentOrder2
 
   void testDocumentOrder3()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*[1])", chapters_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*[1])", chapters_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("four", result->asString());
   } // testDocumentOrder3
 
   void testDocumentOrder4()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*[last()])", chapters_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*[last()])", chapters_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("one", result->asString());
   } // testDocumentOrder4
 
   void testDocumentOrder5()
   {
-    XPathValuePtr result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*)", chapters_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*)", chapters_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("one", result->asString());
   } // testDocumentOrder5
@@ -1990,7 +1990,7 @@ public:
     svr.setVariable("fruit", ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr result = parser.evaluate_expr("$fruit", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
@@ -2007,7 +2007,7 @@ public:
     svr.setVariable("fruit", ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr result = parser.evaluate_expr("$fruit/spinkle", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit/spinkle", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(spinkle_ == result->asNodeSet()[0]);
   } // testNodeSetVars2
@@ -2022,7 +2022,7 @@ public:
     svr.setVariable("fruit", ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr result = parser.evaluate_expr("$fruit[2]/*", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit[2]/*", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(spinkle_ == result->asNodeSet()[0]);
   } // testNodeSetVars3
@@ -2037,7 +2037,7 @@ public:
     svr.setVariable("fruit", ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr result = parser.evaluate_expr("$fruit[true()][2]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit[true()][2]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetVars4
@@ -2052,14 +2052,14 @@ public:
     svr.setVariable("fruit", ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr result = parser.evaluate_expr("$fruit[@two]", document_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit[@two]", document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetVars5
 
   void namespaceAxisTest1()
   {
-    XPathValuePtr result = parser.evaluate_expr("namespace::*", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace::*", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
   } // namespaceAxisTest1()
@@ -2067,7 +2067,7 @@ public:
   void namespaceAxisTest2()
   {
     root_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:poop", "urn:test");
-    XPathValuePtr result = parser.evaluate_expr("namespace::*", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace::*", root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertValuesEqual("poop", result->asNodeSet()[0].getLocalName());
@@ -2078,7 +2078,7 @@ public:
   {
     root_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:poop", "urn:test");
     element2_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:test", "urn:another-test");
-    XPathValuePtr result = parser.evaluate_expr("namespace::*", element2_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace::*", element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
   } // namespaceAxisTest3
@@ -2097,7 +2097,7 @@ public:
     TestFunctionResolver tfr;
     parser.setFunctionResolver(tfr);
 
-    XPathValuePtr result = parser.evaluate_expr("test-function()", root_);
+    XPathValuePtr<std::string> result = parser.evaluate_expr("test-function()", root_);
     assertValuesEqual(STRING, result->type());
     assertValuesEqual("test-root", result->asString());
   } // testFunctionResolver2

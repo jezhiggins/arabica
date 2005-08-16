@@ -99,6 +99,7 @@ private:
   bool sorted_;
 }; // NodeSet
 
+template<class string_type>
 class XPathValue
 {
 protected:
@@ -109,8 +110,8 @@ public:
 
   virtual bool asBool() const = 0;
   virtual double asNumber() const = 0;
-  virtual std::string asString() const = 0;
-  virtual const NodeSet<std::string>& asNodeSet() const = 0;
+  virtual string_type asString() const = 0;
+  virtual const NodeSet<string_type>& asNodeSet() const = 0;
 
   virtual ValueType type() const = 0;
 
@@ -120,10 +121,11 @@ private:
   XPathValue& operator=(const XPathValue&);
 }; // class XPathValue
 
-class XPathValuePtr : public boost::shared_ptr<const XPathValue> 
+template<class string_type>
+class XPathValuePtr : public boost::shared_ptr<const XPathValue<string_type> > 
 { 
 public:
-  explicit XPathValuePtr(const XPathValue* v) : boost::shared_ptr<const XPathValue>(v) { }
+  explicit XPathValuePtr(const XPathValue<string_type>* v) : boost::shared_ptr<const XPathValue<string_type> >(v) { }
 };
 
 const double NaN = std::sqrt(-2.0);
@@ -147,15 +149,61 @@ inline double roundNumber(double value)
   return value;
 } // roundNumber
 
-double stringAsNumber(const std::string& str);
-double nodeNumberValue(const DOM::Node<std::string>& node);
-std::string nodeStringValue(const DOM::Node<std::string>& node);
+template<class string_type>
+double stringAsNumber(const string_type& str)
+{
+  try {
+    return boost::lexical_cast<double>(str); 
+  } // try
+  catch(const boost::bad_lexical_cast&) {
+    return NaN;
+  } // catch
+} // stringAsNumber
 
-bool areEqual(const XPathValuePtr& lhs, const XPathValuePtr& rhs);
-bool isLessThan(const XPathValuePtr& lhs, const XPathValuePtr& rhs);
-bool isLessThanEquals(const XPathValuePtr& lhs, const XPathValuePtr& rhs);
-bool isGreaterThan(const XPathValuePtr& lhs, const XPathValuePtr& rhs);
-bool isGreaterThanEquals(const XPathValuePtr& lhs, const XPathValuePtr& rhs);
+template<class string_type>
+double nodeNumberValue(const DOM::Node<string_type>& node)
+{
+  return stringAsNumber(nodeStringValue(node));
+} // nodeNumberValue
+
+template<class string_type>
+string_type nodeStringValue(const DOM::Node<string_type>& node)
+{
+  switch(node.getNodeType())
+  {
+  case DOM::Node_base::DOCUMENT_NODE:
+  case DOM::Node_base::DOCUMENT_FRAGMENT_NODE:
+  case DOM::Node_base::ELEMENT_NODE:
+    {
+      std::ostringstream os;
+      AxisEnumerator ae(node, DESCENDANT);
+      while(*ae != 0)
+      {
+        if((ae->getNodeType() == DOM::Node_base::TEXT_NODE) || 
+           (ae->getNodeType() == DOM::Node_base::CDATA_SECTION_NODE))
+          os << ae->getNodeValue();
+        ++ae;
+      } // while
+      return os.str();
+    } // case
+
+  case DOM::Node_base::ATTRIBUTE_NODE:
+  case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
+  case DOM::Node_base::COMMENT_NODE:
+  case DOM::Node_base::TEXT_NODE:
+  case DOM::Node_base::CDATA_SECTION_NODE:
+    return node.getNodeValue();
+
+  default:
+    throw std::runtime_error("Don't know how to calculate string-value of " + node.getNodeName());
+  } // switch
+} // nodeStringValue
+
+template<class string_type> bool areEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs);
+template<class string_type> bool isLessThan(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs);
+template<class string_type> bool isLessThanEquals(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs);
+template<class string_type> bool isGreaterThan(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs);
+template<class string_type> bool isGreaterThanEquals(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs);
 
 } // namespace XPath
 } // namespace Arabica

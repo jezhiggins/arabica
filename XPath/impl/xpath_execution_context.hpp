@@ -30,14 +30,14 @@ public:
 
   void setPosition(unsigned int pos) { position_ = pos; }
 
-  const VariableResolver& variableResolver() const { return variableResolver_.get(); }
-  void setVariableResolver(const VariableResolver& resolver) { variableResolver_.set(resolver); }
-  void setVariableResolver(VariableResolverPtr& resolver) { variableResolver_.set(resolver); }
+  const VariableResolver<std::string>& variableResolver() const { return variableResolver_.get(); }
+  void setVariableResolver(const VariableResolver<std::string>& resolver) { variableResolver_.set(resolver); }
+  void setVariableResolver(VariableResolverPtr<std::string>& resolver) { variableResolver_.set(resolver); }
 
 private:
   size_t position_;
   size_t last_;
-  ResolverHolder<const VariableResolver> variableResolver_;
+  ResolverHolder<const VariableResolver<std::string> > variableResolver_;
 
   ExecutionContext(const ExecutionContext&);
   ExecutionContext& operator=(const ExecutionContext&);
