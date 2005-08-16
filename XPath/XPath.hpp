@@ -31,7 +31,7 @@ xpath_parser.hpp
 xpath_relational.hpp
 xpath_resolver_holder.hpp
 xpath_step.hpp
-xpath_union.hpp
+DONE - xpath_union.hpp
 xpath_value.hpp
 DONE - xpath_variable.hpp
 DONE - xpath_variable_resolver.hpp
