@@ -54,9 +54,9 @@ protected:
     return args_[index]->evaluate(context, executionContext)->asString();
   } // argAsString
 
-  NodeSet argAsNodeSet(size_t index,
-                       const DOM::Node<std::string>& context,
-                       const ExecutionContext& executionContext) const
+  NodeSet<std::string> argAsNodeSet(size_t index,
+                                    const DOM::Node<std::string>& context,
+                                    const ExecutionContext& executionContext) const
   {
     return args_[index]->evaluate(context, executionContext)->asNodeSet();
   } // argAsNodeSet
@@ -121,7 +121,7 @@ public:
       node = context;
     else
     {
-      NodeSet ns = argAsNodeSet(0, context, executionContext);
+      NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
       if(ns.size() != 0)
         node = ns.top();
     } // if ...
@@ -154,7 +154,7 @@ public:
       node = context;
     else
     {
-      NodeSet ns = argAsNodeSet(0, context, executionContext);
+      NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
       if(ns.size() != 0)
         node = ns.top();
     } // if ...
@@ -186,7 +186,7 @@ public:
       node = context;
     else
     {
-      NodeSet ns = argAsNodeSet(0, context, executionContext);
+      NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
       if(ns.size() != 0)
         node = ns.top();
     } // if ...
@@ -497,8 +497,8 @@ public:
                                const ExecutionContext& executionContext) const
   {
     double sum = 0;
-    NodeSet ns = argAsNodeSet(0, context, executionContext);
-    for(NodeSet::const_iterator n = ns.begin(), end = ns.end(); n != end; ++n)
+    NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
+    for(NodeSet<std::string>::const_iterator n = ns.begin(), end = ns.end(); n != end; ++n)
       sum += nodeNumberValue(*n);
     return new NumericValue(sum);
   } // evaluate

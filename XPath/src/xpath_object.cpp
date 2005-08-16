@@ -12,8 +12,8 @@ namespace XPath
 bool nodeSetsEqual(const XPathValuePtr& lhs, const XPathValuePtr& rhs);
 bool nodeSetAndValueEqual(const XPathValuePtr& lhs, const XPathValuePtr& rhs);
 
-double minValue(const NodeSet& ns);
-double maxValue(const NodeSet& ns);
+double minValue(const NodeSet<std::string>& ns);
+double maxValue(const NodeSet<std::string>& ns);
 
 template<class T> T nodeValue(const DOM::Node<std::string>& node);
 template<> std::string nodeValue(const DOM::Node<std::string>& node) { return nodeStringValue(node); }
@@ -47,7 +47,7 @@ bool compareNodeSets(const XPathValuePtr& lhs, const XPathValuePtr& rhs)
 template<class Op>
 bool compareNodeSetWith(const XPathValuePtr& lhs, const XPathValuePtr& rhs)
 {
-  const NodeSet& lns = lhs->asNodeSet();
+  const NodeSet<std::string>& lns = lhs->asNodeSet();
   return std::find_if(lns.begin(), 
                       lns.end(), 
                       compareNodeWith<Op>(rhs->asNumber())) != lns.end();
@@ -81,17 +81,17 @@ bool areEqual(const XPathValuePtr& lhs, const XPathValuePtr& rhs)
 
 bool nodeSetsEqual(const XPathValuePtr& lhs, const XPathValuePtr& rhs)
 {
-  const NodeSet& lns = lhs->asNodeSet();
-  const NodeSet& rns = rhs->asNodeSet();
+  const NodeSet<std::string>& lns = lhs->asNodeSet();
+  const NodeSet<std::string>& rns = rhs->asNodeSet();
 
   if((lns.size() == 0) || (rns.size() == 0))
     return false;
 
   std::set<std::string> values;
-  NodeSet::const_iterator l = lns.begin();
+  NodeSet<std::string>::const_iterator l = lns.begin();
   std::string lvalue = nodeStringValue(*l);
 
-  for(NodeSet::const_iterator r = rns.begin(), rend = rns.end(); r != rend; ++r)
+  for(NodeSet<std::string>::const_iterator r = rns.begin(), rend = rns.end(); r != rend; ++r)
   {
     std::string rvalue = nodeStringValue(*r);
     if(lvalue == rvalue)
@@ -100,7 +100,7 @@ bool nodeSetsEqual(const XPathValuePtr& lhs, const XPathValuePtr& rhs)
   } // for ...
 
   ++l;
-  for(NodeSet::const_iterator lend = lns.end(); l != lend; ++l)
+  for(NodeSet<std::string>::const_iterator lend = lns.end(); l != lend; ++l)
     if(values.find(nodeStringValue(*l)) != values.end())
       return true;
 
@@ -109,7 +109,7 @@ bool nodeSetsEqual(const XPathValuePtr& lhs, const XPathValuePtr& rhs)
 
 bool nodeSetAndValueEqual(const XPathValuePtr& lhs, const XPathValuePtr& rhs)
 {
-  const NodeSet& lns = lhs->asNodeSet();
+  const NodeSet<std::string>& lns = lhs->asNodeSet();
 
   switch(rhs->type())
   {
@@ -176,10 +176,10 @@ bool isGreaterThanEquals(const XPathValuePtr& lhs, const XPathValuePtr& rhs)
   return isLessThanEquals(rhs, lhs);
 } // isGreaterThanEquals
 
-double minValue(const NodeSet& ns)
+double minValue(const NodeSet<std::string>& ns)
 {
   double v = nodeNumberValue(ns[0]);
-  for(NodeSet::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
+  for(NodeSet<std::string>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
   {
     double vt = nodeNumberValue(*i);
     if(isNaN(vt))
@@ -190,10 +190,10 @@ double minValue(const NodeSet& ns)
   return v;
 } // minValue
 
-double maxValue(const NodeSet& ns)
+double maxValue(const NodeSet<std::string>& ns)
 {
   double v = nodeNumberValue(ns[0]);
-  for(NodeSet::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
+  for(NodeSet<std::string>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
   {
     double vt = nodeNumberValue(*i);
     if(isNaN(vt))

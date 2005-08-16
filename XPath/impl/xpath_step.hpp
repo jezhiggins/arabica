@@ -30,12 +30,12 @@ public:
   } // ~StepExpression
 
   virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const = 0;
-  virtual XPathValuePtr evaluate(NodeSet& context, const ExecutionContext& executionContext) const = 0;
+  virtual XPathValuePtr evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const = 0;
 
   bool has_predicates() const { return !predicates_.empty(); }
 
 protected:
-  NodeSet applyPredicates(NodeSet& nodes, const ExecutionContext& parentContext) const
+  NodeSet<std::string> applyPredicates(NodeSet<std::string>& nodes, const ExecutionContext& parentContext) const
   {
     for(std::vector<XPathExpression*>::const_iterator p = predicates_.begin(), e = predicates_.end();
         (p != e) && (!nodes.empty()); ++p)
@@ -44,12 +44,12 @@ protected:
   } // applyPredicates
 
 private:
-  NodeSet applyPredicate(NodeSet& nodes, XPathExpression* predicate, const ExecutionContext& parentContext) const
+  NodeSet<std::string> applyPredicate(NodeSet<std::string>& nodes, XPathExpression* predicate, const ExecutionContext& parentContext) const
   {
     ExecutionContext executionContext(nodes.size(), parentContext);
-    NodeSet results(nodes.forward());
+    NodeSet<std::string> results(nodes.forward());
     unsigned int position = 1;
-    for(NodeSet::iterator i = nodes.begin(); i != nodes.end(); ++i, ++position)
+    for(NodeSet<std::string>::iterator i = nodes.begin(); i != nodes.end(); ++i, ++position)
     {
       executionContext.setPosition(position);
       XPathValuePtr v = predicate->evaluate(*i, executionContext);
@@ -91,26 +91,27 @@ public:
 
   virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
-    NodeSet nodes;
+    NodeSet<std::string> nodes;
     enumerateOver(context, nodes, executionContext);
     return XPathValuePtr(new NodeSetValue(nodes));
   } // evaluate
 
-  virtual XPathValuePtr evaluate(NodeSet& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const
   {
-    NodeSet nodes;
-    for(NodeSet::iterator n = context.begin(); n != context.end(); ++n)
+    NodeSet<std::string> nodes;
+    for(NodeSet<std::string>::iterator n = context.begin(); n != context.end(); ++n)
       enumerateOver(*n, nodes, executionContext);
     return XPathValuePtr(new NodeSetValue(nodes));
   } // evaluate
 
 private:
-  void enumerateOver(const DOM::Node<std::string>& context, NodeSet& results, 
+  void enumerateOver(const DOM::Node<std::string>& context, 
+                     NodeSet<std::string>& results, 
                      const ExecutionContext& parentContext) const
   {
     AxisEnumerator enumerator(context, axis_);
-    NodeSet intermediate(enumerator.forward());
-    NodeSet& d = (!has_predicates()) ? results : intermediate;
+    NodeSet<std::string> intermediate(enumerator.forward());
+    NodeSet<std::string>& d = (!has_predicates()) ? results : intermediate;
     while(*enumerator != 0)
     {
       // if test
@@ -154,11 +155,11 @@ public:
     if(!has_predicates())
      return expr_->evaluate(context, executionContext);
 
-    NodeSet ns = expr_->evaluate(context, executionContext)->asNodeSet();
+    NodeSet<std::string> ns = expr_->evaluate(context, executionContext)->asNodeSet();
     return XPathValuePtr(new NodeSetValue(applyPredicates(ns, executionContext)));
   } // evaluate
 
-  virtual XPathValuePtr evaluate(NodeSet& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const
   {
     DOM::Node<std::string> c = context.top();
     return evaluate(c, executionContext);
@@ -376,7 +377,7 @@ public:
 
   virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
   {
-    NodeSet nodes;
+    NodeSet<std::string> nodes;
     nodes.push_back(context);
 
     for(StepList::const_iterator i = steps_.begin(); i != steps_.end(); ++i)

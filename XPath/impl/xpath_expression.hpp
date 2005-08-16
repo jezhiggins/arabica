@@ -28,7 +28,7 @@ public:
   virtual bool evaluateAsBool(const DOM::Node<std::string>& context) const { return evaluate(context)->asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<std::string>& context) const { return evaluate(context)->asNumber(); }
   virtual std::string evaluateAsString(const DOM::Node<std::string>& context) const { return evaluate(context)->asString(); }
-  virtual NodeSet evaluateAsNodeSet(const DOM::Node<std::string>& context) const { return evaluate(context)->asNodeSet(); }
+  virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<std::string>& context) const { return evaluate(context)->asNodeSet(); }
 
   virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, 
                                  const Arabica::XPath::ExecutionContext& executionContext) const = 0;

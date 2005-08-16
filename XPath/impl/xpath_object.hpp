@@ -25,41 +25,44 @@ enum ValueType
 int compareNodes(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2);
 bool nodes_less_than(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2);
 
-class NodeSet : public std::vector<DOM::Node<std::string> >
+template<class string_type>
+class NodeSet : public std::vector<DOM::Node<string_type> >
 {
+private:
+  typedef std::vector<DOM::Node<string_type> > baseT;
 public:
   NodeSet() : 
-    std::vector<DOM::Node<std::string> >(), 
+    std::vector<DOM::Node<string_type> >(), 
     forward_(true), 
     sorted_(false) 
   { 
   } // NodeSet
 
   NodeSet(bool forward) : 
-    std::vector<DOM::Node<std::string> >(), 
+    std::vector<DOM::Node<string_type> >(), 
     forward_(forward),
     sorted_(true)
   { 
   } // NodeSet
 
-  NodeSet(const NodeSet& rhs) : 
-    std::vector<DOM::Node<std::string> >(rhs),
+  NodeSet(const NodeSet<string_type>& rhs) : 
+    std::vector<DOM::Node<string_type> >(rhs),
     forward_(rhs.forward_), 
     sorted_(rhs.sorted_)
   { 
   } // NodeSet
 
-  NodeSet& operator=(const NodeSet& rhs) 
+  NodeSet& operator=(const NodeSet<string_type>& rhs) 
   {
     forward_ = rhs.forward_;
     sorted_ = rhs.sorted_;
-    std::vector<DOM::Node<std::string> >::operator=(rhs);
+    std::vector<DOM::Node<string_type> >::operator=(rhs);
     return *this;
   } // operator=
 
   void swap(NodeSet& rhs) 
   {
-    std::vector<DOM::Node<std::string> >::swap(rhs);
+    std::vector<DOM::Node<string_type> >::swap(rhs);
     std::swap(forward_, rhs.forward_);
     std::swap(sorted_, rhs.sorted_);
   } // swap 
@@ -72,23 +75,23 @@ public:
   {
     if(!sorted_)
     {
-      std::sort(begin(), end(), nodes_less_than);
+      std::sort(baseT::begin(), baseT::end(), nodes_less_than);
       sorted_ = true;
       forward_ = true;
     } // if(!sorted)
 
     if(!forward_)
     {
-      std::reverse(begin(), end());
+      std::reverse(baseT::begin(), baseT::end());
       forward_ = true;
     } // if(!forward_)
   } // to_document_order
 
-  DOM::Node<std::string> top() const 
+  DOM::Node<string_type> top() const 
   {
     if(forward_)
       return (*this)[0];
-    return (*this)[size()-1];
+    return (*this)[baseT::size()-1];
   } // top()
 
 private:
@@ -107,7 +110,7 @@ public:
   virtual bool asBool() const = 0;
   virtual double asNumber() const = 0;
   virtual std::string asString() const = 0;
-  virtual const NodeSet& asNodeSet() const = 0;
+  virtual const NodeSet<std::string>& asNodeSet() const = 0;
 
   virtual ValueType type() const = 0;
 

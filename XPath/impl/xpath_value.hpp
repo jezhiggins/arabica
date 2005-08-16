@@ -28,12 +28,12 @@ public:
   virtual bool evaluateAsBool(const DOM::Node<std::string>& context) { return asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<std::string>& context) { return asNumber(); }
   virtual std::string evaluateAsString(const DOM::Node<std::string>& context) { return asString(); }
-  virtual NodeSet evaluateAsNodeSet(const DOM::Node<std::string>& context) { return asNodeSet(); }
+  virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<std::string>& context) { return asNodeSet(); }
 
   virtual bool asBool() const { return value_; }
   virtual double asNumber() const { return value_ ? 1 : 0; }
   virtual std::string asString() const { return value_ ? "true" : "false"; }
-  virtual const NodeSet& asNodeSet() const { static NodeSet empty; return empty; }
+  virtual const NodeSet<std::string>& asNodeSet() const { static NodeSet<std::string> empty; return empty; }
 
   virtual ValueType type() const { return BOOL; }
 
@@ -56,7 +56,7 @@ public:
   virtual bool evaluateAsBool(const DOM::Node<std::string>& context) { return asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<std::string>& context) { return asNumber(); }
   virtual std::string evaluateAsString(const DOM::Node<std::string>& context) { return asString(); }
-  virtual NodeSet evaluateAsNodeSet(const DOM::Node<std::string>& context) { return asNodeSet(); }
+  virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<std::string>& context) { return asNodeSet(); }
 
   virtual bool asBool() const { return (value_ != 0.0); }
   virtual double asNumber() const { return value_; }
@@ -70,7 +70,7 @@ public:
       return "-Infinity";
     return boost::lexical_cast<std::string>(value_);
   } // asString
-  virtual const NodeSet& asNodeSet() const { static NodeSet empty; return empty; }
+  virtual const NodeSet<std::string>& asNodeSet() const { static NodeSet<std::string> empty; return empty; }
 
   virtual ValueType type() const { return NUMBER; }
 
@@ -93,7 +93,7 @@ public:
   virtual bool evaluateAsBool(const DOM::Node<std::string>& context) { return asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<std::string>& context) { return asNumber(); }
   virtual std::string evaluateAsString(const DOM::Node<std::string>& context) { return asString(); }
-  virtual NodeSet evaluateAsNodeSet() const { return asNodeSet(); }
+  virtual NodeSet<std::string> evaluateAsNodeSet() const { return asNodeSet(); }
 
   virtual bool asBool() const { return !value_.empty(); }
   virtual double asNumber() const 
@@ -101,7 +101,7 @@ public:
     return stringAsNumber(value_);
   } // asNumber
   virtual std::string asString() const { return value_; }
-  virtual const NodeSet& asNodeSet() const { static NodeSet empty; return empty; }
+  virtual const NodeSet<std::string>& asNodeSet() const { static NodeSet<std::string> empty; return empty; }
  
   virtual ValueType type() const { return STRING; }
 
@@ -112,7 +112,7 @@ private:
 class NodeSetValue : public XPathValue, public XPathExpression
 {
 public:
-  NodeSetValue(const NodeSet& set) : set_(set) { }
+  NodeSetValue(const NodeSet<std::string>& set) : set_(set) { }
 
   virtual XPathValuePtr evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext)  const
   {
@@ -121,7 +121,7 @@ public:
   virtual bool evaluateAsBool(const DOM::Node<std::string>& context) const{ return asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<std::string>& context) const { return asNumber(); }
   virtual std::string evaluateAsString(const DOM::Node<std::string>& context) const { return asString(); }
-  virtual const NodeSet& evaluateAsNodeSet() const { return asNodeSet(); }
+  virtual const NodeSet<std::string>& evaluateAsNodeSet() const { return asNodeSet(); }
 
   virtual bool asBool() const 
   { 
@@ -135,12 +135,12 @@ public:
   { 
     return !set_.empty() ? nodeStringValue(set_.top()) : "";
   } // asStringx
-  virtual const NodeSet& asNodeSet() const { return set_; }
+  virtual const NodeSet<std::string>& asNodeSet() const { return set_; }
 
   virtual ValueType type() const { return NODE_SET; }
 
 private:
-  NodeSet set_;
+  NodeSet<std::string> set_;
 }; // NodeSetValue
 
 } // namespace XPath

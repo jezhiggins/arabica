@@ -25,8 +25,8 @@ public:
     if(p2->type() != NODE_SET)
       throw RuntimeException("Union operator joins node-sets.  First argument is not a node-set.");
 
-    NodeSet ns1(p1->asNodeSet());
-    NodeSet ns2(p2->asNodeSet());
+    NodeSet<std::string> ns1(p1->asNodeSet());
+    NodeSet<std::string> ns2(p2->asNodeSet());
 
     // do the obvious optimizations
     if(ns1.empty())
@@ -36,10 +36,10 @@ public:
 
     ns1.to_document_order();
     ns2.to_document_order();
-    NodeSet::const_iterator n1 = ns1.begin(), n1e = ns1.end();
-    NodeSet::const_iterator n2 = ns2.begin(), n2e = ns2.end();
+    NodeSet<std::string>::const_iterator n1 = ns1.begin(), n1e = ns1.end();
+    NodeSet<std::string>::const_iterator n2 = ns2.begin(), n2e = ns2.end();
 
-    NodeSet result(true);
+    NodeSet<std::string> result(true);
 
     while((n1 != n1e) && (n2 != n2e))
     {
@@ -63,7 +63,7 @@ public:
   } // evaluate
 
 private:
-  XPathValuePtr wrap(const NodeSet& ns) const
+  XPathValuePtr wrap(const NodeSet<std::string>& ns) const
   {
     return XPathValuePtr(new NodeSetValue(ns));
   } // wrap

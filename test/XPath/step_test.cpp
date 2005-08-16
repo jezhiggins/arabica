@@ -58,7 +58,7 @@ public:
     XPathExpressionPtr step(new TestStepExpression(CHILD, new AnyNodeTest()));
 
     XPathValuePtr value = step->evaluate(root_);
-    const NodeSet& set = value->asNodeSet();
+    const NodeSet<std::string>& set = value->asNodeSet();
 
     assertEquals(set.size(), 3);
     assertTrue(set[0] == element1_);
@@ -70,7 +70,7 @@ public:
   {
     XPathExpressionPtr step(new TestStepExpression(ATTRIBUTE, new AnyNodeTest()));
 
-    NodeSet set = step->evaluateAsNodeSet(element2_);
+    NodeSet<std::string> set = step->evaluateAsNodeSet(element2_);
 
     assertEquals(4, set.size());
     DOM::Attr<std::string> attr = static_cast<DOM::Attr<std::string> >(set[0]);
@@ -88,7 +88,7 @@ public:
     XPathExpressionPtr step(new TestStepExpression(CHILD, new NameNodeTest("child2")));
 
     XPathValuePtr value = step->evaluate(root_);
-    const NodeSet& set = value->asNodeSet();
+    const NodeSet<std::string>& set = value->asNodeSet();
 
     assertEquals(1, set.size());
     assertTrue(set[0] == element2_);

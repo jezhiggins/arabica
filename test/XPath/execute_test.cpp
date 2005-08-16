@@ -42,13 +42,13 @@ public:
     return XPathValuePtr(new NodeSetValue((*n).second));
   } // resolveVariable
 
-  void setVariable(const std::string& name, const NodeSet& value)
+  void setVariable(const std::string& name, const NodeSet<std::string>& value)
   {
     map_[name] = value;
   } // setVariable
 
 private:
-  typedef std::map<std::string, NodeSet> VarMap;
+  typedef std::map<std::string, NodeSet<std::string> > VarMap;
   VarMap map_;
 }; // class NodeSetVariableResolver
 
@@ -687,7 +687,7 @@ public:
     frag.appendChild(document_.createElement("foo"));
 
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(frag);
     svr.setVariable("fruit", ns);
     parser.setVariableResolver(svr);
@@ -708,7 +708,7 @@ public:
     frag.appendChild(n2);
 
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(frag);
     svr.setVariable("fruit", ns);
     parser.setVariableResolver(svr);
@@ -723,7 +723,7 @@ public:
   void testUnion13()
   {
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(document_.createElement("foo"));
     svr.setVariable("fruit", ns);
     parser.setVariableResolver(svr);
@@ -737,7 +737,7 @@ public:
   void testUnion14()
   {
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(document_.createElement("foo"));
     ns.push_back(document_.createElement("bar"));
     svr.setVariable("fruit", ns);
@@ -1983,7 +1983,7 @@ public:
   void testNodeSetVars1()
   {
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
@@ -2000,7 +2000,7 @@ public:
   void testNodeSetVars2()
   {
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
@@ -2015,7 +2015,7 @@ public:
   void testNodeSetVars3()
   {
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
@@ -2030,7 +2030,7 @@ public:
   void testNodeSetVars4()
   {
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
@@ -2045,7 +2045,7 @@ public:
   void testNodeSetVars5()
   {
     NodeSetVariableResolver svr;
-    NodeSet ns;
+    NodeSet<std::string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
@@ -2104,7 +2104,7 @@ public:
 
   void testSort1()
   {
-    NodeSet ns;
+    NodeSet<std::string> ns;
 
     ns.push_back(element1_);
     ns.push_back(element2_);
@@ -2119,7 +2119,7 @@ public:
 
   void testSort2()
   {
-    NodeSet ns;
+    NodeSet<std::string> ns;
 
     ns.push_back(element3_);
     ns.push_back(element2_);

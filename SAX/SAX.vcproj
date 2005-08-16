@@ -473,6 +473,9 @@
 				RelativePath="..\XPath\impl\xpath_execution_context.hpp">
 			</File>
 			<File
+				RelativePath="..\XPath\impl\xpath_expression.hpp">
+			</File>
+			<File
 				RelativePath="..\XPath\impl\xpath_function.hpp">
 			</File>
 			<File
