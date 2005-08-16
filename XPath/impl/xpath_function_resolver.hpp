@@ -25,7 +25,11 @@ public:
                                          const std::vector<XPathExpressionPtr>& argExprs) const = 0; 
 }; // class FunctionResolver
 
-typedef boost::shared_ptr<FunctionResolver> FunctionResolverPtr;
+class FunctionResolverPtr : public boost::shared_ptr<FunctionResolver> 
+{
+public:
+  explicit FunctionResolverPtr(FunctionResolver* fr) : boost::shared_ptr<FunctionResolver>(fr) { }
+}; 
 
 class NullFunctionResolver : public FunctionResolver
 {

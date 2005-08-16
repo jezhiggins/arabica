@@ -33,7 +33,11 @@ class NamespaceContext
     bool operator==(const NamespaceContext&) const;
 }; // class NamespaceContext 
 
-typedef boost::shared_ptr<NamespaceContext> NamespaceContextPtr;
+class NamespaceContextPtr : public boost::shared_ptr<NamespaceContext> 
+{
+public:
+  explicit NamespaceContextPtr(NamespaceContext* nc) : boost::shared_ptr<NamespaceContext>(nc) { }
+}; // class NamespaceContextPtr
 
 class NullNamespaceContext : public NamespaceContext
 {  

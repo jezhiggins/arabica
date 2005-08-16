@@ -23,7 +23,11 @@ public:
   virtual XPathValuePtr resolveVariable(const std::string& name) const = 0; 
 }; // class VariableResolver
 
-typedef boost::shared_ptr<VariableResolver> VariableResolverPtr;
+class VariableResolverPtr : public boost::shared_ptr<VariableResolver>
+{
+public:
+  explicit VariableResolverPtr(VariableResolver* vr) : boost::shared_ptr<VariableResolver>(vr) { }
+}; // class VariableResolverPtr
 
 class NullVariableResolver : public VariableResolver
 {
