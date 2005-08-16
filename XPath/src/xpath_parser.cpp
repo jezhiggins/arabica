@@ -25,7 +25,7 @@ long Arabica::XPath::getNodeId(node_iter_t const& node)
 
 node_iter_t& Arabica::XPath::skipWhitespace(node_iter_t& node)
 {
-  while(getNodeId(node) == S_id)
+  while(getNodeId(node) == impl::S_id)
     ++node;
   return node;
 } // skipWhitespace
@@ -70,12 +70,12 @@ XPathExpression<std::string>* createFunction(node_iter_t const& i, CompilationCo
   std::string name(c->value.begin(), c->value.end());
   ++c;
   skipWhitespace(c);
-  assert(getNodeId(c) == LeftBracket_id);
+  assert(getNodeId(c) == impl::LeftBracket_id);
   ++c;
   skipWhitespace(c);
 
   std::vector<XPathExpressionPtr<std::string> > args;
-  while(getNodeId(c) != RightBracket_id)
+  while(getNodeId(c) != impl::RightBracket_id)
   {
     XPathExpressionPtr<std::string> arg(compile_expression(c++, context));
     args.push_back(arg);
@@ -117,46 +117,46 @@ XPathExpression<std::string>* createBinaryExpression(node_iter_t const& i, Compi
 
     switch(op)
     {
-      case PlusOperator_id:
+      case impl::PlusOperator_id:
         p1 = new PlusOperator<std::string>(p1, p2);
         break;
-      case MinusOperator_id:
+      case impl::MinusOperator_id:
         p1 = new MinusOperator<std::string>(p1, p2);
         break;
-      case MultiplyOperator_id:
+      case impl::MultiplyOperator_id:
         p1 = new MultiplyOperator<std::string>(p1, p2);
         break;
-      case DivOperator_id:
+      case impl::DivOperator_id:
         p1 = new DivideOperator<std::string>(p1, p2);
         break;
-      case ModOperator_id:
+      case impl::ModOperator_id:
         p1 = new ModOperator<std::string>(p1, p2);
         break;
-      case EqualsOperator_id:
+      case impl::EqualsOperator_id:
         p1 = new EqualsOperator(p1, p2);
         break;
-      case NotEqualsOperator_id:
+      case impl::NotEqualsOperator_id:
         p1 = new NotEqualsOperator(p1, p2);
         break;
-      case LessThanOperator_id:
+      case impl::LessThanOperator_id:
         p1 = new LessThanOperator(p1, p2);
         break;
-      case LessThanEqualsOperator_id:
+      case impl::LessThanEqualsOperator_id:
         p1 = new LessThanEqualsOperator(p1, p2);
         break;
-      case GreaterThanOperator_id:
+      case impl::GreaterThanOperator_id:
         p1 = new GreaterThanOperator(p1, p2);
         break;
-      case GreaterThanEqualsOperator_id:
+      case impl::GreaterThanEqualsOperator_id:
         p1 = new GreaterThanEqualsOperator(p1, p2);
         break;
-      case OrOperator_id:
+      case impl::OrOperator_id:
         p1 = new OrOperator(p1, p2);
         break;
-      case AndOperator_id:
+      case impl::AndOperator_id:
         p1 = new AndOperator(p1, p2);
         break;
-      case UnionOperator_id:
+      case impl::UnionOperator_id:
         p1 = new UnionExpression(p1, p2);
         break;
       default:
@@ -178,16 +178,16 @@ RelativeLocationPath::StepList createStepList(node_iter_t const& from, node_iter
   while(c != end)
     switch(getNodeId(c))
     {
-      case S_id:
-      case Slash_id:
+      case impl::S_id:
+      case impl::Slash_id:
         ++c; // just drop it
         break; 
-      case RelativeLocationPath_id:
+      case impl::RelativeLocationPath_id:
         // might get here when handling an absolute path
         end = c->children.end();
         c = c->children.begin();
         break;
-      case Step_id:
+      case impl::Step_id:
         {
           node_iter_t step = c->children.begin();
           steps.push_back(StepFactory::createStep(step, c->children.end(), context));
@@ -322,45 +322,45 @@ const std::map<int, XPath::compileFn> XPath::createFunctions()
 {
   std::map<int, XPath::compileFn> factory;
 
-  factory[AbsoluteLocationPath_id] = createAbsoluteLocationPath;
-  factory[RelativeLocationPath_id] = createRelativeLocationPath;
-  factory[AbbreviatedAbsoluteLocationPath_id] = createAbsoluteLocationPath;
-  factory[Step_id] = createRelativeLocationPath;
-  factory[PathExpr_id] = createRelativeLocationPath;
-  factory[FilterExpr_id] = createRelativeLocationPath;
+  factory[impl::AbsoluteLocationPath_id] = createAbsoluteLocationPath;
+  factory[impl::RelativeLocationPath_id] = createRelativeLocationPath;
+  factory[impl::AbbreviatedAbsoluteLocationPath_id] = createAbsoluteLocationPath;
+  factory[impl::Step_id] = createRelativeLocationPath;
+  factory[impl::PathExpr_id] = createRelativeLocationPath;
+  factory[impl::FilterExpr_id] = createRelativeLocationPath;
 
-  factory[PrimaryExpr_id] = createExpression;
+  factory[impl::PrimaryExpr_id] = createExpression;
 
-  factory[FunctionCall_id] = createFunction;
+  factory[impl::FunctionCall_id] = createFunction;
 
-  factory[AdditiveExpr_id] = createBinaryExpression;
-  factory[MultiplicativeExpr_id] = createBinaryExpression;
-  factory[EqualityExpr_id] = createBinaryExpression;
-  factory[RelationalExpr_id] = createBinaryExpression;
-  factory[OrExpr_id] = createBinaryExpression;
-  factory[AndExpr_id] = createBinaryExpression;
-  factory[UnionExpr_id] = createBinaryExpression;
+  factory[impl::AdditiveExpr_id] = createBinaryExpression;
+  factory[impl::MultiplicativeExpr_id] = createBinaryExpression;
+  factory[impl::EqualityExpr_id] = createBinaryExpression;
+  factory[impl::RelationalExpr_id] = createBinaryExpression;
+  factory[impl::OrExpr_id] = createBinaryExpression;
+  factory[impl::AndExpr_id] = createBinaryExpression;
+  factory[impl::UnionExpr_id] = createBinaryExpression;
 
-  factory[Literal_id] = createLiteral;
-  factory[Number_id] = createNumber;
-  factory[Digits_id] = createNumber;
+  factory[impl::Literal_id] = createLiteral;
+  factory[impl::Number_id] = createNumber;
+  factory[impl::Digits_id] = createNumber;
 
-  factory[VariableReference_id] = createVariable;
+  factory[impl::VariableReference_id] = createVariable;
 
-  factory[NodeTest_id] = createSingleStepRelativeLocationPath;
-  factory[QName_id] = createSingleStepRelativeLocationPath;
-  factory[NCName_id] = createSingleStepRelativeLocationPath;
-  factory[AnyName_id] = createSingleStepRelativeLocationPath;
-  factory[Text_id] = createSingleStepRelativeLocationPath;
-  factory[Comment_id] = createSingleStepRelativeLocationPath;
-  factory[ProcessingInstruction_id] = createSingleStepRelativeLocationPath;
-  factory[Slash_id] = createSingleStepAbsoluteLocationPath;
+  factory[impl::NodeTest_id] = createSingleStepRelativeLocationPath;
+  factory[impl::QName_id] = createSingleStepRelativeLocationPath;
+  factory[impl::NCName_id] = createSingleStepRelativeLocationPath;
+  factory[impl::AnyName_id] = createSingleStepRelativeLocationPath;
+  factory[impl::Text_id] = createSingleStepRelativeLocationPath;
+  factory[impl::Comment_id] = createSingleStepRelativeLocationPath;
+  factory[impl::ProcessingInstruction_id] = createSingleStepRelativeLocationPath;
+  factory[impl::Slash_id] = createSingleStepAbsoluteLocationPath;
 
-  factory[SelfSelect_id] = createSingleStepRelativeLocationPath;
-  factory[ParentSelect_id] = createSingleStepRelativeLocationPath;
+  factory[impl::SelfSelect_id] = createSingleStepRelativeLocationPath;
+  factory[impl::ParentSelect_id] = createSingleStepRelativeLocationPath;
 
-  factory[UnaryExpr_id] = createUnaryExpression;
-  factory[UnaryMinusOperator_id] = createUnaryNegativeExpr;
+  factory[impl::UnaryExpr_id] = createUnaryExpression;
+  factory[impl::UnaryMinusOperator_id] = createUnaryNegativeExpr;
 
   return factory;
 } // createFunctions
@@ -369,95 +369,95 @@ const std::map<int, std::string> XPath::debugNames()
 {
   std::map<int, std::string> names;
   
-  names[LocationPath_id] = "LocationPath";
-  names[AbsoluteLocationPath_id] = "AbsoluteLocationPath";
-  names[RelativeLocationPath_id] = "RelativeLocationPath";
-  names[Step_id] = "Step";
-  names[AxisSpecifier_id] = "AxisSpecifier";
-  names[NodeTest_id] = "NodeTest";
-  names[Predicate_id] = "Predicate";
-  names[PredicateExpr_id] = "PredicateExpr";
-  names[AbbreviatedAbsoluteLocationPath_id] = "AbbreviatedAbsoluteLocationPath";
-  names[AbbreviatedStep_id] = "AbbreviatedStep";
-  names[AbbreviatedAxisSpecifier_id] = "AbbreviatedAxisSpecifier";
-  names[Expr_id] = "Expr";
-  names[PrimaryExpr_id] = "PrimaryExpr";
-  names[FunctionCall_id] = "FunctionCall";
-  names[Argument_id] = "Argument";
-  names[UnionExpr_id] = "UnionExpr";
-  names[PathExpr_id] = "PathExpr";
-  names[FilterExpr_id] = "FilterExpr";
-  names[OrExpr_id] = "OrExpr";
-  names[AndExpr_id] = "AndExpr";
-  names[EqualityExpr_id] = "EqualityExpr";
-  names[RelationalExpr_id] = "RelationalExpr";
-  names[AdditiveExpr_id] = "AdditiveExpr";
-  names[MultiplicativeExpr_id] = "MultiplicativeExpr";
-  names[UnaryExpr_id] = "UnaryExpr";
-  names[Literal_id] = "Literal";
-  names[Number_id] = "Number";
-  names[Digits_id] = "Digits";
-  names[MultiplyOperator_id] = "MultiplyOperator";
-  names[FunctionName_id] = "FunctionName";
-  names[VariableReference_id] = "VariableReference";
-  names[NameTest_id] = "NameTest";
-  names[S_id] = "S";
-  names[NodeType_id] = "NodeType";
-  names[AxisName_id] = "AxisName";
+  names[impl::LocationPath_id] = "LocationPath";
+  names[impl::AbsoluteLocationPath_id] = "AbsoluteLocationPath";
+  names[impl::RelativeLocationPath_id] = "RelativeLocationPath";
+  names[impl::Step_id] = "Step";
+  names[impl::AxisSpecifier_id] = "AxisSpecifier";
+  names[impl::NodeTest_id] = "NodeTest";
+  names[impl::Predicate_id] = "Predicate";
+  names[impl::PredicateExpr_id] = "PredicateExpr";
+  names[impl::AbbreviatedAbsoluteLocationPath_id] = "AbbreviatedAbsoluteLocationPath";
+  names[impl::AbbreviatedStep_id] = "AbbreviatedStep";
+  names[impl::AbbreviatedAxisSpecifier_id] = "AbbreviatedAxisSpecifier";
+  names[impl::Expr_id] = "Expr";
+  names[impl::PrimaryExpr_id] = "PrimaryExpr";
+  names[impl::FunctionCall_id] = "FunctionCall";
+  names[impl::Argument_id] = "Argument";
+  names[impl::UnionExpr_id] = "UnionExpr";
+  names[impl::PathExpr_id] = "PathExpr";
+  names[impl::FilterExpr_id] = "FilterExpr";
+  names[impl::OrExpr_id] = "OrExpr";
+  names[impl::AndExpr_id] = "AndExpr";
+  names[impl::EqualityExpr_id] = "EqualityExpr";
+  names[impl::RelationalExpr_id] = "RelationalExpr";
+  names[impl::AdditiveExpr_id] = "AdditiveExpr";
+  names[impl::MultiplicativeExpr_id] = "MultiplicativeExpr";
+  names[impl::UnaryExpr_id] = "UnaryExpr";
+  names[impl::Literal_id] = "Literal";
+  names[impl::Number_id] = "Number";
+  names[impl::Digits_id] = "Digits";
+  names[impl::MultiplyOperator_id] = "MultiplyOperator";
+  names[impl::FunctionName_id] = "FunctionName";
+  names[impl::VariableReference_id] = "VariableReference";
+  names[impl::NameTest_id] = "NameTest";
+  names[impl::S_id] = "S";
+  names[impl::NodeType_id] = "NodeType";
+  names[impl::AxisName_id] = "AxisName";
 
-  names[QName_id] = "QName";
-  names[Prefix_id] = "Prefix";
-  names[LocalPart_id] = "LocalPart";
-  names[NCName_id] = "NCName";
-  names[NCNameChar_id] = "NCNameChar";
+  names[impl::QName_id] = "QName";
+  names[impl::Prefix_id] = "Prefix";
+  names[impl::LocalPart_id] = "LocalPart";
+  names[impl::NCName_id] = "NCName";
+  names[impl::NCNameChar_id] = "NCNameChar";
 
-  names[Slash_id] = "/";
-  names[SlashSlash_id] = "//";
+  names[impl::Slash_id] = "/";
+  names[impl::SlashSlash_id] = "//";
 
-  names[AncestorOrSelf_id] = "ancestor-or-self::";
-  names[Ancestor_id] = "ancestor::";
-  names[Attribute_id] = "attribute::";
-  names[Child_id] = "child::";
-  names[DescendantOrSelf_id] = "descendant-or-self::";
-  names[Descendant_id] = "descendant::";
-  names[FollowingSibling_id] = "following-sibling::";
-  names[Following_id] = "following::";
-  names[Namespace_id] = "namespace::";
-  names[Parent_id] = "parent::";
-  names[PrecedingSibling_id] = "preceding-sibling::";
-  names[Preceding_id] = "preceding::";
-  names[Self_id] = "self::";
+  names[impl::AncestorOrSelf_id] = "ancestor-or-self::";
+  names[impl::Ancestor_id] = "ancestor::";
+  names[impl::Attribute_id] = "attribute::";
+  names[impl::Child_id] = "child::";
+  names[impl::DescendantOrSelf_id] = "descendant-or-self::";
+  names[impl::Descendant_id] = "descendant::";
+  names[impl::FollowingSibling_id] = "following-sibling::";
+  names[impl::Following_id] = "following::";
+  names[impl::Namespace_id] = "namespace::";
+  names[impl::Parent_id] = "parent::";
+  names[impl::PrecedingSibling_id] = "preceding-sibling::";
+  names[impl::Preceding_id] = "preceding::";
+  names[impl::Self_id] = "self::";
 
-  names[Comment_id] = "comment()";
-  names[Text_id] = "text()";
-  names[ProcessingInstruction_id] = "processing-instruction()";
-  names[Node_id] = "node()";
-  names[AnyName_id] = "AnyName";
+  names[impl::Comment_id] = "comment()";
+  names[impl::Text_id] = "text()";
+  names[impl::ProcessingInstruction_id] = "processing-instruction()";
+  names[impl::Node_id] = "node()";
+  names[impl::AnyName_id] = "AnyName";
 
-  names[SelfSelect_id] = "SelfSelect";
-  names[ParentSelect_id] = "ParentSelect";
+  names[impl::SelfSelect_id] = "SelfSelect";
+  names[impl::ParentSelect_id] = "ParentSelect";
 
-  names[LeftSquare_id] = "[";
-  names[RightSquare_id] = "]";
+  names[impl::LeftSquare_id] = "[";
+  names[impl::RightSquare_id] = "]";
 
-  names[LeftBracket_id] = "(";
-  names[RightBracket_id] = ")";
+  names[impl::LeftBracket_id] = "(";
+  names[impl::RightBracket_id] = ")";
 
-  names[PlusOperator_id] = "+";
-  names[MinusOperator_id] = "-";
-  names[ModOperator_id] = "mod";
-  names[DivOperator_id] = "div";
-  names[EqualsOperator_id] = "=";
-  names[NotEqualsOperator_id] = "!=";
-  names[LessThanOperator_id] = "<";
-  names[LessThanEqualsOperator_id] = "<=";
-  names[GreaterThanOperator_id] = ">";
-  names[GreaterThanEqualsOperator_id] = ">=";
+  names[impl::PlusOperator_id] = "+";
+  names[impl::MinusOperator_id] = "-";
+  names[impl::ModOperator_id] = "mod";
+  names[impl::DivOperator_id] = "div";
+  names[impl::EqualsOperator_id] = "=";
+  names[impl::NotEqualsOperator_id] = "!=";
+  names[impl::LessThanOperator_id] = "<";
+  names[impl::LessThanEqualsOperator_id] = "<=";
+  names[impl::GreaterThanOperator_id] = ">";
+  names[impl::GreaterThanEqualsOperator_id] = ">=";
 
-  names[OrOperator_id] = "or";
-  names[AndOperator_id] = "and";
-  names[UnionOperator_id] = "union";
-  names[UnaryMinusOperator_id] = "minus";
+  names[impl::OrOperator_id] = "or";
+  names[impl::AndOperator_id] = "and";
+  names[impl::UnionOperator_id] = "union";
+  names[impl::UnaryMinusOperator_id] = "minus";
 
   return names;
 } // debugNames

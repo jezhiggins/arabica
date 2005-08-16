@@ -187,14 +187,14 @@ public:
 
     std::vector<XPathExpression<std::string>*> preds;
 
-    while((node != end) && (getNodeId(node) == Predicate_id))
+    while((node != end) && (getNodeId(node) == impl::Predicate_id))
     {
       node_iter_t c = node->children.begin();
-      assert(getNodeId(c) == LeftSquare_id);
+      assert(getNodeId(c) == impl::LeftSquare_id);
       ++c;
       preds.push_back(compile_expression(c, context));
       ++c;
-      assert(getNodeId(c) == RightSquare_id);
+      assert(getNodeId(c) == impl::RightSquare_id);
       
       ++node;
     } // if ...
@@ -217,19 +217,19 @@ private:
 
     switch(id)
     {
-      case Slash_id:
-      case SelfSelect_id:
+      case impl::Slash_id:
+      case impl::SelfSelect_id:
 	      return SELF;   // don't advance node, SelfSelect is axis specifier and node test in one
-      case ParentSelect_id:
+      case impl::ParentSelect_id:
         return PARENT;
-      case SlashSlash_id:
+      case impl::SlashSlash_id:
         return DESCENDANT_OR_SELF;
 
-      case AbbreviatedAxisSpecifier_id:
+      case impl::AbbreviatedAxisSpecifier_id:
         ++node;
         return ATTRIBUTE;
 
-      case AxisSpecifier_id:
+      case impl::AxisSpecifier_id:
         // skip on to the next bit
         break;
 
@@ -242,32 +242,32 @@ private:
     ++node;
     switch(axis)
     {
-      case AncestorOrSelf_id:
+      case impl::AncestorOrSelf_id:
         return ANCESTOR_OR_SELF;
-      case Ancestor_id:
+      case impl::Ancestor_id:
         return ANCESTOR;
-      case AbbreviatedAxisSpecifier_id:
-      case Attribute_id:
+      case impl::AbbreviatedAxisSpecifier_id:
+      case impl::Attribute_id:
         return ATTRIBUTE;
-      case Child_id:
+      case impl::Child_id:
         return CHILD;
-      case DescendantOrSelf_id:
+      case impl::DescendantOrSelf_id:
         return DESCENDANT_OR_SELF;
-      case Descendant_id:
+      case impl::Descendant_id:
         return DESCENDANT;
-      case FollowingSibling_id:
+      case impl::FollowingSibling_id:
         return FOLLOWING_SIBLING;
-      case Following_id:
+      case impl::Following_id:
         return FOLLOWING;
-      case Namespace_id:
+      case impl::Namespace_id:
         return NAMESPACE;
-      case Parent_id:
+      case impl::Parent_id:
         return PARENT;
-      case PrecedingSibling_id:
+      case impl::PrecedingSibling_id:
         return PRECEDING_SIBLING;
-      case Preceding_id:
+      case impl::Preceding_id:
         return PRECEDING;
-      case Self_id:
+      case impl::Self_id:
         return SELF;
     } // switch ...
     
@@ -281,7 +281,7 @@ private:
 
     switch(id)
     {
-      case NodeTest_id:
+      case impl::NodeTest_id:
         {
           node_iter_t c = node->children.begin();
           NodeTest* t = getTest(c, namespaceContext);
@@ -289,7 +289,7 @@ private:
           return t;
         } // case NodeTest_id
 
-      case QName_id:
+      case impl::QName_id:
         {
           node_iter_t c = node->children.begin();
           std::string prefix(c->value.begin(), c->value.end());
@@ -300,29 +300,29 @@ private:
           return new QNameNodeTest(uri, name);
         } //case QName_id
       
-      case NCName_id:
+      case impl::NCName_id:
         {
           std::string name(node->value.begin(), node->value.end());
           ++node;
           return new NameNodeTest(name);
         } // case NameNodeTest
 
-      case Comment_id:
+      case impl::Comment_id:
         {
           ++node;
           return new CommentNodeTest();
         } // case CommentTest_id
     
-      case Text_id:
+      case impl::Text_id:
         {
           ++node;
           return new TextNodeTest();
         } // case Text_id
 
-      case ProcessingInstruction_id:
+      case impl::ProcessingInstruction_id:
         {
           ++node;
-          if(getNodeId(node) != Literal_id) // not sure if this is always safe
+          if(getNodeId(node) != impl::Literal_id) // not sure if this is always safe
             return new ProcessingInstructionNodeTest();
           
           std::string target(node->value.begin(), node->value.end());
@@ -330,25 +330,25 @@ private:
           return new ProcessingInstructionNodeTest(target);
         } // case ProcessingInstruction_id
       
-      case SlashSlash_id:
-      case Node_id:
+      case impl::SlashSlash_id:
+      case impl::Node_id:
         {
           ++node;
           return new AnyNodeTest();
         } // case Node_id
 
-      case Slash_id:
+      case impl::Slash_id:
         return new RootNodeTest();
 
-      case AnyName_id:
-  	  case SelfSelect_id:
-      case ParentSelect_id:
+      case impl::AnyName_id:
+  	  case impl::SelfSelect_id:
+      case impl::ParentSelect_id:
         {
           ++node;
           return new StarNodeTest();
         } // case AnyName_id:
 
-      case NameTest_id:
+      case impl::NameTest_id:
         {
           node_iter_t prefixNode = node->children.begin();
           ++node;

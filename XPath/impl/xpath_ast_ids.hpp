@@ -5,6 +5,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 enum 
 {
@@ -98,6 +100,8 @@ enum
   UnionOperator_id,
   UnaryMinusOperator_id
 };
+
+} // namespace impl
 
 } // namespace XPath
 
