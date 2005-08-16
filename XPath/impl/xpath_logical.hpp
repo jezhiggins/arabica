@@ -23,8 +23,8 @@ public:
     // value is true and false otherwise. The right operand is not evaluated if the 
     // left operand evaluates to true.
     if(lhs()->evaluate(context, executionContext)->asBool())
-      return BoolValue::createValue(true);
-    return BoolValue::createValue(rhs()->evaluate(context, executionContext)->asBool());
+      return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(true);
+    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(rhs()->evaluate(context, executionContext)->asBool());
   } // evaluate
 }; // class OrOperator
 
@@ -43,8 +43,8 @@ public:
     // values are true and false otherwise. The right operand is not evaluated if the left 
     // operand evaluates to false.
     if(!lhs()->evaluate(context, executionContext)->asBool())
-      return BoolValue::createValue(false);
-    return BoolValue::createValue(rhs()->evaluate(context, executionContext)->asBool());
+      return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(false);
+    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(rhs()->evaluate(context, executionContext)->asBool());
   } // evaluate
 }; // class AndOperator
 

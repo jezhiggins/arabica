@@ -250,13 +250,13 @@ public:
     std::string start = argAsString(1, context, executionContext);
 
     if(value.length() < start.length())
-      return new BoolValue(false);
+      return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false);
 
     for(size_t i = 0, ie = start.length(); i < ie; ++i)
       if(value[i] != start[i])
-        return new BoolValue(false);
+        return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false);
 
-    return new BoolValue(true);
+    return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true);
   } // evaluate
 }; // StartsWithFn
 
@@ -269,7 +269,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new BoolValue(argAsString(0, context, executionContext).find(argAsString(1, context, executionContext)) != std::string::npos);
+    return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(argAsString(0, context, executionContext).find(argAsString(1, context, executionContext)) != std::string::npos);
   } // evaluate
 }; // class ContainsFn
 
@@ -424,7 +424,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new BoolValue(argAsBool(0, context, executionContext));
+    return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(argAsBool(0, context, executionContext));
   } // evaluate
 }; // class BooleanFn
 
@@ -437,7 +437,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new BoolValue(!argAsBool(0, context, executionContext));
+    return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(!argAsBool(0, context, executionContext));
   }
 }; // class NotFn
 
@@ -450,7 +450,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new BoolValue(true);
+    return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true);
   } // evaluate
 }; // TrueFn
 
@@ -463,7 +463,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new BoolValue(false);
+    return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false);
   } // evaluate
 }; // FalseFn
 

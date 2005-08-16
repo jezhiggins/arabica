@@ -17,7 +17,7 @@ public:
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return BoolValue::createValue(areEqual(lhs()->evaluate(context, executionContext),
+    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(areEqual(lhs()->evaluate(context, executionContext),
                                            rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class EqualsOperator
@@ -31,7 +31,7 @@ public:
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return BoolValue::createValue(!areEqual(lhs()->evaluate(context, executionContext),
+    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(!areEqual(lhs()->evaluate(context, executionContext),
                                             rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class NotEqualsOperator
@@ -45,7 +45,7 @@ public:
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return BoolValue::createValue(isLessThan(lhs()->evaluate(context, executionContext),
+    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(isLessThan(lhs()->evaluate(context, executionContext),
                                              rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class LessThanOperator
@@ -59,7 +59,7 @@ public:
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return BoolValue::createValue(isLessThanEquals(lhs()->evaluate(context, executionContext),
+    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(isLessThanEquals(lhs()->evaluate(context, executionContext),
                                                    rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class LessThanEqualsOperator
@@ -73,7 +73,7 @@ public:
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return BoolValue::createValue(isGreaterThan(lhs()->evaluate(context, executionContext),
+    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(isGreaterThan(lhs()->evaluate(context, executionContext),
                                                 rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class GreaterThanOperator
@@ -87,7 +87,7 @@ public:
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return BoolValue::createValue(isGreaterThanEquals(lhs()->evaluate(context, executionContext),
+    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(isGreaterThanEquals(lhs()->evaluate(context, executionContext),
                                                       rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class GreaterThanEqualsOperator

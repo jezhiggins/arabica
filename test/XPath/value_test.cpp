@@ -26,7 +26,7 @@ public:
 
   void test1()
   {
-    XPathExpressionPtr<std::string> b(new BoolValue(true));
+    XPathExpressionPtr<std::string> b(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true));
     assertEquals(true, b->evaluateAsBool(dummy_));
     assertEquals(1.0, b->evaluateAsNumber(dummy_), 0.0);
     assertEquals("true", b->evaluateAsString(dummy_));
@@ -34,7 +34,7 @@ public:
 
   void test2()
   {
-    XPathExpressionPtr<std::string> b2(new BoolValue(false));
+    XPathExpressionPtr<std::string> b2(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false));
     assertEquals(false, b2->evaluateAsBool(dummy_));
     assertEquals(0.0, b2->evaluateAsNumber(dummy_), 0.0);
     assertEquals("false", b2->evaluateAsString(dummy_));
@@ -87,9 +87,9 @@ public:
 
   void test9()
   {
-    XPathExpressionPtr<std::string> bt(new BoolValue(true));
+    XPathExpressionPtr<std::string> bt(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true));
     XPathExpressionPtr<std::string> st(new StringValue("true"));
-    XPathExpressionPtr<std::string> bf(new BoolValue(false));
+    XPathExpressionPtr<std::string> bf(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false));
     XPathExpressionPtr<std::string> sf(new StringValue(""));
 
     assertTrue(areEqual(bt->evaluate(dummy_), (st->evaluate(dummy_))));
@@ -106,9 +106,9 @@ public:
 
   void test10()
   {
-    XPathExpressionPtr<std::string> bt(new BoolValue(true));
+    XPathExpressionPtr<std::string> bt(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true));
     XPathExpressionPtr<std::string> nt(new NumericValue(1.0));
-    XPathExpressionPtr<std::string> bf(new BoolValue(false));
+    XPathExpressionPtr<std::string> bf(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false));
     XPathExpressionPtr<std::string> nf(new NumericValue(0.0));
 
     assertTrue(areEqual(bt->evaluate(dummy_), (nt->evaluate(dummy_))));

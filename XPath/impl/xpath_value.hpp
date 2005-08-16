@@ -5,6 +5,7 @@
 #include <DOM/Node.h>
 #include <boost/lexical_cast.hpp>
 #include <vector>
+#include <Utils/StringAdaptor.h>
 #include "xpath_object.hpp"
 #include "xpath_expression.hpp"
 
@@ -13,27 +14,28 @@ namespace Arabica
 namespace XPath
 {
 
-class BoolValue : public XPathValue<std::string>, public XPathExpression<std::string>
+template<class string_type, class string_adaptor>
+class BoolValue : public XPathValue<string_type>, public XPathExpression<string_type>
 {
 public:
   BoolValue(bool value) :
       value_(value) { }
 
-  static XPathValuePtr<std::string> createValue(bool value) { return XPathValuePtr<std::string>(new BoolValue(value)); }
+  static XPathValuePtr<string_type> createValue(bool value) { return XPathValuePtr<string_type>(new BoolValue(value)); }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext& executionContext) const
   {
-    return XPathValuePtr<std::string>(new BoolValue(value_));
+    return XPathValuePtr<string_type>(new BoolValue(value_));
   } // evaluate
-  virtual bool evaluateAsBool(const DOM::Node<std::string>& context) { return asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<std::string>& context) { return asNumber(); }
-  virtual std::string evaluateAsString(const DOM::Node<std::string>& context) { return asString(); }
-  virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<std::string>& context) { return asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type>& context) { return asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type>& context) { return asNumber(); }
+  virtual std::string evaluateAsString(const DOM::Node<string_type>& context) { return asString(); }
+  virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<string_type>& context) { return asNodeSet(); }
 
   virtual bool asBool() const { return value_; }
   virtual double asNumber() const { return value_ ? 1 : 0; }
-  virtual std::string asString() const { return value_ ? "true" : "false"; }
-  virtual const NodeSet<std::string>& asNodeSet() const { static NodeSet<std::string> empty; return empty; }
+  virtual string_type asString() const { return string_adaptor().makeStringT(value_ ? "true" : "false"); }
+  virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
 
   virtual ValueType type() const { return BOOL; }
 
