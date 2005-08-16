@@ -10,19 +10,20 @@ namespace Arabica
 namespace XPath
 {
 
-class Variable : public XPathExpression<std::string>
+template<class string_type>
+class Variable : public XPathExpression<string_type>
 {
 public:
-  Variable(const std::string& name) : name_(name) { }
+  Variable(const string_type& name) : name_(name) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
     return executionContext.variableResolver().resolveVariable(name_);
   } // evaluate
 
 private:
-  const std::string name_;
+  const string_type name_;
 }; // class Variable
 
 } // namespace XPath

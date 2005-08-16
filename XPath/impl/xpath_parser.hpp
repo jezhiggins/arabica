@@ -499,7 +499,7 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createNumber(n
 template<class string_type, class string_adaptor>
 XPathExpression<string_type>* XPath<string_type, string_adaptor>::createVariable(node_iter_t const& i, CompilationContext<string_type>& context)
 {
-  return new Variable(string_type(i->value.begin()+1, i->value.end())); // skip $
+  return new Variable<string_type>(string_type(i->value.begin()+1, i->value.end())); // skip $
 } // createVariable
 
 template<class string_type, class string_adaptor>
