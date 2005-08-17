@@ -9,7 +9,8 @@ namespace Arabica
 {
 namespace XPath
 {
-  
+ 
+template<class string_type, class string_adaptor>
 class ExecutionContext
 {
 public:
@@ -31,14 +32,14 @@ public:
 
   void setPosition(unsigned int pos) { position_ = pos; }
 
-  const VariableResolver<std::string, Arabica::default_string_adaptor<std::string> >& variableResolver() const { return variableResolver_.get(); }
-  void setVariableResolver(const VariableResolver<std::string, Arabica::default_string_adaptor<std::string> >& resolver) { variableResolver_.set(resolver); }
-  void setVariableResolver(VariableResolverPtr<std::string, Arabica::default_string_adaptor<std::string> >& resolver) { variableResolver_.set(resolver); }
+  const VariableResolver<string_type, string_adaptor>& variableResolver() const { return variableResolver_.get(); }
+  void setVariableResolver(const VariableResolver<string_type, string_adaptor>& resolver) { variableResolver_.set(resolver); }
+  void setVariableResolver(VariableResolverPtr<string_type,string_adaptor>& resolver) { variableResolver_.set(resolver); }
 
 private:
   size_t position_;
   size_t last_;
-  ResolverHolder<const VariableResolver<std::string, Arabica::default_string_adaptor<std::string> > > variableResolver_;
+  ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;
 
   ExecutionContext(const ExecutionContext&);
   ExecutionContext& operator=(const ExecutionContext&);

@@ -9,16 +9,18 @@ namespace Arabica
 namespace XPath
 {
 
-template<class string_type>
-class UnionExpression : private BinaryExpression<string_type>, public XPathExpression<string_type>
+template<class string_type, class string_adaptor>
+class UnionExpression : private BinaryExpression<string_type, string_adaptor>, 
+                        public XPathExpression<string_type, string_adaptor>
 {
-  typedef BinaryExpression<string_type> baseT;
+  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  UnionExpression(XPathExpression<string_type>* lhs, XPathExpression<string_type>* rhs) :
-       BinaryExpression<string_type>(lhs, rhs) { }
+  UnionExpression(XPathExpression<string_type, string_adaptor>* lhs, 
+                  XPathExpression<string_type, string_adaptor>* rhs) :
+       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
-                                              const ExecutionContext& executionContext) const
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     XPathValuePtr<string_type> p1 = baseT::lhs()->evaluate(context, executionContext);
     if(p1->type() != NODE_SET)
@@ -67,7 +69,7 @@ public:
 private:
   XPathValuePtr<string_type> wrap(const NodeSet<string_type>& ns) const
   {
-    return XPathValuePtr<string_type>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(ns));
+    return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(ns));
   } // wrap
 }; // UnionExpression
 

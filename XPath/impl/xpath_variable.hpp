@@ -10,14 +10,14 @@ namespace Arabica
 namespace XPath
 {
 
-template<class string_type>
-class Variable : public XPathExpression<string_type>
+template<class string_type, class string_adaptor>
+class Variable : public XPathExpression<string_type, string_adaptor>
 {
 public:
   Variable(const string_type& name) : name_(name) { }
 
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
-                                              const ExecutionContext& executionContext) const
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return executionContext.variableResolver().resolveVariable(name_);
   } // evaluate

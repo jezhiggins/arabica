@@ -15,7 +15,7 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor>
-class BoolValue : public XPathValue<string_type>, public XPathExpression<string_type>
+class BoolValue : public XPathValue<string_type>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   BoolValue(bool value) :
@@ -23,7 +23,8 @@ public:
 
   static XPathValuePtr<string_type> createValue(bool value) { return XPathValuePtr<string_type>(new BoolValue(value)); }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return XPathValuePtr<string_type>(new BoolValue(value_));
   } // evaluate
@@ -44,7 +45,7 @@ private:
 }; // class BoolValue
 
 template<class string_type, class string_adaptor>
-class NumericValue : public XPathValue<string_type>, public XPathExpression<string_type>
+class NumericValue : public XPathValue<string_type>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   NumericValue(double value) :
@@ -52,7 +53,8 @@ public:
   
   static XPathValuePtr<string_type> createValue(double value) { return XPathValuePtr<string_type>(new NumericValue(value)); }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return createValue(value_);
   } // evaluate
@@ -82,7 +84,7 @@ private:
 }; // class NumberValue
 
 template<class string_type, class string_adaptor>
-class StringValue : public XPathValue<string_type>, public XPathExpression<string_type>
+class StringValue : public XPathValue<string_type>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   StringValue(const char* value) :
@@ -90,7 +92,8 @@ public:
   StringValue(const string_type& value) :
       value_(value) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return XPathValuePtr<string_type>(new StringValue(value_));
   } // evaluate
@@ -114,12 +117,13 @@ private:
 }; // class StringValue
 
 template<class string_type, class string_adaptor>
-class NodeSetValue : public XPathValue<string_type>, public XPathExpression<string_type>
+class NodeSetValue : public XPathValue<string_type>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   NodeSetValue(const NodeSet<string_type>& set) : set_(set) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext& executionContext)  const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return XPathValuePtr<string_type>(this);
   } // evaluate

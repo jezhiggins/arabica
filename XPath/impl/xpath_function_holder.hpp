@@ -11,9 +11,9 @@ namespace XPath
 {
 
 template<class function_type>
-XPathFunction* CreateFn(const std::vector<XPathExpressionPtr<std::string> >& argExprs) { return new function_type(argExprs); }
+XPathFunction* CreateFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs) { return new function_type(argExprs); }
 
-typedef XPathFunction* (*CreateFnPtr)(const std::vector<XPathExpressionPtr<std::string> >& argExprs);
+typedef XPathFunction* (*CreateFnPtr)(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs);
 
 struct NamedFunction { const char* name; CreateFnPtr creator; };
 
@@ -49,7 +49,7 @@ const NamedFunction FunctionLookupTable[] = { // node-set functions
                                         {0,                  0}
                                       };
 
-class FunctionHolder : public XPathExpression<std::string>
+class FunctionHolder : public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
   FunctionHolder(XPathFunction* func) :
@@ -63,13 +63,13 @@ public:
   } // ~FunctionHolder
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext& executionContext) const
+                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
   {
     return XPathValuePtr<std::string>(func_->evaluate(context, executionContext));
   } // evaluate
 
   static FunctionHolder* createFunction(const std::string& name, 
-                                        const std::vector<XPathExpressionPtr<std::string> >& argExprs,
+                                        const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs,
                                         const CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
   {
     for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)

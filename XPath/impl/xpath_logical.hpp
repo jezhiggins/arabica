@@ -8,14 +8,16 @@ namespace Arabica
 namespace XPath
 {
 
-class OrOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
+class OrOperator : private BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >, 
+                   public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
-  OrOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
-       BinaryExpression<std::string>(lhs, rhs) { }
+  OrOperator(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* lhs, 
+             XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* rhs) :
+       BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext& executionContext) const
+                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
   {
     // From XPath 1.0 Rec, section 3.4
     // An or expression is evaluated by evaluating each operand and converting its value 
@@ -28,14 +30,16 @@ public:
   } // evaluate
 }; // class OrOperator
 
-class AndOperator : private BinaryExpression<std::string>, public XPathExpression<std::string>
+class AndOperator : private BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >, 
+                    public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
-  AndOperator(XPathExpression<std::string>* lhs, XPathExpression<std::string>* rhs) :
-       BinaryExpression<std::string>(lhs, rhs) { }
+  AndOperator(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* lhs, 
+              XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* rhs) :
+       BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >(lhs, rhs) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext& executionContext) const
+                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
   {
     // From XPath 1.0 Rec, section 3.4
     // An and expression is evaluated by evaluating each operand and converting its value 

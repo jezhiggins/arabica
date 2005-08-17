@@ -58,26 +58,26 @@ public:
   {
   } // ~XPath
 
-  XPathExpressionPtr<string_type> compile(const string_type& xpath) const
+  XPathExpressionPtr<string_type, string_adaptor> compile(const string_type& xpath) const
   {
     return do_compile(xpath, &XPath::parse_xpath);
   } // compile
 
-  XPathExpressionPtr<string_type> compile_expr(const string_type& xpath) const
+  XPathExpressionPtr<string_type, string_adaptor> compile_expr(const string_type& xpath) const
   {
     return do_compile(xpath, &XPath::parse_xpath_expr);
   } // compile
 
   XPathValuePtr<string_type> evaluate(const string_type& xpath, const DOM::Node<string_type>& context) const
   {
-    ExecutionContext executionContext;
+    ExecutionContext<string_type, string_adaptor> executionContext;
     executionContext.setVariableResolver(getVariableResolver());
     return compile(xpath)->evaluate(context, executionContext);
   } // evaluate
 
   XPathValuePtr<string_type> evaluate_expr(const string_type& xpath, const DOM::Node<string_type>& context) const
   {
-    ExecutionContext executionContext;
+    ExecutionContext<string_type, string_adaptor> executionContext;
     executionContext.setVariableResolver(getVariableResolver());
     return compile_expr(xpath)->evaluate(context, executionContext);
   } // evaluate_expr
@@ -98,8 +98,8 @@ public:
   void resetFunctionResolver() { functionResolver_.set(FunctionResolverPtr<string_type, string_adaptor>(new NullFunctionResolver<string_type, string_adaptor>())); }
 
 private:
-  XPathExpressionPtr<string_type> do_compile(const string_type& xpath, 
-                                             tree_info_t(XPath::*fn)(const string_type& str) const) const
+  XPathExpressionPtr<string_type, string_adaptor> do_compile(const string_type& xpath, 
+                                                             tree_info_t(XPath::*fn)(const string_type& str) const) const
   {
     tree_info_t ast;
     try {
@@ -108,7 +108,7 @@ private:
         throw SyntaxException(xpath);
 
       CompilationContext<string_type, string_adaptor> context(*this, getNamespaceContext(), getFunctionResolver());
-      return XPathExpressionPtr<std::string>(compile_expression(ast.trees.begin(), context));
+      return XPathExpressionPtr<string_type, string_adaptor>(compile_expression(ast.trees.begin(), context));
     } // try
     catch(std::exception& ex) 
     {
@@ -141,7 +141,7 @@ private:
 
   /////////////////////////////////////////////////////////////////////////////////
 public:
-  static XPathExpression<string_type>* compile_expression(node_iter_t const& i, 
+  static XPathExpression<string_type, string_adaptor>* compile_expression(node_iter_t const& i, 
                                                           CompilationContext<string_type, string_adaptor>& context)
   {
     long id = getNodeId(i);
@@ -156,22 +156,22 @@ public:
   } // compile_expression
 
 private:
-  static XPathExpression<string_type>* createAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createSingleStepRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createFunction(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createBinaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createLiteral(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createNumber(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createVariable(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createSingleStepAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createUnaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type>* createUnaryNegativeExpr(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createSingleStepRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createFunction(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createBinaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createLiteral(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createNumber(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createVariable(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createSingleStepAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createUnaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createUnaryNegativeExpr(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
 
   static StepList createStepList(node_iter_t const& from, node_iter_t const& to, CompilationContext<string_type, string_adaptor>& context);
 
-  typedef XPathExpression<string_type>* (*compileFn)(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
+  typedef XPathExpression<string_type, string_adaptor>* (*compileFn)(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
   static std::map<int, compileFn>& factory()
   {
     static std::map<int, compileFn> f = init_createFunctions();
@@ -367,26 +367,26 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   return new AbsoluteLocationPath(createStepList(i->children.begin(), i->children.end(), context));
 } // createAbsoluteLocationPath
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   return new RelativeLocationPath(createStepList(i->children.begin(), i->children.end(), context));
 } // createRelativeLocationPath
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createSingleStepRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleStepRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t n = i;
   return new RelativeLocationPath(StepFactory::createStep(n, context));
 } // createSingleStepRelativeLocationPath
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t c = i->children.begin();
   skipWhitespace(c);
@@ -394,7 +394,7 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createExpressi
 } // createExpression
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createFunction(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createFunction(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t c = i->children.begin();
   string_type name(c->value.begin(), c->value.end());
@@ -404,10 +404,10 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createFunction
   ++c;
   skipWhitespace(c);
 
-  std::vector<XPathExpressionPtr<string_type> > args;
+  std::vector<XPathExpressionPtr<string_type, string_adaptor> > args;
   while(getNodeId(c) != impl::RightBracket_id)
   {
-    XPathExpressionPtr<string_type> arg(XPath<string_type, string_adaptor>::compile_expression(c++, context));
+    XPathExpressionPtr<string_type, string_adaptor> arg(XPath<string_type, string_adaptor>::compile_expression(c++, context));
     args.push_back(arg);
 
     skipWhitespace(c);
@@ -418,17 +418,17 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createFunction
 } // createFunction
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createBinaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createBinaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t c = i->children.begin();
-  XPathExpression<string_type>* p1 = XPath<string_type, string_adaptor>::compile_expression(c, context);
+  XPathExpression<string_type, string_adaptor>* p1 = XPath<string_type, string_adaptor>::compile_expression(c, context);
   ++c;
 
   do
   {
     long op = getNodeId(c);
     ++c;
-    XPathExpression<string_type>* p2 = XPath<string_type, string_adaptor>::compile_expression(c, context);
+    XPathExpression<string_type, string_adaptor>* p2 = XPath<string_type, string_adaptor>::compile_expression(c, context);
 
     switch(op)
     {
@@ -472,7 +472,7 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createBinaryEx
         p1 = new AndOperator(p1, p2);
         break;
       case impl::UnionOperator_id:
-        p1 = new UnionExpression<string_type>(p1, p2);
+        p1 = new UnionExpression<string_type, string_adaptor>(p1, p2);
         break;
       default:
         throw UnsupportedException(boost::lexical_cast<string_type>(op));
@@ -484,39 +484,39 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createBinaryEx
 } // createBinaryExpression
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createLiteral(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createLiteral(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   string_type str(i->value.begin(), i->value.end());
   return new StringValue<string_type, string_adaptor>(str);
 } // createLiteral
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createNumber(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createNumber(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   return new NumericValue<string_type, string_adaptor>(boost::lexical_cast<double>(string_type(i->value.begin(), i->value.end())));
 } // createNumber
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createVariable(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createVariable(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
-  return new Variable<string_type>(string_type(i->value.begin()+1, i->value.end())); // skip $
+  return new Variable<string_type, string_adaptor>(string_type(i->value.begin()+1, i->value.end())); // skip $
 } // createVariable
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createSingleStepAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleStepAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t n = i;
   return new AbsoluteLocationPath(StepFactory::createStep(n, context));
 } // createSingleStepAbsoluteLocationPath
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createUnaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createUnaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   return XPath<string_type, string_adaptor>::compile_expression(i->children.begin(), context);
 } // createUnaryExpression
 
 template<class string_type, class string_adaptor>
-XPathExpression<string_type>* XPath<string_type, string_adaptor>::createUnaryNegativeExpr(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createUnaryNegativeExpr(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   return new UnaryNegative<string_type, string_adaptor>(XPath<string_type, string_adaptor>::compile_expression(i+1, context));
 } // createUnaryNegativeExpr
