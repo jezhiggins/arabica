@@ -58,20 +58,20 @@ public:
 
   void test5()
   {
-    XPathExpressionPtr<std::string> s(new StringValue("hello"));
+    XPathExpressionPtr<std::string> s(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("hello"));
     assertEquals(true, s->evaluateAsBool(dummy_));
     assertEquals("hello", s->evaluateAsString(dummy_));
   } // test5
 
   void test6()
   {
-    XPathExpressionPtr<std::string> s(new StringValue(""));
+    XPathExpressionPtr<std::string> s(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(""));
     assertEquals(false, s->evaluateAsBool(dummy_));
   }
 
   void test7()
   {
-    XPathExpressionPtr<std::string> s(new StringValue("100"));
+    XPathExpressionPtr<std::string> s(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("100"));
     assertEquals(true, s->evaluateAsBool(dummy_));
     assertEquals(100.0, s->evaluateAsNumber(dummy_), 0.0);
     assertEquals("100", s->evaluateAsString(dummy_));
@@ -79,7 +79,7 @@ public:
 
   void test8()
   {
-    XPathExpressionPtr<std::string> s(new StringValue("0"));
+    XPathExpressionPtr<std::string> s(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("0"));
     assertEquals(true, s->evaluateAsBool(dummy_));
     assertEquals(0.0, s->evaluateAsNumber(dummy_), 0.0);
     assertEquals("0", s->evaluateAsString(dummy_));
@@ -88,9 +88,9 @@ public:
   void test9()
   {
     XPathExpressionPtr<std::string> bt(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true));
-    XPathExpressionPtr<std::string> st(new StringValue("true"));
+    XPathExpressionPtr<std::string> st(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("true"));
     XPathExpressionPtr<std::string> bf(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false));
-    XPathExpressionPtr<std::string> sf(new StringValue(""));
+    XPathExpressionPtr<std::string> sf(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(""));
 
     assertTrue(areEqual(bt->evaluate(dummy_), (st->evaluate(dummy_))));
     assertTrue(areEqual(st->evaluate(dummy_), (bt->evaluate(dummy_))));

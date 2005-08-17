@@ -487,7 +487,7 @@ template<class string_type, class string_adaptor>
 XPathExpression<string_type>* XPath<string_type, string_adaptor>::createLiteral(node_iter_t const& i, CompilationContext<string_type>& context)
 {
   string_type str(i->value.begin(), i->value.end());
-  return new StringValue(str);
+  return new StringValue<string_type, string_adaptor>(str);
 } // createLiteral
 
 template<class string_type, class string_adaptor>

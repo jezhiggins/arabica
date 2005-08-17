@@ -132,11 +132,11 @@ public:
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
-          return new StringValue(node.hasNamespaceURI() ? node.getLocalName() : node.getNodeName());
+          return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(node.hasNamespaceURI() ? node.getLocalName() : node.getNodeName());
         default: // put this in to keep gcc quiet
           ; 
       } // switch ...
-    return new StringValue("");
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
   } // evaluate
 }; // class LocalNameFn
 
@@ -164,11 +164,11 @@ public:
       {
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
-          return new StringValue(node.getNamespaceURI());
+          return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(node.getNamespaceURI());
         default: // put this in to keep gcc quiet
           ; 
       } // switch ...
-    return new StringValue("");
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
   } // evaluate
 }; // class NamespaceURIFn
 
@@ -197,11 +197,11 @@ public:
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
-          return new StringValue(node.getNodeName());
+          return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(node.getNodeName());
         default: // stop gcc generating a warning about unhandled enum values
           ;
       } // switch ...
-    return new StringValue("");
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
   } // evaluate
 }; // class NameFn
 
@@ -217,7 +217,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new StringValue((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context));
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context));
   } // evaluate
 }; // class StringFn
 
@@ -233,7 +233,7 @@ public:
     std::string s;
     for(size_t a = 0, ae = argCount(); a < ae; ++a)
       s.append(argAsString(a, context, executionContext));
-    return new StringValue(s);
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(s);
   } // evaluate
 }; // ConcatFn
 
@@ -286,9 +286,9 @@ public:
     size_t splitAt = value.find(argAsString(1, context, executionContext));
 
     if(splitAt == std::string::npos)
-      return new StringValue("");
+      return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
 
-    return new StringValue(value.substr(0, splitAt));
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(value.substr(0, splitAt));
   } // evaluate
 }; // class SubstringBeforeFn
 
@@ -306,9 +306,9 @@ public:
     size_t splitAt = value.find(split);
 
     if((splitAt == std::string::npos) || ((splitAt + split.length()) >= value.length()))
-      return new StringValue("");
+      return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
 
-    return new StringValue(value.substr(splitAt + split.length()));
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(value.substr(splitAt + split.length()));
   } // evaluate
 }; // class SubstringAfterFn
 
@@ -326,14 +326,14 @@ public:
     double endAt = roundNumber((argCount() == 3 ? argAsNumber(2, context, executionContext) : Infinity)) + startAt;
 
     if((endAt < 0) || (endAt < startAt) || (isNaN(endAt)))
-      return new StringValue("");
+      return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
 
     if(startAt < 0)
       startAt = 0;
     if((isInfinite(endAt)) || (endAt > value.length()))
       endAt = value.length();
 
-    return new StringValue(value.substr(static_cast<int>(startAt), static_cast<int>(endAt - startAt)));
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(value.substr(static_cast<int>(startAt), static_cast<int>(endAt - startAt)));
   } // evaluate
 }; // SubstringFn
 
@@ -379,7 +379,7 @@ public:
     if(p != ie)
       value.resize(p);
 
-    return new StringValue(value);
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(value);
   } // evaluate
 }; // class NormalizeSpaceFn
 
@@ -408,7 +408,7 @@ public:
     if(p != str.length())
       str.resize(p);
 
-    return new StringValue(str);
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(str);
   } // evaluate
 }; // class TranslateFn
 
@@ -482,7 +482,7 @@ public:
                                             const ExecutionContext& executionContext) const
   {
     double result = (argCount() > 0) ? argAsNumber(0, context, executionContext) :
-                                       StringValue(nodeStringValue(context)).asNumber();
+                                       StringValue<std::string, Arabica::default_string_adaptor<std::string> >(nodeStringValue(context)).asNumber();
     return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(result);
   } // evaluate
 }; // NumberFn

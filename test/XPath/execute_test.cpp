@@ -18,7 +18,7 @@ public:
     VarMap::const_iterator n = map_.find(name);
     if(n == map_.end())
       throw UnboundVariableException(name);
-    return XPathValuePtr<std::string>(new StringValue((*n).second));
+    return XPathValuePtr<std::string>(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >((*n).second));
   } // resolveVariable
 
   void setVariable(const std::string& name, const std::string& value)
@@ -61,7 +61,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
                                             const ExecutionContext& executionContext) const
   {
-    return new StringValue("test-" + context.getLocalName());
+    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("test-" + context.getLocalName());
   } // evaluate
 }; // TestFunction
 
