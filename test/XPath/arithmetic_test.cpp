@@ -22,8 +22,8 @@ public:
 
   void test1()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(1);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(1);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
 
     XPathExpressionPtr<std::string> add(new PlusOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
     assertEquals(1, add.use_count());
@@ -37,8 +37,8 @@ public:
 
   void test2()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(1);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(1);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
 
     XPathExpressionPtr<std::string> minus(new MinusOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -47,8 +47,8 @@ public:
 
   void test3()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(3);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(3);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
 
     XPathExpressionPtr<std::string> mult(new MultiplyOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -57,7 +57,7 @@ public:
 
   void test4()
   {
-    XPathExpression<std::string>* mult = new MultiplyOperator<std::string, Arabica::default_string_adaptor<std::string> >(new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(4), new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2));
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* mult = new MultiplyOperator<std::string, Arabica::default_string_adaptor<std::string> >(new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(4), new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2));
 
     XPathExpressionPtr<std::string> minus(new MinusOperator<std::string, Arabica::default_string_adaptor<std::string> >(mult, new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2)));
 
@@ -67,8 +67,8 @@ public:
 
   void test5()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(12);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(12);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
 
     XPathExpressionPtr<std::string> div(new DivideOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -77,8 +77,8 @@ public:
 
   void test6()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(12);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(12);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
 
     XPathExpressionPtr<std::string> mod(new ModOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -87,8 +87,8 @@ public:
 
   void test7()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(11);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(11);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
 
     XPathExpressionPtr<std::string> div(new DivideOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -97,8 +97,8 @@ public:
 
   void test8()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(11);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(4);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(11);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(4);
 
     XPathExpressionPtr<std::string> mod(new ModOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -107,8 +107,8 @@ public:
 
   void test9()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(5);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(5);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
 
     XPathExpressionPtr<std::string> mod(new ModOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -117,8 +117,8 @@ public:
 
   void test10()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(5);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(5);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-2);
 
     XPathExpressionPtr<std::string> mod(new ModOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -127,8 +127,8 @@ public:
 
   void test11()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-5);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-5);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(2);
 
     XPathExpressionPtr<std::string> mod(new ModOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -137,8 +137,8 @@ public:
 
   void test12()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-5);
-    XPathExpression<std::string>* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-2);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-5);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-2);
 
     XPathExpressionPtr<std::string> mod(new ModOperator<std::string, Arabica::default_string_adaptor<std::string> >(p1, p2));
 
@@ -147,7 +147,7 @@ public:
 
   void test13()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(5);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(5);
     XPathExpressionPtr<std::string> p2(new UnaryNegative<std::string, Arabica::default_string_adaptor<std::string> >(p1));
 
     assertEquals(-5.0, p2->evaluateAsNumber(dummy_), 0.0);
@@ -155,7 +155,7 @@ public:
 
   void test14()
   {
-    XPathExpression<std::string>* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-5);
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(-5);
     XPathExpressionPtr<std::string> p2(new UnaryNegative<std::string, Arabica::default_string_adaptor<std::string> >(p1));
 
     assertEquals(5.0, p2->evaluateAsNumber(dummy_), 0.0);

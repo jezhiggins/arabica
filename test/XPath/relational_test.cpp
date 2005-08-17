@@ -47,8 +47,8 @@ public:
 
   void test4()
   {
-    XPathExpression<std::string>* p1 = new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("charlie");
-    XPathExpression<std::string>* p2 = new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("charlie");
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("charlie");
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("charlie");
 
     XPathExpressionPtr<std::string> equals1(new EqualsOperator(p1, p2));
 
@@ -57,8 +57,8 @@ public:
 
   void test5()
   {
-    XPathExpression<std::string>* p1 = new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("trousers");
-    XPathExpression<std::string>* p2 = new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("charlie");
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p1 = new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("trousers");
+    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* p2 = new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("charlie");
 
     XPathExpressionPtr<std::string> equals1(new EqualsOperator(p1, p2));
 

@@ -59,7 +59,7 @@ public:
       XPathFunction(0, 0, args) { }
 
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
-                                            const ExecutionContext& executionContext) const
+                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
   {
     return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("test-" + context.getLocalName());
   } // evaluate
