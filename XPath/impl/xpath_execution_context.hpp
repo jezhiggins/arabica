@@ -1,6 +1,7 @@
 #ifndef ARABICA_XPATH_EXECUTION_CONTEXT_HPP
 #define ARABICA_XPATH_EXECUTION_CONTEXT_HPP
 
+#include <Utils/StringAdaptor.h>
 #include "xpath_variable_resolver.hpp"
 #include "xpath_resolver_holder.hpp"
 
@@ -30,14 +31,14 @@ public:
 
   void setPosition(unsigned int pos) { position_ = pos; }
 
-  const VariableResolver<std::string>& variableResolver() const { return variableResolver_.get(); }
-  void setVariableResolver(const VariableResolver<std::string>& resolver) { variableResolver_.set(resolver); }
-  void setVariableResolver(VariableResolverPtr<std::string>& resolver) { variableResolver_.set(resolver); }
+  const VariableResolver<std::string, Arabica::default_string_adaptor<std::string> >& variableResolver() const { return variableResolver_.get(); }
+  void setVariableResolver(const VariableResolver<std::string, Arabica::default_string_adaptor<std::string> >& resolver) { variableResolver_.set(resolver); }
+  void setVariableResolver(VariableResolverPtr<std::string, Arabica::default_string_adaptor<std::string> >& resolver) { variableResolver_.set(resolver); }
 
 private:
   size_t position_;
   size_t last_;
-  ResolverHolder<const VariableResolver<std::string> > variableResolver_;
+  ResolverHolder<const VariableResolver<std::string, Arabica::default_string_adaptor<std::string> > > variableResolver_;
 
   ExecutionContext(const ExecutionContext&);
   ExecutionContext& operator=(const ExecutionContext&);

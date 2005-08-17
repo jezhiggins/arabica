@@ -87,10 +87,10 @@ public:
   const NamespaceContext<string_type, string_adaptor>& getNamespaceContext() const { return namespaceContext_.get(); }
   void resetNamespaceContext() { namespaceContext_.set(NamespaceContextPtr<string_type, string_adaptor>(new NullNamespaceContext<string_type, string_adaptor>())); }
 
-  void setVariableResolver(const VariableResolver<string_type>& variableResolver) { variableResolver_.set(variableResolver); }
-  void setVariableResolver(VariableResolverPtr<string_type> variableResolver) { variableResolver_.set(variableResolver); }
-  const VariableResolver<string_type>& getVariableResolver() const { return variableResolver_.get(); }
-  void resetVariableResolver() { variableResolver_.set(VariableResolverPtr<string_type>(new NullVariableResolver<string_type>())); }
+  void setVariableResolver(const VariableResolver<string_type, string_adaptor>& variableResolver) { variableResolver_.set(variableResolver); }
+  void setVariableResolver(VariableResolverPtr<string_type, string_adaptor> variableResolver) { variableResolver_.set(variableResolver); }
+  const VariableResolver<string_type, string_adaptor>& getVariableResolver() const { return variableResolver_.get(); }
+  void resetVariableResolver() { variableResolver_.set(VariableResolverPtr<string_type, string_adaptor>(new NullVariableResolver<string_type, string_adaptor>())); }
 
   void setFunctionResolver(const FunctionResolver<string_type, string_adaptor>& functionResolver) { functionResolver_.set(functionResolver); }
   void setFunctionResolver(FunctionResolverPtr<string_type, string_adaptor> functionResolver) { functionResolver_.set(functionResolver); }
@@ -136,7 +136,7 @@ private:
   xpath_grammar_expr xpathge_;
 
   ResolverHolder<const NamespaceContext<string_type, string_adaptor> > namespaceContext_;
-  ResolverHolder<const VariableResolver<string_type> > variableResolver_;
+  ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;
   ResolverHolder<const FunctionResolver<string_type, string_adaptor> > functionResolver_;
 
   /////////////////////////////////////////////////////////////////////////////////

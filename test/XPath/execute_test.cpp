@@ -10,7 +10,7 @@
 
 using namespace Arabica::XPath;
 
-class StringVariableResolver : public VariableResolver<std::string>
+class StringVariableResolver : public VariableResolver<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
   virtual XPathValuePtr<std::string> resolveVariable(const std::string& name) const
@@ -31,7 +31,7 @@ private:
   VarMap map_;
 }; // StringVariableResolver
 
-class NodeSetVariableResolver : public VariableResolver<std::string>
+class NodeSetVariableResolver : public VariableResolver<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
   virtual XPathValuePtr<std::string> resolveVariable(const std::string& name) const

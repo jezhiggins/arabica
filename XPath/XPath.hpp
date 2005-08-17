@@ -20,7 +20,7 @@ xpath_execution_context.hpp
 xpath_expression.hpp
 xpath_function.hpp
 xpath_function_holder.hpp
-xpath_function_resolver.hpp
+DONE - xpath_function_resolver.hpp
 xpath_grammar.hpp
 xpath_logical.hpp
 DONE - xpath_namespace_context.hpp
