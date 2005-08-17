@@ -6,9 +6,9 @@ namespace Arabica
 namespace XPath
 {
 
-template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> > class XPath;
+template<class string_type, class string_adaptor> class XPath;
 template<class string_type, class string_adaptor> class NamespaceContext;
-class FunctionResolver;
+template<class string_type, class string_adaptor> class FunctionResolver;
 
 template<class string_type, class string_adaptor>
 class CompilationContext
@@ -16,7 +16,7 @@ class CompilationContext
 public:
   CompilationContext(const XPath<string_type, string_adaptor>& xpathCompiler,
                      const NamespaceContext<string_type, string_adaptor>& namespaceContext,
-                     const FunctionResolver& functionResolver) :
+                     const FunctionResolver<string_type, string_adaptor>& functionResolver) :
       xpath_(xpathCompiler),
       namespaceContext_(namespaceContext),
       functionResolver_(functionResolver)
@@ -25,12 +25,12 @@ public:
 
   const XPath<string_type, string_adaptor>& xpath() const { return xpath_; }
   const NamespaceContext<string_type, string_adaptor>& namespaceContext() const { return namespaceContext_; }
-  const FunctionResolver& functionResolver() const { return functionResolver_; }
+  const FunctionResolver<string_type, string_adaptor>& functionResolver() const { return functionResolver_; }
 
 private:
   const XPath<string_type, string_adaptor>& xpath_;
   const NamespaceContext<string_type, string_adaptor>& namespaceContext_;
-  const FunctionResolver& functionResolver_;
+  const FunctionResolver<string_type, string_adaptor>& functionResolver_;
 
   CompilationContext(const CompilationContext&);
   CompilationContext& operator=(const CompilationContext&);

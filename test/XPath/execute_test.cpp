@@ -65,7 +65,7 @@ public:
   } // evaluate
 }; // TestFunction
 
-class TestFunctionResolver : public FunctionResolver
+class TestFunctionResolver : public FunctionResolver<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
   virtual XPathFunction* resolveFunction(const std::string& name,

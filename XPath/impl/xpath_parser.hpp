@@ -92,10 +92,10 @@ public:
   const VariableResolver<string_type>& getVariableResolver() const { return variableResolver_.get(); }
   void resetVariableResolver() { variableResolver_.set(VariableResolverPtr<string_type>(new NullVariableResolver<string_type>())); }
 
-  void setFunctionResolver(const FunctionResolver& functionResolver) { functionResolver_.set(functionResolver); }
-  void setFunctionResolver(FunctionResolverPtr functionResolver) { functionResolver_.set(functionResolver); }
-  const FunctionResolver& getFunctionResolver() const { return functionResolver_.get(); }
-  void resetFunctionResolver() { functionResolver_.set(FunctionResolverPtr(new NullFunctionResolver())); }
+  void setFunctionResolver(const FunctionResolver<string_type, string_adaptor>& functionResolver) { functionResolver_.set(functionResolver); }
+  void setFunctionResolver(FunctionResolverPtr<string_type, string_adaptor> functionResolver) { functionResolver_.set(functionResolver); }
+  const FunctionResolver<string_type, string_adaptor>& getFunctionResolver() const { return functionResolver_.get(); }
+  void resetFunctionResolver() { functionResolver_.set(FunctionResolverPtr<string_type, string_adaptor>(new NullFunctionResolver<string_type, string_adaptor>())); }
 
 private:
   XPathExpressionPtr<string_type> do_compile(const string_type& xpath, 
@@ -137,7 +137,7 @@ private:
 
   ResolverHolder<const NamespaceContext<string_type, string_adaptor> > namespaceContext_;
   ResolverHolder<const VariableResolver<string_type> > variableResolver_;
-  ResolverHolder<const FunctionResolver> functionResolver_;
+  ResolverHolder<const FunctionResolver<string_type, string_adaptor> > functionResolver_;
 
   /////////////////////////////////////////////////////////////////////////////////
 public:

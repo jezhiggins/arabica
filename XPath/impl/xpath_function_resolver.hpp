@@ -15,29 +15,35 @@ public:
   UndefinedFunctionException(const std::string& thing) : std::runtime_error("The function '" + thing + "' is undefined.") { }
 }; // class UndefinedFunctionException
 
+template<class string_type, class string_adaptor>
 class FunctionResolver
 {
 public:
   virtual ~FunctionResolver() { }
 
   // TODO: should make this a QName
-  virtual XPathFunction* resolveFunction(const std::string& name,
-                                         const std::vector<XPathExpressionPtr<std::string> >& argExprs) const = 0; 
+  virtual XPathFunction* resolveFunction(const string_type& name,
+                                         const std::vector<XPathExpressionPtr<string_type> >& argExprs) const = 0; 
 }; // class FunctionResolver
 
-class FunctionResolverPtr : public boost::shared_ptr<FunctionResolver> 
+template<class string_type, class string_adaptor>
+class FunctionResolverPtr : public boost::shared_ptr<FunctionResolver<string_type, string_adaptor> > 
 {
 public:
-  explicit FunctionResolverPtr(FunctionResolver* fr) : boost::shared_ptr<FunctionResolver>(fr) { }
-}; 
+  explicit FunctionResolverPtr(FunctionResolver<string_type, string_adaptor>* fr) : 
+      boost::shared_ptr<FunctionResolver<string_type, string_adaptor> >(fr) 
+  { 
+  } // FunctionResolverPtr
+}; // class FunctionResolverPtr
 
-class NullFunctionResolver : public FunctionResolver
+template<class string_type, class string_adaptor>
+class NullFunctionResolver : public FunctionResolver<string_type, string_adaptor> 
 {
 public:
-  virtual XPathFunction* resolveFunction(const std::string& name,
-                                         const std::vector<XPathExpressionPtr<std::string> >& argExprs) const 
+  virtual XPathFunction* resolveFunction(const string_type& name,
+                                         const std::vector<XPathExpressionPtr<string_type> >& argExprs) const 
   {
-    throw UndefinedFunctionException(name);
+    throw UndefinedFunctionException(string_adaptor().asStdString(name));
   } // resolveVariable
 }; // NullFunctionResolver
 

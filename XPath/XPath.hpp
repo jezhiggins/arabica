@@ -29,7 +29,7 @@ xpath_node_test.hpp
 xpath_object.hpp
 xpath_parser.hpp
 xpath_relational.hpp
-xpath_resolver_holder.hpp
+DONE - xpath_resolver_holder.hpp
 xpath_step.hpp
 DONE - xpath_union.hpp
 DONE - xpath_value.hpp
