@@ -39,7 +39,7 @@ public:
     VarMap::const_iterator n = map_.find(name);
     if(n == map_.end())
       throw UnboundVariableException(name);
-    return XPathValuePtr<std::string>(new NodeSetValue((*n).second));
+    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >((*n).second));
   } // resolveVariable
 
   void setVariable(const std::string& name, const NodeSet<std::string>& value)

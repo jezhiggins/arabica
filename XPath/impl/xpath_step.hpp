@@ -96,7 +96,7 @@ public:
   {
     NodeSet<std::string> nodes;
     enumerateOver(context, nodes, executionContext);
-    return XPathValuePtr<std::string>(new NodeSetValue(nodes));
+    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(nodes));
   } // evaluate
 
   virtual XPathValuePtr<std::string> evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const
@@ -104,7 +104,7 @@ public:
     NodeSet<std::string> nodes;
     for(NodeSet<std::string>::iterator n = context.begin(); n != context.end(); ++n)
       enumerateOver(*n, nodes, executionContext);
-    return XPathValuePtr<std::string>(new NodeSetValue(nodes));
+    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(nodes));
   } // evaluate
 
 private:
@@ -160,7 +160,7 @@ public:
      return expr_->evaluate(context, executionContext);
 
     NodeSet<std::string> ns = expr_->evaluate(context, executionContext)->asNodeSet();
-    return XPathValuePtr<std::string>(new NodeSetValue(applyPredicates(ns, executionContext)));
+    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(applyPredicates(ns, executionContext)));
   } // evaluate
 
   virtual XPathValuePtr<std::string> evaluate(NodeSet<std::string>& context, const ExecutionContext& executionContext) const
@@ -387,7 +387,7 @@ public:
       nodes = v->asNodeSet();
     } // for ...
 
-    return XPathValuePtr<std::string>(new NodeSetValue(nodes));
+    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(nodes));
   } // do_evaluate
 
 private:

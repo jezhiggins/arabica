@@ -67,7 +67,7 @@ public:
 private:
   XPathValuePtr<string_type> wrap(const NodeSet<string_type>& ns) const
   {
-    return XPathValuePtr<string_type>(new NodeSetValue(ns));
+    return XPathValuePtr<string_type>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(ns));
   } // wrap
 }; // UnionExpression
 

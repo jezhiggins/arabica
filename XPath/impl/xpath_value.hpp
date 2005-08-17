@@ -113,19 +113,20 @@ private:
   string_type value_;
 }; // class StringValue
 
-class NodeSetValue : public XPathValue<std::string>, public XPathExpression<std::string>
+template<class string_type, class string_adaptor>
+class NodeSetValue : public XPathValue<string_type>, public XPathExpression<string_type>
 {
 public:
-  NodeSetValue(const NodeSet<std::string>& set) : set_(set) { }
+  NodeSetValue(const NodeSet<string_type>& set) : set_(set) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext)  const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext& executionContext)  const
   {
-    return XPathValuePtr<std::string>(this);
+    return XPathValuePtr<string_type>(this);
   } // evaluate
-  virtual bool evaluateAsBool(const DOM::Node<std::string>& context) const{ return asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<std::string>& context) const { return asNumber(); }
-  virtual std::string evaluateAsString(const DOM::Node<std::string>& context) const { return asString(); }
-  virtual const NodeSet<std::string>& evaluateAsNodeSet() const { return asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type>& context) const{ return asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type>& context) const { return asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type>& context) const { return asString(); }
+  virtual const NodeSet<string_type>& evaluateAsNodeSet() const { return asNodeSet(); }
 
   virtual bool asBool() const 
   { 
@@ -135,16 +136,16 @@ public:
   { 
     return stringAsNumber(asString());
   } // asNumber
-  virtual std::string asString() const 
+  virtual string_type asString() const 
   { 
-    return !set_.empty() ? nodeStringValue(set_.top()) : "";
+    return !set_.empty() ? nodeStringValue(set_.top()) : string_adaptor().makeStringT("");
   } // asStringx
-  virtual const NodeSet<std::string>& asNodeSet() const { return set_; }
+  virtual const NodeSet<string_type>& asNodeSet() const { return set_; }
 
   virtual ValueType type() const { return NODE_SET; }
 
 private:
-  NodeSet<std::string> set_;
+  NodeSet<string_type> set_;
 }; // NodeSetValue
 
 } // namespace XPath
