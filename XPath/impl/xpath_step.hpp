@@ -177,7 +177,9 @@ private:
 class StepFactory
 {
 public:
-  static StepExpression* createStep(node_iter_t& node, node_iter_t const& end, CompilationContext<std::string>& context)
+  static StepExpression* createStep(node_iter_t& node, 
+                                    node_iter_t const& end, 
+                                    CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
   {
     Axis axis = getAxis(node);
     NodeTest* test = getTest(node, context.namespaceContext());
@@ -203,7 +205,7 @@ public:
     return new TestStepExpression(axis, test, preds);
   } // createStep
 
-  static StepExpression* createStep(node_iter_t& node, CompilationContext<std::string>& context)
+  static StepExpression* createStep(node_iter_t& node, CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
   {
     Axis axis = getAxis(node);
     NodeTest* test = getTest(node, context.namespaceContext());
@@ -275,7 +277,7 @@ private:
     return CHILD;
   } // getAxis
 
-  static NodeTest* getTest(node_iter_t& node, const NamespaceContext& namespaceContext)
+  static NodeTest* getTest(node_iter_t& node, const NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >& namespaceContext)
   {
     long id = getNodeId(skipWhitespace(node));
 

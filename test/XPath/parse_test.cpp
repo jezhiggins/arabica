@@ -44,7 +44,7 @@ public:
 
   void test2()
   {
-    Arabica::XPath::StandardNamespaceContext nsContext;
+    Arabica::XPath::StandardNamespaceContext<std::string, Arabica::default_string_adaptor<std::string> > nsContext;
     nsContext.addNamespaceDeclaration("something", "a");
     parser.setNamespaceContext(nsContext);
     assertTrue(parser.compile("a:b"));
@@ -97,7 +97,7 @@ public:
     assertTrue(parser.compile("one/node()"));
     assertTrue(parser.compile("one/*"));
 
-    Arabica::XPath::StandardNamespaceContext nsContext;
+    Arabica::XPath::StandardNamespaceContext<std::string, Arabica::default_string_adaptor<std::string> > nsContext;
     nsContext.addNamespaceDeclaration("urn:I:made:this:up", "ns");
     parser.setNamespaceContext(nsContext);
     assertTrue(parser.compile("one/ns:*"));
@@ -142,7 +142,7 @@ public:
 
   void test11()
   {
-    Arabica::XPath::StandardNamespaceContext nsContext;
+    Arabica::XPath::StandardNamespaceContext<std::string, Arabica::default_string_adaptor<std::string> > nsContext;
     nsContext.addNamespaceDeclaration("something", "ns");
     parser.setNamespaceContext(nsContext);
 

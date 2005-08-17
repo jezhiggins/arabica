@@ -70,7 +70,7 @@ public:
 
   static FunctionHolder* createFunction(const std::string& name, 
                                         const std::vector<XPathExpressionPtr<std::string> >& argExprs,
-                                        const CompilationContext<std::string>& context)
+                                        const CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
   {
     for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)
       if(name == fn->name)

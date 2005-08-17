@@ -23,8 +23,8 @@ xpath_function_holder.hpp
 xpath_function_resolver.hpp
 xpath_grammar.hpp
 xpath_logical.hpp
-xpath_namespace_context.hpp
-xpath_namespace_node.hpp
+DONE - xpath_namespace_context.hpp
+DONE - xpath_namespace_node.hpp
 xpath_node_test.hpp
 xpath_object.hpp
 xpath_parser.hpp
@@ -32,7 +32,7 @@ xpath_relational.hpp
 xpath_resolver_holder.hpp
 xpath_step.hpp
 DONE - xpath_union.hpp
-xpath_value.hpp
+DONE - xpath_value.hpp
 DONE - xpath_variable.hpp
 DONE - xpath_variable_resolver.hpp
 

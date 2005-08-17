@@ -255,7 +255,7 @@ public:
 
   void test8()
   {
-    StandardNamespaceContext nsContext;
+    StandardNamespaceContext<std::string, Arabica::default_string_adaptor<std::string> > nsContext;
     nsContext.addNamespaceDeclaration("urn:something:or:other", "ns");
     parser.setNamespaceContext(nsContext);
     XPathExpressionPtr<std::string> xpath = parser.compile("/ns:root");
