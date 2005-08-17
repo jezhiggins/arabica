@@ -506,9 +506,6 @@
 				RelativePath="..\XPath\impl\xpath_object.hpp">
 			</File>
 			<File
-				RelativePath="..\XPath\src\xpath_parser.cpp">
-			</File>
-			<File
 				RelativePath="..\XPath\impl\xpath_parser.hpp">
 			</File>
 			<File

@@ -22,7 +22,7 @@ xpath_function.hpp
 xpath_function_holder.hpp
 DONE - xpath_function_resolver.hpp
 xpath_grammar.hpp
-xpath_logical.hpp
+DONE - xpath_logical.hpp
 DONE - xpath_namespace_context.hpp
 DONE - xpath_namespace_node.hpp
 xpath_node_test.hpp

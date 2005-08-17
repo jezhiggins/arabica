@@ -466,10 +466,10 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
         p1 = new GreaterThanEqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::OrOperator_id:
-        p1 = new OrOperator(p1, p2);
+        p1 = new OrOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::AndOperator_id:
-        p1 = new AndOperator(p1, p2);
+        p1 = new AndOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::UnionOperator_id:
         p1 = new UnionExpression<string_type, string_adaptor>(p1, p2);
