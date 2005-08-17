@@ -8,99 +8,111 @@ namespace Arabica
 namespace XPath
 {
 
-class EqualsOperator : private BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >, 
-                       public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class EqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
+                       public XPathExpression<string_type, string_adaptor>
 {
+  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  EqualsOperator(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* lhs,   
-                 XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* rhs) :
-       BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >(lhs, rhs) { }
+  EqualsOperator(XPathExpression<string_type, string_adaptor>* lhs,   
+                 XPathExpression<string_type, string_adaptor>* rhs) :
+       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(areEqual(lhs()->evaluate(context, executionContext),
-                                           rhs()->evaluate(context, executionContext)));
+    return BoolValue<string_type, string_adaptor>::createValue(areEqual(baseT::lhs()->evaluate(context, executionContext),
+                                           baseT::rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class EqualsOperator
 
-class NotEqualsOperator : private BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >, 
-                          public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class NotEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
+                          public XPathExpression<string_type, string_adaptor>
 {
+  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  NotEqualsOperator(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* lhs, 
-                    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* rhs) :
-       BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >(lhs, rhs) { }
+  NotEqualsOperator(XPathExpression<string_type, string_adaptor>* lhs, 
+                    XPathExpression<string_type, string_adaptor>* rhs) :
+       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(!areEqual(lhs()->evaluate(context, executionContext),
-                                            rhs()->evaluate(context, executionContext)));
+    return BoolValue<string_type, string_adaptor>::createValue(!areEqual(baseT::lhs()->evaluate(context, executionContext),
+                                            baseT::rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class NotEqualsOperator
 
-class LessThanOperator : private BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >, 
-                         public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class LessThanOperator : private BinaryExpression<string_type, string_adaptor>, 
+                         public XPathExpression<string_type, string_adaptor>
 {
+  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  LessThanOperator(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* lhs, 
-                   XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* rhs) :
-      BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >(lhs, rhs) { }
+  LessThanOperator(XPathExpression<string_type, string_adaptor>* lhs, 
+                   XPathExpression<string_type, string_adaptor>* rhs) :
+      BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(isLessThan(lhs()->evaluate(context, executionContext),
-                                             rhs()->evaluate(context, executionContext)));
+    return BoolValue<string_type, string_adaptor>::createValue(isLessThan(baseT::lhs()->evaluate(context, executionContext),
+                                             baseT::rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class LessThanOperator
 
-class LessThanEqualsOperator : private BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >, 
-                               public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class LessThanEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
+                               public XPathExpression<string_type, string_adaptor>
 {
+  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  LessThanEqualsOperator(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* lhs, 
-                         XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* rhs) :
-      BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >(lhs, rhs) { }
+  LessThanEqualsOperator(XPathExpression<string_type, string_adaptor>* lhs, 
+                         XPathExpression<string_type, string_adaptor>* rhs) :
+      BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(isLessThanEquals(lhs()->evaluate(context, executionContext),
-                                                   rhs()->evaluate(context, executionContext)));
+    return BoolValue<string_type, string_adaptor>::createValue(isLessThanEquals(baseT::lhs()->evaluate(context, executionContext),
+                                                   baseT::rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class LessThanEqualsOperator
 
-class GreaterThanOperator : private BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >, 
-                            public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class GreaterThanOperator : private BinaryExpression<string_type, string_adaptor>, 
+                            public XPathExpression<string_type, string_adaptor>
 {
+  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  GreaterThanOperator(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* lhs, 
-                      XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* rhs) :
-      BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >(lhs, rhs) { }
+  GreaterThanOperator(XPathExpression<string_type, string_adaptor>* lhs, 
+                      XPathExpression<string_type, string_adaptor>* rhs) :
+      BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(isGreaterThan(lhs()->evaluate(context, executionContext),
-                                                rhs()->evaluate(context, executionContext)));
+    return BoolValue<string_type, string_adaptor>::createValue(isGreaterThan(baseT::lhs()->evaluate(context, executionContext),
+                                                baseT::rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class GreaterThanOperator
 
-class GreaterThanEqualsOperator : private BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >, 
-                                  public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class GreaterThanEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
+                                  public XPathExpression<string_type, string_adaptor>
 {
+  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  GreaterThanEqualsOperator(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* lhs, 
-                            XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* rhs) :
-      BinaryExpression<std::string, Arabica::default_string_adaptor<std::string> >(lhs, rhs) { }
+  GreaterThanEqualsOperator(XPathExpression<string_type, string_adaptor>* lhs, 
+                            XPathExpression<string_type, string_adaptor>* rhs) :
+      BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return BoolValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(isGreaterThanEquals(lhs()->evaluate(context, executionContext),
-                                                      rhs()->evaluate(context, executionContext)));
+    return BoolValue<string_type, string_adaptor>::createValue(isGreaterThanEquals(baseT::lhs()->evaluate(context, executionContext),
+                                                      baseT::rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class GreaterThanEqualsOperator
 

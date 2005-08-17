@@ -448,22 +448,22 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
         p1 = new ModOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::EqualsOperator_id:
-        p1 = new EqualsOperator(p1, p2);
+        p1 = new EqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::NotEqualsOperator_id:
-        p1 = new NotEqualsOperator(p1, p2);
+        p1 = new NotEqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::LessThanOperator_id:
-        p1 = new LessThanOperator(p1, p2);
+        p1 = new LessThanOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::LessThanEqualsOperator_id:
-        p1 = new LessThanEqualsOperator(p1, p2);
+        p1 = new LessThanEqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::GreaterThanOperator_id:
-        p1 = new GreaterThanOperator(p1, p2);
+        p1 = new GreaterThanOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::GreaterThanEqualsOperator_id:
-        p1 = new GreaterThanEqualsOperator(p1, p2);
+        p1 = new GreaterThanEqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::OrOperator_id:
         p1 = new OrOperator(p1, p2);
