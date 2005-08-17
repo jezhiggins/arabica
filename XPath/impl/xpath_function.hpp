@@ -76,7 +76,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new NumericValue(executionContext.last());
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(executionContext.last());
   } // evaluate
 }; // class LastFn
 
@@ -89,7 +89,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new NumericValue(executionContext.position());
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(executionContext.position());
   } // evaluate
 }; // class PositionFn
 
@@ -102,7 +102,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new NumericValue(argAsNodeSet(0, context, executionContext).size());
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(argAsNodeSet(0, context, executionContext).size());
   } // evaluate
 }; // class CountFn
 
@@ -346,7 +346,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new NumericValue(((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context)).length());
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context)).length());
   } // evaluate
 }; // StringLengthFn
 
@@ -483,7 +483,7 @@ public:
   {
     double result = (argCount() > 0) ? argAsNumber(0, context, executionContext) :
                                        StringValue(nodeStringValue(context)).asNumber();
-    return new NumericValue(result);
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(result);
   } // evaluate
 }; // NumberFn
 
@@ -500,7 +500,7 @@ public:
     NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
     for(NodeSet<std::string>::const_iterator n = ns.begin(), end = ns.end(); n != end; ++n)
       sum += nodeNumberValue(*n);
-    return new NumericValue(sum);
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(sum);
   } // evaluate
 }; // class SumFn
 
@@ -513,7 +513,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new NumericValue(std::floor(argAsNumber(0, context, executionContext)));
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(std::floor(argAsNumber(0, context, executionContext)));
   } // evaluate
 }; // class FloorFn
 
@@ -526,7 +526,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new NumericValue(std::ceil(argAsNumber(0, context, executionContext)));
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(std::ceil(argAsNumber(0, context, executionContext)));
   } // evaluate
 }; // class CeilingFn
 
@@ -539,7 +539,7 @@ public:
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const ExecutionContext& executionContext) const
   {
-    return new NumericValue(roundNumber(argAsNumber(0, context, executionContext)));
+    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(roundNumber(argAsNumber(0, context, executionContext)));
   } // evaluate
 }; // class RoundFn
 

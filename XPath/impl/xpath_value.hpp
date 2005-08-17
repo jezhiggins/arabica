@@ -43,36 +43,37 @@ private:
   bool value_;
 }; // class BoolValue
 
-class NumericValue : public XPathValue<std::string>, public XPathExpression<std::string>
+template<class string_type, class string_adaptor>
+class NumericValue : public XPathValue<string_type>, public XPathExpression<string_type>
 {
 public:
   NumericValue(double value) :
       value_(value) { }
   
-  static XPathValuePtr<std::string> createValue(double value) { return XPathValuePtr<std::string>(new NumericValue(value)); }
+  static XPathValuePtr<string_type> createValue(double value) { return XPathValuePtr<string_type>(new NumericValue(value)); }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext& executionContext) const
   {
     return createValue(value_);
   } // evaluate
-  virtual bool evaluateAsBool(const DOM::Node<std::string>& context) { return asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<std::string>& context) { return asNumber(); }
-  virtual std::string evaluateAsString(const DOM::Node<std::string>& context) { return asString(); }
-  virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<std::string>& context) { return asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type>& context) { return asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type>& context) { return asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type>& context) { return asString(); }
+  virtual NodeSet<string_type> evaluateAsNodeSet(const DOM::Node<string_type>& context) { return asNodeSet(); }
 
   virtual bool asBool() const { return (value_ != 0.0); }
   virtual double asNumber() const { return value_; }
-  virtual std::string asString() const
+  virtual string_type asString() const
   {
     if(isNaN(value_)) 
-      return "NaN";
+      return string_adaptor().makeStringT("NaN");
     if(isInfinity(value_))
-      return "Infinity";
+      return string_adaptor().makeStringT("Infinity");
     if(isNegativeInfinity(value_))
-      return "-Infinity";
-    return boost::lexical_cast<std::string>(value_);
+      return string_adaptor().makeStringT("-Infinity");
+    return boost::lexical_cast<string_type>(value_);
   } // asString
-  virtual const NodeSet<std::string>& asNodeSet() const { static NodeSet<std::string> empty; return empty; }
+  virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
 
   virtual ValueType type() const { return NUMBER; }
 

@@ -433,19 +433,19 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createBinaryEx
     switch(op)
     {
       case impl::PlusOperator_id:
-        p1 = new PlusOperator<string_type>(p1, p2);
+        p1 = new PlusOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::MinusOperator_id:
-        p1 = new MinusOperator<string_type>(p1, p2);
+        p1 = new MinusOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::MultiplyOperator_id:
-        p1 = new MultiplyOperator<string_type>(p1, p2);
+        p1 = new MultiplyOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::DivOperator_id:
-        p1 = new DivideOperator<string_type>(p1, p2);
+        p1 = new DivideOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::ModOperator_id:
-        p1 = new ModOperator<string_type>(p1, p2);
+        p1 = new ModOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::EqualsOperator_id:
         p1 = new EqualsOperator(p1, p2);
@@ -493,7 +493,7 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createLiteral(
 template<class string_type, class string_adaptor>
 XPathExpression<string_type>* XPath<string_type, string_adaptor>::createNumber(node_iter_t const& i, CompilationContext<string_type>& context)
 {
-  return new NumericValue(boost::lexical_cast<double>(string_type(i->value.begin(), i->value.end())));
+  return new NumericValue<string_type, string_adaptor>(boost::lexical_cast<double>(string_type(i->value.begin(), i->value.end())));
 } // createNumber
 
 template<class string_type, class string_adaptor>
@@ -518,7 +518,7 @@ XPathExpression<string_type>* XPath<string_type, string_adaptor>::createUnaryExp
 template<class string_type, class string_adaptor>
 XPathExpression<string_type>* XPath<string_type, string_adaptor>::createUnaryNegativeExpr(node_iter_t const& i, CompilationContext<string_type>& context)
 {
-  return new UnaryNegative<string_type>(XPath<string_type, string_adaptor>::compile_expression(i+1, context));
+  return new UnaryNegative<string_type, string_adaptor>(XPath<string_type, string_adaptor>::compile_expression(i+1, context));
 } // createUnaryNegativeExpr
 
 template<class string_type, class string_adaptor>

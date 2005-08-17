@@ -8,7 +8,7 @@ namespace Arabica
 namespace XPath
 {
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class PlusOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
   typedef BinaryExpression<string_type> baseT;
@@ -19,11 +19,11 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const 
   {
-    return NumericValue::createValue(baseT::lhs()->evaluateAsNumber(context) + baseT::rhs()->evaluateAsNumber(context));
+    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context) + baseT::rhs()->evaluateAsNumber(context));
   } // evaluate
 }; // class PlusOperator
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class MinusOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
   typedef BinaryExpression<string_type> baseT;
@@ -34,11 +34,11 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(baseT::lhs()->evaluateAsNumber(context) - baseT::rhs()->evaluateAsNumber(context));
+    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context) - baseT::rhs()->evaluateAsNumber(context));
   } // evaluate
 }; // class MinusOperator
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class MultiplyOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
   typedef BinaryExpression<string_type> baseT;
@@ -49,11 +49,11 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(baseT::lhs()->evaluateAsNumber(context) * baseT::rhs()->evaluateAsNumber(context));
+    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context) * baseT::rhs()->evaluateAsNumber(context));
   } // evaluate
 }; // class MultiplyOperator
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class DivideOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
   typedef BinaryExpression<string_type> baseT;
@@ -64,11 +64,11 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(baseT::lhs()->evaluateAsNumber(context) / baseT::rhs()->evaluateAsNumber(context));
+    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context) / baseT::rhs()->evaluateAsNumber(context));
   } // evaluate
 }; // class DivideOperator
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class ModOperator : private BinaryExpression<string_type>, public XPathExpression<string_type>
 {
   typedef BinaryExpression<string_type> baseT;
@@ -79,11 +79,11 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(static_cast<long>(baseT::lhs()->evaluateAsNumber(context)) % static_cast<long>(baseT::rhs()->evaluateAsNumber(context)));
+    return NumericValue<string_type, string_adaptor>::createValue(static_cast<long>(baseT::lhs()->evaluateAsNumber(context)) % static_cast<long>(baseT::rhs()->evaluateAsNumber(context)));
   } // evaluate
 }; // class ModOperator
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class UnaryNegative : private UnaryExpression<string_type>, public XPathExpression<string_type>
 {
   typedef UnaryExpression<string_type> baseT;
@@ -94,7 +94,7 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext& executionContext) const
   {
-    return NumericValue::createValue(-baseT::expr()->evaluate(context, executionContext)->asNumber());
+    return NumericValue<string_type, string_adaptor>::createValue(-baseT::expr()->evaluate(context, executionContext)->asNumber());
   } // evaluate
 }; // class UnaryNegative
 
