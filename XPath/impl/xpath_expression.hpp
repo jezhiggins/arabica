@@ -11,7 +11,7 @@ namespace Arabica
 namespace XPath
 {
 
-template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor>
 class XPathExpression
 {
 protected:
@@ -40,12 +40,12 @@ private:
   XPathExpression& operator=(const XPathExpression&);
 }; // class XPathExpression
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class XPathExpressionPtr : public boost::shared_ptr<XPathExpression<string_type, string_adaptor> > 
 { 
 public:
   explicit XPathExpressionPtr(XPathExpression<string_type, string_adaptor>* xp) : 
-        boost::shared_ptr<XPathExpression<string_type,string_adaptor> >(xp) 
+        boost::shared_ptr<XPathExpression<string_type, string_adaptor> >(xp) 
   {
   } // XPathExpressionPtr
 }; // class XPathExpressionPtr
