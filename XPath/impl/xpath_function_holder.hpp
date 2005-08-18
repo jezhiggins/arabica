@@ -11,9 +11,9 @@ namespace XPath
 {
 
 template<class function_type>
-XPathFunction* CreateFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs) { return new function_type(argExprs); }
+XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* CreateFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs) { return new function_type(argExprs); }
 
-typedef XPathFunction* (*CreateFnPtr)(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs);
+typedef XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* (*CreateFnPtr)(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs);
 
 struct NamedFunction { const char* name; CreateFnPtr creator; };
 
@@ -52,7 +52,7 @@ const NamedFunction FunctionLookupTable[] = { // node-set functions
 class FunctionHolder : public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
-  FunctionHolder(XPathFunction* func) :
+  FunctionHolder(XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* func) :
     func_(func)
   {
   } // FunctionHolder
@@ -76,14 +76,14 @@ public:
       if(name == fn->name)
         return new FunctionHolder(fn->creator(argExprs));
 
-    XPathFunction* func = context.functionResolver().resolveFunction(name, argExprs);
+    XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* func = context.functionResolver().resolveFunction(name, argExprs);
     if(func == 0)
       throw std::runtime_error("Function " + name + " not implemented");
     return new FunctionHolder(func);
   } // createFunction
 
 private:
-  XPathFunction* func_;
+  XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* func_;
 }; // class FunctionResolver
 
 } // namespace XPath

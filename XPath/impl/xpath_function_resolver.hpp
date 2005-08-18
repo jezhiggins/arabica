@@ -6,7 +6,7 @@ namespace Arabica
 namespace XPath
 {
 
-class XPathFunction;
+template<class string_type, class string_adaptor> class XPathFunction;
 template<class string_type, class string_adaptor> class XPathExpressionPtr;
 
 class UndefinedFunctionException : public std::runtime_error
@@ -22,8 +22,9 @@ public:
   virtual ~FunctionResolver() { }
 
   // TODO: should make this a QName
-  virtual XPathFunction* resolveFunction(const string_type& name,
-                                         const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) const = 0; 
+  virtual XPathFunction<string_type, string_adaptor>* 
+      resolveFunction(const string_type& name,
+                      const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) const = 0; 
 }; // class FunctionResolver
 
 template<class string_type, class string_adaptor>
@@ -40,8 +41,9 @@ template<class string_type, class string_adaptor>
 class NullFunctionResolver : public FunctionResolver<string_type, string_adaptor> 
 {
 public:
-  virtual XPathFunction* resolveFunction(const string_type& name,
-                                         const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) const 
+  virtual XPathFunction<string_type, string_adaptor>* 
+      resolveFunction(const string_type& name,
+                      const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) const 
   {
     throw UndefinedFunctionException(string_adaptor().asStdString(name));
   } // resolveVariable

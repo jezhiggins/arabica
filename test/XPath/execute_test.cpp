@@ -52,11 +52,11 @@ private:
   VarMap map_;
 }; // class NodeSetVariableResolver
 
-class TestFunction : public XPathFunction
+class TestFunction : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
   TestFunction(const std::vector<XPathExpressionPtr<std::string> >& args) :
-      XPathFunction(0, 0, args) { }
+      XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 0, args) { }
 
   virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
                                             const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
@@ -68,7 +68,7 @@ public:
 class TestFunctionResolver : public FunctionResolver<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
-  virtual XPathFunction* resolveFunction(const std::string& name,
+  virtual XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* resolveFunction(const std::string& name,
                                          const std::vector<XPathExpressionPtr<std::string> >& argExprs) const
   {
     if(name == "test-function")

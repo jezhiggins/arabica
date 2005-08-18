@@ -17,7 +17,7 @@ DONE - xpath_ast_ids.hpp
 xpath_axis_enumerator.hpp
 DONE - xpath_compile_context.hpp
 DONE - xpath_execution_context.hpp
-xpath_expression.hpp
+DONE - xpath_expression.hpp
 xpath_function.hpp
 xpath_function_holder.hpp
 DONE - xpath_function_resolver.hpp
