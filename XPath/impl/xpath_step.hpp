@@ -142,12 +142,14 @@ private:
   NodeTest<string_type>* test_;
 }; // class TestStepExpression
 
-class ExprStepExpression : public StepExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class ExprStepExpression : public StepExpression<string_type, string_adaptor>
 {
+  typedef StepExpression<string_type, string_adaptor> baseT;
 public:
-  ExprStepExpression(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* expr, 
-                     const std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >*>& predicates) :
-      StepExpression<std::string, Arabica::default_string_adaptor<std::string> >(predicates),
+  ExprStepExpression(XPathExpression<string_type, string_adaptor>* expr, 
+                     const std::vector<XPathExpression<string_type, string_adaptor>*>& predicates) :
+      StepExpression<string_type, string_adaptor>(predicates),
       expr_(expr)
   {
   } // ExprStepExpression
@@ -157,23 +159,23 @@ public:
     delete expr_;
   } // ExprStepExpression
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    if(!has_predicates())
+    if(!baseT::has_predicates())
      return expr_->evaluate(context, executionContext);
 
-    NodeSet<std::string> ns = expr_->evaluate(context, executionContext)->asNodeSet();
-    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(applyPredicates(ns, executionContext)));
+    NodeSet<string_type> ns = expr_->evaluate(context, executionContext)->asNodeSet();
+    return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(baseT::applyPredicates(ns, executionContext)));
   } // evaluate
 
-  virtual XPathValuePtr<std::string> evaluate(NodeSet<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(NodeSet<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    DOM::Node<std::string> c = context.top();
+    DOM::Node<string_type> c = context.top();
     return evaluate(c, executionContext);
   } // evaluate
 
 private:
-  XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* expr_;
+  XPathExpression<string_type, string_adaptor>* expr_;
   std::vector<XPathExpression*> predicates_;
 }; // class ExprStepExpression
 
@@ -205,7 +207,7 @@ public:
       ++node;
     } // if ...
     if(!test)
-      return new ExprStepExpression(thing, preds);
+      return new ExprStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(thing, preds);
     return new TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(axis, test, preds);
   } // createStep
 
