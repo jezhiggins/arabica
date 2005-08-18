@@ -40,8 +40,10 @@ public:
 
 template<class string_type, class string_adaptor> class CompilationContext;
 
-class StepExpression;
-typedef std::vector<StepExpression*> StepList;
+template<class string_type, class string_adaptor> class StepExpression;
+
+template<class string_type, class string_adaptor>
+class StepList : public std::vector<StepExpression<string_type, string_adaptor>*> { };
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class XPath 
@@ -169,7 +171,7 @@ private:
   static XPathExpression<string_type, string_adaptor>* createUnaryExpression(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createUnaryNegativeExpr(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
 
-  static StepList createStepList(node_iter_t const& from, node_iter_t const& to, CompilationContext<string_type, string_adaptor>& context);
+  static StepList<string_type, string_adaptor> createStepList(node_iter_t const& from, node_iter_t const& to, CompilationContext<string_type, string_adaptor>& context);
 
   typedef XPathExpression<string_type, string_adaptor>* (*compileFn)(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context);
   static std::map<int, compileFn>& factory()
@@ -522,11 +524,11 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
 } // createUnaryNegativeExpr
 
 template<class string_type, class string_adaptor>
-StepList XPath<string_type, string_adaptor>::createStepList(node_iter_t const& from, 
+StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::createStepList(node_iter_t const& from, 
                                                             node_iter_t const& to, 
                                                             CompilationContext<string_type, string_adaptor>& context)
 {
-  StepList steps;
+  StepList<string_type, string_adaptor> steps;
 
   node_iter_t c = from;
   node_iter_t end = to;

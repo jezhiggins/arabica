@@ -17,44 +17,45 @@ namespace Arabica
 namespace XPath
 {
 
-class StepExpression : public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class StepExpression : public XPathExpression<string_type, string_adaptor>
 {
 public:
   StepExpression() { }
-  StepExpression(const std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> > *>& predicates) : predicates_(predicates) { }
+  StepExpression(const std::vector<XPathExpression<string_type, string_adaptor> *>& predicates) : predicates_(predicates) { }
 
   virtual ~StepExpression()
   { 
-    for(std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >*>::iterator p = predicates_.begin(), e = predicates_.end(); p != e; ++p)
+    for(std::vector<XPathExpression<string_type, string_adaptor>*>::iterator p = predicates_.begin(), e = predicates_.end(); p != e; ++p)
       delete *p;
   } // ~StepExpression
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const = 0;
-  virtual XPathValuePtr<std::string> evaluate(NodeSet<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const = 0;
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
+  virtual XPathValuePtr<string_type> evaluate(NodeSet<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 
   bool has_predicates() const { return !predicates_.empty(); }
 
 protected:
-  NodeSet<std::string> applyPredicates(NodeSet<std::string>& nodes, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& parentContext) const
+  NodeSet<string_type> applyPredicates(NodeSet<string_type>& nodes, const ExecutionContext<string_type, string_adaptor>& parentContext) const
   {
-    for(std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >*>::const_iterator p = predicates_.begin(), e = predicates_.end();
+    for(std::vector<XPathExpression<string_type, string_adaptor>*>::const_iterator p = predicates_.begin(), e = predicates_.end();
         (p != e) && (!nodes.empty()); ++p)
       nodes = applyPredicate(nodes, *p, parentContext);
     return nodes;
   } // applyPredicates
 
 private:
-  NodeSet<std::string> applyPredicate(NodeSet<std::string>& nodes, 
-                                      XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* predicate, 
-                                      const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& parentContext) const
+  NodeSet<string_type> applyPredicate(NodeSet<string_type>& nodes, 
+                                      XPathExpression<string_type, string_adaptor>* predicate, 
+                                      const ExecutionContext<string_type, string_adaptor>& parentContext) const
   {
-    ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> > executionContext(nodes.size(), parentContext);
-    NodeSet<std::string> results(nodes.forward());
+    ExecutionContext<string_type, string_adaptor> executionContext(nodes.size(), parentContext);
+    NodeSet<string_type> results(nodes.forward());
     unsigned int position = 1;
-    for(NodeSet<std::string>::iterator i = nodes.begin(); i != nodes.end(); ++i, ++position)
+    for(NodeSet<string_type>::iterator i = nodes.begin(); i != nodes.end(); ++i, ++position)
     {
       executionContext.setPosition(position);
-      XPathValuePtr<std::string> v = predicate->evaluate(*i, executionContext);
+      XPathValuePtr<string_type> v = predicate->evaluate(*i, executionContext);
 
       if((v->type() == NUMBER) && (position != v->asNumber()))
         continue;
@@ -66,14 +67,14 @@ private:
     return results;
   } // applyPredicate
   
-  std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >*> predicates_;
+  std::vector<XPathExpression<string_type, string_adaptor>*> predicates_;
 }; // StepExpression
 
-class TestStepExpression : public StepExpression
+class TestStepExpression : public StepExpression<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
   TestStepExpression(Axis axis, NodeTest<std::string>* test) :
-      StepExpression(),
+      StepExpression<std::string, Arabica::default_string_adaptor<std::string> >(),
       axis_(axis),
       test_(test)
   {
@@ -81,7 +82,7 @@ public:
 
   TestStepExpression(Axis axis, NodeTest<std::string>* test, 
                      const std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >*>& predicates) :
-      StepExpression(predicates),
+      StepExpression<std::string, Arabica::default_string_adaptor<std::string> >(predicates),
       axis_(axis),
       test_(test)
   {
@@ -139,12 +140,12 @@ private:
   NodeTest<std::string>* test_;
 }; // class TestStepExpression
 
-class ExprStepExpression : public StepExpression
+class ExprStepExpression : public StepExpression<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
   ExprStepExpression(XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* expr, 
                      const std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >*>& predicates) :
-      StepExpression(predicates),
+      StepExpression<std::string, Arabica::default_string_adaptor<std::string> >(predicates),
       expr_(expr)
   {
   } // ExprStepExpression
@@ -177,7 +178,8 @@ private:
 class StepFactory
 {
 public:
-  static StepExpression* createStep(node_iter_t& node, 
+  static StepExpression<std::string, Arabica::default_string_adaptor<std::string> >*
+                         createStep(node_iter_t& node, 
                                     node_iter_t const& end, 
                                     CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
   {
@@ -205,7 +207,7 @@ public:
     return new TestStepExpression(axis, test, preds);
   } // createStep
 
-  static StepExpression* createStep(node_iter_t& node, CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
+  static StepExpression<std::string, Arabica::default_string_adaptor<std::string> >* createStep(node_iter_t& node, CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
   {
     Axis axis = getAxis(node);
     NodeTest<std::string>* test = getTest(node, context.namespaceContext());
@@ -369,12 +371,12 @@ private:
 class RelativeLocationPath : public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
-  RelativeLocationPath(StepExpression* step) : steps_() { steps_.push_back(step); }
-  RelativeLocationPath(const StepList& steps) : steps_(steps) { }
+  RelativeLocationPath(StepExpression<std::string, Arabica::default_string_adaptor<std::string> >* step) : steps_() { steps_.push_back(step); }
+  RelativeLocationPath(const StepList<std::string, Arabica::default_string_adaptor<std::string> >& steps) : steps_(steps) { }
 
   virtual ~RelativeLocationPath()
   {
-    for(StepList::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
+    for(StepList<std::string, Arabica::default_string_adaptor<std::string> >::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
       delete *i;
   } // ~LocationPath
 
@@ -383,7 +385,7 @@ public:
     NodeSet<std::string> nodes;
     nodes.push_back(context);
 
-    for(StepList::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
+    for(StepList<std::string, Arabica::default_string_adaptor<std::string> >::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
     {
       XPathValuePtr<std::string> v = (*i)->evaluate(nodes, executionContext);
       nodes = v->asNodeSet();
@@ -393,14 +395,14 @@ public:
   } // do_evaluate
 
 private:
-  StepList steps_;
+  StepList<std::string, Arabica::default_string_adaptor<std::string> > steps_;
 }; // LocationPath
 
 class AbsoluteLocationPath : public RelativeLocationPath
 {
 public:
-  AbsoluteLocationPath(StepExpression* step) : RelativeLocationPath(step) { }
-  AbsoluteLocationPath(const StepList& steps) : RelativeLocationPath(steps) { }
+  AbsoluteLocationPath(StepExpression<std::string, Arabica::default_string_adaptor<std::string> >* step) : RelativeLocationPath(step) { }
+  AbsoluteLocationPath(const StepList<std::string, Arabica::default_string_adaptor<std::string> >& steps) : RelativeLocationPath(steps) { }
 
   virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
   {
