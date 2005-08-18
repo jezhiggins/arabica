@@ -79,16 +79,16 @@ FunctionHolder<string_type, string_adaptor>::FunctionLookupTable[] =
         {"normalize-space",  CreateFn<NormalizeSpaceFn<string_type, string_adaptor>, string_type, string_adaptor> },
         {"translate",        CreateFn<TranslateFn<string_type, string_adaptor>, string_type, string_adaptor> },
         // boolean functions
-        {"boolean",          CreateFn<BooleanFn, string_type, string_adaptor> },
-        {"not",              CreateFn<NotFn, string_type, string_adaptor> },
-        {"true",             CreateFn<TrueFn, string_type, string_adaptor> },
-        {"false",            CreateFn<FalseFn, string_type, string_adaptor> },
+        {"boolean",          CreateFn<BooleanFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        {"not",              CreateFn<NotFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        {"true",             CreateFn<TrueFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        {"false",            CreateFn<FalseFn<string_type, string_adaptor>, string_type, string_adaptor> },
         // number functions
-        {"number",           CreateFn<NumberFn, string_type, string_adaptor> },
-        {"sum",              CreateFn<SumFn, string_type, string_adaptor> },
-        {"floor",            CreateFn<FloorFn, string_type, string_adaptor> },
-        {"ceiling",          CreateFn<CeilingFn, string_type, string_adaptor> },
-        {"round",            CreateFn<RoundFn, string_type, string_adaptor> },
+        {"number",           CreateFn<NumberFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        {"sum",              CreateFn<SumFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        {"floor",            CreateFn<FloorFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        {"ceiling",          CreateFn<CeilingFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        {"round",            CreateFn<RoundFn<string_type, string_adaptor>, string_type, string_adaptor> },
         {0,                  0}
       };
 
