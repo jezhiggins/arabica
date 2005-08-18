@@ -10,13 +10,14 @@ namespace Arabica
 namespace XPath
 {
 
+template<class string_type>
 class NodeTest
 {
 protected:
   NodeTest() { }
 public:
   virtual ~NodeTest() { }
-  virtual bool operator()(const DOM::Node<std::string>& node) const = 0;
+  virtual bool operator()(const DOM::Node<string_type>& node) const = 0;
 
 private:
   NodeTest(NodeTest&);
@@ -24,50 +25,54 @@ private:
   NodeTest& operator=(const NodeTest&);
 }; // class NodeTest
 
-class AnyNodeTest : public NodeTest
+template<class string_type>
+class AnyNodeTest : public NodeTest<string_type>
 {
 public:
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
     return true;
   } // matches
 }; // class AnyNodeTest
 
-class NameNodeTest : public NodeTest
+template<class string_type>
+class NameNodeTest : public NodeTest<string_type>
 {
 public:
-  NameNodeTest(const std::string& name) : name_(name) { }
+  NameNodeTest(const string_type& name) : name_(name) { }
 
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
     return (name_ == node.getNodeName()) &&
            (node.getPrefix().empty());
   } // test
 
 private:
-  std::string name_;
+  string_type name_;
 }; // NameNodeTest
 
-class QNameNodeTest : public NodeTest
+template<class string_type>
+class QNameNodeTest : public NodeTest<string_type>
 {
 public:
-  QNameNodeTest(const std::string& namespace_uri, const std::string& name) : uri_(namespace_uri), name_(name) { }
+  QNameNodeTest(const string_type& namespace_uri, const string_type& name) : uri_(namespace_uri), name_(name) { }
 
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
     return (name_ == node.getLocalName()) &&
            (uri_ == node.getNamespaceURI());
   } // test
 
 private:
-  std::string uri_;
-  std::string name_;
+  string_type uri_;
+  string_type name_;
 }; // QNameNodeTest
 
-class StarNodeTest : public NodeTest
+template<class string_type>
+class StarNodeTest : public NodeTest<string_type>
 {
 public:
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
     // match the primary node types on the various axis
     // fortunately they are all independent 
@@ -78,47 +83,51 @@ public:
   } // test
 }; // class StarNodeTest
 
-class QStarNodeTest : public NodeTest
+template<class string_type>
+class QStarNodeTest : public NodeTest<string_type>
 {
 public:
-  QStarNodeTest(const std::string& namespace_uri) : uri_(namespace_uri) { }
+  QStarNodeTest(const string_type& namespace_uri) : uri_(namespace_uri) { }
 
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
     return (uri_ == node.getNamespaceURI());
   } // test
 
 private:
-  std::string uri_;
+  string_type uri_;
 }; // clase QStarNodeTest
 
-class TextNodeTest : public NodeTest
+template<class string_type>
+class TextNodeTest : public NodeTest<string_type>
 {
 public:
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
-    return node.getNodeType() == DOM::Node<std::string>::TEXT_NODE;
+    return node.getNodeType() == DOM::Node<string_type>::TEXT_NODE;
   } // test
 }; // class TextNodeTest
 
-class CommentNodeTest : public NodeTest
+template<class string_type>
+class CommentNodeTest : public NodeTest<string_type>
 {
 public:
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
-    return node.getNodeType() == DOM::Node<std::string>::COMMENT_NODE;
+    return node.getNodeType() == DOM::Node<string_type>::COMMENT_NODE;
   } // operator()
 }; // CommentNodeTest
 
-class ProcessingInstructionNodeTest : public NodeTest
+template<class string_type>
+class ProcessingInstructionNodeTest : public NodeTest<string_type>
 {
 public:
   ProcessingInstructionNodeTest() : target_() { }
-  ProcessingInstructionNodeTest(const std::string& target) : target_(target) { }
+  ProcessingInstructionNodeTest(const string_type& target) : target_(target) { }
 
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
-    if(node.getNodeType() != DOM::Node<std::string>::PROCESSING_INSTRUCTION_NODE)
+    if(node.getNodeType() != DOM::Node<string_type>::PROCESSING_INSTRUCTION_NODE)
       return false;
 
     if(target_.empty())
@@ -128,17 +137,18 @@ public:
   } // test
 
 private:
-  std::string target_;
+  string_type target_;
 }; // ProcessingInstructionNodeTest
 
-class RootNodeTest : public NodeTest
+template<class string_type>
+class RootNodeTest : public NodeTest<string_type>
 {
 public:
-  virtual bool operator()(const DOM::Node<std::string>& node) const
+  virtual bool operator()(const DOM::Node<string_type>& node) const
   {
     int type = node.getNodeType();
-    return (type == DOM::Node<std::string>::DOCUMENT_NODE) || 
-           (type == DOM::Node<std::string>::DOCUMENT_FRAGMENT_NODE);
+    return (type == DOM::Node<string_type>::DOCUMENT_NODE) || 
+           (type == DOM::Node<string_type>::DOCUMENT_FRAGMENT_NODE);
 
   } // operator()
 }; // RootNodeTest

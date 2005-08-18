@@ -68,7 +68,7 @@ public:
 
   void test1()
   {
-    AnyNodeTest test;
+    AnyNodeTest<std::string> test;
 
     assertTrue(test(element1_));
     assertTrue(test(element2_));
@@ -82,7 +82,7 @@ public:
 
   void test2()
   {
-    NameNodeTest test("child1");
+    NameNodeTest<std::string> test("child1");
 
     assertTrue(test(element1_));
     assertTrue(!test(element2_));
@@ -96,7 +96,7 @@ public:
 
   void test3()
   {
-    NameNodeTest test("one");
+    NameNodeTest<std::string> test("one");
 
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
@@ -110,7 +110,7 @@ public:
 
   void test4()
   {
-    TextNodeTest test;
+    TextNodeTest<std::string> test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -123,7 +123,7 @@ public:
 
   void test5()
   {
-    CommentNodeTest test;
+    CommentNodeTest<std::string> test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -136,7 +136,7 @@ public:
 
   void test6()
   {
-    ProcessingInstructionNodeTest test;
+    ProcessingInstructionNodeTest<std::string> test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -149,7 +149,7 @@ public:
 
   void test7()
   {
-    ProcessingInstructionNodeTest test("fruity");
+    ProcessingInstructionNodeTest<std::string> test("fruity");
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -162,7 +162,7 @@ public:
 
   void test8()
   {
-    ProcessingInstructionNodeTest test("target");
+    ProcessingInstructionNodeTest<std::string> test("target");
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -175,7 +175,7 @@ public:
 
   void test9()
   {
-    StarNodeTest test;
+    StarNodeTest<std::string> test;
 
     AxisEnumerator e(element2_, CHILD);
     assertTrue(!test(*e));
@@ -189,7 +189,7 @@ public:
 
   void test10()
   {
-    QNameNodeTest test("http://example.com/test", "one");
+    QNameNodeTest<std::string> test("http://example.com/test", "one");
 
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
@@ -203,7 +203,7 @@ public:
 
   void test11()
   {
-    QNameNodeTest test("http://example.com/test", "one");
+    QNameNodeTest<std::string> test("http://example.com/test", "one");
 
     DOM::Element<std::string> e1_ = document_.createElementNS("http://example.com/test", "ns:one");
     DOM::Element<std::string> e2_ = document_.createElementNS("http://example.com/test", "ttt:one");
@@ -222,7 +222,7 @@ public:
 
   void test12()
   {
-    QStarNodeTest test("http://example.com/test");
+    QStarNodeTest<std::string> test("http://example.com/test");
 
     DOM::Element<std::string> e1_ = document_.createElementNS("http://example.com/test", "ns:one");
     DOM::Element<std::string> e2_ = document_.createElementNS("http://example.com/test", "ttt:one");

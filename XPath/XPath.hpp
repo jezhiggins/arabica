@@ -25,7 +25,7 @@ xpath_grammar.hpp
 DONE - xpath_logical.hpp
 DONE - xpath_namespace_context.hpp
 DONE - xpath_namespace_node.hpp
-xpath_node_test.hpp
+DONE - xpath_node_test.hpp
 xpath_object.hpp
 xpath_parser.hpp
 DONE - xpath_relational.hpp
