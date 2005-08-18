@@ -179,43 +179,44 @@ private:
   std::vector<XPathExpression*> predicates_;
 }; // class ExprStepExpression
 
+template<class string_type, class string_adaptor>
 class StepFactory
 {
 public:
-  static StepExpression<std::string, Arabica::default_string_adaptor<std::string> >*
+  static StepExpression<string_type, string_adaptor>*
                          createStep(node_iter_t& node, 
                                     node_iter_t const& end, 
-                                    CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
+                                    CompilationContext<string_type, string_adaptor>& context)
   {
     Axis axis = getAxis(node);
-    NodeTest<std::string>* test = getTest(node, context.namespaceContext());
-    XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >* thing = 0;
+    NodeTest<string_type>* test = getTest(node, context.namespaceContext());
+    XPathExpression<string_type, string_adaptor>* thing = 0;
     if(!test)
-      thing = XPath<std::string>::compile_expression(node++, context);
+      thing = XPath<string_type>::compile_expression(node++, context);
 
-    std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >*> preds;
+    std::vector<XPathExpression<string_type, string_adaptor>*> preds;
 
     while((node != end) && (getNodeId(node) == impl::Predicate_id))
     {
       node_iter_t c = node->children.begin();
       assert(getNodeId(c) == impl::LeftSquare_id);
       ++c;
-      preds.push_back(XPath<std::string>::compile_expression(c, context));
+      preds.push_back(XPath<string_type>::compile_expression(c, context));
       ++c;
       assert(getNodeId(c) == impl::RightSquare_id);
       
       ++node;
     } // if ...
     if(!test)
-      return new ExprStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(thing, preds);
-    return new TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(axis, test, preds);
+      return new ExprStepExpression<string_type, string_adaptor>(thing, preds);
+    return new TestStepExpression<string_type, string_adaptor>(axis, test, preds);
   } // createStep
 
-  static StepExpression<std::string, Arabica::default_string_adaptor<std::string> >* createStep(node_iter_t& node, CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
+  static StepExpression<string_type, string_adaptor>* createStep(node_iter_t& node, CompilationContext<string_type, string_adaptor>& context)
   {
     Axis axis = getAxis(node);
-    NodeTest<std::string>* test = getTest(node, context.namespaceContext());
-    return new TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(axis, test);
+    NodeTest<string_type>* test = getTest(node, context.namespaceContext());
+    return new TestStepExpression<string_type, string_adaptor>(axis, test);
   } // createStep
 
 private:
@@ -283,7 +284,7 @@ private:
     return CHILD;
   } // getAxis
 
-  static NodeTest<std::string>* getTest(node_iter_t& node, const NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >& namespaceContext)
+  static NodeTest<string_type>* getTest(node_iter_t& node, const NamespaceContext<string_type, string_adaptor>& namespaceContext)
   {
     long id = getNodeId(skipWhitespace(node));
 
@@ -292,7 +293,7 @@ private:
       case impl::NodeTest_id:
         {
           node_iter_t c = node->children.begin();
-          NodeTest<std::string>* t = getTest(c, namespaceContext);
+          NodeTest<string_type>* t = getTest(c, namespaceContext);
           ++node;
           return t;
         } // case NodeTest_id
@@ -300,69 +301,69 @@ private:
       case impl::QName_id:
         {
           node_iter_t c = node->children.begin();
-          std::string prefix(c->value.begin(), c->value.end());
-          std::string uri = namespaceContext.namespaceURI(prefix);
+          string_type prefix(c->value.begin(), c->value.end());
+          string_type uri = namespaceContext.namespaceURI(prefix);
           ++c;
-          std::string name(c->value.begin(), c->value.end());
+          string_type name(c->value.begin(), c->value.end());
           ++node;
-          return new QNameNodeTest<std::string>(uri, name);
+          return new QNameNodeTest<string_type>(uri, name);
         } //case QName_id
       
       case impl::NCName_id:
         {
-          std::string name(node->value.begin(), node->value.end());
+          string_type name(node->value.begin(), node->value.end());
           ++node;
-          return new NameNodeTest<std::string>(name);
+          return new NameNodeTest<string_type>(name);
         } // case NameNodeTest
 
       case impl::Comment_id:
         {
           ++node;
-          return new CommentNodeTest<std::string>();
+          return new CommentNodeTest<string_type>();
         } // case CommentTest_id
     
       case impl::Text_id:
         {
           ++node;
-          return new TextNodeTest<std::string>();
+          return new TextNodeTest<string_type>();
         } // case Text_id
 
       case impl::ProcessingInstruction_id:
         {
           ++node;
           if(getNodeId(node) != impl::Literal_id) // not sure if this is always safe
-            return new ProcessingInstructionNodeTest<std::string>();
+            return new ProcessingInstructionNodeTest<string_type>();
           
-          std::string target(node->value.begin(), node->value.end());
+          string_type target(node->value.begin(), node->value.end());
           ++node;
-          return new ProcessingInstructionNodeTest<std::string>(target);
+          return new ProcessingInstructionNodeTest<string_type>(target);
         } // case ProcessingInstruction_id
       
       case impl::SlashSlash_id:
       case impl::Node_id:
         {
           ++node;
-          return new AnyNodeTest<std::string>();
+          return new AnyNodeTest<string_type>();
         } // case Node_id
 
       case impl::Slash_id:
-        return new RootNodeTest<std::string>();
+        return new RootNodeTest<string_type>();
 
       case impl::AnyName_id:
   	  case impl::SelfSelect_id:
       case impl::ParentSelect_id:
         {
           ++node;
-          return new StarNodeTest<std::string>();
+          return new StarNodeTest<string_type>();
         } // case AnyName_id:
 
       case impl::NameTest_id:
         {
           node_iter_t prefixNode = node->children.begin();
           ++node;
-          std::string prefix(prefixNode->value.begin(), prefixNode->value.end());
-          std::string uri = namespaceContext.namespaceURI(prefix);
-          return new QStarNodeTest<std::string>(uri);
+          string_type prefix(prefixNode->value.begin(), prefixNode->value.end());
+          string_type uri = namespaceContext.namespaceURI(prefix);
+          return new QStarNodeTest<string_type>(uri);
         } // case 
     } // switch(id)
 

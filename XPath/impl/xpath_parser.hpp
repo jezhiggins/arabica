@@ -384,7 +384,7 @@ template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleStepRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t n = i;
-  return new RelativeLocationPath(StepFactory::createStep(n, context));
+  return new RelativeLocationPath(StepFactory<string_type, string_adaptor>::createStep(n, context));
 } // createSingleStepRelativeLocationPath
 
 template<class string_type, class string_adaptor>
@@ -508,7 +508,7 @@ template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleStepAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t n = i;
-  return new AbsoluteLocationPath(StepFactory::createStep(n, context));
+  return new AbsoluteLocationPath(StepFactory<string_type, string_adaptor>::createStep(n, context));
 } // createSingleStepAbsoluteLocationPath
 
 template<class string_type, class string_adaptor>
@@ -548,12 +548,12 @@ StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::create
       case impl::Step_id:
         {
           node_iter_t step = c->children.begin();
-          steps.push_back(StepFactory::createStep(step, c->children.end(), context));
+          steps.push_back(StepFactory<string_type, string_adaptor>::createStep(step, c->children.end(), context));
           ++c;
         }
         break;
       default:
-        steps.push_back(StepFactory::createStep(c, end, context));
+        steps.push_back(StepFactory<string_type, string_adaptor>::createStep(c, end, context));
     } // switch(getNodeId(c))
 
   return steps;
