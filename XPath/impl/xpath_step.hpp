@@ -373,51 +373,53 @@ private:
   StepFactory();
 }; // class StepFactory
 
-class RelativeLocationPath : public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class RelativeLocationPath : public XPathExpression<string_type, string_adaptor>
 {
 public:
-  RelativeLocationPath(StepExpression<std::string, Arabica::default_string_adaptor<std::string> >* step) : steps_() { steps_.push_back(step); }
-  RelativeLocationPath(const StepList<std::string, Arabica::default_string_adaptor<std::string> >& steps) : steps_(steps) { }
+  RelativeLocationPath(StepExpression<string_type, string_adaptor>* step) : steps_() { steps_.push_back(step); }
+  RelativeLocationPath(const StepList<string_type, string_adaptor>& steps) : steps_(steps) { }
 
   virtual ~RelativeLocationPath()
   {
-    for(StepList<std::string, Arabica::default_string_adaptor<std::string> >::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
+    for(StepList<string_type, string_adaptor>::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
       delete *i;
   } // ~LocationPath
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    NodeSet<std::string> nodes;
+    NodeSet<string_type> nodes;
     nodes.push_back(context);
 
-    for(StepList<std::string, Arabica::default_string_adaptor<std::string> >::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
+    for(StepList<string_type, string_adaptor>::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
     {
-      XPathValuePtr<std::string> v = (*i)->evaluate(nodes, executionContext);
+      XPathValuePtr<string_type> v = (*i)->evaluate(nodes, executionContext);
       nodes = v->asNodeSet();
     } // for ...
 
-    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(nodes));
+    return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(nodes));
   } // do_evaluate
 
 private:
-  StepList<std::string, Arabica::default_string_adaptor<std::string> > steps_;
+  StepList<string_type, string_adaptor> steps_;
 }; // LocationPath
 
-class AbsoluteLocationPath : public RelativeLocationPath
+template<class string_type, class string_adaptor>
+class AbsoluteLocationPath : public RelativeLocationPath<string_type, string_adaptor>
 {
 public:
-  AbsoluteLocationPath(StepExpression<std::string, Arabica::default_string_adaptor<std::string> >* step) : RelativeLocationPath(step) { }
-  AbsoluteLocationPath(const StepList<std::string, Arabica::default_string_adaptor<std::string> >& steps) : RelativeLocationPath(steps) { }
+  AbsoluteLocationPath(StepExpression<string_type, string_adaptor>* step) : RelativeLocationPath<string_type, string_adaptor>(step) { }
+  AbsoluteLocationPath(const StepList<string_type, string_adaptor>& steps) : RelativeLocationPath<string_type, string_adaptor>(steps) { }
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     int type = context.getNodeType();
-    if((type == DOM::Node<std::string>::DOCUMENT_NODE) || 
-       (type == DOM::Node<std::string>::DOCUMENT_FRAGMENT_NODE))
-      return RelativeLocationPath::evaluate(context, executionContext);
+    if((type == DOM::Node<string_type>::DOCUMENT_NODE) || 
+       (type == DOM::Node<string_type>::DOCUMENT_FRAGMENT_NODE))
+      return RelativeLocationPath<string_type, string_adaptor>::evaluate(context, executionContext);
     
-    DOM::Document<std::string> document = context.getOwnerDocument();
-    return RelativeLocationPath::evaluate(document, executionContext);
+    DOM::Document<string_type> document = context.getOwnerDocument();
+    return RelativeLocationPath<string_type, string_adaptor>::evaluate(document, executionContext);
   } // evaluate
 }; // class AbsoluteLocationPath
 

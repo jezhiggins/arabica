@@ -371,20 +371,20 @@ namespace XPath
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
-  return new AbsoluteLocationPath(createStepList(i->children.begin(), i->children.end(), context));
+  return new AbsoluteLocationPath<string_type, string_adaptor>(createStepList(i->children.begin(), i->children.end(), context));
 } // createAbsoluteLocationPath
 
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
-  return new RelativeLocationPath(createStepList(i->children.begin(), i->children.end(), context));
+  return new RelativeLocationPath<string_type, string_adaptor>(createStepList(i->children.begin(), i->children.end(), context));
 } // createRelativeLocationPath
 
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleStepRelativeLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t n = i;
-  return new RelativeLocationPath(StepFactory<string_type, string_adaptor>::createStep(n, context));
+  return new RelativeLocationPath<string_type, string_adaptor>(StepFactory<string_type, string_adaptor>::createStep(n, context));
 } // createSingleStepRelativeLocationPath
 
 template<class string_type, class string_adaptor>
@@ -508,7 +508,7 @@ template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleStepAbsoluteLocationPath(node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
   node_iter_t n = i;
-  return new AbsoluteLocationPath(StepFactory<string_type, string_adaptor>::createStep(n, context));
+  return new AbsoluteLocationPath<string_type, string_adaptor>(StepFactory<string_type, string_adaptor>::createStep(n, context));
 } // createSingleStepAbsoluteLocationPath
 
 template<class string_type, class string_adaptor>
