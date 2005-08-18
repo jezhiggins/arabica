@@ -1,7 +1,10 @@
 #ifndef ARABICA_XPATHIC_XPATH_GRAMMER_HPP
 #define ARABICA_XPATHIC_XPATH_GRAMMER_HPP
 
+#ifndef BOOST_SPIRIT_THREADSAFE
 #define BOOST_SPIRIT_THREADSAFE
+#endif
+
 #include <boost/spirit/core.hpp>
 #include <boost/spirit/phoenix/primitives.hpp>
 #include <boost/spirit/symbols/symbols.hpp>
