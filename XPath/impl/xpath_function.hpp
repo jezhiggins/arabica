@@ -69,60 +69,66 @@ private:
 ////////////////////////////////
 // node-set functions
 // number last()
-class LastFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class LastFn : public XPathFunction<string_type, string_adaptor>
 {
 public:
-  LastFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 0, args) { }
+  LastFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(executionContext.last());
+    return new NumericValue<string_type, string_adaptor>(executionContext.last());
   } // evaluate
 }; // class LastFn
 
 // number position()
-class PositionFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class PositionFn : public XPathFunction<string_type, string_adaptor>
 {
 public:
-  PositionFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 0, args) { }
+  PositionFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(executionContext.position());
+    return new NumericValue<string_type, string_adaptor>(executionContext.position());
   } // evaluate
 }; // class PositionFn
 
 // number count(node-set)
-class CountFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class CountFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  CountFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(1, 1, args) { }
+  CountFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(1, 1, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(argAsNodeSet(0, context, executionContext).size());
+    return new NumericValue<string_type, string_adaptor>(baseT::argAsNodeSet(0, context, executionContext).size());
   } // evaluate
 }; // class CountFn
 
 // node-set id(object)
 // string local-name(node-set?)
-class LocalNameFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class LocalNameFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  LocalNameFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 1, args) { }
+  LocalNameFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    DOM::Node<std::string> node;
-    if(argCount() == 0)
+    DOM::Node<string_type> node;
+    if(baseT::argCount() == 0)
       node = context;
     else
     {
-      NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
+      NodeSet<string_type> ns = baseT::argAsNodeSet(0, context, executionContext);
       if(ns.size() != 0)
         node = ns.top();
     } // if ...
@@ -133,29 +139,31 @@ public:
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
-          return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(node.hasNamespaceURI() ? node.getLocalName() : node.getNodeName());
+          return new StringValue<string_type, string_adaptor>(node.hasNamespaceURI() ? node.getLocalName() : node.getNodeName());
         default: // put this in to keep gcc quiet
           ; 
       } // switch ...
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
+    return new StringValue<string_type, string_adaptor>("");
   } // evaluate
 }; // class LocalNameFn
 
 // string namespace-uri(node-set?)
-class NamespaceURIFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class NamespaceURIFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  NamespaceURIFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 1, args) { }
+  NamespaceURIFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    DOM::Node<std::string> node;
-    if(argCount() == 0)
+    DOM::Node<string_type> node;
+    if(baseT::argCount() == 0)
       node = context;
     else
     {
-      NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
+      NodeSet<string_type> ns = baseT::argAsNodeSet(0, context, executionContext);
       if(ns.size() != 0)
         node = ns.top();
     } // if ...
@@ -165,29 +173,31 @@ public:
       {
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
-          return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(node.getNamespaceURI());
+          return new StringValue<string_type, string_adaptor>(node.getNamespaceURI());
         default: // put this in to keep gcc quiet
           ; 
       } // switch ...
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
+    return new StringValue<string_type, string_adaptor>("");
   } // evaluate
 }; // class NamespaceURIFn
 
 // string name(node-set?) 
-class NameFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class NameFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  NameFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 1, args) { }
+  NameFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    DOM::Node<std::string> node;
-    if(argCount() == 0)
+    DOM::Node<string_type> node;
+    if(baseT::argCount() == 0)
       node = context;
     else
     {
-      NodeSet<std::string> ns = argAsNodeSet(0, context, executionContext);
+      NodeSet<string_type> ns = baseT::argAsNodeSet(0, context, executionContext);
       if(ns.size() != 0)
         node = ns.top();
     } // if ...
@@ -198,11 +208,11 @@ public:
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
-          return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(node.getNodeName());
+          return new StringValue<string_type, string_adaptor>(node.getNodeName());
         default: // stop gcc generating a warning about unhandled enum values
           ;
       } // switch ...
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
+    return new StringValue<string_type, string_adaptor>("");
   } // evaluate
 }; // class NameFn
 

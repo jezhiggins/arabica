@@ -61,12 +61,12 @@ template<class string_type, class string_adaptor>
 const typename FunctionHolder<string_type, string_adaptor>::NamedFunction 
 FunctionHolder<string_type, string_adaptor>::FunctionLookupTable[] = 
       { // node-set functions
-        { "position",        CreateFn<PositionFn, string_type, string_adaptor> },
-        { "last",            CreateFn<LastFn, string_type, string_adaptor> },
-        { "count",           CreateFn<CountFn, string_type, string_adaptor> },
-        { "local-name",      CreateFn<LocalNameFn, string_type, string_adaptor> },
-        { "namespace-uri",   CreateFn<NamespaceURIFn, string_type, string_adaptor> },
-        { "name",            CreateFn<NameFn, string_type, string_adaptor> },
+        { "position",        CreateFn<PositionFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        { "last",            CreateFn<LastFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        { "count",           CreateFn<CountFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        { "local-name",      CreateFn<LocalNameFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        { "namespace-uri",   CreateFn<NamespaceURIFn<string_type, string_adaptor>, string_type, string_adaptor> },
+        { "name",            CreateFn<NameFn<string_type, string_adaptor>, string_type, string_adaptor> },
         // string functions
         {"string",           CreateFn<StringFn, string_type, string_adaptor> },
         {"concat",           CreateFn<ConcatFn, string_type, string_adaptor> },
