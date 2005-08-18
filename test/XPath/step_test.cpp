@@ -55,7 +55,7 @@ public:
 
   void test1()
   {
-    XPathExpressionPtr<std::string> step(new TestStepExpression(CHILD, new AnyNodeTest<std::string>()));
+    XPathExpressionPtr<std::string> step(new TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(CHILD, new AnyNodeTest<std::string>()));
 
     XPathValuePtr<std::string> value = step->evaluate(root_);
     const NodeSet<std::string>& set = value->asNodeSet();
@@ -68,7 +68,7 @@ public:
 
   void test2()
   {
-    XPathExpressionPtr<std::string> step(new TestStepExpression(ATTRIBUTE, new AnyNodeTest<std::string>()));
+    XPathExpressionPtr<std::string> step(new TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(ATTRIBUTE, new AnyNodeTest<std::string>()));
 
     NodeSet<std::string> set = step->evaluateAsNodeSet(element2_);
 
@@ -85,7 +85,7 @@ public:
 
   void test3()
   {
-    XPathExpressionPtr<std::string> step(new TestStepExpression(CHILD, new NameNodeTest<std::string>("child2")));
+    XPathExpressionPtr<std::string> step(new TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(CHILD, new NameNodeTest<std::string>("child2")));
 
     XPathValuePtr<std::string> value = step->evaluate(root_);
     const NodeSet<std::string>& set = value->asNodeSet();

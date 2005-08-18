@@ -70,19 +70,21 @@ private:
   std::vector<XPathExpression<string_type, string_adaptor>*> predicates_;
 }; // StepExpression
 
-class TestStepExpression : public StepExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class TestStepExpression : public StepExpression<string_type, string_adaptor>
 {
+  typedef StepExpression<string_type, string_adaptor> baseT;
 public:
-  TestStepExpression(Axis axis, NodeTest<std::string>* test) :
-      StepExpression<std::string, Arabica::default_string_adaptor<std::string> >(),
+  TestStepExpression(Axis axis, NodeTest<string_type>* test) :
+      StepExpression<string_type, string_adaptor>(),
       axis_(axis),
       test_(test)
   {
   } // TestStepExpression
 
-  TestStepExpression(Axis axis, NodeTest<std::string>* test, 
-                     const std::vector<XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >*>& predicates) :
-      StepExpression<std::string, Arabica::default_string_adaptor<std::string> >(predicates),
+  TestStepExpression(Axis axis, NodeTest<string_type>* test, 
+                     const std::vector<XPathExpression<string_type, string_adaptor>*>& predicates) :
+      StepExpression<string_type, string_adaptor>(predicates),
       axis_(axis),
       test_(test)
   {
@@ -93,51 +95,51 @@ public:
     delete test_;
   } // StepExpression
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    NodeSet<std::string> nodes;
+    NodeSet<string_type> nodes;
     enumerateOver(context, nodes, executionContext);
-    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(nodes));
+    return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(nodes));
   } // evaluate
 
-  virtual XPathValuePtr<std::string> evaluate(NodeSet<std::string>& context, const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(NodeSet<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    NodeSet<std::string> nodes;
-    for(NodeSet<std::string>::iterator n = context.begin(); n != context.end(); ++n)
+    NodeSet<string_type> nodes;
+    for(NodeSet<string_type>::iterator n = context.begin(); n != context.end(); ++n)
       enumerateOver(*n, nodes, executionContext);
-    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >(nodes));
+    return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(nodes));
   } // evaluate
 
 private:
-  void enumerateOver(const DOM::Node<std::string>& context, 
-                     NodeSet<std::string>& results, 
-                     const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& parentContext) const
+  void enumerateOver(const DOM::Node<string_type>& context, 
+                     NodeSet<string_type>& results, 
+                     const ExecutionContext<string_type, string_adaptor>& parentContext) const
   {
     AxisEnumerator enumerator(context, axis_);
-    NodeSet<std::string> intermediate(enumerator.forward());
-    NodeSet<std::string>& d = (!has_predicates()) ? results : intermediate;
+    NodeSet<string_type> intermediate(enumerator.forward());
+    NodeSet<string_type>& d = (!baseT::has_predicates()) ? results : intermediate;
     while(*enumerator != 0)
     {
       // if test
-      DOM::Node<std::string> node = *enumerator;
+      DOM::Node<string_type> node = *enumerator;
       if((*test_)(node))
         d.push_back(node);
       ++enumerator;
     } // while ...
     
-    if(!has_predicates())
+    if(!baseT::has_predicates())
     {
       results.forward(enumerator.forward());
       return;
     } // if ...
 
-    intermediate = applyPredicates(intermediate, parentContext);
+    intermediate = baseT::applyPredicates(intermediate, parentContext);
 
     results.swap(intermediate);
   } // enumerateOver
 
   Axis axis_;
-  NodeTest<std::string>* test_;
+  NodeTest<string_type>* test_;
 }; // class TestStepExpression
 
 class ExprStepExpression : public StepExpression<std::string, Arabica::default_string_adaptor<std::string> >
@@ -204,14 +206,14 @@ public:
     } // if ...
     if(!test)
       return new ExprStepExpression(thing, preds);
-    return new TestStepExpression(axis, test, preds);
+    return new TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(axis, test, preds);
   } // createStep
 
   static StepExpression<std::string, Arabica::default_string_adaptor<std::string> >* createStep(node_iter_t& node, CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
   {
     Axis axis = getAxis(node);
     NodeTest<std::string>* test = getTest(node, context.namespaceContext());
-    return new TestStepExpression(axis, test);
+    return new TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(axis, test);
   } // createStep
 
 private:
