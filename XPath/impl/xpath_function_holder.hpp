@@ -10,49 +10,14 @@ namespace Arabica
 namespace XPath
 {
 
-template<class function_type>
-XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* CreateFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs) { return new function_type(argExprs); }
+template<class function_type, class string_type, class string_adaptor>
+XPathFunction<string_type, string_adaptor>* CreateFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) { return new function_type(argExprs); }
 
-typedef XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* (*CreateFnPtr)(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs);
-
-struct NamedFunction { const char* name; CreateFnPtr creator; };
-
-const NamedFunction FunctionLookupTable[] = { // node-set functions
-                                        { "position",        CreateFn<PositionFn> },
-                                        { "last",            CreateFn<LastFn> },
-                                        { "count",           CreateFn<CountFn> },
-                                        { "local-name",      CreateFn<LocalNameFn> },
-                                        { "namespace-uri",   CreateFn<NamespaceURIFn> },
-                                        { "name",            CreateFn<NameFn> },
-                                        // string functions
-                                        {"string",           CreateFn<StringFn> },
-                                        {"concat",           CreateFn<ConcatFn> },
-                                        {"starts-with",      CreateFn<StartsWithFn> },
-                                        {"contains",         CreateFn<ContainsFn> },
-                                        {"substring-before", CreateFn<SubstringBeforeFn> },
-                                        {"substring-after",  CreateFn<SubstringAfterFn> },
-                                        {"substring",        CreateFn<SubstringFn> },
-                                        {"string-length",    CreateFn<StringLengthFn> },
-                                        {"normalize-space",  CreateFn<NormalizeSpaceFn> },
-                                        {"translate",        CreateFn<TranslateFn> },
-                                        // boolean functions
-                                        {"boolean",          CreateFn<BooleanFn> },
-                                        {"not",              CreateFn<NotFn> },
-                                        {"true",             CreateFn<TrueFn> },
-                                        {"false",            CreateFn<FalseFn> },
-                                        // number functions
-                                        {"number",           CreateFn<NumberFn> },
-                                        {"sum",              CreateFn<SumFn> },
-                                        {"floor",            CreateFn<FloorFn> },
-                                        {"ceiling",          CreateFn<CeilingFn> },
-                                        {"round",            CreateFn<RoundFn> },
-                                        {0,                  0}
-                                      };
-
-class FunctionHolder : public XPathExpression<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class FunctionHolder : public XPathExpression<string_type, string_adaptor>
 {
 public:
-  FunctionHolder(XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* func) :
+  FunctionHolder(XPathFunction<string_type, string_adaptor>* func) :
     func_(func)
   {
   } // FunctionHolder
@@ -62,29 +27,70 @@ public:
     delete func_;
   } // ~FunctionHolder
 
-  virtual XPathValuePtr<std::string> evaluate(const DOM::Node<std::string>& context, 
-                                              const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return XPathValuePtr<std::string>(func_->evaluate(context, executionContext));
+    return XPathValuePtr<string_type>(func_->evaluate(context, executionContext));
   } // evaluate
 
-  static FunctionHolder* createFunction(const std::string& name, 
-                                        const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& argExprs,
-                                        const CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
+  static FunctionHolder* createFunction(const string_type& name, 
+                                        const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs,
+                                        const CompilationContext<string_type, string_adaptor>& context)
   {
     for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)
       if(name == fn->name)
         return new FunctionHolder(fn->creator(argExprs));
 
-    XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* func = context.functionResolver().resolveFunction(name, argExprs);
+    XPathFunction<string_type, string_adaptor>* func = context.functionResolver().resolveFunction(name, argExprs);
     if(func == 0)
-      throw std::runtime_error("Function " + name + " not implemented");
+      throw std::runtime_error("Function " + string_adaptor().asStdString(name) + " not implemented");
     return new FunctionHolder(func);
   } // createFunction
 
 private:
-  XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* func_;
-}; // class FunctionResolver
+  XPathFunction<string_type, string_adaptor>* func_;
+
+  typedef XPathFunction<string_type, string_adaptor>* (*CreateFnPtr)(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs);
+
+  struct NamedFunction { const char* name; CreateFnPtr creator; };
+
+  static const NamedFunction FunctionLookupTable[];
+}; // class FunctionHolder
+
+template<class string_type, class string_adaptor>
+const typename FunctionHolder<string_type, string_adaptor>::NamedFunction 
+FunctionHolder<string_type, string_adaptor>::FunctionLookupTable[] = 
+      { // node-set functions
+        { "position",        CreateFn<PositionFn, string_type, string_adaptor> },
+        { "last",            CreateFn<LastFn, string_type, string_adaptor> },
+        { "count",           CreateFn<CountFn, string_type, string_adaptor> },
+        { "local-name",      CreateFn<LocalNameFn, string_type, string_adaptor> },
+        { "namespace-uri",   CreateFn<NamespaceURIFn, string_type, string_adaptor> },
+        { "name",            CreateFn<NameFn, string_type, string_adaptor> },
+        // string functions
+        {"string",           CreateFn<StringFn, string_type, string_adaptor> },
+        {"concat",           CreateFn<ConcatFn, string_type, string_adaptor> },
+        {"starts-with",      CreateFn<StartsWithFn, string_type, string_adaptor> },
+        {"contains",         CreateFn<ContainsFn, string_type, string_adaptor> },
+        {"substring-before", CreateFn<SubstringBeforeFn, string_type, string_adaptor> },
+        {"substring-after",  CreateFn<SubstringAfterFn, string_type, string_adaptor> },
+        {"substring",        CreateFn<SubstringFn, string_type, string_adaptor> },
+        {"string-length",    CreateFn<StringLengthFn, string_type, string_adaptor> },
+        {"normalize-space",  CreateFn<NormalizeSpaceFn, string_type, string_adaptor> },
+        {"translate",        CreateFn<TranslateFn, string_type, string_adaptor> },
+        // boolean functions
+        {"boolean",          CreateFn<BooleanFn, string_type, string_adaptor> },
+        {"not",              CreateFn<NotFn, string_type, string_adaptor> },
+        {"true",             CreateFn<TrueFn, string_type, string_adaptor> },
+        {"false",            CreateFn<FalseFn, string_type, string_adaptor> },
+        // number functions
+        {"number",           CreateFn<NumberFn, string_type, string_adaptor> },
+        {"sum",              CreateFn<SumFn, string_type, string_adaptor> },
+        {"floor",            CreateFn<FloorFn, string_type, string_adaptor> },
+        {"ceiling",          CreateFn<CeilingFn, string_type, string_adaptor> },
+        {"round",            CreateFn<RoundFn, string_type, string_adaptor> },
+        {0,                  0}
+      };
 
 } // namespace XPath
 } // namespace Arabica

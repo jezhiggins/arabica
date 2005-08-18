@@ -414,7 +414,7 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
   } // while ...
   // maybe trailing whitespace ...
 
-  return FunctionHolder::createFunction(name, args, context);
+  return FunctionHolder<string_type, string_adaptor>::createFunction(name, args, context);
 } // createFunction
 
 template<class string_type, class string_adaptor>
