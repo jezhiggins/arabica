@@ -220,157 +220,175 @@ public:
 // string functions
 
 // string string(object?)
-class StringFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class StringFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  StringFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 1, args) { }
+  StringFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context));
+    return new StringValue<string_type, string_adaptor>((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue(context));
   } // evaluate
 }; // class StringFn
 
 // string concat(string, string, string*)
-class ConcatFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class ConcatFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  ConcatFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(2, -1, args) { }
+  ConcatFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, -1, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    std::string s;
-    for(size_t a = 0, ae = argCount(); a < ae; ++a)
-      s.append(argAsString(a, context, executionContext));
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(s);
+    string_type s;
+    for(size_t a = 0, ae = baseT::argCount(); a < ae; ++a)
+      s.append(baseT::argAsString(a, context, executionContext));
+    return new StringValue<string_type, string_adaptor>(s);
   } // evaluate
 }; // ConcatFn
 
 // boolean starts-with(string, string)
-class StartsWithFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class StartsWithFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  StartsWithFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(2, 2, args) { }
+  StartsWithFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, 2, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    std::string value = argAsString(0, context, executionContext);
-    std::string start = argAsString(1, context, executionContext);
+    string_type value = baseT::argAsString(0, context, executionContext);
+    string_type start = baseT::argAsString(1, context, executionContext);
 
     if(value.length() < start.length())
-      return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false);
+      return new BoolValue<string_type, string_adaptor>(false);
 
     for(size_t i = 0, ie = start.length(); i < ie; ++i)
       if(value[i] != start[i])
-        return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false);
+        return new BoolValue<string_type, string_adaptor>(false);
 
-    return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true);
+    return new BoolValue<string_type, string_adaptor>(true);
   } // evaluate
 }; // StartsWithFn
 
 // boolean contains(string, string)
-class ContainsFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class ContainsFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  ContainsFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(2, 2, args) { }
+  ContainsFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, 2, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(argAsString(0, context, executionContext).find(argAsString(1, context, executionContext)) != std::string::npos);
+    return new BoolValue<string_type, string_adaptor>(baseT::argAsString(0, context, executionContext).find(baseT::argAsString(1, context, executionContext)) != string_type::npos);
   } // evaluate
 }; // class ContainsFn
 
 // string substring-before(string, string)
-class SubstringBeforeFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class SubstringBeforeFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  SubstringBeforeFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(2, 2, args) { }
+  SubstringBeforeFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, 2, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    std::string value = argAsString(0, context, executionContext);
-    size_t splitAt = value.find(argAsString(1, context, executionContext));
+    string_type value = baseT::argAsString(0, context, executionContext);
+    size_t splitAt = value.find(baseT::argAsString(1, context, executionContext));
 
-    if(splitAt == std::string::npos)
-      return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
+    if(splitAt == string_type::npos)
+      return new StringValue<string_type, string_adaptor>("");
 
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(value.substr(0, splitAt));
+    return new StringValue<string_type, string_adaptor>(value.substr(0, splitAt));
   } // evaluate
 }; // class SubstringBeforeFn
 
 // string substring-after(string, string)
-class SubstringAfterFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class SubstringAfterFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  SubstringAfterFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(2, 2, args) { }
+  SubstringAfterFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, 2, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    std::string value = argAsString(0, context, executionContext);
-    std::string split = argAsString(1, context, executionContext);
+    string_type value = baseT::argAsString(0, context, executionContext);
+    string_type split = baseT::argAsString(1, context, executionContext);
     size_t splitAt = value.find(split);
 
-    if((splitAt == std::string::npos) || ((splitAt + split.length()) >= value.length()))
-      return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
+    if((splitAt == string_type::npos) || ((splitAt + split.length()) >= value.length()))
+      return new StringValue<string_type, string_adaptor>("");
 
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(value.substr(splitAt + split.length()));
+    return new StringValue<string_type, string_adaptor>(value.substr(splitAt + split.length()));
   } // evaluate
 }; // class SubstringAfterFn
 
 // string substring(string, number, number?)
-class SubstringFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class SubstringFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  SubstringFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(2, 3, args) { }
+  SubstringFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, 3, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    std::string value = argAsString(0, context, executionContext);
-    double startAt = roundNumber(argAsNumber(1, context, executionContext)) - 1;
-    double endAt = roundNumber((argCount() == 3 ? argAsNumber(2, context, executionContext) : Infinity)) + startAt;
+    string_type value = baseT::argAsString(0, context, executionContext);
+    double startAt = roundNumber(baseT::argAsNumber(1, context, executionContext)) - 1;
+    double endAt = roundNumber((baseT::argCount() == 3 ? baseT::argAsNumber(2, context, executionContext) : Infinity)) + startAt;
 
     if((endAt < 0) || (endAt < startAt) || (isNaN(endAt)))
-      return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("");
+      return new StringValue<string_type, string_adaptor>("");
 
     if(startAt < 0)
       startAt = 0;
     if((isInfinite(endAt)) || (endAt > value.length()))
       endAt = value.length();
 
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(value.substr(static_cast<int>(startAt), static_cast<int>(endAt - startAt)));
+    return new StringValue<string_type, string_adaptor>(value.substr(static_cast<int>(startAt), static_cast<int>(endAt - startAt)));
   } // evaluate
 }; // SubstringFn
 
 // number string-length(string?)
-class StringLengthFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class StringLengthFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  StringLengthFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 1, args) { }
+  StringLengthFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context)).length());
+    return new NumericValue<string_type, string_adaptor>(((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue(context)).length());
   } // evaluate
 }; // StringLengthFn
 
 // string normalize-space(string?)
-class NormalizeSpaceFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class NormalizeSpaceFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  NormalizeSpaceFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 1, args) { }
+  NormalizeSpaceFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    std::string value = ((argCount() > 0) ? argAsString(0, context, executionContext) : nodeStringValue(context));
+    string_type value = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue(context));
     size_t i = 0, ie = value.length();
 
     // string leading space
@@ -390,28 +408,30 @@ public:
     if(p != ie)
       value.resize(p);
 
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(value);
+    return new StringValue<string_type, string_adaptor>(value);
   } // evaluate
 }; // class NormalizeSpaceFn
 
 // string translate(string, string, string) 
-class TranslateFn : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+template<class string_type, class string_adaptor>
+class TranslateFn : public XPathFunction<string_type, string_adaptor>
 {
+  typedef XPathFunction<string_type, string_adaptor> baseT;
 public:
-  TranslateFn(const std::vector<XPathExpressionPtr<std::string, Arabica::default_string_adaptor<std::string> > >& args) : XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(3, 3, args) { }
+  TranslateFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(3, 3, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    std::string str = argAsString(0, context, executionContext);
-    std::string from = argAsString(1, context, executionContext);
-    std::string to = argAsString(2, context, executionContext);
+    string_type str = baseT::argAsString(0, context, executionContext);
+    string_type from = baseT::argAsString(1, context, executionContext);
+    string_type to = baseT::argAsString(2, context, executionContext);
 
     size_t p = 0;
     for(size_t i = 0, ie = str.length(); i != ie; ++i)
     {
       size_t r = from.find(str[i]);
-      if(r == std::string::npos)
+      if(r == string_type::npos)
         ++p;
       else if(r < to.length())
         str[p++] = to[r];
@@ -419,7 +439,7 @@ public:
     if(p != str.length())
       str.resize(p);
 
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(str);
+    return new StringValue<string_type, string_adaptor>(str);
   } // evaluate
 }; // class TranslateFn
 
