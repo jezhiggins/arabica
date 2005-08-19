@@ -150,7 +150,7 @@ public:
 
     if(XPath::factory().find(id) == XPath::factory().end())
     {
-      XPath::dump(i, 0);
+      //XPath::dump(i, 0);
       throw UnsupportedException(XPath::names()[id]);
     }
   
@@ -330,6 +330,7 @@ private:
     return names;
   } // init_debugNames
   
+  /*
   static void dump(node_iter_t const& i, int depth)
   {
     long id = static_cast<long>(i->value.id().to_long());
@@ -341,6 +342,7 @@ private:
     for(node_iter_t c = i->children.begin(); c != i->children.end(); ++c)
       dump(c, depth+2);
   } // dump
+  */
 
   XPath(const XPath&);
   XPath& operator=(const XPath&);

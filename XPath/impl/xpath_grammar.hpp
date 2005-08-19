@@ -6,10 +6,7 @@
 #endif
 
 #include <boost/spirit/core.hpp>
-#include <boost/spirit/phoenix/primitives.hpp>
 #include <boost/spirit/symbols/symbols.hpp>
-#include <boost/bind.hpp>
-#include <iostream>
 
 #include "xpath_ast_ids.hpp"
 
