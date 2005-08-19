@@ -115,7 +115,7 @@ private:
                      NodeSet<string_type>& results, 
                      const ExecutionContext<string_type, string_adaptor>& parentContext) const
   {
-    AxisEnumerator enumerator(context, axis_);
+    AxisEnumerator<string_type, string_adaptor> enumerator(context, axis_);
     NodeSet<string_type> intermediate(enumerator.forward());
     NodeSet<string_type>& d = (!baseT::has_predicates()) ? results : intermediate;
     while(*enumerator != 0)

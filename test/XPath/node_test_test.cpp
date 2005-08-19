@@ -177,7 +177,7 @@ public:
   {
     StarNodeTest<std::string> test;
 
-    AxisEnumerator e(element2_, CHILD);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, CHILD);
     assertTrue(!test(*e));
     ++e;
     assertTrue(test(*e));

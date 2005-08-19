@@ -176,7 +176,7 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
   case DOM::Node_base::ELEMENT_NODE:
     {
       std::ostringstream os;
-      AxisEnumerator ae(node, DESCENDANT);
+      AxisEnumerator<string_type, Arabica::default_string_adaptor<string_type> > ae(node, DESCENDANT);
       while(*ae != 0)
       {
         if((ae->getNodeType() == DOM::Node_base::TEXT_NODE) || 

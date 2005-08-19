@@ -70,7 +70,7 @@ public:
   {
     DOM::DocumentFragment<std::string> node;
 
-    AxisEnumerator e(node, CHILD);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(node, CHILD);
     assertTrue(*e == 0);
     assertTrue(e.forward());
   } // test1
@@ -79,13 +79,13 @@ public:
   {
     DOM::Node<std::string> node;
 
-    AxisEnumerator e(node, CHILD);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(node, CHILD);
     assertTrue(*e == 0);
   } // test2
 
   void childTest3()
   {
-    AxisEnumerator e(root_, CHILD);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, CHILD);
 
     assertTrue(element1_ == *e);
     assertEquals("child1", e->getNodeName());
@@ -102,7 +102,7 @@ public:
 
   void childTest4()
   {
-    AxisEnumerator e(document_, CHILD);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(document_, CHILD);
 
     assertTrue(root_ == *e);
     ++e;
@@ -113,7 +113,7 @@ public:
   {
     DOM::DocumentFragment<std::string> node;
 
-    AxisEnumerator e(node, ATTRIBUTE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(node, ATTRIBUTE);
     assertTrue(*e == 0);
     assertTrue(e.forward());
   } // attributeTest1
@@ -122,13 +122,13 @@ public:
   {
     DOM::Node<std::string> node;
 
-    AxisEnumerator e(node, ATTRIBUTE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(node, ATTRIBUTE);
     assertTrue(*e == 0);
   } // attributeTest2
 
   void attributeTest3()
   {
-    AxisEnumerator e(element1_, ATTRIBUTE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element1_, ATTRIBUTE);
     assertEquals("one", e->getNodeName());
     assertEquals("1", e->getNodeValue());
     ++e;
@@ -138,7 +138,7 @@ public:
   void attributeTest4()
   {
     int count = 0;
-    AxisEnumerator e(element2_, ATTRIBUTE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, ATTRIBUTE);
     while(*e++ != 0)
       ++count;
     assertEquals(4, count);
@@ -149,7 +149,7 @@ public:
     element2_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:poop", "poop-uri");
 
     int count = 0;
-    AxisEnumerator e(element2_, ATTRIBUTE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, ATTRIBUTE);
     while(*e++ != 0)
       ++count;
     assertEquals(4, count);
@@ -161,7 +161,7 @@ public:
     element2_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:qooq", "qooq-uri");
 
     int count = 0;
-    AxisEnumerator e(element2_, ATTRIBUTE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, ATTRIBUTE);
     while(*e++ != 0)
       ++count;
     assertEquals(4, count);
@@ -170,20 +170,20 @@ public:
   void followingSiblingTest1()
   {
     DOM::Node<std::string> node;
-    AxisEnumerator e(node, FOLLOWING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(node, FOLLOWING_SIBLING);
     assertTrue(*e == 0);
     assertTrue(e.forward());
   } // followingSiblingTest1
 
   void followingSiblingTest2()
   {
-    AxisEnumerator e(document_, FOLLOWING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(document_, FOLLOWING_SIBLING);
     assertTrue(*e == 0);
   } // followingSiblingTest2
 
   void followingSiblingTest3()
   {
-    AxisEnumerator e(element1_, FOLLOWING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element1_, FOLLOWING_SIBLING);
     assertTrue(*e == element2_);
     ++e;
     assertTrue(*e == element3_);
@@ -193,7 +193,7 @@ public:
 
   void followingSiblingTest4()
   {
-    AxisEnumerator e(element2_, FOLLOWING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, FOLLOWING_SIBLING);
     assertTrue(*e == element3_);
     ++e;
     assertTrue(*e == 0);
@@ -201,33 +201,33 @@ public:
 
   void followingSiblingTest5()
   {
-    AxisEnumerator e(element3_, FOLLOWING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element3_, FOLLOWING_SIBLING);
     assertTrue(*e == 0);
   } // followingSiblingTest5
 
   void followingSiblingTest6()
   {
-    AxisEnumerator e(attr_, FOLLOWING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(attr_, FOLLOWING_SIBLING);
     assertTrue(*e == 0);
   } // followingSiblingTest6
 
   void precedingSiblingTest1()
   {
     DOM::Node<std::string> node;
-    AxisEnumerator e(node, PRECEDING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(node, PRECEDING_SIBLING);
     assertTrue(*e == 0);
     assertTrue(e.reverse());
   } // precedingSiblingTest1
 
   void precedingSiblingTest2()
   {
-    AxisEnumerator e(document_, PRECEDING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(document_, PRECEDING_SIBLING);
     assertTrue(*e == 0);
   } // precedingSiblingTest2
 
   void precedingSiblingTest3()
   {
-    AxisEnumerator e(element3_, PRECEDING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element3_, PRECEDING_SIBLING);
     assertTrue(*e == element2_);
     ++e;
     assertTrue(*e == element1_);
@@ -237,7 +237,7 @@ public:
 
   void precedingSiblingTest4()
   {
-    AxisEnumerator e(element2_, PRECEDING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, PRECEDING_SIBLING);
     assertTrue(*e == element1_);
     ++e;
     assertTrue(*e == 0);
@@ -245,19 +245,19 @@ public:
 
   void precedingSiblingTest5()
   {
-    AxisEnumerator e(element1_, PRECEDING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element1_, PRECEDING_SIBLING);
     assertTrue(*e == 0);
   } // precedingSiblingTest5
 
   void precedingSiblingTest6()
   {
-    AxisEnumerator e(attr_, PRECEDING_SIBLING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(attr_, PRECEDING_SIBLING);
     assertTrue(*e == 0);
   } // precedingSiblingTest6
 
   void selfTest1()
   {
-    AxisEnumerator e(document_, SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(document_, SELF);
     assertTrue(document_ == *e);
     ++e;
     assertTrue(*e == 0);
@@ -266,7 +266,7 @@ public:
 
   void selfTest2()
   {
-    AxisEnumerator e(root_, SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, SELF);
     assertTrue(root_ == *e);
     ++e;
     assertTrue(*e == 0);
@@ -275,20 +275,20 @@ public:
   void selfTest3()
   {
     DOM::Node<std::string> node;
-    AxisEnumerator e(node, SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(node, SELF);
     assertTrue(*e == 0);
   } // selfTest3
 
   void parentTest1()
   {
-    AxisEnumerator e(document_, PARENT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(document_, PARENT);
     assertTrue(*e == 0);
     assertTrue(e.reverse());
   } // parentTest1
 
   void parentTest2()
   {
-    AxisEnumerator e(root_, PARENT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, PARENT);
     assertTrue(*e == document_);
     ++e;
     assertTrue(*e == 0);
@@ -296,7 +296,7 @@ public:
 
   void parentTest3()
   {
-    AxisEnumerator e(element2_, PARENT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, PARENT);
     assertTrue(*e == root_);
     ++e;
     assertTrue(*e == 0);
@@ -304,7 +304,7 @@ public:
 
   void parentTest4()
   {
-    AxisEnumerator e(attr_, PARENT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(attr_, PARENT);
     assertTrue(*e == element1_);
     ++e;
     assertTrue(*e == 0);
@@ -312,14 +312,14 @@ public:
 
   void ancestorTest1()
   {
-    AxisEnumerator e(document_, ANCESTOR);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(document_, ANCESTOR);
     assertTrue(*e == 0);
     assertTrue(e.reverse());
   } // ancestorTest1
 
   void ancestorTest2()
   {
-    AxisEnumerator e(root_, ANCESTOR);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, ANCESTOR);
     assertTrue(*e == document_);
     ++e;
     assertTrue(*e == 0);
@@ -327,7 +327,7 @@ public:
 
   void ancestorTest3()
   {
-    AxisEnumerator e(element2_, ANCESTOR);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, ANCESTOR);
     assertTrue(*e == root_);
     ++e;
     assertTrue(*e == document_);
@@ -337,7 +337,7 @@ public:
 
   void ancestorTest4()
   {
-    AxisEnumerator e(attr_, ANCESTOR);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(attr_, ANCESTOR);
     assertTrue(*e == element1_);
     ++e;
     assertTrue(*e == root_);
@@ -349,7 +349,7 @@ public:
 
   void ancestorOrSelfTest1()
   {
-    AxisEnumerator e(document_, ANCESTOR_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(document_, ANCESTOR_OR_SELF);
     assertTrue(*e == document_);
     ++e;
     assertTrue(*e == 0);
@@ -358,7 +358,7 @@ public:
 
   void ancestorOrSelfTest2()
   {
-    AxisEnumerator e(root_, ANCESTOR_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, ANCESTOR_OR_SELF);
     assertTrue(*e == root_);
     ++e;
     assertTrue(*e == document_);
@@ -368,7 +368,7 @@ public:
 
   void ancestorOrSelfTest3()
   {
-    AxisEnumerator e(element2_, ANCESTOR_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, ANCESTOR_OR_SELF);
     assertTrue(*e == element2_);
     ++e;
     assertTrue(*e == root_);
@@ -380,7 +380,7 @@ public:
 
   void ancestorOrSelfTest4()
   {
-    AxisEnumerator e(attr_, ANCESTOR_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(attr_, ANCESTOR_OR_SELF);
     assertTrue(*e == attr_);
     ++e;
     assertTrue(*e == element1_);
@@ -394,7 +394,7 @@ public:
 
   void descendantTest1()
   {
-    AxisEnumerator e(root_, DESCENDANT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, DESCENDANT);
     assertTrue(*e == element1_);
     ++e;
     assertTrue(*e == element2_);
@@ -414,13 +414,13 @@ public:
 
   void descendantTest2()
   {
-    AxisEnumerator e(element1_, DESCENDANT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element1_, DESCENDANT);
     assertTrue(*e == 0);
   } // descendantTest2
 
   void descendantTest3()
   {
-    AxisEnumerator e(element2_, DESCENDANT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, DESCENDANT);
     assertTrue(*e == text_);
     ++e;
     ++e; // spinkle
@@ -433,31 +433,31 @@ public:
 
   void descendantTest4()
   {
-    AxisEnumerator e(comment_, DESCENDANT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(comment_, DESCENDANT);
     assertTrue(*e == 0);
   } // descendantTest4
 
   void descendantTest5()
   {
-    AxisEnumerator e(processingInstruction_, DESCENDANT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(processingInstruction_, DESCENDANT);
     assertTrue(*e == 0);
   } // descendantTest5
 
   void descendantTest6()
   {
-    AxisEnumerator e(text_, DESCENDANT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(text_, DESCENDANT);
     assertTrue(*e == 0);
   } // descendantTest6
 
   void descendantTest7()
   {
-    AxisEnumerator e(attr_, DESCENDANT);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(attr_, DESCENDANT);
     assertTrue(*e == 0);
   } // descendantTest7
 
   void descendantOrSelfTest1()
   {
-    AxisEnumerator e(root_, DESCENDANT_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, DESCENDANT_OR_SELF);
     assertTrue(e.forward());
     assertTrue(*e == root_);
     ++e;
@@ -479,7 +479,7 @@ public:
 
   void descendantOrSelfTest2()
   {
-    AxisEnumerator e(element1_, DESCENDANT_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element1_, DESCENDANT_OR_SELF);
     assertTrue(*e == element1_);
     ++e;
     assertTrue(*e == 0);
@@ -487,7 +487,7 @@ public:
 
   void descendantOrSelfTest3()
   {
-    AxisEnumerator e(element2_, DESCENDANT_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, DESCENDANT_OR_SELF);
     assertTrue(*e == element2_);
     ++e;
     assertTrue(*e == text_);
@@ -502,7 +502,7 @@ public:
 
   void descendantOrSelfTest4()
   {
-    AxisEnumerator e(comment_, DESCENDANT_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(comment_, DESCENDANT_OR_SELF);
     assertTrue(*e == comment_);
     ++e;
     assertTrue(*e == 0);
@@ -510,7 +510,7 @@ public:
 
   void descendantOrSelfTest5()
   {
-    AxisEnumerator e(processingInstruction_, DESCENDANT_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(processingInstruction_, DESCENDANT_OR_SELF);
     assertTrue(*e == processingInstruction_);
     ++e;
     assertTrue(*e == 0);
@@ -518,7 +518,7 @@ public:
 
   void descendantOrSelfTest6()
   {
-    AxisEnumerator e(text_, DESCENDANT_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(text_, DESCENDANT_OR_SELF);
     assertTrue(*e == text_);
     ++e;
     assertTrue(*e == 0);
@@ -526,7 +526,7 @@ public:
 
   void descendantOrSelfTest7()
   {
-    AxisEnumerator e(attr_, DESCENDANT_OR_SELF);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(attr_, DESCENDANT_OR_SELF);
     assertTrue(*e == attr_);
     ++e;
     assertTrue(*e == 0);
@@ -534,14 +534,14 @@ public:
 
   void followingTest1()
   {
-    AxisEnumerator e(root_, FOLLOWING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, FOLLOWING);
     assertTrue(*e == 0);
     assertTrue(e.forward());
   } // followingTest1
 
   void followingTest2()
   {
-    AxisEnumerator e(element1_, FOLLOWING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element1_, FOLLOWING);
     assertTrue(*e == element2_);
     ++e;
     assertTrue(*e == text_);
@@ -558,7 +558,7 @@ public:
 
   void followingTest3()
   {
-    AxisEnumerator e(element2_, FOLLOWING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, FOLLOWING);
     assertTrue(*e == element3_);
     ++e;
     assertTrue(*e == 0);
@@ -566,7 +566,7 @@ public:
 
   void followingTest4()
   {
-    AxisEnumerator e(comment_, FOLLOWING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(comment_, FOLLOWING);
     assertTrue(*e == processingInstruction_);
     ++e;
     assertTrue(*e == element3_);
@@ -576,7 +576,7 @@ public:
 
   void followingTest5()
   {
-    AxisEnumerator e(processingInstruction_, FOLLOWING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(processingInstruction_, FOLLOWING);
     assertTrue(*e == element3_);
     ++e;
     assertTrue(*e == 0);
@@ -584,7 +584,7 @@ public:
 
   void followingTest6()
   {
-    AxisEnumerator e(text_, FOLLOWING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(text_, FOLLOWING);
     ++e; // spinkle
     assertTrue(*e == comment_);
     ++e;
@@ -597,25 +597,25 @@ public:
 
   void followingTest7()
   {
-    AxisEnumerator e(attr_, FOLLOWING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(attr_, FOLLOWING);
     assertTrue(*e == 0);
   } // followingTest7
 
   void precedingTest1()
   {
-    AxisEnumerator e(root_, PRECEDING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, PRECEDING);
     assertTrue(*e == 0);
   } // precedingTest1
 
   void precedingTest2()
   {
-    AxisEnumerator e(element1_, PRECEDING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element1_, PRECEDING);
     assertTrue(*e == 0);
   } // precedingTest2
 
   void precedingTest3()
   {
-    AxisEnumerator e(element2_, PRECEDING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, PRECEDING);
     assertTrue(*e == element1_);
     ++e;
     assertTrue(*e == 0);
@@ -623,7 +623,7 @@ public:
 
   void precedingTest4() 
   {
-    AxisEnumerator e(comment_, PRECEDING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(comment_, PRECEDING);
     assertTrue(e.reverse());
     ++e; // spinkle
     assertTrue(*e == text_);
@@ -635,7 +635,7 @@ public:
 
   void precedingTest5()
   {
-    AxisEnumerator e(processingInstruction_, PRECEDING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(processingInstruction_, PRECEDING);
     assertTrue(*e == comment_);
     ++e;
     ++e; // spinkle
@@ -648,7 +648,7 @@ public:
 
   void precedingTest6()
   {
-    AxisEnumerator e(text_, PRECEDING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(text_, PRECEDING);
     assertTrue(*e == element1_);
     ++e;
     assertTrue(*e == 0);
@@ -656,7 +656,7 @@ public:
 
   void precedingTest7()
   {
-    AxisEnumerator e(element3_, PRECEDING);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element3_, PRECEDING);
     assertTrue(*e == processingInstruction_);
     ++e;
     assertTrue(*e == comment_);
@@ -709,14 +709,14 @@ public:
 
   void namespaceAxisTest1()
   {
-    AxisEnumerator e(root_, NAMESPACE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, NAMESPACE);
     assertTrue(*e == 0);
   } // namespaceAxisTest1()
 
   void namespaceAxisTest2()
   {
     root_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:poop", "urn:test");
-    AxisEnumerator e(root_, NAMESPACE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(root_, NAMESPACE);
     assertTrue(*e != 0);
     DOM::Node<std::string> ns = *e;
     assertValuesEqual("poop", ns.getLocalName());
@@ -729,7 +729,7 @@ public:
   {
     root_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:poop", "urn:test");
     element2_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:test", "urn:another-test");
-    AxisEnumerator e(element2_, NAMESPACE);
+    AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, NAMESPACE);
     assertTrue(*e != 0);
     ++e;
     assertTrue(*e != 0);

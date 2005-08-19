@@ -461,9 +461,6 @@
 				RelativePath="..\XPath\impl\xpath_ast_ids.hpp">
 			</File>
 			<File
-				RelativePath="..\XPath\src\xpath_axis_enumerator.cpp">
-			</File>
-			<File
 				RelativePath="..\XPath\impl\xpath_axis_enumerator.hpp">
 			</File>
 			<File
