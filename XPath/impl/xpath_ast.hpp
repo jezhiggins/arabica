@@ -11,20 +11,29 @@ namespace Arabica
 namespace XPath
 {
 
-typedef std::string::const_iterator str_iter_t;
+template<class string_type>
+class types
+{
+public:
+  typedef typename string_type::const_iterator str_iter_t;
+  typedef boost::spirit::tree_match<str_iter_t> tree_match_t;
+  typedef typename tree_match_t::tree_iterator node_iter_t;
+  typedef boost::spirit::tree_parse_info<str_iter_t> tree_info_t;
 
-typedef boost::spirit::tree_match<str_iter_t> tree_match_t;
-typedef tree_match_t::tree_iterator node_iter_t;
-typedef boost::spirit::tree_parse_info<str_iter_t> tree_info_t;
+private:
+  ~types();
+}; // types
 
-inline long getNodeId(node_iter_t const& node)
+template<class string_type>
+long getNodeId(typename types<string_type>::node_iter_t const& node)
 {
   return static_cast<long>(node->value.id().to_long());
 } // getNodeId
 
-inline node_iter_t& skipWhitespace(node_iter_t& node)
+template<class string_type>
+typename types<string_type>::node_iter_t& skipWhitespace(typename types<string_type>::node_iter_t& node)
 {
-  while(getNodeId(node) == impl::S_id)
+  while(getNodeId<string_type>(node) == impl::S_id)
     ++node;
   return node;
 } // skipWhitespace
