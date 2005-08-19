@@ -26,7 +26,7 @@ DONE - xpath_logical.hpp
 DONE - xpath_namespace_context.hpp
 DONE - xpath_namespace_node.hpp
 DONE - xpath_node_test.hpp
-xpath_object.hpp
+DONE - xpath_object.hpp
 xpath_parser.hpp
 DONE - xpath_relational.hpp
 DONE - xpath_resolver_holder.hpp
@@ -36,7 +36,7 @@ DONE - xpath_value.hpp
 DONE - xpath_variable.hpp
 DONE - xpath_variable_resolver.hpp
 
-xpath_axis_enumerator.cpp
+GONE - xpath_axis_enumerator.cpp
 xpath_object.cpp
 GONE - xpath_parser.cpp
 */

@@ -497,9 +497,6 @@
 				RelativePath="..\XPath\impl\xpath_node_test.hpp">
 			</File>
 			<File
-				RelativePath="..\XPath\src\xpath_object.cpp">
-			</File>
-			<File
 				RelativePath="..\XPath\impl\xpath_object.hpp">
 			</File>
 			<File
