@@ -1520,6 +1520,27 @@ public:
     assertValuesEqual("1 2 3 4 5", result->asString());
   } // testNormalizeSpaceFn6
 
+  void testNormalizeSpaceFn7()
+  {
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('1\t2\r3\n4\r\n5')", document_);
+    assertValuesEqual(STRING, result->type());
+    assertValuesEqual("1 2 3 4 5", result->asString());
+  } // testNormalizeSpaceFn7
+
+  void testNormalizeSpaceFn8()
+  {
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('\n\n\n\n\n1\n\n\n\n\n2\n\n\n\n\n3\n\n\n\n\n\n4\n\n\n\n\n\n5\n\n\n\n\n')", document_);
+    assertValuesEqual(STRING, result->type());
+    assertValuesEqual("1 2 3 4 5", result->asString());
+  } // testNormalizeSpaceFn8
+
+  void testNormalizeSpaceFn9()
+  {
+    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('\r\n\r\n\r\n\r\n\r\n1\r\n\r\n\r\n\r\n\r\n2\r\n\r\n\r\n\r\n\r\n3\r\n\r\n\r\n\r\n\r\n\r\n4\r\n\r\n\r\n\r\n\r\n\r\n5\r\n\r\n\r\n\r\n\r\n')", document_);
+    assertValuesEqual(STRING, result->type());
+    assertValuesEqual("1 2 3 4 5", result->asString());
+  } // testNormalizeSpaceFn9
+
   void testTranslateFn1()
   {
     XPathValuePtr<std::string> result = parser.evaluate_expr("translate('bar','abc','ABC')", document_);
@@ -2300,6 +2321,9 @@ TestSuite* ExecuteTest_suite()
   suiteOfTests->addTest(new TestCaller<ExecuteTest>("testNormalizeSpaceFn4", &ExecuteTest::testNormalizeSpaceFn4));
   suiteOfTests->addTest(new TestCaller<ExecuteTest>("testNormalizeSpaceFn5", &ExecuteTest::testNormalizeSpaceFn5));
   suiteOfTests->addTest(new TestCaller<ExecuteTest>("testNormalizeSpaceFn6", &ExecuteTest::testNormalizeSpaceFn6));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest>("testNormalizeSpaceFn7", &ExecuteTest::testNormalizeSpaceFn7));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest>("testNormalizeSpaceFn8", &ExecuteTest::testNormalizeSpaceFn8));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest>("testNormalizeSpaceFn9", &ExecuteTest::testNormalizeSpaceFn9));
   suiteOfTests->addTest(new TestCaller<ExecuteTest>("testTranslateFn1", &ExecuteTest::testTranslateFn1));
   suiteOfTests->addTest(new TestCaller<ExecuteTest>("testTranslateFn2", &ExecuteTest::testTranslateFn2));
   suiteOfTests->addTest(new TestCaller<ExecuteTest>("testLocalNameFn1", &ExecuteTest::testLocalNameFn1));
