@@ -339,13 +339,24 @@ public:
 
   bool operator()(const DOM::Node<string_type>& node) 
   {
-    return Op()(nodeValue<T>(node), value_);
+    return Op()(nodeValue<T>()(node), value_);
   } // operator()
 
 private:
-  template<class RT> RT nodeValue(const DOM::Node<string_type>& node);
-  template<> string_type nodeValue(const DOM::Node<string_type>& node){ return nodeStringValue(node); }
-  template<> double nodeValue(const DOM::Node<string_type>& node) { return nodeNumberValue(node); }
+  // this is all far more complicated that I'd hoped.  I wanted a template function, specialised on 
+  // string_type and double.  Instead I have finished up using a class with an operator() which is partially
+  // specialised on string_type and double with an unused template parameter.
+  // ho hum - see http://lists.debian.org/debian-gcc/2004/09/msg00015.html or 
+  // google for "explicit specialization in non-namespace scope"
+  template<typename RT, typename dummy=void> struct nodeValue {
+    RT operator()(const DOM::Node<string_type>& node);
+  };
+  template<typename dummy> struct nodeValue<string_type, dummy> {
+    string_type operator()(const DOM::Node<string_type>& node) { return nodeStringValue(node); }
+  };
+  template<typename dummy> struct nodeValue<double, dummy> {
+    double operator()(const DOM::Node<string_type>& node) { return nodeNumberValue(node); }
+  }; 
 
   T value_;
   bool operator==(const compareNodeWith&);
