@@ -28,18 +28,20 @@ enum Axis
   SELF
 }; // Axis
 
+namespace impl
+{
+template<class string_type> class AxisWalker;
+
+template<class axis_walker, class string_type>
+AxisWalker<string_type>* CreateAxis(const DOM::Node<string_type>& context) { return new axis_walker(context); }
+} // namespace impl
+
 template<class string_type, class string_adaptor>
 class AxisEnumerator
 {
-  class AxisWalker;
-
-  template<class axis_walker>
-  static AxisWalker* CreateAxis(const DOM::Node<string_type>& context) { return new axis_walker(context); }
-
-  typedef AxisWalker* (*CreateAxisPtr)(const DOM::Node<string_type>& context);
+  typedef impl::AxisWalker<string_type>* (*CreateAxisPtr)(const DOM::Node<string_type>& context);
 
   struct NamedAxis { Axis name; CreateAxisPtr creator; };
-
   static const NamedAxis AxisLookupTable[];
 
 public:
@@ -61,7 +63,7 @@ public:
 
   AxisEnumerator& operator=(const AxisEnumerator& rhs)
   {
-    AxisWalker* newwalker = rhs.walker_->clone();
+    impl::AxisWalker<string_type>* newwalker = rhs.walker_->clone();
     delete walker_;
     walker_ = newwalker;
     return *this;
@@ -80,425 +82,31 @@ public:
   AxisEnumerator operator++(int) { AxisEnumerator copy(*this);  walker_->advance(); return copy; }
 
 private:
-  AxisWalker* walker_;  
+  impl::AxisWalker<string_type>* walker_;  
 
   AxisEnumerator();
-
-  ////////////////////////////////////////////////////
-  class AxisWalker
-  {
-  public:
-    virtual ~AxisWalker() { }
-    const DOM::Node<string_type>& get() const { return current_; }
-    virtual void advance() = 0;
-    bool forward() { return forward_; }
-    virtual AxisWalker* clone() const = 0;
-
-  protected:
-    AxisWalker(bool forward) : forward_(forward) { }
-    AxisWalker(const AxisWalker& rhs) : current_(rhs.current_), forward_(rhs.forward_) { }
-    void set(const DOM::Node<string_type>& current) { current_ = current; }
-    void end() { current_ = 0; }
-
-  private:
-    DOM::Node<string_type> current_;
-    bool forward_;
-
-    AxisWalker& operator=(const AxisWalker&);
-    bool operator==(const AxisWalker&);
-  }; // AxisWalker
-
-  class AncestorAxisWalker : public AxisWalker
-  {
-  public:
-    AncestorAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(false)
-    {
-      if(context == 0)
-        return;
-
-      if(context.getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE)
-        AxisWalker::set(context.getParentNode());
-      else
-        AxisWalker::set((static_cast<DOM::Attr<string_type> >(context)).getOwnerElement());
-    } // AncestorAxisWalker
-
-    virtual void advance()
-    {
-      if(AxisWalker::get() != 0)
-        AxisWalker::set(AxisWalker::get().getParentNode());
-    } // advance
-    virtual AxisWalker* clone() const { return new AncestorAxisWalker(*this); }
-
-  private:
-    AncestorAxisWalker(const AncestorAxisWalker& rhs) : AxisWalker(rhs) { }
-  }; // class AncestorAxisWalker
-
-  class AncestorOrSelfAxisWalker : public AxisWalker
-  {
-  public:
-    AncestorOrSelfAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(false)
-    {
-      if(context != 0)
-        AxisWalker::set(context);
-    } // AncestorAxisWalker
-
-    virtual void advance()
-    {
-      if(AxisWalker::get() == 0)
-        return;
-
-      if(AxisWalker::get().getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE)
-        AxisWalker::set(AxisWalker::get().getParentNode());
-      else
-        AxisWalker::set((static_cast<DOM::Attr<string_type> >(AxisWalker::get())).getOwnerElement());
-   } // advance
-    virtual AxisWalker* clone() const { return new AncestorOrSelfAxisWalker(*this); }
-
-  private:
-    AncestorOrSelfAxisWalker(const AncestorOrSelfAxisWalker& rhs) : AxisWalker(rhs) { }
-  }; // class AncestorOrSelfAxisWalker
-
-  class AttributeAxisWalker : public AxisWalker
-  {
-  public:
-    AttributeAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(true),
-        index_(0), count_(0)
-    { 
-      if((context != 0) && (context.hasAttributes()))
-      {
-        attrs_ = context.getAttributes();
-        count_ = attrs_.getLength();
-        set_next();
-      } // if ...
-    } // AttributeAxisWalker
-
-    virtual void advance()
-    {
-      if(AxisWalker::get() == 0)
-        return;
-      set_next();
-    } // advance
-
-    virtual AxisWalker* clone() const { return new AttributeAxisWalker(*this); } 
-
-  private:
-    AttributeAxisWalker(const AttributeAxisWalker& rhs) : 
-         AxisWalker(rhs), 
-         attrs_(rhs.attrs_), 
-         index_(rhs.index_),
-         count_(rhs.count_) { }
-
-    DOM::NamedNodeMap<string_type> attrs_;
-    unsigned int index_;
-    unsigned int count_;
-
-    void set_next() 
-    {
-      if(index_ == count_)
-      {
-        AxisWalker::end();
-        return;
-      } // if ...
-
-      DOM::Node<string_type> a;
-      do
-      {
-        a = attrs_.item(index_++);
-      } while ((a != 0) && (a.getNamespaceURI() == "http://www.w3.org/2000/xmlns/"));
-
-      AxisWalker::set(a);
-    } // set_next
-  }; // class AttributeAxisEnumerator
-
-  class ChildAxisWalker : public AxisWalker
-  {
-  public:
-    ChildAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(true)
-    {
-      if(context != 0)
-        AxisWalker::set(context.getFirstChild());
-    } // ChildAxisWalker
-
-    virtual void advance() 
-    { 
-      if(AxisWalker::get() != 0)
-        AxisWalker::set(AxisWalker::get().getNextSibling());
-    } // advance
-    virtual AxisWalker* clone() const { return new ChildAxisWalker(*this); } 
-
-  private:
-    ChildAxisWalker(const ChildAxisWalker& rhs) : AxisWalker(rhs) { }
-  }; // class ChildAxisWalker
-
-  class DescendantAxisWalker : public AxisWalker
-  {
-  public:
-    DescendantAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(true),
-        origin_(context)
-    {
-      if((context != 0) && (context.getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE))
-        AxisWalker::set(context.getFirstChild());
-    } // DescendantAxisWalker
-
-    virtual void advance()
-    {
-      AxisWalker::set(nextDescendant());
-    } // advance
-
-    virtual AxisWalker* clone() const { return new DescendantAxisWalker(*this); }
-
-  private:
-    DOM::Node<string_type> nextDescendant()
-    {
-      DOM::Node<string_type> next = AxisWalker::get().getFirstChild();
-      if(next == 0)
-        next = AxisWalker::get().getNextSibling();
-      if(next != 0)
-        return next;
-            
-      DOM::Node<string_type> parent = AxisWalker::get().getParentNode();
-      while(parent != origin_ && next == 0)
-      {
-        next = parent.getNextSibling();
-        parent = parent.getParentNode();
-      } // while ...
-
-      return next;
-    } // nextDescendant
-
-    DescendantAxisWalker(const DescendantAxisWalker& rhs) : AxisWalker(rhs), origin_(rhs.origin_) { }
-    const DOM::Node<string_type> origin_;
-  }; // class DescendantAxisWalker
-
-  class DescendantOrSelfAxisWalker : public AxisWalker
-  {
-  public:
-    DescendantOrSelfAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(true),
-        origin_(context)
-    {
-      if(context != 0)
-        AxisWalker::set(context);
-    } // DescendantAxisWalker
-
-    virtual void advance()
-    {
-      AxisWalker::set(walkDown(AxisWalker::get(), origin_));
-    } // advance
-
-    virtual AxisWalker* clone() const { return new DescendantOrSelfAxisWalker(*this); }
-
-  private:
-    DescendantOrSelfAxisWalker(const DescendantOrSelfAxisWalker& rhs) : AxisWalker(rhs), origin_(rhs.origin_) { }
-    const DOM::Node<string_type> origin_;
-  }; // class DescendantOrSelfAxisWalker
-
-  class FollowingAxisWalker : public AxisWalker
-  {
-  public:
-    FollowingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(true)
-    {
-      AxisWalker::set(firstFollowing(context));
-    } // FollowingAxisWalker
-
-    virtual void advance()
-    {
-      AxisWalker::set(walkDown(AxisWalker::get(), AxisWalker::get().getOwnerDocument()));
-    } // advance
-    virtual AxisWalker* clone() const { return new FollowingAxisWalker(*this); }
-
-  private:
-    DOM::Node<string_type> firstFollowing(const DOM::Node<string_type>& context) const
-    {
-      if(context.getNodeType() == DOM::Node<string_type>::ATTRIBUTE_NODE)
-        return 0;
-
-      DOM::Node<string_type> next = context.getNextSibling();
-      if(next != 0)
-        return next;
-            
-      DOM::Node<string_type> parent = context.getParentNode();
-      while(parent != context.getOwnerDocument() && next == 0)
-      {
-        next = parent.getNextSibling();
-        parent = parent.getParentNode();
-      } // while ...
-
-      return next;
-    } // firstFollowing
-
-    FollowingAxisWalker(const FollowingAxisWalker& rhs) : AxisWalker(rhs) { }
-  }; // class FollowingAxisWalker
-
-  class FollowingSiblingAxisWalker : public AxisWalker
-  {
-  public:
-    FollowingSiblingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(true)
-    {
-      if(context != 0)
-        AxisWalker::set(context.getNextSibling());
-    } // FollowingSiblingAxisWalker
-
-    virtual void advance()
-    {
-      if(AxisWalker::get() != 0)
-        AxisWalker::set(AxisWalker::get().getNextSibling());
-    } // advance
-    virtual AxisWalker* clone() const { return new FollowingSiblingAxisWalker(*this); }
-
-  private:
-    FollowingSiblingAxisWalker(const FollowingSiblingAxisWalker& rhs) : AxisWalker(rhs) { }
-  }; // class FollowingSiblingAxisWalker
-
-  class NamespaceAxisWalker : public AxisWalker
-  {
-  public:
-    NamespaceAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(true),
-      xmlns_prefix_(string_adaptor().makeStringT("xmlns")),
-      index_(0)
-    {
-      DOM::Node<string_type> current = context;
-      while(current.getNodeType() == DOM::Node<string_type>::ELEMENT_NODE)
-      {
-        for(unsigned int a = 0, ae = current.getAttributes().getLength(); a != ae; ++a)
-        {
-          DOM::Node<string_type> attr = current.getAttributes().item(a);
-          if(attr.getPrefix() == xmlns_prefix_)
-            list_.push_back(DOM::Node<string_type>(
-                       new NamespaceNodeImpl<string_type>(attr.getLocalName(), 
-                                                          attr.getNodeValue())
-                                                   )
-                            );
-        } // for ...
-        current = current.getParentNode();
-      } // while
-      list_.push_back(DOM::Node<string_type>(0));
-      AxisWalker::set(list_[index_]);
-    } // NamespaceAxisWalker
-
-    virtual void advance()
-    {
-      if(index_ != list_.size())
-        AxisWalker::set(list_[++index_]);
-    } // advance
-    
-    virtual AxisWalker* clone() const { return new NamespaceAxisWalker(*this); }
-
-  private:
-    NamespaceAxisWalker(const NamespaceAxisWalker& rhs) : AxisWalker(rhs) { }
-    std::vector<DOM::Node<string_type> > list_;
-    const string_type xmlns_prefix_;
-    unsigned int index_;
-  }; // class NamespaceAxisWalker
-
-  class ParentAxisWalker : public AxisWalker
-  {
-  public:
-    ParentAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(false)
-    {
-      if(context == 0)
-        return;
-
-      if(context.getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE)
-        AxisWalker::set(context.getParentNode());
-      else
-        AxisWalker::set((static_cast<DOM::Attr<string_type> >(context)).getOwnerElement());
-    } // ParentAxisWalker
-
-    virtual void advance()
-    {
-      if(AxisWalker::get() != 0)
-        AxisWalker::set(0);
-    } // advance
-    virtual AxisWalker* clone() const { return new ParentAxisWalker(*this); }
-
-  private:
-    ParentAxisWalker(const ParentAxisWalker& rhs) : AxisWalker(rhs) { }
-  }; // class ParentAxisWalker
-
-  class PrecedingAxisWalker : public AxisWalker
-  {
-  public:
-    PrecedingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(false)
-    {
-      nextAncestor_ = context.getParentNode();
-      AxisWalker::set(previousInDocument(context));
-    } // PrecedingAxisWalker
-
-    virtual void advance()
-    {
-      AxisWalker::set(previousInDocument(AxisWalker::get()));
-    } // advance
-    virtual AxisWalker* clone() const { return new PrecedingAxisWalker(*this); }
-
-  private:
-    DOM::Node<string_type> previousInDocument(const DOM::Node<string_type>& context)
-    {
-      DOM::Node<string_type> next = context.getPreviousSibling();
-      if(next != 0)
-        return getLastDescendant(next);
-
-      next = context.getParentNode();
-      if(next != nextAncestor_)
-        return next;
-
-      // ancestor collision!!  woorp, woorp!
-      nextAncestor_ = nextAncestor_.getParentNode();
-      if(nextAncestor_ != 0)
-        return previousInDocument(next);
-
-      return 0;
-    } // previousInDocument
-
-    DOM::Node<string_type> getLastDescendant(const DOM::Node<string_type>& context)
-    {
-      if(context.getFirstChild() == 0)
-        return context;
-
-      DOM::Node<string_type> c = context.getFirstChild();
-      while(c.getNextSibling() != 0)
-        c = c.getNextSibling();
-
-      return getLastDescendant(c);
-    } // getLastDescendant
-
-    PrecedingAxisWalker(const PrecedingAxisWalker& rhs) : AxisWalker(rhs), nextAncestor_(rhs.nextAncestor_) { }
-    DOM::Node<string_type> nextAncestor_;
-  }; // PrecedingAxisWalker
-
-  class PrecedingSiblingAxisWalker : public AxisWalker
-  {
-  public:
-    PrecedingSiblingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker(false)
-    {
-      if(context != 0)
-        AxisWalker::set(context.getPreviousSibling());
-    } // PrecedingSiblingAxisWalker
-
-    virtual void advance()
-    {
-      if(AxisWalker::get() != 0)
-        AxisWalker::set(AxisWalker::get().getPreviousSibling());
-    } // advance
-    virtual AxisWalker* clone() const { return new PrecedingSiblingAxisWalker(*this); }
-
-  private:
-    PrecedingSiblingAxisWalker(const PrecedingSiblingAxisWalker& rhs) : AxisWalker(rhs) { }
-  }; // class PrecedingSiblingAxisWalker
-
-  class SelfAxisWalker : public AxisWalker
-  {
-  public:
-    SelfAxisWalker(const DOM::Node<string_type>& context)  : AxisWalker(true)
-    { 
-      AxisWalker::set(context); 
-    } // SelfAxisWalker
-
-    virtual void advance() { AxisWalker::end(); }
-    virtual AxisWalker* clone() const { return new SelfAxisWalker(*this); }
-
-  private:
-    SelfAxisWalker(const SelfAxisWalker& rhs) : AxisWalker(rhs) { }
-  }; // class SelfAxisWalker
+}; // class AxisEnumerator  
+
+
+////////////////////////////////////////////////////
+namespace impl 
+{
+
+template<class string_type>
+class AxisWalker
+{
+public:
+  virtual ~AxisWalker() { }
+  const DOM::Node<string_type>& get() const { return current_; }
+  virtual void advance() = 0;
+  bool forward() { return forward_; }
+  virtual AxisWalker<string_type>* clone() const = 0;
+
+protected:
+  AxisWalker(bool forward) : forward_(forward) { }
+  AxisWalker(const AxisWalker& rhs) : current_(rhs.current_), forward_(rhs.forward_) { }
+  void set(const DOM::Node<string_type>& current) { current_ = current; }
+  void end() { current_ = 0; }
 
   static DOM::Node<string_type> walkDown(const DOM::Node<string_type>& context, const DOM::Node<string_type>& origin)
   {
@@ -525,25 +133,439 @@ private:
 
     return next;
   } // walkDown
-}; // class AxisEnumerator  
+
+private:
+  DOM::Node<string_type> current_;
+  bool forward_;
+
+  AxisWalker& operator=(const AxisWalker&);
+  bool operator==(const AxisWalker&);
+}; // AxisWalker
+
+template<class string_type>
+class AncestorAxisWalker : public AxisWalker<string_type>
+{
+public:
+  AncestorAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(false)
+  {
+    if(context == 0)
+      return;
+
+    if(context.getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE)
+      AxisWalker<string_type>::set(context.getParentNode());
+    else
+      AxisWalker<string_type>::set((static_cast<DOM::Attr<string_type> >(context)).getOwnerElement());
+  } // AncestorAxisWalker
+
+  virtual void advance()
+  {
+    if(AxisWalker<string_type>::get() != 0)
+      AxisWalker<string_type>::set(AxisWalker<string_type>::get().getParentNode());
+  } // advance
+  virtual AxisWalker<string_type>* clone() const { return new AncestorAxisWalker(*this); }
+
+private:
+  AncestorAxisWalker(const AncestorAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+}; // class AncestorAxisWalker
+
+template<class string_type>
+class AncestorOrSelfAxisWalker : public AxisWalker<string_type>
+{
+public:
+  AncestorOrSelfAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(false)
+  {
+    if(context != 0)
+      AxisWalker<string_type>::set(context);
+  } // AncestorAxisWalker
+
+  virtual void advance()
+  {
+    if(AxisWalker<string_type>::get() == 0)
+      return;
+
+    if(AxisWalker<string_type>::get().getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE)
+      AxisWalker<string_type>::set(AxisWalker<string_type>::get().getParentNode());
+    else
+      AxisWalker<string_type>::set((static_cast<DOM::Attr<string_type> >(AxisWalker<string_type>::get())).getOwnerElement());
+  } // advance
+  virtual AxisWalker<string_type>* clone() const { return new AncestorOrSelfAxisWalker(*this); }
+
+private:
+  AncestorOrSelfAxisWalker(const AncestorOrSelfAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+}; // class AncestorOrSelfAxisWalker
+
+template<class string_type>
+class AttributeAxisWalker : public AxisWalker<string_type>
+{
+public:
+  AttributeAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(true),
+      index_(0), count_(0)
+  { 
+    if((context != 0) && (context.hasAttributes()))
+    {
+      attrs_ = context.getAttributes();
+      count_ = attrs_.getLength();
+      set_next();
+    } // if ...
+  } // AttributeAxisWalker
+
+  virtual void advance()
+  {
+    if(AxisWalker<string_type>::get() == 0)
+      return;
+    set_next();
+  } // advance
+
+  virtual AxisWalker<string_type>* clone() const { return new AttributeAxisWalker(*this); } 
+
+private:
+  AttributeAxisWalker(const AttributeAxisWalker& rhs) : 
+        AxisWalker<string_type>(rhs), 
+        attrs_(rhs.attrs_), 
+        index_(rhs.index_),
+        count_(rhs.count_) { }
+
+  DOM::NamedNodeMap<string_type> attrs_;
+  unsigned int index_;
+  unsigned int count_;
+
+  void set_next() 
+  {
+    if(index_ == count_)
+    {
+      AxisWalker<string_type>::end();
+      return;
+    } // if ...
+
+    DOM::Node<string_type> a;
+    do
+    {
+      a = attrs_.item(index_++);
+    } while ((a != 0) && (a.getNamespaceURI() == "http://www.w3.org/2000/xmlns/"));
+
+    AxisWalker<string_type>::set(a);
+  } // set_next
+}; // class AttributeAxisEnumerator
+
+template<class string_type>
+class ChildAxisWalker : public AxisWalker<string_type>
+{
+public:
+  ChildAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(true)
+  {
+    if(context != 0)
+      AxisWalker<string_type>::set(context.getFirstChild());
+  } // ChildAxisWalker
+
+  virtual void advance() 
+  { 
+    if(AxisWalker<string_type>::get() != 0)
+      AxisWalker<string_type>::set(AxisWalker<string_type>::get().getNextSibling());
+  } // advance
+  virtual AxisWalker<string_type>* clone() const { return new ChildAxisWalker(*this); } 
+
+private:
+  ChildAxisWalker(const ChildAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+}; // class ChildAxisWalker
+
+template<class string_type>
+class DescendantAxisWalker : public AxisWalker<string_type>
+{
+public:
+  DescendantAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(true),
+      origin_(context)
+  {
+    if((context != 0) && (context.getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE))
+      AxisWalker<string_type>::set(context.getFirstChild());
+  } // DescendantAxisWalker
+
+  virtual void advance()
+  {
+    AxisWalker<string_type>::set(nextDescendant());
+  } // advance
+
+  virtual AxisWalker<string_type>* clone() const { return new DescendantAxisWalker(*this); }
+
+private:
+  DOM::Node<string_type> nextDescendant()
+  {
+    DOM::Node<string_type> next = AxisWalker<string_type>::get().getFirstChild();
+    if(next == 0)
+      next = AxisWalker<string_type>::get().getNextSibling();
+    if(next != 0)
+      return next;
+          
+    DOM::Node<string_type> parent = AxisWalker<string_type>::get().getParentNode();
+    while(parent != origin_ && next == 0)
+    {
+      next = parent.getNextSibling();
+      parent = parent.getParentNode();
+    } // while ...
+
+    return next;
+  } // nextDescendant
+
+  DescendantAxisWalker(const DescendantAxisWalker& rhs) : AxisWalker<string_type>(rhs), origin_(rhs.origin_) { }
+  const DOM::Node<string_type> origin_;
+}; // class DescendantAxisWalker
+
+template<class string_type>
+class DescendantOrSelfAxisWalker : public AxisWalker<string_type>
+{
+public:
+  DescendantOrSelfAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(true),
+      origin_(context)
+  {
+    if(context != 0)
+      AxisWalker<string_type>::set(context);
+  } // DescendantAxisWalker
+
+  virtual void advance()
+  {
+    AxisWalker<string_type>::set(AxisWalker<string_type>::walkDown(AxisWalker<string_type>::get(), origin_));
+  } // advance
+
+  virtual AxisWalker<string_type>* clone() const { return new DescendantOrSelfAxisWalker(*this); }
+
+private:
+  DescendantOrSelfAxisWalker(const DescendantOrSelfAxisWalker& rhs) : AxisWalker<string_type>(rhs), origin_(rhs.origin_) { }
+  const DOM::Node<string_type> origin_;
+}; // class DescendantOrSelfAxisWalker
+
+template<class string_type>
+class FollowingAxisWalker : public AxisWalker<string_type>
+{
+public:
+  FollowingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(true)
+  {
+    AxisWalker<string_type>::set(firstFollowing(context));
+  } // FollowingAxisWalker
+
+  virtual void advance()
+  {
+    AxisWalker<string_type>::set(AxisWalker<string_type>::walkDown(AxisWalker<string_type>::get(), AxisWalker<string_type>::get().getOwnerDocument()));
+  } // advance
+  virtual AxisWalker<string_type>* clone() const { return new FollowingAxisWalker(*this); }
+
+private:
+  DOM::Node<string_type> firstFollowing(const DOM::Node<string_type>& context) const
+  {
+    if(context.getNodeType() == DOM::Node<string_type>::ATTRIBUTE_NODE)
+      return 0;
+
+    DOM::Node<string_type> next = context.getNextSibling();
+    if(next != 0)
+      return next;
+          
+    DOM::Node<string_type> parent = context.getParentNode();
+    while(parent != context.getOwnerDocument() && next == 0)
+    {
+      next = parent.getNextSibling();
+      parent = parent.getParentNode();
+    } // while ...
+
+    return next;
+  } // firstFollowing
+
+  FollowingAxisWalker(const FollowingAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+}; // class FollowingAxisWalker
+
+template<class string_type>
+class FollowingSiblingAxisWalker : public AxisWalker<string_type>
+{
+public:
+  FollowingSiblingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(true)
+  {
+    if(context != 0)
+      AxisWalker<string_type>::set(context.getNextSibling());
+  } // FollowingSiblingAxisWalker
+
+  virtual void advance()
+  {
+    if(AxisWalker<string_type>::get() != 0)
+      AxisWalker<string_type>::set(AxisWalker<string_type>::get().getNextSibling());
+  } // advance
+  virtual AxisWalker<string_type>* clone() const { return new FollowingSiblingAxisWalker(*this); }
+
+private:
+  FollowingSiblingAxisWalker(const FollowingSiblingAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+}; // class FollowingSiblingAxisWalker
+
+template<class string_type, class string_adaptor>
+class NamespaceAxisWalker : public AxisWalker<string_type>
+{
+public:
+  NamespaceAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(true),
+    xmlns_prefix_(string_adaptor().makeStringT("xmlns")),
+    index_(0)
+  {
+    DOM::Node<string_type> current = context;
+    while(current.getNodeType() == DOM::Node<string_type>::ELEMENT_NODE)
+    {
+      for(unsigned int a = 0, ae = current.getAttributes().getLength(); a != ae; ++a)
+      {
+        DOM::Node<string_type> attr = current.getAttributes().item(a);
+        if(attr.getPrefix() == xmlns_prefix_)
+          list_.push_back(DOM::Node<string_type>(
+                      new NamespaceNodeImpl<string_type>(attr.getLocalName(), 
+                                                        attr.getNodeValue())
+                                                  )
+                          );
+      } // for ...
+      current = current.getParentNode();
+    } // while
+    list_.push_back(DOM::Node<string_type>(0));
+    AxisWalker<string_type>::set(list_[index_]);
+  } // NamespaceAxisWalker
+
+  virtual void advance()
+  {
+    if(index_ != list_.size())
+      AxisWalker<string_type>::set(list_[++index_]);
+  } // advance
+  
+  virtual AxisWalker<string_type>* clone() const { return new NamespaceAxisWalker(*this); }
+
+private:
+  NamespaceAxisWalker(const NamespaceAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+  std::vector<DOM::Node<string_type> > list_;
+  const string_type xmlns_prefix_;
+  unsigned int index_;
+}; // class NamespaceAxisWalker
+
+template<class string_type>
+class ParentAxisWalker : public AxisWalker<string_type>
+{
+public:
+  ParentAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(false)
+  {
+    if(context == 0)
+      return;
+
+    if(context.getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE)
+      AxisWalker<string_type>::set(context.getParentNode());
+    else
+      AxisWalker<string_type>::set((static_cast<DOM::Attr<string_type> >(context)).getOwnerElement());
+  } // ParentAxisWalker
+
+  virtual void advance()
+  {
+    if(AxisWalker<string_type>::get() != 0)
+      AxisWalker<string_type>::set(0);
+  } // advance
+  virtual AxisWalker<string_type>* clone() const { return new ParentAxisWalker(*this); }
+
+private:
+  ParentAxisWalker(const ParentAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+}; // class ParentAxisWalker
+
+template<class string_type>
+class PrecedingAxisWalker : public AxisWalker<string_type>
+{
+public:
+  PrecedingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(false)
+  {
+    nextAncestor_ = context.getParentNode();
+    AxisWalker<string_type>::set(previousInDocument(context));
+  } // PrecedingAxisWalker
+
+  virtual void advance()
+  {
+    AxisWalker<string_type>::set(previousInDocument(AxisWalker<string_type>::get()));
+  } // advance
+  virtual AxisWalker<string_type>* clone() const { return new PrecedingAxisWalker(*this); }
+
+private:
+  DOM::Node<string_type> previousInDocument(const DOM::Node<string_type>& context)
+  {
+    DOM::Node<string_type> next = context.getPreviousSibling();
+    if(next != 0)
+      return getLastDescendant(next);
+
+    next = context.getParentNode();
+    if(next != nextAncestor_)
+      return next;
+
+    // ancestor collision!!  woorp, woorp!
+    nextAncestor_ = nextAncestor_.getParentNode();
+    if(nextAncestor_ != 0)
+      return previousInDocument(next);
+
+    return 0;
+  } // previousInDocument
+
+  DOM::Node<string_type> getLastDescendant(const DOM::Node<string_type>& context)
+  {
+    if(context.getFirstChild() == 0)
+      return context;
+
+    DOM::Node<string_type> c = context.getFirstChild();
+    while(c.getNextSibling() != 0)
+      c = c.getNextSibling();
+
+    return getLastDescendant(c);
+  } // getLastDescendant
+
+  PrecedingAxisWalker(const PrecedingAxisWalker& rhs) : AxisWalker<string_type>(rhs), nextAncestor_(rhs.nextAncestor_) { }
+  DOM::Node<string_type> nextAncestor_;
+}; // PrecedingAxisWalker
+
+template<class string_type>
+class PrecedingSiblingAxisWalker : public AxisWalker<string_type>
+{
+public:
+  PrecedingSiblingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(false)
+  {
+    if(context != 0)
+      AxisWalker<string_type>::set(context.getPreviousSibling());
+  } // PrecedingSiblingAxisWalker
+
+  virtual void advance()
+  {
+    if(AxisWalker<string_type>::get() != 0)
+      AxisWalker<string_type>::set(AxisWalker<string_type>::get().getPreviousSibling());
+  } // advance
+  virtual AxisWalker<string_type>* clone() const { return new PrecedingSiblingAxisWalker(*this); }
+
+private:
+  PrecedingSiblingAxisWalker(const PrecedingSiblingAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+}; // class PrecedingSiblingAxisWalker
+
+template<class string_type>
+class SelfAxisWalker : public AxisWalker<string_type>
+{
+public:
+  SelfAxisWalker(const DOM::Node<string_type>& context)  : AxisWalker<string_type>(true)
+  { 
+    AxisWalker<string_type>::set(context); 
+  } // SelfAxisWalker
+
+  virtual void advance() { AxisWalker<string_type>::end(); }
+  virtual AxisWalker<string_type>* clone() const { return new SelfAxisWalker(*this); }
+
+private:
+  SelfAxisWalker(const SelfAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
+}; // class SelfAxisWalker
+
+} // namespace impl
 
 template<class string_type, class string_adaptor>
 const typename AxisEnumerator<string_type, string_adaptor>::NamedAxis 
 AxisEnumerator<string_type, string_adaptor>::AxisLookupTable[] = 
 { 
-  { ANCESTOR,           AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator<string_type, string_adaptor>::AncestorAxisWalker> },
-  { ANCESTOR_OR_SELF,   AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::AncestorOrSelfAxisWalker> },
-  { ATTRIBUTE,          AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::AttributeAxisWalker> },
-  { CHILD,              AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::ChildAxisWalker> },
-  { DESCENDANT,         AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::DescendantAxisWalker> },
-  { DESCENDANT_OR_SELF, AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::DescendantOrSelfAxisWalker> },
-  { FOLLOWING,          AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::FollowingAxisWalker> },
-  { FOLLOWING_SIBLING,  AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::FollowingSiblingAxisWalker> },
-  { NAMESPACE,          AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::NamespaceAxisWalker> },
-  { PARENT,             AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::ParentAxisWalker> },
-  { PRECEDING,          AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::PrecedingAxisWalker> },
-  { PRECEDING_SIBLING,  AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::PrecedingSiblingAxisWalker> },
-  { SELF,               AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::SelfAxisWalker> },
+  { ANCESTOR,           impl::CreateAxis<impl::AncestorAxisWalker<string_type>, string_type> },
+  { ANCESTOR_OR_SELF,   impl::CreateAxis<impl::AncestorOrSelfAxisWalker<string_type>, string_type> },
+  { ATTRIBUTE,          impl::CreateAxis<impl::AttributeAxisWalker<string_type>, string_type> },
+  { CHILD,              impl::CreateAxis<impl::ChildAxisWalker<string_type>, string_type> },
+  { DESCENDANT,         impl::CreateAxis<impl::DescendantAxisWalker<string_type>, string_type> },
+  { DESCENDANT_OR_SELF, impl::CreateAxis<impl::DescendantOrSelfAxisWalker<string_type>, string_type> },
+  { FOLLOWING,          impl::CreateAxis<impl::FollowingAxisWalker<string_type>, string_type> },
+  { FOLLOWING_SIBLING,  impl::CreateAxis<impl::FollowingSiblingAxisWalker<string_type>, string_type> },
+  { NAMESPACE,          impl::CreateAxis<impl::NamespaceAxisWalker<string_type, string_adaptor>, string_type> },
+  { PARENT,             impl::CreateAxis<impl::ParentAxisWalker<string_type>, string_type> },
+  { PRECEDING,          impl::CreateAxis<impl::PrecedingAxisWalker<string_type>, string_type> },
+  { PRECEDING_SIBLING,  impl::CreateAxis<impl::PrecedingSiblingAxisWalker<string_type>, string_type> },
+  { SELF,               impl::CreateAxis<impl::SelfAxisWalker<string_type>, string_type> },
   { static_cast<Axis>(0), 0 } 
 };
 
