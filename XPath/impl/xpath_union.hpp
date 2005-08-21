@@ -40,8 +40,8 @@ public:
 
     ns1.to_document_order();
     ns2.to_document_order();
-    NodeSet<string_type>::const_iterator n1 = ns1.begin(), n1e = ns1.end();
-    NodeSet<string_type>::const_iterator n2 = ns2.begin(), n2e = ns2.end();
+    typename NodeSet<string_type>::const_iterator n1 = ns1.begin(), n1e = ns1.end();
+    typename NodeSet<string_type>::const_iterator n2 = ns2.begin(), n2e = ns2.end();
 
     NodeSet<string_type> result(true);
 

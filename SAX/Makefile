@@ -38,10 +38,7 @@ SRCS =  saxlib.cpp \
 	../Utils/utf16utf8codecvt.cpp \
 	../Utils/base64codecvt.cpp \
 	../Utils/impl/codecvt_specialisations.cpp \
-	../XML/XMLCharacterClasses.cpp \
-	../XPath/src/xpath_parser.cpp \
-	../XPath/src/xpath_object.cpp \
-	../XPath/src/xpath_axis_enumerator.cpp
+	../XML/XMLCharacterClasses.cpp 
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
 OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))

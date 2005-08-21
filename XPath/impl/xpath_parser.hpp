@@ -103,7 +103,7 @@ private:
   XPathExpressionPtr<string_type, string_adaptor> do_compile(const string_type& xpath, 
                                                              typename types<string_type>::tree_info_t(XPath::*fn)(const string_type& str) const) const
   {
-    types<string_type>::tree_info_t ast;
+    typename types<string_type>::tree_info_t ast;
     try {
       ast = (this->*fn)(xpath);
       if(!ast.full)
@@ -124,13 +124,13 @@ private:
 
   typename types<string_type>::tree_info_t parse_xpath(const string_type& str) const
   {
-    types<string_type>::str_iter_t first = str.begin(), last = str.end();
+    typename types<string_type>::str_iter_t first = str.begin(), last = str.end();
     return ast_parse(first, last, xpathg_);
   } // parse_xpath
 
   typename types<string_type>::tree_info_t parse_xpath_expr(const string_type& str) const
   {
-    types<string_type>::str_iter_t first = str.begin(), last = str.end();
+    typename types<string_type>::str_iter_t first = str.begin(), last = str.end();
     return ast_parse(first, last, xpathge_);
   } // parse_xpath
 
@@ -188,7 +188,7 @@ private:
 
   static const std::map<int, compileFn> init_createFunctions()
   {
-    std::map<int, XPath::compileFn> factory;
+    std::map<int, compileFn> factory;
 
     factory[impl::AbsoluteLocationPath_id] = createAbsoluteLocationPath;
     factory[impl::RelativeLocationPath_id] = createRelativeLocationPath;

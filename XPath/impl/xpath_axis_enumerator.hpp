@@ -531,7 +531,7 @@ template<class string_type, class string_adaptor>
 const typename AxisEnumerator<string_type, string_adaptor>::NamedAxis 
 AxisEnumerator<string_type, string_adaptor>::AxisLookupTable[] = 
 { 
-  { ANCESTOR,           AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::AncestorAxisWalker> },
+  { ANCESTOR,           AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator<string_type, string_adaptor>::AncestorAxisWalker> },
   { ANCESTOR_OR_SELF,   AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::AncestorOrSelfAxisWalker> },
   { ATTRIBUTE,          AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::AttributeAxisWalker> },
   { CHILD,              AxisEnumerator<string_type, string_adaptor>::CreateAxis<AxisEnumerator::ChildAxisWalker> },

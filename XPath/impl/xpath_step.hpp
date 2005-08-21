@@ -26,7 +26,7 @@ public:
 
   virtual ~StepExpression()
   { 
-    for(std::vector<XPathExpression<string_type, string_adaptor>*>::iterator p = predicates_.begin(), e = predicates_.end(); p != e; ++p)
+    for(typename std::vector<XPathExpression<string_type, string_adaptor>*>::iterator p = predicates_.begin(), e = predicates_.end(); p != e; ++p)
       delete *p;
   } // ~StepExpression
 
@@ -38,7 +38,7 @@ public:
 protected:
   NodeSet<string_type> applyPredicates(NodeSet<string_type>& nodes, const ExecutionContext<string_type, string_adaptor>& parentContext) const
   {
-    for(std::vector<XPathExpression<string_type, string_adaptor>*>::const_iterator p = predicates_.begin(), e = predicates_.end();
+    for(typename std::vector<XPathExpression<string_type, string_adaptor>*>::const_iterator p = predicates_.begin(), e = predicates_.end();
         (p != e) && (!nodes.empty()); ++p)
       nodes = applyPredicate(nodes, *p, parentContext);
     return nodes;
@@ -52,7 +52,7 @@ private:
     ExecutionContext<string_type, string_adaptor> executionContext(nodes.size(), parentContext);
     NodeSet<string_type> results(nodes.forward());
     unsigned int position = 1;
-    for(NodeSet<string_type>::iterator i = nodes.begin(); i != nodes.end(); ++i, ++position)
+    for(typename NodeSet<string_type>::iterator i = nodes.begin(); i != nodes.end(); ++i, ++position)
     {
       executionContext.setPosition(position);
       XPathValuePtr<string_type> v = predicate->evaluate(*i, executionContext);
@@ -105,7 +105,7 @@ public:
   virtual XPathValuePtr<string_type> evaluate(NodeSet<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     NodeSet<string_type> nodes;
-    for(NodeSet<string_type>::iterator n = context.begin(); n != context.end(); ++n)
+    for(typename NodeSet<string_type>::iterator n = context.begin(); n != context.end(); ++n)
       enumerateOver(*n, nodes, executionContext);
     return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(nodes));
   } // evaluate
@@ -176,7 +176,7 @@ public:
 
 private:
   XPathExpression<string_type, string_adaptor>* expr_;
-  std::vector<XPathExpression*> predicates_;
+  std::vector<XPathExpression<string_type, string_adaptor>*> predicates_;
 }; // class ExprStepExpression
 
 template<class string_type, class string_adaptor>
@@ -382,7 +382,7 @@ public:
 
   virtual ~RelativeLocationPath()
   {
-    for(StepList<string_type, string_adaptor>::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
+    for(typename StepList<string_type, string_adaptor>::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
       delete *i;
   } // ~LocationPath
 
@@ -391,7 +391,7 @@ public:
     NodeSet<string_type> nodes;
     nodes.push_back(context);
 
-    for(StepList<string_type, string_adaptor>::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
+    for(typename StepList<string_type, string_adaptor>::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
     {
       XPathValuePtr<string_type> v = (*i)->evaluate(nodes, executionContext);
       nodes = v->asNodeSet();

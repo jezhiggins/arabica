@@ -539,7 +539,7 @@ public:
   {
     double sum = 0;
     NodeSet<string_type> ns = baseT::argAsNodeSet(0, context, executionContext);
-    for(NodeSet<string_type>::const_iterator n = ns.begin(), end = ns.end(); n != end; ++n)
+    for(typename NodeSet<string_type>::const_iterator n = ns.begin(), end = ns.end(); n != end; ++n)
       sum += nodeNumberValue(*n);
     return new NumericValue<string_type, string_adaptor>(sum);
   } // evaluate

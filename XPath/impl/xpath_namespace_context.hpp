@@ -68,7 +68,7 @@ class StandardNamespaceContext : public NamespaceContext<string_type, string_ada
 
     virtual string_type namespaceURI(const string_type& prefix) const
     {
-      NSMap::const_iterator n = map_.find(prefix);
+      typename NSMap::const_iterator n = map_.find(prefix);
       if(n == map_.end())
         throw UnboundNamespacePrefixException(string_adaptor().asStdString(prefix)); 
       return (*n).second;

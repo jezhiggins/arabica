@@ -49,7 +49,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     void setFeature(const stringT& name, bool value)
     {
-      Features::iterator f = features_.find(name);
+      typename Features::iterator f = features_.find(name);
       if(f == features_.end())
         throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA_.asStdString(name));
       f->second = value;
@@ -57,7 +57,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     bool getFeature(const stringT& name) const
     {
-      Features::const_iterator f = features_.find(name);
+      typename Features::const_iterator f = features_.find(name);
       if(f == features_.end())
         throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA_.asStdString(name));
       return f->second;
@@ -156,7 +156,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     void setParserFeatures(SAX_parser& parser) const
     {
-      for(Features::const_iterator f = features_.begin(), e = features_.end(); f != e; ++f)
+      for(typename Features::const_iterator f = features_.begin(), e = features_.end(); f != e; ++f)
         parser.setFeature(f->first, f->second);
     } // setParserFeatures
 

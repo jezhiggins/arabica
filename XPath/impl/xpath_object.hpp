@@ -7,7 +7,10 @@
 #include <DOM/Node.h>
 #include <DOM/Attr.h>
 #include <boost/shared_ptr.hpp>
+#include <boost/lexical_cast.hpp>
 #include <cmath>
+#include <Utils/StringAdaptor.h>
+#include "xpath_axis_enumerator.hpp"
 
 namespace Arabica
 {
@@ -339,11 +342,11 @@ public:
     return Op()(nodeValue<T>(node), value_);
   } // operator()
 
+private:
   template<class RT> RT nodeValue(const DOM::Node<string_type>& node);
   template<> string_type nodeValue(const DOM::Node<string_type>& node){ return nodeStringValue(node); }
   template<> double nodeValue(const DOM::Node<string_type>& node) { return nodeNumberValue(node); }
 
-private:
   T value_;
   bool operator==(const compareNodeWith&);
   compareNodeWith& operator=(const compareNodeWith&);
@@ -359,10 +362,10 @@ bool nodeSetsEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<st
     return false;
 
   std::set<string_type> values;
-  NodeSet<string_type>::const_iterator l = lns.begin();
+  typename NodeSet<string_type>::const_iterator l = lns.begin();
   string_type lvalue = nodeStringValue(*l);
 
-  for(NodeSet<string_type>::const_iterator r = rns.begin(), rend = rns.end(); r != rend; ++r)
+  for(typename NodeSet<string_type>::const_iterator r = rns.begin(), rend = rns.end(); r != rend; ++r)
   {
     string_type rvalue = nodeStringValue(*r);
     if(lvalue == rvalue)
@@ -371,7 +374,7 @@ bool nodeSetsEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<st
   } // for ...
 
   ++l;
-  for(NodeSet<string_type>::const_iterator lend = lns.end(); l != lend; ++l)
+  for(typename NodeSet<string_type>::const_iterator lend = lns.end(); l != lend; ++l)
     if(values.find(nodeStringValue(*l)) != values.end())
       return true;
 
@@ -411,7 +414,7 @@ template<class string_type>
 double minValue(const NodeSet<string_type>& ns)
 {
   double v = nodeNumberValue(ns[0]);
-  for(NodeSet<string_type>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
+  for(typename NodeSet<string_type>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
   {
     double vt = nodeNumberValue(*i);
     if(isNaN(vt))
@@ -426,7 +429,7 @@ template<class string_type>
 double maxValue(const NodeSet<string_type>& ns)
 {
   double v = nodeNumberValue(ns[0]);
-  for(NodeSet<string_type>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
+  for(typename NodeSet<string_type>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
   {
     double vt = nodeNumberValue(*i);
     if(isNaN(vt))
