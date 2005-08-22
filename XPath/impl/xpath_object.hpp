@@ -28,6 +28,9 @@ enum ValueType
 
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
+namespace impl
+{
+
 template<class string_type>
 DOM::Node<string_type> node_parent_or_owner(const DOM::Node<string_type>& node)
 {
@@ -149,6 +152,8 @@ bool nodes_less_than(const DOM::Node<string_type>& n1, const DOM::Node<string_ty
   return compareNodes(n1, n2) < 0; 
 } // nodes_less_than
 
+} // namespace impl
+
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 template<class string_type>
@@ -201,7 +206,7 @@ public:
   {
     if(!sorted_)
     {
-      std::sort(baseT::begin(), baseT::end(), nodes_less_than<string_type>);
+      std::sort(baseT::begin(), baseT::end(), impl::nodes_less_than<string_type>);
       sorted_ = true;
       forward_ = true;
     } // if(!sorted)
