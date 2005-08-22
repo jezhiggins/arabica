@@ -272,6 +272,8 @@ inline bool isInfinity(double value) { return (value == Infinity); }
 inline bool isNegativeInfinity(double value) { return (value == Negative_Infinity); }
 inline bool isInfinite(double value) { return isInfinity(value) || isNegativeInfinity(value); }
 
+namespace impl
+{
 inline double roundNumber(double value) 
 { 
   if(!(isNaN(value) || isInfinite(value) || (std::fabs(value) == 0)))
@@ -331,6 +333,8 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
     throw std::runtime_error("Don't know how to calculate string-value of " + node.getNodeName());
   } // switch
 } // nodeStringValue
+
+} // namespace impl
 
 ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////

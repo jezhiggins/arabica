@@ -105,7 +105,7 @@ public:
   virtual bool asBool() const { return !value_.empty(); }
   virtual double asNumber() const 
   { 
-    return stringAsNumber(value_);
+    return impl::stringAsNumber(value_);
   } // asNumber
   virtual string_type asString() const { return value_; }
   virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
@@ -138,11 +138,11 @@ public:
   } // asBool
   virtual double asNumber() const 
   { 
-    return stringAsNumber(asString());
+    return impl::stringAsNumber(asString());
   } // asNumber
   virtual string_type asString() const 
   { 
-    return !set_.empty() ? nodeStringValue(set_.top()) : string_adaptor().makeStringT("");
+    return !set_.empty() ? impl::nodeStringValue(set_.top()) : string_adaptor().makeStringT("");
   } // asStringx
   virtual const NodeSet<string_type>& asNodeSet() const { return set_; }
 
