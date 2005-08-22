@@ -337,7 +337,6 @@ template<typename RT, typename string_type> struct value_of_node {
 template<typename string_type> struct value_of_node<double, string_type> {
   double operator()(const DOM::Node<string_type>& node) { return nodeNumberValue(node); }
 }; 
-} // namespace impl
 
 template<class Op, class string_type>
 class compareNodeWith
@@ -351,7 +350,7 @@ public:
 
   bool operator()(const DOM::Node<string_type>& node) 
   {
-    impl::value_of_node<T, string_type> nv;
+    value_of_node<T, string_type> nv;
     return Op()(nv(node), value_);
   } // operator()
 
@@ -538,6 +537,7 @@ bool isGreaterThanEquals(const XPathValuePtr<string_type>& lhs, const XPathValue
   return isLessThanEquals(rhs, lhs);
 } // isGreaterThanEquals
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 

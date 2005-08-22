@@ -7,6 +7,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 template<typename ResolverT>
 class ResolverHolder
@@ -63,6 +65,7 @@ private:
   bool operator==(const ResolverHolder&);
 }; // ResolverHolder
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 

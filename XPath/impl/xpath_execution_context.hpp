@@ -39,7 +39,7 @@ public:
 private:
   size_t position_;
   size_t last_;
-  ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;
+  impl::ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;
 
   ExecutionContext(const ExecutionContext&);
   ExecutionContext& operator=(const ExecutionContext&);

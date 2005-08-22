@@ -9,6 +9,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 template<class string_type>
 class NodeTest
@@ -153,9 +155,8 @@ public:
   } // operator()
 }; // RootNodeTest
 
+} // namespace impl
 } // namespace XPath
-
-
 } // namespace Arabica
 
 #endif

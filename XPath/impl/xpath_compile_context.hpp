@@ -10,6 +10,9 @@ template<class string_type, class string_adaptor> class XPath;
 template<class string_type, class string_adaptor> class NamespaceContext;
 template<class string_type, class string_adaptor> class FunctionResolver;
 
+namespace impl
+{
+
 template<class string_type, class string_adaptor>
 class CompilationContext
 {
@@ -37,6 +40,7 @@ private:
   bool operator==(const CompilationContext&) const;
 }; // class CompilationContext
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 

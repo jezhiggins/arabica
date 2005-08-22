@@ -68,7 +68,7 @@ public:
 
   void test1()
   {
-    AnyNodeTest<std::string> test;
+    impl::AnyNodeTest<std::string> test;
 
     assertTrue(test(element1_));
     assertTrue(test(element2_));
@@ -82,7 +82,7 @@ public:
 
   void test2()
   {
-    NameNodeTest<std::string> test("child1");
+    impl::NameNodeTest<std::string> test("child1");
 
     assertTrue(test(element1_));
     assertTrue(!test(element2_));
@@ -96,7 +96,7 @@ public:
 
   void test3()
   {
-    NameNodeTest<std::string> test("one");
+    impl::NameNodeTest<std::string> test("one");
 
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
@@ -110,7 +110,7 @@ public:
 
   void test4()
   {
-    TextNodeTest<std::string> test;
+    impl::TextNodeTest<std::string> test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -123,7 +123,7 @@ public:
 
   void test5()
   {
-    CommentNodeTest<std::string> test;
+    impl::CommentNodeTest<std::string> test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -136,7 +136,7 @@ public:
 
   void test6()
   {
-    ProcessingInstructionNodeTest<std::string> test;
+    impl::ProcessingInstructionNodeTest<std::string> test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -149,7 +149,7 @@ public:
 
   void test7()
   {
-    ProcessingInstructionNodeTest<std::string> test("fruity");
+    impl::ProcessingInstructionNodeTest<std::string> test("fruity");
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -162,7 +162,7 @@ public:
 
   void test8()
   {
-    ProcessingInstructionNodeTest<std::string> test("target");
+    impl::ProcessingInstructionNodeTest<std::string> test("target");
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -175,7 +175,7 @@ public:
 
   void test9()
   {
-    StarNodeTest<std::string> test;
+    impl::StarNodeTest<std::string> test;
 
     AxisEnumerator<std::string, Arabica::default_string_adaptor<std::string> > e(element2_, CHILD);
     assertTrue(!test(*e));
@@ -189,7 +189,7 @@ public:
 
   void test10()
   {
-    QNameNodeTest<std::string> test("http://example.com/test", "one");
+    impl::QNameNodeTest<std::string> test("http://example.com/test", "one");
 
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
@@ -203,7 +203,7 @@ public:
 
   void test11()
   {
-    QNameNodeTest<std::string> test("http://example.com/test", "one");
+    impl::QNameNodeTest<std::string> test("http://example.com/test", "one");
 
     DOM::Element<std::string> e1_ = document_.createElementNS("http://example.com/test", "ns:one");
     DOM::Element<std::string> e2_ = document_.createElementNS("http://example.com/test", "ttt:one");
@@ -222,7 +222,7 @@ public:
 
   void test12()
   {
-    QStarNodeTest<std::string> test("http://example.com/test");
+    impl::QStarNodeTest<std::string> test("http://example.com/test");
 
     DOM::Element<std::string> e1_ = document_.createElementNS("http://example.com/test", "ns:one");
     DOM::Element<std::string> e2_ = document_.createElementNS("http://example.com/test", "ttt:one");

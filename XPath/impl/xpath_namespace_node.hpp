@@ -16,6 +16,9 @@ namespace XPath
 
 const DOM::Node_base::Type NAMESPACE_NODE_TYPE = static_cast<DOM::Node_base::Type>(DOM::Node_base::MAX_TYPE + 27);  // 27 is a random choice
 
+namespace impl
+{
+
 template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class NamespaceNodeImpl : public SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT>
 {
@@ -78,6 +81,7 @@ private:
     unsigned int ref_;
 }; // class NamespaceNodeImpl
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 

@@ -16,6 +16,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 template<class string_type, class string_adaptor>
 class StepExpression : public XPathExpression<string_type, string_adaptor>
@@ -423,7 +425,7 @@ public:
   } // evaluate
 }; // class AbsoluteLocationPath
 
-
+} // impl
 } // XPath
 } // Arabica
 #endif

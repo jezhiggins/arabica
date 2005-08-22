@@ -50,6 +50,8 @@ public:
   } // XPathExpressionPtr
 }; // class XPathExpressionPtr
 
+namespace impl
+{
 template<class string_type, class string_adaptor>
 class UnaryExpression
 {
@@ -95,6 +97,7 @@ private:
   XPathExpression<string_type, string_adaptor>* rhs_;
 }; // class BinaryExpression
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 

@@ -673,7 +673,7 @@ public:
 
   void namespaceNodeTest1()
   {
-    DOM::Node<std::string> node(new NamespaceNodeImpl<std::string>("p", "test-uri"));
+    DOM::Node<std::string> node(new impl::NamespaceNodeImpl<std::string>("p", "test-uri"));
     DOM::Node<std::string> node2;
 
     node2 = node;
@@ -683,7 +683,7 @@ public:
   {
     DOM::Node<std::string> node;
     {
-      DOM::Node<std::string> node2(new NamespaceNodeImpl<std::string>("p", "test-uri"));
+      DOM::Node<std::string> node2(new impl::NamespaceNodeImpl<std::string>("p", "test-uri"));
       node = node2;
     }
   } // namespaceNodeTest2
@@ -692,7 +692,7 @@ public:
   {
     DOM::Node<std::string> node;
     {
-      DOM::Node<std::string> node2(new NamespaceNodeImpl<std::string>("p", "test-uri"));
+      DOM::Node<std::string> node2(new impl::NamespaceNodeImpl<std::string>("p", "test-uri"));
       node = node2;
     }
     node = 0;
@@ -700,7 +700,7 @@ public:
 
   void namespaceNodeTest4()
   {
-    DOM::Node<std::string> node(new NamespaceNodeImpl<std::string>("p", "test-uri"));
+    DOM::Node<std::string> node(new impl::NamespaceNodeImpl<std::string>("p", "test-uri"));
     assertValuesEqual("p", node.getLocalName());
     assertValuesEqual("test-uri", node.getNodeValue());
     assertValuesEqual("", node.getNamespaceURI());
