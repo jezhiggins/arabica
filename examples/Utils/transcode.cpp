@@ -42,8 +42,7 @@ bool processArgs(int argc, const char* argv[]);
 bool imbueInput(int& argn, int argc, const char* argv[]);
 bool imbueOutput(int& argn, int argc, const char* argv[]);
 
-
-/*int main(int argc, const char* argv[])
+int main(int argc, const char* argv[])
 {
   if(!processArgs(argc, argv))
   {
@@ -62,26 +61,6 @@ bool imbueOutput(int& argn, int argc, const char* argv[]);
     byte_transcode();
 
   return 0;
-} // main
-*/
-int main()
-{
-/*  typedef oconvert_adaptor<wchar_t, std::char_traits<wchar_t>, char, std::char_traits<char> > Narrower;
-  Narrower oCharAdaptor(std::cout);
-
-	oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf8ucs2codecvt()));
-	oCharAdaptor << L"Hello Ì Õ";
-	oCharAdaptor.flush();*/
-
-  oconvert_adaptor<char> oByteConvertor(std::cout);
-  typedef oconvert_adaptor<wchar_t,
-         std::char_traits<wchar_t>, 
-         char, std::char_traits<char> > Narrower;
-  Narrower oCharAdaptor(oByteConvertor);
-
-  oCharAdaptor.imbue(std::locale(oCharAdaptor.getloc(), new utf8ucs2codecvt()));
-  oCharAdaptor << L"Hello Ì Õ";
-  oByteConvertor.flush();
 } // main
 
 void wchar_transcode()
