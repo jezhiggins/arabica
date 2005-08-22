@@ -22,49 +22,49 @@ public:
 
   void test1()
   {
-    XPathExpressionPtr<std::string> orTest(new OrOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false)));
+    XPathExpressionPtr<std::string> orTest(new impl::OrOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false)));
     assertEquals(false, orTest->evaluateAsBool(dummy_));
   } // test1
 
   void test2()
   {
-    XPathExpressionPtr<std::string> orTest(new OrOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true)));
+    XPathExpressionPtr<std::string> orTest(new impl::OrOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true)));
     assertEquals(true, orTest->evaluateAsBool(dummy_));
   } // test2
 
   void test3()
   {
-    XPathExpressionPtr<std::string> orTest(new OrOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false)));
+    XPathExpressionPtr<std::string> orTest(new impl::OrOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false)));
     assertEquals(true, orTest->evaluateAsBool(dummy_));
   } // test3
 
   void test4()
   {
-    XPathExpressionPtr<std::string> orTest(new OrOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true)));
+    XPathExpressionPtr<std::string> orTest(new impl::OrOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true)));
     assertEquals(true, orTest->evaluateAsBool(dummy_));
   } // test4
 
   void test5()
   {
-    XPathExpressionPtr<std::string> andTest(new AndOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false)));
+    XPathExpressionPtr<std::string> andTest(new impl::AndOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false)));
     assertEquals(false, andTest->evaluateAsBool(dummy_));
   } // test5
 
   void test6()
   {
-    XPathExpressionPtr<std::string> andTest(new AndOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true)));
+    XPathExpressionPtr<std::string> andTest(new impl::AndOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true)));
     assertEquals(false, andTest->evaluateAsBool(dummy_));
   } // test6
 
   void test7()
   {
-    XPathExpressionPtr<std::string> andTest(new AndOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false)));
+    XPathExpressionPtr<std::string> andTest(new impl::AndOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false)));
     assertEquals(false, andTest->evaluateAsBool(dummy_));
   } // test7
 
   void test8()
   {
-    XPathExpressionPtr<std::string> andTest(new AndOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true)));
+    XPathExpressionPtr<std::string> andTest(new impl::AndOperator<std::string, Arabica::default_string_adaptor<std::string> >(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true), new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(true)));
     assertEquals(true, andTest->evaluateAsBool(dummy_));
   } // test8
 

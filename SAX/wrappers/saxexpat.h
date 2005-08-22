@@ -83,6 +83,9 @@ int ewim_externalEntityRefHandler(XML_Parser parser,
 
 class expat2base
 {
+protected:
+  virtual ~expat2base() { }
+
 private:
   virtual void charHandler(const char* txt, int txtlen) = 0;
   virtual void startElement(const char* qName, const char** atts) = 0;

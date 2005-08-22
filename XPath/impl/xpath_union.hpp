@@ -8,6 +8,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 template<class string_type, class string_adaptor>
 class UnionExpression : private BinaryExpression<string_type, string_adaptor>, 
@@ -73,7 +75,7 @@ private:
   } // wrap
 }; // UnionExpression
 
+} // namespace impl
 } // namespace XPath
-
 } // namespace Arabica
 #endif

@@ -418,7 +418,7 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
   } // while ...
   // maybe trailing whitespace ...
 
-  return FunctionHolder<string_type, string_adaptor>::createFunction(name, args, context);
+  return impl::FunctionHolder<string_type, string_adaptor>::createFunction(name, args, context);
 } // createFunction
 
 template<class string_type, class string_adaptor>
@@ -437,46 +437,46 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
     switch(op)
     {
       case impl::PlusOperator_id:
-        p1 = new PlusOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::PlusOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::MinusOperator_id:
-        p1 = new MinusOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::MinusOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::MultiplyOperator_id:
-        p1 = new MultiplyOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::MultiplyOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::DivOperator_id:
-        p1 = new DivideOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::DivideOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::ModOperator_id:
-        p1 = new ModOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::ModOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::EqualsOperator_id:
-        p1 = new EqualsOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::EqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::NotEqualsOperator_id:
-        p1 = new NotEqualsOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::NotEqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::LessThanOperator_id:
-        p1 = new LessThanOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::LessThanOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::LessThanEqualsOperator_id:
-        p1 = new LessThanEqualsOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::LessThanEqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::GreaterThanOperator_id:
-        p1 = new GreaterThanOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::GreaterThanOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::GreaterThanEqualsOperator_id:
-        p1 = new GreaterThanEqualsOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::GreaterThanEqualsOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::OrOperator_id:
-        p1 = new OrOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::OrOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::AndOperator_id:
-        p1 = new AndOperator<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::AndOperator<string_type, string_adaptor>(p1, p2);
         break;
       case impl::UnionOperator_id:
-        p1 = new UnionExpression<string_type, string_adaptor>(p1, p2);
+        p1 = new impl::UnionExpression<string_type, string_adaptor>(p1, p2);
         break;
       default:
         throw UnsupportedException(boost::lexical_cast<string_type>(op));
@@ -522,7 +522,7 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createUnaryNegativeExpr(typename types<string_type>::node_iter_t const& i, CompilationContext<string_type, string_adaptor>& context)
 {
-  return new UnaryNegative<string_type, string_adaptor>(XPath<string_type, string_adaptor>::compile_expression(i+1, context));
+  return new impl::UnaryNegative<string_type, string_adaptor>(XPath<string_type, string_adaptor>::compile_expression(i+1, context));
 } // createUnaryNegativeExpr
 
 template<class string_type, class string_adaptor>

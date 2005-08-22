@@ -9,6 +9,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 template<class function_type, class string_type, class string_adaptor>
 XPathFunction<string_type, string_adaptor>* CreateFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) { return new function_type(argExprs); }
@@ -92,6 +94,7 @@ FunctionHolder<string_type, string_adaptor>::FunctionLookupTable[] =
         {0,                  0}
       };
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 

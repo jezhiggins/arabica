@@ -7,6 +7,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 template<class string_type, class string_adaptor>
 class PlusOperator : private BinaryExpression<string_type, string_adaptor>, 
@@ -104,7 +106,8 @@ public:
   } // evaluate
 }; // class UnaryNegative
 
-} // XPath
-} // Arabica
+} // namespace impl
+} // namespace XPath
+} // namespace Arabica
 
 #endif

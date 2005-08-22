@@ -66,6 +66,8 @@ private:
   const std::vector<XPathExpressionPtr<string_type, string_adaptor> > args_;
 }; // class XPathFunction
 
+namespace impl 
+{
 ////////////////////////////////
 // node-set functions
 // number last()
@@ -590,6 +592,7 @@ public:
   } // evaluate
 }; // class RoundFn
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 
