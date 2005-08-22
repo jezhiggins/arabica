@@ -5,25 +5,26 @@
 
 #include <string>
 
-/** \mainpage SAX in C++
+/** \mainpage Arabica XML Parser Toolkit
  *
  * \section intro Introduction
+ * 
+ * <p>Arabica has a full <a href='http://www.saxproject.org/'>SAX2, the Simple API for XML</a>, implementation 
+ * including the optional interfaces and helper classes. Layered on 
+ * SAX is a W3C <a href='http://www.w3.org/DOM/'>Document Object Model (DOM) Level 2.0 Core</a> 
+ * implementation, together with an <a href='http://www.w3.org/tr/xpath'>XPath</a> engine. </p>
  *
- * SAX is an event-based XML processing API. It defines the interface 
- * between the parser (probably someone else's code) and its client 
- * (probably your code). Unlike the DOM, SAX has no official status 
- * within the W3C but is very popular and widely used. There are 
- * implementations in Java, Python, Perl, at least two COM versions and more.
- * <p>
- * This package consists of a definition of the SAX interface in C++ 
- * and it's associated documentation. Because an interface by itself 
- * wouldn't be terribly useful, there also SAX wrappers for a variety of 
- * parsers. Finally there are some examples, to give some clues as to how to use it.
- *
+ * <p>It delivers UTF-8 encoded std::strings or UCS-2 std::wstrings, 
+ * but can also accommodate custom string types and alternative 
+ * encodings. </p>
+ * 
+ * <p>It provides uniform SAX2 wrappers for the <A href='http://www.libexpat.org/'>expat</a> parser, 
+ * <a href='http://xml.apache.org/xerces-c/index.html'>Xerces</a>, <a href='http://www.xmlsoft.org'>libxml</a>
+ * and for the <a href='http://msdn.microsoft.com/xml'>Microsoft XML parser</a> COM component.</p>
  *
  * \section license License
  * 
- * Copyright (c) 2001, Jez UK Ltd<br>
+ * Copyright (c) 2001-2005 Jez UK Ltd<br>
  * All rights reserved.
  * <p>
  * Redistribution and use in source and binary forms, with or <br>
