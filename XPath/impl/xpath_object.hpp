@@ -333,31 +333,33 @@ template<class Op, class string_type>
 class compareNodeWith
 {
   typedef typename Op::first_argument_type T;
+
+  // this is all far more complicated that I'd hoped.  I wanted a template function, specialised on 
+  // string_type and double.  Instead I have finished up using a class with an operator() which is partially
+  // specialised on string_type and double with an unused template parameter.
+  // ho hum - see http://lists.debian.org/debian-gcc/2004/09/msg00015.html or 
+  // google for "explicit specialization in non-namespace scope"
+  template<typename RT, typename dummy = void> struct value_of_node {
+    RT operator()(const DOM::Node<string_type>& node);
+  };
+  template<typename dummy> struct value_of_node<string_type, dummy> {
+    string_type operator()(const DOM::Node<string_type>& node) { return nodeStringValue(node); }
+  };
+  template<typename dummy> struct value_of_node<double, dummy> {
+    double operator()(const DOM::Node<string_type>& node) { return nodeNumberValue(node); }
+  }; 
+
 public:
   compareNodeWith(const T& value) : value_(value) { }
   compareNodeWith(const compareNodeWith& rhs) : value_(rhs.value_) { }
 
   bool operator()(const DOM::Node<string_type>& node) 
   {
-    return Op()(nodeValue<T>()(node), value_);
+    value_of_node<T, void> nv;
+    return Op()(nv(node), value_);
   } // operator()
 
 private:
-  // this is all far more complicated that I'd hoped.  I wanted a template function, specialised on 
-  // string_type and double.  Instead I have finished up using a class with an operator() which is partially
-  // specialised on string_type and double with an unused template parameter.
-  // ho hum - see http://lists.debian.org/debian-gcc/2004/09/msg00015.html or 
-  // google for "explicit specialization in non-namespace scope"
-  template<typename RT, typename dummy=void> struct nodeValue {
-    RT operator()(const DOM::Node<string_type>& node);
-  };
-  template<typename dummy> struct nodeValue<string_type, dummy> {
-    string_type operator()(const DOM::Node<string_type>& node) { return nodeStringValue(node); }
-  };
-  template<typename dummy> struct nodeValue<double, dummy> {
-    double operator()(const DOM::Node<string_type>& node) { return nodeNumberValue(node); }
-  }; 
-
   T value_;
   bool operator==(const compareNodeWith&);
   compareNodeWith& operator=(const compareNodeWith&);
