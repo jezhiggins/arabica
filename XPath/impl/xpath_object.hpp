@@ -329,25 +329,21 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
 
 ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
+
+namespace impl {
+template<typename RT, typename string_type> struct value_of_node {
+  RT operator()(const DOM::Node<string_type>& node) { return nodeStringValue(node); }
+};
+template<typename string_type> struct value_of_node<double, string_type> {
+  double operator()(const DOM::Node<string_type>& node) { return nodeNumberValue(node); }
+}; 
+} // namespace impl
+
 template<class Op, class string_type>
 class compareNodeWith
 {
   typedef typename Op::first_argument_type T;
 
-  // this is all far more complicated that I'd hoped.  I wanted a template function, specialised on 
-  // string_type and double.  Instead I have finished up using a class with an operator() which is partially
-  // specialised on string_type and double with an unused template parameter.
-  // ho hum - see http://lists.debian.org/debian-gcc/2004/09/msg00015.html or 
-  // google for "explicit specialization in non-namespace scope"
-  template<typename RT, typename dummy = void> struct value_of_node {
-    RT operator()(const DOM::Node<string_type>& node);
-  };
-  template<typename dummy> struct value_of_node<string_type, dummy> {
-    string_type operator()(const DOM::Node<string_type>& node) { return nodeStringValue(node); }
-  };
-  template<typename dummy> struct value_of_node<double, dummy> {
-    double operator()(const DOM::Node<string_type>& node) { return nodeNumberValue(node); }
-  }; 
 
 public:
   compareNodeWith(const T& value) : value_(value) { }
@@ -355,7 +351,7 @@ public:
 
   bool operator()(const DOM::Node<string_type>& node) 
   {
-    value_of_node<T, void> nv;
+    impl::value_of_node<T, string_type> nv;
     return Op()(nv(node), value_);
   } // operator()
 
