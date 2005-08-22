@@ -10,6 +10,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 template<class string_type>
 class types
@@ -38,6 +40,7 @@ typename types<string_type>::node_iter_t& skipWhitespace(typename types<string_t
   return node;
 } // skipWhitespace
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 #endif

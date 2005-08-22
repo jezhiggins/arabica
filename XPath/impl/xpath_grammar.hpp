@@ -14,6 +14,8 @@ namespace Arabica
 {
 namespace XPath
 {
+namespace impl
+{
 
 template<typename ScannerT>
 struct xpath_grammar_definition
@@ -185,107 +187,107 @@ struct xpath_grammar_definition
     UnaryMinusOperator = ch_p('-');
   } // xpath_grammar_definition
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::QName_id> > QName;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Prefix_id> > Prefix;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::LocalPart_id> > LocalPart;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::NCName_id> > NCName;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::NCNameChar_id> > NCNameChar;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<QName_id> > QName;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Prefix_id> > Prefix;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LocalPart_id> > LocalPart;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<NCName_id> > NCName;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<NCNameChar_id> > NCNameChar;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AxisName_id> > AxisName;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::NodeType_id> > NodeType;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AxisName_id> > AxisName;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<NodeType_id> > NodeType;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::LocationPath_id> > LocationPath; 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AbsoluteLocationPath_id> > AbsoluteLocationPath;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::RelativeLocationPath_id> > RelativeLocationPath;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LocationPath_id> > LocationPath; 
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AbsoluteLocationPath_id> > AbsoluteLocationPath;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<RelativeLocationPath_id> > RelativeLocationPath;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Step_id> > Step;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AxisSpecifier_id> > AxisSpecifier;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Step_id> > Step;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AxisSpecifier_id> > AxisSpecifier;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::NodeTest_id> > NodeTest;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<NodeTest_id> > NodeTest;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Predicate_id> > Predicate;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::PredicateExpr_id> > PredicateExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Predicate_id> > Predicate;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<PredicateExpr_id> > PredicateExpr;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AbbreviatedAbsoluteLocationPath_id> > AbbreviatedAbsoluteLocationPath;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AbbreviatedStep_id> > AbbreviatedStep;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AbbreviatedAxisSpecifier_id> > AbbreviatedAxisSpecifier;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AbbreviatedAbsoluteLocationPath_id> > AbbreviatedAbsoluteLocationPath;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AbbreviatedStep_id> > AbbreviatedStep;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AbbreviatedAxisSpecifier_id> > AbbreviatedAxisSpecifier;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Expr_id> > Expr;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::PrimaryExpr_id> > PrimaryExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Expr_id> > Expr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<PrimaryExpr_id> > PrimaryExpr;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::FunctionCall_id> > FunctionCall;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Argument_id> > Argument;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<FunctionCall_id> > FunctionCall;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Argument_id> > Argument;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::UnionExpr_id> > UnionExpr;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::PathExpr_id> > PathExpr;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::FilterExpr_id> > FilterExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<UnionExpr_id> > UnionExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<PathExpr_id> > PathExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<FilterExpr_id> > FilterExpr;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::OrExpr_id> > OrExpr;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AndExpr_id> > AndExpr;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::EqualityExpr_id> > EqualityExpr;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::RelationalExpr_id> > RelationalExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<OrExpr_id> > OrExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AndExpr_id> > AndExpr;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<EqualityExpr_id> > EqualityExpr;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<RelationalExpr_id> > RelationalExpr;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AdditiveExpr_id> > AdditiveExpr;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::MultiplicativeExpr_id> > MultiplicativeExpr;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::UnaryExpr_id> > UnaryExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AdditiveExpr_id> > AdditiveExpr;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<MultiplicativeExpr_id> > MultiplicativeExpr;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<UnaryExpr_id> > UnaryExpr;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Literal_id> > Literal;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Number_id> > Number;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Digits_id> > Digits;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::MultiplyOperator_id> > MultiplyOperator;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::FunctionName_id> > FunctionName;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::VariableReference_id> > VariableReference;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::NameTest_id> > NameTest;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::S_id> > S; // ExprWhitespace
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Literal_id> > Literal;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Number_id> > Number;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Digits_id> > Digits;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<MultiplyOperator_id> > MultiplyOperator;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<FunctionName_id> > FunctionName;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<VariableReference_id> > VariableReference;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<NameTest_id> > NameTest;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<S_id> > S; // ExprWhitespace
 
   // bonus bits
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Slash_id> > Slash;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::SlashSlash_id> > SlashSlash;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Slash_id> > Slash;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<SlashSlash_id> > SlashSlash;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AncestorOrSelf_id> > AncestorOrSelf;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Ancestor_id> > Ancestor;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Attribute_id> > Attribute;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Child_id> > Child;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::DescendantOrSelf_id> > DescendantOrSelf;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Descendant_id> > Descendant;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::FollowingSibling_id> > FollowingSibling;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Following_id> > Following;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Namespace_id> > Namespace;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Parent_id> > Parent;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::PrecedingSibling_id> > PrecedingSibling;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Preceding_id> > Preceding;
-	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Self_id> > Self;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AncestorOrSelf_id> > AncestorOrSelf;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Ancestor_id> > Ancestor;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Attribute_id> > Attribute;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Child_id> > Child;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<DescendantOrSelf_id> > DescendantOrSelf;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Descendant_id> > Descendant;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<FollowingSibling_id> > FollowingSibling;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Following_id> > Following;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Namespace_id> > Namespace;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Parent_id> > Parent;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<PrecedingSibling_id> > PrecedingSibling;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Preceding_id> > Preceding;
+	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Self_id> > Self;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Comment_id> > Comment;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Text_id> > Text;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::ProcessingInstruction_id> > ProcessingInstruction;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Node_id> > Node;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AnyName_id> > AnyName;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Comment_id> > Comment;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Text_id> > Text;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<ProcessingInstruction_id> > ProcessingInstruction;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Node_id> > Node;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AnyName_id> > AnyName;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::SelfSelect_id> > SelfSelect;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::ParentSelect_id> > ParentSelect;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<SelfSelect_id> > SelfSelect;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<ParentSelect_id> > ParentSelect;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::LeftSquare_id> > LeftSquare;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::RightSquare_id> > RightSquare;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LeftSquare_id> > LeftSquare;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<RightSquare_id> > RightSquare;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::LeftBracket_id> > LeftBracket;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::RightBracket_id> > RightBracket;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LeftBracket_id> > LeftBracket;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<RightBracket_id> > RightBracket;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::PlusOperator_id> > PlusOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::MinusOperator_id> > MinusOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::ModOperator_id> > ModOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::DivOperator_id> > DivOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::EqualsOperator_id> > EqualsOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::NotEqualsOperator_id> > NotEqualsOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::LessThanOperator_id> > LessThanOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::LessThanEqualsOperator_id> > LessThanEqualsOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::GreaterThanOperator_id> > GreaterThanOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::GreaterThanEqualsOperator_id> > GreaterThanEqualsOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<PlusOperator_id> > PlusOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<MinusOperator_id> > MinusOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<ModOperator_id> > ModOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<DivOperator_id> > DivOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<EqualsOperator_id> > EqualsOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<NotEqualsOperator_id> > NotEqualsOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LessThanOperator_id> > LessThanOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LessThanEqualsOperator_id> > LessThanEqualsOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<GreaterThanOperator_id> > GreaterThanOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<GreaterThanEqualsOperator_id> > GreaterThanEqualsOperator;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::OrOperator_id> > OrOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::AndOperator_id> > AndOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::UnionOperator_id> > UnionOperator;
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::UnaryMinusOperator_id> > UnaryMinusOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<OrOperator_id> > OrOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AndOperator_id> > AndOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<UnionOperator_id> > UnionOperator;
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<UnaryMinusOperator_id> > UnaryMinusOperator;
 }; // xpath_grammar_definition
 
 
@@ -298,7 +300,7 @@ struct xpath_grammar : public boost::spirit::grammar<xpath_grammar>
     {
     } // definition
 
-    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::LocationPath_id> > const&
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LocationPath_id> > const&
     start() const
     {
       return xpath_grammar_definition<ScannerT>::LocationPath;
@@ -315,7 +317,7 @@ struct xpath_grammar_expr : public boost::spirit::grammar<xpath_grammar_expr>
     {
     } // definition
 
-    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<impl::Expr_id> > const&
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Expr_id> > const&
     start() const
     {
       return xpath_grammar_definition<ScannerT>::Expr;
@@ -323,6 +325,7 @@ struct xpath_grammar_expr : public boost::spirit::grammar<xpath_grammar_expr>
   }; // definition<ScannerT>
 }; // xpath_grammar
 
+} // namespace impl
 } // namespace XPath
 } // namespace Arabica
 
