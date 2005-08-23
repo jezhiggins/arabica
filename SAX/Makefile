@@ -45,9 +45,9 @@ OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRCS)))
 
 ##########################
 # High level rules
-all : libArabica($LIBSUFFIX)
+all : libArabica$(LIBSUFFIX)
 
-libArabica($LIBSUFFIX) : $(OBJS)
+libArabica$(LIBSUFFIX) : $(OBJS)
 	$(LD) $(LDFLAGS) -o libArabica$(LIBSUFFIX) $(OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) libArabica$(LIBSUFFIX) ../bin
 
