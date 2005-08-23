@@ -144,11 +144,11 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
     return true;
 
   bool ok(true);
-  const std::codecvt<charT, char, state_t>& cvt =
+  const std::codecvt<charT, externalCharT, state_t>& cvt =
 #ifndef ARABICA_VS6_WORKAROUND
-      std::use_facet<std::codecvt<charT, char, std::mbstate_t> >(this->getloc());
+      std::use_facet<std::codecvt<charT, externalCharT, std::mbstate_t> >(this->getloc());
 #else
-      std::use_facet(this->getloc(), (std::codecvt<charT, char, std::mbstate_t>*)0, true);
+      std::use_facet(this->getloc(), (std::codecvt<charT, externalCharT, std::mbstate_t>*)0, true);
 #endif
 
   if(cvt.always_noconv())
@@ -196,11 +196,11 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
          streambufT::gptr() - pbCount*sizeof(charT),
          pbCount*sizeof(charT));
 
-  const std::codecvt<charT, char, state_t>& cvt =
+  const std::codecvt<charT, externalCharT, state_t>& cvt =
 #ifndef ARABICA_VS6_WORKAROUND
-    std::use_facet<std::codecvt<charT, char, std::mbstate_t> >(this->getloc());
+    std::use_facet<std::codecvt<charT, externalCharT, std::mbstate_t> >(this->getloc());
 #else
-    std::use_facet(this->getloc(), (std::codecvt<charT, char, std::mbstate_t>*)0, true);
+    std::use_facet(this->getloc(), (std::codecvt<charT, externalCharT, std::mbstate_t>*)0, true);
 #endif
 
   externalCharT from[1024];
