@@ -92,16 +92,16 @@ public:
     XPathExpressionPtr<std::string> bf(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false));
     XPathExpressionPtr<std::string> sf(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >(""));
 
-    assertTrue(impl::areEqual(bt->evaluate(dummy_), (st->evaluate(dummy_))));
-    assertTrue(impl::areEqual(st->evaluate(dummy_), (bt->evaluate(dummy_))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(bt->evaluate(dummy_), (st->evaluate(dummy_)))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(st->evaluate(dummy_), (bt->evaluate(dummy_)))));
 
-    assertTrue(impl::areEqual(sf->evaluate(dummy_), (bf->evaluate(dummy_))));
-    assertTrue(impl::areEqual(bf->evaluate(dummy_), (sf->evaluate(dummy_))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(sf->evaluate(dummy_), (bf->evaluate(dummy_)))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(bf->evaluate(dummy_), (sf->evaluate(dummy_)))));
 
-    assertTrue(impl::areEqual(bt->evaluate(dummy_), (bt->evaluate(dummy_))));
-    assertTrue(impl::areEqual(bf->evaluate(dummy_), (bf->evaluate(dummy_))));
-    assertTrue(impl::areEqual(st->evaluate(dummy_), (st->evaluate(dummy_))));
-    assertTrue(impl::areEqual(sf->evaluate(dummy_), (sf->evaluate(dummy_))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(bt->evaluate(dummy_), (bt->evaluate(dummy_)))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(bf->evaluate(dummy_), (bf->evaluate(dummy_)))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(st->evaluate(dummy_), (st->evaluate(dummy_)))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(sf->evaluate(dummy_), (sf->evaluate(dummy_)))));
   } // test9
 
   void test10()
@@ -111,11 +111,11 @@ public:
     XPathExpressionPtr<std::string> bf(new BoolValue<std::string, Arabica::default_string_adaptor<std::string> >(false));
     XPathExpressionPtr<std::string> nf(new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(0.0));
 
-    assertTrue(impl::areEqual(bt->evaluate(dummy_), (nt->evaluate(dummy_))));
-    assertTrue(impl::areEqual(nt->evaluate(dummy_), (bt->evaluate(dummy_))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(bt->evaluate(dummy_), (nt->evaluate(dummy_)))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(nt->evaluate(dummy_), (bt->evaluate(dummy_)))));
 
-    assertTrue(impl::areEqual(bf->evaluate(dummy_), (nf->evaluate(dummy_))));
-    assertTrue(impl::areEqual(nf->evaluate(dummy_), (bf->evaluate(dummy_))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(bf->evaluate(dummy_), (nf->evaluate(dummy_)))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(nf->evaluate(dummy_), (bf->evaluate(dummy_)))));
   } // test10
 
   void test11()
@@ -123,7 +123,7 @@ public:
     XPathExpressionPtr<std::string> nt(new NumericValue<std::string, Arabica::default_string_adaptor<std::string> >(1.0));
     XPathValuePtr<std::string> ns = nt->evaluate(dummy_);
 
-    assertTrue(impl::areEqual(ns, (nt->evaluate(dummy_))));
+    assertTrue((impl::areEqual<std::string, Arabica::default_string_adaptor<std::string> >(ns, (nt->evaluate(dummy_)))));
   } // test11
 }; // ValueTest
 

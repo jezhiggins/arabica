@@ -142,7 +142,7 @@ public:
   } // asNumber
   virtual string_type asString() const 
   { 
-    return !set_.empty() ? impl::nodeStringValue(set_.top()) : string_adaptor().makeStringT("");
+    return !set_.empty() ? impl::nodeStringValue<string_type, string_adaptor>(set_.top()) : string_adaptor().makeStringT("");
   } // asStringx
   virtual const NodeSet<string_type>& asNodeSet() const { return set_; }
 

@@ -232,7 +232,7 @@ public:
   virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new StringValue<string_type, string_adaptor>((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue(context));
+    return new StringValue<string_type, string_adaptor>((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
   } // evaluate
 }; // class StringFn
 
@@ -375,7 +375,7 @@ public:
   virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new NumericValue<string_type, string_adaptor>(((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue(context)).length());
+    return new NumericValue<string_type, string_adaptor>(((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context)).length());
   } // evaluate
 }; // StringLengthFn
 
@@ -390,7 +390,7 @@ public:
   virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    string_type value = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue(context));
+    string_type value = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
     size_t i = 0, ie = value.length();
 
     // string leading space
@@ -523,7 +523,7 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     double result = (baseT::argCount() > 0) ? baseT::argAsNumber(0, context, executionContext) :
-                                       StringValue<string_type, string_adaptor>(nodeStringValue(context)).asNumber();
+                                       StringValue<string_type, string_adaptor>(nodeStringValue<string_type, string_adaptor>(context)).asNumber();
     return new NumericValue<string_type, string_adaptor>(result);
   } // evaluate
 }; // NumberFn
@@ -542,7 +542,7 @@ public:
     double sum = 0;
     NodeSet<string_type> ns = baseT::argAsNodeSet(0, context, executionContext);
     for(typename NodeSet<string_type>::const_iterator n = ns.begin(), end = ns.end(); n != end; ++n)
-      sum += nodeNumberValue(*n);
+      sum += nodeNumberValue<string_type, string_adaptor>(*n);
     return new NumericValue<string_type, string_adaptor>(sum);
   } // evaluate
 }; // class SumFn
