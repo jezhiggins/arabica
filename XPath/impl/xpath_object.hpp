@@ -296,12 +296,6 @@ double stringAsNumber(const string_type& str)
 } // stringAsNumber
 
 template<class string_type, class string_adaptor>
-double nodeNumberValue(const DOM::Node<string_type>& node)
-{
-  return stringAsNumber(nodeStringValue<string_type, string_adaptor>(node));
-} // nodeNumberValue
-
-template<class string_type, class string_adaptor>
 string_type nodeStringValue(const DOM::Node<string_type>& node)
 {
   switch(node.getNodeType())
@@ -333,6 +327,12 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
     throw std::runtime_error("Don't know how to calculate string-value of " + node.getNodeName());
   } // switch
 } // nodeStringValue
+
+template<class string_type, class string_adaptor>
+double nodeNumberValue(const DOM::Node<string_type>& node)
+{
+  return stringAsNumber(nodeStringValue<string_type, string_adaptor>(node));
+} // nodeNumberValue
 
 } // namespace impl
 
