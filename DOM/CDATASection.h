@@ -21,10 +21,10 @@ class CDATASection : public Text<stringT>
     CDATASection() : Text<stringT>() { }
     explicit CDATASection(CDATASection_impl<stringT>* impl) : Text<stringT>(impl) { }
     CDATASection(const CDATASection& rhs) : Text<stringT>(rhs) { }
-    explicit CDATASection(const Node<stringT>& rhs) : Text<stringT>(rhs)  
+    explicit CDATASection(const Node<stringT>& rhs) : Text<stringT>(rhs, 0)  
     {
-      if(dynamic_cast<CDATASection_impl<stringT>*>(rhs.impl()) == 0)
-        throw std::bad_cast();
+      if(rhs.getNodeType() != CDATA_SECTION_NODE)
+        throw std::bad_cast("Cannot convert Node to CDATA section");
     } // CDATASection
 
     CDATASection<stringT> splitText(int offset) 

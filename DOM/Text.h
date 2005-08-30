@@ -28,6 +28,9 @@ class Text : public CharacterData<stringT>
         throw std::bad_cast("Cannot cast Node to Text");
     } // Text
 
+  protected:
+    Text(const Node<stringT>& rhs, int dummy) : CharacterData<stringT>(rhs, 0) { }
+
     Text splitText(int offset) 
     { 
       return tImpl()->splitText(offset); 
