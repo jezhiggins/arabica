@@ -24,6 +24,7 @@
 #include "test_DocumentFragment.h"
 #include "test_Attribute.h"
 #include "test_SAX.h"
+#include "test_Text.hpp"
 
 class TestRunner
 {
@@ -52,11 +53,12 @@ int main(int argc, char* argv[])
   runner.addTest("DOMImplementationTest", DOMImplementationTest_suite());
   runner.addTest("DocumentTypeTest", DocumentTypeTest_suite());
   runner.addTest("DocumentTest", DocumentTest_suite());
-  runner.addTest("ProcessingInstructionTest", ProcessingInstructionTest_suite());
   runner.addTest("SiblingsTest", SiblingsTest_suite());
   runner.addTest("ElementTest", ElementTest_suite());
-  runner.addTest("DocumentFragmentTest", DocumentFragmentTest_suite());
   runner.addTest("AttributeTest", AttrTest_suite());
+  runner.addTest("ProcessingInstructionTest", ProcessingInstructionTest_suite());
+  runner.addTest("TextTest", TextTest_suite());
+  runner.addTest("DocumentFragmentTest", DocumentFragmentTest_suite());
   runner.addTest("SAX2DOMTest", SAXTest_suite());
   runner.run(argc, argv);
 

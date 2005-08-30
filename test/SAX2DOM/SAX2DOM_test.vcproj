@@ -172,6 +172,9 @@
 			<File
 				RelativePath=".\test_Siblings.cpp">
 			</File>
+			<File
+				RelativePath=".\test_Text.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -202,6 +205,9 @@
 			</File>
 			<File
 				RelativePath=".\test_Siblings.h">
+			</File>
+			<File
+				RelativePath=".\test_Text.hpp">
 			</File>
 		</Filter>
 		<Filter
