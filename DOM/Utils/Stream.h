@@ -111,13 +111,12 @@ void prefix_mapper_callback(std::ios_base::event ev, std::ios_base& stream, int 
 template<class stringT>
 std::pair<bool, stringT> is_uri_declared(std::vector<std::map<stringT, stringT> >* prefix_stack, const stringT& namespaceURI)
 {
-  bool declared = false;
   stringT declared_prefix;
-  for(std::vector<std::map<stringT, stringT> >::reverse_iterator b = prefix_stack->rbegin(), e = prefix_stack->rend();
+  for(typename std::vector<std::map<stringT, stringT> >::reverse_iterator b = prefix_stack->rbegin(), e = prefix_stack->rend();
         b != e;
         ++b)
   {
-    std::map<stringT, stringT>::const_iterator p = b->find(namespaceURI);
+    typename std::map<stringT, stringT>::const_iterator p = b->find(namespaceURI);
     if(p != b->end())
       return std::make_pair(true, p->second);
   } // for ...
@@ -200,7 +199,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
     stream << UnicodeT::QUOTATION_MARK;
   }
 
-  for(std::map<stringT, stringT>::const_iterator i = current.begin(), e = current.end();
+  for(typename std::map<stringT, stringT>::const_iterator i = current.begin(), e = current.end();
       i != e;
       ++i)
   {
