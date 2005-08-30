@@ -149,6 +149,9 @@
 				RelativePath=".\test_Attribute.cpp">
 			</File>
 			<File
+				RelativePath=".\test_CDATA.cpp">
+			</File>
+			<File
 				RelativePath=".\test_Document.cpp">
 			</File>
 			<File
@@ -181,6 +184,9 @@
 			Filter="h;hpp;hxx;hm;inl">
 			<File
 				RelativePath=".\test_Attribute.h">
+			</File>
+			<File
+				RelativePath=".\test_CDATA.hpp">
 			</File>
 			<File
 				RelativePath=".\test_Document.h">
