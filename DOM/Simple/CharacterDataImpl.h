@@ -30,6 +30,7 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     virtual void setData(const stringT& data)
     {
+      NodeT::throwIfReadOnly();
       setNodeValue(data);
     } // setData
 
@@ -46,37 +47,30 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
     virtual void appendData(const stringT& arg)
     {
       NodeT::throwIfReadOnly();
-
       data_.append(arg);
     } // appendData
 
     virtual void insertData(int offset, const stringT& arg)
     {
       NodeT::throwIfReadOnly();
-
       if(offset > static_cast<int>(data_.length()))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
-
       data_.insert(offset, arg);
     } // insertData
 
     virtual void deleteData(int offset, int count)
     {
       NodeT::throwIfReadOnly();
-
       if(offset > static_cast<int>(data_.length()))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
-
       data_.replace(offset, count, stringT());
     } // deleteData
 
     virtual void replaceData(int offset, int count, const stringT& arg)
     {
       NodeT::throwIfReadOnly();
-
       if(offset > static_cast<int>(data_.length()))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
-
       data_.replace(offset, count, arg);
     } // replaceData
 

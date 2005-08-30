@@ -23,15 +23,18 @@ class CharacterData : public Node<stringT>
     CharacterData(const CharacterData& rhs) : Node<stringT>(rhs) { }
     explicit CharacterData(const Node<stringT>& rhs) : Node<stringT>(rhs)  
     {
-      if(dynamic_cast<CharacterData_impl<stringT>*>(rhs.impl()) == 0)
-        throw std::bad_cast();
+      Type type = rhs.getNodeType();
+      if((type != Text::TEXT_NODE) && (type != Text::CDATA_SECTION_NODE))
+        throw std::bad_cast("Cannot cast Node to Character Data");
     } // CharacterData
 
-    
+  protected:
+    CharacterData(const Node<stringT>& rhs, int dummy) : Node<stringT>(rhs) { }
+
+  public:
     stringT getData() const { return cdImpl()->getData(); }
-    void setData(const stringT& data) const 
+    void setData(const stringT& data) 
     { 
-      cdImpl()->throwIfReadOnly();
       cdImpl()->setData(data); 
     } // setData
 
@@ -41,27 +44,24 @@ class CharacterData : public Node<stringT>
 
     void appendData(const stringT& arg) 
     {
-      cdImpl()->throwIfReadOnly();
       cdImpl()->appendData(arg); 
     } // appendData
     void insertData(int offset, const stringT& arg) 
     { 
-      cdImpl()->throwIfReadOnly();
       cdImpl()->insertData(offset, arg); 
     } // insertData
     void deleteData(int offset, int count) 
     { 
-      cdImpl()->throwIfReadOnly();
       cdImpl()->deleteData(offset, count); 
     } // deleteData
     void replaceData(int offset, int count, const stringT& arg) 
     { 
-      cdImpl()->throwIfReadOnly();
       cdImpl()->replaceData(offset, count); 
     } // replaceData
 
   private:
-    CharacterData_impl<stringT>* cdImpl() { return dynamic_cast<CharacterData<stringT>*>(NodeT::impl()); }
+    CharacterData_impl<stringT>* cdImpl() { return dynamic_cast<CharacterData_impl<stringT>*>(*NodeT::impl_); }
+    const CharacterData_impl<stringT>* cdImpl() const { return dynamic_cast<const CharacterData_impl<stringT>*>(*NodeT::impl_); }
 }; // class CharacterData
 
 ////////////////////////////////////////////////////////////////////

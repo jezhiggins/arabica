@@ -21,9 +21,10 @@ class Text : public CharacterData<stringT>
     Text() : CharacterData<stringT>() { }
     explicit Text(Text_impl<stringT>* impl) : CharacterData<stringT>(impl) { }
     Text(const Text& rhs) : CharacterData<stringT>(rhs) { }
-    explicit Text(const Node<stringT>& rhs) : CharacterData<stringT>(rhs)  
+    explicit Text(const Node<stringT>& rhs) : CharacterData<stringT>(rhs, 0)  
     {
-      if(dynamic_cast<Text_impl<stringT>*>(rhs.impl()) == 0)
+      Type type = rhs.getNodeType();
+      if((type != Text::TEXT_NODE) && (type != Text::CDATA_SECTION_NODE))
         throw std::bad_cast("Cannot cast Node to Text");
     } // Text
 
