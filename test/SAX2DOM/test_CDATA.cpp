@@ -97,6 +97,15 @@ class CDATATest : public TestCase
       assert(t == cd2);
       assert(cd == cd2);
       assert(cd2 == cd);
+
+      t = d.createTextNode("boom");
+      try {
+        cd = DOM::CDATASection<std::string>(t);
+        assertImplementation(false, "converted text to CDATA");
+      } 
+      catch(const std::bad_cast& ex) {
+        assertEquals(ex.what(), "Cannot convert Node to CDATA section");
+      }
     } // testConversionToTest
 
     void testEverythingElse()

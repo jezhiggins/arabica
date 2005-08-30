@@ -1,0 +1,6 @@
+#ifndef ARABICA_TEST_SAX2DOM_CHARACTER_DATA_HPP
+#define ARABICA_TEST_SAX2DOM_CHARACTER_DATA_HPP
+
+TestSuite* CharacterDataTest_suite();
+
+#endif

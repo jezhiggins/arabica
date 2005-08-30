@@ -152,6 +152,9 @@
 				RelativePath=".\test_CDATA.cpp">
 			</File>
 			<File
+				RelativePath=".\test_CharacterData.cpp">
+			</File>
+			<File
 				RelativePath=".\test_Document.cpp">
 			</File>
 			<File
@@ -187,6 +190,9 @@
 			</File>
 			<File
 				RelativePath=".\test_CDATA.hpp">
+			</File>
+			<File
+				RelativePath=".\test_CharacterData.hpp">
 			</File>
 			<File
 				RelativePath=".\test_Document.h">

@@ -26,6 +26,7 @@
 #include "test_SAX.h"
 #include "test_Text.hpp"
 #include "test_CDATA.hpp"
+#include "test_CharacterData.hpp"
 
 class TestRunner
 {
@@ -60,6 +61,7 @@ int main(int argc, char* argv[])
   runner.addTest("ProcessingInstructionTest", ProcessingInstructionTest_suite());
   runner.addTest("TextTest", TextTest_suite());
   runner.addTest("CDATATest", CDATATest_suite());
+  runner.addTest("CharacterDataText", CharacterDataTest_suite());
   runner.addTest("DocumentFragmentTest", DocumentFragmentTest_suite());
   runner.addTest("SAX2DOMTest", SAXTest_suite());
   runner.run(argc, argv);
