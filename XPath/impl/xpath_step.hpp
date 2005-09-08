@@ -315,7 +315,7 @@ private:
         {
           string_type name(node->value.begin(), node->value.end());
           ++node;
-          return new NameNodeTest<string_type>(name);
+          return new NameNodeTest<string_type, string_adaptor>(name);
         } // case NameNodeTest
 
       case impl::Comment_id:
@@ -334,11 +334,11 @@ private:
         {
           ++node;
           if(getNodeId<string_type>(node) != impl::Literal_id) // not sure if this is always safe
-            return new ProcessingInstructionNodeTest<string_type>();
+            return new ProcessingInstructionNodeTest<string_type, string_adaptor>();
           
           string_type target(node->value.begin(), node->value.end());
           ++node;
-          return new ProcessingInstructionNodeTest<string_type>(target);
+          return new ProcessingInstructionNodeTest<string_type, string_adaptor>(target);
         } // case ProcessingInstruction_id
       
       case impl::SlashSlash_id:

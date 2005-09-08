@@ -10,7 +10,7 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT>
 class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 {
-    typedef typename stringT::size_type size_type;
+    typedef typename string_adaptorT::size_type size_type;
     typedef AttrImpl<stringT, string_adaptorT> AttrT;
 	
   public:
@@ -24,9 +24,9 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       string_adaptorT SA;
       bool hasPrefix = false;
       stringT prefix;
-      size_type index = qualifiedName.find(SA.makeStringT(":"));
+      size_type index = string_adaptorT::find(qualifiedName, SA.makeStringT(":"));
 
-      if(index == stringT::npos) 
+      if(index == string_adaptorT::npos) 
       {	//qualifiedName contains no ':'
 	      localName_ = qualifiedName;
         if(localName_ == SA.makeStringT("xmlns"))
@@ -38,8 +38,8 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       else 
       {	
         hasPrefix = true;
-	      prefix = qualifiedName.substr(0, index);
-	      localName_ = qualifiedName.substr(index+1);
+        prefix = string_adaptorT::substr(qualifiedName, 0, index);
+	      localName_ = string_adaptorT::substr(qualifiedName, index+1);
       }
 
       std::pair<bool, stringT> mappedURI = 
@@ -69,8 +69,8 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
     virtual stringT getPrefix() const 
     { 
       string_adaptorT SA;
-      size_type index = AttrT::name_.find(SA.makeStringT(":"));
-      return (index != stringT::npos) ? AttrT::name_.substr(0, index) : stringT();
+      size_type index = string_adaptorT::find(AttrT::name_, SA.makeStringT(":"));
+      return (index != string_adaptorT::npos) ? string_adaptorT::substr(AttrT::name_, 0, index) : stringT();
     } // getPrefix
     
     virtual void setPrefix(const stringT& prefix) 
@@ -78,7 +78,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       if(hasNamespaceURI_ == false) 
         throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
 
-      if(prefix.empty()) 
+      if(string_adaptorT::empty(prefix)) 
       {
         AttrT::name_ = localName_;
         return;
@@ -86,8 +86,9 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
       checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, namespaceURI_, DOM::Node<stringT>::ATTRIBUTE_NODE);
 
-      string_adaptorT SA;
-      AttrT::name_ = prefix + SA.makeStringT(":") + localName_; 
+      AttrT::name_ = prefix;
+      string_adaptorT::append(AttrT::name_, string_adaptorT().makeStringT(":"));
+      string_adaptorT::append(AttrT::name_, localName_);
     } // setPrefix
 
     virtual stringT getLocalName() const 
@@ -108,8 +109,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     virtual bool hasPrefix() const 
     { 
-      string_adaptorT SA;
-      return (AttrT::name_.find(SA.makeStringT(":")) != stringT::npos);
+      return (string_adaptorT::find(AttrT::name_, string_adaptorT().makeStringT(":")) != string_adaptorT::npos);
     } // hasPrefix
 
   private:

@@ -10,7 +10,7 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT>
 class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 {
-    typedef typename stringT::size_type size_type;
+    typedef typename string_adaptorT::size_type size_type;
     typedef ElementImpl<stringT, string_adaptorT> ElementImplT;
   public:
     ElementNSImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc,
@@ -23,17 +23,17 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       string_adaptorT SA;
       bool hasPrefix = false;
       stringT prefix;
-      size_type index = qualifiedName.find(SA.makeStringT(":"));
+      size_type index = string_adaptorT::find(qualifiedName, SA.makeStringT(":"));
 
-      if(index == stringT::npos) 
+      if(index == string_adaptorT::npos) 
       { //qualifiedName contains no ':'
         localName_ = qualifiedName;
       } 
       else 
       {	
         hasPrefix = true;
-        prefix = qualifiedName.substr(0, index);
-        localName_ = qualifiedName.substr(index+1);
+        prefix = string_adaptorT::substr(qualifiedName, 0, index);
+        localName_ = string_adaptorT::substr(qualifiedName, index+1);
       }
 
       std::pair<bool, stringT> mappedURI = 
@@ -62,8 +62,8 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
     virtual stringT getPrefix() const 
     { 
       string_adaptorT SA;
-      size_type index = ElementImplT::tagName_.find(SA.makeStringT(":"));
-      return (index != stringT::npos) ? ElementImplT::tagName_.substr(0, index) : stringT();
+      size_type index = string_adaptorT::find(ElementImplT::tagName_, SA.makeStringT(":"));
+      return (index != string_adaptorT::npos) ? string_adaptorT::substr(ElementImplT::tagName_, 0, index) : stringT();
     } // getPrefix
     
     virtual void setPrefix(const stringT& prefix) 
@@ -73,7 +73,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       if(hasNamespaceURI_ == false) 
         throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
 
-      if(prefix.empty()) 
+      if(string_adaptorT::empty(prefix)) 
       {
         ElementImplT::tagName_ = localName_;
         return;
@@ -81,8 +81,9 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 
       checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, namespaceURI_, DOM::Node<stringT>::ELEMENT_NODE);
 
-      string_adaptorT SA;
-      ElementImplT::tagName_ = prefix + SA.makeStringT(":") + localName_; 
+      string_adaptorT::append(ElementImplT::tagName_, prefix);
+      string_adaptorT::append(ElementImplT::tagName_, string_adaptorT().makeStringT(":"));
+      string_adaptorT::append(ElementImplT::tagName_, localName_);
     } // setPrefix
 
     virtual stringT getLocalName() const 
@@ -103,8 +104,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 
     virtual bool hasPrefix() const 
     { 
-      string_adaptorT SA;
-      return (ElementImplT::tagName_.find(SA.makeStringT(":")) != stringT::npos);
+      return (string_adaptorT::find(ElementImplT::tagName_, string_adaptorT().makeStringT(":")) != string_adaptorT::npos);
     } // hasPrefix
 
   private:

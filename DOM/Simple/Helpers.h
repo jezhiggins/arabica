@@ -23,7 +23,7 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
   if(!hasPrefix)
     return std::make_pair(hasNamespaceURI, namespaceURI);
 
-  if(prefix.find(SA.makeStringT(":")) != stringT::npos)
+  if(string_adaptorT::find(prefix, SA.makeStringT(":")) != string_adaptorT::npos)
     throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
 
   if(prefix == xml) 
@@ -37,12 +37,12 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
   {
     // DOM mandates xmlns: be bound to a namespace URI, XML Namespace rec
     // says not - allow for both here
-    if((namespaceURI == xmlnsURI) || (namespaceURI.empty()))
+    if((namespaceURI == xmlnsURI) || (string_adaptorT::empty(namespaceURI)))
       return std::make_pair(true, xmlnsURI);
     throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
   } // if(nodeType == DOM::Node<stringT>::ATTRIBUTE_NODE && prefix == xmlns) 
   
-  if(hasNamespaceURI == false || namespaceURI.length() == 0) 
+  if(hasNamespaceURI == false || string_adaptorT::empty(namespaceURI)) 
     throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
 
   return std::make_pair(true, namespaceURI);

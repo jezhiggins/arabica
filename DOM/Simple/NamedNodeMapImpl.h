@@ -34,11 +34,11 @@ class namespaceAndNameIs : public std::unary_function<NodeImpl<stringT, string_a
 
     bool operator()(const NodeImpl<stringT, string_adaptorT>* node) const
     {
-      if(namespaceURI_.empty())
+      if(string_adaptorT::empty(namespaceURI_))
       {
         if((node->hasNamespaceURI() == false) &&
            ((node->getLocalName() == localName_) ||
-            (node->getLocalName().empty() && node->getNodeName() == localName_)
+            (string_adaptorT::empty(node->getLocalName()) && node->getNodeName() == localName_)
            )
           )
           return true;

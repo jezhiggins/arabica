@@ -83,7 +83,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
     {
       stringT value;
       for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
-        value += c->getNodeValue();
+        string_adaptorT::append(value, c->getNodeValue());
       return value;
     } // getNodeValue
 

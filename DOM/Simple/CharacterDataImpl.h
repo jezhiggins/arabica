@@ -36,42 +36,47 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     virtual int getLength() const
     {
-      return static_cast<int>(data_.length());
+      return static_cast<int>(string_adaptorT::length(data_));
     } // getLength
 
     virtual stringT substringData(int offset, int count) const
     {
-      return data_.substr(offset, count);
+      return string_adaptorT::substr(data_, offset, count);
     } // substringData
 
     virtual void appendData(const stringT& arg)
     {
       NodeT::throwIfReadOnly();
-      data_.append(arg);
+      string_adaptorT::append(data_, arg);
     } // appendData
 
     virtual void insertData(int offset, const stringT& arg)
     {
       NodeT::throwIfReadOnly();
-      if(offset > static_cast<int>(data_.length()))
+      if(offset > static_cast<int>(string_adaptorT::length(data_)))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
-      data_.insert(offset, arg);
+
+      string_adaptorT::insert(data_, offset, arg);
     } // insertData
 
     virtual void deleteData(int offset, int count)
     {
       NodeT::throwIfReadOnly();
-      if(offset > static_cast<int>(data_.length()))
+
+      if(offset > static_cast<int>(string_adaptorT::length(data_)))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
-      data_.replace(offset, count, stringT());
+
+      string_adaptorT::replace(data_, offset, count, stringT());
     } // deleteData
 
     virtual void replaceData(int offset, int count, const stringT& arg)
     {
       NodeT::throwIfReadOnly();
-      if(offset > static_cast<int>(data_.length()))
+
+      if(offset > static_cast<int>(string_adaptorT::length(data_)))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
-      data_.replace(offset, count, arg);
+
+      string_adaptorT::replace(data_, offset, count, arg);
     } // replaceData
 
     ///////////////////////////////////////////////////////

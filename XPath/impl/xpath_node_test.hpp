@@ -37,7 +37,7 @@ public:
   } // matches
 }; // class AnyNodeTest
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class NameNodeTest : public NodeTest<string_type>
 {
 public:
@@ -46,7 +46,7 @@ public:
   virtual bool operator()(const DOM::Node<string_type>& node) const
   {
     return (name_ == node.getNodeName()) &&
-           (node.getPrefix().empty());
+      (string_adaptor::empty(node.getPrefix()));
   } // test
 
 private:
@@ -120,7 +120,7 @@ public:
   } // operator()
 }; // CommentNodeTest
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class ProcessingInstructionNodeTest : public NodeTest<string_type>
 {
 public:
@@ -132,7 +132,7 @@ public:
     if(node.getNodeType() != DOM::Node<string_type>::PROCESSING_INSTRUCTION_NODE)
       return false;
 
-    if(target_.empty())
+    if(string_adaptor::empty(target_))
       return true;
 
     return node.getNodeName() == target_;

@@ -204,7 +204,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       switch(importedNode->getNodeType())
       {
         case DOM::Node<stringT>::ATTRIBUTE_NODE:
-          if(importedNode->getLocalName().empty())
+          if(string_adaptorT::empty(importedNode->getLocalName()))
             newNode = createAttribute(importedNode->getNodeName());
           else
             newNode = createAttributeNS(importedNode->getNamespaceURI(), importedNode->getNodeName());
@@ -220,7 +220,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
         case DOM::Node<stringT>::ELEMENT_NODE:
           {
             DOM::Element_impl<stringT>* elem;
-            if(importedNode->getLocalName().empty())
+            if(string_adaptorT::empty(importedNode->getLocalName()))
               elem = createElement(importedNode->getNodeName());
             else
               elem = createElementNS(importedNode->getNamespaceURI(), importedNode->getNodeName());
@@ -233,7 +233,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
                 if(a->getSpecified())
                 {
                   DOM::Attr_impl<stringT>* newA = dynamic_cast<DOM::Attr_impl<stringT>*>(importNode(a, true));
-                  if(a->getLocalName().empty())
+                  if(string_adaptorT::empty(a->getLocalName()))
                     elem->setAttributeNode(newA);
                   else
                     elem->setAttributeNodeNS(newA);
@@ -296,14 +296,14 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     virtual DOM::Element_impl<stringT>* createElementNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
-      ElementNSImpl<stringT, string_adaptorT>* n = new ElementNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !namespaceURI.empty(), qualifiedName);
+      ElementNSImpl<stringT, string_adaptorT>* n = new ElementNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
       orphaned(n);
       return n;
     } // createElementNS
 
     virtual DOM::Attr_impl<stringT>* createAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
-      AttrNSImpl<stringT, string_adaptorT>* n = new AttrNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !namespaceURI.empty(), qualifiedName);
+      AttrNSImpl<stringT, string_adaptorT>* n = new AttrNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
       orphaned(n);
       return n;
     } // createAttrNS

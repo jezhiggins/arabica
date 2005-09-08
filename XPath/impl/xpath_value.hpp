@@ -30,8 +30,8 @@ public:
   } // evaluate
   virtual bool evaluateAsBool(const DOM::Node<string_type>& context) { return asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<string_type>& context) { return asNumber(); }
-  virtual std::string evaluateAsString(const DOM::Node<string_type>& context) { return asString(); }
-  virtual NodeSet<std::string> evaluateAsNodeSet(const DOM::Node<string_type>& context) { return asNodeSet(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type>& context) { return asString(); }
+  virtual NodeSet<string_type> evaluateAsNodeSet(const DOM::Node<string_type>& context) { return asNodeSet(); }
 
   virtual bool asBool() const { return value_; }
   virtual double asNumber() const { return value_ ? 1 : 0; }
@@ -73,7 +73,7 @@ public:
       return string_adaptor().makeStringT("Infinity");
     if(isNegativeInfinity(value_))
       return string_adaptor().makeStringT("-Infinity");
-    return boost::lexical_cast<string_type>(value_);
+    return string_adaptor().makeStringT(boost::lexical_cast<std::string>(value_).c_str());
   } // asString
   virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
 
@@ -88,7 +88,7 @@ class StringValue : public XPathValue<string_type>, public XPathExpression<strin
 {
 public:
   StringValue(const char* value) :
-      value_(value) { }
+      value_(string_adaptor().makeStringT(value)) { }
   StringValue(const string_type& value) :
       value_(value) { }
 
@@ -102,7 +102,7 @@ public:
   virtual string_type evaluateAsString(const DOM::Node<string_type>& context) { return asString(); }
   virtual NodeSet<string_type> evaluateAsNodeSet() const { return asNodeSet(); }
 
-  virtual bool asBool() const { return !value_.empty(); }
+  virtual bool asBool() const { return !string_adaptor::empty(value_); }
   virtual double asNumber() const 
   { 
     return impl::stringAsNumber(value_);

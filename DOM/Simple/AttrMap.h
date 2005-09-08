@@ -70,7 +70,11 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     void setAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName, const stringT& value)    
     {
-      AttrNSImpl<stringT, string_adaptorT>* a = new AttrNSImpl<stringT, string_adaptorT>(MapT::ownerDoc_, namespaceURI, !namespaceURI.empty(), qualifiedName);
+      AttrNSImpl<stringT, string_adaptorT>* a = 
+        new AttrNSImpl<stringT, string_adaptorT>(MapT::ownerDoc_, 
+                                                 namespaceURI, 
+                                                 !string_adaptorT::empty(namespaceURI), 
+                                                 qualifiedName);
       a->setValue(value);
       a->setOwnerElement(ownerElement_);
       MapT::setNamedItemNS(a);

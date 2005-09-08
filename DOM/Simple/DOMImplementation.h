@@ -43,7 +43,7 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT>
       for(int n = 0; names[n] != 0; ++n)
       {
         if((feature == SA.makeStringT(names[n])) &&
-           (version.empty() || version == SA.makeStringT("1.0") || version == SA.makeStringT("2.0")))
+           (string_adaptorT::empty(version) || version == SA.makeStringT("1.0") || version == SA.makeStringT("2.0")))
            return true;
       } // while 
 
@@ -65,7 +65,7 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT>
     {
       DocumentImpl<stringT, string_adaptorT>* doc = new DocumentImpl<stringT, string_adaptorT>(namespaceURI, qualifiedName, docType, this);
 
-      if(!qualifiedName.empty())
+      if(!string_adaptorT::empty(qualifiedName))
         doc->appendChild(doc->createElementNS(namespaceURI, qualifiedName));
 
       return doc;

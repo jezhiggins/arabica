@@ -194,7 +194,7 @@ private:
   AncestorOrSelfAxisWalker(const AncestorOrSelfAxisWalker& rhs) : AxisWalker<string_type>(rhs) { }
 }; // class AncestorOrSelfAxisWalker
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class AttributeAxisWalker : public AxisWalker<string_type>
 {
 public:
@@ -241,7 +241,7 @@ private:
     do
     {
       a = attrs_.item(index_++);
-    } while ((a != 0) && (a.getNamespaceURI() == "http://www.w3.org/2000/xmlns/"));
+    } while ((a != 0) && (a.getNamespaceURI() == string_adaptor().makeStringT("http://www.w3.org/2000/xmlns/")));
 
     AxisWalker<string_type>::set(a);
   } // set_next
@@ -407,8 +407,8 @@ public:
         DOM::Node<string_type> attr = current.getAttributes().item(a);
         if(attr.getPrefix() == xmlns_prefix_)
           list_.push_back(DOM::Node<string_type>(
-                      new NamespaceNodeImpl<string_type>(attr.getLocalName(), 
-                                                        attr.getNodeValue())
+                   new NamespaceNodeImpl<string_type, string_adaptor>(attr.getLocalName(), 
+                                                                      attr.getNodeValue())
                                                   )
                           );
       } // for ...
@@ -555,7 +555,7 @@ AxisEnumerator<string_type, string_adaptor>::AxisLookupTable[] =
 { 
   { ANCESTOR,           impl::CreateAxis<impl::AncestorAxisWalker<string_type>, string_type> },
   { ANCESTOR_OR_SELF,   impl::CreateAxis<impl::AncestorOrSelfAxisWalker<string_type>, string_type> },
-  { ATTRIBUTE,          impl::CreateAxis<impl::AttributeAxisWalker<string_type>, string_type> },
+  { ATTRIBUTE,          impl::CreateAxis<impl::AttributeAxisWalker<string_type, string_adaptor>, string_type> },
   { CHILD,              impl::CreateAxis<impl::ChildAxisWalker<string_type>, string_type> },
   { DESCENDANT,         impl::CreateAxis<impl::DescendantAxisWalker<string_type>, string_type> },
   { DESCENDANT_OR_SELF, impl::CreateAxis<impl::DescendantOrSelfAxisWalker<string_type>, string_type> },

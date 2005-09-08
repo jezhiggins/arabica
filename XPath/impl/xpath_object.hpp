@@ -313,7 +313,7 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
           os << ae->getNodeValue();
         ++ae;
       } // while
-      return os.str();
+      return string_adaptor().makeStringT(os.str().c_str());
     } // case
 
   case DOM::Node_base::ATTRIBUTE_NODE:
@@ -324,7 +324,8 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
     return node.getNodeValue();
 
   default:
-    throw std::runtime_error("Don't know how to calculate string-value of " + node.getNodeName());
+    throw std::runtime_error("Don't know how to calculate string-value of " + 
+      string_adaptor().asStdString(node.getNodeName()));
   } // switch
 } // nodeStringValue
 

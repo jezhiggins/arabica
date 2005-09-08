@@ -163,7 +163,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
         if(a->getSpecified())
         {
           DOM::Attr_impl<stringT>* newA = dynamic_cast<DOM::Attr_impl<stringT>*>(a->cloneNode(true));
-          if(a->getLocalName().empty())
+          if(string_adaptorT::empty(a->getLocalName()))
             clone->setAttributeNode(newA);
           else
             clone->setAttributeNodeNS(newA);
