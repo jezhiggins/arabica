@@ -82,7 +82,7 @@ public:
 
   void test2()
   {
-    impl::NameNodeTest<std::string> test("child1");
+    impl::NameNodeTest<std::string, Arabica::default_string_adaptor<std::string> > test("child1");
 
     assertTrue(test(element1_));
     assertTrue(!test(element2_));
@@ -96,7 +96,7 @@ public:
 
   void test3()
   {
-    impl::NameNodeTest<std::string> test("one");
+    impl::NameNodeTest<std::string, Arabica::default_string_adaptor<std::string> > test("one");
 
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
@@ -136,7 +136,7 @@ public:
 
   void test6()
   {
-    impl::ProcessingInstructionNodeTest<std::string> test;
+    impl::ProcessingInstructionNodeTest<std::string, Arabica::default_string_adaptor<std::string> > test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -149,7 +149,7 @@ public:
 
   void test7()
   {
-    impl::ProcessingInstructionNodeTest<std::string> test("fruity");
+    impl::ProcessingInstructionNodeTest<std::string, Arabica::default_string_adaptor<std::string> > test("fruity");
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -162,7 +162,7 @@ public:
 
   void test8()
   {
-    impl::ProcessingInstructionNodeTest<std::string> test("target");
+    impl::ProcessingInstructionNodeTest<std::string, Arabica::default_string_adaptor<std::string> > test("target");
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
