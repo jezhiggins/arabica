@@ -186,8 +186,8 @@ class StepFactory
 {
 public:
   static StepExpression<string_type, string_adaptor>*
-                         createStep(typename types<string_type>::node_iter_t& node, 
-                                    typename types<string_type>::node_iter_t const& end, 
+                         createStep(typename types<string_adaptor>::node_iter_t& node, 
+                                    typename types<string_adaptor>::node_iter_t const& end, 
                                     CompilationContext<string_type, string_adaptor>& context)
   {
     Axis axis = getAxis(node);
@@ -198,14 +198,14 @@ public:
 
     std::vector<XPathExpression<string_type, string_adaptor>*> preds;
 
-    while((node != end) && (getNodeId<string_type>(node) == impl::Predicate_id))
+    while((node != end) && (getNodeId<string_adaptor>(node) == impl::Predicate_id))
     {
-      typename types<string_type>::node_iter_t c = node->children.begin();
-      assert(getNodeId<string_type>(c) == impl::LeftSquare_id);
+      typename types<string_adaptor>::node_iter_t c = node->children.begin();
+      assert(getNodeId<string_adaptor>(c) == impl::LeftSquare_id);
       ++c;
       preds.push_back(XPath<string_type>::compile_expression(c, context));
       ++c;
-      assert(getNodeId<string_type>(c) == impl::RightSquare_id);
+      assert(getNodeId<string_adaptor>(c) == impl::RightSquare_id);
       
       ++node;
     } // if ...
@@ -214,7 +214,7 @@ public:
     return new TestStepExpression<string_type, string_adaptor>(axis, test, preds);
   } // createStep
 
-  static StepExpression<string_type, string_adaptor>* createStep(typename types<string_type>::node_iter_t& node, CompilationContext<string_type, string_adaptor>& context)
+  static StepExpression<string_type, string_adaptor>* createStep(typename types<string_adaptor>::node_iter_t& node, CompilationContext<string_type, string_adaptor>& context)
   {
     Axis axis = getAxis(node);
     NodeTest<string_type>* test = getTest(node, context.namespaceContext());
@@ -222,9 +222,9 @@ public:
   } // createStep
 
 private:
-  static Axis getAxis(typename types<string_type>::node_iter_t& node)
+  static Axis getAxis(typename types<string_adaptor>::node_iter_t& node)
   { 
-    long id = getNodeId<string_type>(node);
+    long id = getNodeId<string_adaptor>(node);
 
     switch(id)
     {
@@ -248,8 +248,8 @@ private:
         return CHILD;
     } // switch(id)
 
-    typename types<string_type>::node_iter_t axis_node = node->children.begin();
-    long axis = getNodeId<string_type>(skipWhitespace<string_type>(axis_node));
+    typename types<string_adaptor>::node_iter_t axis_node = node->children.begin();
+    long axis = getNodeId<string_adaptor>(skipWhitespace<string_adaptor>(axis_node));
     ++node;
     switch(axis)
     {
@@ -286,15 +286,15 @@ private:
     return CHILD;
   } // getAxis
 
-  static NodeTest<string_type>* getTest(typename types<string_type>::node_iter_t& node, const NamespaceContext<string_type, string_adaptor>& namespaceContext)
+  static NodeTest<string_type>* getTest(typename types<string_adaptor>::node_iter_t& node, const NamespaceContext<string_type, string_adaptor>& namespaceContext)
   {
-    long id = getNodeId<string_type>(skipWhitespace<string_type>(node));
+    long id = getNodeId<string_adaptor>(skipWhitespace<string_adaptor>(node));
 
     switch(id)
     {
       case impl::NodeTest_id:
         {
-          typename types<string_type>::node_iter_t c = node->children.begin();
+          typename types<string_adaptor>::node_iter_t c = node->children.begin();
           NodeTest<string_type>* t = getTest(c, namespaceContext);
           ++node;
           return t;
@@ -302,7 +302,7 @@ private:
 
       case impl::QName_id:
         {
-          typename types<string_type>::node_iter_t c = node->children.begin();
+          typename types<string_adaptor>::node_iter_t c = node->children.begin();
           string_type prefix(c->value.begin(), c->value.end());
           string_type uri = namespaceContext.namespaceURI(prefix);
           ++c;
@@ -333,7 +333,7 @@ private:
       case impl::ProcessingInstruction_id:
         {
           ++node;
-          if(getNodeId<string_type>(node) != impl::Literal_id) // not sure if this is always safe
+          if(getNodeId<string_adaptor>(node) != impl::Literal_id) // not sure if this is always safe
             return new ProcessingInstructionNodeTest<string_type, string_adaptor>();
           
           string_type target(node->value.begin(), node->value.end());
@@ -361,7 +361,7 @@ private:
 
       case impl::NameTest_id:
         {
-          typename types<string_type>::node_iter_t prefixNode = node->children.begin();
+          typename types<string_adaptor>::node_iter_t prefixNode = node->children.begin();
           ++node;
           string_type prefix(prefixNode->value.begin(), prefixNode->value.end());
           string_type uri = namespaceContext.namespaceURI(prefix);

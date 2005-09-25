@@ -34,7 +34,7 @@ class NamespaceContext
     bool operator==(const NamespaceContext&) const;
 }; // class NamespaceContext 
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class NamespaceContextPtr : public boost::shared_ptr<NamespaceContext<string_type, string_adaptor> > 
 {
 public:
@@ -44,7 +44,7 @@ public:
   } // NamespaceContextPtr
 }; // class NamespaceContextPtr
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class NullNamespaceContext : public NamespaceContext<string_type, string_adaptor>
 {  
   public:
@@ -59,7 +59,7 @@ class NullNamespaceContext : public NamespaceContext<string_type, string_adaptor
     } // clone
 }; // class NullNamespaceContext
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class StandardNamespaceContext : public NamespaceContext<string_type, string_adaptor>
 {
   public:
