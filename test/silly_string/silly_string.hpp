@@ -67,6 +67,4 @@ struct std::less<silly_string> : public binary_function<silly_string, silly_stri
 	}
 };
 
-
-
 #endif

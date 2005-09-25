@@ -8,21 +8,25 @@
 #include <XPath/XPath.hpp>
 #include "step_test.hpp"
 #include <DOM/Simple/DOMImplementation.h>
+#include "../silly_string/silly_string.hpp"
 
 using namespace Arabica::XPath;
+template<> class Arabica::default_string_adaptor<silly_string> : public silly_string_adaptor { };
 
 class StepTest : public TestCase
 {
-  DOM::DOMImplementation<std::string> factory_;
-  DOM::Document<std::string> document_;
+  silly_string_adaptor sa;
 
-  DOM::Element<std::string> root_;
+  DOM::DOMImplementation<silly_string> factory_;
+  DOM::Document<silly_string> document_;
 
-  DOM::Element<std::string> element1_;
-  DOM::Element<std::string> element2_;
-  DOM::Element<std::string> element3_;
+  DOM::Element<silly_string> root_;
 
-  DOM::Attr<std::string> attr_;
+  DOM::Element<silly_string> element1_;
+  DOM::Element<silly_string> element2_;
+  DOM::Element<silly_string> element3_;
+
+  DOM::Attr<silly_string> attr_;
 
 public:
   StepTest(const std::string& name) : TestCase(name)
@@ -31,22 +35,22 @@ public:
 
   void setUp()
   {
-    factory_ = SimpleDOM::DOMImplementation<std::string>::getDOMImplementation();
-    document_ = factory_.createDocument("", "root", 0);
+    factory_ = SimpleDOM::DOMImplementation<silly_string>::getDOMImplementation();
+    document_ = factory_.createDocument(sa.makeStringT(""), sa.makeStringT("root"), 0);
     root_ = document_.getDocumentElement();
 
-    element1_ = document_.createElement("child1");
-    element2_ = document_.createElement("child2");
-    element3_ = document_.createElement("child3");
+    element1_ = document_.createElement(sa.makeStringT("child1"));
+    element2_ = document_.createElement(sa.makeStringT("child2"));
+    element3_ = document_.createElement(sa.makeStringT("child3"));
 
-    element1_.setAttribute("one", "1");
+    element1_.setAttribute(sa.makeStringT("one"), sa.makeStringT("1"));
 
-    element2_.setAttribute("one", "1");
-    element2_.setAttribute("two", "1");
-    element2_.setAttribute("three", "1");
-    element2_.setAttribute("four", "1");
+    element2_.setAttribute(sa.makeStringT("one"), sa.makeStringT("1"));
+    element2_.setAttribute(sa.makeStringT("two"), sa.makeStringT("1"));
+    element2_.setAttribute(sa.makeStringT("three"), sa.makeStringT("1"));
+    element2_.setAttribute(sa.makeStringT("four"), sa.makeStringT("1"));
 
-    attr_ = element1_.getAttributeNode("one");
+    attr_ = element1_.getAttributeNode(sa.makeStringT("one"));
 
     root_.appendChild(element1_);
     root_.appendChild(element2_);
@@ -55,10 +59,10 @@ public:
 
   void test1()
   {
-    XPathExpressionPtr<std::string> step(new impl::TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(CHILD, new impl::AnyNodeTest<std::string>()));
+    XPathExpressionPtr<silly_string> step(new impl::TestStepExpression<silly_string, Arabica::default_string_adaptor<silly_string> >(CHILD, new impl::AnyNodeTest<silly_string>()));
 
-    XPathValuePtr<std::string> value = step->evaluate(root_);
-    const NodeSet<std::string>& set = value->asNodeSet();
+    XPathValuePtr<silly_string> value = step->evaluate(root_);
+    const NodeSet<silly_string>& set = value->asNodeSet();
 
     assertEquals(set.size(), 3);
     assertTrue(set[0] == element1_);
@@ -68,28 +72,28 @@ public:
 
   void test2()
   {
-    XPathExpressionPtr<std::string> step(new impl::TestStepExpression<std::string, Arabica::default_string_adaptor<std::string> >(ATTRIBUTE, new impl::AnyNodeTest<std::string>()));
+    XPathExpressionPtr<silly_string> step(new impl::TestStepExpression<silly_string, Arabica::default_string_adaptor<silly_string> >(ATTRIBUTE, new impl::AnyNodeTest<silly_string>()));
 
-    NodeSet<std::string> set = step->evaluateAsNodeSet(element2_);
+    NodeSet<silly_string> set = step->evaluateAsNodeSet(element2_);
 
     assertEquals(4, set.size());
-    DOM::Attr<std::string> attr = static_cast<DOM::Attr<std::string> >(set[0]);
-    assertEquals(attr.getNodeName(), "one");
-    attr = static_cast<DOM::Attr<std::string> >(set[1]);
-    assertEquals(attr.getNodeName(), "two");
-    attr = static_cast<DOM::Attr<std::string> >(set[2]);
-    assertEquals(attr.getNodeName(), "three");
-    attr = static_cast<DOM::Attr<std::string> >(set[3]);
-    assertEquals(attr.getNodeName(), "four");
+    DOM::Attr<silly_string> attr = static_cast<DOM::Attr<silly_string> >(set[0]);
+    assertTrue(attr.getNodeName() == sa.makeStringT("one"));
+    attr = static_cast<DOM::Attr<silly_string> >(set[1]);
+    assertTrue(attr.getNodeName() == sa.makeStringT("two"));
+    attr = static_cast<DOM::Attr<silly_string> >(set[2]);
+    assertTrue(attr.getNodeName() == sa.makeStringT("three"));
+    attr = static_cast<DOM::Attr<silly_string> >(set[3]);
+    assertTrue(attr.getNodeName() == sa.makeStringT("four"));
   } // test2
 
   void test3()
   {
-    XPathExpressionPtr<std::string> step(new impl::TestStepExpression<std::string, 
-      Arabica::default_string_adaptor<std::string> >(CHILD, new impl::NameNodeTest<std::string, Arabica::default_string_adaptor<std::string> >("child2")));
+    XPathExpressionPtr<silly_string> step(new impl::TestStepExpression<silly_string, 
+      Arabica::default_string_adaptor<silly_string> >(CHILD, new impl::NameNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> >(sa.makeStringT("child2"))));
 
-    XPathValuePtr<std::string> value = step->evaluate(root_);
-    const NodeSet<std::string>& set = value->asNodeSet();
+    XPathValuePtr<silly_string> value = step->evaluate(root_);
+    const NodeSet<silly_string>& set = value->asNodeSet();
 
     assertEquals(1, set.size());
     assertTrue(set[0] == element2_);

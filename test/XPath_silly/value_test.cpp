@@ -8,9 +8,9 @@
 #include <XPath/XPath.hpp>
 #include "value_test.hpp"
 #include "../silly_string/silly_string.hpp"
-template<> class Arabica::default_string_adaptor<silly_string> : public silly_string_adaptor { };
 
 using namespace Arabica::XPath;
+template<> class Arabica::default_string_adaptor<silly_string> : public silly_string_adaptor { };
 
 class ValueTest : public TestCase
 {
