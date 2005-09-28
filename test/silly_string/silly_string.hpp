@@ -28,6 +28,7 @@ class silly_string_adaptor
 {
 public:
   typedef silly_string stringT;
+  typedef std::string::const_iterator const_iterator;
   typedef char value_type;
   typedef std::string::size_type size_type;
   static const size_type npos;
@@ -35,6 +36,15 @@ public:
   char makeValueT(char c) const;
   silly_string makeStringT(const char* str) const;
   silly_string makeStringT(const char* str, int length) const;
+  
+  template<typename iterator_t>
+  silly_string makeStringT(iterator_t first, iterator_t last) const
+  {
+    silly_string s;
+    s.s_ = std::string(first, last);
+    return s;
+  } // makeStringT
+
 
   // here we go
   static bool empty(const silly_string& s);
@@ -45,6 +55,8 @@ public:
   static void append(silly_string& str, const silly_string& a);
   static void insert(silly_string& str, size_type offset, const silly_string& a);
   static void replace(silly_string& str, size_type offset, size_type count, const silly_string& a);
+  static const_iterator begin(const silly_string& str) { return str.s_.begin(); }
+  static const_iterator end(const silly_string& str) { return str.s_.end(); }
 
   // only used to constuct error strings - don't have to be highly efficient!
   std::string asStdString(const silly_string& str) const;

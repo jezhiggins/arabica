@@ -741,8 +741,8 @@ cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
 				Name="Release|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_MSXML /EP ParserConfig.S &gt; ParserConfig.h
-cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_LIBXML2 /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_LIBXML2 /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>

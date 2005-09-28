@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
       if(!eh.errorsReported())
       {
         DOM::Document<std::string> doc = domParser.getDocument();
+        doc.normalize();
         std::cout << doc;
       }
       else

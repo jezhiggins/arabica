@@ -17,6 +17,7 @@ class default_string_adaptor
 {
 public:
   typedef string_type stringT;
+  typedef typename stringT::const_iterator const_iterator;
   typedef typename stringT::value_type value_type;
   typedef typename stringT::size_type size_type;
   static const size_type npos;
@@ -24,6 +25,7 @@ public:
   value_type makeValueT(char c) const;
   stringT makeStringT(const char* str) const;
   stringT makeStringT(const char* str, int length) const;
+  stringT makeStringT(const_iterator s, const_iterator e) const;
 #ifndef ARABICA_NO_WCHAR_T
   stringT makeStringT(const wchar_t* str) const;
   stringT makeStringT(const wchar_t* str, int length) const;
@@ -37,11 +39,13 @@ public:
   static void append(string_type& str, const string_type& a);
   static void insert(string_type& str, size_type offset, const string_type& a);
   static void replace(string_type& str, size_type offser, size_type count, const string_type& a);
+  static const_iterator begin(const string_type& str);
+  static const_iterator end(const string_type& str);
 
   // only used to constuct error strings - don't have to be highly efficient!
-  std::string asStdString(const stringT& str) const;
+  std::string asStdString(const stringT& str);
 #ifndef ARABICA_NO_WCHAR_T
-  std::wstring asStdWString(const stringT& str) const;
+  std::wstring asStdWString(const stringT& str);
 #endif
 }; // class default_string_maker
 
@@ -51,6 +55,7 @@ class default_string_adaptor<std::string>
 {
 public:
   typedef std::string stringT;
+  typedef std::string::const_iterator const_iterator;
   typedef std::string::value_type value_type;
   typedef std::string::size_type size_type;
   static const size_type npos = static_cast<size_type>(-1);
@@ -65,6 +70,10 @@ public:
   {
     return std::string(str, length);
   } // makeStringT
+  std::string makeString(const const_iterator& first, const const_iterator& last) const
+  {
+    return std::string(first, last);
+  } // 
   const std::string& asStdString(const std::string& str) const
   {
     return str;
@@ -76,7 +85,7 @@ public:
   typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > narrower;
 
-  std::string makeStringT(const wchar_t* str) const
+  std::string makeStringT(const wchar_t* str)
   {
     std::wstring s;
     if(str)
@@ -84,12 +93,12 @@ public:
     n_.str(s);
     return n_.str();
   } // makeStringT
-  std::string makeStringT(const wchar_t* str, int length) const
+  std::string makeStringT(const wchar_t* str, int length) 
   {
     n_.str(std::wstring(str, length));
     return n_.str();
   } // makeStringT
-  std::wstring asStdWString(const std::string& str) const
+  std::wstring asStdWString(const std::string& str) 
   {
     w_.str(str);
     return w_.str();
@@ -136,6 +145,9 @@ public:
     str.replace(offset, count, a);
   } // replace
 
+  static const_iterator begin(const std::string& str) { return str.begin(); }
+  static const_iterator end(const std::string& str) { return str.end(); }
+
 #ifndef ARABICA_NO_WCHAR_T
   default_string_adaptor() :
 #ifndef ARABICA_VS6_WORKAROUND
@@ -169,11 +181,12 @@ class default_string_adaptor<std::wstring>
                                char, std::char_traits<char> > narrower;
 public:
   typedef std::wstring stringT;
+  typedef std::wstring::const_iterator const_iterator;
   typedef std::wstring::value_type value_type;
   typedef std::wstring::size_type size_type;
   static const size_type npos = static_cast<size_type>(-1);
 
-  wchar_t makeValueT(char c) const 
+  wchar_t makeValueT(char c) const
   { 
     return static_cast<wchar_t>(c);
   } // makeValueT
@@ -195,17 +208,21 @@ public:
   {
     return str ? std::wstring(str) : std::wstring();
   } // makeStringT
-  std::wstring makeStringT(const wchar_t* str, int length) const
+  std::wstring makeStringT(const wchar_t* str, int length) const 
   {
     return std::wstring(str, length);
   } // makeStringT
+  std::wstring makeStringT(const const_iterator& first, const const_iterator& last) const
+  {
+    return std::wstring(first, last);
+  } // makeStringT
 
-  std::string asStdString(const std::wstring& str) const
+  std::string asStdString(const std::wstring& str) const 
   {
     n_.str(str);
     return n_.str();
   } // toStdString
-  const std::wstring& asStdWString(const std::wstring& str) const
+  const std::wstring& asStdWString(const std::wstring& str) const 
   {
     return str;
   } // toStdWString
@@ -249,6 +266,9 @@ public:
   {
     str.replace(offset, count, a);
   } // replace
+
+  static const_iterator begin(const std::wstring& str) { return str.begin(); }
+  static const_iterator end(const std::wstring& str) { return str.end(); }
 
   default_string_adaptor() :
 #ifndef ARABICA_VS6_WORKAROUND

@@ -1,20 +1,15 @@
-<?xml version="1.0"?>
-<!DOCTYPE xsa PUBLIC "-//LM Garshol//DTD XML Software Autoupdate 1.0//EN//XML" 
-                     "http://www.garshol.priv.no/download/xsa/xsa.dtd">
-
-<xsa>
+<xsa xmlns="woot">
   <vendor>
     <name>Jez UK Ltd</name>
     <email>jez@jezuk.co.uk</email>
-    <url>http://www.jezuk.co.uk/</url>
+    <url>http://www.jezuk.co.uk/&amp;</url>
   </vendor>
-  <product id="SAX in C++">
-    <name>SAX in C++</name>
-    <version>October2001</version>
+  <w:product id="SAX in C++" xmlns:w="woot" xmlns="soot">
+    <w:name xmlns:w="soot">SAX in C++</w:name>
+    <version xmlns="soot" >October2001</version>
     <last-release>20011015</last-release>
     <info-url>http://www.jezuk.co.uk/SAX/code</info-url>
     <changes>
     </changes>
-  </product>
-<!-- hey <dude -->
+  </w:product>
 </xsa>

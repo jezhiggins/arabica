@@ -33,11 +33,11 @@ CXXFLAGS = -Wall
 LDFLAGS = 
 
 # Includes and library directories 
-INCS_DIRS = -I.. -I/usr/local/include
-LIBS_DIRS = 
+INCS_DIRS = -I.. -Id:/usr/include
+LIBS_DIRS = -Ld:/usr/dll
 
 STATIC_LIBS =
-DYNAMIC_LIBS =  -lexpat -lstdc++
+DYNAMIC_LIBS = -lwsock32 -lexpat -lstdc++ 
 
 # link flag to create a shared library
 LINK_SHARED = -shared
