@@ -28,24 +28,24 @@ silly_string& silly_string::operator=(const silly_string& rhs)
 ////////////////////////////////////////
 const silly_string_adaptor::size_type silly_string_adaptor::npos = std::string::npos;
 
-char silly_string_adaptor::makeValueT(char c) const
+char silly_string_adaptor::convert_from_utf8(char c)
 {
   return c;
-} // makeValueT
+} // convert_from_utf8
   
-silly_string silly_string_adaptor::makeStringT(const char* str) const
+silly_string silly_string_adaptor::construct_from_utf8(const char* str)
 {
   silly_string s;
   s.s_ = str;
   return s;
-} // makeStringT
+} // construct_from_utf8
 
-silly_string silly_string_adaptor::makeStringT(const char* str, int length) const
+silly_string silly_string_adaptor::construct_from_utf8(const char* str, int length)
 {
   silly_string s;
   s.s_ = std::string(str, length);
   return s;
-} // makeStringT
+} // construct_from_utf8
 
 bool silly_string_adaptor::empty(const silly_string& s)
 {
@@ -57,14 +57,19 @@ silly_string_adaptor::size_type silly_string_adaptor::find(const silly_string& s
   return str.s_.find(what.s_);
 } // find
 
+silly_string_adaptor::size_type silly_string_adaptor::find(const silly_string& str, value_type c)
+{
+  return str.s_.find(c);
+} // find
+
 silly_string silly_string_adaptor::substr(const silly_string& str, const size_type& offset)
 {
-  return silly_string_adaptor().makeStringT(str.s_.substr(offset).c_str());
+  return silly_string_adaptor::construct_from_utf8(str.s_.substr(offset).c_str());
 } // substr
 
 silly_string silly_string_adaptor::substr(const silly_string& str, const size_type& offset, const size_type& count)
 {
-  return silly_string_adaptor().makeStringT(str.s_.substr(offset, count).c_str());
+  return silly_string_adaptor::construct_from_utf8(str.s_.substr(offset, count).c_str());
 } // substr
 
 silly_string_adaptor::size_type silly_string_adaptor::length(const silly_string& str)
@@ -89,7 +94,7 @@ void silly_string_adaptor::replace(silly_string& str, size_type offset, size_typ
 
 
 // only used to constuct error strings - don't have to be highly efficient!
-std::string silly_string_adaptor::asStdString(const silly_string& str) const
+std::string silly_string_adaptor::asStdString(const silly_string& str)
 {
   return str.s_;
 } // asStdString

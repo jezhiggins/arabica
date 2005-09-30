@@ -239,97 +239,97 @@ private:
   static const std::map<int, string_type> init_debugNames()
   {
     std::map<int, string_type> names;
-    string_adaptor sa;
+    typedef string_adaptor SA;
 
-    names[impl::LocationPath_id] = sa.makeStringT("LocationPath");
-    names[impl::AbsoluteLocationPath_id] = sa.makeStringT("AbsoluteLocationPath");
-    names[impl::RelativeLocationPath_id] = sa.makeStringT("RelativeLocationPath");
-    names[impl::Step_id] = sa.makeStringT("Step");
-    names[impl::AxisSpecifier_id] = sa.makeStringT("AxisSpecifier");
-    names[impl::NodeTest_id] = sa.makeStringT("NodeTest");
-    names[impl::Predicate_id] = sa.makeStringT("Predicate");
-    names[impl::PredicateExpr_id] = sa.makeStringT("PredicateExpr");
-    names[impl::AbbreviatedAbsoluteLocationPath_id] = sa.makeStringT("AbbreviatedAbsoluteLocationPath");
-    names[impl::AbbreviatedStep_id] = sa.makeStringT("AbbreviatedStep");
-    names[impl::AbbreviatedAxisSpecifier_id] = sa.makeStringT("AbbreviatedAxisSpecifier");
-    names[impl::Expr_id] = sa.makeStringT("Expr");
-    names[impl::PrimaryExpr_id] = sa.makeStringT("PrimaryExpr");
-    names[impl::FunctionCall_id] = sa.makeStringT("FunctionCall");
-    names[impl::Argument_id] = sa.makeStringT("Argument");
-    names[impl::UnionExpr_id] = sa.makeStringT("UnionExpr");
-    names[impl::PathExpr_id] = sa.makeStringT("PathExpr");
-    names[impl::FilterExpr_id] = sa.makeStringT("FilterExpr");
-    names[impl::OrExpr_id] = sa.makeStringT("OrExpr");
-    names[impl::AndExpr_id] = sa.makeStringT("AndExpr");
-    names[impl::EqualityExpr_id] = sa.makeStringT("EqualityExpr");
-    names[impl::RelationalExpr_id] = sa.makeStringT("RelationalExpr");
-    names[impl::AdditiveExpr_id] = sa.makeStringT("AdditiveExpr");
-    names[impl::MultiplicativeExpr_id] = sa.makeStringT("MultiplicativeExpr");
-    names[impl::UnaryExpr_id] = sa.makeStringT("UnaryExpr");
-    names[impl::Literal_id] = sa.makeStringT("Literal");
-    names[impl::Number_id] = sa.makeStringT("Number");
-    names[impl::Digits_id] = sa.makeStringT("Digits");
-    names[impl::MultiplyOperator_id] = sa.makeStringT("MultiplyOperator");
-    names[impl::FunctionName_id] = sa.makeStringT("FunctionName");
-    names[impl::VariableReference_id] = sa.makeStringT("VariableReference");
-    names[impl::NameTest_id] = sa.makeStringT("NameTest");
-    names[impl::S_id] = sa.makeStringT("S");
-    names[impl::NodeType_id] = sa.makeStringT("NodeType");
-    names[impl::AxisName_id] = sa.makeStringT("AxisName");
+    names[impl::LocationPath_id] = SA::construct_from_utf8("LocationPath");
+    names[impl::AbsoluteLocationPath_id] = SA::construct_from_utf8("AbsoluteLocationPath");
+    names[impl::RelativeLocationPath_id] = SA::construct_from_utf8("RelativeLocationPath");
+    names[impl::Step_id] = SA::construct_from_utf8("Step");
+    names[impl::AxisSpecifier_id] = SA::construct_from_utf8("AxisSpecifier");
+    names[impl::NodeTest_id] = SA::construct_from_utf8("NodeTest");
+    names[impl::Predicate_id] = SA::construct_from_utf8("Predicate");
+    names[impl::PredicateExpr_id] = SA::construct_from_utf8("PredicateExpr");
+    names[impl::AbbreviatedAbsoluteLocationPath_id] = SA::construct_from_utf8("AbbreviatedAbsoluteLocationPath");
+    names[impl::AbbreviatedStep_id] = SA::construct_from_utf8("AbbreviatedStep");
+    names[impl::AbbreviatedAxisSpecifier_id] = SA::construct_from_utf8("AbbreviatedAxisSpecifier");
+    names[impl::Expr_id] = SA::construct_from_utf8("Expr");
+    names[impl::PrimaryExpr_id] = SA::construct_from_utf8("PrimaryExpr");
+    names[impl::FunctionCall_id] = SA::construct_from_utf8("FunctionCall");
+    names[impl::Argument_id] = SA::construct_from_utf8("Argument");
+    names[impl::UnionExpr_id] = SA::construct_from_utf8("UnionExpr");
+    names[impl::PathExpr_id] = SA::construct_from_utf8("PathExpr");
+    names[impl::FilterExpr_id] = SA::construct_from_utf8("FilterExpr");
+    names[impl::OrExpr_id] = SA::construct_from_utf8("OrExpr");
+    names[impl::AndExpr_id] = SA::construct_from_utf8("AndExpr");
+    names[impl::EqualityExpr_id] = SA::construct_from_utf8("EqualityExpr");
+    names[impl::RelationalExpr_id] = SA::construct_from_utf8("RelationalExpr");
+    names[impl::AdditiveExpr_id] = SA::construct_from_utf8("AdditiveExpr");
+    names[impl::MultiplicativeExpr_id] = SA::construct_from_utf8("MultiplicativeExpr");
+    names[impl::UnaryExpr_id] = SA::construct_from_utf8("UnaryExpr");
+    names[impl::Literal_id] = SA::construct_from_utf8("Literal");
+    names[impl::Number_id] = SA::construct_from_utf8("Number");
+    names[impl::Digits_id] = SA::construct_from_utf8("Digits");
+    names[impl::MultiplyOperator_id] = SA::construct_from_utf8("MultiplyOperator");
+    names[impl::FunctionName_id] = SA::construct_from_utf8("FunctionName");
+    names[impl::VariableReference_id] = SA::construct_from_utf8("VariableReference");
+    names[impl::NameTest_id] = SA::construct_from_utf8("NameTest");
+    names[impl::S_id] = SA::construct_from_utf8("S");
+    names[impl::NodeType_id] = SA::construct_from_utf8("NodeType");
+    names[impl::AxisName_id] = SA::construct_from_utf8("AxisName");
 
-    names[impl::QName_id] = sa.makeStringT("QName");
-    names[impl::Prefix_id] = sa.makeStringT("Prefix");
-    names[impl::LocalPart_id] = sa.makeStringT("LocalPart");
-    names[impl::NCName_id] = sa.makeStringT("NCName");
-    names[impl::NCNameChar_id] = sa.makeStringT("NCNameChar");
+    names[impl::QName_id] = SA::construct_from_utf8("QName");
+    names[impl::Prefix_id] = SA::construct_from_utf8("Prefix");
+    names[impl::LocalPart_id] = SA::construct_from_utf8("LocalPart");
+    names[impl::NCName_id] = SA::construct_from_utf8("NCName");
+    names[impl::NCNameChar_id] = SA::construct_from_utf8("NCNameChar");
 
-    names[impl::Slash_id] = sa.makeStringT("/");
-    names[impl::SlashSlash_id] = sa.makeStringT("//");
+    names[impl::Slash_id] = SA::construct_from_utf8("/");
+    names[impl::SlashSlash_id] = SA::construct_from_utf8("//");
 
-    names[impl::AncestorOrSelf_id] = sa.makeStringT("ancestor-or-self::");
-    names[impl::Ancestor_id] = sa.makeStringT("ancestor::");
-    names[impl::Attribute_id] = sa.makeStringT("attribute::");
-    names[impl::Child_id] = sa.makeStringT("child::");
-    names[impl::DescendantOrSelf_id] = sa.makeStringT("descendant-or-self::");
-    names[impl::Descendant_id] = sa.makeStringT("descendant::");
-    names[impl::FollowingSibling_id] = sa.makeStringT("following-sibling::");
-    names[impl::Following_id] = sa.makeStringT("following::");
-    names[impl::Namespace_id] = sa.makeStringT("namespace::");
-    names[impl::Parent_id] = sa.makeStringT("parent::");
-    names[impl::PrecedingSibling_id] = sa.makeStringT("preceding-sibling::");
-    names[impl::Preceding_id] = sa.makeStringT("preceding::");
-    names[impl::Self_id] = sa.makeStringT("self::");
+    names[impl::AncestorOrSelf_id] = SA::construct_from_utf8("ancestor-or-self::");
+    names[impl::Ancestor_id] = SA::construct_from_utf8("ancestor::");
+    names[impl::Attribute_id] = SA::construct_from_utf8("attribute::");
+    names[impl::Child_id] = SA::construct_from_utf8("child::");
+    names[impl::DescendantOrSelf_id] = SA::construct_from_utf8("descendant-or-self::");
+    names[impl::Descendant_id] = SA::construct_from_utf8("descendant::");
+    names[impl::FollowingSibling_id] = SA::construct_from_utf8("following-sibling::");
+    names[impl::Following_id] = SA::construct_from_utf8("following::");
+    names[impl::Namespace_id] = SA::construct_from_utf8("namespace::");
+    names[impl::Parent_id] = SA::construct_from_utf8("parent::");
+    names[impl::PrecedingSibling_id] = SA::construct_from_utf8("preceding-sibling::");
+    names[impl::Preceding_id] = SA::construct_from_utf8("preceding::");
+    names[impl::Self_id] = SA::construct_from_utf8("self::");
 
-    names[impl::Comment_id] = sa.makeStringT("comment()");
-    names[impl::Text_id] = sa.makeStringT("text()");
-    names[impl::ProcessingInstruction_id] = sa.makeStringT("processing-instruction()");
-    names[impl::Node_id] = sa.makeStringT("node()");
-    names[impl::AnyName_id] = sa.makeStringT("AnyName");
+    names[impl::Comment_id] = SA::construct_from_utf8("comment()");
+    names[impl::Text_id] = SA::construct_from_utf8("text()");
+    names[impl::ProcessingInstruction_id] = SA::construct_from_utf8("processing-instruction()");
+    names[impl::Node_id] = SA::construct_from_utf8("node()");
+    names[impl::AnyName_id] = SA::construct_from_utf8("AnyName");
 
-    names[impl::SelfSelect_id] = sa.makeStringT("SelfSelect");
-    names[impl::ParentSelect_id] = sa.makeStringT("ParentSelect");
+    names[impl::SelfSelect_id] = SA::construct_from_utf8("SelfSelect");
+    names[impl::ParentSelect_id] = SA::construct_from_utf8("ParentSelect");
 
-    names[impl::LeftSquare_id] = sa.makeStringT("[");
-    names[impl::RightSquare_id] = sa.makeStringT("]");
+    names[impl::LeftSquare_id] = SA::construct_from_utf8("[");
+    names[impl::RightSquare_id] = SA::construct_from_utf8("]");
 
-    names[impl::LeftBracket_id] = sa.makeStringT("(");
-    names[impl::RightBracket_id] = sa.makeStringT(")");
+    names[impl::LeftBracket_id] = SA::construct_from_utf8("(");
+    names[impl::RightBracket_id] = SA::construct_from_utf8(")");
 
-    names[impl::PlusOperator_id] = sa.makeStringT("+");
-    names[impl::MinusOperator_id] = sa.makeStringT("-");
-    names[impl::ModOperator_id] = sa.makeStringT("mod");
-    names[impl::DivOperator_id] = sa.makeStringT("div");
-    names[impl::EqualsOperator_id] = sa.makeStringT("=");
-    names[impl::NotEqualsOperator_id] = sa.makeStringT("!=");
-    names[impl::LessThanOperator_id] = sa.makeStringT("<");
-    names[impl::LessThanEqualsOperator_id] = sa.makeStringT("<=");
-    names[impl::GreaterThanOperator_id] = sa.makeStringT(">");
-    names[impl::GreaterThanEqualsOperator_id] = sa.makeStringT(">=");
+    names[impl::PlusOperator_id] = SA::construct_from_utf8("+");
+    names[impl::MinusOperator_id] = SA::construct_from_utf8("-");
+    names[impl::ModOperator_id] = SA::construct_from_utf8("mod");
+    names[impl::DivOperator_id] = SA::construct_from_utf8("div");
+    names[impl::EqualsOperator_id] = SA::construct_from_utf8("=");
+    names[impl::NotEqualsOperator_id] = SA::construct_from_utf8("!=");
+    names[impl::LessThanOperator_id] = SA::construct_from_utf8("<");
+    names[impl::LessThanEqualsOperator_id] = SA::construct_from_utf8("<=");
+    names[impl::GreaterThanOperator_id] = SA::construct_from_utf8(">");
+    names[impl::GreaterThanEqualsOperator_id] = SA::construct_from_utf8(">=");
 
-    names[impl::OrOperator_id] = sa.makeStringT("or");
-    names[impl::AndOperator_id] = sa.makeStringT("and");
-    names[impl::UnionOperator_id] = sa.makeStringT("union");
-    names[impl::UnaryMinusOperator_id] = sa.makeStringT("minus");
+    names[impl::OrOperator_id] = SA::construct_from_utf8("or");
+    names[impl::AndOperator_id] = SA::construct_from_utf8("and");
+    names[impl::UnionOperator_id] = SA::construct_from_utf8("union");
+    names[impl::UnaryMinusOperator_id] = SA::construct_from_utf8("minus");
 
     return names;
   } // init_debugNames
@@ -405,8 +405,7 @@ template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createFunction(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   typename impl::types<string_adaptor>::node_iter_t c = i->children.begin();
-//  string_type name = string_adaptor().makeStringT(c->value.begin(), c->value.end());
-  string_type name(c->value.begin(), c->value.end());
+  string_type name = string_adaptor::construct(c->value.begin(), c->value.end());
   ++c;
   impl::skipWhitespace<string_adaptor>(c);
   assert(impl::getNodeId<string_adaptor>(c) == impl::LeftBracket_id);
@@ -495,24 +494,21 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createLiteral(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
-  //string_type str = string_adaptor().makeStringT(i->value.begin(), i->value.end());
-  string_type str(i->value.begin(), i->value.end());
+  string_type str = string_adaptor::construct(i->value.begin(), i->value.end());
   return new StringValue<string_type, string_adaptor>(str);
 } // createLiteral
 
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createNumber(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
-  //string_type str = string_adaptor().makeStringT(i->value.begin(), i->value.end());
-  string_type str(i->value.begin(), i->value.end());
+  string_type str = string_adaptor::construct(i->value.begin(), i->value.end());
   return new NumericValue<string_type, string_adaptor>(boost::lexical_cast<double>(str));
 } // createNumber
 
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createVariable(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
-  //string_type str = string_adaptor().makeStringT(i->value.begin()+1, i->value.end()); // skip $
-  string_type str(i->value.begin()+1, i->value.end());
+  string_type str = string_adaptor::construct(i->value.begin()+1, i->value.end());
   return new Variable<string_type, string_adaptor>(str); 
 } // createVariable
 

@@ -40,7 +40,7 @@ public:
                                         const CompilationContext<string_type, string_adaptor>& context)
   {
     for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)
-      if(name == fn->name)
+      if(name == string_adaptor::construct_from_utf8(fn->name))
         return new FunctionHolder(fn->creator(argExprs));
 
     XPathFunction<string_type, string_adaptor>* func = context.functionResolver().resolveFunction(name, argExprs);

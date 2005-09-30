@@ -35,7 +35,7 @@ public:
 
   virtual bool asBool() const { return value_; }
   virtual double asNumber() const { return value_ ? 1 : 0; }
-  virtual string_type asString() const { return string_adaptor().makeStringT(value_ ? "true" : "false"); }
+  virtual string_type asString() const { return string_adaptor::construct_from_utf8(value_ ? "true" : "false"); }
   virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
 
   virtual ValueType type() const { return BOOL; }
@@ -68,12 +68,12 @@ public:
   virtual string_type asString() const
   {
     if(isNaN(value_)) 
-      return string_adaptor().makeStringT("NaN");
+      return string_adaptor::construct_from_utf8("NaN");
     if(isInfinity(value_))
-      return string_adaptor().makeStringT("Infinity");
+      return string_adaptor::construct_from_utf8("Infinity");
     if(isNegativeInfinity(value_))
-      return string_adaptor().makeStringT("-Infinity");
-    return string_adaptor().makeStringT(boost::lexical_cast<std::string>(value_).c_str());
+      return string_adaptor::construct_from_utf8("-Infinity");
+    return string_adaptor::construct_from_utf8(boost::lexical_cast<std::string>(value_).c_str());
   } // asString
   virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
 
@@ -88,7 +88,7 @@ class StringValue : public XPathValue<string_type>, public XPathExpression<strin
 {
 public:
   StringValue(const char* value) :
-      value_(string_adaptor().makeStringT(value)) { }
+      value_(string_adaptor::construct_from_utf8(value)) { }
   StringValue(const string_type& value) :
       value_(value) { }
 
@@ -142,7 +142,7 @@ public:
   } // asNumber
   virtual string_type asString() const 
   { 
-    return !set_.empty() ? impl::nodeStringValue<string_type, string_adaptor>(set_.top()) : string_adaptor().makeStringT("");
+    return !set_.empty() ? impl::nodeStringValue<string_type, string_adaptor>(set_.top()) : string_adaptor::construct_from_utf8("");
   } // asStringx
   virtual const NodeSet<string_type>& asNodeSet() const { return set_; }
 

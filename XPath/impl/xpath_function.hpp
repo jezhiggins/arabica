@@ -249,7 +249,7 @@ public:
   {
     string_type s;
     for(size_t a = 0, ae = baseT::argCount(); a < ae; ++a)
-      s.append(baseT::argAsString(a, context, executionContext));
+      string_adaptor::append(s, baseT::argAsString(a, context, executionContext));
     return new StringValue<string_type, string_adaptor>(s);
   } // evaluate
 }; // ConcatFn
@@ -268,11 +268,14 @@ public:
     string_type value = baseT::argAsString(0, context, executionContext);
     string_type start = baseT::argAsString(1, context, executionContext);
 
-    if(value.length() < start.length())
+    if(string_adaptor::length(value) < string_adaptor::length(start))
       return new BoolValue<string_type, string_adaptor>(false);
 
-    for(size_t i = 0, ie = start.length(); i < ie; ++i)
-      if(value[i] != start[i])
+    string_adaptor::const_iterator i = string_adaptor::begin(value);
+    string_adaptor::const_iterator s = string_adaptor::begin(start);
+    string_adaptor::const_iterator e = string_adaptor::end(start);
+    for(; s != e; ++s, ++i)
+      if(*i != *s)
         return new BoolValue<string_type, string_adaptor>(false);
 
     return new BoolValue<string_type, string_adaptor>(true);
@@ -290,7 +293,8 @@ public:
   virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new BoolValue<string_type, string_adaptor>(baseT::argAsString(0, context, executionContext).find(baseT::argAsString(1, context, executionContext)) != string_type::npos);
+    return new BoolValue<string_type, string_adaptor>(string_adaptor::find(baseT::argAsString(0, context, executionContext),
+                                                                           baseT::argAsString(1, context, executionContext)) != string_adaptor::npos);
   } // evaluate
 }; // class ContainsFn
 
@@ -306,12 +310,12 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type value = baseT::argAsString(0, context, executionContext);
-    size_t splitAt = value.find(baseT::argAsString(1, context, executionContext));
+    size_t splitAt = string_adaptor::find(value, baseT::argAsString(1, context, executionContext));
 
-    if(splitAt == string_type::npos)
+    if(splitAt == string_adaptor::npos)
       return new StringValue<string_type, string_adaptor>("");
 
-    return new StringValue<string_type, string_adaptor>(value.substr(0, splitAt));
+    return new StringValue<string_type, string_adaptor>(string_adaptor::substr(value, 0, splitAt));
   } // evaluate
 }; // class SubstringBeforeFn
 
@@ -328,12 +332,12 @@ public:
   {
     string_type value = baseT::argAsString(0, context, executionContext);
     string_type split = baseT::argAsString(1, context, executionContext);
-    size_t splitAt = value.find(split);
+    size_t splitAt = string_adaptor::find(value, split);
 
-    if((splitAt == string_type::npos) || ((splitAt + split.length()) >= value.length()))
+    if((splitAt == string_adaptor::npos) || ((splitAt + string_adaptor::length(split)) >= string_adaptor::length(value)))
       return new StringValue<string_type, string_adaptor>("");
 
-    return new StringValue<string_type, string_adaptor>(value.substr(splitAt + split.length()));
+    return new StringValue<string_type, string_adaptor>(string_adaptor::substr(value, splitAt + string_adaptor::length(split)));
   } // evaluate
 }; // class SubstringAfterFn
 
@@ -357,10 +361,10 @@ public:
 
     if(startAt < 0)
       startAt = 0;
-    if((isInfinite(endAt)) || (endAt > value.length()))
-      endAt = value.length();
+    if((isInfinite(endAt)) || (endAt > string_adaptor::length(value)))
+      endAt = string_adaptor::length(value);
 
-    return new StringValue<string_type, string_adaptor>(value.substr(static_cast<int>(startAt), static_cast<int>(endAt - startAt)));
+    return new StringValue<string_type, string_adaptor>(string_adaptor::substr(value, static_cast<int>(startAt), static_cast<int>(endAt - startAt)));
   } // evaluate
 }; // SubstringFn
 
@@ -375,7 +379,8 @@ public:
   virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new NumericValue<string_type, string_adaptor>(((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context)).length());
+    string_type v = (baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context);
+    return new NumericValue<string_type, string_adaptor>(string_adaptor::length(v));
   } // evaluate
 }; // StringLengthFn
 
@@ -391,24 +396,24 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type value = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
-    size_t i = 0, ie = value.length();
+    string_adaptor::const_iterator i = string_adaptor::begin(value), ie = string_adaptor::end(value);
+    string_adaptor::mutable_iterator p = string_adaptor::begin(value), pe = string_adaptor::end(value);
 
     // string leading space
-    while((i != ie) && (XML::is_space(static_cast<wchar_t>(value[i]))))
+    while((i != ie) && (XML::is_space(static_cast<wchar_t>(*i))))
       ++i;
     
-    size_t p = 0;
     while(i != ie)
     {
-      while((i != ie) && (!XML::is_space(static_cast<wchar_t>(value[i])))) 
-        value[p++] = value[i++];
-      while((i != ie) && (XML::is_space(static_cast<wchar_t>(value[i]))))
+      while((i != ie) && (!XML::is_space(static_cast<wchar_t>(*i)))) 
+        *p++ = *i++;
+      while((i != ie) && (XML::is_space(static_cast<wchar_t>(*i))))
         ++i;
       if(i != ie)
-        value[p++] = Unicode<char>::SPACE;
+        *p++ = Unicode<char>::SPACE;
     } // while ...
     if(p != ie)
-      value.resize(p);
+      *p++ = 0;
 
     return new StringValue<string_type, string_adaptor>(value);
   } // evaluate
@@ -429,17 +434,17 @@ public:
     string_type from = baseT::argAsString(1, context, executionContext);
     string_type to = baseT::argAsString(2, context, executionContext);
 
-    size_t p = 0;
-    for(size_t i = 0, ie = str.length(); i != ie; ++i)
+    string_adaptor::mutable_iterator p = string_adaptor::begin(str);
+    for(string_adaptor::mutable_iterator i = string_adaptor::begin(str), ie = string_adaptor::end(str); i != ie; ++i)
     {
-      size_t r = from.find(str[i]);
-      if(r == string_type::npos)
+      size_t r = string_adaptor::find(from, *i);
+      if(r == string_adaptor::npos)
         ++p;
-      else if(r < to.length())
-        str[p++] = to[r];
+      else if(r < string_adaptor::length(to))
+        *p++ = *(string_adaptor::begin(to) + r);
     } // for ...
-    if(p != str.length())
-      str.resize(p);
+    if(p != string_adaptor::end(str))
+      *p = 0;
 
     return new StringValue<string_type, string_adaptor>(str);
   } // evaluate

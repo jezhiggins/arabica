@@ -21,26 +21,25 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
         AttrImpl<stringT, string_adaptorT>(ownerDoc, qualifiedName),
         hasNamespaceURI_(false)
     { 
-      string_adaptorT SA;
       bool hasPrefix = false;
       stringT prefix;
-      size_type index = string_adaptorT::find(qualifiedName, SA.makeStringT(":"));
+      size_type index = string_adaptorT::find(qualifiedName, string_adaptorT::construct_from_utf8(":"));
 
       if(index == string_adaptorT::npos) 
       {	//qualifiedName contains no ':'
 	      localName_ = qualifiedName;
-        if(localName_ == SA.makeStringT("xmlns"))
+        if(localName_ == string_adaptorT::construct_from_utf8("xmlns"))
         {
           hasPrefix = true;
           prefix = localName_;
-        } // 
+        } // if ...
       } 
       else 
       {	
         hasPrefix = true;
         prefix = string_adaptorT::substr(qualifiedName, 0, index);
 	      localName_ = string_adaptorT::substr(qualifiedName, index+1);
-      }
+      } // if(index == string_adaptorT::npos) 
 
       std::pair<bool, stringT> mappedURI = 
         checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, prefix, hasNamespaceURI, namespaceURI, DOM::Node<stringT>::ATTRIBUTE_NODE);
@@ -68,8 +67,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     virtual stringT getPrefix() const 
     { 
-      string_adaptorT SA;
-      size_type index = string_adaptorT::find(AttrT::name_, SA.makeStringT(":"));
+      size_type index = string_adaptorT::find(AttrT::name_, string_adaptorT::construct_from_utf8(":"));
       return (index != string_adaptorT::npos) ? string_adaptorT::substr(AttrT::name_, 0, index) : stringT();
     } // getPrefix
     
@@ -87,7 +85,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, namespaceURI_, DOM::Node<stringT>::ATTRIBUTE_NODE);
 
       AttrT::name_ = prefix;
-      string_adaptorT::append(AttrT::name_, string_adaptorT().makeStringT(":"));
+      string_adaptorT::append(AttrT::name_, string_adaptorT::construct_from_utf8(":"));
       string_adaptorT::append(AttrT::name_, localName_);
     } // setPrefix
 
@@ -109,7 +107,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     virtual bool hasPrefix() const 
     { 
-      return (string_adaptorT::find(AttrT::name_, string_adaptorT().makeStringT(":")) != string_adaptorT::npos);
+      return (string_adaptorT::find(AttrT::name_, string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos);
     } // hasPrefix
 
   private:

@@ -49,8 +49,7 @@ class TextImpl : public DOM::Text_impl<stringT>,
 
     virtual stringT getNodeName() const 
     {
-      string_adaptorT SA;
-      return SA.makeStringT("#text");
+      return string_adaptorT::construct_from_utf8("#text");
     } // getNodeName
 }; // class TextImpl
 

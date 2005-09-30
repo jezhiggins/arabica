@@ -15,7 +15,7 @@ template<> class Arabica::default_string_adaptor<silly_string> : public silly_st
 
 class StepTest : public TestCase
 {
-  silly_string_adaptor sa;
+  typedef silly_string_adaptor SA;
 
   DOM::DOMImplementation<silly_string> factory_;
   DOM::Document<silly_string> document_;
@@ -36,21 +36,21 @@ public:
   void setUp()
   {
     factory_ = SimpleDOM::DOMImplementation<silly_string>::getDOMImplementation();
-    document_ = factory_.createDocument(sa.makeStringT(""), sa.makeStringT("root"), 0);
+    document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
-    element1_ = document_.createElement(sa.makeStringT("child1"));
-    element2_ = document_.createElement(sa.makeStringT("child2"));
-    element3_ = document_.createElement(sa.makeStringT("child3"));
+    element1_ = document_.createElement(SA::construct_from_utf8("child1"));
+    element2_ = document_.createElement(SA::construct_from_utf8("child2"));
+    element3_ = document_.createElement(SA::construct_from_utf8("child3"));
 
-    element1_.setAttribute(sa.makeStringT("one"), sa.makeStringT("1"));
+    element1_.setAttribute(SA::construct_from_utf8("one"), SA::construct_from_utf8("1"));
 
-    element2_.setAttribute(sa.makeStringT("one"), sa.makeStringT("1"));
-    element2_.setAttribute(sa.makeStringT("two"), sa.makeStringT("1"));
-    element2_.setAttribute(sa.makeStringT("three"), sa.makeStringT("1"));
-    element2_.setAttribute(sa.makeStringT("four"), sa.makeStringT("1"));
+    element2_.setAttribute(SA::construct_from_utf8("one"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("two"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("three"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("four"), SA::construct_from_utf8("1"));
 
-    attr_ = element1_.getAttributeNode(sa.makeStringT("one"));
+    attr_ = element1_.getAttributeNode(SA::construct_from_utf8("one"));
 
     root_.appendChild(element1_);
     root_.appendChild(element2_);
@@ -78,19 +78,19 @@ public:
 
     assertEquals(4, set.size());
     DOM::Attr<silly_string> attr = static_cast<DOM::Attr<silly_string> >(set[0]);
-    assertTrue(attr.getNodeName() == sa.makeStringT("one"));
+    assertTrue(attr.getNodeName() == SA::construct_from_utf8("one"));
     attr = static_cast<DOM::Attr<silly_string> >(set[1]);
-    assertTrue(attr.getNodeName() == sa.makeStringT("two"));
+    assertTrue(attr.getNodeName() == SA::construct_from_utf8("two"));
     attr = static_cast<DOM::Attr<silly_string> >(set[2]);
-    assertTrue(attr.getNodeName() == sa.makeStringT("three"));
+    assertTrue(attr.getNodeName() == SA::construct_from_utf8("three"));
     attr = static_cast<DOM::Attr<silly_string> >(set[3]);
-    assertTrue(attr.getNodeName() == sa.makeStringT("four"));
+    assertTrue(attr.getNodeName() == SA::construct_from_utf8("four"));
   } // test2
 
   void test3()
   {
     XPathExpressionPtr<silly_string> step(new impl::TestStepExpression<silly_string, 
-      Arabica::default_string_adaptor<silly_string> >(CHILD, new impl::NameNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> >(sa.makeStringT("child2"))));
+      Arabica::default_string_adaptor<silly_string> >(CHILD, new impl::NameNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> >(SA::construct_from_utf8("child2"))));
 
     XPathValuePtr<silly_string> value = step->evaluate(root_);
     const NodeSet<silly_string>& set = value->asNodeSet();

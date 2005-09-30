@@ -20,10 +20,9 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
         ElementImpl<stringT, string_adaptorT>(ownerDoc, qualifiedName),
         hasNamespaceURI_(false)
     { 
-      string_adaptorT SA;
       bool hasPrefix = false;
       stringT prefix;
-      size_type index = string_adaptorT::find(qualifiedName, SA.makeStringT(":"));
+      size_type index = string_adaptorT::find(qualifiedName, string_adaptorT::construct_from_utf8(":"));
 
       if(index == string_adaptorT::npos) 
       { //qualifiedName contains no ':'
@@ -61,8 +60,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 
     virtual stringT getPrefix() const 
     { 
-      string_adaptorT SA;
-      size_type index = string_adaptorT::find(ElementImplT::tagName_, SA.makeStringT(":"));
+      size_type index = string_adaptorT::find(ElementImplT::tagName_, string_adaptorT::construct_from_utf8(":"));
       return (index != string_adaptorT::npos) ? string_adaptorT::substr(ElementImplT::tagName_, 0, index) : stringT();
     } // getPrefix
     
@@ -82,7 +80,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, namespaceURI_, DOM::Node<stringT>::ELEMENT_NODE);
 
       string_adaptorT::append(ElementImplT::tagName_, prefix);
-      string_adaptorT::append(ElementImplT::tagName_, string_adaptorT().makeStringT(":"));
+      string_adaptorT::append(ElementImplT::tagName_, string_adaptorT::construct_from_utf8(":"));
       string_adaptorT::append(ElementImplT::tagName_, localName_);
     } // setPrefix
 
@@ -104,7 +102,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 
     virtual bool hasPrefix() const 
     { 
-      return (string_adaptorT::find(ElementImplT::tagName_, string_adaptorT().makeStringT(":")) != string_adaptorT::npos);
+      return (string_adaptorT::find(ElementImplT::tagName_, string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos);
     } // hasPrefix
 
   private:

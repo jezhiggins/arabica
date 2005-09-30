@@ -27,28 +27,36 @@ private:
 class silly_string_adaptor
 {
 public:
-  typedef silly_string stringT;
+  typedef silly_string string_type;
   typedef std::string::const_iterator const_iterator;
+  typedef std::string::iterator mutable_iterator;
   typedef char value_type;
   typedef std::string::size_type size_type;
   static const size_type npos;
 
-  char makeValueT(char c) const;
-  silly_string makeStringT(const char* str) const;
-  silly_string makeStringT(const char* str, int length) const;
-  
-  template<typename iterator_t>
-  silly_string makeStringT(iterator_t first, iterator_t last) const
+  template<class InputIterator>
+  static silly_string construct(InputIterator from, InputIterator to)
   {
-    silly_string s;
-    s.s_ = std::string(first, last);
-    return s;
-  } // makeStringT
+    silly_string ss;
+    ss.s_ = std::string(from, to);
+    return ss;
+  } // construct
 
+  static string_type construct(const value_type* s)
+  {
+    silly_string ss;
+    ss.s_ = std::string(s);
+    return ss;
+  } // construct
+
+  static char convert_from_utf8(char c);
+  static silly_string construct_from_utf8(const char* str);
+  static silly_string construct_from_utf8(const char* str, int length);
 
   // here we go
   static bool empty(const silly_string& s);
   static size_type find(const silly_string& str, const silly_string& what);
+  static size_type find(const silly_string& str, value_type c);
   static silly_string substr(const silly_string& str, const size_type& offset);
   static silly_string substr(const silly_string& str, const size_type& offset, const size_type& count);
   static size_type length(const silly_string& str);
@@ -56,16 +64,18 @@ public:
   static void insert(silly_string& str, size_type offset, const silly_string& a);
   static void replace(silly_string& str, size_type offset, size_type count, const silly_string& a);
   static const_iterator begin(const silly_string& str) { return str.s_.begin(); }
+  static mutable_iterator begin(silly_string& str) { return str.s_.begin(); }
   static const_iterator end(const silly_string& str) { return str.s_.end(); }
+  static mutable_iterator end(silly_string& str) { return str.s_.end(); }
 
   // only used to constuct error strings - don't have to be highly efficient!
-  std::string asStdString(const silly_string& str) const;
+  static std::string asStdString(const silly_string& str);
 }; // class silly_string_adaptor
 
 template<class CharType, class Traits>
 std::basic_ostream<CharType, Traits>& operator<<(std::basic_ostream<CharType, Traits>& os, const silly_string& s)
 {
-  os << silly_string_adaptor().asStdString(s);
+  os << silly_string_adaptor::asStdString(s);
   return os;
 } // operator<<
 
@@ -74,8 +84,7 @@ struct std::less<silly_string> : public binary_function<silly_string, silly_stri
 {	// functor for operator<
 	bool operator()(const silly_string& lhs, const silly_string& rhs) const
 	{	// apply operator< to operands
-    silly_string_adaptor sa;
-		return (sa.asStdString(lhs) < sa.asStdString(rhs));
+    return (silly_string_adaptor::asStdString(lhs) < silly_string_adaptor::asStdString(rhs));
 	}
 };
 

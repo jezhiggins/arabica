@@ -83,7 +83,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
 
     virtual stringT getInternalSubset() const
     {
-      return string_adaptorT().makeStringT("");
+      return string_adaptorT::construct_from_utf8("");
     } // getInternalSubset
 
     //////////////////////////////////////////////////////////

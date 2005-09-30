@@ -27,8 +27,7 @@ class ElementByTagList : public DOM::NodeList_impl<stringT>
         changes_(0),
         refCount_(0)
     {
-      string_adaptorT SA;
-      allNames_ = (tagName_ == SA.makeStringT("*"));
+      allNames_ = (tagName_ == string_adaptorT::construct_from_utf8("*"));
       populate();
     } // ElementByTagList
 
@@ -47,9 +46,8 @@ class ElementByTagList : public DOM::NodeList_impl<stringT>
         changes_(0),
         refCount_(0)
     {
-      string_adaptorT SA;
-      allNames_ = (tagName_ == SA.makeStringT("*"));
-      allNamespaces_ = (namespaceURI_ == SA.makeStringT("*"));
+      allNames_ = (tagName_ == string_adaptorT::construct_from_utf8("*"));
+      allNamespaces_ = (namespaceURI_ == string_adaptorT::construct_from_utf8("*"));
       populate();
     } // ElementByTagList
 

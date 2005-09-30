@@ -48,8 +48,7 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
 
     virtual stringT getNodeName() const 
     {
-      string_adaptorT SA;
-      return SA.makeStringT("#cdata-section");
+      return string_adaptorT::construct_from_utf8("#cdata-section");
     } // getNodeName
 }; // class CDATAImpl
 

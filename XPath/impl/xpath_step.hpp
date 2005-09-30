@@ -303,17 +303,17 @@ private:
       case impl::QName_id:
         {
           typename types<string_adaptor>::node_iter_t c = node->children.begin();
-          string_type prefix(c->value.begin(), c->value.end());
+          string_type prefix = string_adaptor::construct(c->value.begin(), c->value.end());
           string_type uri = namespaceContext.namespaceURI(prefix);
           ++c;
-          string_type name(c->value.begin(), c->value.end());
+          string_type name = string_adaptor::construct(c->value.begin(), c->value.end());
           ++node;
           return new QNameNodeTest<string_type>(uri, name);
         } //case QName_id
       
       case impl::NCName_id:
         {
-          string_type name(node->value.begin(), node->value.end());
+          string_type name = string_adaptor::construct(node->value.begin(), node->value.end());
           ++node;
           return new NameNodeTest<string_type, string_adaptor>(name);
         } // case NameNodeTest
@@ -336,7 +336,7 @@ private:
           if(getNodeId<string_adaptor>(node) != impl::Literal_id) // not sure if this is always safe
             return new ProcessingInstructionNodeTest<string_type, string_adaptor>();
           
-          string_type target(node->value.begin(), node->value.end());
+          string_type target = string_adaptor::construct(node->value.begin(), node->value.end());
           ++node;
           return new ProcessingInstructionNodeTest<string_type, string_adaptor>(target);
         } // case ProcessingInstruction_id
@@ -363,7 +363,7 @@ private:
         {
           typename types<string_adaptor>::node_iter_t prefixNode = node->children.begin();
           ++node;
-          string_type prefix(prefixNode->value.begin(), prefixNode->value.end());
+          string_type prefix = string_adaptor::construct(prefixNode->value.begin(), prefixNode->value.end());
           string_type uri = namespaceContext.namespaceURI(prefix);
           return new QStarNodeTest<string_type>(uri);
         } // case 

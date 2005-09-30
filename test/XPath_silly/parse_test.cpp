@@ -13,7 +13,7 @@ template<> class Arabica::default_string_adaptor<silly_string> : public silly_st
 class ParseTest : public TestCase
 {
   Arabica::XPath::XPath<silly_string> parser;
-  silly_string_adaptor sa_;
+  typedef silly_string_adaptor SA;
 
 public:
   ParseTest(std::string name) : TestCase(name)
@@ -26,339 +26,339 @@ public:
 
   void test1()
   {
-    assertTrue(parser.compile(sa_.makeStringT("text")));
-    assertTrue(parser.compile(sa_.makeStringT("comment")));
-    assertTrue(parser.compile(sa_.makeStringT("text()")));
-    assertTrue(parser.compile(sa_.makeStringT("text(   )")));
-    assertTrue(parser.compile(sa_.makeStringT("text()  ")));
-    assertTrue(parser.compile(sa_.makeStringT("text  (   )")));
-    assertTrue(parser.compile(sa_.makeStringT("comment()")));
-    assertTrue(parser.compile(sa_.makeStringT("following-sibling::comment()")));
-    assertTrue(parser.compile(sa_.makeStringT("descendant::comment()")));
-    assertTrue(parser.compile(sa_.makeStringT("comment()[1]")));
-    assertTrue(parser.compile(sa_.makeStringT("comment()[2]")));
-    assertTrue(parser.compile(sa_.makeStringT("comment()[3]")));
-    assertTrue(parser.compile(sa_.makeStringT("/following-sibling::comment()")));
-    assertTrue(parser.compile(sa_.makeStringT("/descendant::comment()")));
-    assertTrue(parser.compile(sa_.makeStringT("/comment()[1]")));
-    assertTrue(parser.compile(sa_.makeStringT("/comment()[2]")));
-    assertTrue(parser.compile(sa_.makeStringT("/comment()[3]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("text")));
+    assertTrue(parser.compile(SA::construct_from_utf8("comment")));
+    assertTrue(parser.compile(SA::construct_from_utf8("text()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("text(   )")));
+    assertTrue(parser.compile(SA::construct_from_utf8("text()  ")));
+    assertTrue(parser.compile(SA::construct_from_utf8("text  (   )")));
+    assertTrue(parser.compile(SA::construct_from_utf8("comment()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("following-sibling::comment()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("descendant::comment()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("comment()[1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("comment()[2]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("comment()[3]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/following-sibling::comment()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/descendant::comment()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/comment()[1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/comment()[2]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/comment()[3]")));
   }
 
   void test2()
   {
     Arabica::XPath::StandardNamespaceContext<silly_string> nsContext;
-    nsContext.addNamespaceDeclaration(sa_.makeStringT("something"), sa_.makeStringT("a"));
+    nsContext.addNamespaceDeclaration(SA::construct_from_utf8("something"), SA::construct_from_utf8("a"));
     parser.setNamespaceContext(nsContext);
-    assertTrue(parser.compile(sa_.makeStringT("a:b")));
-    assertTrue(parser.compile(sa_.makeStringT("  a:b")));
-    assertTrue(parser.compile(sa_.makeStringT("a:b  ")));
-    assertTrue(parser.compile(sa_.makeStringT("   a:b  ")));
+    assertTrue(parser.compile(SA::construct_from_utf8("a:b")));
+    assertTrue(parser.compile(SA::construct_from_utf8("  a:b")));
+    assertTrue(parser.compile(SA::construct_from_utf8("a:b  ")));
+    assertTrue(parser.compile(SA::construct_from_utf8("   a:b  ")));
     parser.resetNamespaceContext();
   }
 
   void test3()
   {
-    assertTrue(parser.compile(sa_.makeStringT("processing-instruction()")));
-    assertTrue(parser.compile(sa_.makeStringT("processing-instruction( ) ")));
-    assertTrue(parser.compile(sa_.makeStringT("processing-instruction('poo')")));
-    assertTrue(parser.compile(sa_.makeStringT("processing-instruction(\"poo\")")));
-    assertTrue(parser.compile(sa_.makeStringT("processing-instruction(  \"poo\")")));
-    assertTrue(parser.compile(sa_.makeStringT("processing-instruction(   \"poo\"    )")));
-    assertTrue(parser.compile(sa_.makeStringT("processing-instruction  (   \"poo\"    )")));
+    assertTrue(parser.compile(SA::construct_from_utf8("processing-instruction()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("processing-instruction( ) ")));
+    assertTrue(parser.compile(SA::construct_from_utf8("processing-instruction('poo')")));
+    assertTrue(parser.compile(SA::construct_from_utf8("processing-instruction(\"poo\")")));
+    assertTrue(parser.compile(SA::construct_from_utf8("processing-instruction(  \"poo\")")));
+    assertTrue(parser.compile(SA::construct_from_utf8("processing-instruction(   \"poo\"    )")));
+    assertTrue(parser.compile(SA::construct_from_utf8("processing-instruction  (   \"poo\"    )")));
   }
 
   void test4()
   {
-    assertTrue(parser.compile(sa_.makeStringT("self::name")));
-    assertTrue(parser.compile(sa_.makeStringT("   self::name")));
-    assertTrue(parser.compile(sa_.makeStringT("self    ::name")));
-    assertTrue(parser.compile(sa_.makeStringT("self::   name")));
-    assertTrue(parser.compile(sa_.makeStringT("   self   ::   name")));
+    assertTrue(parser.compile(SA::construct_from_utf8("self::name")));
+    assertTrue(parser.compile(SA::construct_from_utf8("   self::name")));
+    assertTrue(parser.compile(SA::construct_from_utf8("self    ::name")));
+    assertTrue(parser.compile(SA::construct_from_utf8("self::   name")));
+    assertTrue(parser.compile(SA::construct_from_utf8("   self   ::   name")));
   }
 
   void test5()
   {
-    assertTrue(parser.compile(sa_.makeStringT("@fruit")));
-    assertTrue(parser.compile(sa_.makeStringT("  @fruit")));
-    assertTrue(parser.compile(sa_.makeStringT("@  fruit")));
-    assertTrue(parser.compile(sa_.makeStringT("    @   fruit")));
+    assertTrue(parser.compile(SA::construct_from_utf8("@fruit")));
+    assertTrue(parser.compile(SA::construct_from_utf8("  @fruit")));
+    assertTrue(parser.compile(SA::construct_from_utf8("@  fruit")));
+    assertTrue(parser.compile(SA::construct_from_utf8("    @   fruit")));
   }
 
   void test6()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two")));
-    assertTrue(parser.compile(sa_.makeStringT("one/@fruit")));
-    assertTrue(parser.compile(sa_.makeStringT("one/@fruit[1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/descendant-or-self::woot[1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two[1]/three")));
-    assertTrue(parser.compile(sa_.makeStringT("one/comment()")));
-    assertTrue(parser.compile(sa_.makeStringT("one/text()")));
-    assertTrue(parser.compile(sa_.makeStringT("one/processing-instruction()")));
-    assertTrue(parser.compile(sa_.makeStringT("one/node()")));
-    assertTrue(parser.compile(sa_.makeStringT("one/*")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/@fruit")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/@fruit[1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/descendant-or-self::woot[1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two[1]/three")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/comment()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/text()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/processing-instruction()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/node()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/*")));
 
     Arabica::XPath::StandardNamespaceContext<silly_string> nsContext;
-    nsContext.addNamespaceDeclaration(sa_.makeStringT("urn:I:made:this:up"), sa_.makeStringT("ns"));
+    nsContext.addNamespaceDeclaration(SA::construct_from_utf8("urn:I:made:this:up"), SA::construct_from_utf8("ns"));
     parser.setNamespaceContext(nsContext);
-    assertTrue(parser.compile(sa_.makeStringT("one/ns:*")));
-    assertTrue(parser.compile(sa_.makeStringT("one/ns:two")));
-    assertTrue(parser.compile(sa_.makeStringT("one/processing-instruction('parp')")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/ns:*")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/ns:two")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/processing-instruction('parp')")));
   }
 
   void test7()
   {
-    assertTrue(parser.compile(sa_.makeStringT("/")));
-    assertTrue(parser.compile(sa_.makeStringT("/one")));
-    assertTrue(parser.compile(sa_.makeStringT("/one/two")));
-    assertTrue(parser.compile(sa_.makeStringT("/one[1]/two[2]/comment()")));
-    assertTrue(parser.compile(sa_.makeStringT("/one[1]/two[2][1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/one")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/one/two")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/one[1]/two[2]/comment()")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/one[1]/two[2][1]")));
   }
 
   void test8()
   {
-    assertTrue(parser.compile(sa_.makeStringT("//one")));
-    assertTrue(parser.compile(sa_.makeStringT("//one/two")));
-    assertTrue(parser.compile(sa_.makeStringT("//one/two//@id")));
-    assertTrue(parser.compile(sa_.makeStringT("//*[@id]")));
-    assertTrue(parser.compile(sa_.makeStringT("one//two")));
+    assertTrue(parser.compile(SA::construct_from_utf8("//one")));
+    assertTrue(parser.compile(SA::construct_from_utf8("//one/two")));
+    assertTrue(parser.compile(SA::construct_from_utf8("//one/two//@id")));
+    assertTrue(parser.compile(SA::construct_from_utf8("//*[@id]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one//two")));
   }
 
   void test9()
   {
-    assertTrue(parser.compile(sa_.makeStringT(".")));
-    assertTrue(parser.compile(sa_.makeStringT("./something")));
-    assertTrue(parser.compile(sa_.makeStringT("./something/else")));
-    assertTrue(parser.compile(sa_.makeStringT("./something/./else")));
-    assertTrue(parser.compile(sa_.makeStringT("..")));
-    assertTrue(parser.compile(sa_.makeStringT("../something")));
-    assertTrue(parser.compile(sa_.makeStringT("../../something")));
-    assertTrue(parser.compile(sa_.makeStringT("../../something/../text()")));
+    assertTrue(parser.compile(SA::construct_from_utf8(".")));
+    assertTrue(parser.compile(SA::construct_from_utf8("./something")));
+    assertTrue(parser.compile(SA::construct_from_utf8("./something/else")));
+    assertTrue(parser.compile(SA::construct_from_utf8("./something/./else")));
+    assertTrue(parser.compile(SA::construct_from_utf8("..")));
+    assertTrue(parser.compile(SA::construct_from_utf8("../something")));
+    assertTrue(parser.compile(SA::construct_from_utf8("../../something")));
+    assertTrue(parser.compile(SA::construct_from_utf8("../../something/../text()")));
   }
 
   void test10()
   {
-    assertTrue(parser.compile(sa_.makeStringT("/one/*")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/one/*")));
   }
 
   void test11()
   {
     Arabica::XPath::StandardNamespaceContext<silly_string> nsContext;
-    nsContext.addNamespaceDeclaration(sa_.makeStringT("something"), sa_.makeStringT("ns"));
+    nsContext.addNamespaceDeclaration(SA::construct_from_utf8("something"), SA::construct_from_utf8("ns"));
     parser.setNamespaceContext(nsContext);
 
-    assertTrue(parser.compile(sa_.makeStringT("/ns:one")));
-    assertTrue(parser.compile(sa_.makeStringT("//one/ns:two")));
-    assertTrue(parser.compile(sa_.makeStringT("//ns:one/ns:two//@id")));
-    assertTrue(parser.compile(sa_.makeStringT("//one/ns:*")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/ns:one")));
+    assertTrue(parser.compile(SA::construct_from_utf8("//one/ns:two")));
+    assertTrue(parser.compile(SA::construct_from_utf8("//ns:one/ns:two//@id")));
+    assertTrue(parser.compile(SA::construct_from_utf8("//one/ns:*")));
 
     parser.resetNamespaceContext();
   }
 
   void test12()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[@attr]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[@attr][1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[four/@attr]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[@attr]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[@attr][1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[four/@attr]")));
   }
 
   void test13()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[four|@attr]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[four|@attr]")));
   }
 
   void test14()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[-($a)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[--($a)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[-$a|$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[2*-$a|$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[2mod-$a|$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[-(@two)=-1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[-(@two) =-1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[ -(@two)=-1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[-(@two) = -1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[-($a)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[--($a)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[-$a|$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[2*-$a|$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[2mod-$a|$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[-(@two)=-1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[-(@two) =-1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[ -(@two)=-1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[-(@two) = -1]")));
   }
 
   void test15()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[four]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[  four]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[four  ]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[   four  ]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[four]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[  four]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[four  ]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[   four  ]")));
   }
 
   void test16()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[/four]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[/four/five]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[/four/five[1]]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[/four/five[@id][1]]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[/four/five[1]/six]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[/four/five[1]/six[@id][1]]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[/four]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[/four/five]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[/four/five[1]]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[/four/five[@id][1]]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[/four/five[1]/six]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[/four/five[1]/six[@id][1]]")));
   }
 
   void test17()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[@attr1='nob']")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a=$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a!=$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a=$b=$c]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[child = true()]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[child = 1]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[child = '1']")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[1]/trousers")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@* = @two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@*]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[*]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[charlie[one]]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[/one]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[charlie[/one]]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[@attr1='nob']")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a=$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a!=$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a=$b=$c]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[child = true()]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[child = 1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[child = '1']")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[1]/trousers")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@* = @two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@*]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[*]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[charlie[one]]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[/one]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[charlie[/one]]")));
 
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@* = child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[//root/child/@two = @*]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[/root/child/@two = @*]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@*=//root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@* =//root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@* = //root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@*= //root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@*=/root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@* =/root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@* = /root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@*= /root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("root/*[@*=root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("root/*[@* =root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("root/*[@* = root/child/@two]")));
-    assertTrue(parser.compile(sa_.makeStringT("root/*[@*= root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@* = child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[//root/child/@two = @*]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[/root/child/@two = @*]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@*=//root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@* =//root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@* = //root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@*= //root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@*=/root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@* =/root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@* = /root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@*= /root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("root/*[@*=root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("root/*[@* =root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("root/*[@* = root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("root/*[@*= root/child/@two]")));
 
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a<$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a <$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a<   $b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a  <$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a>$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a >$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a> $b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a > $b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a<$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a>=$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a<=$b]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a>$b>$c]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a>$b<$c]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$a=$b<$c]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a<$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a <$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a<   $b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a  <$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a>$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a >$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a> $b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a > $b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a<$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a>=$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a<=$b]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a>$b>$c]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a>$b<$c]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$a=$b<$c]")));
 
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[($a>$b)or($b>$c)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[($a>$b)and($b>$c)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[($a>$b)or($b>$c)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[($a>$b)and($b>$c)]")));
 
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@* = string('woo')]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[@* = string(//root/child/@two)]")));
-    assertTrue(parser.compile_expr(sa_.makeStringT("$fruit/*[2]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root[$fruit/root = @*]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[$fruit/root/child/@two = @*]")));
-    assertTrue(parser.compile(sa_.makeStringT("/root/*[$fruit/root/child/@two = $fruit/root/child/@two]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@* = string('woo')]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[@* = string(//root/child/@two)]")));
+    assertTrue(parser.compile_expr(SA::construct_from_utf8("$fruit/*[2]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root[$fruit/root = @*]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[$fruit/root/child/@two = @*]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root/*[$fruit/root/child/@two = $fruit/root/child/@two]")));
   }
 
   void test18()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[last()]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[comment()]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[string($a)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[last()]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[comment()]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[string($a)]")));
 
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$var]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[position()=1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(@attr)or(@id)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$var=1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[position()=1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(@attr)or(@id)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var=1]")));
     try {
-      parser.compile(sa_.makeStringT("one/two/three[string($a,$b)]"));
+      parser.compile(SA::construct_from_utf8("one/two/three[string($a,$b)]"));
       assert(false);
     }
     catch(...) { }
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[contains($a,string($b))]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[contains($a,string($b))]")));
   }
 
   void test19()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1+1)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1-1)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1+1-1)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1+1+1)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1+1+1+1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1+1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1-1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1+1-1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1+1+1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1+1+1+1)]")));
 
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1*1)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1*1*1)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1*1*1*1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1*1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1*1*1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1*1*1*1)]")));
 
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(6div2)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(5mod4)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(6div2)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(5mod4)]")));
 
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(2*2)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one[1 + 2 * 3]")));
-    assertTrue(parser.compile(sa_.makeStringT("one[3 * 2 + 1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(2*2)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one[1 + 2 * 3]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one[3 * 2 + 1]")));
   }
 
   void test20()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1.1)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(1.)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[.1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[  .1  ]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(12)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(123.456)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(.123456)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1.1)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(1.)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[.1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[  .1  ]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(12)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(123.456)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(.123456)]")));
   }
 
   void test21()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$var]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three    [$var]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$var]   ")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$var] /four")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$var ]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$var    ]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[ $var]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[  $var]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[   $var   ]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[$var = 1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three    [$var]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var]   ")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var] /four")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var ]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var    ]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[ $var]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[  $var]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[   $var   ]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var = 1]")));
   }
 
   void test22()
   {
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[position() = 1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[position(  ) = 1]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[(@attr) or (@id)]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[@attr or @id]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[position() = 1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[position(  ) = 1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(@attr) or (@id)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[@attr or @id]")));
     try {
-      parser.compile(sa_.makeStringT("one/two/three[string($a, $b)]"));
+      parser.compile(SA::construct_from_utf8("one/two/three[string($a, $b)]"));
       assert(false);
     }
     catch(...) { }
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[contains($a, string($b))]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[contains(    $a, string($b))]")));
-    assertTrue(parser.compile(sa_.makeStringT("one/two/three[contains    ($a, string($b)   )]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[contains($a, string($b))]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[contains(    $a, string($b))]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[contains    ($a, string($b)   )]")));
   } // test22
 
   void test23()
   {
-    assertTrue(parser.compile(sa_.makeStringT("/root[count(something)]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("/root[count(something)]")));
     try {
-      parser.compile(sa_.makeStringT("/root[count()]"));
+      parser.compile(SA::construct_from_utf8("/root[count()]"));
       assert(false);
     }
     catch(...) { }
     try {
-      parser.compile(sa_.makeStringT("/root[count(one, two)]"));
+      parser.compile(SA::construct_from_utf8("/root[count(one, two)]"));
       assert(false);
     }
     catch(...) { }
     try {
-      parser.compile(sa_.makeStringT("/root[count(one,two)]"));
+      parser.compile(SA::construct_from_utf8("/root[count(one,two)]"));
       assert(false);
     }
     catch(...) { }
     try {
-      parser.compile(sa_.makeStringT("/root/count(one,two)"));
+      parser.compile(SA::construct_from_utf8("/root/count(one,two)"));
       assert(false);
     }
     catch(...) { }

@@ -34,7 +34,7 @@ class NodeTestTest : public TestCase
 
   DOM::ProcessingInstruction<silly_string> processingInstruction_;
 
-  silly_string_adaptor sa_;
+  typedef silly_string_adaptor SA;
 
 public:
   NodeTestTest(const std::string& name) : TestCase(name)
@@ -44,29 +44,29 @@ public:
   void setUp()
   {
     factory_ = SimpleDOM::DOMImplementation<silly_string>::getDOMImplementation();
-    document_ = factory_.createDocument(sa_.makeStringT(""), sa_.makeStringT("root"), 0);
+    document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
-    element1_ = document_.createElement(sa_.makeStringT("child1"));
-    element2_ = document_.createElement(sa_.makeStringT("child2"));
-    element3_ = document_.createElement(sa_.makeStringT("child3"));
+    element1_ = document_.createElement(SA::construct_from_utf8("child1"));
+    element2_ = document_.createElement(SA::construct_from_utf8("child2"));
+    element3_ = document_.createElement(SA::construct_from_utf8("child3"));
 
-    element1_.setAttribute(sa_.makeStringT("one"), sa_.makeStringT("1"));
+    element1_.setAttribute(SA::construct_from_utf8("one"), SA::construct_from_utf8("1"));
 
-    element2_.setAttribute(sa_.makeStringT("one"), sa_.makeStringT("1"));
-    element2_.setAttribute(sa_.makeStringT("two"), sa_.makeStringT("1"));
-    element2_.setAttribute(sa_.makeStringT("three"), sa_.makeStringT("1"));
-    element2_.setAttribute(sa_.makeStringT("four"), sa_.makeStringT("1"));
+    element2_.setAttribute(SA::construct_from_utf8("one"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("two"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("three"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("four"), SA::construct_from_utf8("1"));
 
-    text_ = document_.createTextNode(sa_.makeStringT("data"));
-    comment_ = document_.createComment(sa_.makeStringT("comment"));
-    processingInstruction_ = document_.createProcessingInstruction(sa_.makeStringT("target"), sa_.makeStringT("data"));
+    text_ = document_.createTextNode(SA::construct_from_utf8("data"));
+    comment_ = document_.createComment(SA::construct_from_utf8("comment"));
+    processingInstruction_ = document_.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
     element2_.appendChild(text_);
-    element2_.appendChild(document_.createElement(sa_.makeStringT("spinkle")));
+    element2_.appendChild(document_.createElement(SA::construct_from_utf8("spinkle")));
     element2_.appendChild(comment_);
     element2_.appendChild(processingInstruction_);
 
-    attr_ = element1_.getAttributeNode(sa_.makeStringT("one"));
+    attr_ = element1_.getAttributeNode(SA::construct_from_utf8("one"));
 
     root_.appendChild(element1_);
     root_.appendChild(element2_);
@@ -89,7 +89,7 @@ public:
 
   void test2()
   {
-    impl::NameNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> > test(sa_.makeStringT("child1"));
+    impl::NameNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> > test(SA::construct_from_utf8("child1"));
 
     assertTrue(test(element1_));
     assertTrue(!test(element2_));
@@ -103,7 +103,7 @@ public:
 
   void test3()
   {
-    impl::NameNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> > test(sa_.makeStringT("one"));
+    impl::NameNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> > test(SA::construct_from_utf8("one"));
 
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
@@ -156,7 +156,7 @@ public:
 
   void test7()
   {
-    impl::ProcessingInstructionNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> > test(sa_.makeStringT("fruity"));
+    impl::ProcessingInstructionNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> > test(SA::construct_from_utf8("fruity"));
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -169,7 +169,7 @@ public:
 
   void test8()
   {
-    impl::ProcessingInstructionNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> > test(sa_.makeStringT("target"));
+    impl::ProcessingInstructionNodeTest<silly_string, Arabica::default_string_adaptor<silly_string> > test(SA::construct_from_utf8("target"));
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -196,7 +196,7 @@ public:
 
   void test10()
   {
-    impl::QNameNodeTest<silly_string> test(sa_.makeStringT("http://example.com/test"), sa_.makeStringT("one"));
+    impl::QNameNodeTest<silly_string> test(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("one"));
 
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
@@ -210,21 +210,21 @@ public:
 
   void test11()
   {
-    impl::QNameNodeTest<silly_string> test(sa_.makeStringT("http://example.com/test"), 
-                                           sa_.makeStringT("one"));
+    impl::QNameNodeTest<silly_string> test(SA::construct_from_utf8("http://example.com/test"), 
+                                           SA::construct_from_utf8("one"));
 
-    DOM::Element<silly_string> e1_ = document_.createElementNS(sa_.makeStringT("http://example.com/test"), 
-                                                               sa_.makeStringT("ns:one"));
-    DOM::Element<silly_string> e2_ = document_.createElementNS(sa_.makeStringT("http://example.com/test"), 
-                                                               sa_.makeStringT("ttt:one"));
-    DOM::Element<silly_string> e3_ = document_.createElementNS(sa_.makeStringT("http://example.com/test"), 
-                                                               sa_.makeStringT("ns:two"));
-    DOM::Element<silly_string> e4_ = document_.createElementNS(sa_.makeStringT("http://example.com/test"), 
-                                                               sa_.makeStringT("ttt:two"));
-    DOM::Element<silly_string> e5_ = document_.createElementNS(sa_.makeStringT("http://example.com/ssss"), 
-                                                               sa_.makeStringT("ns:one"));
-    DOM::Element<silly_string> e6_ = document_.createElementNS(sa_.makeStringT("http://example.com/eeee"), 
-                                                               sa_.makeStringT("ttt:one"));
+    DOM::Element<silly_string> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+                                                               SA::construct_from_utf8("ns:one"));
+    DOM::Element<silly_string> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+                                                               SA::construct_from_utf8("ttt:one"));
+    DOM::Element<silly_string> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+                                                               SA::construct_from_utf8("ns:two"));
+    DOM::Element<silly_string> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+                                                               SA::construct_from_utf8("ttt:two"));
+    DOM::Element<silly_string> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), 
+                                                               SA::construct_from_utf8("ns:one"));
+    DOM::Element<silly_string> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), 
+                                                               SA::construct_from_utf8("ttt:one"));
 
     assertTrue(test(e1_));
     assertTrue(test(e2_));
@@ -236,14 +236,14 @@ public:
 
   void test12()
   {
-    impl::QStarNodeTest<silly_string> test(sa_.makeStringT("http://example.com/test"));
+    impl::QStarNodeTest<silly_string> test(SA::construct_from_utf8("http://example.com/test"));
 
-    DOM::Element<silly_string> e1_ = document_.createElementNS(sa_.makeStringT("http://example.com/test"), sa_.makeStringT("ns:one"));
-    DOM::Element<silly_string> e2_ = document_.createElementNS(sa_.makeStringT("http://example.com/test"), sa_.makeStringT("ttt:one"));
-    DOM::Element<silly_string> e3_ = document_.createElementNS(sa_.makeStringT("http://example.com/test"), sa_.makeStringT("ns:two"));
-    DOM::Element<silly_string> e4_ = document_.createElementNS(sa_.makeStringT("http://example.com/test"), sa_.makeStringT("ttt:two"));
-    DOM::Element<silly_string> e5_ = document_.createElementNS(sa_.makeStringT("http://example.com/ssss"), sa_.makeStringT("ns:one"));
-    DOM::Element<silly_string> e6_ = document_.createElementNS(sa_.makeStringT("http://example.com/eeee"), sa_.makeStringT("ttt:one"));
+    DOM::Element<silly_string> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:one"));
+    DOM::Element<silly_string> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:one"));
+    DOM::Element<silly_string> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:two"));
+    DOM::Element<silly_string> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:two"));
+    DOM::Element<silly_string> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), SA::construct_from_utf8("ns:one"));
+    DOM::Element<silly_string> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), SA::construct_from_utf8("ttt:one"));
 
     assertTrue(test(e1_));
     assertTrue(test(e2_));

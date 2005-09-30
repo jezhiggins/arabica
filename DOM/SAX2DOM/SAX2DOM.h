@@ -74,7 +74,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       SAX::PropertyNames<stringT> pNames;
       
       DOM::DOMImplementation<stringT> di = SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
-      document_ = di.createDocument(SA_.makeStringT(""), SA_.makeStringT(""), 0);
+      document_ = di.createDocument(string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), 0);
       currentNode_ = document_;
       inCDATA_ = false;
       inEntity_ = 0;
@@ -136,7 +136,6 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     bool inCDATA_;
     int inEntity_;
-    string_adaptorT SA_;
 
     std::map<stringT, EntityT*> declaredEntities_;
 

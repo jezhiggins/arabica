@@ -16,7 +16,7 @@ class ValueTest : public TestCase
 {
 private:
   DOM::Node<silly_string> dummy_;
-  silly_string_adaptor sa_;
+  typedef silly_string_adaptor SA;
 
 public:
   ValueTest(std::string name) : TestCase(name)
@@ -32,7 +32,7 @@ public:
     XPathExpressionPtr<silly_string> b(new BoolValue<silly_string, Arabica::default_string_adaptor<silly_string> >(true));
     assertEquals(true, b->evaluateAsBool(dummy_));
     assertEquals(1.0, b->evaluateAsNumber(dummy_), 0.0);
-    assertTrue(sa_.makeStringT("true") == b->evaluateAsString(dummy_));
+    assertTrue(SA::construct_from_utf8("true") == b->evaluateAsString(dummy_));
   }
 
   void test2()
@@ -40,7 +40,7 @@ public:
     XPathExpressionPtr<silly_string> b2(new BoolValue<silly_string, Arabica::default_string_adaptor<silly_string> >(false));
     assertEquals(false, b2->evaluateAsBool(dummy_));
     assertEquals(0.0, b2->evaluateAsNumber(dummy_), 0.0);
-    assertTrue(sa_.makeStringT("false") == b2->evaluateAsString(dummy_));
+    assertTrue(SA::construct_from_utf8("false") == b2->evaluateAsString(dummy_));
   } // test2
 
   void test3()
@@ -48,7 +48,7 @@ public:
     XPathExpressionPtr<silly_string> n(new NumericValue<silly_string, Arabica::default_string_adaptor<silly_string> >(99.5));
     assertEquals(true, n->evaluateAsBool(dummy_));
     assertEquals(99.5, n->evaluateAsNumber(dummy_), 0.0);
-    assertTrue(sa_.makeStringT("99.5") == n->evaluateAsString(dummy_));
+    assertTrue(SA::construct_from_utf8("99.5") == n->evaluateAsString(dummy_));
   }
 
   void test4()
@@ -56,14 +56,14 @@ public:
     XPathExpressionPtr<silly_string> n(new NumericValue<silly_string, Arabica::default_string_adaptor<silly_string> >(0.0));
     assertEquals(false, n->evaluateAsBool(dummy_));
     assertEquals(0, n->evaluateAsNumber(dummy_), 0);
-    assertTrue(sa_.makeStringT("0") == n->evaluateAsString(dummy_));
+    assertTrue(SA::construct_from_utf8("0") == n->evaluateAsString(dummy_));
   }
 
   void test5()
   {
     XPathExpressionPtr<silly_string> s(new StringValue<silly_string, Arabica::default_string_adaptor<silly_string> >("hello"));
     assertEquals(true, s->evaluateAsBool(dummy_));
-    assertTrue(sa_.makeStringT("hello") == s->evaluateAsString(dummy_));
+    assertTrue(SA::construct_from_utf8("hello") == s->evaluateAsString(dummy_));
   } // test5
 
   void test6()
@@ -77,7 +77,7 @@ public:
     XPathExpressionPtr<silly_string> s(new StringValue<silly_string, Arabica::default_string_adaptor<silly_string> >("100"));
     assertEquals(true, s->evaluateAsBool(dummy_));
     assertEquals(100.0, s->evaluateAsNumber(dummy_), 0.0);
-    assertTrue(sa_.makeStringT("100") == s->evaluateAsString(dummy_));
+    assertTrue(SA::construct_from_utf8("100") == s->evaluateAsString(dummy_));
   } // test7
 
   void test8()
@@ -85,7 +85,7 @@ public:
     XPathExpressionPtr<silly_string> s(new StringValue<silly_string, Arabica::default_string_adaptor<silly_string> >("0"));
     assertEquals(true, s->evaluateAsBool(dummy_));
     assertEquals(0.0, s->evaluateAsNumber(dummy_), 0.0);
-    assertTrue(sa_.makeStringT("0") == s->evaluateAsString(dummy_));
+    assertTrue(SA::construct_from_utf8("0") == s->evaluateAsString(dummy_));
   } // test8
 
   void test9()

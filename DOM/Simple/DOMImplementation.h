@@ -38,12 +38,13 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT>
     virtual bool hasFeature(const stringT& feature, const stringT& version) const
     {
       // need a proper case-insensitive compare here eventually
-      string_adaptorT SA;
       const char* names[] = { "Core", "core", "CORE", "XML", "xml", 0 };
       for(int n = 0; names[n] != 0; ++n)
       {
-        if((feature == SA.makeStringT(names[n])) &&
-           (string_adaptorT::empty(version) || version == SA.makeStringT("1.0") || version == SA.makeStringT("2.0")))
+        if((feature == string_adaptorT::construct_from_utf8(names[n])) &&
+           (string_adaptorT::empty(version) || 
+            version == string_adaptorT::construct_from_utf8("1.0") || 
+            version == string_adaptorT::construct_from_utf8("2.0")))
            return true;
       } // while 
 

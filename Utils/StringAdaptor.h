@@ -12,27 +12,30 @@
 namespace Arabica
 {
 
-template<class string_type>
+template<class stringT>
 class default_string_adaptor
 {
 public:
-  typedef string_type stringT;
-  typedef typename stringT::const_iterator const_iterator;
-  typedef typename stringT::value_type value_type;
-  typedef typename stringT::size_type size_type;
+  typedef stringT string_type;
+  typedef typename string_type::const_iterator const_iterator;
+  typedef typename string_type::value_type value_type;
+  typedef typename string_type::size_type size_type;
   static const size_type npos;
 
-  value_type makeValueT(char c) const;
-  stringT makeStringT(const char* str) const;
-  stringT makeStringT(const char* str, int length) const;
-  stringT makeStringT(const_iterator s, const_iterator e) const;
+  template<class InputIterator> static string_type construct(InputIterator from, InputIterator to);
+  static string_type construct(const value_type* s);
+
+  static value_type convert_from_utf8(char c);
+  static string_type construct_from_utf8(const char* str);
+  static string_type construct_from_utf8(const char* str, int length);
 #ifndef ARABICA_NO_WCHAR_T
-  stringT makeStringT(const wchar_t* str) const;
-  stringT makeStringT(const wchar_t* str, int length) const;
+  static string_type construct_from_utf16(const wchar_t* str);
+  static string_type construct_from_utf16(const wchar_t* str, int length);
 #endif
 
-  static bool empty(const string_type& str);  // as std::string::empty
-  static size_type find(const string_type& str, const string_type& what); // return npos if not found, otherwise index
+  // all these functions should operate as std::string member functions do
+  static bool empty(const string_type& str);  
+  static size_type find(const string_type& str, const string_type& what); 
   static string_type substr(const string_type& str, const size_type& offset);
   static string_type substr(const string_type& str, const size_type& offset, const size_type& count);
   static size_type length(const string_type& str);
@@ -43,38 +46,44 @@ public:
   static const_iterator end(const string_type& str);
 
   // only used to constuct error strings - don't have to be highly efficient!
-  std::string asStdString(const stringT& str);
+  static std::string asStdString(const string_type& str);
 #ifndef ARABICA_NO_WCHAR_T
-  std::wstring asStdWString(const stringT& str);
+  static std::wstring asStdWString(const string_type& str);
 #endif
-}; // class default_string_maker
+}; // class default_string_adaptor
 
 // specialize for std::string and std::wstring
 template<>
 class default_string_adaptor<std::string>
 {
 public:
-  typedef std::string stringT;
+  typedef std::string string_type;
   typedef std::string::const_iterator const_iterator;
   typedef std::string::value_type value_type;
   typedef std::string::size_type size_type;
   static const size_type npos = static_cast<size_type>(-1);
 
-  char makeValueT(char c) const { return c; }
+  template<class InputIterator> static std::string construct(InputIterator from, InputIterator to)
+  {
+    return std::string(from, to);
+  } // construct
 
-  std::string makeStringT(const char* str) const
+  static std::string construct(const value_type* s)
+  {
+    return std::string(s);
+  } // construct
+
+  static char convert_from_utf8(char c) { return c; }
+
+  static std::string construct_from_utf8(const char* str)
   {
     return str ? std::string(str) : std::string();
   } // makeStringT
-  std::string makeStringT(const char* str, int length) const
+  static std::string construct_from_utf8(const char* str, int length)
   {
     return std::string(str, length);
   } // makeStringT
-  std::string makeString(const const_iterator& first, const const_iterator& last) const
-  {
-    return std::string(first, last);
-  } // 
-  const std::string& asStdString(const std::string& str) const
+  static const std::string& asStdString(const std::string& str)
   {
     return str;
   } // toStdString
@@ -85,7 +94,7 @@ public:
   typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > narrower;
 
-  std::string makeStringT(const wchar_t* str)
+  std::string construct_from_utf16(const wchar_t* str)
   {
     std::wstring s;
     if(str)
@@ -93,7 +102,7 @@ public:
     n_.str(s);
     return n_.str();
   } // makeStringT
-  std::string makeStringT(const wchar_t* str, int length) 
+  std::string construct_from_utf16(const wchar_t* str, int length) 
   {
     n_.str(std::wstring(str, length));
     return n_.str();
@@ -191,7 +200,7 @@ public:
     return static_cast<wchar_t>(c);
   } // makeValueT
 
-  std::wstring makeStringT(const char* str) const
+  std::wstring construct_from_utf8(const char* str) const
   {
     if(str)
       w_.str(str);
@@ -199,16 +208,16 @@ public:
       w_.str("");
     return w_.str();
   } // makeStringT
-  std::wstring makeStringT(const char* str, int length) const
+  std::wstring construct_from_utf8(const char* str, int length) const
   {
     w_.str(std::string(str, length));
     return w_.str();
   } // makeStringT
-  std::wstring makeStringT(const wchar_t* str) const
+  std::wstring construct_from_utf16(const wchar_t* str) const
   {
     return str ? std::wstring(str) : std::wstring();
   } // makeStringT
-  std::wstring makeStringT(const wchar_t* str, int length) const 
+  std::wstring construct_from_utf16(const wchar_t* str, int length) const 
   {
     return std::wstring(str, length);
   } // makeStringT

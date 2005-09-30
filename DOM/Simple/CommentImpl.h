@@ -34,8 +34,7 @@ class CommentImpl : public DOM::Comment_impl<stringT>,
 
     virtual stringT getNodeName() const 
     {
-      string_adaptorT SA;
-      return SA.makeStringT("#comment");
+      return string_adaptorT::construct_from_utf8("#comment");
     } // getNodeName
 }; // class CommentImpl
 

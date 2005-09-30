@@ -7,71 +7,79 @@
 
 #include <XPath/XPath.hpp>
 #include <DOM/Simple/DOMImplementation.h>
+#include "../silly_string/silly_string.hpp"
+template<> class Arabica::default_string_adaptor<silly_string> : public silly_string_adaptor { };
 
 using namespace Arabica::XPath;
 
-class StringVariableResolver : public VariableResolver<std::string, Arabica::default_string_adaptor<std::string> >
+class StringVariableResolver : public VariableResolver<silly_string, Arabica::default_string_adaptor<silly_string> >
 {
+  typedef Arabica::default_string_adaptor<silly_string> string_adaptor;
 public:
-  virtual XPathValuePtr<std::string> resolveVariable(const std::string& name) const
+  virtual XPathValuePtr<silly_string> resolveVariable(const silly_string& name) const
   {
     VarMap::const_iterator n = map_.find(name);
     if(n == map_.end())
-      throw UnboundVariableException(name);
-    return XPathValuePtr<std::string>(new StringValue<std::string, Arabica::default_string_adaptor<std::string> >((*n).second));
+      throw UnboundVariableException(string_adaptor::asStdString(name));
+    return XPathValuePtr<silly_string>(new StringValue<silly_string, Arabica::default_string_adaptor<silly_string> >((*n).second));
   } // resolveVariable
 
-  void setVariable(const std::string& name, const std::string& value)
+  void setVariable(const silly_string& name, const silly_string& value)
   {
     map_[name] = value;
   } // setVariable
 
 private:
-  typedef std::map<std::string, std::string> VarMap;
+  typedef std::map<silly_string, silly_string> VarMap;
   VarMap map_;
 }; // StringVariableResolver
 
-class NodeSetVariableResolver : public VariableResolver<std::string, Arabica::default_string_adaptor<std::string> >
+class NodeSetVariableResolver : public VariableResolver<silly_string, Arabica::default_string_adaptor<silly_string> >
 {
+  typedef Arabica::default_string_adaptor<silly_string> string_adaptor;
 public:
-  virtual XPathValuePtr<std::string> resolveVariable(const std::string& name) const
+  virtual XPathValuePtr<silly_string> resolveVariable(const silly_string& name) const
   {
     VarMap::const_iterator n = map_.find(name);
     if(n == map_.end())
-      throw UnboundVariableException(name);
-    return XPathValuePtr<std::string>(new NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >((*n).second));
+      throw UnboundVariableException(string_adaptor::asStdString(name));
+    return XPathValuePtr<silly_string>(new NodeSetValue<silly_string, Arabica::default_string_adaptor<silly_string> >((*n).second));
   } // resolveVariable
 
-  void setVariable(const std::string& name, const NodeSet<std::string>& value)
+  void setVariable(const silly_string& name, const NodeSet<silly_string>& value)
   {
     map_[name] = value;
   } // setVariable
 
 private:
-  typedef std::map<std::string, NodeSet<std::string> > VarMap;
+  typedef std::map<silly_string, NodeSet<silly_string> > VarMap;
   VarMap map_;
 }; // class NodeSetVariableResolver
 
-class TestFunction : public XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >
+class TestFunction : public XPathFunction<silly_string, Arabica::default_string_adaptor<silly_string> >
 {
+  typedef Arabica::default_string_adaptor<silly_string> string_adaptor;
 public:
-  TestFunction(const std::vector<XPathExpressionPtr<std::string> >& args) :
-      XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >(0, 0, args) { }
+  TestFunction(const std::vector<XPathExpressionPtr<silly_string> >& args) :
+      XPathFunction<silly_string, Arabica::default_string_adaptor<silly_string> >(0, 0, args) { }
 
-  virtual XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
-                                            const ExecutionContext<std::string, Arabica::default_string_adaptor<std::string> >& executionContext) const
+  virtual XPathValue<silly_string>* evaluate(const DOM::Node<silly_string>& context, 
+                                            const ExecutionContext<silly_string, Arabica::default_string_adaptor<silly_string> >& executionContext) const
   {
-    return new StringValue<std::string, Arabica::default_string_adaptor<std::string> >("test-" + context.getLocalName());
+    silly_string name = string_adaptor::construct_from_utf8("test-");
+    string_adaptor::append(name, context.getLocalName());
+    return new StringValue<silly_string, Arabica::default_string_adaptor<silly_string> >(name);
   } // evaluate
 }; // TestFunction
 
-class TestFunctionResolver : public FunctionResolver<std::string, Arabica::default_string_adaptor<std::string> >
+class TestFunctionResolver : public FunctionResolver<silly_string, Arabica::default_string_adaptor<silly_string> >
 {
+  typedef Arabica::default_string_adaptor<silly_string> string_adaptor;
 public:
-  virtual XPathFunction<std::string, Arabica::default_string_adaptor<std::string> >* resolveFunction(const std::string& name,
-                                         const std::vector<XPathExpressionPtr<std::string> >& argExprs) const
+  virtual XPathFunction<silly_string, Arabica::default_string_adaptor<silly_string> >* resolveFunction(const silly_string& name,
+                                         const std::vector<XPathExpressionPtr<silly_string> >& argExprs) const
   {
-    if(name == "test-function")
+    if(name == string_adaptor::construct_from_utf8("test-function"))
       return new TestFunction(argExprs);
     return 0;
   } // resolveFunction
@@ -79,29 +87,30 @@ public:
 
 class ExecuteTest : public TestCase
 {
-  Arabica::XPath::XPath<std::string> parser;
-  DOM::DOMImplementation<std::string> factory_;
-  DOM::Document<std::string> document_;
+  Arabica::XPath::XPath<silly_string> parser;
+  DOM::DOMImplementation<silly_string> factory_;
+  DOM::Document<silly_string> document_;
 
-  DOM::Element<std::string> root_;
+  DOM::Element<silly_string> root_;
 
-  DOM::Element<std::string> element1_;
-  DOM::Element<std::string> element2_;
-  DOM::Element<std::string> element3_;
-  DOM::Element<std::string> spinkle_;
+  DOM::Element<silly_string> element1_;
+  DOM::Element<silly_string> element2_;
+  DOM::Element<silly_string> element3_;
+  DOM::Element<silly_string> spinkle_;
 
-  DOM::Attr<std::string> attr_;
+  DOM::Attr<silly_string> attr_;
 
-  DOM::Text<std::string> text_;
+  DOM::Text<silly_string> text_;
 
-  DOM::Comment<std::string> comment_;
+  DOM::Comment<silly_string> comment_;
 
-  DOM::ProcessingInstruction<std::string> processingInstruction_;
+  DOM::ProcessingInstruction<silly_string> processingInstruction_;
 
-  DOM::Document<std::string> chapters_;
+  DOM::Document<silly_string> chapters_;
 
-  DOM::Document<std::string> numbers_;
+  DOM::Document<silly_string> numbers_;
 
+  typedef Arabica::default_string_adaptor<silly_string> SA;
 public:
   ExecuteTest(std::string name) : TestCase(name)
   {
@@ -109,81 +118,81 @@ public:
 
   void setUp()
   {
-    factory_ = SimpleDOM::DOMImplementation<std::string>::getDOMImplementation();
-    document_ = factory_.createDocument("", "root", 0);
+    factory_ = SimpleDOM::DOMImplementation<silly_string>::getDOMImplementation();
+    document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
-    element1_ = document_.createElement("child1");
-    element2_ = document_.createElement("child2");
-    element3_ = document_.createElement("child3");
+    element1_ = document_.createElement(SA::construct_from_utf8("child1"));
+    element2_ = document_.createElement(SA::construct_from_utf8("child2"));
+    element3_ = document_.createElement(SA::construct_from_utf8("child3"));
 
-    element1_.setAttribute("one", "1");
+    element1_.setAttribute(SA::construct_from_utf8("one"), SA::construct_from_utf8("1"));
 
-    element2_.setAttribute("one", "1");
-    element2_.setAttribute("two", "1");
-    element2_.setAttribute("three", "1");
-    element2_.setAttribute("four", "1");
+    element2_.setAttribute(SA::construct_from_utf8("one"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("two"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("three"), SA::construct_from_utf8("1"));
+    element2_.setAttribute(SA::construct_from_utf8("four"), SA::construct_from_utf8("1"));
 
-    text_ = document_.createTextNode("data");
-    comment_ = document_.createComment("comment");
-    processingInstruction_ = document_.createProcessingInstruction("target", "data");
+    text_ = document_.createTextNode(SA::construct_from_utf8("data"));
+    comment_ = document_.createComment(SA::construct_from_utf8("comment"));
+    processingInstruction_ = document_.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
     element2_.appendChild(text_);
-    spinkle_ = document_.createElement("spinkle");
+    spinkle_ = document_.createElement(SA::construct_from_utf8("spinkle"));
     element2_.appendChild(spinkle_);
     element2_.appendChild(comment_);
     element2_.appendChild(processingInstruction_);
 
-    attr_ = element1_.getAttributeNode("one");
+    attr_ = element1_.getAttributeNode(SA::construct_from_utf8("one"));
 
     root_.appendChild(element1_);
     root_.appendChild(element2_);
     root_.appendChild(element3_);
 
-    chapters_ = factory_.createDocument("", "document", 0);
-    chapters_.getFirstChild().appendChild(chapters_.createElement("chapter")).appendChild(chapters_.createTextNode("one"));
-    chapters_.getFirstChild().appendChild(chapters_.createElement("chapter")).appendChild(chapters_.createTextNode("two"));
-    chapters_.getFirstChild().appendChild(chapters_.createElement("chapter")).appendChild(chapters_.createTextNode("three"));
-    chapters_.getFirstChild().appendChild(chapters_.createElement("chapter")).appendChild(chapters_.createTextNode("four"));
-    chapters_.getFirstChild().appendChild(chapters_.createElement("chapter")).appendChild(chapters_.createTextNode("five"));
+    chapters_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("document"), 0);
+    chapters_.getFirstChild().appendChild(chapters_.createElement(SA::construct_from_utf8("chapter"))).appendChild(chapters_.createTextNode(SA::construct_from_utf8("one")));
+    chapters_.getFirstChild().appendChild(chapters_.createElement(SA::construct_from_utf8("chapter"))).appendChild(chapters_.createTextNode(SA::construct_from_utf8("two")));
+    chapters_.getFirstChild().appendChild(chapters_.createElement(SA::construct_from_utf8("chapter"))).appendChild(chapters_.createTextNode(SA::construct_from_utf8("three")));
+    chapters_.getFirstChild().appendChild(chapters_.createElement(SA::construct_from_utf8("chapter"))).appendChild(chapters_.createTextNode(SA::construct_from_utf8("four")));
+    chapters_.getFirstChild().appendChild(chapters_.createElement(SA::construct_from_utf8("chapter"))).appendChild(chapters_.createTextNode(SA::construct_from_utf8("five")));
 
-    numbers_ = factory_.createDocument("", "doc", 0);
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("1"));
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("2"));
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("3"));
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("4"));
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("5"));
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("6"));
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("7"));
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("8"));
-    numbers_.getFirstChild().appendChild(numbers_.createElement("number")).appendChild(numbers_.createTextNode("9"));
+    numbers_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("doc"), 0);
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("1")));
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("2")));
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("3")));
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("4")));
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("5")));
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("6")));
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("7")));
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("8")));
+    numbers_.getFirstChild().appendChild(numbers_.createElement(SA::construct_from_utf8("number"))).appendChild(numbers_.createTextNode(SA::construct_from_utf8("9")));
   } // setUp
 
   void test1()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    DOM::Node<std::string> n = result->asNodeSet()[0];
+    DOM::Node<silly_string> n = result->asNodeSet()[0];
     assertTrue(root_ == n);
   } // test1
 
   void test2()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/child2");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/child2"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    DOM::Node<std::string> n = result->asNodeSet()[0];
+    DOM::Node<silly_string> n = result->asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test2
 
   void test3()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
@@ -194,26 +203,26 @@ public:
 
   void test4()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*/text()");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*/text()"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(text_ == result->asNodeSet()[0]);
-    assertValuesEqual(text_.getNodeValue(), result->asString());
+    assertTrue(text_.getNodeValue() == result->asString());
   } // test4
 
   void test5() 
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*/text()");
-    assertValuesEqual(text_.getNodeValue(), xpath->evaluateAsString(document_));
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*/text()"));
+    assertTrue(text_.getNodeValue() == xpath->evaluateAsString(document_));
   } // test5
 
   void test6()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("*");
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("*"));
 
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -240,9 +249,9 @@ public:
 
   void test7()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("/root");
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("/root"));
 
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -255,13 +264,13 @@ public:
 
   void test8()
   {
-    StandardNamespaceContext<std::string, Arabica::default_string_adaptor<std::string> > nsContext;
-    nsContext.addNamespaceDeclaration("urn:something:or:other", "ns");
+    StandardNamespaceContext<silly_string, Arabica::default_string_adaptor<silly_string> > nsContext;
+    nsContext.addNamespaceDeclaration(SA::construct_from_utf8("urn:something:or:other"), SA::construct_from_utf8("ns"));
     parser.setNamespaceContext(nsContext);
-    XPathExpressionPtr<std::string> xpath = parser.compile("/ns:root");
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("/ns:root"));
     parser.resetNamespaceContext();
 
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
 
@@ -272,14 +281,14 @@ public:
 
   void test9()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("child2");
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("child2"));
 
-    XPathValuePtr<std::string> result = xpath->evaluate(root_);
+    XPathValuePtr<silly_string> result = xpath->evaluate(root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
 
-    xpath = parser.compile("./child2");
+    xpath = parser.compile(SA::construct_from_utf8("./child2"));
     result = xpath->evaluate(root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -288,14 +297,14 @@ public:
 
   void test10()
   {
-    assertTrue(root_ == parser.evaluate(".", root_)->asNodeSet()[0]);
+    assertTrue(root_ == parser.evaluate(SA::construct_from_utf8("."), root_)->asNodeSet()[0]);
   } // test10
 
   void test11()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("..");
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8(".."));
 
-    XPathValuePtr<std::string> result = xpath->evaluate(element3_);
+    XPathValuePtr<silly_string> result = xpath->evaluate(element3_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -303,18 +312,18 @@ public:
 
   void test12()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[2]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*[2]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    DOM::Node<std::string> n = result->asNodeSet()[0];
+    DOM::Node<silly_string> n = result->asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test12
 
   void test13()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[2]/comment()", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[2]/comment()"), document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -323,7 +332,7 @@ public:
 
   void test14()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[2]/node()[3]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[2]/node()[3]"), document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -332,7 +341,7 @@ public:
 
   void test15()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("root/*[spinkle]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("root/*[spinkle]"), document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -341,7 +350,7 @@ public:
 
   void test16()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("root/*[doesnotmatch]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("root/*[doesnotmatch]"), document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
@@ -349,7 +358,7 @@ public:
 
   void test17()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = '1']", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = '1']"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // test17
@@ -357,10 +366,10 @@ public:
   void test18()
   {
     StringVariableResolver svr;
-    svr.setVariable("index", "1");
+    svr.setVariable(SA::construct_from_utf8("index"), SA::construct_from_utf8("1"));
 
     parser.setVariableResolver(svr);
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = $index]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = $index]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
 
@@ -369,19 +378,19 @@ public:
 
   void test19()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[position() = 2]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*[position() = 2]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    DOM::Node<std::string> n = result->asNodeSet()[0];
+    DOM::Node<silly_string> n = result->asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test19
 
   void test20()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[last()]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*[last()]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -390,8 +399,8 @@ public:
 
   void test21()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[position() != last()]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*[position() != last()]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
@@ -401,8 +410,8 @@ public:
 
   void test22()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[position() = 2 or position() = 1]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*[position() = 2 or position() = 1]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
@@ -412,8 +421,8 @@ public:
 
   void test23()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[position() = 2 and @two = '1']");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*[position() = 2 and @two = '1']"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -422,8 +431,8 @@ public:
 
   void test24()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[last()][1]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*[last()][1]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -432,8 +441,8 @@ public:
 
   void test25()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("root/*[last()][2]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("root/*[last()][2]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
@@ -441,8 +450,8 @@ public:
 
   void test26()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("/root/child2/spinkle/ancestor::node()[2]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor::node()[2]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -452,8 +461,8 @@ public:
 
   void test27()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("/root/child2/spinkle/ancestor-or-self::node()[2]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor-or-self::node()[2]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -463,8 +472,8 @@ public:
 
   void test28()
   {
-    XPathExpressionPtr<std::string> xpath = parser.compile("/root/child2/spinkle/ancestor-or-self::node()[3]");
-    XPathValuePtr<std::string> result = xpath->evaluate(document_);
+    XPathExpressionPtr<silly_string> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor-or-self::node()[3]"));
+    XPathValuePtr<silly_string> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
@@ -473,35 +482,35 @@ public:
 
   void test29()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/child::root/child::*[attribute::two = '1']", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/child::root/child::*[attribute::two = '1']"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // test29
 
   void test30()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(document_ == result->asNodeSet()[0]);
   } // test30
 
   void test31()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/", element1_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/"), element1_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(document_ == result->asNodeSet()[0]);
   } // test31
 
   void test32()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("//comment()", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("//comment()"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(comment_ == result->asNodeSet()[0]);
   } // test32
 
   void test33()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("//comment()", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("//comment()"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(comment_ == result->asNodeSet()[0]);
     assertTrue(result->asNodeSet().forward() == true);
@@ -509,7 +518,7 @@ public:
 
   void test34()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("//*", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("//*"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(5, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -521,7 +530,7 @@ public:
 
   void test35()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("//*", element2_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("//*"), element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(5, result->asNodeSet().size());
     assertTrue(root_ == result->asNodeSet()[0]);
@@ -533,7 +542,7 @@ public:
 
   void test36()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("//*/*", element2_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("//*/*"), element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(4, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -544,7 +553,7 @@ public:
 
   void test37()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("//*/*/*", element2_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("//*/*/*"), element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(spinkle_ == result->asNodeSet()[0]);
@@ -552,14 +561,14 @@ public:
 
   void test38()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("//*/*/*/*", element2_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("//*/*/*/*"), element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
   } // test38
 
   void test39()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/*/*", element2_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/*/*"), element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -569,7 +578,7 @@ public:
 
   void test40()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root//*", element2_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root//*"), element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(4, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -581,14 +590,14 @@ public:
   // see http://jira.codehaus.org/browse/JAXEN-94
   void test41()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("2+1-1+1", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("2+1-1+1"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(3.0, result->asNumber(), 0.0);
   } // test41
 
   void testUnion1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@one|data]", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@one|data]"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -597,7 +606,7 @@ public:
 
   void testUnion2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[buttle|tuttle]", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[buttle|tuttle]"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
     assertTrue(result->asNodeSet().forward() == true);
@@ -605,7 +614,7 @@ public:
 
   void testUnion3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[preceding-sibling::child2|@two]", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[preceding-sibling::child2|@two]"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -615,7 +624,7 @@ public:
   void testUnion4()
   {
     try {
-      XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two|4]", root_);
+      XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two|4]"), root_);
     } // try
     catch(RuntimeException re) {
       // yay!
@@ -624,7 +633,7 @@ public:
 
   void testUnion5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[preceding-sibling::child2|@two|following-sibling::child2]", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[preceding-sibling::child2|@two|following-sibling::child2]"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -634,7 +643,7 @@ public:
 
   void testUnion6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child2|/root/child1", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child2|/root/child1"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -643,7 +652,7 @@ public:
 
   void testUnion7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child1|/root/child2", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child1|/root/child2"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -652,28 +661,28 @@ public:
 
   void testUnion8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child2/@one|/root/child2|/root/child1", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child2/@one|/root/child2|/root/child1"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element2_.getAttributeNode("one") == result->asNodeSet()[2]);
+    assertTrue(element2_.getAttributeNode(SA::construct_from_utf8("one")) == result->asNodeSet()[2]);
   } // testUnion8
 
   void testUnion9()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child1/@one|/root/child2/@one|/root/child2|/root/child1", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child1/@one|/root/child2/@one|/root/child2|/root/child1"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(4, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element1_.getAttributeNode("one") == result->asNodeSet()[1]);
+    assertTrue(element1_.getAttributeNode(SA::construct_from_utf8("one")) == result->asNodeSet()[1]);
     assertTrue(element2_ == result->asNodeSet()[2]);
-    assertTrue(element2_.getAttributeNode("one") == result->asNodeSet()[3]);
+    assertTrue(element2_.getAttributeNode(SA::construct_from_utf8("one")) == result->asNodeSet()[3]);
   } // testUnion9
 
   void testUnion10()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("/root/child3|/root/child3/preceding-sibling::*", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child3|/root/child3/preceding-sibling::*"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -683,16 +692,16 @@ public:
 
   void testUnion11()
   {
-    DOM::DocumentFragment<std::string> frag = document_.createDocumentFragment();
-    frag.appendChild(document_.createElement("foo"));
+    DOM::DocumentFragment<silly_string> frag = document_.createDocumentFragment();
+    frag.appendChild(document_.createElement(SA::construct_from_utf8("foo")));
 
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
     ns.push_back(frag);
-    svr.setVariable("fruit", ns);
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
     parser.setVariableResolver(svr);
 
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit/foo|/root/child3", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit/foo|/root/child3"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element3_ == result->asNodeSet()[0]);
@@ -700,20 +709,20 @@ public:
 
   void testUnion12()
   {
-    DOM::DocumentFragment<std::string> frag = document_.createDocumentFragment();
-    DOM::Node<std::string> n1 = document_.createElement("foo");
-    DOM::Node<std::string> n2 = document_.createElement("bar");
+    DOM::DocumentFragment<silly_string> frag = document_.createDocumentFragment();
+    DOM::Node<silly_string> n1 = document_.createElement(SA::construct_from_utf8("foo"));
+    DOM::Node<silly_string> n2 = document_.createElement(SA::construct_from_utf8("bar"));
 
     frag.appendChild(n1);
     frag.appendChild(n2);
 
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
     ns.push_back(frag);
-    svr.setVariable("fruit", ns);
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
     parser.setVariableResolver(svr);
 
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit/bar|$fruit/foo", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit/bar|$fruit/foo"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(n1 == result->asNodeSet()[0]);
@@ -723,12 +732,12 @@ public:
   void testUnion13()
   {
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
-    ns.push_back(document_.createElement("foo"));
-    svr.setVariable("fruit", ns);
+    NodeSet<silly_string> ns;
+    ns.push_back(document_.createElement(SA::construct_from_utf8("foo")));
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
     parser.setVariableResolver(svr);
 
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit|/root/child3", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit|/root/child3"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
     assertTrue(element3_ == result->asNodeSet()[0]);
@@ -737,13 +746,13 @@ public:
   void testUnion14()
   {
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
-    ns.push_back(document_.createElement("foo"));
-    ns.push_back(document_.createElement("bar"));
-    svr.setVariable("fruit", ns);
+    NodeSet<silly_string> ns;
+    ns.push_back(document_.createElement(SA::construct_from_utf8("foo")));
+    ns.push_back(document_.createElement(SA::construct_from_utf8("bar")));
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
     parser.setVariableResolver(svr);
 
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit|/root/child3|$fruit", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit|/root/child3|$fruit"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element3_ == result->asNodeSet()[0]);
@@ -751,7 +760,7 @@ public:
 
   void testPlus1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[1+1]", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[1+1]"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -759,7 +768,7 @@ public:
 
   void testPlus2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[1+1+1]", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[1+1+1]"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element3_ == result->asNodeSet()[0]);
@@ -767,28 +776,28 @@ public:
 
   void testNodeSetEquality1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = 1]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = 1]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetEquality1
 
   void testNodeSetEquality2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = true()]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = true()]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetEquality2
 
   void testNodeSetEquality3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two != false()]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two != false()]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetEquality3
 
   void testNodeSetEquality4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@* = 1]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@* = 1]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
@@ -796,7 +805,7 @@ public:
 
   void testNodeSetEquality5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@* = '1']", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@* = '1']"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
@@ -804,7 +813,7 @@ public:
 
   void testNodeSetEquality6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@* = @one]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@* = @one]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
@@ -812,14 +821,14 @@ public:
 
   void testNodeSetEquality7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@* = @two]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@* = @two]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetEquality7
 
   void testNodeSetEquality8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/child2[-(@two) = -1]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/child2[-(@two) = -1]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -827,7 +836,7 @@ public:
 
   void testNodeSetEquality9()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/child2[-(@two) - 1 = -2]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/child2[-(@two) - 1 = -2]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -835,7 +844,7 @@ public:
 
   void testCountFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[count(@*) = 4]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[count(@*) = 4]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -843,7 +852,7 @@ public:
 
   void testCountFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[count(@*) = 1]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[count(@*) = 1]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -851,28 +860,28 @@ public:
 
   void testCountFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[count(@*) = 999]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[count(@*) = 999]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
   } // testCountFn3
 
   void testNotFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two != not(true())]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two != not(true())]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNotFn1
 
   void testNotFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[@two = not(false())]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = not(false())]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNotFn2
 
   void testBooleanFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[boolean(@three)]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[boolean(@three)]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
     assertTrue(element2_ == result->asNodeSet()[0]);
@@ -880,7 +889,7 @@ public:
 
   void testBooleanFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate("/root/*[boolean(1)]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate(SA::construct_from_utf8("/root/*[boolean(1)]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(3, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
@@ -890,344 +899,344 @@ public:
 
   void testNumberFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("number(true())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("number(true())"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testNumberFn1
 
   void testNumberFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("number(false())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("number(false())"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testNumberFn2
 
   void testNumberFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("number(1.5)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("number(1.5)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.5, result->asNumber(), 0.0);
   } // testNumberFn3
 
   void testNumberFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("number('1.5')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("number('1.5')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.5, result->asNumber(), 0.0);
   } // testNumberFn4
 
   void testNumberFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("number(\"1.5\")", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("number(\"1.5\")"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.5, result->asNumber(), 0.0);
   } // testNumberFn5
 
   void testNumberFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("number(/root/child2/@one)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("number(/root/child2/@one)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testNumberFn6
 
   void testNumberFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("number('trousers')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("number('trousers')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertTrue(isNaN(result->asNumber()));
   } // testNumberFn7
 
   void testFloorFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor(1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testFloorFn1
 
   void testFloorFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(1.0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor(1.0)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testFloorFn2
 
   void testFloorFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor('1.0')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor('1.0')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testFloorFn3
 
   void testFloorFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(1.1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor(1.1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testFloorFn4
 
   void testFloorFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor(0)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testFloorFn5
 
   void testFloorFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(-1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor(-1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testFloorFn6
 
   void testFloorFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(-1.0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor(-1.0)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testFloorFn7
 
   void testFloorFn8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor(-1.1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor(-1.1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-2.0, result->asNumber(), 0.0);
   } // testFloorFn8
 
   void testFloorFn9()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("floor('NaN')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("floor('NaN')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertTrue(isNaN(result->asNumber()));
   } // testFloorFn9
 
   void testCeilingFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testCeilingFn1
 
   void testCeilingFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(1.0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(1.0)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testCeilingFn2
 
   void testCeilingFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling('1.0')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling('1.0')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testCeilingFn3
 
   void testCeilingFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(1.1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(1.1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testCeilingFn4
 
   void testCeilingFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(0)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testCeilingFn5
 
   void testCeilingFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(-1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(-1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testCeilingFn6
 
   void testCeilingFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(-1.0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(-1.0)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testCeilingFn7
 
   void testCeilingFn8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling(-1.1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(-1.1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testCeilingFn8
 
   void testCeilingFn9()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("ceiling('NaN')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling('NaN')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertTrue(isNaN(result->asNumber()));
   } // testCeilingFn9
 
   void testStringFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(0)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("0", result->asString());
+    assertTrue(SA::construct_from_utf8("0") == result->asString());
   } // testStringFn1
 
   void testStringFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(true())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(true())"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("true", result->asString());
+    assertTrue(SA::construct_from_utf8("true") == result->asString());
   } // testStringFn2
 
   void testStringFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(false())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(false())"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("false", result->asString());
+    assertTrue(SA::construct_from_utf8("false") == result->asString());
   } // testStringFn3
 
   void testStringFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(number('poo'))", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(number('poo'))"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("NaN", result->asString());
+    assertTrue(SA::construct_from_utf8("NaN") == result->asString());
   } // testStringFn4
 
   void testStringFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string('NaN')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string('NaN')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("NaN", result->asString());
+    assertTrue(SA::construct_from_utf8("NaN") == result->asString());
   } // testStringFn5
 
   void testRoundFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(1.0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(1.0)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testRoundFn1
 
   void testRoundFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(1.1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(1.1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testRoundFn2
 
   void testRoundFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(1.5)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(1.5)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testRoundFn3
 
   void testRoundFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(1.9)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(1.9)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testRoundFn4
 
   void testRoundFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-1.0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(-1.0)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testRoundFn5
 
   void testRoundFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-1.1)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(-1.1)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testRoundFn6
 
   void testRoundFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-1.5)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(-1.5)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-1.0, result->asNumber(), 0.0);
   } // testRoundFn7
 
   void testRoundFn8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-1.9)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(-1.9)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-2.0, result->asNumber(), 0.0);
   } // testRoundFn8
 
   void testRoundFn9()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round('NaN')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round('NaN')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertTrue(isNaN(result->asNumber()));
   } // testRoundFn9
 
   void testRoundFn10()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("round(-0.4)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("round(-0.4)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(-0.0, result->asNumber(), 0.0);
   } // testRoundFn10
 
   void testSumFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("sum(/root)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("sum(/root)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testSumFn1
 
   void testSumFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("sum(/root/child1/@one)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("sum(/root/child1/@one)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testSumFn2
 
   void testSumFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("sum(/root//@one)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("sum(/root//@one)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testSumFn3
 
   void testSumFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("sum(/root/child2/@*)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("sum(/root/child2/@*)"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(4.0, result->asNumber(), 0.0);
   } // testSumFn4
 
   void testConcatFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("concat('a', 'b')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("concat('a', 'b')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("ab", result->asString());
+    assertTrue(SA::construct_from_utf8("ab") == result->asString());
   } // testConcatFn1
 
   void testConcatFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("concat('a', 'b', 'c')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("concat('a', 'b', 'c')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("abc", result->asString());
+    assertTrue(SA::construct_from_utf8("abc") == result->asString());
   } // testConcatFn2
 
   void testConcatFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("concat('a', 'b', 'c', 'd')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("concat('a', 'b', 'c', 'd')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("abcd", result->asString());
+    assertTrue(SA::construct_from_utf8("abcd") == result->asString());
   } // testConcatFn3
 
   void testConcatFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("concat(/root/child2/@one, /root/child2/@two, /root/child2/@three)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("concat(/root/child2/@one, /root/child2/@two, /root/child2/@three)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("111", result->asString());
+    assertTrue(SA::construct_from_utf8("111") == result->asString());
   } // testConcatFn4
 
   void testConcatFn5()
   {
     try {
-      parser.evaluate_expr("concat('please explode')", document_);
+      parser.evaluate_expr(SA::construct_from_utf8("concat('please explode')"), document_);
       assertTrue(false);
     }
     catch(...) { }
@@ -1235,783 +1244,794 @@ public:
 
   void testStartsWithFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("starts-with('hello', 'charlie drake')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello', 'charlie drake')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testStartsWithFn1
 
   void testStartsWithFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("starts-with('hello', 'hello mother')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello', 'hello mother')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testStartsWithFn2
 
   void testStartsWithFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("starts-with('hello mother', 'hello')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello mother', 'hello')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testStartsWithFn3
 
   void testStartsWithFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("starts-with('hello mother', 'hello mother')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello mother', 'hello mother')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testStartsWithFn4
 
   void testStringLengthFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length('')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string-length('')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testStringLengthFn1
 
   void testStringLengthFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length('ab')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string-length('ab')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(2.0, result->asNumber(), 0.0);
   } // testStringLengthFn2
 
   void testStringLengthFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length('abcd')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string-length('abcd')"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(4.0, result->asNumber(), 0.0);
   } // testStringLengthFn3
 
   void testStringLengthFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length(concat('ab', 'cd'))", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string-length(concat('ab', 'cd'))"), document_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(4.0, result->asNumber(), 0.0);
   } // testStringLengthFn4
 
   void testStringLengthFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length()", attr_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string-length()"), attr_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(1.0, result->asNumber(), 0.0);
   } // testStringLengthFn5
 
   void testStringLengthFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string-length()", element1_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string-length()"), element1_);
     assertValuesEqual(NUMBER, result->type());
     assertDoublesEqual(0.0, result->asNumber(), 0.0);
   } // testStringLengthFn6
 
   void testContainsFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('hello', 'charlie drake')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello', 'charlie drake')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testContainsFn1
 
   void testContainsFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('hello', 'hello mother')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello', 'hello mother')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testContainsFn2
 
   void testContainsFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('hello mother', 'hello')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello mother', 'hello')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn3
 
   void testContainsFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('hello mother', 'hello mother')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello mother', 'hello mother')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn4
 
   void testContainsFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('she heard a call hello mother somewhere in the distance', 'hello')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("contains('she heard a call hello mother somewhere in the distance', 'hello')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn5
 
   void testContainsFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("contains('my dogs says hello mother', 'hello mother')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("contains('my dogs says hello mother', 'hello mother')"), document_);
     assertValuesEqual(BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn6
 
   void testSubstringBeforeFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-before('1999/04/01', '/')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring-before('1999/04/01', '/')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("1999", result->asString());
+    assertTrue(SA::construct_from_utf8("1999") == result->asString());
   } // testSubstringBeforeFn1
 
   void testSubstringBeforeFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-before('1999/04/01', 'mogadon')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring-before('1999/04/01', 'mogadon')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testSubstringBeforeFn2
 
   void testSubstringBeforeFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-before('1999/04/01', '/01')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring-before('1999/04/01', '/01')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("1999/04", result->asString());
+    assertTrue(SA::construct_from_utf8("1999/04") == result->asString());
   } // testStringBeforeFn3
 
   void testSubstringBeforeFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-before('1999/04/01', '1')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring-before('1999/04/01', '1')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testStringBeforeFn4
 
   void testSubstringAfterFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-after('1999/04/01', '/')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring-after('1999/04/01', '/')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("04/01", result->asString());
+    assertTrue(SA::construct_from_utf8("04/01") == result->asString());
   } // testSubstringAfterFn1
 
   void testSubstringAfterFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-after('1999/04/01', 'mogadon')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring-after('1999/04/01', 'mogadon')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testSubstringAfterFn2
 
   void testSubstringAfterFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-after('1999/04/01', '/01')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring-after('1999/04/01', '/01')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testStringAfterFn3
 
   void testSubstringAfterFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring-after('1999/04/01', '19')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring-after('1999/04/01', '19')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("99/04/01", result->asString());
+    assertTrue(SA::construct_from_utf8("99/04/01") == result->asString());
   } // testStringAfterFn4
 
   void testSubstringFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 2, 3)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 2, 3)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("234", result->asString());
+    assertTrue(SA::construct_from_utf8("234") == result->asString());
   } // testSubstringFn1
 
   void testSubstringFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 2)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 2)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("2345", result->asString());
+    assertTrue(SA::construct_from_utf8("2345") == result->asString());
   } // testSubstringFn2
 
   void testSubstringFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 1.5, 2.6)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 1.5, 2.6)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("234", result->asString());
+    assertTrue(SA::construct_from_utf8("234") == result->asString());
   } // testSubstringFn3
 
   void testSubstringFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 0, 3)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 0, 3)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("12", result->asString());
+    assertTrue(SA::construct_from_utf8("12") == result->asString());
   } // testSubstringFn4
 
   void testSubstringFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 0 div 0, 3)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 0 div 0, 3)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testSubstringFn5
 
   void testSubstringFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 1, 0 div 0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 1, 0 div 0)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testSubstringFn6
 
   void testSubstringFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', -42, 1 div 0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', -42, 1 div 0)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("12345", result->asString());
+    assertTrue(SA::construct_from_utf8("12345") == result->asString());
   } // testSubstringFn7
 
   void testSubstringFn8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', -1 div 0, 1 div 0)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', -1 div 0, 1 div 0)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testSubstringFn8
 
   void testSubstringFn9()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', 1, 'NaN')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 1, 'NaN')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testSubstringFn9
 
   void testSubstringFn10()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', NaN)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', NaN)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testSubstringFn10
 
   void testSubstringFn11()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("substring('12345', NaN, NaN)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', NaN, NaN)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testSubstringFn11
 
   void testNormalizeSpaceFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('12345')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('12345')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("12345", result->asString());
+    assertTrue(SA::construct_from_utf8("12345") == result->asString());
   } // testNormalizeSpaceFn1
 
   void testNormalizeSpaceFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('    12345')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('    12345')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("12345", result->asString());
+    assertTrue(SA::construct_from_utf8("12345") == result->asString());
   } // testNormalizeSpaceFn2
 
   void testNormalizeSpaceFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('12345 ')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('12345 ')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("12345", result->asString());
+    assertTrue(SA::construct_from_utf8("12345") == result->asString());
   } // testNormalizeSpaceFn3
 
   void testNormalizeSpaceFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('    12345    ')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('    12345    ')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("12345", result->asString());
+    assertTrue(SA::construct_from_utf8("12345") == result->asString());
   } // testNormalizeSpaceFn4
 
   void testNormalizeSpaceFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('   12   3   45   ')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('   12   3   45   ')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("12 3 45", result->asString());
+    assertTrue(SA::construct_from_utf8("12 3 45") == result->asString());
   } // testNormalizeSpaceFn5
 
   void testNormalizeSpaceFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('1     2    3   4  5')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('1     2    3   4  5')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("1 2 3 4 5", result->asString());
+    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result->asString());
   } // testNormalizeSpaceFn6
 
   void testNormalizeSpaceFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('1\t2\r3\n4\r\n5')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('1\t2\r3\n4\r\n5')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("1 2 3 4 5", result->asString());
+    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result->asString());
   } // testNormalizeSpaceFn7
 
   void testNormalizeSpaceFn8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('\n\n\n\n\n1\n\n\n\n\n2\n\n\n\n\n3\n\n\n\n\n\n4\n\n\n\n\n\n5\n\n\n\n\n')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('\n\n\n\n\n1\n\n\n\n\n2\n\n\n\n\n3\n\n\n\n\n\n4\n\n\n\n\n\n5\n\n\n\n\n')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("1 2 3 4 5", result->asString());
+    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result->asString());
   } // testNormalizeSpaceFn8
 
   void testNormalizeSpaceFn9()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("normalize-space('\r\n\r\n\r\n\r\n\r\n1\r\n\r\n\r\n\r\n\r\n2\r\n\r\n\r\n\r\n\r\n3\r\n\r\n\r\n\r\n\r\n\r\n4\r\n\r\n\r\n\r\n\r\n\r\n5\r\n\r\n\r\n\r\n\r\n')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('\r\n\r\n\r\n\r\n\r\n1\r\n\r\n\r\n\r\n\r\n2\r\n\r\n\r\n\r\n\r\n3\r\n\r\n\r\n\r\n\r\n\r\n4\r\n\r\n\r\n\r\n\r\n\r\n5\r\n\r\n\r\n\r\n\r\n')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("1 2 3 4 5", result->asString());
+    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result->asString());
   } // testNormalizeSpaceFn9
 
   void testTranslateFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("translate('bar','abc','ABC')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("translate('bar','abc','ABC')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("BAr", result->asString());
+    assertTrue(SA::construct_from_utf8("BAr") == result->asString());
   } // testTranslateFn1
 
   void testTranslateFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("translate('--aaa--','abc-','ABC')", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("translate('--aaa--','abc-','ABC')"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("AAA", result->asString());
+    assertTrue(SA::construct_from_utf8("AAA") == result->asString());
   } // testTranslateFn2
 
   void testLocalNameFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("root", result->asString());
+    assertTrue(SA::construct_from_utf8("root") == result->asString());
   } // testLocalNameFn1
 
   void testLocalNameFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root/child2/@one)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root/child2/@one)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("one", result->asString());
+    assertTrue(SA::construct_from_utf8("one") == result->asString());
   } // testLocalNameFn2
 
   void testLocalNameFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(//comment())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(//comment())"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testLocalNameFn3
 
   void testLocalNameFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(//processing-instruction())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(//processing-instruction())"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("target", result->asString());
+    assertTrue(SA::construct_from_utf8("target") == result->asString());
   } // testLocalNameFn4
 
   void testLocalNameFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name()", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name()"), root_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("root", result->asString());
+    assertTrue(SA::construct_from_utf8("root") == result->asString());
   } // testLocalNameFn5
 
   void testLocalNameFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name()", attr_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name()"), attr_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("one", result->asString());
+    assertTrue(SA::construct_from_utf8("one") == result->asString());
   } // testLocalNameFn6
 
   void testLocalNameFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(//comment())", comment_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(//comment())"), comment_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testLocalNameFn7
 
   void testLocalNameFn8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(//processing-instruction())", processingInstruction_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(//processing-instruction())"), processingInstruction_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("target", result->asString());
+    assertTrue(SA::construct_from_utf8("target") == result->asString());
   } // testLocalNameFn8
 
   void testLocalNameFn9()
   {
-    root_.appendChild(document_.createElementNS("test-uri", "element4"));
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root/*[last()])", document_);
+    root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
+                                                SA::construct_from_utf8("element4")));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root/*[last()])"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("element4", result->asString());
+    assertTrue(SA::construct_from_utf8("element4") == result->asString());
   } // testLocalNameFn9
 
   void testLocalNameFn10()
   {
-    root_.setAttributeNS("test-uri", "q:woot", "hello");
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root/@*)", document_);
+    root_.setAttributeNS(SA::construct_from_utf8("test-uri"), 
+                         SA::construct_from_utf8("q:woot"), 
+                         SA::construct_from_utf8("hello"));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root/@*)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("woot", result->asString());
+    assertTrue(SA::construct_from_utf8("woot") == result->asString());
   } // testLocalNameFn10
 
   void testLocalNameFn11()
   {
-    root_.appendChild(document_.createElementNS("test-uri", "q:noob"));
-    XPathValuePtr<std::string> result = parser.evaluate_expr("local-name(/root/*[last()])", document_);
+    root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
+                                                SA::construct_from_utf8("q:noob")));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root/*[last()])"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("noob", result->asString());
+    assertTrue(SA::construct_from_utf8("noob") == result->asString());
   } // testLocalNameFn11
 
   void testNamespaceURIFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNamespaceURIFn1
 
   void testNamespaceURIFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root/child2/@one)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root/child2/@one)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNamespaceURIFn2
 
   void testNamespaceURIFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(//comment())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(//comment())"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNamespaceURIFn3
 
   void testNamespaceURIFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(//processing-instruction())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(//processing-instruction())"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNamespaceURIFn4
 
   void testNamespaceURIFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri()", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri()"), root_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNamespaceURIFn5
 
   void testNamespaceURIFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri()", attr_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri()"), attr_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNamespaceURIFn6
 
   void testNamespaceURIFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(//comment())", comment_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(//comment())"), comment_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNamespaceURIFn7
 
   void testNamespaceURIFn8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(//processing-instruction())", processingInstruction_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(//processing-instruction())"), processingInstruction_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNamespaceURIFn8
 
   void testNamespaceURIFn9()
   {
-    root_.appendChild(document_.createElementNS("test-uri", "element4"));
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root/*[last()])", document_);
+    root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
+                                                SA::construct_from_utf8("element4")));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root/*[last()])"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("test-uri", result->asString());
+    assertTrue(SA::construct_from_utf8("test-uri") == result->asString());
   } // testNamespaceURIFn9
 
   void testNamespaceURIFn10()
   {
-    root_.setAttributeNS("test-uri", "q:woot", "hello");
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root/@*)", document_);
+    root_.setAttributeNS(SA::construct_from_utf8("test-uri"), 
+                         SA::construct_from_utf8("q:woot"), 
+                         SA::construct_from_utf8("hello"));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root/@*)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("test-uri", result->asString());
+    assertTrue(SA::construct_from_utf8("test-uri") == result->asString());
   } // testNamespaceURIFn10
 
   void testNamespaceURIFn11()
   {
-    root_.appendChild(document_.createElementNS("test-uri", "q:noob"));
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace-uri(/root/*[last()])", document_);
+    root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), SA::construct_from_utf8("q:noob")));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root/*[last()])"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("test-uri", result->asString());
+    assertTrue(SA::construct_from_utf8("test-uri") == result->asString());
   } // testNamespaceURIFn1
   
   void testNameFn1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("root", result->asString());
+    assertTrue(SA::construct_from_utf8("root") == result->asString());
   } // testNameFn1
 
   void testNameFn2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root/child2/@one)", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root/child2/@one)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("one", result->asString());
+    assertTrue(SA::construct_from_utf8("one") == result->asString());
   } // testNameFn2
 
   void testNameFn3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(//comment())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(//comment())"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNameFn3
 
   void testNameFn4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(//processing-instruction())", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(//processing-instruction())"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("target", result->asString());
+    assertTrue(SA::construct_from_utf8("target") == result->asString());
   } // testNameFn4
 
   void testNameFn5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name()", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name()"), root_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("root", result->asString());
+    assertTrue(SA::construct_from_utf8("root") == result->asString());
   } // testNameFn5
 
   void testNameFn6()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name()", attr_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name()"), attr_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("one", result->asString());
+    assertTrue(SA::construct_from_utf8("one") == result->asString());
   } // testNameFn6
 
   void testNameFn7()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(//comment())", comment_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(//comment())"), comment_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("", result->asString());
+    assertTrue(SA::construct_from_utf8("") == result->asString());
   } // testNameFn7
 
   void testNameFn8()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(//processing-instruction())", processingInstruction_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(//processing-instruction())"), processingInstruction_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("target", result->asString());
+    assertTrue(SA::construct_from_utf8("target") == result->asString());
   } // testNameFn8
 
   void testNameFn9()
   {
-    root_.appendChild(document_.createElementNS("test-uri", "element4"));
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root/*[last()])", document_);
+    root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
+                                                SA::construct_from_utf8("element4")));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root/*[last()])"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("element4", result->asString());
+    assertTrue(SA::construct_from_utf8("element4") == result->asString());
   } // testNameFn9
 
   void testNameFn10()
   {
-    root_.setAttributeNS("test-uri", "q:woot", "hello");
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root/@*)", document_);
+    root_.setAttributeNS(SA::construct_from_utf8("test-uri"), 
+                         SA::construct_from_utf8("q:woot"), 
+                         SA::construct_from_utf8("hello"));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root/@*)"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("q:woot", result->asString());
+    assertTrue(SA::construct_from_utf8("q:woot") == result->asString());
   } // testNameFn10
 
   void testNameFn11()
   {
-    root_.appendChild(document_.createElementNS("test-uri", "q:noob"));
-    XPathValuePtr<std::string> result = parser.evaluate_expr("name(/root/*[last()])", document_);
+    root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
+                                                SA::construct_from_utf8("q:noob")));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root/*[last()])"), document_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("q:noob", result->asString());
+    assertTrue(SA::construct_from_utf8("q:noob") == result->asString());
   } // testNameFn11
 
   void testDocumentOrder1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/*)", chapters_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/*)"), chapters_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("one", result->asString());
+    assertTrue(SA::construct_from_utf8("one") == result->asString());
   } // testDocumentOrder1
 
   void testDocumentOrder2()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/*[last()])", chapters_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/*[last()])"), chapters_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("five", result->asString());
+    assertTrue(SA::construct_from_utf8("five") == result->asString());
   } // testDocumentOrder2
 
   void testDocumentOrder3()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*[1])", chapters_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/chapter[5]/preceding-sibling::*[1])"), chapters_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("four", result->asString());
+    assertTrue(SA::construct_from_utf8("four") == result->asString());
   } // testDocumentOrder3
 
   void testDocumentOrder4()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*[last()])", chapters_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/chapter[5]/preceding-sibling::*[last()])"), chapters_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("one", result->asString());
+    assertTrue(SA::construct_from_utf8("one") == result->asString());
   } // testDocumentOrder4
 
   void testDocumentOrder5()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("string(/document/chapter[5]/preceding-sibling::*)", chapters_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/chapter[5]/preceding-sibling::*)"), chapters_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("one", result->asString());
+    assertTrue(SA::construct_from_utf8("one") == result->asString());
   } // testDocumentOrder5
 
   void testLessThan1()
   {
-    assertValuesEqual(false, parser.evaluate_expr("true() < true()", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("true() < false()", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("false() < false()", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("false() < true()", chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("true() < true()"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("true() < false()"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("false() < false()"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("false() < true()"), chapters_)->asBool());
   } // testLessThan1
 
   void testLessThan2()
   {
-    assertValuesEqual(false, parser.evaluate_expr("1 < 1", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("3.0 < 2.0", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("2.0 < 3.0", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("-1 < 1", chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("1 < 1"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("3.0 < 2.0"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("2.0 < 3.0"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("-1 < 1"), chapters_)->asBool());
   } // testLessThan2
 
   void testLessThan3()
   {
-    assertValuesEqual(false, parser.evaluate_expr("'1' < '1'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("'3.0' < '2.0'", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("'2.0' < '3.0'", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("'-1' < '1'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("-1 < 'ooop'", chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("'1' < '1'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("'3.0' < '2.0'"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("'2.0' < '3.0'"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("'-1' < '1'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("-1 < 'ooop'"), chapters_)->asBool());
   } // testLessThan3
 
   void testLessThan4()
   {
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number < 0", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number[2] < 0", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number < 2", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number < 12", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("0 < /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("0 < /doc/number[2]", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("1 < /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("7 < /doc/number", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("12 < /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[position()<5] < /doc/number[position()>5]", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[position()<=5] < /doc/number[position()>4]", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number[position()>5] < /doc/number[position()<5]", numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number < 0"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[2] < 0"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number < 2"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number < 12"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("0 < /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("0 < /doc/number[2]"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("1 < /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("7 < /doc/number"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("12 < /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()<5] < /doc/number[position()>5]"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()<=5] < /doc/number[position()>4]"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()>5] < /doc/number[position()<5]"), numbers_)->asBool());
   } // testLessThan4
 
   void testLessThanEquals1()
   {
-    assertValuesEqual(true, parser.evaluate_expr("true() <= true()", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("true() <= false()", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("false() <= false()", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("false() <= true()", chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("true() <= true()"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("true() <= false()"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("false() <= false()"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("false() <= true()"), chapters_)->asBool());
   } // testLessThanEquals1
 
   void testLessThanEquals2()
   {
-    assertValuesEqual(true, parser.evaluate_expr("1 <= 1", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("3.0 <= 2.0", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("2.0 <= 3.0", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("-1 <= 1", chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("1 <= 1"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("3.0 <= 2.0"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("2.0 <= 3.0"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("-1 <= 1"), chapters_)->asBool());
   } // testLessThanEquals2
 
   void testLessThanEquals3()
   {
-    assertValuesEqual(true, parser.evaluate_expr("'1' <= '1'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("'3.0' <= '2.0'", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("'2.0' <= '3.0'", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("'-1' <= '1'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("-1 <= 'ooop'", chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("'1' <= '1'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("'3.0' <= '2.0'"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("'2.0' <= '3.0'"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("'-1' <= '1'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("-1 <= 'ooop'"), chapters_)->asBool());
   } // testLessThanEquals3
 
   void testLessThanEquals4()
   {
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number <= 0", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number[2] <= 0", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number <= 2", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number <= 12", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("0 <= /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("0 <= /doc/number[2]", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("1 <= /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("7 <= /doc/number", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("12 <= /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[position()<5] <= /doc/number[position()>5]", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[position()<=5] <= /doc/number[position()>4]", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number[position()>5] <= /doc/number[position()<5]", numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number <= 0"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[2] <= 0"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number <= 2"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number <= 12"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("0 <= /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("0 <= /doc/number[2]"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("1 <= /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("7 <= /doc/number"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("12 <= /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()<5] <= /doc/number[position()>5]"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()<=5] <= /doc/number[position()>4]"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()>5] <= /doc/number[position()<5]"), numbers_)->asBool());
   } // testLessThanEquals4
 
   void testGreaterThan1()
   {
-    assertValuesEqual(false, parser.evaluate_expr("true() > true()", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("true() > false()", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("false() > false()", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("false() > true()", chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("true() > true()"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("true() > false()"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("false() > false()"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("false() > true()"), chapters_)->asBool());
   } // testGreaterThan1
 
   void testGreaterThan2()
   {
-    assertValuesEqual(false, parser.evaluate_expr("1 > 1", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("3.0 > 2.0", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("2.0 > 3.0", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("-1 > 1", chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("1 > 1"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("3.0 > 2.0"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("2.0 > 3.0"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("-1 > 1"), chapters_)->asBool());
   } // testGreaterThan2
 
   void testGreaterThan3()
   {
-    assertValuesEqual(false, parser.evaluate_expr("'1' > '1'", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("'3.0' > '2.0'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("'2.0' > '3.0'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("'-1' > '1'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("-1 > 'ooop'", chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("'1' > '1'"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("'3.0' > '2.0'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("'2.0' > '3.0'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("'-1' > '1'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("-1 > 'ooop'"), chapters_)->asBool());
   } // testGreaterThan3
 
   void testGreaterThan4()
   {
-    assertValuesEqual(false, parser.evaluate_expr("3 > 2 > 1", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("(3>2)>1", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("3 > (2 > 1)", chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("3 > 2 > 1"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("(3>2)>1"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("3 > (2 > 1)"), chapters_)->asBool());
   } // testGreaterThan4
 
   void testGreaterThan5()
   {
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number > 0", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[2] > 0", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number > 1", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number > 12", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("0 > /doc/number", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("0 > /doc/number[2]", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("1 > /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("7 > /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("12 > /doc/number", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number[position()<5] > /doc/number[position()>5]", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number[position()<=5] > /doc/number[position()>4]", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[position()>5] > /doc/number[position()<5]", numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number > 0"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[2] > 0"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number > 1"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number > 12"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("0 > /doc/number"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("0 > /doc/number[2]"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("1 > /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("7 > /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("12 > /doc/number"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()<5] > /doc/number[position()>5]"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()<=5] > /doc/number[position()>4]"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()>5] > /doc/number[position()<5]"), numbers_)->asBool());
   } // testGreaterThan4
 
   void testGreaterThanEquals1()
   {
-    assertValuesEqual(true, parser.evaluate_expr("true() >= true()", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("true() >= false()", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("false() >= false()", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("false() >= true()", chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("true() >= true()"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("true() >= false()"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("false() >= false()"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("false() >= true()"), chapters_)->asBool());
   } // testGreaterThanEquals1
 
   void testGreaterThanEquals2()
   {
-    assertValuesEqual(true, parser.evaluate_expr("1 >= 1", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("3.0 >= 2.0", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("2.0 >= 3.0", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("-1 >= 1", chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("1 >= 1"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("3.0 >= 2.0"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("2.0 >= 3.0"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("-1 >= 1"), chapters_)->asBool());
   } // testGreaterThanEquals2
 
   void testGreaterThanEquals3()
   {
-    assertValuesEqual(true, parser.evaluate_expr("'1' >= '1'", chapters_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("'3.0' >= '2.0'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("'2.0' >= '3.0'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("'-1' >= '1'", chapters_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("-1 >= 'ooop'", chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("'1' >= '1'"), chapters_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("'3.0' >= '2.0'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("'2.0' >= '3.0'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("'-1' >= '1'"), chapters_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("-1 >= 'ooop'"), chapters_)->asBool());
   } // testGreaterThanEquals3
 
   void testGreaterThanEquals4()
   {
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number >= 0", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[2] >= 0", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number >= 1", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number >= 12", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("0 >= /doc/number", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("0 >= /doc/number[2]", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("1 >= /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("7 >= /doc/number", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("12 >= /doc/number", numbers_)->asBool());
-    assertValuesEqual(false, parser.evaluate_expr("/doc/number[position()<5] >= /doc/number[position()>5]", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[position()<=5] >= /doc/number[position()>4]", numbers_)->asBool());
-    assertValuesEqual(true, parser.evaluate_expr("/doc/number[position()>5] >= /doc/number[position()<5]", numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number >= 0"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[2] >= 0"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number >= 1"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number >= 12"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("0 >= /doc/number"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("0 >= /doc/number[2]"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("1 >= /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("7 >= /doc/number"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("12 >= /doc/number"), numbers_)->asBool());
+    assertValuesEqual(false, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()<5] >= /doc/number[position()>5]"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()<=5] >= /doc/number[position()>4]"), numbers_)->asBool());
+    assertValuesEqual(true, parser.evaluate_expr(SA::construct_from_utf8("/doc/number[position()>5] >= /doc/number[position()<5]"), numbers_)->asBool());
   } // testGreaterThanEquals4
 
   void testNodeSetVars1()
   {
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
-    svr.setVariable("fruit", ns);
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
@@ -2021,14 +2041,14 @@ public:
   void testNodeSetVars2()
   {
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
-    svr.setVariable("fruit", ns);
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit/spinkle", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit/spinkle"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(spinkle_ == result->asNodeSet()[0]);
   } // testNodeSetVars2
@@ -2036,14 +2056,14 @@ public:
   void testNodeSetVars3()
   {
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
-    svr.setVariable("fruit", ns);
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit[2]/*", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit[2]/*"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(spinkle_ == result->asNodeSet()[0]);
   } // testNodeSetVars3
@@ -2051,14 +2071,14 @@ public:
   void testNodeSetVars4()
   {
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
-    svr.setVariable("fruit", ns);
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit[true()][2]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit[true()][2]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetVars4
@@ -2066,40 +2086,46 @@ public:
   void testNodeSetVars5()
   {
     NodeSetVariableResolver svr;
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
     ns.push_back(element1_);
     ns.push_back(element2_);
     ns.push_back(element3_);
-    svr.setVariable("fruit", ns);
+    svr.setVariable(SA::construct_from_utf8("fruit"), ns);
 
     parser.setVariableResolver(svr);
-    XPathValuePtr<std::string> result = parser.evaluate_expr("$fruit[@two]", document_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit[@two]"), document_);
     assertValuesEqual(NODE_SET, result->type());
     assertTrue(element2_ == result->asNodeSet()[0]);
   } // testNodeSetVars5
 
   void namespaceAxisTest1()
   {
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace::*", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(0, result->asNodeSet().size());
   } // namespaceAxisTest1()
 
   void namespaceAxisTest2()
   {
-    root_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:poop", "urn:test");
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace::*", root_);
+    root_.setAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), 
+                         SA::construct_from_utf8("xmlns:poop"), 
+                         SA::construct_from_utf8("urn:test"));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), root_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    assertValuesEqual("poop", result->asNodeSet()[0].getLocalName());
-    assertValuesEqual("urn:test", result->asNodeSet()[0].getNodeValue());
+    assertTrue(SA::construct_from_utf8("poop") == result->asNodeSet()[0].getLocalName());
+    assertTrue(SA::construct_from_utf8("urn:test") == result->asNodeSet()[0].getNodeValue());
   } // namespaceAxisTest2
 
   void namespaceAxisTest3()
   {
-    root_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:poop", "urn:test");
-    element2_.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:test", "urn:another-test");
-    XPathValuePtr<std::string> result = parser.evaluate_expr("namespace::*", element2_);
+    root_.setAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), 
+                         SA::construct_from_utf8("xmlns:poop"), 
+                         SA::construct_from_utf8("urn:test"));
+    element2_.setAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), 
+                             SA::construct_from_utf8("xmlns:test"), 
+                             SA::construct_from_utf8("urn:another-test"));
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), element2_);
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(2, result->asNodeSet().size());
   } // namespaceAxisTest3
@@ -2107,7 +2133,7 @@ public:
   void testFunctionResolver1()
   {
     try {
-      parser.compile_expr("test-function()");
+      parser.compile_expr(SA::construct_from_utf8("test-function()"));
       assertTrue(false);
     }
     catch(...) { }
@@ -2118,14 +2144,14 @@ public:
     TestFunctionResolver tfr;
     parser.setFunctionResolver(tfr);
 
-    XPathValuePtr<std::string> result = parser.evaluate_expr("test-function()", root_);
+    XPathValuePtr<silly_string> result = parser.evaluate_expr(SA::construct_from_utf8("test-function()"), root_);
     assertValuesEqual(STRING, result->type());
-    assertValuesEqual("test-root", result->asString());
+    assertTrue(SA::construct_from_utf8("test-root") == result->asString());
   } // testFunctionResolver2
 
   void testSort1()
   {
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
 
     ns.push_back(element1_);
     ns.push_back(element2_);
@@ -2140,7 +2166,7 @@ public:
 
   void testSort2()
   {
-    NodeSet<std::string> ns;
+    NodeSet<silly_string> ns;
 
     ns.push_back(element3_);
     ns.push_back(element2_);

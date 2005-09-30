@@ -241,7 +241,7 @@ private:
     do
     {
       a = attrs_.item(index_++);
-    } while ((a != 0) && (a.getNamespaceURI() == string_adaptor().makeStringT("http://www.w3.org/2000/xmlns/")));
+    } while ((a != 0) && (a.getNamespaceURI() == string_adaptor::construct_from_utf8("http://www.w3.org/2000/xmlns/")));
 
     AxisWalker<string_type>::set(a);
   } // set_next
@@ -396,7 +396,7 @@ class NamespaceAxisWalker : public AxisWalker<string_type>
 {
 public:
   NamespaceAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(true),
-    xmlns_prefix_(string_adaptor().makeStringT("xmlns")),
+    xmlns_prefix_(string_adaptor::construct_from_utf8("xmlns")),
     index_(0)
   {
     DOM::Node<string_type> current = context;

@@ -14,16 +14,15 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
                                                 const stringT& namespaceURI, 
                                                 typename DOM::Node<stringT>::Type nodeType)
 {
-  string_adaptorT SA;
-  const stringT xml = SA.makeStringT("xml");
-  const stringT xmlURI = SA.makeStringT("http://www.w3.org/XML/1998/namespace");
-  const stringT xmlns = SA.makeStringT("xmlns");
-  const stringT xmlnsURI = SA.makeStringT("http://www.w3.org/2000/xmlns/");
+  const stringT xml = string_adaptorT::construct_from_utf8("xml");
+  const stringT xmlURI = string_adaptorT::construct_from_utf8("http://www.w3.org/XML/1998/namespace");
+  const stringT xmlns = string_adaptorT::construct_from_utf8("xmlns");
+  const stringT xmlnsURI = string_adaptorT::construct_from_utf8("http://www.w3.org/2000/xmlns/");
 
   if(!hasPrefix)
     return std::make_pair(hasNamespaceURI, namespaceURI);
 
-  if(string_adaptorT::find(prefix, SA.makeStringT(":")) != string_adaptorT::npos)
+  if(string_adaptorT::find(prefix, string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos)
     throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
 
   if(prefix == xml) 

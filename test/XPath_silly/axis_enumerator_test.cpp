@@ -38,31 +38,30 @@ public:
 
   void setUp()
   {
-    silly_string_adaptor sa;
     factory_ = SimpleDOM::DOMImplementation<silly_string, silly_string_adaptor>::getDOMImplementation();
-    document_ = factory_.createDocument(sa.makeStringT(""), sa.makeStringT("root"), 0);
+    document_ = factory_.createDocument(silly_string_adaptor::construct_from_utf8(""), silly_string_adaptor::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
-    element1_ = document_.createElement(sa.makeStringT("child1"));
-    element2_ = document_.createElement(sa.makeStringT("child2"));
-    element3_ = document_.createElement(sa.makeStringT("child3"));
+    element1_ = document_.createElement(silly_string_adaptor::construct_from_utf8("child1"));
+    element2_ = document_.createElement(silly_string_adaptor::construct_from_utf8("child2"));
+    element3_ = document_.createElement(silly_string_adaptor::construct_from_utf8("child3"));
 
-    element1_.setAttribute(sa.makeStringT("one"), sa.makeStringT("1"));
+    element1_.setAttribute(silly_string_adaptor::construct_from_utf8("one"), silly_string_adaptor::construct_from_utf8("1"));
 
-    element2_.setAttribute(sa.makeStringT("one"), sa.makeStringT("1"));
-    element2_.setAttribute(sa.makeStringT("two"), sa.makeStringT("1"));
-    element2_.setAttribute(sa.makeStringT("three"), sa.makeStringT("1"));
-    element2_.setAttribute(sa.makeStringT("four"), sa.makeStringT("1"));
+    element2_.setAttribute(silly_string_adaptor::construct_from_utf8("one"), silly_string_adaptor::construct_from_utf8("1"));
+    element2_.setAttribute(silly_string_adaptor::construct_from_utf8("two"), silly_string_adaptor::construct_from_utf8("1"));
+    element2_.setAttribute(silly_string_adaptor::construct_from_utf8("three"), silly_string_adaptor::construct_from_utf8("1"));
+    element2_.setAttribute(silly_string_adaptor::construct_from_utf8("four"), silly_string_adaptor::construct_from_utf8("1"));
 
-    text_ = document_.createTextNode(sa.makeStringT("data"));
-    comment_ = document_.createComment(sa.makeStringT("comment"));
-    processingInstruction_ = document_.createProcessingInstruction(sa.makeStringT("target"), sa.makeStringT("data"));
+    text_ = document_.createTextNode(silly_string_adaptor::construct_from_utf8("data"));
+    comment_ = document_.createComment(silly_string_adaptor::construct_from_utf8("comment"));
+    processingInstruction_ = document_.createProcessingInstruction(silly_string_adaptor::construct_from_utf8("target"), silly_string_adaptor::construct_from_utf8("data"));
     element2_.appendChild(text_);
-    element2_.appendChild(document_.createElement(sa.makeStringT("spinkle")));
+    element2_.appendChild(document_.createElement(silly_string_adaptor::construct_from_utf8("spinkle")));
     element2_.appendChild(comment_);
     element2_.appendChild(processingInstruction_);
 
-    attr_ = element1_.getAttributeNode(sa.makeStringT("one"));
+    attr_ = element1_.getAttributeNode(silly_string_adaptor::construct_from_utf8("one"));
 
     root_.appendChild(element1_);
     root_.appendChild(element2_);
@@ -89,16 +88,15 @@ public:
   void childTest3()
   {
     AxisEnumerator<silly_string, silly_string_adaptor> e(root_, CHILD);
-    silly_string_adaptor sa;
 
     assertTrue(element1_ == *e);
-    assertTrue(sa.makeStringT("child1") == e->getNodeName());
+    assertTrue(silly_string_adaptor::construct_from_utf8("child1") == e->getNodeName());
     ++e;
     assertTrue(element2_ == *e);
-    assertTrue(sa.makeStringT("child2") == e->getNodeName());
+    assertTrue(silly_string_adaptor::construct_from_utf8("child2") == e->getNodeName());
     ++e;
     assertTrue(element3_ == *e);
-    assertTrue(sa.makeStringT("child3") == e->getNodeName());
+    assertTrue(silly_string_adaptor::construct_from_utf8("child3") == e->getNodeName());
     ++e;
     assertTrue(DOM::Node<silly_string>() == *e);
     assertTrue(*e == 0);
@@ -133,9 +131,8 @@ public:
   void attributeTest3()
   {
     AxisEnumerator<silly_string, silly_string_adaptor> e(element1_, ATTRIBUTE);
-    silly_string_adaptor sa;
-    assertTrue(sa.makeStringT("one") == e->getNodeName());
-    assertTrue(sa.makeStringT("1") == e->getNodeValue());
+    assertTrue(silly_string_adaptor::construct_from_utf8("one") == e->getNodeName());
+    assertTrue(silly_string_adaptor::construct_from_utf8("1") == e->getNodeValue());
     ++e;
     assertTrue(*e == 0);
   } // attributeTest3
@@ -151,10 +148,9 @@ public:
 
   void attributeTest5()
   {
-    silly_string_adaptor sa;
-    element2_.setAttributeNS(sa.makeStringT("http://www.w3.org/2000/xmlns/"),
-                             sa.makeStringT("xmlns:poop"), 
-                             sa.makeStringT("poop-uri"));
+    element2_.setAttributeNS(silly_string_adaptor::construct_from_utf8("http://www.w3.org/2000/xmlns/"),
+                             silly_string_adaptor::construct_from_utf8("xmlns:poop"), 
+                             silly_string_adaptor::construct_from_utf8("poop-uri"));
 
     int count = 0;
     AxisEnumerator<silly_string, silly_string_adaptor> e(element2_, ATTRIBUTE);
@@ -165,9 +161,8 @@ public:
 
   void attributeTest6()
   {
-    silly_string_adaptor sa;
-    element2_.setAttributeNS(sa.makeStringT("http://www.w3.org/2000/xmlns/"), sa.makeStringT("xmlns:poop"), sa.makeStringT("poop-uri"));
-    element2_.setAttributeNS(sa.makeStringT("http://www.w3.org/2000/xmlns/"), sa.makeStringT("xmlns:qooq"), sa.makeStringT("qooq-uri"));
+    element2_.setAttributeNS(silly_string_adaptor::construct_from_utf8("http://www.w3.org/2000/xmlns/"), silly_string_adaptor::construct_from_utf8("xmlns:poop"), silly_string_adaptor::construct_from_utf8("poop-uri"));
+    element2_.setAttributeNS(silly_string_adaptor::construct_from_utf8("http://www.w3.org/2000/xmlns/"), silly_string_adaptor::construct_from_utf8("xmlns:qooq"), silly_string_adaptor::construct_from_utf8("qooq-uri"));
 
     int count = 0;
     AxisEnumerator<silly_string, silly_string_adaptor> e(element2_, ATTRIBUTE);
@@ -682,8 +677,7 @@ public:
 
   void namespaceNodeTest1()
   {
-    silly_string_adaptor sa;
-    DOM::Node<silly_string> node(new impl::NamespaceNodeImpl<silly_string, silly_string_adaptor>(sa.makeStringT("p"), sa.makeStringT("test-uri")));
+    DOM::Node<silly_string> node(new impl::NamespaceNodeImpl<silly_string, silly_string_adaptor>(silly_string_adaptor::construct_from_utf8("p"), silly_string_adaptor::construct_from_utf8("test-uri")));
     DOM::Node<silly_string> node2;
 
     node2 = node;
@@ -693,8 +687,7 @@ public:
   {
     DOM::Node<silly_string> node;
     {
-      silly_string_adaptor sa;
-      DOM::Node<silly_string> node2(new impl::NamespaceNodeImpl<silly_string, silly_string_adaptor>(sa.makeStringT("p"), sa.makeStringT("test-uri")));
+      DOM::Node<silly_string> node2(new impl::NamespaceNodeImpl<silly_string, silly_string_adaptor>(silly_string_adaptor::construct_from_utf8("p"), silly_string_adaptor::construct_from_utf8("test-uri")));
       node = node2;
     }
   } // namespaceNodeTest2
@@ -703,8 +696,7 @@ public:
   {
     DOM::Node<silly_string> node;
     {
-      silly_string_adaptor sa;
-      DOM::Node<silly_string> node2(new impl::NamespaceNodeImpl<silly_string, silly_string_adaptor>(sa.makeStringT("p"), sa.makeStringT("test-uri")));
+      DOM::Node<silly_string> node2(new impl::NamespaceNodeImpl<silly_string, silly_string_adaptor>(silly_string_adaptor::construct_from_utf8("p"), silly_string_adaptor::construct_from_utf8("test-uri")));
       node = node2;
     }
     node = 0;
@@ -712,12 +704,11 @@ public:
 
   void namespaceNodeTest4()
   {
-    silly_string_adaptor sa;
-    DOM::Node<silly_string> node(new impl::NamespaceNodeImpl<silly_string, silly_string_adaptor>(sa.makeStringT("p"), sa.makeStringT("test-uri")));
-    assertTrue(sa.makeStringT("p") == node.getLocalName());
-    assertTrue(sa.makeStringT("test-uri") == node.getNodeValue());
-    assertTrue(sa.makeStringT("") == node.getNamespaceURI());
-    assertTrue(sa.makeStringT("p") == node.getNodeName());
+    DOM::Node<silly_string> node(new impl::NamespaceNodeImpl<silly_string, silly_string_adaptor>(silly_string_adaptor::construct_from_utf8("p"), silly_string_adaptor::construct_from_utf8("test-uri")));
+    assertTrue(silly_string_adaptor::construct_from_utf8("p") == node.getLocalName());
+    assertTrue(silly_string_adaptor::construct_from_utf8("test-uri") == node.getNodeValue());
+    assertTrue(silly_string_adaptor::construct_from_utf8("") == node.getNamespaceURI());
+    assertTrue(silly_string_adaptor::construct_from_utf8("p") == node.getNodeName());
   } // namespaceNodeTest4
 
   void namespaceAxisTest1()
@@ -728,28 +719,26 @@ public:
 
   void namespaceAxisTest2()
   {
-    silly_string_adaptor sa;
-    root_.setAttributeNS(sa.makeStringT("http://www.w3.org/2000/xmlns/"), 
-                         sa.makeStringT("xmlns:poop"), 
-                         sa.makeStringT("urn:test"));
+    root_.setAttributeNS(silly_string_adaptor::construct_from_utf8("http://www.w3.org/2000/xmlns/"), 
+                         silly_string_adaptor::construct_from_utf8("xmlns:poop"), 
+                         silly_string_adaptor::construct_from_utf8("urn:test"));
     AxisEnumerator<silly_string, silly_string_adaptor> e(root_, NAMESPACE);
     assertTrue(*e != 0);
     DOM::Node<silly_string> ns = *e;
-    assertTrue(sa.makeStringT("poop") == ns.getLocalName());
-    assertTrue(sa.makeStringT("urn:test") == ns.getNodeValue());
+    assertTrue(silly_string_adaptor::construct_from_utf8("poop") == ns.getLocalName());
+    assertTrue(silly_string_adaptor::construct_from_utf8("urn:test") == ns.getNodeValue());
     ++e;
     assertTrue(*e == 0);
   } // namespaceAxisTest2
 
   void namespaceAxisTest3()
   {
-    silly_string_adaptor sa;
-    root_.setAttributeNS(sa.makeStringT("http://www.w3.org/2000/xmlns/"), 
-                         sa.makeStringT("xmlns:poop"), 
-                         sa.makeStringT("urn:test"));
-    element2_.setAttributeNS(sa.makeStringT("http://www.w3.org/2000/xmlns/"), 
-                             sa.makeStringT("xmlns:test"), 
-                             sa.makeStringT("urn:another-test"));
+    root_.setAttributeNS(silly_string_adaptor::construct_from_utf8("http://www.w3.org/2000/xmlns/"), 
+                         silly_string_adaptor::construct_from_utf8("xmlns:poop"), 
+                         silly_string_adaptor::construct_from_utf8("urn:test"));
+    element2_.setAttributeNS(silly_string_adaptor::construct_from_utf8("http://www.w3.org/2000/xmlns/"), 
+                             silly_string_adaptor::construct_from_utf8("xmlns:test"), 
+                             silly_string_adaptor::construct_from_utf8("urn:another-test"));
     AxisEnumerator<silly_string, silly_string_adaptor> e(element2_, NAMESPACE);
     assertTrue(*e != 0);
     ++e;

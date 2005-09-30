@@ -38,8 +38,7 @@ class DocumentFragmentImpl : public DOM::DocumentFragment_impl<stringT>,
 
     virtual stringT getNodeName() const 
     {
-      string_adaptorT SA;
-      return SA.makeStringT("#document-fragment");
+      return string_adaptorT::construct_from_utf8("#document-fragment");
     } // getNodeName
 
     virtual DOM::Node_impl<stringT>* getParentNode() const 

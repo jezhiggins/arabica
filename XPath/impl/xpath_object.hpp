@@ -304,7 +304,7 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
   case DOM::Node_base::DOCUMENT_FRAGMENT_NODE:
   case DOM::Node_base::ELEMENT_NODE:
     {
-      std::ostringstream os;
+      std::basic_ostringstream<string_adaptor::value_type> os;
       AxisEnumerator<string_type, string_adaptor> ae(node, DESCENDANT);
       while(*ae != 0)
       {
@@ -313,7 +313,7 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
           os << ae->getNodeValue();
         ++ae;
       } // while
-      return string_adaptor().makeStringT(os.str().c_str());
+      return string_adaptor::construct(os.str().c_str());
     } // case
 
   case DOM::Node_base::ATTRIBUTE_NODE:
