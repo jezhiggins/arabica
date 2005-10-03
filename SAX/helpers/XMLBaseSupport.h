@@ -36,10 +36,10 @@ struct XMLBaseConstants
   const stringT base;
 
   XMLBaseConstants() :
-    xml(string_adaptorT().makeStringT("xml")),
-    xml_uri(string_adaptorT().makeStringT("http://www.w3.org/XML/1998/namespace")),
-    colon(string_adaptorT().makeStringT(":")),
-    base(string_adaptorT().makeStringT("base"))
+    xml(string_adaptorT().construct_from_utf8("xml")),
+    xml_uri(string_adaptorT().construct_from_utf8("http://www.w3.org/XML/1998/namespace")),
+    colon(string_adaptorT().construct_from_utf8(":")),
+    base(string_adaptorT().construct_from_utf8("base"))
   {
   } // XMLBaseConstants
 }; // struct XMLBaseConstants
@@ -49,12 +49,12 @@ class basic_XMLBaseSupport
 {
 public:
   typedef string_type stringT;
-  typedef string_adaptor_type stringAdaptorT;
+  typedef string_adaptor_type string_adaptorT;
   typedef typename string_adaptor_type::value_type valueT;
   typedef basic_Attributes<stringT> AttributesT;
 
   basic_XMLBaseSupport() :
-      depth_(0), SA_() { }
+      depth_(0) { }
 
   void setDocumentLocation(const stringT& loc)
   {
@@ -87,8 +87,8 @@ public:
 private:
   stringT absolutise(const stringT& baseURI, const stringT& location)
   {
-    static const stringT SCHEME_MARKER = SA_.makeStringT("://");
-    static const valueT FORWARD_SLASH = SA_.makeValueT(Arabica::Unicode<char>::SLASH);
+    static const stringT SCHEME_MARKER = string_adaptorT::construct_from_utf8("://");
+    static const valueT FORWARD_SLASH = string_adaptorT::convert_from_utf8(Arabica::Unicode<char>::SLASH);
 
     if(location.find(SCHEME_MARKER) != stringT::npos)
       return location;
@@ -109,12 +109,12 @@ private:
     }
     ss << location;
 
-    return SA_.makeStringT(ss.str().c_str());
+    return string_adaptorT::construct_from_utf8(ss.str().c_str());
   } // absolutise
 
   stringT absolutiseAndTrim(const stringT& baseURI, const stringT& location)
   {
-    static const valueT FORWARD_SLASH = SA_.makeValueT(Arabica::Unicode<char>::SLASH);
+    static const valueT FORWARD_SLASH = string_adaptorT::convert_from_utf8(Arabica::Unicode<char>::SLASH);
 
     stringT newlocation = absolutise(baseURI, location);
     if(newlocation[newlocation.length()] == FORWARD_SLASH)
@@ -143,9 +143,8 @@ private:
 
   baseStackT bases_;
   int depth_;
-  stringAdaptorT SA_;
 
-  const XMLBaseConstants<stringT, stringAdaptorT> xbc_;
+  const XMLBaseConstants<stringT, string_adaptorT> xbc_;
 
   // no impl
   basic_XMLBaseSupport(const basic_XMLBaseSupport&);

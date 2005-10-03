@@ -276,7 +276,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, 
 {
   if(name == features_.namespaces)
   {
-    checkNotParsing(SA_.makeStringT("feature"), name);
+    checkNotParsing(string_adaptorT::construct_from_utf8("feature"), name);
     namespaces_ = value;
     if(!namespaces_ && !prefixes_)
       prefixes_ = true;
@@ -285,7 +285,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, 
 
   if(name == features_.namespace_prefixes)
   {
-    checkNotParsing(SA_.makeStringT("feature"), name);
+    checkNotParsing(string_adaptorT::construct_from_utf8("feature"), name);
     prefixes_ = value;
     if(prefixes_ && !namespaces_)
       namespaces_ = true;
@@ -392,7 +392,7 @@ template<class stringT, class string_adaptorT>
 stringT libxml2_wrapper<stringT, string_adaptorT>::getPublicId() const
 {
   if(locator_)
-	  return SA_.makeStringT(reinterpret_cast<const char*>(locator_->getPublicId(context_)));
+	  return string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(locator_->getPublicId(context_)));
   return std::string();
 } // getPublicId
 
@@ -400,7 +400,7 @@ template<class stringT, class string_adaptorT>
 stringT libxml2_wrapper<stringT, string_adaptorT>::getSystemId() const
 {
   if(locator_)
-	  return SA_.makeStringT(reinterpret_cast<const char*>(locator_->getSystemId(context_)));
+	  return string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(locator_->getSystemId(context_)));
   return std::string();
 } // getSystemId
 
@@ -460,14 +460,14 @@ template<class stringT, class string_adaptorT>
 void libxml2_wrapper<stringT, string_adaptorT>::SAXcharacters(const xmlChar* ch, int len)
 {
   if(contentHandler_)
-    contentHandler_->characters(SA_.makeStringT(reinterpret_cast<const char*>(ch), len));
+    contentHandler_->characters(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(ch), len));
 } // SAXcharacters
 
 template<class stringT, class string_adaptorT>
 void libxml2_wrapper<stringT, string_adaptorT>::SAXignorableWhitespace(const xmlChar* ch, int len)
 {
   if(contentHandler_)
-    contentHandler_->ignorableWhitespace(SA_.makeStringT(reinterpret_cast<const char*>(ch), len));
+    contentHandler_->ignorableWhitespace(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(ch), len));
 } // SAXignorableWhitespace
 
 template<class stringT, class string_adaptorT>
@@ -495,8 +495,8 @@ template<class stringT, class string_adaptorT>
 void libxml2_wrapper<stringT, string_adaptorT>::SAXprocessingInstruction(const xmlChar* target, const xmlChar* data)
 {
   if(contentHandler_)
-    contentHandler_->processingInstruction(SA_.makeStringT(reinterpret_cast<const char*>(target)),
-                                           SA_.makeStringT(reinterpret_cast<const char*>(data)));
+    contentHandler_->processingInstruction(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(target)),
+                                           string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(data)));
 } // SAXprocessingInstruction
 
 template<class stringT, class string_adaptorT>
@@ -521,8 +521,8 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXstartElement(const xmlChar* q
     const xmlChar** a1 = atts;
     while(*a1 != 0)
     {
-      stringT attQName = SA_.makeStringT(reinterpret_cast<const char*>(*a1++));
-      stringT value = SA_.makeStringT(reinterpret_cast<const char*>(*a1++));
+      stringT attQName = string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(*a1++));
+      stringT value = string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(*a1++));
 
       // declaration?
       if(attQName.find(nsc_.xmlns) == 0) 
@@ -545,8 +545,8 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXstartElement(const xmlChar* q
 
     while(*atts != 0)
     {
-      stringT attQName = SA_.makeStringT(reinterpret_cast<const char*>(*atts++));
-      stringT value = SA_.makeStringT(reinterpret_cast<const char*>(*atts++));
+      stringT attQName = string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
+      stringT value = string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
 
       // declaration?
       if(attQName.find(nsc_.xmlns) != 0) 
@@ -558,7 +558,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXstartElement(const xmlChar* q
   } // if ...
 
   // at last! report the event
-  typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts name = processName(SA_.makeStringT(reinterpret_cast<const char*>(qName)), false);
+  typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts name = processName(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
   contentHandler_->startElement(name.URI, name.localName, name.rawName, attributes);
 } // SAXstartElement
 
@@ -571,14 +571,14 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXstartElementNoNS(const xmlCha
   {
     while(*atts != 0)
     {
-      stringT attQName = SA_.makeStringT(reinterpret_cast<const char*>(*atts++));
-      stringT value = SA_.makeStringT(reinterpret_cast<const char*>(*atts++));
+      stringT attQName = string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
+      stringT value = string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
 
       attributes.addAttribute(emptyString_, emptyString_, attQName, emptyString_, value);
     } // while ..
   } // if ...
 
-  contentHandler_->startElement(emptyString_, emptyString_, SA_.makeStringT((reinterpret_cast<const char*>(qName))), attributes);
+  contentHandler_->startElement(emptyString_, emptyString_, string_adaptorT::construct_from_utf8((reinterpret_cast<const char*>(qName))), attributes);
 } // SAXstartElementNoNS
 
 template<class stringT, class string_adaptorT>
@@ -593,7 +593,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXendElement(const xmlChar* qNa
     return;
   } // if(!namespaces_)
 
-  typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts name = processName(SA_.makeStringT(reinterpret_cast<const char*>(qName)), false);
+  typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts name = processName(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
   contentHandler_->endElement(name.URI, name.localName, name.rawName);
   typename basic_NamespaceSupport<stringT, string_adaptorT>::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
   for(size_t i = 1, end = prefixes.size(); i < end; ++i)
@@ -605,26 +605,26 @@ template<class stringT, class string_adaptorT>
 void libxml2_wrapper<stringT, string_adaptorT>::SAXendElementNoNS(const xmlChar* qName)
 {
   if(contentHandler_)
-    contentHandler_->endElement(emptyString_, emptyString_, SA_.makeStringT(reinterpret_cast<const char*>(qName)));
+    contentHandler_->endElement(emptyString_, emptyString_, string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(qName)));
 } // SAXendElementNoNS
 
 template<class stringT, class string_adaptorT>
 void libxml2_wrapper<stringT, string_adaptorT>::SAXnotationDecl(const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId)
 {
   if(dtdHandler_)
-    dtdHandler_->notationDecl(SA_.makeStringT(reinterpret_cast<const char*>(name)), 
-                              SA_.makeStringT(reinterpret_cast<const char*>(publicId)), 
-                              SA_.makeStringT(reinterpret_cast<const char*>(systemId)));
+    dtdHandler_->notationDecl(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(name)), 
+                              string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(publicId)), 
+                              string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(systemId)));
 } // SAXnotationDecl
 
 template<class stringT, class string_adaptorT>
 void libxml2_wrapper<stringT, string_adaptorT>::SAXunparsedEntityDecl(const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId, const xmlChar *notationName)
 {
   if(dtdHandler_)
-    dtdHandler_->unparsedEntityDecl(SA_.makeStringT(reinterpret_cast<const char*>(name)), 
-                                    SA_.makeStringT(reinterpret_cast<const char*>(publicId)), 
-                                    SA_.makeStringT(reinterpret_cast<const char*>(systemId)),
-                                    SA_.makeStringT(reinterpret_cast<const char*>(notationName)));
+    dtdHandler_->unparsedEntityDecl(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(name)), 
+                                    string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(publicId)), 
+                                    string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(systemId)),
+                                    string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(notationName)));
 } // SAXunparsedEntityDecl
 
 template<class stringT, class string_adaptorT>
@@ -635,7 +635,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXelementDecl(const xmlChar* na
 
   std::ostringstream os;
   convertXML_Content(os, type, content, false);
-  declHandler_->elementDecl(SA_.makeStringT(reinterpret_cast<const char*>(name)), SA_.makeStringT(os.str().c_str()));
+  declHandler_->elementDecl(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(name)), string_adaptorT::construct_from_utf8(os.str().c_str()));
 } // elementDeclaration
 
 template<class stringT, class string_adaptorT>
@@ -756,11 +756,11 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXattributeDecl(const xmlChar *
       break;
   } // switch(type)
 
-  declHandler_->attributeDecl(SA_.makeStringT(reinterpret_cast<const char*>(elem)), 
-                              SA_.makeStringT(reinterpret_cast<const char*>(fullname)), 
+  declHandler_->attributeDecl(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(elem)), 
+                              string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(fullname)), 
                               typeStr, 
                               *defType, 
-                              SA_.makeStringT(reinterpret_cast<const char*>(defaultValue)));
+                              string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(defaultValue)));
 } // SAXattributeDecl
 
 template<class stringT, class string_adaptorT>
@@ -779,7 +779,7 @@ stringT  libxml2_wrapper<stringT, string_adaptorT>::stringAttrEnum(xmlEnumeratio
   } // while
   os << ")";
 
-  return SA_.makeStringT(os.str().c_str());
+  return string_adaptorT::construct_from_utf8(os.str().c_str());
 } // stringAttrEnum
 
 template<class stringT, class string_adaptorT>
@@ -791,13 +791,13 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXentityDecl(const xmlChar *nam
   switch(type)
   {
     case 1:  // internal
-      declHandler_->internalEntityDecl(SA_.makeStringT(reinterpret_cast<const char*>(name)),
-                                       SA_.makeStringT(reinterpret_cast<const char*>(content)));
+      declHandler_->internalEntityDecl(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(name)),
+                                       string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(content)));
       break;
     case 2:  // external
-      declHandler_->externalEntityDecl(SA_.makeStringT(reinterpret_cast<const char*>(name)),
-                                       SA_.makeStringT(reinterpret_cast<const char*>(publicId)),
-                                       SA_.makeStringT(reinterpret_cast<const char*>(systemId)));
+      declHandler_->externalEntityDecl(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(name)),
+                                       string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(publicId)),
+                                       string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(systemId)));
       break;
   } // switch
 } // SAXentityDecl

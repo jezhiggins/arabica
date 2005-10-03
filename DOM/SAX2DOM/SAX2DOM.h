@@ -51,7 +51,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     {
       typename Features::iterator f = features_.find(name);
       if(f == features_.end())
-        throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA_.asStdString(name));
+        throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + string_adaptorT::asStdString(name));
       f->second = value;
     } // setFeature
 
@@ -59,7 +59,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     {
       typename Features::const_iterator f = features_.find(name);
       if(f == features_.end())
-        throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA_.asStdString(name));
+        throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + string_adaptorT::asStdString(name));
       return f->second;
     } // getFeature
 
@@ -327,7 +327,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     virtual void internalEntityDecl(const stringT& name, const stringT& value)
     {
-      EntityT* entity = new EntityT(0, name, SA_.makeStringT(""), SA_.makeStringT(""), SA_.makeStringT(""));
+      EntityT* entity = new EntityT(0, name, string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""));
       declaredEntities_.insert(std::make_pair(name, entity));
       documentType_->addEntity(entity);
       DOM::Node<stringT> n = entity;
@@ -336,7 +336,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     virtual void externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
     {
-      EntityT* entity = new EntityT(0, name, publicId, systemId, SA_.makeStringT(""));
+      EntityT* entity = new EntityT(0, name, publicId, systemId, string_adaptorT::construct_from_utf8(""));
       declaredEntities_.insert(std::make_pair(name, entity)); // we'll populate it later
       documentType_->addEntity(entity);
     } // externalEntityDecl

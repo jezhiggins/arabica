@@ -21,9 +21,9 @@ struct AttributeDefaults
     const stringT fixed;
 
     AttributeDefaults() :
-      required(string_adaptorT().makeStringT("#REQUIRED")),
-      implied(string_adaptorT().makeStringT("#IMPLIED")),
-      fixed(string_adaptorT().makeStringT("#FIXED"))
+      required(string_adaptorT::construct_from_utf8("#REQUIRED")),
+      implied(string_adaptorT::construct_from_utf8("#IMPLIED")),
+      fixed(string_adaptorT::construct_from_utf8("#FIXED"))
     {
     } // AttributeDefaults
 }; // struct AttributeDefaults

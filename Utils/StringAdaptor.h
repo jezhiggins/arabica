@@ -59,6 +59,7 @@ class default_string_adaptor<std::string>
 public:
   typedef std::string string_type;
   typedef std::string::const_iterator const_iterator;
+  typedef std::string::iterator mutable_iterator;
   typedef std::string::value_type value_type;
   typedef std::string::size_type size_type;
   static const size_type npos = static_cast<size_type>(-1);
@@ -124,6 +125,11 @@ public:
     return str.find(what);
   } // find
 
+  static size_type find(const std::string& str, char what)
+  {
+    return str.find(what);
+  } // find
+
   static std::string substr(const std::string& str, const size_type& offset)
   {
     return str.substr(offset);
@@ -155,7 +161,9 @@ public:
   } // replace
 
   static const_iterator begin(const std::string& str) { return str.begin(); }
+  static mutable_iterator begin(std::string& str) { return str.begin(); }
   static const_iterator end(const std::string& str) { return str.end(); }
+  static mutable_iterator end(std::string& str) { return str.end(); }
 
 #ifndef ARABICA_NO_WCHAR_T
   default_string_adaptor() :

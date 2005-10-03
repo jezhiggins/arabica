@@ -28,16 +28,16 @@ struct AttributeTypes
     const stringT notation;
 
     AttributeTypes() :
-      cdata(string_adaptorT().makeStringT("CDATA")),
-      nmtoken(string_adaptorT().makeStringT("NMTOKEN")),
-      nmtokens(string_adaptorT().makeStringT("NMTOKENS")),
-      enumeration(string_adaptorT().makeStringT("ENUMERATION")),
-      entity(string_adaptorT().makeStringT("ENTITY")),
-      entities(string_adaptorT().makeStringT("ENTITIES")),
-      id(string_adaptorT().makeStringT("ID")),
-      idref(string_adaptorT().makeStringT("IDREF")),
-      idrefs(string_adaptorT().makeStringT("IDREFS")),
-      notation(string_adaptorT().makeStringT("NOTATION"))
+      cdata(string_adaptorT::construct_from_utf8("CDATA")),
+      nmtoken(string_adaptorT::construct_from_utf8("NMTOKEN")),
+      nmtokens(string_adaptorT::construct_from_utf8("NMTOKENS")),
+      enumeration(string_adaptorT::construct_from_utf8("ENUMERATION")),
+      entity(string_adaptorT::construct_from_utf8("ENTITY")),
+      entities(string_adaptorT::construct_from_utf8("ENTITIES")),
+      id(string_adaptorT::construct_from_utf8("ID")),
+      idref(string_adaptorT::construct_from_utf8("IDREF")),
+      idrefs(string_adaptorT::construct_from_utf8("IDREFS")),
+      notation(string_adaptorT::construct_from_utf8("NOTATION"))
     {
     } // AttributeTypes
 }; // struct AttributeTypes

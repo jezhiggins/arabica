@@ -27,12 +27,12 @@ struct NamespaceConstants
   const stringT colon;
 
   NamespaceConstants() :
-    xml(string_adaptorT().makeStringT("xml")),
-    xmlns(string_adaptorT().makeStringT("xmlns")),
-    xml_uri(string_adaptorT().makeStringT("http://www.w3.org/XML/1998/namespace")),
+    xml(string_adaptorT::construct_from_utf8("xml")),
+    xmlns(string_adaptorT::construct_from_utf8("xmlns")),
+    xml_uri(string_adaptorT::construct_from_utf8("http://www.w3.org/XML/1998/namespace")),
     xmlns_uri(),
-    xmlns11_uri(string_adaptorT().makeStringT("http://www.w3.org/2000/xmlns/")),
-    colon(string_adaptorT().makeStringT(":"))
+    xmlns11_uri(string_adaptorT::construct_from_utf8("http://www.w3.org/2000/xmlns/")),
+    colon(string_adaptorT::construct_from_utf8(":"))
   {
   } // NamespaceConstants
 }; // struct NamespaceContants

@@ -74,17 +74,17 @@ struct FeatureNames
     const stringT xmlns_uris;
 
     FeatureNames() :
-      external_general(string_adaptorT().makeStringT("http://xml.org/sax/features/external-general-entities")),
-      external_parameter(string_adaptorT().makeStringT("http://xml.org/sax/features/external-parameter-entities")),
-      is_standalone(string_adaptorT().makeStringT("http://xml.org/sax/features/is-standalone")),
-      lexical_parameter(string_adaptorT().makeStringT("http://xml.org/sax/features/lexical-handler/parameter-entities")),
-      namespaces(string_adaptorT().makeStringT("http://xml.org/sax/features/namespaces")),
-      namespace_prefixes(string_adaptorT().makeStringT("http://xml.org/sax/features/namespace-prefixes")),
-      resolve_dtd_uris(string_adaptorT().makeStringT("http://xml.org/sax/features/resolve-dtd-uris")),
-      use_attributes2(string_adaptorT().makeStringT("http://xml.org/sax/features/use-attributes2")),
-      use_locator2(string_adaptorT().makeStringT("http://xml.org/sax/features/use-locator2")),
-      validation(string_adaptorT().makeStringT("http://xml.org/sax/features/validation")),
-      xmlns_uris(string_adaptorT().makeStringT("http://xml.org/sax/features/xmlns-uris"))
+      external_general(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/external-general-entities")),
+      external_parameter(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/external-parameter-entities")),
+      is_standalone(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/is-standalone")),
+      lexical_parameter(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/lexical-handler/parameter-entities")),
+      namespaces(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/namespaces")),
+      namespace_prefixes(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/namespace-prefixes")),
+      resolve_dtd_uris(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/resolve-dtd-uris")),
+      use_attributes2(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/use-attributes2")),
+      use_locator2(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/use-locator2")),
+      validation(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/validation")),
+      xmlns_uris(string_adaptorT::construct_from_utf8("http://xml.org/sax/features/xmlns-uris"))
     {
     } // FeatureNames
 }; // class FeatureNames

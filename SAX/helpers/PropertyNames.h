@@ -38,8 +38,8 @@ struct PropertyNames
     /** @} */
 
     PropertyNames() :
-      lexicalHandler(string_adaptor_type().makeStringT("http://xml.org/sax/handlers/LexicalHandler")),
-      declHandler(string_adaptor_type().makeStringT("http://xml.org/sax/handlers/DeclHandler"))
+    lexicalHandler(string_adaptor_type::construct_from_utf8("http://xml.org/sax/handlers/LexicalHandler")),
+      declHandler(string_adaptor_type::construct_from_utf8("http://xml.org/sax/handlers/DeclHandler"))
     {
     } // PropertyNames
 }; // struct PropertyNames

@@ -112,8 +112,9 @@ public:
   {
   	if(!parent_)
     {
-      string_adaptorT SA;
-      throw SAXNotRecognizedException(SA.asStdString(SA.makeStringT("Feature: ") + name));
+      stringT ex = string_adaptorT::construct_from_utf8("Feature: ");
+      string_adaptorT::append(ex, name);
+      throw SAXNotRecognizedException(string_adaptorT::asStdString(ex));
     } // if ...
 
     parent_->setFeature(name, value);
@@ -136,8 +137,9 @@ public:
   {
   	if(!parent_)
     {
-      string_adaptorT SA;
-      throw SAXNotRecognizedException(SA.asStdString(SA.makeStringT("Feature: ") + name));
+      stringT ex = string_adaptorT::construct_from_utf8("Feature: ");
+      string_adaptorT::append(ex, name);
+      throw SAXNotRecognizedException(string_adaptorT::asStdString(ex));
     } // if ...
 
     return parent_->getFeature(name);
@@ -217,8 +219,9 @@ public:
    	if(parent_)
 	    return parent_->doGetProperty(name);
 
-    string_adaptorT SA;
-    throw SAXNotRecognizedException(SA.asStdString(SA.makeStringT("Property: ") + name));
+    stringT ex = string_adaptorT::construct_from_utf8("Property: ");
+    string_adaptorT::append(ex, name);
+    throw SAXNotRecognizedException(string_adaptorT::asStdString(ex));
   } // doGetProperty
 
   virtual void doSetProperty(const stringT& name, typename std::auto_ptr<typename XMLReaderT::PropertyBase> value)
@@ -229,8 +232,9 @@ public:
       return;
     } // if(parent_)
 
-    string_adaptorT SA;
-    throw SAXNotRecognizedException(SA.asStdString(SA.makeStringT("Property: ") + name));
+    stringT ex = string_adaptorT::construct_from_utf8("Property: ");
+    string_adaptorT::append(ex, name);
+    throw SAXNotRecognizedException(string_adaptorT::asStdString(ex));
   } // doSetProperty
 
 public:
