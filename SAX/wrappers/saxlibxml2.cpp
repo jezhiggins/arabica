@@ -141,6 +141,11 @@ xmlParserInputPtr lwit_resolveEntity(void* user_data, const xmlChar* publicId, c
   return p->SAXresolveEntity(publicId, systemId);
 } // lwit_resolveEntity
 
+class libxmlInitialiser 
+{
+public:
+  libxmlInitialiser() { xmlInitParser(); }
+};
 
 static xmlSAXHandler saxHandler = {
 		0,		// internalSubsetSAXFunc internalSubset;
@@ -178,7 +183,11 @@ static xmlSAXHandler saxHandler = {
     0    // serror;
     };
 
-xmlSAXHandler* lwit_SaxHandler() { return &saxHandler; }
+xmlSAXHandler* lwit_SaxHandler() 
+{ 
+  static libxmlInitialiser init; 
+  return &saxHandler; 
+}
 
 void lwit_setFeature(xmlParserCtxtPtr context, const char* name, bool value)
 {
