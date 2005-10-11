@@ -155,9 +155,6 @@
 			<File
 				RelativePath=".\step_test.cpp">
 			</File>
-			<File
-				RelativePath=".\value_test.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -191,7 +188,7 @@
 				RelativePath=".\step_test.hpp">
 			</File>
 			<File
-				RelativePath=".\value_test.hpp">
+				RelativePath="..\XPath\value_test.hpp">
 			</File>
 		</Filter>
 		<Filter

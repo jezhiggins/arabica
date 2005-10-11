@@ -9,7 +9,7 @@
 #include "../CppUnit/framework/TestSuite.h"
 
 #include "parse_test.hpp"
-#include "value_test.hpp"
+#include "../XPath/value_test.hpp"
 #include "arithmetic_test.hpp"
 #include "relational_test.hpp"
 #include "logical_test.hpp"
@@ -37,6 +37,11 @@ protected:
     void printBanner();
 }; // TestRunner;
 
+
+#include "../silly_string/silly_string.hpp"
+
+template<> class Arabica::default_string_adaptor<silly_string> : public silly_string_adaptor { };
+
 /////////////////////////////////////////
 int main(int argc, char** argv)
 {
@@ -44,7 +49,7 @@ int main(int argc, char** argv)
 
   TestRunner runner;
 
-  runner.addTest("ValueTest", ValueTest_suite());
+  runner.addTest("ValueTest", ValueTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   runner.addTest("ArithmeticTest", ArithmeticTest_suite());
   runner.addTest("RelationalTest", RelationalTest_suite());
   runner.addTest("LogicalTest", LogicalTest_suite());
