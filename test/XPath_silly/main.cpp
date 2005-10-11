@@ -10,7 +10,7 @@
 
 #include "parse_test.hpp"
 #include "../XPath/value_test.hpp"
-#include "arithmetic_test.hpp"
+#include "../XPath/arithmetic_test.hpp"
 #include "relational_test.hpp"
 #include "logical_test.hpp"
 #include "axis_enumerator_test.hpp"
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
   TestRunner runner;
 
   runner.addTest("ValueTest", ValueTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
-  runner.addTest("ArithmeticTest", ArithmeticTest_suite());
+  runner.addTest("ArithmeticTest", ArithmeticTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   runner.addTest("RelationalTest", RelationalTest_suite());
   runner.addTest("LogicalTest", LogicalTest_suite());
   runner.addTest("AxisEnumeratorTest", AxisEnumeratorTest_suite());

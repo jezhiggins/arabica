@@ -45,7 +45,7 @@ int main(int argc, char** argv)
   TestRunner runner;
 
   runner.addTest("ValueTest", ValueTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("ArithmeticTest", ArithmeticTest_suite());
+  runner.addTest("ArithmeticTest", ArithmeticTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("RelationalTest", RelationalTest_suite());
   runner.addTest("LogicalTest", LogicalTest_suite());
   runner.addTest("AxisEnumeratorTest", AxisEnumeratorTest_suite());
