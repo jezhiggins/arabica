@@ -132,9 +132,6 @@
 				RelativePath=".\execute_test.cpp">
 			</File>
 			<File
-				RelativePath=".\logical_test.cpp">
-			</File>
-			<File
 				RelativePath=".\main.cpp">
 			</File>
 			<File
@@ -142,9 +139,6 @@
 			</File>
 			<File
 				RelativePath=".\parse_test.cpp">
-			</File>
-			<File
-				RelativePath=".\relational_test.cpp">
 			</File>
 			<File
 				RelativePath="..\silly_string\silly_string.cpp">
@@ -167,7 +161,7 @@
 				RelativePath=".\execute_test.hpp">
 			</File>
 			<File
-				RelativePath=".\logical_test.hpp">
+				RelativePath="..\XPath\logical_test.hpp">
 			</File>
 			<File
 				RelativePath=".\node_test_test.hpp">
@@ -176,7 +170,7 @@
 				RelativePath=".\parse_test.hpp">
 			</File>
 			<File
-				RelativePath=".\relational_test.hpp">
+				RelativePath="..\XPath\relational_test.hpp">
 			</File>
 			<File
 				RelativePath="..\silly_string\silly_string.hpp">
@@ -223,6 +217,12 @@
 			</File>
 			<File
 				RelativePath="..\CppUnit\framework\TestResult.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\TestRunner.cpp">
+			</File>
+			<File
+				RelativePath="..\CppUnit\TestRunner.hpp">
 			</File>
 			<File
 				RelativePath="..\CppUnit\framework\TestSuite.cpp">

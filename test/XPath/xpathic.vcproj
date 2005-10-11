@@ -132,9 +132,6 @@
 				RelativePath=".\execute_test.cpp">
 			</File>
 			<File
-				RelativePath=".\logical_test.cpp">
-			</File>
-			<File
 				RelativePath=".\main.cpp">
 			</File>
 			<File
@@ -217,6 +214,12 @@
 			</File>
 			<File
 				RelativePath="..\CppUnit\framework\TestResult.h">
+			</File>
+			<File
+				RelativePath="..\CppUnit\TestRunner.cpp">
+			</File>
+			<File
+				RelativePath="..\CppUnit\TestRunner.hpp">
 			</File>
 			<File
 				RelativePath="..\CppUnit\framework\TestSuite.cpp">
