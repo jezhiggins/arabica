@@ -137,9 +137,6 @@
 			<File
 				RelativePath="..\silly_string\silly_string.cpp">
 			</File>
-			<File
-				RelativePath=".\step_test.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -170,7 +167,7 @@
 				RelativePath="..\silly_string\silly_string.hpp">
 			</File>
 			<File
-				RelativePath=".\step_test.hpp">
+				RelativePath="..\XPath\step_test.hpp">
 			</File>
 			<File
 				RelativePath="..\XPath\value_test.hpp">
