@@ -32,7 +32,7 @@ int main(int argc, char** argv)
   runner.addTest("AxisEnumeratorTest", AxisEnumeratorTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("NodeTestTest", NodeTestTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("StepTest", StepTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("ParseTest", ParseTest_suite());
+  runner.addTest("ParseTest", ParseTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("ExecuteTest", ExecuteTest_suite());
 
   runner.run(argc, argv);

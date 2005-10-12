@@ -15,7 +15,7 @@
 #include "../XPath/axis_enumerator_test.hpp"
 #include "../XPath/node_test_test.hpp"
 #include "../XPath/step_test.hpp"
-#include "parse_test.hpp"
+#include "../XPath/parse_test.hpp"
 #include "execute_test.hpp"
 
 #include "../silly_string/silly_string.hpp"
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
   runner.addTest("AxisEnumeratorTest", AxisEnumeratorTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   runner.addTest("NodeTestTest", NodeTestTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   runner.addTest("StepTest", StepTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
-  runner.addTest("ParseTest", ParseTest_suite());
+  runner.addTest("ParseTest", ParseTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   runner.addTest("ExecuteTest", ExecuteTest_suite());
 
   runner.run(argc, argv);

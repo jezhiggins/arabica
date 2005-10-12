@@ -132,9 +132,6 @@
 				RelativePath=".\main.cpp">
 			</File>
 			<File
-				RelativePath=".\parse_test.cpp">
-			</File>
-			<File
 				RelativePath=".\relational_test.cpp">
 			</File>
 		</Filter>
