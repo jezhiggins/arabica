@@ -29,7 +29,7 @@ int main(int argc, char** argv)
   runner.addTest("ArithmeticTest", ArithmeticTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("RelationalTest", RelationalTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("LogicalTest", LogicalTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("AxisEnumeratorTest", AxisEnumeratorTest_suite());
+  runner.addTest("AxisEnumeratorTest", AxisEnumeratorTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("NodeTestTest", NodeTestTest_suite());
   runner.addTest("StepTest", StepTest_suite());
   runner.addTest("ParseTest", ParseTest_suite());
