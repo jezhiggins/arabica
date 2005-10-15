@@ -95,23 +95,45 @@ public:
   typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > narrower;
 
-  std::string construct_from_utf16(const wchar_t* str)
+  static std::string construct_from_utf16(const wchar_t* str)
   {
-    std::wstring s;
-    if(str)
-      s = str;
-    n_.str(s);
-    return n_.str();
+#ifndef ARABICA_VS6_WORKAROUND
+    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
+#else
+    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
+#endif
+    narrower n;
+    n.imbue(loc);
+
+    n << str;
+    return n.str();
   } // makeStringT
-  std::string construct_from_utf16(const wchar_t* str, int length) 
+
+  static std::string construct_from_utf16(const wchar_t* str, int length) 
   {
-    n_.str(std::wstring(str, length));
-    return n_.str();
-  } // makeStringT
-  std::wstring asStdWString(const std::string& str) 
+#ifndef ARABICA_VS6_WORKAROUND
+    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
+#else
+    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
+#endif
+    narrower n;
+    n.imbue(loc);
+
+    for(int i = 0; i < length; ++i)
+      n << str[i];
+    return n.str();
+  } // construct_from_utf16
+
+  static std::wstring asStdWString(const std::string& str) 
   {
-    w_.str(str);
-    return w_.str();
+#ifndef ARABICA_VS6_WORKAROUND
+    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
+#else
+    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
+#endif
+    widener w;
+    w.str(str);
+    return w.str();
   } // toStdWString
 #endif
 
@@ -164,28 +186,6 @@ public:
   static mutable_iterator begin(std::string& str) { return str.begin(); }
   static const_iterator end(const std::string& str) { return str.end(); }
   static mutable_iterator end(std::string& str) { return str.end(); }
-
-#ifndef ARABICA_NO_WCHAR_T
-  default_string_adaptor() :
-#ifndef ARABICA_VS6_WORKAROUND
-    loc_(std::locale(), new Arabica::convert::utf8ucs2codecvt()),
-#else
-    loc_(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt)),
-#endif
-    n_(),
-    w_()
-  {
-    n_.imbue(loc_);
-    w_.imbue(loc_);
-  } // default_string_adaptor 
-
-private:
-  std::locale loc_;
-  mutable narrower n_;
-  mutable widener w_;
-#else
-  default_string_adaptor() { }
-#endif
 }; // class default_string_adaptor
 
 #ifndef ARABICA_NO_WCHAR_T
