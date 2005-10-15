@@ -126,9 +126,6 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\execute_test.cpp">
-			</File>
-			<File
 				RelativePath=".\main.cpp">
 			</File>
 			<File
@@ -146,7 +143,7 @@
 				RelativePath="..\XPath\axis_enumerator_test.hpp">
 			</File>
 			<File
-				RelativePath=".\execute_test.hpp">
+				RelativePath="..\XPath\execute_test.hpp">
 			</File>
 			<File
 				RelativePath="..\XPath\logical_test.hpp">

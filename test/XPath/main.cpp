@@ -33,7 +33,7 @@ int main(int argc, char** argv)
   runner.addTest("NodeTestTest", NodeTestTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("StepTest", StepTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("ParseTest", ParseTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("ExecuteTest", ExecuteTest_suite());
+  runner.addTest("ExecuteTest", ExecuteTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
 
   runner.run(argc, argv);
 } // main
