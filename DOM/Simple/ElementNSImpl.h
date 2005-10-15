@@ -79,7 +79,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 
       checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, namespaceURI_, DOM::Node<stringT>::ELEMENT_NODE);
 
-      string_adaptorT::append(ElementImplT::tagName_, prefix);
+      ElementImplT::tagName_ = prefix;
       string_adaptorT::append(ElementImplT::tagName_, string_adaptorT::construct_from_utf8(":"));
       string_adaptorT::append(ElementImplT::tagName_, localName_);
     } // setPrefix
