@@ -50,6 +50,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xpath_silly", "test\XP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xpath_wide", "test\XPath_wide\xpathic_wide.vcproj", "{B3C75B3A-BB0A-4B23-87F9-FB9CD98FF8CE}"
 	ProjectSection(ProjectDependencies) = postProject
+		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Global
