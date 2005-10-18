@@ -3,38 +3,14 @@
 #pragma warning(disable:4224 4267)
 #endif
 
-#include "../CppUnit/TestRunner.hpp"
 #include <iostream>
-#include "../CppUnit/framework/Test.h"
-#include "../CppUnit/framework/TestSuite.h"
-
-#include "parse_test.hpp"
-#include "value_test.hpp"
-#include "arithmetic_test.hpp"
-#include "relational_test.hpp"
-#include "logical_test.hpp"
-#include "axis_enumerator_test.hpp"
-#include "node_test_test.hpp"
-#include "step_test.hpp"
-#include "execute_test.hpp"
+#include "xpath_test_suite.hpp"
 
 /////////////////////////////////////////
 int main(int argc, char** argv)
 {
   std::cout << "Hello" << std::endl;
 
-  TestRunner runner;
-
-  runner.addTest("ValueTest", ValueTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("ArithmeticTest", ArithmeticTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("RelationalTest", RelationalTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("LogicalTest", LogicalTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("AxisEnumeratorTest", AxisEnumeratorTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("NodeTestTest", NodeTestTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("StepTest", StepTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("ParseTest", ParseTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("ExecuteTest", ExecuteTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-
-  runner.run(argc, argv);
+  XPath_test_suite<std::string, Arabica::default_string_adaptor<std::string> >(argc, argv);
 } // main
 

@@ -128,43 +128,13 @@
 			<File
 				RelativePath=".\main.cpp">
 			</File>
-			<File
-				RelativePath="..\silly_string\silly_string.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\XPath\arithmetic_test.hpp">
-			</File>
-			<File
-				RelativePath="..\XPath\axis_enumerator_test.hpp">
-			</File>
-			<File
-				RelativePath="..\XPath\execute_test.hpp">
-			</File>
-			<File
-				RelativePath="..\XPath\logical_test.hpp">
-			</File>
-			<File
-				RelativePath="..\XPath\node_test_test.hpp">
-			</File>
-			<File
-				RelativePath="..\XPath\parse_test.hpp">
-			</File>
-			<File
-				RelativePath="..\XPath\relational_test.hpp">
-			</File>
-			<File
-				RelativePath="..\silly_string\silly_string.hpp">
-			</File>
-			<File
-				RelativePath="..\XPath\step_test.hpp">
-			</File>
-			<File
-				RelativePath="..\XPath\value_test.hpp">
+				RelativePath="..\XPath\xpath_test_suite.hpp">
 			</File>
 		</Filter>
 		<Filter

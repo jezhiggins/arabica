@@ -971,6 +971,5 @@ TestSuite* AxisEnumeratorTest_suite()
   return suiteOfTests;
 } // AxisEnumeratorTest_suite
 
-
 #endif
 
