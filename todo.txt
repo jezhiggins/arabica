@@ -1,0 +1,7 @@
+I changed std::bad_cast("foo") to std::runtime_error("bad_cast: foo") since gcc 4.0.2 barfs on it
+
+We should define our own arabica::bad_cast, probably derived from std::runtime_error.
+
+In the meantime, some tests are broken (since they expect to catch std::bad_cast).
+
+
