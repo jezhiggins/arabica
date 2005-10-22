@@ -9,7 +9,7 @@ PARSER_CONFIG = -DUSE_LIBXML2
 #####
 MAKE = make
 # C++ compiler
-CXX = gcc 
+CXX = g++
 # preprocessor
 CPP = gcc -E
 # linker
