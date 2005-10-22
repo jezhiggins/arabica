@@ -9,70 +9,101 @@
 #include <Utils/convertstream.h>
 #include <Utils/utf8ucs2codecvt.h>
 
+
 namespace Arabica
 {
 
+//forward decl
 template<class stringT>
-class default_string_adaptor
+class default_string_adaptor;
+
+
+template<class stringT>
+class default_string_adaptor_base
 {
 public:
   typedef stringT string_type;
   typedef typename string_type::const_iterator const_iterator;
+  typedef typename string_type::iterator mutable_iterator;
+  typedef typename string_type::iterator iterator;
   typedef typename string_type::value_type value_type;
   typedef typename string_type::size_type size_type;
-  static const size_type npos;
 
-  template<class InputIterator> static string_type construct(InputIterator from, InputIterator to);
-  static string_type construct(const value_type* s);
+  static const typename string_type::size_type npos = static_cast<string_type::size_type>(-1);
 
-  static value_type convert_from_utf8(char c);
-  static string_type construct_from_utf8(const char* str);
-  static string_type construct_from_utf8(const char* str, int length);
-#ifndef ARABICA_NO_WCHAR_T
-  static string_type construct_from_utf16(const wchar_t* str);
-  static string_type construct_from_utf16(const wchar_t* str, int length);
-#endif
+  //todo: is this safe?
+  template<class InputIterator> 
+  static inline string_type construct(InputIterator from, InputIterator to)
+  {
+    return string_type(from, to);
+  }
+
+  static inline string_type construct(const_iterator from, const_iterator to)
+  {
+    return string_type(from, to);
+  }
+
+
+  static string_type construct(const value_type* str)
+  {
+    return str ? string_type(str) : string_type();
+  }
+
+  //todo: fix for utf8
+  static size_type length(const string_type& str) { return str.length(); }
 
   // all these functions should operate as std::string member functions do
-  static bool empty(const string_type& str);  
-  static size_type find(const string_type& str, const string_type& what); 
-  static string_type substr(const string_type& str, const size_type& offset);
-  static string_type substr(const string_type& str, const size_type& offset, const size_type& count);
-  static size_type length(const string_type& str);
-  static void append(string_type& str, const string_type& a);
-  static void insert(string_type& str, size_type offset, const string_type& a);
-  static void replace(string_type& str, size_type offser, size_type count, const string_type& a);
-  static const_iterator begin(const string_type& str);
-  static const_iterator end(const string_type& str);
+  static bool empty(const string_type& str) { return str.empty(); }
+  static size_type find(const string_type& str, value_type what) { return str.find(what); }
+  static size_type find(const string_type& str, const string_type& what) { return str.find(what); }
+  static string_type substr(const string_type& str, const size_type& offset) { return str.substr(offset); }
+  static string_type substr(const string_type& str, const size_type& offset, const size_type& count) { return str.substr(offset, count); }
+  static void append(string_type& str, const string_type& a) { str.append(a); }
+  static void insert(string_type& str, size_type offset, const string_type& a) { str.insert(offset, a); }
+  static void replace(string_type& str, size_type offset, size_type count, const string_type& a) { str.replace(offset, count, a); }
+  
+  static const_iterator begin(const string_type& str) { return str.begin(); }
+  static const_iterator end(const string_type& str) { return str.end(); }
+
+  static iterator begin(string_type& str) { return str.begin(); }
+  static iterator end(string_type& str) { return str.end(); }
+
 
   // only used to constuct error strings - don't have to be highly efficient!
   static std::string asStdString(const string_type& str);
+
 #ifndef ARABICA_NO_WCHAR_T
+  static string_type construct_from_utf16(const wchar_t* str);
+  static string_type construct_from_utf16(const wchar_t* str, int length);
   static std::wstring asStdWString(const string_type& str);
+
+  typedef Arabica::convert::basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
+                               char, std::char_traits<char> > widener_t;
+  typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+                               char, std::char_traits<char> > narrower_t;
+
+
+  static const std::locale& utf8ucs2_locale()
+  {
+#ifndef ARABICA_VS6_WORKAROUND
+    static const std::locale loc(std::locale(),  new Arabica::convert::utf8ucs2codecvt());
+#else
+    static const std::locale loc(std::_Addfac(std::locale(),  new Arabica::convert::utf8ucs2codecvt()));
 #endif
-}; // class default_string_adaptor
+    return loc;
+  }
+#endif //ARABICA_NO_WCHAR_T
+
+}; // class default_string_adaptor_base
+
+
+
 
 // specialize for std::string and std::wstring
 template<>
-class default_string_adaptor<std::string>
+class default_string_adaptor<std::string> : public default_string_adaptor_base<std::string>
 {
 public:
-  typedef std::string string_type;
-  typedef std::string::const_iterator const_iterator;
-  typedef std::string::iterator mutable_iterator;
-  typedef std::string::value_type value_type;
-  typedef std::string::size_type size_type;
-  static const size_type npos = static_cast<size_type>(-1);
-
-  template<class InputIterator> static std::string construct(InputIterator from, InputIterator to)
-  {
-    return std::string(from, to);
-  } // construct
-
-  static std::string construct(const value_type* s)
-  {
-    return std::string(s);
-  } // construct
 
   static char convert_from_utf8(char c) { return c; }
 
@@ -80,253 +111,133 @@ public:
   {
     return str ? std::string(str) : std::string();
   } // makeStringT
+
   static std::string construct_from_utf8(const char* str, int length)
   {
     return std::string(str, length);
   } // makeStringT
+
   static const std::string& asStdString(const std::string& str)
   {
     return str;
   } // toStdString
 
-#ifndef ARABICA_NO_WCHAR_T
-  typedef Arabica::convert::basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
-                               char, std::char_traits<char> > widener;
-  typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
-                               char, std::char_traits<char> > narrower;
+  static string_type makeStringT(const const_iterator& first, const const_iterator& last) 
+  { 
+    return string_type(first, last); 
+  }
+  
+  static string_type makeStringT(const char* str) 
+  { 
+    return construct_from_utf8(str); 
+  }
+  
+  static string_type makeStringT(const char* str, int len) 
+  { 
+    return construct_from_utf8(str, len); 
+  }
 
+#ifndef ARABICA_NO_WCHAR_T
   static std::string construct_from_utf16(const wchar_t* str)
   {
-#ifndef ARABICA_VS6_WORKAROUND
-    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
-#else
-    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
-#endif
-    narrower n;
-    n.imbue(loc);
-
-    n << str;
+    narrower_t n;
+    n.imbue(utf8ucs2_locale());
+    n.str(str ? str : L"");
+    //n << str;
     return n.str();
-  } // makeStringT
+  }
 
   static std::string construct_from_utf16(const wchar_t* str, int length) 
   {
-#ifndef ARABICA_VS6_WORKAROUND
-    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
-#else
-    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
-#endif
-    narrower n;
-    n.imbue(loc);
-
-    for(int i = 0; i < length; ++i)
-      n << str[i];
+    narrower_t n;
+    n.imbue(utf8ucs2_locale());
+    n.str(std::wstring(str, length));
+    //for(int i = 0; i < length; ++i)
+    //  n << str[i];
     return n.str();
   } // construct_from_utf16
 
   static std::wstring asStdWString(const std::string& str) 
   {
-#ifndef ARABICA_VS6_WORKAROUND
-    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
-#else
-    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
-#endif
-    widener w;
+    widener_t w;
+    w.imbue(utf8ucs2_locale());
     w.str(str);
     return w.str();
   } // toStdWString
-#endif
+#endif //ARABICA_NO_WCHAR_T
 
-  static bool empty(const std::string& str)
-  {
-    return str.empty();
-  } // empty
+}; // class default_string_adaptor<std::string>
 
-  static size_type find(const std::string& str, const std::string& what)
-  {
-    return str.find(what);
-  } // find
-
-  static size_type find(const std::string& str, char what)
-  {
-    return str.find(what);
-  } // find
-
-  static std::string substr(const std::string& str, const size_type& offset)
-  {
-    return str.substr(offset);
-  } // substr
-
-  static std::string substr(const std::string& str, const size_type& offset, const size_type& count)
-  {
-    return str.substr(offset, count);
-  } // substr
-
-  static size_type length(const std::string& str)
-  {
-    return str.length(); // TODO - fix me for utf8
-  } // length
-
-  static void append(std::string& str, const std::string& a)
-  {
-    str.append(a);
-  } // append
-
-  static void insert(std::string& str, size_type offset, const std::string& a)
-  {
-    str.insert(offset, a);
-  } // insert
-
-  static void replace(std::string& str, size_type offset, size_type count, const std::string& a)
-  {
-    str.replace(offset, count, a);
-  } // replace
-
-  static const_iterator begin(const std::string& str) { return str.begin(); }
-  static mutable_iterator begin(std::string& str) { return str.begin(); }
-  static const_iterator end(const std::string& str) { return str.end(); }
-  static mutable_iterator end(std::string& str) { return str.end(); }
-}; // class default_string_adaptor
 
 #ifndef ARABICA_NO_WCHAR_T
+
 template<>
-class default_string_adaptor<std::wstring>
+class default_string_adaptor<std::wstring> : public default_string_adaptor_base<std::wstring>
 {
-  typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
-                               char, std::char_traits<char> > narrower;
-  typedef Arabica::convert::basic_oconvertstream<char, std::char_traits<char>,
-                                                 wchar_t, std::char_traits<wchar_t> > widener;
 public:
-  typedef std::wstring stringT;
-  typedef std::wstring::const_iterator const_iterator;
-  typedef std::wstring::iterator mutable_iterator;
-  typedef std::wstring::value_type value_type;
-  typedef std::wstring::size_type size_type;
-  static const size_type npos = static_cast<size_type>(-1);
 
-  template<class InputIterator> static std::wstring construct(InputIterator from, InputIterator to)
+  static wchar_t makeValueT(char c)
   {
-    return std::wstring(from, to);
-  } // construct
-
-  static std::wstring construct(const value_type* s)
-  {
-    return std::wstring(s);
-  } // construct
-
-  static wchar_t convert_from_utf8(char c)
-  { 
     return static_cast<wchar_t>(c);
-  } // convert_from_utf8
+  } // makeValueT
 
-  static std::wstring construct_from_utf8(const char* str) 
+  static std::wstring construct_from_utf8(const char* str)
   {
-#ifndef ARABICA_VS6_WORKAROUND
-    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
-#else
-    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
-#endif
-    widener w;
-    w.imbue(loc);
-    if(str)
-      w << str;
-    else
-      w.str("");
+    widener_t w;
+    w.imbue(utf8ucs2_locale());
+    w.str(str ? str : "");
     return w.str();
-  } // construct_from_utf8
-  
-  static std::wstring construct_from_utf8(const char* str, int length) 
-  {
-#ifndef ARABICA_VS6_WORKAROUND
-    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
-#else
-    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
-#endif
-    widener w;
-    w.imbue(loc);
-    for(int i = 0; i < length; ++i)
-      w << str[i];
-    return w.str();
-  } // construct_from_utf8
+  }
 
-  static std::wstring construct_from_utf16(const wchar_t* str) 
+  static std::wstring construct_from_utf8(const char* str, int length)
+  {
+    widener_t w;
+    w.imbue(utf8ucs2_locale());
+    w.str(std::string(str, length));
+    return w.str();
+  }
+
+  static std::wstring construct_from_utf16(const wchar_t* str)
   {
     return str ? std::wstring(str) : std::wstring();
-  } // construct_from_utf16
+  }
 
-  static std::wstring construct_from_utf16(const wchar_t* str, int length)  
+  static std::wstring construct_from_utf16(const wchar_t* str, int length)
   {
     return std::wstring(str, length);
-  } // construct_from_utf16
+  }
+  
+  static string_type makeStringT(const const_iterator& first, const const_iterator& last) 
+  { 
+    return string_type(first, last); 
+  }
+  
+  static string_type makeStringT(const char* str) 
+  { 
+    return construct_from_utf8(str); 
+  }
+
+  static string_type makeStringT(const char* str, int len) 
+  { 
+    return construct_from_utf8(str, len); 
+  }
 
   static std::string asStdString(const std::wstring& str)
   {
-#ifndef ARABICA_VS6_WORKAROUND
-    std::locale loc(std::locale(), new Arabica::convert::utf8ucs2codecvt());
-#else
-    std::locale loc(std::_Addfac(std::locale(), new Arabica::convert::utf8ucs2codecvt));
-#endif
-    narrower n;
-    n.imbue(loc);
-    n << str;
+    narrower_t n;
+    n.imbue(utf8ucs2_locale());
+    n.str(str);
     return n.str();
   } // toStdString
 
-  static const std::wstring& asStdWString(const std::wstring& str)  
+  static const std::wstring& asStdWString(const std::wstring& str)
   {
     return str;
   } // toStdWString
 
-  static bool empty(const std::wstring& str)
-  {
-    return str.empty();
-  } // empty
+}; // class default_string_adaptor<std::wstring>
 
-  static size_type find(const std::wstring& str, const std::wstring& what)
-  {
-    return str.find(what);
-  } // find
 
-  static size_type find(const std::wstring& str, wchar_t what)
-  {
-    return str.find(what);
-  } // find
-
-  static std::wstring substr(const std::wstring& str, const size_type& offset)
-  {
-    return str.substr(offset);
-  } // substr
-
-  static std::wstring substr(const std::wstring& str, const size_type& offset, const size_type& count)
-  {
-    return str.substr(offset, count);
-  } // substr
-
-  static size_type length(const std::wstring& str)
-  {
-    return str.length(); 
-  } // length
-
-  static void append(std::wstring& str, const std::wstring& a)
-  {
-    str.append(a);
-  } // append
-
-  static void insert(std::wstring& str, size_type offset, const std::wstring& a)
-  {
-    str.insert(offset, a);
-  } // insert
-
-  static void replace(std::wstring& str, size_type offset, size_type count, const std::wstring& a)
-  {
-    str.replace(offset, count, a);
-  } // replace
-
-  static const_iterator begin(const std::wstring& str) { return str.begin(); }
-  static mutable_iterator begin(std::wstring& str) { return str.begin(); }
-  static const_iterator end(const std::wstring& str) { return str.end(); }
-  static mutable_iterator end(std::wstring& str) { return str.end(); }
-}; // class default_string_adaptor
 #endif // ARABICA_NO_WCHAR_T
 
 } // namespace Arabica
