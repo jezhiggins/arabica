@@ -271,9 +271,9 @@ public:
     if(string_adaptor::length(value) < string_adaptor::length(start))
       return new BoolValue<string_type, string_adaptor>(false);
 
-    string_adaptor::const_iterator i = string_adaptor::begin(value);
-    string_adaptor::const_iterator s = string_adaptor::begin(start);
-    string_adaptor::const_iterator e = string_adaptor::end(start);
+    typename string_adaptor::const_iterator i = string_adaptor::begin(value);
+    typename string_adaptor::const_iterator s = string_adaptor::begin(start);
+    typename string_adaptor::const_iterator e = string_adaptor::end(start);
     for(; s != e; ++s, ++i)
       if(*i != *s)
         return new BoolValue<string_type, string_adaptor>(false);
@@ -396,8 +396,8 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type value = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
-    string_adaptor::const_iterator i = string_adaptor::begin(value), ie = string_adaptor::end(value);
-    string_adaptor::mutable_iterator p = string_adaptor::begin(value), pe = string_adaptor::end(value);
+    typename string_adaptor::const_iterator i = string_adaptor::begin(value), ie = string_adaptor::end(value);
+    typename string_adaptor::mutable_iterator p = string_adaptor::begin(value), pe = string_adaptor::end(value);
 
     // string leading space
     while((i != ie) && (XML::is_space(static_cast<wchar_t>(*i))))
@@ -434,8 +434,8 @@ public:
     string_type from = baseT::argAsString(1, context, executionContext);
     string_type to = baseT::argAsString(2, context, executionContext);
 
-    string_adaptor::mutable_iterator p = string_adaptor::begin(str);
-    for(string_adaptor::mutable_iterator i = string_adaptor::begin(str), ie = string_adaptor::end(str); i != ie; ++i)
+    typename string_adaptor::mutable_iterator p = string_adaptor::begin(str);
+    for(typename string_adaptor::mutable_iterator i = string_adaptor::begin(str), ie = string_adaptor::end(str); i != ie; ++i)
     {
       size_t r = string_adaptor::find(from, *i);
       if(r == string_adaptor::npos)

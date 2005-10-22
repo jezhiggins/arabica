@@ -919,7 +919,7 @@ void msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::doSetProperty(co
     Property<SAX::basic_LexicalHandler<stringT>&>* prop = dynamic_cast<Property<SAX::basic_LexicalHandler<stringT>&>*>(value.get());
 
     if(!prop)
-      throw std::bad_cast("Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
+      throw std::runtime_error("bad_cast: Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
 
     lexicalHandler_.setLexicalHandler(prop->get());
     return;
@@ -929,7 +929,7 @@ void msxml2_wrapper<stringT, COMInitializerT, string_adaptorT>::doSetProperty(co
     Property<SAX::basic_DeclHandler<stringT>&>* prop = dynamic_cast<Property<SAX::basic_DeclHandler<stringT>&>*>(value.get());
 
     if(!prop)
-      throw std::bad_cast("Property DeclHandler is wrong type, should be SAX::DeclHandler&");
+      throw std::runtime_error("bad_cast: Property DeclHandler is wrong type, should be SAX::DeclHandler&");
 
     declHandler_.setDeclHandler(prop->get());
     return;

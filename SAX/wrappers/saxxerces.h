@@ -933,7 +933,8 @@ std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<st
 {
   if(name == properties_.lexicalHandler)
   {
-    SAX::basic_XMLReader<string_type>::Property<LexicalHandlerT *> *prop = new SAX::basic_XMLReader<string_type>::Property<LexicalHandlerT *>(lexicalHandlerAdaptor_.getLexicalHandler());
+    typedef typename SAX::basic_XMLReader<string_type>::template Property<LexicalHandlerT *> Prop;
+    Prop *prop = new Prop(lexicalHandlerAdaptor_.getLexicalHandler());
 #ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename base::PropertyBase>(prop);
 #else
@@ -942,7 +943,8 @@ std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<st
   }
   if(name == properties_.declHandler)
   {
-    SAX::basic_XMLReader<string_type>::Property<DeclHandlerT*>* prop = new SAX::basic_XMLReader<string_type>::Property<DeclHandlerT*>(declHandlerAdaptor_.getDeclHandler());
+    typedef typename SAX::basic_XMLReader<string_type>::template Property<DeclHandlerT*> Prop;
+    Prop* prop = new Prop(declHandlerAdaptor_.getDeclHandler());
 #ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename base::PropertyBase>(prop);
 #else
@@ -951,7 +953,7 @@ std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<st
   }
   if (name == properties_.externalSchemaLocation)
   {
-    typedef SAX::basic_XMLReader<string_type>::Property<string_type&> StringPropertyType;
+    typedef typename SAX::basic_XMLReader<string_type>::template Property<string_type&> StringPropertyType;
 
     XMLCh* xercesExternalSchemaLocation = 
         static_cast<XMLCh*>(xerces_->getProperty(
@@ -974,7 +976,7 @@ std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<st
   }
   if (name == properties_.externalNoNamespaceSchemaLocation)
   {
-    typedef SAX::basic_XMLReader<string_type>::Property<string_type&> StringPropertyType;
+    typedef typename SAX::basic_XMLReader<string_type>::template Property<string_type&> StringPropertyType;
 
     XMLCh* xercesExternalNoNamespaceSchemaLocation = 
         static_cast<XMLCh*>(xerces_->getProperty(
@@ -999,7 +1001,8 @@ void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_ty
 {
   if(name == properties_.lexicalHandler)
   {
-    SAX::basic_XMLReader<string_type>::Property<LexicalHandlerT&>* prop = dynamic_cast<SAX::basic_XMLReader<string_type>::Property<LexicalHandlerT&>*>(value.get());
+    typedef typename SAX::basic_XMLReader<string_type>::template Property<LexicalHandlerT&> Prop;
+    Prop *prop = new Prop(value.get());
 
     if(!prop)
     {
@@ -1012,7 +1015,8 @@ void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_ty
 
   if(name == properties_.declHandler)
   {
-    SAX::basic_XMLReader<string_type>::Property<DeclHandlerT&>* prop = dynamic_cast<SAX::basic_XMLReader<string_type>::Property<DeclHandlerT&>*>(value.get());
+    typedef typename SAX::basic_XMLReader<string_type>::template Property<DeclHandlerT&> Prop;
+    Prop* prop = new Prop(value.get());
 
     if(!prop)
     {
@@ -1029,7 +1033,7 @@ void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_ty
     std::cerr << "doSetProperty(externalSchemaLocation, &("
               << typeid(*propBase) << "))" << std::endl;
 #endif
-    typedef base::Property<string_type&> propertyType;
+    typedef typename base::template Property<string_type&> propertyType;
     propertyType* prop = dynamic_cast<propertyType*>(propBase);
 #ifdef SAXXERCES_DEBUG
     std::cerr << "    Extracted property to " << typeid(prop)
@@ -1054,7 +1058,7 @@ void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_ty
   if (name == properties_.externalNoNamespaceSchemaLocation)
   {
     typename base::PropertyBase* propBase = value.get();
-    typedef base::Property<string_type&> propertyType;
+    typedef typename base::template Property<string_type&> propertyType;
 #ifdef SAXXERCES_DEBUG
     std::cerr << "doSetProperty(externalNoNamespaceSchemaLocation, &("
               << typeid(*propBase) << "))" << std::endl;
