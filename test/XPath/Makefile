@@ -25,7 +25,7 @@ CPPUNITUI_SRCS = $(patsubst Text%,$(CPPUNIT_DIR)/textui/Text%,$(CPPUNITUI_FILES)
 CPPUNITUI_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITUI_SRCS))
 
 CPPUNITRUNNER_FILES = TestRunner.cpp
-CPPUNITRUNNER_SRCS = $(patsubst %.cpp,$(CPPUNIT_DIR),$CPPUNITRUNNER_FILES)
+CPPUNITRUNNER_SRCS = $(patsubst Test%,$(CPPUNIT_DIR)/Test%,$(CPPUNITRUNNER_FILES))
 CPPUNITRUNNER_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITRUNNER_SRCS))
 
 ######################################
@@ -33,7 +33,7 @@ CPPUNITRUNNER_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITRUNNER_SRCS))
 all : xpath_test 
 
 xpath_test : $(XPATH_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(CPPUNITRUNNER_OBJS) $(XPATH_TESTS)
-	$(LD) $(LDFLAGS) -o $@ $(XPATH_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(LD) $(LDFLAGS) -o $@ $(XPATH_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(CPPUNITRUNNER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) xpath_test$(EXESUFFIX) ../../bin
 
 ######################
