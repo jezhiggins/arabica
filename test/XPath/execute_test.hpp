@@ -34,7 +34,7 @@ private:
 template<class string_type, class string_adaptor>
 class NodeSetVariableResolver : public Arabica::XPath::VariableResolver<string_type, string_adaptor>
 {
-  typedef string_adaptorstring_adaptor;
+  //typedef string_adaptorstring_adaptor;
 public:
   virtual Arabica::XPath::XPathValuePtr<string_type> resolveVariable(const string_type& name) const
   {
@@ -58,7 +58,7 @@ private:
 template<class string_type, class string_adaptor>
 class TestFunction : public Arabica::XPath::XPathFunction<string_type, string_adaptor>
 {
-  typedef string_adaptorstring_adaptor;
+  //typedef string_adaptorstring_adaptor;
 public:
   TestFunction(const std::vector<Arabica::XPath::XPathExpressionPtr<string_type> >& args) :
       Arabica::XPath::XPathFunction<string_type, string_adaptor>(0, 0, args) { }
@@ -75,7 +75,7 @@ public:
 template<class string_type, class string_adaptor>
 class TestFunctionResolver : public Arabica::XPath::FunctionResolver<string_type, string_adaptor>
 {
-  typedef string_adaptorstring_adaptor;
+  //typedef string_adaptorstring_adaptor;
 public:
   virtual Arabica::XPath::XPathFunction<string_type, string_adaptor>* resolveFunction(const string_type& name,
                                          const std::vector<Arabica::XPath::XPathExpressionPtr<string_type> >& argExprs) const
