@@ -268,6 +268,12 @@
 				RelativePath="..\CppUnit\framework\TestResult.h">
 			</File>
 			<File
+				RelativePath="..\CppUnit\TestRunner.cpp">
+			</File>
+			<File
+				RelativePath="..\CppUnit\TestRunner.hpp">
+			</File>
+			<File
 				RelativePath="..\CppUnit\framework\TestSuite.cpp">
 			</File>
 			<File
