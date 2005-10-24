@@ -1,0 +1,17 @@
+CPPUNIT_DIR = ../CppUnit
+
+CPPUNITFW_FILES = TestCase.cpp TestFailure.cpp TestResult.cpp TestSuite.cpp
+CPPUNITFW_SRCS = $(patsubst Test%,$(CPPUNIT_DIR)/framework/Test%,$(CPPUNITFW_FILES))
+CPPUNITFW_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITFW_SRCS))
+
+CPPUNITUI_FILES = TextTestResult.cpp
+CPPUNITUI_SRCS = $(patsubst Text%,$(CPPUNIT_DIR)/textui/Text%,$(CPPUNITUI_FILES))
+CPPUNITUI_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITUI_SRCS))
+
+CPPUNITRUNNER_FILES = TestRunner.cpp
+CPPUNITRUNNER_SRCS = $(patsubst Test%,$(CPPUNIT_DIR)/Test%,$(CPPUNITRUNNER_FILES))
+CPPUNITRUNNER_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITRUNNER_SRCS))
+
+CPPUNIT_OBJS = $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(CPPUNITRUNNER_OBJS)
+
+

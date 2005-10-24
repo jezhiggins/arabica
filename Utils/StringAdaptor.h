@@ -29,7 +29,7 @@ public:
   typedef typename string_type::value_type value_type;
   typedef typename string_type::size_type size_type;
 
-  static const typename string_type::size_type npos = static_cast<string_type::size_type>(-1);
+  static const typename string_type::size_type npos = static_cast<typename string_type::size_type>(-1);
 
   //todo: is this safe?
   template<class InputIterator> 

@@ -1,3 +1,5 @@
+-include Makefile.common
+
 ####################################
 # ARABICA CONFIG
 # edit for your parser choice - may include more than one USE_*

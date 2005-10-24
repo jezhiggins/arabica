@@ -15,7 +15,7 @@ public:
   virtual Arabica::XPath::XPathValuePtr<string_type> resolveVariable(const string_type& name) const
   {
     using namespace Arabica::XPath;
-    VarMap::const_iterator n = map_.find(name);
+    typename VarMap::const_iterator n = map_.find(name);
     if(n == map_.end())
       throw UnboundVariableException(string_adaptor::asStdString(name));
     return XPathValuePtr<string_type>(new StringValue<string_type, string_adaptor>((*n).second));
@@ -39,7 +39,7 @@ public:
   virtual Arabica::XPath::XPathValuePtr<string_type> resolveVariable(const string_type& name) const
   {
     using namespace Arabica::XPath;
-    VarMap::const_iterator n = map_.find(name);
+    typename VarMap::const_iterator n = map_.find(name);
     if(n == map_.end())
       throw UnboundVariableException(string_adaptor::asStdString(name));
     return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>((*n).second));
