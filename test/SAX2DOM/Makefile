@@ -11,7 +11,7 @@ DYNAMIC_LIBS += -lArabica
 
 ######################################
 # SOURCE FILES
-SAXDOM_SRCS = main.cpp test_Document.cpp test_DocumentFragment.cpp test_DocumentType.cpp test_DOMImplementation.cpp test_Element.cpp test_ProcessingInstruction.cpp test_Siblings.cpp test_SAX.cpp test_CharacterData.cpp test_Text.cpp
+SAXDOM_SRCS = main.cpp test_Document.cpp test_DocumentFragment.cpp test_Element.cpp test_Siblings.cpp test_SAX.cpp 
 SAXDOM_HDRS = $(patsubst %.cpp,%.h,$(SAXDOM_SRCS))
 SAXDOM_OBJS = $(patsubst %.cpp,%.o,$(SAXDOM_SRCS))
 
