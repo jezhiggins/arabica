@@ -32,16 +32,16 @@ int main(int argc, char* argv[])
 {
   TestRunner runner;
 
-  runner.addTest("DOMImplementationTest", DOMImplementationTest_suite());
-  runner.addTest("DocumentTypeTest", DocumentTypeTest_suite());
+  runner.addTest("DOMImplementationTest", DOMImplementationTest_suite<std::string, Arabica::default_string_adaptor_base<std::string> >());
+  runner.addTest("DocumentTypeTest", DocumentTypeTest_suite<std::string, Arabica::default_string_adaptor_base<std::string> >());
   runner.addTest("DocumentTest", DocumentTest_suite());
   runner.addTest("SiblingsTest", SiblingsTest_suite());
   runner.addTest("ElementTest", ElementTest_suite());
   runner.addTest("AttributeTest", AttrTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
-  runner.addTest("ProcessingInstructionTest", ProcessingInstructionTest_suite());
-  runner.addTest("TextTest", TextTest_suite());
-  runner.addTest("CDATATest", CDATATest_suite());
-  runner.addTest("CharacterDataText", CharacterDataTest_suite());
+  runner.addTest("ProcessingInstructionTest", ProcessingInstructionTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
+  runner.addTest("TextTest", TextTest_suite<std::string, Arabica::default_string_adaptor_base<std::string> >());
+  runner.addTest("CDATATest", CDATATest_suite<std::string, Arabica::default_string_adaptor_base<std::string> >());
+  runner.addTest("CharacterDataText", CharacterDataTest_suite<std::string, Arabica::default_string_adaptor_base<std::string> >());
   runner.addTest("DocumentFragmentTest", DocumentFragmentTest_suite());
   runner.addTest("SAX2DOMTest", SAXTest_suite());
   runner.run(argc, argv);

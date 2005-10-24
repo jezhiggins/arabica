@@ -146,40 +146,19 @@
 				RelativePath=".\main.cpp">
 			</File>
 			<File
-				RelativePath=".\test_Attribute.cpp">
-			</File>
-			<File
-				RelativePath=".\test_CDATA.cpp">
-			</File>
-			<File
-				RelativePath=".\test_CharacterData.cpp">
-			</File>
-			<File
 				RelativePath=".\test_Document.cpp">
 			</File>
 			<File
 				RelativePath=".\test_DocumentFragment.cpp">
 			</File>
 			<File
-				RelativePath=".\test_DocumentType.cpp">
-			</File>
-			<File
-				RelativePath=".\test_DOMImplementation.cpp">
-			</File>
-			<File
 				RelativePath=".\test_Element.cpp">
-			</File>
-			<File
-				RelativePath=".\test_ProcessingInstruction.cpp">
 			</File>
 			<File
 				RelativePath=".\test_SAX.cpp">
 			</File>
 			<File
 				RelativePath=".\test_Siblings.cpp">
-			</File>
-			<File
-				RelativePath=".\test_Text.cpp">
 			</File>
 		</Filter>
 		<Filter
