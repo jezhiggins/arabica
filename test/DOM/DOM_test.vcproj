@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="test_SAX2DOM"
+	Name="test_DOM"
 	ProjectGUID="{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
 	SccProjectName=""
 	SccLocalPath="">
@@ -44,7 +44,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="wsock32.lib"
-				OutputFile="$(OutDir)/SAX2DOM_test.exe"
+				OutputFile="$(OutDir)/DOM_test.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories=""
@@ -106,7 +106,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="wsock32.lib"
-				OutputFile="$(OutDir)/SAX2DOM_test.exe"
+				OutputFile="$(OutDir)/DOM_test.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\Release/SAX2DOM_test.pdb"
@@ -150,7 +150,40 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath=".\test_Attribute.h">
+			</File>
+			<File
+				RelativePath=".\test_CDATA.hpp">
+			</File>
+			<File
+				RelativePath=".\test_CharacterData.hpp">
+			</File>
+			<File
+				RelativePath=".\test_Document.h">
+			</File>
+			<File
+				RelativePath=".\test_DocumentFragment.h">
+			</File>
+			<File
+				RelativePath=".\test_DocumentType.h">
+			</File>
+			<File
+				RelativePath=".\test_DOMImplementation.h">
+			</File>
+			<File
+				RelativePath=".\test_Element.h">
+			</File>
+			<File
+				RelativePath=".\test_ProcessingInstruction.h">
+			</File>
+			<File
 				RelativePath=".\test_SAX.h">
+			</File>
+			<File
+				RelativePath=".\test_Siblings.h">
+			</File>
+			<File
+				RelativePath=".\test_Text.hpp">
 			</File>
 		</Filter>
 		<Filter
