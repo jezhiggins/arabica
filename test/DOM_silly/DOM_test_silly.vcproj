@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="test_DOM"
+	Name="test_DOM_silly"
 	ProjectGUID="{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
 	SccProjectName=""
 	SccLocalPath="">
@@ -30,7 +30,7 @@
 				TreatWChar_tAsBuiltInType="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Debug/DOM_test.pch"
+				PrecompiledHeaderFile=".\Debug/SAX2DOM_test.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
@@ -44,16 +44,16 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="wsock32.lib"
-				OutputFile="$(OutDir)/DOM_test.exe"
+				OutputFile="$(OutDir)/DOM_test_ss.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\..\bin/DOM_test.pdb"
+				ProgramDatabaseFile=".\..\..\bin/DOM_test_ss.pdb"
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\..\bin/DOM_test.tlb"/>
+				TypeLibraryName=".\..\..\bin/DOM_test_ss.tlb"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -106,14 +106,14 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="wsock32.lib"
-				OutputFile="$(OutDir)/DOM_test.exe"
+				OutputFile="$(OutDir)/DOM_test_ss.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/DOM_test.pdb"
+				ProgramDatabaseFile=".\Release/DOM_test_ss.pdb"
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Release/DOM_test.tlb"/>
+				TypeLibraryName=".\Release/DOM_test_ss.tlb"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -145,45 +145,48 @@
 			<File
 				RelativePath=".\main.cpp">
 			</File>
+			<File
+				RelativePath="..\silly_string\silly_string.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath=".\test_Attribute.h">
+				RelativePath="..\silly_string\silly_string.hpp">
 			</File>
 			<File
-				RelativePath=".\test_CDATA.hpp">
+				RelativePath="..\Dom\test_Attribute.h">
 			</File>
 			<File
-				RelativePath=".\test_CharacterData.hpp">
+				RelativePath="..\Dom\test_CDATA.hpp">
 			</File>
 			<File
-				RelativePath=".\test_Document.h">
+				RelativePath="..\Dom\test_CharacterData.hpp">
 			</File>
 			<File
-				RelativePath=".\test_DocumentFragment.h">
+				RelativePath="..\Dom\test_Document.h">
 			</File>
 			<File
-				RelativePath=".\test_DocumentType.h">
+				RelativePath="..\Dom\test_DocumentFragment.h">
 			</File>
 			<File
-				RelativePath=".\test_DOMImplementation.h">
+				RelativePath="..\Dom\test_DocumentType.h">
 			</File>
 			<File
-				RelativePath=".\test_Element.h">
+				RelativePath="..\Dom\test_DOMImplementation.h">
 			</File>
 			<File
-				RelativePath=".\test_ProcessingInstruction.h">
+				RelativePath="..\Dom\test_Element.h">
 			</File>
 			<File
-				RelativePath=".\test_SAX.h">
+				RelativePath="..\Dom\test_ProcessingInstruction.h">
 			</File>
 			<File
-				RelativePath=".\test_Siblings.h">
+				RelativePath="..\Dom\test_Siblings.h">
 			</File>
 			<File
-				RelativePath=".\test_Text.hpp">
+				RelativePath="..\Dom\test_Text.hpp">
 			</File>
 		</Filter>
 		<Filter

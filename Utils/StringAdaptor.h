@@ -15,7 +15,9 @@ namespace Arabica
 
 //forward decl
 template<class stringT>
-class default_string_adaptor;
+class default_string_adaptor
+{
+};
 
 
 template<class stringT>

@@ -10,6 +10,7 @@
 template<class string_type, class string_adaptor>
 class DOMImplementationTest : public TestCase 
 {
+    typedef string_adaptor SA;
   public: 
     DOMImplementationTest(std::string name) :
         TestCase(name) 
@@ -25,7 +26,7 @@ class DOMImplementationTest : public TestCase
       DOM::DOMImplementation<string_type> di;
       assert(di == 0);
 
-      DOM::DOMImplementation<string_type> di2 = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+      DOM::DOMImplementation<string_type> di2 = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
       assert(di2 != 0);
 
       assert(di != di2);
@@ -38,23 +39,23 @@ class DOMImplementationTest : public TestCase
 
     void testFeatures()
     {
-      DOM::DOMImplementation<string_type> di = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+      DOM::DOMImplementation<string_type> di = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
 
-      assert(di.hasFeature("Core", "") == true);
-      assert(di.hasFeature("Core", "1.0") == true);
-      assert(di.hasFeature("Core", "2.0") == true);
-      assert(di.hasFeature("Core", "trousers") == false);
+      assert(di.hasFeature(SA::construct_from_utf8("Core"), SA::construct_from_utf8("")) == true);
+      assert(di.hasFeature(SA::construct_from_utf8("Core"), SA::construct_from_utf8("1.0")) == true);
+      assert(di.hasFeature(SA::construct_from_utf8("Core"), SA::construct_from_utf8("2.0")) == true);
+      assert(di.hasFeature(SA::construct_from_utf8("Core"), SA::construct_from_utf8("trousers")) == false);
 //      assert(di.hasFeature("cOrE", "1.0") == true);
 //    assert(di.hasFeature("CorE", "2.0") == true);
 
-      assert(di.hasFeature("XML", "") == true);
-      assert(di.hasFeature("XML", "1.0") == true);
-      assert(di.hasFeature("XML", "2.0") == true);
-      assert(di.hasFeature("xml", "") == true);
-      assert(di.hasFeature("xml", "1.0") == true);
-      assert(di.hasFeature("xml", "2.0") == true);
+      assert(di.hasFeature(SA::construct_from_utf8("XML"), SA::construct_from_utf8("")) == true);
+      assert(di.hasFeature(SA::construct_from_utf8("XML"), SA::construct_from_utf8("1.0")) == true);
+      assert(di.hasFeature(SA::construct_from_utf8("XML"), SA::construct_from_utf8("2.0")) == true);
+      assert(di.hasFeature(SA::construct_from_utf8("xml"), SA::construct_from_utf8("")) == true);
+      assert(di.hasFeature(SA::construct_from_utf8("xml"), SA::construct_from_utf8("1.0")) == true);
+      assert(di.hasFeature(SA::construct_from_utf8("xml"), SA::construct_from_utf8("2.0")) == true);
 
-      assert(di.hasFeature("barleymow", "") == false);
+      assert(di.hasFeature(SA::construct_from_utf8("barleymow"), SA::construct_from_utf8("")) == false);
     } // testDeatures
 };
 
