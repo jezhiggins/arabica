@@ -53,6 +53,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xpath_wide", "test\XPa
 		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_DOM", "test\DOM\DOM_test.vcproj", "{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -107,6 +111,10 @@ Global
 		{B3C75B3A-BB0A-4B23-87F9-FB9CD98FF8CE}.Debug.Build.0 = Debug|Win32
 		{B3C75B3A-BB0A-4B23-87F9-FB9CD98FF8CE}.Release.ActiveCfg = Release|Win32
 		{B3C75B3A-BB0A-4B23-87F9-FB9CD98FF8CE}.Release.Build.0 = Release|Win32
+		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}.Debug.ActiveCfg = Debug|Win32
+		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}.Debug.Build.0 = Debug|Win32
+		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}.Release.ActiveCfg = Release|Win32
+		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
