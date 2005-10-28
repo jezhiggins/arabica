@@ -11,6 +11,7 @@ template<class string_type, class string_adaptor>
 class TextTest : public TestCase 
 {
   DOM::DOMImplementation<string_type> factory;
+  typedef string_adaptor SA;
 
   public: 
     TextTest(std::string name) :
@@ -34,21 +35,21 @@ class TextTest : public TestCase
 
     void testCreate()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Text<string_type> t = d.createTextNode("some data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      DOM::Text<string_type> t = d.createTextNode(SA::construct_from_utf8("some data"));
 
-      assert(t.getData() == "some data");
-      assert(t.getNodeName() == "#text");
+      assert(t.getData() == SA::construct_from_utf8("some data"));
+      assert(t.getNodeName() == SA::construct_from_utf8("#text"));
       assert(t.getNodeValue() == t.getData());
 
-      t.setData("newData");
-      assert(t.getData() == "newData");
+      t.setData(SA::construct_from_utf8("newData"));
+      assert(t.getData() == SA::construct_from_utf8("newData"));
     } // testCreate
 
     void testConversion()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Text<string_type> t = d.createTextNode("some data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Text<string_type> t = d.createTextNode(SA::construct_from_utf8("some data"));
 
       DOM::Node<string_type> n;
 
@@ -70,7 +71,7 @@ class TextTest : public TestCase
       assert(t3 == t2);
       assert(t3 == t);
 
-      DOM::Comment<string_type> c = d.createComment("woo");
+      DOM::Comment<string_type> c = d.createComment(SA::construct_from_utf8("woo"));
       try {
         t = DOM::Text<string_type>(c);
         assertImplementation(false, "converted comment to text");
@@ -81,8 +82,8 @@ class TextTest : public TestCase
 
     void testEverythingElse()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Text<string_type> t = d.createTextNode("some data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Text<string_type> t = d.createTextNode(SA::construct_from_utf8("some data"));
 
       assert(t.getNodeType() == DOM::Node<string_type>::TEXT_NODE);
       assert(t.hasAttributes() == false);

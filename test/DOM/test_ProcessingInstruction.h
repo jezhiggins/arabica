@@ -11,6 +11,7 @@ template<class string_type, class string_adaptor>
 class PITest : public TestCase 
 {
   DOM::DOMImplementation<string_type> factory;
+  typedef string_adaptor SA;
 
   public: 
     PITest(std::string name) :
@@ -34,22 +35,22 @@ class PITest : public TestCase
 
     void testCreate()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction("target", "data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
 
-      assert(p.getTarget() == "target");
-      assert(p.getData() == "data");
+      assert(p.getTarget() == SA::construct_from_utf8("target"));
+      assert(p.getData() == SA::construct_from_utf8("data"));
       assert(p.getNodeName() == p.getTarget());
       assert(p.getNodeValue() == p.getData());
 
-      p.setData("newData");
-      assert(p.getData() == "newData");
+      p.setData(SA::construct_from_utf8("newData"));
+      assert(p.getData() == SA::construct_from_utf8("newData"));
     } // testCreate
 
     void testConversion()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::ProcessingInstruction<string_type> pi = d.createProcessingInstruction("target", "data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""),  0);
+      DOM::ProcessingInstruction<string_type> pi = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
 
       DOM::Node<string_type> n;
 
@@ -69,8 +70,8 @@ class PITest : public TestCase
 
     void testEverythingElse()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::ProcessingInstruction<string_type> pi = d.createProcessingInstruction("target", "data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      DOM::ProcessingInstruction<string_type> pi = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
 
       assert(pi.getNodeType() == DOM::Node<string_type>::PROCESSING_INSTRUCTION_NODE);
       assert(pi.hasAttributes() == false);

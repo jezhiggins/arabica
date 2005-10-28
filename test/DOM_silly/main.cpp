@@ -14,17 +14,16 @@
 
 #include "../DOM/test_DOMImplementation.h"
 #include "../DOM/test_DocumentType.h"
-/*
-#include "test_Document.h"
-#include "test_ProcessingInstruction.h"
-#include "test_Siblings.h"
-#include "test_Element.h"
-#include "test_DocumentFragment.h"
-#include "test_Attribute.h"
-#include "test_Text.hpp"
-#include "test_CDATA.hpp"
-#include "test_CharacterData.hpp"
-*/
+//#include "test_Document.h"
+#include "../DOM/test_ProcessingInstruction.h"
+//#include "test_Siblings.h"
+//#include "test_Element.h"
+//#include "test_DocumentFragment.h"
+//#include "test_Attribute.h"
+#include "../DOM/test_Text.hpp"
+#include "../DOM/test_CDATA.hpp"
+#include "../DOM/test_CharacterData.hpp"
+
 
 #include "../silly_string/silly_string.hpp"
 
@@ -41,10 +40,10 @@ int main(int argc, char* argv[])
   //runner.addTest("SiblingsTest", SiblingsTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   //runner.addTest("ElementTest", ElementTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   //runner.addTest("AttributeTest", AttrTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
-  //runner.addTest("ProcessingInstructionTest", ProcessingInstructionTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
-  //runner.addTest("TextTest", TextTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
-  //runner.addTest("CDATATest", CDATATest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
-  //runner.addTest("CharacterDataText", CharacterDataTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
+  runner.addTest("ProcessingInstructionTest", ProcessingInstructionTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
+  runner.addTest("TextTest", TextTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
+  runner.addTest("CDATATest", CDATATest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
+  runner.addTest("CharacterDataText", CharacterDataTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   //runner.addTest("DocumentFragmentTest", DocumentFragmentTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   
   runner.run(argc, argv);

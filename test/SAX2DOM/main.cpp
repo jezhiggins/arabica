@@ -14,18 +14,7 @@
 #include "../CppUnit/framework/Test.h"
 #include "../CppUnit/framework/TestSuite.h"
 
-#include "test_DOMImplementation.h"
-#include "test_DocumentType.h"
-#include "test_Document.h"
-#include "test_ProcessingInstruction.h"
-#include "test_Siblings.h"
-#include "test_Element.h"
-#include "test_DocumentFragment.h"
-#include "test_Attribute.h"
 #include "test_SAX.h"
-#include "test_Text.hpp"
-#include "test_CDATA.hpp"
-#include "test_CharacterData.hpp"
 
 ////////////////////////////////////////////////
 int main(int argc, char* argv[])

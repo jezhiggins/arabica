@@ -11,6 +11,7 @@ template<class string_type, class string_adaptor>
 class CDATATest : public TestCase 
 {
   DOM::DOMImplementation<string_type> factory;
+  typedef string_adaptor SA;
 
   public: 
     CDATATest(std::string name) :
@@ -34,21 +35,21 @@ class CDATATest : public TestCase
 
     void testCreate()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::CDATASection<string_type> t = d.createCDATASection("some data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
 
-      assert(t.getData() == "some data");
-      assert(t.getNodeName() == "#cdata-section");
+      assert(t.getData() == SA::construct_from_utf8("some data"));
+      assert(t.getNodeName() == SA::construct_from_utf8("#cdata-section"));
       assert(t.getNodeValue() == t.getData());
 
-      t.setData("newData");
-      assert(t.getData() == "newData");
+      t.setData(SA::construct_from_utf8("newData"));
+      assert(t.getData() == SA::construct_from_utf8("newData"));
     } // testCreate
 
     void testConversion()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::CDATASection<string_type> t = d.createCDATASection("some data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
 
       DOM::Node<string_type> n;
 
@@ -70,7 +71,7 @@ class CDATATest : public TestCase
       assert(t3 == t2);
       assert(t3 == t);
 
-      DOM::Comment<string_type> c = d.createComment("woo");
+      DOM::Comment<string_type> c = d.createComment(SA::construct_from_utf8("woo"));
       try {
         t = DOM::CDATASection<string_type>(c);
         assertImplementation(false, "converted comment to text");
@@ -82,8 +83,8 @@ class CDATATest : public TestCase
 
     void testConversionToText()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::CDATASection<string_type> cd = d.createCDATASection("some data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::CDATASection<string_type> cd = d.createCDATASection(SA::construct_from_utf8("some data"));
 
       DOM::Text<string_type> t;
       assert(t == 0);
@@ -99,7 +100,7 @@ class CDATATest : public TestCase
       assert(cd == cd2);
       assert(cd2 == cd);
 
-      t = d.createTextNode("boom");
+      t = d.createTextNode(SA::construct_from_utf8("boom"));
       try {
         cd = DOM::CDATASection<string_type>(t);
         assertImplementation(false, "converted text to CDATA");
@@ -111,8 +112,8 @@ class CDATATest : public TestCase
 
     void testEverythingElse()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::CDATASection<string_type> t = d.createCDATASection("some data");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
 
       assert(t.getNodeType() == DOM::Node<string_type>::CDATA_SECTION_NODE);
       assert(t.hasAttributes() == false);
