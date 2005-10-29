@@ -19,7 +19,7 @@
 //#include "test_Siblings.h"
 //#include "test_Element.h"
 //#include "test_DocumentFragment.h"
-//#include "test_Attribute.h"
+#include "../DOM/test_Attribute.h"
 #include "../DOM/test_Text.hpp"
 #include "../DOM/test_CDATA.hpp"
 #include "../DOM/test_CharacterData.hpp"
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
   //runner.addTest("DocumentTest", DocumentTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   //runner.addTest("SiblingsTest", SiblingsTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   //runner.addTest("ElementTest", ElementTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
-  //runner.addTest("AttributeTest", AttrTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
+  runner.addTest("AttributeTest", AttrTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   runner.addTest("ProcessingInstructionTest", ProcessingInstructionTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   runner.addTest("TextTest", TextTest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());
   runner.addTest("CDATATest", CDATATest_suite<silly_string, Arabica::default_string_adaptor<silly_string> >());

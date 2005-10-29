@@ -11,6 +11,7 @@ template<class string_type, class string_adaptor>
 class AttrTest : public TestCase 
 {
   DOM::DOMImplementation<string_type> factory;
+  typedef string_adaptor SA;
 
   public: 
     AttrTest(std::string name) :
@@ -20,7 +21,7 @@ class AttrTest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void test1() 
@@ -34,104 +35,104 @@ class AttrTest : public TestCase
 
     void test2()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttribute("attr");
-      assert(attr.getName() == "attr");
-      assert(attr.getNodeName() == "attr");
-      assert(attr.getLocalName() == "");
-      assert(attr.getNamespaceURI() == "");
-      assert(attr.getPrefix() == "");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttribute(SA::construct_from_utf8("attr"));
+      assert(attr.getName() == SA::construct_from_utf8("attr"));
+      assert(attr.getNodeName() == SA::construct_from_utf8("attr"));
+      assert(attr.getLocalName() == SA::construct_from_utf8(""));
+      assert(attr.getNamespaceURI() == SA::construct_from_utf8(""));
+      assert(attr.getPrefix() == SA::construct_from_utf8(""));
       assert(attr.hasNamespaceURI() == false);
       assert(attr.hasPrefix() == false);
     } // test2
 
     void test3()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttributeNS("http://attr", "attr:value");
-      assert(attr.getName() == "attr:value");
-      assert(attr.getValue() == "");
-      assert(attr.getNodeName() == "attr:value");
-      assert(attr.getNodeValue() == "");
-      assert(attr.getLocalName() == "value");
-      assert(attr.getNamespaceURI() == "http://attr");
-      assert(attr.getPrefix() == "attr");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr:value"));
+      assert(attr.getName() == SA::construct_from_utf8("attr:value"));
+      assert(attr.getValue() == SA::construct_from_utf8(""));
+      assert(attr.getNodeName() == SA::construct_from_utf8("attr:value"));
+      assert(attr.getNodeValue() == SA::construct_from_utf8(""));
+      assert(attr.getLocalName() == SA::construct_from_utf8("value"));
+      assert(attr.getNamespaceURI() == SA::construct_from_utf8("http://attr"));
+      assert(attr.getPrefix() == SA::construct_from_utf8("attr"));
       assert(attr.hasNamespaceURI() == true);
       assert(attr.hasPrefix() == true);
     } // test3
 
     void test4()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttributeNS("http://attr", "attr");
-      assert(attr.getName() == "attr");
-      assert(attr.getValue() == "");
-      assert(attr.getNodeName() == "attr");
-      assert(attr.getNodeValue() == "");
-      assert(attr.getLocalName() == "attr");
-      assert(attr.getNamespaceURI() == "http://attr");
-      assert(attr.getPrefix() == "");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr"));
+      assert(attr.getName() == SA::construct_from_utf8("attr"));
+      assert(attr.getValue() == SA::construct_from_utf8(""));
+      assert(attr.getNodeName() == SA::construct_from_utf8("attr"));
+      assert(attr.getNodeValue() == SA::construct_from_utf8(""));
+      assert(attr.getLocalName() == SA::construct_from_utf8("attr"));
+      assert(attr.getNamespaceURI() == SA::construct_from_utf8("http://attr"));
+      assert(attr.getPrefix() == SA::construct_from_utf8(""));
       assert(attr.hasNamespaceURI() == true);
       assert(attr.hasPrefix() == false);
     } // test4
 
     void test5()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttributeNS("http://attr", "attr:value");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr:value"));
 
-      attr.setPrefix("monkey");
-      assert(attr.getName() == "monkey:value");
-      assert(attr.getValue() == "");
-      assert(attr.getNodeName() == "monkey:value");
-      assert(attr.getNodeValue() == "");
-      assert(attr.getLocalName() == "value");
-      assert(attr.getNamespaceURI() == "http://attr");
-      assert(attr.getPrefix() == "monkey");
+      attr.setPrefix(SA::construct_from_utf8("monkey"));
+      assert(attr.getName() == SA::construct_from_utf8("monkey:value"));
+      assert(attr.getValue() == SA::construct_from_utf8(""));
+      assert(attr.getNodeName() == SA::construct_from_utf8("monkey:value"));
+      assert(attr.getNodeValue() == SA::construct_from_utf8(""));
+      assert(attr.getLocalName() == SA::construct_from_utf8("value"));
+      assert(attr.getNamespaceURI() == SA::construct_from_utf8("http://attr"));
+      assert(attr.getPrefix() == SA::construct_from_utf8("monkey"));
       assert(attr.hasNamespaceURI() == true);
       assert(attr.hasPrefix() == true);
     } // test5
 
     void test6()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttributeNS("http://attr", "value");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("value"));
 
-      attr.setPrefix("monkey");
-      assert(attr.getName() == "monkey:value");
-      assert(attr.getValue() == "");
-      assert(attr.getNodeName() == "monkey:value");
-      assert(attr.getNodeValue() == "");
-      assert(attr.getLocalName() == "value");
-      assert(attr.getNamespaceURI() == "http://attr");
-      assert(attr.getPrefix() == "monkey");
+      attr.setPrefix(SA::construct_from_utf8("monkey"));
+      assert(attr.getName() == SA::construct_from_utf8("monkey:value"));
+      assert(attr.getValue() == SA::construct_from_utf8(""));
+      assert(attr.getNodeName() == SA::construct_from_utf8("monkey:value"));
+      assert(attr.getNodeValue() == SA::construct_from_utf8(""));
+      assert(attr.getLocalName() == SA::construct_from_utf8("value"));
+      assert(attr.getNamespaceURI() == SA::construct_from_utf8("http://attr"));
+      assert(attr.getPrefix() == SA::construct_from_utf8("monkey"));
       assert(attr.hasNamespaceURI() == true);
       assert(attr.hasPrefix() == true);
     } // test6
 
     void test7()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("xmlns"));
 
-      assert(attr.getName() == "xmlns");
-      assert(attr.getValue() == "");
-      assert(attr.getNodeName() == "xmlns");
-      assert(attr.getNodeValue() == "");
-      assert(attr.getLocalName() == "xmlns");
-      assert(attr.getNamespaceURI() == "http://www.w3.org/2000/xmlns/");
-      assert(attr.getPrefix() == "");
+      assert(attr.getName() == SA::construct_from_utf8("xmlns"));
+      assert(attr.getValue() == SA::construct_from_utf8(""));
+      assert(attr.getNodeName() == SA::construct_from_utf8("xmlns"));
+      assert(attr.getNodeValue() == SA::construct_from_utf8(""));
+      assert(attr.getLocalName() == SA::construct_from_utf8("xmlns"));
+      assert(attr.getNamespaceURI() == SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"));
+      assert(attr.getPrefix() == SA::construct_from_utf8(""));
       assert(attr.hasNamespaceURI() == true);
       assert(attr.hasPrefix() == false);
     } // test7
 
     void test8()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
       DOM::Attr<string_type> attr;
       
       try {
-        attr = d.createAttributeNS("ppopopop", "xmlns");
+        attr = d.createAttributeNS(SA::construct_from_utf8("ppopopop"), SA::construct_from_utf8("xmlns"));
       }
       catch(const DOM::DOMException&) { }
 
@@ -140,11 +141,11 @@ class AttrTest : public TestCase
 
     void test9()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
       DOM::Attr<string_type> attr;
       
       try {
-        attr = d.createAttributeNS("ahuafh", "xmlns:billy");
+        attr = d.createAttributeNS(SA::construct_from_utf8("ahuafh"), SA::construct_from_utf8("xmlns:billy"));
       }
       catch(const DOM::DOMException&) { }
 
@@ -153,37 +154,37 @@ class AttrTest : public TestCase
 
     void test10()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttributeNS("http://www.w3.org/2000/xmlns/", "nothing:much");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("nothing:much"));
 
       try {
-        attr.setPrefix("xmlns");
+        attr.setPrefix(SA::construct_from_utf8("xmlns"));
       }
       catch(const DOM::DOMException&) { }
 
-      assert(attr.getPrefix() == "xmlns");
+      assert(attr.getPrefix() == SA::construct_from_utf8("xmlns"));
     } // test10
 
     void test11()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttributeNS("charles", "nothing:much");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("charles"), SA::construct_from_utf8("nothing:much"));
 
       try {
-        attr.setPrefix("xmlns");
+        attr.setPrefix(SA::construct_from_utf8("xmlns"));
       }
       catch(const DOM::DOMException&) { }
 
-      assert(attr.getPrefix() == "nothing");
+      assert(attr.getPrefix() == SA::construct_from_utf8("nothing"));
     } // test11
 
     void test12()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Attr<string_type> attr = d.createAttributeNS("", "much");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8(""), SA::construct_from_utf8("much"));
 
       try {
-        attr.setPrefix("charles");
+        attr.setPrefix(SA::construct_from_utf8("charles"));
       }
       catch(const DOM::DOMException&) { }
 
@@ -192,11 +193,11 @@ class AttrTest : public TestCase
 
     void test13()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
       DOM::Attr<string_type> attr;
       
       try {
-        attr = d.createAttributeNS("", "trouser:pants");
+        attr = d.createAttributeNS(SA::construct_from_utf8(""), SA::construct_from_utf8("trouser:pants"));
       }
       catch(const DOM::DOMException&) { }
 
