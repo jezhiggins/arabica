@@ -1,0 +1,15 @@
+*.obj
+core
+*.so
+*.so.*
+*.a
+.depend
+sax2dom_test
+*.dep
+*.plg
+Debug
+Release
+*.exe
+domwriter
+
+
