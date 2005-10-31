@@ -79,13 +79,16 @@ std::basic_ostream<CharType, Traits>& operator<<(std::basic_ostream<CharType, Tr
   return os;
 } // operator<<
 
+namespace std {
+
 template<>
-struct std::less<silly_string> : public binary_function<silly_string, silly_string, bool>
+struct less<silly_string> : public binary_function<silly_string, silly_string, bool>
 {	// functor for operator<
 	bool operator()(const silly_string& lhs, const silly_string& rhs) const
 	{	// apply operator< to operands
     return (silly_string_adaptor::asStdString(lhs) < silly_string_adaptor::asStdString(rhs));
 	}
 };
+} // namespace std
 
 #endif

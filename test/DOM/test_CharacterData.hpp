@@ -21,7 +21,7 @@ class CharacterDataTest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void testNull() 
@@ -158,3 +158,4 @@ TestSuite* CharacterDataTest_suite()
 } // CharacterDataTest_suite
 
 #endif
+

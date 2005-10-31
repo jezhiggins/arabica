@@ -11,6 +11,7 @@ template<class string_type, class string_adaptor>
 class DocumentFragmentTest : public TestCase 
 {
   DOM::DOMImplementation<string_type> factory;
+  typedef string_adaptor SA;
 
   public: 
     DocumentFragmentTest(std::string name) :
@@ -20,7 +21,7 @@ class DocumentFragmentTest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void test1() 
@@ -34,67 +35,67 @@ class DocumentFragmentTest : public TestCase
 
     void test2()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
       DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
 
-      frag.appendChild(d.createElement("child"));
-      frag.appendChild(d.createElement("child2"));
-      frag.appendChild(d.createElement("child3"));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child")));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child2")));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child3")));
 
       assert(frag.getChildNodes().getLength() == 3);
     } // test2
 
     void test3()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
       DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
-      frag.appendChild(d.createElement("child"));
-      frag.appendChild(d.createElement("child2"));
-      frag.appendChild(d.createElement("child3"));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child")));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child2")));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child3")));
 
-      DOM::Element<string_type> elem = d.createElement("root");
+      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       elem.appendChild(frag);
       assert(elem.getChildNodes().getLength() == 3);
-      assert(elem.getFirstChild().getNodeName() == "child");
-      assert(elem.getLastChild().getNodeName() == "child3");
+      assert(elem.getFirstChild().getNodeName() == SA::construct_from_utf8("child"));
+      assert(elem.getLastChild().getNodeName() == SA::construct_from_utf8("child3"));
       assert(frag.getChildNodes().getLength() == 0);
     } // test3
 
     void test4()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
       DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
-      frag.appendChild(d.createElement("child"));
-      frag.appendChild(d.createElement("child2"));
-      frag.appendChild(d.createElement("child3"));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child")));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child2")));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child3")));
 
-      DOM::Element<string_type> elem = d.createElement("root");
-      elem.appendChild(d.createElement("t"));
+      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      elem.appendChild(d.createElement(SA::construct_from_utf8("t")));
       assert(elem.getChildNodes().getLength() == 1);
 
       elem.replaceChild(frag, elem.getFirstChild());
       assert(elem.getChildNodes().getLength() == 3);
-      assert(elem.getFirstChild().getNodeName() == "child");
-      assert(elem.getLastChild().getNodeName() == "child3");
+      assert(elem.getFirstChild().getNodeName() == SA::construct_from_utf8("child"));
+      assert(elem.getLastChild().getNodeName() == SA::construct_from_utf8("child3"));
       assert(frag.getChildNodes().getLength() == 0);
     } // test4
 
     void test5()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
       DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
-      frag.appendChild(d.createElement("child"));
-      frag.appendChild(d.createElement("child2"));
-      frag.appendChild(d.createElement("child3"));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child")));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child2")));
+      frag.appendChild(d.createElement(SA::construct_from_utf8("child3")));
 
-      DOM::Element<string_type> elem = d.createElement("root");
-      elem.appendChild(d.createElement("t"));
+      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      elem.appendChild(d.createElement(SA::construct_from_utf8("t")));
       assert(elem.getChildNodes().getLength() == 1);
 
       elem.insertBefore(frag, elem.getFirstChild());
       assert(elem.getChildNodes().getLength() == 4);
-      assert(elem.getFirstChild().getNodeName() == "child");
-      assert(elem.getLastChild().getNodeName() == "t");
+      assert(elem.getFirstChild().getNodeName() == SA::construct_from_utf8("child"));
+      assert(elem.getLastChild().getNodeName() == SA::construct_from_utf8("t"));
       assert(frag.getChildNodes().getLength() == 0);
     } // test5
 };

@@ -27,7 +27,7 @@ void TestRunner::printBanner ()
   cout << "Usage: driver [ -wait ] testName, where name is the name of a test case class" << endl;
 } // printBanner
 
-void TestRunner::run(int ac, char **av)
+void TestRunner::run(int ac, const char **av)
 {
   string  testCase;
   int     numberOfTests = 0;

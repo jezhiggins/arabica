@@ -14,7 +14,7 @@ public:
 	TestRunner() : m_wait(false) {}
 	~TestRunner();
 
-	void run(int ac, char **av);
+	void run(int ac, const char **av);
 	void addTest(std::string name, Test *test)
 	{ m_mappings.push_back(std::make_pair(name, test)); }
 

@@ -1,5 +1,6 @@
 
 -include ../../Makefile.header
+-include ../../Makefile.common
 
 ######################################
 # ADDITIONAL BUILD FLAGS
@@ -12,16 +13,27 @@ DYNAMIC_LIBS += -lArabica
 ######################################
 # SOURCE FILES
 DOMTEST_SRCS = main.cpp
-DOMTEST_HDRS = $(patsubst %.cpp,%.h,$(DOMTEST_SRCS))
 DOMTEST_OBJS = $(patsubst %.cpp,%.o,$(DOMTEST_SRCS))
+DOMTEST_TESTS = dom_test_suite.hpp \
+                test_Attribute.h \
+                test_CDATA.hpp \
+                test_CharacterData.hpp \
+                test_DOMImplementation.h \
+                test_Document.h \
+                test_DocumentFragment.h \
+                test_DocumentType.h \
+                test_Element.h \
+                test_ProcessingInstruction.h \
+                test_Siblings.h \
+                test_Text.hpp
 
 ######################################
 # High level rules
-all : sax2dom_test 
+all : dom_test 
 
 dom_test : $(DOMTEST_OBJS) $(CPPUNIT_OBJS) 
 	$(LD) $(LDFLAGS) -o $@ $(DOMTEST_OBJS) $(CPPUNIT_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
-	$(COPY) sax2dom_test$(EXESUFFIX) ../../bin
+	$(COPY) dom_test$(EXESUFFIX) ../../bin
 
 
 ######################

@@ -153,45 +153,11 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath="..\Dom\dom_test_suite.hpp">
+			</File>
+			<File
 				RelativePath="..\silly_string\silly_string.hpp">
 			</File>
-			<File
-				RelativePath="..\Dom\test_Attribute.h">
-			</File>
-			<File
-				RelativePath="..\Dom\test_CDATA.hpp">
-			</File>
-			<File
-				RelativePath="..\Dom\test_CharacterData.hpp">
-			</File>
-			<File
-				RelativePath="..\Dom\test_Document.h">
-			</File>
-			<File
-				RelativePath="..\Dom\test_DocumentFragment.h">
-			</File>
-			<File
-				RelativePath="..\Dom\test_DocumentType.h">
-			</File>
-			<File
-				RelativePath="..\Dom\test_DOMImplementation.h">
-			</File>
-			<File
-				RelativePath="..\Dom\test_Element.h">
-			</File>
-			<File
-				RelativePath="..\Dom\test_ProcessingInstruction.h">
-			</File>
-			<File
-				RelativePath="..\Dom\test_Siblings.h">
-			</File>
-			<File
-				RelativePath="..\Dom\test_Text.hpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 		<Filter
 			Name="Libs">

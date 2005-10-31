@@ -21,7 +21,7 @@ class CDATATest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void testNull() 
@@ -150,3 +150,4 @@ TestSuite* CDATATest_suite()
 
 
 #endif
+

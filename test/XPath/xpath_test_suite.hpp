@@ -16,7 +16,7 @@
 #include "execute_test.hpp"
 
 template<class string_type, class string_adaptor>
-void XPath_test_suite(int argc, char** argv)
+void XPath_test_suite(int argc, const char** argv)
 {
   TestRunner runner;
 

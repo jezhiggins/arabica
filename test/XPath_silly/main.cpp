@@ -11,7 +11,7 @@
 template<> class Arabica::default_string_adaptor<silly_string> : public silly_string_adaptor { };
 
 /////////////////////////////////////////
-int main(int argc, char** argv)
+int main(int argc, const char** argv)
 {
   std::cout << "Hello" << std::endl;
 

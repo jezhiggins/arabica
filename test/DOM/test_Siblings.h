@@ -11,6 +11,7 @@ template<class string_type, class string_adaptor>
 class SiblingsTest : public TestCase 
 {
   DOM::DOMImplementation<string_type> factory;
+  typedef string_adaptor SA;
 
   public: 
     SiblingsTest(std::string name) :
@@ -20,19 +21,19 @@ class SiblingsTest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void test1()
     {
-      DOM::Document<string_type> d = factory.createDocument("","", 0);
-      DOM::Element<string_type> root = d.createElement("root");
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      DOM::Element<string_type> root = d.createElement(SA::construct_from_utf8("root"));
       d.appendChild(root);
 
       assert(root.getPreviousSibling() == 0);
       assert(root.getNextSibling() == 0);
 
-      DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction("target", "data");
+      DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
       d.insertBefore(p, root);
       assert(d.getFirstChild() == p);
       assert(d.getLastChild() == root);
@@ -41,7 +42,7 @@ class SiblingsTest : public TestCase
       assert(root.getPreviousSibling() == p);
       assert(root.getNextSibling() == 0);
 
-      DOM::ProcessingInstruction<string_type> p2 = d.createProcessingInstruction("target", "data");
+      DOM::ProcessingInstruction<string_type> p2 = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
       d.insertBefore(p2, root);
       assert(d.getFirstChild() == p);
       assert(d.getLastChild() == root);
@@ -107,21 +108,21 @@ class SiblingsTest : public TestCase
     {
       DOM::Element<string_type> root;
       {
-        DOM::Document<string_type> d = factory.createDocument("","", 0);
-        root = d.createElement("root");
+        DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+        root = d.createElement(SA::construct_from_utf8("root"));
         d.appendChild(root);
 
         assert(root.getPreviousSibling() == 0);
         assert(root.getNextSibling() == 0);
 
-        DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction("target", "data");
+        DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
         d.insertBefore(p, root);
       }
 
       DOM::Node<string_type> n = root.getPreviousSibling();
       DOM::ProcessingInstruction<string_type> p = DOM::ProcessingInstruction<string_type>(n);
-      assert(p.getTarget() == "target");
-      assert(p.getData() == "data");
+      assert(p.getTarget() == SA::construct_from_utf8("target"));
+      assert(p.getData() == SA::construct_from_utf8("data"));
     } // test2
 };
 
