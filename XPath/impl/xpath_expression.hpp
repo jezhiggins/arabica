@@ -44,10 +44,17 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class XPathExpressionPtr : public boost::shared_ptr<XPathExpression<string_type, string_adaptor> > 
 { 
 public:
+  XPathExpressionPtr() : 
+    boost::shared_ptr<XPathExpression<string_type, string_adaptor> >() { }
   explicit XPathExpressionPtr(XPathExpression<string_type, string_adaptor>* xp) : 
-        boost::shared_ptr<XPathExpression<string_type, string_adaptor> >(xp) 
+    boost::shared_ptr<XPathExpression<string_type, string_adaptor> >(xp) { }
+  XPathExpressionPtr(const XPathExpressionPtr& rhs) : 
+    boost::shared_ptr<XPathExpression<string_type, string_adaptor> >(rhs) { }
+  XPathExpressionPtr& operator=(const XPathExpressionPtr& rhs)
   {
-  } // XPathExpressionPtr
+    boost::shared_ptr<XPathExpression<string_type, string_adaptor> >::operator=(rhs);
+    return *this;
+  } // operator=
 }; // class XPathExpressionPtr
 
 namespace impl

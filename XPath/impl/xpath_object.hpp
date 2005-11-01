@@ -256,8 +256,17 @@ template<class string_type>
 class XPathValuePtr : public boost::shared_ptr<const XPathValue<string_type> > 
 { 
 public:
+  explicit XPathValuePtr() : boost::shared_ptr<const XPathValue<string_type> >() { }
   explicit XPathValuePtr(const XPathValue<string_type>* v) : boost::shared_ptr<const XPathValue<string_type> >(v) { }
+  XPathValuePtr(const XPathValuePtr& rhs) : boost::shared_ptr<const XPathValue<string_type> >(rhs) { }
+  XPathValuePtr& operator=(const XPathValuePtr& rhs) 
+  {
+    boost::shared_ptr<const XPathValue<string_type> >::operator=(rhs);
+    return *this;
+  } // operator=
 }; // class XPathValuePtr
+
+
 
 ////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
