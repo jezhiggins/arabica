@@ -1,4 +1,5 @@
 -include ../../Makefile.header
+-include ../../Makefile.common
 
 ######################################
 # ADDITIONAL BUILD FLAGS

@@ -172,7 +172,8 @@ public:
   void test1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type> xpath = parser.compile(SA::construct_from_utf8("root"));
+    XPathExpressionPtr<string_type> xpath;
+    xpath = parser.compile(SA::construct_from_utf8("root"));
     XPathValuePtr<string_type> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());

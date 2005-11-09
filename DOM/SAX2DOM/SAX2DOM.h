@@ -156,7 +156,10 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     void setParserFeatures(SAX_parser& parser) const
     {
       for(typename Features::const_iterator f = features_.begin(), e = features_.end(); f != e; ++f)
-        parser.setFeature(f->first, f->second);
+        try {
+          parser.setFeature(f->first, f->second);
+        }
+        catch(const SAX::SAXException&) { }
     } // setParserFeatures
 
     ///////////////////////////////////////////////////////////

@@ -45,13 +45,14 @@ int main(int argc, char* argv[])
         DOM::Document<std::string> doc = domParser.getDocument();
         doc.normalize();
         std::cout << doc;
-      }
+     }
       else
       {
         std::cerr << eh.errors() << std::endl;
         eh.reset();
       } // if ...
     } // for ...
+
   } 
 
 /*

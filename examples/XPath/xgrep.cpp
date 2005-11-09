@@ -8,6 +8,7 @@
 #include <string>
 #include <SAX/helpers/CatchErrorHandler.h>
 #include <DOM/SAX2DOM/SAX2DOM.h>
+#include <DOM/Utils/Stream.h>
 #include <XPath/XPath.hpp>
 
 ////////////////////////////////////////////////
@@ -45,9 +46,21 @@ int main(int argc, char* argv[])
     if(!eh.errorsReported())
     {
       DOM::Document<std::string> doc = domParser.getDocument();
-      Arabica::XPath::XPathValuePtr<std::string> result = xpath->evaluate(doc);
+      Arabica::XPath::XPathValuePtr<std::string> result;
+      result = xpath->evaluate(doc);
       if(result->asBool())
+      {
         std::cout << file << std::endl;
+        if(result->type() == Arabica::XPath::NODE_SET)
+        {
+          const Arabica::XPath::NodeSet<std::string>& ns = result->asNodeSet();
+          for(unsigned int i = 0; i < ns.size(); ++i)
+          {
+            DOM::Element<std::string> n = static_cast<DOM::Element<std::string> >(ns[i]);
+            std::cout << n << std::endl;
+          }
+        } // if ..
+      } // if ...
     }
     else
     {

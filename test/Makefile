@@ -1,6 +1,6 @@
 -include Makefile.header
 
-all:
+all: 
 	cd DOM; ${MAKE}
 	cd DOM_wide; ${MAKE}
 	cd DOM_silly; ${MAKE}

@@ -204,6 +204,7 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
   public:
     typedef string_type stringT;
     typedef string_adaptor_type string_adaptorT;
+    typedef string_adaptor_type SA;
     typedef SAX::basic_EntityResolver<stringT> entityResolverT;
     typedef SAX::basic_DTDHandler<stringT> dtdHandlerT;
     typedef SAX::basic_ContentHandler<stringT> contentHandlerT;
@@ -327,7 +328,6 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     bool prefixes_;
     bool externalResolving_;
 
-    string_adaptorT SA_;
     stringT emptyString_;
     const SAX::FeatureNames<stringT, string_adaptorT> features_;
     const SAX::PropertyNames<stringT, string_adaptorT> properties_;
@@ -378,7 +378,7 @@ void expat_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, bo
 {
   if(name == features_.namespaces)
   {
-    checkNotParsing(SA_.makeStringT("feature"), name);
+    checkNotParsing(SA::construct_from_utf8("feature"), name);
     namespaces_ = value;
     if(!namespaces_ && !prefixes_)
       prefixes_ = true;
@@ -387,7 +387,7 @@ void expat_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, bo
 
   if(name == features_.namespace_prefixes)
   {
-    checkNotParsing(SA_.makeStringT("feature"), name);
+    checkNotParsing(SA::construct_from_utf8("feature"), name);
     prefixes_ = value;
     if(prefixes_ && !namespaces_)
       namespaces_ = true;
@@ -396,7 +396,7 @@ void expat_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, bo
 
   if(name == features_.external_general || name == features_.external_parameter)
   {
-    checkNotParsing(SA_.makeStringT("feature"), name);
+    checkNotParsing(SA::construct_from_utf8("feature"), name);
     externalResolving_ = value;
     return;
   } // external entity resolution
@@ -404,13 +404,13 @@ void expat_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, bo
   if(name == features_.validation)
   {
     std::ostringstream os; 
-    os << "Feature not supported " << SA_.asStdString(name);
+    os << "Feature not supported " << SA::asStdString(name);
     throw SAX::SAXNotSupportedException(os.str());
   }
   else
   {
     std::ostringstream os; 
-    os << "Feature not recognized " << SA_.asStdString(name);
+    os << "Feature not recognized " << SA::asStdString(name);
     throw SAX::SAXNotRecognizedException(os.str());
   }
 } // setFeature
@@ -430,7 +430,7 @@ bool expat_wrapper<stringT, string_adaptorT>::getFeature(const stringT& name) co
   if(name == features_.validation)
     return false;
 
-  throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA_.asStdString(name));
+  throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA::asStdString(name));
 } // getFeature
 
 template<class stringT, class string_adaptorT>
@@ -460,7 +460,7 @@ void expat_wrapper<stringT, string_adaptorT>::parse(inputSourceT& source)
 template<class stringT, class string_adaptorT>
 bool expat_wrapper<stringT, string_adaptorT>::do_parse(inputSourceT& source, XML_Parser parser)  
 {
-  InputSourceResolver is(source, SA_);
+  InputSourceResolver is(source, string_adaptorT());
   if(is.resolve() == 0)
   {
     reportError("Could not resolve XML document", true);
@@ -507,7 +507,7 @@ std::auto_ptr<expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrap
     return std::auto_ptr<PropertyBaseT>(prop);
   }
 
-  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA_.asStdString(name));    
+  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA::asStdString(name));    
 } // doGetProperty
 
 template<class stringT, class string_adaptorT>
@@ -534,7 +534,7 @@ void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name,
   else
   {
     std::ostringstream os;
-    os << "Property not recognized " << SA_.asStdString(name);
+    os << "Property not recognized " << SA::asStdString(name);
     throw SAX::SAXNotRecognizedException(os.str());
   }
 } // doSetProperty
@@ -569,7 +569,7 @@ typename SAX::basic_NamespaceSupport<stringT, string_adaptorT>::Parts expat_wrap
 {
   typename namespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
   if(!p.URI.length() && p.prefix.length())
-    reportError(std::string("Undeclared prefix ") + SA_.asStdString(qName));
+    reportError(std::string("Undeclared prefix ") + SA::asStdString(qName));
   return p;
 } // processName
 
@@ -596,7 +596,7 @@ void expat_wrapper<stringT, string_adaptorT>::checkNotParsing(const stringT& typ
   if(parsing_)
   {
     std::ostringstream os;
-    os << "Can't change " << SA_.asStdString(type) << " " << SA_.asStdString(name) << " while parsing";
+    os << "Can't change " << SA::asStdString(type) << " " << SA::asStdString(name) << " while parsing";
     throw SAX::SAXNotSupportedException(os.str());
   } // if(parsing_)
 } // checkNotParsing
@@ -606,7 +606,7 @@ void expat_wrapper<stringT, string_adaptorT>::charHandler(const char* txt, int t
 {
   if(!contentHandler_)
     return;
-  contentHandler_->characters(SA_.makeStringT(txt, txtlen));
+  contentHandler_->characters(SA::construct_from_utf8(txt, txtlen));
 } // charHandler
 
 template<class stringT, class string_adaptorT>
@@ -631,8 +631,8 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
   {
     while(*atts != 0)
     {
-      stringT attQName = SA_.makeStringT(*atts++);
-      stringT value = SA_.makeStringT(*atts++);
+      stringT attQName = SA::construct_from_utf8(*atts++);
+      stringT value = SA::construct_from_utf8(*atts++);
 
       // declaration?
       if(attQName.find(nsc_.xmlns) == 0) 
@@ -642,7 +642,7 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
         if(n != stringT::npos)
           prefix = stringT(attQName.begin() + n + 1, attQName.end());
         if(!nsSupport_.declarePrefix(prefix, value)) 
-          reportError(std::string("Illegal Namespace prefix ") + SA_.asStdString(prefix));
+          reportError(std::string("Illegal Namespace prefix ") + SA::asStdString(prefix));
         contentHandler_->startPrefixMapping(prefix, value);
         if(prefixes_)
           attributes.addAttribute(emptyString_, 
@@ -677,7 +677,7 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
   } // if(seenDecl)
 
   // at last! report the event
-  typename namespaceSupportT::Parts name = processName(SA_.makeStringT(qName), false);
+  typename namespaceSupportT::Parts name = processName(SA::construct_from_utf8(qName), false);
   contentHandler_->startElement(name.URI, name.localName, name.rawName, attributes);
 } // startElement
 
@@ -690,14 +690,14 @@ void expat_wrapper<stringT, string_adaptorT>::startElementNoNS(const char* qName
   {
     while(*atts != 0)
     {
-      stringT attQName = SA_.makeStringT(*atts++);
-      stringT value = SA_.makeStringT(*atts++);
+      stringT attQName = SA::construct_from_utf8(*atts++);
+      stringT value = SA::construct_from_utf8(*atts++);
 
       attributes.addAttribute(emptyString_, emptyString_, attQName, emptyString_, value);
     } // while ..
   } // if ...
 
-  contentHandler_->startElement(emptyString_, emptyString_, SA_.makeStringT(qName), attributes);
+  contentHandler_->startElement(emptyString_, emptyString_, SA::construct_from_utf8(qName), attributes);
 } // startElementNoNS
 
 template<class stringT, class string_adaptorT>
@@ -712,7 +712,7 @@ void expat_wrapper<stringT, string_adaptorT>::endElement(const char* qName)
     return;
   } // if(!namespaces_)
 
-  typename namespaceSupportT::Parts name = processName(SA_.makeStringT(qName), false);
+  typename namespaceSupportT::Parts name = processName(SA::construct_from_utf8(qName), false);
   contentHandler_->endElement(name.URI, name.localName, name.rawName);
   typename namespaceSupportT::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
   for(size_t i = 1, end = prefixes.size(); i < end; ++i)
@@ -724,14 +724,14 @@ template<class stringT, class string_adaptorT>
 void expat_wrapper<stringT, string_adaptorT>::endElementNoNS(const char* qName)
 {
   if(contentHandler_)
-    contentHandler_->endElement(emptyString_, emptyString_, SA_.makeStringT(qName));    
+    contentHandler_->endElement(emptyString_, emptyString_, SA::construct_from_utf8(qName));    
 } // endElementNoNS
 
 template<class stringT, class string_adaptorT>
 void expat_wrapper<stringT, string_adaptorT>::processingInstruction(const char* target, const char* data)
 {
   if(contentHandler_)
-    contentHandler_->processingInstruction(SA_.makeStringT(target), SA_.makeStringT(data));
+    contentHandler_->processingInstruction(SA::construct_from_utf8(target), SA::construct_from_utf8(data));
 } // processingInstruction
 
 template<class stringT, class string_adaptorT>
@@ -743,7 +743,7 @@ void expat_wrapper<stringT, string_adaptorT>::elementDeclaration(const XML_Char*
 
   std::ostringstream os;
   convertXML_Content(os, model);
-  declHandler_->elementDecl(SA_.makeStringT(name), SA_.makeStringT(os.str().c_str()));
+  declHandler_->elementDecl(SA::construct_from_utf8(name), SA::construct_from_utf8(os.str().c_str()));
 } // elementDeclaration
 
 template<class stringT, class string_adaptorT>
@@ -875,11 +875,11 @@ void expat_wrapper<stringT, string_adaptorT>::attListDeclaration(const XML_Char*
     const stringT* defType = &attrDefaults_.implied;
     if(isrequired)
       defType = dflt ? &attrDefaults_.fixed : &attrDefaults_.required;
-    declHandler_->attributeDecl(SA_.makeStringT(elname), 
-                                SA_.makeStringT(attname), 
-                                SA_.makeStringT(att_type), 
+    declHandler_->attributeDecl(SA::construct_from_utf8(elname), 
+                                SA::construct_from_utf8(attname), 
+                                SA::construct_from_utf8(att_type), 
                                 *defType, 
-                                SA_.makeStringT(dflt));
+                                SA::construct_from_utf8(dflt));
   }
 } // attListDeclaration
 
@@ -904,17 +904,17 @@ void expat_wrapper<stringT, string_adaptorT>::entityDeclaration(const XML_Char* 
    provided. The notationName argument will have a non-null value only
    for unparsed entity declarations. */
 
-  const stringT s_entityName(SA_.makeStringT(entityName));
+  const stringT s_entityName(SA::construct_from_utf8(entityName));
   if(!systemId && !publicId && !notationName)
   {
     // internal entity!
     if(declHandler_)
-      declHandler_->internalEntityDecl(s_entityName, SA_.makeStringT(value, value_length));
+      declHandler_->internalEntityDecl(s_entityName, SA::construct_from_utf8(value, value_length));
     return;
   } 
 
-  const stringT s_publicId(SA_.makeStringT(publicId));
-  const stringT s_systemId(SA_.makeStringT(systemId));
+  const stringT s_publicId(SA::construct_from_utf8(publicId));
+  const stringT s_systemId(SA::construct_from_utf8(systemId));
   if(notationName == 0)
   {
     if(declHandler_)
@@ -925,7 +925,7 @@ void expat_wrapper<stringT, string_adaptorT>::entityDeclaration(const XML_Char* 
   else
   {
     if(dtdHandler_)
-      dtdHandler_->unparsedEntityDecl(s_entityName, s_publicId, s_systemId, SA_.makeStringT(notationName));
+      dtdHandler_->unparsedEntityDecl(s_entityName, s_publicId, s_systemId, SA::construct_from_utf8(notationName));
   } 
 } // entityDeclaration
 
@@ -937,9 +937,9 @@ void expat_wrapper<stringT, string_adaptorT>::notationDeclaration(const XML_Char
 {  
   if(!dtdHandler_)
     return;
-  dtdHandler_->notationDecl(SA_.makeStringT(notationName), 
-                            SA_.makeStringT(publicId), 
-                            SA_.makeStringT(systemId));
+  dtdHandler_->notationDecl(SA::construct_from_utf8(notationName), 
+                            SA::construct_from_utf8(publicId), 
+                            SA::construct_from_utf8(systemId));
 } // notationDeclaration
 
 template<class stringT, class string_adaptorT>
@@ -951,12 +951,12 @@ void expat_wrapper<stringT, string_adaptorT>::startDoctypeDecl(const XML_Char *d
   if(!lexicalHandler_)
     return;
 
-  stringT s_publicId = SA_.makeStringT(publicId);
-  stringT s_systemId = SA_.makeStringT(systemId);
-  stringT dtd = SA_.makeStringT("[dtd]");
+  stringT s_publicId = SA::construct_from_utf8(publicId);
+  stringT s_systemId = SA::construct_from_utf8(systemId);
+  stringT dtd = SA::construct_from_utf8("[dtd]");
   declaredExternalEnts_.insert(std::make_pair(s_publicId, dtd));
   declaredExternalEnts_.insert(std::make_pair(s_systemId, dtd));
-  lexicalHandler_->startDTD(SA_.makeStringT(doctypeName),
+  lexicalHandler_->startDTD(SA::construct_from_utf8(doctypeName),
                             s_publicId, 
                             s_systemId);
 } // startDoctypeDecl
@@ -986,7 +986,7 @@ template<class stringT, class string_adaptorT>
 void expat_wrapper<stringT, string_adaptorT>::commentHandler(const XML_Char *data)
 {
   if(lexicalHandler_)
-    lexicalHandler_->comment(SA_.makeStringT(data));
+    lexicalHandler_->comment(SA::construct_from_utf8(data));
 } // commentHandler
 
 template<class stringT, class string_adaptorT>
@@ -996,8 +996,8 @@ int expat_wrapper<stringT, string_adaptorT>::externalEntityRefHandler(XML_Parser
                                                                       const XML_Char* systemId,
                                                                       const XML_Char* publicId)
 {
-  stringT pubId(SA_.makeStringT(publicId));
-  stringT sysId(SA_.makeStringT(systemId));
+  stringT pubId(SA::construct_from_utf8(publicId));
+  stringT sysId(SA::construct_from_utf8(systemId));
 
   stringT entityName;
   if(systemId)
