@@ -1,4 +1,5 @@
 -include ../../Makefile.header
+-include ../../Makefile.common
 
 ######################################
 # ADDITIONAL BUILD FLAGS
@@ -10,27 +11,26 @@ DYNAMIC_LIBS += -lArabica
 
 ######################################
 # SOURCE FILES
-XPATH_SRCS = main.cpp arithmetic_test.cpp axis_enumerator_test.cpp execute_test.cpp logical_test.cpp node_test_test.cpp parse_test.cpp relational_test.cpp step_test.cpp value_test.cpp
-XPATH_HDRS = $(patsubst %.cpp,%.h,$(XPATH_SRCS))
+XPATH_SRCS = main.cpp 
+XPATH_TESTS = ../XPath/arithmetic_test.hpp \
+              ../XPath/axis_enumerator_test.hpp \
+              ../XPath/execute_test.hpp \
+              ../XPath/logical_test.hpp \
+              ../XPath/node_test_test.hpp \
+              ../XPath/parse_test.hpp \
+              ../XPath/relational_test.hpp \
+              ../XPath/step_test.hpp \
+              ../XPath/value_test.hpp \
+              ../XPath/xpath_test_suite.hpp
 XPATH_OBJS = $(patsubst %.cpp,%.o,$(XPATH_SRCS))
-
-CPPUNIT_DIR = ../CppUnit
-
-CPPUNITFW_FILES = TestCase.cpp TestFailure.cpp TestResult.cpp TestSuite.cpp
-CPPUNITFW_SRCS = $(patsubst Test%,$(CPPUNIT_DIR)/framework/Test%,$(CPPUNITFW_FILES))
-CPPUNITFW_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITFW_SRCS))
-
-CPPUNITUI_FILES = TextTestResult.cpp
-CPPUNITUI_SRCS = $(patsubst Text%,$(CPPUNIT_DIR)/textui/Text%,$(CPPUNITUI_FILES))
-CPPUNITUI_OBJS = $(patsubst %.cpp,%.o,$(CPPUNITUI_SRCS))
 
 ######################################
 # High level rules
-all : xpath_test 
+all : xpath_test_ss
 
-xpath_test : $(XPATH_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
-	$(LD) $(LDFLAGS) -o $@ $(XPATH_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
-	$(COPY) xpath_test$(EXESUFFIX) ../../bin
+xpath_test_ss : $(XPATH_OBJS) $(CPPUNIT_OBJS) $(XPATH_TESTS)
+	$(LD) $(LDFLAGS) -o $@ $(XPATH_OBJS) $(CPPUNIT_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
+	$(COPY) xpath_test_ss$(EXESUFFIX) ../../bin
 
 ######################
 # Compile rules
@@ -40,10 +40,9 @@ xpath_test : $(XPATH_OBJS) $(CPPUNITFW_OBJS) $(CPPUNITUI_OBJS)
 ######################
 # Cleaning up
 clean :
-	$(REMOVE) $(CPPUNITUI_OBJS) \
-		$(CPPUNITFW_OBJS) \
+	$(REMOVE) $(CPPUNIT_OBJS) \
 		$(XPATH_OBJS) \
-		xpath_test$(EXESUFFIX) \
-		 ../../bin/xpath_test$(EXESUFFIX) 
+		xpath_test_ss$(EXESUFFIX) \
+		 ../../bin/xpath_test_ss$(EXESUFFIX) 
 
-# End of File
+

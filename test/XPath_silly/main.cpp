@@ -8,7 +8,12 @@
 #include "../XPath/xpath_test_suite.hpp"
 #include "../silly_string/silly_string.hpp"
 
-template<> class Arabica::default_string_adaptor<silly_string> : public silly_string_adaptor { };
+namespace Arabica
+{
+
+template<> class default_string_adaptor<silly_string> : public silly_string_adaptor { };
+
+} // namespace Arabica
 
 /////////////////////////////////////////
 int main(int argc, const char** argv)
