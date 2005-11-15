@@ -145,10 +145,16 @@
 			<File
 				RelativePath=".\main.cpp">
 			</File>
+			<File
+				RelativePath="..\silly_string\silly_string.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\silly_string\silly_string.hpp">
+			</File>
 			<File
 				RelativePath=".\test_SAX.h">
 			</File>

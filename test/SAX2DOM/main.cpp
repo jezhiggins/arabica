@@ -3,7 +3,6 @@
 #endif
 #include <iostream>
 #include <string>
-//#include <wrappers/saxexpat.h>
 #include <DOM/SAX2DOM/SAX2DOM.h>
 
 #include <iostream>
@@ -15,13 +14,16 @@
 #include "../CppUnit/framework/TestSuite.h"
 
 #include "test_SAX.h"
+#include "../silly_string/silly_string.hpp"
 
 ////////////////////////////////////////////////
 int main(int argc, const char* argv[])
 {
   TestRunner runner;
 
-  runner.addTest("SAX2DOMTest", SAXTest_suite<std::string, Arabica::default_string_adaptor_base<std::string> >());
+  runner.addTest("SAX2DOMTest", SAXTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
+  runner.addTest("SAX2DOMTest_silly", SAXTest_suite<silly_string, silly_string_adaptor>());
+  runner.addTest("SAX2DOMTest_wide", SAXTest_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >());
 
   runner.run(argc, argv);
 

@@ -10,6 +10,8 @@
 template<class string_type, class string_adaptor>
 class SAXTest : public TestCase 
 {
+  typedef string_adaptor SA;
+
   public: 
     SAXTest(std::string name) :
         TestCase(name) 
@@ -23,10 +25,10 @@ class SAXTest : public TestCase
     DOM::Document<string_type> parse(string_type str)
     {
       std::stringstream ss;
-      ss << str;
+      ss << SA::asStdString(str);
 
-      SAX::InputSource is(ss);
-      SAX2DOM::Parser<string_type> parser;
+      SAX::basic_InputSource<string_type> is(ss);
+      SAX2DOM::Parser<string_type, string_adaptor> parser;
       parser.parse(is);       
       return parser.getDocument();
     } // parse
@@ -42,7 +44,7 @@ class SAXTest : public TestCase
 
     void test2()
     {
-      DOM::Document<string_type> d = parse("<root/>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root/>"));
       DOM::Element<string_type> elem = d.getDocumentElement();
       assert(elem.getParentNode() == d);
       assert(elem.getOwnerDocument() == d);
@@ -50,100 +52,100 @@ class SAXTest : public TestCase
 
     void test3()
     {
-      DOM::Document<string_type> d = parse("<root attr=\"poop\"/>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root attr=\"poop\"/>"));
       DOM::Element<string_type> elem = d.getDocumentElement();
       assert(elem.hasAttributes() == true);
-      assert(elem.getAttribute("attr") == "poop");
+      assert(elem.getAttribute(SA::construct_from_utf8("attr")) == SA::construct_from_utf8("poop"));
     } // test3
 
     void test4()
     {
-      DOM::Document<string_type> d = parse("<root><child attr=\"poop\"/></root>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><child attr=\"poop\"/></root>"));
       DOM::Element<string_type> elem = DOM::Element<string_type>(d.getDocumentElement().getFirstChild());
-      assertEquals("child", elem.getNodeName());
+      assert(SA::construct_from_utf8("child") == elem.getNodeName());
       assertEquals(true, elem.hasAttributes());
-      assertEquals("poop", elem.getAttribute("attr"));
+      assert(SA::construct_from_utf8("poop") == elem.getAttribute(SA::construct_from_utf8("attr")));
     } // test4
 
     void test5()
     {
-      DOM::Document<string_type> d = parse("<stuff:elem attr='something' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<stuff:elem attr='something' xmlns:stuff='http://example.com/stuff'/>"));
       DOM::Element<string_type> elem = d.getDocumentElement();
       assertEquals(true, elem.hasNamespaceURI());
-      assertEquals("http://example.com/stuff", elem.getNamespaceURI());
+      assert(SA::construct_from_utf8("http://example.com/stuff") == elem.getNamespaceURI());
 
-      DOM::Attr<string_type> attr = elem.getAttributeNode("attr");
+      DOM::Attr<string_type> attr = elem.getAttributeNode(SA::construct_from_utf8("attr"));
       assertEquals(false, attr.hasNamespaceURI());
     } // test5
 
     void test6()
     {
-      DOM::Document<string_type> d = parse("<stuff:elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<stuff:elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>"));
       DOM::Element<string_type> elem = d.getDocumentElement();
       assertEquals(true, elem.hasNamespaceURI());
-      assertEquals("http://example.com/stuff", elem.getNamespaceURI());
+      assert(SA::construct_from_utf8("http://example.com/stuff") == elem.getNamespaceURI());
 
-      DOM::Attr<string_type> attr = elem.getAttributeNodeNS("http://example.com/stuff", "attr");
+      DOM::Attr<string_type> attr = elem.getAttributeNodeNS(SA::construct_from_utf8("http://example.com/stuff"), SA::construct_from_utf8("attr"));
       assertEquals(true, attr.hasNamespaceURI());
-      assertEquals("http://example.com/stuff", attr.getNamespaceURI());
+      assert(SA::construct_from_utf8("http://example.com/stuff") == attr.getNamespaceURI());
     } // test6
 
     void test7()
     {
-      DOM::Document<string_type> d = parse("<elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>"));
       DOM::Element<string_type> elem = d.getDocumentElement();
       assertEquals(false, elem.hasNamespaceURI());
 
-      DOM::Attr<string_type> attr = elem.getAttributeNodeNS("http://example.com/stuff", "attr");
+      DOM::Attr<string_type> attr = elem.getAttributeNodeNS(SA::construct_from_utf8("http://example.com/stuff"), SA::construct_from_utf8("attr"));
       assertEquals(true, attr.hasNamespaceURI());
-      assertEquals("http://example.com/stuff", attr.getNamespaceURI());
+      assert(SA::construct_from_utf8("http://example.com/stuff") == attr.getNamespaceURI());
     } // test7
 
     void test8()
     {
-      DOM::Document<string_type> d = parse("<root attr=\"poop\"><child/></root>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root attr=\"poop\"><child/></root>"));
       DOM::Element<string_type> elem = d.getDocumentElement();
 
       DOM::Element<string_type> e2 = DOM::Element<string_type>(elem.cloneNode(true));
       assert(e2.getOwnerDocument() == d);
       assert(e2.getParentNode() == 0);
       assert(e2.hasAttributes() == true);
-      assert(e2.getAttribute("attr") == "poop");
-      assert(e2.getFirstChild().getNodeName() == "child");
+      assert(e2.getAttribute(SA::construct_from_utf8("attr")) == SA::construct_from_utf8("poop"));
+      assert(e2.getFirstChild().getNodeName() == SA::construct_from_utf8("child"));
     } // test8
 
     void test9()
     {
-      DOM::Document<string_type> d = parse("<elem attr='something' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<elem attr='something' xmlns:stuff='http://example.com/stuff'/>"));
       DOM::Element<string_type> elem = d.getDocumentElement();
       assertEquals(false, elem.hasNamespaceURI());
 
-      DOM::Attr<string_type> attr = elem.getAttributeNode("attr");
+      DOM::Attr<string_type> attr = elem.getAttributeNode(SA::construct_from_utf8("attr"));
       assertEquals(false, attr.hasNamespaceURI());
     } // test9
 
     void test10()
     {
-      DOM::Document<string_type> d = parse("<elem stuff:attr='something' poop:attr='fail' xmlns:stuff='http://example.com/stuff'/>");
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<elem stuff:attr='something' poop:attr='fail' xmlns:stuff='http://example.com/stuff'/>"));
       assert(d == 0);
     } // test10
 
     void test11()
     {
-      SAX2DOM::Parser<string_type> parser;
-      assert(parser.getFeature("http://xml.org/sax/features/validation") == true);
-      parser.setFeature("http://xml.org/sax/features/validation", false);
-      assert(parser.getFeature("http://xml.org/sax/features/validation") == false);
+      SAX2DOM::Parser<string_type, string_adaptor> parser;
+      assert(parser.getFeature(SA::construct_from_utf8("http://xml.org/sax/features/validation")) == true);
+      parser.setFeature(SA::construct_from_utf8("http://xml.org/sax/features/validation"), false);
+      assert(parser.getFeature(SA::construct_from_utf8("http://xml.org/sax/features/validation")) == false);
 
-      parser.parse("<root attr=\"poop\"><child/></root>");
+      parser.parse(SA::construct_from_utf8("<root attr=\"poop\"><child/></root>"));
     } // test11
 
     void test12()
     {
-      SAX2DOM::Parser<string_type> parser;
+      SAX2DOM::Parser<string_type, string_adaptor> parser;
       try
       {
-        parser.getFeature("made up name");
+        parser.getFeature(SA::construct_from_utf8("made up name"));
         assert(false);
       }
       catch(const SAX::SAXNotRecognizedException&)

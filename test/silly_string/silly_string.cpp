@@ -36,14 +36,16 @@ char silly_string_adaptor::convert_from_utf8(char c)
 silly_string silly_string_adaptor::construct_from_utf8(const char* str)
 {
   silly_string s;
-  s.s_ = str;
+  if(str)
+    s.s_ = str;
   return s;
 } // construct_from_utf8
 
 silly_string silly_string_adaptor::construct_from_utf8(const char* str, int length)
 {
   silly_string s;
-  s.s_ = std::string(str, length);
+  if(str)
+    s.s_ = std::string(str, length);
   return s;
 } // construct_from_utf8
 
