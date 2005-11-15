@@ -220,9 +220,9 @@ class basic_NamespaceSupport
     Parts processName(const stringT& qName, bool isAttribute) const
     {
       Parts name;
-      size_t index = qName.find(nsc_.colon);
+      string_adaptorT::size_type index = string_adaptorT::find(qName, nsc_.colon);
 
-      if(index == stringT::npos)
+      if(index == string_adaptorT::npos)
       {
         // no prefix
         name.URI = getURI(stringT());
@@ -231,10 +231,10 @@ class basic_NamespaceSupport
       else
       {
         // prefix
-        stringT prefix = qName.substr(0, index);
+        stringT prefix = string_adaptorT::substr(qName, 0, index);
 
         name.URI = getURI(prefix);
-        name.localName =qName.substr(index + 1);
+        name.localName = string_adaptorT::substr(qName, index + 1);
         name.prefix = prefix;
       } // if ...
 

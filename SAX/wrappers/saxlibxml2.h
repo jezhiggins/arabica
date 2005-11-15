@@ -148,8 +148,8 @@ class libxml2_wrapper : public basic_XMLReader<string_type>,
     virtual basic_DTDHandler<stringT>* getDTDHandler() const { return dtdHandler_; }
     virtual void setContentHandler(basic_ContentHandler<stringT>& handler) { contentHandler_ = &handler; }
     virtual basic_ContentHandler<stringT>* getContentHandler() const { return contentHandler_; }
-    virtual void setErrorHandler(ErrorHandler& handler) { errorHandler_ = &handler; }
-    virtual ErrorHandler* getErrorHandler() const { return errorHandler_; }
+    virtual void setErrorHandler(errorHandlerT& handler) { errorHandler_ = &handler; }
+    virtual errorHandlerT* getErrorHandler() const { return errorHandler_; }
 
     ////////////////////////////////////////////////
     // parsing
@@ -199,7 +199,7 @@ class libxml2_wrapper : public basic_XMLReader<string_type>,
     entityResolverT* entityResolver_;
     dtdHandlerT* dtdHandler_;
     contentHandlerT* contentHandler_;
-    ErrorHandler* errorHandler_;
+    errorHandlerT* errorHandler_;
     namespaceSupportT nsSupport_;
     declHandlerT* declHandler_;
 
@@ -211,7 +211,6 @@ class libxml2_wrapper : public basic_XMLReader<string_type>,
     bool namespaces_;
     bool prefixes_;
 
-    string_adaptorT SA_;
     stringT emptyString_;
     const FeatureNames<stringT, string_adaptorT> features_;
     const PropertyNames<stringT, string_adaptorT> properties_;
@@ -263,11 +262,11 @@ bool libxml2_wrapper<stringT, string_adaptorT>::getFeature(const stringT& name) 
 
   if(name == features_.external_parameter)
   {
-    throw SAX::SAXNotSupportedException(std::string("Feature not supported ") + SA_.asStdString(name));
+    throw SAX::SAXNotSupportedException(std::string("Feature not supported ") + string_adaptorT::asStdString(name));
   }
   else
   {
-    throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA_.asStdString(name));
+    throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + string_adaptorT::asStdString(name));
   }
 } // getFeature
 
@@ -307,13 +306,13 @@ void libxml2_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, 
   if(name == features_.external_parameter)
   {
     std::ostringstream os; 
-    os << "Feature not supported " << SA_.asStdString(name);
+    os << "Feature not supported " << string_adaptorT::asStdString(name);
     throw SAX::SAXNotSupportedException(os.str());
   }
   else
   {
     std::ostringstream os; 
-    os << "Feature not recognized " << SA_.asStdString(name);
+    os << "Feature not recognized " << string_adaptorT::asStdString(name);
     throw SAX::SAXNotRecognizedException(os.str());
   }
 } // setFeature
@@ -331,9 +330,9 @@ std::auto_ptr<libxml2_wrapper<stringT, string_adaptorT>::PropertyBaseT> libxml2_
     return std::auto_ptr<PropertyBaseT>(prop);
   }
 	if(name == properties_.lexicalHandler)
-		throw SAX::SAXNotSupportedException(std::string("Property not supported ") + SA_.asStdString(name));
+		throw SAX::SAXNotSupportedException(std::string("Property not supported ") + string_adaptorT::asStdString(name));
 
-  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA_.asStdString(name));    
+  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptorT::asStdString(name));    
 } // doGetProperty
 
 template<class stringT, class string_adaptorT>
@@ -349,9 +348,9 @@ void libxml2_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& nam
     declHandler_ = &(prop->get());
   }
 	if(name == properties_.lexicalHandler)
-		throw SAX::SAXNotSupportedException(std::string("Property not supported ") + SA_.asStdString(name));
+		throw SAX::SAXNotSupportedException(std::string("Property not supported ") + string_adaptorT::asStdString(name));
 
-  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA_.asStdString(name));    
+  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptorT::asStdString(name));    
 } // doSetProperty
 
 template<class stringT, class string_adaptorT>
@@ -359,8 +358,8 @@ typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts libxml2_wrapper
 {
   typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts p =
     nsSupport_.processName(qName, isAttribute);
-  if(!p.URI.length() && p.prefix.length())
-    reportError(std::string("Undeclared prefix ") + SA_.asStdString(qName));
+  if(string_adaptorT::empty(p.URI) && !string_adaptorT::empty(p.prefix))
+    reportError(std::string("Undeclared prefix ") + string_adaptorT::asStdString(qName));
   return p;
 } // processName
 
@@ -370,7 +369,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::reportError(const std::string& m
   if(!errorHandler_)
     return;
   
-  SAX::SAXParseException e(message, *this);
+  basic_SAXParseException<stringT> e(message, *this);
   if(fatal)
     errorHandler_->fatalError(e);
   else
@@ -383,7 +382,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::checkNotParsing(const stringT& t
   if(parsing_)
   {
     std::ostringstream os;
-    os << "Can't change " << SA_.asStdString(type) << " " << SA_.asStdString(name) << " while parsing";
+    os << "Can't change " << string_adaptorT::asStdString(type) << " " << string_adaptorT::asStdString(name) << " while parsing";
     throw SAX::SAXNotSupportedException(os.str());
   } // if(parsing_)
 } // checkNotParsing
@@ -393,7 +392,7 @@ stringT libxml2_wrapper<stringT, string_adaptorT>::getPublicId() const
 {
   if(locator_)
 	  return string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(locator_->getPublicId(context_)));
-  return std::string();
+  return stringT();
 } // getPublicId
 
 template<class stringT, class string_adaptorT>
@@ -401,7 +400,7 @@ stringT libxml2_wrapper<stringT, string_adaptorT>::getSystemId() const
 {
   if(locator_)
 	  return string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(locator_->getSystemId(context_)));
-  return std::string();
+  return stringT();
 } // getSystemId
 
 template<class stringT, class string_adaptorT>
@@ -426,7 +425,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::parse(basic_InputSource<stringT>
   if(contentHandler_)
     contentHandler_->setDocumentLocator(*this);
 
-  InputSourceResolver is(source, SA_);
+  InputSourceResolver is(source, string_adaptorT());
   if(is.resolve() == 0)
     return;
 
@@ -525,14 +524,14 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXstartElement(const xmlChar* q
       stringT value = string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(*a1++));
 
       // declaration?
-      if(attQName.find(nsc_.xmlns) == 0) 
+      if(string_adaptorT::find(attQName, nsc_.xmlns) == 0) 
       {
         stringT prefix;
-        typename stringT::size_type n = attQName.find(nsc_.colon);
-        if(n != stringT::npos)
-          prefix = stringT(attQName.begin() + n + 1, attQName.end());
+        typename string_adaptorT::size_type n = string_adaptorT::find(attQName, nsc_.colon);
+        if(n != string_adaptorT::npos)
+          prefix = string_adaptorT::construct(string_adaptorT::begin(attQName) + n + 1, string_adaptorT::end(attQName));
         if(!nsSupport_.declarePrefix(prefix, value)) 
-          reportError(std::string("Illegal Namespace prefix ") + SA_.asStdString(prefix));
+          reportError(std::string("Illegal Namespace prefix ") + string_adaptorT::asStdString(prefix));
         contentHandler_->startPrefixMapping(prefix, value);
         if(prefixes_)
           attributes.addAttribute(emptyString_, 
@@ -549,7 +548,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXstartElement(const xmlChar* q
       stringT value = string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
 
       // declaration?
-      if(attQName.find(nsc_.xmlns) != 0) 
+      if(string_adaptorT::find(attQName, nsc_.xmlns) != 0) 
       {
         typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts attName = processName(attQName, true);
         attributes.addAttribute(attName.URI, attName.localName, attName.rawName, emptyString_, value);
@@ -752,7 +751,8 @@ void libxml2_wrapper<stringT, string_adaptorT>::SAXattributeDecl(const xmlChar *
       typeStr = stringAttrEnum(tree, false);
       break;
     case XML_ATTRIBUTE_NOTATION:
-      typeStr = attrTypes_.notation + stringAttrEnum(tree, true);
+      string_adaptorT::append(typeStr, attrTypes_.notation);
+      string_adaptorT::append(typeStr, stringAttrEnum(tree, true));
       break;
   } // switch(type)
 

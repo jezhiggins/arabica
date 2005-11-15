@@ -361,7 +361,7 @@ public:
    */
   virtual void fatalError(const SAXParseExceptionT& e) 
   {  
-    throw SAXParseException(e); 
+    throw SAXParseExceptionT(e); 
     // VS.NET refuses throw e; saying the copy constructor is inaccessible
     // GCC likes throw e; 
     // one of them, I presume, is wrong
