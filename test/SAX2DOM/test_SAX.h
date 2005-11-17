@@ -6,6 +6,7 @@
 #include "../CppUnit/framework/TestCaller.h"
 #include <sstream>
 #include <DOM/SAX2DOM/SAX2DOM.h>
+#include <SAX/helpers/CatchErrorHandler.h>
 
 template<class string_type, class string_adaptor>
 class SAXTest : public TestCase 
@@ -28,8 +29,14 @@ class SAXTest : public TestCase
       ss << SA::asStdString(str);
 
       SAX::basic_InputSource<string_type> is(ss);
+      SAX::CatchErrorHandler<string_type> eh;
       SAX2DOM::Parser<string_type, string_adaptor> parser;
+      parser.setErrorHandler(eh);
       parser.parse(is);       
+
+      //if(eh.errorsReported())
+      //  throw std::runtime_error(eh.errors());
+
       return parser.getDocument();
     } // parse
 
@@ -133,6 +140,8 @@ class SAXTest : public TestCase
     void test11()
     {
       SAX2DOM::Parser<string_type, string_adaptor> parser;
+      assert(parser.getFeature(SA::construct_from_utf8("http://xml.org/sax/features/validation")) == false);
+      parser.setFeature(SA::construct_from_utf8("http://xml.org/sax/features/validation"), true);
       assert(parser.getFeature(SA::construct_from_utf8("http://xml.org/sax/features/validation")) == true);
       parser.setFeature(SA::construct_from_utf8("http://xml.org/sax/features/validation"), false);
       assert(parser.getFeature(SA::construct_from_utf8("http://xml.org/sax/features/validation")) == false);
