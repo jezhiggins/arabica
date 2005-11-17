@@ -71,18 +71,16 @@ void TestCase::run (TestResult *result)
 
     }
     catch (const CppUnitException& e) {
-        CppUnitException *copy = new CppUnitException (e);
+        CppUnitException *copy = new CppUnitException(e);
         result->addFailure (this, copy);
 
     }
     catch (const std::exception& e) {
-        result->addError (this, new CppUnitException (e.what ()));
+        result->addError (this, new CppUnitException(m_name + ":" + e.what()));
 
     }
     catch (...) {
-        CppUnitException *e = new CppUnitException ("unknown exception");
-        result->addError (this, e);
-
+        result->addError (this, new CppUnitException (m_name + ": unknown exception"));
     }
 
     tearDown ();
