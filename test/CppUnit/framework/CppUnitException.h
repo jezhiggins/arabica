@@ -21,7 +21,7 @@ public:
                         CppUnitException (std::string  message    = "", 
                                           long         lineNumber = CPPUNIT_UNKNOWNLINENUMBER, 
                                           std::string  fileName   = CPPUNIT_UNKNOWNFILENAME);
-                        CppUnitException (const CppUnitException& other);
+                        CppUnitException (std::string message, const CppUnitException& other);
 
     virtual             ~CppUnitException () throw(); 
 
@@ -41,10 +41,10 @@ private:
 
 
 // Construct the exception
-inline CppUnitException::CppUnitException (const CppUnitException& other)
+inline CppUnitException::CppUnitException (std::string message, const CppUnitException& other)
 : std::exception (other)
 { 
-    m_message       = other.m_message; 
+    m_message       = message + other.m_message; 
     m_lineNumber    = other.m_lineNumber;
     m_fileName      = other.m_fileName;
 } 

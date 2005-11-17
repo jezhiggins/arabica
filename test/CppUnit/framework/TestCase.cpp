@@ -71,12 +71,12 @@ void TestCase::run (TestResult *result)
 
     }
     catch (const CppUnitException& e) {
-        CppUnitException *copy = new CppUnitException(e);
-        result->addFailure (this, copy);
+        CppUnitException *copy = new CppUnitException(m_name + ": ", e);
+        result->addFailure(this, copy);
 
     }
     catch (const std::exception& e) {
-        result->addError (this, new CppUnitException(m_name + ":" + e.what()));
+        result->addError (this, new CppUnitException(m_name + ": " + e.what()));
 
     }
     catch (...) {
