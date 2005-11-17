@@ -20,7 +20,7 @@ namespace SAX2DOM
 
 template<class stringT, 
          class string_adaptorT = Arabica::default_string_adaptor<stringT>,
-         class SAX_parser = SAX::XMLReader<stringT> >
+         class SAX_parser = SAX::XMLReader<stringT, string_adaptorT> >
 class Parser : private SAX::basic_DefaultHandler2<stringT>
 {
     typedef SAX::basic_EntityResolver<stringT> EntityResolverT;
@@ -35,7 +35,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
         entityResolver_(0),
         errorHandler_(0)
     { 
-      SAX::FeatureNames<stringT> fNames;
+      SAX::FeatureNames<stringT, string_adaptorT> fNames;
       features_.insert(std::make_pair(fNames.namespaces, true));
       features_.insert(std::make_pair(fNames.namespace_prefixes, true));
       features_.insert(std::make_pair(fNames.validation, true));
@@ -71,7 +71,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
 
     bool parse(SAX::basic_InputSource<stringT>& source)
     {
-      SAX::PropertyNames<stringT> pNames;
+      SAX::PropertyNames<stringT, string_adaptorT> pNames;
       
       DOM::DOMImplementation<stringT> di = SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
       document_ = di.createDocument(string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), 0);
@@ -322,7 +322,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
                                const stringT& valueDefault,
                                const stringT& value)
     {
-      if(!value.empty())
+      if(!string_adaptorT::empty(value))
         documentType_->addDefaultAttr(elementName, attributeName, value);
       if(type == attributeTypes_.id)
         documentType_->addElementId(attributeName);
