@@ -568,7 +568,7 @@ template<class stringT, class string_adaptorT>
 typename SAX::basic_NamespaceSupport<stringT, string_adaptorT>::Parts expat_wrapper<stringT, string_adaptorT>::processName(const stringT& qName, bool isAttribute)
 {
   typename namespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
-  if(!p.URI.length() && p.prefix.length())
+  if(SA::empty(p.URI) && !SA::empty(p.prefix))
     reportError(std::string("Undeclared prefix ") + SA::asStdString(qName));
   return p;
 } // processName
@@ -635,12 +635,12 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
       stringT value = SA::construct_from_utf8(*atts++);
 
       // declaration?
-      if(attQName.find(nsc_.xmlns) == 0) 
+      if(SA::find(attQName, nsc_.xmlns) == 0) 
       {
         stringT prefix;
-        size_t n = attQName.find(nsc_.colon);
-        if(n != stringT::npos)
-          prefix = stringT(attQName.begin() + n + 1, attQName.end());
+        size_t n = SA::find(attQName, nsc_.colon);
+        if(n != SA::npos)
+          prefix = SA::construct(SA::begin(attQName) + n + 1, SA::end(attQName));
         if(!nsSupport_.declarePrefix(prefix, value)) 
           reportError(std::string("Illegal Namespace prefix ") + SA::asStdString(prefix));
         contentHandler_->startPrefixMapping(prefix, value);
@@ -667,7 +667,7 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
      for(int i = 0; i < length; ++i)
      {
        stringT attQName = attributes.getQName(i);
-       if(attQName.find(nsc_.xmlns)) 
+       if(SA::find(attQName, nsc_.xmlns)) 
        {
          typename namespaceSupportT::Parts attName = processName(attQName, true);
          attributes.setURI(i, attName.URI);
@@ -1007,7 +1007,7 @@ int expat_wrapper<stringT, string_adaptorT>::externalEntityRefHandler(XML_Parser
 
   if(!externalResolving_)
   {
-    if(!entityName.empty() && contentHandler_)
+    if(!SA::empty(entityName) && contentHandler_)
       contentHandler_->skippedEntity(entityName);
 
     return 1;
@@ -1015,14 +1015,14 @@ int expat_wrapper<stringT, string_adaptorT>::externalEntityRefHandler(XML_Parser
 
   ////////////////////////////////////////////////////////
   // resolve external entity
-  if(!entityName.empty() && lexicalHandler_)
+  if(!SA::empty(entityName) && lexicalHandler_)
     lexicalHandler_->startEntity(entityName);
 
   inputSourceT source;
   if(entityResolver_)
   {
     source = entityResolver_->resolveEntity(pubId, sysId);
-    if(source.getPublicId().empty() && source.getSystemId().empty())
+    if(SA::empty(source.getPublicId()) && SA::empty(source.getSystemId()))
     {
       source.setPublicId(pubId);
       source.setSystemId(sysId);
@@ -1040,7 +1040,7 @@ int expat_wrapper<stringT, string_adaptorT>::externalEntityRefHandler(XML_Parser
 
   XML_ParserFree(externalParser);
 
-  if(!entityName.empty() && lexicalHandler_)
+  if(!SA::empty(entityName) && lexicalHandler_)
     lexicalHandler_->endEntity(entityName);
 
   return ok;
