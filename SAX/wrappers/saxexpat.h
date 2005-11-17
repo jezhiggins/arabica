@@ -623,22 +623,22 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
 
   // OK we're doing Namespaces
   nsSupport_.pushContext();
-  bool seenDecl = false;
   SAX::basic_AttributesImpl<stringT> attributes;
 
   // take a first pass and copy all the attributes, noting any declarations
   if(atts && *atts != 0)
   {
-    while(*atts != 0)
+    const char** a1 = atts;
+    while(*a1 != 0)
     {
-      stringT attQName = SA::construct_from_utf8(*atts++);
-      stringT value = SA::construct_from_utf8(*atts++);
+      stringT attQName = SA::construct_from_utf8(*a1++);
+      stringT value = SA::construct_from_utf8(*a1++);
 
       // declaration?
       if(SA::find(attQName, nsc_.xmlns) == 0) 
       {
         stringT prefix;
-        size_t n = SA::find(attQName, nsc_.colon);
+        typename SA::size_type n = SA::find(attQName, nsc_.colon);
         if(n != SA::npos)
           prefix = SA::construct(SA::begin(attQName) + n + 1, SA::end(attQName));
         if(!nsSupport_.declarePrefix(prefix, value)) 
@@ -650,31 +650,22 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
                                   attQName, 
                                   emptyString_, 
                                   value);
-        seenDecl = true;
       }
-      else
+    } // while
+
+    while(*atts != 0)
+    {
+      stringT attQName = SA::construct_from_utf8(*atts++);
+      stringT value = SA::construct_from_utf8(*atts++);
+
+      // declaration?
+      if(SA::find(attQName, nsc_.xmlns) != 0) 
       {
         typename namespaceSupportT::Parts attName = processName(attQName, true);
         attributes.addAttribute(attName.URI, attName.localName, attName.rawName, emptyString_, value);
       }
     } // while ...
   } // if ...
-
-  // if there was a Namespace decl we have to go around again
-  if(seenDecl)
-  {
-     int length = attributes.getLength();
-     for(int i = 0; i < length; ++i)
-     {
-       stringT attQName = attributes.getQName(i);
-       if(SA::find(attQName, nsc_.xmlns)) 
-       {
-         typename namespaceSupportT::Parts attName = processName(attQName, true);
-         attributes.setURI(i, attName.URI);
-         attributes.setLocalName(i, attName.localName);
-       } // if ...
-     } // for ... 
-  } // if(seenDecl)
 
   // at last! report the event
   typename namespaceSupportT::Parts name = processName(SA::construct_from_utf8(qName), false);
