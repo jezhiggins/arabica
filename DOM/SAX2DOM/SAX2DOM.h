@@ -38,7 +38,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       SAX::FeatureNames<stringT, string_adaptorT> fNames;
       features_.insert(std::make_pair(fNames.namespaces, true));
       features_.insert(std::make_pair(fNames.namespace_prefixes, true));
-      features_.insert(std::make_pair(fNames.validation, true));
+      features_.insert(std::make_pair(fNames.validation, false));
     } // Parser
 
     void setEntityResolver(EntityResolverT& resolver) { entityResolver_ = &resolver; }
