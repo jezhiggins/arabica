@@ -77,7 +77,7 @@ template<class string_type,
          class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
 {
-    public:
+  public:
     typedef string_type stringT;
     typedef string_adaptor_type string_adaptorT;
     typedef SAX::basic_EntityResolver<stringT> entityResolverT;

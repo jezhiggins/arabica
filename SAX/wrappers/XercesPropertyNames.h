@@ -64,9 +64,9 @@ namespace SAX
     /** @} */
 
     XercesPropertyNames() :
-        externalSchemaLocation(string_adaptor_type().makeStringT(
+        externalSchemaLocation(string_adaptor_type::construct_from_utf8(
             "http://apache.org/xml/properties/schema/external-schemaLocation")),
-        externalNoNamespaceSchemaLocation(string_adaptor_type().makeStringT(
+        externalNoNamespaceSchemaLocation(string_adaptor_type::construct_from_utf8(
             "http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation"))
     {
     } // XercesPropertyNames()

@@ -71,7 +71,7 @@ namespace SAX
        * @see parseNext(XMLPScanToken&)
        * @see parseFirst(const InputSource&, XMLPScanToken&)
        */
-      virtual bool parseFirst(const std::string &systemId,
+      virtual bool parseFirst(const string_type &systemId,
                               XMLPScanToken &toFill) = 0;
 
       /**
