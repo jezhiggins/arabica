@@ -1,5 +1,8 @@
 #include "silly_string.hpp"
 
+#include <Utils/convertstream.h>
+#include <Utils/utf8ucs2codecvt.h>
+
 silly_string::silly_string()
 {
 } // silly_string
@@ -48,6 +51,28 @@ silly_string silly_string_adaptor::construct_from_utf8(const char* str, int leng
     s.s_ = std::string(str, length);
   return s;
 } // construct_from_utf8
+
+silly_string silly_string_adaptor::construct_from_utf16(const wchar_t* str)
+{
+  Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+                                         char, std::char_traits<char> > narrower;
+  narrower.imbue(std::locale(narrower.getloc(), new Arabica::convert::utf8ucs2codecvt()));
+  narrower.str(str ? str : L"");
+  silly_string s;
+  s.s_ = narrower.str();
+  return s;
+} // construct_from_utf16
+
+silly_string silly_string_adaptor::construct_from_utf16(const wchar_t* str, int length)
+{
+  Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+                                         char, std::char_traits<char> > narrower;
+  narrower.imbue(std::locale(narrower.getloc(), new Arabica::convert::utf8ucs2codecvt()));
+  narrower.str(std::wstring(str, length));
+  silly_string s;
+  s.s_ = narrower.str();
+  return s;
+} // construct_from_utf16
 
 bool silly_string_adaptor::empty(const silly_string& s)
 {

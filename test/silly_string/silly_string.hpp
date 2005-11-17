@@ -52,6 +52,9 @@ public:
   static char convert_from_utf8(char c);
   static silly_string construct_from_utf8(const char* str);
   static silly_string construct_from_utf8(const char* str, int length);
+  static silly_string construct_from_utf16(const wchar_t* str);
+  static silly_string construct_from_utf16(const wchar_t* str, int length);
+
 
   // here we go
   static bool empty(const silly_string& s);
