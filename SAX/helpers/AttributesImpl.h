@@ -484,7 +484,7 @@ public:
     // sort out
     std::string msg =
 	    "Attempt to modify attribute at illegal index: " + index;
-    throw new std::out_of_range(msg);
+    throw std::out_of_range(msg);
   }
 
   struct Attr
