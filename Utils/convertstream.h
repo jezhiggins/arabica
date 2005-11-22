@@ -9,7 +9,7 @@
 // basic_iconvertstream, basic_oconvertstream
 //
 // Written by Jez Higgins <jez@jezuk.co.uk>
-// Copyright 1999-2003 Jez UK Ltd, http://www.jezuk.co.uk/
+// Copyright 1999-2005 Jez UK Ltd, http://www.jezuk.co.uk/
 //
 // Normal basic_stringstream do not apply the codecvt facet
 // of their locale.  These two streams act exactly like
@@ -52,23 +52,45 @@ namespace Arabica
 namespace convert
 {
 
+template<typename charT, typename traitsT>
+class convertstreambuf_init
+{
+public:
+  typedef std::basic_stringbuf<charT, traitsT> stringbufT;
+
+  convertstreambuf_init(std::ios_base::openmode mode) :
+    buf_(mode) 
+  { 
+  } // convertstreambuf_init
+
+  stringbufT* buf()
+  {
+    return &buf_;
+  } // buf()
+
+private:
+  stringbufT buf_;
+}; // class convertstreambuf_init
+
 template<typename charT, 
          typename traitsT = std::char_traits<charT>,
          typename fromCharT = charT,
          typename fromTraitsT = std::char_traits<fromCharT> >
-class basic_iconvertstream : public std::basic_istream<charT, traitsT>
+class basic_iconvertstream : 
+  private virtual convertstreambuf_init<charT, traitsT>,
+  public std::basic_istream<charT, traitsT>
 {
+  typedef convertstreambuf_init<charT, traitsT> convertstreambuf_initT;
 public:
   typedef std::basic_istream<charT, traitsT> istreamT;
-  typedef std::basic_stringbuf<charT, traitsT> stringbufT;
+  typedef typename convertstreambuf_initT::stringbufT stringbufT;
   typedef std::basic_string<charT, traitsT> stringT;
   typedef std::basic_string<fromCharT, fromTraitsT> fromStringT;
 
   explicit basic_iconvertstream(std::ios_base::openmode mode = std::ios_base::in) :
-    std::basic_istream<charT, traitsT>( 0 ),
-    stringbuf_(mode | std::ios_base::in)
+      convertstreambuf_initT(mode | std::ios_base::in),
+      std::basic_istream<charT, traitsT>(convertstreambuf_initT::buf())
   { 
-    istreamT::init( &stringbuf_ ); 
   } // basic_iconvertstream
 
   explicit basic_iconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::in) : 
@@ -156,19 +178,21 @@ template<typename charT,
          typename traitsT = std::char_traits<charT>,
          typename toCharT = charT,
          typename toTraitsT = std::char_traits<toCharT> >
-class basic_oconvertstream : public std::basic_ostream<charT, traitsT> 
+class basic_oconvertstream : 
+  private virtual convertstreambuf_init<charT, traitsT>,
+  public std::basic_ostream<charT, traitsT> 
 {
+  typedef convertstreambuf_init<charT, traitsT> convertstreambuf_initT;
 public:
   typedef std::basic_ostream<charT, traitsT> ostreamT;
-  typedef std::basic_stringbuf<charT, traitsT> stringbufT;
+  typedef typename convertstreambuf_initT::stringbufT stringbufT;
   typedef std::basic_string<charT, traitsT> stringT;
   typedef std::basic_string<toCharT, toTraitsT> toStringT;
 
   explicit basic_oconvertstream(std::ios_base::openmode mode = std::ios_base::out) :
-      std::basic_ostream<charT, traitsT>(0),
-      stringbuf_(mode | std::ios_base::out)
+      convertstreambuf_initT(mode | std::ios_base::out),
+      std::basic_ostream<charT, traitsT>(convertstreambuf_initT::buf())
   { 
-    ostreamT::init( &stringbuf_ ); 
   } // basic_oconvertstream
 
   explicit basic_oconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::out) :
