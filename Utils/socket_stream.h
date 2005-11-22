@@ -335,7 +335,24 @@ int basic_socketbuf<charT, traitsT>::closeSocket(int sock) const
 ///////////////////////////////////////////////////////////
 // basic_socketstream declaration
 template<class charT, class traitsT>
-class basic_socketstream : public std::basic_iostream<charT, traitsT>
+class socketstreambuf_init
+{
+public:
+  typedef basic_socketbuf<charT, traitsT> sockbuf;
+
+  sockbuf* buf() const
+  {
+    return &buf_;
+  } // buf()
+
+private:
+  mutable sockbuf buf_;
+}; // class socketstreambuf_init
+
+template<class charT, class traitsT>
+class basic_socketstream : 
+  private virtual socketstreambuf_init<charT, traitsT>,
+  public std::basic_iostream<charT, traitsT>
 {
   public:
 #ifndef ARABICA_VS6_WORKAROUND
@@ -352,25 +369,22 @@ class basic_socketstream : public std::basic_iostream<charT, traitsT>
     bool is_open() const;
     void open(const char* hostname, unsigned short port);
     void close();
-
-  private:
-    basic_socketbuf<charT, traitsT> sockbuf;
 }; // class basic_socketstream
 
 ////////////////////////////////////////////////////////////////
 // basic_socketstream definition
 template<class charT, class traitsT>
 basic_socketstream<charT, traitsT>::basic_socketstream() :
-    std::basic_iostream<charT, traitsT>( 0 )
+    socketstreambuf_init<charT, traitsT>(), 
+    std::basic_iostream<charT, traitsT>(socketstreambuf_init<charT, traitsT>::buf())
 {
-  init( &sockbuf );
 } // basic_socketstream
 
 template<class charT, class traitsT>
 basic_socketstream<charT, traitsT>::basic_socketstream(const char* hostname, int port) :
-    std::basic_iostream<charT, traitsT>( 0 )
+    socketstreambuf_init<charT, traitsT>(), 
+    std::basic_iostream<charT, traitsT>(socketstreambuf_init<charT, traitsT>::buf())
 {
-  init( &sockbuf );
   open(hostname, port);
 } // basic_socketstream
 
@@ -382,19 +396,19 @@ basic_socketstream<charT, traitsT>::~basic_socketstream()
 template<class charT, class traitsT>
 basic_socketbuf<charT, traitsT>* basic_socketstream<charT, traitsT>::rdbuf() const
 {
-  return const_cast<basic_socketbuf<charT, traitsT>* >(&sockbuf);
+  return socketstreambuf_init<charT, traitsT>::buf();
 } // rdbuf
 
 template<class charT, class traitsT>
 bool basic_socketstream<charT, traitsT>::is_open() const
 {
-  return sockbuf.is_open();
+  return socketstreambuf_init<charT, traitsT>::buf()->is_open();
 } // is_open
 
 template<class charT, class traitsT>
 void basic_socketstream<charT, traitsT>::open(const char* hostname, unsigned short port)
 {
-  if(sockbuf.open(hostname, port) == 0)
+  if(socketstreambuf_init<charT, traitsT>::buf()->open(hostname, port) == 0)
     setstate(badbit);
 } // open
 
@@ -404,7 +418,7 @@ void basic_socketstream<charT, traitsT>::close()
   if(!is_open())
     return;
 
-  if(sockbuf.close() == 0)
+  if(socketstreambuf_init<charT, traitsT>::buf()->close() == 0)
     setstate(badbit);
 } // close
 
