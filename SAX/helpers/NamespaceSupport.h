@@ -220,7 +220,7 @@ class basic_NamespaceSupport
     Parts processName(const stringT& qName, bool isAttribute) const
     {
       Parts name;
-      string_adaptorT::size_type index = string_adaptorT::find(qName, nsc_.colon);
+      typename string_adaptorT::size_type index = string_adaptorT::find(qName, nsc_.colon);
 
       if(index == string_adaptorT::npos)
       {
