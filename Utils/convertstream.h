@@ -94,13 +94,13 @@ public:
 
   explicit basic_iconvertstream(std::ios_base::openmode mode = std::ios_base::in) :
       convertstreambuf_initT(mode | std::ios_base::in),
-      std::basic_istream<charT, traitsT>(buf())
+      std::basic_istream<charT, traitsT>(convertstreambuf_initT::buf())
   { 
   } // basic_iconvertstream
 
   explicit basic_iconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::in) : 
     convertstreambuf_initT(mode | std::ios_base::in),
-    std::basic_istream<charT, traitsT>(buf())
+    std::basic_istream<charT, traitsT>(convertstreambuf_initT::buf())
   {
     str(str);
   } // basic_iconvertstream
@@ -110,12 +110,12 @@ public:
 
   stringbufT* rdbuf() const
   {
-    return const_cast<stringbufT*>(buf()); 
+    return const_cast<stringbufT*>(convertstreambuf_initT::buf()); 
   } // rdbuf
 
   stringT str() const
   {
-    return buf()->str(); 
+    return convertstreambuf_initT::buf()->str(); 
   } // str
 
   void str(const fromStringT& str)
@@ -131,7 +131,7 @@ public:
 
     if(cvt.always_noconv())
     {
-      buf()->str(no_conversion(str)); 
+      convertstreambuf_initT::buf()->str(no_conversion(str)); 
       return;
     }
 
@@ -160,7 +160,7 @@ public:
     delete[] to;
     // naughty! ignore (r == std::codecvt_base::error)
 
-    buf()->str(converted); 
+    convertstreambuf_initT::buf()->str(converted); 
   } // str
 
 private:
@@ -215,7 +215,7 @@ public:
   toStringT str()
   {
     toStringT out;
-    stringT newstuff(buf()->str()); 
+    stringT newstuff(convertstreambuf_initT::buf()->str()); 
 
     if(newstuff.length() == 0)
       return out;
@@ -258,14 +258,14 @@ public:
       // naughty! ignore (r == std::codecvt_base::error)
     } // if(cvt.always_noconv())
 
-    buf()->str(stringT());
+    convertstreambuf_initT::buf()->str(stringT());
 
     return out;
   } // str
 
   void str(const stringT& str)
   {
-    buf()->str(str); 
+    convertstreambuf_initT::buf()->str(str); 
   } // str
 
 private:
