@@ -91,7 +91,21 @@ class Node : public Node_base
     Node replaceChild(const Node& newChild, const Node& oldChild) { return impl_->replaceChild(*newChild.impl_, *oldChild.impl_); }
     Node removeChild(const Node& oldChild) { return impl_->removeChild(*oldChild.impl_); } 
     Node appendChild(const Node& newChild) { return impl_->appendChild(*newChild.impl_); }
+    void purgeChild(Node& oldChild) 
+    { 
+      Node_impl<string_type>* child = *oldChild.impl_;
+      oldChild = 0;
 
+      try {
+        impl_->purgeChild(child); 
+      }
+      catch(DOM::DOMException&)
+      {
+        oldChild = child;
+        throw;
+      } // catch
+    } // purge
+ 
     bool hasChildNodes() const { return impl_->hasChildNodes(); }
 
     Node cloneNode(bool deep) const { return impl_->cloneNode(deep); }
@@ -173,6 +187,7 @@ class Node_impl
     virtual Node_impl<string_type>* replaceChild(Node_impl<string_type>*  newChild, Node_impl<string_type>* oldChild) = 0;
     virtual Node_impl<string_type>* removeChild(Node_impl<string_type>*  oldChild) = 0;
     virtual Node_impl<string_type>* appendChild(Node_impl<string_type>*  newChild) = 0;
+    virtual void purgeChild(Node_impl<string_type>* oldChild) = 0;
 
     virtual bool hasChildNodes() const = 0;
 

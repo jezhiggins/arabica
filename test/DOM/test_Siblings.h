@@ -124,14 +124,70 @@ class SiblingsTest : public TestCase
       assert(p.getTarget() == SA::construct_from_utf8("target"));
       assert(p.getData() == SA::construct_from_utf8("data"));
     } // test2
+
+    void test3()
+    {
+      DOM::Element<string_type> root;
+      {
+        DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+        root = d.createElement(SA::construct_from_utf8("root"));
+        d.appendChild(root);
+
+        root.appendChild(d.createElement(SA::construct_from_utf8("child1")));
+	root.appendChild(d.createElement(SA::construct_from_utf8("child2")));
+      }
+
+      DOM::Node<string_type> c = root.getFirstChild();
+      assert(c.getNextSibling() == root.getLastChild());
+
+      root.purgeChild(c);
+
+      assert(c == 0);
+      assert(root.getLastChild() == root.getFirstChild());
+   } // test3
+
+   void test4()
+   {
+      DOM::Element<string_type> root;
+      {
+        DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+        root = d.createElement(SA::construct_from_utf8("root"));
+        d.appendChild(root);
+
+        root.appendChild(d.createElement(SA::construct_from_utf8("child1")));
+        root.appendChild(d.createElement(SA::construct_from_utf8("child2")));
+      }
+    
+      DOM::Node<string_type> c1 = root.getFirstChild();
+      DOM::Node<string_type> c2 = root.getLastChild();
+
+      try {
+        c1.purgeChild(c2);
+      }
+      catch(DOM::DOMException& e)
+      {
+        assert(e.code() == DOM::DOMException::NOT_FOUND_ERR);
+      } // catch
+
+  
+      assert(c1 != 0);
+      assert(c2 != 0);
+
+      assert(c1.getNextSibling() == c2);
+      assert(c2.getPreviousSibling() == c1);
+    } // test4
 };
 
 template<class string_type, class string_adaptor>
 TestSuite* SiblingsTest_suite() 
 {
   TestSuite *suiteOfTests = new TestSuite;
+
   suiteOfTests->addTest(new TestCaller<SiblingsTest<string_type, string_adaptor> >("test1", &SiblingsTest<string_type, string_adaptor>::test1));
   suiteOfTests->addTest(new TestCaller<SiblingsTest<string_type, string_adaptor> >("test2", &SiblingsTest<string_type, string_adaptor>::test2));
+  suiteOfTests->addTest(new TestCaller<SiblingsTest<string_type, string_adaptor> >("test3", &SiblingsTest<string_type, string_adaptor>::test3));
+  suiteOfTests->addTest(new TestCaller<SiblingsTest<string_type, string_adaptor> >("test4", &SiblingsTest<string_type, string_adaptor>::test4));
+
   return suiteOfTests;
 } // SiblingsTest_suite
 

@@ -80,6 +80,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
     virtual DOM::Node_impl<stringT>* replaceChild(DOM::Node_impl<stringT>*  newChild, DOM::Node_impl<stringT>* oldChild) = 0;
     virtual DOM::Node_impl<stringT>* removeChild(DOM::Node_impl<stringT>*  oldChild) = 0;
     virtual DOM::Node_impl<stringT>* appendChild(DOM::Node_impl<stringT>*  newChild) = 0;
+    virtual void purgeChild(DOM::Node_impl<stringT>* oldChild) = 0;
 
     virtual bool hasChildNodes() const = 0;
 
@@ -232,6 +233,11 @@ class ChildlessNodeImpl : public NodeImpl<stringT, string_adaptorT>
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // appendChild
 
+    virtual void purgeChild(DOM::Node_impl<stringT>* oldChild)
+    {
+      throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
+    } // purgeChild
+
     virtual bool hasChildNodes() const { return false; }
 }; // class ChildlessNodeImpl
 
@@ -305,6 +311,11 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
     {
       return do_appendChild(dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(newChild));
     } // appendChild
+
+    virtual void purgeChild(DOM::Node_impl<stringT>* oldChild)
+    {
+      do_purgeChild(dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(oldChild));
+    } // purgeChild
 
     virtual bool hasChildNodes() const 
     {  
@@ -434,6 +445,11 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       return do_insertBefore(newChild, 0);
     } // appendChild
 
+    void do_purgeChild(NodeImpl<stringT, string_adaptorT>* oldChild)
+    {
+      oldChild = do_removeChild(oldChild);
+      NodeT::ownerDoc_->purge(oldChild);
+    } // do_purgeChild
 
   private:
     typedef std::deque<NodeImpl<stringT, string_adaptorT>*> NodeListT;

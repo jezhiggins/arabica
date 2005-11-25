@@ -421,6 +421,12 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       orphans_.insert(node); 
     } // orphaned
 
+    void purge(NodeImplT* node) 
+    {      
+      orphans_.erase(node);
+      delete node;
+    } // purge
+
     void adopted(NodeImplT* node)
     {
       typename std::set<NodeImplT*>::iterator n = orphans_.find(node);
