@@ -63,7 +63,12 @@ public:
   { 
   } // convertstreambuf_init
 
-  stringbufT* buf()
+  stringbufT const* buf() const
+  {
+    return &buf_;
+  } // buf()
+
+  stringbufT* buf() 
   {
     return &buf_;
   } // buf()
@@ -89,15 +94,14 @@ public:
 
   explicit basic_iconvertstream(std::ios_base::openmode mode = std::ios_base::in) :
       convertstreambuf_initT(mode | std::ios_base::in),
-      std::basic_istream<charT, traitsT>(convertstreambuf_initT::buf())
+      std::basic_istream<charT, traitsT>(buf())
   { 
   } // basic_iconvertstream
 
   explicit basic_iconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::in) : 
-    std::basic_istream<charT, traitsT>(0), 
-    stringbuf_(mode | std::ios_base::in) 
+    convertstreambuf_initT(mode | std::ios_base::in),
+    std::basic_istream<charT, traitsT>(buf())
   {
-    istreamT::init( &stringbuf_ ); // istreamT::rdbuf(&stringbuf_);
     str(str);
   } // basic_iconvertstream
 
@@ -106,12 +110,12 @@ public:
 
   stringbufT* rdbuf() const
   {
-    return static_cast<stringbufT *>(&stringbuf_); 
+    return const_cast<stringbufT*>(buf()); 
   } // rdbuf
 
   stringT str() const
   {
-    return stringbuf_.str(); 
+    return buf()->str(); 
   } // str
 
   void str(const fromStringT& str)
@@ -127,7 +131,7 @@ public:
 
     if(cvt.always_noconv())
     {
-      stringbuf_.str(no_conversion(str)); 
+      buf()->str(no_conversion(str)); 
       return;
     }
 
@@ -156,7 +160,7 @@ public:
     delete[] to;
     // naughty! ignore (r == std::codecvt_base::error)
 
-    stringbuf_.str(converted); 
+    buf()->str(converted); 
   } // str
 
 private:
@@ -170,8 +174,6 @@ private:
 
     return dest;
   } // no_conversion
-
-  stringbufT stringbuf_;
 }; // basic_iconvertstream
 
 template<typename charT, 
@@ -196,10 +198,10 @@ public:
   } // basic_oconvertstream
 
   explicit basic_oconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::out) :
-      std::basic_ostream<charT, traitsT>(0),
-      stringbuf_(str, mode | std::ios_base::out)
+      convertstreambuf_initT(mode | std::ios_base::out),
+      std::basic_ostream<charT, traitsT>(convertstreambuf_initT::buf())
   { 
-    std::basic_ios<charT,traitsT>::init( &stringbuf_ ); 
+    buf()->str(str);
   } // basic_oconvertstream
 
   virtual ~basic_oconvertstream()
@@ -207,13 +209,13 @@ public:
 
   stringbufT* rdbuf() const
   {
-    return static_cast<stringbufT *>(&stringbuf_); 
+    return const_cast<stringbufT*>(buf()); 
   } // rdbuf
 
   toStringT str()
   {
     toStringT out;
-    stringT newstuff(stringbuf_.str()); 
+    stringT newstuff(buf()->str()); 
 
     if(newstuff.length() == 0)
       return out;
@@ -224,7 +226,7 @@ public:
       std::use_facet<std::codecvt<charT, toCharT, typename traitsT::state_type> >(this->getloc());
 #else
     const std::codecvt<charT, toCharT, traitsT::state_type>& cvt =
-      std::use_facet(stringbuf_.getloc(), (std::codecvt<charT, toCharT, traitsT::state_type>*)0, true);
+      std::use_facet(getloc(), (std::codecvt<charT, toCharT, traitsT::state_type>*)0, true);
 #endif
 
     if(cvt.always_noconv())
@@ -256,14 +258,14 @@ public:
       // naughty! ignore (r == std::codecvt_base::error)
     } // if(cvt.always_noconv())
 
-    stringbuf_.str(stringT());
+    buf()->str(stringT());
 
     return out;
   } // str
 
   void str(const stringT& str)
   {
-    stringbuf_.str(str); 
+    buf()->str(str); 
   } // str
 
 private:
@@ -277,8 +279,6 @@ private:
 
     return dest;
   } // no_conversion
-
-  stringbufT stringbuf_;
 }; // basic_oconvertstream
 
 typedef basic_iconvertstream<char> converting_istringstream;
