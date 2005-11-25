@@ -201,7 +201,7 @@ public:
       convertstreambuf_initT(mode | std::ios_base::out),
       std::basic_ostream<charT, traitsT>(convertstreambuf_initT::buf())
   { 
-    buf()->str(str);
+    convertstreambuf_initT::buf()->str(str);
   } // basic_oconvertstream
 
   virtual ~basic_oconvertstream()
@@ -209,7 +209,7 @@ public:
 
   stringbufT* rdbuf() const
   {
-    return const_cast<stringbufT*>(buf()); 
+    return const_cast<stringbufT*>(convertstreambuf_initT::buf()); 
   } // rdbuf
 
   toStringT str()
