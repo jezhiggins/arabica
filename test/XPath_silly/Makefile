@@ -11,7 +11,7 @@ DYNAMIC_LIBS += -lArabica
 
 ######################################
 # SOURCE FILES
-XPATH_SRCS = main.cpp 
+XPATH_SRCS = main.cpp ../silly_string/silly_string.cpp
 XPATH_TESTS = ../XPath/arithmetic_test.hpp \
               ../XPath/axis_enumerator_test.hpp \
               ../XPath/execute_test.hpp \
@@ -26,9 +26,9 @@ XPATH_OBJS = $(patsubst %.cpp,%.o,$(XPATH_SRCS))
 
 ######################################
 # High level rules
-all : xpath_test_ss
+all : xpath_test_ss$(EXESUFFIX)
 
-xpath_test_ss : $(XPATH_OBJS) $(CPPUNIT_OBJS) $(XPATH_TESTS)
+xpath_test_ss$(EXESUFFIX) : $(XPATH_OBJS) $(CPPUNIT_OBJS) $(XPATH_TESTS)
 	$(LD) $(LDFLAGS) -o $@ $(XPATH_OBJS) $(CPPUNIT_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) xpath_test_ss$(EXESUFFIX) ../../bin
 

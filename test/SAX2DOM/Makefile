@@ -1,5 +1,6 @@
 
 -include ../../Makefile.header
+-include ../../Makefile.common
 
 ######################################
 # ADDITIONAL BUILD FLAGS
@@ -11,15 +12,15 @@ DYNAMIC_LIBS += -lArabica
 
 ######################################
 # SOURCE FILES
-SAXDOM_SRCS = main.cpp test_Document.cpp test_DocumentFragment.cpp test_Element.cpp test_Siblings.cpp test_SAX.cpp 
+SAXDOM_SRCS = main.cpp ../silly_string/silly_string.cpp
 SAXDOM_HDRS = $(patsubst %.cpp,%.h,$(SAXDOM_SRCS))
 SAXDOM_OBJS = $(patsubst %.cpp,%.o,$(SAXDOM_SRCS))
 
 ######################################
 # High level rules
-all : sax2dom_test 
+all : sax2dom_test$(EXESUFFIX)
 
-sax2dom_test : $(SAXDOM_OBJS) $(CPPUNIT_OBJS) 
+sax2dom_test$(EXESUFFIX) : $(SAXDOM_OBJS) $(CPPUNIT_OBJS) 
 	$(LD) $(LDFLAGS) -o $@ $(SAXDOM_OBJS) $(CPPUNIT_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) sax2dom_test$(EXESUFFIX) ../../bin
 

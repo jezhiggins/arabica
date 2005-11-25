@@ -17,9 +17,9 @@ XPATH_OBJS = $(patsubst %.cpp,%.o,$(XPATH_SRCS))
 
 ######################################
 # High level rules
-all : xpath_test 
+all : xpath_test$(EXESUFFIX)
 
-xpath_test : $(XPATH_OBJS) $(CPPUNIT_OBJS) $(XPATH_TESTS)
+xpath_test$(EXESUFFIX) : $(XPATH_OBJS) $(CPPUNIT_OBJS) $(XPATH_TESTS)
 	$(LD) $(LDFLAGS) -o $@ $(XPATH_OBJS) $(CPPUNIT_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) xpath_test$(EXESUFFIX) ../../bin
 

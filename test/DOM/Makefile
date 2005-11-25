@@ -29,9 +29,9 @@ DOMTEST_TESTS = dom_test_suite.hpp \
 
 ######################################
 # High level rules
-all : dom_test 
+all : dom_test$(EXESUFFIX) 
 
-dom_test : $(DOMTEST_OBJS) $(CPPUNIT_OBJS) 
+dom_test$(EXESUFFIX) : $(DOMTEST_OBJS) $(CPPUNIT_OBJS) 
 	$(LD) $(LDFLAGS) -o $@ $(DOMTEST_OBJS) $(CPPUNIT_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) dom_test$(EXESUFFIX) ../../bin
 
