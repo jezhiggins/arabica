@@ -23,8 +23,9 @@ int main(int argc, const char* argv[])
 
   runner.addTest("SAX2DOMTest", SAXTest_suite<std::string, Arabica::default_string_adaptor<std::string> >());
   runner.addTest("SAX2DOMTest_silly", SAXTest_suite<silly_string, silly_string_adaptor>());
+#ifndef ARABICA_NO_WCHAR_T
   runner.addTest("SAX2DOMTest_wide", SAXTest_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >());
-
+#endif
   runner.run(argc, argv);
 
   return 0;

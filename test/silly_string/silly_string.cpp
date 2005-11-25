@@ -52,6 +52,7 @@ silly_string silly_string_adaptor::construct_from_utf8(const char* str, int leng
   return s;
 } // construct_from_utf8
 
+#ifndef ARABICA_NO_WCHAR_T
 silly_string silly_string_adaptor::construct_from_utf16(const wchar_t* str)
 {
   Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
@@ -73,6 +74,7 @@ silly_string silly_string_adaptor::construct_from_utf16(const wchar_t* str, int 
   s.s_ = narrower.str();
   return s;
 } // construct_from_utf16
+#endif
 
 bool silly_string_adaptor::empty(const silly_string& s)
 {

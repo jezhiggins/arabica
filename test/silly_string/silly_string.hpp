@@ -24,7 +24,7 @@ private:
   friend class silly_string_adaptor;
 }; // class silly_string
 
-class silly_string_adaptor
+class silly_string_adaptor 
 {
 public:
   typedef silly_string string_type;
@@ -52,9 +52,10 @@ public:
   static char convert_from_utf8(char c);
   static silly_string construct_from_utf8(const char* str);
   static silly_string construct_from_utf8(const char* str, int length);
+#ifndef ARABICA_NO_WCHAR_T
   static silly_string construct_from_utf16(const wchar_t* str);
   static silly_string construct_from_utf16(const wchar_t* str, int length);
-
+#endif
 
   // here we go
   static bool empty(const silly_string& s);
