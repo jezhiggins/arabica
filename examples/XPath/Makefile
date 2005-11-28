@@ -17,9 +17,9 @@ XGREP_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(XGREP_SRCS)))
 
 ######################################
 # High level rules
-all : xgrep
+all : xgrep$(EXESUFFIX)
 
-xgrep : $(XGREP_OBJS)
+xgrep$(EXESUFFIX) : $(XGREP_OBJS)
 	$(LD) $(LDFLAGS)  -o $@ $(XGREP_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) xgrep$(EXESUFFIX) ../../bin
 
@@ -33,6 +33,6 @@ xgrep : $(XGREP_OBJS)
 clean :
 	$(REMOVE) $(XGREP_OBJS) \
 		xgrep$(EXESUFFIX) \
-		 ../../bin/xgrep
+		 ../../bin/xgrep$(EXESUFFIX)
 
 # End of File

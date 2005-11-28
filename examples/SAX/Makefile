@@ -29,21 +29,21 @@ XMLBASE_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(XMLBASE_SRCS)))
 
 ######################################
 # High level rules
-all : pyx simple_handler writer xmlbase
+all : pyx$(EXESUFFIX) simple_handler$(EXESUFFIX) writer$(EXESUFFIX) xmlbase$(EXESUFFIX)
 
-pyx$ : $(PYX_OBJS)
+pyx$(EXESUFFIX) : $(PYX_OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(PYX_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) pyx$(EXESUFFIX) ../../bin
 
-simple_handler : $(SIMPLE_OBJS)
+simple_handler$(EXESUFFIX) : $(SIMPLE_OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(SIMPLE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) simple_handler$(EXESUFFIX) ../../bin
 
-writer : $(WRITER_OBJS)
+writer$(EXESUFFIX) : $(WRITER_OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(WRITER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) writer$(EXESUFFIX) ../../bin
 
-xmlbase : $(XMLBASE_OBJS)
+xmlbase$(EXESUFFIX) : $(XMLBASE_OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(XMLBASE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) xmlbase$(EXESUFFIX) ../../bin
 

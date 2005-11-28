@@ -17,9 +17,9 @@ TRANSCODE_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(TRANSCODE_SRCS)))
 
 ######################################
 # High level rules
-all : transcode
+all : transcode$(EXESUFFIX)
 
-transcode : $(TRANSCODE_OBJS)
+transcode$(EXESUFFIX) : $(TRANSCODE_OBJS)
 	$(LD) $(LDFLAGS) -o $@ $(TRANSCODE_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) transcode$(EXESUFFIX) ../../bin
 

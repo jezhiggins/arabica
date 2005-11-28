@@ -17,9 +17,9 @@ DOMWRITER_OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(DOMWRITER_SRCS)))
 
 ######################################
 # High level rules
-all : domwriter
+all : domwriter$(EXESUFFIX)
 
-domwriter : $(DOMWRITER_OBJS)
+domwriter$(EXESUFFIX) : $(DOMWRITER_OBJS)
 	$(LD) $(LDFLAGS)  -o $@ $(DOMWRITER_OBJS) $(LIBS_DIRS) $(STATIC_LIBS) $(DYNAMIC_LIBS)
 	$(COPY) domwriter$(EXESUFFIX) ../../bin
 
@@ -33,6 +33,6 @@ domwriter : $(DOMWRITER_OBJS)
 clean :
 	$(REMOVE) $(DOMWRITER_OBJS) \
 		domwriter$(EXESUFFIX) \
-		 ../../bin/domwriter
+		 ../../bin/domwriter$(EXESUFFIX)
 
 # End of File
