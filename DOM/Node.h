@@ -7,8 +7,8 @@
 // $Id$
 ////////////////////////////
 #include <DOM/Proxy.h>
+#include <DOM/DOMException.h>
 #include <typeinfo>
-#include <deque>
 #include <algorithm>
 
 namespace DOM
@@ -99,7 +99,7 @@ class Node : public Node_base
       try {
         impl_->purgeChild(child); 
       }
-      catch(DOM::DOMException&)
+      catch(DOMException&)
       {
         oldChild = child;
         throw;
