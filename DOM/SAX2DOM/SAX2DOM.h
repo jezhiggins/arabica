@@ -21,7 +21,7 @@ namespace SAX2DOM
 template<class stringT, 
          class string_adaptorT = Arabica::default_string_adaptor<stringT>,
          class SAX_parser = SAX::XMLReader<stringT, string_adaptorT> >
-class Parser : private SAX::basic_DefaultHandler2<stringT>
+class Parser : protected SAX::basic_DefaultHandler2<stringT>
 {
     typedef SAX::basic_EntityResolver<stringT> EntityResolverT;
     typedef SAX::basic_ErrorHandler<stringT> ErrorHandlerT;
@@ -119,6 +119,9 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
       document_ = 0;
     } // reset
 
+  protected:
+    DOM::Node<stringT>& currentNode() { return currentNode_; }
+
   private:
     // no implementations
     Parser(const Parser&);
@@ -143,7 +146,7 @@ class Parser : private SAX::basic_DefaultHandler2<stringT>
     ErrorHandlerT* errorHandler_;
     SAX::AttributeTypes<stringT, string_adaptorT> attributeTypes_;
 
-  private:
+  protected:
     template<class interfaceT>
     void setParserProperty(SAX_parser& parser, const stringT& propertyName)
     {
