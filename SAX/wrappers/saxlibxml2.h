@@ -433,7 +433,7 @@ void libxml2_wrapper<stringT, string_adaptorT>::parse(basic_InputSource<stringT>
 
 	while(!is.resolve()->eof())
  	{
-		char buffer[1024];
+		char buffer[4096];
     is.resolve()->read(buffer, sizeof(buffer));
 		xmlParseChunk(context_, buffer, is.resolve()->gcount(), is.resolve()->eof());
 	} // while(!in.eof())

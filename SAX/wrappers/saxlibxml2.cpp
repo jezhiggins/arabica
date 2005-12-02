@@ -17,7 +17,7 @@ namespace libxml2_wrapper_impl_tiddle
 
 std::string formatErrorMsg(const char* fmt, va_list arg)
 {
-  char buff[1024];
+  char buff[4096];
   vsprintf(buff, fmt, arg);
 	return std::string(buff);
 } // formatErrorMsg
