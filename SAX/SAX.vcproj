@@ -707,6 +707,13 @@
 					RelativePath="..\Dom\Sax2dom\SAX2DOM.h">
 				</File>
 			</Filter>
+			<Filter
+				Name="DualMode"
+				Filter="">
+				<File
+					RelativePath="..\Dom\DualMode\DualMode.hpp">
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath="ArabicaConfig.S">
