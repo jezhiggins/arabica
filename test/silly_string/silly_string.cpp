@@ -2,6 +2,7 @@
 
 #include <Utils/convertstream.h>
 #include <Utils/utf8ucs2codecvt.h>
+#include <Utils/ucs2utf8codecvt.hpp>
 
 silly_string::silly_string()
 {
@@ -127,3 +128,12 @@ std::string silly_string_adaptor::asStdString(const silly_string& str)
 {
   return str.s_;
 } // asStdString
+
+std::wstring silly_string_adaptor::asStdWString(const silly_string& str)
+{
+  Arabica::convert::basic_oconvertstream<char, std::char_traits<char>,
+                                         wchar_t, std::char_traits<wchar_t> > widener;
+  widener.imbue(std::locale(widener.getloc(), new Arabica::convert::ucs2utf8codecvt()));
+  widener.str(str.s_);
+  return widener.str();
+} // asStdWString

@@ -33,6 +33,7 @@
 #include <SAX/helpers/PropertyNames.h>
 #include <Utils/StringAdaptor.h>
 #include <iostream>
+#include <Utils/getparam.hpp>
 
 // Include the MSXML definitions.
 #include <msxml2.h>
@@ -45,18 +46,20 @@ _COM_SMARTPTR_TYPEDEF(ISAXXMLReader, __uuidof(ISAXXMLReader));
 namespace SAX
 {
 
+struct COMInitializer_tag { };
+
 /**
  * use this as COMInitializer_type if you call 
  * CoInitialize/CoInitializeEx in your own code
  */
-class COMExternalInitializer 
+class COMExternalInitializer : public COMInitializer_tag
 {
   public:
     COMExternalInitializer() { }
     ~COMExternalInitializer() { }
 }; // COMExternalInitializer
 
-class COMSingleThreadInitializer 
+class COMSingleThreadInitializer : public COMInitializer_tag
 {
   public:
     COMSingleThreadInitializer() { ::CoInitialize(NULL); }
@@ -64,7 +67,7 @@ class COMSingleThreadInitializer
 }; // COMSingleThreadInitializer
 
 #if(_WIN32_WINNT >= 0x0400 ) || defined(_WIN32_DCOM)
-class COMMultiThreadInitializer 
+class COMMultiThreadInitializer  : public COMInitializer_tag
 {
   public:
     COMMultiThreadInitializer() { ::CoInitializeEx(NULL, COINIT_MULTITHREADED); } 
@@ -73,10 +76,13 @@ class COMMultiThreadInitializer
 #endif
 
 template<class string_type, 
-         class COMInitializer_type = COMSingleThreadInitializer,
-         class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
+         class T0 = Arabica::nil_t,
+         class T1 = Arabica::nil_t>
 class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
 {
+  typedef typename Arabica::get_param<COMInitializer_tag, COMSingleThreadInitializer, T0, T1>::type COMInitializer_type;
+  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, Arabica::default_string_adaptor<string_type>, T0, T1>::type string_adaptor_type;
+
   public:
     typedef string_type stringT;
     typedef string_adaptor_type string_adaptorT;

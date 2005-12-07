@@ -26,6 +26,7 @@
 #include <SAX/helpers/AttributeDefaults.h>
 #include <typeinfo>
 #include <map>
+#include <Utils/getparam.hpp>
 
 namespace SAX
 {
@@ -196,13 +197,19 @@ private:
  * @version $Id$
  * @see SAX::basic_XMLReader
  */
-template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
+template<class string_type, 
+         class T0 = Arabica::nil_t,
+         class T1 = Arabica::nil_t>
 class expat_wrapper : public SAX::basic_XMLReader<string_type>, 
                public SAX::basic_Locator<string_type>,
                public expat_wrapper_impl_mumbojumbo::expat2base
 {
   public:
     typedef string_type stringT;
+    typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                               Arabica::default_string_adaptor<string_type>, 
+                               T0, 
+                               T1>::type string_adaptor_type;
     typedef string_adaptor_type string_adaptorT;
     typedef string_adaptor_type SA;
     typedef SAX::basic_EntityResolver<stringT> entityResolverT;
@@ -339,8 +346,8 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
 
 //////////////////////////////////////////////////////////////////
 // expat wrapper definition
-template<class stringT, class string_adaptorT>
-expat_wrapper<stringT, string_adaptorT>::expat_wrapper() :
+template<class stringT, class T0, class T1>
+expat_wrapper<stringT, T0, T1>::expat_wrapper() :
   entityResolver_(0),
   dtdHandler_(0),
   contentHandler_(0),
@@ -367,14 +374,14 @@ expat_wrapper<stringT, string_adaptorT>::expat_wrapper() :
   XML_SetProcessingInstructionHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_processingInstruction);
 } // expat
 
-template<class stringT, class string_adaptorT>
-expat_wrapper<stringT, string_adaptorT>::~expat_wrapper()
+template<class stringT, class T0, class T1>
+expat_wrapper<stringT, T0, T1>::~expat_wrapper()
 {
   XML_ParserFree(parser_);
 } // ~expat
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, bool value)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::setFeature(const stringT& name, bool value)
 {
   if(name == features_.namespaces)
   {
@@ -415,8 +422,8 @@ void expat_wrapper<stringT, string_adaptorT>::setFeature(const stringT& name, bo
   }
 } // setFeature
 
-template<class stringT, class string_adaptorT>
-bool expat_wrapper<stringT, string_adaptorT>::getFeature(const stringT& name) const
+template<class stringT, class T0, class T1>
+bool expat_wrapper<stringT, T0, T1>::getFeature(const stringT& name) const
 {
   if(name == features_.namespaces)
     return namespaces_;
@@ -433,8 +440,8 @@ bool expat_wrapper<stringT, string_adaptorT>::getFeature(const stringT& name) co
   throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA::asStdString(name));
 } // getFeature
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::parse(inputSourceT& source)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::parse(inputSourceT& source)
 {
   publicId_ = source.getPublicId();
   systemId_ = source.getSystemId();
@@ -457,8 +464,8 @@ void expat_wrapper<stringT, string_adaptorT>::parse(inputSourceT& source)
   parsing_ = false;
 } // parse
 
-template<class stringT, class string_adaptorT>
-bool expat_wrapper<stringT, string_adaptorT>::do_parse(inputSourceT& source, XML_Parser parser)  
+template<class stringT, class T0, class T1>
+bool expat_wrapper<stringT, T0, T1>::do_parse(inputSourceT& source, XML_Parser parser)  
 {
   InputSourceResolver is(source, string_adaptorT());
   if(is.resolve() == 0)
@@ -489,11 +496,11 @@ bool expat_wrapper<stringT, string_adaptorT>::do_parse(inputSourceT& source, XML
   return true;
 } // do_parse
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class T0, class T1>
 #ifndef ARABICA_VS6_WORKAROUND
-std::auto_ptr<typename expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+std::auto_ptr<typename expat_wrapper<stringT, T0, T1>::PropertyBaseT> expat_wrapper<stringT, T0, T1>::doGetProperty(const stringT& name)
 #else
-std::auto_ptr<expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrapper<stringT, string_adaptorT>::doGetProperty(const stringT& name)
+std::auto_ptr<expat_wrapper<stringT, T0, T1>::PropertyBaseT> expat_wrapper<stringT, T0, T1>::doGetProperty(const stringT& name)
 #endif
 {
   if(name == properties_.lexicalHandler)
@@ -510,8 +517,8 @@ std::auto_ptr<expat_wrapper<stringT, string_adaptorT>::PropertyBaseT> expat_wrap
   throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA::asStdString(name));    
 } // doGetProperty
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value)
 {
   if(name == properties_.lexicalHandler)
   {
@@ -540,32 +547,32 @@ void expat_wrapper<stringT, string_adaptorT>::doSetProperty(const stringT& name,
 } // doSetProperty
 
 // Locator implementation
-template<class stringT, class string_adaptorT>
-stringT expat_wrapper<stringT, string_adaptorT>::getPublicId() const
+template<class stringT, class T0, class T1>
+stringT expat_wrapper<stringT, T0, T1>::getPublicId() const
 {
   return publicId_;
 } // getPublicId
 
-template<class stringT, class string_adaptorT>
-stringT expat_wrapper<stringT, string_adaptorT>::getSystemId() const
+template<class stringT, class T0, class T1>
+stringT expat_wrapper<stringT, T0, T1>::getSystemId() const
 {
   return systemId_;
 } // getSystemId
 
-template<class stringT, class string_adaptorT>
-int expat_wrapper<stringT, string_adaptorT>::getLineNumber() const
+template<class stringT, class T0, class T1>
+int expat_wrapper<stringT, T0, T1>::getLineNumber() const
 {
   return XML_GetCurrentLineNumber(parser_);
 } // getLineNumber
 
-template<class stringT, class string_adaptorT>
-int expat_wrapper<stringT, string_adaptorT>::getColumnNumber() const
+template<class stringT, class T0, class T1>
+int expat_wrapper<stringT, T0, T1>::getColumnNumber() const
 {
   return XML_GetCurrentColumnNumber(parser_);
 } // getColumnNumber
 
-template<class stringT, class string_adaptorT>
-typename SAX::basic_NamespaceSupport<stringT, string_adaptorT>::Parts expat_wrapper<stringT, string_adaptorT>::processName(const stringT& qName, bool isAttribute)
+template<class stringT, class T0, class T1>
+typename SAX::basic_NamespaceSupport<stringT, typename expat_wrapper<stringT, T0, T1>::string_adaptorT>::Parts expat_wrapper<stringT, T0, T1>::processName(const stringT& qName, bool isAttribute)
 {
   typename namespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
   if(SA::empty(p.URI) && !SA::empty(p.prefix))
@@ -573,8 +580,8 @@ typename SAX::basic_NamespaceSupport<stringT, string_adaptorT>::Parts expat_wrap
   return p;
 } // processName
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::reportError(const std::string& message, bool fatal)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::reportError(const std::string& message, bool fatal)
 {
   if(!errorHandler_)
     return;
@@ -590,8 +597,8 @@ void expat_wrapper<stringT, string_adaptorT>::reportError(const std::string& mes
     errorHandler_->error(e);
 } // reportError
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::checkNotParsing(const stringT& type, const stringT& name) const
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::checkNotParsing(const stringT& type, const stringT& name) const
 {
   if(parsing_)
   {
@@ -601,16 +608,16 @@ void expat_wrapper<stringT, string_adaptorT>::checkNotParsing(const stringT& typ
   } // if(parsing_)
 } // checkNotParsing
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::charHandler(const char* txt, int txtlen)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::charHandler(const char* txt, int txtlen)
 {
   if(!contentHandler_)
     return;
   contentHandler_->characters(SA::construct_from_utf8(txt, txtlen));
 } // charHandler
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, const char** atts)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char** atts)
 {
   if(!contentHandler_)
     return;
@@ -672,8 +679,8 @@ void expat_wrapper<stringT, string_adaptorT>::startElement(const char* qName, co
   contentHandler_->startElement(name.URI, name.localName, name.rawName, attributes);
 } // startElement
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::startElementNoNS(const char* qName, const char** atts)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::startElementNoNS(const char* qName, const char** atts)
 {
   SAX::basic_AttributesImpl<stringT> attributes;
 
@@ -691,8 +698,8 @@ void expat_wrapper<stringT, string_adaptorT>::startElementNoNS(const char* qName
   contentHandler_->startElement(emptyString_, emptyString_, SA::construct_from_utf8(qName), attributes);
 } // startElementNoNS
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::endElement(const char* qName)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::endElement(const char* qName)
 {
   if(!contentHandler_)
     return;
@@ -711,22 +718,22 @@ void expat_wrapper<stringT, string_adaptorT>::endElement(const char* qName)
   nsSupport_.popContext();
 } // endElement
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::endElementNoNS(const char* qName)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::endElementNoNS(const char* qName)
 {
   if(contentHandler_)
     contentHandler_->endElement(emptyString_, emptyString_, SA::construct_from_utf8(qName));    
 } // endElementNoNS
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::processingInstruction(const char* target, const char* data)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::processingInstruction(const char* target, const char* data)
 {
   if(contentHandler_)
     contentHandler_->processingInstruction(SA::construct_from_utf8(target), SA::construct_from_utf8(data));
 } // processingInstruction
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::elementDeclaration(const XML_Char* name,
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::elementDeclaration(const XML_Char* name,
                                          const XML_Content* model)
 {
   if(!declHandler_)
@@ -737,8 +744,8 @@ void expat_wrapper<stringT, string_adaptorT>::elementDeclaration(const XML_Char*
   declHandler_->elementDecl(SA::construct_from_utf8(name), SA::construct_from_utf8(os.str().c_str()));
 } // elementDeclaration
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::convertXML_Content(std::ostream& os, const XML_Content* model, bool isChild)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::convertXML_Content(std::ostream& os, const XML_Content* model, bool isChild)
 {
 /*
 enum XML_Content_Type {
@@ -847,8 +854,8 @@ struct XML_cp {
   } // switch
 } // convertXML_Content
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::attListDeclaration(const XML_Char* elname, 
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::attListDeclaration(const XML_Char* elname, 
                                      const XML_Char* attname,
                                      const XML_Char* att_type,
                                      const XML_Char* dflt,
@@ -874,8 +881,8 @@ void expat_wrapper<stringT, string_adaptorT>::attListDeclaration(const XML_Char*
   }
 } // attListDeclaration
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::entityDeclaration(const XML_Char* entityName,
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::entityDeclaration(const XML_Char* entityName,
                            int is_parameter_entity,
                            const XML_Char* value,
                            int value_length,
@@ -920,8 +927,8 @@ void expat_wrapper<stringT, string_adaptorT>::entityDeclaration(const XML_Char* 
   } 
 } // entityDeclaration
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::notationDeclaration(const XML_Char* notationName,
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::notationDeclaration(const XML_Char* notationName,
                              const XML_Char* base,
                              const XML_Char* systemId,
                              const XML_Char* publicId)
@@ -933,8 +940,8 @@ void expat_wrapper<stringT, string_adaptorT>::notationDeclaration(const XML_Char
                             SA::construct_from_utf8(systemId));
 } // notationDeclaration
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::startDoctypeDecl(const XML_Char *doctypeName,
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::startDoctypeDecl(const XML_Char *doctypeName,
                           const XML_Char *systemId,
                           const XML_Char *publicId,
                           int has_internal_subset)
@@ -952,36 +959,36 @@ void expat_wrapper<stringT, string_adaptorT>::startDoctypeDecl(const XML_Char *d
                             s_systemId);
 } // startDoctypeDecl
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::endDoctypeDecl()
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::endDoctypeDecl()
 {
   if(lexicalHandler_)
     lexicalHandler_->endDTD();
 } // endDoctypeDecl
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::startCdataSection()
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::startCdataSection()
 {
   if(lexicalHandler_)
     lexicalHandler_->startCDATA();
 } // startCdataSection
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::endCdataSection()
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::endCdataSection()
 {
   if(lexicalHandler_)
     lexicalHandler_->endCDATA();
 } // endCdataSection
 
-template<class stringT, class string_adaptorT>
-void expat_wrapper<stringT, string_adaptorT>::commentHandler(const XML_Char *data)
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::commentHandler(const XML_Char *data)
 {
   if(lexicalHandler_)
     lexicalHandler_->comment(SA::construct_from_utf8(data));
 } // commentHandler
 
-template<class stringT, class string_adaptorT>
-int expat_wrapper<stringT, string_adaptorT>::externalEntityRefHandler(XML_Parser parser, 
+template<class stringT, class T0, class T1>
+int expat_wrapper<stringT, T0, T1>::externalEntityRefHandler(XML_Parser parser, 
                                                                       const XML_Char* context,
                                                                       const XML_Char* base,
                                                                       const XML_Char* systemId,

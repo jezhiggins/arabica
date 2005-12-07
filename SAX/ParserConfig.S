@@ -77,8 +77,8 @@ ifndef NO_DEFAULT_PARSER
 ifdef DEF_SAX_P
 namespace SAX
 {
-  template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-  class XMLReader : public DEF_SAX_P<string_type, string_adaptor> { };
+  template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
+  class XMLReader : public DEF_SAX_P<string_type, T0, T1> { };
 } // namespace SAX
 else
 error "No default parser defined."

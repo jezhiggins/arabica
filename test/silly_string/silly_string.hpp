@@ -3,6 +3,7 @@
 
 #include <string>
 #include <functional>
+#include <Utils/stringadaptortag.hpp>
 
 // testing purposes only
 // a string with as minimal interface as possible
@@ -24,7 +25,7 @@ private:
   friend class silly_string_adaptor;
 }; // class silly_string
 
-class silly_string_adaptor 
+class silly_string_adaptor : public Arabica::string_adaptor_tag
 {
 public:
   typedef silly_string string_type;
@@ -72,8 +73,9 @@ public:
   static const_iterator end(const silly_string& str) { return str.s_.end(); }
   static mutable_iterator end(silly_string& str) { return str.s_.end(); }
 
-  // only used to constuct error strings - don't have to be highly efficient!
+  // mainly used to constuct error strings - don't have to be highly efficient!
   static std::string asStdString(const silly_string& str);
+  static std::wstring asStdWString(const silly_string& str);
 }; // class silly_string_adaptor
 
 template<class CharType, class Traits>

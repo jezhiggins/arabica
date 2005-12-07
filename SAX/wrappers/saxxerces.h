@@ -52,6 +52,7 @@ std::ostream& operator<<(std::ostream& o, const std::type_info& ti)
 #include <SAX/IStreamHandle.h>
 #include <SAX/wrappers/XercesPropertyNames.h>
 #include <SAX/wrappers/XercesFeatureNames.h>
+#include <Utils/getparam.hpp>
 
 // Xerces Includes
 #include <xercesc/util/PlatformUtils.hpp>
@@ -116,10 +117,16 @@ namespace XercesImpl
   }; // class xerces_initializer
 } // namespace XercesImpl
 
-template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
+template<class string_type, 
+         class T0 = Arabica::nil_t,
+         class T1 = Arabica::nil_t>
 class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
 {
   private:
+    typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                               Arabica::default_string_adaptor<string_type>, 
+                               T0, 
+                               T1>::type string_adaptor_type;
     typedef string_adaptor_type string_adaptorT;
 
   protected:
@@ -847,8 +854,8 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
     string_type externalNoNamespaceSchemaLocation_;
 }; // class xerces_wrapper
 
-template<class string_type, class string_adaptorT>
-xerces_wrapper<string_type, string_adaptorT>::xerces_wrapper()
+template<class string_type, class T0, class T1>
+xerces_wrapper<string_type, T0, T1>::xerces_wrapper()
 {
   try
   {
@@ -871,14 +878,14 @@ xerces_wrapper<string_type, string_adaptorT>::xerces_wrapper()
   xerces_->setDeclarationHandler(&declHandlerAdaptor_);
 } // xerces_wrapper
 
-template<class string_type, class string_adaptorT>
-xerces_wrapper<string_type, string_adaptorT>::~xerces_wrapper()
+template<class string_type, class T0, class T1>
+xerces_wrapper<string_type, T0, T1>::~xerces_wrapper()
 {
   delete xerces_;
 } // ~xerces_wrapper
 
-template<class string_type, class string_adaptorT>
-bool xerces_wrapper<string_type, string_adaptorT>::getFeature(const string_type& name) const
+template<class string_type, class T0, class T1>
+bool xerces_wrapper<string_type, T0, T1>::getFeature(const string_type& name) const
 {
   try 
   {
@@ -895,8 +902,8 @@ bool xerces_wrapper<string_type, string_adaptorT>::getFeature(const string_type&
   } // catch(SAXNotRecognizedException& e)
 } // getFeature
 
-template<class string_type, class string_adaptorT>
-void xerces_wrapper<string_type, string_adaptorT>::setFeature(const string_type& name, bool value)
+template<class string_type, class T0, class T1>
+void xerces_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bool value)
 {
   try 
   {
@@ -913,11 +920,11 @@ void xerces_wrapper<string_type, string_adaptorT>::setFeature(const string_type&
   } // catch(SAXNotRecognizedException& e)
 } // setFeature
 
-template<class string_type, class string_adaptorT>
+template<class string_type, class T0, class T1>
 #ifndef ARABICA_VS6_WORKAROUND
-std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<string_type, string_adaptorT>::doGetProperty(const string_type& name)
+std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
 #else
-std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<string_type, string_adaptorT>::doGetProperty(const string_type& name)
+std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
 #endif
 {
   if(name == properties_.lexicalHandler)
@@ -981,11 +988,11 @@ std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<st
   throw SAX::SAXNotRecognizedException("Property not recognized ");    
 } // doGetProperty
 
-template<class string_type, class string_adaptorT>
+template<class string_type, class T0, class T1>
 #ifndef ARABICA_VS6_WORKAROUND
-void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_type& name, std::auto_ptr<typename base::PropertyBase> value)
+void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<typename base::PropertyBase> value)
 #else
-void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_type& name, std::auto_ptr<base::PropertyBase> value)
+void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<base::PropertyBase> value)
 #endif
 {
   if(name == properties_.lexicalHandler)
@@ -1072,8 +1079,8 @@ void xerces_wrapper<string_type, string_adaptorT>::doSetProperty(const string_ty
 }
 
 
-template<class string_type, class string_adaptorT>
-void xerces_wrapper<string_type, string_adaptorT>::parse(InputSourceT& source)
+template<class string_type, class T0, class T1>
+void xerces_wrapper<string_type, T0, T1>::parse(InputSourceT& source)
 {
   // if no stream is open, let Xerces deal with it
   if(source.getByteStream() == 0)
@@ -1086,10 +1093,10 @@ void xerces_wrapper<string_type, string_adaptorT>::parse(InputSourceT& source)
   } // if ...
 } // parse
 
-template<class string_type, class string_adaptorT>
+template<class string_type, class T0, class T1>
 bool xerces_wrapper<string_type, 
-                    string_adaptorT>::parseFirst(InputSourceT& input,
-                                                 XMLPScanToken& toFill)
+                    T0, T1>::parseFirst(InputSourceT& input,
+                                        XMLPScanToken& toFill)
 {
   std::auto_ptr<XercesXMLPScanToken> newToken(new XercesXMLPScanToken);
   // To store the result from Xerces parseFirst().
@@ -1119,8 +1126,8 @@ bool xerces_wrapper<string_type,
   return result;
 } // parseFirst
 
-template<class string_type, class string_adaptorT>
-bool xerces_wrapper<string_type, string_adaptorT>::parseNext(XMLPScanToken& token)
+template<class string_type, class T0, class T1>
+bool xerces_wrapper<string_type, T0, T1>::parseNext(XMLPScanToken& token)
 {
   // Extract the XercesXMLPScanToken from within token.
   XercesXMLPScanToken* xercesToken = 
@@ -1138,8 +1145,8 @@ bool xerces_wrapper<string_type, string_adaptorT>::parseNext(XMLPScanToken& toke
   }
 } // parseNext
 
-template<class string_type, class string_adaptorT>
-void xerces_wrapper<string_type, string_adaptorT>::parseReset(XMLPScanToken& token)
+template<class string_type, class T0, class T1>
+void xerces_wrapper<string_type, T0, T1>::parseReset(XMLPScanToken& token)
 {
   // Extract the XercesXMLPScanToken from within token.
   XercesXMLPScanToken* xercesToken = 

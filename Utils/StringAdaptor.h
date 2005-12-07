@@ -8,17 +8,12 @@
 #include <string>
 #include <Utils/convertstream.h>
 #include <Utils/utf8ucs2codecvt.h>
-
+#include <Utils/stringadaptortag.hpp>
 
 namespace Arabica
 {
 
-//forward decl
-template<class stringT>
-class default_string_adaptor
-{
-};
-
+template<class stringT> class default_string_adaptor;
 
 template<class stringT>
 class default_string_adaptor_base
@@ -98,12 +93,11 @@ public:
 
 }; // class default_string_adaptor_base
 
-
-
-
 // specialize for std::string and std::wstring
 template<>
-class default_string_adaptor<std::string> : public default_string_adaptor_base<std::string>
+class default_string_adaptor<std::string> : 
+  public string_adaptor_tag,
+  public default_string_adaptor_base<std::string>
 {
 public:
 
@@ -112,32 +106,17 @@ public:
   static std::string construct_from_utf8(const char* str)
   {
     return str ? std::string(str) : std::string();
-  } // makeStringT
+  } // construct_from_utf8
 
   static std::string construct_from_utf8(const char* str, int length)
   {
     return std::string(str, length);
-  } // makeStringT
+  } // construct_from_utf8
 
   static const std::string& asStdString(const std::string& str)
   {
     return str;
-  } // toStdString
-
-  static string_type makeStringT(const const_iterator& first, const const_iterator& last) 
-  { 
-    return string_type(first, last); 
-  }
-  
-  static string_type makeStringT(const char* str) 
-  { 
-    return construct_from_utf8(str); 
-  }
-  
-  static string_type makeStringT(const char* str, int len) 
-  { 
-    return construct_from_utf8(str, len); 
-  }
+  } // asStdString
 
 #ifndef ARABICA_NO_WCHAR_T
   static std::string construct_from_utf16(const wchar_t* str)
@@ -174,7 +153,9 @@ public:
 #ifndef ARABICA_NO_WCHAR_T
 
 template<>
-class default_string_adaptor<std::wstring> : public default_string_adaptor_base<std::wstring>
+class default_string_adaptor<std::wstring> : 
+  public string_adaptor_tag,
+  public default_string_adaptor_base<std::wstring>
 {
 public:
 
@@ -209,21 +190,6 @@ public:
     return std::wstring(str, length);
   }
   
-  static string_type makeStringT(const const_iterator& first, const const_iterator& last) 
-  { 
-    return string_type(first, last); 
-  }
-  
-  static string_type makeStringT(const char* str) 
-  { 
-    return construct_from_utf8(str); 
-  }
-
-  static string_type makeStringT(const char* str, int len) 
-  { 
-    return construct_from_utf8(str, len); 
-  }
-
   static std::string asStdString(const std::wstring& str)
   {
     narrower_t n;

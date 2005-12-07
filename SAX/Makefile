@@ -36,6 +36,7 @@ SRCS =  saxlib.cpp \
 	../Utils/utf8iso88591codecvt.cpp \
 	../Utils/impl/iso88591_utf8.cpp \
 	../Utils/utf16utf8codecvt.cpp \
+	../Utils/ucs2utf8codecvt.cpp \
 	../Utils/base64codecvt.cpp \
 	../Utils/impl/codecvt_specialisations.cpp \
 	../XML/XMLCharacterClasses.cpp 

@@ -27,7 +27,9 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				DisableLanguageExtensions="FALSE"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=""
@@ -361,6 +363,9 @@
 				RelativePath="..\Utils\convertstream.h">
 			</File>
 			<File
+				RelativePath=".\Utils\getparam.hpp">
+			</File>
+			<File
 				RelativePath="..\Utils\iso88591utf8codecvt.cpp">
 			</File>
 			<File
@@ -377,6 +382,15 @@
 			</File>
 			<File
 				RelativePath="..\Utils\StringAdaptor.h">
+			</File>
+			<File
+				RelativePath="..\Utils\stringadaptortag.hpp">
+			</File>
+			<File
+				RelativePath="..\Utils\ucs2utf8codecvt.cpp">
+			</File>
+			<File
+				RelativePath="..\Utils\ucs2utf8codecvt.hpp">
 			</File>
 			<File
 				RelativePath="..\XML\UnicodeCharacters.h">
