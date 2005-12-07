@@ -129,6 +129,7 @@ std::string silly_string_adaptor::asStdString(const silly_string& str)
   return str.s_;
 } // asStdString
 
+#ifndef ARABICA_NO_WCHAR_T
 std::wstring silly_string_adaptor::asStdWString(const silly_string& str)
 {
   Arabica::convert::basic_oconvertstream<char, std::char_traits<char>,
@@ -137,3 +138,5 @@ std::wstring silly_string_adaptor::asStdWString(const silly_string& str)
   widener.str(str.s_);
   return widener.str();
 } // asStdWString
+#endif
+

@@ -4,7 +4,7 @@
 #include <string>
 #include <functional>
 #include <Utils/stringadaptortag.hpp>
-
+#include <SAX/ArabicaConfig.h>
 // testing purposes only
 // a string with as minimal interface as possible
 
@@ -75,7 +75,9 @@ public:
 
   // mainly used to constuct error strings - don't have to be highly efficient!
   static std::string asStdString(const silly_string& str);
+#ifndef ARABICA_NO_WCHAR_T
   static std::wstring asStdWString(const silly_string& str);
+#endif
 }; // class silly_string_adaptor
 
 template<class CharType, class Traits>
