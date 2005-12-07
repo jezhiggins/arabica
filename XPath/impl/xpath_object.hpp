@@ -8,6 +8,9 @@
 #include <DOM/Attr.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
+#ifdef __BORLANDC__
+#include <math>
+#endif
 #include <cmath>
 #include <Utils/StringAdaptor.h>
 #include "xpath_axis_enumerator.hpp"

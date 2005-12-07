@@ -408,6 +408,8 @@ void expat_wrapper<stringT, T0, T1>::setFeature(const stringT& name, bool value)
     return;
   } // external entity resolution
 
+#ifndef __BORLANDC__
+// this is a hack features validation problem with BCB6 => need to be investigated
   if(name == features_.validation)
   {
     std::ostringstream os; 
@@ -420,6 +422,7 @@ void expat_wrapper<stringT, T0, T1>::setFeature(const stringT& name, bool value)
     os << "Feature not recognized " << SA::asStdString(name);
     throw SAX::SAXNotRecognizedException(os.str());
   }
+#endif
 } // setFeature
 
 template<class stringT, class T0, class T1>

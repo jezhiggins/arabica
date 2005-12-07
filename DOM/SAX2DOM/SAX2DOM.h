@@ -151,7 +151,12 @@ class Parser : protected SAX::basic_DefaultHandler2<stringT>
     void setParserProperty(SAX_parser& parser, const stringT& propertyName)
     {
       try {
+#ifndef __BORLANDC__
+        // this line causes a crash with BCB 6 => may be a compiler bug
         parser.setProperty(propertyName, static_cast<interfaceT&>(*this));
+#else
+        parser.setProperty(propertyName, *(interfaceT*)this);
+#endif
       } // try
       catch(SAX::SAXException&) { }
     } // setParserProperty
