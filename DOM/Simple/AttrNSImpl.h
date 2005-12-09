@@ -19,10 +19,11 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
                bool hasNamespaceURI,
                const stringT& qualifiedName) : 
         AttrImpl<stringT, string_adaptorT>(ownerDoc, qualifiedName),
-        hasNamespaceURI_(false)
+        hasNamespaceURI_(false),
+        prefix_(&ownerDoc->empty_string())
     { 
       bool hasPrefix = false;
-      stringT prefix;
+      stringT const* prefix_for_checking = (&ownerDoc->empty_string());
       size_type index = string_adaptorT::find(qualifiedName, string_adaptorT::construct_from_utf8(":"));
 
       if(index == string_adaptorT::npos) 
@@ -31,18 +32,19 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
         if(*localName_ == string_adaptorT::construct_from_utf8("xmlns"))
         {
           hasPrefix = true;
-          prefix = *localName_;
+          prefix_for_checking = localName_;
         } // if ...
       } 
       else 
       {	
         hasPrefix = true;
-        prefix = string_adaptorT::substr(qualifiedName, 0, index);
+        prefix_ = AttrT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, 0, index));
         localName_ = AttrT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, index+1));
+        prefix_for_checking = prefix_;
       } // if(index == string_adaptorT::npos) 
 
       std::pair<bool, stringT> mappedURI = 
-        checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, prefix, hasNamespaceURI, namespaceURI, DOM::Node<stringT>::ATTRIBUTE_NODE);
+        checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, *prefix_for_checking, hasNamespaceURI, namespaceURI, DOM::Node<stringT>::ATTRIBUTE_NODE);
 
       hasNamespaceURI_ = mappedURI.first;
       namespaceURI_ = AttrT::ownerDoc_->stringPool(mappedURI.second);
@@ -60,15 +62,14 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       return clone;
     } // cloneNode
 
-    virtual stringT getNamespaceURI() const 
+    virtual const stringT& getNamespaceURI() const 
     { 
       return *namespaceURI_;
     } // getNamespaceURI
 
-    virtual stringT getPrefix() const 
+    virtual const stringT& getPrefix() const 
     { 
-      size_type index = string_adaptorT::find(*AttrT::name_, string_adaptorT::construct_from_utf8(":"));
-      return (index != string_adaptorT::npos) ? string_adaptorT::substr(*AttrT::name_, 0, index) : stringT();
+      return *prefix_;
     } // getPrefix
     
     virtual void setPrefix(const stringT& prefix) 
@@ -79,6 +80,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       if(string_adaptorT::empty(prefix)) 
       {
         AttrT::name_ = localName_;
+        prefix_ = &AttrT::ownerDoc_->empty_string();
         return;
       } // empty prefix
 
@@ -87,11 +89,12 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       stringT newName = prefix;
       string_adaptorT::append(newName, string_adaptorT::construct_from_utf8(":"));
       string_adaptorT::append(newName, *localName_);
-    
+
+      prefix_ = AttrT::ownerDoc_->stringPool(prefix);
       AttrT::name_ = AttrT::ownerDoc_->stringPool(newName);
     } // setPrefix
 
-    virtual stringT getLocalName() const 
+    virtual const stringT& getLocalName() const 
     { 
       return *localName_;
     } // getLocalName
@@ -109,11 +112,12 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     virtual bool hasPrefix() const 
     { 
-      return (string_adaptorT::find(*AttrT::name_, string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos);
+      return !(*prefix_ == AttrT::ownerDoc_->empty_string());
     } // hasPrefix
 
   private:
     stringT const* namespaceURI_;
+    stringT const* prefix_;
     stringT const* localName_;
     bool hasNamespaceURI_;
 }; // class AttrNSImpl
