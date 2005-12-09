@@ -57,7 +57,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
     // Node methods
     virtual const stringT& getNodeName() const = 0;
 
-    virtual stringT getNodeValue() const { return stringT(); }
+    virtual const stringT& getNodeValue() const { return ownerDoc_->empty_string(); }
     virtual void setNodeValue(const stringT& nodeValue) { throwIfReadOnly(); }
 
     virtual DOM::Node_base::Type getNodeType() const = 0;
@@ -122,10 +122,10 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
       return false;
     } // isSupported
 
-    virtual stringT getNamespaceURI() const { return stringT(); }
-    virtual stringT getPrefix() const { return stringT(); }
+    virtual const stringT& getNamespaceURI() const { return ownerDoc_->empty_string(); }
+    virtual const stringT& getPrefix() const { return ownerDoc_->empty_string(); }
     virtual void setPrefix(const stringT& prefix) { }
-    virtual stringT getLocalName() const { return stringT(); }
+    virtual const stringT& getLocalName() const { return ownerDoc_->empty_string(); }
 
     // additional methods - since C++ std::string (and by implication
     // stringT) don't differenciate between a null string and an empty string,

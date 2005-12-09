@@ -48,12 +48,22 @@ class NamespaceNodeImpl : public SimpleDOM::ChildlessNodeImpl<stringT, string_ad
       return localname_;
     } // getNodeName
 
-    virtual stringT getNodeValue() const
+    virtual const stringT& getNodeValue() const
     {
       return value_;
     } // getNodeValue
 
-    virtual stringT getLocalName() const 
+    virtual const stringT& getNamespaceURI() const 
+    { 
+      return empty_;
+    } // getNamespaceURI()
+
+    virtual const stringT& getPrefix() const
+    {
+      return empty_;
+    } // getPrefix
+
+    virtual const stringT& getLocalName() const 
     {
       return localname_;
     } // getLocalName
@@ -78,6 +88,7 @@ class NamespaceNodeImpl : public SimpleDOM::ChildlessNodeImpl<stringT, string_ad
 private:
     stringT localname_;
     stringT value_;
+    const stringT empty_;
     unsigned int ref_;
 }; // class NamespaceNodeImpl
 

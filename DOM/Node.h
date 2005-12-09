@@ -69,7 +69,7 @@ class Node : public Node_base
 
     const string_type& getNodeName() const { return impl_->getNodeName(); }
 
-    string_type getNodeValue() const { return impl_->getNodeValue(); }
+    const string_type& getNodeValue() const { return impl_->getNodeValue(); }
     void setNodeValue(const string_type& nodeValue) { impl_->setNodeValue(nodeValue); }
 
     Type getNodeType() const { return impl_->getNodeType(); }
@@ -114,10 +114,10 @@ class Node : public Node_base
 
     bool isSupported(const string_type& feature, const string_type& version) const { return impl_->isSupported(feature, version); }
 
-    string_type getNamespaceURI() const { return impl_->getNamespaceURI(); }
-    string_type getPrefix() const { return impl_->getPrefix(); }
+    const string_type& getNamespaceURI() const { return impl_->getNamespaceURI(); }
+    const string_type& getPrefix() const { return impl_->getPrefix(); }
     void setPrefix(const string_type& prefix) const { impl_->setPrefix(prefix); }
-    string_type getLocalName() const { return impl_->getLocalName(); }
+    const string_type& getLocalName() const { return impl_->getLocalName(); }
 
     // additional three methods - since C++ std::string (and by implication
     // string_type) don't differenciate between a null string and an empty string,
@@ -164,7 +164,7 @@ class Node_impl
     // Node methods
     virtual const string_type& getNodeName() const = 0;
 
-    virtual string_type getNodeValue() const = 0;
+    virtual const string_type& getNodeValue() const = 0;
     virtual void setNodeValue(const string_type& nodeValue) = 0;
 
     virtual Node_base::Type getNodeType() const = 0;
@@ -197,10 +197,10 @@ class Node_impl
 
     virtual bool isSupported(const string_type& feature, const string_type& version) const = 0;
 
-    virtual string_type getNamespaceURI() const = 0;
-    virtual string_type getPrefix() const = 0;
+    virtual const string_type& getNamespaceURI() const = 0;
+    virtual const string_type& getPrefix() const = 0;
     virtual void setPrefix(const string_type& prefix) = 0;
-    virtual string_type getLocalName() const = 0;
+    virtual const string_type& getLocalName() const = 0;
 
     // additional methods - since C++ std::string (and by implication
     // string_type) don't differenciate between a null string and an empty string,

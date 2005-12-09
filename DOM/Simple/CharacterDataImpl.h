@@ -81,7 +81,7 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     ///////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual stringT getNodeValue() const 
+    virtual const stringT& getNodeValue() const 
     {
       return data_;
     } // getNodeValue

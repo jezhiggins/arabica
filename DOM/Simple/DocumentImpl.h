@@ -53,7 +53,8 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
         namespaceURI_(),
         qualifiedName_(),
         changesCount_(0),
-        refCount_(0)
+        refCount_(0),
+        empty_()
     { 
       NodeImplT::setOwnerDoc(this);
     } // DocumentBaseImpl
@@ -460,6 +461,8 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       return &(stringPool_.back());
     } // stringPool
 
+    const stringT& empty_string() const { return empty_; }
+
   private:
     void checkChildType(typename DOM::Node_impl<stringT>* child)
     {
@@ -483,6 +486,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
     mutable std::set<NodeImplT*> orphans_;
     std::set<AttrImplT*> idNodes_;
     mutable std::list<stringT> stringPool_;
+    const stringT empty_;
 }; // class DocumentImpl
 
 

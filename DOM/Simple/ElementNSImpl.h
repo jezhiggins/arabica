@@ -18,10 +18,10 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
                 bool hasNamespaceURI,
                 const stringT& qualifiedName) : 
         ElementImpl<stringT, string_adaptorT>(ownerDoc, qualifiedName),
-        hasNamespaceURI_(false)
+        hasNamespaceURI_(false),
+        prefix_(&ownerDoc->empty_string())
     { 
       bool hasPrefix = false;
-      stringT prefix;
       size_type index = string_adaptorT::find(qualifiedName, string_adaptorT::construct_from_utf8(":"));
 
       if(index == string_adaptorT::npos) 
@@ -31,12 +31,12 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       else 
       {	
         hasPrefix = true;
-        prefix = string_adaptorT::substr(qualifiedName, 0, index);
+        prefix_ = ElementImplT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, 0, index));
         localName_ = ElementImplT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, index+1));
       }
 
       std::pair<bool, stringT> mappedURI = 
-        checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, prefix, hasNamespaceURI, namespaceURI, DOM::Node<stringT>::ELEMENT_NODE);
+        checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, *prefix_, hasNamespaceURI, namespaceURI, DOM::Node<stringT>::ELEMENT_NODE);
 
       hasNamespaceURI_ = mappedURI.first;
       namespaceURI_ = ElementImplT::ownerDoc_->stringPool(mappedURI.second);
@@ -53,15 +53,14 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       return clone;
     } // cloneNode
 
-    virtual stringT getNamespaceURI() const 
+    virtual const stringT& getNamespaceURI() const 
     { 
       return *namespaceURI_;
     } // getNamespaceURI
 
-    virtual stringT getPrefix() const 
+    virtual const stringT& getPrefix() const 
     { 
-      size_type index = string_adaptorT::find(ElementImplT::getNodeName(), string_adaptorT::construct_from_utf8(":"));
-      return (index != string_adaptorT::npos) ? string_adaptorT::substr(ElementImplT::getNodeName(), 0, index) : stringT();
+      return *prefix_;
     } // getPrefix
     
     virtual void setPrefix(const stringT& prefix) 
@@ -74,6 +73,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       if(string_adaptorT::empty(prefix)) 
       {
         ElementImplT::tagName_ = localName_;
+        prefix_ = &ElementImplT::ownerDoc_->empty_string();
         return;
       } // empty prefix
 
@@ -83,10 +83,11 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       string_adaptorT::append(newTagName, string_adaptorT::construct_from_utf8(":"));
       string_adaptorT::append(newTagName, *localName_);
 
+      prefix_ = ElementImplT::ownerDoc_->stringPool(prefix);
       ElementImplT::tagName_ = ElementImplT::ownerDoc_->stringPool(newTagName);
     } // setPrefix
 
-    virtual stringT getLocalName() const 
+    virtual const stringT& getLocalName() const 
     { 
       return *localName_;
     } // getLocalName
@@ -104,14 +105,15 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 
     virtual bool hasPrefix() const 
     { 
-      return (string_adaptorT::find(ElementImplT::getNodeName(), string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos);
+      return !(*prefix_ == ElementImplT::ownerDoc_->empty_string());
     } // hasPrefix
 
   private:
     stringT const* namespaceURI_;
+    stringT const* prefix_;
     stringT const* localName_;
     bool hasNamespaceURI_;
-}; // class ElementImpl
+}; // class ElementNSImpl
 
 
 } // namespace SAX2DOM

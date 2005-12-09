@@ -22,7 +22,8 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
         NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
         name_(ownerDoc->stringPool(name)),
         ownerElement_(0),
-        specified_(true)
+        specified_(true),
+        valueCalculated_(false)
     {
     } // AttrImpl
 
@@ -31,7 +32,8 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
         NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
         name_(ownerDoc->stringPool(name)),
         ownerElement_(0),
-        specified_(true)
+        specified_(true),
+        valueCalculated_(false)
     {
       setNodeValue(value);
     } // AttrImpl
@@ -79,12 +81,15 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
       return *name_;
     } // getNodeName
 
-    virtual stringT getNodeValue() const
+    virtual const stringT& getNodeValue() const
     {
-      stringT value;
-      for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
-        string_adaptorT::append(value, c->getNodeValue());
-      return value;
+      if(!valueCalculated_)
+      {
+        for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
+          string_adaptorT::append(value_, c->getNodeValue());
+        valueCalculated_ = true;
+      }
+      return value_;
     } // getNodeValue
 
     virtual void setNodeValue(const stringT& data)
@@ -98,6 +103,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
       // add a new text node
       NodeT::appendChild(new TextImpl<stringT, string_adaptorT>(0, data));
 
+      valueCalculated_ = false;
       specified_ = true;
     } // setNodeValue
 
@@ -138,6 +144,8 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
   protected:
     stringT const* name_;
+    mutable stringT value_;
+    mutable bool valueCalculated_;
     ElementImpl<stringT, string_adaptorT>* ownerElement_;
     bool specified_;
 }; // class CDATAImpl
