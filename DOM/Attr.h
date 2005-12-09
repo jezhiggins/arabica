@@ -29,7 +29,7 @@ class Attr : public Node<stringT>
         throw std::bad_cast();
     } // Attr
 
-    stringT getName() const { return attrImpl()->getName(); }
+    const stringT& getName() const { return attrImpl()->getName(); }
 
     bool getSpecified() const { return attrImpl()->getSpecified(); }
 
@@ -61,7 +61,7 @@ class Attr_impl : virtual public Node_impl<stringT>
 
     ///////////////////////////////////////////////////
     // DOM::Attribute methods
-    virtual stringT getName() const = 0;
+    virtual const stringT& getName() const = 0;
 
     virtual bool getSpecified() const = 0;
 

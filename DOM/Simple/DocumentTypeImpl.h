@@ -56,7 +56,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
 
     //////////////////////////////////////////////////////
     // DOM::DOMImplementation methods
-    virtual stringT getName() const 
+    virtual const stringT& getName() const 
     { 
       return getNodeName(); 
     } // getName

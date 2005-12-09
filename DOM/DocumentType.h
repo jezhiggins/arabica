@@ -31,7 +31,7 @@ class DocumentType : public Node<stringT>
         throw std::bad_cast();
     } // DocumentType
 
-    stringT getName() const { return dtImpl()->getName(); }
+    const stringT& getName() const { return dtImpl()->getName(); }
 
     const NamedNodeMap<stringT> getEntities() const { return NamedNodeMap<stringT>(dtImpl()->getEntities()); }
 
@@ -59,7 +59,7 @@ class DocumentType_impl : virtual public Node_impl<stringT>
 
     /////////////////////////////////////////////
     // DOM::DocumentType methods
-    virtual stringT getName() const = 0;
+    virtual const stringT& getName() const = 0;
 
     virtual NamedNodeMap_impl<stringT>* getEntities() = 0;
 

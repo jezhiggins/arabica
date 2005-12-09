@@ -42,7 +42,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
     ///////////////////////////////////////////////////
     // DOM::Attribute methods
-    stringT getName() const { return getNodeName(); }
+    virtual const stringT& getName() const { return getNodeName(); }
 
     virtual bool getSpecified() const
     {
