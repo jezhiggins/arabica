@@ -27,7 +27,7 @@ class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT
 
     ///////////////////////////////////////////////////////
     // DOM::ProcessingInstruction methods
-    virtual stringT getTarget() const { return getNodeName(); }
+    virtual const stringT& getTarget() const { return getNodeName(); }
     
     virtual stringT getData() const { return getNodeValue(); }
     virtual void setData(const stringT& data) { setNodeValue(data); }

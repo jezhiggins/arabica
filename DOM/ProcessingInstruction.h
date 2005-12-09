@@ -28,7 +28,7 @@ class ProcessingInstruction : public Node<stringT>
         throw std::bad_cast();
     }
 
-    stringT getTarget() const { return piImpl()->getTarget(); }
+    const stringT& getTarget() const { return piImpl()->getTarget(); }
 
     stringT getData() const { return piImpl()->getData(); }
     void setData(const stringT& data) { piImpl()->setData(data); }
@@ -47,7 +47,7 @@ class ProcessingInstruction_impl : virtual public Node_impl<stringT>
 
     ////////////////////////////////////////////////////////
     // DOM::ProcessingInstruction methods
-    virtual stringT getTarget() const = 0;
+    virtual const stringT& getTarget() const = 0;
 
     virtual stringT getData() const = 0;
     virtual void setData(const stringT& data) = 0;
