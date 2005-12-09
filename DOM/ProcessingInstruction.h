@@ -30,7 +30,7 @@ class ProcessingInstruction : public Node<stringT>
 
     const stringT& getTarget() const { return piImpl()->getTarget(); }
 
-    stringT getData() const { return piImpl()->getData(); }
+    const stringT& getData() const { return piImpl()->getData(); }
     void setData(const stringT& data) { piImpl()->setData(data); }
 
   private:
@@ -49,7 +49,7 @@ class ProcessingInstruction_impl : virtual public Node_impl<stringT>
     // DOM::ProcessingInstruction methods
     virtual const stringT& getTarget() const = 0;
 
-    virtual stringT getData() const = 0;
+    virtual const stringT& getData() const = 0;
     virtual void setData(const stringT& data) = 0;
 }; // class ProcessingInstruction_impl
 

@@ -32,7 +32,7 @@ class CharacterData : public Node<stringT>
     CharacterData(const Node<stringT>& rhs, int dummy) : Node<stringT>(rhs) { }
 
   public:
-    stringT getData() const { return cdImpl()->getData(); }
+    const stringT& getData() const { return cdImpl()->getData(); }
     void setData(const stringT& data) 
     { 
       cdImpl()->setData(data); 
@@ -73,7 +73,7 @@ class CharacterData_impl : virtual public Node_impl<stringT>
 
     //////////////////////////////////////////////////////////////////
     // DOM::CharacterData methods
-    virtual stringT getData() const = 0;
+    virtual const stringT& getData() const = 0;
     virtual void setData(const stringT& data) = 0;
 
     virtual int getLength() const = 0;

@@ -23,7 +23,7 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 
     //////////////////////////////////////////////////////////////////
     // DOM::CharacterData methods
-    virtual stringT getData() const
+    virtual const stringT& getData() const
     {
       return getNodeValue();
     } // getData
