@@ -21,7 +21,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
         DOM::Element_impl<stringT>(),
         NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
         attributes_(ownerDoc),
-        tagName_(tagName)
+        tagName_(ownerDoc->stringPool(tagName))
     { 
       attributes_.setOwnerElement(this);
     } // ElementImpl
@@ -122,7 +122,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
 
     virtual stringT getNodeName() const
     {
-      return tagName_;
+      return *tagName_;
     } // getNodeName
 
     virtual DOM::NamedNodeMap_impl<stringT>* getAttributes() const
@@ -132,7 +132,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      ElementImpl* clone = dynamic_cast<ElementImpl*>(NodeT::ownerDoc_->createElement(tagName_));
+      ElementImpl* clone = dynamic_cast<ElementImpl*>(NodeT::ownerDoc_->createElement(*tagName_));
       cloneChildren(clone, deep);
       return clone;
     } // cloneNode
@@ -190,7 +190,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
 
     AttrMap<stringT, string_adaptorT> attributes_;
   protected:
-    stringT tagName_;
+    stringT const* tagName_;
 }; // class ElementImpl
 
 

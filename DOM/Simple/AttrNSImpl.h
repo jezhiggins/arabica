@@ -27,25 +27,25 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
       if(index == string_adaptorT::npos) 
       {	//qualifiedName contains no ':'
-	      localName_ = qualifiedName;
-        if(localName_ == string_adaptorT::construct_from_utf8("xmlns"))
+        localName_ = AttrT::ownerDoc_->stringPool(qualifiedName);
+        if(*localName_ == string_adaptorT::construct_from_utf8("xmlns"))
         {
           hasPrefix = true;
-          prefix = localName_;
+          prefix = *localName_;
         } // if ...
       } 
       else 
       {	
         hasPrefix = true;
         prefix = string_adaptorT::substr(qualifiedName, 0, index);
-	      localName_ = string_adaptorT::substr(qualifiedName, index+1);
+        localName_ = AttrT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, index+1));
       } // if(index == string_adaptorT::npos) 
 
       std::pair<bool, stringT> mappedURI = 
         checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, prefix, hasNamespaceURI, namespaceURI, DOM::Node<stringT>::ATTRIBUTE_NODE);
 
       hasNamespaceURI_ = mappedURI.first;
-      namespaceURI_ = mappedURI.second;
+      namespaceURI_ = AttrT::ownerDoc_->stringPool(mappedURI.second);
     } // AttrImpl
 
     virtual ~AttrNSImpl() { }
@@ -54,7 +54,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
     // DOM::Node methods
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      AttrNSImpl* clone = dynamic_cast<AttrNSImpl*>(AttrT::ownerDoc_->createAttributeNS(namespaceURI_, AttrT::name_));
+      AttrNSImpl* clone = dynamic_cast<AttrNSImpl*>(AttrT::ownerDoc_->createAttributeNS(*namespaceURI_, *AttrT::name_));
       AttrT::cloneChildren(clone);
       clone->setSpecified(AttrT::getSpecified());
       return clone;
@@ -62,13 +62,13 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     virtual stringT getNamespaceURI() const 
     { 
-      return namespaceURI_;
+      return *namespaceURI_;
     } // getNamespaceURI
 
     virtual stringT getPrefix() const 
     { 
-      size_type index = string_adaptorT::find(AttrT::name_, string_adaptorT::construct_from_utf8(":"));
-      return (index != string_adaptorT::npos) ? string_adaptorT::substr(AttrT::name_, 0, index) : stringT();
+      size_type index = string_adaptorT::find(*AttrT::name_, string_adaptorT::construct_from_utf8(":"));
+      return (index != string_adaptorT::npos) ? string_adaptorT::substr(*AttrT::name_, 0, index) : stringT();
     } // getPrefix
     
     virtual void setPrefix(const stringT& prefix) 
@@ -82,16 +82,18 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
         return;
       } // empty prefix
 
-      checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, namespaceURI_, DOM::Node<stringT>::ATTRIBUTE_NODE);
+      checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, *namespaceURI_, DOM::Node<stringT>::ATTRIBUTE_NODE);
 
-      AttrT::name_ = prefix;
-      string_adaptorT::append(AttrT::name_, string_adaptorT::construct_from_utf8(":"));
-      string_adaptorT::append(AttrT::name_, localName_);
+      stringT newName = prefix;
+      string_adaptorT::append(newName, string_adaptorT::construct_from_utf8(":"));
+      string_adaptorT::append(newName, *localName_);
+    
+      AttrT::name_ = AttrT::ownerDoc_->stringPool(newName);
     } // setPrefix
 
     virtual stringT getLocalName() const 
     { 
-      return localName_;
+      return *localName_;
     } // getLocalName
 
     // additional three methods - since C++ std::string (and by implication
@@ -107,12 +109,12 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     virtual bool hasPrefix() const 
     { 
-      return (string_adaptorT::find(AttrT::name_, string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos);
+      return (string_adaptorT::find(*AttrT::name_, string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos);
     } // hasPrefix
 
   private:
-    stringT namespaceURI_;
-    stringT localName_;
+    stringT const* namespaceURI_;
+    stringT const* localName_;
     bool hasNamespaceURI_;
 }; // class AttrNSImpl
 

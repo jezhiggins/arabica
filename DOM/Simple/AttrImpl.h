@@ -20,7 +20,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
     AttrImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& name) : 
         DOM::Attr_impl<stringT>(),
         NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
-        name_(name),
+        name_(ownerDoc->stringPool(name)),
         ownerElement_(0),
         specified_(true)
     {
@@ -29,7 +29,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
     AttrImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& name, const stringT& value) : 
         DOM::Attr_impl<stringT>(),
         NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
-        name_(name),
+        name_(ownerDoc->stringPool(name)),
         ownerElement_(0),
         specified_(true)
     {
@@ -68,7 +68,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
-      AttrImpl* a = dynamic_cast<AttrImpl*>(NodeT::ownerDoc_->createAttribute(name_));
+      AttrImpl* a = dynamic_cast<AttrImpl*>(NodeT::ownerDoc_->createAttribute(*name_));
       cloneChildren(a);
       a->setSpecified(getSpecified());
       return a;
@@ -76,7 +76,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
     virtual stringT getNodeName() const 
     {
-      return name_;
+      return *name_;
     } // getNodeName
 
     virtual stringT getNodeValue() const
@@ -113,7 +113,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
         if(!docType || docType->getElementIds()->empty())
           return;
         std::vector<stringT>* elemIds = docType->getElementIds();
-        if(std::find(elemIds->begin(), elemIds->end(), name_) != elemIds->end())
+        if(std::find(elemIds->begin(), elemIds->end(), *name_) != elemIds->end())
           NodeT::ownerDoc_->setElementId(this);
       } // if(ownerDoc_)
     } // setOwnerElement
@@ -137,7 +137,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
     } // checkChildType
 
   protected:
-    stringT name_;
+    stringT const* name_;
     ElementImpl<stringT, string_adaptorT>* ownerElement_;
     bool specified_;
 }; // class CDATAImpl

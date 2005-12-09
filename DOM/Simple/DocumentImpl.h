@@ -17,6 +17,8 @@
 #include <DOM/Simple/NodeImpl.h>
 
 #include <set>
+#include <list>
+#include <algorithm>
 
 namespace SimpleDOM
 {
@@ -129,7 +131,8 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     virtual DOM::Element_impl<stringT>* createElement(const stringT& tagName) const
     {
-      ElementImpl<stringT, string_adaptorT>* n = new ElementImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), tagName);
+      ElementImpl<stringT, string_adaptorT>* n = 
+        new ElementImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), tagName);
       orphaned(n);
       return n;
     } // createElement
@@ -296,7 +299,8 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     virtual DOM::Element_impl<stringT>* createElementNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
-      ElementNSImpl<stringT, string_adaptorT>* n = new ElementNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
+      ElementNSImpl<stringT, string_adaptorT>* n = 
+        new ElementNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
       orphaned(n);
       return n;
     } // createElementNS
@@ -438,6 +442,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
     {
       idNodes_.insert(attr);
     } // setElementId
+
     void removeElementId(AttrImplT* attr)
     {
       typename std::set<AttrImplT*>::iterator n = idNodes_.find(attr);
@@ -445,8 +450,17 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
         idNodes_.erase(n);
     } // removeElementId
 
+    stringT const* const stringPool(const stringT& str) const
+    {
+      std::list<stringT>::const_iterator i = std::find(stringPool_.begin(), stringPool_.end(), str);
+      if(i != stringPool_.end())
+        return &(*i);
+      stringPool_.push_back(str);
+      return &(stringPool_.back());
+    } // stringPool
+
   private:
-    virtual void checkChildType(typename DOM::Node_impl<stringT>* child)
+    void checkChildType(typename DOM::Node_impl<stringT>* child)
     {
       typename DOM::Node<stringT>::Type type = child->getNodeType();
       if((type != DOM::Node<stringT>::ELEMENT_NODE) && 
@@ -467,6 +481,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     mutable std::set<NodeImplT*> orphans_;
     std::set<AttrImplT*> idNodes_;
+    mutable std::list<stringT> stringPool_;
 }; // class DocumentImpl
 
 
