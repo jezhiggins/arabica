@@ -24,10 +24,10 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     } // ~AttrMap
 
     /////////////////////////////////////////////////////
-    stringT getAttribute(const stringT& name) const
+    const stringT& getAttribute(const stringT& name) const
     {
       DOM::Node_impl<stringT>* attr = MapT::getNamedItem(name);
-      return attr ? attr->getNodeValue() : stringT();
+      return attr ? attr->getNodeValue() : MapT::ownerDoc_->empty_string();
     } // getAttribute
 
     void setAttribute(const stringT& name, const stringT& value)    

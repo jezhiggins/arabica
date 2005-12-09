@@ -34,7 +34,7 @@ class Element : public Node<stringT>
 
     const stringT& getTagName() const { return eImpl()->getTagName(); }
 
-    stringT getAttribute(const stringT& name) const { return eImpl()->getAttribute(name); }
+    const stringT& getAttribute(const stringT& name) const { return eImpl()->getAttribute(name); }
     void setAttribute(const stringT& name, const stringT& value) { eImpl()->setAttribute(name, value); } 
     void removeAttribute(const stringT& name) { eImpl()->removeAttribute(name); }
 
@@ -72,7 +72,7 @@ class Element_impl : virtual public Node_impl<stringT>
     // DOM::Element 
     virtual const stringT& getTagName() const = 0;
 
-    virtual stringT getAttribute(const stringT& name) const = 0;
+    virtual const stringT& getAttribute(const stringT& name) const = 0;
     virtual void setAttribute(const stringT& name, const stringT& value) = 0;
     virtual void removeAttribute(const stringT& name) = 0;
 

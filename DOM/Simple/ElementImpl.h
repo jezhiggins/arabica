@@ -34,7 +34,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
     // DOM::Element functions
     virtual const stringT& getTagName() const { return getNodeName(); }
 
-    virtual stringT getAttribute(const stringT& name) const
+    virtual const stringT& getAttribute(const stringT& name) const
     {
       return attributes_.getAttribute(name);
     } // getAttribute
