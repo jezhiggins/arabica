@@ -47,9 +47,10 @@ class TextImpl : public DOM::Text_impl<stringT>,
       return CharDataT::ownerDoc_->createTextNode(CharDataT::getData());
     } // cloneNode
 
-    virtual stringT getNodeName() const 
+    virtual const stringT& getNodeName() const 
     {
-      return string_adaptorT::construct_from_utf8("#text");
+      static const stringT text = string_adaptorT::construct_from_utf8("#text");
+      return text;
     } // getNodeName
 }; // class TextImpl
 

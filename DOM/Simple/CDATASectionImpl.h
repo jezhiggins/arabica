@@ -46,9 +46,10 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
       return CharDataT::ownerDoc_->createCDATASection(CharDataT::getData());
     } // cloneNode
 
-    virtual stringT getNodeName() const 
+    virtual const stringT& getNodeName() const 
     {
-      return string_adaptorT::construct_from_utf8("#cdata-section");
+      static const stringT cdata_section = string_adaptorT::construct_from_utf8("#cdata-section");
+      return cdata_section;
     } // getNodeName
 }; // class CDATAImpl
 

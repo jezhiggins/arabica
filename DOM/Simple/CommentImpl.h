@@ -32,9 +32,10 @@ class CommentImpl : public DOM::Comment_impl<stringT>,
       return CharDataT::ownerDoc_->createComment(CharDataT::getData());
     } // cloneNode
 
-    virtual stringT getNodeName() const 
+    virtual const stringT& getNodeName() const 
     {
-      return string_adaptorT::construct_from_utf8("#comment");
+      static const stringT comment = string_adaptorT::construct_from_utf8("#comment");
+      return comment;
     } // getNodeName
 }; // class CommentImpl
 

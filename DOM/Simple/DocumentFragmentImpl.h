@@ -36,9 +36,10 @@ class DocumentFragmentImpl : public DOM::DocumentFragment_impl<stringT>,
       return clone;
     } // cloneNode
 
-    virtual stringT getNodeName() const 
+    virtual const stringT& getNodeName() const 
     {
-      return string_adaptorT::construct_from_utf8("#document-fragment");
+      static const stringT frag = string_adaptorT::construct_from_utf8("#document-fragment");
+      return frag;
     } // getNodeName
 
     virtual DOM::Node_impl<stringT>* getParentNode() const 

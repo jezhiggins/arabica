@@ -338,9 +338,10 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     virtual DOM::Document_impl<stringT>* getOwnerDocument() const { return 0; }
 
-    virtual stringT getNodeName() const
+    virtual const stringT& getNodeName() const
     {
-      return string_adaptorT::construct_from_utf8("#document");
+      static const stringT doc = string_adaptorT::construct_from_utf8("#document");
+      return doc;
     } // getNodeName
 
     virtual DOM::Node_impl<stringT>* insertBefore(DOM::Node_impl<stringT>* newChild, DOM::Node_impl<stringT>* refChild)

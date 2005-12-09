@@ -39,7 +39,7 @@ class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT
       return DOM::Node_base::PROCESSING_INSTRUCTION_NODE;
     } // getNodeType
 
-    virtual stringT getNodeName() const
+    virtual const stringT& getNodeName() const
     {
       return target_;
     } // getNodeName

@@ -67,7 +67,7 @@ class Node : public Node_base
       return *this;
     } // operator=
 
-    string_type getNodeName() const { return impl_->getNodeName(); }
+    const string_type& getNodeName() const { return impl_->getNodeName(); }
 
     string_type getNodeValue() const { return impl_->getNodeValue(); }
     void setNodeValue(const string_type& nodeValue) { impl_->setNodeValue(nodeValue); }
@@ -162,7 +162,7 @@ class Node_impl
 
     ///////////////////////////////////////////////////////
     // Node methods
-    virtual string_type getNodeName() const = 0;
+    virtual const string_type& getNodeName() const = 0;
 
     virtual string_type getNodeValue() const = 0;
     virtual void setNodeValue(const string_type& nodeValue) = 0;

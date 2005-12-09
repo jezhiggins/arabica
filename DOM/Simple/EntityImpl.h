@@ -42,7 +42,7 @@ class EntityImpl : public DOM::Entity_impl<stringT>,
       return DOM::Node<stringT>::ENTITY_NODE;
     } // getNodeType
 
-    virtual stringT getNodeName() const
+    virtual const stringT& getNodeName() const
     {
       return name_;
     } // getNodeName

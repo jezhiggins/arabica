@@ -28,7 +28,7 @@ class EntityReferenceImpl : public DOM::EntityReference_impl<stringT>,
       return DOM::Node_base::ENTITY_REFERENCE_NODE;
     } // getNodeType
 
-    virtual stringT getNodeName() const 
+    virtual const stringT& getNodeName() const 
     {
       return name_;
     } // getNodeName

@@ -74,7 +74,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
       return a;
     } // cloneNode
 
-    virtual stringT getNodeName() const 
+    virtual const stringT& getNodeName() const 
     {
       return *name_;
     } // getNodeName

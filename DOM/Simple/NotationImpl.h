@@ -39,7 +39,7 @@ class NotationImpl : public DOM::Notation_impl<stringT>,
       return DOM::Node<stringT>::NOTATION_NODE;
     } // getNodeType
 
-    virtual stringT getNodeName() const
+    virtual const stringT& getNodeName() const
     {
       return name_;
     } // getNodeName

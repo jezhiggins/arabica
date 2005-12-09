@@ -93,7 +93,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
       return DOM::Node<stringT>::DOCUMENT_TYPE_NODE;
     } // getNodeType
 
-    virtual stringT getNodeName() const
+    virtual const stringT& getNodeName() const
     {
       return qualifiedName_;
     } // getNodeName
