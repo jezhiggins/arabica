@@ -21,9 +21,6 @@ public:
   typedef boost::spirit::tree_match<str_iter_t> tree_match_t;
   typedef typename tree_match_t::tree_iterator node_iter_t;
   typedef boost::spirit::tree_parse_info<str_iter_t> tree_info_t;
-
-private:
-  ~types();
 }; // types
 
 template<class string_adaptor>
