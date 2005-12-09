@@ -33,7 +33,7 @@ class Attr : public Node<stringT>
 
     bool getSpecified() const { return attrImpl()->getSpecified(); }
 
-    stringT getValue() const { return attrImpl()->getValue(); }
+    const stringT& getValue() const { return attrImpl()->getValue(); }
     void setValue(const stringT& value) 
     { 
       attrImpl()->throwIfReadOnly();
@@ -65,7 +65,7 @@ class Attr_impl : virtual public Node_impl<stringT>
 
     virtual bool getSpecified() const = 0;
 
-    virtual stringT getValue() const = 0;
+    virtual const stringT& getValue() const = 0;
     virtual void setValue(const stringT& value) = 0;
 
     virtual Element_impl<stringT>* getOwnerElement() const = 0;

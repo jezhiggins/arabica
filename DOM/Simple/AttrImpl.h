@@ -49,7 +49,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
       return specified_;
     } // getSpecified
 
-    stringT getValue() const { return getNodeValue(); }
+    const stringT& getValue() const { return getNodeValue(); }
     void setValue(const stringT& value) { setNodeValue(value); }
 
     virtual DOM::Element_impl<stringT>* getOwnerElement() const
