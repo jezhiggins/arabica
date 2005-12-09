@@ -32,7 +32,7 @@ class Element : public Node<stringT>
         throw std::bad_cast();
     } // Element
 
-    stringT getTagName() const { return eImpl()->getTagName(); }
+    const stringT& getTagName() const { return eImpl()->getTagName(); }
 
     stringT getAttribute(const stringT& name) const { return eImpl()->getAttribute(name); }
     void setAttribute(const stringT& name, const stringT& value) { eImpl()->setAttribute(name, value); } 
@@ -70,7 +70,7 @@ class Element_impl : virtual public Node_impl<stringT>
 
     ////////////////////////////////////////////////////////
     // DOM::Element 
-    virtual stringT getTagName() const = 0;
+    virtual const stringT& getTagName() const = 0;
 
     virtual stringT getAttribute(const stringT& name) const = 0;
     virtual void setAttribute(const stringT& name, const stringT& value) = 0;

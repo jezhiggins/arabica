@@ -32,7 +32,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
 
     /////////////////////////////////////////////////////
     // DOM::Element functions
-    virtual stringT getTagName() const { return getNodeName(); }
+    virtual const stringT& getTagName() const { return getNodeName(); }
 
     virtual stringT getAttribute(const stringT& name) const
     {
@@ -120,7 +120,7 @@ class ElementImpl : public DOM::Element_impl<stringT>,
       return DOM::Node_base::ELEMENT_NODE;
     } // getNodeType
 
-    virtual stringT getNodeName() const
+    virtual const stringT& getNodeName() const
     {
       return *tagName_;
     } // getNodeName
