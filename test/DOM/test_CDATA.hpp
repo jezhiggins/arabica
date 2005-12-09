@@ -76,8 +76,7 @@ class CDATATest : public TestCase
         t = DOM::CDATASection<string_type>(c);
         assertImplementation(false, "converted comment to text");
       } 
-      catch(const std::bad_cast& ex) {
-        assertEquals(ex.what(), "Cannot convert Node to CDATA section");
+      catch(const std::bad_cast&) {
       }
     } // testConverstion
 
@@ -105,8 +104,7 @@ class CDATATest : public TestCase
         cd = DOM::CDATASection<string_type>(t);
         assertImplementation(false, "converted text to CDATA");
       } 
-      catch(const std::bad_cast& ex) {
-        assertEquals(ex.what(), "Cannot convert Node to CDATA section");
+      catch(const std::bad_cast&) {
       }
     } // testConversionToTest
 

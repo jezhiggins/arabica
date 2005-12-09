@@ -25,7 +25,8 @@ class Text : public CharacterData<stringT>
     {
       typename Text::Type type = rhs.getNodeType();
       if((type != Text::TEXT_NODE) && (type != Text::CDATA_SECTION_NODE))
-        throw std::runtime_error("bad_cast: Cannot cast Node to Text");
+        //throw std::runtime_error("bad_cast: Cannot cast Node to Text");
+        throw std::bad_cast();
     } // Text
 
   protected:

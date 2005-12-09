@@ -24,7 +24,8 @@ class CDATASection : public Text<stringT>
     explicit CDATASection(const Node<stringT>& rhs) : Text<stringT>(rhs, 0)  
     {
       if(rhs.getNodeType() != Node_base::CDATA_SECTION_NODE)
-        throw std::runtime_error("bad_cast: Cannot convert Node to CDATA section");
+        //throw std::runtime_error("bad_cast: Cannot convert Node to CDATA section");
+        throw std::bad_cast();
     } // CDATASection
 
     CDATASection<stringT> splitText(int offset) 
