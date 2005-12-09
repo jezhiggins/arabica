@@ -43,7 +43,7 @@ class NamespaceNodeImpl : public SimpleDOM::ChildlessNodeImpl<stringT, string_ad
       return NAMESPACE_NODE_TYPE;
     } // getNodeType
 
-    virtual stringT getNodeName() const
+    virtual const stringT& getNodeName() const
     {
       return localname_;
     } // getNodeName
@@ -56,7 +56,7 @@ class NamespaceNodeImpl : public SimpleDOM::ChildlessNodeImpl<stringT, string_ad
     virtual stringT getLocalName() const 
     {
       return localname_;
-    } // getNodeName
+    } // getLocalName
 
     virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
     {
