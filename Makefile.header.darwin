@@ -13,7 +13,7 @@ CXX = gcc
 # preprocessor
 CPP = gcc -E
 # linker
-LD =  gcc 
+LD =  g++ 
 # archiver
 AR = ar r
 
