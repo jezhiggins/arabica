@@ -363,6 +363,9 @@
 				RelativePath="..\Utils\convertstream.h">
 			</File>
 			<File
+				RelativePath="..\Xml\escaper.hpp">
+			</File>
+			<File
 				RelativePath=".\Utils\getparam.hpp">
 			</File>
 			<File
@@ -754,8 +757,8 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_XERCES /EP ParserConfig.S &gt; ParserConfig.h
-cl /TC /D USE_XERCES /EP saxlib.S &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_EXPAT /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_EXPAT /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>

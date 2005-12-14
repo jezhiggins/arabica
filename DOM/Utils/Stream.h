@@ -5,7 +5,7 @@
 // DOM/Utils/Stream.h
 // 
 // Written by Jez Higgins <jez@jezuk.co.uk>
-// Copyright 2003 Jez UK Ltd, http://www.jezuk.co.uk
+// Copyright 2003-2005 Jez UK Ltd, http://www.jezuk.co.uk
 //
 // Provides streaming operator<< for DOM::Nodes.  Fully parameterised so
 // will work with wide and narrow char types, so long as an operator<< 
@@ -27,67 +27,13 @@
 #include <iostream>
 #include <algorithm>
 #include <XML/UnicodeCharacters.h>
+#include <XML/escaper.hpp>
 
 namespace DOM
 {
 
   namespace StreamImpl
   {
-    template<typename char_type, typename traits_type>
-    class escaper
-    {
-      private:
-        typedef char_type charT;
-        typedef traits_type traitsT;
-        typedef std::basic_ostream<charT, traitsT> ostreamT;
-        typedef Arabica::Unicode<charT> UnicodeT;
-
-      public:
-        escaper(ostreamT& stream) : stream_(stream) { }
-        void operator()(charT ch)
-        {
-	        if(ch == UnicodeT::LESS_THAN_SIGN)
-	        {
-            stream_ << UnicodeT::AMPERSAND
-                      << UnicodeT::LOWERCASE_L
-                      << UnicodeT::LOWERCASE_T
-                      << UnicodeT::SEMI_COLON;
-	          return;
-          } // if(ch == UnicodeT::LESS_THAN_SIGN)
-          if(ch == UnicodeT::GREATER_THAN_SIGN)
-	        {
-            stream_ << UnicodeT::AMPERSAND
-                    << UnicodeT::LOWERCASE_G
-                    << UnicodeT::LOWERCASE_T
-                    << UnicodeT::SEMI_COLON;
-            return;
-	        } // if(ch == UnicodeT::GREATER_THAN_SIGN)
-          if(ch == UnicodeT::AMPERSAND)
-	        {
-            stream_ << UnicodeT::AMPERSAND
-                    << UnicodeT::LOWERCASE_A
-                    << UnicodeT::LOWERCASE_M
-                    << UnicodeT::LOWERCASE_P
-                    << UnicodeT::SEMI_COLON;
-	          return;
-          } // if(ch == case UnicodeT::AMPERSAND)
-          if(ch == UnicodeT::QUOTATION_MARK)
-	        {
-            stream_ << UnicodeT::AMPERSAND
-                    << UnicodeT::LOWERCASE_Q
-                    << UnicodeT::LOWERCASE_U
-                    << UnicodeT::LOWERCASE_O
-                    << UnicodeT::LOWERCASE_T
-                    << UnicodeT::SEMI_COLON;
-            return;
-	        } // if(ch == UnicodeT::QUOTATION_MARK)
-          stream_ << ch;
-        } // operator()
-
-      private:
-        ostreamT& stream_;
-    }; // escaper
-
     template<class stringT, class charT, class traitsT>
     void streamChildren(std::basic_ostream<charT, traitsT>& stream, DOM::Node<stringT>& node)
     {
@@ -195,7 +141,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
     stream  << UnicodeT::EQUALS_SIGN
             << UnicodeT::QUOTATION_MARK;
     stringT value = attr.getNodeValue();
-    std::for_each(value.begin(), value.end(), StreamImpl::escaper<charT, traitsT>(stream));
+    std::for_each(value.begin(), value.end(), Arabica::XML::escaper<charT, traitsT>(stream));
     stream << UnicodeT::QUOTATION_MARK;
   }
 
@@ -212,7 +158,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
     if(!(i->second.empty()))
       stream << UnicodeT::COLON << i->second;
     stream << UnicodeT::EQUALS_SIGN << UnicodeT::QUOTATION_MARK;
-    std::for_each(i->first.begin(), i->first.end(), StreamImpl::escaper<charT, traitsT>(stream));
+    std::for_each(i->first.begin(), i->first.end(), Arabica::XML::escaper<charT, traitsT>(stream));
     stream << UnicodeT::QUOTATION_MARK;
   } // for ...
 
@@ -285,7 +231,7 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
   case DOM::Node<stringT>::TEXT_NODE:
     {
       stringT value = node.getNodeValue();
-      std::for_each(value.begin(), value.end(), StreamImpl::escaper<charT, traitsT>(stream));
+      std::for_each(value.begin(), value.end(), Arabica::XML::escaper<charT, traitsT>(stream));
     }
     break;
   case DOM::Node<stringT>::ENTITY_REFERENCE_NODE:

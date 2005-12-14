@@ -7,6 +7,7 @@
 #include <SAX/ext/DeclHandler.h>
 #include <XML/UnicodeCharacters.h>
 #include <SAX/helpers/PropertyNames.h>
+#include <XML/escaper.hpp>
 #include <ostream>
 #include <algorithm>
 #include <typeinfo>
@@ -30,6 +31,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef SAX::basic_LexicalHandler<stringT> lexicalHandlerT;
     typedef typename basic_XMLFilterImpl<stringT>::AttributesT AttributesT;
     typedef Arabica::Unicode<charT> UnicodeT;
+    typedef Arabica::XML::escaper<charT, traitsT> escaperT;
   private:
     typedef basic_LexicalHandler<stringT> LexicalHandlerT;
     typedef basic_DeclHandler<stringT> DeclHandlerT;
@@ -166,62 +168,6 @@ private:
     enum { startTag, endTag, docTag } lastTag_;
     const SAX::PropertyNames<stringT> properties_;
 
-    template<typename char_type, typename traits_type>
-    class escaper
-    {
-      private:
-        typedef char_type charT;
-        typedef traits_type traitsT;
-        typedef std::basic_ostream<charT, traitsT> ostreamT;
-        typedef Arabica::Unicode<charT> UnicodeT;
-
-      public:
-        escaper(ostreamT* stream) : stream_(stream) { }
-        void operator()(charT ch)
-        {
-	        if(ch == UnicodeT::LESS_THAN_SIGN)
-	        {
-              *stream_ << UnicodeT::AMPERSAND
-                       << UnicodeT::LOWERCASE_L
-                       << UnicodeT::LOWERCASE_T
-                       << UnicodeT::SEMI_COLON;
-	            return;
-          } // if(ch == UnicodeT::LESS_THAN_SIGN)
-          if(ch == UnicodeT::GREATER_THAN_SIGN)
-      	  {
-              *stream_ << UnicodeT::AMPERSAND
-                       << UnicodeT::LOWERCASE_G
-                       << UnicodeT::LOWERCASE_T
-                       << UnicodeT::SEMI_COLON;
-              return;
-	        } // if(ch == UnicodeT::GREATER_THAN_SIGN)
-          if(ch == UnicodeT::AMPERSAND)
-	        {
-            *stream_ << UnicodeT::AMPERSAND
-                       << UnicodeT::LOWERCASE_A
-                       << UnicodeT::LOWERCASE_M
-                       << UnicodeT::LOWERCASE_P
-                       << UnicodeT::SEMI_COLON;
-	          return;
-          } // if(ch == case UnicodeT::AMPERSAND)
-          if(ch == UnicodeT::QUOTATION_MARK)
-	        {
-              *stream_ << UnicodeT::AMPERSAND
-                       << UnicodeT::LOWERCASE_Q
-                       << UnicodeT::LOWERCASE_U
-                       << UnicodeT::LOWERCASE_O
-                       << UnicodeT::LOWERCASE_T
-                       << UnicodeT::SEMI_COLON;
-              return;
-	        } // if(ch == UnicodeT::QUOTATION_MARK)
-
-          *stream_ << ch;
-         } // operator()
-
-      private:
-        ostreamT* stream_;
-    }; // escaper
-
 }; // class basic_Writer
 
 template<class string_type>
@@ -298,7 +244,7 @@ void basic_Writer<string_type>::startElement(
              << UnicodeT::EQUALS_SIGN
              << UnicodeT::QUOTATION_MARK;
     stringT value = atts.getValue(i); 
-    std::for_each(value.begin(), value.end(), escaper<charT, traitsT>(stream_));
+    std::for_each(value.begin(), value.end(), escaperT(*stream_));
     *stream_ << UnicodeT::QUOTATION_MARK;
   }
 
@@ -332,7 +278,7 @@ template<class string_type>
 void basic_Writer<string_type>::characters(const stringT& ch)
 {
   if(!inCDATA_)
-    std::for_each(ch.begin(), ch.end(), escaper<charT, traitsT>(stream_));
+    std::for_each(ch.begin(), ch.end(), escaperT(*stream_));
   else
     *stream_ << ch;
 
