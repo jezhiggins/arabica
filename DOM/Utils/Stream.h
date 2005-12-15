@@ -44,7 +44,6 @@ namespace DOM
         child = child.getNextSibling();
       } // while 
     } // streamChildren
-  
   } // namespace StreamImpl
 
 template<class stringT>
@@ -93,6 +92,23 @@ void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream,
     stream << node.getNodeName();
 } // check_and_output_node_name
 
+template<class stringT, class charT>
+bool isXmlns(const stringT& str)
+{
+  typedef Arabica::Unicode<charT> UnicodeT;
+
+  if(str.size() != 5)
+    return false;
+
+  if((str[0] == UnicodeT::LOWERCASE_X) &&
+     (str[1] == UnicodeT::LOWERCASE_M) &&
+     (str[2] == UnicodeT::LOWERCASE_L) &&
+     (str[3] == UnicodeT::LOWERCASE_N) &&
+     (str[4] == UnicodeT::LOWERCASE_S))
+    return true;
+  return false;
+} // isXmlns
+
 template<class stringT, class charT, class traitsT>
 int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
                    DOM::Node<stringT>& node)
@@ -133,8 +149,8 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
   for(unsigned int a = 0; a < attrs.getLength(); ++a)
   {
     DOM::Node<stringT> attr = attrs.item(a);
-    if((attr.getNodeName() == "xmlns") || 
-       (attr.getPrefix() == "xmlns"))
+    if(isXmlns<stringT, charT>(attr.getNodeName()) || 
+       isXmlns<stringT, charT>(attr.getPrefix()))
       continue;
     stream << UnicodeT::SPACE;
     check_and_output_node_name(stream, attr, prefix_stack);
