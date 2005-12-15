@@ -135,10 +135,18 @@ private:
   {
     typename impl::types<string_adaptor>::str_iter_t first = string_adaptor::begin(str), last = string_adaptor::end(str);
     return ast_parse(first, last, xpathge_);
-  } // parse_xpath
+  } // parse_xpath_expr
+
+  typename impl::types<string_adaptor>::tree_info_t parse_xpath_match(const string_type& str) const
+  {
+    typename impl::types<string_adaptor>::str_iter_t first = string_adaptor::begin(str), last = string_adaptor::end(str);
+    return ast_parse(first, last, xpathgm_);
+  } // parse_xpath_match
+
 
   impl::xpath_grammar xpathg_;
   impl::xpath_grammar_expr xpathge_;
+  impl::xpath_grammar_match xpathgm_;
 
   impl::ResolverHolder<const NamespaceContext<string_type, string_adaptor> > namespaceContext_;
   impl::ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;
@@ -330,6 +338,14 @@ private:
     names[impl::AndOperator_id] = SA::construct_from_utf8("and");
     names[impl::UnionOperator_id] = SA::construct_from_utf8("union");
     names[impl::UnaryMinusOperator_id] = SA::construct_from_utf8("minus");
+
+    names[impl::Pattern_id] = SA::construct_from_utf8("Pattern");
+    names[impl::LocationPathPattern_id] = SA::construct_from_utf8("LocationPathPattern");
+    names[impl::IdKeyPattern_id] = SA::construct_from_utf8("IdKeyPattern");
+    names[impl::RelativePathPattern_id] = SA::construct_from_utf8("RelativePathPattern");
+    names[impl::StepPattern_id] = SA::construct_from_utf8("StepPattern");
+    names[impl::ChildOrAttributeAxisSpecifier_id] = SA::construct_from_utf8("ChildOrAttributeAxisSpecifier");
+
 
     return names;
   } // init_debugNames

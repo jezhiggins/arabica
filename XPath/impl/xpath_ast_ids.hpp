@@ -98,7 +98,14 @@ enum
   OrOperator_id,
   AndOperator_id,
   UnionOperator_id,
-  UnaryMinusOperator_id
+  UnaryMinusOperator_id,
+
+  Pattern_id,
+  LocationPathPattern_id,
+  IdKeyPattern_id,
+  RelativePathPattern_id,
+  StepPattern_id,
+  ChildOrAttributeAxisSpecifier_id
 };
 
 } // namespace impl

@@ -52,8 +52,8 @@ struct xpath_grammar_definition
 			          | Self;
 
     // [7]
-    NodeTest = S >>(ProcessingInstruction >> S >> discard_node_d[ch_p('(')] >> S >> Literal >> S >> discard_node_d[ch_p(')')]
-                | NodeType >> S >> discard_node_d[ch_p('(')] >> S >> discard_node_d[ch_p(')')]
+    NodeTest = S >>(ProcessingInstruction >> S >> discard_node_d[LeftBracket] >> S >> Literal >> S >> discard_node_d[RightBracket]
+                | NodeType >> S >> discard_node_d[LeftBracket] >> S >> discard_node_d[RightBracket]
                 | NameTest )
                   >> S;
 
@@ -74,7 +74,7 @@ struct xpath_grammar_definition
                   (VariableReference
                     | Number
                     | FunctionCall
-                    | inner_node_d[ch_p('(') >> S >> Expr >> S >> ch_p(')')]
+                    | inner_node_d[LeftBracket >> S >> Expr >> S >> RightBracket]
                     | Literal) >> 
                   discard_node_d[S];
 
@@ -323,7 +323,58 @@ struct xpath_grammar_expr : public boost::spirit::grammar<xpath_grammar_expr>
       return xpath_grammar_definition<ScannerT>::Expr;
     } // start 
   }; // definition<ScannerT>
-}; // xpath_grammar
+}; // xpath_grammar_expr
+
+struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_expr>
+{
+  template<typename ScannerT>
+  struct definition : public xpath_grammar_definition<ScannerT>
+  {
+    definition(xpath_grammar_expr const& /* self */)
+    {
+      using namespace boost::spirit;
+
+      // [1] Pattern ::= LocationPathPattern | Pattern '|' LocationPathPattern 	
+      Pattern = LocationPathPattern >> *(UnionOperator >> LocationPathPattern);
+
+      // [2] LocationPathPattern ::= '/' RelativePathPattern? 	
+		  //                       | IdKeyPattern (('/' | '//') RelativePathPattern)? 	
+		  //                       | '//'? RelativePathPattern 	
+      LocationPathPattern = !SlashSlash >> RelativePathPattern | 
+                            Slash >> !RelativePathPattern |
+                            IdKeyPattern >> !((SlashSlash | Slash) >> RelativePathPattern);
+                            
+
+      // [3] IdKeyPattern ::= 'id' '(' Literal ')' | 'key' '(' Literal ',' Literal ')' 	
+      IdKeyPattern = str_p("id") >> LeftBracket >> Literal >> RightBracket |
+                     str_p("key") >> LeftBracket >> Literal >> ',' >> Literal >> RightBracket;
+
+      // [4] RelativePathPattern ::= StepPattern 	
+	    //                            | RelativePathPattern '/' StepPattern 	
+	    //                            | RelativePathPattern '//' StepPattern
+      RelativePathPattern = StepPattern >> *((SlashSlash | Slash) >> StepPattern);
+
+      // [5] StepPattern ::= ChildOrAttributeAxisSpecifier NodeTest Predicate* 	
+      StepPattern = !ChildOrAttributeAxisSpecifier >> NodeTest >> *Predicate;
+
+      // [6] ChildOrAttributeAxisSpecifier ::= AbbreviatedAxisSpecifier | ('child' | 'attribute') '::'
+      ChildOrAttributeAxisSpecifier = AbbreviatedAxisSpecifier | (Child | Attribute) >> "::";
+    } // definition
+
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Pattern_id> > const&
+    start() const
+    {
+      return xpath_grammar_match<ScannerT>::Pattern;
+    } // start 
+  
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Pattern_id> > Pattern;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LocationPathPattern_id> > LocationPathPattern;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<IdKeyPattern_id> > IdKeyPattern;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<RelativePathPattern_id> > RelativePathPattern;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<StepPattern_id> > StepPattern;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<ChildOrAttributeAxisSpecifier_id> > ChildOrAttributeAxisSpecifier_id;
+  }; // definition<ScannerT>
+}; // xpath_grammar_match
 
 } // namespace impl
 } // namespace XPath
