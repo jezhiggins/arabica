@@ -73,6 +73,11 @@ public:
     return do_compile(xpath, &XPath::parse_xpath_expr);
   } // compile
 
+  XPathExpressionPtr<string_type, string_adaptor> compile_match(const string_type& xpath) const
+  {
+    return do_compile(xpath, &XPath::parse_xpath_match);
+  } // compile
+
   XPathValuePtr<string_type> evaluate(const string_type& xpath, const DOM::Node<string_type>& context) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
@@ -110,14 +115,16 @@ private:
     try {
       ast = (this->*fn)(xpath);
       if(!ast.full)
-        throw SyntaxException(string_adaptor().asStdString(xpath));
+        throw SyntaxException(string_adaptor::asStdString(xpath));
+      else
+        XPath::dump(ast.trees.begin(), 0);
 
       impl::CompilationContext<string_type, string_adaptor> context(*this, getNamespaceContext(), getFunctionResolver());
       return XPathExpressionPtr<string_type, string_adaptor>(compile_expression(ast.trees.begin(), context));
     } // try
-    catch(std::exception& ex) 
+    catch(const std::exception&) 
     {
-      throw ex;
+      throw;
     } // catch
     catch(...) 
     {
@@ -351,7 +358,6 @@ private:
     return names;
   } // init_debugNames
   
-  /*
   static void dump(typename impl::types<string_adaptor>::node_iter_t const& i, int depth)
   {
     long id = static_cast<long>(i->value.id().to_long());
@@ -363,8 +369,7 @@ private:
     for(typename impl::types<string_adaptor>::node_iter_t c = i->children.begin(); c != i->children.end(); ++c)
       dump(c, depth+2);
   } // dump
-  */
-
+  
   XPath(const XPath&);
   XPath& operator=(const XPath&);
   bool operator==(const XPath&) const;
