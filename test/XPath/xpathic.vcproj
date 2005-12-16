@@ -134,6 +134,39 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath=".\arithmetic_test.hpp">
+			</File>
+			<File
+				RelativePath=".\axis_enumerator_test.hpp">
+			</File>
+			<File
+				RelativePath=".\execute_test.hpp">
+			</File>
+			<File
+				RelativePath=".\expression_test.hpp">
+			</File>
+			<File
+				RelativePath=".\logical_test.hpp">
+			</File>
+			<File
+				RelativePath=".\match_test.hpp">
+			</File>
+			<File
+				RelativePath=".\node_test_test.hpp">
+			</File>
+			<File
+				RelativePath=".\parse_test.hpp">
+			</File>
+			<File
+				RelativePath=".\relational_test.hpp">
+			</File>
+			<File
+				RelativePath=".\step_test.hpp">
+			</File>
+			<File
+				RelativePath=".\value_test.hpp">
+			</File>
+			<File
 				RelativePath=".\xpath_test_suite.hpp">
 			</File>
 		</Filter>
