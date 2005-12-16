@@ -233,6 +233,7 @@ private:
     factory[impl::Text_id] = createSingleStepRelativeLocationPath;
     factory[impl::Comment_id] = createSingleStepRelativeLocationPath;
     factory[impl::ProcessingInstruction_id] = createSingleStepRelativeLocationPath;
+    factory[impl::Node_id] = createSingleStepRelativeLocationPath;
     factory[impl::Slash_id] = createSingleStepAbsoluteLocationPath;
 
     factory[impl::SelfSelect_id] = createSingleStepRelativeLocationPath;
