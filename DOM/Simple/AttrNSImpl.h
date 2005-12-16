@@ -19,8 +19,8 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
                bool hasNamespaceURI,
                const stringT& qualifiedName) : 
         AttrImpl<stringT, string_adaptorT>(ownerDoc, qualifiedName),
-        hasNamespaceURI_(false),
-        prefix_(&ownerDoc->empty_string())
+        prefix_(&ownerDoc->empty_string()),
+        hasNamespaceURI_(false)
     { 
       bool hasPrefix = false;
       stringT const* prefix_for_checking = (&ownerDoc->empty_string());

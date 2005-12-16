@@ -144,10 +144,10 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
   protected:
     stringT const* name_;
-    mutable stringT value_;
-    mutable bool valueCalculated_;
     ElementImpl<stringT, string_adaptorT>* ownerElement_;
     bool specified_;
+    mutable bool valueCalculated_;
+    mutable stringT value_;
 }; // class CDATAImpl
 
 } // namespace SimpleDOM

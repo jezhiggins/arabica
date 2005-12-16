@@ -454,7 +454,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     stringT const* const stringPool(const stringT& str) const
     {
-      std::list<stringT>::const_iterator i = std::find(stringPool_.begin(), stringPool_.end(), str);
+      typename std::list<stringT>::const_iterator i = std::find(stringPool_.begin(), stringPool_.end(), str);
       if(i != stringPool_.end())
         return &(*i);
       stringPool_.push_back(str);

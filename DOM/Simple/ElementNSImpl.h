@@ -18,8 +18,8 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
                 bool hasNamespaceURI,
                 const stringT& qualifiedName) : 
         ElementImpl<stringT, string_adaptorT>(ownerDoc, qualifiedName),
-        hasNamespaceURI_(false),
-        prefix_(&ownerDoc->empty_string())
+        prefix_(&ownerDoc->empty_string()),
+        hasNamespaceURI_(false)
     { 
       bool hasPrefix = false;
       size_type index = string_adaptorT::find(qualifiedName, string_adaptorT::construct_from_utf8(":"));
