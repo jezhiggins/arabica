@@ -51,12 +51,15 @@ public:
     assertTrue(compileThis("@hello"));
     assertTrue(compileThis("child::hello"));
     assertTrue(compileThis("attribute::hello"));
+    assertTrue(compileThis("hello[@ref]"));
+    assertTrue(compileThis("@hello[../poop]"));
+    assertTrue(compileThis("child::hello[../poop]"));
+    assertTrue(compileThis("attribute::hello[../poop]"));
     assertTrue(compileThis("node()|attribute::*"));
   } // testParse
 
   void testParseFails()
   {
-    std::cerr << "\n\n\ntestParseFails";
     using namespace Arabica::XPath;
     assertTrue(dontCompileThis("boolean(../hello)"));
     assertTrue(dontCompileThis("../hello"));
@@ -84,6 +87,7 @@ public:
   bool compileThis(const char* path)
   {
     try {
+      std::cout << "\n-----\n" << path << "\n";
       parser.compile_match(SA::construct_from_utf8(path));
       return true;
     }

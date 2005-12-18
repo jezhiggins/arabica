@@ -191,6 +191,15 @@ public:
                                     CompilationContext<string_type, string_adaptor>& context)
   {
     Axis axis = getAxis(node);
+    return createStep(node, end, context, axis);
+  } // createStep
+
+  static StepExpression<string_type, string_adaptor>*
+                         createStep(typename types<string_adaptor>::node_iter_t& node, 
+                                    typename types<string_adaptor>::node_iter_t const& end, 
+                                    CompilationContext<string_type, string_adaptor>& context,
+                                    Axis axis)
+  {
     NodeTest<string_type>* test = getTest(node, context.namespaceContext());
     XPathExpression<string_type, string_adaptor>* thing = 0;
     if(!test)
@@ -221,7 +230,12 @@ public:
     return new TestStepExpression<string_type, string_adaptor>(axis, test);
   } // createStep
 
-private:
+  static StepExpression<string_type, string_adaptor>* createStep(typename types<string_adaptor>::node_iter_t& node, CompilationContext<string_type, string_adaptor>& context, Axis axis)
+  {
+    NodeTest<string_type>* test = getTest(node, context.namespaceContext());
+    return new TestStepExpression<string_type, string_adaptor>(axis, test);
+  } // createStep
+
   static Axis getAxis(typename types<string_adaptor>::node_iter_t& node)
   { 
     long id = getNodeId<string_adaptor>(node);
@@ -286,6 +300,7 @@ private:
     return CHILD;
   } // getAxis
 
+private:
   static NodeTest<string_type>* getTest(typename types<string_adaptor>::node_iter_t& node, const NamespaceContext<string_type, string_adaptor>& namespaceContext)
   {
     long id = getNodeId<string_adaptor>(skipWhitespace<string_adaptor>(node));

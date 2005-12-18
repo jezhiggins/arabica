@@ -65,18 +65,18 @@ public:
 
   XPathExpressionPtr<string_type, string_adaptor> compile(const string_type& xpath) const
   {
-    return do_compile(xpath, &XPath::parse_xpath);
+    return do_compile(xpath, &XPath::parse_xpath, &XPath::compile_expression);
   } // compile
 
   XPathExpressionPtr<string_type, string_adaptor> compile_expr(const string_type& xpath) const
   {
-    return do_compile(xpath, &XPath::parse_xpath_expr);
-  } // compile
+    return do_compile(xpath, &XPath::parse_xpath_expr, &XPath::compile_expression);
+  } // compile_expr
 
   XPathExpressionPtr<string_type, string_adaptor> compile_match(const string_type& xpath) const
   {
-    return do_compile(xpath, &XPath::parse_xpath_match);
-  } // compile
+    return do_compile(xpath, &XPath::parse_xpath_match, &XPath::compile_match);
+  } // compile_match
 
   XPathValuePtr<string_type> evaluate(const string_type& xpath, const DOM::Node<string_type>& context) const
   {
@@ -108,19 +108,22 @@ public:
   void resetFunctionResolver() { functionResolver_.set(FunctionResolverPtr<string_type, string_adaptor>(new NullFunctionResolver<string_type, string_adaptor>())); }
 
 private:
+  typedef typename impl::types<string_adaptor>::tree_info_t(XPath::*parserFn)(const string_type& str) const;
+  typedef XPathExpression<string_type, string_adaptor>* (*compilerFn)(typename impl::types<string_adaptor>::node_iter_t const& i, 
+                                                                      impl::CompilationContext<string_type, string_adaptor>& context);
+
   XPathExpressionPtr<string_type, string_adaptor> do_compile(const string_type& xpath, 
-                                                             typename impl::types<string_adaptor>::tree_info_t(XPath::*fn)(const string_type& str) const) const
+                                                             parserFn parser,
+                                                             compilerFn compiler) const
   {
     typename impl::types<string_adaptor>::tree_info_t ast;
     try {
-      ast = (this->*fn)(xpath);
+      ast = (this->*parser)(xpath);
       if(!ast.full)
         throw SyntaxException(string_adaptor::asStdString(xpath));
-      else
-        XPath::dump(ast.trees.begin(), 0);
 
       impl::CompilationContext<string_type, string_adaptor> context(*this, getNamespaceContext(), getFunctionResolver());
-      return XPathExpressionPtr<string_type, string_adaptor>(compile_expression(ast.trees.begin(), context));
+      return XPathExpressionPtr<string_type, string_adaptor>(compiler(ast.trees.begin(), context));
     } // try
     catch(const std::exception&) 
     {
@@ -150,7 +153,6 @@ private:
     return ast_parse(first, last, xpathgm_);
   } // parse_xpath_match
 
-
   impl::xpath_grammar xpathg_;
   impl::xpath_grammar_expr xpathge_;
   impl::xpath_grammar_match xpathgm_;
@@ -166,14 +168,25 @@ public:
   {
     long id = impl::getNodeId<string_adaptor>(i);
 
-    if(XPath::factory().find(id) == XPath::factory().end())
+    if(XPath::expression_factory().find(id) == XPath::expression_factory().end())
+      throw UnsupportedException(string_adaptor().asStdString(XPath::names()[id]));
+  
+    return XPath::expression_factory()[id](i, context);
+  } // compile_expression
+
+  static XPathExpression<string_type, string_adaptor>* compile_match(typename impl::types<string_adaptor>::node_iter_t const& i, 
+                                                          impl::CompilationContext<string_type, string_adaptor>& context)
+  {
+    long id = impl::getNodeId<string_adaptor>(i);
+
+    if(XPath::match_factory().find(id) == XPath::match_factory().end())
     {
-      //XPath::dump(i, 0);
+      XPath::dump(i, 0);
       throw UnsupportedException(string_adaptor().asStdString(XPath::names()[id]));
     }
   
-    return XPath::factory()[id](i, context);
-  } // compile_expression
+    return XPath::match_factory()[id](i, context);
+  } // compile_match
 
 private:
   static XPathExpression<string_type, string_adaptor>* createAbsoluteLocationPath(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
@@ -191,12 +204,23 @@ private:
 
   static impl::StepList<string_type, string_adaptor> createStepList(typename impl::types<string_adaptor>::node_iter_t const& from, typename impl::types<string_adaptor>::node_iter_t const& to, impl::CompilationContext<string_type, string_adaptor>& context);
 
+  static XPathExpression<string_type, string_adaptor>* createDocMatch(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createSingleMatchStep(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createStepPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+
   typedef XPathExpression<string_type, string_adaptor>* (*compileFn)(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
-  static std::map<int, compileFn>& factory()
+
+  static std::map<int, compileFn>& expression_factory()
   {
     static std::map<int, compileFn> f = init_createFunctions();
     return f;
-  } // factory
+  } // expression_factory
+
+  static std::map<int, compileFn>& match_factory()
+  {
+    static std::map<int, compileFn> f = init_matchCreateFunctions();
+    return f;
+  } // match_factory
 
   static std::map<int, string_type>& names()
   {
@@ -252,6 +276,17 @@ private:
     return factory;
   } // init_createFunctions
 
+  static const std::map<int, compileFn> init_matchCreateFunctions()
+  {
+    std::map<int, compileFn> factory;
+
+    factory[impl::Slash_id] = createDocMatch;
+    factory[impl::NCName_id] = createSingleMatchStep;
+    factory[impl::StepPattern_id] = createStepPattern;
+
+    return factory;
+  } // init_matchCreateFunctions
+    
   static const std::map<int, string_type> init_debugNames()
   {
     std::map<int, string_type> names;
@@ -588,6 +623,30 @@ impl::StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::
 
   return steps;
 } // createStepList
+
+template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createDocMatch(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  typename impl::types<string_adaptor>::node_iter_t n = i;
+  return new impl::RelativeLocationPath<string_type, string_adaptor>(impl::StepFactory<string_type, string_adaptor>::createStep(n, context));
+} // createDocMatch
+
+template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleMatchStep(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  typename impl::types<string_adaptor>::node_iter_t n = i;
+  return new impl::RelativeLocationPath<string_type, string_adaptor>(impl::StepFactory<string_type, string_adaptor>::createStep(n, i->children.end(), context, SELF));
+} // createSingleMatchStep
+
+template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createStepPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  typename impl::types<string_adaptor>::node_iter_t n = i->children.begin();
+  Axis axis = impl::StepFactory<string_type, string_adaptor>::getAxis(n);
+  if(axis == CHILD)
+    axis = SELF;
+  return new impl::RelativeLocationPath<string_type, string_adaptor>(impl::StepFactory<string_type, string_adaptor>::createStep(n, i->children.end(), context, SELF));
+} // createStepPattern
 
 } // namespace XPath
 } // namespace Arabica
