@@ -359,7 +359,7 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
       StepPattern = ChildOrAttributeAxisSpecifier >> base::NodeTest >> *base::Predicate;
 
       // [6] ChildOrAttributeAxisSpecifier ::= AbbreviatedAxisSpecifier | ('child' | 'attribute') '::'
-      ChildOrAttributeAxisSpecifier = ((base::Child | base::Attribute) >> "::") | base::AbbreviatedAxisSpecifier;
+      ChildOrAttributeAxisSpecifier = ((base::Child | base::Attribute) >> discard_node_d[str_p("::")]) | base::AbbreviatedAxisSpecifier;
     } // definition
 
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Pattern_id> > const&
