@@ -196,6 +196,9 @@ inline std::string TestCase::toString ()
     #define assertTrue(condition)\
     (this->assertImplementation ((condition),(#condition),\
         __LINE__, __FILE__))
+    #define assertFalse(condition)\
+    (this->assertImplementation (!(condition),(#condition),\
+        __LINE__, __FILE__))
 
 #else
 
