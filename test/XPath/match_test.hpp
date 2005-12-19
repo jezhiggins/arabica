@@ -6,7 +6,8 @@
 #include "../CppUnit/framework/TestCaller.h"
 
 #include <XPath/XPath.hpp>
-#include <DOM/Simple/DOMImplementation.h>
+#include <DOM/SAX2DOM/SAX2DOM.h>
+#include <SAX/helpers/CatchErrorHandler.h>
 
 
 template<class string_type, class string_adaptor>
@@ -48,6 +49,7 @@ public:
     assertTrue(compileThis("element[@type]|element[complexType]|attribute"));
     assertTrue(compileThis("node()|@*"));
     assertTrue(compileThis("hello"));
+    assertTrue(compileThis("doc"));
     assertTrue(compileThis("@hello"));
     assertTrue(compileThis("child::hello"));
     assertTrue(compileThis("attribute::hello"));
@@ -72,10 +74,41 @@ public:
     assertTrue(dontCompileThis("//element/following-sibling::trousers"));
   } // testParseFails
 
+  void testEvaluateDocMatch()
+  {
+    DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+    assertTrue(compileMatch("/")->evaluateAsBool(doc));
+  } // testEvaluateDocMatch
+
+  void testDocElementMatch()
+  {
+    DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+
+    assertTrue(compileMatch("doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("doc[para]")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("*")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("node()")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("/doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("//doc")->evaluateAsBool(doc.getDocumentElement()));
+  } // testDocElementMatch
+
+  void testDocElementNotMatch()
+  {
+    DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+
+    assertFalse(compileMatch("para")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("text()")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("comment()")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("processing-instruction()")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("/para")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("//para")->evaluateAsBool(doc.getDocumentElement()));
+  } // testDocElementNotMatch
+
+
   bool dontCompileThis(const char* path)
   {
     try {
-      parser.compile_match(SA::construct_from_utf8(path));
+      compileMatch(path);
       return false;
     }
     catch(const Arabica::XPath::SyntaxException& ex) {
@@ -88,7 +121,7 @@ public:
   {
     try {
       std::cout << "\n-----\n" << path << "\n";
-      parser.compile_match(SA::construct_from_utf8(path));
+      compileMatch(path);
       return true;
     }
     catch(const Arabica::XPath::UnsupportedException&) {
@@ -100,6 +133,27 @@ public:
     return false;
   } // compileThis
 
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> compileMatch(const char* match)
+  {
+    return parser.compile_match(SA::construct_from_utf8(match));
+  } // compileMatch
+
+  DOM::Document<string_type> parseXML(const char* match)
+  {
+    std::stringstream ss;
+    ss << match;
+
+    SAX::basic_InputSource<string_type> is(ss);
+    SAX::CatchErrorHandler<string_type> eh;
+    SAX2DOM::Parser<string_type, string_adaptor> parser;
+    parser.setErrorHandler(eh);
+    parser.parse(is);       
+
+    if(eh.errorsReported())
+      throw std::runtime_error(eh.errors());
+
+    return parser.getDocument();
+  } // parse
 }; // class MatchTest
 
 template<class string_type, class string_adaptor>
@@ -109,6 +163,9 @@ TestSuite* MatchTest_suite()
 
   suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testParse", &MatchTest<string_type, string_adaptor>::testParse));
   suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testParseFail", &MatchTest<string_type, string_adaptor>::testParseFails));
+  suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testEvaluateDocMatch", &MatchTest<string_type, string_adaptor>::testEvaluateDocMatch));
+  suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testDocElementMatch", &MatchTest<string_type, string_adaptor>::testDocElementMatch));
+  suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testDocElementNotMatch", &MatchTest<string_type, string_adaptor>::testDocElementNotMatch));
  
   return suiteOfTests;
 } // MatchTest_suite
