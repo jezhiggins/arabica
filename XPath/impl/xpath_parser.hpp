@@ -282,6 +282,11 @@ private:
 
     factory[impl::Slash_id] = createDocMatch;
     factory[impl::NCName_id] = createSingleMatchStep;
+    factory[impl::AnyName_id] = createSingleMatchStep;
+    factory[impl::Node_id] = createSingleMatchStep;
+    factory[impl::Text_id] = createSingleMatchStep;
+    factory[impl::Comment_id] = createSingleMatchStep;
+    factory[impl::ProcessingInstruction_id] = createSingleMatchStep;
     factory[impl::StepPattern_id] = createStepPattern;
 
     return factory;
