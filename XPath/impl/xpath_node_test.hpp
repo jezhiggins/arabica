@@ -120,6 +120,16 @@ public:
   } // operator()
 }; // CommentNodeTest
 
+template<class string_type>
+class AttributeNodeTest : public NodeTest<string_type>
+{
+public:
+  virtual bool operator()(const DOM::Node<string_type>& node) const
+  {
+    return node.getNodeType() == DOM::Node<string_type>::ATTRIBUTE_NODE;
+  } // operator()
+}; // AttributeNodeTest
+
 template<class string_type, class string_adaptor>
 class ProcessingInstructionNodeTest : public NodeTest<string_type>
 {
