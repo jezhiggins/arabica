@@ -26,7 +26,7 @@
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
-				DisableLanguageExtensions="TRUE"
+				DisableLanguageExtensions="FALSE"
 				TreatWChar_tAsBuiltInType="TRUE"
 				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"

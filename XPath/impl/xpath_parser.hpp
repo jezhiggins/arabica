@@ -45,7 +45,7 @@ namespace impl
   template<class string_type, class string_adaptor> class StepExpression;
 
   template<class string_type, class string_adaptor>
-  class StepList : public std::vector<impl::StepExpression<string_type, string_adaptor>*> { };
+  class StepList : public std::deque<impl::StepExpression<string_type, string_adaptor>*> { };
 } // namespace impl
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
@@ -185,7 +185,14 @@ public:
       throw UnsupportedException(string_adaptor().asStdString(XPath::names()[id]));
     }
   
-    return XPath::match_factory()[id](i, context);
+    try {
+      return XPath::match_factory()[id](i, context);
+    }
+    catch(...)
+    {
+      XPath::dump(i, 0);
+      throw;
+    }
   } // compile_match
 
 private:
@@ -207,6 +214,9 @@ private:
   static XPathExpression<string_type, string_adaptor>* createDocMatch(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createSingleMatchStep(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createStepPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createRelativePathPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+
+  static impl::StepList<string_type, string_adaptor> createPatternList(typename impl::types<string_adaptor>::node_iter_t const& from, typename impl::types<string_adaptor>::node_iter_t const& to, impl::CompilationContext<string_type, string_adaptor>& context);
 
   typedef XPathExpression<string_type, string_adaptor>* (*compileFn)(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
 
@@ -288,6 +298,8 @@ private:
     factory[impl::Comment_id] = createSingleMatchStep;
     factory[impl::ProcessingInstruction_id] = createSingleMatchStep;
     factory[impl::StepPattern_id] = createStepPattern;
+    factory[impl::LocationPathPattern_id] = createRelativePathPattern;
+    factory[impl::RelativePathPattern_id] = createRelativePathPattern;
 
     return factory;
   } // init_matchCreateFunctions
@@ -652,6 +664,102 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
     axis = SELF;
   return new impl::RelativeLocationPath<string_type, string_adaptor>(impl::StepFactory<string_type, string_adaptor>::createStep(n, i->children.end(), context, SELF));
 } // createStepPattern
+
+template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createRelativePathPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  return new impl::RelativeLocationPath<string_type, string_adaptor>(createPatternList(i->children.begin(), i->children.end(), context));
+} // createRelativePathPattern
+
+template<class string_adaptor>
+Axis getPatternAxis(typename impl::types<string_adaptor>::node_iter_t const& from, 
+                    typename impl::types<string_adaptor>::node_iter_t const& to)
+{
+  Axis axis = PARENT;
+  if(from+1 == to)
+    axis = SELF;
+  else if(impl::getNodeId<string_adaptor>(from+1) == impl::SlashSlash_id)
+    axis = ANCESTOR_OR_SELF;
+  return axis;
+} // getPatternAxis
+
+
+template<class string_type, class string_adaptor>
+void createStepsFromPattern(impl::StepList<string_type, string_adaptor>& steps,
+                            typename impl::types<string_adaptor>::node_iter_t const& from, 
+                            typename impl::types<string_adaptor>::node_iter_t const& to, 
+                            impl::CompilationContext<string_type, string_adaptor>& context,
+                            Axis override = static_cast<Axis>(-1))
+{
+  typename impl::types<string_adaptor>::node_iter_t c = from;
+  typename impl::types<string_adaptor>::node_iter_t end = to;
+
+  // start
+  switch(impl::getNodeId<string_adaptor>(c))
+  {
+  case impl::Slash_id:
+    steps.push_front(impl::StepFactory<string_type, string_adaptor>::createStep(c, context, PARENT));
+  case impl::SlashSlash_id:
+    ++c;
+    break;
+  } // switch
+
+  while(c != end)
+  {
+    switch(impl::getNodeId<string_adaptor>(c))
+    {
+    case impl::StepPattern_id:
+      createStepsFromPattern(steps, c->children.begin(), c->children.end(), context, getPatternAxis<string_adaptor>(c, end));
+      ++c;
+      break;
+    case impl::RelativePathPattern_id:
+      createStepsFromPattern(steps, c->children.begin(), c->children.end(), context);
+      ++c;
+      break;
+    case impl::Child_id:
+    case impl::Slash_id:
+    case impl::SlashSlash_id:
+      ++c;
+      break;
+    case impl::AbbreviatedAxisSpecifier_id:
+    case impl::Attribute_id:
+      steps.push_front(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::AttributeNodeTest<string_type>()));
+      ++c;
+      break;
+    default:
+      {
+        Axis axis = getPatternAxis<string_adaptor>(c, end);
+        if(override != static_cast<Axis>(-1))
+          axis = override;
+        steps.push_front(impl::StepFactory<string_type, string_adaptor>::createStep(c, end, context, axis));
+      }
+    } // switch ...
+  } // while(c != end)
+} // createStepsFromPattern
+
+template<class string_type, class string_adaptor>
+impl::StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::createPatternList(typename impl::types<string_adaptor>::node_iter_t const& from, 
+                                                            typename impl::types<string_adaptor>::node_iter_t const& to, 
+                                                            impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  impl::StepList<string_type, string_adaptor> steps;
+
+  typename impl::types<string_adaptor>::node_iter_t c = from;
+
+  // start
+  switch(impl::getNodeId<string_adaptor>(c))
+  {
+  case impl::Slash_id:
+    steps.push_front(impl::StepFactory<string_type, string_adaptor>::createStep(c, context, PARENT));
+  case impl::SlashSlash_id:
+    ++c;
+    break;
+  } // switch
+
+  createStepsFromPattern(steps, c, to, context);
+
+  return steps;
+} // createPatternList
 
 } // namespace XPath
 } // namespace Arabica

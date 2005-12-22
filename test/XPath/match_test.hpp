@@ -34,13 +34,13 @@ public:
     assertTrue(compileThis("node()"));
     assertTrue(compileThis("text()"));
     assertTrue(compileThis("element"));
-    assertTrue(compileThis("element/child"));
-    assertTrue(compileThis("/element/child"));
-    assertTrue(compileThis("//element/child"));
-    assertTrue(compileThis("/element//child"));
-    assertTrue(compileThis("//element//child"));
     assertTrue(compileThis("element/child/child"));
+    assertTrue(compileThis("element/child[@id='1']/child"));
+    assertTrue(compileThis("element/child[@id='1']/child[@id='1']"));
+    assertTrue(compileThis("element/child::child[@id='1']/child::child"));
+    assertTrue(compileThis("element/child::child[@id='1']/child::child[@id='1']"));
     assertTrue(compileThis("/element/child/child"));
+    assertTrue(compileThis("/element/child[@id='1']/child"));
     assertTrue(compileThis("//element/child/child"));
     assertTrue(compileThis("/element//child/child"));
     assertTrue(compileThis("//element//child/child"));
@@ -58,6 +58,19 @@ public:
     assertTrue(compileThis("child::hello[../poop]"));
     assertTrue(compileThis("attribute::hello[../poop]"));
     assertTrue(compileThis("node()|attribute::*"));
+    assertTrue(compileThis("element/child"));
+    assertTrue(compileThis("/element/child"));
+    assertTrue(compileThis("//element/child"));
+    assertTrue(compileThis("/element//child"));
+    assertTrue(compileThis("//element//child"));
+    assertTrue(compileThis("element/child::child"));
+    assertTrue(compileThis("child::element/@child"));
+    assertTrue(compileThis("/child::element/child::child"));
+    assertTrue(compileThis("/child::element/@child"));
+    assertTrue(compileThis("/child::element/attribute::child"));
+    assertTrue(compileThis("//element/child::child"));
+    assertTrue(compileThis("/child::element//child::child"));
+    assertTrue(compileThis("//child::element//child::child"));
   } // testParse
 
   void testParseFails()
@@ -100,8 +113,8 @@ public:
     assertFalse(compileMatch("text()")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("comment()")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("processing-instruction()")->evaluateAsBool(doc.getDocumentElement()));
-    assertFalse(compileMatch("/para")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("//para")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("/para")->evaluateAsBool(doc.getDocumentElement()));
   } // testDocElementNotMatch
 
 
