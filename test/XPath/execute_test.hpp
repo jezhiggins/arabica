@@ -1369,7 +1369,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello', 'charlie drake')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testStartsWithFn1
 
@@ -1377,7 +1377,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello', 'hello mother')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testStartsWithFn2
 
@@ -1385,7 +1385,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello mother', 'hello')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testStartsWithFn3
 
@@ -1393,7 +1393,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello mother', 'hello mother')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testStartsWithFn4
 
@@ -1449,7 +1449,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello', 'charlie drake')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testContainsFn1
 
@@ -1457,7 +1457,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello', 'hello mother')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(false, result->asBool());
   } // testContainsFn2
 
@@ -1465,7 +1465,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello mother', 'hello')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn3
 
@@ -1473,7 +1473,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello mother', 'hello mother')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn4
 
@@ -1481,7 +1481,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("contains('she heard a call hello mother somewhere in the distance', 'hello')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn5
 
@@ -1489,7 +1489,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("contains('my dogs says hello mother', 'hello mother')"), document_);
-    assertValuesEqual(BOOL, result->type());
+    assertValuesEqual(Arabica::XPath::BOOL, result->type());
     assertValuesEqual(true, result->asBool());
   } // testContainsFn6
 
