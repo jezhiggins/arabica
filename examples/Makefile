@@ -2,17 +2,17 @@
 
 # High level rules
 all : 
-	cd SAX; ${MAKE}
-	cd SAX2DOM; ${MAKE}
-	cd XPath; ${MAKE}
-	cd Utils; ${MAKE}
+	${MAKE} --directory=SAX
+	${MAKE} --directory=SAX2DOM
+	${MAKE} --directory=XPath
+	${MAKE} --directory=Utils
 
 # Cleaning up
 
 clean :
-	cd SAX; ${MAKE} clean
-	cd SAX2DOM; ${MAKE} clean
-	cd XPath; ${MAKE} clean
-	cd Utils; ${MAKE} clean
+	${MAKE} --directory=SAX clean
+	${MAKE} --directory=SAX2DOM clean
+	${MAKE} --directory=XPath clean
+	${MAKE} --directory=Utils clean
 
 # End of File
