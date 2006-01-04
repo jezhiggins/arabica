@@ -250,53 +250,59 @@ public:
       case impl::SlashSlash_id:
         return DESCENDANT_OR_SELF;
 
+      case impl::AxisSpecifier_id:
+        {
+          typename types<string_adaptor>::node_iter_t axis_node = node->children.begin();
+          skipWhitespace<string_adaptor>(axis_node);
+          ++node;
+          return getAxis(axis_node);
+        }
+
       case impl::AbbreviatedAxisSpecifier_id:
+      case impl::Attribute_id:
         ++node;
         return ATTRIBUTE;
-
-      case impl::AxisSpecifier_id:
-        // skip on to the next bit
-        break;
+      case impl::AncestorOrSelf_id:
+        ++node;
+        return ANCESTOR_OR_SELF;
+      case impl::Ancestor_id:
+        ++node;
+        return ANCESTOR;
+      case impl::Child_id:
+        ++node;
+        return CHILD;
+      case impl::DescendantOrSelf_id:
+        ++node;
+        return DESCENDANT_OR_SELF;
+      case impl::Descendant_id:
+        ++node;
+        return DESCENDANT;
+      case impl::FollowingSibling_id:
+        ++node;
+        return FOLLOWING_SIBLING;
+      case impl::Following_id:
+        ++node;
+        return FOLLOWING;
+      case impl::Namespace_id:
+        ++node;
+        return NAMESPACE;
+      case impl::Parent_id:
+        ++node;
+        return PARENT;
+      case impl::PrecedingSibling_id:
+        ++node;
+        return PRECEDING_SIBLING;
+      case impl::Preceding_id:
+        ++node;
+        return PRECEDING;
+      case impl::Self_id:
+        ++node;
+        return SELF;
 
       default:    
         return CHILD;
     } // switch(id)
 
-    typename types<string_adaptor>::node_iter_t axis_node = node->children.begin();
-    long axis = getNodeId<string_adaptor>(skipWhitespace<string_adaptor>(axis_node));
-    ++node;
-    switch(axis)
-    {
-      case impl::AncestorOrSelf_id:
-        return ANCESTOR_OR_SELF;
-      case impl::Ancestor_id:
-        return ANCESTOR;
-      case impl::AbbreviatedAxisSpecifier_id:
-      case impl::Attribute_id:
-        return ATTRIBUTE;
-      case impl::Child_id:
-        return CHILD;
-      case impl::DescendantOrSelf_id:
-        return DESCENDANT_OR_SELF;
-      case impl::Descendant_id:
-        return DESCENDANT;
-      case impl::FollowingSibling_id:
-        return FOLLOWING_SIBLING;
-      case impl::Following_id:
-        return FOLLOWING;
-      case impl::Namespace_id:
-        return NAMESPACE;
-      case impl::Parent_id:
-        return PARENT;
-      case impl::PrecedingSibling_id:
-        return PRECEDING_SIBLING;
-      case impl::Preceding_id:
-        return PRECEDING;
-      case impl::Self_id:
-        return SELF;
-    } // switch ...
-    
-    assert(false);
     return CHILD;
   } // getAxis
 
