@@ -213,7 +213,6 @@ private:
 
   static XPathExpression<string_type, string_adaptor>* createDocMatch(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createSingleMatchStep(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
-  static XPathExpression<string_type, string_adaptor>* createStepPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createRelativePathPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createAlternatePattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
 
@@ -298,7 +297,7 @@ private:
     factory[impl::Text_id] = createSingleMatchStep;
     factory[impl::Comment_id] = createSingleMatchStep;
     factory[impl::ProcessingInstruction_id] = createSingleMatchStep;
-    factory[impl::StepPattern_id] = createStepPattern;
+    factory[impl::StepPattern_id] = createRelativePathPattern;
     factory[impl::LocationPathPattern_id] = createRelativePathPattern;
     factory[impl::RelativePathPattern_id] = createRelativePathPattern;
     factory[impl::Pattern_id] = createAlternatePattern;
@@ -656,18 +655,13 @@ template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleMatchStep(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   typename impl::types<string_adaptor>::node_iter_t n = i;
-  return new impl::RelativeLocationPath<string_type, string_adaptor>(impl::StepFactory<string_type, string_adaptor>::createStep(n, i->children.end(), context, SELF));
-} // createSingleMatchStep
 
-template<class string_type, class string_adaptor>
-XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createStepPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
-{
-  typename impl::types<string_adaptor>::node_iter_t n = i->children.begin();
-  Axis axis = impl::StepFactory<string_type, string_adaptor>::getAxis(n);
-  if(axis == CHILD)
-    axis = SELF;
-  return new impl::RelativeLocationPath<string_type, string_adaptor>(impl::StepFactory<string_type, string_adaptor>::createStep(n, i->children.end(), context, SELF));
-} // createStepPattern
+  impl::StepList<string_type, string_adaptor> steps;
+  steps.push_back(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::NotAttributeNodeTest<string_type>()));
+  steps.push_back(impl::StepFactory<string_type, string_adaptor>::createStep(n, context, SELF));
+  return new impl::RelativeLocationPath<string_type, string_adaptor>(steps);
+
+} // createSingleMatchStep
 
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createRelativePathPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
@@ -695,14 +689,22 @@ template<class string_adaptor>
 Axis getPatternAxis(typename impl::types<string_adaptor>::node_iter_t const& from, 
                     typename impl::types<string_adaptor>::node_iter_t const& to)
 {
-  Axis axis = PARENT;
-  if(from+1 == to)
-    axis = SELF;
-  else if(impl::getNodeId<string_adaptor>(from+1) == impl::SlashSlash_id)
-    axis = ANCESTOR_OR_SELF;
-  return axis;
-} // getPatternAxis
+  typename impl::types<string_adaptor>::node_iter_t next = from + 1;
+  while((next != to) && (impl::getNodeId<string_adaptor>(next) == impl::Predicate_id))
+    ++next;
 
+  if(next == to)
+    return SELF;
+
+  int id = impl::getNodeId<string_adaptor>(next);
+  
+  if(id == impl::SlashSlash_id)
+    return ANCESTOR_OR_SELF;
+  if((id == impl::AbbreviatedAxisSpecifier_id) || (id == impl::Attribute_id))
+    return static_cast<Axis>(-1);
+
+  return PARENT;
+} // getPatternAxis
 
 template<class string_type, class string_adaptor>
 void createStepsFromPattern(impl::StepList<string_type, string_adaptor>& steps,
@@ -724,6 +726,8 @@ void createStepsFromPattern(impl::StepList<string_type, string_adaptor>& steps,
     break;
   } // switch
 
+  bool is_attr = false;
+
   while(c != end)
   {
     switch(impl::getNodeId<string_adaptor>(c))
@@ -743,11 +747,16 @@ void createStepsFromPattern(impl::StepList<string_type, string_adaptor>& steps,
       break;
     case impl::AbbreviatedAxisSpecifier_id:
     case impl::Attribute_id:
-      steps.push_front(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::AttributeNodeTest<string_type>()));
+      is_attr = true;
       ++c;
       break;
     default:
       {
+        if(is_attr) 
+          steps.push_front(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::AttributeNodeTest<string_type>()));
+        else
+          steps.push_front(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::NotAttributeNodeTest<string_type>()));
+
         Axis axis = getPatternAxis<string_adaptor>(c, end);
         if(override != static_cast<Axis>(-1))
           axis = override;
