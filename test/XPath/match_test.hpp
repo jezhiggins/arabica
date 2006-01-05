@@ -46,8 +46,6 @@ public:
     assertTrue(compileThis("//element//child/child"));
     assertTrue(compileThis("//element//child//child"));
     assertTrue(compileThis("element[@ref]"));
-    assertTrue(compileThis("element[@type]|element[complexType]|attribute"));
-    assertTrue(compileThis("node()|@*"));
     assertTrue(compileThis("hello"));
     assertTrue(compileThis("doc"));
     assertTrue(compileThis("@hello"));
@@ -57,7 +55,6 @@ public:
     assertTrue(compileThis("@hello[../poop]"));
     assertTrue(compileThis("child::hello[../poop]"));
     assertTrue(compileThis("attribute::hello[../poop]"));
-    assertTrue(compileThis("node()|attribute::*"));
     assertTrue(compileThis("element/child"));
     assertTrue(compileThis("/element/child"));
     assertTrue(compileThis("//element/child"));
@@ -71,6 +68,15 @@ public:
     assertTrue(compileThis("//element/child::child"));
     assertTrue(compileThis("/child::element//child::child"));
     assertTrue(compileThis("//child::element//child::child"));
+    assertTrue(compileThis("node()|@*"));
+    assertTrue(compileThis("node()|attribute::*"));
+    assertTrue(compileThis("element[@type]|element[complexType]|attribute"));
+    assertTrue(compileThis("node()|/"));
+    assertTrue(compileThis("/|node()"));
+    assertTrue(compileThis("node|/"));
+    assertTrue(compileThis("/|node"));
+    assertTrue(compileThis("node|/|//charlie"));
+    assertTrue(compileThis("//charlie|/|node"));
   } // testParse
 
   void testParseFails()
@@ -90,7 +96,12 @@ public:
   void testEvaluateDocMatch()
   {
     DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+
     assertTrue(compileMatch("/")->evaluateAsBool(doc));
+    assertTrue(compileMatch("node()")->evaluateAsBool(doc));
+
+    assertFalse(compileMatch("*")->evaluateAsBool(doc));
+    assertFalse(compileMatch("@charlie")->evaluateAsBool(doc));
   } // testEvaluateDocMatch
 
   void testDocElementMatch()
@@ -103,6 +114,18 @@ public:
     assertTrue(compileMatch("node()")->evaluateAsBool(doc.getDocumentElement()));
     assertTrue(compileMatch("/doc")->evaluateAsBool(doc.getDocumentElement()));
     assertTrue(compileMatch("//doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("comment()|doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("comment()|/doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("comment()|//doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("processing-instruction()|comment()|doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("processing-instruction()|comment()|/doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("processing-instruction()|comment()|//doc")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("processing-instruction()|doc|comment()")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("processing-instruction()|/doc|comment()")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("processing-instruction()|//doc|comment()")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("doc|processing-instruction()|comment()")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("/doc|processing-instruction()|comment()")->evaluateAsBool(doc.getDocumentElement()));
+    assertTrue(compileMatch("//doc|processing-instruction()|comment()")->evaluateAsBool(doc.getDocumentElement()));
   } // testDocElementMatch
 
   void testDocElementNotMatch()
@@ -110,12 +133,45 @@ public:
     DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
 
     assertFalse(compileMatch("para")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("@*")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("text()")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("comment()")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("processing-instruction()")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("//para")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("/para")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("/para|text()")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("/para|@*")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("/para|poopsicle|comment()")->evaluateAsBool(doc.getDocumentElement()));
   } // testDocElementNotMatch
+
+  void testAttributeMatch()
+  {
+    DOM::Document<string_type> doc = parseXML("<doc><para id='woop' name='charlie'>hello</para></doc>");
+    DOM::Node<string_type> a1 = doc.getDocumentElement().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("id"));
+    DOM::Node<string_type> a2 = doc.getDocumentElement().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("name"));
+
+    assertTrue(compileMatch("@id")->evaluateAsBool(a1));
+    assertTrue(compileMatch("@*")->evaluateAsBool(a1));
+    assertTrue(compileMatch("para/@id")->evaluateAsBool(a1));
+    assertTrue(compileMatch("node()/@id")->evaluateAsBool(a1));
+    assertTrue(compileMatch("doc//@*")->evaluateAsBool(a1));
+    assertTrue(compileMatch("//@*")->evaluateAsBool(a1));
+
+    assertFalse(compileMatch("@id")->evaluateAsBool(a2));
+    assertTrue(compileMatch("@*")->evaluateAsBool(a2));
+    assertFalse(compileMatch("para/@id")->evaluateAsBool(a2));
+    assertTrue(compileMatch("doc/para/@*")->evaluateAsBool(a2));
+    assertFalse(compileMatch("@id[../para]")->evaluateAsBool(a2));
+
+    assertFalse(compileMatch("node()")->evaluateAsBool(a1));
+    assertFalse(compileMatch("*")->evaluateAsBool(a1));
+    assertFalse(compileMatch("pod/para/@*")->evaluateAsBool(a1));
+
+    assertTrue(compileMatch("@id|@name")->evaluateAsBool(a1));
+    assertTrue(compileMatch("@id|@name")->evaluateAsBool(a2));
+    assertTrue(compileMatch("@name|@id")->evaluateAsBool(a1));
+    assertTrue(compileMatch("@name|@id")->evaluateAsBool(a2));
+  } // testAttributeMatch
 
 
   bool dontCompileThis(const char* path)
@@ -124,8 +180,7 @@ public:
       compileMatch(path);
       return false;
     }
-    catch(const Arabica::XPath::SyntaxException& ex) {
-      std::cerr << ex.what() << std::endl;
+    catch(const Arabica::XPath::SyntaxException&) {
     }
     return true;
   } // dontCompileThis
@@ -133,12 +188,10 @@ public:
   bool compileThis(const char* path)
   {
     try {
-      std::cout << "\n-----\n" << path << "\n";
       compileMatch(path);
       return true;
     }
     catch(const Arabica::XPath::UnsupportedException&) {
-      return true;
     }
     catch(const Arabica::XPath::SyntaxException& ex) {
       std::cerr << ex.what() << std::endl;
@@ -148,6 +201,7 @@ public:
 
   Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> compileMatch(const char* match)
   {
+    //std::cout << "----\n" << match << std::endl;
     return parser.compile_match(SA::construct_from_utf8(match));
   } // compileMatch
 
@@ -179,6 +233,7 @@ TestSuite* MatchTest_suite()
   suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testEvaluateDocMatch", &MatchTest<string_type, string_adaptor>::testEvaluateDocMatch));
   suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testDocElementMatch", &MatchTest<string_type, string_adaptor>::testDocElementMatch));
   suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testDocElementNotMatch", &MatchTest<string_type, string_adaptor>::testDocElementNotMatch));
+  suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testAttributeMatch", &MatchTest<string_type, string_adaptor>::testAttributeMatch));
  
   return suiteOfTests;
 } // MatchTest_suite
