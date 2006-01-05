@@ -26,6 +26,7 @@
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="FALSE"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
