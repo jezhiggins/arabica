@@ -66,3 +66,4 @@ class escaper
 } // namespace XML
 } // namespace Arabica
 #endif // ARABICA_UTILS_ESCAPER_HPP
+

@@ -13,30 +13,30 @@ class Parser : public SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser>
 {
     typedef SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser> BaseT;
   public:
-	  typedef boost::function2<void, DOM::Node<stringT> &, DOM::Node<stringT> &> ElementHandlerT;
+    typedef boost::function2<void, DOM::Node<stringT> &, DOM::Node<stringT> &> ElementHandlerT;
 
     void setElementEndHandler(ElementHandlerT func)
-	  {
-		  elementEndFunc_ = func;
-	  } // setElementEndHandler 
+    {
+      elementEndFunc_ = func;
+    } // setElementEndHandler 
 
   protected:
     virtual void endElement(const stringT& namespaceURI, const stringT& localName,
                             const stringT& qName)
     {
-      if(currentNode() == 0)
+      if(BaseT::currentNode() == 0)
         return;
 
-  	  DOM::Node<stringT> child(currentNode());
+      DOM::Node<stringT> child(BaseT::currentNode());
 
       BaseT::endElement(namespaceURI, localName, qName);
       
-	    if(!!elementEndFunc_)
-		    elementEndFunc_(currentNode(), child);
+      if(!!elementEndFunc_)
+        elementEndFunc_(BaseT::currentNode(), child);
     } // endElement
 
   private:
-  	ElementHandlerT elementEndFunc_;
+    ElementHandlerT elementEndFunc_;
 }; // class Parser
 
 } // namespace DualMode
