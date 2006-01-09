@@ -142,6 +142,7 @@ public:
     assertFalse(compileMatch("/para|text()")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("/para|@*")->evaluateAsBool(doc.getDocumentElement()));
     assertFalse(compileMatch("/para|poopsicle|comment()")->evaluateAsBool(doc.getDocumentElement()));
+    assertFalse(compileMatch("/")->evaluateAsBool(doc.getDocumentElement()));
   } // testDocElementNotMatch
 
   void testAttributeMatch()
@@ -166,6 +167,9 @@ public:
     assertFalse(compileMatch("node()")->evaluateAsBool(a1));
     assertFalse(compileMatch("*")->evaluateAsBool(a1));
     assertFalse(compileMatch("pod/para/@*")->evaluateAsBool(a1));
+    assertFalse(compileMatch("/")->evaluateAsBool(a1));
+    assertFalse(compileMatch("/")->evaluateAsBool(a2));
+    assertFalse(compileMatch("/|comment()")->evaluateAsBool(a2));
 
     assertTrue(compileMatch("@id|@name")->evaluateAsBool(a1));
     assertTrue(compileMatch("@id|@name")->evaluateAsBool(a2));
