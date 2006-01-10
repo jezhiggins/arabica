@@ -310,6 +310,12 @@ public:
   void test10()
   {
     assertTrue(root_ == parser.evaluate(SA::construct_from_utf8("."), root_)->asNodeSet()[0]);
+    assertTrue(document_ == parser.evaluate(SA::construct_from_utf8("."), document_)->asNodeSet()[0]);
+    assertTrue(element3_ == parser.evaluate(SA::construct_from_utf8("."), element3_)->asNodeSet()[0]);
+    assertTrue(comment_ == parser.evaluate(SA::construct_from_utf8("."), comment_)->asNodeSet()[0]);
+    assertTrue(processingInstruction_ == parser.evaluate(SA::construct_from_utf8("."), processingInstruction_)->asNodeSet()[0]);
+    assertTrue(text_ == parser.evaluate(SA::construct_from_utf8("."), text_)->asNodeSet()[0]);
+    assertTrue(attr_ == parser.evaluate(SA::construct_from_utf8("."), attr_)->asNodeSet()[0]);
   } // test10
 
   void test11()

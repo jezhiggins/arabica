@@ -364,6 +364,7 @@ private:
       
       case impl::SlashSlash_id:
       case impl::Node_id:
+  	  case impl::SelfSelect_id:
         {
           ++node;
           return new AnyNodeTest<string_type>();
@@ -373,7 +374,6 @@ private:
         return new RootNodeTest<string_type>();
 
       case impl::AnyName_id:
-  	  case impl::SelfSelect_id:
       case impl::ParentSelect_id:
         {
           ++node;
