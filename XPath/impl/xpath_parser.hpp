@@ -65,18 +65,23 @@ public:
 
   XPathExpressionPtr<string_type, string_adaptor> compile(const string_type& xpath) const
   {
-    return do_compile(xpath, &XPath::parse_xpath, &XPath::compile_expression);
+    return do_compile(xpath, &XPath::parse_xpath, expression_factory());
   } // compile
 
   XPathExpressionPtr<string_type, string_adaptor> compile_expr(const string_type& xpath) const
   {
-    return do_compile(xpath, &XPath::parse_xpath_expr, &XPath::compile_expression);
+    return do_compile(xpath, &XPath::parse_xpath_expr, expression_factory());
   } // compile_expr
 
   XPathExpressionPtr<string_type, string_adaptor> compile_match(const string_type& xpath) const
   {
-    return do_compile(xpath, &XPath::parse_xpath_match, &XPath::compile_match);
+    return do_compile(xpath, &XPath::parse_xpath_match, match_factory());
   } // compile_match
+
+  XPathExpressionPtr<string_type, string_adaptor> compile_attribute_value_template(const string_type& xpath) const
+  {
+    return do_compile(xpath, &XPath::parse_xpath_attribute_value_template, attribute_value_factory());
+  } // compile_attribute_value_template
 
   XPathValuePtr<string_type> evaluate(const string_type& xpath, const DOM::Node<string_type>& context) const
   {
@@ -108,13 +113,14 @@ public:
   void resetFunctionResolver() { functionResolver_.set(FunctionResolverPtr<string_type, string_adaptor>(new NullFunctionResolver<string_type, string_adaptor>())); }
 
 private:
+  typedef XPathExpression<string_type, string_adaptor>* (*compileFn)(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   typedef typename impl::types<string_adaptor>::tree_info_t(XPath::*parserFn)(const string_type& str) const;
   typedef XPathExpression<string_type, string_adaptor>* (*compilerFn)(typename impl::types<string_adaptor>::node_iter_t const& i, 
                                                                       impl::CompilationContext<string_type, string_adaptor>& context);
 
   XPathExpressionPtr<string_type, string_adaptor> do_compile(const string_type& xpath, 
                                                              parserFn parser,
-                                                             compilerFn compiler) const
+                                                             const std::map<int, compileFn>& factory) const
   {
     typename impl::types<string_adaptor>::tree_info_t ast;
     try {
@@ -123,7 +129,7 @@ private:
         throw SyntaxException(string_adaptor::asStdString(xpath));
 
       impl::CompilationContext<string_type, string_adaptor> context(*this, getNamespaceContext(), getFunctionResolver());
-      return XPathExpressionPtr<string_type, string_adaptor>(compiler(ast.trees.begin(), context));
+      return XPathExpressionPtr<string_type, string_adaptor>(compile_with_factory(ast.trees.begin(), context, factory));
     } // try
     catch(const std::exception&) 
     {
@@ -153,9 +159,16 @@ private:
     return ast_parse(first, last, xpathgm_);
   } // parse_xpath_match
 
+  typename impl::types<string_adaptor>::tree_info_t parse_xpath_attribute_value_template(const string_type& str) const
+  {
+    typename impl::types<string_adaptor>::str_iter_t first = string_adaptor::begin(str), last = string_adaptor::end(str);
+    return ast_parse(first, last, xpathavt_);
+  } // parse_xpath_attribute_value_template
+
   impl::xpath_grammar xpathg_;
   impl::xpath_grammar_expr xpathge_;
   impl::xpath_grammar_match xpathgm_;
+  impl::xpath_grammar_attribute_value xpathavt_;
 
   impl::ResolverHolder<const NamespaceContext<string_type, string_adaptor> > namespaceContext_;
   impl::ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;
@@ -166,34 +179,42 @@ public:
   static XPathExpression<string_type, string_adaptor>* compile_expression(typename impl::types<string_adaptor>::node_iter_t const& i, 
                                                           impl::CompilationContext<string_type, string_adaptor>& context)
   {
-    long id = impl::getNodeId<string_adaptor>(i);
-
-    if(XPath::expression_factory().find(id) == XPath::expression_factory().end())
-      throw UnsupportedException(string_adaptor().asStdString(XPath::names()[id]));
-  
-    return XPath::expression_factory()[id](i, context);
+    return compile_with_factory(i, context, XPath::expression_factory());
   } // compile_expression
 
   static XPathExpression<string_type, string_adaptor>* compile_match(typename impl::types<string_adaptor>::node_iter_t const& i, 
                                                           impl::CompilationContext<string_type, string_adaptor>& context)
   {
-    long id = impl::getNodeId<string_adaptor>(i);
+    return compile_with_factory(i, context, XPath::match_factory());
+  } // compile_match
 
-    if(XPath::match_factory().find(id) == XPath::match_factory().end())
+  static XPathExpression<string_type, string_adaptor>* compile_attribute_value(typename impl::types<string_adaptor>::node_iter_t const& i, 
+                                                          impl::CompilationContext<string_type, string_adaptor>& context)
+  {
+    return compile_with_factory(i, context, XPath::attribute_value_factory());
+  } // compile_attribute_value
+
+  static XPathExpression<string_type, string_adaptor>* compile_with_factory(typename impl::types<string_adaptor>::node_iter_t const& i, 
+                                                                            impl::CompilationContext<string_type, string_adaptor>& context,
+                                                                            const std::map<int, compileFn>& factory)
+  {
+    long id = impl::getNodeId<string_adaptor>(i);
+    std::map<int, compileFn>::const_iterator f = factory.find(id);
+    if(f == factory.end())
     {
-      //XPath::dump(i, 0);
+      XPath::dump(i, 0);
       throw UnsupportedException(string_adaptor().asStdString(XPath::names()[id]));
     }
   
     try {
-      return XPath::match_factory()[id](i, context);
+      return (f->second)(i, context);
     }
     catch(...)
     {
       //XPath::dump(i, 0);
       throw;
     }
-  } // compile_match
+  } // compile_with_factory
 
 private:
   static XPathExpression<string_type, string_adaptor>* createAbsoluteLocationPath(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
@@ -218,7 +239,10 @@ private:
 
   static impl::StepList<string_type, string_adaptor> createPatternList(typename impl::types<string_adaptor>::node_iter_t const& from, typename impl::types<string_adaptor>::node_iter_t const& to, impl::CompilationContext<string_type, string_adaptor>& context);
 
-  typedef XPathExpression<string_type, string_adaptor>* (*compileFn)(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createAttributeValue(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createEmbeddedExpr(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createDoubleLeftCurly(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createDoubleRightCurly(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
 
   static std::map<int, compileFn>& expression_factory()
   {
@@ -231,6 +255,12 @@ private:
     static std::map<int, compileFn> f = init_matchCreateFunctions();
     return f;
   } // match_factory
+
+  static std::map<int, compileFn>& attribute_value_factory()
+  {
+    static std::map<int, compileFn> f = init_attributeValueCreateFunctions();
+    return f;
+  } // attribute_value_factory
 
   static std::map<int, string_type>& names()
   {
@@ -304,6 +334,19 @@ private:
 
     return factory;
   } // init_matchCreateFunctions
+
+  static const std::map<int, compileFn> init_attributeValueCreateFunctions()
+  {
+    std::map<int, compileFn> factory;
+
+    factory[impl::AttributeValueTemplate_id] = createAttributeValue;
+    factory[impl::DoubleLeftCurly_id] = createDoubleLeftCurly;
+    factory[impl::DoubleRightCurly_id] = createDoubleRightCurly;
+    factory[impl::EmbeddedExpr_id] = createEmbeddedExpr;
+    factory[impl::AttrLiteral_id] = createLiteral;
+
+    return factory;
+  } // init_attributeValueCreateFunctions
     
   static const std::map<int, string_type> init_debugNames()
   {
@@ -407,11 +450,17 @@ private:
     names[impl::StepPattern_id] = SA::construct_from_utf8("StepPattern");
     names[impl::ChildOrAttributeAxisSpecifier_id] = SA::construct_from_utf8("ChildOrAttributeAxisSpecifier");
 
+    names[impl::AttributeValueTemplate_id] = SA::construct_from_utf8("AttributeValueTemplate");
+    names[impl::DoubleLeftCurly_id] = SA::construct_from_utf8("{{");
+    names[impl::DoubleRightCurly_id] = SA::construct_from_utf8("}}");
+    names[impl::LeftCurly_id] = SA::construct_from_utf8("{");
+    names[impl::RightCurly_id] = SA::construct_from_utf8("}");
+    names[impl::EmbeddedExpr_id] = SA::construct_from_utf8("EmbeddedExpr");
+    names[impl::AttrLiteral_id] = SA::construct_from_utf8("AttrLiteral");
 
     return names;
   } // init_debugNames
   
-/*
   static void dump(typename impl::types<string_adaptor>::node_iter_t const& i, int depth)
   {
     long id = static_cast<long>(i->value.id().to_long());
@@ -423,7 +472,6 @@ private:
     for(typename impl::types<string_adaptor>::node_iter_t c = i->children.begin(); c != i->children.end(); ++c)
       dump(c, depth+2);
   } // dump
-*/
 
   XPath(const XPath&);
   XPath& operator=(const XPath&);
@@ -789,6 +837,40 @@ impl::StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::
 
   return steps;
 } // createPatternList
+
+
+template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createAttributeValue(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  std::vector<XPathExpressionPtr<string_type, string_adaptor> > args;
+  for(typename impl::types<string_adaptor>::node_iter_t a = i->children.begin(), e = i->children.end(); a != e; ++a)
+  {
+    XPathExpressionPtr<string_type, string_adaptor> arg(XPath<string_type, string_adaptor>::compile_attribute_value(a, context));
+    args.push_back(arg);
+  } // while ...
+  // maybe trailing whitespace ...
+
+  return impl::FunctionHolder<string_type, string_adaptor>::createFunction(string_adaptor::construct_from_utf8("concat"), args, context);
+} // createAttributeValue
+
+template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createEmbeddedExpr(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  return compile_expression(i->children.begin() + 1, context);
+} // createEmbeddedExpr
+
+template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createDoubleLeftCurly(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  return new StringValue<string_type, string_adaptor>("{");
+} // createDoubleLeftCurly
+
+template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createDoubleRightCurly(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  return new StringValue<string_type, string_adaptor>("}");
+} // createDoubleRightCurly
+
 
 } // namespace XPath
 } // namespace Arabica

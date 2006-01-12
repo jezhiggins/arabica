@@ -7,6 +7,7 @@
 
 #include <boost/spirit/core.hpp>
 #include <boost/spirit/symbols/symbols.hpp>
+#include <boost/spirit/utility/chset.hpp>
 
 #include "xpath_ast_ids.hpp"
 
@@ -376,6 +377,43 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<ChildOrAttributeAxisSpecifier_id> > ChildOrAttributeAxisSpecifier;
   }; // definition<ScannerT>
 }; // xpath_grammar_match
+
+struct xpath_grammar_attribute_value : public boost::spirit::grammar<xpath_grammar_attribute_value>
+{
+  template<typename ScannerT>
+  struct definition : public xpath_grammar_definition<ScannerT>
+  {
+    definition(xpath_grammar_attribute_value const& /* self */)
+    {
+      using namespace boost::spirit;
+      typedef xpath_grammar_definition<ScannerT> base;
+
+      AttributeValueTemplate = (DoubleLeftCurly | DoubleRightCurly | EmbeddedExpr | AttrLiteral) >> 
+                               *(DoubleLeftCurly | DoubleRightCurly | EmbeddedExpr | AttrLiteral);
+      DoubleLeftCurly = str_p("{{");
+      DoubleRightCurly = str_p("}}");
+      LeftCurly = ch_p('{');
+      RightCurly = ch_p('}');
+      EmbeddedExpr = LeftCurly >> base::Expr >> RightCurly;
+      chset<> brackets("{}"); 
+      AttrLiteral = token_node_d[~brackets >> *~brackets];
+    } // definition
+
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AttributeValueTemplate_id> > const&
+    start() const
+    {
+      return AttributeValueTemplate;
+    } // start
+
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AttributeValueTemplate_id> > AttributeValueTemplate;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<DoubleLeftCurly_id> > DoubleLeftCurly;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<DoubleRightCurly_id> > DoubleRightCurly;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LeftCurly_id> > LeftCurly;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<RightCurly_id> > RightCurly;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<EmbeddedExpr_id> > EmbeddedExpr;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AttrLiteral_id> > AttrLiteral;
+  }; // definition
+}; // xpath_grammar_attribute_value
 
 } // namespace impl
 } // namespace XPath

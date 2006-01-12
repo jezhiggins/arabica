@@ -105,7 +105,15 @@ enum
   IdKeyPattern_id,
   RelativePathPattern_id,
   StepPattern_id,
-  ChildOrAttributeAxisSpecifier_id
+  ChildOrAttributeAxisSpecifier_id,
+
+  AttributeValueTemplate_id,
+  DoubleLeftCurly_id,
+  DoubleRightCurly_id,
+  LeftCurly_id,
+  RightCurly_id,
+  EmbeddedExpr_id,
+  AttrLiteral_id
 };
 
 } // namespace impl
