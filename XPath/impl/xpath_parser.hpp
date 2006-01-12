@@ -202,7 +202,7 @@ public:
     std::map<int, compileFn>::const_iterator f = factory.find(id);
     if(f == factory.end())
     {
-      XPath::dump(i, 0);
+      //XPath::dump(i, 0);
       throw UnsupportedException(string_adaptor().asStdString(XPath::names()[id]));
     }
   
@@ -460,7 +460,7 @@ private:
 
     return names;
   } // init_debugNames
-  
+/*  
   static void dump(typename impl::types<string_adaptor>::node_iter_t const& i, int depth)
   {
     long id = static_cast<long>(i->value.id().to_long());
@@ -472,7 +472,7 @@ private:
     for(typename impl::types<string_adaptor>::node_iter_t c = i->children.begin(); c != i->children.end(); ++c)
       dump(c, depth+2);
   } // dump
-
+*/
   XPath(const XPath&);
   XPath& operator=(const XPath&);
   bool operator==(const XPath&) const;
