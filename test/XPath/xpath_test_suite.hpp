@@ -16,7 +16,7 @@
 #include "execute_test.hpp"
 #include "expression_test.hpp"
 #include "match_test.hpp"
-
+#include "attr_value_test.hpp"
 
 template<class string_type, class string_adaptor>
 void XPath_test_suite(int argc, const char** argv)
@@ -34,6 +34,7 @@ void XPath_test_suite(int argc, const char** argv)
   runner.addTest("ExecuteTest", ExecuteTest_suite<string_type, string_adaptor>());
   runner.addTest("ExpressionTest", ExpressionTest_suite<string_type, string_adaptor>());
   runner.addTest("MatchTest", MatchTest_suite<string_type, string_adaptor>());
+  runner.addTest("AttributeValueTest", AttributeValueTest_suite<string_type, string_adaptor>());
 
   runner.run(argc, argv);
 } // XPath_test_suite

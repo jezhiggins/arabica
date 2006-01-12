@@ -137,6 +137,9 @@
 				RelativePath=".\arithmetic_test.hpp">
 			</File>
 			<File
+				RelativePath=".\attr_value_test.hpp">
+			</File>
+			<File
 				RelativePath=".\axis_enumerator_test.hpp">
 			</File>
 			<File
