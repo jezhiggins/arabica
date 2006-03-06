@@ -199,7 +199,7 @@ public:
                                                                             const std::map<int, compileFn>& factory)
   {
     long id = impl::getNodeId<string_adaptor>(i);
-    std::map<int, compileFn>::const_iterator f = factory.find(id);
+    typename std::map<int, compileFn>::const_iterator f = factory.find(id);
     if(f == factory.end())
     {
       //XPath::dump(i, 0);
