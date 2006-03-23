@@ -168,9 +168,14 @@ private:
   {
     stringT dest;
 
+#ifndef ARABICA_VS6_WORKAROUND
     std::back_insert_iterator<stringT> id(dest);
     for(typename fromStringT::const_iterator i = str.begin(); i != str.end(); ++i, ++id)
       *id = static_cast<charT>(*i);
+#else
+    for(typename fromStringT::const_iterator i = str.begin(); i != str.end(); ++i)
+      dest += static_cast<charT>(*i);
+#endif
 
     return dest;
   } // no_conversion
@@ -273,9 +278,14 @@ private:
   {
     toStringT dest;
 
+#ifndef ARABICA_VS6_WORKAROUND
     std::back_insert_iterator<toStringT> id(dest);
     for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i, ++id)
       *id = static_cast<toCharT>(*i);
+#else
+    for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i)
+      dest += static_cast<toCharT>(*i);
+#endif
 
     return dest;
   } // no_conversion
