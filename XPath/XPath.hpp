@@ -9,35 +9,4 @@
 #include <XPath/impl/xpath_logical.hpp>
 #include <XPath/impl/xpath_arithmetic.hpp>
 
-/* To parameterise
-
-DONE - xpath_arithmetic.hpp
-DONE - xpath_ast.hpp
-DONE - xpath_ast_ids.hpp
-DONE - xpath_axis_enumerator.hpp
-DONE - xpath_compile_context.hpp
-DONE - xpath_execution_context.hpp
-DONE - xpath_expression.hpp
-DONE - xpath_function.hpp
-DONE - xpath_function_holder.hpp
-DONE - xpath_function_resolver.hpp
-xpath_grammar.hpp
-DONE - xpath_logical.hpp
-DONE - xpath_namespace_context.hpp
-DONE - xpath_namespace_node.hpp
-DONE - xpath_node_test.hpp
-DONE - xpath_object.hpp
-xpath_parser.hpp
-DONE - xpath_relational.hpp
-DONE - xpath_resolver_holder.hpp
-DONE - xpath_step.hpp
-DONE - xpath_union.hpp
-DONE - xpath_value.hpp
-DONE - xpath_variable.hpp
-DONE - xpath_variable_resolver.hpp
-
-GONE - xpath_axis_enumerator.cpp
-xpath_object.cpp
-GONE - xpath_parser.cpp
-*/
 #endif
