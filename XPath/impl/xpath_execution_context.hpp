@@ -10,7 +10,7 @@ namespace Arabica
 namespace XPath
 {
  
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = default_string_adaptor<std::string> >
 class ExecutionContext
 {
 public:

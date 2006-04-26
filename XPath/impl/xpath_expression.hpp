@@ -34,6 +34,16 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 
+  virtual bool evaluateAsBool(const DOM::Node<string_type>& context, 
+															const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext)->asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type>& context, 
+                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext)->asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type>& context, 
+                                       const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext)->asString(); }
+  virtual NodeSet<string_type> evaluateAsNodeSet(const DOM::Node<string_type>& context, 
+                                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext)->asNodeSet(); }
+
+
 private:
   XPathExpression(const XPathExpression&);
   bool operator==(const XPathExpression&);
