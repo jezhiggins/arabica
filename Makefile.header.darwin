@@ -29,7 +29,7 @@ COPY = cp -f
 # your parser choice
 # eg DYNAMIC_LIBS = -lexpat
 
-CXXFLAGS = -Wall 
+CXXFLAGS = -Wall -Wno-long-double
 LDFLAGS = 
 
 # Includes and library directories 
