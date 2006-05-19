@@ -1,6 +1,7 @@
 
 #include <SAX/ArabicaConfig.h>
-#ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
+#ifndef ARABICA_NO_CODECVT_SPECIALISATIONS 
+#ifndef ARABICA_NO_WCHAR_T
 #include <Utils/impl/codecvt_specialisations.h>
 
 namespace std
@@ -80,4 +81,5 @@ do_max_length() const throw()
 
 } // namespace std
 
+#endif
 #endif
