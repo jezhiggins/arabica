@@ -31,6 +31,8 @@ namespace convert
 
 class ucs2utf8codecvt : public std::codecvt<char, wchar_t, std::mbstate_t>
 {
+public:
+  static std::locale::id id;
 protected:
   typedef std::codecvt_base::result result;
 
