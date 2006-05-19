@@ -83,7 +83,7 @@ public:
   static const std::locale& utf8ucs2_locale()
   {
 #ifndef ARABICA_VS6_WORKAROUND
-    static const std::locale loc(std::locale(),  new Arabica::convert::utf8ucs2codecvt());
+    static const std::locale loc = std::locale(std::locale(), new Arabica::convert::utf8ucs2codecvt);
 #else
     static const std::locale loc(std::_Addfac(std::locale(),  new Arabica::convert::utf8ucs2codecvt()));
 #endif
