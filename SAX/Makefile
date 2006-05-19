@@ -38,7 +38,6 @@ SRCS =  saxlib.cpp \
 	../Utils/utf16utf8codecvt.cpp \
 	../Utils/ucs2utf8codecvt.cpp \
 	../Utils/base64codecvt.cpp \
-	../Utils/impl/codecvt_specialisations.cpp \
 	../XML/XMLCharacterClasses.cpp 
 
 HDRS = $(patsubst %.c,%.h,$(patsubst %.cpp,%.h,$(SRCS)))
