@@ -134,7 +134,8 @@ std::wstring silly_string_adaptor::asStdWString(const silly_string& str)
 {
   Arabica::convert::basic_oconvertstream<char, std::char_traits<char>,
                                          wchar_t, std::char_traits<wchar_t> > widener;
-  widener.imbue(std::locale(widener.getloc(), new Arabica::convert::ucs2utf8codecvt()));
+  std::codecvt<char, wchar_t, std::mbstate_t>* cc = new Arabica::convert::ucs2utf8codecvt();
+  widener.imbue(std::locale(widener.getloc(), cc));
   widener.str(str.s_);
   return widener.str();
 } // asStdWString

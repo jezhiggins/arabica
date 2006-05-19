@@ -7,12 +7,57 @@ namespace std
 {
 
 template<> 
-class codecvt<char, wchar_t, std::mbstate_t> 
+class codecvt<char, wchar_t, std::mbstate_t> :
+  public locale::facet, public codecvt_base
 {
+public:
+  static locale::id id;
+
+  codecvt_base::result out(std::mbstate_t& state,
+                           const char* from,
+                           const char* from_end,
+                           const char*& from_next,
+                           wchar_t* to,
+                           wchar_t* to_limit,
+                           wchar_t*& to_next) const
+  {
+    return this->do_out(state, from, from_end, from_next, to, to_limit, to_next);
+  } // out
+
+  
+  codecvt_base::result in(std::mbstate_t& state,
+                          const wchar_t* from,
+                          const wchar_t* from_end,
+                          const wchar_t*& from_next,
+                          char* to,
+                          char* to_limit,
+                          char*& to_next) const
+  {
+    return this->do_in(state, from, from_end, from_next, to, to_limit, to_next);
+  } // in
+
+  int encoding() const throw()
+  {
+    return this->do_encoding(); 
+  } // encoding
+
+  bool always_noconv() const throw()
+  {
+    return this->do_always_noconv();
+  } // always_noconv
+
+  int length(std::mbstate_t& state, 
+             const wchar_t* from,
+             const wchar_t* end,
+             size_t max) const
+  {
+    return this->do_length(state, from, end, max);
+  } // length
+
 protected:
   virtual ~codecvt() { }
 
-  virtual codecvt_base::result do_out(mbstate_t&,
+  virtual codecvt_base::result do_out(std::mbstate_t&,
                                       const char* from,
                                       const char* from_end,
                                       const char*& from_next,
@@ -31,7 +76,7 @@ protected:
   } // do_out
 
 
-  virtual codecvt_base::result do_in(mbstate_t&,
+  virtual codecvt_base::result do_in(std::mbstate_t&,
                                      const wchar_t* from,
                                      const wchar_t* from_end,
                                      const wchar_t*& from_next,
@@ -49,7 +94,7 @@ protected:
     return codecvt_base::ok;
   } // do_in
 
-  virtual codecvt_base::result do_unshift(mbstate_t&,
+  virtual codecvt_base::result do_unshift(std::mbstate_t&,
                                           wchar_t* to,
                                           wchar_t* to_limit,
                                           wchar_t*& to_next) const
@@ -68,10 +113,10 @@ protected:
     return false;
   } // do_always_noconv
 
-  virtual int do_length(const mbstate_t&,
+  virtual int do_length(std::mbstate_t&,
                         const wchar_t* from,
                         const wchar_t* end,
-                        size_t max) const;
+                        size_t max) const
   {
     return std::min<int>(max, (end - from));
   } // do_length
@@ -81,7 +126,6 @@ protected:
     return 1;
   } // do_max_length
 }; // class codecvt<char, wchar_t, std::mbstate_t> :
-
 
 } // namespace std
 #endif
