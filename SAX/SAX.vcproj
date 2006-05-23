@@ -438,9 +438,6 @@
 				Name="impl"
 				Filter="">
 				<File
-					RelativePath="..\Utils\impl\codecvt_specialisations.cpp">
-				</File>
-				<File
 					RelativePath="..\Utils\impl\codecvt_specialisations.h">
 				</File>
 				<File
