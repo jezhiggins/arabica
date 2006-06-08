@@ -26,7 +26,10 @@ public:
   typedef typename string_type::value_type value_type;
   typedef typename string_type::size_type size_type;
 
-  static const typename string_type::size_type npos = static_cast<typename string_type::size_type>(-1);
+  static size_type npos()
+  {
+    return static_cast<size_type>(-1);
+  }
 
   //todo: is this safe?
   template<class InputIterator> 
@@ -92,6 +95,7 @@ public:
 #endif //ARABICA_NO_WCHAR_T
 
 }; // class default_string_adaptor_base
+
 
 // specialize for std::string and std::wstring
 template<>

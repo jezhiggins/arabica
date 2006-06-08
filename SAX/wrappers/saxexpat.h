@@ -649,7 +649,7 @@ void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char*
       {
         stringT prefix;
         typename SA::size_type n = SA::find(attQName, nsc_.colon);
-        if(n != SA::npos)
+        if(n != SA::npos())
           prefix = SA::construct(SA::begin(attQName) + n + 1, SA::end(attQName));
         if(!nsSupport_.declarePrefix(prefix, value)) 
           reportError(std::string("Illegal Namespace prefix ") + SA::asStdString(prefix));

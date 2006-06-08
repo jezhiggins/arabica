@@ -24,7 +24,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       bool hasPrefix = false;
       size_type index = string_adaptorT::find(qualifiedName, string_adaptorT::construct_from_utf8(":"));
 
-      if(index == string_adaptorT::npos) 
+      if(index == string_adaptorT::npos()) 
       { //qualifiedName contains no ':'
         localName_ = ElementImplT::ownerDoc_->stringPool(qualifiedName);
       } 

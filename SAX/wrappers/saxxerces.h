@@ -317,7 +317,7 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
           if(!locator_) 
             return string_type();
 
-          return SA::makeStringT(locator_->getPublicId());
+          return xerces_string_adaptor::makeStringT(locator_->getPublicId());
         } // getPublicId
     
         string_type getSystemId() const

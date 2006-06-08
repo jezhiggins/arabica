@@ -26,7 +26,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       stringT const* prefix_for_checking = (&ownerDoc->empty_string());
       size_type index = string_adaptorT::find(qualifiedName, string_adaptorT::construct_from_utf8(":"));
 
-      if(index == string_adaptorT::npos) 
+      if(index == string_adaptorT::npos()) 
       {	//qualifiedName contains no ':'
         localName_ = AttrT::ownerDoc_->stringPool(qualifiedName);
         if(*localName_ == string_adaptorT::construct_from_utf8("xmlns"))

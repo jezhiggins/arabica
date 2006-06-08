@@ -321,7 +321,7 @@ public:
       {
         stringT prefix;
         int n = attQName.find(NamespaceSupportT::COLON);
-        if(n != stringT::npos)
+        if(n != stringT::npos())
             prefix = stringT(attQName.begin() + n + 1, attQName.end());
         if(!nsSupport_.declarePrefix(prefix, value)) 
           reportError("Illegal Namespace prefix " + makeString(prefix));

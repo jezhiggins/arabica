@@ -535,7 +535,7 @@ void libxml2_wrapper<stringT, T0, T1>::SAXstartElement(const xmlChar* qName, con
       {
         stringT prefix;
         typename string_adaptorT::size_type n = string_adaptorT::find(attQName, nsc_.colon);
-        if(n != string_adaptorT::npos)
+        if(n != string_adaptorT::npos())
           prefix = string_adaptorT::construct(string_adaptorT::begin(attQName) + n + 1, string_adaptorT::end(attQName));
         if(!nsSupport_.declarePrefix(prefix, value)) 
           reportError(std::string("Illegal Namespace prefix ") + string_adaptorT::asStdString(prefix));

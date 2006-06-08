@@ -33,7 +33,11 @@ public:
   typedef std::string::iterator mutable_iterator;
   typedef char value_type;
   typedef std::string::size_type size_type;
-  static const size_type npos;
+  static size_type npos()
+  {
+    return std::string::npos;
+  }
+
 
   template<class InputIterator>
   static silly_string construct(InputIterator from, InputIterator to)

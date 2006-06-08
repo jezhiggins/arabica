@@ -25,6 +25,9 @@ class Parser : protected SAX::basic_DefaultHandler2<stringT>
 {
     typedef SAX::basic_EntityResolver<stringT> EntityResolverT;
     typedef SAX::basic_ErrorHandler<stringT> ErrorHandlerT;
+    typedef SAX::basic_LexicalHandler<stringT> LexicalHandlerT;
+    typedef SAX::basic_DeclHandler<stringT> DeclHandlerT;
+    typedef SAX::basic_InputSource<stringT> InputSourceT;
     typedef SimpleDOM::EntityImpl<stringT, string_adaptorT> EntityT;
     typedef SimpleDOM::NotationImpl<stringT, string_adaptorT> NotationT;
     typedef SimpleDOM::ElementImpl<stringT, string_adaptorT> ElementT;
@@ -65,11 +68,11 @@ class Parser : protected SAX::basic_DefaultHandler2<stringT>
 
     bool parse(const stringT& systemId)
     {
-      SAX::basic_InputSource<stringT> is(systemId);
+      InputSourceT is(systemId);
       return parse(is);
     } // loadDOM
 
-    bool parse(SAX::basic_InputSource<stringT>& source)
+    bool parse(InputSourceT& source)
     {
       SAX::PropertyNames<stringT, string_adaptorT> pNames;
       
@@ -85,8 +88,8 @@ class Parser : protected SAX::basic_DefaultHandler2<stringT>
       if(entityResolver_)
         parser.setEntityResolver(*entityResolver_);
 
-      setParserProperty<SAX::basic_LexicalHandler<stringT> >(parser, pNames.lexicalHandler);
-      setParserProperty<SAX::basic_DeclHandler<stringT> >(parser, pNames.declHandler);
+      setParserProperty<LexicalHandlerT>(parser, pNames.lexicalHandler);
+      setParserProperty<DeclHandlerT>(parser, pNames.declHandler);
 
       setParserFeatures(parser);
 

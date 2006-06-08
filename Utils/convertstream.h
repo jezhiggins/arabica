@@ -126,7 +126,7 @@ public:
       std::use_facet<std::codecvt<charT, fromCharT, typename traitsT::state_type> >(this->getloc());
 #else
     const std::codecvt<charT, fromCharT, traitsT::state_type>& cvt =
-      std::use_facet(stringbuf_.getloc(), (std::codecvt<charT, fromCharT, traitsT::state_type>*)0, true);
+      std::use_facet(convertstreambuf_initT::buf()->getloc(), (std::codecvt<charT, fromCharT, traitsT::state_type>*)0, true);
 #endif
 
     if(cvt.always_noconv())

@@ -93,64 +93,32 @@ SOURCE=.\main.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\test_Attribute.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_Document.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_DocumentFragment.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_DocumentType.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_DOMImplementation.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_Element.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_ProcessingInstruction.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_SAX.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_Siblings.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\CppUnit\framework\TestCase.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\CppUnit\framework\TestFailure.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\CppUnit\framework\TestResult.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\CppUnit\framework\TestSuite.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\CppUnit\textui\TextTestResult.cpp
+SOURCE=..\silly_string\silly_string.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\silly_string\silly_string.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\test_SAX.h
+# End Source File
+# End Group
+# Begin Group "Libs"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\lib\Arabica.lib
+# End Source File
+# End Group
+# Begin Group "CppUnit"
+
+# PROP Default_Filter ""
 # Begin Source File
 
 SOURCE=..\CppUnit\framework\CppUnitException.h
@@ -169,47 +137,11 @@ SOURCE=..\CppUnit\framework\Test.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\test_Attribute.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_Document.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_DocumentFragment.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_DocumentType.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_DOMImplementation.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_Element.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_Notation.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_ProcessingInstruction.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_SAX.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\test_Siblings.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\CppUnit\framework\TestCaller.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\CppUnit\framework\TestCase.cpp
 # End Source File
 # Begin Source File
 
@@ -217,7 +149,15 @@ SOURCE=.\CppUnit\framework\TestCase.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\CppUnit\framework\TestFailure.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\CppUnit\framework\TestFailure.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\CppUnit\framework\TestResult.cpp
 # End Source File
 # Begin Source File
 
@@ -225,15 +165,15 @@ SOURCE=.\CppUnit\framework\TestResult.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\CppUnit\framework\TestSuite.h
+SOURCE=..\CppUnit\framework\TestSuite.cpp
 # End Source File
-# End Group
-# Begin Group "Libs"
-
-# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\..\lib\Arabica.lib
+SOURCE=.\CppUnit\framework\TestSuite.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\CppUnit\textui\TextTestResult.cpp
 # End Source File
 # End Group
 # End Target

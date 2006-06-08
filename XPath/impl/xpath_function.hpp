@@ -294,7 +294,7 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return new BoolValue<string_type, string_adaptor>(string_adaptor::find(baseT::argAsString(0, context, executionContext),
-                                                                           baseT::argAsString(1, context, executionContext)) != string_adaptor::npos);
+                                                                           baseT::argAsString(1, context, executionContext)) != string_adaptor::npos());
   } // evaluate
 }; // class ContainsFn
 
@@ -312,7 +312,7 @@ public:
     string_type value = baseT::argAsString(0, context, executionContext);
     size_t splitAt = string_adaptor::find(value, baseT::argAsString(1, context, executionContext));
 
-    if(splitAt == string_adaptor::npos)
+    if(splitAt == string_adaptor::npos())
       return new StringValue<string_type, string_adaptor>("");
 
     return new StringValue<string_type, string_adaptor>(string_adaptor::substr(value, 0, splitAt));
@@ -334,7 +334,7 @@ public:
     string_type split = baseT::argAsString(1, context, executionContext);
     size_t splitAt = string_adaptor::find(value, split);
 
-    if((splitAt == string_adaptor::npos) || ((splitAt + string_adaptor::length(split)) >= string_adaptor::length(value)))
+    if((splitAt == string_adaptor::npos()) || ((splitAt + string_adaptor::length(split)) >= string_adaptor::length(value)))
       return new StringValue<string_type, string_adaptor>("");
 
     return new StringValue<string_type, string_adaptor>(string_adaptor::substr(value, splitAt + string_adaptor::length(split)));
@@ -438,7 +438,7 @@ public:
     for(typename string_adaptor::mutable_iterator i = string_adaptor::begin(str), ie = string_adaptor::end(str); i != ie; ++i)
     {
       size_t r = string_adaptor::find(from, *i);
-      if(r == string_adaptor::npos)
+      if(r == string_adaptor::npos())
         ++p;
       else if(r < string_adaptor::length(to))
         *p++ = *(string_adaptor::begin(to) + r);

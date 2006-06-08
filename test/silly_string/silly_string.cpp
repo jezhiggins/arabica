@@ -30,8 +30,6 @@ silly_string& silly_string::operator=(const silly_string& rhs)
 
 ////////////////////////////////////////
 ////////////////////////////////////////
-const silly_string_adaptor::size_type silly_string_adaptor::npos = std::string::npos;
-
 char silly_string_adaptor::convert_from_utf8(char c)
 {
   return c;

@@ -222,7 +222,7 @@ class basic_NamespaceSupport
       Parts name;
       typename string_adaptorT::size_type index = string_adaptorT::find(qName, nsc_.colon);
 
-      if(index == string_adaptorT::npos)
+      if(index == string_adaptorT::npos())
       {
         // no prefix
         name.URI = getURI(stringT());

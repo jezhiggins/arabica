@@ -22,7 +22,7 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
   if(!hasPrefix)
     return std::make_pair(hasNamespaceURI, namespaceURI);
 
-  if(string_adaptorT::find(prefix, string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos)
+  if(string_adaptorT::find(prefix, string_adaptorT::construct_from_utf8(":")) != string_adaptorT::npos())
     throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
 
   if(prefix == xml) 
