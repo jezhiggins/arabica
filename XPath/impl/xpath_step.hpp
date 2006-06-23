@@ -118,6 +118,7 @@ private:
                      const ExecutionContext<string_type, string_adaptor>& parentContext) const
   {
     AxisEnumerator<string_type, string_adaptor> enumerator(context, axis_);
+    results.forward(enumerator.forward());
     NodeSet<string_type> intermediate(enumerator.forward());
     NodeSet<string_type>& d = (!baseT::has_predicates()) ? results : intermediate;
     while(*enumerator != 0)
@@ -130,14 +131,11 @@ private:
     } // while ...
     
     if(!baseT::has_predicates())
-    {
-      results.forward(enumerator.forward());
       return;
-    } // if ...
 
     intermediate = baseT::applyPredicates(intermediate, parentContext);
 
-    results.swap(intermediate);
+    results.insert(results.end(), intermediate.begin(), intermediate.end());
   } // enumerateOver
 
   Axis axis_;
