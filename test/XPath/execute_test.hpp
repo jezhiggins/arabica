@@ -644,6 +644,49 @@ public:
     assertDoublesEqual(3.0, result->asNumber(), 0.0);
   } // test41
 
+  void test42()
+  {
+    using namespace Arabica::XPath;
+    DOM::Element<string_type> f1 = chapters_.createElement(SA::construct_from_utf8("footer"));
+    DOM::Element<string_type> f2 = chapters_.createElement(SA::construct_from_utf8("footer"));
+    XPathValuePtr<string_type> ch = parser.evaluate(SA::construct_from_utf8("/document/chapter"), chapters_);
+    DOM::Node<string_type> n = ch->asNodeSet()[0];
+    n.appendChild(f1);
+    n = ch->asNodeSet()[1];
+    n.appendChild(f2);
+
+    XPathValuePtr<string_type> footers = parser.evaluate(SA::construct_from_utf8("//footer"), chapters_);
+    assertValuesEqual(NODE_SET, footers->type());
+    assertValuesEqual(2, footers->asNodeSet().size());
+    assertTrue(f1 == footers->asNodeSet()[0]);
+    assertTrue(f2 == footers->asNodeSet()[1]);
+
+    footers = parser.evaluate(SA::construct_from_utf8("/document/chapter/footer[1]"), chapters_);
+    assertValuesEqual(NODE_SET, footers->type());
+    assertValuesEqual(2, footers->asNodeSet().size());
+    assertTrue(f1 == footers->asNodeSet()[0]);
+    assertTrue(f2 == footers->asNodeSet()[1]);
+
+    footers = parser.evaluate(SA::construct_from_utf8("//footer[1]"), chapters_);
+    assertValuesEqual(NODE_SET, footers->type());
+    assertValuesEqual(2, footers->asNodeSet().size());
+    assertTrue(f1 == footers->asNodeSet()[0]);
+    assertTrue(f2 == footers->asNodeSet()[1]);
+
+    footers = parser.evaluate(SA::construct_from_utf8("//footer[2]"), chapters_);
+    assertValuesEqual(NODE_SET, footers->type());
+    assertValuesEqual(0, footers->asNodeSet().size());
+
+    footers = parser.evaluate_expr(SA::construct_from_utf8("(//footer)[1]"), chapters_);
+    assertValuesEqual(NODE_SET, footers->type());
+    assertValuesEqual(1, footers->asNodeSet().size());
+    assertTrue(f1 == footers->asNodeSet()[0]);
+    footers = parser.evaluate_expr(SA::construct_from_utf8("(//footer)[2]"), chapters_);
+    assertValuesEqual(NODE_SET, footers->type());
+    assertValuesEqual(1, footers->asNodeSet().size());
+    assertTrue(f2 == footers->asNodeSet()[0]);
+  } // test42
+
   void testUnion1()
   {
     using namespace Arabica::XPath;
@@ -2450,6 +2493,7 @@ TestSuite* ExecuteTest_suite()
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test39", &ExecuteTest<string_type, string_adaptor>::test39));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test40", &ExecuteTest<string_type, string_adaptor>::test40));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test41", &ExecuteTest<string_type, string_adaptor>::test41));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test42", &ExecuteTest<string_type, string_adaptor>::test42));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testUnion1", &ExecuteTest<string_type, string_adaptor>::testUnion1));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testUnion2", &ExecuteTest<string_type, string_adaptor>::testUnion2));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testUnion3", &ExecuteTest<string_type, string_adaptor>::testUnion3));
