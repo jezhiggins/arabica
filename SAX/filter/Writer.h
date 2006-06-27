@@ -16,8 +16,8 @@ namespace SAX {
 
 template<class string_type>
 class basic_Writer : public basic_XMLFilterImpl<string_type>,
-                     private basic_LexicalHandler<string_type>,
-                     private basic_DeclHandler<string_type>
+                     public basic_LexicalHandler<string_type>,
+                     public basic_DeclHandler<string_type>
 {
   public:
     typedef string_type stringT;
@@ -42,6 +42,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef typename XMLReaderT::template Property<declHandlerT*> getDeclHandlerT;
     typedef typename XMLReaderT::template Property<declHandlerT&> setDeclHandlerT;
     using XMLFilterT::getParent;
+
   public:
     basic_Writer(ostreamT& stream, unsigned int indent = 2) :
       inCDATA_(false),
@@ -116,6 +117,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     virtual std::auto_ptr<PropertyBaseT> doGetProperty(const stringT& name);
     virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value);
 
+  public:
     // ContentHandler
     virtual void startDocument();
     virtual void endDocument();
@@ -148,14 +150,14 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     virtual void internalEntityDecl(const stringT& name, const stringT& value);
     virtual void externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId);
 
-
+  protected:
     /////////////////
     void startEntityDecl(const stringT& name);
     void publicAndSystem(const stringT& publicId, const stringT& systemId);
     void doIndent();
     bool isDtd(const stringT& name);
 
-private:
+  private:
     bool inCDATA_;
     bool inDTD_;
     bool internalSubset_;
