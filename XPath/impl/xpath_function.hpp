@@ -395,9 +395,10 @@ public:
   virtual XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context,
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    string_type value = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
-    typename string_adaptor::const_iterator i = string_adaptor::begin(value), ie = string_adaptor::end(value);
-    typename string_adaptor::mutable_iterator p = string_adaptor::begin(value), pe = string_adaptor::end(value);
+    string_type initial = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
+		std::string value = string_adaptor::asStdString(initial);
+		std::string::const_iterator i = value.begin(), ie = value.end();
+		std::string::iterator p = value.begin(), pe = value.end();
 
     // string leading space
     while((i != ie) && (XML::is_space(static_cast<wchar_t>(*i))))
@@ -415,7 +416,7 @@ public:
     if(p != ie)
       *p++ = 0;
 
-    return new StringValue<string_type, string_adaptor>(value);
+		return new StringValue<string_type, string_adaptor>(string_adaptor::construct_from_utf8(value.c_str()));
   } // evaluate
 }; // class NormalizeSpaceFn
 
