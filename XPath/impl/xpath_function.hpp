@@ -447,7 +447,7 @@ public:
     if(p != string_adaptor::end(str))
       *p = 0;
 
-    return new StringValue<string_type, string_adaptor>(str);
+		return new StringValue<string_type, string_adaptor>(string_adaptor::construct(string_adaptor::begin(str), p));
   } // evaluate
 }; // class TranslateFn
 
