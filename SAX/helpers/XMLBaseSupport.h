@@ -90,7 +90,7 @@ private:
     static const stringT SCHEME_MARKER = string_adaptorT::construct_from_utf8("://");
     static const valueT FORWARD_SLASH = string_adaptorT::convert_from_utf8(Arabica::Unicode<char>::SLASH);
 
-    if(location.find(SCHEME_MARKER) != stringT::npos())
+    if(location.find(SCHEME_MARKER) != string_adaptorT::npos())
       return location;
 
     std::ostringstream ss;
