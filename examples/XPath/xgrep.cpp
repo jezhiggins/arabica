@@ -21,7 +21,16 @@ int main(int argc, char* argv[])
   } // if(argc < 3)
 
   Arabica::XPath::XPath<std::string> xpathParser;
-  Arabica::XPath::XPathExpressionPtr<std::string> xpath = xpathParser.compile(argv[1]);
+  Arabica::XPath::XPathExpressionPtr<std::string> xpath;
+  try {
+    //xpath = xpathParser.compile(argv[1]);
+    xpath = xpathParser.compile_expr(argv[1]);
+  }
+  catch(const std::runtime_error& error) {
+    std::cout << "XPath compilation error: " << error.what() << std::endl;
+    return 0;
+  }
+  
   
   SAX2DOM::Parser<std::string> domParser;
   SAX::CatchErrorHandler<std::string> eh;
