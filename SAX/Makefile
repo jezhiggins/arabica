@@ -56,13 +56,13 @@ libArabica$(LIBSUFFIX) : $(OBJS)
 ####
 # the .S files depends on symbols defined in this Makefile, hence
 # this slightly wacky rule
-saxlib.cpp : ParserConfig.h ArabicaConfig.h
+saxlib.cpp : ParserConfig.h ArabicaConfig.h saxlib.S
 	$(CPP) $(PARSER_CONFIG) -o saxlib.cpp saxlib.S 
 
-ParserConfig.h : Makefile ../Makefile.header
+ParserConfig.h : Makefile ../Makefile.header ParserConfig.S
 	$(CPP) $(PARSER_CONFIG) -o ParserConfig.h ParserConfig.S
 
-ArabicaConfig.h : Makefile ../Makefile.header
+ArabicaConfig.h : Makefile ../Makefile.header ArabicaConfig.S
 	$(CPP) $(PARSER_CONFIG) -o ArabicaConfig.h ArabicaConfig.S
 
 %.cpp : ArabicaConfig.h ParserConfig.h

@@ -15,6 +15,8 @@
 #pragma warning(disable: 4786)
 #endif 
 
+include <SAX/ArabicaConfig.h>
+
 define NO_DEFAULT_PARSER
 include <SAX/XMLReader.h>
 
@@ -52,6 +54,10 @@ include <SAX/wrappers/saxexpat.cpp>
 message("Pulling in Expat wrappers.")
 #endif	
 #endif
+
+ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
+include <Utils/impl/codecvt_specialisations.cpp>
+endif
 
 #ifdef __GNUWIN32__
 #ifdef _LIB
