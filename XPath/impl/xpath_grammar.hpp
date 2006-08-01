@@ -112,10 +112,11 @@ struct xpath_grammar_definition
     // [28] ExprToken not actually used
 
     //[29], [30], [31], 
-    Literal	= inner_node_d[ch_p('\"') >> token_node_d[*~ch_p('\"')] >> '\"'] 
-            | inner_node_d[ch_p('\'') >> token_node_d[*~ch_p('\'')] >> '\''];	
+    Literal	= discard_node_d[ch_p('\"')] >> token_node_d[*~ch_p('\"')] >> discard_node_d[ch_p('\"')] 
+            | discard_node_d[ch_p('\'')] >> token_node_d[*~ch_p('\'')] >> discard_node_d[ch_p('\'')];	
     Number = token_node_d[ch_p('.') >> Digits | Digits >> !('.' >> *Digits)];
     Digits = token_node_d[+digit_p];
+
     // [32] Operator not actually used
     // [33] OperatorName not actually used
     // [34], [35], [36], [37], [38], [39]
