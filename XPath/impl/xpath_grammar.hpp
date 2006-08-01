@@ -75,7 +75,7 @@ struct xpath_grammar_definition
                   (VariableReference
                     | Number
                     | FunctionCall
-                    | inner_node_d[LeftBracket >> S >> Expr >> S >> RightBracket]
+                    | discard_node_d[LeftBracket] >> S >> Expr >> S >> discard_node_d[RightBracket]
                     | Literal) >> 
                   discard_node_d[S];
 
