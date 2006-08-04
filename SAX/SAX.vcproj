@@ -366,7 +366,7 @@
 				RelativePath="..\Xml\escaper.hpp">
 			</File>
 			<File
-				RelativePath=".\Utils\getparam.hpp">
+				RelativePath="..\Utils\getparam.hpp">
 			</File>
 			<File
 				RelativePath="..\Utils\iso88591utf8codecvt.cpp">
@@ -754,8 +754,8 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="cl /TC /D USE_XERCES /EP ParserConfig.S &gt; ParserConfig.h
-cl /TC /D USE_XERCES /EP saxlib.S &gt; saxlib.cpp
+					CommandLine="cl /TC /D USE_MSXML /EP ParserConfig.S &gt; ParserConfig.h
+cl /TC /D USE_MSXML /EP saxlib.S &gt; saxlib.cpp
 "
 					Outputs="ParserConfig.h;saxlib.cpp"/>
 			</FileConfiguration>
