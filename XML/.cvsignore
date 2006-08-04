@@ -1,6 +1,0 @@
-*.obj
-core
-*.so
-*.so.*
-*.a
-.depend
