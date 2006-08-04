@@ -55,6 +55,7 @@ int main(int argc, char* argv[])
     if(!eh.errorsReported())
     {
       DOM::Document<std::string> doc = domParser.getDocument();
+ //     doc.normalize();
       Arabica::XPath::XPathValuePtr<std::string> result;
       result = xpath->evaluate(doc);
       if(result->asBool())
@@ -65,7 +66,7 @@ int main(int argc, char* argv[])
           const Arabica::XPath::NodeSet<std::string>& ns = result->asNodeSet();
           for(unsigned int i = 0; i < ns.size(); ++i)
           {
-            DOM::Element<std::string> n = static_cast<DOM::Element<std::string> >(ns[i]);
+            DOM::Node<std::string> n = ns[i];
             std::cout << n << std::endl;
           }
         } // if ..
