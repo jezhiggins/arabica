@@ -32,9 +32,9 @@ class DocumentType : public SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT
       BaseDT::addNotation(notation);
     } // addNotation
 
-    void addElement(SimpleDOM::ElementImpl<stringT, string_adaptorT>* element)
+    void addElement(const stringT& name)
     {
-      BaseDT::addElement(element);
+      BaseDT::addElement(new SimpleDOM::ElementImpl<stringT, string_adaptorT>(BaseDT::ownerDoc_, name));
     } // addElement
 
     void addDefaultAttr(const stringT& elementName, const stringT& attributeName, const stringT& attributeValue)
@@ -42,8 +42,8 @@ class DocumentType : public SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT
       SimpleDOM::ElementImpl<stringT, string_adaptorT>* elem = dynamic_cast<SimpleDOM::ElementImpl<stringT, string_adaptorT>*>(BaseDT::getElements()->getNamedItem(elementName));
       if(elem == 0)
       {
-        elem = new SimpleDOM::ElementImpl<stringT, string_adaptorT>(0, elementName);
-        addElement(elem);
+        addElement(elementName);
+        elem = dynamic_cast<SimpleDOM::ElementImpl<stringT, string_adaptorT>*>(BaseDT::getElements()->getNamedItem(elementName));
       }
       SimpleDOM::AttrImpl<stringT, string_adaptorT>* attr = new SimpleDOM::AttrImpl<stringT, string_adaptorT>(BaseDT::ownerDoc_, attributeName);
       attr->setValue(attributeValue);

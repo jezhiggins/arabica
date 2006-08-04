@@ -54,8 +54,9 @@ class Parser : protected SAX::basic_DefaultHandler2<stringT>
     {
       typename Features::iterator f = features_.find(name);
       if(f == features_.end())
-        throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + string_adaptorT::asStdString(name));
-      f->second = value;
+        features_.insert(std::make_pair(name, value));
+      else
+        f->second = value;
     } // setFeature
 
     bool getFeature(const stringT& name) const
@@ -324,7 +325,7 @@ class Parser : protected SAX::basic_DefaultHandler2<stringT>
     // DeclHandler
     virtual void elementDecl(const stringT& name, const stringT& model)
     {
-      documentType_->addElement(new ElementT(0, name));
+      documentType_->addElement(name);
     } // elementDecl
 
     virtual void attributeDecl(const stringT& elementName,
