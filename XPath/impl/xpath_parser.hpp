@@ -127,7 +127,6 @@ private:
       ast = (this->*parser)(xpath);
       if(!ast.full)
         throw SyntaxException(string_adaptor::asStdString(xpath));
-			//XPath::dump(ast.trees.begin(), 0);
 
       impl::CompilationContext<string_type, string_adaptor> context(*this, getNamespaceContext(), getFunctionResolver());
       return XPathExpressionPtr<string_type, string_adaptor>(compile_with_factory(ast.trees.begin(), context, factory));
