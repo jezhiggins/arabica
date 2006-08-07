@@ -1,8 +1,8 @@
 //---------------------------------------------------------------------------
 // $Id$
 //---------------------------------------------------------------------------
-#include "iso88591utf8codecvt.h"
-#include "impl/iso88591_utf8.h"
+#include <Utils/iso88591utf8codecvt.h>
+#include <Utils/impl/iso88591_utf8.h>
 //---------------------------------------------------------------------------
 // This facet converts from ISO8859:1 (Latin 1) chars to UTF-8 encoded chars.
 using namespace Arabica::convert;

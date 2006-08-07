@@ -1,6 +1,6 @@
 
-#include "XMLCharacterClasses.h"
-#include "UnicodeCharacters.h"
+#include <XML/XMLCharacterClasses.h>
+#include <XML/UnicodeCharacters.h>
 
 const wchar_t base_char_ranges[][2] = 
 {

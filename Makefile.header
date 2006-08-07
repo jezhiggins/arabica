@@ -35,8 +35,8 @@ CXXFLAGS = -Wall
 LDFLAGS = 
 
 # Includes and library directories 
-INCS_DIRS = -I.. -Id:/usr/include
-LIBS_DIRS = -Ld:/usr/dll
+INCS_DIRS = -I.. -I/home/jez/arabica/arabica/include -I/cygdrive/c/usr/include/
+LIBS_DIRS =
 
 STATIC_LIBS =
 DYNAMIC_LIBS = -lwsock32 -lexpat -lstdc++ 
