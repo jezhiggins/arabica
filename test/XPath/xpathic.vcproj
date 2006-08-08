@@ -21,7 +21,7 @@
 				AdditionalOptions="/Zm1000 "
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="..\..\"
+				AdditionalIncludeDirectories="..\..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="0"
@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm1000 "
-				AdditionalIncludeDirectories="..\..\"
+				AdditionalIncludeDirectories="..\..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="TRUE"
