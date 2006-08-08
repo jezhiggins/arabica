@@ -1,81 +1,65 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArabicaLib", "SAX\SAX.vcproj", "{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAXSimpleHandler", "examples\SAX\SimpleHandler.vcproj", "{16475ED0-2906-429B-9E73-F2BF2929F6E9}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAXWriter", "EXAMPLES\SAX\Writer.vcproj", "{3C6CBC24-07D4-4DE8-A1DF-592C3BC77C56}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAXPyx", "examples\SAX\pyx.vcproj", "{AE33D6D1-0F57-4E97-90AE-696854C5AE71}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_DOMWriter", "examples\SAX2DOM\DOMWriter.vcproj", "{C1CF7801-1681-4F15-8D71-BBC814805AF2}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_UtilsTranscode", "examples\Utils\transcode.vcproj", "{436B423B-BF20-4B2E-A187-604AF391FBE2}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_XMLBase", "examples\SAX\example_XMLBase.vcproj", "{1E3CEC10-26EB-40C0-AC9A-72020BD5A40A}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xpath", "test\XPath\xpathic.vcproj", "{B3C75B3A-BB0A-4B23-87F9-FB9CD98FF8CE}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAX2DOM", "test\SAX2DOM\SAX2DOM_test.vcproj", "{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_xgrep", "examples\XPath\xgrep.vcproj", "{5F7B038E-5148-4EF4-AB43-5035F666D00D}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xpath_silly", "test\XPath_silly\xpathic_silly.vcproj", "{B3C75B3A-BB0A-4B23-87F9-FB9CD98FF8CE}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xpath_wide", "test\XPath_wide\xpathic_wide.vcproj", "{B3C75B3A-BB0A-4B23-87F9-FB9CD98FF8CE}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_DOM", "test\DOM\DOM_test.vcproj", "{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_DOM_silly", "test\DOM_silly\DOM_test_silly.vcproj", "{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_DOM_wide", "test\DOM_wide\DOM_test_wide.vcproj", "{DE6FD811-12BD-4914-BA29-CD987C4B0D48}"
 	ProjectSection(ProjectDependencies) = postProject
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB} = {884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAXFilter", "test\SAX\FilterTest.vcproj", "{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArabicaLib", "src\SAX.vcproj", "{4CA72415-D03A-4447-BE4E-C093A5146CAC}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -85,10 +69,6 @@ Global
 		Release = Release
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}.Debug.ActiveCfg = Debug|Win32
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}.Debug.Build.0 = Debug|Win32
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}.Release.ActiveCfg = Release|Win32
-		{884490E3-E4B3-43BE-A88B-7FA9EA4E16AB}.Release.Build.0 = Release|Win32
 		{16475ED0-2906-429B-9E73-F2BF2929F6E9}.Debug.ActiveCfg = Debug|Win32
 		{16475ED0-2906-429B-9E73-F2BF2929F6E9}.Debug.Build.0 = Debug|Win32
 		{16475ED0-2906-429B-9E73-F2BF2929F6E9}.Release.ActiveCfg = Release|Win32
@@ -149,6 +129,10 @@ Global
 		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Debug.Build.0 = Debug|Win32
 		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Release.ActiveCfg = Release|Win32
 		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Release.Build.0 = Release|Win32
+		{4CA72415-D03A-4447-BE4E-C093A5146CAC}.Debug.ActiveCfg = Debug|Win32
+		{4CA72415-D03A-4447-BE4E-C093A5146CAC}.Debug.Build.0 = Debug|Win32
+		{4CA72415-D03A-4447-BE4E-C093A5146CAC}.Release.ActiveCfg = Release|Win32
+		{4CA72415-D03A-4447-BE4E-C093A5146CAC}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

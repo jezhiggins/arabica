@@ -4,12 +4,12 @@
 ######################################
 # High level rules
 all : 
-	cd SAX; ${MAKE}
+	cd src; ${MAKE}
 	cd test; ${MAKE}
 	cd examples; ${MAKE}
 
 clean :
-	cd SAX; ${MAKE} clean
+	cd src; ${MAKE} clean
 	cd test; ${MAKE} clean
 	cd examples; ${MAKE} clean
 	rm -f arabica.tar.gz
