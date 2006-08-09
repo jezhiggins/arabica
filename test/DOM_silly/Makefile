@@ -4,7 +4,7 @@
 
 ######################################
 # ADDITIONAL BUILD FLAGS
-INCS_DIRS += -I../.. 
+INCS_DIRS += -I../../include 
 LIBS_DIRS += -L../../bin 
 
 STATIC_LIBS +=

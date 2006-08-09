@@ -13,7 +13,7 @@
 
 ######################################
 # ADDITIONAL BUILD FLAGS
-CXXFLAGS += -I..
+CXXFLAGS += -I../include
 LDFLAGS += $(LINK_SHARED)
 
 INC_DIRS +=

@@ -35,7 +35,7 @@ CXXFLAGS = -Wall
 LDFLAGS = 
 
 # Includes and library directories 
-INCS_DIRS = -I.. -I/usr/include/libxml2
+INCS_DIRS = -I/usr/include/libxml2 
 LIBS_DIRS = 
 
 STATIC_LIBS =
