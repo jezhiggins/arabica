@@ -25,6 +25,8 @@ int main(int argc, const char* argv[])
   runner.addTest("SAX2DOMTest_silly", SAXTest_suite<silly_string, silly_string_adaptor>());
 #ifndef ARABICA_NO_WCHAR_T
   runner.addTest("SAX2DOMTest_wide", SAXTest_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >());
+#else
+  std::cout << "No wchar_t tests on this platform :)" << std::endl;
 #endif
   runner.run(argc, argv);
 
