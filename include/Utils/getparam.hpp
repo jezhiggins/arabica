@@ -7,8 +7,6 @@
 namespace Arabica
 {
 
-struct nil_t { };
-
 template <typename BaseT, typename DefaultT, typename T0, typename T1>
 struct get_param
 {
