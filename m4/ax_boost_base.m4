@@ -156,7 +156,7 @@ AC_DEFUN([ARABICA_HAS_BOOST],
                        AC_SUBST(BOOST_CPPFLAGS)
                         AC_DEFINE(HAVE_BOOST,,[define if the Boost library is available])
                 fi
-
+        AM_CONDITIONAL(HAVE_BOOST, test x$succeeded = xyes)
         CPPFLAGS="$CPPFLAGS_SAVED"
         fi
 ])
