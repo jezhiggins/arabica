@@ -147,14 +147,16 @@ AC_DEFUN([ARABICA_HAS_BOOST],
 
                 if test "$succeeded" != "yes" ; then
                         if test "$_version" = "0" ; then
-                                AC_MSG_ERROR([[Could not detect the boost libraries (version $boost_lib_version_req_shorten or higher).  If you do have boost installed, then check your version number looking in <boost/version.hpp>. ]])
+                                AC_MSG_NOTICE([[Could not detect the boost libraries (version $boost_lib_version_req_shorten or higher).  If you do have boost installed, then check your version number looking in <boost/version.hpp>. ]])
                         else
-                                AC_MSG_ERROR('Your boost libraries seems to old (version $_version).  We need at least $boost_lib_version_shorten')
+                                AC_MSG_NOTICE('Your boost libraries seems to old (version $_version).  We need at least $boost_lib_version_shorten')
                         fi
+                        AC_MSG_NOTICE([[Arabica will build, but XPath and some other features will not be available]]) 
                 else
-                        AC_SUBST(BOOST_CPPFLAGS)
+                       AC_SUBST(BOOST_CPPFLAGS)
                         AC_DEFINE(HAVE_BOOST,,[define if the Boost library is available])
                 fi
+
         CPPFLAGS="$CPPFLAGS_SAVED"
         fi
 ])
