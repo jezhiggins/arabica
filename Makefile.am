@@ -34,5 +34,5 @@ dist-hook:
 	find $(distdir) -print | grep \~$ | xargs rm -rf
 
 pkgconfigdir = src/pkgconfig
-pkgconfig_DATA = arabica-aug2006.pc
+pkgconfig_DATA = arabica.pc
 

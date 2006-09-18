@@ -3,7 +3,7 @@ AC_DEFUN([ARABICA_HAS_BOOST],
 [
     AC_ARG_WITH([boost],
                 AS_HELP_STRING([--with-boost=DIR],
-                [use boost (default is NO) specify the root directory for boost library (optional)]),
+                [Specify the root directory for Boost library.  --with-boost=no to disable]),
                 [
                 if test "$withval" = "no"; then
                             want_boost="no"
@@ -147,18 +147,20 @@ AC_DEFUN([ARABICA_HAS_BOOST],
 
                 if test "$succeeded" != "yes" ; then
                         if test "$_version" = "0" ; then
-                                AC_MSG_NOTICE([[Could not detect the boost libraries (version $boost_lib_version_req_shorten or higher).  If you do have boost installed, then check your version number looking in <boost/version.hpp>. ]])
+                                AC_MSG_NOTICE([[Could not detect the Boost libraries (version $boost_lib_version_req_shorten or higher).  If you do have Boost installed, then check your version number looking in <boost/version.hpp>. ]])
                         else
-                                AC_MSG_NOTICE('Your boost libraries seems to old (version $_version).  We need at least $boost_lib_version_shorten')
+                                AC_MSG_NOTICE('Your Boost libraries seems to old (version $_version).  We need at least $boost_lib_version_shorten')
                         fi
                         AC_MSG_NOTICE([[Arabica will build, but XPath and some other features will not be available]]) 
                 else
                        AC_SUBST(BOOST_CPPFLAGS)
                         AC_DEFINE(HAVE_BOOST,,[define if the Boost library is available])
                 fi
-        AM_CONDITIONAL(HAVE_BOOST, test x$succeeded = xyes)
         CPPFLAGS="$CPPFLAGS_SAVED"
+        else
+                        AC_MSG_NOTICE([[Not searching for Boost.  Arabica will build, but XPath and some other features will not be available]]) 
         fi
+        AM_CONDITIONAL(HAVE_BOOST, test x$succeeded = xyes)
 ])
 
 
