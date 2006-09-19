@@ -24,7 +24,11 @@ cppunit_sources = ../CppUnit/framework/CppUnitException.h \
 
 test_sources = test_SAX.h
 
-sax2dom_test_SOURCES = main.cpp $(cppunit_sources) $(test_sources) ../silly_string/silly_string.cpp ../silly_string/silly_string.hpp
+sax2dom_test_SOURCES = main.cpp \
+                       $(cppunit_sources) \
+                       $(test_sources) \
+                       ../silly_string/silly_string.cpp \
+                       ../silly_string/silly_string.hpp
 sax2dom_test_DEPENDENCES = $(LIBARABICA)
 sax2dom_test_LDADD =  $(LIBARABICA)
 

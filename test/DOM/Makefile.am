@@ -1,5 +1,8 @@
 
-bin_PROGRAMS = dom_test dom_test_silly dom_test_wide
+bin_PROGRAMS = dom_test dom_test_silly 
+if HAS_STD_WSTRING
+  bin_PROGRAMS += dom_test_wide
+endif
 
 LIBARABICA =  $(top_builddir)/src/libarabica.la
 

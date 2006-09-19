@@ -9,4 +9,5 @@ AC_DEFUN([ARABICA_HAS_STD_WSTRING],
   if test $wchar_t_available = no; then
     AC_DEFINE(ARABICA_NO_WCHAR_T, ,[disables wchar_t])
   fi
+  AM_CONDITIONAL(HAS_STD_WSTRING, test $wchar_t_available = yes)
 ])

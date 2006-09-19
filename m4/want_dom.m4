@@ -15,7 +15,7 @@ AC_DEFUN([ARABICA_WANT_DOM],
   AM_CONDITIONAL(WANT_DOM, test "$want_dom" = "yes")
   if test "$want_dom" = "yes"; then
     if test "$boost_is_available" = "yes"; then
-      want_xpath = "yes"
+      want_xpath="yes"
     fi
   fi
   if test "$want_xpath" != "yes"; then

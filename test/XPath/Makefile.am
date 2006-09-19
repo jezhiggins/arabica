@@ -1,5 +1,8 @@
 
-bin_PROGRAMS = xpath_test xpath_test_silly xpath_test_wide
+bin_PROGRAMS = xpath_test xpath_test_silly 
+if HAS_STD_WSTRING
+  bin_PROGRAMS += xpath_test_wide
+endif
 
 LIBARABICA =  $(top_builddir)/src/libarabica.la
 
