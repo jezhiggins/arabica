@@ -151,16 +151,21 @@ AC_DEFUN([ARABICA_HAS_BOOST],
                         else
                                 AC_MSG_NOTICE('Your Boost libraries seems to old (version $_version).  We need at least $boost_lib_version_shorten')
                         fi
-                        AC_MSG_NOTICE([[Arabica will build, but XPath and some other features will not be available]]) 
+                        AC_MSG_NOTICE([[Arabica will build, but some features will not be available]]) 
                 else
                        AC_SUBST(BOOST_CPPFLAGS)
                         AC_DEFINE(HAVE_BOOST,,[define if the Boost library is available])
                 fi
         CPPFLAGS="$CPPFLAGS_SAVED"
         else
-                        AC_MSG_NOTICE([[Not searching for Boost.  Arabica will build, but XPath and some other features will not be available]]) 
+                        AC_MSG_NOTICE([[Not searching for Boost.  Arabica will build, but some features will not be available]]) 
         fi
         AM_CONDITIONAL(HAVE_BOOST, test x$succeeded = xyes)
+        if test "$succeeded" = "yes"; then
+          boost_is_available=yes
+        else
+          boost_is_available=no
+        fi
 ])
 
 

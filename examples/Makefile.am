@@ -1,5 +1,8 @@
-SUBDIRS = SAX DOM Utils 
-if HAVE_BOOST
+SUBDIRS = SAX Utils 
+if WANT_DOM 
+  SUBDIRS += DOM
+endif
+if WANT_XPATH
   SUBDIRS += XPath
 endif
 
