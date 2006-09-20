@@ -78,7 +78,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\Release_test_DOM"
+			IntermediateDirectory=".\Release_test_DOM_wide"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"

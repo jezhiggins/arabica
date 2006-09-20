@@ -14,7 +14,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\Debug_test_DOM"
+			IntermediateDirectory=".\Debug_test_DOM_silly"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -78,7 +78,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\Release_test_DOM"
+			IntermediateDirectory=".\Release_test_DOM_silly"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"

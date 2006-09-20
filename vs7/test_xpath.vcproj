@@ -12,8 +12,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\..\..\bin"
-			IntermediateDirectory="Debug"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\Debug_test_xpath"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
@@ -21,7 +21,7 @@
 				AdditionalOptions="/Zm1000 "
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="..\..\include"
+				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="0"
@@ -67,14 +67,14 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\..\..\Debug"
-			IntermediateDirectory="Release"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\Release_test_xpath"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm1000 "
-				AdditionalIncludeDirectories="..\..\include"
+				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="TRUE"
@@ -126,7 +126,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\main.cpp">
+				RelativePath="..\test\XPath\main.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -134,103 +134,105 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\arithmetic_test.hpp">
+				RelativePath="..\test\XPath\arithmetic_test.hpp">
 			</File>
 			<File
-				RelativePath=".\attr_value_test.hpp">
+				RelativePath="..\test\XPath\attr_value_test.hpp">
 			</File>
 			<File
-				RelativePath=".\axis_enumerator_test.hpp">
+				RelativePath="..\test\XPath\axis_enumerator_test.hpp">
 			</File>
 			<File
-				RelativePath=".\execute_test.hpp">
+				RelativePath="..\test\XPath\execute_test.hpp">
 			</File>
 			<File
-				RelativePath=".\expression_test.hpp">
+				RelativePath="..\test\XPath\expression_test.hpp">
 			</File>
 			<File
-				RelativePath=".\logical_test.hpp">
+				RelativePath="..\test\XPath\logical_test.hpp">
 			</File>
 			<File
-				RelativePath=".\match_test.hpp">
+				RelativePath="..\test\XPath\match_test.hpp">
 			</File>
 			<File
-				RelativePath=".\node_test_test.hpp">
+				RelativePath="..\test\XPath\node_test_test.hpp">
 			</File>
 			<File
-				RelativePath=".\parse_test.hpp">
+				RelativePath="..\test\XPath\parse_test.hpp">
 			</File>
 			<File
-				RelativePath=".\relational_test.hpp">
+				RelativePath="..\test\XPath\relational_test.hpp">
 			</File>
 			<File
-				RelativePath=".\step_test.hpp">
+				RelativePath="..\test\XPath\step_test.hpp">
 			</File>
 			<File
-				RelativePath=".\value_test.hpp">
+				RelativePath="..\test\XPath\value_test.hpp">
 			</File>
 			<File
-				RelativePath=".\xpath_test_suite.hpp">
+				RelativePath="..\test\XPath\xpath_test_suite.hpp">
 			</File>
 		</Filter>
 		<Filter
-			Name="CppUnit"
-			Filter="">
+			Name="Libs">
 			<File
-				RelativePath="..\CppUnit\framework\CppUnitException.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\estring.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\Guards.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\Test.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestCaller.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestCase.cpp">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestCase.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestFailure.cpp">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestFailure.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestResult.cpp">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestResult.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\TestRunner.cpp">
-			</File>
-			<File
-				RelativePath="..\CppUnit\TestRunner.hpp">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestSuite.cpp">
-			</File>
-			<File
-				RelativePath="..\CppUnit\framework\TestSuite.h">
-			</File>
-			<File
-				RelativePath="..\CppUnit\textui\TextTestResult.cpp">
-			</File>
-			<File
-				RelativePath="..\CppUnit\textui\TextTestResult.h">
+				RelativePath="..\lib\Arabica.lib">
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\lib\Arabica.lib">
-		</File>
+		<Filter
+			Name="CppUnit">
+			<File
+				RelativePath="..\test\CppUnit\framework\CppUnitException.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\estring.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\Guards.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\Test.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestCaller.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestCase.cpp">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestCase.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestFailure.cpp">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestFailure.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestResult.cpp">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestResult.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\TestRunner.cpp">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\TestRunner.hpp">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestSuite.cpp">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\framework\TestSuite.h">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\textui\TextTestResult.cpp">
+			</File>
+			<File
+				RelativePath="..\test\CppUnit\textui\TextTestResult.h">
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

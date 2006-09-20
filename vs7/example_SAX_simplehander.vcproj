@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="example_SAXSimpleHandler"
+	ProjectGUID="{4D861155-0183-4637-8F01-4F8FDB43C344}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -12,8 +13,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\..\..\bin"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\debug_examples_SAX_simple"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -23,7 +24,7 @@
 				AdditionalOptions="/Zm200
 "
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\include"
+				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -77,8 +78,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\..\..\bin"
-			IntermediateDirectory=".\Release"
+			OutputDirectory=".\..\bin"
+			IntermediateDirectory=".\Release_examples_SAX_simple"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -86,7 +87,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\include"
+				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -144,24 +145,23 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath=".\SimpleHandler.cpp">
+				RelativePath="..\examples\Sax\SimpleHandler.cpp">
 			</File>
 			<File
-				RelativePath=".\wrapper.cpp">
+				RelativePath="..\examples\Sax\wrapper.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath=".\SimpleHandler.h">
+				RelativePath="..\examples\Sax\SimpleHandler.h">
 			</File>
 		</Filter>
 		<Filter
-			Name="Libs"
-			Filter="">
+			Name="Libs">
 			<File
-				RelativePath="..\..\lib\Arabica.lib">
+				RelativePath="..\lib\Arabica.lib">
 			</File>
 		</Filter>
 	</Files>

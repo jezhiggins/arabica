@@ -27,6 +27,7 @@ define ARABICA_VS6_WORKAROUND
 define ARABICA_NO_CODECVT_SPECIALISATIONS
 #endif
 
+define HAVE_BOOST
 define ARABICA_WINDOWS
 
 #if defined(_DEBUG) || (__DEBUG__)
