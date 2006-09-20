@@ -14,14 +14,23 @@
 #include <SAX/helpers/InputSourceResolver.h>
 #include <SAX/helpers/AttributesImpl.h>
 #include <Utils/StringAdaptor.h>
+#include <Utils/getparam.hpp>
 
 namespace SAX {
 
-template<class string_type>
+template<class string_type, 
+         class T0 = Arabica::nil_t,
+         class T1 = Arabica::nil_t>
 class Garden : public basic_XMLReader<string_type>
 {
 public:
   typedef string_type stringT;
+  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                             Arabica::default_string_adaptor<string_type>, 
+                             T0, 
+                             T1>::type string_adaptor_type;
+  typedef string_adaptor_type string_adaptorT;
+  typedef string_adaptor_type SA;
   typedef basic_EntityResolver<stringT> EntityResolverT;
   typedef basic_DTDHandler<stringT> DTDHandlerT;
   typedef basic_ContentHandler<stringT> ContentHandlerT;
@@ -106,8 +115,8 @@ private:
   std::map<char, int> conversion_;
 }; // parser
 
-template<class string_type>
-Garden<string_type>::Garden() :
+template<class string_type, class T0, class T1>
+Garden<string_type, T0, T1>::Garden() :
   entityResolver_(0),
   dtdHandler_(0),
   contentHandler_(0),
@@ -130,19 +139,19 @@ Garden<string_type>::Garden() :
   document_ = prolog >> element >> *Misc;
 
   chset_t CharDataChar (boost::spirit::anychar_p - (chset_t('<') | chset_t('&')));
-  CharData = (*(CharDataChar - boost::spirit::str_p("]]>")))[boost::bind(&Garden<string_type>::elementContent, this, _1, _2)];
+  CharData = (*(CharDataChar - boost::spirit::str_p("]]>")))[boost::bind(&Garden<string_type, T0, T1>::elementContent, this, _1, _2)];
 
   // Section 2.5 - Comments
   Comment =        boost::spirit::str_p("<!--") >> Comment1 >> boost::spirit::str_p("-->");
   Comment1 = *((Char - boost::spirit::ch_p('-')) | (boost::spirit::ch_p('-') >> (Char - boost::spirit::ch_p('-'))));
  
   // Section 2.6 - Processing Instructions
-  PI = boost::spirit::str_p("<?") >> (PITarget)[boost::bind(&Garden<string_type>::piTarget, this, _1, _2)] >> !Spaces >> (PIData)[boost::bind(&Garden<string_type>::piData, this, _1, _2)] >> (boost::spirit::str_p("?>"))[boost::bind(&Garden<string_type>::piEnd, this, _1, _2)];
+  PI = boost::spirit::str_p("<?") >> (PITarget)[boost::bind(&Garden<string_type, T0, T1>::piTarget, this, _1, _2)] >> !Spaces >> (PIData)[boost::bind(&Garden<string_type, T0, T1>::piData, this, _1, _2)] >> (boost::spirit::str_p("?>"))[boost::bind(&Garden<string_type, T0, T1>::piEnd, this, _1, _2)];
   PITarget = Name - boost::spirit::as_lower_d[boost::spirit::str_p("xml")];
   PIData = !(!Spaces >> (*(Char - boost::spirit::str_p("?>"))));
 
   // Section 2.7 - CDATA
-  CDSect  = CDStart >> (CData)[boost::bind(&Garden<string_type>::elementContent, this, _1, _2)] >> CDEnd;
+  CDSect  = CDStart >> (CData)[boost::bind(&Garden<string_type, T0, T1>::elementContent, this, _1, _2)] >> CDEnd;
   CDStart = boost::spirit::str_p("<![CDATA[");
   CData   = *(Char - boost::spirit::str_p("]]>"));
   CDEnd   = boost::spirit::str_p("]]>");
@@ -163,22 +172,22 @@ Garden<string_type>::Garden() :
   Misc =            Comment | Spaces | PI;
 
   // Elements
-  element = STag >> (EmptyElemTag | (boost::spirit::str_p(">"))[boost::bind(&Garden<string_type>::closeElement, this, _1, _2)] >> content >> ETag);
-  STag = '<' >> (Name)[boost::bind(&Garden<string_type>::openElement, this, _1, _2)] >> *(Spaces >> Attribute) >> !Spaces;
-  Attribute = (Name)[boost::bind(&Garden<string_type>::attributeName, this, _1, _2)] >> Eq >> AttValue;
-  EmptyElemTag = (boost::spirit::str_p("/>"))[boost::bind(&Garden<string_type>::closeEmptyElement, this, _1, _2)];
-  ETag = (boost::spirit::str_p("</") >> (Name)[boost::bind(&Garden<string_type>::endElementName, this, _1, _2)] >> !Spaces >> '>')[boost::bind(&Garden<string_type>::endElement, this, _1, _2)];
+  element = STag >> (EmptyElemTag | (boost::spirit::str_p(">"))[boost::bind(&Garden<string_type, T0, T1>::closeElement, this, _1, _2)] >> content >> ETag);
+  STag = '<' >> (Name)[boost::bind(&Garden<string_type, T0, T1>::openElement, this, _1, _2)] >> *(Spaces >> Attribute) >> !Spaces;
+  Attribute = (Name)[boost::bind(&Garden<string_type, T0, T1>::attributeName, this, _1, _2)] >> Eq >> AttValue;
+  EmptyElemTag = (boost::spirit::str_p("/>"))[boost::bind(&Garden<string_type, T0, T1>::closeEmptyElement, this, _1, _2)];
+  ETag = (boost::spirit::str_p("</") >> (Name)[boost::bind(&Garden<string_type, T0, T1>::endElementName, this, _1, _2)] >> !Spaces >> '>')[boost::bind(&Garden<string_type, T0, T1>::endElement, this, _1, _2)];
   
-  AttValue =   '"' >> (*((boost::spirit::anychar_p - (chset_t('<') | '&' | '"')) | Reference))[boost::bind(&Garden<string_type>::attributeValue, this, _1, _2)] >> '"'
-            | '\'' >> (*((boost::spirit::anychar_p - (chset_t('<') | '&' | '\'')) | Reference))[boost::bind(&Garden<string_type>::attributeValue, this, _1, _2)] >> '\'';
+  AttValue =   '"' >> (*((boost::spirit::anychar_p - (chset_t('<') | '&' | '"')) | Reference))[boost::bind(&Garden<string_type, T0, T1>::attributeValue, this, _1, _2)] >> '"'
+            | '\'' >> (*((boost::spirit::anychar_p - (chset_t('<') | '&' | '\'')) | Reference))[boost::bind(&Garden<string_type, T0, T1>::attributeValue, this, _1, _2)] >> '\'';
   
   content =        !CharData >> *((element | Reference | CDSect | Comment | PI) >> !CharData);
 
   // Section 4.1 - Character and entity references
-  CharRef = boost::spirit::str_p("&#") >> (+boost::spirit::digit_p >> ';')[boost::bind(&Garden<string_type>::decimalCharacterRef, this, _1, _2)] |
-            boost::spirit::str_p("&#x") >> (+boost::spirit::xdigit_p >> ';')[boost::bind(&Garden<string_type>::hexCharacterRef, this, _1, _2)];
+  CharRef = boost::spirit::str_p("&#") >> (+boost::spirit::digit_p >> ';')[boost::bind(&Garden<string_type, T0, T1>::decimalCharacterRef, this, _1, _2)] |
+            boost::spirit::str_p("&#x") >> (+boost::spirit::xdigit_p >> ';')[boost::bind(&Garden<string_type, T0, T1>::hexCharacterRef, this, _1, _2)];
   Reference = EntityRef | CharRef;
-  EntityRef = '&' >> (Name >> boost::spirit::ch_p(';'))[boost::bind(&Garden<string_type>::entityRef, this, _1, _2)];
+  EntityRef = '&' >> (Name >> boost::spirit::ch_p(';'))[boost::bind(&Garden<string_type, T0, T1>::entityRef, this, _1, _2)];
 
   EncodingDecl =    Spaces >> boost::spirit::str_p("encoding") >> Eq >> (boost::spirit::ch_p('"') >> EncName >> '"' |
                           boost::spirit::ch_p('\'') >> EncName >> '\'');
@@ -219,36 +228,36 @@ Garden<string_type>::Garden() :
 
 //////////////////////////////////////
 // features
-template<class string_type>
-bool Garden<string_type>::getFeature(const stringT& name) const
+template<class string_type, class T0, class T1>
+bool Garden<string_type, T0, T1>::getFeature(const stringT& name) const
 {
   throw SAXNotRecognizedException(name);
 } // getFeature
 
-template<class string_type>
-void Garden<string_type>::setFeature(const stringT& name, bool value)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::setFeature(const stringT& name, bool value)
 {
   throw SAXNotRecognizedException(name);
 } // setFeature
 
 ///////////////////////////////////////
 // properties
-template<class string_type>
-std::auto_ptr<typename Garden<string_type>::PropertyBase> Garden<string_type>::doGetProperty(const stringT& name)
+template<class string_type, class T0, class T1>
+std::auto_ptr<typename Garden<string_type, T0, T1>::PropertyBase> Garden<string_type, T0, T1>::doGetProperty(const stringT& name)
 {
   throw SAXNotRecognizedException(name);
 } // doGetProperty
 
-template<class string_type>
-void Garden<string_type>::doSetProperty(const stringT& name, std::auto_ptr<typename basic_XMLReader<string_type>::PropertyBase> value)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::doSetProperty(const stringT& name, std::auto_ptr<typename basic_XMLReader<string_type>::PropertyBase> value)
 {
   throw SAXNotRecognizedException(name);
 } // doSetProperty
 
 //////////////////////////////////////////
 // parse
-template<class string_type>
-void Garden<string_type>::parse(InputSourceT& input)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::parse(InputSourceT& input)
 {
   Arabica::default_string_adaptor<stringT> SA;
   InputSourceResolver is(input, SA);
@@ -285,22 +294,22 @@ void Garden<string_type>::parse(InputSourceT& input)
   } // if ...
 } // parse
 
-template<class string_type>
-void Garden<string_type>::openElement(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::openElement(iterator_t s, iterator_t e)
 {
   elements_.push(str(s, e));
   attrs_.clear();
 } // openElement
 
-template<class string_type>
-void Garden<string_type>::closeElement(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::closeElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
     contentHandler_->startElement("", elements_.top(), "", attrs_);
 } // closeElement
 
-template<class string_type>
-void Garden<string_type>::closeEmptyElement(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::closeEmptyElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
   {
@@ -310,68 +319,68 @@ void Garden<string_type>::closeEmptyElement(iterator_t s, iterator_t e)
   } // if ...
 } // closeEmptyElement
 
-template<class string_type>
-void Garden<string_type>::endElementName(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::endElementName(iterator_t s, iterator_t e)
 {
   stringT name = str(s, e);
   if(name != elements_.top())
     reportError("Expect end element " + elements_.top(), true);
 } // endElementName
 
-template<class string_type>
-void Garden<string_type>::endElement(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::endElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
     contentHandler_->endElement("", elements_.top(), "");
   elements_.pop();
 } // endElement
 
-template<class string_type>
-void Garden<string_type>::attributeName(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::attributeName(iterator_t s, iterator_t e)
 {
   currentAttr_ = typename AttributesImplT::Attr();
   currentAttr_.localName_ = str(s, e);
 } // attributeName
 
-template<class string_type>
-void Garden<string_type>::attributeValue(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::attributeValue(iterator_t s, iterator_t e)
 {
   currentAttr_.value_ = str(s, e);
   currentAttr_.type_ = "CDATA";
   attrs_.addAttribute(currentAttr_);
 } // attributeValue
 
-template<class string_type>
-void Garden<string_type>::elementContent(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::elementContent(iterator_t s, iterator_t e)
 {
   if(contentHandler_ && (s != e))
     contentHandler_->characters(str(s, e));
-} // Garden<string_type>::elementContent
+} // Garden<string_type, T0, T1>::elementContent
   
 // processing instructions
-template<class string_type>
-void Garden<string_type>::piTarget(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::piTarget(iterator_t s, iterator_t e)
 {
   piTarget_ = str(s, e);
   piData_.erase();
 } // piTarget
 
-template<class string_type>
-void Garden<string_type>::piData(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::piData(iterator_t s, iterator_t e)
 {
   piData_ = str(s, e);
 } // piData
 
-template<class string_type>
-void Garden<string_type>::piEnd(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::piEnd(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
     contentHandler_->processingInstruction(piTarget_, piData_);
 } // piEnd
 
 //entity refs
-template<class string_type>
-void Garden<string_type>::entityRef(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::entityRef(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
   {
@@ -395,20 +404,20 @@ void Garden<string_type>::entityRef(iterator_t s, iterator_t e)
   } // if ... 
 } // entityRef
   
-template<class string_type>
-void Garden<string_type>::decimalCharacterRef(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::decimalCharacterRef(iterator_t s, iterator_t e)
 {
   characterRef(s, e, 10);
 } // decimalCharacterRef
 
-template<class string_type>
-void Garden<string_type>::hexCharacterRef(iterator_t s, iterator_t e)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::hexCharacterRef(iterator_t s, iterator_t e)
 {
   characterRef(s, e, 16);
 } // hexCharacterRef
 
-template<class string_type>
-void Garden<string_type>::characterRef(iterator_t s, iterator_t e, int base)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::characterRef(iterator_t s, iterator_t e, int base)
 {
   if(!contentHandler_)
     return;
@@ -426,8 +435,8 @@ void Garden<string_type>::characterRef(iterator_t s, iterator_t e, int base)
 } // characterRef
 
 ///////////////////////////////  
-template<class string_type>
-typename Garden<string_type>::stringT Garden<string_type>::str(iterator_t s, iterator_t e, int trim)
+template<class string_type, class T0, class T1>
+typename Garden<string_type, T0, T1>::stringT Garden<string_type, T0, T1>::str(iterator_t s, iterator_t e, int trim)
 {
   stringT str;
   std::copy(s, e, std::inserter(str, str.begin()));
@@ -436,8 +445,8 @@ typename Garden<string_type>::stringT Garden<string_type>::str(iterator_t s, ite
   return str;
 } // str
 
-template<class string_type>
-void Garden<string_type>::reportError(const std::string& message, bool fatal)
+template<class string_type, class T0, class T1>
+void Garden<string_type, T0, T1>::reportError(const std::string& message, bool fatal)
 {
   if(!errorHandler_)
     return;
