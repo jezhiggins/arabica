@@ -1,6 +1,6 @@
 AC_DEFUN([ARABICA_HAS_LIBXML2],
 [ AC_ARG_WITH(libxml2,
-	      [  --with-libxml2=PREFIX     Use system libxml2 library],
+	      [  --with-libxml2=PREFIX     Specify libxml2 library location],
 	      , with_libxml2=yes)
 
   AM_CONDITIONAL(LIBXML2_INSTALLED, test $with_libxml2 != no)

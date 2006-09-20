@@ -1,6 +1,6 @@
 AC_DEFUN([ARABICA_HAS_EXPAT],
 [ AC_ARG_WITH(expat,
-	      [  --with-expat=PREFIX     Use system expat library],
+	      [  --with-expat=PREFIX     Specify expat library location],
 	      , with_expat=yes)
 
   AM_CONDITIONAL(EXPAT_INSTALLED, test $with_expat != no)

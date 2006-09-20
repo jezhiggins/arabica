@@ -1,6 +1,6 @@
 AC_DEFUN([ARABICA_HAS_XERCES],
 [ AC_ARG_WITH(xerces,
-	      [  --with-xerces=PREFIX     Use system xerces library],
+	      [  --with-xerces=PREFIX     Specify xerces library location],
 	      , with_xerces=yes)
 
   AM_CONDITIONAL(XERCES_INSTALLED, test $with_xerces != no)
