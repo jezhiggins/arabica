@@ -4,10 +4,10 @@
 #endif
 
 #ifndef ARABICA_NO_WCHAR_T
+#include "xpath_test_suite.hpp"
+#else
 #include <iostream>
 #endif
-
-#include "xpath_test_suite.hpp"
 
 /////////////////////////////////////////
 int main(int argc, const char** argv)
