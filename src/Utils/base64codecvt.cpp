@@ -130,13 +130,13 @@ std::codecvt_base::result base64codecvt::do_unshift(std::mbstate_t& state,
     nextState();
   } // while((state != 4) && (to_next != to_limit))
 
-  return (to_next == to_limit) ? codecvt_base::ok : codecvt_base::partial;
+  return (to_next == to_limit) ? std::codecvt_base::ok : std::codecvt_base::partial;
 } // do_unshift
 
 int base64codecvt::do_length(const std::mbstate_t&,
                         const char* from,
                         const char* end,
-                        size_t max) const
+						size_t max) const
 {
   // 4 base64 chars = 3 chars
   size_t length(end - from);

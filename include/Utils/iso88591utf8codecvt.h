@@ -1,8 +1,9 @@
 #ifndef ARABICA_ISO88591UTF8ISO88591_CODECVT_H
 #define ARABICA_ISO88591UTF8ISO88591_CODECVT_H
 #include <locale>
+#include <SAX/ArabicaConfig.h>
 
-#if(_MSC_VER < 1300)
+#ifdef ARABICA_VS6_WORKAROUND
 namespace std {
   typedef ::mbstate_t mbstate_t;
 }

@@ -35,7 +35,7 @@ std::codecvt_base::result rot13codecvt::do_unshift(std::mbstate_t& state,
                             char*& to_next) const
 {
   to_next = to;
-  return codecvt_base::ok;
+  return std::codecvt_base::ok;
 } // do_unshift
 
 int rot13codecvt::do_length(const std::mbstate_t&,

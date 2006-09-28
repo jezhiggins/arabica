@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2006/09/28 13:11:06.609.bdsproj,C:\Documents and Settings\jez\My Documents\Borland Studio Projects\Project1.bdsproj=D:\work\JezUK\arabica\arabica\turboc++\arabica.bdsproj</Transaction>
+    <Transaction>2006/09/28 13:11:48.515.bdsproj,D:\work\JezUK\arabica\arabica\turboc++\arabica.bdsproj=D:\work\JezUK\arabica\arabica\turboc++\arabicalib.bdsproj</Transaction>
+    <Transaction>2006/09/28 13:16:25.750.cpp,D:\work\JezUK\arabica\arabica\src\Utils\impl\codecvt_specialisations.cpp=</Transaction>
+  </Transactions>
+</BorlandProject>
