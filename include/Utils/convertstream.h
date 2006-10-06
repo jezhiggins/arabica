@@ -46,6 +46,7 @@
 #include <locale>
 #include <sstream>
 #include <algorithm>
+#include <iterator>
 
 namespace Arabica
 {
@@ -279,7 +280,7 @@ private:
     toStringT dest;
 
 #ifndef ARABICA_VS6_WORKAROUND
-    std::back_insert_iterator<toStringT> id(dest);
+	std::back_insert_iterator<toStringT> id(dest);
     for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i, ++id)
       *id = static_cast<toCharT>(*i);
 #else
