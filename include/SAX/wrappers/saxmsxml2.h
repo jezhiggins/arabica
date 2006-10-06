@@ -86,8 +86,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
                                T1>::type string_adaptor_type;
   typedef typename Arabica::get_param<COMInitializer_tag, 
                                COMSingleThreadInitializer, 
-                               T0, 
-                               T1>::type COMInitializer_type;
+                               T1, 
+                               T0>::type COMInitializer_type;
 
   public:
     typedef SAX::basic_EntityResolver<string_type> entityResolverT;

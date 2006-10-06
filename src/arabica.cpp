@@ -30,8 +30,6 @@
 #ifdef USE_MSXML
 #ifdef _MSC_VER
 #pragma message("Using MSXML")
-#else
-#error "USE_MSXML is only valid for Visual Studio builds"
 #endif
 #endif
 
