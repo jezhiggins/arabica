@@ -1,21 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <PersonalityInfo>
-    <Option>
-      <Option Name="Personality">Default.Personality</Option>
-      <Option Name="ProjectType"></Option>
-      <Option Name="Version">1.0</Option>
-      <Option Name="GUID">{D59E4B32-30D3-4E5D-9B52-0BB56C747532}</Option>
-    </Option>
-  </PersonalityInfo>
-  <Default.Personality>
-    
-    
-    
-    <Projects>
+	<PersonalityInfo>
+		<Option>
+			<Option Name="Personality">Default.Personality</Option>
+			<Option Name="ProjectType"></Option>
+			<Option Name="Version">1.0</Option>
+			<Option Name="GUID">{D59E4B32-30D3-4E5D-9B52-0BB56C747532}</Option>
+		</Option>
+	</PersonalityInfo>
+	<Default.Personality>  <Projects>
       <Projects Name="arabicalib.lib">arabicalib.bdsproj</Projects>
-      <Projects Name="Targets">arabicalib.lib</Projects>
+      <Projects Name="example_SAXPyx.exe">example_SAXPyx.bdsproj</Projects>
+      <Projects Name="Targets">arabicalib.lib example_SAXPyx.exe</Projects>
     </Projects>
-    <Dependencies/>
+    <Dependencies>
+      <Dependency GUID="{87A06F13-41E7-4F77-B81D-55A01E680411}">
+        <Dependency GUID="{89D0D2D5-C9DF-45A5-9F46-F21F67C0B954}"/>
+      </Dependency>
+    </Dependencies>
   </Default.Personality>
 </BorlandProject>
