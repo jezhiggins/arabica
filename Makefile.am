@@ -37,6 +37,6 @@ pkgconfigdir = src/pkgconfig
 pkgconfig_DATA = arabica.pc
 
 test:
-	cd tests && make test;
-	cd ..
+	@cd tests && make test;
+	@cd ..
 

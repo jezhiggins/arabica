@@ -9,8 +9,6 @@
 /////////////////////////////////////////
 int main(int argc, const char** argv)
 {
-  std::cout << "Hello" << std::endl;
-
   XPath_test_suite<std::string, Arabica::default_string_adaptor<std::string> >(argc, argv);
 } // main
 
