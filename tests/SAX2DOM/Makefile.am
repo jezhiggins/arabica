@@ -34,3 +34,8 @@ sax2dom_test_LDADD =  $(LIBARABICA)
 
 INCLUDES = -I$(top_srcdir)/include $(PARSER_HEADERS) $(BOOST_CPPFLAGS)
 
+test:
+	@for p in $(bin_PROGRAMS); do \
+	  echo Running $$p; \
+	  ./$$p -q; \
+	done

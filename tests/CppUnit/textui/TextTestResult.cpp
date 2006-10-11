@@ -9,22 +9,23 @@ using namespace std;
 void TextTestResult::addError (Test *test, CppUnitException *e)
 {
     TestResult::addError (test, e);
-    cerr << "E" << endl;
+    if(verbose_)
+      cerr << "E" << endl;
 
 }
 
 void TextTestResult::addFailure (Test *test, CppUnitException *e)
 {
     TestResult::addFailure (test, e);
-    cerr << "F" << endl;
-
+    if(verbose_)
+      cerr << "F" << endl;
 }
 
 void TextTestResult::startTest (Test *test)
 {
     TestResult::startTest (test);
-    cerr << ".";
-
+    if(verbose_)
+      cerr << ".";
 }
 
 
@@ -87,14 +88,18 @@ void TextTestResult::print (ostream& stream)
     printHeader (stream);
     printErrors (stream);
     printFailures (stream);
-
+    if(verbose_ || !wasSuccessful())
+      cout << endl;
 }
 
 
 void TextTestResult::printHeader (ostream& stream)
 {
     if (wasSuccessful ())
+    {
+      if(verbose_)
         cout << endl << "OK (" << runTests () << " tests)" << endl;
+    }
     else
         cout << endl
              << "!!!FAILURES!!!" << endl

@@ -9,6 +9,7 @@
 class TextTestResult : public TestResult
 {
 public:
+    TextTestResult(bool verbose) : verbose_(verbose) { }
     virtual void        addError      (Test *test, CppUnitException *e);
     virtual void        addFailure    (Test *test, CppUnitException *e);
     virtual void        startTest     (Test *test);
@@ -17,6 +18,8 @@ public:
     virtual void        printFailures (std::ostream& stream);
     virtual void        printHeader   (std::ostream& stream);
 
+private:
+    bool verbose_;
 };
 
 

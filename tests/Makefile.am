@@ -8,3 +8,9 @@ endif
 
 install:
 	echo "Nothing to install here"
+
+test:
+	@for p in $(SUBDIRS); do \
+	  cd $$p && make test; \
+          cd ..; \
+	done

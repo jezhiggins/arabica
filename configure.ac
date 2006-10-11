@@ -22,10 +22,10 @@ ARABICA_CHECK_CODECVT_SPECIALISATIONS
 AC_OUTPUT(Makefile \
           arabica.pc \
           src/Makefile \
-          test/Makefile \
-          test/DOM/Makefile \
-          test/SAX2DOM/Makefile \
-          test/XPath/Makefile \
+          tests/Makefile \
+          tests/DOM/Makefile \
+          tests/SAX2DOM/Makefile \
+          tests/XPath/Makefile \
           examples/Makefile \
           examples/SAX/Makefile \
           examples/DOM/Makefile \

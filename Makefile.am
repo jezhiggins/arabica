@@ -1,7 +1,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS= src test examples
+SUBDIRS= src tests examples
 
 install-data-local:
 	@echo "------------------------------------------------------------"
@@ -22,7 +22,7 @@ uninstall-local:
 	  do rm -rf "$(includedir)/$$dir"; \
 	done 
 
-DIST_SUBDIRS= src test examples 
+DIST_SUBDIRS= src tests examples 
 EXTRA_DIST=vs7 \
            include \
            src/SAX/wrappers/saxexpat.cpp \
@@ -35,4 +35,8 @@ dist-hook:
 
 pkgconfigdir = src/pkgconfig
 pkgconfig_DATA = arabica.pc
+
+test:
+	cd tests && make test;
+	cd ..
 

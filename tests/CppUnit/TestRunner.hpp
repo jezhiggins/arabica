@@ -7,6 +7,7 @@
 class TestRunner
 {
 protected:
+	bool verbose_;
 	bool m_wait;
 	std::vector<std::pair<std::string,Test *> > m_mappings;
 

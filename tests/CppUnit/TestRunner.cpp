@@ -31,12 +31,21 @@ void TestRunner::run(int ac, const char **av)
 {
   string  testCase;
   int     numberOfTests = 0;
+  int opt = 0;
 
   for(int i = 1; i < ac; i++) 
   {
     if(string(av[i]) == "-wait") 
     {
       m_wait = true;
+      ++opt;
+      continue;
+    }
+
+    if(string(av[i]) == "-q")
+    {
+      verbose_ = false;
+      ++opt;
       continue;
     }
 
@@ -56,7 +65,8 @@ void TestRunner::run(int ac, const char **av)
     {
       if((*it).first == testCase) 
       {
-        cout << (*it).first << std::endl;
+	if(verbose_)
+          cout << (*it).first << std::endl;
         testToRun = (*it).second;
         run(testToRun);
       }
@@ -71,12 +81,13 @@ void TestRunner::run(int ac, const char **av)
     } 
   } // for ...
 
-  if(ac == 1)
+  if((ac-opt) == 1)
   {
     // run everything
     for(mappings::iterator it = m_mappings.begin(); it != m_mappings.end(); ++it) 
     {
-      cout << (*it).first << std::endl;
+      if(verbose_)
+	cout << (*it).first << std::endl;
       run((*it).second);
     }
     return;
@@ -105,8 +116,8 @@ TestRunner::~TestRunner ()
 
 void TestRunner::run(Test *test)
 {
-  TextTestResult  result;
+  TextTestResult  result(verbose_);
   test->run (&result);
-  cout << result << endl;
+  cout << result;
 } // run
 
