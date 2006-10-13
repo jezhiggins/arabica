@@ -143,20 +143,20 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\test\Sax2dom\main.cpp">
+				RelativePath="..\tests\Sax2dom\main.cpp">
 			</File>
 			<File
-				RelativePath="..\test\silly_string\silly_string.cpp">
+				RelativePath="..\tests\silly_string\silly_string.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\test\silly_string\silly_string.hpp">
+				RelativePath="..\tests\silly_string\silly_string.hpp">
 			</File>
 			<File
-				RelativePath="..\test\Sax2dom\test_SAX.h">
+				RelativePath="..\tests\Sax2dom\test_SAX.h">
 			</File>
 		</Filter>
 		<Filter
@@ -168,55 +168,55 @@
 		<Filter
 			Name="CppUnit">
 			<File
-				RelativePath="..\test\CppUnit\framework\CppUnitException.h">
+				RelativePath="..\tests\CppUnit\framework\CppUnitException.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\estring.h">
+				RelativePath="..\tests\CppUnit\framework\estring.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\Guards.h">
+				RelativePath="..\tests\CppUnit\framework\Guards.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\Test.h">
+				RelativePath="..\tests\CppUnit\framework\Test.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestCaller.h">
+				RelativePath="..\tests\CppUnit\framework\TestCaller.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestCase.cpp">
+				RelativePath="..\tests\CppUnit\framework\TestCase.cpp">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestCase.h">
+				RelativePath="..\tests\CppUnit\framework\TestCase.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestFailure.cpp">
+				RelativePath="..\tests\CppUnit\framework\TestFailure.cpp">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestFailure.h">
+				RelativePath="..\tests\CppUnit\framework\TestFailure.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestResult.cpp">
+				RelativePath="..\tests\CppUnit\framework\TestResult.cpp">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestResult.h">
+				RelativePath="..\tests\CppUnit\framework\TestResult.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\TestRunner.cpp">
+				RelativePath="..\tests\CppUnit\TestRunner.cpp">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\TestRunner.hpp">
+				RelativePath="..\tests\CppUnit\TestRunner.hpp">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestSuite.cpp">
+				RelativePath="..\tests\CppUnit\framework\TestSuite.cpp">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\framework\TestSuite.h">
+				RelativePath="..\tests\CppUnit\framework\TestSuite.h">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\textui\TextTestResult.cpp">
+				RelativePath="..\tests\CppUnit\textui\TextTestResult.cpp">
 			</File>
 			<File
-				RelativePath="..\test\CppUnit\textui\TextTestResult.h">
+				RelativePath="..\tests\CppUnit\textui\TextTestResult.h">
 			</File>
 		</Filter>
 	</Files>
