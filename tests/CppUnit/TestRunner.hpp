@@ -12,7 +12,7 @@ protected:
 	std::vector<std::pair<std::string,Test *> > m_mappings;
 
 public:
-	TestRunner() : m_wait(false) {}
+	TestRunner() : m_wait(false), verbose_(true) {}
 	~TestRunner();
 
 	void run(int ac, const char **av);

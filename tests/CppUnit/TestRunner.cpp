@@ -24,7 +24,7 @@ typedef vector<pair<string, Test *> >   mappings;
 
 void TestRunner::printBanner ()
 {
-  cout << "Usage: driver [ -wait ] testName, where name is the name of a test case class" << endl;
+  cout << "Usage: driver [-q] [ -wait ] testName, where name is the name of a test case class" << endl;
 } // printBanner
 
 void TestRunner::run(int ac, const char **av)
