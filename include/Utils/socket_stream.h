@@ -12,7 +12,7 @@
 ///////////////////////////////////////////////////////////////////////
 
 #include <SAX/ArabicaConfig.h>
-#ifndef ARABICA_WINDOWS
+#ifndef ARABICA_USE_WINSOCK
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
@@ -90,7 +90,7 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
     static const size_t bufferSize_;
     static const size_t pbSize_;
 
-#ifndef ARABICA_WINDOWS
+#ifndef ARABICA_USE_WINSOCK
     static const int INVALID_SOCKET;
     static const int SOCKET_ERROR;
 #endif
@@ -101,7 +101,7 @@ const size_t basic_socketbuf<charT, traitsT>::bufferSize_ = 1024;
 template<class charT, class traitsT>
 const size_t basic_socketbuf<charT, traitsT>::pbSize_ = 4;
   // why 4? both Josuttis and Langer&Kreft use 4.
-#ifndef ARABICA_WINDOWS
+#ifndef ARABICA_USE_WINSOCK
 template<class charT, class traitsT>
 const int basic_socketbuf<charT, traitsT>::INVALID_SOCKET = -1;
 template<class charT, class traitsT>
@@ -302,7 +302,7 @@ int basic_socketbuf<charT, traitsT>::readSocket()
   } // if(res == 0)
   else if(res == SOCKET_ERROR)
   {
-#ifdef ARABICA_WINDOWS
+#ifdef ARABICA_USE_WINSOCK
     if(GetLastError() == WSAEMSGSIZE)
     {
       // buffer was too small, so make it bigger
@@ -325,7 +325,7 @@ int basic_socketbuf<charT, traitsT>::readSocket()
 template <class charT, class traitsT>
 int basic_socketbuf<charT, traitsT>::closeSocket(int sock) const
 {
-#ifdef ARABICA_WINDOWS
+#ifdef ARABICA_USE_WINSOCK
   return closesocket(sock);
 #else
   return ::close(sock);

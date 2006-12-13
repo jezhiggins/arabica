@@ -31,7 +31,7 @@ define ARABICA_NO_CODECVT_SPECIALISATIONS
 define HAVE_BOOST
 #endif
 
-define ARABICA_WINDOWS
+define ARABICA_USE_WINSOCK
 
 #if defined(_DEBUG) || (__DEBUG__)
 define ARABICA_DEBUG

@@ -115,7 +115,7 @@ namespace
 
   std::istream* httpResolver(const std::string& httpURL)
   {
-#ifdef ARABICA_WINDOWS
+#ifdef ARABICA_USE_WINSOCK
     WORD wVersionRequested;
     WSADATA wsaData;
     int err;
