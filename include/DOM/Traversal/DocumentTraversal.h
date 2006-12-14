@@ -11,6 +11,7 @@
 #include <DOM/Traversal/TreeWalker.h>
 #include <DOM/Traversal/NodeFilter.h>
 #include <DOM/Node.h>
+#include <DOM/Traversal/TraversalImpl.h>
 
 namespace DOM
 {
@@ -40,41 +41,44 @@ template<class stringT> class TreeWalker;
 template<class stringT> class DocumentTraversal_impl;
 
 template<class stringT>
-class DocumentTraversal : protected DOM::Proxy
+class DocumentTraversal : protected DOM::Proxy<DocumentTraversal_impl<stringT> >
 {
   public:
-    DocumentTraversal() : Proxy(0) { }
-    explicit DocumentTraversal(DocumentTraversal_impl<stringT>* const impl) : Proxy(impl) { }
-    DocumentTraversal(const DocumentTraversal& rhs) : Proxy(rhs) { }
-    explicit DocumentTraversal(const DOM::Document<stringT>& rhs) : Proxy(rhs.dImpl()) 
+    typedef DOM::Proxy<DocumentTraversal_impl<stringT> > proxy_t;
+    typedef typename proxy_t::value_type impl_t;
+
+    DocumentTraversal() : proxy_t(0) { }
+    explicit DocumentTraversal(DocumentTraversal_impl<stringT>* const impl) : proxy_t(impl) { }
+    DocumentTraversal(const DocumentTraversal& rhs) : proxy_t(rhs) { }
+    explicit DocumentTraversal(const DOM::Document<stringT>& rhs) : proxy_t(rhs.dImpl()) 
     {
-      if(dynamic_cast<DocumentTraversal_impl<stringT>*>(rhs.dImpl()) == 0)
+      if(dynamic_cast<impl_t*>(rhs.dImpl()) == 0)
         throw DOM::DOMException(DOM::DOMException::NOT_SUPPORTED_ERR); 
     } // DocumentTraversal
 
     virtual ~DocumentTraversal() { }
-    bool operator==(const DocumentTraversal& rhs) const { return Proxy::operator==(rhs); } 
-    bool operator!=(const DocumentTraversal& rhs) const { return Proxy::operator!=(rhs); }
-    bool operator==(int dummy) const { return Proxy::operator==(dummy); }
-    bool operator!=(int dummy) const { return Proxy::operator!=(dummy); }
+    bool operator==(const DocumentTraversal& rhs) const { return proxy_t::operator==(rhs); } 
+    bool operator!=(const DocumentTraversal& rhs) const { return proxy_t::operator!=(rhs); }
+    bool operator==(int dummy) const { return proxy_t::operator==(dummy); }
+    bool operator!=(int dummy) const { return proxy_t::operator!=(dummy); }
 
     DocumentTraversal& operator=(const DocumentTraversal& rhs) 
     {
-      Proxy::operator=(rhs);
+      proxy_t::operator=(rhs);
       return *this;
     } // operator=
 
     ///////////////////////////////////////////////////
     // DocumentTraversal methods
     NodeIterator<stringT> createNodeIterator(DOM::Node<stringT> root,
-                                             int whatToShow,
+                                             unsigned long whatToShow,
                                              bool entityRefExpansion)
     {
       return NodeIterator<stringT>(Impl()->createNodeIterator(root, whatToShow, 0, entityRefExpansion));
     } // createNodeIterator
 
     NodeIterator<stringT> createNodeIterator(DOM::Node<stringT> root,
-                                             int whatToShow,
+                                             unsigned long whatToShow,
                                              NodeFilter<stringT>& filter,
                                              bool entityRefExpansion)
     {
@@ -82,14 +86,14 @@ class DocumentTraversal : protected DOM::Proxy
     } // createNodeIterator
 
     TreeWalker<stringT> createTreeWalker(DOM::Node<stringT> root,
-                                         int whatToShow,
+                                         unsigned long whatToShow,
                                          bool entityRefExpansion)
     {
       return TreeWalker<stringT>(Impl()->createTreeWalker(root, whatToShow, 0, entityRefExpansion));
     } // createTreeWalker
 
     TreeWalker<stringT> createTreeWalker(DOM::Node<stringT> root,
-                                         int whatToShow,
+                                         unsigned long whatToShow,
                                          NodeFilter<stringT>& filter,
                                          bool entityRefExpansion)
     {
@@ -97,7 +101,7 @@ class DocumentTraversal : protected DOM::Proxy
     } // createTreeWalker
 
   private:
-    DocumentTraversal_impl<stringT>* Impl() const { return dynamic_cast<DocumentTraversal_impl<stringT>*>(impl()); }
+    DocumentTraversal_impl<stringT>* Impl() { return dynamic_cast<DocumentTraversal_impl<stringT>*>(impl()); }
 }; // class DocumentTraversal
 
 //////////////////////////////////////////////////////////////
@@ -106,16 +110,16 @@ template<class stringT> class NodeIterator_impl;
 template<class stringT> class TreeWalker_impl;
 
 template<class stringT>
-class DocumentTraversal_impl : virtual public DOM::Impl
+class DocumentTraversal_impl : virtual public TraversalImpl
 {
   public:
     virtual NodeIterator_impl<stringT>* createNodeIterator(DOM::Node<stringT> root,
-                                                           int whatToShow,
+                                                           unsigned long whatToShow,
                                                            NodeFilter<stringT>* filter,
                                                            bool entityRefExpansion) = 0;
 
     virtual TreeWalker_impl<stringT>* createTreeWalker(DOM::Node<stringT> root,
-                                                       int whatToShow,
+                                                       unsigned long whatToShow,
                                                        NodeFilter<stringT>* filter,
                                                        bool entityRefExpansion) = 0;
 }; // class DocumentTraveral_impl

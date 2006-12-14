@@ -158,6 +158,9 @@
 			<File
 				RelativePath="..\tests\Sax2dom\test_SAX.h">
 			</File>
+			<File
+				RelativePath="..\tests\Sax2dom\test_TreeWalker.hpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Libs">

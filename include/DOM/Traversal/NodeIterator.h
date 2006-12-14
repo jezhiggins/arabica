@@ -41,7 +41,7 @@ class NodeIterator : protected DOM::Proxy
     // NodeIterator methods
     DOM::Node<stringT> getRoot() const { return Impl()->getRoot(); }
 
-    int getWhatToShow() const { return Impl()->getWhatToShow(); }
+    unsigned long getWhatToShow() const { return Impl()->getWhatToShow(); }
 
     NodeFilter<stringT>* getFilter() const { return Impl()->getFilter(); }
 
@@ -58,15 +58,13 @@ class NodeIterator : protected DOM::Proxy
 }; // class NodeIterator
 
 ////////////////////////////////////////////////
-template<class stringT> class DocumentTraversal_impl;
-
 template<class stringT>
-class NodeIterator_impl : virtual public DOM::Impl
+class NodeIterator_impl
 {
   public:
     virtual DOM::Node<stringT> getRoot() const = 0;
 
-    virtual int getWhatToShow() const = 0;
+    virtual unsigned long getWhatToShow() const = 0;
 
     virtual NodeFilter<stringT>* getFilter() const = 0;
 

@@ -21,12 +21,11 @@
 #include <DOM/Text.h>
 #include <DOM/Comment.h>
 
+#include <DOM/Traversal/DocumentTraversal.h>
+#include <DOM/Traversal/DocumentTraversalImpl.h>
+
 namespace DOM
 {
-
-namespace Traversal {
-  template<class stringT> class DocumentTraversal;
-} // namespace Traversal 
 
 namespace Events {
   template<class stringT> class DocumentEvent;
@@ -100,6 +99,13 @@ class Document : public Node<stringT>
     } // getElementsByTagNameNS
 
     Element<stringT> getElementById(const stringT& elementId) const { return Element<stringT>(dImpl()->getElementById(elementId)); }
+
+
+    Traversal::DocumentTraversal<stringT> createDocumentTraversal()
+    {
+      Traversal::DocumentTraversal<stringT> docTraversal(new Traversal::DocumentTraversalImpl<stringT>());
+      return docTraversal;
+    }
 
   private:
     Document_impl<stringT>* dImpl() const { return dynamic_cast<Document_impl<stringT>*>(*NodeT::impl_); }

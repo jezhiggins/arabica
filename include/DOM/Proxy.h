@@ -8,6 +8,8 @@ template<class ImplementationT>
 class Proxy
 {
   public:
+    typedef ImplementationT value_type;
+
     Proxy() : impl_(0) { }
     Proxy(ImplementationT* impl) : impl_(0) { setImpl(impl); }
     Proxy(const Proxy& rhs) : impl_(0) { setImpl(rhs.impl_); }
@@ -30,6 +32,11 @@ class Proxy
     bool operator!=(const Proxy& rhs) const { return !(operator==(rhs)); }
     bool operator==(ImplementationT* const impl) const { return (impl_ == impl); }
     bool operator!=(ImplementationT* const impl) const { return !(operator==(impl)); }
+
+    operator bool() const { return 0 == impl_; }
+
+    const ImplementationT* impl() const { return impl_; }
+    ImplementationT* impl() { return impl_; }
 
     ImplementationT* operator*() const
     {

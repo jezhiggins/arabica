@@ -166,6 +166,9 @@
 					RelativePath="..\include\Sax\Parser.h">
 				</File>
 				<File
+					RelativePath="..\include\Sax\ParserConfig.h">
+				</File>
+				<File
 					RelativePath="..\include\Sax\SAXException.h">
 				</File>
 				<File
@@ -464,13 +467,22 @@
 						RelativePath="..\include\Dom\Traversal\DocumentTraversal.h">
 					</File>
 					<File
+						RelativePath="..\include\Dom\Traversal\DocumentTraversalImpl.h">
+					</File>
+					<File
 						RelativePath="..\include\Dom\Traversal\NodeFilter.h">
 					</File>
 					<File
 						RelativePath="..\include\Dom\Traversal\NodeIterator.h">
 					</File>
 					<File
+						RelativePath="..\include\Dom\Traversal\TraversalImpl.h">
+					</File>
+					<File
 						RelativePath="..\include\Dom\Traversal\TreeWalker.h">
+					</File>
+					<File
+						RelativePath="..\include\Dom\Traversal\TreeWalkerImpl.h">
 					</File>
 				</Filter>
 				<Filter

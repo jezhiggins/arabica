@@ -28,7 +28,7 @@ class Node_base
   public:
     enum Type 
     {
-      ELEMENT_NODE,
+      ELEMENT_NODE = 1,
       ATTRIBUTE_NODE,
       TEXT_NODE,
       CDATA_SECTION_NODE,

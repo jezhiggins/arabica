@@ -8,6 +8,8 @@
 /////////////////////////////////////////
 
 #include <DOM/Node.h>
+#include <DOM/Traversal/NodeFilter.h>
+#include <DOM/Traversal/TraversalImpl.h>
 
 namespace DOM
 {
@@ -18,44 +20,47 @@ namespace Traversal
 template<class stringT> class TreeWalker_impl;
 
 template<class stringT>
-class TreeWalker : protected DOM::Proxy
+class TreeWalker : protected DOM::Proxy<TreeWalker_impl<stringT> >
 {
   public:
-    TreeWalker() : Proxy(0) { }
-    explicit TreeWalker(TreeWalker_impl<stringT>* const impl) : Proxy(impl) { }
-    TreeWalker(const TreeWalker& rhs) : Proxy(rhs) { }
+    typedef DOM::Proxy<TreeWalker_impl<stringT> > proxy_t;
+    typedef typename proxy_t::value_type impl_t;
+
+    TreeWalker() : proxy_t(0) { }
+    explicit TreeWalker(TreeWalker_impl<stringT>* const impl) : proxy_t(impl) { }
+    TreeWalker(const TreeWalker& rhs) : proxy_t(rhs) { }
     virtual ~TreeWalker() { }
-    bool operator==(const TreeWalker& rhs) const { return Proxy::operator==(rhs); } 
-    bool operator!=(const TreeWalker& rhs) const { return Proxy::operator!=(rhs); }
-    bool operator==(int dummy) const { return Proxy::operator==(dummy); }
-    bool operator!=(int dummy) const { return Proxy::operator!=(dummy); }
+    bool operator==(const TreeWalker& rhs) const { return proxy_t::operator==(rhs); } 
+    bool operator!=(const TreeWalker& rhs) const { return proxy_t::operator!=(rhs); }
+    bool operator==(int dummy) const { return proxy_t::operator==(dummy); }
+    bool operator!=(int dummy) const { return proxy_t::operator!=(dummy); }
 
     TreeWalker& operator=(const TreeWalker& rhs) 
     {
-      Proxy::operator=(rhs);
+      proxy_t::operator=(rhs);
       return *this;
     } // operator=
 
     ///////////////////////////////////////////////////////////////
     // TreeWalker methods
-    DOM::Node<stringT> getRoot() const { return Impl()->getRoot(); }
+    DOM::Node<stringT> getRoot() { return Impl()->getRoot(); }
 
-    int getWhatToShow() const { return Impl()->getWhatToShow(); }
+    unsigned long getWhatToShow() { return Impl()->getWhatToShow(); }
 
-    NodeFilter<stringT>* getFilter() const { return Impl()->getFilter(); }
+    NodeFilter<stringT>* getFilter() { return Impl()->getFilter(); }
 
-    bool getExpandEntityReferences() const { return Impl()->getExpandEntityReferences(); }
+    bool getExpandEntityReferences() { return Impl()->getExpandEntityReferences(); }
 
-    DOM::Node<stringT> getCurrentNode() const { return Impl()->getCurretNode(); }
+    DOM::Node<stringT> getCurrentNode() { return Impl()->getCurrentNode(); }
     void setCurrentNode(const DOM::Node<stringT>& currentNode) { Impl()->setCurrentNode(currentNode); }
 
-    DOM::Node<stringT> parentNode() const { return Impl()->parentNode(); }
+    DOM::Node<stringT> parentNode() { return Impl()->parentNode(); }
 
-    DOM::Node<stringT> firstChild() const { return Impl()->firstChild(); }
+    DOM::Node<stringT> firstChild() { return Impl()->firstChild(); }
     
-    DOM::Node<stringT> lastChild() const { return Impl()->lastChild(); }
+    DOM::Node<stringT> lastChild() { return Impl()->lastChild(); }
 
-    DOM::Node<stringT> previousSibling() const { return Impl()->previousSibling(); }
+    DOM::Node<stringT> previousSibling() { return Impl()->previousSibling(); }
 
     DOM::Node<stringT> nextSibling() { return Impl()->nextSibling(); }
 
@@ -64,33 +69,33 @@ class TreeWalker : protected DOM::Proxy
     DOM::Node<stringT> nextNode() { return Impl()->nextNode(); }
 
   private:
-    TreeWalker_impl<stringT>* Impl() const { return dynamic_cast<TreeWalker_impl<stringT>*>(impl()); }
+    impl_t* Impl() { return impl(); }
 }; // class TreeWalker
 
 ////////////////////////////////////////////////
 template<class stringT>
-class TreeWalker_impl : virtual public DOM::Impl
+class TreeWalker_impl : public TraversalImpl
 {
   public:
-    virtual DOM::Node<stringT> getRoot() const = 0;
+    virtual DOM::Node<stringT> getRoot() = 0;
 
-    virtual int getWhatToShow() const = 0;
+    virtual unsigned long getWhatToShow() = 0;
 
-    virtual NodeFilter<stringT>* getFilter() const = 0;
+    virtual NodeFilter<stringT>* getFilter() = 0;
 
-    virtual bool getExpandEntityReferences() const = 0;
+    virtual bool getExpandEntityReferences() = 0;
 
-    virtual DOM::Node<stringT> getCurrentNode() const = 0;
+    virtual DOM::Node<stringT> getCurrentNode() = 0;
 
     virtual void setCurrentNode(const DOM::Node<stringT>& currentNode) = 0;
 
-    virtual DOM::Node<stringT> parentNode() const = 0;
+    virtual DOM::Node<stringT> parentNode() = 0;
 
-    virtual DOM::Node<stringT> firstChild() const = 0;
+    virtual DOM::Node<stringT> firstChild() = 0;
 
-    virtual DOM::Node<stringT> lastChild() const = 0;
+    virtual DOM::Node<stringT> lastChild() = 0;
 
-    virtual DOM::Node<stringT> previousSibling() const = 0;
+    virtual DOM::Node<stringT> previousSibling() = 0;
 
     virtual DOM::Node<stringT> nextSibling() = 0;
 
