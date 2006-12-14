@@ -204,6 +204,32 @@ class AttrTest : public TestCase
       assert(attr == 0);
     } // test13
 
+    void test14()
+    {
+      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("xmlns"));
+
+      assert(attr.getName() == SA::construct_from_utf8("xmlns"));
+      assert(attr.getValue() == SA::construct_from_utf8(""));
+      assert(attr.getNodeName() == SA::construct_from_utf8("xmlns"));
+      assert(attr.getNodeValue() == SA::construct_from_utf8(""));
+      assert(attr.getLocalName() == SA::construct_from_utf8("xmlns"));
+      assert(attr.getNamespaceURI() == SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"));
+      assert(attr.getPrefix() == SA::construct_from_utf8(""));
+      assert(attr.hasNamespaceURI() == true);
+      assert(attr.hasPrefix() == false);
+
+      string_type norb = SA::construct_from_utf8("norb");
+      attr.setValue(norb);
+      assert(attr.getValue() == norb);
+      assert(attr.getNodeValue() == norb);
+
+      string_type porg = SA::construct_from_utf8("porg");
+      attr.setNodeValue(porg);
+      assert(attr.getValue() == porg);
+      assert(attr.getNodeValue() == porg);
+    } // test14
+
 };
 
 template<class string_type, class string_adaptor>
@@ -223,6 +249,7 @@ TestSuite* AttrTest_suite()
   suiteOfTests->addTest(new TestCaller<AttrTest<string_type, string_adaptor> >("test11", &AttrTest<string_type, string_adaptor>::test11));
   suiteOfTests->addTest(new TestCaller<AttrTest<string_type, string_adaptor> >("test12", &AttrTest<string_type, string_adaptor>::test12));
   suiteOfTests->addTest(new TestCaller<AttrTest<string_type, string_adaptor> >("test13", &AttrTest<string_type, string_adaptor>::test13));
+  suiteOfTests->addTest(new TestCaller<AttrTest<string_type, string_adaptor> >("test14", &AttrTest<string_type, string_adaptor>::test14));
   return suiteOfTests;
 } // AttrTest_suite
 

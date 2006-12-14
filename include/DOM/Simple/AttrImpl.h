@@ -85,6 +85,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
     {
       if(!valueCalculated_)
       {
+        value_ = string_adaptorT::construct_from_utf8("");
         for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
           string_adaptorT::append(value_, c->getNodeValue());
         valueCalculated_ = true;

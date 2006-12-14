@@ -34,11 +34,7 @@ class Attr : public Node<stringT>
     bool getSpecified() const { return attrImpl()->getSpecified(); }
 
     const stringT& getValue() const { return attrImpl()->getValue(); }
-    void setValue(const stringT& value) 
-    { 
-      attrImpl()->throwIfReadOnly();
-      attrImpl()->setValue(value); 
-    } // setValue 
+    void setValue(const stringT& value) { attrImpl()->setValue(value); } 
 
     Element<stringT> getOwnerElement() const { return Element<stringT>(attrImpl()->getOwnerElement()); }
 
