@@ -133,6 +133,61 @@ class TreeWalkerTest : public TestCase
       assert(walker.nextNode() == elem.getLastChild().getFirstChild());
       assert(walker.nextNode() == 0);
     } // test6
+
+    void test7()
+    {
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother</poop></root>"));
+      DOM::Element<string_type> elem = d.getDocumentElement();
+
+      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  DOM::Traversal::SHOW_COMMENT,
+                                                                                  true);
+      assert(walker.getCurrentNode() == elem);
+      assert(walker.nextNode() == elem.getLastChild().getFirstChild());
+      assert(walker.nextNode() == 0);
+    } // test7
+
+    void test8()
+    {
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother<?nard nurb?></poop></root>"));
+      DOM::Element<string_type> elem = d.getDocumentElement();
+
+      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  DOM::Traversal::SHOW_PROCESSING_INSTRUCTION,
+                                                                                  true);
+      assert(walker.getCurrentNode() == elem);
+      assert(walker.nextNode() == elem.getLastChild().getLastChild());
+      assert(walker.nextNode() == 0);
+    } // test8
+
+    class TestFilter : public DOM::Traversal::NodeFilter<string_type>
+    {
+    public:
+      virtual Result acceptNode(const DOM::Node<string_type>& node) const
+      {
+        if(node.getFirstChild().getNodeType() == DOM::Node_base::COMMENT_NODE)
+          return FILTER_REJECT;
+        return FILTER_ACCEPT;
+      } // acceptNode
+    }; // TestFilter
+
+    void test9()
+    {
+      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother<?nard nurb?></poop></root>"));
+      DOM::Element<string_type> elem = d.getDocumentElement();
+
+      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      TestFilter filter;
+      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  DOM::Traversal::SHOW_ELEMENT,
+                                                                                  filter,
+                                                                                  true);
+      assert(walker.getCurrentNode() == elem);
+      assert(walker.nextNode() == elem.getFirstChild());
+      assert(walker.nextNode() == 0);
+    } // test9
 };
 
 template<class string_type, class string_adaptor>
@@ -145,6 +200,9 @@ TestSuite* TreeWalkerTest_suite()
   suiteOfTests->addTest(new TestCaller<TreeWalkerTest<string_type, string_adaptor> >("test4", &TreeWalkerTest<string_type, string_adaptor>::test4));
   suiteOfTests->addTest(new TestCaller<TreeWalkerTest<string_type, string_adaptor> >("test5", &TreeWalkerTest<string_type, string_adaptor>::test5));
   suiteOfTests->addTest(new TestCaller<TreeWalkerTest<string_type, string_adaptor> >("test6", &TreeWalkerTest<string_type, string_adaptor>::test6));
+  suiteOfTests->addTest(new TestCaller<TreeWalkerTest<string_type, string_adaptor> >("test7", &TreeWalkerTest<string_type, string_adaptor>::test7));
+  suiteOfTests->addTest(new TestCaller<TreeWalkerTest<string_type, string_adaptor> >("test8", &TreeWalkerTest<string_type, string_adaptor>::test8));
+  suiteOfTests->addTest(new TestCaller<TreeWalkerTest<string_type, string_adaptor> >("test9", &TreeWalkerTest<string_type, string_adaptor>::test9));
   return suiteOfTests;
 } // TreeWalkerTest_suite
 

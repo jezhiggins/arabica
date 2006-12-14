@@ -82,7 +82,7 @@ class DocumentTraversal : protected DOM::Proxy<DocumentTraversal_impl<stringT> >
                                              NodeFilter<stringT>& filter,
                                              bool entityRefExpansion)
     {
-      return NodeIterator<stringT>(Impl()->createNodeIterator(root, whatToShow, *filter, entityRefExpansion));
+      return NodeIterator<stringT>(Impl()->createNodeIterator(root, whatToShow, &filter, entityRefExpansion));
     } // createNodeIterator
 
     TreeWalker<stringT> createTreeWalker(DOM::Node<stringT> root,
@@ -97,7 +97,7 @@ class DocumentTraversal : protected DOM::Proxy<DocumentTraversal_impl<stringT> >
                                          NodeFilter<stringT>& filter,
                                          bool entityRefExpansion)
     {
-      return TreeWalker<stringT>(Impl()->createTreeWalker(root, whatToShow, *filter, entityRefExpansion));
+      return TreeWalker<stringT>(Impl()->createTreeWalker(root, whatToShow, &filter, entityRefExpansion));
     } // createTreeWalker
 
   private:

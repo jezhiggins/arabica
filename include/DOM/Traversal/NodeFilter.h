@@ -16,6 +16,9 @@ namespace Traversal
 template<class stringT>
 class NodeFilter 
 {
+  protected:
+    virtual ~NodeFilter() { }
+
   public:
     ///////////////////////////////////////////////////////////////
     // NodeFilter methods
@@ -28,8 +31,6 @@ class NodeFilter
 
     virtual Result acceptNode(const DOM::Node<stringT>& node) const = 0;
 
-  private:
-    virtual ~NodeFilter() { }
 }; // class NodeFilter
 
 } // namespace Traversal
