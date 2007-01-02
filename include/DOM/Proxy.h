@@ -26,14 +26,13 @@ class Proxy
       return *this;
     } // operator=
  
+    operator bool() const { return 0 != impl_; }
     bool operator==(int dummy) const { return (dummy == 0) && (impl_ == 0); }
     bool operator!=(int dummy) const { return !(operator==(dummy)); }
     bool operator==(const Proxy& rhs) const { return (impl_ == rhs.impl_); }
     bool operator!=(const Proxy& rhs) const { return !(operator==(rhs)); }
     bool operator==(ImplementationT* const impl) const { return (impl_ == impl); }
     bool operator!=(ImplementationT* const impl) const { return !(operator==(impl)); }
-
-    operator bool() const { return 0 == impl_; }
 
     const ImplementationT* impl() const { return impl_; }
     ImplementationT* impl() { return impl_; }

@@ -64,7 +64,7 @@ class TreeWalker : protected DOM::Proxy<TreeWalker_impl<stringT> >
 
     DOM::Node<stringT> nextSibling() { return Impl()->nextSibling(); }
 
-    DOM::Node<stringT> previousNode() { return Impl()->prevNode(); }
+    DOM::Node<stringT> previousNode() { return Impl()->previousNode(); }
 
     DOM::Node<stringT> nextNode() { return Impl()->nextNode(); }
 

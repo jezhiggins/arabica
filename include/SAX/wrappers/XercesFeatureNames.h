@@ -13,7 +13,6 @@ namespace SAX
   struct XercesFeatureNames
   {
     typedef string_type stringT;
-    typedef string_adaptor_type string_adaptorT;
 
     /** @name SAX 2 Features.
      * These features are defined by the %SAX 2 standard.
@@ -158,17 +157,17 @@ namespace SAX
     /** @} */
 
     XercesFeatureNames() :
-      namespaces(	       string_adaptorT().makeStringT("http://xml.org/sax/features/namespaces")),
-      namespace_prefixes(      string_adaptorT().makeStringT("http://xml.org/sax/features/namespace-prefixes")),
-      validation(	       string_adaptorT().makeStringT("http://xml.org/sax/features/validation")),
-      validation_dynamic(      string_adaptorT().makeStringT("http://apache.org/xml/features/validation/dynamic")),
-      validation_schema(       string_adaptorT().makeStringT("http://apache.org/xml/features/validation/schema")),
-      schema_full_checking(    string_adaptorT().makeStringT("http://apache.org/xml/features/validation/schema-full-checking")),
-      external_dtd(	       string_adaptorT().makeStringT("http://apache.org/xml/features/nonvalidating/load-external-dtd")),
-      continue_after_fatal(    string_adaptorT().makeStringT("http://apache.org/xml/features/continue-after-fatal-error")),
-      validation_errors_fatal( string_adaptorT().makeStringT("http://apache.org/xml/features/validation-error-as-fatal")),
-      use_cached(              string_adaptorT().makeStringT("http://apache.org/xml/features/validation/use-cachedGrammarInParse")),
-      cache_grammar(           string_adaptorT().makeStringT("http://apache.org/xml/features/validation/cache-grammarFromParse"))
+      namespaces(	       string_adaptor_type().makeStringT("http://xml.org/sax/features/namespaces")),
+      namespace_prefixes(      string_adaptor_type().makeStringT("http://xml.org/sax/features/namespace-prefixes")),
+      validation(	       string_adaptor_type().makeStringT("http://xml.org/sax/features/validation")),
+      validation_dynamic(      string_adaptor_type().makeStringT("http://apache.org/xml/features/validation/dynamic")),
+      validation_schema(       string_adaptor_type().makeStringT("http://apache.org/xml/features/validation/schema")),
+      schema_full_checking(    string_adaptor_type().makeStringT("http://apache.org/xml/features/validation/schema-full-checking")),
+      external_dtd(	       string_adaptor_type().makeStringT("http://apache.org/xml/features/nonvalidating/load-external-dtd")),
+      continue_after_fatal(    string_adaptor_type().makeStringT("http://apache.org/xml/features/continue-after-fatal-error")),
+      validation_errors_fatal( string_adaptor_type().makeStringT("http://apache.org/xml/features/validation-error-as-fatal")),
+      use_cached(              string_adaptor_type().makeStringT("http://apache.org/xml/features/validation/use-cachedGrammarInParse")),
+      cache_grammar(           string_adaptor_type().makeStringT("http://apache.org/xml/features/validation/cache-grammarFromParse"))
     {
     } // XercesFeatureNames
   }; // class XercesFeatureNames

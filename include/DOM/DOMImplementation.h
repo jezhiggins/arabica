@@ -24,6 +24,7 @@ class DOMImplementation
     DOMImplementation(DOMImplementation_impl<stringT>* impl) : impl_(impl) { }
     DOMImplementation(const DOMImplementation& rhs) : impl_(rhs.impl_) { }
 
+    operator bool() const { return impl_; }
     bool operator==(const DOMImplementation& rhs) const { return impl_ == rhs.impl_; } 
     bool operator!=(const DOMImplementation& rhs) const { return impl_ != rhs.impl_; }
     bool operator==(int dummy) const { return impl_ == dummy; }
