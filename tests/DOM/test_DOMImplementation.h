@@ -25,9 +25,11 @@ class DOMImplementationTest : public TestCase
     {
       DOM::DOMImplementation<string_type> di;
       assert(di == 0);
+      assert(!di);
 
       DOM::DOMImplementation<string_type> di2 = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
       assert(di2 != 0);
+      assert(di2);
 
       assert(di != di2);
       assert(di2 != di);

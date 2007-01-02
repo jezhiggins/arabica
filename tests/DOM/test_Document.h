@@ -32,21 +32,26 @@ class DocumentTest : public TestCase
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
+      assert(!d);
+      assert(!n);
     } // testNull
 
     void testAssignment()
     {
       DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
       assert(d != 0);
+      assert(d);
       assert(d.getNodeName() == SA::construct_from_utf8("#document"));
       assert(d.getNodeValue() == SA::construct_from_utf8(""));
 
       DOM::Node<string_type> n;
       assert(n == 0);
+      assert(!n);
       assert(n != d);
 
       n = d;
 
+      assert(n);
       assert(n == d);
       assert(d == DOM::Document<string_type>(n));
 
