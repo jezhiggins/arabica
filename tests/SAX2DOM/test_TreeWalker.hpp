@@ -164,12 +164,14 @@ class TreeWalkerTest : public TestCase
 
     class TestFilter : public DOM::Traversal::NodeFilter<string_type>
     {
+      typedef DOM::Traversal::NodeFilter<string_type> base_t;
     public:
+      typedef typename DOM::Traversal::NodeFilter<string_type>::Result Result;
       virtual Result acceptNode(const DOM::Node<string_type>& node) const
       {
         if(node.getFirstChild().getNodeType() == DOM::Node_base::COMMENT_NODE)
-          return FILTER_REJECT;
-        return FILTER_ACCEPT;
+          return base_t::FILTER_REJECT;
+        return base_t::FILTER_ACCEPT;
       } // acceptNode
     }; // TestFilter
 

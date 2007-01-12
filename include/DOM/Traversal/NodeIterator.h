@@ -19,42 +19,42 @@ namespace Traversal
 template<class stringT> class NodeIterator_impl;
 
 template<class stringT>
-class NodeIterator : protected DOM::Proxy
+class NodeIterator : protected DOM::Proxy<NodeIterator_impl<stringT> >
 {
+  private:
+    typedef DOM::Proxy<NodeIterator_impl<stringT> > proxy_t;
+
   public:
-    NodeIterator() : Proxy(0) { }
-    explicit NodeIterator(NodeIterator_impl<stringT>* const impl) : Proxy(impl) { }
-    NodeIterator(const NodeIterator& rhs) : Proxy(rhs) { }
+    NodeIterator() : proxy_t(0) { }
+    explicit NodeIterator(NodeIterator_impl<stringT>* const impl) : proxy_t(impl) { }
+    NodeIterator(const NodeIterator& rhs) : proxy_t(rhs) { }
     virtual ~NodeIterator() { }
-    bool operator==(const NodeIterator& rhs) const { return Proxy::operator==(rhs); } 
-    bool operator!=(const NodeIterator& rhs) const { return Proxy::operator!=(rhs); }
-    bool operator==(int dummy) const { return Proxy::operator==(dummy); }
-    bool operator!=(int dummy) const { return Proxy::operator!=(dummy); }
+    bool operator==(const NodeIterator& rhs) const { return proxy_t::operator==(rhs); } 
+    bool operator!=(const NodeIterator& rhs) const { return proxy_t::operator!=(rhs); }
+    bool operator==(int dummy) const { return proxy_t::operator==(dummy); }
+    bool operator!=(int dummy) const { return proxy_t::operator!=(dummy); }
 
     NodeIterator& operator=(const NodeIterator& rhs) 
     {
-      Proxy::operator=(rhs);
+      proxy_t::operator=(rhs);
       return *this;
     } // operator=
 
     ///////////////////////////////////////////////////////////////
     // NodeIterator methods
-    DOM::Node<stringT> getRoot() const { return Impl()->getRoot(); }
+    DOM::Node<stringT> getRoot() const { return proxy_t::impl()->getRoot(); }
 
-    unsigned long getWhatToShow() const { return Impl()->getWhatToShow(); }
+    unsigned long getWhatToShow() const { return proxy_t::impl()->getWhatToShow(); }
 
-    NodeFilter<stringT>* getFilter() const { return Impl()->getFilter(); }
+    NodeFilter<stringT>* getFilter() const { return proxy_t::impl()->getFilter(); }
 
-    bool getExpandEntityReferences() const { return Impl()->getExpandEntityReferences(); }
+    bool getExpandEntityReferences() const { return proxy_t::impl()->getExpandEntityReferences(); }
 
-    DOM::Node<stringT> nextNode() { return Impl()->nextNode(); }
+    DOM::Node<stringT> nextNode() { return proxy_t::impl()->nextNode(); }
 
-    DOM::Node<stringT> previousNode() { return Impl()->prevNode(); }
+    DOM::Node<stringT> previousNode() { return proxy_t::impl()->prevNode(); }
 
-    void detach() { return Impl()->detach(); }
-
-  private:
-    NodeIterator_impl<stringT>* Impl() const { return dynamic_cast<NodeIterator_impl<stringT>*>(impl()); }
+    void detach() { return proxy_t::impl()->detach(); }
 }; // class NodeIterator
 
 ////////////////////////////////////////////////
@@ -83,3 +83,4 @@ class NodeIterator_impl
 
 #endif 
 // end of file
+

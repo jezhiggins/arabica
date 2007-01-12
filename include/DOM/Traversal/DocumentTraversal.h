@@ -74,7 +74,7 @@ class DocumentTraversal : protected DOM::Proxy<DocumentTraversal_impl<stringT> >
                                              unsigned long whatToShow,
                                              bool entityRefExpansion)
     {
-      return NodeIterator<stringT>(Impl()->createNodeIterator(root, whatToShow, 0, entityRefExpansion));
+      return NodeIterator<stringT>(proxy_t::impl()->createNodeIterator(root, whatToShow, 0, entityRefExpansion));
     } // createNodeIterator
 
     NodeIterator<stringT> createNodeIterator(DOM::Node<stringT> root,
@@ -82,14 +82,14 @@ class DocumentTraversal : protected DOM::Proxy<DocumentTraversal_impl<stringT> >
                                              NodeFilter<stringT>& filter,
                                              bool entityRefExpansion)
     {
-      return NodeIterator<stringT>(Impl()->createNodeIterator(root, whatToShow, &filter, entityRefExpansion));
+      return NodeIterator<stringT>(proxy_t::impl()->createNodeIterator(root, whatToShow, &filter, entityRefExpansion));
     } // createNodeIterator
 
     TreeWalker<stringT> createTreeWalker(DOM::Node<stringT> root,
                                          unsigned long whatToShow,
                                          bool entityRefExpansion)
     {
-      return TreeWalker<stringT>(Impl()->createTreeWalker(root, whatToShow, 0, entityRefExpansion));
+      return TreeWalker<stringT>(proxy_t::impl()->createTreeWalker(root, whatToShow, 0, entityRefExpansion));
     } // createTreeWalker
 
     TreeWalker<stringT> createTreeWalker(DOM::Node<stringT> root,
@@ -97,11 +97,8 @@ class DocumentTraversal : protected DOM::Proxy<DocumentTraversal_impl<stringT> >
                                          NodeFilter<stringT>& filter,
                                          bool entityRefExpansion)
     {
-      return TreeWalker<stringT>(Impl()->createTreeWalker(root, whatToShow, &filter, entityRefExpansion));
+      return TreeWalker<stringT>(proxy_t::impl()->createTreeWalker(root, whatToShow, &filter, entityRefExpansion));
     } // createTreeWalker
-
-  private:
-    DocumentTraversal_impl<stringT>* Impl() { return dynamic_cast<DocumentTraversal_impl<stringT>*>(impl()); }
 }; // class DocumentTraversal
 
 //////////////////////////////////////////////////////////////
@@ -130,3 +127,4 @@ class DocumentTraversal_impl : virtual public TraversalImpl
 
 #endif
 // end of file
+

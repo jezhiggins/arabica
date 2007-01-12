@@ -22,10 +22,10 @@ template<class stringT> class TreeWalker_impl;
 template<class stringT>
 class TreeWalker : protected DOM::Proxy<TreeWalker_impl<stringT> >
 {
-  public:
+  private:
     typedef DOM::Proxy<TreeWalker_impl<stringT> > proxy_t;
     typedef typename proxy_t::value_type impl_t;
-
+  public:
     TreeWalker() : proxy_t(0) { }
     explicit TreeWalker(TreeWalker_impl<stringT>* const impl) : proxy_t(impl) { }
     TreeWalker(const TreeWalker& rhs) : proxy_t(rhs) { }
@@ -43,33 +43,30 @@ class TreeWalker : protected DOM::Proxy<TreeWalker_impl<stringT> >
 
     ///////////////////////////////////////////////////////////////
     // TreeWalker methods
-    DOM::Node<stringT> getRoot() { return Impl()->getRoot(); }
+    DOM::Node<stringT> getRoot() { return proxy_t::impl()->getRoot(); }
 
-    unsigned long getWhatToShow() { return Impl()->getWhatToShow(); }
+    unsigned long getWhatToShow() { return proxy_t::impl()->getWhatToShow(); }
 
-    NodeFilter<stringT>* getFilter() { return Impl()->getFilter(); }
+    NodeFilter<stringT>* getFilter() { return proxy_t::impl()->getFilter(); }
 
-    bool getExpandEntityReferences() { return Impl()->getExpandEntityReferences(); }
+    bool getExpandEntityReferences() { return proxy_t::impl()->getExpandEntityReferences(); }
 
-    DOM::Node<stringT> getCurrentNode() { return Impl()->getCurrentNode(); }
-    void setCurrentNode(const DOM::Node<stringT>& currentNode) { Impl()->setCurrentNode(currentNode); }
+    DOM::Node<stringT> getCurrentNode() { return proxy_t::impl()->getCurrentNode(); }
+    void setCurrentNode(const DOM::Node<stringT>& currentNode) { proxy_t::impl()->setCurrentNode(currentNode); }
 
-    DOM::Node<stringT> parentNode() { return Impl()->parentNode(); }
+    DOM::Node<stringT> parentNode() { return proxy_t::impl()->parentNode(); }
 
-    DOM::Node<stringT> firstChild() { return Impl()->firstChild(); }
+    DOM::Node<stringT> firstChild() { return proxy_t::impl()->firstChild(); }
     
-    DOM::Node<stringT> lastChild() { return Impl()->lastChild(); }
+    DOM::Node<stringT> lastChild() { return proxy_t::impl()->lastChild(); }
 
-    DOM::Node<stringT> previousSibling() { return Impl()->previousSibling(); }
+    DOM::Node<stringT> previousSibling() { return proxy_t::impl()->previousSibling(); }
 
-    DOM::Node<stringT> nextSibling() { return Impl()->nextSibling(); }
+    DOM::Node<stringT> nextSibling() { return proxy_t::impl()->nextSibling(); }
 
-    DOM::Node<stringT> previousNode() { return Impl()->previousNode(); }
+    DOM::Node<stringT> previousNode() { return proxy_t::impl()->previousNode(); }
 
-    DOM::Node<stringT> nextNode() { return Impl()->nextNode(); }
-
-  private:
-    impl_t* Impl() { return impl(); }
+    DOM::Node<stringT> nextNode() { return proxy_t::impl()->nextNode(); }
 }; // class TreeWalker
 
 ////////////////////////////////////////////////
