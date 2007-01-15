@@ -15,9 +15,7 @@
 namespace SAX {
 
 template<class string_type>
-class basic_Writer : public basic_XMLFilterImpl<string_type>,
-                     public basic_LexicalHandler<string_type>,
-                     public basic_DeclHandler<string_type>
+class basic_Writer : public basic_XMLFilterImpl<string_type>
 {
   public:
     typedef string_type stringT;
@@ -27,8 +25,6 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef std::basic_ostream<charT, traitsT> ostreamT;
     typedef basic_XMLReader<stringT> XMLReaderT;
     typedef basic_XMLFilterImpl<stringT> XMLFilterT;
-    typedef SAX::basic_DeclHandler<stringT> declHandlerT;
-    typedef SAX::basic_LexicalHandler<stringT> lexicalHandlerT;
     typedef typename basic_XMLFilterImpl<stringT>::AttributesT AttributesT;
     typedef Arabica::Unicode<charT> UnicodeT;
     typedef Arabica::XML::escaper<charT, traitsT> escaperT;
@@ -37,10 +33,6 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     typedef basic_DeclHandler<stringT> DeclHandlerT;
     typedef typename XMLReaderT::InputSourceT InputSourceT;
     typedef typename XMLReaderT::PropertyBase PropertyBaseT;
-    typedef typename XMLReaderT::template Property<lexicalHandlerT*> getLexicalHandlerT;
-    typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
-    typedef typename XMLReaderT::template Property<declHandlerT*> getDeclHandlerT;
-    typedef typename XMLReaderT::template Property<declHandlerT&> setDeclHandlerT;
     using XMLFilterT::getParent;
 
   public:
@@ -51,8 +43,6 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       indent_(indent),
       depth_(0),
       stream_(&stream),
-      lexicalHandler_(0),
-      declHandler_(0),
       encoding_(),
       lastTag_(startTag)
     {
@@ -66,8 +56,6 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       indent_(indent),
       depth_(0),
       stream_(&stream),
-      lexicalHandler_(0),
-      declHandler_(0),
       encoding_(),
       lastTag_(startTag)
     {
@@ -80,8 +68,6 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       indent_(indent),
       depth_(0),
       stream_(&stream),
-      lexicalHandler_(0),
-      declHandler_(0),
       encoding_(encoding),
       lastTag_(startTag)
     {
@@ -95,14 +81,10 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
       indent_(indent),
       depth_(0),
       stream_(&stream),
-      lexicalHandler_(0),
-      declHandler_(0),
       encoding_(encoding),
       lastTag_(startTag)
     {
     } // basic_Writer
-
-    virtual void parse(InputSourceT& input);
 
     // setEncoding
     // Sets the encoding included in the XML declaration.  If not set, then the encoding 
@@ -111,11 +93,6 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     // your responsibility to ensure that the data is already properly encoded, or that the 
     // destination stream will perform any necessary transcoding.
     void setEncoding(const stringT& encoding) { encoding_ = encoding; }
-
-  protected:
-    // Parser 
-    virtual std::auto_ptr<PropertyBaseT> doGetProperty(const stringT& name);
-    virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value);
 
   public:
     // ContentHandler
@@ -164,8 +141,6 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>,
     int indent_;
     int depth_;
     ostreamT* stream_;
-    LexicalHandlerT* lexicalHandler_;
-    DeclHandlerT* declHandler_;
     stringT encoding_;
     enum { startTag, endTag, docTag } lastTag_;
     const SAX::PropertyNames<stringT> properties_;
@@ -320,29 +295,6 @@ void basic_Writer<string_type>::skippedEntity(const stringT& name)
 } // skippedEntity
 
 template<class string_type>
-void basic_Writer<string_type>::parse(InputSourceT& input)
-{
-  try 
-  {
-    XMLReaderT* parent = getParent();
-    if(parent)
-      parent->setProperty(properties_.lexicalHandler, static_cast<LexicalHandlerT&>(*this));
-  }
-  catch(...)
-  {  }
-  try 
-  {
-    XMLReaderT* parent = getParent();
-    if(parent)
-      parent->setProperty(properties_.declHandler, static_cast<DeclHandlerT&>(*this));
-  }
-  catch(...)
-  {  }
-
-  XMLFilterT::parse(input);
-} // parse
-
-template<class string_type>
 void basic_Writer<string_type>::doIndent()
 {
   for(int i = 0; i < depth_; ++i)
@@ -359,58 +311,6 @@ bool basic_Writer<string_type>::isDtd(const string_type& name)
      name[3] == UnicodeT::LOWERCASE_D &&
      name[4] == UnicodeT::RIGHT_SQUARE_BRACKET);
 } // isDtd
-
-#ifndef ARABICA_VS6_WORKAROUND
-template<class string_type>
-std::auto_ptr<typename basic_Writer<string_type>::PropertyBaseT> basic_Writer<string_type>::doGetProperty(const string_type& name)
-#else
-template<class string_type>
-std::auto_ptr<basic_Writer<string_type>::PropertyBaseT> basic_Writer<string_type>::doGetProperty(const string_type& name)
-#endif
-{
-  if(name == properties_.lexicalHandler)
-  {
-    getLexicalHandlerT* prop = new getLexicalHandlerT(lexicalHandler_);
-    return std::auto_ptr<PropertyBaseT>(prop);
-  }
-  if(name == properties_.declHandler)
-  {
-    getDeclHandlerT* prop = new getDeclHandlerT(declHandler_);
-    return std::auto_ptr<PropertyBaseT>(prop);
-  }
-
-  return XMLFilterT::doGetProperty(name);
-} // doGetProperty
-
-#ifndef ARABICA_VS6_WORKAROUND
-template<class string_type>
-void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<typename basic_Writer<string_type>::PropertyBaseT> value)
-#else
-template<class string_type>
-void basic_Writer<string_type>::doSetProperty(const string_type& name, std::auto_ptr<basic_Writer<string_type>::PropertyBaseT> value)
-#endif
-{
-  if(name == properties_.lexicalHandler)
-  {
-    setLexicalHandlerT* prop = dynamic_cast<setLexicalHandlerT*>(value.get());
-
-    if(!prop)
-      throw std::bad_cast();
-
-    lexicalHandler_ = &(prop->get());
-  }
-  else if(name == properties_.declHandler)
-  {
-    setDeclHandlerT* prop = dynamic_cast<setDeclHandlerT*>(value.get());
-
-    if(!prop)
-      throw std::bad_cast();
-
-    declHandler_ = &(prop->get());
-  }
-  
-  XMLFilterT::doSetProperty(name, value);
-} // doSetProperty
 
 template<class string_type>
 void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& publicId, const stringT& systemId)
@@ -436,8 +336,7 @@ void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& pub
            << UnicodeT::LEFT_SQUARE_BRACKET
            << std::endl;
 
-  if(lexicalHandler_)
-    lexicalHandler_->startDTD(name, publicId, systemId);
+  XMLFilterT::startDTD(name, publicId, systemId);
 } // startDTD
 
 template<class string_type>
@@ -450,8 +349,7 @@ void basic_Writer<string_type>::endDTD()
   inDTD_ = false;
   depth_ -= indent_;
 
-  if(lexicalHandler_)
-    lexicalHandler_->endDTD();
+  XMLFilterT::endDTD();
 } // endDTD
 
 template<class string_type>
@@ -460,8 +358,7 @@ void basic_Writer<string_type>::startEntity(const stringT& name)
   if(isDtd(name))
     internalSubset_ = false;
 
-  if(lexicalHandler_)
-    lexicalHandler_->startEntity(name);
+  XMLFilterT::startEntity(name);
 } // startEntity
 
 template<class string_type>
@@ -470,8 +367,7 @@ void basic_Writer<string_type>::endEntity(const stringT& name)
   if(isDtd(name))
     internalSubset_ = true;
 
-  if(lexicalHandler_)
-    lexicalHandler_->endEntity(name);
+  XMLFilterT::endEntity(name);
 } // endEntity
 
 template<class string_type>
@@ -489,8 +385,7 @@ void basic_Writer<string_type>::startCDATA()
            << UnicodeT::CAPITAL_A
            << UnicodeT::LEFT_SQUARE_BRACKET;
 
-  if(lexicalHandler_)
-    lexicalHandler_->startCDATA();
+  XMLFilterT::startCDATA();
 } // startCDATA
 
 template<class string_type>
@@ -502,8 +397,7 @@ void basic_Writer<string_type>::endCDATA()
 
   inCDATA_ = false;
 
-  if(lexicalHandler_)
-    lexicalHandler_->endCDATA();
+  XMLFilterT::endCDATA();
 } // endCDATA
 
 template<class string_type>
@@ -519,8 +413,7 @@ void basic_Writer<string_type>::comment(const stringT& text)
             << UnicodeT::HYPHEN_MINUS
             << UnicodeT::GREATER_THAN_SIGN;
 
-  if(lexicalHandler_)
-    lexicalHandler_->comment(text);
+  XMLFilterT::comment(text);
 } // comment
 
 template<class string_type>
@@ -602,8 +495,7 @@ void basic_Writer<string_type>::elementDecl(const stringT& name, const stringT& 
 
   } // if ...
 
-  if(declHandler_)
-    declHandler_->elementDecl(name, model);
+  XMLFilterT::elementDecl(name, model);
 } // elementDecl
 
 template<class string_type>
@@ -644,8 +536,7 @@ void basic_Writer<string_type>::attributeDecl(const stringT& elementName, const 
              << std::endl;
   } // if ...
 
-  if(declHandler_)
-    declHandler_->attributeDecl(elementName, attributeName, type, valueDefault, value);
+  XMLFilterT::attributeDecl(elementName, attributeName, type, valueDefault, value);
 } // attributeDecl
 
 template<class string_type>
@@ -663,8 +554,7 @@ void basic_Writer<string_type>::internalEntityDecl(const stringT& name, const st
              << std::endl;
   } // if ...
 
-  if(declHandler_)
-    declHandler_->internalEntityDecl(name, value);
+  XMLFilterT::internalEntityDecl(name, value);
 } // internalEntityDecl
 
 template<class string_type>
@@ -679,8 +569,7 @@ void basic_Writer<string_type>::externalEntityDecl(const stringT& name, const st
             << std::endl;
   } // if ...
 
-  if(declHandler_)
-    declHandler_->externalEntityDecl(name, publicId, systemId);
+  XMLFilterT::externalEntityDecl(name, publicId, systemId);
 } // externalEntityDecl
 
 template<class string_type>
