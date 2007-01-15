@@ -11,7 +11,7 @@ AC_DEFUN([ARABICA_HAS_XERCES],
     if test $with_xerces != yes; then
       xerces_possible_path="$with_xerces"
     else
-      xerces_possible_path="/usr /usr/locale /opt /var" 
+      xerces_possible_path="/usr /usr/local /opt /var" 
     fi
     AC_MSG_CHECKING([for Xerces headers])
     xerces_save_CXXFLAGS="$CXXFLAGS"
