@@ -6,18 +6,22 @@ AC_DEFUN([ARABICA_HAS_XML_PARSER],
   fi
 
   if test "$HAVE_EXPAT-" != "-"; then
+    AC_MSG_NOTICE([[building with Expat]])
     AC_DEFINE(USE_EXPAT, ,[define to build against Expat])
     PARSER_HEADERS=$EXPAT_CFLAGS
     PARSER_LIBS="$PARSER_LIBS $EXPAT_LIBS"
   elif test "$HAVE_LIBXML2-" != "-"; then
+    AC_MSG_NOTICE([[building with LibXML2]])
     AC_DEFINE(USE_LIBXML2, ,[define to build against LibXML2])
     PARSER_HEADERS=$LIBXML2_CFLAGS
     PARSER_LIBS="$PARSER_LIBS $LIBXML2_LIBS"
   elif test "$HAVE_XERCES-" != "-"; then
+    AC_MSG_NOTICE([[building with Xerces]])
     AC_DEFINE(USE_XERCES, ,[define to build against Xerces])
     PARSER_HEADERS=$XERCES_CFLAGS
     PARSER_LIBS="$PARSER_LIBS $XERCES_LIBS"
   elif test "$USE_GARDEN-" != "-"; then
+    AC_MSG_NOTICE([[building with Garden]])
     AC_DEFINE(USE_GARDEN, ,[define to build using Garden])
   fi
 
