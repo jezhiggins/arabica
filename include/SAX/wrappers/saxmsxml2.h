@@ -115,7 +115,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
     virtual void setDTDHandler(SAX::basic_DTDHandler<string_type>& handler) { dtdHandler_.setDTDHandler(handler); } 
     virtual SAX::basic_DTDHandler<string_type>* getDTDHandler() const { return dtdHandler_.getDTDHandler(); }
     virtual void setContentHandler(SAX::basic_ContentHandler<string_type>& handler) {	contentHandler_.setContentHandler(handler); }
-	virtual SAX::basic_ContentHandler<string_type>* getContentHandler() const { return contentHandler_.getContentHandler(); }
+    virtual SAX::basic_ContentHandler<string_type>* getContentHandler() const { return contentHandler_.getContentHandler(); }
     virtual void setErrorHandler(SAX::basic_ErrorHandler<string_type>& handler);
     virtual SAX::basic_ErrorHandler<string_type>* getErrorHandler() const;
 
@@ -844,7 +844,11 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
 template<class string_type, class T0, class T1>
 msxml2_wrapper<string_type, T0, T1>::msxml2_wrapper()
 {
-  reader_.CreateInstance("Msxml2.SAXXMLReader.4.0");
+  reader_.CreateInstance("Msxml2.SAXXMLReader.6.0");
+  if(reader_.GetInterfacePtr() == 0)
+    reader_.CreateInstance("Msxml2.SAXXMLReader.5.0");
+  if(reader_.GetInterfacePtr() == 0)
+    reader_.CreateInstance("Msxml2.SAXXMLReader.4.0");
   if(reader_.GetInterfacePtr() == 0)
     reader_.CreateInstance("Msxml2.SAXXMLReader.3.0");
   if(reader_.GetInterfacePtr() == 0)
