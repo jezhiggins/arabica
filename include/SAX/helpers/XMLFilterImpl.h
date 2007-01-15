@@ -1,8 +1,7 @@
 #ifndef ARABICA_XML_FILTER_IMPL_H
 #define ARABICA_XML_FILTER_IMPL_H
 
-// XMLFilter.h
-// $Id$
+// XMLFilterImpl.h
 
 #include <SAX/ArabicaConfig.h>
 #include <string>
@@ -37,10 +36,12 @@ namespace SAX
  */
 template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 class basic_XMLFilterImpl : public basic_XMLFilter<string_type>,
-          public basic_EntityResolver<string_type>, 
-					public basic_DTDHandler<string_type>,
-					public basic_ContentHandler<string_type>, 
-					public basic_ErrorHandler<string_type>
+                            public basic_EntityResolver<string_type>, 
+                  					public basic_DTDHandler<string_type>,
+					                  public basic_ContentHandler<string_type>, 
+					                  public basic_ErrorHandler<string_type>,
+                            public basic_DeclHandler<string_type>,
+                            public basic_LexicalHandler<string_type>
 {
 public:
   typedef string_type stringT;
@@ -52,6 +53,8 @@ public:
   typedef basic_InputSource<stringT> InputSourceT;
   typedef basic_Locator<stringT> LocatorT;
   typedef basic_ErrorHandler<stringT> ErrorHandlerT;
+  typedef basic_DeclHandler<stringT> DeclHandlerT;
+  typedef basic_LexicalHandler<stringT> LexicalHandlerT;
   typedef typename basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
 
@@ -202,6 +205,11 @@ public:
    */
   virtual ErrorHandlerT* getErrorHandler() const { return errorHandler_; }
 
+  virtual void setDeclHandler(DeclHandlerT& handler) { declHandler_ = &handler; }
+  virtual DeclHandlerT* getDeclHandler() const { return declHandler_; }
+  virtual void setLexicalHandler(LexicalHandlerT& handler) { lexicalHandler_ = &handler; }
+  virtual LexicalHandlerT* getLexicalHandler() const { return lexicalHandler_; }
+
   /**
    * Parse a document.
    *
@@ -270,8 +278,7 @@ public:
                             const stringT& publicId,
                             const stringT& systemId)
   {
-    if(dtdHandler_)
-      dtdHandler_->notationDecl(name, publicId, systemId);
+    dtdHandler_->notationDecl(name, publicId, systemId);
   } // notationDecl
 
   /**
@@ -288,8 +295,7 @@ public:
                                   const stringT& systemId,
                                   const stringT& notationName)
   {
-    if(dtdHandler_)
-      dtdHandler_->unparsedEntityDecl(name, publicId, systemId, notationName);
+    dtdHandler_->unparsedEntityDecl(name, publicId, systemId, notationName);
   } // unparsedEntityDecl
 
   //////////////////////////////////////////////////
@@ -303,8 +309,7 @@ public:
   virtual void setDocumentLocator(const LocatorT& locator) 
   { 
     locator_ = &locator;
-    if(contentHandler_)
-      contentHandler_->setDocumentLocator(locator);
+    contentHandler_->setDocumentLocator(locator);
   } // setDocumentLocator
 
   /**
@@ -314,8 +319,7 @@ public:
    */
   virtual void startDocument() 
   { 
-    if(contentHandler_)
-      contentHandler_->startDocument();
+    contentHandler_->startDocument();
   } // startDocument
 
   /**
@@ -325,8 +329,7 @@ public:
    */
   virtual void endDocument() 
   { 
-    if(contentHandler_)
-      contentHandler_->endDocument();
+    contentHandler_->endDocument();
   } // endDocument
 
   /**
@@ -338,8 +341,7 @@ public:
    */
   virtual void startPrefixMapping(const stringT& prefix, const stringT& uri) 
   { 
-    if(contentHandler_)
-      contentHandler_->startPrefixMapping(prefix, uri);
+    contentHandler_->startPrefixMapping(prefix, uri);
   } // startPrefixMapping
 
   /**
@@ -350,8 +352,7 @@ public:
    */
   virtual void endPrefixMapping(const stringT& prefix) 
   { 
-    if(contentHandler_)
-      contentHandler_->endPrefixMapping(prefix);
+    contentHandler_->endPrefixMapping(prefix);
   } // endPrefixMapping
 
   /**
@@ -367,8 +368,7 @@ public:
   virtual void startElement(const stringT& namespaceURI, const stringT& localName,
                             const stringT& qName, const typename ContentHandlerT::AttributesT& atts) 
   { 
-    if(contentHandler_)
-      contentHandler_->startElement(namespaceURI, localName, qName, atts);
+    contentHandler_->startElement(namespaceURI, localName, qName, atts);
   } // startElement
 
   /**
@@ -383,8 +383,7 @@ public:
   virtual void endElement(const stringT& namespaceURI, const stringT& localName,
                           const stringT& qName) 
   { 
-    if(contentHandler_)
-      contentHandler_->endElement(namespaceURI, localName, qName);
+    contentHandler_->endElement(namespaceURI, localName, qName);
   }  // endElement
 
   /**
@@ -395,8 +394,7 @@ public:
    */
   virtual void characters(const stringT& ch) 
   { 
-    if(contentHandler_)
-      contentHandler_->characters(ch);
+    contentHandler_->characters(ch);
   } // characters
 
   /**
@@ -407,8 +405,7 @@ public:
    */
   virtual void ignorableWhitespace(const stringT& ch) 
   { 
-    if(contentHandler_)
-      contentHandler_->ignorableWhitespace(ch);
+    contentHandler_->ignorableWhitespace(ch);
   } // ignorableWhitespace
 
   /**
@@ -420,8 +417,7 @@ public:
    */
   virtual void processingInstruction(const stringT& target, const stringT& data) 
   { 
-    if(contentHandler_)
-      contentHandler_->processingInstruction(target, data);
+    contentHandler_->processingInstruction(target, data);
   } // processingInstruction
 
   /**
@@ -432,8 +428,7 @@ public:
    */
   virtual void skippedEntity(const stringT& name) 
   { 
-    if(contentHandler_)
-      contentHandler_->skippedEntity(name);
+    contentHandler_->skippedEntity(name);
   } // skippedEntity
 
   //////////////////////////////////////////////////
@@ -446,8 +441,7 @@ public:
    */
   virtual void warning(const SAXParseExceptionT& exception) 
   { 
-    if(errorHandler_)
-      errorHandler_->warning(exception);
+    errorHandler_->warning(exception);
   } // warning
 
   /**
@@ -458,8 +452,7 @@ public:
    */
   virtual void error(const SAXParseExceptionT& exception) 
   { 
-    if(errorHandler_)
-      errorHandler_->error(exception);
+    errorHandler_->error(exception);
   } // error
 
   /**
@@ -470,10 +463,108 @@ public:
    */
   virtual void fatalError(const SAXParseExceptionT& exception) 
   { 
-    if(errorHandler_)
-      errorHandler_->fatalError(exception);
+    errorHandler_->fatalError(exception);
   } // fatalError
 
+  ////////////////////////////////////////////////////////////
+  // DeclHandler
+  /**
+   * Filter an element type declaration.
+   */
+  virtual void elementDecl(const stringT& name, const stringT& model) 
+  { 
+    declHandler_->elementDecl(name, model);
+  } // elementDecl
+
+  /**
+   * Filter an attribute type declaration.
+   */
+  virtual void attributeDecl(const stringT& elementName,
+                             const stringT& attributeName,
+                             const stringT& type,
+                             const stringT& valueDefault,
+                             const stringT& value) 
+  { 
+    declHandler_->attributeDecl(elementName, attributeName, type, valueDefault, value);
+  } // attributeDecl
+
+  /**
+   * Filter an internal entity declaration.
+   */
+  virtual void internalEntityDecl(const stringT& name, const stringT& value) 
+  { 
+    declHandler_->internalEntityDecl(name, value);
+  } // internalEntityDecl
+
+  /**
+   * Filter a parsed external entity declaration.
+   */
+  virtual void externalEntityDecl(const stringT& name, 
+                                  const stringT& publicId,
+                                  const stringT& systemId) 
+  { 
+    declHandler_->externalEntityDecl(name, publicId, systemId);
+  } // externalEntityDecl
+
+  //////////////////////////////////////////////////////////
+  // LexicalHandler
+  /**
+   * Filter the start of DTD declarations, if any.
+   */
+  virtual void startDTD(const stringT& name,
+                        const stringT& publicId,
+                        const stringT& systemId) 
+  { 
+    lexicalHandler_->startDTD(name, publicId, systemId);
+  } // startDTD
+
+  /**
+   * Filter the end of DTD declarations.
+   */
+  virtual void endDTD() 
+  { 
+    lexicalHandler_->endDTD();
+  } // endDTD
+
+  /**
+   * Filter the beginning of some internal and external XML entities.
+   */
+  virtual void startEntity(const stringT& name) 
+  { 
+    lexicalHandler_->startEntity(name);
+  } // startEntity
+
+  /**
+   * Filter the end of an entity.
+   */
+  virtual void endEntity(const stringT& name) 
+  { 
+    lexicalHandler_->endEntity(name);
+  } // endEntity
+
+  /**
+   * Filter the start of a CDATA section.
+   */
+  virtual void startCDATA() 
+  { 
+    lexicalHandler_->startCDATA();
+  } // startCDATA
+
+  /**
+   * Filter the end of a CDATA section.
+   */
+  virtual void endCDATA() 
+  { 
+    lexicalHandler_->endCDATA();
+  } // endCDATA
+
+  /**
+   * Filter an XML comment anywhere in the document.
+   */
+  virtual void comment(const stringT& text) 
+  { 
+    lexicalHandler_->comment(text);
+  } // comment
 
 private:
   void setDefaults() 
@@ -482,6 +573,8 @@ private:
     setDTDHandler(defaultHandler_);
     setContentHandler(defaultHandler_);
     setErrorHandler(defaultHandler_);
+    setDeclHandler(defaultHandler_);
+    setLexicalHandler(defaultHandler_);
   } // setDefaults
 
   void setupParse()
@@ -490,6 +583,8 @@ private:
     parent_->setDTDHandler(*this);
     parent_->setContentHandler(*this);
     parent_->setErrorHandler(*this);
+    parent_->setDeclHandler(*this);
+    parent_->setLexicalHandler(*this);
   } // setupParse
 
   basic_XMLFilterImpl(const basic_XMLFilterImpl&);
@@ -501,6 +596,8 @@ private:
   DTDHandlerT* dtdHandler_;
   ContentHandlerT* contentHandler_;
   ErrorHandlerT* errorHandler_;
+  DeclHandlerT* declHandler_;
+  LexicalHandlerT* lexicalHandler_;
   const LocatorT* locator_;
   basic_DefaultHandler<stringT> defaultHandler_;
 }; // class basic_XMLFilter

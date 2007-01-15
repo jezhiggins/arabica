@@ -163,6 +163,10 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
     virtual ContentHandlerT* getContentHandler() const { return contentHandlerAdaptor_.getContentHandler(); }
     virtual void setErrorHandler(ErrorHandlerT& handler) { errorHandlerAdaptor_.setErrorHandler(handler); }
     virtual ErrorHandlerT* getErrorHandler() const { return errorHandlerAdaptor_.getErrorHandler(); }
+    virtual void setDeclHandler(DeclHandlerT& handler) { declHandlerAdaptor_.setDeclHandler(handler); }
+    virtual DeclHandlerT* getDeclHandler() const { return declHandlerAdaptor_.getDeclHandler(); }
+    virtual void setLexicalHandler(LexicalHandlerT& handler) { lexicalHandlerAdaptor_.setLexicalHandler(handler); }
+    virtual LexicalHandlerT* getLexicalHandler() const { return lexicalHandlerAdaptor_.getLexicalHandler(); }
 
     //////////////////////////////////////////////////
     // Parsing

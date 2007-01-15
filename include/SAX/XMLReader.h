@@ -14,7 +14,10 @@
 #include <SAX/DTDHandler.h>
 #include <SAX/ErrorHandler.h>
 #include <SAX/InputSource.h>
+#include <SAX/ext/LexicalHandler.h>
+#include <SAX/ext/DeclHandler.h>
 #include <SAX/SAXNotSupportedException.h>
+
 
 namespace SAX
 {
@@ -66,6 +69,8 @@ public:
   typedef basic_ContentHandler<stringT> ContentHandlerT;
   typedef basic_InputSource<stringT> InputSourceT;
   typedef basic_ErrorHandler<stringT> ErrorHandlerT;
+  typedef basic_DeclHandler<stringT> DeclHandlerT;
+  typedef basic_LexicalHandler<stringT> LexicalHandlerT;
 
 	virtual ~basic_XMLReader() { }
 
@@ -250,6 +255,24 @@ public:
    * @see #setErrorHandler
    */
   virtual ErrorHandlerT* getErrorHandler() const = 0;
+
+  virtual void setDeclHandler(DeclHandlerT& handler) = 0;
+  /**
+   * Return the current decl handler.
+   *
+   * @return The current decl handler, or 0 if none has been registered
+   * @see #setDeclHandler
+   */
+  virtual DeclHandlerT* getDeclHandler() const = 0;
+
+  virtual void setLexicalHandler(LexicalHandlerT& handler) = 0;
+  /**
+   * Return the current lexical handler.
+   *
+   * @return The current lexical handler, or 0 if none has been registered
+   * @see #setLexicalHandler
+   */
+  virtual LexicalHandlerT* getLexicalHandler() const = 0;
 
   //////////////////////////////////////////////////
   // Parsing

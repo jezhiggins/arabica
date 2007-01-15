@@ -18,8 +18,6 @@
 #include <cstdarg>
 #include <typeinfo>
 
-#include <SAX/ext/LexicalHandler.h>
-#include <SAX/ext/DeclHandler.h>
 #include <SAX/helpers/FeatureNames.h>
 #include <SAX/helpers/PropertyNames.h>
 #include <SAX/helpers/NamespaceSupport.h>
@@ -55,6 +53,7 @@ class libxml2_base
     virtual void SAXerror(const std::string& error) = 0;
     virtual void SAXfatalError(const std::string& fatal) = 0;
     virtual void SAXprocessingInstruction(const xmlChar* target, const xmlChar* data) = 0;
+    virtual void SAXcomment(const xmlChar* comment) = 0;
     virtual void SAXstartElement(const xmlChar* name, const xmlChar** attrs) = 0;
     virtual void SAXendElement(const xmlChar* name) = 0;
     virtual void SAXnotationDecl(const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId) = 0;
@@ -73,6 +72,7 @@ class libxml2_base
     friend void lwit_error(void* user_data, const char* fmt, ...);
     friend void lwit_fatalError(void* user_data, const char* fmt, ...);
     friend void lwit_processingInstruction(void *user_data, const xmlChar* target, const xmlChar* data);
+    friend void lwit_comment(void *user_data, const xmlChar* comment);
     friend void lwit_startElement(void *user_data, const xmlChar* name, const xmlChar** attrs);
     friend void lwit_endElement(void* user_data, const xmlChar* name);
     friend void lwit_notationDecl(void* user_data, const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId);
@@ -90,6 +90,7 @@ void lwit_endElement(void *user_data, const xmlChar* name);
 void lwit_characters(void* user_data, const xmlChar* ch, int len);
 void lwit_ignorableWhitespace(void *user_data, const xmlChar* ch, int len);
 void lwit_processingInstruction(void *user_data, const xmlChar* target, const xmlChar* data);
+void lwit_comment(void *user_data, const xmlChar* comment);
 void lwit_warning(void *user_data, const char* fmt, ...);
 void lwit_error(void* user_data, const char* fmt, ...);
 void lwit_fatalError(void* user_data, const char* fmt, ...);
@@ -157,6 +158,10 @@ class libxml2_wrapper : public basic_XMLReader<string_type>,
     virtual basic_ContentHandler<stringT>* getContentHandler() const { return contentHandler_; }
     virtual void setErrorHandler(errorHandlerT& handler) { errorHandler_ = &handler; }
     virtual errorHandlerT* getErrorHandler() const { return errorHandler_; }
+    virtual void setDeclHandler(declHandlerT& handler) { declHandler_ = &handler; }
+    virtual declHandlerT* getDeclHandler() const { return declHandler_; }
+    virtual void setLexicalHandler(lexicalHandlerT& handler) { lexicalHandler_ = &handler; }
+    virtual lexicalHandlerT* getLexicalHandler() const { return lexicalHandler_; }
 
     ////////////////////////////////////////////////
     // parsing
@@ -184,6 +189,7 @@ class libxml2_wrapper : public basic_XMLReader<string_type>,
     virtual void SAXerror(const std::string& error);
     virtual void SAXfatalError(const std::string& fatal);
     virtual void SAXprocessingInstruction(const xmlChar* target, const xmlChar* data);
+    virtual void SAXcomment(const xmlChar* comment);
     virtual void SAXstartElement(const xmlChar* name, const xmlChar** attrs);
     virtual void SAXstartElementNoNS(const xmlChar* name, const xmlChar** attrs);
     virtual void SAXendElement(const xmlChar* name);
@@ -209,6 +215,7 @@ class libxml2_wrapper : public basic_XMLReader<string_type>,
     errorHandlerT* errorHandler_;
     namespaceSupportT nsSupport_;
     declHandlerT* declHandler_;
+    lexicalHandlerT* lexicalHandler_;
 
     xmlParserCtxtPtr context_;
 		xmlSAXLocatorPtr locator_;
@@ -337,7 +344,10 @@ std::auto_ptr<libxml2_wrapper<stringT, T0, T1>::PropertyBaseT> libxml2_wrapper<s
     return std::auto_ptr<PropertyBaseT>(prop);
   }
 	if(name == properties_.lexicalHandler)
-		throw SAX::SAXNotSupportedException(std::string("Property not supported ") + string_adaptorT::asStdString(name));
+  {
+    getLexicalHandlerT* prop = new getLexicalHandlerT(lexicalHandler_);
+    return std::auto_ptr<PropertyBaseT>(prop);
+  }
 
   throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptorT::asStdString(name));    
 } // doGetProperty
@@ -355,7 +365,14 @@ void libxml2_wrapper<stringT, T0, T1>::doSetProperty(const stringT& name, std::a
     declHandler_ = &(prop->get());
   }
 	if(name == properties_.lexicalHandler)
-		throw SAX::SAXNotSupportedException(std::string("Property not supported ") + string_adaptorT::asStdString(name));
+  {
+    setLexicalHandlerT* prop = dynamic_cast<setLexicalHandlerT*>(value.get());
+
+    if(!prop)
+      throw std::bad_cast();
+
+    lexicalHandler_ = &(prop->get());
+  }
 
   throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptorT::asStdString(name));    
 } // doSetProperty
@@ -506,6 +523,13 @@ void libxml2_wrapper<stringT, T0, T1>::SAXprocessingInstruction(const xmlChar* t
 } // SAXprocessingInstruction
 
 template<class stringT, class T0, class T1>
+void libxml2_wrapper<stringT, T0, T1>::SAXcomment(const xmlChar* comment)
+{
+  if(lexicalHandler_)
+    lexicalHandler_->comment(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(comment)));
+} // SAXcomment
+
+template<class stringT, class T0, class T1>
 void libxml2_wrapper<stringT, T0, T1>::SAXstartElement(const xmlChar* qName, const xmlChar** atts)
 {
   if(!contentHandler_)
@@ -602,7 +626,7 @@ void libxml2_wrapper<stringT, T0, T1>::SAXendElement(const xmlChar* qName)
   typename basic_NamespaceSupport<stringT, string_adaptorT>::Parts name = processName(string_adaptorT::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
   contentHandler_->endElement(name.URI, name.localName, name.rawName);
   typename basic_NamespaceSupport<stringT, string_adaptorT>::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
-  for(size_t i = 1, end = prefixes.size(); i < end; ++i)
+  for(size_t i = 0, end = prefixes.size(); i < end; ++i)
     contentHandler_->endPrefixMapping(prefixes[i]);
   nsSupport_.popContext();
 } // SAXendElement

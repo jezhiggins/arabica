@@ -2,24 +2,6 @@
 #define ARABICA_SAX_MSXML2_H
 //---------------------------------------------------------------------------
 // A SAX2 wrapper class for MSXML component.
-//
-// $Id$
-//
-// Changes:
-//   21-Jul-2002 Major tweaks to use #include <header> rather then
-//               #import <type_library>.  The latter is sensitive to
-//               the exact name/version of the library provided by
-//               Microsoft and various options provided to the type
-//               library reader.  (Found the issue when I attempted
-//               to build with MSXML4 rather then MSXML3.)  [kas]
-//
-//   31-Jul-2002 Created the default PROGID define.  M$. in their
-//               wisdom, removed the version independent IDs starting
-//               in version 4.0 of the MSXML library.  Saves a lot of
-//               'DLL hell' problems but creates others for maintainers.
-//               The initialization code will now try the 4.0 ID and
-//               then the older (version independant) name.   [kas]
-//
 //---------------------------------------------------------------------------
 
 #include <SAX/ArabicaConfig.h>
@@ -28,8 +10,6 @@
 #include <SAX/SAXParseException.h>
 #include <SAX/SAXNotRecognizedException.h>
 #include <SAX/SAXNotSupportedException.h>
-#include <SAX/ext/LexicalHandler.h>
-#include <SAX/ext/DeclHandler.h>
 #include <SAX/helpers/PropertyNames.h>
 #include <Utils/StringAdaptor.h>
 #include <iostream>
@@ -118,6 +98,10 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
     virtual SAX::basic_ContentHandler<string_type>* getContentHandler() const { return contentHandler_.getContentHandler(); }
     virtual void setErrorHandler(SAX::basic_ErrorHandler<string_type>& handler);
     virtual SAX::basic_ErrorHandler<string_type>* getErrorHandler() const;
+    virtual void setDeclHandler(declHandlerT& handler) { declHandler_.setDeclHandler(handler); }
+    virtual declHandlerT* getDeclHandler() const { return declHandler_.getDeclHandler(); }
+    virtual void setLexicalHandler(lexicalHandlerT& handler) { lexicalHandler_.setLexicalHandler(handler); }
+    virtual lexicalHandlerT* getLexicalHandler() const { return lexicalHandler_.getLexicalHandler(); }
 
     //////////////////////////////////////////////////
     // Parsing

@@ -14,8 +14,6 @@
 #include <SAX/SAXParseException.h>
 #include <SAX/SAXNotRecognizedException.h>
 #include <SAX/SAXNotSupportedException.h>
-#include <SAX/ext/DeclHandler.h>
-#include <SAX/ext/LexicalHandler.h>
 #include <SAX/helpers/DefaultHandler.h>
 #include <SAX/helpers/AttributesImpl.h>
 #include <SAX/helpers/NamespaceSupport.h>
@@ -247,6 +245,10 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
     virtual contentHandlerT* getContentHandler() const { return contentHandler_; }
     virtual void setErrorHandler(errorHandlerT& handler) { errorHandler_ = &handler; }
     virtual errorHandlerT* getErrorHandler() const { return errorHandler_; }
+    virtual void setDeclHandler(declHandlerT& handler) { declHandler_ = &handler; }
+    virtual declHandlerT* getDeclHandler() const { return declHandler_; }
+    virtual void setLexicalHandler(lexicalHandlerT& handler) { lexicalHandler_ = &handler; }
+    virtual lexicalHandlerT* getLexicalHandler() const { return lexicalHandler_; }
 
     //////////////////////////////////////////////////
     // Parsing
@@ -716,7 +718,7 @@ void expat_wrapper<stringT, T0, T1>::endElement(const char* qName)
   typename namespaceSupportT::Parts name = processName(SA::construct_from_utf8(qName), false);
   contentHandler_->endElement(name.URI, name.localName, name.rawName);
   typename namespaceSupportT::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
-  for(size_t i = 1, end = prefixes.size(); i < end; ++i)
+  for(size_t i = 0, end = prefixes.size(); i < end; ++i)
     contentHandler_->endPrefixMapping(prefixes[i]);
   nsSupport_.popContext();
 } // endElement
