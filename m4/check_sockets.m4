@@ -1,5 +1,10 @@
-AC_DEFUN([ARABICA_HAS_WINSOCK],
+AC_DEFUN([ARABICA_CHECK_SOCKETS],
 [
+  AC_MSG_NOTICE([for sockets])
+  AC_SEARCH_LIBS([gethostbyname], [nsl])
+  AC_SEARCH_LIBS([socket], [socket], [], [
+                AC_CHECK_LIB([socket], [socket], [LIBS="-lsocket -lnsl $LIBS"],
+                [], [-lnsl])])
   AC_MSG_CHECKING([for Winsock])
   AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <winsock.h>]],
                                      [[closesocket(1);]])],
