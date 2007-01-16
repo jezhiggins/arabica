@@ -32,7 +32,9 @@ AC_DEFUN([ARABICA_HAS_XERCES],
     AC_MSG_RESULT($xerces_found)
     if test $xerces_found = yes; then
       AC_MSG_CHECKING([for XMLPlatformUtils::Initialize in -lxerces-c])
-      CXXFLAGS="$CXXFLAGS $XERCES_CFLAGS $XERCES_LIBS -lxerces-c"
+      CXXFLAGS="$CXXFLAGS $XERCES_CFLAGS"
+      xerces_save_LIBS="$LIBS"
+      LIBS="$LIBS $XERCES_LIBS -lxerces-c"
       AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/util/PlatformUtils.hpp>]],
                                      [[XERCES_CPP_NAMESPACE::XMLPlatformUtils::Initialize()]])],
                      [AS_VAR_SET(xerces_found, yes)],
@@ -42,6 +44,7 @@ AC_DEFUN([ARABICA_HAS_XERCES],
         HAVE_XERCES=1
       fi
       CXXFLAGS="$xerces_save_CXXFLAGS"
+      LIBS="$xerces_save_LIBS"
     fi  
   fi
 ])
