@@ -22,7 +22,8 @@ cppunit_sources = ../CppUnit/framework/CppUnitException.h \
                    ../CppUnit/textui/TextTestResult.h
 
 
-test_sources = test_SAX.h
+test_sources = test_SAX.h \
+               test_TreeWalker.hpp
 
 sax2dom_test_SOURCES = main.cpp \
                        $(cppunit_sources) \
