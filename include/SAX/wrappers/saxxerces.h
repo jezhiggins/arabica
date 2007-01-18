@@ -142,6 +142,7 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
     typedef SAX::basic_Attributes<string_type> AttributesT;
     typedef SAX::basic_DeclHandler<string_type> DeclHandlerT;
     typedef SAX::basic_ErrorHandler<string_type> ErrorHandlerT;
+    typedef typename ErrorHandlerT::SAXParseExceptionT SAXParseExceptionT;
 
     typedef SAX::XercesFeatureNames<string_type, string_adaptorT> featuresT;
 
@@ -244,9 +245,7 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
             // We want the trailing 0 character.
             *inserter = *str;
             while (*str != 0)  // str points to the character we've just copied
-            {
               *++inserter = *++str;
-            }
             return base::construct_from_utf16(&buffer[0]);
           }
           else
@@ -273,36 +272,57 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
         } // makeStringT
 #else
         // alternative version for the wchar_t impaired
+        static string_type makeStringT(const XMLCh* str, unsigned int inputLength) 
+        {
+          static XMLByte outBuff[4096];
+
+          string_type out;
+          unsigned int outputLength;
+          unsigned int eaten = 0;
+          unsigned int offset = 0;
+
+          while(inputLength)
+          {
+              outputLength = transcoder_->transcodeTo(str+offset, 
+                                                      inputLength, 
+                                                      outBuff, 1024, 
+                                                      eaten, 
+                                                      XERCES_CPP_NAMESPACE::XMLTranscoder::UnRep_RepChar);
+              base::append(out, construct_from_XMLByte(outBuff, outputLength));
+              offset += eaten;
+              inputLength -= eaten;
+          }
+
+          return out;
+        } // makeStringT
+
         static string_type makeStringT(const XMLCh* str) 
         {
-          if(str)
-          {
-            xerces_string_janitor<char> cstr(XERCES_CPP_NAMESPACE::XMLString::transcode(str));
-            return base::construct_from_utf8(cstr.get());
-          }
-          return string_type();
+          return makeStringT(str, XERCES_CPP_NAMESPACE::XMLString::stringLen(str));
         } // makeStringT
 
-        static string_type makeStringT(const XMLCh* str, int length) 
+        static string_type construct_from_XMLByte(const XMLByte* bytes, int length) 
         {
-          // this isn't pretty, but Xerces doesn't provide a transcode with takes
-          // a length
-          if(str && length)
-          {
-            std::vector<XMLCh> wv(length + 1);
-            std::copy(str, str+length, std::insert_iterator<std::vector<XMLCh> >(wv, wv.begin()));
-            wv.push_back(0);
+          return base::construct_from_utf8(reinterpret_cast<const char*>(bytes), length);
+        } // construct_from_XMLByte
 
-            return makeStringT(&wv[0]);
-          }
-          return string_type();
-        } // makeStringT
+        static std::auto_ptr<XERCES_CPP_NAMESPACE::XMLTranscoder> transcoder_;
+        static kickoff()
+        {
+          XERCES_CPP_NAMESPACE::XMLTransService::Codes  res;
+          transcoder_.reset(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgTransService->makeNewTranscoderFor(XERCES_CPP_NAMESPACE::XMLRecognizer::UTF_8, res, 4096, XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager));
+        }
+        static shutdown()
+        {
+          transcoder_.reset(0);
+        } // shutdown
 #endif
         static XMLCh* asXMLChString(const string_type& s) 
         {
           std::string str = base::asStdString(s);
           return XERCES_CPP_NAMESPACE::XMLString::transcode(str.c_str());
         } // asXMLChString
+
     }; // class xerces_string_adaptor
 
     typedef xerces_string_adaptor SA;
@@ -645,7 +665,7 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
         } // resetErrors
 
       private:
-        typedef void(ErrorHandlerT::* ErrorFn)(const typename ErrorHandlerT::SAXParseExceptionT&);
+        typedef void(ErrorHandlerT::* ErrorFn)(const SAXParseExceptionT&);
 
         void handleError(const XERCES_CPP_NAMESPACE::SAXParseException& exception, ErrorFn fn)
         {
@@ -655,7 +675,7 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
           string_type errorMsg(SA::makeStringT(exception.getMessage()));
           string_type publicId(SA::makeStringT(exception.getPublicId()));
           string_type systemId(SA::makeStringT(exception.getSystemId()));
-          ErrorHandlerT::SAXParseExceptionT sp(SA::asStdString(errorMsg),
+          SAXParseExceptionT sp(SA::asStdString(errorMsg),
                                                publicId,
                                                systemId,
                                                exception.getLineNumber(),
@@ -858,6 +878,11 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
     string_type externalNoNamespaceSchemaLocation_;
 }; // class xerces_wrapper
 
+#ifdef ARABICA_NO_WCHAR_T
+template<class string_type, class T0, class T1>
+std::auto_ptr<XERCES_CPP_NAMESPACE::XMLTranscoder> xerces_wrapper<string_type, T0, T1>::xerces_string_adaptor::transcoder_;
+#endif
+
 template<class string_type, class T0, class T1>
 xerces_wrapper<string_type, T0, T1>::xerces_wrapper()
 {
@@ -865,6 +890,9 @@ xerces_wrapper<string_type, T0, T1>::xerces_wrapper()
   {
     std::auto_ptr<XercesImpl::xerces_initializer> init(new XercesImpl::xerces_initializer());
     initializer_ = init;
+#ifdef ARABICA_NO_WCHAR_T
+    xerces_string_adaptor::kickoff();
+#endif
   }
   catch(const XERCES_CPP_NAMESPACE::XMLException& toCatch)
   {
@@ -885,6 +913,9 @@ xerces_wrapper<string_type, T0, T1>::xerces_wrapper()
 template<class string_type, class T0, class T1>
 xerces_wrapper<string_type, T0, T1>::~xerces_wrapper()
 {
+#ifdef ARABICA_NO_WCHAR_T
+  xerces_string_adaptor::shutdown();
+#endif
   delete xerces_;
 } // ~xerces_wrapper
 
@@ -1001,7 +1032,8 @@ void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name,
 {
   if(name == properties_.lexicalHandler)
   {
-    Property<SAX::basic_LexicalHandler<stringT>&>* prop = dynamic_cast<Property<SAX::basic_LexicalHandler<stringT>&>*>(value.get());
+    typedef typename SAX::basic_XMLReader<string_type>::template Property<LexicalHandlerT&> Prop;
+    Prop* prop = dynamic_cast<Prop*>(value.get());
 
     if(!prop)
       throw std::runtime_error("bad_cast: Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
@@ -1012,7 +1044,8 @@ void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name,
 
   if(name == properties_.declHandler)
   {
-    Property<SAX::basic_DeclHandler<stringT>&>* prop = dynamic_cast<Property<SAX::basic_DeclHandler<stringT>&>*>(value.get());
+    typedef typename SAX::basic_XMLReader<string_type>::template Property<DeclHandlerT&> Prop;
+    Prop* prop = dynamic_cast<Prop*>(value.get());
 
     if(!prop)
       throw std::runtime_error("bad_cast: Property DeclHandler is wrong type, should be SAX::DeclHandler&");
