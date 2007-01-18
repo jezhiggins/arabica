@@ -2,7 +2,7 @@ AC_INIT(src/arabica.cpp)
 AC_CANONICAL_SYSTEM
 AC_CONFIG_HEADERS(include/SAX/ArabicaConfig.h)
 
-AM_INIT_AUTOMAKE(arabica, Sept2006-3)
+AM_INIT_AUTOMAKE(arabica, Jan2007)
 
 AC_PROG_CXX
 AM_PROG_LIBTOOL
