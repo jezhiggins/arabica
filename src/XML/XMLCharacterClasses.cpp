@@ -1,6 +1,7 @@
 
 #include <XML/XMLCharacterClasses.h>
 #include <XML/UnicodeCharacters.h>
+#include <SAX/ArabicaConfig.h>
 
 const wchar_t base_char_ranges[][2] = 
 {
@@ -80,8 +81,11 @@ bool Arabica::XML::is_char(wchar_t c)
          (c == Unicode<wchar_t>::LINE_FEED) ||
          (c == Unicode<wchar_t>::CARRIAGE_RETURN) ||
          ((c >= 0x0020) && (c <= 0xD7FF)) ||
-         ((c >= 0xE000) && (c <= 0xFFFD)) ||
-         ((c >= 0x10000) && (c <= 0x10FFFF));
+         ((c >= 0xE000) && (c <= 0xFFFD)) 
+#ifndef ARABICA_NO_WCHAR_T 
+      || ((c >= 0x10000) && (c <= 0x10FFFF))
+#endif
+         ;
 } // is_char
 
 bool Arabica::XML::is_space(wchar_t c)
