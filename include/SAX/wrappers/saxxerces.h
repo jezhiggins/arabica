@@ -232,43 +232,23 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
         typedef typename string_adaptorT::value_type value_type;
         typedef string_adaptorT base;
 
-        typedef std::vector<wchar_t> wVector;
-
 #ifndef ARABICA_NO_WCHAR_T
         static string_type makeStringT(const XMLCh* str) 
         {
-          if(str)
-          {
-            wVector buffer;
-            std::insert_iterator<wVector> inserter(buffer, buffer.begin());
-
-            // We want the trailing 0 character.
-            *inserter = *str;
-            while (*str != 0)  // str points to the character we've just copied
-              *++inserter = *++str;
-            return base::construct_from_utf16(&buffer[0]);
-          }
-          else
-          return string_type();
+          return makeStringT(str, XERCES_CPP_NAMESPACE::XMLString::stringLen(str));
         } // makeStringT
 
         static string_type makeStringT(const XMLCh* str, int length) 
         {
-          if (str && length)
+          if(str && length)
           {
-            wVector buffer;
-            std::insert_iterator<wVector> inserter(buffer, buffer.begin());
-
-            // We don't want any trailing characters.
-            const XMLCh* end = str + length;
-            while (str < end)
-            {
-              *inserter++ = *str++;
-            }
+            std::vector<wchar_t> buffer;
+            std::copy(str, str+length, inserter(buffer, buffer.begin()));
             return base::construct_from_utf16(&buffer[0], length);
           }
           else
             return string_type();
+
         } // makeStringT
 #else
         // alternative version for the wchar_t impaired
