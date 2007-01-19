@@ -138,8 +138,6 @@ public:
 
     // we must do code conversion
     stringT converted;
-    size_t toBufLen = str.length() + 4; // 4 is arbitrary bit of bonus space
-    charT* to = new charT[toBufLen]; // 4 is arbitrary
     const fromCharT* from_next = str.data();
     typename std::codecvt_base::result r;
     typename traitsT::state_type state;
@@ -148,19 +146,17 @@ public:
     {
       charT* to_next;
       r = cvt.in(state, from_next, str.data() + str.length(), from_next, 
-                  to, to + toBufLen, to_next);
+                 to_, to_ + toSize_, to_next);
       if(r == std::codecvt_base::noconv)
       {
         converted.append(no_conversion(str));
         break;
       }
-      converted.append(to, (to_next - to));
+      converted.append(to_, (to_next - to_));
     }
     while(r == std::codecvt_base::partial);
 
-    delete[] to;
     // naughty! ignore (r == std::codecvt_base::error)
-
     convertstreambuf_initT::buf()->str(converted); 
   } // str
 
@@ -180,6 +176,9 @@ private:
 
     return dest;
   } // no_conversion
+
+  static const int toSize_ = 4096;
+  charT to_[toSize_];
 }; // basic_iconvertstream
 
 template<typename charT, 
@@ -240,8 +239,6 @@ public:
     else
     {
       // we must do code conversion
-      size_t toBufLen = newstuff.length() + 4; // 4 is arbitrary little bit of extra space
-      toCharT* to = new toCharT[toBufLen];  
       const charT* from_next = newstuff.data();
       typename std::codecvt_base::result r;
       typename traitsT::state_type state;
@@ -250,17 +247,15 @@ public:
       {
         toCharT* to_next;
         r = cvt.out(state, from_next, newstuff.data() + newstuff.length(), from_next, 
-                    to, to + toBufLen, to_next);
+                    to_, to_ + toSize_, to_next);
         if(r == std::codecvt_base::noconv)
         {
           out.append(no_conversion(newstuff));
           break;
         }
-        out.append(to, (to_next - to));
+        out.append(to_, (to_next - to_));
       }
       while(r == std::codecvt_base::partial);
-
-      delete[] to;
       // naughty! ignore (r == std::codecvt_base::error)
     } // if(cvt.always_noconv())
 
@@ -290,6 +285,9 @@ private:
 
     return dest;
   } // no_conversion
+
+  static const int toSize_ = 4096;
+  toCharT to_[toSize_];
 }; // basic_oconvertstream
 
 typedef basic_iconvertstream<char> converting_istringstream;
