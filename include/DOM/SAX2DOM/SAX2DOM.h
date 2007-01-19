@@ -2,7 +2,7 @@
 #define JEZUK_SAX2DOM_PARSER_H
 
 #include <SAX/XMLReader.h>
-#include <SAX/ext/DefaultHandler2.h>
+#include <SAX/helpers/DefaultHandler.h>
 #include <SAX/helpers/AttributeTypes.h>
 #include <DOM/Simple/DOMImplementation.h>
 #include <DOM/Simple/NotationImpl.h>
@@ -21,7 +21,7 @@ namespace SAX2DOM
 template<class stringT, 
          class string_adaptorT = Arabica::default_string_adaptor<stringT>,
          class SAX_parser = SAX::XMLReader<stringT, string_adaptorT> >
-class Parser : protected SAX::basic_DefaultHandler2<stringT>
+class Parser : protected SAX::basic_DefaultHandler<stringT>
 {
     typedef SAX::basic_EntityResolver<stringT> EntityResolverT;
     typedef SAX::basic_ErrorHandler<stringT> ErrorHandlerT;
