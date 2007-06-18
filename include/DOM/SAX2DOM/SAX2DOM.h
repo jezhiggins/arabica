@@ -194,7 +194,12 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
 
         // attributes here
         for(int i = 0; i < atts.getLength(); ++i)
-          elem.setAttributeNS(atts.getURI(i), atts.getQName(i), atts.getValue(i));
+        {
+          stringT qName = atts.getQName(i);
+          if(string_adaptorT::empty(qName))
+            qName = atts.getLocalName(i);
+          elem.setAttributeNS(atts.getURI(i), qName, atts.getValue(i));
+        }
 
         currentNode_ = elem;
       }

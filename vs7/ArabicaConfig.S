@@ -55,6 +55,7 @@ define USE_XERCES
 #ifdef USE_GARDEN
 #undef USE_GARDEN
 define USE_GARDEN
+define ARABICA_NO_WCHAR_T
 #endif
 
 #ifdef USE_MSXML

@@ -53,6 +53,7 @@ int main(int argc, char* argv[])
       SAX::XMLReader<std::string> myParser;
       myParser.setContentHandler(handler);
       myParser.setErrorHandler(handler);
+      myParser.setFeature("prohibit-dtd", false);
 
       SAX::InputSource is(argv[i]);
       myParser.parse(is);
