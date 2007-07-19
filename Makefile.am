@@ -22,7 +22,7 @@ uninstall-local:
 	  do rm -rf "$(includedir)/$$dir"; \
 	done 
 
-DIST_SUBDIRS= src test examples 
+DIST_SUBDIRS= src tests examples 
 EXTRA_DIST=vs7 \
            include \
            src/SAX/wrappers/saxexpat.cpp \
