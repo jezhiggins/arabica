@@ -49,6 +49,8 @@ public:
     return str ? string_type(str) : string_type();
   }
 
+  static const string_type& empty_string() { static string_type es; return es; }
+
   //todo: fix for utf8
   static size_type length(const string_type& str) { return str.length(); }
 
