@@ -64,6 +64,12 @@ void lwit_processingInstruction(void *user_data, const xmlChar* target, const xm
   p->SAXprocessingInstruction(target, data);
 } // lwit_processingInstruction
 
+void lwit_comment(void *user_data, const xmlChar* comment)
+{
+  libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
+  p->SAXcomment(comment);
+} // lwit_comment
+
 void lwit_warning(void *user_data, const char* fmt, ...)
 {
   va_list arg;
@@ -168,7 +174,7 @@ static xmlSAXHandler saxHandler = {
 		lwit_characters,		// charactersSAXFunc characters;
 		lwit_ignorableWhitespace,		// ignorableWhitespaceSAXFunc ignorableWhitespace;
 		lwit_processingInstruction,		// processingInstructionSAXFunc processingInstruction;
-		0,		// commentSAXFunc comment;
+		lwit_comment,		// commentSAXFunc comment;
 		lwit_warning,		// warningSAXFunc warning;
 		lwit_error,		// errorSAXFunc error;
 		lwit_fatalError,		// fatalErrorSAXFunc fatalError;

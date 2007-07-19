@@ -10,6 +10,8 @@
 #include <istream>
 #include <fstream>
 #include <Utils/socket_stream.h>
+#include <Utils/uri.hpp>
+#include <cmath>
 
 InputSourceResolver::InputSourceResolver(const SAX::InputSource& inputSource) :
   deleteStream_(false),
@@ -30,11 +32,11 @@ void InputSourceResolver::open(const std::string& publicId,
       return;
     } 
 
-    // does it look like a URL?
-    std::string::size_type colonIndex = systemId.find("://");
-    if(colonIndex != std::string::npos)
+    // does it look like a URI?
+    Arabica::io::URI url(systemId);
+    if(!url.scheme().empty())
     {
-      URIResolver res = findResolver(systemId.substr(0, colonIndex));
+      URIResolver res = findResolver(url.scheme());
       if(res)
         byteStream_ = res(systemId);
       if(byteStream_)
@@ -45,7 +47,7 @@ void InputSourceResolver::open(const std::string& publicId,
     } // if ...
 
     // try and open it as a file
-    std::ifstream* ifs = new std::ifstream(systemId.c_str());
+    std::ifstream* ifs = new std::ifstream(url.path().c_str());
     if(ifs->is_open())
     {
       deleteStream_ = true;
@@ -85,10 +87,10 @@ InputSourceResolver::URIResolver InputSourceResolver::findResolver(std::string m
 
 namespace 
 {
-  std::istream* fileResolver(const std::string& fileURL)
+  std::istream* fileResolver(const std::string& fileURI)
   {
-    int colon = fileURL.find("://");
-    std::string fileName = fileURL.substr(colon+3);
+    Arabica::io::URI url(fileURI);
+    std::string fileName = url.path();
 
     std::ifstream* ifs = new std::ifstream(fileName.c_str());
     if(ifs->is_open())
@@ -113,7 +115,7 @@ namespace
 
   static bool fileReg = InputSourceResolver::registerResolver("file", fileResolver);
 
-  std::istream* httpResolver(const std::string& httpURL)
+  std::istream* httpResolver(const std::string& httpURI)
   {
 #ifdef ARABICA_USE_WINSOCK
     WORD wVersionRequested;
@@ -126,22 +128,15 @@ namespace
         return 0;
 #endif
 
-    int colon1 = httpURL.find("://");
-    colon1 += 3;
-    //int colon2 = httpURL.find("://", colon1);
-    int slash1 = httpURL.find("/", colon1);
+    Arabica::io::URI url(httpURI);
 
-    std::string hostName = httpURL.substr(colon1, slash1 - (colon1));
-    std::string path = httpURL.substr(slash1);
-
-    Arabica::socketstream* ifs = new Arabica::socketstream(hostName.c_str(), 80);
+    Arabica::socketstream* ifs = new Arabica::socketstream(url.host().c_str(), std::atoi(url.port().c_str()));
     if(!ifs->is_open())
       return 0;
-    *ifs << "GET " << path << " HTTP/1.0" << std::endl;
-    *ifs << "Host: " << hostName << std::endl;
+    *ifs << "GET " << url.path() << " HTTP/1.0" << std::endl;
+    *ifs << "Host: " << url.host() << std::endl;
     *ifs << "Connection: close" << std::endl;
     *ifs << std::endl;
-
 
     char buffer[1024];
     do

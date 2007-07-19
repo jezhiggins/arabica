@@ -13,15 +13,14 @@ cc_sources = arabica.cpp \
 	Utils/utf16utf8codecvt.cpp \
 	Utils/utf8iso88591codecvt.cpp \
 	Utils/utf8ucs2codecvt.cpp \
+        Utils/uri.cpp \
 	XML/XMLCharacterClasses.cpp
 
-library_includedir=$(includedir)
-
-INCLUDES = -I$(top_srcdir)/include $(PARSER_HEADERS) $(BOOST_CPPFLAGS)
+AM_CPPFLAGS = -I$(top_srcdir)/include @PARSER_HEADERS@ $(BOOST_CPPFLAGS)
 
 lib_LTLIBRARIES = libarabica.la
 libarabica_la_SOURCES= $(cc_sources) 
-libarabica_la_LDFLAGS= $(PARSER_LIBS)
+libarabica_la_LDFLAGS= @PARSER_LIBS@
 
 
 

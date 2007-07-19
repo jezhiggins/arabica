@@ -82,7 +82,7 @@ std::codecvt_base::result base64codecvt::do_in(std::mbstate_t& state,
   from_next = from;
   to_next = to;
 
-  while((from_next != from_end) && (to != to_limit))
+  while((from_next != from_end) && (to_next != to_limit))
   {
     char b = *from_next++;
     size_t i = base64_charset.find(b);
