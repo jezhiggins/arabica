@@ -4,6 +4,7 @@ libdir=@libdir@
 includedir=@includedir@
 
 Name: Arabica
-Description: XML Parser Toolkit for C++
+Version: @VERSION@
+Description: Arabica XML Parser Toolkit for C++
 Libs: -L${libdir} -larabica
-Cflags:
+Cflags: -I${includedir}

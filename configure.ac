@@ -1,17 +1,12 @@
-AC_INIT(src/arabica.cpp)
-AC_CANONICAL_SYSTEM
-AC_CONFIG_HEADERS(include/SAX/ArabicaConfig.h)
+AC_INIT([Arabica], [Jan07], [jez@jezuk.co.uk])
 
-AM_INIT_AUTOMAKE(arabica, Jan2007)
-
+AM_INIT_AUTOMAKE
+ 
 AC_PROG_CXX
-AM_PROG_LIBTOOL
+AC_PROG_LIBTOOL
 
-AC_LANG_CPLUSPLUS
+AC_LANG([C++])
 
-
-ARABICA_HAS_BOOST([1.32])
-ARABICA_WANT_DOM
 ARABICA_SELECT_XML_PARSER
 ARABICA_HAS_EXPAT
 ARABICA_HAS_LIBXML2
@@ -21,18 +16,25 @@ ARABICA_HAS_XML_PARSER
 ARABICA_HAS_STD_WSTRING
 ARABICA_CHECK_CODECVT_SPECIALISATIONS
 ARABICA_CHECK_SOCKETS
+ARABICA_HAS_BOOST([1.33])
+ARABICA_WANT_DOM
 
-AC_OUTPUT(Makefile \
-          arabica.pc \
-          src/Makefile \
-          tests/Makefile \
-          tests/DOM/Makefile \
-          tests/SAX2DOM/Makefile \
-          tests/XPath/Makefile \
-          examples/Makefile \
-          examples/SAX/Makefile \
-          examples/DOM/Makefile \
-          examples/Utils/Makefile \
-          examples/XPath/Makefile 
-)
+AC_CONFIG_HEADERS([include/SAX/ArabicaConfig.h])
+AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([arabica.pc])
+AC_CONFIG_FILES([src/Makefile])
+AC_CONFIG_FILES([tests/Makefile])
+AC_CONFIG_FILES([tests/Utils/Makefile])
+AC_CONFIG_FILES([tests/SAX/Makefile])
+AC_CONFIG_FILES([tests/DOM/Makefile])
+AC_CONFIG_FILES([tests/XPath/Makefile])
+AC_CONFIG_FILES([tests/XSLT/Makefile])
+AC_CONFIG_FILES([examples/Makefile])
+AC_CONFIG_FILES([examples/Utils/Makefile])
+AC_CONFIG_FILES([examples/SAX/Makefile])
+AC_CONFIG_FILES([examples/DOM/Makefile])
+AC_CONFIG_FILES([examples/XPath/Makefile])
+AC_CONFIG_FILES([examples/XSLT/Makefile])
+
+AC_OUTPUT
 
