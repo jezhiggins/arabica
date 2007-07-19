@@ -16,6 +16,7 @@ public:
   ~silly_string();
 
   bool operator==(const silly_string& rhs) const;
+  bool operator!=(const silly_string& rhs) const { return !(this->operator==(rhs)); }
   silly_string& operator=(const silly_string& rhs);
 
 private:
@@ -38,6 +39,7 @@ public:
     return std::string::npos;
   }
 
+  static const silly_string& empty_string() { static silly_string es; return es; }
 
   template<class InputIterator>
   static silly_string construct(InputIterator from, InputIterator to)

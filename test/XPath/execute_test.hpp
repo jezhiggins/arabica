@@ -12,7 +12,8 @@ template<class string_type, class string_adaptor>
 class StringVariableResolver : public Arabica::XPath::VariableResolver<string_type, string_adaptor>
 {
 public:
-  virtual Arabica::XPath::XPathValuePtr<string_type> resolveVariable(const string_type& name) const
+  virtual Arabica::XPath::XPathValuePtr<string_type> resolveVariable(const string_type& namespace_uri,
+                                                                     const string_type& name) const
   {
     using namespace Arabica::XPath;
     typename VarMap::const_iterator n = map_.find(name);
@@ -36,7 +37,8 @@ class NodeSetVariableResolver : public Arabica::XPath::VariableResolver<string_t
 {
   //typedef string_adaptorstring_adaptor;
 public:
-  virtual Arabica::XPath::XPathValuePtr<string_type> resolveVariable(const string_type& name) const
+  virtual Arabica::XPath::XPathValuePtr<string_type> resolveVariable(const string_type& namepace_uri,
+                                                                     const string_type& name) const
   {
     using namespace Arabica::XPath;
     typename VarMap::const_iterator n = map_.find(name);
@@ -77,7 +79,9 @@ class TestFunctionResolver : public Arabica::XPath::FunctionResolver<string_type
 {
   //typedef string_adaptorstring_adaptor;
 public:
-  virtual Arabica::XPath::XPathFunction<string_type, string_adaptor>* resolveFunction(const string_type& name,
+  virtual Arabica::XPath::XPathFunction<string_type, string_adaptor>* resolveFunction(
+                                         const string_type& namespace_uri,
+                                         const string_type& name,
                                          const std::vector<Arabica::XPath::XPathExpressionPtr<string_type> >& argExprs) const
   {
     if(name == string_adaptor::construct_from_utf8("test-function"))
@@ -566,8 +570,8 @@ public:
     assertTrue(root_ == result->asNodeSet()[0]);
     assertTrue(element1_ == result->asNodeSet()[1]);
     assertTrue(element2_ == result->asNodeSet()[2]);
-    assertTrue(element3_ == result->asNodeSet()[3]);
-    assertTrue(spinkle_ == result->asNodeSet()[4]);
+    assertTrue(spinkle_ == result->asNodeSet()[3]);
+    assertTrue(element3_ == result->asNodeSet()[4]);
   } // test34
 
   void test35()
@@ -579,8 +583,8 @@ public:
     assertTrue(root_ == result->asNodeSet()[0]);
     assertTrue(element1_ == result->asNodeSet()[1]);
     assertTrue(element2_ == result->asNodeSet()[2]);
-    assertTrue(element3_ == result->asNodeSet()[3]);
-    assertTrue(spinkle_ == result->asNodeSet()[4]);
+    assertTrue(spinkle_ == result->asNodeSet()[3]);
+    assertTrue(element3_ == result->asNodeSet()[4]);
   } // test35
 
   void test36()
@@ -591,8 +595,8 @@ public:
     assertValuesEqual(4, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
-    assertTrue(spinkle_ == result->asNodeSet()[3]);
+    assertTrue(spinkle_ == result->asNodeSet()[2]);
+    assertTrue(element3_ == result->asNodeSet()[3]);
   } // test36
 
   void test37()
@@ -631,8 +635,8 @@ public:
     assertValuesEqual(4, result->asNodeSet().size());
     assertTrue(element1_ == result->asNodeSet()[0]);
     assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
-    assertTrue(spinkle_ == result->asNodeSet()[3]);
+    assertTrue(spinkle_ == result->asNodeSet()[2]);
+    assertTrue(element3_ == result->asNodeSet()[3]);
   } // test40
 
   // see http://jira.codehaus.org/browse/JAXEN-94
@@ -2364,7 +2368,7 @@ public:
     using namespace Arabica::XPath;
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), root_);
     assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(1, result->asNodeSet().size());
   } // namespaceAxisTest1()
 
   void namespaceAxisTest2()
@@ -2375,9 +2379,10 @@ public:
                          SA::construct_from_utf8("urn:test"));
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), root_);
     assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(SA::construct_from_utf8("poop") == result->asNodeSet()[0].getLocalName());
-    assertTrue(SA::construct_from_utf8("urn:test") == result->asNodeSet()[0].getNodeValue());
+    assertValuesEqual(2, result->asNodeSet().size());
+    assertTrue(SA::construct_from_utf8("xml") == result->asNodeSet()[0].getLocalName());
+    assertTrue(SA::construct_from_utf8("poop") == result->asNodeSet()[1].getLocalName());
+    assertTrue(SA::construct_from_utf8("urn:test") == result->asNodeSet()[1].getNodeValue());
   } // namespaceAxisTest2
 
   void namespaceAxisTest3()
@@ -2391,7 +2396,7 @@ public:
                              SA::construct_from_utf8("urn:another-test"));
     XPathValuePtr<string_type> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), element2_);
     assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
+    assertValuesEqual(3, result->asNodeSet().size());
   } // namespaceAxisTest3
 
   void testFunctionResolver1()

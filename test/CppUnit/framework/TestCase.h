@@ -104,6 +104,7 @@ protected:
     virtual void        runTest          ();
 
     TestResult          *defaultResult   ();
+    void                skipTest(std::string reason);
     void                assertImplementation 
                                          (bool         condition, 
                                           std::string  conditionExpression = "",

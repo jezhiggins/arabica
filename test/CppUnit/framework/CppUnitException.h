@@ -37,8 +37,24 @@ private:
     long                m_lineNumber;
     std::string         m_fileName;
 
-};
+}; // class CppUnitException
 
+class SkipException : public std::exception
+{
+public:
+  SkipException(std::string message = "") : 
+      std::exception(),
+      message_(message)
+  {
+  } // SkipException
+
+  virtual ~SkipException() throw() { }
+
+  const char* what() const throw() { return message_.c_str(); }
+
+private:
+  std::string message_;
+}; // class SkipException
 
 // Construct the exception
 inline CppUnitException::CppUnitException (std::string message, const CppUnitException& other)

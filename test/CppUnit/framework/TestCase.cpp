@@ -14,6 +14,11 @@ TestResult *TestCase::defaultResult ()
 { return new TestResult; } 
 
 
+void TestCase::skipTest(std::string reason)
+{
+  throw SkipException(reason);
+}
+
 // Check for a failed general assertion 
 void TestCase::assertImplementation (bool          condition,
                                      std::string   conditionExpression,
@@ -69,6 +74,10 @@ void TestCase::run (TestResult *result)
     try {
         runTest ();
 
+    }
+    catch (const SkipException& e) {
+      CppUnitException *copy = new CppUnitException(m_name + ": " + e.what());
+      result->addSkip(this, copy);
     }
     catch (const CppUnitException& e) {
         CppUnitException *copy = new CppUnitException(m_name + ": ", e);

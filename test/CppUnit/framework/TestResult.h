@@ -47,17 +47,20 @@ public:
 
     virtual void                        addError       (Test *test, CppUnitException *e);
     virtual void                        addFailure     (Test *test, CppUnitException *e);
+    virtual void                        addSkip        (Test *test, CppUnitException *e);
     virtual void                        startTest      (Test *test);
     virtual void                        endTest        (Test *test);
     virtual int                         runTests       ();
     virtual int                         testErrors     ();
     virtual int                         testFailures   ();
+    virtual int                         testSkips      ();
     virtual bool                        wasSuccessful  ();
     virtual bool                        shouldStop     ();
     virtual void                        stop           ();
 
     virtual std::vector<TestFailure *>& errors         ();
     virtual std::vector<TestFailure *>& failures       ();
+    virtual std::vector<TestFailure *>& skips          ();
 
 
     class SynchronizationObject
@@ -88,6 +91,7 @@ protected:
 
     std::vector<TestFailure *>  m_errors;
     std::vector<TestFailure *>  m_failures;
+    std::vector<TestFailure *>  m_skips;
     int                         m_runTests;
     bool                        m_stop;
     SynchronizationObject       *m_syncObject;
@@ -113,6 +117,8 @@ inline void TestResult::addError (Test *test, CppUnitException *e)
 inline void TestResult::addFailure (Test *test, CppUnitException *e)
 { ExclusiveZone zone (m_syncObject); m_failures.push_back (new TestFailure (test, e)); }
 
+inline void TestResult::addSkip (Test *test, CppUnitException *e)
+{ ExclusiveZone zone (m_syncObject); m_skips.push_back (new TestFailure (test, e)); }
 
 // Informs the result that a test will be started.
 inline void TestResult::startTest (Test *test)
@@ -138,11 +144,12 @@ inline int TestResult::testErrors ()
 inline int TestResult::testFailures ()
 { ExclusiveZone zone (m_syncObject); return static_cast<int>(m_failures.size()); }
 
+inline int TestResult::testSkips ()
+{ ExclusiveZone zone (m_syncObject); return static_cast<int>(m_skips.size()); }
 
 // Returns whether the entire test was successful or not.
 inline bool TestResult::wasSuccessful ()
 { ExclusiveZone zone (m_syncObject); return m_failures.size () == 0 && m_errors.size () == 0; }
-
 
 // Returns a vector of the errors.
 inline std::vector<TestFailure *>& TestResult::errors ()
@@ -153,6 +160,8 @@ inline std::vector<TestFailure *>& TestResult::errors ()
 inline std::vector<TestFailure *>& TestResult::failures ()
 { ExclusiveZone zone (m_syncObject); return m_failures; }
 
+inline std::vector<TestFailure *>& TestResult::skips ()
+{ ExclusiveZone zone (m_syncObject); return m_skips; }
 
 // Returns whether testing should be stopped
 inline bool TestResult::shouldStop ()

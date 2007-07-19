@@ -9,15 +9,15 @@
 #include <SAX/helpers/CatchErrorHandler.h>
 
 template<class string_type, class string_adaptor>
-class SAXTest : public TestCase 
+class SAX2DOMTest : public TestCase 
 {
   typedef string_adaptor SA;
 
   public: 
-    SAXTest(std::string name) :
+    SAX2DOMTest(std::string name) :
         TestCase(name) 
     {
-    } // SAXTest
+    } // SAX2DOMTest
     
     void setUp() 
     {
@@ -164,23 +164,23 @@ class SAXTest : public TestCase
 };
 
 template<class string_type, class string_adaptor>
-TestSuite* SAXTest_suite() 
+TestSuite* SAX2DOMTest_suite() 
 {
   TestSuite *suiteOfTests = new TestSuite;
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test1", &SAXTest<string_type, string_adaptor>::test1));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test2", &SAXTest<string_type, string_adaptor>::test2));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test3", &SAXTest<string_type, string_adaptor>::test3));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test4", &SAXTest<string_type, string_adaptor>::test4));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test5", &SAXTest<string_type, string_adaptor>::test5));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test6", &SAXTest<string_type, string_adaptor>::test6));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test7", &SAXTest<string_type, string_adaptor>::test7));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test8", &SAXTest<string_type, string_adaptor>::test8));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test9", &SAXTest<string_type, string_adaptor>::test9));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test10", &SAXTest<string_type, string_adaptor>::test10));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test11", &SAXTest<string_type, string_adaptor>::test11));
-  suiteOfTests->addTest(new TestCaller<SAXTest<string_type, string_adaptor> >("test12", &SAXTest<string_type, string_adaptor>::test12));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test1", &SAX2DOMTest<string_type, string_adaptor>::test1));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test2", &SAX2DOMTest<string_type, string_adaptor>::test2));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test3", &SAX2DOMTest<string_type, string_adaptor>::test3));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test4", &SAX2DOMTest<string_type, string_adaptor>::test4));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test5", &SAX2DOMTest<string_type, string_adaptor>::test5));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test6", &SAX2DOMTest<string_type, string_adaptor>::test6));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test7", &SAX2DOMTest<string_type, string_adaptor>::test7));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test8", &SAX2DOMTest<string_type, string_adaptor>::test8));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test9", &SAX2DOMTest<string_type, string_adaptor>::test9));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test10", &SAX2DOMTest<string_type, string_adaptor>::test10));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test11", &SAX2DOMTest<string_type, string_adaptor>::test11));
+  suiteOfTests->addTest(new TestCaller<SAX2DOMTest<string_type, string_adaptor> >("test12", &SAX2DOMTest<string_type, string_adaptor>::test12));
   return suiteOfTests;
-} // SAXTest_suite
+} // SAX2DOMTest_suite
 
 #endif
 

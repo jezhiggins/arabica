@@ -599,6 +599,17 @@ public:
   void followingTest7()
   {
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(attr_, Arabica::XPath::FOLLOWING);
+    assertTrue(*e == element2_);
+    ++e;
+    assertTrue(*e == text_);
+    ++e;
+    ++e; // spinkle
+    assertTrue(*e == comment_);
+    ++e;
+    assertTrue(*e == processingInstruction_);
+    ++e;
+    assertTrue(*e == element3_);
+    ++e;
     assertTrue(*e == 0);
   } // followingTest7
 
@@ -715,6 +726,11 @@ public:
   void namespaceAxisTest1()
   {
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(root_, Arabica::XPath::NAMESPACE);
+    assertTrue(*e != 0);
+    DOM::Node<string_type> ns = *e;
+    assertTrue(string_adaptor::construct_from_utf8("xml") == ns.getLocalName());
+    assertTrue(string_adaptor::construct_from_utf8("http://www.w3.org/XML/1998/namespace") == ns.getNodeValue());
+    ++e;
     assertTrue(*e == 0);
   } // namespaceAxisTest1()
 
@@ -726,6 +742,10 @@ public:
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(root_, Arabica::XPath::NAMESPACE);
     assertTrue(*e != 0);
     DOM::Node<string_type> ns = *e;
+    assertTrue(string_adaptor::construct_from_utf8("xml") == ns.getLocalName());
+    ++e;
+    assertTrue(*e != 0);
+    ns = *e;
     assertTrue(string_adaptor::construct_from_utf8("poop") == ns.getLocalName());
     assertTrue(string_adaptor::construct_from_utf8("urn:test") == ns.getNodeValue());
     ++e;
@@ -741,6 +761,8 @@ public:
                              string_adaptor::construct_from_utf8("xmlns:test"), 
                              string_adaptor::construct_from_utf8("urn:another-test"));
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(element2_, Arabica::XPath::NAMESPACE);
+    assertTrue(*e != 0);
+    ++e;
     assertTrue(*e != 0);
     ++e;
     assertTrue(*e != 0);

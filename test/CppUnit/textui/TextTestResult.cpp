@@ -21,6 +21,12 @@ void TextTestResult::addFailure (Test *test, CppUnitException *e)
       cerr << "F" << endl;
 }
 
+void TextTestResult::addSkip (Test *test, CppUnitException *e)
+{
+  TestResult::addSkip (test, e);
+  cerr << "S" << endl;
+}
+
 void TextTestResult::startTest (Test *test)
 {
     TestResult::startTest (test);
@@ -82,12 +88,38 @@ void TextTestResult::printFailures (ostream& stream)
 
 }
 
+void TextTestResult::printSkips (ostream& stream) 
+{
+    if (testSkips () != 0) {
+        if (testSkips () == 1)
+            stream << "There was " << testSkips () << " skip: " << endl;
+        else
+            stream << "There were " << testSkips () << " skips: " << endl;
+
+        int i = 1;
+
+        for (vector<TestFailure *>::iterator it = skips ().begin (); it != skips ().end (); ++it) {
+            TestFailure             *skip     = *it;
+            CppUnitException        *e          = skip ->thrownException ();
+
+            stream << i 
+                   << ") "
+                   << "line: " << (e ? estring (e->lineNumber ()) : "") << " "
+                   << (e ? e->fileName () : "") << " "
+                   << "\"" << skip->thrownException ()->what () << "\""
+                   << endl;
+            i++;
+        }
+    }
+
+}
 
 void TextTestResult::print (ostream& stream) 
 {
     printHeader (stream);
     printErrors (stream);
     printFailures (stream);
+    printSkips (stream);
     if(verbose_ || !wasSuccessful())
       cout << endl;
 }
@@ -98,7 +130,12 @@ void TextTestResult::printHeader (ostream& stream)
     if (wasSuccessful ())
     {
       if(verbose_)
+      {
+        if(testSkips())
+          cout << endl << "OK (" << runTests () << " tests, with " << testSkips() << " skips)" << endl;
+      else
         cout << endl << "OK (" << runTests () << " tests)" << endl;
+      }
     }
     else
         cout << endl
@@ -110,6 +147,8 @@ void TextTestResult::printHeader (ostream& stream)
              << testFailures ()
              << "   Errors: "
              << testErrors ()
+             << "   Skips: "
+             << testSkips ()
              << endl;
 
 }

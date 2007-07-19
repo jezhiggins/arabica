@@ -1,9 +1,10 @@
 
-bin_PROGRAMS = xpath_test xpath_test_silly 
+noinst_PROGRAMS = xpath_test xpath_test_silly 
 if HAS_STD_WSTRING
-  bin_PROGRAMS += xpath_test_wide
+  noinst_PROGRAMS += xpath_test_wide
 endif
 
+AM_CPPFLAGS = -I$(top_srcdir)/include @PARSER_HEADERS@ @BOOST_CPPFLAGS@
 LIBARABICA =  $(top_builddir)/src/libarabica.la
 
 cppunit_sources = ../CppUnit/framework/CppUnitException.h \
@@ -40,22 +41,21 @@ test_sources = arithmetic_test.hpp \
                xpath_test_suite.hpp
 
 xpath_test_SOURCES = main.cpp $(cppunit_sources) $(test_sources)
-xpath_test_DEPENDENCES = $(LIBARABICA)
 xpath_test_LDADD =  $(LIBARABICA)
+xpath_test_DEPENDENCIES = $(LIBARABICA)
 
 xpath_test_silly_SOURCES = main_silly.cpp $(cppunit_sources) $(test_sources) ../silly_string/silly_string.cpp
-xpath_test_silly_DEPENDENCES = $(LIBARABICA)
 xpath_test_silly_LDADD =  $(LIBARABICA)
+xpath_test_silly_DEPENDENCIES = $(LIBARABICA)
 
 xpath_test_wide_SOURCES = main_wide.cpp $(cppunit_sources) $(test_sources) 
-xpath_test_wide_DEPENDENCES = $(LIBARABICA)
 xpath_test_wide_LDADD =  $(LIBARABICA)
+xpath_test_wide_DEPENDENCIES = $(LIBARABICA)
 
 
-INCLUDES = -I$(top_srcdir)/include $(PARSER_HEADERS) $(BOOST_CPPFLAGS)
 
-test: $(bin_PROGRAMS)
-	@for p in $(bin_PROGRAMS); do \
+test: $(noinst_PROGRAMS)
+	@for p in $(noinst_PROGRAMS); do \
 	  echo Running $$p; \
 	  ./$$p -q; \
 	done

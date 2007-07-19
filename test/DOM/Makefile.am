@@ -1,9 +1,10 @@
 
-bin_PROGRAMS = dom_test dom_test_silly 
+noinst_PROGRAMS = dom_test dom_test_silly 
 if HAS_STD_WSTRING
-  bin_PROGRAMS += dom_test_wide
+  noinst_PROGRAMS += dom_test_wide
 endif
 
+AM_CPPFLAGS = -I$(top_srcdir)/include @PARSER_HEADERS@ $(BOOST_CPPFLAGS)
 LIBARABICA =  $(top_builddir)/src/libarabica.la
 
 cppunit_sources = ../CppUnit/framework/CppUnitException.h \
@@ -35,25 +36,26 @@ test_sources = dom_test_suite.hpp \
                    test_Element.h \
                    test_ProcessingInstruction.h \
                    test_Siblings.h \
-                   test_Text.hpp 
+                   test_Text.hpp \
+                   test_SAX2DOM.hpp \
+                   test_TreeWalker.hpp
 
 dom_test_SOURCES = main.cpp $(cppunit_sources) $(test_sources)
-dom_test_DEPENDENCES = $(LIBARABICA)
 dom_test_LDADD =  $(LIBARABICA)
+dom_test_DEPENDENCIES = $(LIBARABICA)
 
 dom_test_silly_SOURCES = main_silly.cpp $(cppunit_sources) $(test_sources) ../silly_string/silly_string.cpp ../silly_string/silly_string.hpp
-dom_test_silly_DEPENDENCES = $(LIBARABICA)
 dom_test_silly_LDADD =  $(LIBARABICA)
+dom_test_silly_DEPENDENCIES = $(LIBARABICA)
 
 dom_test_wide_SOURCES = main_wide.cpp $(cppunit_sources) $(test_sources) 
-dom_test_wide_DEPENDENCES = $(LIBARABICA)
 dom_test_wide_LDADD =  $(LIBARABICA)
+dom_test_wide_DEPENDENCIES = $(LIBARABICA)
 
 
-INCLUDES = -I$(top_srcdir)/include $(PARSER_HEADERS) $(BOOST_CPPFLAGS)
 
-test: $(bin_PROGRAMS)
-	@for p in $(bin_PROGRAMS); do \
+test: $(noinst_PROGRAMS)
+	@for p in $(noinst_PROGRAMS); do \
 	  echo Running $$p; \
 	  ./$$p -q; \
 	done

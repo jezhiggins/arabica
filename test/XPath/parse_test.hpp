@@ -7,6 +7,23 @@
 #include <XPath/XPath.hpp>
 
 template<class string_type, class string_adaptor>
+class TrueFunctionResolver : public Arabica::XPath::FunctionResolver<string_type, string_adaptor>
+{
+  //typedef string_adaptorstring_adaptor;
+public:
+  virtual Arabica::XPath::XPathFunction<string_type, string_adaptor>* resolveFunction(
+                                         const string_type& namespace_uri,
+                                         const string_type& name,
+                                         const std::vector<Arabica::XPath::XPathExpressionPtr<string_type> >& argExprs) const
+  {
+    if((namespace_uri == string_adaptor::construct_from_utf8("something")) && 
+       (name == string_adaptor::construct_from_utf8("true")))
+       return new Arabica::XPath::impl::TrueFn<string_type, string_adaptor>(argExprs);
+    return 0;
+  } // resolveFunction
+}; // class TrueFunctionResolver
+
+template<class string_type, class string_adaptor>
 class ParseTest : public TestCase
 {
   Arabica::XPath::XPath<string_type> parser;
@@ -360,6 +377,37 @@ public:
     }
     catch(...) { }
   } // test23
+
+  void test24()
+  {
+    assertTrue(parser.compile_expr(SA::construct_from_utf8("true()")));
+    assertTrue(parser.compile_expr(SA::construct_from_utf8("$one")));
+  } // test24
+
+  void test25()
+  {
+    Arabica::XPath::StandardNamespaceContext<string_type> nsContext;
+    nsContext.addNamespaceDeclaration(SA::construct_from_utf8("something"), SA::construct_from_utf8("p"));
+    parser.setNamespaceContext(nsContext);
+    TrueFunctionResolver<string_type, string_adaptor> tfr;
+    parser.setFunctionResolver(tfr);
+
+    assertTrue(parser.compile_expr(SA::construct_from_utf8("$p:one")));
+    assertTrue(parser.compile_expr(SA::construct_from_utf8("p:true()")));
+
+    parser.resetNamespaceContext();
+    parser.resetFunctionResolver();
+    try {
+      parser.compile_expr(SA::construct_from_utf8("$p:one"));
+      assert(false);
+    }
+    catch(...) { }
+    try {
+      parser.compile_expr(SA::construct_from_utf8("$p:true()"));
+      assert(false);
+    }
+    catch(...) { }
+  } // test25
 }; // class ParseTest
 
 template<class string_type, class string_adaptor>
@@ -390,6 +438,8 @@ TestSuite* ParseTest_suite()
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test21", &ParseTest<string_type, string_adaptor>::test21));
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test22", &ParseTest<string_type, string_adaptor>::test22));
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test23", &ParseTest<string_type, string_adaptor>::test23));
+  suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test24", &ParseTest<string_type, string_adaptor>::test24));
+  suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test25", &ParseTest<string_type, string_adaptor>::test25));
 
   return suiteOfTests;
 } // ParseTest_suite

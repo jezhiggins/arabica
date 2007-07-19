@@ -135,6 +135,40 @@ public:
 
     assertTrue((impl::areEqual<string_type, string_adaptor>(ns, (nt->evaluate(dummy_)))));
   } // test11
+
+  void test12()
+  {
+    using namespace Arabica::XPath;
+    XPathExpressionPtr<string_type> n(new NumericValue<string_type, string_adaptor>(NaN));
+    assertEquals(false, n->evaluateAsBool(dummy_));
+    assertTrue(isNaN(n->evaluateAsNumber(dummy_)));
+    assertTrue(SA::construct_from_utf8("NaN") == n->evaluateAsString(dummy_));
+  }
+
+  void test13()
+  {
+    using namespace Arabica::XPath;
+    XPathExpressionPtr<string_type> s(new StringValue<string_type, string_adaptor>("   100    "));
+    assertEquals(true, s->evaluateAsBool(dummy_));
+    assertEquals(100.0, s->evaluateAsNumber(dummy_), 0.0);
+  } // test13
+
+  void test14()
+  {
+    using namespace Arabica::XPath;
+    XPathExpressionPtr<string_type> s(new StringValue<string_type, string_adaptor>("   -100    "));
+    assertEquals(true, s->evaluateAsBool(dummy_));
+    assertEquals(-100.0, s->evaluateAsNumber(dummy_), 0.0);
+  } // test14
+
+  void test15()
+  {
+    using namespace Arabica::XPath;
+    XPathExpressionPtr<string_type> s(new StringValue<string_type, string_adaptor>("trousers"));
+    assertEquals(true, s->evaluateAsBool(dummy_));
+    assertTrue(isNaN(s->evaluateAsNumber(dummy_)));
+  } // test15
+
 }; // ValueTest
 
 template<class string_type, class string_adaptor>
@@ -153,6 +187,10 @@ TestSuite* ValueTest_suite()
   suiteOfTests->addTest(new TestCaller<ValueTest<string_type, string_adaptor> >("test9", &ValueTest<string_type, string_adaptor>::test9));
   suiteOfTests->addTest(new TestCaller<ValueTest<string_type, string_adaptor> >("test10", &ValueTest<string_type, string_adaptor>::test10));
   suiteOfTests->addTest(new TestCaller<ValueTest<string_type, string_adaptor> >("test11", &ValueTest<string_type, string_adaptor>::test11));
+  suiteOfTests->addTest(new TestCaller<ValueTest<string_type, string_adaptor> >("test12", &ValueTest<string_type, string_adaptor>::test12));
+  suiteOfTests->addTest(new TestCaller<ValueTest<string_type, string_adaptor> >("test13", &ValueTest<string_type, string_adaptor>::test13));
+  suiteOfTests->addTest(new TestCaller<ValueTest<string_type, string_adaptor> >("test14", &ValueTest<string_type, string_adaptor>::test14));
+  suiteOfTests->addTest(new TestCaller<ValueTest<string_type, string_adaptor> >("test15", &ValueTest<string_type, string_adaptor>::test15));
 
   return suiteOfTests;
 } // ValueTest_suite

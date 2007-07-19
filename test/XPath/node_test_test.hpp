@@ -105,7 +105,7 @@ public:
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
     assertTrue(!test(root_));
-    assertTrue(test(attr_));
+    assertTrue(!test(attr_));
     assertTrue(!test(document_));
     assertTrue(!test(text_));
     assertTrue(!test(comment_));
@@ -258,6 +258,36 @@ public:
     assertTrue(!test(e5_));
     assertTrue(!test(e6_));
   } // test12
+
+  void test13()
+  {
+    using namespace Arabica::XPath;
+    impl::AttributeNameNodeTest<string_type, string_adaptor> test(SA::construct_from_utf8("one"));
+
+    assertTrue(!test(element1_));
+    assertTrue(!test(element2_));
+    assertTrue(!test(root_));
+    assertTrue(test(attr_));
+    assertTrue(!test(document_));
+    assertTrue(!test(text_));
+    assertTrue(!test(comment_));
+    assertTrue(!test(processingInstruction_));
+  } // test13
+
+  void test14()
+  {
+    using namespace Arabica::XPath;
+    impl::NodeNodeTest<string_type> test;
+
+    assertTrue(test(element1_));
+    assertTrue(test(element2_));
+    assertTrue(test(root_));
+    assertTrue(test(attr_));
+    assertTrue(!test(document_));
+    assertTrue(test(text_));
+    assertTrue(test(comment_));
+    assertTrue(test(processingInstruction_));
+  } // test14
 }; // class NodeTestTest
 
 template<class string_type, class string_adaptor>
@@ -277,6 +307,8 @@ TestSuite* NodeTestTest_suite()
   suiteOfTests->addTest(new TestCaller<NodeTestTest<string_type, string_adaptor> >("test10", &NodeTestTest<string_type, string_adaptor>::test10));
   suiteOfTests->addTest(new TestCaller<NodeTestTest<string_type, string_adaptor> >("test11", &NodeTestTest<string_type, string_adaptor>::test11));
   suiteOfTests->addTest(new TestCaller<NodeTestTest<string_type, string_adaptor> >("test12", &NodeTestTest<string_type, string_adaptor>::test12));
+  suiteOfTests->addTest(new TestCaller<NodeTestTest<string_type, string_adaptor> >("test13", &NodeTestTest<string_type, string_adaptor>::test13));
+  suiteOfTests->addTest(new TestCaller<NodeTestTest<string_type, string_adaptor> >("test14", &NodeTestTest<string_type, string_adaptor>::test14));
 
   return suiteOfTests;
 } // NodeTestTest_suite

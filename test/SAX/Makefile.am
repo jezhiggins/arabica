@@ -1,6 +1,9 @@
 
-bin_PROGRAMS = sax2dom_test
+noinst_PROGRAMS = filter_test
 
+TESTS = filter_test
+
+AM_CPPFLAGS = -I$(top_srcdir)/include @PARSER_HEADERS@ $(BOOST_CPPFLAGS)
 LIBARABICA =  $(top_builddir)/src/libarabica.la
 
 cppunit_sources = ../CppUnit/framework/CppUnitException.h \
@@ -22,21 +25,17 @@ cppunit_sources = ../CppUnit/framework/CppUnitException.h \
                    ../CppUnit/textui/TextTestResult.h
 
 
-test_sources = test_SAX.h \
-               test_TreeWalker.hpp
+test_sources = 
 
-sax2dom_test_SOURCES = main.cpp \
-                       $(cppunit_sources) \
-                       $(test_sources) \
-                       ../silly_string/silly_string.cpp \
-                       ../silly_string/silly_string.hpp
-sax2dom_test_DEPENDENCES = $(LIBARABICA)
-sax2dom_test_LDADD =  $(LIBARABICA)
+filter_test_SOURCES = filter_test.cpp \
+                      $(cppunit_sources) \
+                      $(test_sources) 
+filter_test_LDADD =  $(LIBARABICA)
+filter_test_DEPENDENCIES = $(LIBARABICA)
 
-INCLUDES = -I$(top_srcdir)/include $(PARSER_HEADERS) $(BOOST_CPPFLAGS)
+test: $(noinst_PROGRAMS)
+	@for p in $(noinst_PROGRAMS); do \
+          echo Running $$p; \
+          ./$$p -q; \
+        done
 
-test: $(bin_PROGRAMS)
-	@for p in $(bin_PROGRAMS); do \
-	  echo Running $$p; \
-	  ./$$p -q; \
-	done
