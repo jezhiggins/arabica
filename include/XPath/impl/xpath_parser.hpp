@@ -14,6 +14,7 @@
 #include "xpath_function_resolver.hpp"
 #include "xpath_variable_resolver.hpp"
 #include "xpath_resolver_holder.hpp"
+#include "xpath_match.hpp"
 
 namespace Arabica
 {
@@ -73,15 +74,16 @@ public:
     return do_compile(xpath, &XPath::parse_xpath_expr, expression_factory());
   } // compile_expr
 
-  XPathExpressionPtr<string_type, string_adaptor> compile_match(const string_type& xpath) const
-  {
-    return do_compile(xpath, &XPath::parse_xpath_match, match_factory());
-  } // compile_match
-
   XPathExpressionPtr<string_type, string_adaptor> compile_attribute_value_template(const string_type& xpath) const
   {
     return do_compile(xpath, &XPath::parse_xpath_attribute_value_template, attribute_value_factory());
   } // compile_attribute_value_template
+
+  std::vector<MatchExpr<string_type, string_adaptor> > compile_match(const string_type& xpath) const
+  {
+    XPathExpressionPtr<string_type, string_adaptor> wrapper = do_compile(xpath, &XPath::parse_xpath_match, match_factory());
+    return (static_cast<impl::MatchExpressionWrapper<string_type, string_adaptor>*>(wrapper.get()))->matches();
+  } // compile_match
 
   XPathValuePtr<string_type> evaluate(const string_type& xpath, const DOM::Node<string_type>& context) const
   {
@@ -129,6 +131,7 @@ private:
         throw SyntaxException(string_adaptor::asStdString(xpath));
 
       impl::CompilationContext<string_type, string_adaptor> context(*this, getNamespaceContext(), getFunctionResolver());
+      //XPath::dump(ast.trees.begin(), 0);
       return XPathExpressionPtr<string_type, string_adaptor>(compile_with_factory(ast.trees.begin(), context, factory));
     } // try
     catch(const std::exception&) 
@@ -219,6 +222,7 @@ public:
 private:
   static XPathExpression<string_type, string_adaptor>* createAbsoluteLocationPath(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createRelativeLocationPath(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression<string_type, string_adaptor>* createFilteredPath(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createSingleStepRelativeLocationPath(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createExpression(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createFunction(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
@@ -236,6 +240,7 @@ private:
   static XPathExpression<string_type, string_adaptor>* createSingleMatchStep(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createRelativePathPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression<string_type, string_adaptor>* createAlternatePattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context);
+  static double defaultPriority(typename impl::types<string_adaptor>::node_iter_t const& i);
 
   static impl::StepList<string_type, string_adaptor> createPatternList(typename impl::types<string_adaptor>::node_iter_t const& from, typename impl::types<string_adaptor>::node_iter_t const& to, impl::CompilationContext<string_type, string_adaptor>& context);
 
@@ -277,7 +282,7 @@ private:
     factory[impl::AbbreviatedAbsoluteLocationPath_id] = createAbsoluteLocationPath;
     factory[impl::Step_id] = createRelativeLocationPath;
     factory[impl::PathExpr_id] = createRelativeLocationPath;
-    factory[impl::FilterExpr_id] = createRelativeLocationPath;
+    factory[impl::FilterExpr_id] = createFilteredPath;
 
     factory[impl::PrimaryExpr_id] = createExpression;
 
@@ -321,12 +326,15 @@ private:
     std::map<int, compileFn> factory;
 
     factory[impl::Slash_id] = createDocMatch;
+    factory[impl::NameTest_id] = createSingleMatchStep;
+    factory[impl::QName_id] = createSingleMatchStep;
     factory[impl::NCName_id] = createSingleMatchStep;
     factory[impl::AnyName_id] = createSingleMatchStep;
     factory[impl::Node_id] = createSingleMatchStep;
     factory[impl::Text_id] = createSingleMatchStep;
     factory[impl::Comment_id] = createSingleMatchStep;
     factory[impl::ProcessingInstruction_id] = createSingleMatchStep;
+    factory[impl::NodeTest_id] = createSingleMatchStep;
     factory[impl::StepPattern_id] = createRelativePathPattern;
     factory[impl::LocationPathPattern_id] = createRelativePathPattern;
     factory[impl::RelativePathPattern_id] = createRelativePathPattern;
@@ -460,7 +468,7 @@ private:
 
     return names;
   } // init_debugNames
-/*  
+  
   static void dump(typename impl::types<string_adaptor>::node_iter_t const& i, int depth)
   {
     long id = static_cast<long>(i->value.id().to_long());
@@ -472,7 +480,7 @@ private:
     for(typename impl::types<string_adaptor>::node_iter_t c = i->children.begin(); c != i->children.end(); ++c)
       dump(c, depth+2);
   } // dump
-*/
+
   XPath(const XPath&);
   XPath& operator=(const XPath&);
   bool operator==(const XPath&) const;
@@ -512,6 +520,14 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
 } // createRelativeLocationPath
 
 template<class string_type, class string_adaptor>
+XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createFilteredPath(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  impl::StepList<string_type, string_adaptor> steps;
+  steps.push_back(impl::StepFactory<string_type, string_adaptor>::createFilter(i, context));
+  return new impl::RelativeLocationPath<string_type, string_adaptor>(steps);
+} // createFilteredPath
+
+template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createSingleStepRelativeLocationPath(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   typename impl::types<string_adaptor>::node_iter_t n = i;
@@ -530,7 +546,19 @@ template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createFunction(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   typename impl::types<string_adaptor>::node_iter_t c = i->children.begin();
-  string_type name = string_adaptor::construct(c->value.begin(), c->value.end());
+
+  string_type namespace_uri;
+  string_type name;
+  if(impl::getNodeId<string_adaptor>(c) == impl::QName_id)
+  {
+    typename impl::types<string_adaptor>::node_iter_t n = c->children.begin();
+    namespace_uri = context.namespaceContext().namespaceURI(string_adaptor::construct(n->value.begin(), n->value.end()));;
+    ++n;
+    name = string_adaptor::construct(n->value.begin(), n->value.end());
+  } 
+  else
+    name = string_adaptor::construct(c->value.begin(), c->value.end());
+  
   ++c;
   impl::skipWhitespace<string_adaptor>(c);
   assert(impl::getNodeId<string_adaptor>(c) == impl::LeftBracket_id);
@@ -547,7 +575,7 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
   } // while ...
   // maybe trailing whitespace ...
 
-  return impl::FunctionHolder<string_type, string_adaptor>::createFunction(name, args, context);
+  return impl::FunctionHolder<string_type, string_adaptor>::createFunction(namespace_uri, name, args, context);
 } // createFunction
 
 template<class string_type, class string_adaptor>
@@ -633,8 +661,19 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createVariable(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
-  string_type str = string_adaptor::construct(i->value.begin()+1, i->value.end());
-  return new Variable<string_type, string_adaptor>(str); 
+  typename impl::types<string_adaptor>::node_iter_t n = i->children.begin();
+  ++n; // skip $
+  string_type namespace_uri;
+
+  if(impl::getNodeId<string_adaptor>(n) == impl::QName_id)
+  {
+    n = n->children.begin();
+    namespace_uri = context.namespaceContext().namespaceURI(string_adaptor::construct(n->value.begin(), n->value.end()));;
+    ++n;
+  } // if ...
+
+  string_type name = string_adaptor::construct(n->value.begin(), n->value.end());
+  return new Variable<string_type, string_adaptor>(namespace_uri, name); 
 } // createVariable
 
 template<class string_type, class string_adaptor>
@@ -673,6 +712,11 @@ impl::StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::
       case impl::Slash_id:
         ++c; // just drop it
         break;
+
+      case impl::FilterExpr_id:
+        steps.push_back(impl::StepFactory<string_type, string_adaptor>::createFilter(c, context));
+        ++c;
+        break;
       case impl::RelativeLocationPath_id:
         // might get here when handling an absolute path
         end = c->children.end();
@@ -696,7 +740,7 @@ template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createDocMatch(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   typename impl::types<string_adaptor>::node_iter_t n = i;
-  return new impl::RelativeLocationPath<string_type, string_adaptor>(impl::StepFactory<string_type, string_adaptor>::createStep(n, context));
+  return new impl::MatchExpressionWrapper<string_type, string_adaptor>(new impl::RelativeLocationPath<string_type, string_adaptor>(impl::StepFactory<string_type, string_adaptor>::createStep(n, context)), defaultPriority(i));
 } // createDocMatch
 
 template<class string_type, class string_adaptor>
@@ -707,14 +751,13 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
   impl::StepList<string_type, string_adaptor> steps;
   steps.push_back(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::NotAttributeNodeTest<string_type>()));
   steps.push_back(impl::StepFactory<string_type, string_adaptor>::createStep(n, context, SELF));
-  return new impl::RelativeLocationPath<string_type, string_adaptor>(steps);
-
+  return new impl::MatchExpressionWrapper<string_type, string_adaptor>(new impl::RelativeLocationPath<string_type, string_adaptor>(steps), defaultPriority(i));
 } // createSingleMatchStep
 
 template<class string_type, class string_adaptor>
 XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createRelativePathPattern(typename impl::types<string_adaptor>::node_iter_t const& i, impl::CompilationContext<string_type, string_adaptor>& context)
 {
-  return new impl::RelativeLocationPath<string_type, string_adaptor>(createPatternList(i->children.begin(), i->children.end(), context));
+  return new impl::MatchExpressionWrapper<string_type, string_adaptor>(new impl::RelativeLocationPath<string_type, string_adaptor>(createPatternList(i->children.begin(), i->children.end(), context)), defaultPriority(i));
 } // createRelativePathPattern
 
 template<class string_type, class string_adaptor>
@@ -723,15 +766,77 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
   // child sequence is test union_op test ...
   typename impl::types<string_adaptor>::node_iter_t n = i->children.begin(), e = i->children.end();
 
-  XPathExpression<string_type, string_adaptor>* p1 = compile_match(n++, context);
+  impl::MatchExpressionWrapper<string_type, string_adaptor>* matches = 
+    new impl::MatchExpressionWrapper<string_type, string_adaptor>(compile_match(n++, context));
   while(n != e)
   {
     ++n; // skip |
-    p1 = new impl::OrOperator<string_type, string_adaptor>(p1, compile_match(n++, context));
+    matches->add_matches(compile_match(n++, context));
   } // while 
 
-  return p1;
+  return matches;
 } // createAlternatePattern
+
+template<class string_type, class string_adaptor>
+double XPath<string_type, string_adaptor>::defaultPriority(typename impl::types<string_adaptor>::node_iter_t const& node)
+{
+  typename impl::types<string_adaptor>::node_iter_t i = node;
+  impl::skipWhitespace<string_adaptor>(i);
+
+  long id = impl::getNodeId<string_adaptor>(i);
+  size_t child_count = 0;
+  for(typename impl::types<string_adaptor>::node_iter_t c = i->children.begin(), ce = i->children.end(); c != ce; ++c)
+    child_count += (impl::getNodeId<string_adaptor>(c) != impl::S_id);
+
+  switch(id)
+  {
+    case impl::QName_id:
+      return 0;
+    case impl::NCName_id:
+      impl::skipWhitespace<string_adaptor>(++i);
+      if(impl::getNodeId<string_adaptor>(i) == impl::Predicate_id)
+        return 0.5;
+      if(impl::getNodeId<string_adaptor>(i) == impl::AnyName_id)
+        return -0.25;
+      return 0;
+
+    case impl::NodeTest_id:
+      {
+        typename impl::types<string_adaptor>::node_iter_t c = i->children.begin();
+        impl::skipWhitespace<string_adaptor>(c);
+        if(impl::getNodeId<string_adaptor>(c) == impl::ProcessingInstruction_id)
+          return 0;
+      }
+
+    case impl::AnyName_id:
+    case impl::Node_id:
+    case impl::Text_id:
+    case impl::Comment_id:
+    case impl::ProcessingInstruction_id:
+      impl::skipWhitespace<string_adaptor>(++i);
+      if(impl::getNodeId<string_adaptor>(i) == impl::Predicate_id)
+        return 0.5;
+      return -0.5;
+
+    case impl::NameTest_id:
+    case impl::StepPattern_id:
+      //    case impl::LocationPathPattern_id:
+    case impl::RelativePathPattern_id:
+      // case impl::Pattern_id:
+      if(child_count <= 2)
+        return defaultPriority(i->children.begin());
+      break;
+
+    case impl::Child_id:
+    case impl::Attribute_id:
+    case impl::AbbreviatedAxisSpecifier_id:
+      if(child_count == 0)
+        return defaultPriority(i+1);
+      break;
+  } // switch
+
+  return 0.5;
+} // defaultPriority
 
 template<class string_adaptor>
 Axis getPatternAxis(typename impl::types<string_adaptor>::node_iter_t const& from, 
@@ -808,7 +913,7 @@ void createStepsFromPattern(impl::StepList<string_type, string_adaptor>& steps,
         Axis axis = getPatternAxis<string_adaptor>(c, end);
         if(override != static_cast<Axis>(-1))
           axis = override;
-        steps.push_front(impl::StepFactory<string_type, string_adaptor>::createStep(c, end, context, axis));
+        steps.push_front(impl::StepFactory<string_type, string_adaptor>::createStep(c, end, context, axis, is_attr));
       }
     } // switch ...
   } // while(c != end)
@@ -850,7 +955,10 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
   } // while ...
   // maybe trailing whitespace ...
 
-  return impl::FunctionHolder<string_type, string_adaptor>::createFunction(string_adaptor::construct_from_utf8("concat"), args, context);
+  return impl::FunctionHolder<string_type, string_adaptor>::createFunction(string_adaptor::construct_from_utf8(""),
+                                                                           string_adaptor::construct_from_utf8("concat"),
+                                                                           args, 
+                                                                           context);
 } // createAttributeValue
 
 template<class string_type, class string_adaptor>

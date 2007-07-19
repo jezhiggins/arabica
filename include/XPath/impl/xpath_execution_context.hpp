@@ -15,30 +15,35 @@ class ExecutionContext
 {
 public:
   ExecutionContext() : 
-      position_(static_cast<size_t>(-1)), 
-      last_(static_cast<size_t>(-1))
+      position_(-1), 
+      last_(-1)
   { 
   } // ExecutionContext
 
   ExecutionContext(size_t last, const ExecutionContext& parent) : 
-      position_(static_cast<size_t>(-1)), 
-      last_(last),
+      current_(parent.current_),
+      position_(-1), 
+      last_(static_cast<int>(last)),
       variableResolver_(parent.variableResolver_)
   { 
   } // ExecutionContext
 
-  size_t position() const { return position_; }
-  size_t last() const { return last_; }
+  const DOM::Node<string_type>& currentNode() const { return current_; }
+  int position() const { return position_; }
+  int last() const { return last_; }
 
-  void setPosition(unsigned int pos) { position_ = pos; }
+  void setCurrentNode(const DOM::Node<string_type>& current) { current_ = current; }
+  void setPosition(int pos) { position_ = pos; }
+  void setLast(int last) { last_ = last; }
 
   const VariableResolver<string_type, string_adaptor>& variableResolver() const { return variableResolver_.get(); }
   void setVariableResolver(const VariableResolver<string_type, string_adaptor>& resolver) { variableResolver_.set(resolver); }
   void setVariableResolver(VariableResolverPtr<string_type,string_adaptor>& resolver) { variableResolver_.set(resolver); }
 
 private:
-  size_t position_;
-  size_t last_;
+  DOM::Node<string_type> current_;
+  int position_;
+  int last_;
   impl::ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;
 
   ExecutionContext(const ExecutionContext&);

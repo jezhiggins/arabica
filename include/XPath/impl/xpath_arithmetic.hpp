@@ -22,7 +22,7 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const 
   {
-    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context) + baseT::rhs()->evaluateAsNumber(context));
+    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) + baseT::rhs()->evaluateAsNumber(context, executionContext));
   } // evaluate
 }; // class PlusOperator
 
@@ -38,7 +38,7 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context) - baseT::rhs()->evaluateAsNumber(context));
+    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) - baseT::rhs()->evaluateAsNumber(context, executionContext));
   } // evaluate
 }; // class MinusOperator
 
@@ -54,7 +54,7 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context) * baseT::rhs()->evaluateAsNumber(context));
+    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) * baseT::rhs()->evaluateAsNumber(context, executionContext));
   } // evaluate
 }; // class MultiplyOperator
 
@@ -70,7 +70,7 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context) / baseT::rhs()->evaluateAsNumber(context));
+    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) / baseT::rhs()->evaluateAsNumber(context, executionContext));
   } // evaluate
 }; // class DivideOperator
 
@@ -86,7 +86,12 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return NumericValue<string_type, string_adaptor>::createValue(static_cast<long>(baseT::lhs()->evaluateAsNumber(context)) % static_cast<long>(baseT::rhs()->evaluateAsNumber(context)));
+    double l = baseT::lhs()->evaluateAsNumber(context, executionContext);
+    double r = baseT::rhs()->evaluateAsNumber(context, executionContext);
+
+    if(isNaN(l) || isNaN(r))
+      return NumericValue<string_type, string_adaptor>::createValue(NaN);
+    return NumericValue<string_type, string_adaptor>::createValue(static_cast<long>(l) % static_cast<long>(r));
   } // evaluate
 }; // class ModOperator
 

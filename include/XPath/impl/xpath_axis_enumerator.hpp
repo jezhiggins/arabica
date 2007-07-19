@@ -351,9 +351,15 @@ private:
   DOM::Node<string_type> firstFollowing(const DOM::Node<string_type>& context) const
   {
     if(context.getNodeType() == DOM::Node<string_type>::ATTRIBUTE_NODE)
-      return 0;
+    {
+      DOM::Node<string_type> owner = static_cast<DOM::Attr<string_type> >(context).getOwnerElement();
+      if(owner.hasChildNodes())
+        return owner.getFirstChild();
+      return firstFollowing(owner);
+    } // if attribute
 
     DOM::Node<string_type> next = context.getNextSibling();
+
     if(next != 0)
       return next;
           
@@ -400,6 +406,12 @@ public:
     index_(0)
   {
     DOM::Node<string_type> current = context;
+    if(current.getNodeType() != DOM::Node_base::ATTRIBUTE_NODE)
+      list_.push_back(DOM::Node<string_type>(
+             new NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("xml"), 
+                                                                string_adaptor::construct_from_utf8("http://www.w3.org/XML/1998/namespace"))
+                                            )
+                     );
     while(current.getNodeType() == DOM::Node<string_type>::ELEMENT_NODE)
     {
       for(unsigned int a = 0, ae = current.getAttributes().getLength(); a != ae; ++a)
@@ -465,8 +477,10 @@ class PrecedingAxisWalker : public AxisWalker<string_type>
 public:
   PrecedingAxisWalker(const DOM::Node<string_type>& context) : AxisWalker<string_type>(false)
   {
-    nextAncestor_ = context.getParentNode();
-    AxisWalker<string_type>::set(previousInDocument(context));
+    if(context.getNodeType() != DOM::Node<string_type>::ATTRIBUTE_NODE)
+      firstPreceding(context);
+    else
+      firstPreceding((static_cast<DOM::Attr<string_type> >(context)).getOwnerElement());
   } // PrecedingAxisWalker
 
   virtual void advance()
@@ -476,6 +490,12 @@ public:
   virtual AxisWalker<string_type>* clone() const { return new PrecedingAxisWalker(*this); }
 
 private:
+  void firstPreceding(const DOM::Node<string_type>& context)
+  {
+    nextAncestor_ = context.getParentNode();
+    AxisWalker<string_type>::set(previousInDocument(context));
+  } // firstPreceding
+
   DOM::Node<string_type> previousInDocument(const DOM::Node<string_type>& context)
   {
     DOM::Node<string_type> next = context.getPreviousSibling();
@@ -487,9 +507,12 @@ private:
       return next;
 
     // ancestor collision!!  woorp, woorp!
-    nextAncestor_ = nextAncestor_.getParentNode();
     if(nextAncestor_ != 0)
-      return previousInDocument(next);
+    {
+      nextAncestor_ = nextAncestor_.getParentNode();
+      if(nextAncestor_ != 0)
+        return previousInDocument(next);
+    } // 
 
     return 0;
   } // previousInDocument

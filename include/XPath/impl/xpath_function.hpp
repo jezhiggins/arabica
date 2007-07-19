@@ -5,6 +5,7 @@
 #include <cmath>
 #include <XML/XMLCharacterClasses.h>
 #include <XML/UnicodeCharacters.h>
+#include <Utils/normalize_whitespace.hpp>
 #include "xpath_value.hpp"
 #include "xpath_execution_context.hpp"
 
@@ -13,7 +14,7 @@ namespace Arabica
 namespace XPath
 {
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class XPathFunction
 {
 protected:
@@ -34,6 +35,13 @@ public:
 protected:
   size_t argCount() const { return args_.size(); }
 
+  XPathValuePtr<string_type> arg(size_t index,
+                 const DOM::Node<string_type>& context,
+                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return args_[index]->evaluate(context, executionContext);
+  } // argAsBool
+    
   bool argAsBool(size_t index,
                  const DOM::Node<string_type>& context,
                  const ExecutionContext<string_type, string_adaptor>& executionContext) const
@@ -210,6 +218,7 @@ public:
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
+        case NAMESPACE_NODE_TYPE:
           return new StringValue<string_type, string_adaptor>(node.getNodeName());
         default: // stop gcc generating a warning about unhandled enum values
           ;
@@ -353,6 +362,9 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type value = baseT::argAsString(0, context, executionContext);
+    if(string_adaptor::empty(value))
+      return new StringValue<string_type, string_adaptor>(value);
+
     double startAt = roundNumber(baseT::argAsNumber(1, context, executionContext)) - 1;
     double endAt = roundNumber((baseT::argCount() == 3 ? baseT::argAsNumber(2, context, executionContext) : Infinity)) + startAt;
 
@@ -396,27 +408,8 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type initial = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
-		std::string value = string_adaptor::asStdString(initial);
-		std::string::const_iterator i = value.begin(), ie = value.end();
-		std::string::iterator p = value.begin(), pe = value.end();
-
-    // string leading space
-    while((i != ie) && (XML::is_space(static_cast<wchar_t>(*i))))
-      ++i;
-    
-    while(i != ie)
-    {
-      while((i != ie) && (!XML::is_space(static_cast<wchar_t>(*i)))) 
-        *p++ = *i++;
-      while((i != ie) && (XML::is_space(static_cast<wchar_t>(*i))))
-        ++i;
-      if(i != ie)
-        *p++ = Unicode<char>::SPACE;
-    } // while ...
-    if(p != ie)
-      *p++ = 0;
-
-		return new StringValue<string_type, string_adaptor>(string_adaptor::construct_from_utf8(value.c_str()));
+    string_type value = Arabica::string::normalize_whitespace<string_type, string_adaptor>(initial);
+    return new StringValue<string_type, string_adaptor>(value);
   } // evaluate
 }; // class NormalizeSpaceFn
 

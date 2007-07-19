@@ -165,6 +165,7 @@ public:
      return expr_->evaluate(context, executionContext);
 
     NodeSet<string_type> ns = expr_->evaluate(context, executionContext)->asNodeSet();
+    ns.to_document_order();
     return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(baseT::applyPredicates(ns, executionContext)));
   } // evaluate
 
@@ -196,41 +197,45 @@ public:
                          createStep(typename types<string_adaptor>::node_iter_t& node, 
                                     typename types<string_adaptor>::node_iter_t const& end, 
                                     CompilationContext<string_type, string_adaptor>& context,
-                                    Axis axis)
+                                    Axis axis,
+                                    bool is_attr = false)
   {
-    NodeTest<string_type>* test = getTest(node, context.namespaceContext());
+    NodeTest<string_type>* test = getTest(node, !is_attr ? axis : ATTRIBUTE, context.namespaceContext());
     XPathExpression<string_type, string_adaptor>* thing = 0;
     if(!test)
       thing = XPath<string_type>::compile_expression(node++, context);
 
-    std::vector<XPathExpression<string_type, string_adaptor>*> preds;
+    std::vector<XPathExpression<string_type, string_adaptor>*> preds = 
+        createPredicates(node, end, context);
 
-    while((node != end) && (getNodeId<string_adaptor>(node) == impl::Predicate_id))
-    {
-      typename types<string_adaptor>::node_iter_t c = node->children.begin();
-      assert(getNodeId<string_adaptor>(c) == impl::LeftSquare_id);
-      ++c;
-      preds.push_back(XPath<string_type>::compile_expression(c, context));
-      ++c;
-      assert(getNodeId<string_adaptor>(c) == impl::RightSquare_id);
-      
-      ++node;
-    } // if ...
     if(!test)
       return new ExprStepExpression<string_type, string_adaptor>(thing, preds);
     return new TestStepExpression<string_type, string_adaptor>(axis, test, preds);
   } // createStep
 
-  static StepExpression<string_type, string_adaptor>* createStep(typename types<string_adaptor>::node_iter_t& node, CompilationContext<string_type, string_adaptor>& context)
+  static StepExpression<string_type, string_adaptor>* createFilter(const typename types<string_adaptor>::node_iter_t& node,
+                                    CompilationContext<string_type, string_adaptor>& context)
+  {
+    typename types<string_adaptor>::node_iter_t c = node->children.begin();
+    XPathExpression<string_type, string_adaptor>* step = XPath<string_type>::compile_expression(c, context);
+    ++c;
+    std::vector<XPathExpression<string_type, string_adaptor>*> preds = createPredicates(c, node->children.end(), context);
+    return new ExprStepExpression<string_type, string_adaptor>(step, preds);
+  } // createFilter
+
+  static StepExpression<string_type, string_adaptor>* createStep(typename types<string_adaptor>::node_iter_t& node, 
+                                                                 CompilationContext<string_type, string_adaptor>& context)
   {
     Axis axis = getAxis(node);
-    NodeTest<string_type>* test = getTest(node, context.namespaceContext());
+    NodeTest<string_type>* test = getTest(node, axis, context.namespaceContext());
     return new TestStepExpression<string_type, string_adaptor>(axis, test);
   } // createStep
 
-  static StepExpression<string_type, string_adaptor>* createStep(typename types<string_adaptor>::node_iter_t& node, CompilationContext<string_type, string_adaptor>& context, Axis axis)
+  static StepExpression<string_type, string_adaptor>* createStep(typename types<string_adaptor>::node_iter_t& node, 
+                                                                 CompilationContext<string_type, string_adaptor>& context, 
+                                                                 Axis axis)
   {
-    NodeTest<string_type>* test = getTest(node, context.namespaceContext());
+    NodeTest<string_type>* test = getTest(node, axis, context.namespaceContext());
     return new TestStepExpression<string_type, string_adaptor>(axis, test);
   } // createStep
 
@@ -305,7 +310,28 @@ public:
   } // getAxis
 
 private:
-  static NodeTest<string_type>* getTest(typename types<string_adaptor>::node_iter_t& node, const NamespaceContext<string_type, string_adaptor>& namespaceContext)
+  static std::vector<XPathExpression<string_type, string_adaptor>*> createPredicates(typename types<string_adaptor>::node_iter_t& node, 
+                                    typename types<string_adaptor>::node_iter_t const& end, 
+                                    CompilationContext<string_type, string_adaptor>& context)
+  {
+    std::vector<XPathExpression<string_type, string_adaptor>*> preds;
+
+    while((node != end) && (getNodeId<string_adaptor>(node) == impl::Predicate_id))
+    {
+      typename types<string_adaptor>::node_iter_t c = node->children.begin();
+      assert(getNodeId<string_adaptor>(c) == impl::LeftSquare_id);
+      ++c;
+      preds.push_back(XPath<string_type>::compile_expression(c, context));
+      ++c;
+      assert(getNodeId<string_adaptor>(c) == impl::RightSquare_id);
+      
+      ++node;
+    } // if ...
+
+    return preds;
+  } // createPredicates
+
+  static NodeTest<string_type>* getTest(typename types<string_adaptor>::node_iter_t& node, Axis axis, const NamespaceContext<string_type, string_adaptor>& namespaceContext)
   {
     long id = getNodeId<string_adaptor>(skipWhitespace<string_adaptor>(node));
 
@@ -314,7 +340,7 @@ private:
       case impl::NodeTest_id:
         {
           typename types<string_adaptor>::node_iter_t c = node->children.begin();
-          NodeTest<string_type>* t = getTest(c, namespaceContext);
+          NodeTest<string_type>* t = getTest(c, axis, namespaceContext);
           ++node;
           return t;
         } // case NodeTest_id
@@ -327,6 +353,8 @@ private:
           ++c;
           string_type name = string_adaptor::construct(c->value.begin(), c->value.end());
           ++node;
+          if(axis == ATTRIBUTE)
+            return new AttributeQNameNodeTest<string_type>(uri, name);
           return new QNameNodeTest<string_type>(uri, name);
         } //case QName_id
       
@@ -334,6 +362,8 @@ private:
         {
           string_type name = string_adaptor::construct(node->value.begin(), node->value.end());
           ++node;
+          if(axis == ATTRIBUTE)
+            return new AttributeNameNodeTest<string_type, string_adaptor>(name);
           return new NameNodeTest<string_type, string_adaptor>(name);
         } // case NameNodeTest
 
@@ -361,20 +391,27 @@ private:
         } // case ProcessingInstruction_id
       
       case impl::SlashSlash_id:
-      case impl::Node_id:
   	  case impl::SelfSelect_id:
+      case impl::ParentSelect_id:
         {
           ++node;
           return new AnyNodeTest<string_type>();
+        } // case Node_id
+
+      case impl::Node_id:
+        {
+          ++node;
+          return new NodeNodeTest<string_type>();
         } // case Node_id
 
       case impl::Slash_id:
         return new RootNodeTest<string_type>();
 
       case impl::AnyName_id:
-      case impl::ParentSelect_id:
         {
           ++node;
+          if(axis == ATTRIBUTE)
+            return new AttributeNodeTest<string_type>();
           return new StarNodeTest<string_type>();
         } // case AnyName_id:
 
@@ -384,6 +421,8 @@ private:
           ++node;
           string_type prefix = string_adaptor::construct(prefixNode->value.begin(), prefixNode->value.end());
           string_type uri = namespaceContext.namespaceURI(prefix);
+          if(axis == ATTRIBUTE)
+            return new AttributeQStarNodeTest<string_type>(uri);
           return new QStarNodeTest<string_type>(uri);
         } // case 
     } // switch(id)
@@ -405,7 +444,7 @@ public:
   {
     for(typename StepList<string_type, string_adaptor>::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
       delete *i;
-  } // ~LocationPath
+  } // ~RelativeLocationPath
 
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
@@ -418,12 +457,14 @@ public:
       nodes = v->asNodeSet();
     } // for ...
 
+    nodes.sort();
+
     return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(nodes));
-  } // do_evaluate
+  } // evaluate
 
 private:
   StepList<string_type, string_adaptor> steps_;
-}; // LocationPath
+}; // RelativeLocationPath
 
 template<class string_type, class string_adaptor>
 class AbsoluteLocationPath : public RelativeLocationPath<string_type, string_adaptor>

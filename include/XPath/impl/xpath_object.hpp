@@ -13,6 +13,7 @@
 #endif
 #include <cmath>
 #include <Utils/StringAdaptor.h>
+#include <Utils/normalize_whitespace.hpp>
 #include "xpath_axis_enumerator.hpp"
 
 namespace Arabica
@@ -160,27 +161,28 @@ bool nodes_less_than(const DOM::Node<string_type>& n1, const DOM::Node<string_ty
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
 template<class string_type>
-class NodeSet : public std::vector<DOM::Node<string_type> >
+class NodeSet  
 {
-private:
-  typedef std::vector<DOM::Node<string_type> > baseT;
 public:
+  typedef typename std::vector<DOM::Node<string_type> >::const_iterator const_iterator;
+  typedef typename std::vector<DOM::Node<string_type> >::iterator iterator;
+
   NodeSet() : 
-    std::vector<DOM::Node<string_type> >(), 
+    nodes_(), 
     forward_(true), 
     sorted_(false) 
   { 
   } // NodeSet
 
   NodeSet(bool forward) : 
-    std::vector<DOM::Node<string_type> >(), 
+    nodes_(), 
     forward_(forward),
-    sorted_(true)
+    sorted_(false)
   { 
   } // NodeSet
 
   NodeSet(const NodeSet<string_type>& rhs) : 
-    std::vector<DOM::Node<string_type> >(rhs),
+    nodes_(rhs.nodes_),
     forward_(rhs.forward_), 
     sorted_(rhs.sorted_)
   { 
@@ -188,47 +190,86 @@ public:
 
   NodeSet& operator=(const NodeSet<string_type>& rhs) 
   {
+    nodes_ = rhs.nodes_;
     forward_ = rhs.forward_;
     sorted_ = rhs.sorted_;
-    std::vector<DOM::Node<string_type> >::operator=(rhs);
     return *this;
   } // operator=
 
   void swap(NodeSet& rhs) 
   {
-    std::vector<DOM::Node<string_type> >::swap(rhs);
+    nodes_.swap(rhs.nodes_);
     std::swap(forward_, rhs.forward_);
     std::swap(sorted_, rhs.sorted_);
   } // swap 
 
+  const_iterator begin() const { return nodes_.begin(); }
+  const_iterator end() const { return nodes_.end(); }
+  iterator begin() { return nodes_.begin(); }
+  iterator end() { return nodes_.end(); }
+  const DOM::Node<string_type>& operator[](size_t i) const { return nodes_[i]; }
+  size_t size() const { return nodes_.size(); }
+  bool empty() const { return nodes_.empty(); }
+
+  template<typename InputIterator> 
+  void insert(iterator position, InputIterator first, InputIterator last)
+  {
+    sorted_ = false;
+    nodes_.insert(position, first, last);
+  } // insert
+  
+  void push_back(const DOM::Node<string_type>& node) 
+  {
+    nodes_.push_back(node);
+    sorted_ = false;
+  } // push_back
+
   bool forward() const { return sorted_ && forward_; }
   bool reverse() const { return sorted_ && !forward_; }
-  void forward(bool forward) { forward_ = forward; sorted_ = true; }
+  void forward(bool forward) 
+  { 
+    if(forward_ == forward)
+      return;
+
+    forward_ = forward; 
+    sorted_ = false;
+  } // forward
 
   void to_document_order() 
   {
-    if(!sorted_)
-    {
-      std::sort(baseT::begin(), baseT::end(), impl::nodes_less_than<string_type>);
-      sorted_ = true;
-      forward_ = true;
-    } // if(!sorted)
+    sort();
 
     if(!forward_)
     {
-      std::reverse(baseT::begin(), baseT::end());
+      std::reverse(nodes_.begin(), nodes_.end());
       forward_ = true;
     } // if(!forward_)
   } // to_document_order
 
-  DOM::Node<string_type> top() const 
+  void sort()
   {
+    if(sorted_)
+      return;
+
+    if(forward_)
+      std::sort(nodes_.begin(), nodes_.end(), impl::nodes_less_than<string_type>);
+    else
+      std::sort(nodes_.rbegin(), nodes_.rend(), impl::nodes_less_than<string_type>);
+
+    nodes_.erase(std::unique(nodes_.begin(), nodes_.end()), nodes_.end());
+    sorted_ = true;
+  } // sort
+
+  const DOM::Node<string_type>& top()  
+  {
+    sort();
     if(forward_)
       return (*this)[0];
-    return (*this)[baseT::size()-1];
+    return (*this)[nodes_.size()-1];
   } // top()
 
 private:
+  std::vector<DOM::Node<string_type> > nodes_;
   bool forward_;
   bool sorted_;
 }; // NodeSet
@@ -296,11 +337,11 @@ inline double roundNumber(double value)
   return value;
 } // roundNumber
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 double stringAsNumber(const string_type& str)
 {
   try {
-    return boost::lexical_cast<double>(str); 
+    return boost::lexical_cast<double>(Arabica::string::normalize_whitespace<string_type, string_adaptor>(str)); 
   } // try
   catch(const boost::bad_lexical_cast&) {
     return NaN;
@@ -333,6 +374,7 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
   case DOM::Node_base::COMMENT_NODE:
   case DOM::Node_base::TEXT_NODE:
   case DOM::Node_base::CDATA_SECTION_NODE:
+  case NAMESPACE_NODE_TYPE:
     return node.getNodeValue();
 
   default:
@@ -344,7 +386,7 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
 template<class string_type, class string_adaptor>
 double nodeNumberValue(const DOM::Node<string_type>& node)
 {
-  return stringAsNumber(nodeStringValue<string_type, string_adaptor>(node));
+  return stringAsNumber<string_type, string_adaptor>(nodeStringValue<string_type, string_adaptor>(node));
 } // nodeNumberValue
 
 } // namespace impl
@@ -382,8 +424,8 @@ private:
   compareNodeWith& operator=(const compareNodeWith&);
 }; // class compareNodeWith
 
-template<class string_type, class string_adaptor>
-bool nodeSetsEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+template<class string_type, class string_adaptor, class predicate1, class predicate2>
+bool nodeSetsCompare(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
 {
   const NodeSet<string_type>& lns = lhs->asNodeSet();
   const NodeSet<string_type>& rns = rhs->asNodeSet();
@@ -395,21 +437,39 @@ bool nodeSetsEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<st
   typename NodeSet<string_type>::const_iterator l = lns.begin();
   string_type lvalue = nodeStringValue<string_type, string_adaptor>(*l);
 
+  predicate1 p1;
   for(typename NodeSet<string_type>::const_iterator r = rns.begin(), rend = rns.end(); r != rend; ++r)
   {
     string_type rvalue = nodeStringValue<string_type, string_adaptor>(*r);
-    if(lvalue == rvalue)
+    if(p1(lvalue, rvalue))
       return true;
     values.insert(rvalue);
   } // for ...
 
   ++l;
+  predicate2 p2;
   for(typename NodeSet<string_type>::const_iterator lend = lns.end(); l != lend; ++l)
-    if(values.find(nodeStringValue<string_type, string_adaptor>(*l)) != values.end())
+    if(p2(values.find(nodeStringValue<string_type, string_adaptor>(*l)),  values.end()))
       return true;
 
   return false;
 } // nodeSetsEqual
+
+template<class string_type, class string_adaptor>
+bool nodeSetsEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+{
+  return nodeSetsCompare<string_type, string_adaptor, 
+                         std::equal_to<string_type>,
+                         std::not_equal_to<typename std::set<string_type>::const_iterator> >(lhs, rhs);
+}
+
+template<class string_type, class string_adaptor>
+bool nodeSetsNotEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+{
+  return nodeSetsCompare<string_type, string_adaptor, 
+                         std::not_equal_to<string_type>,
+                         std::equal_to<typename std::set<string_type>::const_iterator> >(lhs, rhs);
+}
 
 template<class string_type, class string_adaptor>
 bool nodeSetAndValueEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
@@ -439,6 +499,35 @@ bool nodeSetAndValueEqual(const XPathValuePtr<string_type>& lhs, const XPathValu
     throw std::runtime_error("Node set == not yet implemented for type " + boost::lexical_cast<std::string>(rhs->type()));
   } // switch
 } // nodeSetAndValueEqual
+
+template<class string_type, class string_adaptor>
+bool nodeSetAndValueNotEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+{
+  const NodeSet<string_type>& lns = lhs->asNodeSet();
+
+  switch(rhs->type())
+  {
+  case BOOL:
+    {
+      bool l = !lns.empty();
+      bool r = rhs->asBool();
+
+      return l != r;
+    } // case BOOL
+  case STRING:
+    return std::find_if(lns.begin(), 
+                        lns.end(), 
+                        compareNodeWith<std::not_equal_to<string_type>, string_type, string_adaptor>(rhs->asString())) != lns.end();
+
+  case NUMBER:
+    return std::find_if(lns.begin(), 
+                        lns.end(), 
+                        compareNodeWith<std::not_equal_to<double>, string_type, string_adaptor>(rhs->asNumber())) != lns.end();
+
+  default:
+    throw std::runtime_error("Node set == not yet implemented for type " + boost::lexical_cast<std::string>(rhs->type()));
+  } // switch
+} // nodeSetAndValueNotEqual
 
 template<class string_type, class string_adaptor> 
 double minValue(const NodeSet<string_type>& ns)
@@ -509,7 +598,25 @@ bool areEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_
     return lhs->asString() == rhs->asString();
 
   return false;
-} // areEquals
+} // areEqual
+
+template<class string_type, class string_adaptor> 
+bool areNotEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+{
+  ValueType lt = lhs->type();
+  ValueType rt = rhs->type();
+
+  if((lt == NODE_SET) && (rt == NODE_SET))
+    return nodeSetsNotEqual<string_type, string_adaptor>(lhs, rhs);
+
+  if(lt == NODE_SET)
+    return nodeSetAndValueNotEqual<string_type, string_adaptor>(lhs, rhs);
+
+  if(rt == NODE_SET)
+    return nodeSetAndValueNotEqual<string_type, string_adaptor>(rhs, lhs);
+
+  return !areEqual<string_type, string_adaptor>(lhs, rhs);
+} // areNotEqual
 
 template<class string_type, class string_adaptor> 
 bool isLessThan(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)

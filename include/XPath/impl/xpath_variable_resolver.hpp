@@ -15,13 +15,14 @@ public:
   UnboundVariableException(const std::string& thing) : std::runtime_error("The variable '" + thing + "' is undefined.") { }
 }; // class UnboundVariableException
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class VariableResolver
 {
 public:
   virtual ~VariableResolver() { }
 
-  virtual XPathValuePtr<string_type> resolveVariable(const string_type& name) const = 0; 
+  virtual XPathValuePtr<string_type> resolveVariable(const string_type& namespace_uri_,
+                                                     const string_type& name) const = 0; 
 }; // class VariableResolver
 
 template<class string_type, class string_adaptor>
@@ -38,9 +39,18 @@ template<class string_type, class string_adaptor>
 class NullVariableResolver : public VariableResolver<string_type, string_adaptor>
 {
 public:
-  virtual XPathValuePtr<string_type> resolveVariable(const string_type& name) const
+  virtual XPathValuePtr<string_type> resolveVariable(const string_type& namespace_uri,
+                                                     const string_type& name) const
   {
-    throw UnboundVariableException(string_adaptor().asStdString(name));
+    string_type error;
+    if(!string_adaptor::empty(namespace_uri))
+    {
+      string_adaptor::append(error, string_adaptor::construct_from_utf8("{"));
+      string_adaptor::append(error, namespace_uri);
+      string_adaptor::append(error, string_adaptor::construct_from_utf8("}"));
+    } // if ...
+    string_adaptor::append(error, name);
+    throw UnboundVariableException(string_adaptor().asStdString(error));
   } // resolveVariable
 }; // NullVariableResolver
 

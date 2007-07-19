@@ -26,8 +26,6 @@ class NamespaceContext
 
     virtual string_type namespaceURI(const string_type& prefix) const = 0;
 
-    virtual NamespaceContext<string_type, string_adaptor>* clone() const = 0;
-
   private:
     NamespaceContext(const NamespaceContext&);
     NamespaceContext& operator=(const NamespaceContext&);
@@ -52,11 +50,6 @@ class NullNamespaceContext : public NamespaceContext<string_type, string_adaptor
     { 
       throw UnboundNamespacePrefixException(string_adaptor().asStdString(prefix)); 
     } // namespaceURI
-
-    virtual NamespaceContext<string_type, string_adaptor>* clone() const 
-    { 
-      return new NullNamespaceContext<string_type, string_adaptor>; 
-    } // clone
 }; // class NullNamespaceContext
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
@@ -78,11 +71,6 @@ class StandardNamespaceContext : public NamespaceContext<string_type, string_ada
     {
       map_[prefix] = namespaceURI;
     } // addNamespaceDeclaration
-
-    virtual StandardNamespaceContext* clone() const 
-    { 
-      return new StandardNamespaceContext<string_type, string_adaptor>(*this); 
-    } // clone
 
   private:
     StandardNamespaceContext(const StandardNamespaceContext& rhs) : map_(rhs.map_) { }

@@ -35,17 +35,31 @@ public:
     return XPathValuePtr<string_type>(func_->evaluate(context, executionContext));
   } // evaluate
 
-  static FunctionHolder* createFunction(const string_type& name, 
+  static FunctionHolder* createFunction(const string_type& namespace_uri,
+                                        const string_type& name, 
                                         const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs,
                                         const CompilationContext<string_type, string_adaptor>& context)
   {
-    for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)
-      if(name == string_adaptor::construct_from_utf8(fn->name))
-        return new FunctionHolder(fn->creator(argExprs));
+    if(string_adaptor::empty(namespace_uri))
+      for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)
+        if(name == string_adaptor::construct_from_utf8(fn->name))
+          return new FunctionHolder(fn->creator(argExprs));
 
-    XPathFunction<string_type, string_adaptor>* func = context.functionResolver().resolveFunction(name, argExprs);
+    XPathFunction<string_type, string_adaptor>* func = 
+                      context.functionResolver().resolveFunction(namespace_uri, name, argExprs);
     if(func == 0)
-      throw std::runtime_error("Function " + string_adaptor().asStdString(name) + " not implemented");
+    {
+      string_type error;
+      if(!string_adaptor::empty(namespace_uri))
+      {
+        string_adaptor::append(error, string_adaptor::construct_from_utf8("{"));
+        string_adaptor::append(error, namespace_uri);
+        string_adaptor::append(error, string_adaptor::construct_from_utf8("}"));
+      } // if ...
+      string_adaptor::append(error, name);
+      throw UndefinedFunctionException(string_adaptor().asStdString(error));
+    } // if(func == 0)
+    
     return new FunctionHolder(func);
   } // createFunction
 

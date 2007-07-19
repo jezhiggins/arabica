@@ -41,7 +41,7 @@ public:
   virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return BoolValue<string_type, string_adaptor>::createValue(!areEqual<string_type, string_adaptor>(baseT::lhs()->evaluate(context, executionContext),
+    return BoolValue<string_type, string_adaptor>::createValue(areNotEqual<string_type, string_adaptor>(baseT::lhs()->evaluate(context, executionContext),
                                             baseT::rhs()->evaluate(context, executionContext)));
   } // evaluate
 }; // class NotEqualsOperator

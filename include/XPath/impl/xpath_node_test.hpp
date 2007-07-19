@@ -37,6 +37,20 @@ public:
   } // matches
 }; // class AnyNodeTest
 
+template<class string_type>
+class NodeNodeTest : public NodeTest<string_type>
+{
+public:
+  virtual bool operator()(const DOM::Node<string_type>& node) const
+  {
+    int type = node.getNodeType();
+    if((type == DOM::Node_base::DOCUMENT_NODE) || 
+       (type == DOM::Node_base::DOCUMENT_FRAGMENT_NODE))
+      return false;
+    return true;
+  } // matches
+}; // class NodeNodeTest
+
 template<class string_type, class string_adaptor>
 class NameNodeTest : public NodeTest<string_type>
 {
@@ -45,23 +59,45 @@ public:
 
   virtual bool operator()(const DOM::Node<string_type>& node) const
   {
-    return (name_ == node.getNodeName()) &&
-      (string_adaptor::empty(node.getPrefix()));
+    int type = node.getNodeType();
+    return (type == DOM::Node_base::ELEMENT_NODE || type == NAMESPACE_NODE_TYPE) && 
+           (name_ == node.getNodeName()) &&
+           (string_adaptor::empty(node.getNamespaceURI()));
   } // test
 
 private:
   string_type name_;
 }; // NameNodeTest
 
+template<class string_type, class string_adaptor>
+class AttributeNameNodeTest : public NodeTest<string_type>
+{
+public:
+  AttributeNameNodeTest(const string_type& name) : name_(name) { }
+
+  virtual bool operator()(const DOM::Node<string_type>& node) const
+  {
+    return node.getNodeType() == DOM::Node_base::ATTRIBUTE_NODE &&
+           (name_ == node.getNodeName()) &&
+           (string_adaptor::empty(node.getNamespaceURI()));
+  } // operator()
+
+private:
+  string_type name_;
+}; // class AttributeNameNodeTest
+
 template<class string_type>
 class QNameNodeTest : public NodeTest<string_type>
 {
 public:
-  QNameNodeTest(const string_type& namespace_uri, const string_type& name) : uri_(namespace_uri), name_(name) { }
+  QNameNodeTest(const string_type& namespace_uri, const string_type& name) : 
+      uri_(namespace_uri), name_(name) { }
 
   virtual bool operator()(const DOM::Node<string_type>& node) const
   {
-    return (name_ == node.getLocalName()) &&
+    int type = node.getNodeType();
+    return (type == DOM::Node_base::ELEMENT_NODE || type == NAMESPACE_NODE_TYPE) && 
+           (name_ == node.getLocalName()) &&
            (uri_ == node.getNamespaceURI());
   } // test
 
@@ -71,29 +107,47 @@ private:
 }; // QNameNodeTest
 
 template<class string_type>
+class AttributeQNameNodeTest : public NodeTest<string_type>
+{
+public:
+  AttributeQNameNodeTest(const string_type& namespace_uri, const string_type& name) : 
+      uri_(namespace_uri), name_(name) { }
+
+  virtual bool operator()(const DOM::Node<string_type>& node) const
+  {
+    return node.getNodeType() == DOM::Node_base::ATTRIBUTE_NODE &&
+           (name_ == node.getLocalName()) &&
+           (uri_ == node.getNamespaceURI());
+  } // test
+
+private:
+  string_type uri_;
+  string_type name_;
+}; // class AttributeQNameNodeTest
+
+template<class string_type>
 class StarNodeTest : public NodeTest<string_type>
 {
 public:
   virtual bool operator()(const DOM::Node<string_type>& node) const
   {
-    // match the primary node types on the various axis
-    // fortunately they are all independent 
     int type = node.getNodeType();
     return (type == DOM::Node_base::ELEMENT_NODE ||
-            type == NAMESPACE_NODE_TYPE || 
-            type == DOM::Node_base::ATTRIBUTE_NODE);
+            type == NAMESPACE_NODE_TYPE);
   } // test
 }; // class StarNodeTest
 
 template<class string_type>
-class QStarNodeTest : public NodeTest<string_type>
+class QStarNodeTest : public StarNodeTest<string_type>
 {
+  typedef StarNodeTest<string_type> baseT;
 public:
-  QStarNodeTest(const string_type& namespace_uri) : uri_(namespace_uri) { }
+  QStarNodeTest(const string_type& namespace_uri) : baseT(), uri_(namespace_uri) { }
 
   virtual bool operator()(const DOM::Node<string_type>& node) const
   {
-    return (uri_ == node.getNamespaceURI());
+    return (uri_ == node.getNamespaceURI()) &&
+            baseT::operator()(node);
   } // test
 
 private:
@@ -129,6 +183,24 @@ public:
     return node.getNodeType() == DOM::Node<string_type>::ATTRIBUTE_NODE;
   } // operator()
 }; // AttributeNodeTest
+
+template<class string_type>
+class AttributeQStarNodeTest : public AttributeNodeTest<string_type>
+{
+  typedef AttributeNodeTest<string_type> baseT;
+public:
+  AttributeQStarNodeTest(const string_type& namespace_uri) : baseT(), uri_(namespace_uri) { }
+
+  virtual bool operator()(const DOM::Node<string_type>& node) const
+  {
+    return (uri_ == node.getNamespaceURI()) &&
+            baseT::operator()(node);
+  } // test
+
+private:
+  string_type uri_;
+}; // clase AttributeQStarNodeTest
+
 
 template<class string_type>
 class NotAttributeNodeTest : public NodeTest<string_type>

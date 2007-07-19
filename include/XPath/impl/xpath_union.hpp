@@ -40,32 +40,10 @@ public:
     if(ns2.empty())
       return wrap(ns1);
 
+    ns1.insert(ns1.end()-1, ns2.begin(), ns2.end());
     ns1.to_document_order();
-    ns2.to_document_order();
-    typename NodeSet<string_type>::const_iterator n1 = ns1.begin(), n1e = ns1.end();
-    typename NodeSet<string_type>::const_iterator n2 = ns2.begin(), n2e = ns2.end();
 
-    NodeSet<string_type> result(true);
-
-    while((n1 != n1e) && (n2 != n2e))
-    {
-      int c = compareNodes(*n1, *n2);
-      if(c < 0)
-        result.push_back(*n1++);
-      else if(c > 0)
-        result.push_back(*n2++);
-      else
-      { // same node, so bin out duplicate
-        result.push_back(*n1++);
-        ++n2;
-      } // if ...
-    } // while ...
-
-    // pop on any left overs, leftovers
-    std::copy(n1, n1e, std::back_inserter(result));
-    std::copy(n2, n2e, std::back_inserter(result));
-
-    return wrap(result);
+    return wrap(ns1);
   } // evaluate
 
 private:

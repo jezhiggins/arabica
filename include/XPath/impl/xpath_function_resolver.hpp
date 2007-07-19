@@ -15,7 +15,7 @@ public:
   UndefinedFunctionException(const std::string& thing) : std::runtime_error("The function '" + thing + "' is undefined.") { }
 }; // class UndefinedFunctionException
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class FunctionResolver
 {
 public:
@@ -23,7 +23,8 @@ public:
 
   // TODO: should make this a QName
   virtual XPathFunction<string_type, string_adaptor>* 
-      resolveFunction(const string_type& name,
+      resolveFunction(const string_type& namespace_uri,
+                      const string_type& name,
                       const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) const = 0; 
 }; // class FunctionResolver
 
@@ -42,10 +43,19 @@ class NullFunctionResolver : public FunctionResolver<string_type, string_adaptor
 {
 public:
   virtual XPathFunction<string_type, string_adaptor>* 
-      resolveFunction(const string_type& name,
+      resolveFunction(const string_type& namespace_uri,
+                      const string_type& name,
                       const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) const 
   {
-    throw UndefinedFunctionException(string_adaptor().asStdString(name));
+    string_type error;
+    if(!string_adaptor::empty(namespace_uri))
+    {
+      string_adaptor::append(error, string_adaptor::construct_from_utf8("{"));
+      string_adaptor::append(error, namespace_uri);
+      string_adaptor::append(error, string_adaptor::construct_from_utf8("}"));
+    } // if ...
+    string_adaptor::append(error, name);
+    throw UndefinedFunctionException(string_adaptor().asStdString(error));
   } // resolveVariable
 }; // NullFunctionResolver
 

@@ -121,7 +121,7 @@ struct xpath_grammar_definition
     // [34], [35], [36], [37], [38], [39]
     MultiplyOperator = ch_p('*');
     FunctionName = QName - NodeType;
-    VariableReference	=	token_node_d[ch_p('$') >> QName];
+    VariableReference	=	ch_p('$') >> QName;
     NameTest = AnyName
 			        | NCName >> discard_node_d[ch_p(':')] >> AnyName	
 			        | QName;
@@ -337,7 +337,7 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
       typedef xpath_grammar_definition<ScannerT> base;
 
       // [1] Pattern ::= LocationPathPattern | Pattern '|' LocationPathPattern 	
-      Pattern = LocationPathPattern >> *(base::UnionOperator >> LocationPathPattern);
+      Pattern = discard_node_d[base::S] >> LocationPathPattern >> discard_node_d[base::S] >> *(base::UnionOperator >> discard_node_d[base::S] >> LocationPathPattern >> discard_node_d[base::S]);
 
       // [2] LocationPathPattern ::= '/' RelativePathPattern? 	
 		  //                       | IdKeyPattern (('/' | '//') RelativePathPattern)? 	
