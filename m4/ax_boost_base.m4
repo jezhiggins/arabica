@@ -160,7 +160,6 @@ AC_DEFUN([ARABICA_HAS_BOOST],
         else
                         AC_MSG_NOTICE([[Not searching for Boost.  Arabica will build, but some features will not be available]]) 
         fi
-        AM_CONDITIONAL(HAVE_BOOST, test x$succeeded = xyes)
         if test "$succeeded" = "yes"; then
           boost_is_available=yes
         else

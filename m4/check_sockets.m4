@@ -24,8 +24,9 @@ AC_DEFUN([ARABICA_CHECK_SOCKETS],
     LIBS="$winsock_save_LIBS"
     AC_MSG_RESULT($has_winsock)
     if test $has_winsock = yes; then
-      AC_DEFINE(ARABICA_USE_WINSOCK, ,[defined for Windows builds using Winsock rather than BSD-style sockets])
+      AC_DEFINE([ARABICA_USE_WINSOCK], ,[defined for Windows builds using Winsock rather than BSD-style sockets])
       LIBS="-lwsock32 $LIBS"
     fi
   fi
 ])
+

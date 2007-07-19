@@ -12,7 +12,7 @@ AC_DEFUN([ARABICA_WANT_DOM],
   if test x$want_dom = xno; then
     AC_MSG_NOTICE([[DOM disabled.  DOM components will not be built.]])
   fi
-  AM_CONDITIONAL(WANT_DOM, test "$want_dom" = "yes")
+  AM_CONDITIONAL([WANT_DOM], [test "$want_dom" = "yes"])
   if test "$want_dom" = "yes"; then
     if test "$boost_is_available" = "yes"; then
       want_xpath="yes"
@@ -21,5 +21,5 @@ AC_DEFUN([ARABICA_WANT_DOM],
   if test "$want_xpath" != "yes"; then
     AC_MSG_NOTICE([[XPath disabled.  XPath components will not be built.]])
   fi
-  AM_CONDITIONAL(WANT_XPATH, test "$want_xpath" = "yes")
+  AM_CONDITIONAL([WANT_XPATH], [test "$want_xpath" = "yes"])
 ])
