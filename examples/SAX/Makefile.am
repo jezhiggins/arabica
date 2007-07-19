@@ -1,5 +1,6 @@
-bin_PROGRAMS = pyx simple_handler writer xmlbase
+noinst_PROGRAMS = pyx simple_handler writer xmlbase
 
+AM_CPPFLAGS = -I$(top_srcdir)/include @PARSER_HEADERS@ $(BOOST_CPPFLAGS)
 LIBARABICA = $(top_builddir)/src/libarabica.la
 
 pyx_SOURCES = pyx.cpp
@@ -14,4 +15,3 @@ writer_LDADD = $(LIBARABICA)
 xmlbase_SOURCES = xmlbase.cpp
 xmlbase_LDADD = $(LIBARABICA)
 
-INCLUDES = -I$(top_srcdir)/include $(PARSER_HEADERS) $(BOOST_CPPFLAGS)

@@ -3,8 +3,6 @@ if WANT_DOM
   SUBDIRS += DOM
 endif
 if WANT_XPATH
-  SUBDIRS += XPath
+  SUBDIRS += XPath XSLT
 endif
 
-install:
-	echo "Nothing to install here"

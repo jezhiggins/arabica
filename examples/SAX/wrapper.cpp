@@ -42,16 +42,8 @@ int main(int argc, char* argv[])
     parser.setDTDHandler(myHandler); 
     parser.setErrorHandler(myHandler);
     parser.setEntityResolver(myHandler);
-
-    try 
-    {
-      parser.setProperty(pNames.declHandler, static_cast<SAX::DeclHandler&>(myHandler));
-      parser.setProperty(pNames.lexicalHandler, static_cast<SAX::LexicalHandler&>(myHandler));
-    }
-    catch(SAX::SAXException& e)
-    {
-      std::cout << e.what() << std::endl;
-    } // catch
+    parser.setDeclHandler(myHandler);
+    parser.setLexicalHandler(myHandler);
 
     std::string file(argv[i]);
 
