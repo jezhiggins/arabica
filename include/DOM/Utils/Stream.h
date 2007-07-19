@@ -146,9 +146,14 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
   check_and_output_node_name(stream, node, prefix_stack);
   
   DOM::NamedNodeMap<stringT> attrs = node.getAttributes();
+  std::vector<stringT> names;
   for(unsigned int a = 0; a < attrs.getLength(); ++a)
+    names.push_back(attrs.item(a).getNodeName());
+  std::sort(names.begin(), names.end());
+
+  for(typename std::vector<stringT>::const_iterator a = names.begin(), ae = names.end(); a != ae; ++a)
   {
-    DOM::Node<stringT> attr = attrs.item(a);
+    DOM::Node<stringT> attr = attrs.getNamedItem(*a);
     if(isXmlns<stringT, charT>(attr.getNodeName()) || 
        isXmlns<stringT, charT>(attr.getPrefix()))
       continue;
@@ -157,7 +162,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
     stream  << UnicodeT::EQUALS_SIGN
             << UnicodeT::QUOTATION_MARK;
     stringT value = attr.getNodeValue();
-    std::for_each(value.begin(), value.end(), Arabica::XML::escaper<charT, traitsT>(stream));
+    std::for_each(value.begin(), value.end(), Arabica::XML::attribute_escaper<charT, traitsT>(stream));
     stream << UnicodeT::QUOTATION_MARK;
   }
 
@@ -174,7 +179,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
     if(!(i->second.empty()))
       stream << UnicodeT::COLON << i->second;
     stream << UnicodeT::EQUALS_SIGN << UnicodeT::QUOTATION_MARK;
-    std::for_each(i->first.begin(), i->first.end(), Arabica::XML::escaper<charT, traitsT>(stream));
+    std::for_each(i->first.begin(), i->first.end(), Arabica::XML::attribute_escaper<charT, traitsT>(stream));
     stream << UnicodeT::QUOTATION_MARK;
   } // for ...
 
@@ -247,7 +252,7 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
   case DOM::Node<stringT>::TEXT_NODE:
     {
       stringT value = node.getNodeValue();
-      std::for_each(value.begin(), value.end(), Arabica::XML::escaper<charT, traitsT>(stream));
+      std::for_each(value.begin(), value.end(), Arabica::XML::text_escaper<charT, traitsT>(stream));
     }
     break;
   case DOM::Node<stringT>::ENTITY_REFERENCE_NODE:

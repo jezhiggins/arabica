@@ -36,7 +36,8 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
   public:
     Parser() :
         entityResolver_(0),
-        errorHandler_(0)
+        errorHandler_(0),
+        documentType_(0)
     { 
       SAX::FeatureNames<stringT, string_adaptorT> fNames;
       features_.insert(std::make_pair(fNames.namespaces, true));
@@ -330,6 +331,8 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
     // DeclHandler
     virtual void elementDecl(const stringT& name, const stringT& model)
     {
+      if(!documentType_)
+        return;
       documentType_->addElement(name);
     } // elementDecl
 
@@ -339,6 +342,8 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
                                const stringT& valueDefault,
                                const stringT& value)
     {
+      if(!documentType_)
+        return;
       if(!string_adaptorT::empty(value))
         documentType_->addDefaultAttr(elementName, attributeName, value);
       if(type == attributeTypes_.id)
@@ -347,6 +352,8 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
 
     virtual void internalEntityDecl(const stringT& name, const stringT& value)
     {
+      if(!documentType_)
+        return;
       EntityT* entity = new EntityT(0, name, string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""));
       declaredEntities_.insert(std::make_pair(name, entity));
       documentType_->addEntity(entity);
@@ -356,6 +363,8 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
 
     virtual void externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
     {
+      if(!documentType_)
+        return;
       EntityT* entity = new EntityT(0, name, publicId, systemId, string_adaptorT::construct_from_utf8(""));
       declaredEntities_.insert(std::make_pair(name, entity)); // we'll populate it later
       documentType_->addEntity(entity);
@@ -365,11 +374,15 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
     // DTDHandler
     virtual void notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
     {
+      if(!documentType_)
+        return;
       documentType_->addNotation(new NotationT(0, name, publicId, systemId));
     } // notationDecl
 
     virtual void unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName)
     {
+      if(!documentType_)
+        return;
       documentType_->addEntity(new EntityT(0, name, publicId, systemId, notationName));
     } // unparsedEntityDecl
 }; // class Parser
