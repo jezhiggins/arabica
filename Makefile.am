@@ -1,7 +1,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS= src test examples
+SUBDIRS= src tests examples
 
 install-data-local:
 	@echo "------------------------------------------------------------"
@@ -37,7 +37,7 @@ pkgconfigdir = src/pkgconfig
 pkgconfig_DATA = arabica.pc
 
 test:
-	@cd test && make test;
+	@cd tests && make test;
 	@cd ..
 
 docs:
