@@ -32,6 +32,7 @@ define HAVE_BOOST
 #endif
 
 define ARABICA_USE_WINSOCK
+define ARABICA_WINDOWS
 
 #if defined(_DEBUG) || (__DEBUG__)
 define ARABICA_DEBUG

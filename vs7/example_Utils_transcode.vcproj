@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="example_UtilsTranscode"
+	Name="example_Utils_Transcode"
 	ProjectGUID="{436B423B-BF20-4B2E-A187-604AF391FBE2}"
 	Keyword="Win32Proj">
 	<Platforms>

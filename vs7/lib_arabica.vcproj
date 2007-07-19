@@ -215,7 +215,19 @@
 					Name="filter"
 					Filter="">
 					<File
+						RelativePath="..\include\Sax\filter\NamespaceTracker.hpp">
+					</File>
+					<File
+						RelativePath="..\include\Sax\filter\TextCoalescer.hpp">
+					</File>
+					<File
+						RelativePath="..\include\Sax\filter\TextOnly.hpp">
+					</File>
+					<File
 						RelativePath="..\include\Sax\filter\Writer.h">
+					</File>
+					<File
+						RelativePath="..\include\Sax\filter\XMLBaseTracker.hpp">
 					</File>
 				</Filter>
 				<Filter
@@ -536,6 +548,9 @@
 					RelativePath="..\include\XPath\impl\xpath_logical.hpp">
 				</File>
 				<File
+					RelativePath="..\include\XPath\impl\xpath_match.hpp">
+				</File>
+				<File
 					RelativePath="..\include\XPath\impl\xpath_namespace_context.hpp">
 				</File>
 				<File
@@ -597,6 +612,9 @@
 					RelativePath="..\include\Utils\iso88591utf8codecvt.h">
 				</File>
 				<File
+					RelativePath="..\include\Utils\normalize_whitespace.hpp">
+				</File>
+				<File
 					RelativePath="..\include\Utils\rot13codecvt.h">
 				</File>
 				<File
@@ -616,6 +634,9 @@
 				</File>
 				<File
 					RelativePath="..\include\Utils\ucs2utf8codecvt.hpp">
+				</File>
+				<File
+					RelativePath="..\include\Utils\uri.hpp">
 				</File>
 				<File
 					RelativePath="..\include\Utils\utf16beucs2codecvt.h">
@@ -662,7 +683,7 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP  -D USE_MSXML ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
+						CommandLine="cl /TC /EP  -D USE_LIBXML2 ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
 "
 						Outputs="..\include\SAX\ArabicaConfig.h"/>
 				</FileConfiguration>
@@ -689,6 +710,9 @@
 				</File>
 				<File
 					RelativePath="..\src\Utils\ucs2utf8codecvt.cpp">
+				</File>
+				<File
+					RelativePath="..\src\Utils\uri.cpp">
 				</File>
 				<File
 					RelativePath="..\src\Utils\utf16beucs2codecvt.cpp">

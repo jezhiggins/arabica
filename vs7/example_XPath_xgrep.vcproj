@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="example_xgrep"
+	Name="example_XPath_xgrep"
 	ProjectGUID="{5F7B038E-5148-4EF4-AB43-5035F666D00D}"
 	Keyword="Win32Proj">
 	<Platforms>

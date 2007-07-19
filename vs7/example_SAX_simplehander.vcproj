@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="example_SAXSimpleHandler"
+	Name="example_SAX_SimpleHandler"
 	ProjectGUID="{4D861155-0183-4637-8F01-4F8FDB43C344}"
 	SccProjectName=""
 	SccLocalPath="">
