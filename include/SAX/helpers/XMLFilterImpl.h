@@ -308,7 +308,6 @@ public:
    */
   virtual void setDocumentLocator(const LocatorT& locator) 
   { 
-    locator_ = &locator;
     contentHandler_->setDocumentLocator(locator);
   } // setDocumentLocator
 
@@ -598,7 +597,6 @@ private:
   ErrorHandlerT* errorHandler_;
   DeclHandlerT* declHandler_;
   LexicalHandlerT* lexicalHandler_;
-  const LocatorT* locator_;
   basic_DefaultHandler<stringT> defaultHandler_;
 }; // class basic_XMLFilter
 

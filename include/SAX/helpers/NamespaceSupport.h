@@ -225,7 +225,7 @@ class basic_NamespaceSupport
       if(index == string_adaptorT::npos())
       {
         // no prefix
-        name.URI = getURI(stringT());
+        name.URI = isAttribute ? stringT() : getURI(stringT());
         name.localName = qName;
       }
       else
@@ -375,11 +375,8 @@ class basic_NamespaceSupport
     {
       stringListT prefixes;
 
-      for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
-      {
-        for(typename stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
-          prefixes.push_back(u->first);
-      } // for ...
+      for(typename stringMapT::const_iterator u = contexts_.back().begin(); u != contexts_.back().end(); ++u)
+        prefixes.push_back(u->first);
        
       return prefixes;
     } // getDeclaredPrefixes

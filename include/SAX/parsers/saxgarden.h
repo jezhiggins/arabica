@@ -63,7 +63,6 @@ public:
   virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBase> value);
 
 private:
-  const stringT& empty_string() const { static stringT empty; return empty; }
   void reportError(const std::string& message, bool fatal = false);
 
   typedef typename string_adaptor_type::value_type char_t;
@@ -199,11 +198,11 @@ Garden<string_type, T0, T1>::Garden() :
 
 
   /////////////////
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct_from_utf8("lt"), string_adaptor_type::construct_from_utf8("<")));
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct_from_utf8("gt"), string_adaptor_type::construct_from_utf8(">")));
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct_from_utf8("amp"), string_adaptor_type::construct_from_utf8("&")));
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct_from_utf8("apos"), string_adaptor_type::construct_from_utf8("'")));
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct_from_utf8("quot"), string_adaptor_type::construct_from_utf8("\"")));
+  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("lt"), string_adaptor_type::construct("<")));
+  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("gt"), string_adaptor_type::construct(">")));
+  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("amp"), string_adaptor_type::construct("&")));
+  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("apos"), string_adaptor_type::construct("'")));
+  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("quot"), string_adaptor_type::construct("\"")));
 
   conversion_.insert(std::make_pair('0', 0));
   conversion_.insert(std::make_pair('1', 1));
@@ -307,7 +306,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::closeElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
-    contentHandler_->startElement(empty_string(), elements_.top(), empty_string(), attrs_);
+    contentHandler_->startElement(string_adaptor_type::empty_string(), elements_.top(), string_adaptor_type::empty_string(), attrs_);
 } // closeElement
 
 template<class string_type, class T0, class T1>
@@ -315,8 +314,8 @@ void Garden<string_type, T0, T1>::closeEmptyElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
   {
-    contentHandler_->startElement(empty_string(), elements_.top(), empty_string(), attrs_);
-    contentHandler_->endElement(empty_string(), elements_.top(), empty_string());
+    contentHandler_->startElement(string_adaptor_type::empty_string(), elements_.top(), string_adaptor_type::empty_string(), attrs_);
+    contentHandler_->endElement(string_adaptor_type::empty_string(), elements_.top(), string_adaptor_type::empty_string());
     elements_.pop();
   } // if ...
 } // closeEmptyElement
@@ -325,7 +324,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::endElementName(iterator_t s, iterator_t e)
 {
   stringT name = str(s, e);
-  if(!(name == elements_.top()))
+  if(name != elements_.top())
     reportError("Expect end element " + string_adaptor_type::asStdString(elements_.top()), true);
 } // endElementName
 
@@ -333,7 +332,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::endElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
-    contentHandler_->endElement(empty_string(), elements_.top(), empty_string());
+    contentHandler_->endElement(string_adaptor_type::empty_string(), elements_.top(), string_adaptor_type::empty_string());
   elements_.pop();
 } // endElement
 
@@ -364,7 +363,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::piTarget(iterator_t s, iterator_t e)
 {
   piTarget_ = str(s, e);
-  piData_ = empty_string();
+  piData_ = string_adaptor_type::empty_string();
 } // piTarget
 
 template<class string_type, class T0, class T1>

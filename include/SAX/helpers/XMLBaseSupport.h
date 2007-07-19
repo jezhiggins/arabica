@@ -20,6 +20,7 @@
 #include <utility>
 #include <sstream>
 #include <XML/UnicodeCharacters.h>
+#include <Utils/uri.hpp>
 
 namespace SAX
 {
@@ -58,7 +59,7 @@ public:
 
   void setDocumentLocation(const stringT& loc)
   {
-    bases_.push(std::make_pair(-1, loc));
+    bases_.push(std::make_pair(-1, trim(loc)));
   } // setDocumentLocation
 
   void startElement(const AttributesT& atts)
@@ -87,41 +88,24 @@ public:
 private:
   stringT absolutise(const stringT& baseURI, const stringT& location)
   {
-    static const stringT SCHEME_MARKER = string_adaptorT::construct_from_utf8("://");
-    static const valueT FORWARD_SLASH = string_adaptorT::convert_from_utf8(Arabica::Unicode<char>::SLASH);
-
-    if(location.find(SCHEME_MARKER) != string_adaptorT::npos())
-      return location;
-
-    std::ostringstream ss;
-    if(location[0] == FORWARD_SLASH)
-    {
-      // prepend URI scheme and location
-      size_t schemeLen = baseURI.find(SCHEME_MARKER) + SCHEME_MARKER.length();
-      ss << baseURI.substr(0, baseURI.find(FORWARD_SLASH, schemeLen+1));
-    }
-    else
-    {
-      // relative
-      ss << baseURI;
-      if(baseURI.find(FORWARD_SLASH) == baseURI.length()-1)
-        ss << FORWARD_SLASH;
-    }
-    ss << location;
-
-    return string_adaptorT::construct_from_utf8(ss.str().c_str());
+    Arabica::io::URI absolute(Arabica::io::URI(baseURI), location);
+    return string_adaptorT::construct_from_utf8(absolute.as_string().c_str());
   } // absolutise
 
   stringT absolutiseAndTrim(const stringT& baseURI, const stringT& location)
   {
+    return trim(absolutise(baseURI, location));
+  } // absolutiseAndTrim
+
+  stringT trim(const stringT& location)
+  {
     static const valueT FORWARD_SLASH = string_adaptorT::convert_from_utf8(Arabica::Unicode<char>::SLASH);
 
-    stringT newlocation = absolutise(baseURI, location);
-    if(newlocation[newlocation.length()] == FORWARD_SLASH)
-      return newlocation;
+    if(location[location.length()] == FORWARD_SLASH)
+      return location;
 
-    return newlocation.substr(0, newlocation.rfind(FORWARD_SLASH)+1);
-  } // absolutiseAndTrim
+    return location.substr(0, location.rfind(FORWARD_SLASH)+1);
+  } // trim
 
   stringT currentBase() const
   {

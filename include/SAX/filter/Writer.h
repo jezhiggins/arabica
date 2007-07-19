@@ -27,7 +27,8 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>
     typedef basic_XMLFilterImpl<stringT> XMLFilterT;
     typedef typename basic_XMLFilterImpl<stringT>::AttributesT AttributesT;
     typedef Arabica::Unicode<charT> UnicodeT;
-    typedef Arabica::XML::escaper<charT, traitsT> escaperT;
+    typedef Arabica::XML::text_escaper<charT, traitsT> text_escaperT;
+    typedef Arabica::XML::attribute_escaper<charT, traitsT> attribute_escaperT;
   private:
     typedef basic_LexicalHandler<stringT> LexicalHandlerT;
     typedef basic_DeclHandler<stringT> DeclHandlerT;
@@ -221,7 +222,7 @@ void basic_Writer<string_type>::startElement(
              << UnicodeT::EQUALS_SIGN
              << UnicodeT::QUOTATION_MARK;
     stringT value = atts.getValue(i); 
-    std::for_each(value.begin(), value.end(), escaperT(*stream_));
+    std::for_each(value.begin(), value.end(), attribute_escaperT(*stream_));
     *stream_ << UnicodeT::QUOTATION_MARK;
   }
 
@@ -255,7 +256,7 @@ template<class string_type>
 void basic_Writer<string_type>::characters(const stringT& ch)
 {
   if(!inCDATA_)
-    std::for_each(ch.begin(), ch.end(), escaperT(*stream_));
+    std::for_each(ch.begin(), ch.end(), text_escaperT(*stream_));
   else
     *stream_ << ch;
 
@@ -419,7 +420,7 @@ void basic_Writer<string_type>::comment(const stringT& text)
 template<class string_type>
 void basic_Writer<string_type>::notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
-  if(internalSubset_)
+  if(inDTD_ && internalSubset_)
   {
     doIndent();
 
@@ -448,7 +449,7 @@ void basic_Writer<string_type>::notationDecl(const stringT& name, const stringT&
 template<class string_type>
 void basic_Writer<string_type>::unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName)
 {
-  if(internalSubset_)
+  if(inDTD_ && internalSubset_)
   {
     doIndent();
 
@@ -473,7 +474,7 @@ void basic_Writer<string_type>::unparsedEntityDecl(const stringT& name, const st
 template<class string_type>
 void basic_Writer<string_type>::elementDecl(const stringT& name, const stringT& model)
 {
-  if(internalSubset_)
+  if(inDTD_ && internalSubset_)
   {
     doIndent();
 
@@ -502,7 +503,7 @@ template<class string_type>
 void basic_Writer<string_type>::attributeDecl(const stringT& elementName, const stringT& attributeName,
                                const stringT& type, const stringT& valueDefault, const stringT& value)
 {
-  if(internalSubset_)
+  if(inDTD_ && internalSubset_)
   {
     doIndent();
 
@@ -542,7 +543,7 @@ void basic_Writer<string_type>::attributeDecl(const stringT& elementName, const 
 template<class string_type>
 void basic_Writer<string_type>::internalEntityDecl(const stringT& name, const stringT& value)
 {
-  if(internalSubset_)
+  if(inDTD_ && internalSubset_)
   {
     doIndent();
     startEntityDecl(name);
@@ -560,7 +561,7 @@ void basic_Writer<string_type>::internalEntityDecl(const stringT& name, const st
 template<class string_type>
 void basic_Writer<string_type>::externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
-  if(internalSubset_)
+  if(inDTD_ && internalSubset_)
   {
     doIndent();
     startEntityDecl(name);

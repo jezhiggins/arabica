@@ -17,8 +17,8 @@ public:
     deleteStream_(false),
     byteStream_(0)
   {
-    open(SA.asStdString(inputSource.getPublicId()),
-         SA.asStdString(inputSource.getSystemId()),
+    open(stringAdaptorT::asStdString(inputSource.getPublicId()),
+         stringAdaptorT::asStdString(inputSource.getSystemId()),
          inputSource.getByteStream());
   } // InputSourceResolver
   ~InputSourceResolver();

@@ -7,7 +7,7 @@
 #define DEF_SAX_P libxml2_wrapper
 #ifdef _MSC_VER
 #pragma message("Including libxml2")
-#pragma commentcomment(lib, "libxml2.lib")
+#pragma comment(lib, "libxml2.lib")
 #endif
 #endif
 
