@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <out>
+  
+DS   1. AC: north
+DS   2. AD: near-north
+DS   3. BC: north
+DS   4. BD: near-north
+NDS  5. CC: north
+NDS  6. CD: near-north
+NDS  7. CE: near-north
+NDS  8. DC: near-north
+NDS  9. DD: far-west
+
+NDS 10. ACC: north
+NDS 11. ACE: near-north
+NDS 12. ADC: near-north
+NDS 13. BCC: north
+NDS 14. BCE: near-north
+NDS 15. BDC: far-west
+NDS 16. BDE: far-west
+NDS 17. CCC: north
+NDS 18. CCE: near-north
+NDS 19. CDC: near-north
+NDS 20. CDE: far-west
+NDS 21. CEC: near-north
+NDS 22. CEE: far-west
+NDS 23. DCC: near-north
+NDS 24. DCE: far-west
+NDS 25. DDC: far-west
+
+DS  26. CC: north
+DS  27. CD: near-north
+DS  28. CE: near-north
+DS  29. DC: near-north
+DS  30. DD: far-west
+
+DS  31. ACC: north
+DS  32. ACE: near-north
+DS  33. ADC: near-north
+DS  34. BCC: north
+DS  35. BCE: near-north
+DS  36. BDC: far-west
+DS  37. BDE: far-west
+DS  38. CCC: north
+DS  39. CCE: near-north
+DS  40. CDC: near-north
+DS  41. CDE: far-west
+DS  42. CEC: near-north
+DS  43. CEE: far-west
+DS  44. DCC: near-north
+DS  45. DCE: far-west
+DS  46. DDC: far-west</out>

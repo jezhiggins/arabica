@@ -1,0 +1,1 @@
+<preceding-count xmlns:my="http://my.com">34</preceding-count>

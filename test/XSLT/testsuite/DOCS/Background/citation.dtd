@@ -1,0 +1,101 @@
+<!--Citations to specifications or Recommendations-->
+<!--$Date: 2001/09/24 21:39:02 $(UTC) -->
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
+
+<!--===== Overview =========================================================
+
+This DTD fragment defines the model of specification citations and is used
+by other DTDs in the system. The configuration XML-instance document for a
+test regime lists all the specs that can be cited and specifies the "types"
+of citations that apply to each. It also contains the URIs for all the
+versions of all the specs. As a aid to generating reports and indexes,
+citation-types can be characterized as either "human" or "machine" to
+indicate how they trade off readability for precision. (When a citation-type
+may be considered to be both, choose "machine" to denote that it has enough
+precision for indexing purposes.) The format of the "place" attribute below
+depends on the citation-type.
+
+Each pertinent standard should be cited by version number, but
+also flagged as to its errata status when relevant. The version values
+mentioned above are numeric so that inequality tests may be applied. The
+main spec version should always be present, and should be set to a default
+if the test is really about some other associated spec. In other words,
+when dealing with two or more specifications, any test that is essentially 
+a pure test of one specification should assume the base version of the
+others.  Any test that is essentially about a newer spec, should specify
+the lowest practical level of the other specifications, which may have to
+be higher than the base level if modifications are necessary for the newer
+facility to work at all.
+
+The version-drop allows intermixing of tests that become obsolete for
+newer versions of a standard. It indicates that the test case is no longer
+pertinent as of that version.
+
+Errata are independent of newer spec versions, and multiple errata could be
+issued per version. Our flexible approach is to have a spec-citation
+attribute named "errata-add" that contains a date or numeric value (0 for
+the base document) (like the E-number in the XSLT errata); "errata-drop" is
+numerically larger and indicates that the test case is no longer pertinent
+as of that errata version. Not all Working Groups are numbering their
+errata, so there is some safety in using dates. Date is a required
+attribute and should be in ISO-8601 format, which will sort numerically.
+The add and drop levels allow a test case to be marked as being
+relevant for errata that later get further clarified. The errata-drop must
+always be numerically greater than errata-add, and likewise for the dates.
+Errata parameters need only be specified where the test applies to a
+specific erratum, or the base document only, because they are used for
+filtering. In other words, a test case that should not have any errata
+designations unless there is at least one erratum that could make the
+test excludable for processors that came either before or after that
+erratum.
+
+-->
+
+<!--Constraints:
+
+ spec=    ->  configuration <cite-spec id=>
+ version= ->  configuration <version-spec Version=>
+ type=    ->  configuration <spec type=>
+ version-drop, if specified, must be strictly greater (later) than Version 
+ errata-drop, if specified, must be strictly greater (later) than errata-add
+ errata-add-date and errata-drop-date should be rendered as dates with best
+                                      practice of ISO 8601, yyyy-mm-dd
+-->
+
+<!ELEMENT spec-citation EMPTY >
+<!ATTLIST spec-citation spec NMTOKEN #REQUIRED
+                        version CDATA #REQUIRED
+                        type NMTOKEN #REQUIRED
+                        version-drop NMTOKEN #IMPLIED
+                        errata-add NMTOKEN #IMPLIED
+                        errata-add-date CDATA #IMPLIED
+                        errata-drop NMTOKEN #IMPLIED
+                        errata-drop-date CDATA #IMPLIED
+                        place CDATA #REQUIRED>
+
+<!--end of file-->

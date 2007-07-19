@@ -1,0 +1,114 @@
+<!--Configuration of parameters of a test regime-->
+<!--$Date: 2001/11/29 17:30:52 $(UTC)-->
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
+
+<!--===== Overview =========================================================
+
+Typical use: <!DOCTYPE suite SYSTEM "config.dtd">
+
+An instance of this document model configures the validation of a suite of
+test cases against a test regime.
+
+-->
+<!--===== External document model fragments ================================-->
+
+<!--citations to the Recommendations-->
+<!ENTITY % citation-dtd SYSTEM "citation.dtd">
+%citation-dtd;
+
+<!--prose-oriented constructs-->
+<!ENTITY % prose-dtd SYSTEM "prose.dtd">
+%prose-dtd;
+
+<!ELEMENT suite ( info, discretion-statuses, categories, citations, 
+                  gray-areas?, scenarios )>
+<!ATTLIST suite date CDATA #REQUIRED
+                resource-types 
+                ( fully-provided | partly-provided | fully-derived ) #REQUIRED>
+<!--
+  fully-provided - all resources used must be itemized in catalog
+  partly-derived - some resources used or generated aren't listed; 
+                   names are derived from catalog data
+  fully-derived  - resources used aren't itemized; 
+                   names are derived from catalog data
+-->
+
+<!ELEMENT info ( committee, desc )>
+<!ELEMENT desc %prose;>
+<!ELEMENT committee ( #PCDATA )>
+
+<!ELEMENT discretion-statuses ( desc?, discretion-status+ )>
+<!ELEMENT discretion-status %prose;>
+<!ATTLIST discretion-status id ID #REQUIRED>
+
+<!ELEMENT categories ( desc?, category+ )>
+<!ELEMENT category %prose;>
+<!ATTLIST category id ID #REQUIRED>
+
+<!ELEMENT citations ( desc?, citation-types, citation-specifications )>
+<!ELEMENT citation-types ( desc?, cite-type+ )>
+<!ELEMENT cite-type %prose;>
+<!ATTLIST cite-type id ID #REQUIRED
+                    method ( human | machine ) #REQUIRED>
+<!ELEMENT citation-specifications ( desc?, cite-spec+ )>
+<!ELEMENT cite-spec ( desc?, version-spec+ )>
+<!ATTLIST cite-spec id ID #REQUIRED>
+<!ELEMENT version-spec ( desc?, spec+ )>
+<!ATTLIST version-spec version NMTOKEN #REQUIRED>
+<!ELEMENT spec %prose;>
+<!ATTLIST spec type IDREF #REQUIRED
+               ref CDATA #REQUIRED
+               ref-linkable ( yes | no ) "yes"
+               prefix CDATA #IMPLIED
+               infix CDATA #IMPLIED
+               suffix CDATA #IMPLIED>
+
+<!ELEMENT gray-areas ( desc?, gray-area+ )>
+<!ELEMENT gray-area ( spec-citation+, choices?, desc )>
+<!ATTLIST gray-area id ID #REQUIRED>
+<!ELEMENT choices ( desc?, choice+ )>
+<!ELEMENT choice %prose;>
+<!ATTLIST choice value NMTOKEN #REQUIRED>
+
+<!ELEMENT scenarios ( desc?, operations, roles?, 
+                      comparisons?, parameter-types? )>
+<!ELEMENT operations ( desc?, operation+ )>
+<!ELEMENT operation %prose;>
+<!ATTLIST operation id ID #REQUIRED>
+<!ELEMENT roles ( desc?, role+ )>
+<!ELEMENT role %prose;>
+<!ATTLIST role id ID #REQUIRED
+               required ( input-file | output-file ) #IMPLIED>
+<!ELEMENT comparisons ( desc?, comparison+ )>
+<!ELEMENT comparison %prose;>
+<!ATTLIST comparison id ID #REQUIRED>
+<!ELEMENT parameter-types ( desc?, parameter-type+ )>
+<!ELEMENT parameter-type %prose;>
+<!ATTLIST parameter-type id ID #REQUIRED>
+
+<!--end of file-->

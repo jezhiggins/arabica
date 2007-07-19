@@ -1,0 +1,87 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Fallback" description="" outpath="out">
+	<variation name="_91817">
+		<description>XSLT | xsl:fallback | Instantiate xsl:fallback when not necessary | Do nothing</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91817.xsl</xsl>
+		</data>
+		<result expected="valid">91817.txt</result>
+	</variation>
+	<variation name="_91818">
+		<description>XSLT | xsl:fallback | Base Case - Instantiate a non-existing element in XSLT 1.0 in Forwards Compatible Processing Mode and then fallback instantiating the content of xsl:fallback</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91818.xsl</xsl>
+		</data>
+		<result expected="valid">91818.txt</result>
+	</variation>
+	<variation name="_91819">
+		<description>XSLT | xsl:fallback | Instruction element has more than 1 xsl:fallback blocks | Instantiate all in sequence</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91819.xsl</xsl>
+		</data>
+		<result expected="valid">91819.txt</result>
+	</variation>
+	<variation name="_91820">
+		<description>XSLT | xsl:fallback | xsl:fallback has an unknown tag 'content' | Instantiate the content tag</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91820.xsl</xsl>
+		</data>
+		<result expected="valid">91820.txt</result>
+	</variation>
+	<variation name="_91821">
+		<description>XSLT | xsl:fallback | A variable is referenced within xsl:fallback where the variable is declared</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91821.xsl</xsl>
+		</data>
+		<result expected="valid">91821.txt</result>
+	</variation>
+	<variation name="_91822">
+		<description>XSLT | xsl:fallback | A variable is referenced within xsl:fallback where the variable is NOT declared | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91822.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91823">
+		<description>XSLT | xsl:fallback | Multiple fallback but with other nodes in between fallback elements</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91823.xsl</xsl>
+		</data>
+		<result expected="valid">91823.txt</result>
+	</variation>
+	<variation name="_91824">
+		<description>XSLT | xsl:fallback | Recursive Fallback, that is fallback within a fallback element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91824.xsl</xsl>
+		</data>
+		<result expected="valid">91824.txt</result>
+	</variation>
+	<variation name="_91825">
+		<description>XSLT | xsl:fallback | Instantiate xsl:fallback outside the instruction element, say xsl:foo | Ignore xsl:fallback and error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91825.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91826">
+		<description>XSLT | xsl:fallback | Instantiate xsl:fallback as a top level element | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91826.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+</testcase>

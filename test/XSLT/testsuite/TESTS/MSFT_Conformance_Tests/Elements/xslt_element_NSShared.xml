@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>  
+<root xmlns:a="ns1">  
+ 
+<a:AAA id='a1' pos='start' xml:space="preserve">
+	Text Foo   
+</a:AAA>   
+<a:AAA  id='a2' xml:space="default">   
+	Text Bar
+</a:AAA>   
+</root> 
+
+
+
+
+
+
+

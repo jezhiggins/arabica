@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<doc xmlns:ped="http://www.ped.com">
+  <a x1="big" x2="bigger" ped:x3="small" ped:x4="smaller"/>
+</doc>

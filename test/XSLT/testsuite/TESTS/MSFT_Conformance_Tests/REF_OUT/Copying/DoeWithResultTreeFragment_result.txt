@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><bareroot>
+	      &lt; &amp; dog &gt; ' "
+	   <foo>
+	      &lt; &amp; dog &gt; ' "
+	   </foo></bareroot>

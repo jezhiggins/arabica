@@ -1,0 +1,1767 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0067)http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm -->
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+--><HTML><HEAD><TITLE>Discretionary behavior in 'XSL Transformations (XSLT)' and 'XPath'</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="MSHTML 6.00.2800.1491" name=GENERATOR></HEAD>
+<BODY>
+<H1>Discretionary behavior in '<STRONG>XSL Transformations (XSLT)</STRONG>' and 
+'<STRONG>XPath</STRONG>' </H1>
+<P>Revised: $Date: 2001/11/16 17:19:12 $(UTC)</P><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#introduction">1. 
+Introduction</A><BR><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#statuses">2. 
+Status</A><BR><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#Implemented">2.1 
+Implemented</A><BR><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#Active">2.2 
+Active</A><BR><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#Postponed">2.3 
+Postponed</A><BR><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#Configuration">2.4 
+Configuration</A><BR><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#Recognized">2.5 
+Recognized</A><BR><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#tocs">3. 
+Tables of Content</A><BR><A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#history">4. 
+Change History</A><BR>
+<HR>
+
+<H1><A name=introduction>1. Introduction</A></H1><INTRO>
+<P>This document details identified areas of the XSLT and XPath Recommendations 
+that describe or allow optionality in the behavior of an XSLT processor. The 
+majority of the identified optional or discretionary behavior concerns detection 
+or recovery from error conditions, but other areas have been identified as well. 
+This document is also the foundation for a questionnaire for developers of XSLT 
+processors; it asks questions that a test lab would need answered in order to 
+administer the test suite to that devloper's processor. </P>
+<P>Each area of discretionary behavior is shown as an entry comprising at least 
+five items: </P>
+<UL>
+  <LI>Unique, descriptive, but somewhat arbitrary identifier (used in cataloging 
+  test cases) 
+  <LI>A simple citation of the XSLT Recommendation section number and title of 
+  the section containing the description of the discretionary behavior, or 
+  erratum number 
+  <LI>A more complex citation in the form of an XPath for locating the excerpt 
+  of the XML version of the XSLT or XPath Recommendation or Errata document 
+  <LI>Excerpt from the XSLT or XPath Recommendation of the paragraph or other 
+  element located by the XPath and containing the description of the 
+  discretionary error handling. The description of the discretionary behavior is 
+  highlighted. 
+  <LI>Description of the discretionary behavior recast as a question, which can 
+  be answered briefly. The questions would be asked of each processor developer. 
+
+  <LI>Guidance concerning interlocking answers to questions is provided when 
+  pertinent. </LI></UL>
+<P>Answers to the "testable" questions are expressed as keywords so that the 
+cataloging information about the test cases will be readable without reference 
+to this document, at least after one has attained familiarity with the 
+discretionary areas. The complete set of keywords, as of this writing, is: 
+<STRONG>add-space</STRONG>, <STRONG>choose-last</STRONG>, 
+<STRONG>ignore</STRONG>, <STRONG>moot</STRONG>, <STRONG>no</STRONG>, 
+<STRONG>pass-through</STRONG>, <STRONG>raise-error</STRONG>, 
+<STRONG>return-empty</STRONG>, <STRONG>yes</STRONG>. </P>
+<P>Where longer answers are required depending on the brief answer, the 
+"ELABORATE" flag is shown. </P>
+<P>The questions are not all independent. The "INTERLOCK" flag appears when 
+answers to two or more questions should be reviewed for consistency. 
+</P></INTRO>
+<HR>
+
+<H1><A name=statuses>2. Status</A></H1>
+<H2><A name=Implemented>2.1 Implemented</A></H2>
+<P>The following items represent statements in the XSLT and XPath 
+Recommendations that identify discretionary behavior that are controlling test 
+selection in the current version of the test suite. </P>
+<HR>
+
+<H2><A name=number-not-positive>2.1.1 number-not-positive</A></H2>
+<P>The xsl:number element is used to insert a formatted number into the result 
+tree. The number to be inserted may be specified by an expression. The value 
+attribute contains an expression. The expression is evaluated and the resulting 
+object is converted to a number as if by a call to the number function. <SPAN 
+style="COLOR: red">It is an error if the number is NaN, infinite or less than 
+0.5; an XSLT processor may signal the error; if it does not signal the error, it 
+must recover by converting the number to a string as if by a call to the string 
+function and inserting the resulting string into the result tree.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when xsl:number is given NaN, Infinity, or a 
+non-positive number? </P>
+<P><EM>Valid choices: </EM>pass-through, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/1999/11/REC-xslt-19991116-errata Section: Erratum 
+  E24, affecting 7.7 </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/1999/11/REC-xslt-19991116-errata#E24">http://www.w3.org/1999/11/REC-xslt-19991116-errata#E24</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=Active>2.2 Active</A></H2>
+<P>The following items represent statements in the XSLT and XPath 
+Recommendations that identify discretionary behavior that are proposed for 
+testing in the next deliverable version of the test suite. </P>
+<HR>
+
+<H2><A name=unresolved-strip-preserve-conflict>2.2.1 
+unresolved-strip-preserve-conflict</A></H2>
+<P>It is an error if this leaves more than one match. <SPAN 
+style="COLOR: red">An XSLT processor may signal the error; if it does not signal 
+the error, it must recover by choosing, from amongst the matches that are left, 
+the one that occurs last in the stylesheet.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when there is an unresolved conflict between matches 
+to xsl:strip-space and xsl:preserve-space elements? </P>
+<P><EM>Valid choices: </EM>choose-last, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 3.4 Whitespace 
+  Stripping </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('strip')/p[7])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('strip')/p[7])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=unresolved-template-rule-conflict>2.2.2 
+unresolved-template-rule-conflict</A></H2>
+<P>It is an error if this leaves more than one matching template rule. <SPAN 
+style="COLOR: red">An XSLT processor may signal the error; if it does not signal 
+the error, it must recover by choosing, from amongst the matching template rules 
+that are left, the one that occurs last in the stylesheet.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when there is an unresolved conflict between matches 
+to xsl:template elements? </P>
+<P><EM>Valid choices: </EM>choose-last, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 5.5 Conflict 
+  Resolution for Template Rules </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('conflict')/p[2])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('conflict')/p[2])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=multiple-alias-same-precedence>2.2.3 
+multiple-alias-same-precedence</A></H2>
+<P>A stylesheet can use the xsl:namespace-alias element to declare that one 
+namespace URI is an alias for another namespace URI. When a literal namespace 
+URI has been declared to be an alias for another namespace URI, then the 
+namespace URI in the result tree will be the namespace URI that the literal 
+namespace URI is an alias for, instead of the literal namespace URI itself. The 
+xsl:namespace-alias element declares that the namespace URI bound to the prefix 
+specified by the stylesheet-prefix attribute is an alias for the namespace URI 
+bound to the prefix specified by the result-prefix attribute. Thus, the 
+stylesheet-prefix attribute specifies the namespace URI that will appear in the 
+stylesheet, and the result-prefix attribute specifies the corresponding 
+namespace URI that will appear in the result tree. The default namespace (as 
+declared by xmlns) may be specified by using #default instead of a prefix. If a 
+namespace URI is declared to be an alias for multiple different namespace URIs, 
+then the declaration with the highest import precedence is used. It is an error 
+if there is more than one such declaration. <SPAN style="COLOR: red">An XSLT 
+processor may signal the error; if it does not signal the error, it must recover 
+by choosing, from amongst the declarations with the highest import precedence, 
+the one that occurs last in the stylesheet.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when a namespace URI is declared to be an alias for 
+multiple different namespace URIs and the declarations share the highest import 
+precedence? </P>
+<P><EM>Valid choices: </EM>choose-last, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.1 Literal 
+  Result Elements </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116#literal-result-element">http://www.w3.org/TR/1999/REC-xslt-19991116#literal-result-element</A> 
+
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('literal-result-element')/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('literal-result-element')/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=element-name-not-QName>2.2.4 element-name-not-QName</A></H2>
+<P>The name attribute is interpreted as an attribute value template. It is an 
+error if the string that results from instantiating the attribute value template 
+is not a QName. <SPAN style="COLOR: red">An XSLT processor may signal the error; 
+if it does not signal the error, then it must recover by making the the result 
+of instantiating the xsl:element element be the sequence of nodes created by 
+instantiating the content of the xsl:element element, excluding any initial 
+attribute nodes.</SPAN> If the namespace attribute is not present then the QName 
+is expanded into an expanded-name using the namespace declarations in effect for 
+the xsl:element element, including any default namespace declaration. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when the result of instantiating the name attribute 
+of the xsl:element element is not a QName? </P>
+<P><EM>Valid choices: </EM>pass-through, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.2 Creating 
+  Elements with xsl:element </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[1]/div3[2]/p[2])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[1]/div3[2]/p[2])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=attribute-name-not-QName>2.2.5 attribute-name-not-QName</A></H2>
+<P>The name attribute is interpreted as an attribute value template. It is an 
+error if the string that results from instantiating the attribute value template 
+is not a QName or is the string xmlns. <SPAN style="COLOR: red">An XSLT 
+processor may signal the error; if it does not signal the error, it must recover 
+by not adding the attribute to the result tree.</SPAN> If the namespace 
+attribute is not present, then the QName is expanded into an expanded-name using 
+the namespace declarations in effect for the xsl:attribute element, not 
+including any default namespace declaration. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when the result of instantiating the name attribute 
+of the xsl:attribute element is not a QName? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.3 Creating 
+  Attributes with xsl:attribute </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/p[2])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/p[2])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=add-attribute-after-children>2.2.6 
+add-attribute-after-children</A></H2>
+<P>Adding an attribute to an element after children have been added to it; <SPAN 
+style="COLOR: red">implementations may either signal the error or ignore the 
+attribute.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when an attribute is added to an element after 
+children have been added to it? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.3 Creating 
+  Attributes with xsl:attribute </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/ulist[1]/item[1]/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/ulist[1]/item[1]/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=add-attribute-to-non-element>2.2.7 
+add-attribute-to-non-element</A></H2>
+<P>Adding an attribute to a node that is not an element; <SPAN 
+style="COLOR: red">implementations may either signal the error or ignore the 
+attribute.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when an attribute is added to a node that is not an 
+element? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Interlock: </EM>If the answer to '<A>add-attribute-to-non-element</A>' 
+doesn't match the answers to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#attribute-non-text-content">attribute-non-text-content</A>', 
+'<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#PI-non-text-content">PI-non-text-content</A>', 
+or '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#comment-non-text-content">comment-non-text-content</A>', 
+please review the behavior. If the inconsistency was intentional, ELABORATE on 
+what happens when an attempt is made to add an attribute as content to 
+attributes, processing instructions, and comments. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.3 Creating 
+  Attributes with xsl:attribute </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/ulist[1]/item[2]/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/ulist[1]/item[2]/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=attribute-non-text-content>2.2.8 attribute-non-text-content</A></H2>
+<P>Creating nodes other than text nodes during the instantiation of the content 
+of the xsl:attribute element; <SPAN style="COLOR: red">implementations may 
+either signal the error or ignore the offending nodes.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when nodes other than text nodes are created when 
+instantiating the content of the xsl:attribute element? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Interlock: </EM>If the answer to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#add-attribute-to-non-element">add-attribute-to-non-element</A>' 
+doesn't match the answers to '<A>attribute-non-text-content</A>', '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#PI-non-text-content">PI-non-text-content</A>', 
+or '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#comment-non-text-content">comment-non-text-content</A>', 
+please review the behavior. If the inconsistency was intentional, ELABORATE on 
+what happens when an attempt is made to add an attribute as content to 
+attributes, processing instructions, and comments. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.3 Creating 
+  Attributes with xsl:attribute </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/ulist[1]/item[3]/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/ulist[1]/item[3]/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=two-attribute-set-same-attribute>2.2.9 
+two-attribute-set-same-attribute</A></H2>
+<P>Multiple definitions of an attribute set with the same expanded-name are 
+merged. An attribute from a definition that has higher import precedence takes 
+precedence over an attribute from a definition that has lower import precedence. 
+It is an error if there are two attribute sets that have the same expanded-name 
+and equal import precedence and that both contain the same attribute, unless 
+there is a definition of the attribute set with higher import precedence that 
+also contains the attribute. <SPAN style="COLOR: red">An XSLT processor may 
+signal the error; if it does not signal the error, it must recover by choosing 
+from amongst the definitions that specify the attribute that have the highest 
+import precedence the one that was specified last in the stylesheet.</SPAN> 
+Where the attributes in an attribute set were specified is relevant only in 
+merging the attributes into the attribute set; it makes no difference when the 
+attribute set is used. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when two attribute sets that have the same expanded 
+name and share the highest import precedence both contain the same attribute? 
+</P>
+<P><EM>Valid choices: </EM>choose-last, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.4 Named 
+  Attribute Sets </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('attribute-sets')/p[6])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('attribute-sets')/p[6])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=PI-name-not-NCName-PItarget>2.2.10 
+PI-name-not-NCName-PItarget</A></H2>
+<P>It is an error if the string that results from instantiating the name 
+attribute is not both an NCName and a PITarget. <SPAN style="COLOR: red">An XSLT 
+processor may signal the error; if it does not signal the error, it must recover 
+by not adding the processing instruction to the result tree.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when the result of instantiating the name attribute 
+of the xsl:processing-instruction element is not an NCName and a PITarget? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.3 Creating 
+  Processing Instructions </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[3]/p[4])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[3]/p[4])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=PI-non-text-content>2.2.11 PI-non-text-content</A></H2>
+<P>It is an error if instantiating the content of xsl:processing-instruction 
+creates nodes other than text nodes. <SPAN style="COLOR: red">An XSLT processor 
+may signal the error; if it does not signal the error, it must recover by 
+ignoring the offending nodes together with their content.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when nodes other than text nodes are created when 
+instantiating the content of the xsl:processing-instruction element? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Interlock: </EM>If the answer to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#add-attribute-to-non-element">add-attribute-to-non-element</A>' 
+doesn't match the answers to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#attribute-non-text-content">attribute-non-text-content</A>', 
+'<A>PI-non-text-content</A>', or '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#comment-non-text-content">comment-non-text-content</A>', 
+please review the behavior. If the inconsistency was intentional, ELABORATE on 
+what happens when an attempt is made to add an attribute as content to 
+attributes, processing instructions, and comments. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.3 Creating 
+  Processing Instructions </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[3]/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[3]/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=PI-content-contains-delimiter>2.2.12 
+PI-content-contains-delimiter</A></H2>
+<P>It is an error if the result of instantiating the content of the 
+xsl:processing-instruction contains the string ?&gt;. <SPAN 
+style="COLOR: red">An XSLT processor may signal the error; if it does not signal 
+the error, it must recover by inserting a space after any occurrence of ? that 
+is followed by a &gt;.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when the result of instantiating the content of the 
+xsl:processing-instruction element contains the string ?&gt;? </P>
+<P><EM>Valid choices: </EM>add-space, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.3 Creating 
+  Processing Instructions </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[3]/p[6])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[3]/p[6])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=comment-non-text-content>2.2.13 comment-non-text-content</A></H2>
+<P>It is an error if instantiating the content of xsl:comment creates nodes 
+other than text nodes. An XSLT processor may signal the error; if it does not 
+signal the error, it must recover by ignoring the offending nodes together with 
+their content. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when nodes other than text nodes are created when 
+instantiating the content of the xsl:comment element? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Interlock: </EM>If the answer to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#add-attribute-to-non-element">add-attribute-to-non-element</A>' 
+doesn't match the answers to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#attribute-non-text-content">attribute-non-text-content</A>', 
+'<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#PI-non-text-content">PI-non-text-content</A>', 
+or '<A>comment-non-text-content</A>', please review the behavior. If the 
+inconsistency was intentional, ELABORATE on what happens when an attempt is made 
+to add an attribute as content to attributes, processing instructions, and 
+comments. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.4 Creating 
+  Comments </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[4]/p[4])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[4]/p[4])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=comment-content-contains-delimiter>2.2.14 
+comment-content-contains-delimiter</A></H2>
+<P>It is an error if the result of instantiating the content of the xsl:comment 
+contains the string -- or ends with -. <SPAN style="COLOR: red">An XSLT 
+processor may signal the error; if it does not signal the error, it must recover 
+by inserting a space after any occurrence of - that is followed by another - or 
+that ends the comment.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when the result of instantiating the content of the 
+xsl:comment element contains the string -- or ends with -? </P>
+<P><EM>Valid choices: </EM>add-space, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.4 Creating 
+  Comments </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[4]/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[4]/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=RTF-root-attribute-namespace-child>2.2.15 
+RTF-root-attribute-namespace-child</A></H2>
+<P>It is an error if a member of the sequence of nodes created by instantiating 
+the template is an attribute node or a namespace node, since a root node cannot 
+have an attribute node or a namespace node as a child. <SPAN 
+style="COLOR: red">An XSLT processor may signal the error; if it does not signal 
+the error, it must recover by not adding the attribute node or namespace 
+node.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when instantiating a variable-binding element adds 
+an attribute node or namespace node as a child of the root of the result tree 
+fragment? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 11.2 Values of 
+  Variables and Parameters </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('variable-values')/ulist[1]/item[2]/p[2])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('variable-values')/ulist[1]/item[2]/p[2])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=add-namespace-to-non-element>2.2.16 
+add-namespace-to-non-element</A></H2>
+<P>When the current node is a namespace node, then copying it adds a namespace 
+node to the containing node in the result tree. <SPAN style="COLOR: red">It is 
+an error if this containing node is not an element; implementations may either 
+signal the error or ignore the namespace node.</SPAN> It is an error to add a 
+namespace node to an element after children have been added to it or after 
+attributes have been added to it; implementations may either signal an error or 
+ignore the namespace node. It is an error to add a namespace node to an element 
+if the element already has a namespace node with the same name, unless both 
+namespace nodes have the same string-value, in which case the duplicate is 
+ignored. It is an error to add a namespace node to an element if the namespace 
+node has a null name and the element has a null namespace URI. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when a namespace is copied to a node that is not an 
+element? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/1999/11/REC-xslt-19991116-errata Section: Erratum 
+  E25, affecting 7.5 </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/1999/11/REC-xslt-19991116-errata#E25">http://www.w3.org/1999/11/REC-xslt-19991116-errata#E25</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=add-namespace-after-children>2.2.17 
+add-namespace-after-children</A></H2>
+<P>When the current node is a namespace node, then copying it adds a namespace 
+node to the containing node in the result tree. It is an error if this 
+containing node is not an element; implementations may either signal the error 
+or ignore the namespace node. <SPAN style="COLOR: red">It is an error to add a 
+namespace node to an element after children have been added to it or after 
+attributes have been added to it; implementations may either signal an error or 
+ignore the namespace node.</SPAN> It is an error to add a namespace node to an 
+element if the element already has a namespace node with the same name, unless 
+both namespace nodes have the same string-value, in which case the duplicate is 
+ignored. It is an error to add a namespace node to an element if the namespace 
+node has a null name and the element has a null namespace URI. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when a namespace is copied to an element after 
+children have been added to it? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/1999/11/REC-xslt-19991116-errata Section: Erratum 
+  E25, affecting 7.5 </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/1999/11/REC-xslt-19991116-errata#E25">http://www.w3.org/1999/11/REC-xslt-19991116-errata#E25</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=unretrievable-resource>2.2.18 unretrievable-resource</A></H2>
+<P>When the first argument to the document function is not a node-set, the first 
+argument is converted to a string as if by a call to the string function. This 
+string is treated as a URI reference; the resource identified by the URI is 
+retrieved. The data resulting from the retrieval action is parsed as an XML 
+document and a tree is constructed in accordance with the data model (see 3 Data 
+Model). <SPAN style="COLOR: red">If there is an error retrieving the resource, 
+then the XSLT processor may signal an error; if it does not signal an error, it 
+must recover by returning an empty node-set.</SPAN> One possible kind of 
+retrieval error is that the XSLT processor does not support the URI scheme used 
+by the URI. An XSLT processor is not required to support any particular URI 
+schemes. The documentation for an XSLT processor should specify which URI 
+schemes the XSLT processor supports. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when there is an error retreiving the resouce 
+identified by a URI in an argument to the document function? </P>
+<P><EM>Valid choices: </EM>return-empty, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 12.1 Multiple 
+  Source Documents </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('document')/p[3])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('document')/p[3])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=unprocessable-fragment-identifier>2.2.19 
+unprocessable-fragment-identifier</A></H2>
+<P>If the URI reference does not contain a fragment identifier, then a node-set 
+containing just the root node of the document is returned. If the URI reference 
+does contain a fragment identifier, the function returns a node-set containing 
+the nodes in the tree identified by the fragment identifier of the URI 
+reference. The semantics of the fragment identifier is dependent on the media 
+type of the result of retrieving the URI. <SPAN style="COLOR: red">If there is 
+an error in processing the fragment identifier, the XSLT processor may signal 
+the error; if it does not signal the error, it must recover by returning an 
+empty node-set.</SPAN> Possible errors include: </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What-happens when there is an error processing the fragment 
+identifier in a URI in an argument to the document function? </P>
+<P><EM>Valid choices: </EM>return-empty, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 12.1 Multiple 
+  Source Documents </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('document')/p[4])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('document')/p[4])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=document-unresolvable-URI>2.2.20 document-unresolvable-URI</A></H2>
+<P>The URI reference may be relative. The base URI (see [3.2 Base URI]) of the 
+node in the second argument node-set that is first in document order is used as 
+the base URI for resolving the relative URI into an absolute URI. <SPAN 
+style="COLOR: red">It is an error if the second argument node-set is empty and 
+the URI reference is relative; the XSLT processor may signal the error; if it 
+does not signal an error, it must recover by returning an empty node-set.</SPAN> 
+</P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when the two arguments to the document() function do 
+not enable resolution of a relative URI reference? </P>
+<P><EM>Valid choices: </EM>return-empty, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/1999/11/REC-xslt-19991116-errata Section: Erratum 
+  E14, affecting 12.1 </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/1999/11/REC-xslt-19991116-errata#E14">http://www.w3.org/1999/11/REC-xslt-19991116-errata#E14</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=two-output-same-attribute>2.2.21 two-output-same-attribute</A></H2>
+<P>A stylesheet may contain multiple xsl:output elements and may include or 
+import stylesheets that also contain xsl:output elements. All the xsl:output 
+elements occurring in a stylesheet are merged into a single effective xsl:output 
+element. For the cdata-section-elements attribute, the effective value is the 
+union of the specified values. For other attributes, the effective value is the 
+specified value with the highest import precedence. It is an error if there is 
+more than one such value for an attribute. <SPAN style="COLOR: red">An XSLT 
+processor may signal the error; if it does not signal the error, if should 
+recover by using the value that occurs last in the stylesheet.</SPAN> The values 
+of attributes are defaulted after the xsl:output elements have been merged; 
+different output methods may have different default values for an attribute. 
+</P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when there is more than one instantiation of the 
+same attribute on multiple xsl:output elements that share the highest import 
+precedence? </P>
+<P><EM>Valid choices: </EM>choose-last, raise-error </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16 Output 
+</LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/p[8])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/p[8])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=unsupported-encoding-error>2.2.22 
+unsupported-encoding-error</A></H2>
+<P>The encoding attribute specifies the preferred encoding to use for outputting 
+the result tree. XSLT processors are required to respect values of UTF-8 and 
+UTF-16. For other values, <SPAN style="COLOR: red">if the XSLT processor does 
+not support the specified encoding it may signal an error; if it does not signal 
+an error it should use UTF-8 or UTF-16 instead</SPAN>. The XSLT processor must 
+not use an encoding whose name does not match the EncName production of the XML 
+Recommendation . If no encoding attribute is specified, then the XSLT processor 
+should use either UTF-8 or UTF-16. It is possible that the result tree will 
+contain a character that cannot be represented in the encoding that the XSLT 
+processor is using for output. In this case, if the character occurs in a 
+context where XML recognizes character references (i.e. in the value of an 
+attribute node or text node), then the character should be output as a character 
+reference; otherwise (for example if the character occurs in the name of an 
+element) the XSLT processor should signal an error. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Is an error raised when the encoding attribute of the xsl:output 
+element specifies an unsupported encoding? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Interlock: </EM>Cannot answer "yes" to more than one of 
+'<A>unsupported-encoding-error</A>', '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-UTF-8">unsupported-encoding-UTF-8</A>', 
+'<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-UTF-16">unsupported-encoding-UTF-16</A>'. 
+Answering, "no" to all is allowed, in which case please ELABORATE on what 
+encoding is used. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.1 XML Output 
+  Method </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=unsupported-encoding-UTF-8>2.2.23 
+unsupported-encoding-UTF-8</A></H2>
+<P>The encoding attribute specifies the preferred encoding to use for outputting 
+the result tree. XSLT processors are required to respect values of UTF-8 and 
+UTF-16. For other values, <SPAN style="COLOR: red">if the XSLT processor does 
+not support the specified encoding it may signal an error; if it does not signal 
+an error it should use UTF-8 or UTF-16 instead</SPAN>. The XSLT processor must 
+not use an encoding whose name does not match the EncName production of the XML 
+Recommendation . If no encoding attribute is specified, then the XSLT processor 
+should use either UTF-8 or UTF-16. It is possible that the result tree will 
+contain a character that cannot be represented in the encoding that the XSLT 
+processor is using for output. In this case, if the character occurs in a 
+context where XML recognizes character references (i.e. in the value of an 
+attribute node or text node), then the character should be output as a character 
+reference; otherwise (for example if the character occurs in the name of an 
+element) the XSLT processor should signal an error. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Is UTF-8 encoding always used when the encoding attribute of the 
+xsl:output element specifies an unsupported encoding? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Interlock: </EM>Cannot answer "yes" to more than one of '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-error">unsupported-encoding-error</A>', 
+'<A>unsupported-encoding-UTF-8</A>', '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-UTF-16">unsupported-encoding-UTF-16</A>'. 
+Answering, "no" to all is allowed, in which case please ELABORATE on what 
+encoding is used. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.1 XML Output 
+  Method </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=unsupported-encoding-UTF-16>2.2.24 
+unsupported-encoding-UTF-16</A></H2>
+<P>The encoding attribute specifies the preferred encoding to use for outputting 
+the result tree. XSLT processors are required to respect values of UTF-8 and 
+UTF-16. For other values, <SPAN style="COLOR: red">if the XSLT processor does 
+not support the specified encoding it may signal an error; if it does not signal 
+an error it should use UTF-8 or UTF-16 instead</SPAN>. The XSLT processor must 
+not use an encoding whose name does not match the EncName production of the XML 
+Recommendation . If no encoding attribute is specified, then the XSLT processor 
+should use either UTF-8 or UTF-16. It is possible that the result tree will 
+contain a character that cannot be represented in the encoding that the XSLT 
+processor is using for output. In this case, if the character occurs in a 
+context where XML recognizes character references (i.e. in the value of an 
+attribute node or text node), then the character should be output as a character 
+reference; otherwise (for example if the character occurs in the name of an 
+element) the XSLT processor should signal an error. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Is UTF-16 encoding always used when the encoding attribute of the 
+xsl:output element specifies an unsupported encoding? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Interlock: </EM>Cannot answer "yes" to more than one of '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-error">unsupported-encoding-error</A>', 
+'<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-UTF-8">unsupported-encoding-UTF-8</A>', 
+'<A>unsupported-encoding-UTF-16</A>'. Answering, "no" to all is allowed, in 
+which case please ELABORATE on what encoding is used. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.1 XML Output 
+  Method </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=default-encoding-UTF-8>2.2.25 default-encoding-UTF-8</A></H2>
+<P>The encoding attribute specifies the preferred encoding to use for outputting 
+the result tree. XSLT processors are required to respect values of UTF-8 and 
+UTF-16. For other values, if the XSLT processor does not support the specified 
+encoding it may signal an error; if it does not signal an error it should use 
+UTF-8 or UTF-16 instead. The XSLT processor must not use an encoding whose name 
+does not match the EncName production of the XML Recommendation . <SPAN 
+style="COLOR: red">If no encoding attribute is specified, then the XSLT 
+processor should use either UTF-8 or UTF-16</SPAN>. It is possible that the 
+result tree will contain a character that cannot be represented in the encoding 
+that the XSLT processor is using for output. In this case, if the character 
+occurs in a context where XML recognizes character references (i.e. in the value 
+of an attribute node or text node), then the character should be output as a 
+character reference; otherwise (for example if the character occurs in the name 
+of an element) the XSLT processor should signal an error. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Is UTF-8 encoding used by default? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Interlock: </EM>Cannot answer "yes" to both 
+'<A>default-encoding-UTF-8</A>'and '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#default-encoding-UTF-16">default-encoding-UTF-16</A>'. 
+Answering "no" to both is allowed, in which case please ELABORATE on what 
+encoding is used. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.1 XML Output 
+  Method </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=default-encoding-UTF-16>2.2.26 default-encoding-UTF-16</A></H2>
+<P>The encoding attribute specifies the preferred encoding to use for outputting 
+the result tree. XSLT processors are required to respect values of UTF-8 and 
+UTF-16. For other values, if the XSLT processor does not support the specified 
+encoding it may signal an error; if it does not signal an error it should use 
+UTF-8 or UTF-16 instead. The XSLT processor must not use an encoding whose name 
+does not match the EncName production of the XML Recommendation . <SPAN 
+style="COLOR: red">If no encoding attribute is specified, then the XSLT 
+processor should use either UTF-8 or UTF-16</SPAN>. It is possible that the 
+result tree will contain a character that cannot be represented in the encoding 
+that the XSLT processor is using for output. In this case, if the character 
+occurs in a context where XML recognizes character references (i.e. in the value 
+of an attribute node or text node), then the character should be output as a 
+character reference; otherwise (for example if the character occurs in the name 
+of an element) the XSLT processor should signal an error. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Is UTF-16 encoding used by default? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Interlock: </EM>Cannot answer "yes" to both '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#default-encoding-UTF-8">default-encoding-UTF-8</A>'and 
+'<A>default-encoding-UTF-16</A>'. Answering "no" to both is allowed, in which 
+case please ELABORATE on what encoding is used. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.1 XML Output 
+  Method </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=support-disable-output-escaping>2.2.27 
+support-disable-output-escaping</A></H2>
+<P></P>
+<P>An XSLT processor will only be able to disable output escaping if it controls 
+how the result tree is output. This may not always be the case. For example, the 
+result tree may be used as the source tree for another XSLT transformation 
+instead of being output. An XSLT processor is not required to support disabling 
+output escaping. <SPAN style="COLOR: red">If an xsl:value-of or xsl:text 
+specifies that output escaping should be disabled and the XSLT processor does 
+not support this, the XSLT processor may signal an error; if it does not signal 
+an error, it must recover by not disabling output escaping.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Does the processor support disabling output escaping? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Interlock: </EM>Answering "yes" to 
+'<A>support-disable-output-escaping</A>' renders '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-disabled-output-escaping">unsupported-disabled-output-escaping</A>' 
+moot. </P>
+<P><EM>Interlock: </EM>Answering "no" to 
+'<A>support-disable-output-escaping</A>' renders '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-text-disabled-output-escaping">non-text-disabled-output-escaping</A>' 
+and '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unrepresented-character-disabled-output-escaping">unrepresented-character-disabled-output-escaping</A>' 
+moot. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.4 Disabling 
+  OutputEscaping </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=unsupported-disabled-output-escaping>2.2.28 
+unsupported-disabled-output-escaping</A></H2>
+<P>An XSLT processor will only be able to disable output escaping if it controls 
+how the result tree is output. This may not always be the case. For example, the 
+result tree may be used as the source tree for another XSLT transformation 
+instead of being output. An XSLT processor is not required to support disabling 
+output escaping. <SPAN style="COLOR: red">If an xsl:value-of or xsl:text 
+specifies that output escaping should be disabled and the XSLT processor does 
+not support this, the XSLT processor may signal an error; if it does not signal 
+an error, it must recover by not disabling output escaping.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when disabling output escaping of an xsl:value-of or 
+xsl:text element is specified but disabling of output escaping is unsupported? 
+</P>
+<P><EM>Valid choices: </EM>ignore, raise-error, moot </P>
+<P><EM>Interlock: </EM>Answering "yes" to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#support-disable-output-escaping">support-disable-output-escaping</A>' 
+renders '<A>unsupported-disabled-output-escaping</A>' moot. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.4 Disabling 
+  OutputEscaping </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[5])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[5])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=non-text-disabled-output-escaping>2.2.29 
+non-text-disabled-output-escaping</A></H2>
+<P>It is an error for output escaping to be disabled for a text node that is 
+used for something other than a text node in the result tree. Thus, it is an 
+error to disable output escaping for an xsl:value-of or xsl:text element that is 
+used to generate the string-value of a comment, processing instruction or 
+attribute node; it is also an error to convert a result tree fragment to a 
+number or a string if the result tree fragment contains a text node for which 
+escaping was disabled. In both cases, <SPAN style="COLOR: red">an XSLT processor 
+may signal the error; if it does not signal the error, it must recover by 
+ignoring the disable-output-escaping attribute</SPAN>. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when output escaping is disabled for a text node 
+that is used for something other than a text node in the result tree? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error, moot </P>
+<P><EM>Interlock: </EM>Answering "no" to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#support-disable-output-escaping">support-disable-output-escaping</A>' 
+renders '<A>non-text-disabled-output-escaping</A>' and '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unrepresented-character-disabled-output-escaping">unrepresented-character-disabled-output-escaping</A>' 
+moot. </P>
+<P><EM>Interlock: </EM>Compare to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#converted-RTF-disabled-output-escaping">converted-RTF-disabled-output-escaping</A>' 
+to '<A>non-text-disabled-output-escaping</A>'. Separate option? </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.4 Disabling 
+  Output Escaping </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[3])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[3])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=unrepresented-character-disabled-output-escaping>2.2.30 
+unrepresented-character-disabled-output-escaping</A></H2>
+<P><SPAN style="COLOR: red">If output escaping is disabled for a character that 
+is not representable in the encoding that the XSLT processor is using for 
+output, then the XSLT processor may signal an error; if it does not signal an 
+error, it must recover by not disabling output escaping.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when output escaping is disabled for a character 
+that is not representable in the encoding used for output? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error, moot </P>
+<P><EM>Interlock: </EM>Answering "no" to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#support-disable-output-escaping">support-disable-output-escaping</A>' 
+renders '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-text-disabled-output-escaping">non-text-disabled-output-escaping</A>' 
+and '<A>unrepresented-character-disabled-output-escaping</A>' moot. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.4 Disabling 
+  Output Escaping </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[6])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[6])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=public-identifier-generate-URI>2.2.31 
+public-identifier-generate-URI</A></H2>
+<P>The root node has a mapping that gives the URI for each unparsed entity 
+declared in the document's DTD. The URI is generated from the system identifier 
+and public identifier specified in the entity declaration. <SPAN 
+style="COLOR: red">The XSLT processor may use the public identifier to generate 
+a URI for the entity instead of the URI specified in the system 
+identifier.</SPAN> If the XSLT processor does not use the public identifier to 
+generate the URI, it must use the system identifier; if the system identifier is 
+a relative URI, it must be resolved into an absolute URI using the URI of the 
+resource containing the entity declaration as the base URI . </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Is the public identifier of an unparsed entity, when present, 
+used to generate the URI for the entity instead of the URI specified in the 
+system identifier? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 3.3 Unparsed 
+  Entities </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('unparsed-entities')/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('unparsed-entities')/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=Postponed>2.3 Postponed</A></H2>
+<P>The following items represent statements in the XSLT and XPath 
+Recommendations that identify discretionary behavior that is proposed to 
+postpone, usually until a "core" test suite is shipped. Language-concerned items 
+will be added as soon as we have language-specific tests submitted. Each item 
+should be reviewed and voted by committee. </P>
+<HR>
+
+<H2><A name=convert-number-English>2.3.1 convert-number-English</A></H2>
+<P><EM>Expandable: </EM><STRONG>convert-number-[language]</STRONG></P>
+<P><SPAN style="COLOR: red">It is possible for two conforming XSLT processors 
+not to convert a number to exactly the same string. Some XSLT processors may not 
+support some languages. Furthermore, there may be variations possible in the way 
+conversions are performed for any particular language that are not specifiable 
+by the attributes on xsl:number.</SPAN> Future versions of XSLT may provide 
+additional attributes to provide control over these variations. Implementations 
+may also use implementation-specific namespaced attributes on xsl:number for 
+this. </P>
+<P><EM>Questions: </EM></P>
+<P>1. (Filter) Is the English language supported for xsl:number? </P>
+<P>2. (Prototype) For each language in test suite: <EM>Is _____ language 
+supported for xsl:number?</EM> </P>
+<P>3. (Prototype) For some specific languages: <EM>ELABORATE: which number 
+conversion basis is chosen?</EM> </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.7.1 Number to 
+  StringConversion Attributes </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('convert')/note[2]/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('convert')/note[2]/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=sort-English>2.3.2 sort-English</A></H2>
+<P><EM>Expandable: </EM><STRONG>sort-[language]</STRONG></P>
+<P><SPAN style="COLOR: red">It is possible for two conforming XSLT processors 
+not to sort exactly the same. Some XSLT processors may not support some 
+languages. Furthermore, there may be variations possible in the sorting of any 
+particular language that are not specified by the attributes on xsl:sort, for 
+example, whether Hiragana or Katakana is sorted first in Japanese.</SPAN> Future 
+versions of XSLT may provide additional attributes to provide control over these 
+variations. Implementations may also use implementation-specific namespaced 
+attributes on xsl:sort for this. </P>
+<P><EM>Questions: </EM></P>
+<P>1. (Filter) Is the English language supported for xsl:sort? </P>
+<P>2. (Prototype) For each language in test suite: <EM>Is _____ language 
+supported for xsl:sort?</EM> </P>
+<P>3. (Prototype) For some specific languages: <EM>ELABORATE: which sorting 
+algorithm is chosen?</EM> </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 10 Sorting 
+</LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('sorting')/note[1]/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('sorting')/note[1]/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=stylesheet-parameter>2.3.3 stylesheet-parameter</A></H2>
+<P>Both xsl:variable and xsl:param are allowed as top-level elements. A 
+top-level variable-binding element declares a global variable that is visible 
+everywhere. A top-level xsl:param element declares a parameter to the 
+stylesheet; <SPAN style="COLOR: red">XSLT does not define the mechanism by which 
+parameters are passed to the stylesheet.</SPAN> It is an error if a stylesheet 
+contains more than one binding of a top-level variable with the same name and 
+same import precedence. At the top-level, the expression or template specifying 
+the variable value is evaluated with the same context as that used to process 
+the root node of the source document: the current node is the root node of the 
+source document and the current node list is a list containing just the root 
+node of the source document. If the template or expression specifying the value 
+of a global variable x references a global variable y, then the value for y must 
+be computed before the value of x. It is an error if it is impossible to do this 
+for all global variable definitions; in other words, it is an error if the 
+definitions are circular. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Is it possible to pass parameters to the stylesheet? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 11.4 Top-level 
+  Variables and Parameters </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('top-level-variables')/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('top-level-variables')/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=result-tree-as-bytes>2.3.4 result-tree-as-bytes</A></H2>
+<P><SPAN style="COLOR: red">An XSLT processor may output the result tree as a 
+sequence of bytes, although it is not required to be able to do so</SPAN> (see 
+17 Conformance ). The xsl:output element allows stylesheet authors to specify 
+how they wish the result tree to be output. If an XSLT processor outputs the 
+result tree, it should do so as specified by the xsl:output element; however, it 
+is not required to do so. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) Is the result tree able to be output as a sequence of bytes? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Interlock: </EM>Some xsl:output directives will be moot if 
+'<A>result-tree-as-bytes</A>' is "no" and the answer to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#obey-xsl-output">obey-xsl-output</A>' 
+should be limited accordingly. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16 Output 
+</LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=obey-xsl-output>2.3.5 obey-xsl-output</A></H2>
+<P>An XSLT processor may output the result tree as a sequence of bytes, although 
+it is not required to be able to do so (see 17 Conformance). The xsl:output 
+element allows stylesheet authors to specify how they wish the result tree to be 
+output. <SPAN style="COLOR: red">If an XSLT processor outputs the result tree, 
+it should do so as specified by the xsl:output element; however, it is not 
+required to do so.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Is the result tree always output as specified by the 
+xsl:output element? </P>
+<P><EM>Valid choices: </EM>yes, no, moot </P>
+<P><EM>Interlock: </EM>Some xsl:output directives will be moot if '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#result-tree-as-bytes">result-tree-as-bytes</A>' 
+is "no" and the answer to '<A>obey-xsl-output</A>' should be limited 
+accordingly. </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16 Output 
+</LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=converted-RTF-disabled-output-escaping>2.3.6 
+converted-RTF-disabled-output-escaping</A></H2>
+<P>It is an error for output escaping to be disabled for a text node that is 
+used for something other than a text node in the result tree. Thus, it is an 
+error to disable output escaping for an xsl:value-of or xsl:text element that is 
+used to generate the string-value of a comment, processing instruction or 
+attribute node; <SPAN style="COLOR: red">it is also an error to convert a result 
+tree fragment to a number or a string if the result tree fragment contains a 
+text node for which escaping was disabled. In both cases, an XSLT processor may 
+signal the error; if it does not signal the error, it must recover by ignoring 
+the disable-output-escaping attribute</SPAN>. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Filter) What happens when output escaping is disabled for a text node 
+that is placed into a result tree fragment (RTF), and the RTF is later converted 
+to a number or string? </P>
+<P><EM>Valid choices: </EM>ignore, raise-error, moot </P>
+<P><EM>Interlock: </EM>Compare to 
+'<A>converted-RTF-disabled-output-escaping</A>' to '<A 
+href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-text-disabled-output-escaping">non-text-disabled-output-escaping</A>'. 
+Separate option? </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.4 Disabling 
+  Output Escaping </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[3])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('disable-output-escaping')/p[3])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=Configuration>2.4 Configuration</A></H2>
+<P>The following items represent statements in the XSLT and XPath 
+Recommendations that identify discretionary behaviors that are acknowledged as 
+discretionary but considered as not testable for conformance purposes. However, 
+asking the questions is still reasonable, as it will help test labs configure 
+and use the suite. Any test marked with any of these discretionary items should 
+be excluded from the "conformance" suite, but may be useful to distribute. Each 
+item should be reviewed and voted by the committee. </P>
+<HR>
+
+<H2><A name=detect-infinite-loop>2.4.1 detect-infinite-loop</A></H2>
+<P><SPAN style="COLOR: red">Implementations may be able to detect such loops in 
+some cases, but the possibility exists that a stylesheet may enter a 
+non-terminating loop that an implementation is unable to detect.</SPAN> This may 
+present a denial of service security risk. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Are there any non-terminating loops that can be detected? 
+</P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 5.4 Applying 
+  Template Rules </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('rules')/div2[4]/note[2]/p[2])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('rules')/div2[4]/note[2]/p[2])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=element-use-QName-prefix>2.4.2 element-use-QName-prefix</A></H2>
+<P><SPAN style="COLOR: red">XSLT processors may make use of the prefix of the 
+QName specified in the name attribute when selecting the prefix used for 
+outputting the created element as XML; however, they are not required to do 
+so.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Is the prefix of the QName specified in the name attribute 
+of xsl:element used as the prefix of the created element, when no conflicting 
+use is in scope? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.2 Creating 
+  Elements with xsl:element </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[1]/div3[2]/p[4])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[7]/div2[1]/div3[2]/p[4])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=attribute-use-QName-prefix>2.4.3 attribute-use-QName-prefix</A></H2>
+<P><SPAN style="COLOR: red">XSLT processors may make use of the prefix of the 
+QName specified in the name attribute when selecting the prefix used for 
+outputting the created attribute as XML; however, they are not required to do so 
+and, if the prefix is xmlns, they must not do so.</SPAN> Thus, although it is 
+not an error to do: </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Is the prefix of the QName specified in the name attribute 
+of xsl:attribute used as the prefix of the created attribute, when no 
+conflicting use is in scope? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.1.3 Creating 
+  Attributes with xsl:attribute </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/p[4])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('creating-attributes')/p[4])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=different-document-node-document-order>2.4.4 
+different-document-node-document-order</A></H2>
+<P>The document function gives rise to the possibility that a node-set may 
+contain nodes from more than one document. With such a node-set, the relative 
+document order of two nodes in the same document is the normal document order 
+defined by XPath . <SPAN style="COLOR: red">The relative document order of two 
+nodes in different documents is determined by an implementation-dependent 
+ordering of the documents containing the two nodes.</SPAN> There are no 
+constraints on how the implementation orders documents other than that it must 
+do so consistently: an implementation must always use the same order for the 
+same set of documents. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Is the relative document order of two nodes in different 
+documents formed by taking all elements in the first document before any in the 
+second, and so on? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 12.1 Multiple 
+  Source Documents </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('document')/p[8])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('document')/p[8])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=generate-id>2.4.5 generate-id</A></H2>
+<P>The generate-id function returns a string that uniquely identifies the node 
+in the argument node-set that is first in document order. The unique identifier 
+must consist of ASCII alphanumeric characters and must start with an alphabetic 
+character. Thus, the string is syntactically an XML name. <SPAN 
+style="COLOR: red">An implementation is free to generate an identifier in any 
+convenient way provided that it always generates the same identifier for the 
+same node and that different identifiers are always generated from different 
+nodes.</SPAN> An implementation is under no obligation to generate the same 
+identifiers each time a document is transformed. There is no guarantee that a 
+generated unique identifier will be distinct from any unique IDs specified in 
+the source document. If the argument node-set is empty, the empty string is 
+returned. If the argument is omitted, it defaults to the context node. </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Is there a reproducible pattern for the string generated 
+by the generate-id function? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 12.4 
+  Miscellaneous Additional Functions </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('misc-func')/p[9])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('misc-func')/p[9])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=non-result-tree-namespace-node>2.4.6 
+non-result-tree-namespace-node</A></H2>
+<P><SPAN style="COLOR: red">The new tree may contain namespace nodes that were 
+not present in the result tree.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Does the XML output ever contain namespace nodes that were 
+not present in the result tree? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.1 XML Output 
+  Method </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/ulist[1]/item[2]/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[1]/ulist[1]/item[2]/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=HTML-character-reference>2.4.7 HTML-character-reference</A></H2>
+<P><SPAN style="COLOR: red">The html output method may output a character using 
+a character entity reference, if one is defined for it in the version of HTML 
+that the output method is using.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Does the html output method output a character using a 
+character entity reference, if one is defined for it in the version of HTML that 
+the output method is using? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 16.2 HTML Output 
+  Method </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[2]/p[12])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('output')/div2[2]/p[12])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=error-recovery>2.4.8 error-recovery</A></H2>
+<P>A conforming XSLT processor must signal any errors except for those that this 
+document specifically allows an XSLT processor not to signal. <SPAN 
+style="COLOR: red">A conforming XSLT processor may but need not recover from any 
+errors that it signals.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. ELABORATE: What form of error recovery is performed after any errors are 
+signaled? </P>
+<P><STRONG><EM>No choices available.</EM></STRONG></P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 17 Conformance 
+  </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('conformance')/p[2])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('conformance')/p[2])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=resource-limit>2.4.9 resource-limit</A></H2>
+<P><SPAN style="COLOR: red">A conforming XSLT processor may impose limits on the 
+processing resources consumed by the processing of a stylesheet.</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Are limits imposed on processing resources consumed by the 
+processing of a stylesheet? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 17 Conformance 
+  </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('conformance')/p[3])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('conformance')/p[3])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=sort-QName>2.4.10 sort-QName</A></H2>
+<P><SPAN style="COLOR: red">a QName with a prefix is expanded into an 
+expanded-name as described in 2.4 Qualified Names; the expanded-name identifies 
+the data-type; the behavior in this case is not specified by this 
+document</SPAN> </P>
+<P><EM>Question: </EM></P>
+<P>1. (Configuration) Does the XSLT processor support any extra data-type for 
+sort? </P>
+<P><EM>Valid choices: </EM>yes, no </P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 10 Sorting 
+</LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('sorting')/ulist[1]/item[3]/ulist[1]/item[3]/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('sorting')/ulist[1]/item[3]/ulist[1]/item[3]/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=Recognized>2.5 Recognized</A></H2>
+<P>The following items represent statements in the XSLT and XPath 
+Recommendations that identify discretionary behavior that is out of scope for 
+XSLT/XPath conformance testing. Items are present here so that the catalog 
+recognizes all possible discretionary behavior. </P>
+<P>Since the specification explicitly says that the elements/attributes must not 
+affect the behavior of the XSLT components, the discretionary alternatives 
+(ignore the foreign components or take some XSLT-transparent action directed by 
+the foreign components) do not serve to control exclusion of test cases. </P>
+<P>The verbiage about setting attribute values specified externally as default 
+is mainly a warning to stylesheet writers (if you depend on default values being 
+inserted by validation, your stylesheet may not work in some scenarios) rather 
+than a grant of discretion to the developer. More precisely, a developer of a 
+monolithic parser/styler has discretion to not validate, but that applies to the 
+parsing phase rather than the transformation phase. </P>
+<HR>
+
+<H2><A name=non-XSLT-attribute-URI>2.5.1 non-XSLT-attribute-URI</A></H2>
+<P>An element from the XSLT namespace may have any attribute not from the XSLT 
+namespace, provided that the expanded-name of the attribute has a non-null 
+namespace URI. The presence of such attributes must not change the behavior of 
+XSLT elements and functions defined in this document. Thus, <SPAN 
+style="COLOR: red">an XSLT processor is always free to ignore such attributes, 
+and must ignore such attributes without giving an error if it does not recognize 
+the namespace URI</SPAN>. Such attributes can provide, for example, unique 
+identifiers, optimization hints, or documentation. </P>
+<P><STRONG><EM>No choices available.</EM></STRONG></P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 2.1 XSLT 
+  Namespace </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('xslt-namespace')/p[4])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('xslt-namespace')/p[4])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=non-XSLT-top-level-element-URI>2.5.2 
+non-XSLT-top-level-element-URI</A></H2>
+<P>In addition, the xsl:stylesheet element may contain any element not from the 
+XSLT namespace, provided that the expanded-name of the element has a non-null 
+namespace URI. The presence of such top-level elements must not change the 
+behavior of XSLT elements and functions defined in this document; for example, 
+it would not be permitted for such a top-level element to specify that 
+xsl:apply-templates was to use different rules to resolve conflicts. Thus, <SPAN 
+style="COLOR: red">an XSLT processor is always free to ignore such top-level 
+elements, and must ignore a top-level element without giving an error if it does 
+not recognize the namespace URI</SPAN>. Such elements can provide, for example, 
+</P>
+<P><STRONG><EM>No choices available.</EM></STRONG></P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 2.2 Stylesheet 
+  Element </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('stylesheet-element')/p[7])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(id('stylesheet-element')/p[7])</A> 
+  </LI></UL>
+<HR>
+
+<H2><A name=xpath-default-attribute>2.5.3 xpath-default-attribute</A></H2>
+<P>It is possible for default attributes to be declared in an external DTD or an 
+external parameter entity. The XML Recommendation does not require an XML 
+processor to read an external DTD or an external parameter unless it is 
+validating. <SPAN style="COLOR: red">A stylesheet or other facility that assumes 
+that the XPath tree contains default attribute values declared in an external 
+DTD or parameter entity may not work with some non-validating XML 
+processors.</SPAN> </P>
+<P><STRONG><EM>No choices available.</EM></STRONG></P>
+<P><EM>Specification citations (manual): </EM></P>
+<UL>
+  <LI>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 5.3 Attribute 
+  Nodes </LI></UL>
+<P><EM>Specification citations (machine): </EM></P>
+<UL>
+  <LI><A 
+  href="http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[5]/div2[3]/note[4]/p[1])">http://www.w3.org/TR/1999/REC-xslt-19991116.xml#xpointer(/spec[1]/body[1]/div1[5]/div2[3]/note[4]/p[1])</A> 
+  </LI></UL>
+<HR>
+
+<H1><A name=tocs>3. Tables of Content</A></H1>
+<H2><A name=toc-alpha>3.1 Alphabetical by item identifier</A></H2>
+<UL>
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#add-attribute-after-children">add-attribute-after-children</A> 
+  (2.2.6) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#add-attribute-to-non-element">add-attribute-to-non-element</A> 
+  (2.2.7) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#add-namespace-after-children">add-namespace-after-children</A> 
+  (2.2.17) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#add-namespace-to-non-element">add-namespace-to-non-element</A> 
+  (2.2.16) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#attribute-name-not-QName">attribute-name-not-QName</A> 
+  (2.2.5) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#attribute-non-text-content">attribute-non-text-content</A> 
+  (2.2.8) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#attribute-use-QName-prefix">attribute-use-QName-prefix</A> 
+  (2.4.3) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#comment-content-contains-delimiter">comment-content-contains-delimiter</A> 
+  (2.2.14) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#comment-non-text-content">comment-non-text-content</A> 
+  (2.2.13) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#convert-number-English">convert-number-English</A> 
+  (2.3.1) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#converted-RTF-disabled-output-escaping">converted-RTF-disabled-output-escaping</A> 
+  (2.3.6) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#default-encoding-UTF-16">default-encoding-UTF-16</A> 
+  (2.2.26) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#default-encoding-UTF-8">default-encoding-UTF-8</A> 
+  (2.2.25) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#detect-infinite-loop">detect-infinite-loop</A> 
+  (2.4.1) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#different-document-node-document-order">different-document-node-document-order</A> 
+  (2.4.4) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#document-unresolvable-URI">document-unresolvable-URI</A> 
+  (2.2.20) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#element-name-not-QName">element-name-not-QName</A> 
+  (2.2.4) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#element-use-QName-prefix">element-use-QName-prefix</A> 
+  (2.4.2) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#error-recovery">error-recovery</A> 
+  (2.4.8) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#generate-id">generate-id</A> 
+  (2.4.5) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#HTML-character-reference">HTML-character-reference</A> 
+  (2.4.7) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#multiple-alias-same-precedence">multiple-alias-same-precedence</A> 
+  (2.2.3) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-result-tree-namespace-node">non-result-tree-namespace-node</A> 
+  (2.4.6) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-text-disabled-output-escaping">non-text-disabled-output-escaping</A> 
+  (2.2.29) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-XSLT-attribute-URI">non-XSLT-attribute-URI</A> 
+  (2.5.1) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-XSLT-top-level-element-URI">non-XSLT-top-level-element-URI</A> 
+  (2.5.2) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#number-not-positive">number-not-positive</A> 
+  (2.1.1) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#obey-xsl-output">obey-xsl-output</A> 
+  (2.3.5) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#PI-content-contains-delimiter">PI-content-contains-delimiter</A> 
+  (2.2.12) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#PI-name-not-NCName-PItarget">PI-name-not-NCName-PItarget</A> 
+  (2.2.10) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#PI-non-text-content">PI-non-text-content</A> 
+  (2.2.11) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#public-identifier-generate-URI">public-identifier-generate-URI</A> 
+  (2.2.31) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#resource-limit">resource-limit</A> 
+  (2.4.9) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#result-tree-as-bytes">result-tree-as-bytes</A> 
+  (2.3.4) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#RTF-root-attribute-namespace-child">RTF-root-attribute-namespace-child</A> 
+  (2.2.15) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#sort-English">sort-English</A> 
+  (2.3.2) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#sort-QName">sort-QName</A> 
+  (2.4.10) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#stylesheet-parameter">stylesheet-parameter</A> 
+  (2.3.3) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#support-disable-output-escaping">support-disable-output-escaping</A> 
+  (2.2.27) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#two-attribute-set-same-attribute">two-attribute-set-same-attribute</A> 
+  (2.2.9) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#two-output-same-attribute">two-output-same-attribute</A> 
+  (2.2.21) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unprocessable-fragment-identifier">unprocessable-fragment-identifier</A> 
+  (2.2.19) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unrepresented-character-disabled-output-escaping">unrepresented-character-disabled-output-escaping</A> 
+  (2.2.30) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unresolved-strip-preserve-conflict">unresolved-strip-preserve-conflict</A> 
+  (2.2.1) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unresolved-template-rule-conflict">unresolved-template-rule-conflict</A> 
+  (2.2.2) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unretrievable-resource">unretrievable-resource</A> 
+  (2.2.18) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-disabled-output-escaping">unsupported-disabled-output-escaping</A> 
+  (2.2.28) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-error">unsupported-encoding-error</A> 
+  (2.2.22) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-UTF-16">unsupported-encoding-UTF-16</A> 
+  (2.2.24) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-UTF-8">unsupported-encoding-UTF-8</A> 
+  (2.2.23) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#xpath-default-attribute">xpath-default-attribute</A> 
+  (2.5.3) </LI></UL>
+<H2><A name=toc-interlocks>3.2 Interlock summary</A></H2>
+<OL>
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#add-attribute-to-non-element">add-attribute-to-non-element</A> 
+  (2.2.7), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#attribute-non-text-content">attribute-non-text-content</A> 
+  (2.2.8), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#comment-non-text-content">comment-non-text-content</A> 
+  (2.2.13), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#PI-non-text-content">PI-non-text-content</A> 
+  (2.2.11) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-error">unsupported-encoding-error</A> 
+  (2.2.22), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-UTF-16">unsupported-encoding-UTF-16</A> 
+  (2.2.24), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-encoding-UTF-8">unsupported-encoding-UTF-8</A> 
+  (2.2.23) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#default-encoding-UTF-16">default-encoding-UTF-16</A> 
+  (2.2.26), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#default-encoding-UTF-8">default-encoding-UTF-8</A> 
+  (2.2.25) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#support-disable-output-escaping">support-disable-output-escaping</A> 
+  (2.2.27), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unsupported-disabled-output-escaping">unsupported-disabled-output-escaping</A> 
+  (2.2.28) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-text-disabled-output-escaping">non-text-disabled-output-escaping</A> 
+  (2.2.29), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#support-disable-output-escaping">support-disable-output-escaping</A> 
+  (2.2.27), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#unrepresented-character-disabled-output-escaping">unrepresented-character-disabled-output-escaping</A> 
+  (2.2.30) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#obey-xsl-output">obey-xsl-output</A> 
+  (2.3.5), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#result-tree-as-bytes">result-tree-as-bytes</A> 
+  (2.3.4) 
+  <LI><A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#converted-RTF-disabled-output-escaping">converted-RTF-disabled-output-escaping</A> 
+  (2.3.6), <A 
+  href="http://www.oasis-open.org/committees/download.php/1913/xsltdisc.htm#non-text-disabled-output-escaping">non-text-disabled-output-escaping</A> 
+  (2.2.29) </LI></OL>
+<H1>4. Change History</H1>
+<HR>
+
+<P><STRONG>2000-07-06: </STRONG></P>
+<P>Initial revision.</P>
+<HR>
+
+<P><STRONG>2000-08-08: </STRONG></P>
+<P>Added discretionary non-error aspects identified by David Marston. Removed 
+emphasis on only reporting discretionary error handling. Other cosmetic fixes. 
+</P>
+<HR>
+
+<P><STRONG>2001-01-08: </STRONG></P>
+<P>Created and populated "Untestable or Out of Scope Discretionary Behavior" 
+section. Added change history. Split "disc-result-tree-as-bytes" to create 
+"disc-obey-xsl-output". </P>
+<HR>
+
+<P><STRONG>2001-01-26: </STRONG></P>
+<P>Splitted all discretionary items into 4 categories: "testable", "not 
+testable", "postponed" and "out of scope". Split "disc-sort" and 
+"disc-convert-number" into language specific questions . </P>
+<HR>
+
+<P><STRONG>2001-01-29: </STRONG></P>
+<P>Adjusted some verbiage. Added disc-default-encoding, distinct from discretion 
+surrounding requested encoding that is unsupported. Split the UTF-8 and UTF-16 
+encoding cases. Fixed a couple references and anchors. Clarified that 
+language-specific questions are shown in template form only. </P>
+<HR>
+
+<P><STRONG>2001-03-29: </STRONG></P>
+<P>Changed item names, per subcommittee decision. Expressed questions in 
+keyword-answer style, which makes catalog more readable. Added union list of 
+keywords for answers. Added INTERLOCK flags. Added EXPANDABLE flags and 
+patterns. Added ELABORATE flags. </P>
+<P>Clarified questions regarding disable-output-escaping. Further clarified 
+UTF-8/UTF-16 encoding items. Clarified questions regarding QNames in created 
+elements and attributes. Instantiated English versions of xsl:number and 
+xsl:sort language questions. Added questions from 12/12/2000 errata. </P>
+<P>Moved xpath-default-attribute to out-of-scope, per subcommittee decision. 
+</P>
+<HR>
+
+<P><STRONG>2001-04-13: </STRONG></P>
+<P>Added converted-RTF-disabled-output-escaping as a potential split-off from 
+non-text-disabled-output-escaping. Added yes/no and ELABORATE verbiage where 
+context required it. </P>
+<HR>
+
+<P><STRONG>2001-05-09 14:00: </STRONG></P>
+<P>Recast document in XML from HTML</P>
+<HR>
+
+<P><STRONG>2001-07-09 13:00: </STRONG></P>
+<P>Flattened out item space so all are children of &lt;items&gt; and status is 
+an attribute. Added structure: spec-citations and readable-cites, mootable flag, 
+elaborators for items, scope of questions. </P>
+<HR>
+
+<P><STRONG>2001-07-21 01:30: </STRONG></P>
+<P>Revamped citations to consistent model across all documents. Abbreviated 
+XPointer values to nearest ancestral id (when available). Changed readable 
+citations to spec citations of type 'Section'. </P>
+<HR>
+
+<P><STRONG>2001-08-21 20:20: </STRONG></P>
+<P>Changed attribute names according to August teleconference.</P>
+<HR>
+<SMALL><STRONG>$Date: 2001/11/16 17:19:12 $(UTC)</STRONG></SMALL> </BODY></HTML>

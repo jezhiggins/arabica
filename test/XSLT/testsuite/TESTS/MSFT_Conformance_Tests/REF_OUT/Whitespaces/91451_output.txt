@@ -1,0 +1,1 @@
+<following-sibling-count xmlns:my="http://my.com">0</following-sibling-count>

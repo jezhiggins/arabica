@@ -1,0 +1,18 @@
+﻿<?xml version= "1.0"?>
+<sold_books>
+	<book>
+		<name>Ender's Game</name>
+		<buyer_name>Khalil</buyer_name>
+	</book>
+	
+	<book>
+		<name>The Forever War</name>
+		<buyer_name>John</buyer_name>
+	</book>
+
+	<book>
+		<name>Snow Crash</name>
+		<buyer_name>David</buyer_name>
+	</book>
+	
+</sold_books>

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+        
+	
+- 
+        <SPAN style="color=green"></SPAN>
+        
+	
+- 
+        <SPAN style="color=green">bookstore</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">author</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">award</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:country</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">author</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">publication</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">country</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">author</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first.name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last.name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">publication</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first.name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last.name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">magazine</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">subscription</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">special_edition</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">magazine</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">publisher</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">magazine</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">publisher</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">articles</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">story1</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">details</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">story2</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">details</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">stock</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">date</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">story3</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">magazine</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">articles</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">story1</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">magazine</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">award</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">author</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first.name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">publication</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first.name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">author</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">award</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">publication</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">author</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">degree</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">magazine</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">subscription</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:magazine</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">subscription</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">author</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">first-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">last-name</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">degree</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">degree</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">award</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">publication</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">publication</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">price</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">excerpt</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">p</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">p</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">emph</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">definition-list</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">term</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">definition</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:author</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:title</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:book</SPAN>
+        
+	
+- 
+        <SPAN style="color=green">my:title</SPAN>

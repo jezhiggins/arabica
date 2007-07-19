@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inc-doc>test.ent</inc-doc>
+<!-- test.ent -->
+<!-- Place this file in an "inc" directory relative to test.xsl -->
+<inc-doc>test.ent</inc-doc>

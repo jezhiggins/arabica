@@ -1,0 +1,36 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Value-of" description="" outpath="out">
+	<variation name="DisableOutputEscaping_XslValueOfInXslComment">
+		<description>Use an xsl:value-of with disable-output-escaping attribute set to yes within an xsl:comment element. Should silently ignore. [Bug 53329]</description>
+		<data>
+			<xml>xslt_valueof_DoeValueOfInComment.xml</xml>
+			<xsl>xslt_valueof_DoeValueOfInComment.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_valueof_DoeValueOfInComment_result.txt</result>
+	</variation>
+	<variation name="ValueOf_BooleanExpressionsConvertedToStringEquivalent">
+		<description>Use the xsl:value-of element in combination with the select attribute on an evaluated boolean expression. The boolean expression should be converted to a string and output. [Bug 60548]</description>
+		<data>
+			<xml>xslt_valueof_BoolExprConvertToStr.xml</xml>
+			<xsl>xslt_valueof_BoolExprConvertToStr.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_valueof_BoolExprConvertToStr_result.txt</result>
+	</variation>
+	<variation name="ValueOf_ConcatTextNodesIntoSingle">
+		<description>Use value-of to produce two text elements, the first of which is a concatonation of 3 text nodes [Bug 55321]</description>
+		<data>
+			<xml>xslt_valueof_ConcatTextNodes.xml</xml>
+			<xsl>xslt_valueof_ConcatTextNodes.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_valueof_ConcatTextNodes_result.txt</result>
+	</variation>
+	<variation name="ValueOf_KeyReferenceInSelect">
+		<description>Test case for use of positional predicate in key reference in select. [Bug 70832]</description>
+		<data>
+			<xml>xslt_valueof_KeyFuncInSelect.xml</xml>
+			<xsl>xslt_valueof_KeyFuncInSelect.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_valueof_KeyFuncInSelect.txt</result>
+	</variation>
+</testcase>

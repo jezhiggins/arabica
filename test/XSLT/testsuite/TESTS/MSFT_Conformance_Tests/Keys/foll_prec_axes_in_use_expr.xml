@@ -1,0 +1,12 @@
+<collection>
+	<prices>
+		<price value="aaa">10</price>
+		<price value="aaa">20</price>
+		<price value="eee">30</price>
+		<price value="ccc">40</price>
+		<price value="bbb">50</price>
+		<price value="bbb">60</price>
+		<price value="ddd">70</price>
+		<price value="ddd">80</price>
+	</prices>
+</collection>

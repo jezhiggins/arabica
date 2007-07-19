@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE myname [
+<!ELEMENT myname ANY>
+<!ELEMENT firstname ANY>
+<!ELEMENT lastname ANY>
+]>
+<myname>
+<firstname>Pranav</firstname>
+<lastname>Kandula</lastname>
+</myname>

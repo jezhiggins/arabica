@@ -1,0 +1,13 @@
+﻿<out>
+		Value: B1 ,
+	        Position: 1,
+	        Last: 3,
+        
+		Value: B4 ,
+	        Position: 2,
+	        Last: 3,
+        
+		Value: B5 ,
+	        Position: 3,
+	        Last: 3,
+        </out>

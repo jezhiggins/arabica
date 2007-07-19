@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>  
+<root xmlns:a="ns1">
+ 
+<a:Item1 id='a1' pos='start'>   
+<foo id='1'>Test text data here</foo>
+</a:Item1>
+
+</root> 
+
+
+
+
+
+
+

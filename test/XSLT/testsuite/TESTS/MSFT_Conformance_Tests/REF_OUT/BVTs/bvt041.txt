@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<html>
+<cdata1><![CDATA[Text should come out in CDATA section]]></cdata1>
+<cdata2><![CDATA[Text should come out in CDATA section]]></cdata2>
+<cdata3><![CDATA[Text should come out in CDATA section]]></cdata3>
+<br />
+</html>

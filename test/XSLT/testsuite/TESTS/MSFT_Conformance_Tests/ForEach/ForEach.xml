@@ -1,0 +1,12 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="ForEach" description="" outpath="out">
+	<variation name="ForEach_ForeachWithXPATHEvaluatesToNull">
+		<description>Use a foreach with an select="xpath" expression that evaluates to null [Bug 49670]</description>
+		<data>
+			<xml>xslt_foreach_XpathEvalNull.xml</xml>
+			<xsl>xslt_foreach_XpathEvalNull.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_foreach_XpathEvalNull_result.txt</result>
+	</variation>
+</testcase>

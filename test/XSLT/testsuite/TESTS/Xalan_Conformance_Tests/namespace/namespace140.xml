@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<doc>
+  <noprefix>elementName</noprefix>
+  <prefix>someprefix:elementName</prefix>
+  <namespace>http://otherspace</namespace>
+</doc>

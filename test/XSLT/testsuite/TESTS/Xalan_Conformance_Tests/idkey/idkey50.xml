@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<doc>
+  <bind>HTTP</bind>
+  <bind>SOAP</bind>
+</doc>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE suite SYSTEM "background/config.dtd">
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights
+Reserved.
+
+This document and translations of it may be copied and
+furnished to others, and derivative works that comment on
+or otherwise explain it or assist in its implementation may
+be prepared, copied, published and distributed, in whole
+or in part, without restriction of any kind, provided that the
+above copyright notice and this paragraph are included on
+all such copies and derivative works. However, this
+document itself may not be modified in any way, such as by
+removing the copyright notice or references to OASIS,
+except as needed for the purpose of developing OASIS
+specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document
+must be followed, or as required to translate it into
+languages other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is
+provided on an "AS IS" basis and OASIS DISCLAIMS ALL
+WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+BUT NOT LIMITED TO ANY WARRANTY THAT THE USE
+OF THE INFORMATION HEREIN WILL NOT INFRINGE
+ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE.
+-->
+<suite date="$Date: 2001/12/07 18:39:49 $(UTC)" resource-types="fully-provided">
+  <info>
+    <committee>OASIS XSLT/XPath Conformance</committee>
+    <desc>
+      <p>OASIS has produced a test system for XSLT processors. Since XSLT depends so heavily on XPath, it also
+serves to test XPath expressions.</p>
+      <p>This test suite has been developed as an instance of a test regime within the OASIS generic test framework.</p>
+    </desc>
+  </info>
+  <discretion-statuses>
+    <desc>
+      <p>The XSLT discretionary items in the summary are grouped by their status accoding the values listed here.</p>
+    </desc>
+    <discretion-status id="Implemented">
+      <p>controlling test selection in the current version</p>
+    </discretion-status>
+    <discretion-status id="Active">
+      <p>proposed for testing in the next deliverable version</p>
+    </discretion-status>
+    <discretion-status id="Postponed">
+      <p>proposed to postpone</p>
+    </discretion-status>
+    <discretion-status id="Configuration">
+      <p>acknowledged as discretionary but considered not testable</p>
+    </discretion-status>
+    <discretion-status id="Recognized">
+      <p>out of scope for conformance testing</p>
+    </discretion-status>
+  </discretion-statuses>
+  <categories>
+    <desc>
+      <p>Each XSLT test case must be categorized as to the nature of the test according to the categories listed here.</p>
+      <p>This allows users of the test cases to only address a subset of the tests by their nature.</p>
+    </desc>
+    <category id="XSLT-Structure">
+      <p>stylesheet/transform, namespaces, import, include</p>
+    </category>
+    <category id="XSLT-Data-Model">
+      <p>treatment of source XML, text + whitespace, entities</p>
+    </category>
+    <category id="XSLT-Template">
+      <p>matching, call named, priority</p>
+    </category>
+    <category id="XSLT-Result-Tree">
+      <p>creation of nodes in result</p>
+    </category>
+    <category id="XSLT-Data-Manipulation">
+      <p>sort, for-each, conditionals, variables, keys</p>
+    </category>
+    <category id="XSLT-Extendability">
+      <p>functions and instructions related to extendability</p>
+    </category>
+    <category id="XSLT-Output">
+      <p>output, message</p>
+    </category>
+    <category id="XPath-Location-Path">
+      <p>axes, node tests, predicates</p>
+    </category>
+    <category id="XPath-Expression">
+      <p>operators, type conversion</p>
+    </category>
+    <category id="XPath-Core-Function">
+      <p>all XPath functions</p>
+    </category>
+    <category id="XPath-Data-Model">
+      <p>all other XPath not covered above</p>
+    </category>
+    <category id="Mixed">
+      <p>would fit into more than one category</p>
+    </category>
+  </categories>
+  <citations>
+    <desc>
+      <p>Both the discretionary and test case documents make citations into Recommendations.</p>
+    </desc>
+    <citation-types>
+      <desc>
+        <p>These are the allowed methods of citing specifications as configured for the regime.</p>
+      </desc>
+      <cite-type id="section" method="human">
+        <p>section heading in rendered Rec, must have number at start</p>
+      </cite-type>
+      <cite-type id="anchor" method="machine">
+        <p>HTML-style anchor</p>
+      </cite-type>
+      <cite-type id="XPointer" method="machine">
+        <p>id from document, optionally followed by XPath to qualify further</p>
+      </cite-type>
+    </citation-types>
+    <citation-specifications>
+      <desc>
+        <p>These are the allowed Recommendations to be cited by the descretionary document or test cases.</p>
+      </desc>
+      <cite-spec id="XSLT">
+        <version-spec version="1.0">
+          <spec type="section" prefix="Doc: " ref="http://www.w3.org/TR/1999/REC-xslt-19991116" infix=" Section: " ref-linkable="no">
+            <p>numbered chapter/section/subsection</p>
+          </spec>
+          <spec type="XPointer" ref="http://www.w3.org/TR/1999/REC-xslt-19991116.xml" infix="#xpointer(" suffix=")" ref-linkable="yes">
+            <p>from available id</p>
+          </spec>
+          <spec type="anchor" ref="http://www.w3.org/TR/1999/REC-xslt-19991116" infix="#" ref-linkable="yes">
+            <p>available anchors</p>
+          </spec>
+        </version-spec>
+      </cite-spec>
+      <cite-spec id="XPath">
+        <version-spec version="1.0">
+          <spec type="section" prefix="Doc: " ref="http://www.w3.org/TR/1999/REC-xpath-19991116" infix=" Section: " ref-linkable="no">
+            <p>numbered chapter/section</p>
+          </spec>
+          <spec type="XPointer" ref="http://www.w3.org/TR/1999/REC-xpath-19991116.xml" infix="#xpointer(" suffix=")" ref-linkable="yes">
+            <p>from available id</p>
+          </spec>
+          <spec type="anchor" ref="http://www.w3.org/TR/1999/REC-xpath-19991116" infix="#" ref-linkable="yes">
+            <p>available anchors</p>
+          </spec>
+        </version-spec>
+      </cite-spec>
+      <cite-spec id="XML-stylesheet">
+        <version-spec version="1.0">
+          <spec type="section" prefix="Doc: " ref="http://www.w3.org/TR/xml-stylesheet" infix=" Section: " ref-linkable="no">
+            <p>numbered chapter</p>
+          </spec>
+          <spec type="XPointer" ref="http://www.w3.org/TR/xml-stylesheet.xml" infix="#xpointer(" suffix=")" ref-linkable="yes">
+            <p>from available id</p>
+          </spec>
+          <spec type="anchor" ref="http://www.w3.org/TR/xml-stylesheet" infix="#" ref-linkable="yes">
+            <p>available anchors</p>
+          </spec>
+        </version-spec>
+      </cite-spec>
+      <cite-spec id="XSLT-Errata">
+        <desc>
+          <p>It is assumed that multiple editions of XSLT errata are cumulative, thus later editions subsume the errata of earlier editions. </p>
+        </desc>
+        <version-spec version="2000-12-12">
+          <spec type="section" prefix="Doc: " ref="http://www.w3.org/1999/11/REC-xslt-19991116-errata" infix=" Section: " ref-linkable="no">
+            <p>These are the "Known errors as of [date]" sections</p>
+          </spec>
+          <spec type="anchor" ref="http://www.w3.org/1999/11/REC-xslt-19991116-errata" infix="#" ref-linkable="yes">
+            <p>Erratum are numbered, starting with E1, and matching anchors exist for each.</p>
+          </spec>
+        </version-spec>
+      </cite-spec>
+      <cite-spec id="XPath-Errata">
+        <desc>
+          <p>It is assumed that multiple editions of XPath errata are cumulative, thus later editions subsume the errata of earlier editions. </p>
+        </desc>
+        <version-spec version="2000-12-12">
+          <!-- PROBLEM: there can be multiple editions. Assume they're cumulative? -->
+          <spec type="section" prefix="Doc: " ref="http://www.w3.org/1999/11/REC-xpath-19991116-errata" infix=" Section: " ref-linkable="no">
+            <p>Has sections parallel to sections of base document.</p>
+          </spec>
+          <spec type="anchor" ref="http://www.w3.org/1999/11/REC-xslt-19991116-errata" infix="#" ref-linkable="yes">
+            <p>Whatever anchors we can find....</p>
+          </spec>
+        </version-spec>
+      </cite-spec>
+    </citation-specifications>
+  </citations>
+  <gray-areas>
+    <desc>
+      <p>Areas that are not discretionary but may be cited by a test case as being vague.</p>
+    </desc>
+    <gray-area id="number-max-roman-numeral">
+      <spec-citation spec="XSLT" version="1.0" type="section" place="7.7.1"/>
+      <spec-citation spec="XSLT" version="1.0" type="XPointer" place="id(convert)/ulist[1]/item[5]/p[1]/text()[1]"/>
+      <choices>
+        <choice value="1999"/>
+        <choice value="4999"/>
+        <choice value="9999"/>
+      </choices>
+      <desc>
+        <p>The largest number that a test case may safely assume can be formatted as a Roman numeral by xsl:number.</p>
+      </desc>
+    </gray-area>
+    <gray-area id="number-NaN-handling">
+      <spec-citation spec="XSLT-Errata" version="2000-12-12" type="section" place="E24"/>
+      <spec-citation spec="XSLT-Errata" version="2000-12-12" type="anchor" place="E24"/>
+      <choices>
+        <choice value="pass-through"/>
+        <choice value="raise-error"/>
+      </choices>
+      <desc>
+        <p>The erratum turned this into a discretionary item: It is an error if the number is NaN, infinite or less than 0.5; an XSLT processor may signal the error; if it does not signal the error, it must
+     recover by converting the number to a string as if by a call to the string function and inserting the resulting string into the result tree.</p>
+      </desc>
+    </gray-area>
+    <gray-area id="number-any-no-nodes">
+      <spec-citation spec="XSLT-Errata" version="2000-12-12" type="section" place="E23"/>
+      <spec-citation spec="XSLT-Errata" version="2000-12-12" type="anchor" place="E23"/>
+      <choices>
+        <choice value="return-empty"/>
+        <choice value="raise-error"/>
+      </choices>
+      <desc>
+        <p>Prior to the erratum, there was no specification for how xsl:number level="any" should deal with an empty node-set.</p>
+        <p>The erratum made this similar to level="single" by saying: If there are no matching nodes, it constructs an empty list.</p>
+        <p>If the test makes this empty-list choice, it may also be marked for an errata-add of 2000-12-12 on XSLT Version 1.0.</p>
+      </desc>
+    </gray-area>
+  </gray-areas>
+  <scenarios>
+    <desc>
+      <p>The scenarios describe the testing methodologies (operations) possibile for a single test.  Every test must point to one of the operations described.</p>
+    </desc>
+    <operations>
+      <operation id="standard">
+        <p>2 principal inputs, one principal output</p>
+        <p>specify both a principal-data and principal-stylesheet type of input-file</p>
+      </operation>
+      <operation id="embedded">
+        <p>input is XML data with embedded styling (principal-data only)</p>
+      </operation>
+      <operation id="external-param">
+        <p>like standard but also has parameters passed in</p>
+      </operation>
+      <operation id="execution-error">
+        <p>2 principal inputs, but NOT expected to generate output</p>
+      </operation>
+      <operation id="result-analysis">
+        <p>like standard but something interactive happens</p>
+        <p>Use this classification when human examination of console or output is needed.</p>
+      </operation>
+    </operations>
+    <roles>
+      <desc>
+        <p>Principal files must be name only (with filetype extension/tag included), not a path.</p>
+        <p>Supplemental files may have relative paths with / separators</p>
+        <p>Constraint: names for output-files, both principal and supplemental, must be designed so that all test cases sharing a submitter/file-path directory may be run in one batch with no naming conflicts.</p>
+      </desc>
+      <role id="principal-data">
+        <p>the XML data to be processed, generally called the "source tree" in the Recommendation, specified as an argument when invoking the XSLT processor</p>
+      </role>
+      <role id="principal-stylesheet">
+        <p>the stylesheet to be specified as an argument when invoking the XSLT processor</p>
+      </role>
+      <role id="principal" required="output-file">
+        <p>for output only: transformation result named at invocation</p>
+      </role>
+      <role id="supplemental-data">
+        <p>for input only: extra file read by document() or similar</p>
+      </role>
+      <role id="supplemental-stylesheet">
+        <p>for input only: extra stylesheet read by xsl:import or similar</p>
+      </role>
+      <role id="supplemental-params">
+        <p>for input only: file specifying how to set external parameters</p>
+      </role>
+      <role id="supplemental">
+        <p>for output only: extra file from console log, xsl:document, etc.</p>
+      </role>
+    </roles>
+    <comparisons>
+      <desc>
+        <p>Most output files can be compared mechanically, but the 'manual' is provided when this is not possible.</p>
+      </desc>
+      <comparison id="XML">
+        <p>XML in a file</p>
+      </comparison>
+      <comparison id="HTML">
+        <p>HTML in a file</p>
+      </comparison>
+      <comparison id="Text">
+        <p>text in a file</p>
+      </comparison>
+      <comparison id="manual">
+        <p>the output cannot be automatically verified</p>
+        <p>Use this for generate-id when a human must verify that the generated id meets constraints, and for all the vendor-specific strings returned by system-property.</p>
+      </comparison>
+      <comparison id="ignore">
+        <p>the output should not have been generated</p>
+      </comparison>
+    </comparisons>
+    <parameter-types>
+      <desc>
+        <p>Not all XSLT processors support all data types for parameters</p>
+      </desc>
+      <parameter-type id="string">
+        <p>XPath string data type</p>
+      </parameter-type>
+      <parameter-type id="number">
+        <p>XPath number data type</p>
+      </parameter-type>
+      <parameter-type id="boolean">
+        <p>XPath boolean data type</p>
+      </parameter-type>
+    </parameter-types>
+  </scenarios>
+</suite>

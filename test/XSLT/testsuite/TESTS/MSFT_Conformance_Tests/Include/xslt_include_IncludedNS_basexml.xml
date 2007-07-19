@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<!-- This file represents a fragment of a book store inventory database -->
+<bookstore specialty="novel" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+	<book style="autobiography">
+	<title>Seven Years in Trenton</title>
+		<author>
+			<first-name>Joe</first-name>
+			<last-name>Bob</last-name>
+			<award>Trenton Literary Review Honorable Mention</award>
+			<my:country>USA</my:country>
+		</author>
+		<price>12</price>
+	</book>
+</bookstore>

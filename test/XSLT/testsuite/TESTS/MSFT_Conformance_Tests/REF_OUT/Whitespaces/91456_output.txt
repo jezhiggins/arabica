@@ -1,0 +1,1 @@
+<span xml:space="default"><!-- Always preserve CDATA whitespace -->       </span><p xml:space="default"><!-- The u element has multiple text, whitespace, and element children.  The element children change xml:space. --><u xml:space="preserve"> Hello<u xml:space="default"></u>  <u xml:space="default" />  <b>World </b>  </u></p>

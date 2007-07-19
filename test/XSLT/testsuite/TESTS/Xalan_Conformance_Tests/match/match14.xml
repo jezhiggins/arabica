@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<doc>
+  <foo att1="a">8</foo>
+  <foo att1="b">5</foo>
+  <foo att1="c">9</foo>
+  <foo att1="d">6</foo>
+</doc>

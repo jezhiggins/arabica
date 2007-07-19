@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>: Test for source tree numbering
+*%A+?: Level A
+*%A|a+?: Level B
+*%A|b+?: Level B
+*%A|b|a+?: Level C
+*%A|c+?: Level B
+*%A|c|a+?: Level C
+*%A|c|a|a+?: Level D
+*%B+?: Level A
+*%B|a+?: Level B
+*%B|a|a+?: Level C
+*%B|a|a|a+?: Level D
+*%B|a|a|a|a+?: Level E
+*%C+?: Level A
+*%C|a+?: Level B
+*%C|a|a+?: Level C
+*%C|a|a|a+?: Level D
+*%C|a|a|a|a+?: Level E
+*%C|a|a|b+?: Level D
+*%C|a|a|b|a+?: Level E
+*%C|a|b+?: Level C
+*%C|a|b|a+?: Level D
+*%C|b+?: Level B
+</out>

@@ -1,0 +1,8 @@
+<num>1002</num>12345678515202<names><last-name xmlns:my="http://my.com">Bob</last-name></names>
+<names><last-name xmlns:my="http://my.com">Bob</last-name><last-name xmlns:my="http://my.com">Author</last-name></names>
+<names><last-name xmlns:my="http://my.com">Bob</last-name><last-name xmlns:my="http://my.com">Author</last-name></names>
+<names><last-name xmlns:my="http://my.com">Robinson</last-name><last-name xmlns:my="http://my.com">Author of Book 3</last-name></names>
+<names><last-name xmlns:my="http://my.com">Robinson</last-name><last-name xmlns:my="http://my.com">Author of Book 3</last-name></names>
+<names><last-name xmlns:my="http://my.com">Robinson</last-name></names>
+<names><last-name xmlns:my="http://my.com">er</last-name></names>
+<names><last-name xmlns:my="http://my.com">Bob</last-name></names>

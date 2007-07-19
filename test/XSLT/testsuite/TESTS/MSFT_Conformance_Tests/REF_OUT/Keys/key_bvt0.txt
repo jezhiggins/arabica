@@ -1,0 +1,1 @@
+﻿<out><price>40</price><price>70</price></out>

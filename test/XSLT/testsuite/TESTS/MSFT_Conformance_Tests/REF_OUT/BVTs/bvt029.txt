@@ -1,0 +1,1 @@
+<elem attr="attrText" attr2="attrText"><!--commentText-->  CDATA Text  <sub-elem>ChunkChunkChunkChunkChunkChunkChunkChunk</sub-elem></elem>

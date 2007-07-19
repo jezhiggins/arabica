@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><my:SPAN style="color=blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:magazine: Tracking Trenton Stocks</my:SPAN>
+:
+<my:SPAN style="color=brown" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:title: Who's Who in Trenton</my:SPAN>
+:
+<my:SPAN style="color=brown" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:title: Where is Trenton?</my:SPAN>
+:
+<my:SPAN style="color=brown" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:title: Where in the world is Trenton?</my:SPAN>
+:

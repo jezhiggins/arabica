@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page>
+   <contents>
+      <avail>
+         <hotel>
+            <location city="Seattle" state="WA"/>
+         </hotel>
+      </avail>
+   </contents>
+</page>

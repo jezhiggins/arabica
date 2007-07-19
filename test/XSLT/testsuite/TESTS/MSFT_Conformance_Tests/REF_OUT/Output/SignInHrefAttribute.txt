@@ -1,0 +1,7 @@
+﻿<html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"><title>XSLT Output of A</title></head><body><a href="foo.htm#bookmark">
+		foo.htm#bookmark
+	</a><br><a href="foo.htm#bookmark">
+		foo.htm#bookmark (explicitly disabled output escaping)
+	</a><br><p href="foo.htm#bookmark">
+		foo.htm#bookmark (in a P tag)
+	</p><br></body></html>

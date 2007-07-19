@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>: Test for source tree numbering
+(A?): Level A
+(A*1?): Level B
+(A*2?): Level B
+(A*2*1?): Level C
+(A*3?): Level B
+(A*3*1?): Level C
+(A*3*1*1?): Level D
+(B?): Level A
+(B*1?): Level B
+(B*1*1?): Level C
+(B*1*1*1?): Level D
+(B*1*1*1*1?): Level E
+(C?): Level A
+(C*1?): Level B
+(C*1*1?): Level C
+(C*1*1*1?): Level D
+(C*1*1*1*1?): Level E
+(C*1*1*2?): Level D
+(C*1*1*2*1?): Level E
+(C*1*2?): Level C
+(C*1*2*1?): Level D
+(C*2?): Level B
+</out>

@@ -1,0 +1,9 @@
+<xsl:stylesheet xsl:version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/" xsl:version="2.0" />
+</xsl:stylesheet>
+<axsl:x xmlns:axsl="http://my.com">PCData CData</axsl:x>
+<axsl:x attr="" xmlns:axsl="http://my.com" />
+<self:x self:attr="" xmlns:self="http://self" />
+<y attr="" xmlns="http://y">
+<x x="" xmlns="" />
+</y>

@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<ACRONYM>this</ACRONYM><ACRONYM>rocks</ACRONYM>
+<ACRONYM>this</ACRONYM><U> </U><ACRONYM>rocks</ACRONYM>
+<ACRONYM>this </ACRONYM><ACRONYM>rocks</ACRONYM>
+<ACRONYM>this</ACRONYM><ACRONYM> rocks</ACRONYM>
+<ACRONYM>this
+</ACRONYM><ACRONYM>
+rocks</ACRONYM>
+<ACRONYM>this</ACRONYM>
+<ACRONYM>rocks</ACRONYM>
+<ACRONYM>this</ACRONYM>	<ACRONYM>rocks</ACRONYM>
+<ACRONYM>this<![CDATA[  ]]></ACRONYM><ACRONYM>rocks</ACRONYM>
+<![CDATA[ <ACRONYM>this</ACRONYM><U> </U><ACRONYM>rocks</ACRONYM> ]]>
+</xslTutorial>

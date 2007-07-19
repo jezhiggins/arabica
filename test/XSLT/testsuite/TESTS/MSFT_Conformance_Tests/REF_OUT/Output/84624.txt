@@ -1,0 +1,6 @@
+ <html>
+<UL>
+<LI>TOMATO: Red and Juicy</LI>
+<LI>CUCUMBER: Green and Crisp</LI>
+<LI>RADISH: Red and Spicy</LI>
+</UL></html>

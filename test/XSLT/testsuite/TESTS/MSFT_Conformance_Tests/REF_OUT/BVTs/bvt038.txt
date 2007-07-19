@@ -1,0 +1,4 @@
+<foo-elem foo-attr="val" />
+<foo-elem>text</foo-elem>
+<?style val?>
+<!-- comment -->

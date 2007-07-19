@@ -1,0 +1,16 @@
+  
+BLOCK ELEMENTS TEST
+
+FROM XML:
+<xslTutorial>
+<PRE>this</PRE><PRE>rocks</PRE>
+<PRE>this</PRE>
+<PRE>rocks</PRE>
+<PRE>this</PRE>
+<PRE>rocks</PRE>
+<PRE>this</PRE>
+<PRE>rocks</PRE>
+<SPAN>this</SPAN><PRE>rocks</PRE>
+<SPAN>this</SPAN>
+<PRE>rocks</PRE>
+</xslTutorial>

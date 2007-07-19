@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+<literalName xmlns="http://literalURI">
+<hello1 xmlns=""/><hello2><hiya xmlns=""/></hello2>
+<hello3 xmlns="http://literalURI2"><yo1 xmlns="http://literalURI"/><yo2 xmlns=""/></hello3>
+<hello4 xmlns=""><hey/></hello4></literalName></out>

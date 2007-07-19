@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>  
+XML Declaration expected: method=xml
+ omit-xml-declaration=yes
+ indent=yes  
+ 
+HR   
+HR  
+HR  

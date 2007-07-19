@@ -1,0 +1,6 @@
+
+BEFORE
+   <!--
+Why does a comment need a name, anyways?
+   -->
+AFTER

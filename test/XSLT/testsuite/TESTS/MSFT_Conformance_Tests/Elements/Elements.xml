@@ -1,0 +1,1025 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Elements" description="" outpath="out">
+	<variation name="_78318">
+		<description>xsl:element: name=foo, namespace=""</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78318.xsl</xsl>
+		</data>
+		<result expected="valid">78318.txt</result>
+	</variation>
+	<variation name="_78319">
+		<description>xsl:element: output  an element from xslt, name="foo", namespace="bar"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78319.xsl</xsl>
+		</data>
+		<result expected="valid">78319.txt</result>
+	</variation>
+	<variation name="_78320">
+		<description>xsl:element: output one element with a child element both have same namespace value</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78320.xsl</xsl>
+		</data>
+		<result expected="valid">78320.txt</result>
+	</variation>
+	<variation name="_78344">
+		<description>xsl:element: output an element with child and grand child,  parent name="foo" ns="bar" child name="x" ns="y" grand child name="I" ns="j"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78344.xsl</xsl>
+		</data>
+		<result expected="valid">78344.txt</result>
+	</variation>
+	<variation name="_78345">
+		<description>xsl:element: test that parent ns is not inherited to child,  parent name="foo" ns="bar" child name="x"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78345.xsl</xsl>
+		</data>
+		<result expected="valid">78345.txt</result>
+	</variation>
+	<variation name="_78346">
+		<description>xsl:element: test that only the top most element will have the namespace specified for multiple level of element with same namespace.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78346.xsl</xsl>
+		</data>
+		<result expected="valid">78346.txt</result>
+	</variation>
+	<variation name="_78347">
+		<description>xsl:element: output element with name=international characters (Japanese, Chinese)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78347.xsl</xsl>
+		</data>
+		<result expected="valid">78347.txt</result>
+	</variation>
+	<variation name="_78351">
+		<description>xsl:element: using Attribute value template, name="{.//first-name }" and many other combination tests</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78351.xsl</xsl>
+		</data>
+		<result expected="invalid">78347.txt</result>
+	</variation>
+	<variation name="_78358">
+		<description>xsl:element: name=" in valid name a:a:b " (error case)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78358.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78362">
+		<description>xsl:element: outptut element with character entity reference and different types of child nodes</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78362.xsl</xsl>
+		</data>
+		<result expected="valid">78362.txt</result>
+	</variation>
+	<variation name="_78363">
+		<description>xsl:element: with namespace attribute but no name attribute (error case)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78363.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78364">
+		<description>xsl:element: namespace is not a syntactically legal uri  (actually, any character is OK in namespace)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78364.xsl</xsl>
+		</data>
+		<result expected="valid">78364.txt</result>
+	</variation>
+	<variation name="_83968">
+		<description>Bug fixes #47284: XSLT: create:element with xmlns="" output unnecessary output</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>83968.xsl</xsl>
+		</data>
+		<result expected="valid">83968_output.txt</result>
+	</variation>
+	<variation name="_89062">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89062.txt</result>
+	</variation>
+	<variation name="_89063">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - template</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-template.xsl</xsl>
+		</data>
+		<result expected="valid">89063.txt</result>
+	</variation>
+	<variation name="_89064">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - use-templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89064.txt</result>
+	</variation>
+	<variation name="_89065">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - repeat</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89065.txt</result>
+	</variation>
+	<variation name="_89066">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - get-value</description>
+		<data>
+			<xml>ek-a-get-value.xml</xml>
+			<xsl>ek-a-get-value.xsl</xsl>
+		</data>
+		<result expected="valid">89066.txt</result>
+	</variation>
+	<variation name="_89067">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - copy</description>
+		<data>
+			<xml>ek-a-copy.xml</xml>
+			<xsl>ek-a-copy.xsl</xsl>
+		</data>
+		<result expected="valid">89067.txt</result>
+	</variation>
+	<variation name="_89069">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - element</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-element.xsl</xsl>
+		</data>
+		<result expected="valid">89069.txt</result>
+	</variation>
+	<variation name="_89070">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - attribute</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-attribute.xsl</xsl>
+		</data>
+		<result expected="valid">89070.txt</result>
+	</variation>
+	<variation name="_89071">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - pi</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-pi.xsl</xsl>
+		</data>
+		<result expected="valid">89071.txt</result>
+	</variation>
+	<variation name="_89072">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - comment</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-comment.xsl</xsl>
+		</data>
+		<result expected="valid">89072.txt</result>
+	</variation>
+	<variation name="_89074">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - eval</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-eval.xsl</xsl>
+		</data>
+		<result expected="valid">89074.txt</result>
+	</variation>
+	<variation name="_89104">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89104.txt</result>
+	</variation>
+	<variation name="_89105">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - template</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-template.xsl</xsl>
+		</data>
+		<result expected="valid">89105.txt</result>
+	</variation>
+	<variation name="_89106">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - use-templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89106.txt</result>
+	</variation>
+	<variation name="_89107">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - repeat</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89107.txt</result>
+	</variation>
+	<variation name="_89108">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - get-value</description>
+		<data>
+			<xml>ek-e-get-value.xml</xml>
+			<xsl>ek-e-get-value.xsl</xsl>
+		</data>
+		<result expected="valid">89108.txt</result>
+	</variation>
+	<variation name="_89109">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - copy</description>
+		<data>
+			<xml>ek-e-copy.xml</xml>
+			<xsl>ek-e-copy.xsl</xsl>
+		</data>
+		<result expected="valid">89109.txt</result>
+	</variation>
+	<variation name="_89110">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - element</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-element.xsl</xsl>
+		</data>
+		<result expected="valid">89110.txt</result>
+	</variation>
+	<variation name="_89111">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - attribute</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-attribute.xsl</xsl>
+		</data>
+		<result expected="valid">89111.txt</result>
+	</variation>
+	<variation name="_89112">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - pi</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-pi.xsl</xsl>
+		</data>
+		<result expected="valid">89112.txt</result>
+	</variation>
+	<variation name="_89113">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - comment</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-comment.xsl</xsl>
+		</data>
+		<result expected="valid">89113.txt</result>
+	</variation>
+	<variation name="_89117">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - script</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-script.xsl</xsl>
+		</data>
+		<result expected="valid">89117.txt</result>
+	</variation>
+	<variation name="_89118">
+		<description>XSL: 5.2.3 - Element Keywords - (E) Empty content - eval</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-eval.xsl</xsl>
+		</data>
+		<result expected="valid">89118.txt</result>
+	</variation>
+	<variation name="_89170">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - get-value</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-get-value.xsl</xsl>
+		</data>
+		<result expected="valid">89170.txt</result>
+	</variation>
+	<variation name="_89171">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - repeat</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89171.txt</result>
+	</variation>
+	<variation name="_89172">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - use-templates</description>
+		<data>
+			<xml>ek-b-use-templates.xsl</xml>
+			<xsl>ek-b-use-templates.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_89173">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - template</description>
+		<data>
+			<xml>ek-b-template.xsl</xml>
+			<xsl>ek-b-template.xsl</xsl>
+		</data>
+		<result expected="valid">89173.txt</result>
+	</variation>
+	<variation name="_89174">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - templates</description>
+		<data>
+			<xml>ek-b-templates.xsl</xml>
+			<xsl>ek-b-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89174.txt</result>
+	</variation>
+	<variation name="_89175">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - copy</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-copy.xsl</xsl>
+		</data>
+		<result expected="valid">89175.txt</result>
+	</variation>
+	<variation name="_89176">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - element</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-element.xsl</xsl>
+		</data>
+		<result expected="valid">89176.txt</result>
+	</variation>
+	<variation name="_89177">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - attribute</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-attribute.xsl</xsl>
+		</data>
+		<result expected="valid">89177.txt</result>
+	</variation>
+	<variation name="_89178">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - pi</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-pi.xsl</xsl>
+		</data>
+		<result expected="valid">89178.txt</result>
+	</variation>
+	<variation name="_89179">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - comment</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-comment.xsl</xsl>
+		</data>
+		<result expected="valid">89179.txt</result>
+	</variation>
+	<variation name="_89180">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - script</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-script.xsl</xsl>
+		</data>
+		<result expected="valid">89180.txt</result>
+	</variation>
+	<variation name="_89181">
+		<description>XSL: 5.2.3 - Element Keywords - B - element has unexpected attributes, specified in DTD with default value - eval</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>ek-b-eval.xsl</xsl>
+		</data>
+		<result expected="valid">89181.txt</result>
+	</variation>
+	<variation name="_89198">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - template</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_template.xsl</xsl>
+		</data>
+		<result expected="valid">89198.txt</result>
+	</variation>
+	<variation name="_89199">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - templates</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_templates.xsl</xsl>
+		</data>
+		<result expected="valid">89199.txt</result>
+	</variation>
+	<variation name="_89200">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - use-templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_c_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89200.txt</result>
+	</variation>
+	<variation name="_89201">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - repeat</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_c_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89201.txt</result>
+	</variation>
+	<variation name="_89202">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - get-value</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_c_get-value.xsl</xsl>
+		</data>
+		<result expected="valid">89202.txt</result>
+	</variation>
+	<variation name="_89203">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - copy</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_copy.xsl</xsl>
+		</data>
+		<result expected="valid">89203.txt</result>
+	</variation>
+	<variation name="_89204">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - element</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_element.xsl</xsl>
+		</data>
+		<result expected="valid">89204.txt</result>
+	</variation>
+	<variation name="_89205">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - attribute</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_attribute.xsl</xsl>
+		</data>
+		<result expected="valid">89205.txt</result>
+	</variation>
+	<variation name="_89206">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - pi</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_pi.xsl</xsl>
+		</data>
+		<result expected="valid">89206.txt</result>
+	</variation>
+	<variation name="_89207">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - comment</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_comment.xsl</xsl>
+		</data>
+		<result expected="valid">89207.txt</result>
+	</variation>
+	<variation name="_89208">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace - script</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_script.xsl</xsl>
+		</data>
+		<result expected="valid">89208.txt</result>
+	</variation>
+	<variation name="_89209">
+		<description>XSL: 5.2.3 (C) - Element Keywords - Element has global attribute in the 'xsl' namespace  - eval</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_c_eval.xsl</xsl>
+		</data>
+		<result expected="valid">89209.txt</result>
+	</variation>
+	<variation name="_89211">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - template</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_template.xsl</xsl>
+		</data>
+		<result expected="valid">89211.txt</result>
+	</variation>
+	<variation name="_89212">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - templates</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_templates.xsl</xsl>
+		</data>
+		<result expected="valid">89212.txt</result>
+	</variation>
+	<variation name="_89213">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - use-templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_d_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89213.txt</result>
+	</variation>
+	<variation name="_89214">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - repeat</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_d_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89214.txt</result>
+	</variation>
+	<variation name="_89215">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - get-value</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_d_get-value.xsl</xsl>
+		</data>
+		<result expected="valid">89215.txt</result>
+	</variation>
+	<variation name="_89216">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - copy</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_copy.xsl</xsl>
+		</data>
+		<result expected="valid">89216.txt</result>
+	</variation>
+	<variation name="_89217">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - element</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_element.xsl</xsl>
+		</data>
+		<result expected="valid">89217.txt</result>
+	</variation>
+	<variation name="_89218">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - attribute</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_attribute.xsl</xsl>
+		</data>
+		<result expected="valid">89218.txt</result>
+	</variation>
+	<variation name="_89219">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - pi</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_pi.xsl</xsl>
+		</data>
+		<result expected="valid">89219.txt</result>
+	</variation>
+	<variation name="_89220">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - comment</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_comment.xsl</xsl>
+		</data>
+		<result expected="valid">89220.txt</result>
+	</variation>
+	<variation name="_89221">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD  - script</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_script.xsl</xsl>
+		</data>
+		<result expected="valid">89221.txt</result>
+	</variation>
+	<variation name="_89222">
+		<description>XSL: 5.2.3 (d) - Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD - eval</description>
+		<data>
+			<xml>recurse.xml</xml>
+			<xsl>2_3_d_eval.xsl</xsl>
+		</data>
+		<result expected="valid">89222.txt</result>
+	</variation>
+	<variation name="_89278">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89278.txt</result>
+	</variation>
+	<variation name="_89279">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - template</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-template.xsl</xsl>
+		</data>
+		<result expected="valid">89279.txt</result>
+	</variation>
+	<variation name="_89280">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - use-templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89280.txt</result>
+	</variation>
+	<variation name="_89281">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - repeat</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89281.txt</result>
+	</variation>
+	<variation name="_89282">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - get-value</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-get-value.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89283">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - copy</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-copy.xsl</xsl>
+		</data>
+		<result expected="valid">89283.txt</result>
+	</variation>
+	<variation name="_89284">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - element</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-element.xsl</xsl>
+		</data>
+		<result expected="valid">89284.txt</result>
+	</variation>
+	<variation name="_89285">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - attribute</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-attribute.xsl</xsl>
+		</data>
+		<result expected="valid">89285.txt</result>
+	</variation>
+	<variation name="_89286">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - pi</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-pi.xsl</xsl>
+		</data>
+		<result expected="valid">89286.txt</result>
+	</variation>
+	<variation name="_89287">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - comment</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-comment.xsl</xsl>
+		</data>
+		<result expected="valid">89287.txt</result>
+	</variation>
+	<variation name="_89288">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - script</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-script.xsl</xsl>
+		</data>
+		<result expected="valid">89288.txt</result>
+	</variation>
+	<variation name="_89289">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - eval</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-eval.xsl</xsl>
+		</data>
+		<result expected="valid">89289.txt</result>
+	</variation>
+	<variation name="_89493">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - cdata</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-cdata.xsl</xsl>
+		</data>
+		<result expected="valid">89493.txt</result>
+	</variation>
+	<variation name="_89494">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - entityref</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-entityref.xsl</xsl>
+		</data>
+		<result expected="valid">89494.txt</result>
+	</variation>
+	<variation name="_89495">
+		<description>XSL: 5.2.3 - Element Keywords - (A) Unexpected Attributes - nodeName</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-a-nodename.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89594">
+		<description>XSL: 5.2.3 - Element Keywords - (B) Unexpected Attributes specified in DTD w/ default value - cdata</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-b-cdata.xsl</xsl>
+		</data>
+		<result expected="valid">89594.txt</result>
+	</variation>
+	<variation name="_89595">
+		<description>XSL: 5.2.3 - Element Keywords - (B) Unexpected Attributes specified in DTD w/ default value - entityref</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-b-entityref.xsl</xsl>
+		</data>
+		<result expected="valid">89595.txt</result>
+	</variation>
+	<variation name="_89596">
+		<description>XSL: 5.2.3 - Element Keywords - (B) Unexpected Attributes specified in DTD w/ default value - nodeName</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-b-nodename.xsl</xsl>
+		</data>
+		<result expected="valid">89596.txt</result>
+	</variation>
+	<variation name="_89597">
+		<description>XSL: 5.2.3 - Element Keywords - (c) Global attributes from the XSL namespace - cdata</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_c_cdata.xsl</xsl>
+		</data>
+		<result expected="valid">89597.txt</result>
+	</variation>
+	<variation name="_89598">
+		<description>XSL: 5.2.3 - Element Keywords - (c) Global attributes from the XSL namespace - entityref</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_c_entityref.xsl</xsl>
+		</data>
+		<result expected="valid">89598.txt</result>
+	</variation>
+	<variation name="_89599">
+		<description>XSL: 5.2.3 - Element Keywords - (c) Global attributes from the XSL namespace - nodeName</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_c_nodename.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89600">
+		<description>XSL: 5.2.3 - Element Keywords - (d) Global attributes from the XSL namespace specified in DTD - cdata</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_d_cdata.xsl</xsl>
+		</data>
+		<result expected="valid">89600.txt</result>
+	</variation>
+	<variation name="_89601">
+		<description>XSL: 5.2.3 - Element Keywords - (d) Global attributes from the XSL namespace specified in DTD - entityref</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_d_entityref.xsl</xsl>
+		</data>
+		<result expected="valid">89601.txt</result>
+	</variation>
+	<variation name="_89602">
+		<description>XSL: 5.2.3 - Element Keywords - (d) Global attributes from the XSL namespace specified in DTD - nodename</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_3_d_nodename.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89603">
+		<description>XSL: 5.2.3 - Element Keywords - (e) Element has empty content - cdata</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-cdata.xsl</xsl>
+		</data>
+		<result expected="valid">89603.txt</result>
+	</variation>
+	<variation name="_89604">
+		<description>XSL: 5.2.3 - Element Keywords - (e) Element has empty content - entityref</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-entityref.xsl</xsl>
+		</data>
+		<result expected="valid">89604.txt</result>
+	</variation>
+	<variation name="_89605">
+		<description>XSL: 5.2.3 - Element Keywords - (e) Element has empty content - nodename</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-e-nodename.xsl</xsl>
+		</data>
+		<result expected="valid">89605.txt</result>
+	</variation>
+	<variation name="_89705">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - nodeName</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-nodename.xsl</xsl>
+		</data>
+		<result expected="valid">89705.txt</result>
+	</variation>
+	<variation name="_89706">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - entityRef</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-entityref.xsl</xsl>
+		</data>
+		<result expected="valid">89706.txt</result>
+	</variation>
+	<variation name="_89707">
+		<description>XSL: 5.2.3 - Element Keywords - (F) Text content only - cdata</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-f-cdata.xsl</xsl>
+		</data>
+		<result expected="valid">89707.txt</result>
+	</variation>
+	<variation name="_89709">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89709.txt</result>
+	</variation>
+	<variation name="_89710">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - template</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-template.xsl</xsl>
+		</data>
+		<result expected="valid">89710.txt</result>
+	</variation>
+	<variation name="_89711">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - use-templates</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89711.txt</result>
+	</variation>
+	<variation name="_89712">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - repeat</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89712.txt</result>
+	</variation>
+	<variation name="_89713">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - get-value</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-get-value.xsl</xsl>
+		</data>
+		<result expected="valid">89713.txt</result>
+	</variation>
+	<variation name="_89714">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - copy</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-copy.xsl</xsl>
+		</data>
+		<result expected="valid">89714.txt</result>
+	</variation>
+	<variation name="_89715">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - element</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-element.xsl</xsl>
+		</data>
+		<result expected="valid">89715.txt</result>
+	</variation>
+	<variation name="_89716">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - attribute</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-attribute.xsl</xsl>
+		</data>
+		<result expected="valid">89716.txt</result>
+	</variation>
+	<variation name="_89717">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - pi</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-pi.xsl</xsl>
+		</data>
+		<result expected="valid">89717.txt</result>
+	</variation>
+	<variation name="_89718">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - comment</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-comment.xsl</xsl>
+		</data>
+		<result expected="valid">89718.txt</result>
+	</variation>
+	<variation name="_89720">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - eval</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-eval.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89721">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - cdata</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-cdata.xsl</xsl>
+		</data>
+		<result expected="valid">89721.txt</result>
+	</variation>
+	<variation name="_89722">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - entityref</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-entityref.xsl</xsl>
+		</data>
+		<result expected="valid">89722.txt</result>
+	</variation>
+	<variation name="_89723">
+		<description>XSL: 5.2.3 - Element Keywords - (G) subelement structure with no XSL - nodename</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-g-nodename.xsl</xsl>
+		</data>
+		<result expected="valid">89723.txt</result>
+	</variation>
+	<variation name="_89729">
+		<description>XSL: 5.2.3 - Element Keywords - (H) subelement structure with no XSL - cdata</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-h-cdata.xsl</xsl>
+		</data>
+		<result expected="valid">89729.txt</result>
+	</variation>
+	<variation name="_89730">
+		<description>XSL: 5.2.3 - Element Keywords - (H) subelement structure with no XSL - entityref</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-h-entityref.xsl</xsl>
+		</data>
+		<result expected="valid">89730.txt</result>
+	</variation>
+	<variation name="_89731">
+		<description>XSL: 5.2.3 - Element Keywords - (H) subelement structure with no XSL - nodeName</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>ek-h-nodename.xsl</xsl>
+		</data>
+		<result expected="valid">89731.txt</result>
+	</variation>
+	<variation name="Element_ElementWithEmptyElementTag">
+		<description>Use a source (and correspond xslt 'match') of nested elements with the same name, and an empty element. [Bug 53290] </description>
+		<data>
+			<xml>xslt_element_NestedElementsSameName.xml</xml>
+			<xsl>xslt_element_NestedElementsSameName.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_element_NestedElementsSameName_result.txt</result>
+	</variation>
+	<variation name="Element_ElementWithNoNameSpecified">
+		<description>Use xsl:element with name="" [Bug 53195] </description>
+		<data>
+			<xml>xslt_element_Prefixes.xml</xml>
+			<xsl>xslt_element_EmptyElement.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Element_ElementWithNoNameSpecifiedButValidNS">
+		<description>Use xsl:element with name="", and valid namespace [Bug 53195] </description>
+		<data>
+			<xml>xslt_element_Prefixes.xml</xml>
+			<xsl>xslt_element_EmptyElementWithNS.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Element_ElementWithNSFromNameFn">
+		<description>Use xsl:element with name="{name(.)}" from a base xml document that has a QName name with attached NS [Bug 53218] </description>
+		<data>
+			<xml>xslt_element_NSShared.xml</xml>
+			<xsl>xslt_element_NoElementNS.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Element_UseXslElementWithNameSpaceAttrEqualToXmlnsUri">
+		<description>Use xsl:element with a namespace attribute on the xsl:element element that corresponds to the xmlns Uri. Should generate an error. [Bug 54232]</description>
+		<data>
+			<xml>xslt_element_XmlnsWithXmlnsUri.xml</xml>
+			<xsl>xslt_element_XmlnsWithXmlnsUri.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Element_UseXslElementWIthNamespaceEqualToXmlnsUri">
+		<description>Use xsl:element with a namespace equal to the xmlns reserved namespace/uri. Should generate an error. [Bug 54232]</description>
+		<data>
+			<xml>xslt_element_XmlnsOnNamespaceAttribute.xml</xml>
+			<xsl>xslt_element_XmlnsOnNamespaceAttribute.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="ValidAttribute">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_valid_attr_on_xslt_namespace_element.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_valid_attr_on_xslt_namespace_element.txt</result>
+	</variation>
+</testcase>

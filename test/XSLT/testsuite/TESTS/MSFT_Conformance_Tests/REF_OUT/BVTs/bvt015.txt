@@ -1,0 +1,8 @@
+<test1>_j.iha,aC</test1>
+<test2>(jihaa)</test2>
+<test3>Biggest</test3>
+<test4>_Biggest</test4>
+<test5>Not A Number</test5>
+<test1>1.234,5%</test1>
+<test2>Infinity%</test2>
+<test3>12.34</test3>

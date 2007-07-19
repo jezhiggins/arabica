@@ -1,0 +1,21 @@
+<a xmlns:x="urn:foo" xmlns="{@style}" />
+<a xmlns:x="{@style}" />
+<a x:xmlns="autobiography" xmlns:x="urn:foo" />
+<a xmlns:x="urn:foo" xmlns="{@style}" />
+<a xmlns:x="{@style}" />
+<a x:xmlns="textbook" xmlns:x="urn:foo" />
+<a xmlns:x="urn:foo" xmlns="{@style}" />
+<a xmlns:x="{@style}" />
+<a x:xmlns="storybook" xmlns:x="urn:foo" />
+<a xmlns:x="urn:foo" xmlns="{@style}" />
+<a xmlns:x="{@style}" />
+<a x:xmlns="textbook" xmlns:x="urn:foo" />
+<a xmlns:x="urn:foo" xmlns="{@style}" />
+<a xmlns:x="{@style}" />
+<a x:xmlns="textbook" xmlns:x="urn:foo" />
+<a xmlns:x="urn:foo" xmlns="{@style}" />
+<a xmlns:x="{@style}" />
+<a x:xmlns="textbook" xmlns:x="urn:foo" />
+<a xmlns:x="urn:foo" xmlns="{@style}" />
+<a xmlns:x="{@style}" />
+<a x:xmlns="novel" xmlns:x="urn:foo" />

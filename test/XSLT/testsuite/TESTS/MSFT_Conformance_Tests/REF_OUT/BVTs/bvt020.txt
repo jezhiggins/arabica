@@ -1,0 +1,8 @@
+<x>
+<y />
+</x>
+<x xmlns:ns2="http://ns2" />
+<ns1:x xmlns:ns1="http://ns1" />
+<x xmlns:ns3="http://ns3" />
+<ns1:x xmlns:ns1="http://ns1" />
+<x xmlns:ext="http://ext" />

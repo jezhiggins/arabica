@@ -1,0 +1,8 @@
+<?xml version="1.0"?> 
+<doc>
+  <a>1</a>
+  <a ex="">2</a>
+  <a ex="value">3</a>
+  <a why="">4</a>
+  <a why="value">5</a>
+</doc>

@@ -1,0 +1,59 @@
+<sorttest>
+<elem1>
+<elem1a x="a" y="5" z="9">
+		one1<d>1</d>
+	</elem1a>
+	<elem1b x="a" y="5" z="5">
+		one1<d>1</d>
+	</elem1b>
+	<elem1c x="b" y="4" z="5">
+		one1<d>1</d>	
+	</elem1c>
+	<elem1d x="b" y="8" z="5">
+		one1<d>1</d>
+	</elem1d>
+	<elem1e x="c" y="8" z="5">
+		one2<d>2</d>	
+	</elem1e>
+	<elem1f x="c" y="7" z="5">
+		one2<d>2</d>
+	</elem1f>
+	<elem1g  x="d" y="2" z="5">
+		one2<d>2</d>	
+	</elem1g>
+	<elem1h x="d" y="6" z="5">
+		one2<d>2</d>
+	</elem1h>
+
+
+</elem1>
+
+<elem2>
+	<elem1a x="a" y="9" z="9">
+		one1	<d>0</d>
+	</elem1a>
+	<elem1b x="a" y="5" z="5">
+		one1<d>1</d>
+	</elem1b>
+	<elem1c x="b" y="4" z="5">
+		one1<d>2</d>	
+	</elem1c>
+	<elem1d x="b" y="8" z="5">
+		one1<d>3</d>
+	</elem1d>
+	<elem1e x="c" y="8" z="5">
+		one2<d>4</d>	
+	</elem1e>
+	<elem1f x="c" y="7" z="5">
+		one2<d>5</d>
+	</elem1f>
+	<elem1g  x="d" y="2" z="5">
+		one2<d>6</d>	
+	</elem1g>
+	<elem1h x="d" y="6" z="5">
+		one2<d>7</d>
+	</elem1h>
+
+</elem2>
+
+</sorttest>

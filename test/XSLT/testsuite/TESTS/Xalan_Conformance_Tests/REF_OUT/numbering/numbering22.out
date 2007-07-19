@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  
+    (1) aaa
+    bbb
+    ccc
+    (2) ddd
+    (3) eee
+  
+  
+    fff
+    (1) ggg
+    (2) hhh
+  
+  
+    (1) aaa
+    (2) bbb
+    ccc
+    (3) ddd
+    eee
+  
+</out>

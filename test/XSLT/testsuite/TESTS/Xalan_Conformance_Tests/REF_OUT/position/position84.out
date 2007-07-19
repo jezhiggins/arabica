@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+      Title= AAA<name first-of="4">title</name>
+      Title= BBB<name first-of="4">section</name>
+      Title= CCC<name first-of="5">section</name>
+      Title= DDD<name first-of="3">section</name>
+      Title= EEE<name first-of="3">section</name></out>

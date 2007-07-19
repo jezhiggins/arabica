@@ -1,0 +1,34 @@
+<html>
+<head>
+<title> Document</title>
+</head>
+<body>
+<H2>Descendant or Self Axis</H2>
+<b>Me.<br />Preceeding child.<br />Child. <br />preceeding Descendant.<br />Descendant.<br />Following Descendant.<br />following child.<br />
+</b>
+<H2>Descendant Axis</H2>
+<b>Preceeding child.<br />Child. <br />preceeding Descendant.<br />Descendant.<br />Following Descendant.<br />following child.<br />
+</b>
+<H2>Self Axis</H2>
+<b>Me.<br />
+</b>
+<H2>Child Axis</H2>
+<b>Preceeding child.<br />Child. <br />following child.<br />
+</b>
+<H2>Attribute Axis</H2>
+<b>id001</b>
+<H2>Parent Axis</H2>
+<b>Parent. <br />
+</b>
+<H2>Ancestor or Self Axis</H2>
+<b>Ancestor. <br />Parent. <br />Me.<br />
+</b>
+<H2>Ancestor Axis</H2>
+<b>Ancestor. <br />Parent. <br />
+</b>
+<H2>value of .</H2>
+<b> Me.    Preceeding child.    Child.    preceeding Descendant.    Descendant.    Following Descendant.     following child.   </b>
+<H2>value of ..</H2>
+<b> Parent.   Preceeding sibling.    Me.    Preceeding child.    Child.    preceeding Descendant.    Descendant.    Following Descendant.     following child.     Following Sibling.   </b>
+</body>
+</html>

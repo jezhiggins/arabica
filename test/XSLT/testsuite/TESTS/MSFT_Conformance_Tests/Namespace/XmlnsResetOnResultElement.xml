@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<n:book xmlns:n='urn:foo'>
+	<n:chapter blah='12' xmlns:bar="urn:bar" xmlns=""/>
+	<n:chapter xmlns="boo">
+		<foo xmlns="" />
+	</n:chapter>
+</n:book>

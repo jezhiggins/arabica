@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  (1) Citation before first chapter
+  
+    aaa
+    (2) Citation 1 in first chapter
+    bbb
+    ccc
+    ddd
+    (6) Citation 2 in first chapter
+    eee
+    (8) Citation 3 in first chapter
+  
+  fff
+  ggg
+  hhh
+  (5) Citation between chapters
+  
+    iii
+    jjj
+    kkk
+    (4) Citation 1 in second chapter
+    (5) Citation 2 in second chapter
+  
+  (6) Citation after last chapter
+</out>

@@ -1,0 +1,588 @@
+
+	
+- <SPAN style="color=green"> : This file represents a fragment of a book store inventory database </SPAN><br />
+	
+- <SPAN style="color=green">bookstore :  Seven Years in Trenton  Joe Bob Trenton Literary Review Honorable Mention USA  12   History of Trenton  Mary Bob 
+				Selected Short Stories of
+				JoeBob Loser US   55   XQL The Golden Years  Mike Hyman 
+				XQL For Dummies
+				Jonathan Marsh   55.95   Road and Track 3.50  Yes   PC Week free Ziff Davis   PC Magazine 3.95 Ziff Davis  Create a dream PC
+				Create a list of needed hardware  The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23  Visual Basic 5.0 - Will it stand the test of time?
+			     Sport Cars - Can you really dream?
+			    PC Magazine Best Product of 1997   History of Trenton 2  Mary F Robinson 
+				Selected Short Stories of
+				Mary F Robinson   55   History of Trenton Vol 3  Mary F Robinson Frank Anderson Pulizer 
+				Selected Short Stories of
+				Mary F Robinson   10   How To Fix Computers  Hack er Ph.D.  08   Tracking Trenton 2.50    Tracking Trenton Stocks 0.98    Trenton Today, Trenton Tomorrow  Toni Bob B.A. Ph.D. Pulizer Still in Trenton Trenton Forever  6.50  It was a dark and stormy night. But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			  Trenton misery     Who's Who in Trenton Robert Bob   Where is Trenton?   Where in the world is Trenton?  </SPAN>
+	
+- <SPAN style="color=green">book : Seven Years in Trenton  Joe Bob Trenton Literary Review Honorable Mention USA  12 </SPAN>
+	
+- <SPAN style="color=green">title :Seven Years in Trenton</SPAN>
+	
+- <SPAN style="color=green"> :Seven Years in Trenton</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">author : Joe Bob Trenton Literary Review Honorable Mention USA </SPAN>
+	
+- <SPAN style="color=green">first-name :Joe</SPAN>
+	
+- <SPAN style="color=green"> :Joe</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Bob</SPAN>
+	
+- <SPAN style="color=green"> :Bob</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">award :Trenton Literary Review Honorable Mention</SPAN>
+	
+- <SPAN style="color=green"> :Trenton Literary Review Honorable Mention</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">my:country :USA</SPAN>
+	
+- <SPAN style="color=green"> :USA</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">price :12</SPAN>
+	
+- <SPAN style="color=green"> :12</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">book : History of Trenton  Mary Bob 
+				Selected Short Stories of
+				JoeBob Loser US   55 </SPAN>
+	
+- <SPAN style="color=green">title :History of Trenton</SPAN>
+	
+- <SPAN style="color=green"> :History of Trenton</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">author : Mary Bob 
+				Selected Short Stories of
+				JoeBob Loser US  </SPAN>
+	
+- <SPAN style="color=green">first-name :Mary</SPAN>
+	
+- <SPAN style="color=green"> :Mary</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Bob</SPAN>
+	
+- <SPAN style="color=green"> :Bob</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">publication :
+				Selected Short Stories of
+				JoeBob Loser US </SPAN>
+	
+- <SPAN style="color=green"> :
+				Selected Short Stories of
+				</SPAN><br />
+	
+- <SPAN style="color=green">first-name :JoeBob</SPAN>
+	
+- <SPAN style="color=green"> :JoeBob</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Loser</SPAN>
+	
+- <SPAN style="color=green"> :Loser</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">country :US</SPAN>
+	
+- <SPAN style="color=green"> :US</SPAN><br />
+<br />
+<br />
+<br />
+	
+- <SPAN style="color=green">price :55</SPAN>
+	
+- <SPAN style="color=green"> :55</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">book : XQL The Golden Years  Mike Hyman 
+				XQL For Dummies
+				Jonathan Marsh   55.95 </SPAN>
+	
+- <SPAN style="color=green">title :XQL The Golden Years</SPAN>
+	
+- <SPAN style="color=green"> :XQL The Golden Years</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">author : Mike Hyman 
+				XQL For Dummies
+				Jonathan Marsh  </SPAN>
+	
+- <SPAN style="color=green">first.name :Mike</SPAN>
+	
+- <SPAN style="color=green"> :Mike</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last.name :Hyman</SPAN>
+	
+- <SPAN style="color=green"> :Hyman</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">publication :
+				XQL For Dummies
+				Jonathan Marsh </SPAN>
+	
+- <SPAN style="color=green"> :
+				XQL For Dummies
+				</SPAN><br />
+	
+- <SPAN style="color=green">first.name :Jonathan</SPAN>
+	
+- <SPAN style="color=green"> :Jonathan</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last.name :Marsh</SPAN>
+	
+- <SPAN style="color=green"> :Marsh</SPAN><br />
+<br />
+<br />
+<br />
+	
+- <SPAN style="color=green">price :55.95</SPAN>
+	
+- <SPAN style="color=green"> :55.95</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">magazine : Road and Track 3.50  Yes </SPAN>
+	
+- <SPAN style="color=green">title :Road and Track</SPAN>
+	
+- <SPAN style="color=green"> :Road and Track</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">price :3.50</SPAN>
+	
+- <SPAN style="color=green"> :3.50</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">subscription :</SPAN><br />
+	
+- <SPAN style="color=green">special_edition :Yes</SPAN>
+	
+- <SPAN style="color=green"> :Yes</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">magazine : PC Week free Ziff Davis </SPAN>
+	
+- <SPAN style="color=green">title :PC Week</SPAN>
+	
+- <SPAN style="color=green"> :PC Week</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">price :free</SPAN>
+	
+- <SPAN style="color=green"> :free</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">publisher :Ziff Davis</SPAN>
+	
+- <SPAN style="color=green"> :Ziff Davis</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">magazine : PC Magazine 3.95 Ziff Davis  Create a dream PC
+				Create a list of needed hardware  The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23  Visual Basic 5.0 - Will it stand the test of time?
+			  </SPAN>
+	
+- <SPAN style="color=green">title :PC Magazine</SPAN>
+	
+- <SPAN style="color=green"> :PC Magazine</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">price :3.95</SPAN>
+	
+- <SPAN style="color=green"> :3.95</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">publisher :Ziff Davis</SPAN>
+	
+- <SPAN style="color=green"> :Ziff Davis</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">articles : Create a dream PC
+				Create a list of needed hardware  The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23  Visual Basic 5.0 - Will it stand the test of time?
+			 </SPAN>
+	
+- <SPAN style="color=green">story1 :Create a dream PC
+				Create a list of needed hardware </SPAN>
+	
+- <SPAN style="color=green"> :Create a dream PC
+				</SPAN><br />
+	
+- <SPAN style="color=green">details :Create a list of needed hardware</SPAN>
+	
+- <SPAN style="color=green"> :Create a list of needed hardware</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">story2 :The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23 </SPAN>
+	
+- <SPAN style="color=green"> :The future of the web
+				</SPAN><br />
+	
+- <SPAN style="color=green">details :Can Netscape stay alive with Microsoft eating up its browser share?</SPAN>
+	
+- <SPAN style="color=green"> :Can Netscape stay alive with Microsoft eating up its browser share?</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">stock :MSFT 99.30</SPAN>
+	
+- <SPAN style="color=green"> :MSFT 99.30</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">date :1998-06-23</SPAN>
+	
+- <SPAN style="color=green"> :1998-06-23</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">story3 :Visual Basic 5.0 - Will it stand the test of time?
+			</SPAN>
+	
+- <SPAN style="color=green"> :Visual Basic 5.0 - Will it stand the test of time?
+			</SPAN><br />
+<br />
+<br />
+<br />
+	
+- <SPAN style="color=green">magazine :  Sport Cars - Can you really dream?
+			  </SPAN>
+	
+- <SPAN style="color=green">articles : Sport Cars - Can you really dream?
+			 </SPAN>
+	
+- <SPAN style="color=green">story1 :Sport Cars - Can you really dream?
+			</SPAN>
+	
+- <SPAN style="color=green"> :Sport Cars - Can you really dream?
+			</SPAN><br />
+<br />
+<br />
+<br />
+	
+- <SPAN style="color=green">magazine : PC Magazine Best Product of 1997 </SPAN>
+	
+- <SPAN style="color=green">award :PC Magazine Best Product of 1997</SPAN>
+	
+- <SPAN style="color=green"> :PC Magazine Best Product of 1997</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">book : History of Trenton 2  Mary F Robinson 
+				Selected Short Stories of
+				Mary F Robinson   55 </SPAN>
+	
+- <SPAN style="color=green">title :History of Trenton 2</SPAN>
+	
+- <SPAN style="color=green"> :History of Trenton 2</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">author : Mary F Robinson 
+				Selected Short Stories of
+				Mary F Robinson  </SPAN>
+	
+- <SPAN style="color=green">first.name :Mary F</SPAN>
+	
+- <SPAN style="color=green"> :Mary F</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Robinson</SPAN>
+	
+- <SPAN style="color=green"> :Robinson</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">publication :
+				Selected Short Stories of
+				Mary F Robinson </SPAN>
+	
+- <SPAN style="color=green"> :
+				Selected Short Stories of
+				</SPAN><br />
+	
+- <SPAN style="color=green">first.name :Mary F</SPAN>
+	
+- <SPAN style="color=green"> :Mary F</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Robinson</SPAN>
+	
+- <SPAN style="color=green"> :Robinson</SPAN><br />
+<br />
+<br />
+<br />
+	
+- <SPAN style="color=green">price :55</SPAN>
+	
+- <SPAN style="color=green"> :55</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">book : History of Trenton Vol 3  Mary F Robinson Frank Anderson Pulizer 
+				Selected Short Stories of
+				Mary F Robinson   10 </SPAN>
+	
+- <SPAN style="color=green">title :History of Trenton Vol 3</SPAN>
+	
+- <SPAN style="color=green"> :History of Trenton Vol 3</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">author : Mary F Robinson Frank Anderson Pulizer 
+				Selected Short Stories of
+				Mary F Robinson  </SPAN>
+	
+- <SPAN style="color=green">first-name :Mary F</SPAN>
+	
+- <SPAN style="color=green"> :Mary F</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Robinson</SPAN>
+	
+- <SPAN style="color=green"> :Robinson</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">first-name :Frank</SPAN>
+	
+- <SPAN style="color=green"> :Frank</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Anderson</SPAN>
+	
+- <SPAN style="color=green"> :Anderson</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">award :Pulizer</SPAN>
+	
+- <SPAN style="color=green"> :Pulizer</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">publication :
+				Selected Short Stories of
+				Mary F Robinson </SPAN>
+	
+- <SPAN style="color=green"> :
+				Selected Short Stories of
+				</SPAN><br />
+	
+- <SPAN style="color=green">first-name :Mary F</SPAN>
+	
+- <SPAN style="color=green"> :Mary F</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Robinson</SPAN>
+	
+- <SPAN style="color=green"> :Robinson</SPAN><br />
+<br />
+<br />
+<br />
+	
+- <SPAN style="color=green">price :10</SPAN>
+	
+- <SPAN style="color=green"> :10</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">book : How To Fix Computers  Hack er Ph.D.  08 </SPAN>
+	
+- <SPAN style="color=green">title :How To Fix Computers</SPAN>
+	
+- <SPAN style="color=green"> :How To Fix Computers</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">author : Hack er Ph.D. </SPAN>
+	
+- <SPAN style="color=green">first-name :Hack</SPAN>
+	
+- <SPAN style="color=green"> :Hack</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :er</SPAN>
+	
+- <SPAN style="color=green"> :er</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">degree :Ph.D.</SPAN>
+	
+- <SPAN style="color=green"> :Ph.D.</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">price :08</SPAN>
+	
+- <SPAN style="color=green"> :08</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">magazine : Tracking Trenton 2.50  </SPAN>
+	
+- <SPAN style="color=green">title :Tracking Trenton</SPAN>
+	
+- <SPAN style="color=green"> :Tracking Trenton</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">price :2.50</SPAN>
+	
+- <SPAN style="color=green"> :2.50</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">subscription :</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">my:magazine : Tracking Trenton Stocks 0.98  </SPAN>
+	
+- <SPAN style="color=green">title :Tracking Trenton Stocks</SPAN>
+	
+- <SPAN style="color=green"> :Tracking Trenton Stocks</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">price :0.98</SPAN>
+	
+- <SPAN style="color=green"> :0.98</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">subscription :</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">book : Trenton Today, Trenton Tomorrow  Toni Bob B.A. Ph.D. Pulizer Still in Trenton Trenton Forever  6.50  It was a dark and stormy night. But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			  Trenton misery   </SPAN>
+	
+- <SPAN style="color=green">title :Trenton Today, Trenton Tomorrow</SPAN>
+	
+- <SPAN style="color=green"> :Trenton Today, Trenton Tomorrow</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">author : Toni Bob B.A. Ph.D. Pulizer Still in Trenton Trenton Forever </SPAN>
+	
+- <SPAN style="color=green">first-name :Toni</SPAN>
+	
+- <SPAN style="color=green"> :Toni</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">last-name :Bob</SPAN>
+	
+- <SPAN style="color=green"> :Bob</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">degree :B.A.</SPAN>
+	
+- <SPAN style="color=green"> :B.A.</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">degree :Ph.D.</SPAN>
+	
+- <SPAN style="color=green"> :Ph.D.</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">award :Pulizer</SPAN>
+	
+- <SPAN style="color=green"> :Pulizer</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">publication :Still in Trenton</SPAN>
+	
+- <SPAN style="color=green"> :Still in Trenton</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">publication :Trenton Forever</SPAN>
+	
+- <SPAN style="color=green"> :Trenton Forever</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">price :6.50</SPAN>
+	
+- <SPAN style="color=green"> :6.50</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">excerpt : It was a dark and stormy night. But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			  Trenton misery  </SPAN>
+	
+- <SPAN style="color=green">p :It was a dark and stormy night.</SPAN>
+	
+- <SPAN style="color=green"> :It was a dark and stormy night.</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">p :But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			</SPAN>
+	
+- <SPAN style="color=green"> :But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			</SPAN><br />
+	
+- <SPAN style="color=green">emph :I</SPAN>
+	
+- <SPAN style="color=green"> :I</SPAN><br />
+<br />
+	
+- <SPAN style="color=green"> : have.
+			</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">definition-list : Trenton misery </SPAN>
+	
+- <SPAN style="color=green">term :Trenton</SPAN>
+	
+- <SPAN style="color=green"> :Trenton</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">definition :misery</SPAN>
+	
+- <SPAN style="color=green"> :misery</SPAN><br />
+<br />
+<br />
+<br />
+<br />
+	
+- <SPAN style="color=green">my:book : Who's Who in Trenton Robert Bob </SPAN>
+	
+- <SPAN style="color=green">my:title :Who's Who in Trenton</SPAN>
+	
+- <SPAN style="color=green"> :Who's Who in Trenton</SPAN><br />
+<br />
+	
+- <SPAN style="color=green">my:author :Robert Bob</SPAN>
+	
+- <SPAN style="color=green"> :Robert Bob</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">my:book : Where is Trenton? </SPAN>
+	
+- <SPAN style="color=green">my:title :Where is Trenton?</SPAN>
+	
+- <SPAN style="color=green"> :Where is Trenton?</SPAN><br />
+<br />
+<br />
+	
+- <SPAN style="color=green">my:book : Where in the world is Trenton? </SPAN>
+	
+- <SPAN style="color=green">my:title :Where in the world is Trenton?</SPAN>
+	
+- <SPAN style="color=green"> :Where in the world is Trenton?</SPAN><br />
+<br />
+<br />
+<br />

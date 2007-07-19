@@ -1,0 +1,12 @@
+<xslTutorial xmlns:MY="urn:http//www.placeholder-name-here.com/schema/"> <NONE>this</NONE><NONE>rocks</NONE> <NONE>this</NONE> <NONE>rocks</NONE> <NONE a1="this "> this </NONE> <NONE>rocks</NONE> <NONE>this</NONE> <NONE>rocks</NONE>
+<MY:DOG>this</MY:DOG><NONE>rocks</NONE>
+<MY:DOG>this</MY:DOG>
+<NONE>rocks</NONE>
+<MY:DOG>this</MY:DOG><MY:DOG>rocks</MY:DOG>
+<MY:DOG>this</MY:DOG>
+<MY:DOG>rocks</MY:DOG>
+<MY:DOG>this</MY:DOG>
+<MY:DOG>rocks</MY:DOG>
+<MY:DOG>this</MY:DOG>
+<MY:DOG>rocks</MY:DOG>
+</xslTutorial>

@@ -1,0 +1,11 @@
+<parts>
+ <part id="1" type="type-a" name="name-a"/>
+ <part id="2" type="type-a" name="name-b"/>
+ <part id="3" type="type-b" name="name-c"/>
+ <part id="4" type="type-d" name="name-d"/>
+ <part id="5" type="type-b" name="name-e"/>
+ <part id="6" type="type-c" name="name-f"/>
+ <part id="7" type="type-d" name="name-g"/>
+ <part id="8" type="type-b" name="name-h"/>
+ <part id="9" type="type-c" name="name-i"/>
+ </parts>

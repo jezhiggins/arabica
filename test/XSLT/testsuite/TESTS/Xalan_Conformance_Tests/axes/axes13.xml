@@ -1,0 +1,6 @@
+<?xml version="1.0"?> 
+<doc>
+  <foo new="true"><baz>is new</baz></foo>
+  <foo new="true">xyz<baz>is new but has text</baz></foo>
+  <foo new="false"><baz>is not new</baz></foo>
+</doc>

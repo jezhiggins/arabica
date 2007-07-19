@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<TEST RELEASE="R6.0">
+  <ELEMENT x="100000"/>
+  <ELEMENT x="2" y="3" z="4"/>
+  <ELEMENT x="33333"/>
+</TEST>

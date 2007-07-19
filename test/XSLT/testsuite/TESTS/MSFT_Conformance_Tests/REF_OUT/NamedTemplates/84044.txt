@@ -1,0 +1,24 @@
+  
+MODE M PRI 2 
+  
+MODE M PRI 2 
+  
+MODE M PRI 2 
+  
+MODE M PRI 2 
+  
+MODE M PRI 2 
+  
+MODE M PRI 2 
+  
+MODE X PRI 1
+  
+MODE X PRI 1
+  
+MODE X PRI 1
+  
+MODE X PRI 1
+  
+MODE X PRI 1
+  
+MODE X PRI 1

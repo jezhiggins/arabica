@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<OPTGROUP>this</OPTGROUP><OPTGROUP>rocks</OPTGROUP>
+<OPTGROUP>this</OPTGROUP> <OPTGROUP>rocks</OPTGROUP>
+<OPTGROUP>this</OPTGROUP>
+<OPTGROUP>rocks</OPTGROUP>
+<OPTGROUP>this</OPTGROUP>		<OPTGROUP>rocks</OPTGROUP>
+
+<SPAN>this</SPAN><OPTGROUP>rocks</OPTGROUP>
+<SPAN>this</SPAN> <OPTGROUP>rocks</OPTGROUP>
+</xslTutorial>

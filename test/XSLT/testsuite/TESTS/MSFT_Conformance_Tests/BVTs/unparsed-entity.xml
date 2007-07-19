@@ -1,0 +1,12 @@
+<!DOCTYPE unparsed-entity [
+
+<!ELEMENT unparsed-entity EMPTY>
+
+<!NOTATION gif SYSTEM "http://gif.com">
+
+<!ENTITY pic SYSTEM "./pic.gif" NDATA gif>
+
+<!ENTITY pic2 SYSTEM "http://my.com/pic2.gif" NDATA gif>
+]>
+
+<unparsed-entity/>

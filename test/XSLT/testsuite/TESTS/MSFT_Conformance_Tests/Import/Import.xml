@@ -1,0 +1,369 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Import" description="" outpath="out">
+	<variation name="_10000">
+		<description>XSLT - xsl:import | Nesting Imports | Nested xsl:import with import</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>10000.xsl</xsl>
+		</data>
+		<result expected="valid">10000.txt</result>
+	</variation>
+	<variation name="_10001">
+		<description>XSLT - xsl:import | Nesting Imports | Nested xsl:import with include</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>10001.xsl</xsl>
+		</data>
+		<result expected="valid">10001.txt</result>
+	</variation>
+	<variation name="_84611">
+		<description>XSLT- xsl:import | Valid Cases | Base Case - Import a stylesheet with a relative URL</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84611.xsl</xsl>
+		</data>
+		<result expected="valid">84611.txt</result>
+	</variation>
+	<variation name="_84612">
+		<description>XSLT- xsl:import | Valid Cases | Import a Stylesheet which has the same template matching pattern as in the imported stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84612.xsl</xsl>
+		</data>
+		<result expected="valid">84612.txt</result>
+	</variation>
+	<variation name="_84613">
+		<description>XSLT- xsl:import | Valid Cases | Import the same Stylesheet multiple times</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84612.xsl</xsl>
+		</data>
+		<result expected="valid">84613.txt</result>
+	</variation>
+	<variation name="_84614">
+		<description>XSLT- xsl:import | Valid Cases | Import a Stylesheet which has simplified Literal result element as Stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84614.xsl</xsl>
+		</data>
+		<result expected="valid">84614.txt</result>
+	</variation>
+	<variation name="_84615">
+		<description>XSLT- xsl:import | Valid Cases | Import a Stylesheet with has DTD in it</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84615.xsl</xsl>
+		</data>
+		<result expected="valid">84615.txt</result>
+	</variation>
+	<variation name="_91032">
+		<description>XSLT- xsl:import | Valid Cases | Import a Stylesheet which has ID for it</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91032.xsl</xsl>
+		</data>
+		<result expected="valid">91032.txt</result>
+	</variation>
+	<variation name="_91033">
+		<description>XSLT- xsl:import | Valid Cases | Commenting an &lt;xsl:import /&gt; tag shouldn't not import the stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91033.xsl</xsl>
+		</data>
+		<result expected="valid">91033.txt</result>
+	</variation>
+	<variation name="_91048">
+		<description>XSLT- xsl:import | Import Precedence |  A &lt;= B, C where B &lt;= D and C &lt;= E | Resultant precedence should be ABCDE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91048a.xsl</xsl>
+		</data>
+		<result expected="valid">91048.txt</result>
+	</variation>
+	<variation name="_91116">
+		<description>XSLT- xsl:import | Import Precedence |  A &lt;= B, C where B &lt;= D and C &lt;= E | Templates A=B and C=D, Result is ACE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91116a.xsl</xsl>
+		</data>
+		<result expected="valid">91116.txt</result>
+	</variation>
+	<variation name="_91117">
+		<description>XSLT- xsl:import | Import Precedence |  A &lt;= B, C where B &lt;= D and C &lt;= E | All Templates are same, A Wins</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91117a.xsl</xsl>
+		</data>
+		<result expected="valid">91117.txt</result>
+	</variation>
+	<variation name="_91118">
+		<description>XSLT- xsl:import | Import Precedence |  A &lt;= B, C where B &lt;= D and C &lt;= E | All Templates are same but different priorities A1B3C4D2E5 , A wins again</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91118a.xsl</xsl>
+		</data>
+		<result expected="valid">91118.txt</result>
+	</variation>
+	<variation name="_91134">
+		<description>XSLT- xsl:import | Interaction with xsl:include |  A includes B imports C, Same template matches but priorities are A1B2C3, B Wins</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91134a.xsl</xsl>
+		</data>
+		<result expected="valid">91134.txt</result>
+	</variation>
+	<variation name="_91135">
+		<description>XSLT - xsl:import | Interaction with xsl:include |  A imports B includes C, Same template matches but priorities are A1B2C3, A Wins</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91135a.xsl</xsl>
+		</data>
+		<result expected="valid">91135.txt</result>
+	</variation>
+	<variation name="_91136">
+		<description>XSLT - xsl:import | Interaction with xsl:include |  B is included at the end of A. B imports C. A, B have equal priorities, B wins</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91136a.xsl</xsl>
+		</data>
+		<result expected="valid">91136.txt</result>
+	</variation>
+	<variation name="_91143">
+		<description>XSLT - xsl:import | Error Cases |  Place the xsl:import NOT as a TOP level element, include it in some Template rule</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91143.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91144">
+		<description>XSLT - xsl:import | Error Cases |  Import a Stylesheet which imports the same stylesheet directly</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91144.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91145">
+		<description>XSLT - xsl:import | Error Cases | Import a Stylesheet which imports the same stylesheet indirectly</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91145.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91146">
+		<description>XSLT - xsl:import | Error Cases |  Import a Stylesheet which is not a well formed document (no closing &lt;/&gt; tag&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91146.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91147">
+		<description>XSLT - xsl:import | Error Cases |  Import a Stylesheet which is neither an XML nor an XSL document</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91147.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91148">
+		<description>XSLT - xsl:import | Valid Cases |  Import a Stylesheet which has the same href value but relatively different path</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91148.xsl</xsl>
+		</data>
+		<result expected="valid">91148.txt</result>
+	</variation>
+	<variation name="_91150">
+		<description>XSLT - xsl:import | Valid Cases |  Import a Stylesheet which has a full URL</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91150.xsl</xsl>
+		</data>
+		<result expected="valid">91150.txt</result>
+	</variation>
+	<variation name="_91151">
+		<description>XSLT - xsl:import | Valid Cases |  Import a Stylesheet with conflicting top variables declared</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91151.xsl</xsl>
+		</data>
+		<result expected="valid">91151.txt</result>
+	</variation>
+	<variation name="_91152">
+		<description>XSLT - xsl:import | HREF Attribute Cases |  Import without HREF Attribute &lt;xsl:import/&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91152.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91153">
+		<description>XSLT - xsl:import | HREF Attribute Cases |  Import with HREF Attribute equal to a NULL Value (href="")</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91153.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91154">
+		<description>XSLT - xsl:import | HREF Attribute Cases |  Import with HREF Value set to blank spaces</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91154.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91155">
+		<description>XSLT - xsl:import | HREF Attribute Cases |  Import a Stylesheet using Drive Letters C:\</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91155.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91156">
+		<description>XSLT - xsl:import | HREF Attribute Cases |  Import a Stylesheet using HREF = File://</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91156.xsl</xsl>
+		</data>
+		<result expected="valid">91156.txt</result>
+	</variation>
+	<variation name="_91157">
+		<description>XSLT - xsl:import | HREF Attribute Cases |  Import a Stylesheet using HREF set to UNC Path</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91157.xsl</xsl>
+		</data>
+		<result expected="valid">91157.txt</result>
+	</variation>
+	<variation name="_91158">
+		<description>XSLT - xsl:import | HREF Attribute Cases |  Import an ASP which redirects to a Stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91158.xsl</xsl>
+		</data>
+		<result expected="valid">91158.txt</result>
+	</variation>
+	<variation name="_91159">
+		<description>XSLT - xsl:import | HREF Attribute Cases |  Import an ASP which redirects to the same the Stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91159.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91162">
+		<description>XSLT - xsl:import | Boundary Cases |  Import a Stylesheet which has a longer filename</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91162.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_91163">
+		<description>XSLT - xsl:import | Boundary Cases |  Import a Stylesheet which has a longer filename (Beyond Boundary 255)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91163.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91164">
+		<description>XSLT - xsl:import | Boundary Cases |  Import a Stylesheet which is very large in size</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91164.xsl</xsl>
+		</data>
+		<result expected="valid">91164.txt</result>
+	</variation>
+	<variation name="_91165">
+		<description>XSLT - xsl:import | Security Cases | Import a Stylesheet thru HTTP which is located on a remote web server (use http://roswell)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91165.xsl</xsl>
+		</data>
+		<result expected="valid">91165.txt</result>
+	</variation>
+	<variation name="_91166">
+		<description>XSLT - xsl:import | Security Cases | Import a Stylesheet thru HTTPS which is located on a remote web server  (use http://roswell)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91166.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91173">
+		<description>XSLT - xsl:apply-imports | Base Case | Use apply-imports with xsl:import</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91173.xsl</xsl>
+		</data>
+		<result expected="valid">91173.txt</result>
+	</variation>
+	<variation name="Import_IncludeBeforeImportInStylesheet">
+		<description>Use the xsl:include element before the xsl:import element. An exception must be thrown. [Bug 65760]</description>
+		<data>
+			<xml>xslt_import_IncludeBeforeImport.xml</xml>
+			<xsl>xslt_import_IncludeBeforeImport.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="ImportPrecedanceTest1">
+		<description>XSLT: Doesn't use post-order traversal to define import precedence. [Bug 71823]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_test_import_precedance1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_import_precedance1.txt</result>
+	</variation>
+	<variation name="ImportPrecedanceTest2">
+		<description>XSLT: Doesn't use post-order traversal to define import precedence. [Bug 71823]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_test_import_precedancea.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_import_precedancea.txt</result>
+	</variation>
+	<variation name="NestedImportsWithModeTemplate">
+		<description>Use of nested imports does not produce correct results for templates. [Bug 70863]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_nested_import_with_mode_templates.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_nested_import_with_mode_templates.txt</result>
+	</variation>
+	<variation name="NestedImportsWithNoMatch">
+		<description>Using apply-imports in an imported file, when no matches are found, should invoke built-in template rules. [Bug 70947]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_nested_import_with_no_template_match.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_nested_import_with_no_template_match.txt</result>
+	</variation>
+	<variation name="VariableScopeInNestedImports">
+		<description>Test for variable scope in main and imported stylesheets. [Bug 71029]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_nested_import_variable_scope.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_nested_import_variable_scope.txt</result>
+	</variation>
+</testcase>

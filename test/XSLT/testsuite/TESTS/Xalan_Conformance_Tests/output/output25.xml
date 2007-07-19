@@ -1,0 +1,458 @@
+<?xml version="1.0"?>
+<Sprs>
+<Spr>
+<Name>DMAN4H3TBV</Name>
+<DateCreated>03/03/2000</DateCreated>
+<State>Open</State>
+<TestID>lre01</TestID>
+<TestDesc>Test harness needs robustness review for L1T, L2T, L2D setups</TestDesc>
+</Spr>
+<Spr>
+<Name>DMAN4H3VML</Name>
+<DateCreated>03/03/2000</DateCreated>
+<State>Open</State>
+<TestID>nspc03</TestID>
+<TestDesc>Attribute values fail to override in DOM scenario</TestDesc>
+</Spr>
+<Spr>
+<Name>DMAN4H429H</Name>
+<DateCreated>03/03/2000</DateCreated>
+<State>Open</State>
+<TestID>numberformat10</TestID>
+<TestDesc>Torture test of format-number obtains garbage</TestDesc>
+</Spr>
+<Spr>
+<Name>DMAN4H6RZ2</Name>
+<DateCreated>03/06/2000</DateCreated>
+<State>Open</State>
+<TestID>pos10</TestID>
+<TestDesc>Use of position() inside for-each loop has different behavior under TX scenario</TestDesc>
+</Spr>
+<Spr>
+<Name>EFAR4H2RQ6</Name>
+<DateCreated>03/02/2000</DateCreated>
+<State>Open</State>
+<TestID></TestID>
+<TestDesc>LotusXSL: include a batch file that will combine the JAR files</TestDesc>
+</Spr>
+<Spr>
+<Name>MMIY4ELLNZ</Name>
+<DateCreated>12/15/1999</DateCreated>
+<State build="0.19.2">Resolved</State>
+<TestID></TestID>
+<TestDesc>Error reporting mechanism needs major improvements</TestDesc>
+</Spr>
+<Spr>
+<Name>MMIY4G5RKT</Name>
+<DateCreated>02/02/2000</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID></TestID>
+<TestDesc>Need to have XSLTInputSource have a setDocumentHandler method, etc.</TestDesc>
+</Spr>
+<Spr>
+<Name>MMIY4G5RPR</Name>
+<DateCreated>02/02/2000</DateCreated>
+<State build="0.20.0">Resolved</State>
+<TestID></TestID>
+<TestDesc>Stylesheet Attribute validation seems not to be working</TestDesc>
+</Spr>
+<Spr>
+<Name>MMIY4G5RY5</Name>
+<DateCreated>02/02/2000</DateCreated>
+<State build="0.20.0">Resolved</State>
+<TestID></TestID>
+<TestDesc>Processor needs to be smarter about using DTM vs. Xerces liaison</TestDesc>
+</Spr>
+<Spr>
+<Name>MMIY4G5RZU</Name>
+<DateCreated>02/02/2000</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID>sort08</TestID>
+<TestDesc>xsl:sort should do simple string compare if lang="english"</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK47NLGY</Name>
+<DateCreated>05/07/1999</DateCreated>
+<State>Closed</State>
+<TestID></TestID>
+<TestDesc>xsl:stylesheet is not synonymous with xsl:transform</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4D2JCF</Name>
+<DateCreated>10/26/1999</DateCreated>
+<State build="0.19.3D03">Resolved</State>
+<TestID>avt07</TestID>
+<TestDesc>Failure to parse attribute with a SPACE within quoted string</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4D2JFT</Name>
+<DateCreated>10/26/1999</DateCreated>
+<State>Closed</State>
+<TestID></TestID>
+<TestDesc>&lt;xsl:text disable-output-escaping="yes"&gt; not working with &lt;xsl:output method=html&gt;</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4D2JJ7</Name>
+<DateCreated>10/26/1999</DateCreated>
+<State>Open</State>
+<TestID></TestID>
+<TestDesc>The escaping of quotes in inlined JavaScript died again</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4D2JLR</Name>
+<DateCreated>10/26/1999</DateCreated>
+<State build="0.19.3D03">Resolved</State>
+<TestID>ntmperr01</TestID>
+<TestDesc>Problems parsing &lt;xsl:with-param&gt; stmt</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4D2JP5</Name>
+<DateCreated>10/26/1999</DateCreated>
+<State>Open</State>
+<TestID>outp31</TestID>
+<TestDesc>Escaping of attribute quotes wasn't being done correctly when method="html".</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4D2JPR</Name>
+<DateCreated>10/26/1999</DateCreated>
+<State>Open</State>
+<TestID></TestID>
+<TestDesc>Equality comparisons with nodesets and other nodesets, strings, and numbers not to spec.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4D9RX5</Name>
+<DateCreated>11/02/1999</DateCreated>
+<State build="0.19.2">Resolved</State>
+<TestID></TestID>
+<TestDesc>FormatterToXML is throwing a NullPointerException</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DASEE</Name>
+<DateCreated>11/03/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>spr01</TestID>
+<TestDesc>Predicate test failing when testing for number that has space around it</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DBTZG</Name>
+<DateCreated>11/04/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>outp31</TestID>
+<TestDesc>method="html" failing to esc non-ASCII chars in URI attributes via HTML 4.O Spec</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DHUR4</Name>
+<DateCreated>11/10/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>outp35</TestID>
+<TestDesc>&lt;Option selected="selected"&gt; not being output correctly for HTML output.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DHUVS</Name>
+<DateCreated>11/10/1999</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID>outp36</TestID>
+<TestDesc>&lt;? Processing Instructions?&gt; not being not being terminated correctly for HTML output.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DJS4Q</Name>
+<DateCreated>11/11/1999</DateCreated>
+<State>Open</State>
+<TestID>outp42,outp43,outp46</TestID>
+<TestDesc>cdata-section-elements not outputing literal result element correctly</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DJSE3</Name>
+<DateCreated>11/11/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>outp44</TestID>
+<TestDesc>xsl:output method="xsl" not outputing proper xml header for result file</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DJSKZ</Name>
+<DateCreated>11/11/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>outp45</TestID>
+<TestDesc>omit-xml-declaration is not a recognize attribute for method="xml"</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DRL8E</Name>
+<DateCreated>11/18/1999</DateCreated>
+<State build="0.19.0">Resolved</State>
+<TestID>outp48</TestID>
+<TestDesc>HTML DTD being output after initial data.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DRLCG</Name>
+<DateCreated>11/18/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>outp47</TestID>
+<TestDesc>No error reporting of invalid use of disable-output-escaping</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DRPKM</Name>
+<DateCreated>11/18/1999</DateCreated>
+<State>Open</State>
+<TestID>spr02</TestID>
+<TestDesc>Use of 9/5 in a xpath expression generates a cryptic error message</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DSKP4</Name>
+<DateCreated>11/19/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>cnfr09</TestID>
+<TestDesc>Included template w/higher priority not being instantiated</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4DVTJS</Name>
+<DateCreated>11/22/1999</DateCreated>
+<State build="0.19.3">Resolved</State>
+<TestID>nspc16</TestID>
+<TestDesc>Marginal error reporting for toplevel elements with undefined namespaces.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4E4KCL</Name>
+<DateCreated>11/29/1999</DateCreated>
+<State build="0.19.3D03">Resolved</State>
+<TestID>impinclerr02</TestID>
+<TestDesc>Not allowed to have xsl:apply-imports within a xsl:for-each</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4E6MR3</Name>
+<DateCreated>12/01/1999</DateCreated>
+<State>Open</State>
+<TestID>str105</TestID>
+<TestDesc>Concat() does not check for number of arguments.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4E6NZE</Name>
+<DateCreated>12/01/1999</DateCreated>
+<State>Open</State>
+<TestID>ntmp06</TestID>
+<TestDesc>Stylesheet should not contain more then 1 template with the same name.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4E8L6L</Name>
+<DateCreated>12/03/1999</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID>nspc19</TestID>
+<TestDesc>&lt;xsl:namespace-alias stylesheet-prefix="axsl" result-prefix="xsl"/&gt; not working correctly</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4E8QBB</Name>
+<DateCreated>12/03/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>idky08</TestID>
+<TestDesc>The expression in a use attribute on xsl:key should not restricted to return a node-set.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4E8UHQ</Name>
+<DateCreated>12/03/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>extend09</TestID>
+<TestDesc>Extend tests that use Javascript not running w/ latest js.jars</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4EBQWT</Name>
+<DateCreated>12/06/1999</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID>embed06</TestID>
+<TestDesc>Processor crashes running example for embedded stylesheets from spec</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ECQK3</Name>
+<DateCreated>12/07/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>mdocs04</TestID>
+<TestDesc>Document() not creating a union when single argument is a nodeset.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ECTX7</Name>
+<DateCreated>12/07/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>mdocs03</TestID>
+<TestDesc>NPE when passing document() a nodeset of 'doc' as second argument</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ECVJJ</Name>
+<DateCreated>12/07/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>mdocs09</TestID>
+<TestDesc>document("") does NOTrefer to the root node of the stylesheet</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ED222</Name>
+<DateCreated>12/07/1999</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID>nspc20</TestID>
+<TestDesc>exclude-result-prefixes="ped bdd #default" not working with multiple prefixes</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4EF2FS</Name>
+<DateCreated>12/09/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>outp48</TestID>
+<TestDesc>xml header being output all the time</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4EF2KL</Name>
+<DateCreated>12/09/1999</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID>outp48</TestID>
+<TestDesc>Doctype declaration not output html/HTML when it's suppose to.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4EKLX9</Name>
+<DateCreated>12/14/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>atrs07</TestID>
+<TestDesc>Attribute sets test atrs07, seems to be generating wrong output</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4EKNM8</Name>
+<DateCreated>12/14/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>prop01</TestID>
+<TestDesc>Prop01 returns the value of system-property('xsl:version') as a string not a number</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ELNRC</Name>
+<DateCreated>12/15/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID></TestID>
+<TestDesc>Outp tests 19,20,21,22,23 now failing to output xml headers w/ different encodings.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ELPBD</Name>
+<DateCreated>12/15/1999</DateCreated>
+<State build="0.19.2">Resolved</State>
+<TestID>mdocs02</TestID>
+<TestDesc>Document()'s error resources should be in XSLT not XPATH.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ELSE3</Name>
+<DateCreated>12/15/1999</DateCreated>
+<State build="0.19.1">Resolved</State>
+<TestID>entref01</TestID>
+<TestDesc>Entref01: value-of is not passing "&amp;" thru to result output file.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ERNDJ</Name>
+<DateCreated>12/20/1999</DateCreated>
+<State>Open</State>
+<TestID></TestID>
+<TestDesc>Errors messages are overly verbose. Simplify where possible.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ERPLJ</Name>
+<DateCreated>12/20/1999</DateCreated>
+<State build="0.19.3D03">Resolved</State>
+<TestID>bool58</TestID>
+<TestDesc>urgh: $x="foo" does not mean the same as not($x!="foo")</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ESQA5</Name>
+<DateCreated>12/21/1999</DateCreated>
+<State build="0.19.2">Resolved</State>
+<TestID>lre01</TestID>
+<TestDesc>LRE attribute creation will include nodes with names in the XSLT namespace.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ESQEF</Name>
+<DateCreated>12/21/1999</DateCreated>
+<State build="0.19.2">Resolved</State>
+<TestID>lre02, lre03</TestID>
+<TestDesc>both forms of exclude-result-prefixes fail to suppress the default namespace - #default</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ESTEB</Name>
+<DateCreated>12/21/1999</DateCreated>
+<State build="0.19.3D02">Resolved</State>
+<TestID>lre05</TestID>
+<TestDesc>exclude-result-prefixes, should not apply to any included/imported stylesheets</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ETKTJ</Name>
+<DateCreated>12/22/1999</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID>lre06</TestID>
+<TestDesc>Attribute value template does not parse.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4ETPCT</Name>
+<DateCreated>12/22/1999</DateCreated>
+<State build="0.19.3D03">Resolved</State>
+<TestID>lre09</TestID>
+<TestDesc>xsl:element name attribute should generate error if result from the AVT is not a QName.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4EUNA6</Name>
+<DateCreated>12/23/1999</DateCreated>
+<State>Open</State>
+<TestID>lre07</TestID>
+<TestDesc>"xsl:element" created element does not acquire namespace prefixes from stylesheet.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4EUQN6</Name>
+<DateCreated>12/23/1999</DateCreated>
+<State build="0.19.3D02">Resolved</State>
+<TestID>lre01</TestID>
+<TestDesc>LRE with namespace prefixed QName attribute(ped:attr) does not pass attribute to result tree.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4EYP2U</Name>
+<DateCreated>12/27/1999</DateCreated>
+<State build="0.19.3D02">Resolved</State>
+<TestID>ntmp07</TestID>
+<TestDesc>Parameters are not evaluated by XPATH expressions correctly.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4F7PZC</Name>
+<DateCreated>01/03/2000</DateCreated>
+<State build="1.0.1">Resolved</State>
+<TestID>lre10</TestID>
+<TestDesc>Should we generate namespaces if it's set to ""</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4F7QUC</Name>
+<DateCreated>01/03/2000</DateCreated>
+<State build="0.19.3D02">Resolved</State>
+<TestID>atrs15</TestID>
+<TestDesc>attribute name is accepting an invalid QName and "xmlns" as valid names.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4F7TP5</Name>
+<DateCreated>01/03/2000</DateCreated>
+<State build="0.19.3D02">Resolved</State>
+<TestID>sort21</TestID>
+<TestDesc>Using sort with position() fails.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4F8N4Y</Name>
+<DateCreated>01/04/2000</DateCreated>
+<State build="0.19.3D02">Resolved</State>
+<TestID>nspc22</TestID>
+<TestDesc>&lt;xsl:elements&gt; elements are not getting copy of namespace nodes from element node.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4F9L5Q</Name>
+<DateCreated>01/05/2000</DateCreated>
+<State build="0.19.3D02">Resolved</State>
+<TestID>whte18,whte19</TestID>
+<TestDesc>Problems with whitespace stripping in stylesheet.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4F9PTP</Name>
+<DateCreated>01/05/2000</DateCreated>
+<State build="0.20.0">Resolved</State>
+<TestID></TestID>
+<TestDesc>Customer problem. Attempt to create DOM output w/o creating root node first, crashes.</TestDesc>
+</Spr>
+<Spr>
+<Name>PDIK4F9QVX</Name>
+<DateCreated>01/05/2000</DateCreated>
+<State build="0.20.0">Resolved</State>
+<TestID>outp31</TestID>
+<TestDesc>URL encoding should escape the space character as '%20'.</TestDesc>
+</Spr>
+</Sprs>

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><TABLE border="1" width="90%"><TR><TD>xslTutorial</TD><TD>AAAAAA</TD></TR><TR><TD>BBB</TD><TD>CCCEEECCCCCC</TD></TR><TR><TD>SSS</TD><TD></TD></TR><TR><TD>AAA</TD><TD>BBBEEECCC</TD></TR><TR><TD>EEE</TD><TD>SSS</TD></TR><TR><TD>CCC</TD><TD>DDDDDD</TD></TR><TR><TD>DDD</TD><TD></TD></TR></TABLE>

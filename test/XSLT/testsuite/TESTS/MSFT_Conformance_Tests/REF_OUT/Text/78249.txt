@@ -1,0 +1,4 @@
+Space Tab	Line Feed
+Carriage Return
+End of the text
+

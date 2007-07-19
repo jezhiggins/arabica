@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out><d level="1"><!-- doc1 --></d><d level="3">Hello
+        <e level="4">Success</e>
+        <!-- Me, too -->
+      </d><d level="2">More</d>
+</out>

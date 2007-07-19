@@ -1,0 +1,6 @@
+<?xml version="1.0"?>  
+<root>
+  <entity>corporation</entity>
+  <entity>partnership</entity>
+  <entity>joint-partnership</entity>
+</root>

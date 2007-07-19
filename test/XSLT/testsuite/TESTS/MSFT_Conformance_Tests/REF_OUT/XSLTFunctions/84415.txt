@@ -1,0 +1,1 @@
+<DIV style="color:purple">BBB id=b1</DIV><DIV style="color:purple">BBB id=b2</DIV><DIV style="color:purple">BBB id=b3</DIV><DIV style="color:purple">BBB id=b4</DIV><DIV style="color:red">DDD id=d1</DIV><DIV style="color:purple">BBB id=b5</DIV>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>begin doc template, $var=level1
+inside for-each, $var=first
+inside for-each, $var=second
+end doc template, $var=level1
+</out>

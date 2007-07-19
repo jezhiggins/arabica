@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<INPUT>this</INPUT><INPUT>rocks</INPUT>
+<INPUT>this</INPUT><U> </U><INPUT>rocks</INPUT>
+<INPUT>this </INPUT><INPUT>rocks</INPUT>
+<INPUT>this</INPUT><INPUT> rocks</INPUT>
+<INPUT>this
+</INPUT><INPUT>
+rocks</INPUT>
+<INPUT>this</INPUT>
+<INPUT>rocks</INPUT>
+<INPUT>this</INPUT>	<INPUT>rocks</INPUT>
+<INPUT>this<![CDATA[  ]]></INPUT><INPUT>rocks</INPUT>
+<![CDATA[ <INPUT>this</INPUT><U> </U><INPUT>rocks</INPUT> ]]>
+</xslTutorial>

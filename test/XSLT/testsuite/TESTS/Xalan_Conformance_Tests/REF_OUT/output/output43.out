@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out><example>&gt;&gt;&gt;SHOULD NOT BE WRAPPED WITH cdata section&lt;&lt;&lt;</example>
+<test><![CDATA[>>>SHOULD BE WRAPPED WITH cdata section<<<]]></test></out>

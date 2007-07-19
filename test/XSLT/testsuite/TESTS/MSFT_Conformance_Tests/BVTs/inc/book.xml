@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ORDER>
+  <SOLD-TO>
+    <PERSON>
+      <FIRSTNAME>Adam</FIRSTNAME>
+      <LASTNAME>Bosworth</LASTNAME>
+    </PERSON>
+  </SOLD-TO>
+  <DATESOLD>6/9/97</DATESOLD>
+  <BOOK>
+    <TITLE>JavaScript, The Definitive Guide</TITLE>
+    <AUTHOR>David lastname=Flanagan</AUTHOR>
+    <PUBLISHER>O'Reilly &amp; Associates, Inc.</PUBLISHER>
+    <PRICE>152.25</PRICE>
+  </BOOK>
+  <SOFTWARE>
+    <TITLE>Microsoft Visual J++, Professional Edition</TITLE>
+    <PUBLISHER>Microsoft Corporation</PUBLISHER>
+    <PRICE>29.95</PRICE>
+  </SOFTWARE>
+</ORDER>
+

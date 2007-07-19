@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+
+<!-- Self referencing of an xsl:variable is not allowed -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 03/26/2000 -->
+
+<weather-report>
+   <date>March 25, 1998</date>
+   <time>08:00</time>
+   <area>
+      <city>Seattle</city>
+      <state>WA</state>
+      <region>West Coast</region>
+      <country>USA</country>
+   </area>
+   <measurements>
+      <skies>partly cloudy</skies>
+      <temperature>46</temperature>
+      <wind>
+         <direction>SW</direction>
+         <windspeed>6</windspeed>
+      </wind>
+      <h-index>51</h-index>
+      <humidity>87</humidity>
+      <visibility>10</visibility>
+      <uv-index>1</uv-index>
+   </measurements>
+</weather-report>

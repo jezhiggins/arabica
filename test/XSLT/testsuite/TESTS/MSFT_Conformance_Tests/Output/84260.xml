@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<BASEFONT>this</BASEFONT><BASEFONT>rocks</BASEFONT>
+<BASEFONT>this</BASEFONT> <BASEFONT>rocks</BASEFONT>
+<BASEFONT>this</BASEFONT>
+<BASEFONT>rocks</BASEFONT>
+<BASEFONT>this</BASEFONT>		<BASEFONT>rocks</BASEFONT>
+
+<SPAN>this</SPAN><BASEFONT>rocks</BASEFONT>
+<SPAN>this</SPAN> <BASEFONT>rocks</BASEFONT>
+</xslTutorial>

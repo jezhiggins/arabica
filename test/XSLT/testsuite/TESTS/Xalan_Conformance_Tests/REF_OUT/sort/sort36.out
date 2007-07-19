@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>Memos by thread:
+A1: Thread A;
+A3: Re: Thread A;
+A5: Re: Thread A;
+A7: Re: Thread A;
+A10: Re: Thread A;
+B2: Thread B;
+B4: Re: Thread B;
+B9: Re: Thread B;
+C6: Thread C;
+C8: Re: Thread C;
+</out>

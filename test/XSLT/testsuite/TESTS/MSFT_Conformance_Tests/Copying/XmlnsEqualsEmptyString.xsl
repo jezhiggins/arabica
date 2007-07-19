@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+    <!-- This stylesheet is a regression test case for bug 71781. It validates
+	 that the default namespace being set to xmlns="" is preserved when
+	 using copy-of. 
+    -->
+
+    <xsl:output encoding="UTF-8" indent="no" omit-xml-declaration='no' />
+
+    <xsl:template match="/">
+	<xsl:copy-of select="."/>
+    </xsl:template>
+
+</xsl:stylesheet>

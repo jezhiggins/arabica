@@ -1,0 +1,1 @@
+<B><SPAN>-1 is at position 4<br /><br /></SPAN><SPAN>0.5 is at position 7<br /><br /></SPAN><SPAN>0.52 is at position 6<br /><br /></SPAN><SPAN>1 is at position 1<br /><br /></SPAN><SPAN>01 is at position 2<br /><br /></SPAN><SPAN>1 is at position 8<br /><br /></SPAN><SPAN>2 is at position 5<br /><br /></SPAN><SPAN>10 is at position 3<br /><br /></SPAN></B>

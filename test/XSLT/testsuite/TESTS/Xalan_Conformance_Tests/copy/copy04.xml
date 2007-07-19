@@ -1,0 +1,9 @@
+<?xml version="1.0"?> 
+<fonts>
+<b>
+<font face="Arial">item3</font>
+</b>
+<i>
+<font face="Default Serif" size="18">item4</font>
+</i>
+</fonts>

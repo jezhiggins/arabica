@@ -1,0 +1,38 @@
+<?xml version= "1.0"?>
+
+<!-- Template parameters. -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 03/26/2000 -->
+
+<sold_books>
+	<book>
+		<name>Ender's Game</name>
+		<buyer_name>Khalil</buyer_name>
+	</book>
+	
+	<book>
+		<name>The Forever War</name>
+		<buyer_name>John</buyer_name>
+	</book>
+
+	<book>
+		<name>Snow Crash</name>
+		<buyer_name>David</buyer_name>
+	</book>
+	
+	<parmesan_cheese>
+		<name>Italian Parmesan</name>
+		<buyer_name>Michael</buyer_name>
+	</parmesan_cheese>
+	
+	<milk>
+		<name>skim milk</name>
+		<buyer_name>Travis</buyer_name>
+	</milk>
+	
+	<milk>
+		<name>1% milk</name>
+		<buyer_name>Jim</buyer_name>
+	</milk>
+	
+</sold_books>

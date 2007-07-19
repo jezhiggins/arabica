@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<html>
+<TABLE datasrc="http://www.yahoo.com">http://www.yahoo.com</TABLE>
+<TABLE datasrc="http://日本">http://日本</TABLE>
+<TABLE datasrc="http://www.this space.com" >http://www.this space.com </TABLE>
+<TABLE datasrc="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </TABLE>
+<TABLE datasrc="ĀāĂă">ĀāĂă</TABLE>
+<TABLE datasrc="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </TABLE>
+
+</html>

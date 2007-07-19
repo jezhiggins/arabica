@@ -1,0 +1,65 @@
+<author>Andy Kimball</author>
+
+<author id="a1" xmlns:my="http://my.com">
+<first-name>Joe</first-name>
+<last-name>Bob</last-name>
+<award>Trenton Literary Review Honorable Mention</award>
+</author>
+
+<author id="2" xmlns:my="http://my.com">
+<first-name>Mary</first-name>
+<last-name>Bob</last-name>
+<publication>
+				Publication 1
+				<first-name>Mary</first-name>
+<last-name>Bob</last-name>
+</publication>
+</author>
+
+<author id="3" xmlns:my="http://my.com">
+<first-name>Second</first-name>
+<last-name>Author</last-name>
+</author>
+
+<author xmlns:my="http://my.com">
+<first.name>Mary F</first.name>
+<last-name>Robinson</last-name>
+<publication>
+				Publication 2
+				<first.name>Mary F</first.name>
+<last-name>Robinson</last-name>
+</publication>
+</author>
+
+<author id="3" xmlns:my="http://my.com">
+<first-name>Second</first-name>
+<last-name>Author of Book 3</last-name>
+</author>
+
+<author xmlns:my="http://my.com">
+<first-name>Mary F</first-name>
+<last-name>Robinson</last-name>
+<award>Pulizer</award>
+<publication>
+				Selected Short Stories of
+				<first-name>Mary F</first-name>
+<last-name>Robinson</last-name>
+</publication>
+</author>
+
+<author xmlns:my="http://my.com">
+<first-name>Hack</first-name>
+<last-name>er</last-name>
+<degree from="Harvard">Ph.D.</degree>
+</author>
+
+<author xmlns:my="http://my.com">
+<first-name>Toni</first-name>
+<last-name>Bob</last-name>
+<degree from="Trenton U">B.A.</degree>
+<degree from="Harvard">Ph.D.</degree>
+<award>Pulizer</award>
+<publication>Still in Trenton</publication>
+<publication>Trenton Forever</publication>
+</author>
+

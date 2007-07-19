@@ -1,0 +1,6 @@
+
+BEFORE
+   <?testcase 
+This is the content of a PI
+   ?>
+AFTER

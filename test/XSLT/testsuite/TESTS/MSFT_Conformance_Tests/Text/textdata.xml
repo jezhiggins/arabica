@@ -1,0 +1,9 @@
+<test>
+  <case>&#x20;</case>
+  <case>&#x20;&#9;</case>
+  <case>&#xA;There is a Line Feed at the beginning of the sentence.</case>
+  <case>&#xD;&#x9;There is a Carriage Return and a Tab at the beginning of the sentence.</case>
+  <case>There is a Line Feed at the end of the sentence.&#xA;</case>
+  <case>There is a Tab and a Carriage Return at the end of the sentence.&#x9;&#xD;</case>
+  <case></case>
+</test>

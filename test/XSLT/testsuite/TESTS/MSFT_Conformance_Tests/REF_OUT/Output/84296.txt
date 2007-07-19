@@ -1,0 +1,5 @@
+  
+BLOCK ELEMENTS TEST
+
+FROM XML:
+<xslTutorial> <U>this</U><U>rocks</U> <U>this</U> <U>rocks</U> <U>this</U> <U>rocks</U> <U>this</U> <U>rocks</U> <SPAN>this</SPAN><U>rocks</U> <SPAN>this</SPAN> <U>rocks</U> </xslTutorial>

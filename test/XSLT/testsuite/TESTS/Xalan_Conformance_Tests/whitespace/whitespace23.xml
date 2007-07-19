@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc> 
+<link>
+		 <url>
+		 		 value
+		 		 xx
+		 </url>
+</link>
+<link>
+		 <url>
+		 		 value
+		 </url>
+</link>
+<link>
+		 <url>
+		 		 value      zz
+		 </url>
+</link>
+<link>
+		 <url>
+		 		 value yy
+		 </url>
+</link>
+
+</doc> 

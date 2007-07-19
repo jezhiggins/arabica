@@ -1,0 +1,2 @@
+xsl:foo is not available in XSLT 1.0 and there is a fallback, so process the content of the fallback element
+		

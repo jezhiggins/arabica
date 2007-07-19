@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+	Khalil Bought Ender's Game at 5 percent tax<br />
+	
+	John Bought The Forever War at 5 percent tax<br />
+
+	David Bought Snow Crash at 5 percent tax<br />
+	
+	Michael Bought Italian Parmesan at 0 percent tax<br />
+	
+	Travis Bought skim milk at 3 percent tax<br />
+	
+	Jim Bought 1% milk at 3 percent tax<br />
+	

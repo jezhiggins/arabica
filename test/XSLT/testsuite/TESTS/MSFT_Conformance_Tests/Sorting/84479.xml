@@ -1,0 +1,26 @@
+<ROOT>
+	<fruit name="walnut">
+		<elem a="9" />
+		<elem a="22" />
+	</fruit>
+	<fruit name="apple">
+		<elem a="1" />
+		<elem a="34" />
+		<elem a="0" />
+	</fruit>
+	<fruit name="bananna">
+		<elem />
+		<elem a="10" />
+		<elem a="76" />
+		<elem />
+	</fruit>
+	<fruit name="currant">
+		<elem a="9" />
+		<elem a="6" />
+	</fruit>
+	<fruit name="date">
+		<elem />
+		<elem a="45" />
+		<elem a="0001" />
+	</fruit>
+</ROOT>

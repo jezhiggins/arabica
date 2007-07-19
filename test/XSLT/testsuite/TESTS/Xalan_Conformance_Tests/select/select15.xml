@@ -1,0 +1,12 @@
+<?xml version="1.0"?> 
+<doc>
+  <child>bad1
+    <sub>bad2</sub>
+  </child>
+  <c>bad3
+    <sub>bad4</sub>
+  </c>
+  <sub>OK
+    <nogo>bad5</nogo>
+  </sub>
+</doc>

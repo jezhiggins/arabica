@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:joes="http://joes.com"><union>
+<foo:bar xmlns:foo="http://foo.test.com">157 Fourth St.</foo:bar><joes:bar xmlns:foo="http://foo.test.com">17 Generic Ave.</joes:bar></union></out>

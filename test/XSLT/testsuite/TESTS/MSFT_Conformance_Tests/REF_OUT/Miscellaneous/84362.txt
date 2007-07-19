@@ -1,0 +1,1 @@
+<P>9</P><P>NaN</P><P>9 /0 = Infinity</P><P>-9 /0 = -Infinity</P><P>0 /0 = NaN</P>

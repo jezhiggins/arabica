@@ -1,0 +1,10 @@
+﻿
+		type: type-a name: name-a id: 1
+		type: type-a name: name-b id: 2
+		type: type-b name: name-c id: 3
+		type: type-b name: name-e id: 5
+		type: type-b name: name-h id: 8
+		type: type-c name: name-f id: 6
+		type: type-c name: name-i id: 9
+		type: type-d name: name-d id: 4
+		type: type-d name: name-g id: 7

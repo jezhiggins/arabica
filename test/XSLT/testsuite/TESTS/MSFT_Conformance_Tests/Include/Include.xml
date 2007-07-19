@@ -1,0 +1,288 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Include" description="" outpath="out">
+	<variation name="_77489">
+		<description>XSLT03005   xsl:include relative url</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03005.xsl</xsl>
+		</data>
+		<result expected="valid">77489.txt</result>
+	</variation>
+	<variation name="_77504">
+		<description>XSLT03004   xsl:include full url</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03004.xsl</xsl>
+		</data>
+		<result expected="valid">77504.txt</result>
+	</variation>
+	<variation name="_77506">
+		<description>XSLT03006 xsl:include Required attribute 'href' is missing. - Jscript</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03006.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77507">
+		<description>XSLT03007 xsl:include Required attribute 'href' is null. - Jscript</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03007.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77509">
+		<description>XSLT03002 xsl:include error on direct self inclusion - Jscript</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03002.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77510">
+		<description>XSLT03001 xsl:include error on indirect self inclusion - Jscript</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03001.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77511">
+		<description>XSLT03003 xsl:include href="foo.xsl" where "foo.xsl" does not exist - Jscript</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03003.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77512">
+		<description>XSLT03011 xsl:include href="foo.xsl" where "foo.xsl" is not well formed  - Jscript</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03011.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77513">
+		<description>XSLT03012 xsl:include inside template match to create not well formed xsl - invalid - Jscript</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03012.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77514">
+		<description>XSLT03018 xsl:include href points to a binary file  - invalid - Jscript</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03018.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77515">
+		<description>tbd</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03022.xsl</xsl>
+		</data>
+		<result expected="valid">77515.txt</result>
+	</variation>
+	<variation name="_77736">
+		<description>XSLT03022: Include file encoded as shift-jis.  This test is only valid on Win2K, J Platforms, or machines with the Japanese language pack installed.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt03022.xsl</xsl>
+		</data>
+		<result expected="valid">77736.txt</result>
+	</variation>
+	<variation name="_77745">
+		<description>XSLT03019: Include large xsl  file</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt03019.xsl</xsl>
+		</data>
+		<result expected="valid">77745.txt</result>
+	</variation>
+	<variation name="_77747">
+		<description>XSLT03017:Included stylesheet with simplified - Literal result element as Stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt03017.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_77750">
+		<description>XSLT03010:Included stylesheet with unknown namespace - treats stylesheet as Literal result element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt03010.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_77751">
+		<description>XSLT03023:Included stylesheet with dtd</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt03023a.xsl</xsl>
+		</data>
+		<result expected="valid">77751.txt</result>
+	</variation>
+	<variation name="_78293">
+		<description>XSLT03020: INCLUDE - conflicting top level variables</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03020.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78295">
+		<description>XSLT03021: INCLUDE - stylesheet with id</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03021.xsl</xsl>
+		</data>
+		<result expected="valid">78295.txt</result>
+	</variation>
+	<variation name="_78296">
+		<description>XSLT03014: INCLUDE - stylesheet with param</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03014.xsl</xsl>
+		</data>
+		<result expected="valid">78296.txt</result>
+	</variation>
+	<variation name="_78398">
+		<description>XSLT03020: INCLUDE - conflicting top level params</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22302.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84463">
+		<description>Copy of 77489: XSLT03005   xsl:include relative url</description>
+		<data>
+			<xml>84463.xml</xml>
+			<xsl>84463.xsl</xsl>
+		</data>
+		<result expected="valid">84463.txt</result>
+	</variation>
+	<variation name="_84464">
+		<description>Copy of 77504: XSLT03004   xsl:include relative url</description>
+		<data>
+			<xml>84464.xml</xml>
+			<xsl>84464.xsl</xsl>
+		</data>
+		<result expected="valid">84464.txt</result>
+	</variation>
+	<variation name="Include_IncludedStylesheetShouldHaveDifferentBaseUri">
+		<description>Use xsl:include to include a stylesheet. The base uri of the stylesheet should be different than the parent that included it. [Bug 65666]</description>
+		<data>
+			<xml>xslt_include_IncludedStyleSheetBaseUri.xml</xml>
+			<xsl>xslt_include_IncludedStyleSheetBaseUri.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_include_includedstylesheetbaseuri_result.txt</result>
+	</variation>
+	<variation name="Include_IncludeStylesheetWithoutXslNamespace">
+		<description>Use the xsl:include tag to include another stylesheet which declares the xsl namespace, but doesn't use it. The text should be directly treated as an output element. Additionally, the xsl namespace declaration in the second stylesheet should not show up in the retult. This is a regression test for [Bug 49668].</description>
+		<data>
+			<xml>xslt_include_IncludedNS_basexml.xml</xml>
+			<xsl>xslt_include_IncludedNS.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_include_IncludedNS_result.txt</result>
+	</variation>
+	<variation name="Include_ParentExplicitlyExcludesChildNamespace">
+		<description>Use xsl:include to include another doc, excluding a prefix in the parent document but having the same one defined in the child document (explicitly). [Bug 65665]</description>
+		<data>
+			<xml>xslt_include_ExplicitExclusionChildNsPrefix.xml</xml>
+			<xsl>xslt_include_ExplicitExclusionChildNsPrefix.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Include_ParentImplicitlyExcludesChildNamespace">
+		<description>Use xsl:include to include another doc, excluding a prefix in the parent document but having the same one defined in the child document. [Bug 65665]</description>
+		<data>
+			<xml>xslt_include_ImplicitExclusionChildNsPrefix.xml</xml>
+			<xsl>xslt_include_ImplicitExclusionChildNsPrefix.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_include_ImplicitExclusionChildNsPrefix_result.txt</result>
+	</variation>
+	<variation name="Include_ParentNSVisibleToIncludedDoc">
+		<description>Use xsl:include to include another document that uses a namespace declared in the parent document. [Bug 65665]</description>
+		<data>
+			<xml>xslt_include_ParentIncChildContext.xml</xml>
+			<xsl>xslt_include_ParentIncChildContext.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="RelUriTest1">
+		<description>Test for include/import baseuri</description>
+		<data>
+			<xml>reluritest.xml</xml>
+			<xsl>reluritest1.xsl</xsl>
+		</data>
+		<result expected="valid">reluritest1.txt</result>
+	</variation>
+	<variation name="RelUriTest2">
+		<description>Test for include/import baseuri</description>
+		<data>
+			<xml>reluritest.xml</xml>
+			<xsl>reluritest2.xsl</xsl>
+		</data>
+		<result expected="valid">reluritest2.txt</result>
+	</variation>
+	<variation name="RelUriTest3">
+		<description>Test for include/import baseuri</description>
+		<data>
+			<xml>reluritest.xml</xml>
+			<xsl>reluritest3.xsl</xsl>
+		</data>
+		<result expected="valid">reluritest3.txt</result>
+	</variation>
+	<variation name="RelUriTest4">
+		<description>Test for include/import baseuri</description>
+		<data>
+			<xml>reluritest.xml</xml>
+			<xsl>reluritest4.xsl</xsl>
+		</data>
+		<result expected="valid">reluritest4.txt</result>
+	</variation>
+	<variation name="RelUriTest5">
+		<description>Test for include/import baseuri</description>
+		<data>
+			<xml>reluritest.xml</xml>
+			<xsl>reluritest5.xsl</xsl>
+		</data>
+		<result expected="valid">reluritest5.txt</result>
+	</variation>
+	<variation name="RelUriTest6">
+		<description>Test for include/import baseuri</description>
+		<data>
+			<xml>reluritest.xml</xml>
+			<xsl>reluritest6.xsl</xsl>
+		</data>
+		<result expected="valid">reluritest6.txt</result>
+	</variation>
+	<variation name="NestedIncludes">
+		<description>Included stylesheet includes other stylesheets</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>include.xsl</xsl>
+		</data>
+		<result expected="valid">NestedIncludes.txt</result>
+	</variation>
+</testcase>

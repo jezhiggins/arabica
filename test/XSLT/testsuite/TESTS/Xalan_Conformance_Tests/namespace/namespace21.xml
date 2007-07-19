@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<doc xmlns:xem="http://www.psol.com/xtension/1.0">
+  <foo>xyz</foo>
+  <xem:foo>www.psol.com</xem:foo>
+  <foo>zyx</foo>
+</doc>

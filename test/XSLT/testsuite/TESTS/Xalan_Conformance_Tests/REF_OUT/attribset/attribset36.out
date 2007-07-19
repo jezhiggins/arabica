@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Out><Element1 Att1="OK"><!--Should not break--><Element2/></Element1></Out>

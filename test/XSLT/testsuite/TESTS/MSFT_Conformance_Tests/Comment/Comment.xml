@@ -1,0 +1,140 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Comment" description="" outpath="out">
+	<variation name="Comment_CDATAWithDoubleHyphen">
+		<description>Use comment with CDATA section containing two hyphens [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_CdataHyphen.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_CdataHyphen_result.txt</result>
+	</variation>
+	<variation name="Comment_CDATAWithDoubleHyphenEntities">
+		<description>Use comment with CDATA section containing two hyphens in the form Character Entities [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_HyphenCdataEntity.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_HyphenCdataEntity_result.txt</result>
+	</variation>
+	<variation name="Comment_CDATAWithSingleHyphen">
+		<description>Use comment with CDATA section containing two hyphens in the form Character Entities [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_CdataHyphenEntityMix.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_CdataHyphenEntityMix_result.txt</result>
+	</variation>
+	<variation name="Comment_CommentWithCDATAValidText">
+		<description>Use comment with a CDATA Section, additional character entities, and some text [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_CdataWithValidEntities.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_CdataWithValidEntities_result.txt</result>
+	</variation>
+	<variation name="Comment_CommentWithForeignCharacters">
+		<description>Use comment with Valid Text of normal size [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_ForeignLanguageCharacters.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_ForeignLanguageCharacters_result.txt</result>
+	</variation>
+	<variation name="Comment_CommentWithOnlyValidText">
+		<description>Use comment with Valid Text of normal size [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_ValidText.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_ValidText_result.txt</result>
+	</variation>
+	<variation name="Comment_DoubleHypenEntitywithDelCharacter">
+		<description>Use comment with a 'Delete' and 'Space' character between two Hyphens [Bug 51047]</description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_DoubleEntityHyphen.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_DoubleEntityHyphen_result.txt</result>
+	</variation>
+	<variation name="Comment_DoubleHypenInText">
+		<description>Use comment with double hypens between simple text [Bug 51047]</description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_DoubleHyphen.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_DoubleHyphen_result.txt</result>
+	</variation>
+	<variation name="Comment_DoubleHyphenONLY">
+		<description>Use comment with a double hyphen ONLY [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_DoubleHyphenOnly.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_DoubleHyphenOnly_result.txt</result>
+	</variation>
+	<variation name="Comment_EmptyComment">
+		<description>Use comment zero contents [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_EmptyComment.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_EmptyComment_result.txt</result>
+	</variation>
+	<variation name="Comment_HyphenEntityAndHyphen">
+		<description>Use comment with double hypens, one provided as the Unicode Entity 0x02D [Bug 51047]</description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_DoubleHyphenEntity.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_DoubleHyphenEntity_result.txt</result>
+	</variation>
+	<variation name="Comment_LineOfAllHyphens">
+		<description>Use comment with multiple contiguous hyphens [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_LineOfHyphens.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_LineOfHyphens_result.txt</result>
+	</variation>
+	<variation name="Comment_SingleHyphenOnly">
+		<description>Use comment with a single Hyphen only [Bug 51047] </description>
+		<data>
+			<xml>xslt_comment_root.xml</xml>
+			<xsl>xslt_comment_SingleHyphen.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_SingleHyphen_result.txt</result>
+	</variation>
+	<variation name="Comment_Test1">
+		<description>XSLT: Doesn't allow comments in contents of xsl:text. [Bug 73327] </description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_comment_test1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_test.txt</result>
+	</variation>
+	<variation name="Comment_Test2">
+		<description>XSLT: Test for comment at top level. [Bug 73327] </description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_comment_test2.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_test.txt</result>
+	</variation>
+	<variation name="Comment_Test3">
+		<description>XSLT: Test for comment inside xsl:attribute-set. [Bug 73327] </description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_comment_test3.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_test3.txt</result>
+	</variation>
+	<variation name="DisableOutputEscaping_XslTextInXslComment">
+		<description>Use an xsl:text with disable-output-escaping attribute set to yes within an xsl:comment element. Should silently ignore. [Bug 53329]</description>
+		<data>
+			<xml>xslt_comment_DoeTextInComment.xml</xml>
+			<xsl>xslt_comment_DoeTextInComment.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_comment_DoeTextInComment_result.txt</result>
+	</variation>
+</testcase>

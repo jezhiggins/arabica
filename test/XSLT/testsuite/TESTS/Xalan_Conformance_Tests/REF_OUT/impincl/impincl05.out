@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  MAIN title matched...
+  C-title: Testing:import-precedence
+  E-title: Testing:import-precedence
+  B-author: Joe Jones,
+  D-overview: testing-import
+  C-chapters: 
+    E-chapter 1: know xsl
+    E-chapter 2: love xsl
+</out>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<html>
+<FORM action="http://www.yahoo.com">http://www.yahoo.com</FORM>
+<FORM action="http://日本">http://日本</FORM>
+<FORM action="http://www.this space.com" >http://www.this space.com </FORM>
+<FORM action="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </FORM>
+<FORM action="ĀāĂă">ĀāĂă</FORM>
+<FORM action="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </FORM>
+
+</html>

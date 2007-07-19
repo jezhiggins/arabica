@@ -1,0 +1,8 @@
+<user:br xmlns:user="http://mycompany.com/mynamespace" /><user:div xmlns:user="http://mycompany.com/mynamespace">text
+ 
+<xslTutorial>
+<HR>
+</HR>
+<HR></HR>
+<HR />
+</xslTutorial><user:br /></user:div>

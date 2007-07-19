@@ -1,0 +1,12 @@
+<B>
+  <SPAN>
+    <hr />elem1f 
+ is a ordered first by descending <value-of select="." /> then by ascending x: <value-of select="elem1a\@x" /> then by descending y:<value-of select="elem1a\@y" /> then by ascending z: <value-of select="elem1a\@z" /><hr />elem1h 
+ is a ordered first by descending <value-of select="." /> then by ascending x: <value-of select="elem1a\@x" /> then by descending y:<value-of select="elem1a\@y" /> then by ascending z: <value-of select="elem1a\@z" /><hr />elem1e 
+ is a ordered first by descending <value-of select="." /> then by ascending x: <value-of select="elem1a\@x" /> then by descending y:<value-of select="elem1a\@y" /> then by ascending z: <value-of select="elem1a\@z" /><hr />elem1g 
+ is a ordered first by descending <value-of select="." /> then by ascending x: <value-of select="elem1a\@x" /> then by descending y:<value-of select="elem1a\@y" /> then by ascending z: <value-of select="elem1a\@z" /><hr />elem1b 
+ is a ordered first by descending <value-of select="." /> then by ascending x: <value-of select="elem1a\@x" /> then by descending y:<value-of select="elem1a\@y" /> then by ascending z: <value-of select="elem1a\@z" /><hr />elem1a 
+ is a ordered first by descending <value-of select="." /> then by ascending x: <value-of select="elem1a\@x" /> then by descending y:<value-of select="elem1a\@y" /> then by ascending z: <value-of select="elem1a\@z" /><hr />elem1d 
+ is a ordered first by descending <value-of select="." /> then by ascending x: <value-of select="elem1a\@x" /> then by descending y:<value-of select="elem1a\@y" /> then by ascending z: <value-of select="elem1a\@z" /><hr />elem1c 
+ is a ordered first by descending <value-of select="." /> then by ascending x: <value-of select="elem1a\@x" /> then by descending y:<value-of select="elem1a\@y" /> then by ascending z: <value-of select="elem1a\@z" /></SPAN>
+</B>

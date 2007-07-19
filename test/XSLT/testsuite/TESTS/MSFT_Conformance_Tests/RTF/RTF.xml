@@ -1,0 +1,31 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="RTF" description="" outpath="out">
+	<variation name="RTF_to_boolean_test">
+		<description>
+		</description>
+		<data>
+			<xml>test.xml</xml>
+			<xsl>RTF_to_boolean_test.xsl</xsl>
+		</data>
+		<result expected="valid">RTF_to_boolean_test.txt</result>
+	</variation>
+	<variation name="RTF_to_number_in_format_number">
+		<description>
+		</description>
+		<data>
+			<xml>test.xml</xml>
+			<xsl>RTF_to_number_in_format_number.xsl</xsl>
+		</data>
+		<result expected="valid">RTF_to_number_in_format_number.txt</result>
+	</variation>
+	<variation name="RTF_to_string_substring_function">
+		<description>
+		</description>
+		<data>
+			<xml>test.xml</xml>
+			<xsl>RTF_to_string_substring_function.xsl</xsl>
+		</data>
+		<result expected="valid">RTF_to_string_substring_function.txt</result>
+	</variation>
+</testcase>

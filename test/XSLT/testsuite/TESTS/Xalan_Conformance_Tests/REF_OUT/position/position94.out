@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+In a, position() is 1 and last() is 2
+In b number 1, $a.pos=1 and $a.last=2
+In b number 2, $a.pos=1 and $a.last=2
+
+In a, position() is 2 and last() is 2
+In b number 1, $a.pos=2 and $a.last=2
+In b number 2, $a.pos=2 and $a.last=2
+In b number 3, $a.pos=2 and $a.last=2
+</out>

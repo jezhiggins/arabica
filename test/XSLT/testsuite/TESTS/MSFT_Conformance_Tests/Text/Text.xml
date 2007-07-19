@@ -1,0 +1,314 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Text" description="" outpath="out">
+	<variation name="_78230">
+		<description>XSLT04006: xsl:text        base case</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT04006.xsl</xsl>
+		</data>
+		<result expected="valid">78230.txt</result>
+	</variation>
+	<variation name="_78242">
+		<description>XSLT04007: xsl:text        blank text node</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT04007.xsl</xsl>
+		</data>
+		<result expected="valid">78242.txt</result>
+	</variation>
+	<variation name="_78243">
+		<description>XSLT04000: xsl:text        invalid attribute on text tag (are there any valid attributes?)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT04000.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78244">
+		<description>XSLT04001: xsl:text        mixed whitespace and text</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT04001.xsl</xsl>
+		</data>
+		<result expected="valid">78244.txt</result>
+	</variation>
+	<variation name="_78245">
+		<description>XSLT04002: xsl:text        mixed #x20, #x9, #xD, #xA whitespace, should not get converted to #x20</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT04002.xsl</xsl>
+		</data>
+		<result expected="valid">78245.txt</result>
+	</variation>
+	<variation name="_78246">
+		<description>XSLT04003: xsl:text        buffer overrun</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT04003.xsl</xsl>
+		</data>
+		<result expected="valid">78246_output.txt</result>
+	</variation>
+	<variation name="_78247">
+		<description>XSLT04004: xsl:text        Unicode Ideographic whitespace, but not XML whitespace</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT04004.xsl</xsl>
+		</data>
+		<result expected="valid">78247.txt</result>
+	</variation>
+	<variation name="_78249">
+		<description>XSLT04005: xsl:text       combination of all types of white characters</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT04005.xsl</xsl>
+		</data>
+		<result expected="valid">78249_output.txt</result>
+	</variation>
+	<variation name="_78272">
+		<description>XSLT04100: xsl:text       xml:space preserve #xA,#xD,#x9, #x20</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04100.xsl</xsl>
+		</data>
+		<result expected="valid">78272.txt</result>
+	</variation>
+	<variation name="_78273">
+		<description>XSLT04104: xsl:text       xml:space default  #xA,#xD,#x9, #x20</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04104.xsl</xsl>
+		</data>
+		<result expected="valid">78273_output.txt</result>
+	</variation>
+	<variation name="_78274">
+		<description>XSLT04108: xsl:text       verify that the xml:space attributes are not stripped from the tree</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04108.xsl</xsl>
+		</data>
+		<result expected="valid">78274.txt</result>
+	</variation>
+	<variation name="_78275">
+		<description>XSLT04109: xsl:text       xsl:preserve-space, xml:space preserve - not supported should be ignored</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04109.xsl</xsl>
+		</data>
+		<result expected="valid">78275.txt</result>
+	</variation>
+	<variation name="_78276">
+		<description>XSLT04110: xsl:text       xsl:preserve-space, xml:space default  - not supported should be ignored</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04110.xsl</xsl>
+		</data>
+		<result expected="valid">78276.txt</result>
+	</variation>
+	<variation name="_78277">
+		<description>XSLT04111: xsl:text       xsl:strip-space, xml:space preserve  - not supported should be ignored</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04111.xsl</xsl>
+		</data>
+		<result expected="valid">78277.txt</result>
+	</variation>
+	<variation name="_78278">
+		<description>XSLT04112: xsl:text       xsl:strip-space, xml:space default  - not supported should be ignored</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04112.xsl</xsl>
+		</data>
+		<result expected="valid">78278.txt</result>
+	</variation>
+	<variation name="_78279">
+		<description>XSLT04113: xsl:text       xsl:stylesheet default-space:strip, xml:space preserve  - not supported should be ignored</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04113.xsl</xsl>
+		</data>
+		<result expected="valid">78279.txt</result>
+	</variation>
+	<variation name="_78280">
+		<description>XSLT04114: xsl:text       xsl:stylesheet default-space:strip, xml:space default  - not supported should be ignored</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04114.xsl</xsl>
+		</data>
+		<result expected="valid">78280.txt</result>
+	</variation>
+	<variation name="_78281">
+		<description>XSLT04115: xsl:text       xml:lang or xml:space attributes will not cause any effect and doesn't appear in the result</description>
+		<data>
+			<xml>textdata.xml</xml>
+			<xsl>XSLT04115.xsl</xsl>
+		</data>
+		<result expected="valid">78281.txt</result>
+	</variation>
+	<variation name="_78307">
+		<description>XSLT05006: xsl:text       disable-output-escaping attribute - defaults to no</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT05006.xsl</xsl>
+		</data>
+		<result expected="valid">78307.txt</result>
+	</variation>
+	<variation name="_78308">
+		<description>XSLT05006: xsl:text       disable-output-escaping = "yes"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT05000.xsl</xsl>
+		</data>
+		<result expected="valid">78308.txt</result>
+	</variation>
+	<variation name="_78309">
+		<description>XSLT05001: xsl:text       disable-output-escaping    get xml of a node with &amp;&gt;"&lt;'</description>
+		<data>
+			<xml>XSLT05001.xml</xml>
+			<xsl>XSLT05001.xsl</xsl>
+		</data>
+		<result expected="valid">78309.txt</result>
+	</variation>
+	<variation name="_78311">
+		<description>XSLT05003: xsl:text      disable-output-escaping = "yes"    "set data to ""&amp;'&lt;""&gt;"""</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT05003.xsl</xsl>
+		</data>
+		<result expected="valid">78311.txt</result>
+	</variation>
+	<variation name="_78312">
+		<description>XSLT05002: xsl:text       createTextNode with the data ""&gt;&lt;&amp;"":';%$#@!^-()*."""</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT05004.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78313">
+		<description>XSLT05005: xsl:text       get xml of a node with a trail byte character that has the same value of an escaped character</description>
+		<data>
+			<xml>Japanese.xml</xml>
+			<xsl>XSLT05005.xsl</xsl>
+		</data>
+		<result expected="valid">78313.txt</result>
+	</variation>
+	<variation name="_78315">
+		<description>XSLT05007: xsl:text       disable-output-escaping attribute = "foo"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT05007.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_83979">
+		<description>XSLT05008: xsl:text   disable-output-escaping="yes", text is used as value of an attribute</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT05008.xsl</xsl>
+		</data>
+		<result expected="valid">83979.txt</result>
+	</variation>
+	<variation name="_91137">
+		<description>BUG FIX 48706:  MSXMLWR: xsl:text handles with #xd &amp; #xa in different way</description>
+		<data>
+			<xml>91137.xsl</xml>
+			<xsl>91137.xsl</xsl>
+		</data>
+		<result expected="valid">91137.txt</result>
+	</variation>
+	<variation name="_78282">
+		<description>XSLT04116: xsl:text       xml:space with an invalid attribute other than preserve and default</description>
+		<data>
+			<xml>text.xml</xml>
+			<xsl>XSLT04116.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="DoeWithCdataInText">
+		<description>Use xsl:text with disable-output-escaping='yes' and the text is wrapped in Cdata Section. Entity characters should be escaped. [Bug 53329]</description>
+		<data>
+			<xml>DoeWithCdataSection.xml</xml>
+			<xsl>DoeWithCdataSection.xsl</xsl>
+		</data>
+		<result expected="valid">DoeWithCdataSection_result.txt</result>
+	</variation>
+	<variation name="modified78307">
+		<description>MOdified XSLT05006: xsl:text       disable-output-escaping attribute - defaults to no</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>DoeWithTextLtGtOnly.xsl</xsl>
+		</data>
+		<result expected="valid">DoeWithTextLtGtOnly_output.txt</result>
+	</variation>
+	<variation name="modified78308">
+		<description>Modified XSLT05000: xsl:text       disable-output-escaping = "yes"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_text_DoeOnTextElement.xsl</xsl>
+		</data>
+		<result expected="valid">DoeOnTextElement_output.txt</result>
+	</variation>
+	<variation name="modified78309">
+		<description>Modified XSLT05001: xsl:text       disable-output-escaping    get xml of a node with &amp;&gt;"&lt;'</description>
+		<data>
+			<xml>EscapeChars_ForEachWithDoe.xml</xml>
+			<xsl>EscapeChars_ForEachWithDoe.xsl</xsl>
+		</data>
+		<result expected="valid">EscapeChars_ForEachWithDoe_output.txt</result>
+	</variation>
+	<variation name="Modified78311">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>DoeWithQuotesAroundText.xsl</xsl>
+		</data>
+		<result expected="valid">DoeWithQuotesAroundText_output.txt</result>
+	</variation>
+	<variation name="Modified78312">
+		<description>Modified XSLT05004: xsl:text	disable-output-escaping = ""</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT05004.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="ReservedCharsInAttribute">
+		<description>xsl:text -- Reserved characters (&amp;&gt;"&lt;') in attribute value</description>
+		<data>
+			<xml>xslt05001.xml</xml>
+			<xsl>ReservedCharsInAttribute.xsl</xsl>
+		</data>
+		<result expected="valid">text_19.txt</result>
+	</variation>
+	<variation name="Text_ConvCdataLitResult">
+		<description>Use a literal result Cdata with an entity character in the stylesheet, which is a literal result into the output xml. The Cdata 'tag' should not be preserved. [Bug 54101]</description>
+		<data>
+			<xml>xslt_text_ConvCdata.xml</xml>
+			<xsl>xslt_text_ConvCdataLitResult.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_text_ConvCdataLitResult_result.txt</result>
+	</variation>
+	<variation name="Text_ConvCdataLitResultSpacesOnly">
+		<description>Use a literal result Cdata with only spaces in the stylesheet, which is a literal result into the output xml. The Cdata 'tag' should not be preserved. [Bug 54101]</description>
+		<data>
+			<xml>xslt_text_ConvCdata.xml</xml>
+			<xsl>xslt_text_ConvCdataLitSpace.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_text_ConvCdataLitSpace_result.txt</result>
+	</variation>
+	<variation name="Text_ConvCdataLitResultTextOnly">
+		<description>Use a literal result Cdata with only text in the stylesheet, which is a literal result into the output xml. The Cdata 'tag' should not be preserved. [Bug 54101]</description>
+		<data>
+			<xml>xslt_text_ConvCdata.xml</xml>
+			<xsl>xslt_text_ConvCdataLitText.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_text_ConvCdataLitText_result.txt</result>
+	</variation>
+</testcase>

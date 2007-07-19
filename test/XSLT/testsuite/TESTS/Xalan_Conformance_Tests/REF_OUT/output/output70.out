@@ -1,0 +1,9 @@
+<HTML>
+    Inside double quotes:
+    1. """  <A href="%22"></A>
+    2. "'"  <A href="'"></A>
+    Inside single quotes:
+    3. '"'  <A href="%22"></A>
+    4. '''  <A href="'"></A>
+    NOTE: hrefs always have the double quotes.
+  </HTML>

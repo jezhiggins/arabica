@@ -1,0 +1,3 @@
+<Testing>
+  <l1 foobar="simple" />
+</Testing>

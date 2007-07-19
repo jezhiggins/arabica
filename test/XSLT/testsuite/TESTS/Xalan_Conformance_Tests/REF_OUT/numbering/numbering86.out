@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:z="http://z.test.com">
+  
+    <znote number="1">aaa</znote>
+    <znote number="2">bbb</znote>
+    <znote number="3">ccc</znote>
+  
+  
+    <znote number="1">ddd</znote>
+    <znote number="2">eee</znote>
+    <znote number="3">fff</znote>
+  
+</out>

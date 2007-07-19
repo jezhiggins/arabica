@@ -1,0 +1,4 @@
+<HTML>
+<BODY>PC Magazine is a glossy magazine published bi-monthly<br /> is a glossy magazine published monthly<br /> is a glossy magazine published monthly<br />Road and Track is a glossy magazine published monthly<br />Tracking Trenton is a glossy magazine published monthly<br />PC Week is a glossy magazine published weekly<br />
+</BODY>
+</HTML>

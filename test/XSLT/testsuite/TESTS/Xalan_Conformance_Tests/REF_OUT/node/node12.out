@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>ATTRIBUTES:A-att
+TEXT:T-
+  T-
+  T-
+  text-in-doc
+  T-
+  text-in-doc2
+  T-
+
+COMMENTS:C- This is the 1st comment 
+PIs:P-mypi
+CHILDREN:E-inner
+A:blatT:
+    inner-text
+    C: This is the 2nd comment T:
+    E:subT:subtext
+T:
+  --End of child inner
+E-inner2
+A:blatT:
+    E:subT:subtext
+T:final-text
+  --End of child inner2
+</out>

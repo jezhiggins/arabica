@@ -1,0 +1,1 @@
+<html><b:root att="xyz" xmlns:b="a" /></html>

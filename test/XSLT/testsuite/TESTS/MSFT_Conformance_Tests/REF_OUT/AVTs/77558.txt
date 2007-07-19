@@ -1,0 +1,99 @@
+<autobiography>
+	Seven Years in Trenton
+		
+			Joe
+			Bob
+			Trenton Literary Review Honorable Mention
+			USA
+		
+		12
+	</autobiography>
+<textbook>
+		History of Trenton
+		
+			Mary
+			Bob
+			
+				Selected Short Stories of
+				JoeBob
+				Loser
+				US
+			
+		
+		55
+	</textbook>
+<storybook>
+		XQL The Golden Years
+		
+			Mike
+			Hyman
+			
+				XQL For Dummies
+				Jonathan
+				Marsh
+			
+		
+		55.95
+	</storybook>
+<textbook>
+		History of Trenton 2
+		
+			Mary F
+			Robinson
+			
+				Selected Short Stories of
+				Mary F
+				Robinson
+			
+		
+		55
+	</textbook>
+<textbook>
+		History of Trenton Vol 3
+		
+			Mary F
+			Robinson
+			Frank
+			Anderson
+			Pulizer
+			
+				Selected Short Stories of
+				Mary F
+				Robinson
+			
+		
+		10
+	</textbook>
+<textbook>
+		How To Fix Computers
+		
+			Hack
+			er
+			Ph.D.
+		
+		08
+	</textbook>
+<novel>
+		Trenton Today, Trenton Tomorrow
+		
+			Toni
+			Bob
+			B.A.
+			Ph.D.
+			Pulizer
+			Still in Trenton
+			Trenton Forever
+		
+		6.50
+		
+			It was a dark and stormy night.
+			But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			
+			
+				Trenton
+				misery
+			
+		
+	</novel>

@@ -1,0 +1,7 @@
+<EscapeChars>
+	<char>&amp;</char>
+	<char>&lt;</char>
+	<char>&quot;</char>
+	<char>&gt;</char>
+	<char>&apos;</char>
+</EscapeChars>

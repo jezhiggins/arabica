@@ -1,0 +1,7 @@
+<foo bar="Seven Years in Trenton, written by: JoeBob, style:autobiography"></foo>
+<foo bar="History of Trenton, written by: MaryBob, style:textbook"></foo>
+<foo bar="XQL The Golden Years, written by: , style:storybook"></foo>
+<foo bar="History of Trenton 2, written by: Robinson, style:textbook"></foo>
+<foo bar="History of Trenton Vol 3, written by: Mary FRobinson, style:textbook"></foo>
+<foo bar="How To Fix Computers, written by: Hacker, style:textbook"></foo>
+<foo bar="Trenton Today, Trenton Tomorrow, written by: ToniBob, style:novel"></foo>

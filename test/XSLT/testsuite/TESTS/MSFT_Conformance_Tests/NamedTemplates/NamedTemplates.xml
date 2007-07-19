@@ -1,0 +1,230 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="NamedTemplates" description="" outpath="out">
+	<variation name="_84027">
+		<description>XSLT:call-template Error: Reference to undeclared namespace prefix: 'my'.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84027.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84028">
+		<description>XSLT:call-template Error: Required attribute 'name' is missing.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84028.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84029">
+		<description>XSLT:call-template named template with no match, no call-template</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84029.xsl</xsl>
+		</data>
+		<result expected="valid">84029.txt</result>
+	</variation>
+	<variation name="_84031">
+		<description>XSLT: Named template 'book'  defined twice within this stylesheet.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84031.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84032">
+		<description>xsl:call-template: ERROR may not contain xsl:sort.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84032.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84033">
+		<description>xsl:call-template contains non xslt elements</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84033.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84037">
+		<description>xsl:call-template name is a qname - if this starts failing check status of bug 47763</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84037.xsl</xsl>
+		</data>
+		<result expected="valid">84037.txt</result>
+	</variation>
+	<variation name="_84038">
+		<description>xsl:call-template name with-params</description>
+		<data>
+			<xml>84038.xml</xml>
+			<xsl>84038.xsl</xsl>
+		</data>
+		<result expected="valid">84038.txt</result>
+	</variation>
+	<variation name="_84040">
+		<description>xsl:call-template name=" ": At least one name is required at this location.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84040.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84041">
+		<description>xsl:call-template name="": At least one name is required at this location.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84041.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84042">
+		<description>Named template 'book' does not exist in the stylesheet.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84042.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84043">
+		<description>Named template 'foo' is not called in the stylesheet.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84043.xsl</xsl>
+		</data>
+		<result expected="valid">84043.txt</result>
+	</variation>
+	<variation name="_84044">
+		<description>NamedTemplates: Name attribute does not affect match, mode, or priority</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84044.xsl</xsl>
+		</data>
+		<result expected="valid">84044.txt</result>
+	</variation>
+	<variation name="_84045">
+		<description>NamedTemplates:  match, mode, and priority  do not affect Name attribute</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84045.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84046">
+		<description>NamedTemplates: ZVON Tutorial - call-template in for next loop</description>
+		<data>
+			<xml>84046.xml</xml>
+			<xsl>84046.xsl</xsl>
+		</data>
+		<result expected="valid">84046.txt</result>
+	</variation>
+	<variation name="_84047">
+		<description>NamedTemplates: ZVON Tutorial - call-template with-param test</description>
+		<data>
+			<xml>84047.xml</xml>
+			<xsl>84047.xsl</xsl>
+		</data>
+		<result expected="valid">84047.txt</result>
+	</variation>
+	<variation name="_84416">
+		<description>ZVON XSLT Example 73 - apply-templates (1/4)</description>
+		<data>
+			<xml>84416.xml</xml>
+			<xsl>84416.xsl</xsl>
+		</data>
+		<result expected="valid">84416.txt</result>
+	</variation>
+	<variation name="_84417">
+		<description>ZVON XSLT Example 73 - apply-templates (2/4)</description>
+		<data>
+			<xml>84417.xml</xml>
+			<xsl>84417.xsl</xsl>
+		</data>
+		<result expected="valid">84417.txt</result>
+	</variation>
+	<variation name="_84418">
+		<description>ZVON XSLT Example 73 - apply-templates (3/4)</description>
+		<data>
+			<xml>84418.xml</xml>
+			<xsl>84418.xsl</xsl>
+		</data>
+		<result expected="valid">84418.txt</result>
+	</variation>
+	<variation name="_84419">
+		<description>ZVON XSLT Example 73 - apply-templates (4/4)</description>
+		<data>
+			<xml>84419.xml</xml>
+			<xsl>84419.xsl</xsl>
+		</data>
+		<result expected="valid">84419.txt</result>
+	</variation>
+	<variation name="_84436">
+		<description>ZVON XSLT Example 77 - call-template &amp; with-param(1/2)</description>
+		<data>
+			<xml>84436.xml</xml>
+			<xsl>84436.xsl</xsl>
+		</data>
+		<result expected="valid">84436.txt</result>
+	</variation>
+	<variation name="_84437">
+		<description>ZVON XSLT Example 77 - call-template &amp; with-param(2/2)</description>
+		<data>
+			<xml>84437.xml</xml>
+			<xsl>84437.xsl</xsl>
+		</data>
+		<result expected="valid">84437.txt</result>
+	</variation>
+	<variation name="NamedTemplate_ImportTemplateThatCallsParentStylesheetNT">
+		<description>Use a named template and import another stylesheet with a template of the same name. This in turns calls a named template in the parent stylesheet, which also exists in the imported stylesheet. The parent stylesheet named template should be called. [Bug 65665] </description>
+		<data>
+			<xml>xslt_namedtemplates_ImportIncludeParentNT.xml</xml>
+			<xsl>xslt_namedtemplates_ImportIncludeParentNT.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_namedtemplates_ImportIncludeParentNT_result.txt</result>
+	</variation>
+	<variation name="NamedTemplate_ImportTemplateWithSameName">
+		<description>Use call-templates on a named template in the parent stylesheet, which imports a child that contains a template of the same name. Parent should preserve import precedence. [Bug 65665] </description>
+		<data>
+			<xml>xslt_namedtemplates_CallerTemplateImportP.xml</xml>
+			<xsl>xslt_namedtemplates_CallerTemplateImportP.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_namedtemplates_CallerTemplateImportP_result.txt</result>
+	</variation>
+	<variation name="NamedTemplate_IncludeNamedTemplateSameName">
+		<description>Use a stylesheet containing a named template, and including a template of the same name. Error should be thrown. [Bug 65665] </description>
+		<data>
+			<xml>xslt_namedtemplates_IncludeSameName.xml</xml>
+			<xsl>xslt_namedtemplates_IncludeSameName.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="NamedTemplate_NameTemplateWithEscapeCharacterInName">
+		<description>Use a named template with an Escape character in its name, and call-template with the escape character [DCR Bug 52341] </description>
+		<data>
+			<xml>xslt_NamedTemplate_NameIsEntityCharacter.xml</xml>
+			<xsl>xslt_NamedTemplate_NameIsEntityCharacter.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_NamedTemplate_NameIsEntityCharacter_result.txt</result>
+	</variation>
+	<variation name="NamedTemplate_Bug85244">
+		<description>XSLT: When named template has a match attribute that matches multiple nodes, style sheet throws compile exception</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>NamedTemplate_Bug85244.xsl</xsl>
+		</data>
+		<result expected="valid">NamedTemplate_Bug85244.txt</result>
+	</variation>
+</testcase>

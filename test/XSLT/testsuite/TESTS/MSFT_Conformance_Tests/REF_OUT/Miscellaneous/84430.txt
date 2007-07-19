@@ -1,0 +1,1 @@
+<P>125 (the text starts with a number)</P><P>3aacc (the text starts with a number)</P><P>qa111</P><P>9-12-45 (the text starts with a number)</P><P>Q6-88</P><P>5-ACD (the text starts with a number)</P>

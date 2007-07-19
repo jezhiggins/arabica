@@ -1,0 +1,31 @@
+<!DOCTYPE doc [
+    <!ELEMENT doc ANY>
+    <!ELEMENT city ANY>
+    <!ELEMENT bcity ANY>
+    <!ELEMENT place ANY>
+    <!ATTLIST city id ID #IMPLIED
+              name CDATA #IMPLIED
+    >
+    <!ATTLIST bcity id ID #IMPLIED
+              name CDATA #IMPLIED
+    >
+    <!ATTLIST place ref IDREF #IMPLIED>
+]>
+
+<doc>
+    <city name="seattle" id="a1"/>
+    <city name="seattle" id="a2">
+        <bcity name="bellevue" id="b1"/>
+    </city>
+
+    <bcity name="bellevue" id="b2">
+        <city name="bellevue" id="a3"/>
+        <city name="bellevue" id="a4">
+            <bcity name="bellevue" id="b3"/>
+        </city>
+    </bcity>
+
+    <place ref="a3">seattle</place>
+    <place ref="a3">bellevue</place>
+        
+</doc>

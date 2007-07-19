@@ -1,0 +1,13 @@
+﻿<out>
+  case of include, import
+  including level1_include3.xsl
+  
+		 
+  inside level1_include3.xsl, importing ..\import1.xsl
+  Text of one-tag
+		 
+  inside import1.xsl
+  Text of two-tag
+		 Text of three-tag
+		 Text of four-tag
+</out>

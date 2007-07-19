@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:ped="http://ped.test.com" xmlns:this="http://www.this.com" Att1="First" ped:Att2="Second"/>

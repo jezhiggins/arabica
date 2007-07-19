@@ -1,0 +1,1 @@
+﻿<root><text>bar far</text><text>bar fAr</text><text>bAr far</text><text>car far</text><text>car fAr</text><text>cAr far</text><text>cAr far</text><text>car fAr</text><text>car far</text><text>bAr far</text><text>bar fAr</text><text>bar far</text></root>			

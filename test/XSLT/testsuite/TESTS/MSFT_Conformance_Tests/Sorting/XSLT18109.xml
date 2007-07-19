@@ -1,0 +1,59 @@
+<xslSort>
+<Sort>
+	<a>sortone</a>	
+	<a1>sortone</a1>
+	<a2>sortone</a2>
+	<a3 b="foo">sortone</a3>
+	<a3 c="bar">sortone</a3>
+	<a5>sortone</a5>
+	<a6 b="foo">sortone</a6>
+	<a7 c="bar">sortone</a7>
+	<a8 b=" ">sortone</a8>
+	<a9>sortone</a9>
+	<a3 b="foo" c="bar">sortone</a3>
+	<a11>sortone</a11>
+	<a12 b="foobar">sortone</a12>
+	<a13 b="foobar" c="bar">sortone</a13>
+	<a3 d="foobar" e="bar">sortone</a3>
+	<a15 d="foobar" c="bar">sortone</a15>
+	<a16 b="foobar" d="bar">sortone</a16>
+</Sort>
+<Sort>
+	<a>sorttwo</a>	
+	<a1>sorttwo</a1>
+	<a2>sorttwo</a2>
+	<a3 b="foo">sorttwo</a3>
+	<a3 c="bar">sorttwo</a3>
+	<a5>sorttwo</a5>
+	<a6 b="foo">sorttwo</a6>
+	<a7 c="bar">sorttwo</a7>
+	<a8 b=" ">sorttwo</a8>
+	<a9>sorttwo</a9>
+	<a3 b="foo" c="bar">sorttwo</a3>
+	<a11>sorttwo</a11>
+	<a12 b="foobar">sorttwo</a12>
+	<a13 b="foobar" c="bar">sorttwo</a13>
+	<a3 d="foobar" e="bar">sorttwo</a3>
+	<a15 d="foobar" c="bar">sorttwo</a15>
+	<a16 b="foobar" d="bar">sorttwo</a16>
+</Sort>
+<Sort>
+	<a>sortthree</a>	
+	<a1>sortthree</a1>
+	<a2>sortthree</a2>
+	<a3 b="foo">sortthree</a3>
+	<a3 c="bar">sortthree</a3>
+	<a5>sortthree</a5>
+	<a6 b="foo">sortthree</a6>
+	<a7 c="bar">sortthree</a7>
+	<a8 b=" ">sortthree</a8>
+	<a3>sortthree</a3>
+	<a10 b="foo" c="bar">sortthree</a10>
+	<a11>sortthree</a11>
+	<a12 b="foobar">sortthree</a12>
+	<a13 b="foobar" c="bar">sortthree</a13>
+	<a3 d="foobar" e="bar">sortthree</a3>
+	<a15 d="foobar" c="bar">sortthree</a15>
+	<a16 b="foobar" d="bar">sortthree</a16>
+</Sort>
+</xslSort>

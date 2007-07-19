@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+<other>
+    *id1*
+    </other>
+<x>id2</x>
+<x>id3</x>
+<bee>id4</bee>
+<x>id5</x>
+<other>*id6*</other>
+<other>*id7*</other>
+</out>

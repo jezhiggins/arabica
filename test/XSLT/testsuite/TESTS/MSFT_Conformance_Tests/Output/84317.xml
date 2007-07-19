@@ -1,0 +1,5 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<script>if(a &lt; b) foo()</script>
+<script><![CDATA[if (a < b) bar()]]></script>
+</xslTutorial>

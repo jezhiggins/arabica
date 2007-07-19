@@ -1,0 +1,24 @@
+﻿<test1>
+  <last-names>
+			Joe
+			Bob
+			Trenton Literary Review Honorable Mention
+		BobBobBobAuthorRobinsonRobinsonAuthor of Book 3RobinsonRobinsonerBob</last-names>
+</test1>
+<test2>
+  <author id="a1" xmlns:my="http://my.com">
+			<first-name>Joe</first-name>
+			<last-name>Bob</last-name>
+			<award>Trenton Literary Review Honorable Mention</award>
+		</author>BobBobBobAuthorRobinsonRobinsonAuthor of Book 3RobinsonRobinsonerBob</test2>
+<test3>
+  <last-name xmlns:my="http://my.com">Bob</last-name>
+</test3>
+<test4>
+  <author id="a1" xmlns:my="http://my.com">
+			<first-name>Joe</first-name>
+			<last-name>Bob</last-name>
+			<award>Trenton Literary Review Honorable Mention</award>
+		</author>BobBobBobAuthorRobinsonRobinsonAuthor of Book 3RobinsonRobinsonerBob</test4>
+<test5>1</test5>
+<test6>Number 1</test6>

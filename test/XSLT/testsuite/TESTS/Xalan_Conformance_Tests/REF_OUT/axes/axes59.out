@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>doc #1: 
+<bdd>http://buster.com</bdd><ext>http://somebody.elses.extension</ext><jad>http://administrator.com</jad><java>http://xml.apache.org/xslt/java</java><ped>http://tester.com</ped><xml>http://www.w3.org/XML/1998/namespace</xml>
+doc #2: 
+<xml>http://www.w3.org/XML/1998/namespace</xml>
+</out>

@@ -1,0 +1,164 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Modes" description="" outpath="out">
+	<variation name="_78321">
+		<description>XSLT11106: Mode Attribute       null mode</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11106.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78322">
+		<description>XSLT11104: Mode Attribute       mode attribute on stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11104.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78323">
+		<description>XSLT11103: Mode Attribute       value will have a overloaded string buffer</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11103.xsl</xsl>
+		</data>
+		<result expected="valid">78323.txt</result>
+	</variation>
+	<variation name="_78324">
+		<description>XSLT11102: Mode Attribute    illegal mode characters</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11102.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78325">
+		<description>XSLT11101: Mode Attribute          xsl:template mode without match -not an error, gets matched by built in template rules</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11101.xsl</xsl>
+		</data>
+		<result expected="valid">78325_output.txt</result>
+	</variation>
+	<variation name="_78327">
+		<description>XSLT11011: Mode Attribute        apply-template has mode before template defined</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11011.xsl</xsl>
+		</data>
+		<result expected="valid">78327.txt</result>
+	</variation>
+	<variation name="_78328">
+		<description>XSLT11010: Mode Attribute   apply-template has mode without template defined</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11010.xsl</xsl>
+		</data>
+		<result expected="valid">78328_output.txt</result>
+	</variation>
+	<variation name="_78329">
+		<description>XSLT11013: Mode Attribute        mode value is a variable</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11013.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78330">
+		<description>XSLT11012: Mode Attribute      mode value is an expression</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11012.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78331">
+		<description>XSLT11008: Mode Attribute      partial match on template, apply-template mode (ie mode="thisisamode" and "thisisamod" with wildcards</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11008.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78332">
+		<description>XSLT11109: Mode Attribute       partial match on template, apply-template mode (ie mode="thisisamode" and "thisisamod" with wildcards</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11009.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78333">
+		<description>XSLT11007: Mode Attribute      conflict resolution with Modes - different priorities</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11007.xsl</xsl>
+		</data>
+		<result expected="valid">78333.txt</result>
+	</variation>
+	<variation name="_78334">
+		<description>XSLT11006: Mode Attribute          conflict resolution with Modes - equivalent priorities takes last</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11006.xsl</xsl>
+		</data>
+		<result expected="valid">78334.txt</result>
+	</variation>
+	<variation name="_78340">
+		<description>XSLT11002: Mode Attribute             QName has no namespace prefix part</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11002.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78341">
+		<description>XSLT11003: Mode Attribute          QName tests to make sure that references to this mode correctly matched both URI and base name:</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11003.xsl</xsl>
+		</data>
+		<result expected="valid">78341.txt</result>
+	</variation>
+	<variation name="_78342">
+		<description>XSLT11000: Mode Attribute    Base Case Mode on template</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11000.xsl</xsl>
+		</data>
+		<result expected="valid">78342.txt</result>
+	</variation>
+	<variation name="_78343">
+		<description>XSLT11001: Mode Attribute    Base Case Mode on apply-template</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT11001.xsl</xsl>
+		</data>
+		<result expected="valid">78343.txt</result>
+	</variation>
+	<variation name="_84413">
+		<description>ZVON XSLT Example 71 - xsl:template and mode (1/2)</description>
+		<data>
+			<xml>84413.xml</xml>
+			<xsl>84413.xsl</xsl>
+		</data>
+		<result expected="valid">84413.txt</result>
+	</variation>
+	<variation name="_84414">
+		<description>ZVON XSLT Example 71 - xsl:template &amp; mode (2/2)</description>
+		<data>
+			<xml>84414.xml</xml>
+			<xsl>84414.xsl</xsl>
+		</data>
+		<result expected="valid">84414.txt</result>
+	</variation>
+</testcase>

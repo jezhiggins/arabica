@@ -1,0 +1,2 @@
+<foo att1="complex1" param-att="complex2" attr="simple" use-attribute-sets="display as specified" />
+<foo attr="simple1" att1="complex1" param-att="complex2" use-attribute-sets="display as specified" />

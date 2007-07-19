@@ -1,0 +1,12 @@
+<html xmlns:foo="http://my.com">
+<div><b><x></x></b></div>
+<div>
+<foo:x></foo:x>
+</div><b><div></div></b><div> Text <b> Text <x> Text </x> Text </b> Text </div> Text <foo:x/>
+<div><!----><!----><b><!----><!----></b><!----><!----></div><!----><!---->
+<div></div>
+<div><?my-pi><b><?my-pi></b><?my-pi></div><?my-pi>
+<div></div>
+<div><b>Hello</b></div>Hello<div></div><img><img>Hello<link>
+<link> Hello <link>
+</html>

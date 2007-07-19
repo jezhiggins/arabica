@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  MAIN title: Testing include
+  MAIN author: Joe Jones
+  IMPORT author: Joe Jones
+<y>IMPORT overview: testing apply-imports from include</y></out>

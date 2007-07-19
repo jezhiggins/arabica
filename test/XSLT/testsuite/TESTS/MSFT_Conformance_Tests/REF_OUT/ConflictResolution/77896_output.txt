@@ -1,0 +1,35 @@
+
+
+------------(1)
+<Schema name="Schema1" xmlns="urn:schemas-microsoft-com:xml-data" xmlns:dt="urn:schemas-microsoft-com:datatypes">
+	<ElementType name="e11" dt:type="int"/>
+	<ElementType name="e12" dt:type="int"/>
+	<ElementType name="e1" content="eltOnly" order="seq">
+		<element type="e11"/>
+		<element type="e12"/>
+	</ElementType>
+</Schema>
+
+------------(2)
+<Schema name="Schema2" xmlns="urn:schemas-microsoft-com:xml-data" xmlns:dt="urn:schemas-microsoft-com:datatypes">
+	<ElementType name="e11" dt:type="int"/>
+	<ElementType name="e12" dt:type="int"/>
+	<ElementType name="e1" content="eltOnly" order="many">
+		<element type="e11"/>
+		<element type="e12"/>
+	</ElementType>
+</Schema>
+
+------------(3)
+<Schema name="sc_ab.sch" xmlns="urn:schemas-microsoft-com:xml-data" xmlns:dt="urn:schemas-microsoft-com:datatypes">
+	<AttributeType name="att" dt:type="int" default="1" required="yes"/>
+	<AttributeType name="btt" dt:type="i4" default="2" required="yes"/>
+	<ElementType name="b">
+		<attribute type="btt"/>
+	</ElementType>
+	<ElementType name="a" model="closed">
+		<description> This is a root element that contain all different types of schema decls</description>
+		<element type="b"/>
+		<attribute type="att"/>
+	</ElementType>
+</Schema>

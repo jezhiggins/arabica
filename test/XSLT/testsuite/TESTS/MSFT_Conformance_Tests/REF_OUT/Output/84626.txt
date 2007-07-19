@@ -1,0 +1,3 @@
+<xslTutorial xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+<my:style a="if(a &lt; b) foo()"/>
+</xslTutorial>

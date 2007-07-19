@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+    1. "¥"  <A attr="¥"/>
+    2. """  <A attr="&quot;"/>
+    3. "&lt;"    <A attr="&lt;"/>
+    4. "&gt;"    <A attr="&gt;"/>
+    5. "&amp;"   <A attr="&amp;"/>
+    6. "#"  <A attr="#"/>
+    7. "'"  <A attr="'"/>
+    8. " "  <A attr=" "/><img src="Test 31 Gif.gif"/>
+    9. "©"  <A attr="©"/></out>

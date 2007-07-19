@@ -1,0 +1,6 @@
+<xsl:variable name="foo" xmlns:xslc="http://www.xslc.com" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	bar
+</xsl:variable>
+<xsl:element name="x" xmlns:xslb="http://www.xslb.com" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	y
+</xsl:element>

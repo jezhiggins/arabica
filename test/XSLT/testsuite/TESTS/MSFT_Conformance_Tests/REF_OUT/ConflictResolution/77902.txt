@@ -1,0 +1,106 @@
+
+- <SPAN style="color=brown">
+<br />Pri .25 - 
+book :
+
+ Seven Years in Trenton  Joe Bob Trenton Literary Review Honorable Mention USA  12 </SPAN>
+- <SPAN style="color=green">
+<br />Default Pri .5 - 
+book title :Seven Years in Trenton</SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">price :</SPAN>
+<SPAN style="color:blue">12</SPAN><br />
+- <SPAN style="color=brown">
+<br />Pri .25 - 
+book :
+
+ History of Trenton  Mary Bob 
+				Selected Short Stories of
+				JoeBob Loser US   55 </SPAN>
+- <SPAN style="color=green">
+<br />Default Pri .5 - 
+book title :History of Trenton</SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">price :</SPAN>
+<SPAN style="color:blue">55</SPAN><br />
+- <SPAN style="color=brown">
+<br />Pri .25 - 
+book :
+
+ XQL The Golden Years  Mike Hyman 
+				XQL For Dummies
+				Jonathan Marsh   55.95 </SPAN>
+- <SPAN style="color=green">
+<br />Default Pri .5 - 
+book title :XQL The Golden Years</SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">price :</SPAN>
+<SPAN style="color:blue">55.95</SPAN><br />
+- <SPAN style="color=green"><br />PASS on Document Order in Included File TEST
+magazine : Road and Track 3.50  Yes </SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">title :</SPAN>
+<SPAN style="color:blue">Road and Track</SPAN><br />
+- <SPAN style="color=green"><br />PASS on Document Order in Included File TEST
+magazine : PC Week free Ziff Davis </SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">title :</SPAN>
+<SPAN style="color:blue">PC Week</SPAN><br />
+- <SPAN style="color=green"><br />PASS on Document Order in Included File TEST
+magazine : PC Magazine 3.95 Ziff Davis  Create a dream PC
+				Create a list of needed hardware  The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23  Visual Basic 5.0 - Will it stand the test of time?
+			  </SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">title :</SPAN>
+<SPAN style="color:blue">PC Magazine</SPAN><br />
+- <SPAN style="color=green"><br />PASS on Document Order in Included File TEST
+magazine :  Sport Cars - Can you really dream?
+			  </SPAN><br />
+- <SPAN style="color=green"><br />PASS on Document Order in Included File TEST
+magazine : PC Magazine Best Product of 1997 </SPAN><br />
+- <SPAN style="color=brown">
+<br />Pri .25 - 
+book :
+
+ History of Trenton 2  Mary F Robinson 
+				Selected Short Stories of
+				Mary F Robinson   55 </SPAN>
+- <SPAN style="color=green">
+<br />Default Pri .5 - 
+book title :History of Trenton 2</SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">price :</SPAN>
+<SPAN style="color:blue">55</SPAN><br />
+- <SPAN style="color=brown">
+<br />Pri .25 - 
+book :
+
+ History of Trenton Vol 3  Mary F Robinson Frank Anderson Pulizer 
+				Selected Short Stories of
+				Mary F Robinson   10 </SPAN>
+- <SPAN style="color=green">
+<br />Default Pri .5 - 
+book title :History of Trenton Vol 3</SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">price :</SPAN>
+<SPAN style="color:blue">10</SPAN><br />
+- <SPAN style="color=brown">
+<br />Pri .25 - 
+book :
+
+ How To Fix Computers  Hack er Ph.D.  08 </SPAN>
+- <SPAN style="color=green">
+<br />Default Pri .5 - 
+book title :How To Fix Computers</SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">price :</SPAN>
+<SPAN style="color:blue">08</SPAN><br />
+- <SPAN style="color=green"><br />PASS on Document Order in Included File TEST
+magazine : Tracking Trenton 2.50  </SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">title :</SPAN>
+<SPAN style="color:blue">Tracking Trenton</SPAN><br />
+- <SPAN style="color=brown">
+<br />Pri .25 - 
+book :
+
+ Trenton Today, Trenton Tomorrow  Toni Bob B.A. Ph.D. Pulizer Still in Trenton Trenton Forever  6.50  It was a dark and stormy night. But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			  Trenton misery   </SPAN>
+- <SPAN style="color=green">
+<br />Default Pri .5 - 
+book title :Trenton Today, Trenton Tomorrow</SPAN><br />
+- <br /> Pri 0.6 - <SPAN style="color=blue">price :</SPAN>
+<SPAN style="color:blue">6.50</SPAN><br />

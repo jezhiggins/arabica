@@ -1,0 +1,24 @@
+<author firstName="" lastName="true"></author>
+<author firstName="Mary" lastName="true">
+				Selected Short Stories of
+				JoeBob
+				Loser
+				US
+			</author>
+<author firstName="" lastName="false">
+				XQL For Dummies
+				Jonathan
+				Marsh
+			</author>
+<author firstName="" lastName="false">
+				Selected Short Stories of
+				Mary F
+				Robinson
+			</author>
+<author firstName="" lastName="false">
+				Selected Short Stories of
+				Mary F
+				Robinson
+			</author>
+<author firstName="" lastName="false"></author>
+<author firstName="" lastName="true">Still in Trenton</author>

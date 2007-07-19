@@ -1,0 +1,3 @@
+<val1>global foo: bar: val: non-fwd non-fwd</val1>
+<val2>shadow foo: global foo: bar: val: non-fwd non-fwd</val2>
+<val3>ref-bar: bar: val: non-fwd</val3>

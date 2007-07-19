@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+ -Any child of root sss-
+
+ +Any descendant of root sss+
+
+ -Any child of any sss-
+
+ +Any descendant of root sss+
+
+ -Any child of any sss-
+
+ +Any descendant of root sss+
+</out>

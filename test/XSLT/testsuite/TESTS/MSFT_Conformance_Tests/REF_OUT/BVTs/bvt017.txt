@@ -1,0 +1,20 @@
+?ÿA
+<elt attr="" attr2="Ú?" attr3="Surrogate ?? Char"></elt>
+<cdata>Ú This is ? a test. ??</cdata>
+Ú This is ? a test. ??
+&lt;
+Ú This is ? a test. ??
+Ú This is ? a test. ??
+&gt;
+<
+Ú This is ? a test. ??
+Ú This is ? a test. ??
+>
+&lt;
+Ú This is ? a test. ??
+Ú This is ? a test. ??
+&gt;
+<elt attr="" attr2="Ú?" attr3="Surrogate ?? Char"></elt>
+<cdata>Ú This is ? a test. ??</cdata>
+Ú This is ? a test. ??
+?ÿA

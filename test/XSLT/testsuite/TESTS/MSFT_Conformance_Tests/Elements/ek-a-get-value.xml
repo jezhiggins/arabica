@@ -1,0 +1,19 @@
+<ROOT>
+	<I>
+		<AM>
+			<IN>
+				<deep foo="bar" >true</deep>
+			</IN>
+			<Tired />
+		</AM>
+		<Like used-in-simile="no" >
+			<ducks class="aviarus ?" />
+		</Like>
+	</I>
+	<Aung>
+		<smells>
+			<bad />
+		</smells>
+	</Aung>
+</ROOT>
+		

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<?xml-stylesheet media="xxx" type="text/xsl" href="nonexist.xsl"?>
+<?xml-stylesheet media="yyy" type="text/xsl" href="foo.xsl"?>
+<?xml-stylesheet media="zzz" type="text/xsl" href="#style1"?>
+<?xml-stylesheet media="xyz" alternate="yes" type="text/xsl" href="mediaembed08.xsl"?>
+
+<doc>
+<head>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    version="1.0" id="style1">
+
+  <!-- FileName: embed08 -->
+  <!-- Document: http://www.w3.org/TR/xslt -->
+  <!-- DocVersion: 19991116 -->
+  <!-- Section: 2.7 Embedding Stylesheets -->
+  <!-- Creator: Paul Dick -->
+  <!-- Purpose: Test the media attribute and -MEDIA command-line option. -->
+  <!-- Can be invoked four ways; media="xxx" is an error case. -->
+
+<xsl:key name="test" match="para" use="@id"/>
+
+  <xsl:template match="/">
+     <out>
+	 Ye ha comming to you from the xml file!
+        <xsl:value-of select="doc/body/para"/>
+        <xsl:value-of select="key('test','foey')"/>
+     </out>
+  </xsl:template>
+</xsl:stylesheet>
+</head>
+<body>
+<para id="foo">
+Hello
+</para>
+<para id="foey">
+Goodbye
+</para>
+</body>
+</doc>

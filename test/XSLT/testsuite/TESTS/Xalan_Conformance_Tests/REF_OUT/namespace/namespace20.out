@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:bdd="http://bdd.com" xmlns="http://bubba.com">
+<ped:test xmlns:ped="http://ped.com" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/>
+<test xmlns="http://ped.com" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ped="http://ped.com"/>
+<bdd:test xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ped="http://ped.com"/>
+<test>Test5</test><test xmlns="http://missing.com">Test6</test>
+</out>

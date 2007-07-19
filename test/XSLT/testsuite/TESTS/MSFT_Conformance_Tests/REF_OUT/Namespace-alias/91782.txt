@@ -1,0 +1,3 @@
+<stylesheet version="1.0">
+<variable name="v"></variable>
+</stylesheet>

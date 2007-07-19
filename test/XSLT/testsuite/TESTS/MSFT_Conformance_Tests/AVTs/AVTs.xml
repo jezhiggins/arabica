@@ -1,0 +1,214 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="AVTs" description="" outpath="out">
+	<variation name="_77531">
+		<description>XSLT17000:  xsl: attribute value Template, Base Spec Case - every place an Attribute Value Template is allowed</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17000.xsl</xsl>
+		</data>
+		<result expected="valid">77531.txt</result>
+	</variation>
+	<variation name="_77536">
+		<description>XSLT17001:  xsl : attribute value Template : Expr includes Variable and Expr (Case in xslt spec)</description>
+		<data>
+			<xml>XSLT17001.xml</xml>
+			<xsl>XSLT17001.xsl</xsl>
+		</data>
+		<result expected="valid">77536.txt</result>
+	</variation>
+	<variation name="_77558">
+		<description>XSLT17002:  xsl : attribute value Template, test attribute as attribute Value Template  {@size}</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17002.xsl</xsl>
+		</data>
+		<result expected="valid">77558.txt</result>
+	</variation>
+	<variation name="_77562">
+		<description>XSLT bug:  xsl : attribute value Template, xsl:element with name="" should be error {@foobar}  (Reg bug#88996)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>77562.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77564">
+		<description>XSLT17003:  xsl : attribute value Template, add type number result to type boolean inside expression (Reg #42626)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17003.xsl</xsl>
+		</data>
+		<result expected="valid">77564.txt</result>
+	</variation>
+	<variation name="_77570">
+		<description>XSLT17004:  Attribute Value Template:  concatenate expressions: foo bar=#{@ref}+#{@ref}</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17004.xsl</xsl>
+		</data>
+		<result expected="valid">77570_output.txt</result>
+	</variation>
+	<variation name="_77571">
+		<description>XSLT17005:  Attribute Value Template:  XML text contains {}/"@$</description>
+		<data>
+			<xml>XSLT17005.xml</xml>
+			<xsl>XSLT17005.xsl</xsl>
+		</data>
+		<result expected="valid">77571.txt</result>
+	</variation>
+	<variation name="_77574">
+		<description>XSLT17007:  Attribute Value Template: result of type XML object should convert to string ( string of document node = text of document Element) (REG #42622)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17007.xsl</xsl>
+		</data>
+		<result expected="valid">77574.txt</result>
+	</variation>
+	<variation name="_77575">
+		<description>XSLT17008:  Attribute Value Template: result of type node should convert to string</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17008.xsl</xsl>
+		</data>
+		<result expected="valid">77575_output.txt</result>
+	</variation>
+	<variation name="_77576">
+		<description>XSLT17009:  Attribute Value Template: add number results in expression before converting to string</description>
+		<data>
+			<xml>XSLT17009.xml</xml>
+			<xsl>XSLT17009.xsl</xsl>
+		</data>
+		<result expected="valid">77576.txt</result>
+	</variation>
+	<variation name="_77577">
+		<description>XSLT17010:  Attribute Value Template: &lt;span name="#{{@name + {./text()}"/&gt;</description>
+		<data>
+			<xml>XSLT17010.xml</xml>
+			<xsl>XSLT17010.xsl</xsl>
+		</data>
+		<result expected="valid">77577.txt</result>
+	</variation>
+	<variation name="_77579">
+		<description>XSLT17011:  Attribute Value Template: &lt;a href="{{{(@name)}"/&gt;  - extraneous } at beginning - will be replaced by one {</description>
+		<data>
+			<xml>XSLT17010.xml</xml>
+			<xsl>XSLT17011.xsl</xsl>
+		</data>
+		<result expected="valid">77579.txt</result>
+	</variation>
+	<variation name="_77580">
+		<description>XSLT17012:  Attribute Value Template: &lt;a href="{(@name)}}}"/&gt;  - extraneous } at end - will be replaced by one }</description>
+		<data>
+			<xml>XSLT17010.xml</xml>
+			<xsl>XSLT17012.xsl</xsl>
+		</data>
+		<result expected="valid">77580.txt</result>
+	</variation>
+	<variation name="_77582">
+		<description>XSLT17014:  Attribute Value Template: right curly brace in literal result expression (should not prematurely brake)</description>
+		<data>
+			<xml>XSLT17014.xml</xml>
+			<xsl>XSLT17014.xsl</xsl>
+		</data>
+		<result expected="valid">77582.txt</result>
+	</variation>
+	<variation name="_77588">
+		<description>XSLT17015:  Attribute Value Template: {exp} - ERROR? Or recursive resolution of {{</description>
+		<data>
+			<xml>XSLT17014.xml</xml>
+			<xsl>XSLT17015.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77589">
+		<description>XSLT17016:  Attribute Value Template: {{exp} - ERROR? Or recursive resolution of {{</description>
+		<data>
+			<xml>XSLT17014.xml</xml>
+			<xsl>XSLT17016.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77591">
+		<description>XSLT17017:  Attribute Value Template: buffer case.  (64k.xml as string into   { string } )</description>
+		<data>
+			<xml>64K.xml</xml>
+			<xsl>XSLT17017.xsl</xsl>
+		</data>
+		<result expected="valid">77591_output.txt</result>
+	</variation>
+	<variation name="_77592">
+		<description>XSLT17100:  Attribute Value Template: {}   (is not an error case    {} = return nothing.  )  (Reg for bug #42630)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17100.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77593">
+		<description>XSLT17101:  Attribute Value Template: &lt;xsl:template match="{@ref}"/&gt;   (error case)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17101.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77594">
+		<description>XSLT17102:  Attribute Value Template: &lt;xsl:variable name="x" select="{@ref}"/&gt;  (error case)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17102.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77595">
+		<description>XSLT17103:  Attribute Value Template: &lt;a href="(id(@ref)/title}"&gt;  - missing { at beginning  (error case)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17103.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77596">
+		<description>XSLT17104:  Attribute Value Template: &lt;a href="{id(@ref)/title"&gt;  - missing } at end   (error case)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17104.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77597">
+		<description>XSLT17105:  Attribute Value Template: &lt;xsl:variable name="{@ref}"/&gt;  (error case)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17105.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77598">
+		<description>XSLT17106:  Attribute Value Template: attribute of a top level element  [attributes of top-level elements (child of xsl:stylesheet node) are not interpreted as attribute value templates, they are ignored ]  (error case)</description>
+		<data>
+			<xml>XSLT17106.xml</xml>
+			<xsl>XSLT17106.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77599">
+		<description>XSLT17107:  Attribute Value Template: xmlns attributes  [ are not interpreted as attribute value templates ] (error case)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT17107.xsl</xsl>
+		</data>
+		<result expected="valid">77599.txt</result>
+	</variation>
+</testcase>

@@ -1,0 +1,6 @@
+apple,<value-of select="elem/@a" />;
+	bananna,<value-of select="elem/@a" />;
+	date,<value-of select="elem/@a" />;
+	walnut,<value-of select="elem/@a" />;
+	currant,<value-of select="elem/@a" />;
+	

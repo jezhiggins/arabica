@@ -1,0 +1,5 @@
+﻿ Look at my source in your browser  
+		Literal result element with <tag/>
+		<xsl:template match="text()">
+		<xsl:template/>
+	

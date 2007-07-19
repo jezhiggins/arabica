@@ -1,0 +1,44 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Copying" description="" outpath="out">
+	<variation name="_84388">
+		<description>84388.XSL | xsl:copy-of without sort attribute-3-level</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84388.xsl</xsl>
+		</data>
+		<result expected="valid">84388_output.txt</result>
+	</variation>
+	<variation name="_84389">
+		<description>84389.XSL | xsl:copy-of without sort attribute - 4-level</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84389.xsl</xsl>
+		</data>
+		<result expected="valid">84389_output.txt</result>
+	</variation>
+	<variation name="Copy-of_CopyOfFromDocumentRoot">
+		<description>Use xsl:copy-of to copy the root of an xml document, output to result file. [Bug 51085]</description>
+		<data>
+			<xml>xslt_copyof_CopyOfRootXmlDocToOutput.xml</xml>
+			<xsl>xslt_copyof_CopyOfRootXmlDocToOutput.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_copyof_CopyOfRootXmlDocToOutput_result.txt</result>
+	</variation>
+	<variation name="ResultTreeFragmentWithEscapedText">
+		<description>Use xsl:variable that is of type 'result tree fragment' and contains an escaped text node (via disable-output-escaping). Copy this into the result tree using xsl:copy-of and xsl:value-of. [Bug/DCR 53329]</description>
+		<data>
+			<xml>DoeWithResultTreeFragment.xml</xml>
+			<xsl>DoeWithResultTreeFragment.xsl</xsl>
+		</data>
+		<result expected="valid">DoeWithResultTreeFragment_result.txt</result>
+	</variation>
+	<variation name="UseXmlnsWithEmptyStringAsDefaultNs">
+		<description>Use xsl:copy-of to copy a RTF with an element whose default namespace has been set to xmlns="", when copied - this should be preserved. [Bug 71781].</description>
+		<data>
+			<xml>XmlnsEqualsEmptyString.xml</xml>
+			<xsl>XmlnsEqualsEmptyString.xsl</xsl>
+		</data>
+		<result expected="valid">XmlnsEqualsEmptyString_result.txt</result>
+	</variation>
+</testcase>

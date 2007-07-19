@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<FRAMESET>this</FRAMESET><FRAMESET>rocks</FRAMESET>
+<FRAMESET>this</FRAMESET> <FRAMESET>rocks</FRAMESET>
+<FRAMESET>this</FRAMESET>
+<FRAMESET>rocks</FRAMESET>
+<FRAMESET>this</FRAMESET>		<FRAMESET>rocks</FRAMESET>
+
+<SPAN>this</SPAN><FRAMESET>rocks</FRAMESET>
+<SPAN>this</SPAN> <FRAMESET>rocks</FRAMESET>
+</xslTutorial>

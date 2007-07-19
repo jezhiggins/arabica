@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<docs xmlns:test="http://tester.com">
+  <doc x="x" test:y="y" jad:z="z" xmlns:jad="http://administrator.com"/>
+</docs>

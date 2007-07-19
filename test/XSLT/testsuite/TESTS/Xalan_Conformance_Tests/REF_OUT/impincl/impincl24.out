@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  <div style="border: solid red"><pre>border should be red</pre></div>
+</out>

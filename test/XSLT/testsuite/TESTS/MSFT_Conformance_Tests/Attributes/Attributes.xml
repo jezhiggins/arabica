@@ -1,0 +1,739 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Attributes" description="Section 7.3.1 Creating Attributes with xsl:attribute" outpath="out">
+	<variation name="SpecExample">
+		<description>xsl:attribute: name="xmlns:xsl" namespace="whatever"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>SpecExample.xsl</xsl>
+		</data>
+		<result expected="valid">SpecExample.txt</result>
+	</variation>
+	<variation name="_78365">
+		<description>xsl:attribute: xsl:attribute contains newline character in value</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78365.xsl</xsl>
+		</data>
+		<result expected="valid">78365.txt</result>
+	</variation>
+	<variation name="_78366">
+		<description>xsl:attribute: namespace ="", parent element have xmlns="a"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78366.xsl</xsl>
+		</data>
+		<result expected="valid">78366.txt</result>
+	</variation>
+	<variation name="_78367">
+		<description>xsl:attribute: namespace ="a", parent element have xmlns="a"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78367.xsl</xsl>
+		</data>
+		<result expected="valid">78367.txt</result>
+	</variation>
+	<variation name="_78368">
+		<description>xsl:attribute: namespace ="b", parent element have xmlns="a"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78368.xsl</xsl>
+		</data>
+		<result expected="valid">78368.txt</result>
+	</variation>
+	<variation name="_78369">
+		<description>xsl:attribute: name ="xmlns", parent element have xmlns="a" (bug #46829)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78369.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_78370">
+		<description>xsl:attribute: no namespace</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78370.xsl</xsl>
+		</data>
+		<result expected="valid">78370.txt</result>
+	</variation>
+	<variation name="_78372">
+		<description>xsl:attribute: name="xmlaa" namespace="b" (Error case) (bug #46834)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78372.xsl</xsl>
+		</data>
+		<result expected="valid">78372.txt</result>
+	</variation>
+	<variation name="_78373">
+		<description>xsl:attribute: create mode attribute and many other attribute such as xml:space, xml:lang</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78373.xsl</xsl>
+		</data>
+		<result expected="valid">78373.txt</result>
+	</variation>
+	<variation name="_78374">
+		<description>xsl:attribute: nested elements with attributes 16 levels</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78374.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_78375">
+		<description>xsl:attribute: output attribute should always be auto prefixed when there is a default namespace  present.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78375.xsl</xsl>
+		</data>
+		<result expected="valid">78375.txt</result>
+	</variation>
+	<variation name="_78376">
+		<description>xsl:attribute: use Attribute Value template to create new attribute name and value</description>
+		<data>
+			<xml>78376.xml</xml>
+			<xsl>78376.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78377">
+		<description>xsl:attribute: xsl:attribute namespace="somens" - no name attribute</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78377.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78378">
+		<description>xsl:attribute: name is not a QNAME</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78378.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78379">
+		<description>xsl:attribute: adding an attribute to an element after children have been added (should be ignored)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78379.xsl</xsl>
+		</data>
+		<result expected="valid">78379.txt</result>
+	</variation>
+	<variation name="_78380">
+		<description>xsl:attribute: add attribute to a Comment, and PI, node that is not an element  (should be ignored) (bug #46857)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78380.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78381">
+		<description>xsl:attribute: the second attribhte with same name should over write the first one</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78381.xsl</xsl>
+		</data>
+		<result expected="valid">78381.txt</result>
+	</variation>
+	<variation name="_78382">
+		<description>xsl:attribute: Add same attribute name w/ different namespaces</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78382.xsl</xsl>
+		</data>
+		<result expected="valid">78382_output.txt</result>
+	</variation>
+	<variation name="_78386">
+		<description>xsl:attribute: combination test for xsl create nodes</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78386.xsl</xsl>
+		</data>
+		<result expected="valid">78386_output.txt</result>
+	</variation>
+	<variation name="_78387">
+		<description>xsl:attribute: combination test for xsl create nodes</description>
+		<data>
+			<xml>domtest1.xml</xml>
+			<xsl>78387.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_81430">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "template", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-template_for.xsl</xsl>
+		</data>
+		<result expected="valid">81430.txt</result>
+	</variation>
+	<variation name="_81431">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "use-templates", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-use-templates_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">81431.txt</result>
+	</variation>
+	<variation name="_81482">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "repeat", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-repeat_for.xsl</xsl>
+		</data>
+		<result expected="valid">81482.txt</result>
+	</variation>
+	<variation name="_81483">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "repeat", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-repeat_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">81483.txt</result>
+	</variation>
+	<variation name="_81484">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "get-value", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-get-value_for.xsl</xsl>
+		</data>
+		<result expected="valid">81484.txt</result>
+	</variation>
+	<variation name="_81485">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "element", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-element_name.xsl</xsl>
+		</data>
+		<result expected="valid">81485.txt</result>
+	</variation>
+	<variation name="_81486">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "attribute", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-attribute_name.xsl</xsl>
+		</data>
+		<result expected="valid">81486.txt</result>
+	</variation>
+	<variation name="_81487">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "pi", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-pi_name.xsl</xsl>
+		</data>
+		<result expected="valid">81487.txt</result>
+	</variation>
+	<variation name="_81488">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "comment", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-comment_name.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81489">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "template", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-template_for.xsl</xsl>
+		</data>
+		<result expected="valid">81489.txt</result>
+	</variation>
+	<variation name="_81491">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "use-templates", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-use-templates_for.xsl</xsl>
+		</data>
+		<result expected="valid">81491.txt</result>
+	</variation>
+	<variation name="_81492">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "use-templates", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-use-templates_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">81492.txt</result>
+	</variation>
+	<variation name="_81493">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "repeat", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-repeat_for.xsl</xsl>
+		</data>
+		<result expected="valid">81493.txt</result>
+	</variation>
+	<variation name="_81494">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "repeat", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-repeat_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">81494.txt</result>
+	</variation>
+	<variation name="_81495">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "get-value", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-get-value_for.xsl</xsl>
+		</data>
+		<result expected="valid">81495.txt</result>
+	</variation>
+	<variation name="_81496">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "element", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-element_name.xsl</xsl>
+		</data>
+		<result expected="valid">81496.txt</result>
+	</variation>
+	<variation name="_81497">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "attribute", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-attribute_name.xsl</xsl>
+		</data>
+		<result expected="valid">81497.txt</result>
+	</variation>
+	<variation name="_81498">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "pi", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-pi_name.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81499">
+		<description>XSL: 5.2.2 - Attribute Keywords - 2 - element "comment", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-2-comment_name.xsl</xsl>
+		</data>
+		<result expected="valid">81499.txt</result>
+	</variation>
+	<variation name="_81543">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "template", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-template_for.xsl</xsl>
+		</data>
+		<result expected="valid">81543.txt</result>
+	</variation>
+	<variation name="_81544">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "use-templates", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-use-templates_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">81544.txt</result>
+	</variation>
+	<variation name="_81545">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "repeat", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-repeat_for.xsl</xsl>
+		</data>
+		<result expected="valid">81545.txt</result>
+	</variation>
+	<variation name="_81546">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "repeat", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-repeat_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">81546.txt</result>
+	</variation>
+	<variation name="_81547">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "get-value", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-get-value_for.xsl</xsl>
+		</data>
+		<result expected="valid">81547.txt</result>
+	</variation>
+	<variation name="_81548">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "element", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-element_name.xsl</xsl>
+		</data>
+		<result expected="valid">81548.txt</result>
+	</variation>
+	<variation name="_81550">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "attribute", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-attribute_name.xsl</xsl>
+		</data>
+		<result expected="valid">81550.txt</result>
+	</variation>
+	<variation name="_81551">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "pi", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-pi_name.xsl</xsl>
+		</data>
+		<result expected="valid">81551.txt</result>
+	</variation>
+	<variation name="_81552">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "comment", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-comment_name.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81807">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "eval", attribute "language"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-eval_language.xsl</xsl>
+		</data>
+		<result expected="valid">81807.txt</result>
+	</variation>
+	<variation name="_83030">
+		<description>XSL: 5.2.2 - Attribute Keywords - 1 - element "use-templates", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-1-use-templates_for.xsl</xsl>
+		</data>
+		<result expected="valid">83030.txt</result>
+	</variation>
+	<variation name="_83031">
+		<description>XSL: 5.2.2 - Attribute Keywords - 8 - element "use-templates", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-8-use-templates_for.xsl</xsl>
+		</data>
+		<result expected="valid">83031.txt</result>
+	</variation>
+	<variation name="_83822">
+		<description>XSL: Regression of bug #65025 : select=".." not working</description>
+		<data>
+			<xml>dtdd.xml</xml>
+			<xsl>dtdd.xsl</xsl>
+		</data>
+		<result expected="valid">83822.txt</result>
+	</variation>
+	<variation name="_84169">
+		<description>Copy of 83822: XSL: Regression of bug #65025 : select=".." not working</description>
+		<data>
+			<xml>84169.xml</xml>
+			<xsl>84169.xsl</xsl>
+		</data>
+		<result expected="valid">84169.txt</result>
+	</variation>
+	<variation name="_89433">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "template", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-template_for.xsl</xsl>
+		</data>
+		<result expected="valid">89433.txt</result>
+	</variation>
+	<variation name="_89434">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "use-templates", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-use-templates_for.xsl</xsl>
+		</data>
+		<result expected="valid">89434.txt</result>
+	</variation>
+	<variation name="_89435">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "use-templates", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-use-templates_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">89435.txt</result>
+	</variation>
+	<variation name="_89436">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "repeat", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-repeat_for.xsl</xsl>
+		</data>
+		<result expected="valid">89436.txt</result>
+	</variation>
+	<variation name="_89437">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "repeat", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-repeat_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">89437.txt</result>
+	</variation>
+	<variation name="_89438">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "get-value", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-get-value_for.xsl</xsl>
+		</data>
+		<result expected="valid">89438.txt</result>
+	</variation>
+	<variation name="_89439">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "element", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-element_name.xsl</xsl>
+		</data>
+		<result expected="valid">89439.txt</result>
+	</variation>
+	<variation name="_89440">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "attribute", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-attribute_name.xsl</xsl>
+		</data>
+		<result expected="valid">89440.txt</result>
+	</variation>
+	<variation name="_89441">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "pi", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-pi_name.xsl</xsl>
+		</data>
+		<result expected="valid">89441.txt</result>
+	</variation>
+	<variation name="_89442">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "comment", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-comment_name.xsl</xsl>
+		</data>
+		<result expected="valid">89442.txt</result>
+	</variation>
+	<variation name="_89443">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "script", attribute "language"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-script_language.xsl</xsl>
+		</data>
+		<result expected="valid">89443.txt</result>
+	</variation>
+	<variation name="_89444">
+		<description>XSL: 5.2.2 - Attribute Keywords - 3 - element "eval", attribute "language"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-3-eval_language.xsl</xsl>
+		</data>
+		<result expected="valid">89444.txt</result>
+	</variation>
+	<variation name="_89445">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "template", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-template_for.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89446">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "use-templates", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-use-templates_for.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89459">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "use-templates", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-use-templates_order-by.xsl</xsl>
+		</data>
+		<result expected="valid">89459.txt</result>
+	</variation>
+	<variation name="_89460">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "repeat", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-repeat_for.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89461">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "repeat", attribute "order-by"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-repeat_order-by.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89462">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "get-value", attribute "for"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-get-value_for.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89463">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "element", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-element_name.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89464">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "attribute", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-attribute_name.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89465">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "pi", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-pi_name.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_89466">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "comment", attribute "name"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-comment_name.xsl</xsl>
+		</data>
+		<result expected="valid">89466.txt</result>
+	</variation>
+	<variation name="_89467">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "script", attribute "language"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-script_language.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89468">
+		<description>XSL: 5.2.2 - Attribute Keywords - 7 - element "eval", attribute "language"</description>
+		<data>
+			<xml>Plants.xml</xml>
+			<xsl>22-7-eval_language.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Attribute_AttributeWithEmptyName">
+		<description>Use xsl:attribute with attribute name="", XSLTransformer should generate error [Bug 53195] </description>
+		<data>
+			<xml>xslt_attribute_Prefixes.xml</xml>
+			<xsl>xslt_attribute_EmptyAttribute.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Attribute_DoeWithTextAndValueOf">
+		<description>Use an xsl:value-of and xsl:text with disable-output-escaping equals yes within an xsl:attribute element (in both literal result and xsl:element). Should silently ignore the disable-output-escaping attribute. [Bug/DCR 53329]</description>
+		<data>
+			<xml>DoeOnAttributes.xml</xml>
+			<xsl>DoeOnAttributes.xsl</xsl>
+		</data>
+		<result expected="valid">DoeOnAttributes_result.txt</result>
+	</variation>
+	<variation name="Attribute_EmptyNameAttributeWithNS">
+		<description>Use xsl:attribute with attribute name="" and valid namespace, XSLT should generate error [Bug 53195] </description>
+		<data>
+			<xml>xslt_attribute_Prefixes.xml</xml>
+			<xsl>xslt_attribute_EmptyAttributeNS.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Attribute_HandCreatedXmlNamespace">
+		<description>Use handcreated xml:space or xml:lang attribute with XSLT Attribute [Bug 51664] </description>
+		<data>
+			<xml>xslt_attribute_root.xml</xml>
+			<xsl>xslt_attribute_XmlLangNamespace.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_attribute_XmlLangNamespace_result.txt</result>
+	</variation>
+	<variation name="Attribute_InvalidNamespacePrefix">
+		<description>
+		</description>
+		<data>
+			<xml>AttributeInvalidNamespacePrefix.xml</xml>
+			<xsl>AttributeInvalidNamespacePrefix.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Attribute_LiteralResultAttributeIsAmpersand">
+		<description>Use a literal result element with an attribute whose value is an ampersand entity. The result xml doc should again contain that entity since its a reserved character. [Bug 65748]</description>
+		<data>
+			<xml>xslt_Attribute_LiteralResultValueIsAmpersand.xml</xml>
+			<xsl>xslt_Attribute_LiteralResultValueIsAmpersand.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_Attribute_LiteralResultValueIsAmpersand_result.txt</result>
+	</variation>
+	<variation name="Attribute_UseXmlnsAsNamespaceForAttributeImplicitly">
+		<description>Use xsl:attribute between a literal element with an xmlns:foobar namespace declaration that points at the xmlns URI. Should generate an error. [Bug 54232]</description>
+		<data>
+			<xml>xslt_attribute_XmlnsExplicitAsAttributeNs.xml</xml>
+			<xsl>xslt_attribute_XmlnsExplicitAsAttributeNs.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Attribute_UseXmlnsNsAsNamespaceForAttribute">
+		<description>Use xsl:attribute with a namespace attribute equal to the xmlns namespace. Should generate error.  [Bug 54232]</description>
+		<data>
+			<xml>xslt_attribute_XmlnsAsAttributeNs.xml</xml>
+			<xsl>xslt_attribute_XmlnsAsAttributeNs.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Attribute_WhitespaceInUseAttributeSets">
+		<description>
+		</description>
+		<data>
+			<xml>Attribute_WhitespaceInUseAttributeSets.xml</xml>
+			<xsl>Attribute_WhitespaceInUseAttributeSets.xsl</xsl>
+		</data>
+		<result expected="valid">Attribute_WhitespaceInUseAttributeSets.txt</result>
+	</variation>
+	<variation name="EmptyStringInUseAttribSets">
+		<description>XSLT: xsl:use-attribute-sets doesn't allow empty string. [Bug 70970]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_empty_name_in_use_attribute_sets.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_empty_name_in_use_attribute_sets.txt</result>
+	</variation>
+	<variation name="AttrNameBeginsWithXml">
+		<description>XSLT: Xslt processor should be able to output attribute whose name begins with 'xml' [Bug 81785]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>AttrNameBeginsWithXml.xsl</xsl>
+		</data>
+		<result expected="valid">AttrNameBeginsWithXml.txt</result>
+	</variation>
+	<variation name="xsl_attribute_dup_attr_with_namespace_conflict">
+		<description>Duplicate attribute with namespace conflict. [Bug 71058]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_xsl_attribute_dup_attr_with_namespace_conflict.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_xsl_attribute_dup_attr_with_namespace_conflict.txt</result>
+	</variation>
+</testcase>

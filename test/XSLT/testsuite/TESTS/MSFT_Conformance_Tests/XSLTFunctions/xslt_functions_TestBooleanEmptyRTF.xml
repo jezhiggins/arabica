@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Purpose: Test of boolean() function, converting an empty result tree fragment. Bug 71639 -->
+<doc>
+  test
+</doc>

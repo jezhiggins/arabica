@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+        
+Sort by @d,@e,@c,@b, and then a3 
+
+        
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            
+            
+	-b:
+            foo
+            	
+	=
+            sortone
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            bar
+            
+	-b:
+            
+            	
+	=
+            sortone
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            bar
+            
+	-b:
+            foo
+            	
+	=
+            sortone
+            
+	-name:
+            a3
+            
+	-d:
+            foobar
+            
+	-e:
+            bar
+            
+	-c:
+            
+            
+	-b:
+            
+            	
+	=
+            sortone
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            
+            
+	-b:
+            foo
+            	
+	=
+            sorttwo
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            bar
+            
+	-b:
+            
+            	
+	=
+            sorttwo
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            bar
+            
+	-b:
+            foo
+            	
+	=
+            sorttwo
+            
+	-name:
+            a3
+            
+	-d:
+            foobar
+            
+	-e:
+            bar
+            
+	-c:
+            
+            
+	-b:
+            
+            	
+	=
+            sorttwo
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            
+            
+	-b:
+            foo
+            	
+	=
+            sortthree
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            bar
+            
+	-b:
+            
+            	
+	=
+            sortthree
+            
+	-name:
+            a3
+            
+	-d:
+            
+            
+	-e:
+            
+            
+	-c:
+            
+            
+	-b:
+            
+            	
+	=
+            sortthree
+            
+	-name:
+            a3
+            
+	-d:
+            foobar
+            
+	-e:
+            bar
+            
+	-c:
+            
+            
+	-b:
+            
+            	
+	=
+            sortthree
+        
+
+Sort by a1 - a16
+ 
+        
+             
+
+	-name:
+            Sort
+            
+	
+	=
+            
+	sortone	
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+	sortone
+
+             
+
+	-name:
+            Sort
+            
+	
+	=
+            
+	sortthree	
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+	sortthree
+
+             
+
+	-name:
+            Sort
+            
+	
+	=
+            
+	sorttwo	
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo
+	sorttwo

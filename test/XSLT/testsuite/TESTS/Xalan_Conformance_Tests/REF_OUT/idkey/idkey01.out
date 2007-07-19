@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+<towns state="NH">Amherst, Auburn, Bristol, Enfield, Grafton, Hudson, Lincoln, Manchester, Newport, Pittsfield, Rochester, Salem, Washington</towns>
+<towns state="MA">Amherst, Auburn, Cambridge, Grafton, Hudson, Lincoln, Manchester, Pittsfield, Rochester, Salem, Springfield</towns>
+<towns state="ME">Auburn, Bristol, Cambridge, Enfield, Hudson, Lincoln, Manchester, Newport, Pittsfield, Springfield, Washington</towns>
+<towns state="RI">Bristol, Lincoln, Newport</towns>
+<towns state="CT">Bristol, Enfield, Manchester, Washington</towns>
+<towns state="VT">Bristol, Cambridge, Grafton, Manchester, Newport, Pittsfield, Rochester, Springfield, Washington</towns>
+</out>

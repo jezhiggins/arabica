@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><result xmlns:n="urn:foo"><f>urn:foo</f><f>http://www.w3.org/XML/1998/namespace</f></result>

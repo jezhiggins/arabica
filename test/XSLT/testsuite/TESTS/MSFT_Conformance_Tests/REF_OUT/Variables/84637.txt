@@ -1,0 +1,20 @@
+﻿<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <h1>Variable casting.</h1>
+    <h4>string(123) = "123"</h4>
+    <h4>number("text") = NaN</h4>
+    <h4>string("sold_books/book") = Ender's Game</h4>
+    <h4>boolean("sold_books/book") = true</h4>
+    <h4>boolean("") = false</h4>
+    <h4>boolean(0) = false</h4>
+    <h4>boolean(123) = true</h4>
+    <h4>string(123/0) = Infinity</h4>
+  </head>
+	
+	
+	
+
+	
+	
+</html>

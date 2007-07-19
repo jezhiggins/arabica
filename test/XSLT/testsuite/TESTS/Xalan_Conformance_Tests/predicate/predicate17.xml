@@ -1,0 +1,11 @@
+<?xml version="1.0"?> 
+<doc>
+  <a squish="heavy">1</a>
+  <a>2
+    <achild size="large">child2</achild>
+  </a>
+  <a>3</a>
+  <a attrib="present">4
+    <achild>child4</achild>
+  </a>
+</doc>

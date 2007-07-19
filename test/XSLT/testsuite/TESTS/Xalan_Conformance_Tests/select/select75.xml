@@ -1,0 +1,8 @@
+<?xml version="1.0"?> 
+<!-- First comment -->
+<doc>
+  <!-- Front comment -->
+  <inner/>
+  <!-- Back comment -->
+</doc>
+<!-- Last comment -->

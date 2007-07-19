@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>OASIS Developer Questionnaire</title>
+</head>
+<body>
+<title>Discretionary behavior in '<strong>XSL
+Transformations (XSLT)</strong>' and '<strong>XPath</strong>'</title>
+<br>
+<question-intro>
+      
+<p>Questionnaire for XSLT processor developers</p>
+      
+<p>The XSLT and XPath Recommendations were written in hopes that XML
+data could be transformed as needed by the products of many vendors.
+Builders of Web sites should be able to use tools to create XSLT
+stylesheets regardless of the XSLT processor that will ultimately
+execute the styling. The OASIS XSLT/XPath test suite is the most
+comprehensive measure of the necessary interoperability.</p>
+
+<p>As a developer trying to meet the W3C Recommendations, you know how
+the verbiage of the Recommendations contains precisely-stated
+provisions that interlock in complex and sometimes surprising ways.
+There are also cases where you have leeway to choose one of two
+allowable behaviors or decide output details. Below is our
+questionnaire about the choices. We want you to specify the choices
+you made when creating your XSLT processor. You are encouraged to
+post the answers on your own Web site as well as sending them to us.
+When you prepare to use our test suite, an XML document containing
+your answers is used to filter out test cases that assume the other
+choice, leaving a rendition that is custom-fit to your processor
+insofar as allowed by the Recommendations.</p>
+
+<p>Conformance to the Recommendations is tested by running thousands
+of small test cases, each with processor inputs and an expected
+output. Comparison of actual and expected output neutralizes all
+details that have been defined as irrelevant by the XML, InfoSet,
+Namespaces, and XSLT Recommendations. There is no reason to think
+that all tests have equal weight, hence we discourage talk of
+percentages of conformance and the like. If you have some tests
+that you would like to be included in a later edition of our
+suite, see howtosub.htm for submission instructions.</p>
+    
+</question-intro>
+<ul>
+
+<li>What happens when there is an
+unresolved conflict between matches to xsl:strip-space and
+xsl:preserve-space elements? 
+(choices: choose-last, raise-error)</li>
+
+<li>What happens when there is an
+unresolved conflict between matches to xsl:template elements? 
+(choices: choose-last, raise-error)</li>
+
+<li>What happens when a namespace URI is
+declared to be an alias for multiple different namespace URIs and
+the declarations share the highest import precedence? 
+(choices: choose-last, raise-error)</li>
+
+<li>What happens when the result of
+instantiating the name attribute of the xsl:element element is not
+a QName? 
+(choices: pass-through, raise-error)</li>
+
+<li>What happens when the result of
+instantiating the name attribute of the xsl:attribute element is
+not a QName? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when an attribute is
+added to an element after children have been added to it? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when an attribute is
+added to a node that is not an element? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when nodes other than
+text nodes are created when instantiating the content of the
+xsl:attribute element? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when two attribute sets
+that have the same expanded name and share the highest import
+precedence both contain the same attribute? 
+(choices: choose-last, raise-error)</li>
+
+<li>What happens when the result of
+instantiating the name attribute of the xsl:processing-instruction
+element is not an NCName and a PITarget? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when nodes other than
+text nodes are created when instantiating the content of the
+xsl:processing-instruction element? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when the result of
+instantiating the content of the xsl:processing-instruction element
+contains the string ?&gt;? 
+(choices: add-space, raise-error)</li>
+
+<li>What happens when nodes other than text nodes are created when instantiating the content of the
+xsl:comment element? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when the result of
+instantiating the content of the xsl:comment element contains the
+string -- or ends with -? 
+(choices: add-space, raise-error)</li>
+
+<li>What happens when instantiating a
+variable-binding element adds an attribute node or namespace node
+as a child of the root of the result tree fragment? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when a namespace is
+copied to a node that is not an element? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when a namespace is
+copied to an element after children have been added to it? 
+(choices: ignore, raise-error)</li>
+
+<li>What happens when xsl:number is given
+NaN, Infinity, or a non-positive number? 
+(choices: pass-through, raise-error)</li>
+
+<li>What happens when there is an error
+retreiving the resouce identified by a URI in an argument to the
+document function? 
+(choices: return-empty, raise-error)</li>
+
+<li>What-happens when there is an error
+processing the fragment identifier in a URI in an argument to the
+document function? 
+(choices: return-empty, raise-error)</li>
+
+<li>What happens when the two arguments
+to the document() function do not enable resolution of a relative
+URI reference? 
+(choices: return-empty, raise-error)</li>
+
+<li>What happens when there is more than
+one instantiation of the same attribute on multiple xsl:output
+elements that share the highest import precedence? 
+(choices: choose-last, raise-error)</li>
+
+<li>Is an error raised when the encoding
+attribute of the xsl:output element specifies an unsupported
+encoding? 
+(choices: yes, no)</li>
+
+<li>Is UTF-8 encoding always used when
+the encoding attribute of the xsl:output element specifies an
+unsupported encoding? 
+(choices: yes, no)</li>
+
+<li>Is UTF-16 encoding always used when
+the encoding attribute of the xsl:output element specifies an
+unsupported encoding? 
+(choices: yes, no)</li>
+
+<li>Is UTF-8 encoding used by
+default? 
+(choices: yes, no)</li>
+
+<li>Is UTF-16 encoding used by
+default? 
+(choices: yes, no)</li>
+
+<li>Does the processor support disabling
+output escaping? 
+(choices: yes, no)</li>
+
+<li>What happens when disabling output
+escaping of an xsl:value-of or xsl:text element is specified but
+disabling of output escaping is unsupported? 
+(choices: ignore, raise-error, moot)</li>
+
+<li>What happens when output escaping is
+disabled for a text node that is used for something other than a
+text node in the result tree? 
+(choices: ignore, raise-error, moot)</li>
+
+<li>What happens when output escaping is
+disabled for a character that is not representable in the encoding
+used for output? 
+(choices: ignore, raise-error, moot)</li>
+
+<li>Is the public identifier of an
+unparsed entity, when present, used to generate the URI for the
+entity instead of the URI specified in the system identifier? 
+(choices: yes, no)</li>
+
+<li>Is the English language supported for xsl:number? 
+(choices: yes, no)</li>
+
+<li>(Pattern for questions) For each language in test suite: Is _____ language supported for xsl:number?
+            </li>
+
+<li>(Pattern for questions) For some specific languages:
+ELABORATE: which number conversion basis is chosen?
+            </li>
+
+<li>Is the English language supported for xsl:sort? 
+(choices: yes, no)</li>
+
+<li>(Pattern for questions) For each language in test suite:
+Is _____ language supported for xsl:sort?
+            </li>
+
+<li>(Pattern for questions) For some specific languages:
+ELABORATE: which sorting algorithm is chosen?
+            </li>
+
+<li>Is it possible to pass parameters to the stylesheet? 
+(choices: yes, no)
+If yes: What is the API?
+What is the command-line syntax?
+</li>
+
+<li>Is the result tree able to be output as a sequence of bytes? 
+(choices: yes, no)</li>
+
+<li>Is the result tree always output as specified by the xsl:output element? 
+(choices: yes, no, moot)
+If no: What deviations do you implement?
+</li>
+
+<li>What happens when output escaping is
+disabled for a text node that is placed into a result tree fragment
+(RTF), and the RTF is later converted to a number or string? 
+(choices: ignore, raise-error, moot)</li>
+
+<li>Are there any non-terminating loops that can be detected? 
+(choices: yes, no)
+If yes: What loops can be detected?
+</li>
+
+<li>Is the prefix of the QName specified
+in the name attribute of xsl:element used as the prefix of the
+created element, when no conflicting use is in scope? 
+(choices: yes, no)</li>
+
+<li>Is the prefix of the QName specified
+in the name attribute of xsl:attribute used as the prefix of the
+created attribute, when no conflicting use is in scope? 
+(choices: yes, no)</li>
+
+<li>Is the relative document order of two
+nodes in different documents formed by taking all elements in the
+first document before any in the second, and so on? 
+(choices: yes, no)
+If no: How is the ordering determined?
+</li>
+
+<li>Is there a reproducible pattern for
+the string generated by the generate-id function? 
+(choices: yes, no)
+If yes: What is the pattern?
+</li>
+
+<li>Does the XML output ever contain
+namespace nodes that were not present in the result tree? 
+(choices: yes, no)
+If yes: Under what circumstances are additional namespace nodes generated?
+</li>
+
+<li>Does the html output method output a
+character using a character entity reference, if one is defined for
+it in the version of HTML that the output method is using? 
+(choices: yes, no)</li>
+
+<li>ELABORATE: What form of error
+recovery is performed after any errors are signaled?</li>
+
+<li>Are limits imposed on processing
+resources consumed by the processing of a stylesheet? 
+(choices: yes, no)
+If yes: What limits might be reached in lab testing?
+</li>
+
+<li>Does the XSLT processor support any
+extra data-type for sort? 
+(choices: yes, no)
+If yes: What additional data types are supported?
+</li>
+</ul>
+</body>
+</html>

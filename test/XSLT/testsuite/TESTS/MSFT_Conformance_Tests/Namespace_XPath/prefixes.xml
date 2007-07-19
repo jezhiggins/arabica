@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>  
+<root:xslTutorial xmlns:a="ns1" xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root">  
+ 
+<a:AAA id='a1' pos='start' xml:space="preserve">   
+      <b:BBB  id='b1'/>   
+      <b:BBB  id='b2'>
+	   <DDD id='d0' xmlns="ns0" ws:space="default" xmlns:ws="http://www.w3.org/XML/1998/namespace"/>
+      </b:BBB>   
+</a:AAA>   
+<a:AAA  id='a2' xml:space="default">   
+      <b:BBB  id='b3'/>   
+      <b:BBB  id='b4'/>   
+      <c:CCC  id='c1'>   
+           <DDD  id='d1'/>   
+      </c:CCC>   
+      <b:BBB  id='b5'>   
+           <c:CCC  id='c2'/>   
+      </b:BBB>   
+</a:AAA>   
+</root:xslTutorial> 
+
+
+
+
+
+
+

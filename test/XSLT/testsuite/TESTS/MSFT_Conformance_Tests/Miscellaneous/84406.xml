@@ -1,0 +1,22 @@
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<AAA id='a1' pos='start'>   
+      <BBB  id='b1'/>   
+      <BBB  id='b2'/>   
+</AAA>   
+<AAA  id='a2'>   
+      <BBB  id='b3'/>   
+      <BBB  id='b4'/>   
+      <CCC  id='c1'>   
+           <CCC  id='c2'/>   
+      </CCC>   
+      <BBB  id='b5'>   
+           <CCC  id='c3'/>   
+      </BBB>   
+</AAA>   
+</xslTutorial> 
+
+
+
+

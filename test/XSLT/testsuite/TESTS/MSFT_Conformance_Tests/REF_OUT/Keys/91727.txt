@@ -1,0 +1,10 @@
+<LI>Additionally, through XSLT you can effectively handle a lot of your 
+business logic that is typically found in the 
+middle tier of 
+three-tier architectures. Thus XSLT can be seen as an addition to 
+COM Objects as a means to produce sophisticated 
+web applications.
+ </LI>
+<LI>a</LI>
+<LI>b</LI>
+<LI>ab</LI>

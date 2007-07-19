@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<foo>
+
+<book att="book1">  lala  </book>   <book att="book2"> rocks</book>
+
+<book att="book3">foo  </book><book>	</book> 
+
+</foo>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?> 
+<doc>
+<First at="Att1"/>
+<Second at="ped:Att2"/>
+<Third at="xyz:Att3"/>
+<Fourth at="xmlns"/>
+</doc>

@@ -1,0 +1,6 @@
+<html><xml xml:space="" bar="" auto-ns1:foo="http://my.com" xmlns:auto-ns1="http://my.com2"><?xml-stylesheet><xsl:foo xsl:foo="" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/>
+<foo attr="" auto-ns2:attr="" attr2="" xmlns:auto-ns2="http://my.com.2" xmlns="http://my.com"/>
+<foo bar="" xmlns="http://my.com"><bar xmlns=""></bar></foo><foo><bar></bar></foo><foo xmlns="http://new-xml">
+<foo auto-ns3:foo="" auto-ns4:foo="" xmlns:auto-ns3="http://new-xml2" xmlns:auto-ns4="http://new-xml3"/>
+</foo>
+<xmlns xmlns="http://my.com"/></xml></html>

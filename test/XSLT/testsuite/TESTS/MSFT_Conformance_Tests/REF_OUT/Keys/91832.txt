@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+    
+[
+<p><a name="XSLTcity121120120"><b>CITY: </b>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br></a></p>
+    
+[
+<p><a name="XSLTcity123120120"><b>CITY: </b>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br></a></p>
+
+    
+        
+[
+<p><a name="XSLTcity121125120120"><b>CITY: </b>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br></a></p>
+        
+[
+<p><a name="XSLTcity123125120120"><b>CITY: </b>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br>
+        this is a test <br></br></a></p>
+    
+
+    
+[
+<b>
+BLAR
+    <a href="#XSLTcity121120120">seattle</a></b>
+    
+[
+<b>
+BLAR
+    <a href="#XSLTcity121125120120">bellevue</a></b>
+        

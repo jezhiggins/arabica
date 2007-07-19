@@ -1,0 +1,10 @@
+﻿  
+ 
+ <!ELEMENT AAA ANY> <!ATTLIST AAA id ID #REQUIRED> Look at my source in your browser  
+
+	1234 <A href="http://1234">http://1234</A> 1234
+
+
+<emptythis/>
+
+

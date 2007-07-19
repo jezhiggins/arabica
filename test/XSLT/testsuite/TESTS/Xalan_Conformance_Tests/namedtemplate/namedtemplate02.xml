@@ -1,0 +1,7 @@
+<?xml version="1.0"?> 
+<doc>
+  <a>top-level-a</a>
+    <doc1>
+	  <a>sub-level-a</a>
+	</doc1>
+</doc>

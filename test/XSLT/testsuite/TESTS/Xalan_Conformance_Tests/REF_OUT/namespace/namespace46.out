@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<one xmlns:ns0="http://www.fiscus.de" ns0:objectID="1">
+  <two ns0:objectID="2">
+    <three ns0:objectID="3">drei</three>
+  </two>
+</one>

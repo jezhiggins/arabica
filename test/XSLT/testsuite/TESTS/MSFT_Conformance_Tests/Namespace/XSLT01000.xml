@@ -1,0 +1,16 @@
+<?xml version="1.0"?>  
+
+<xslTutorial >  
+ 
+<DOCUMENT>  
+<TAG1>Hello</TAG1>  
+<TAG2>Hello</TAG2>  
+<TAG3>World</TAG3>  
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/TR/WD-xsl">
+<xsl:value-of select="TAG4"/>
+</xsl:stylesheet>
+<TAG4>Europe<TAG5>World</TAG5></TAG4>  
+</DOCUMENT>  
+</xslTutorial> 
+
+

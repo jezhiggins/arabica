@@ -1,0 +1,2 @@
+<string-length>39</string-length>
+<normalize>5 2</normalize>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:z="http://z.test.com">
+  
+    <chapter-note number="1">aaa</chapter-note>
+    <znote number="1">bbb</znote>
+    <znote number="2">ccc</znote>
+  
+  
+    <znote number="3">ddd</znote>
+    <chapter-note number="1">eee</chapter-note>
+    <znote number="4">fff</znote>
+  
+  
+    <znote number="5">ggg</znote>
+    <znote number="6">hhh</znote>
+    <chapter-note number="1">iii</chapter-note>
+  
+  
+    <znote number="7">jjj</znote>
+    <znote number="8">kkk</znote>
+    <chapter-note number="1">lll</chapter-note>
+  
+</out>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:bdd="http://www.bdd.com" xmlns:ped="http://www.ped.com">
+<Out attr1="Hello" ped:attr1="Test2-OK" bdd:attr1="Test1-OK" attr2="Goodbye"/></root>

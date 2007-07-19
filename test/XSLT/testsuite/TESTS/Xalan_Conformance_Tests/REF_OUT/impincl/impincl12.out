@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  MAIN title: Testing include
+  E-title: Testing include
+  MAIN author: Joe Jones
+  C-chapters: 
+    E-chapter 1: know xsl
+    E-chapter 2: love xsl
+</out>

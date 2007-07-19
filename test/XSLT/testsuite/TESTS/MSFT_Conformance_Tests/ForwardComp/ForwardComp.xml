@@ -1,0 +1,153 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="ForwardComp" description="" outpath="out">
+	<variation name="_91837">
+		<description>XSLT | Forwards-Compatible Processing | xsl:version="1.5", xsl:foo is a top level element which is not supported in XSLT 1.0 | xsl:foo is ignored, no errors returned</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91837.xsl</xsl>
+		</data>
+		<result expected="valid">91837.txt</result>
+	</variation>
+	<variation name="_91838">
+		<description>XSLT | Forwards-Compatible Processing | xsl:version="1.5", xsl:foo att="bar"  is a top level element which is not supported in XSLT 1.0 | xsl:foo along with its attribute is ignored, no errors returned</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91838.xsl</xsl>
+		</data>
+		<result expected="valid">91838.txt</result>
+	</variation>
+	<variation name="_91839">
+		<description>XSLT | Forwards-Compatible Processing | xsl:version="1.5", xsl:foo att="bar"  is a top level element and has content which is not supported in XSLT 1.0 | xsl:foo along with its attribute and the content is ignored, no errors returned</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91839.xsl</xsl>
+		</data>
+		<result expected="valid">91839.txt</result>
+	</variation>
+	<variation name="_91840">
+		<description>XSLT | Forwards-Compatible Processing | Place an XSL Element (example: xsl:fakkback) at the top level, that are not supposed to be at the top level in XSLT 1.0</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91840.xsl</xsl>
+		</data>
+		<result expected="valid">91840.txt</result>
+	</variation>
+	<variation name="_91841">
+		<description>XSLT | Forwards-Compatible Processing | xsl:foo att="bar" invalid in XSLT 1.0 is instantiated in a template without a fallback | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91841.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91842">
+		<description>XSLT | Forwards-Compatible Processing | xsl:foo att="bar" invalid in XSLT 1.0 is instantiated in a template with a fallback | Process the content of the fallback</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91842.xsl</xsl>
+		</data>
+		<result expected="valid">91842.txt</result>
+	</variation>
+	<variation name="_91843">
+		<description>XSLT | Forwards-Compatible Processing | xsl:foo att="bar" invalid in XSLT 1.0 is NOT instantiated in a template | Ignore and no errors</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91843.xsl</xsl>
+		</data>
+		<result expected="valid">91843.txt</result>
+	</variation>
+	<variation name="_91844">
+		<description>XSLT | Forwards-Compatible Processing | Place a valid XSLT 1.0 Element (xsl:include) that is not allowed in a template without a fallback | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91844.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91845">
+		<description>XSLT | Forwards-Compatible Processing | Place a valid XSLT 1.0 Element (xsl:include) that is not allowed in a template with a fallback | Process the content of the fallback</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91845.xsl</xsl>
+		</data>
+		<result expected="valid">91845.txt</result>
+	</variation>
+	<variation name="_91846">
+		<description>XSLT | Forwards-Compatible Processing | Place a valid XSLT 1.0 Element inside a template that is not allowed to be in a template which is not instantiated | All such elements are ignored</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91846.xsl</xsl>
+		</data>
+		<result expected="valid">91846.txt</result>
+	</variation>
+	<variation name="_91847">
+		<description>XSLT | Forwards-Compatible Processing | Process a XSLT Element that has an attribute that XSLT 1.0 doesn't allow the element to have | Attribute is ignored</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91847.xsl</xsl>
+		</data>
+		<result expected="valid">91847.txt</result>
+	</variation>
+	<variation name="_91848">
+		<description>XSLT | Forwards-Compatible Processing | Process a XSLT Element that has an optional attribute with a value that XSLT 1.0 doesn't allow the element to have | Attribute is ignored</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91848.xsl</xsl>
+		</data>
+		<result expected="valid">91848.txt</result>
+	</variation>
+	<variation name="_91849">
+		<description>XSLT | Forwards-Compatible Processing | xsl:value-of select='expr' Attribute select has a value as an expression which does not match the syntax allowed by XPATH Grammer | Error must not be signaled</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91849.xsl</xsl>
+		</data>
+		<result expected="valid">91849.txt</result>
+	</variation>
+	<variation name="_91850">
+		<description>XSLT | Forwards-Compatible Processing | xsl:value-of select='expr' Attribute select has a value as an expression which does not match the syntax allowed by XPATH Grammer but the expression is evaluated | Error must be signaled</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91850.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91853">
+		<description>XSLT | Forwards-Compatible Processing | xsl:value-of select='expr' Attribute select has a value as an expression expr which calls a function with a number of arguments that XSLT does not allow | Error must not be signaled</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91853.xsl</xsl>
+		</data>
+		<result expected="valid">91853.txt</result>
+	</variation>
+	<variation name="_91854">
+		<description>XSLT | Forwards-Compatible Processing | xsl:value-of select='expr' Attribute select has a value as an expression expr which calls a function with a number of arguments that XSLT does not allow but the function is called | Error must be signaled</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91854.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91855">
+		<description>XSLT | Forwards-Compatible Processing | xsl:value-of select='expr' Attribute select has a value as an expression expr which calls a function with arguments of types that XSLT does not allow | Error must not be signaled</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91855.xsl</xsl>
+		</data>
+		<result expected="valid">91855.txt</result>
+	</variation>
+	<variation name="_91856">
+		<description>XSLT | Forwards-Compatible Processing | xsl:value-of select='expr' Attribute select has a value as an expression expr which calls a function with arguments of types that XSLT does not allow but the function is called | Error must be signaled</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91856.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+</testcase>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>xsl:choose when test="system-property('xsl:version') &gt;= 2.0"<choose>Hey! 2.0 features are not supported!</choose></out>

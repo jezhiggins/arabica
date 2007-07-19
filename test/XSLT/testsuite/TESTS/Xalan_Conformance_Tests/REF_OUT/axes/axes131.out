@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+<child number="1">
+<grandchild number="1" descendantaxiscount="1" descendantorselfaxiscount="2"/>
+<grandchild number="2" descendantaxiscount="3" descendantorselfaxiscount="4"/>
+</child>
+<child number="2">
+<grandchild number="1" descendantaxiscount="3" descendantorselfaxiscount="4"/>
+</child>
+<child number="3">
+<grandchild number="1" descendantaxiscount="1" descendantorselfaxiscount="2"/>
+</child>
+<child number="4">
+<grandchild number="1" descendantaxiscount="0" descendantorselfaxiscount="1"/>
+</child>
+<child number="5">
+<grandchild number="1" descendantaxiscount="0" descendantorselfaxiscount="1"/>
+<grandchild number="2" descendantaxiscount="0" descendantorselfaxiscount="1"/>
+</child>
+<child number="6">
+</child>
+</out>

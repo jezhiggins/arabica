@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<intlsort>
+<Japanese 桜="さくら">
+<日本>one1</日本>
+<日本>one2 </日本>
+<日本>one3 </日本>
+</Japanese>
+<Japanese>
+<日本> two </日本>
+</Japanese>
+<Japanese>
+<日本> three </日本>
+</Japanese>
+<Japanese>
+<日本>four </日本>
+</Japanese>
+<Expected> 
+<n> one1 </n>
+<n> one2</n>
+<n> one3</n>
+</Expected >
+<Expected> 
+<n> two </n>
+
+</Expected >
+<Expected> 
+<n> three </n>
+
+</Expected >
+<Expected> 
+<n>four </n>
+
+</Expected >
+
+
+</intlsort>

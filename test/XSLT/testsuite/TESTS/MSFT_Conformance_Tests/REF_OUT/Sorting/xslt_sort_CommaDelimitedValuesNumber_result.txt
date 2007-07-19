@@ -1,0 +1,1 @@
+﻿<root><number>1,000</number><number>0</number><number>1001</number><number>1001</number><number>0</number><number>1,000</number></root>

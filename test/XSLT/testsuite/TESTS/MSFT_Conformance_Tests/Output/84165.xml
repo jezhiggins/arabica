@@ -1,0 +1,59 @@
+<?xml version="1.0"?>  
+<xslTutorial>  
+ 
+NOT an HTML ELEMENT
+<bAtt checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+AN HTML EMPTY ELEMENT INSIDE SPAN, DOES HAVE BOOLEAN ATTRIBUTES
+<span><input checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/></span>
+
+ALL BOOLEAN ATTRIBUTES ON ELEMENTS THAT HAVE SOME BOOLEAN ATTRIBUTES
+
+<input Checked='Checked' cOmpact='compact' deClare='declarE' DEFER='defer' disabled='dISABled' ismap='ISMAP' mUltiple='multiPle' nohref='nohref' Noresize='noResize' noshadE='noshAde' Nowrap='noWrap' readOnly='Readonly' selecteD='Selected'/>
+
+<MENU checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<DIR checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<DL checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<OL checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<UL checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<object checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<script checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<button checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<optgroup checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<option checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<select checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<textarea checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<img checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<AREA checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<FRAME checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<HR checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<TD checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<TH checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+ELEMENTS THAT DO NOT HAVE BOOLEAN ATTRIBUTES
+
+<COL checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+
+<OL>
+<LI checked='checked' compact='compact' declare='declare' defer='defer' disabled='disabled' ismap='ismap' multiple='multiple' nohref='nohref' noresize='noresize' noshade='noshade' nowrap='nowrap' readonly='readonly' selected='selected'/>
+</OL>
+
+</xslTutorial> 
+

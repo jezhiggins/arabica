@@ -1,0 +1,12 @@
+
+- <SPAN style="color=green" ID="test" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">USA</SPAN>
+- <SPAN style="color=green" ID="test" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></SPAN>
+- <SPAN style="color=green" ID="test" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></SPAN>Road and Track3.50YesPC WeekfreeZiff DavisPC Magazine3.95Ziff DavisCreate a dream PC
+				Create a list of needed hardwareThe future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share?MSFT 99.301998-06-23Visual Basic 5.0 - Will it stand the test of time?
+			Sport Cars - Can you really dream?
+			PC Magazine Best Product of 1997
+- <SPAN style="color=green" ID="test" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></SPAN>
+- <SPAN style="color=green" ID="test" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></SPAN>
+- <SPAN style="color=green" ID="test" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></SPAN>Tracking Trenton2.50Tracking Trenton Stocks0.98
+- <SPAN style="color=green" ID="test" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></SPAN>Who's Who in TrentonRobert BobWhere is Trenton?Where in the world is Trenton?

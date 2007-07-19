@@ -1,0 +1,10 @@
+<HTML xmlns="http://www.w3.org/TR/REC-html40">
+<jsp:setProperty xmlns:jsp="http://www.w3.org/jsp" value="blah" property="blah" name="blah"/>
+<P/>
+<p/>
+<P/>
+<hr size="8"/>
+<hr size="8"/>
+<br/>
+<br/>
+</HTML>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+	
+	Seven Years in Trenton
+		
+			Joe
+			Bob
+			Trenton Literary Review Honorable Mention
+			USA
+		
+		12
+	
+	
+		History of Trenton
+		
+			Mary
+			Bob
+			
+				Selected Short Stories of
+				JoeBob
+				Loser
+				US
+			
+		
+		55
+	
+	
+		XQL The Golden Years
+		
+			Mike
+			Hyman
+			
+				XQL For Dummies
+				Jonathan
+				Marsh
+			
+		
+		55.95
+	
+	
+		Road and Track
+		3.50
+		
+		Yes
+	
+	
+		PC Week
+		free
+		Ziff Davis
+	
+	
+		PC Magazine
+		3.95
+		Ziff Davis
+		
+			Create a dream PC
+				Create a list of needed hardware
+			
+			The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share?
+				MSFT 99.30
+				1998-06-23
+			
+			Visual Basic 5.0 - Will it stand the test of time?
+			
+		
+	
+	
+		
+			Sport Cars - Can you really dream?
+			
+		
+	
+	
+		PC Magazine Best Product of 1997
+	
+	
+		History of Trenton 2
+		
+			Mary F
+			Robinson
+			
+				Selected Short Stories of
+				Mary F
+				Robinson
+			
+		
+		55
+	
+	
+		History of Trenton Vol 3
+		
+			Mary F
+			Robinson
+			Frank
+			Anderson
+			Pulizer
+			
+				Selected Short Stories of
+				Mary F
+				Robinson
+			
+		
+		10
+	
+	
+		How To Fix Computers
+		
+			Hack
+			er
+			Ph.D.
+		
+		08
+	
+	
+		Tracking Trenton
+		2.50
+		
+	
+	
+		Tracking Trenton Stocks
+		0.98
+		
+	
+	
+		Trenton Today, Trenton Tomorrow
+		
+			Toni
+			Bob
+			B.A.
+			Ph.D.
+			Pulizer
+			Still in Trenton
+			Trenton Forever
+		
+		6.50
+		
+			It was a dark and stormy night.
+			But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			
+			
+				Trenton
+				misery
+			
+		
+	
+	
+		Who's Who in Trenton
+		Robert Bob
+	
+	
+		Where is Trenton?
+	
+	
+		Where in the world is Trenton?
+	

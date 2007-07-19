@@ -1,0 +1,313 @@
+<!--
+   Extensible HTML version 1.0 Transitional DTD
+
+   This is the same as HTML 4.0 Transitional except for
+   changes due to the differences between XML and SGML.
+
+   Namespace = http://www.w3.org/1999/xhtml
+
+   For further information, see: http://www.w3.org/TR/xhtml1
+
+   Copyright (c) 1998-2000 W3C (MIT, INRIA, Keio),
+   All Rights Reserved. 
+
+   This DTD module is identified by the PUBLIC and SYSTEM identifiers:
+
+   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+
+   $Revision: 1.1 $
+   $Date: 2001/11/28 17:19:34 $
+
+-->
+
+<!--================ Character mnemonic entities =========================-->
+
+<!ENTITY % HTMLlat1 PUBLIC
+   "-//W3C//ENTITIES Latin 1 for XHTML//EN"
+   "xhtml-lat1.ent">
+%HTMLlat1;
+
+<!ENTITY % HTMLsymbol PUBLIC
+   "-//W3C//ENTITIES Symbols for XHTML//EN"
+   "xhtml-symbol.ent">
+%HTMLsymbol;
+
+<!ENTITY % HTMLspecial PUBLIC
+   "-//W3C//ENTITIES Special for XHTML//EN"
+   "xhtml-special.ent">
+%HTMLspecial;
+
+<!--================== Imported Names ====================================-->
+
+<!ENTITY % ContentType "CDATA">
+    <!-- media type, as per [RFC2045] -->
+
+<!ENTITY % ContentTypes "CDATA">
+    <!-- comma-separated list of media types, as per [RFC2045] -->
+
+<!ENTITY % Charset "CDATA">
+    <!-- a character encoding, as per [RFC2045] -->
+
+<!ENTITY % Charsets "CDATA">
+    <!-- a space separated list of character encodings, as per [RFC2045] -->
+
+<!ENTITY % LanguageCode "NMTOKEN">
+    <!-- a language code, as per [RFC1766] -->
+
+<!ENTITY % Character "CDATA">
+    <!-- a single character from [ISO10646] -->
+
+<!ENTITY % Number "CDATA">
+    <!-- one or more digits -->
+
+<!ENTITY % LinkTypes "CDATA">
+    <!-- space-separated list of link types -->
+
+<!ENTITY % MediaDesc "CDATA">
+    <!-- single or comma-separated list of media descriptors -->
+
+<!ENTITY % URI "CDATA">
+    <!-- a Uniform Resource Identifier, see [RFC2396] -->
+
+<!ENTITY % UriList "CDATA">
+    <!-- a space separated list of Uniform Resource Identifiers -->
+
+<!ENTITY % Datetime "CDATA">
+    <!-- date and time information. ISO date format -->
+
+<!ENTITY % Script "CDATA">
+    <!-- script expression -->
+
+<!ENTITY % StyleSheet "CDATA">
+    <!-- style sheet data -->
+
+<!ENTITY % Text "CDATA">
+    <!-- used for titles etc. -->
+
+<!ENTITY % FrameTarget "NMTOKEN">
+    <!-- render in this frame -->
+
+<!ENTITY % Length "CDATA">
+    <!-- nn for pixels or nn% for percentage length -->
+
+<!ENTITY % MultiLength "CDATA">
+    <!-- pixel, percentage, or relative -->
+
+<!ENTITY % MultiLengths "CDATA">
+    <!-- comma-separated list of MultiLength -->
+
+<!ENTITY % Pixels "CDATA">
+    <!-- integer representing length in pixels -->
+
+<!-- these are used for image maps -->
+
+<!ENTITY % Shape "(rect|circle|poly|default)">
+
+<!ENTITY % Coords "CDATA">
+    <!-- comma separated list of lengths -->
+
+<!-- used for object, applet, img, input and iframe -->
+<!ENTITY % ImgAlign "(top|middle|bottom|left|right)">
+
+<!-- a color using sRGB: #RRGGBB as Hex values -->
+<!ENTITY % Color "CDATA">
+
+<!-- There are also 16 widely known color names with their sRGB values:
+
+    Black  = #000000    Green  = #008000
+    Silver = #C0C0C0    Lime   = #00FF00
+    Gray   = #808080    Olive  = #808000
+    White  = #FFFFFF    Yellow = #FFFF00
+    Maroon = #800000    Navy   = #000080
+    Red    = #FF0000    Blue   = #0000FF
+    Purple = #800080    Teal   = #008080
+    Fuchsia= #FF00FF    Aqua   = #00FFFF
+-->
+
+<!--=================== Generic Attributes ===============================-->
+
+<!-- core attributes common to most elements
+  id       document-wide unique id
+  class    space separated list of classes
+  style    associated style info
+  title    advisory title/amplification
+-->
+<!ENTITY % coreattrs
+ "id          ID             #IMPLIED
+  class       CDATA          #IMPLIED
+  style       %StyleSheet;   #IMPLIED
+  title       %Text;         #IMPLIED"
+  >
+
+<!-- internationalization attributes
+  lang        language code (backwards compatible)
+  xml:lang    language code (as per XML 1.0 spec)
+  dir         direction for weak/neutral text
+-->
+<!ENTITY % i18n
+ "lang        %LanguageCode; #IMPLIED
+  xml:lang    %LanguageCode; #IMPLIED
+  dir         (ltr|rtl)      #IMPLIED"
+  >
+
+<!-- attributes for common UI events
+  onclick     a pointer button was clicked
+  ondblclick  a pointer button was double clicked
+  onmousedown a pointer button was pressed down
+  onmouseup   a pointer button was released
+  onmousemove a pointer was moved onto the element
+  onmouseout  a pointer was moved away from the element
+  onkeypress  a key was pressed and released
+  onkeydown   a key was pressed down
+  onkeyup     a key was released
+-->
+<!ENTITY % events
+ "onclick     %Script;       #IMPLIED
+  ondblclick  %Script;       #IMPLIED
+  onmousedown %Script;       #IMPLIED
+  onmouseup   %Script;       #IMPLIED
+  onmouseover %Script;       #IMPLIED
+  onmousemove %Script;       #IMPLIED
+  onmouseout  %Script;       #IMPLIED
+  onkeypress  %Script;       #IMPLIED
+  onkeydown   %Script;       #IMPLIED
+  onkeyup     %Script;       #IMPLIED"
+  >
+
+<!-- attributes for elements that can get the focus
+  accesskey   accessibility key character
+  tabindex    position in tabbing order
+  onfocus     the element got the focus
+  onblur      the element lost the focus
+-->
+<!ENTITY % focus
+ "accesskey   %Character;    #IMPLIED
+  tabindex    %Number;       #IMPLIED
+  onfocus     %Script;       #IMPLIED
+  onblur      %Script;       #IMPLIED"
+  >
+
+<!ENTITY % attrs "%coreattrs; %i18n; %events;">
+
+<!-- text alignment for p, div, h1-h6. The default is
+     align="left" for ltr headings, "right" for rtl -->
+
+<!ENTITY % TextAlign "align (left|center|right) #IMPLIED">
+
+<!--=================== Text Elements ====================================-->
+
+<!ENTITY % special
+   "br | span | bdo | object | applet | img | map | iframe">
+
+<!ENTITY % fontstyle "tt | i | b | big | small | u
+                      | s | strike |font | basefont">
+
+<!ENTITY % phrase "em | strong | dfn | code | q | sub | sup |
+                   samp | kbd | var | cite | abbr | acronym">
+
+<!ENTITY % inline.forms "input | select | textarea | label | button">
+
+<!-- these can occur at block or inline level -->
+<!ENTITY % misc "ins | del | script | noscript">
+
+<!ENTITY % inline "a | %special; | %fontstyle; | %phrase; | %inline.forms;">
+
+<!-- %Inline; covers inline or "text-level" elements -->
+<!ENTITY % Inline "(#PCDATA | %inline; | %misc;)*">
+
+<!--================== Block level elements ==============================-->
+
+<!ENTITY % heading "h1|h2|h3|h4|h5|h6">
+<!ENTITY % lists "ul | ol | dl | menu | dir">
+<!ENTITY % blocktext "pre | hr | blockquote | address | center | noframes">
+
+<!ENTITY % block
+    "p | %heading; | div | %lists; | %blocktext; | isindex |fieldset | table">
+
+<!ENTITY % Block "(%block; | form | %misc;)*">
+
+<!-- %Flow; mixes Block and Inline and is used for list items etc. -->
+<!ENTITY % Flow "(#PCDATA | %block; | form | %inline; | %misc;)*">
+
+<!--================== Content models for exclusions =====================-->
+
+<!-- a elements use %Inline; excluding a -->
+
+<!ENTITY % a.content
+   "(#PCDATA | %special; | %fontstyle; | %phrase; | %inline.forms; | %misc;)*">
+
+<!-- pre uses %Inline excluding img, object, applet, big, small,
+     sub, sup, font, or basefont -->
+
+<!ENTITY % pre.content
+   "(#PCDATA | a | br | span | bdo | map | tt | i | b | u | s |
+      %phrase; | %inline.forms;)*">
+
+<!-- form uses %Flow; excluding form -->
+
+<!ENTITY % form.content "(#PCDATA | %block; | %inline; | %misc;)*">
+
+<!-- button uses %Flow; but excludes a, form, form controls, iframe -->
+
+<!ENTITY % button.content
+   "(#PCDATA | p | %heading; | div | %lists; | %blocktext; |
+      table | br | span | bdo | object | applet | img | map |
+      %fontstyle; | %phrase; | %misc;)*">
+
+<!--================ Document Structure ==================================-->
+
+<!-- the namespace URI designates the document profile -->
+
+<!ELEMENT html (head, body)>
+<!ATTLIST html
+  %i18n;
+  xmlns       %URI;          #FIXED 'http://www.w3.org/1999/xhtml'
+  >
+
+<!--================ Document Head =======================================-->
+
+<!ENTITY % head.misc "(script|style|meta|link|object|isindex)*">
+
+<!-- content model is %head.misc; combined with a single
+     title and an optional base element in any order -->
+
+<!ELEMENT head (%head.misc;,
+     ((title, %head.misc;, (base, %head.misc;)?) |
+      (base, %head.misc;, (title, %head.misc;))))>
+
+<!ATTLIST head
+  %i18n;
+  profile     %URI;          #IMPLIED
+  >
+
+<!-- The title element is not considered part of the flow of text.
+       It should be displayed, for example as the page header or
+       window title. Exactly one title is required per document.
+    -->
+<!ELEMENT title (#PCDATA)>
+<!ATTLIST title %i18n;>
+
+<!-- document base URI -->
+
+<!ELEMENT base EMPTY>
+<!ATTLIST base
+  href        %URI;          #IMPLIED
+  target      %FrameTarget;  #IMPLIED
+  >
+
+<!-- generic metainformation -->
+<!ELEMENT meta EMPTY>
+<!ATTLIST meta
+  %i18n;
+  http-equiv  CDATA          #IMPLIED
+  name        CDATA          #IMPLIED
+  content     CDATA          #REQUIRED
+  scheme      CDATA          #IMPLIED
+  >
+
+<!--
+  Relationship values can be used in principle:
+
+   a) for document specific toolbars/menus when used
+      with the link element in d

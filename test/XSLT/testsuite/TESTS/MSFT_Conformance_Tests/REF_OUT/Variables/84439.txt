@@ -1,0 +1,1 @@
+<?xml version="1.0"?><P>//AAA/CCC/DDD : D1</P><P>//AAA/CCC/text() : C2 C3 </P>

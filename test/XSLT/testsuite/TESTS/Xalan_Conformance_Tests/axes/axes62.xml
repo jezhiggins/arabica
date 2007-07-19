@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<doc
+    xmlns:ext="http://somebody.elses.extension"
+    xmlns:java="http://xml.apache.org/xslt/java"
+    xmlns:ped="http://tester.com"
+    xmlns:bdd="http://buster.com"/>

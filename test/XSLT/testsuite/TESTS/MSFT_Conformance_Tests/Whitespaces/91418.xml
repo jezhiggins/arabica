@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<corporations xml:space="preserve">
+    <root>
+        <strip>
+            <text> Hello   World </text>
+        </strip>
+        <nums>
+            <num>5</num>
+            <num>2</num>
+        </nums>
+        <treebuilder>
+            <!-- TreeBuilder calls getText -->
+            <u></u>
+        </treebuilder>
+    </root>
+</corporations>
+

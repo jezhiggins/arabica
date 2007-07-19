@@ -1,0 +1,72 @@
+<!ELEMENT xsl:stylesheet ANY>		<!ATTLIST xsl:stylesheet xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform"
+							version CDATA #IMPLIED>			
+<!ELEMENT xsl:template ANY>		<!ATTLIST xsl:template xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">						
+<!ELEMENT xsl:copy ANY>			<!ATTLIST xsl:copy xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:element ANY>		<!ATTLIST xsl:element xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:attribute ANY>		<!ATTLIST xsl:attribute xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:processing-instruction ANY>			<!ATTLIST xsl:processing-instruction xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:comment ANY>		<!ATTLIST xsl:comment xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:script ANY>		<!ATTLIST xsl:script xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:eval ANY>			<!ATTLIST xsl:eval xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+
+<!ELEMENT xsl:apply-templates ANY>	<!ATTLIST xsl:apply-templates xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:node-name ANY>		<!ATTLIST xsl:node-name xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:text ANY>			<!ATTLIST xsl:text xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:cdata ANY>		<!ATTLIST xsl:cdata xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:entity-ref ANY>		<!ATTLIST xsl:entity-ref xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:if ANY>			<!ATTLIST xsl:if xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:choose ANY>		<!ATTLIST xsl:choose xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:when ANY>			<!ATTLIST xsl:when xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:otherwise ANY>		<!ATTLIST xsl:otherwise xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+
+<!ELEMENT xsl:define-template-set ANY>	<!ATTLIST xsl:define-template-set xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:for-each ANY>		<!ATTLIST xsl:for-each xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:value-of ANY>		<!ATTLIST xsl:value-of xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:doctype ANY>		<!ATTLIST xsl:doctype xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+
+
+<!ELEMENT p ANY>  <!ELEMENT P ANY>
+
+
+<!ATTLIST xsl:stylesheet
+	match CDATA #IMPLIED>
+
+<!ATTLIST xsl:template
+	match CDATA #IMPLIED>
+
+<!ATTLIST xsl:apply-templates
+	select	CDATA #IMPLIED 
+	order-by CDATA #IMPLIED >
+
+<!ATTLIST xsl:for-each
+	select	CDATA #IMPLIED 
+	order-by CDATA #IMPLIED >
+
+<!ATTLIST xsl:value-of
+	select	CDATA #IMPLIED >
+
+<!ATTLIST xsl:element
+	name CDATA #IMPLIED>
+<!ATTLIST xsl:attribute
+	name CDATA #IMPLIED>
+<!ATTLIST style
+	name CDATA #IMPLIED>
+<!ATTLIST xsl:pi
+	name CDATA #IMPLIED>
+<!ATTLIST xsl:comment
+	name CDATA #IMPLIED>
+<!ATTLIST xsl:text
+	name CDATA #IMPLIED>
+<!ATTLIST xsl:cdata
+	name CDATA #IMPLIED>
+<!ATTLIST xsl:entity-ref
+	name CDATA #IMPLIED>
+<!ATTLIST xsl:doctype
+	name CDATA #IMPLIED>
+
+<!ATTLIST xsl:template
+	language CDATA #IMPLIED>
+<!ATTLIST xsl:script
+	language CDATA #IMPLIED>
+<!ATTLIST xsl:eval
+	language CDATA #IMPLIED>

@@ -1,0 +1,191 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2005). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <title>OASIS XSLT/XPath Conformance Committee</title>
+   </head>
+   <body>
+      <h1>Test Lab Guidelines - DRAFT 0.45</h1>
+
+<h2>I. General Information</h2>
+A. This package includes test cases, reference output for comparison, and catalog data that you can use to generate various scripts. The catalog data is in XML, and the scripts can be generated via XSLT. We include a standalone sufficiency test (MkFinder.xsl) so you can determine whether your XSLT processor can generate the anticipated scripts.
+<br><br>
+B. The expected "reference" results from the submitters will be XML, HTML or text format, as will the user's actual results.  These raw results will be converted to an XML document with an indirect representation of the content in InfoSet-style markup, always in UTF-8 encoding.  The XSLT/XPath Conformance Committee will supply the user with the "reference" results and the user will apply an Information Set Analysis mechanism to produce the Users Results Description of the actual test results run on a particular processor.  The XML results can be canonicalized and the user can perform a byte-wise or text comparison.  For example, if the result is an XML document, the user can apply an XSLT stylesheet supplied in the XSLT/XPath Conformance Testing package and use the processor being tested or another processor to produce an XML InfoSet representation of that result.  Processing the information set result using Canonical XML or any consistent serializer with both the committee-supplied expected results and actual results allows for easy comparison. Direct XML or HTML comparitors can be used, if available.
+<br><br>
+C. This document is currently more of an outline than a complete explanation. It is being included with the test suite because it contains numerous suggestions and ideas that enable optimum use of the suite.
+
+<h2>II. Unpacking and setting up the test system</h2>
+A. This document explains
+<ul>
+<li>1. Instructions for installing the test suite</li>
+<li>2. Instructions for rendering the suite for a particular test run</li>
+<li>3. Instructions for canonicalizing and comparing output</li>
+<li>4. Instructions particular to each "operation" scenario</li>
+<li>5. Guidance on running single test cases that check the setup</li>
+<li>6. Guidance on the uses of individual data items in the catalog</li>
+<li>7. Guidance on the directory structure (e.g., read-only parts)</li>
+</ul>
+A'. Other documents explain
+<ul>
+<li>1. Information about discretionary items and the questionnaire</li>
+<li>2. Information on the W3C specs and errata we deal with</li>
+<li>3. How to submit test cases</li>
+<li>4. The OASIS generic testing framework and this package as an instance of it</li>
+</ul>
+B. Planning your file system layout
+<ul>
+<li>1. File tree of test cases (read-only)</li>
+<li>2. Documents in top-level DOCS directory</li>
+<li>3. Utility stylesheets in TOOLS</li>
+<li>4. Reference output in two trees, raw and InfoSet (read-only); will need 3rd for canonical</li>
+<li>5. Generate the canonical version of the reference output (one-time process on your system)</li>
+<ul><li>a. Known conformant canonical processor available at http://www.elcel.com/products/xmlcanon.html</li>
+<li>b. Checking that it ran correctly</li></ul>
+<li>6. Suggestion: directory trees for each processor being tested</li>
+<li>7. May need extra trees for different invocation options, run dates, etc.</li>
+<li>8. Remarks about relative paths</li>
+</ul>
+C. Planning your test operations
+<ul>
+<li>1. You will need to know how to invoke each processor (see next section)</li>
+<li>2. Operating environment: command shell? JRE? other?</li>
+<li>3. Do you want to create output in its storage place or move it when done?</li>
+<li>4. Master script that runs all test cases, invoking single-test script</li>
+<li>5. Byte-wise file comparison tool</li>
+<li>6. Capturing console output</li>
+<li>7. Lack of generated output, planned vs. unplanned</li>
+<li>8. If multiple processors under test, need to render suite for each to account for discretionary items</li>
+<li>9. If a processor "compiles" the stylesheet first, plan for storage of compiled versions</li>
+</ul>
+
+<h2>III. Getting an XSLT processor ready for testing</h2>
+A. The Test Lab needs to get the following information from the processor developer(s)
+<ul>
+<li>1. Specifications of the necessary operating system (or JRE)</li>
+<li>2. Specifications of other software needed to run the processor</li>
+<li>3. Instructions for installing the processor</li>
+<li>4. Command-line and/or API arguments; invocation sequence</li>
+<li>5. Information about how errors and xsl:message are handled</li>
+<li>6. Their answers to our questionnaire about discretionary items (xsltDevQ.htm)</li>
+<li>7. Information about languages and locales supported</li>
+<li>8. (For later use) How to set parameters "externally"</li>
+</ul>
+B. Ensure that the processor works
+<ul>
+<li>1. Vendor's setup tests</li>
+<li>2. Try a couple tests from this suite</li>
+<li>3. Devise a single-case script, batch file, or invocation program</li>
+<li>4. Try pertinent invocation options</li>
+</ul>
+C. Using XSLT as part of the installation
+<ul>
+<li>1. The sufficiency test (MkFinder.xsl) is also an example</li>
+<li>2. Trial generation of a master script for running tests</li>
+<li>3. How you can manipulate fixed strings and name parts to make other scripts</li>
+</ul>
+
+<h2>IV. Running the tests and evaluating a processor</h2>
+A. Setup and planning
+<ul>
+<li>1.Script to check that all the input files needed by a test case exist in the correct directories</li>
+<ul><li>a. The "cd issue" arises because the principal stylesheet can refer to files in other roles</li>
+<li>1) supplemental-data: document('filename')</li>
+<li>2) supplemental-stylesheet: xsl:import or xsl:include files</li>
+<li>b. Supplemental files may have relative paths, not just names.</li>
+<li>c. The current directory should be the one containing the stylesheet.</li>
+<li>d. The supplemental inputs can be tested for existence relative to that directory.</li></ul>
+<li>2. The test lab uses catalog data to generate a script with all the necessary "cd" (or equivalent) commands intermixed among the commands to invoke the tests.</li>
+<li>3. The following naming parts are supplied to the test lab</li>
+<ul><li>a. test-catalog/@submitter names the directory for one submission</li>
+<li>b. file-path gives the intermediary directories to locate a case</li>
+<li>c. test-case/@id is the name of a case for display purposes</li>
+<li>d. input-file and output-file elements contain names of all files used in a test case</li>
+<li>e. Note that (a) and (b) are only separate for Committee purposes, and that all the test lab uses need to use the concatenation of the two (with a / or appropriate separator between).</li></ul>
+<li>4. Using the above name parts plus naming conventions suggested by the testing guide, a test lab should be able to create all the following in an automated way. In these items, "script" means a batch file, shell script, or whatever. These would be generated off the catalog data by an XSLT transformation with text-method output</li>
+<ul><li>a. Script to canonicalize all InfoSetized reference output</li>
+<li>b. Script that wraps the process of rendering the test suite for a given processor and errata level</li>
+<li>c. Script to check that all the input files needed by a test case exist in the correct directories (MkFinder.xsl does this)</li>
+<li>d. Line in a script to run a test from the command line, feeding in the name of the principal output file, and ensure that the output is either generated in or moved to the correct directory</li>
+<li>e. Variation of (d) where console output must be captured and moved to an appropriate directory.</li>
+<li>f. Script to run all tests using a mixture of (d) and (e), and also make a log file that names the cases being run (could also display  "purpose" strings or spec-citations if desired)</li>
+<li>g. Programs similar to (d) and (e) that use API calls</li>
+<li>h. Scripts to InfoSetize and then canonicalize the output from the test run, using different directory trees for each</li>
+<li>i. Script to compare all canonicalized test-run outputs against the corresponding reference outputs</li>
+<li>j. Script to delete files no longer needed after a successful run</li>
+<li>k. HREF-clean version of fully-qualified name (change / to _)</li></ul>
+<li>5. Each "operation" has its own details of invocation</li>
+<ul><li>a. standard: provide both XML and stylesheet as arguments</li>
+<li>b. embedded: provide XML as only input</li>
+<li>c. external-param [TBD later]</li>
+<li>d. execution-error: need to capture console, transformation output is a mistake</li>
+<li>e. result-analysis: human review of results needed</li>
+<li>f. (should xsl:message have its own, combining a and d?)</li></ul>
+<li>6. Certain "compare" values require special attention</li>
+<ul><li>a. ignore: presence of this file is a mistake</li>
+<li>b. manual/generate-id: look at generated IDs, ensure that they are in correct format</li>
+<li>c. manual/system-property: look at actual values, ensure they are accurate</li></ul>
+</ul>
+B. Rendering the test suite for a given processor and errata level
+<ul>
+<li>1. Gray areas and discretionary items filter out cases - need data in XML</li>
+<li>2. Specify the errata level</li>
+<li>3. Rendering the processor-specific suite to exclude inapplicable test cases creates a trimmed catalog</li>
+</ul>
+C. Running the applicable test cases through the processor
+<ul>
+<li>1. The XSLT/XPath Conformance Committee will supply the test lab with the expected results and the test lab will apply an Information Set Analysis mechanism to produce the Users Results Description of the actual test results run on a particular processor.</li>
+<li>2. The XML results can be serialized in canonical or other proprietary consistent way and then compared byte wise.</li>
+<li>3. Alternatively, HTML or XML can be compared directly if a suitable comparitor exists</li>
+<li>4. The raw results from XSLT Stylesheet (Test Case) can be XML, HTML or text format.</li>
+<li>5. The user's actual results after running the test can be XML, HTML or text format.</li>
+</ul>
+D. Comparing the results of this run against the reference output
+<ul>
+<li>1. XML Output</li>
+<ul><li>a. The XML results will be converted to an XML document using a subset of the XML InfoSet</li>
+<li>b. Canonical XML or any consistent serialization can be used for byte-wise comparison</li></ul>
+<li>2. Text Output</li>
+<ul><li>a. If the results are text, the test lab or user can be supplied with a form of the text coded in an XML InfoSet document.</li>
+<li>1) Encoded in UTF-8</li>
+<li>2) Separate text node for each line</li>
+<li>3) Actual encoding specified as an attribute of the root</li>
+<li>b. An alternate approach is supplying the output as the combination of all text nodes from XML output in document order.</li></ul>
+<li>3. HTML Output - This one is hard due to:</li>
+<ul><li>1) Different treatment for tags and attributes between HTML and XML</li>
+<li>a. HTML allows attributes without values. Ex: INPUT disabled /</li>
+<li>2) Different treatment of white spaces between HTML and XML</li>
+<li>b. Tools to solve:</li>
+<li>1) W3C Tidy tool to solve 1st problem</li>
+<li>2) Tool that produce consistent output regarding whitespace (IE libraries has one)</li>
+<li>3) If you have money: HTML Match? DiffDoc? CS-HTMLdiff? HTML Compare? more?</li></ul>
+</ul>
+</body>
+</html>

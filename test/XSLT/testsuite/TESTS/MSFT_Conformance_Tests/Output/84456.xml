@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<html>
+<OBJECT CODEBASE="http://www.yahoo.com">http://www.yahoo.com</OBJECT>
+<OBJECT CODEBASE="http://日本">http://日本</OBJECT>
+<OBJECT CODEBASE="http://www.this space.com" >http://www.this space.com </OBJECT>
+<OBJECT CODEBASE="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </OBJECT>
+<OBJECT CODEBASE="ĀāĂă">ĀāĂă</OBJECT>
+<OBJECT CODEBASE="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </OBJECT>
+
+</html>

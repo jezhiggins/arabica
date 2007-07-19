@@ -1,0 +1,1 @@
+<root><strip><text> Hello   World </text></strip><nums><num>5</num><num>2</num></nums><treebuilder><u /></treebuilder></root>

@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<SELECT>this</SELECT><SELECT>rocks</SELECT>
+<SELECT>this</SELECT><U> </U><SELECT>rocks</SELECT>
+<SELECT>this </SELECT><SELECT>rocks</SELECT>
+<SELECT>this</SELECT><SELECT> rocks</SELECT>
+<SELECT>this
+</SELECT><SELECT>
+rocks</SELECT>
+<SELECT>this</SELECT>
+<SELECT>rocks</SELECT>
+<SELECT>this</SELECT>	<SELECT>rocks</SELECT>
+<SELECT>this<![CDATA[  ]]></SELECT><SELECT>rocks</SELECT>
+<![CDATA[ <SELECT>this</SELECT><U> </U><SELECT>rocks</SELECT> ]]>
+</xslTutorial>

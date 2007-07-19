@@ -1,0 +1,2 @@
+<foo att="abc" att2="2" name="foo" elem1="value1" elem2="value2" att1="def" />
+<foo bar="bar" />

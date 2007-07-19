@@ -1,0 +1,1 @@
+﻿<p xmlns:foo="urn:foo"><p foo:attr="val" xp_0:attr="" xmlns:xp_0="urn:foo2"></p></p>

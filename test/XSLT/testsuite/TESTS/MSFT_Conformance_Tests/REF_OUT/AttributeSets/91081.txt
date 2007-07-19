@@ -1,0 +1,49 @@
+<foo name="blar" att="abc" elem1="value1" elem2="value2" att1="" att2="testing" />
+<foo bar="bar" />
+<price xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">08</price>
+<book att="value of att" att1="1" att2="2" style="autobiography" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+<title att="value of att" att1="1" att2="2"></title>
+<author>
+<first-name att="koko" att1="1" att2="2" koko="koko" />
+</author>
+</book>
+<book att="value of att" att1="1" att2="2" style="textbook" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+<title att="value of att" att1="1" att2="2"></title>
+<author>
+<first-name att="koko" att1="1" att2="2" koko="koko" />
+<first-name att="koko" att1="1" att2="2" koko="koko" />
+</author>
+</book>
+<book att="value of att" att1="1" att2="2" style="storybook" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+<title att="value of att" att1="1" att2="2"></title>
+<author></author>
+</book>
+<title att="value of att" att1="1" att2="2" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></title>
+<title att="value of att" att1="1" att2="2" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></title>
+<title att="value of att" att1="1" att2="2" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></title>
+<book att="value of att" att1="1" att2="2" style="textbook" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+<title att="value of att" att1="1" att2="2"></title>
+<author></author>
+</book>
+<book att="value of att" att1="1" att2="2" style="textbook" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+<title att="value of att" att1="1" att2="2"></title>
+<author>
+<first-name att="koko" att1="1" att2="2" koko="koko" />
+<first-name att="koko" att1="1" att2="2" koko="koko" />
+<first-name att="koko" att1="1" att2="2" koko="koko" />
+</author>
+</book>
+<book att="value of att" att1="1" att2="2" style="textbook" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+<title att="value of att" att1="1" att2="2"></title>
+<author>
+<first-name att="koko" att1="1" att2="2" koko="koko" />
+</author>
+</book>
+<title att="value of att" att1="1" att2="2" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></title>
+<title att="value of att" att1="1" att2="2" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></title>
+<book att="value of att" att1="1" att2="2" style="novel" id="myfave" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+<title att="value of att" att1="1" att2="2"></title>
+<author>
+<first-name att="koko" att1="1" att2="2" koko="koko" />
+</author>
+</book>

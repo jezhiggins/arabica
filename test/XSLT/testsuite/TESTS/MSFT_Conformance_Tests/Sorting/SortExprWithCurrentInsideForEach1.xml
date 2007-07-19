@@ -1,0 +1,21 @@
+<large-collection>
+ <collection name = "groupA">
+ <ref refid="1"/>
+ <ref refid="3"/>
+ </collection>
+ <collection name = "groupB">
+ <ref refid="3"/>
+ <ref refid="4"/>
+ </collection>
+ <collection name = "groupC">
+ <ref refid="1"/>
+ <ref refid="2"/>
+ <ref refid="3"/>
+ <ref refid="4"/>
+ <ref refid="5"/>
+ <ref refid="6"/>
+ <ref refid="7"/>
+ <ref refid="8"/>
+ <ref refid="9"/>
+ </collection>
+ </large-collection>

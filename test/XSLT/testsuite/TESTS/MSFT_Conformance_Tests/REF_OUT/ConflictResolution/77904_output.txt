@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+        
+- 
+        <SPAN style="color=brown" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+            Pri .25 - 
+            my:country</SPAN>
+        
+- 
+        <SPAN style="color=blue" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+         Pri 0.6 - 
+            title</SPAN>
+        
+- 
+        <SPAN style="color=blue" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+         Pri 0.6 - 
+            title</SPAN>
+        
+- 
+        <SPAN style="color=blue" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+         Pri 0.6 - 
+            title</SPAN>
+        
+- 
+        <SPAN style="color=blue" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+         Pri 0.6 - 
+            title</SPAN>
+        
+- 
+        <SPAN style="color=blue" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+         Pri 0.6 - 
+            my:magazine</SPAN>
+        
+- 
+        <SPAN style="color=brown" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+            Pri .25 - 
+            my:book</SPAN>
+        
+- 
+        <SPAN style="color=brown" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+            Pri .25 - 
+            my:title</SPAN>
+        
+- 
+        <SPAN style="color=brown" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+            Pri .25 - 
+            my:author</SPAN>
+        
+- 
+        <SPAN style="color=brown" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+            Pri .25 - 
+            my:book</SPAN>
+        
+- 
+        <SPAN style="color=brown" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+            Pri .25 - 
+            my:title</SPAN>
+        
+- 
+        <SPAN style="color=brown" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+            Pri .25 - 
+            my:book</SPAN>
+        
+- 
+        <SPAN style="color=brown" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+            Pri .25 - 
+            my:title</SPAN>

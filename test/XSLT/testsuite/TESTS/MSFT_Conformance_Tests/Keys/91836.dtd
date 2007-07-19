@@ -1,0 +1,18 @@
+
+<!ENTITY ext01 "Red">
+<!ENTITY ext02 "mond">
+<!ENTITY % ext "&ext01;&ext02;">
+<!ENTITY % ext1 "%ext;">
+<!ENTITY % ext2 "<city name='%ext1;'>car</city>">
+<!ENTITY ext3 "%ext2;">
+<!ELEMENT a ANY>
+<!ATTLIST a
+    att CDATA "Redmond"
+    att1 CDATA "Seattle"
+    att2 CDATA #FIXED "Bellevue"
+    >
+
+<!ELEMENT b ANY>
+<!ATTLIST b 
+    att CDATA #FIXED ""
+    >

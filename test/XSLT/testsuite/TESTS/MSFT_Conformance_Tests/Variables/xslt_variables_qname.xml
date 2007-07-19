@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<freeBusyList>
+	<appointment>
+		<startTime>2001-06-01 09:00</startTime>
+		<doctorFirstName>Trudee</doctorFirstName>
+		<doctorLastName>Sharp</doctorLastName>
+	</appointment>
+	<appointment>
+		<startTime>2001-06-01 09:00</startTime>
+		<doctorFirstName>Melanie</doctorFirstName>
+		<doctorLastName>Peterson</doctorLastName>
+	</appointment>
+	<appointment>
+		<startTime>2001-06-01 09:30</startTime>
+		<doctorFirstName>Trudee</doctorFirstName>
+		<doctorLastName>Sharp</doctorLastName>
+	</appointment>
+</freeBusyList>

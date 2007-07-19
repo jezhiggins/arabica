@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<B>this</B><B>rocks</B>
+<B>this</B><U> </U><B>rocks</B>
+<B>this </B><B>rocks</B>
+<B>this</B><B> rocks</B>
+<B>this
+</B><B>
+rocks</B>
+<B>this</B>
+<B>rocks</B>
+<B>this</B>	<B>rocks</B>
+<B>this<![CDATA[  ]]></B><B>rocks</B>
+<![CDATA[ <B>this</B><U> </U><B>rocks</B> ]]>
+</xslTutorial>

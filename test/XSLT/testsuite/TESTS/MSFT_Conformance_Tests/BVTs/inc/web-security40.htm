@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+
+<SCRIPT FOR="window" EVENT="onLoad" LANGUAGE="VBscript">
+	On Error Resume Next
+	obj_doc.async = false
+	obj_doc.load("c:\hello.txt")
+	
+	If InStr(Err.Description, "Access denied.") <> 0 Then
+		obj.innerHTML = "<b><font color=""#FF0000"" face=""arial"">FAILED: " & Err.Description & "</font></b>"
+	Else
+		obj.innerHTML = "<b><font color=""#008000"" face=""arial"">PASSED</font></b>"
+	End If
+</SCRIPT>
+
+<OBJECT ID="obj_doc" CLASSID="clsid:88d969c0-f192-11d4-a65f-0040963251e5">
+</OBJECT>
+
+</HEAD>
+
+<BODY>
+	<h3>OBJECT tag creates a document in an HTML page from domain "http://webdata"</h3>
+	<DIV ID="obj"></DIV>
+</BODY>
+</HTML>

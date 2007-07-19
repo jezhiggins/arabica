@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>At the root, should say the name is ():
+  
+    We are way inside.
+  
+  name of parent is (inside)
+  
+  name of parent is (document-element)
+  
+  name of parent is ()
+  
+  
+</out>

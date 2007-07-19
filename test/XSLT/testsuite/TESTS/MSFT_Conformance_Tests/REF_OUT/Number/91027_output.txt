@@ -1,0 +1,15 @@
+
+
+Formatting Tests
+
+1.1.1, 1.1.1, A.A.A, ;1;1;1, A.A.A=, *1*1*1*, A 1 A, A.1.1, =, .., Joe Bob
+2.1.1, 2.1.1, B.A.A, ;2;1;1, B.A.A=, *2*1*1*, B 1 A, B.1.1, =, .., Mary Bob
+2.1.2.1, 2.1.2.1, B.A.B.A, ;2;1;2;1, B.A.B.A=, *2*1*2*1*, B 1 B 1, B.1.2.1, =, .., Mary Bob
+2.2.1, 2.2.1, B.B.A, ;2;2;1, B.B.A=, *2*2*1*, B 2 A, B.2.1, =, .., Second Author
+3.1.1, 3.1.1, C.A.A, ;3;1;1, C.A.A=, *3*1*1*, C 1 A, C.1.1, =, ..,  Robinson
+3.1.2.1, 3.1.2.1, C.A.B.A, ;3;1;2;1, C.A.B.A=, *3*1*2*1*, C 1 B 1, C.1.2.1, =, ..,  Robinson
+3.2.1, 3.2.1, C.B.A, ;3;2;1, C.B.A=, *3*2*1*, C 2 A, C.2.1, =, .., Second Author of Book 3
+4.1.1, 4.1.1, D.A.A, ;4;1;1, D.A.A=, *4*1*1*, D 1 A, D.1.1, =, .., Mary F Robinson
+4.1.2.1, 4.1.2.1, D.A.B.A, ;4;1;2;1, D.A.B.A=, *4*1*2*1*, D 1 B 1, D.1.2.1, =, .., Mary F Robinson
+5.1.1, 5.1.1, E.A.A, ;5;1;1, E.A.A=, *5*1*1*, E 1 A, E.1.1, =, .., Hack er
+6.1.1, 6.1.1, F.A.A, ;6;1;1, F.A.A=, *6*1*1*, F 1 A, F.1.1, =, .., Toni Bob<BR xmlns:my="http://my.com" /><BR xmlns:my="http://my.com" /><BR xmlns:my="http://my.com" />

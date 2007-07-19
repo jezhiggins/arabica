@@ -1,0 +1,7 @@
+<?xml version="1.0"?> 
+<doc>
+  <a>1</a>
+  <a>2<achild>target</achild></a>
+  <a>3</a>
+  <a>4<achild>missed</achild></a>
+</doc>

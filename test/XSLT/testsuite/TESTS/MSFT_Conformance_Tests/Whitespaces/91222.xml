@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<riches xml:space="default">
+<book att="book1">  lala  </book>   <book att="book2"> rocks</book>
+<book att="book3">foo  </book><book>	</book> 
+
+	<book att="book5">this</book> <book>rocks</book>
+		<book>this</book>
+<book>rocks</book>
+<book att="book9">this</book><book att="   ">rocks</book><book att="book11">this</book>
+
+</riches>
+
+
+

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE myname [
+
+<!ELEMENT myname ANY>
+<!ELEMENT firstname ANY>
+<!ELEMENT unparsed-entity-uri ANY>
+<!ELEMENT lastname ANY>
+<!NOTATION JPEG SYSTEM "urn:foo">
+<!ENTITY unparsed-entity-uri SYSTEM "http://webserver/somepic.jpg" NDATA JPEG>
+]>
+
+<myname>
+<firstname><unparsed-entity-uri>unparsed-entity-uri</unparsed-entity-uri>Pranav</firstname>
+<lastname>Kandula</lastname>
+</myname>

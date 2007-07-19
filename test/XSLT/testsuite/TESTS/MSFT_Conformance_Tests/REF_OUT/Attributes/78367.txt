@@ -1,0 +1,1 @@
+<html><root auto-ns1:x="abc" xmlns="a" xmlns:auto-ns1="a" /></html>

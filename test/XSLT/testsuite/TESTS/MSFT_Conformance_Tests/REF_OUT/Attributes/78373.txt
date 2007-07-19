@@ -1,0 +1,7 @@
+<root xml:space="default" auto-ns1:space="preserve" xml:lang="en" mode="b" xsl:version="a" auto-ns1:xsl="b" xmlns:auto-ns1="abc" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<a auto-ns2:b="" xmlns:auto-ns2="b">
+<a a:b="" xmlns:a="b">
+<a a:b="" />
+</a>
+</a>
+</root>

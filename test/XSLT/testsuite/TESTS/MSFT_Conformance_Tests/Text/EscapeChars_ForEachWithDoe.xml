@@ -1,0 +1,7 @@
+<EscapeChars>
+	<char>&lt;foo&gt;</char>
+	<char>&amp;amp;</char>
+	<char>&quot;</char>
+	<char>&apos;</char>
+	<char>&lt;/foo&gt;</char>
+</EscapeChars>

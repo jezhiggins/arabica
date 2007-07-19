@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RESULT>
+  <asc_upperfirst>I</asc_upperfirst>
+  <asc_upperfirst>ı</asc_upperfirst>
+  <asc_upperfirst>İ</asc_upperfirst>
+  <asc_upperfirst>i</asc_upperfirst>
+  <asc_lowerfirst>ı</asc_lowerfirst>
+  <asc_lowerfirst>I</asc_lowerfirst>
+  <asc_lowerfirst>i</asc_lowerfirst>
+  <asc_lowerfirst>İ</asc_lowerfirst>
+  <desc_upperfirst>i</desc_upperfirst>
+  <desc_upperfirst>İ</desc_upperfirst>
+  <desc_upperfirst>ı</desc_upperfirst>
+  <desc_upperfirst>I</desc_upperfirst>
+  <desc_lowerfirst>İ</desc_lowerfirst>
+  <desc_lowerfirst>i</desc_lowerfirst>
+  <desc_lowerfirst>I</desc_lowerfirst>
+  <desc_lowerfirst>ı</desc_lowerfirst>
+</RESULT>
+<RESULT>
+  <asc_upperfirst>I</asc_upperfirst>
+  <asc_upperfirst>i</asc_upperfirst>
+  <asc_upperfirst>ı</asc_upperfirst>
+  <asc_upperfirst>İ</asc_upperfirst>
+  <asc_lowerfirst>i</asc_lowerfirst>
+  <asc_lowerfirst>I</asc_lowerfirst>
+  <asc_lowerfirst>ı</asc_lowerfirst>
+  <asc_lowerfirst>İ</asc_lowerfirst>
+  <desc_upperfirst>İ</desc_upperfirst>
+  <desc_upperfirst>ı</desc_upperfirst>
+  <desc_upperfirst>i</desc_upperfirst>
+  <desc_upperfirst>I</desc_upperfirst>
+  <desc_lowerfirst>İ</desc_lowerfirst>
+  <desc_lowerfirst>ı</desc_lowerfirst>
+  <desc_lowerfirst>I</desc_lowerfirst>
+  <desc_lowerfirst>i</desc_lowerfirst>
+</RESULT>

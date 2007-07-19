@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="no"?>
+
+<!-- comment1 the different between this one and domtest.xml is att in elem1 -->
+<?PI1 processing instruction?>
+<?xml:namespace ns="something" prefix="something"?>
+<?xml:namespace ns="http://www.placeholder-name-here.com/schema/" prefix="my"?>
+<?xml:namespace ns="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" prefix="dt"?>
+
+<!DOCTYPE root SYSTEM "domtest.dtd" [
+  <!ELEMENT root ANY> 
+  <!ELEMENT elem1 ANY>
+
+  <!ENTITY % e SYSTEM "domtest.ent"> 
+  %e;
+  <!ENTITY e1 "e1foo">
+  <!ENTITY e2 "&ext3; e2bar">
+  <!ENTITY e3 "&e1; e3bzee ">
+  <!ENTITY e4 "&e3; e4gee">
+  <!ATTLIST elem1  child1 CDATA #IMPLIED 
+                   child2 CDATA #FIXED "duu"
+                   child3 CDATA #REQUIRED
+                   child4 ID #IMPLIED
+                   child5 CDATA #IMPLIED> 
+]>
+
+<!-- comment2 -->
+<?PI2 processing instruction?>
+
+<root>
+  text node one
+  <elem1 child1="" child2="duu" child3="&e1;&e2;" child4="a1" child5="goody">
+     text node two &e1; text node three
+  </elem1>
+
+  <!-- comment3 -->
+  <?PI3 processing instruction?>
+  &e2;
+  <foo/>
+  <![CDATA[ <opentag> without an </endtag> and & <! are all ok here ]]>
+
+  <elem2 att1="id1" att2="up" att3="attribute3"> 
+     <a/>
+  </elem2>
+
+  <elem2> 
+      elem2-text1
+      <a> 
+          this-is-a    
+      </a> 
+
+      elem2-text2
+      &e3;
+      &e4;
+      <!-- elem2-comment1-->
+      elem2-text3
+
+      <b> 
+          this-is-b
+      </b>
+
+      elem2-text4
+      <?elem2_PI elem2-PI?>
+      elem2-text5
+
+  </elem2>
+
+</root>
+
+<!-- comment -->
+<?PI processing instruction?>
+

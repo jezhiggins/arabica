@@ -1,0 +1,36 @@
+  
+BLOCK ELEMENTS TEST
+
+FROM XML:
+<xslTutorial>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html">
+this</HEAD><HEAD>
+<META http-equiv="Content-Type" content="text/html">
+rocks</HEAD>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html">
+this</HEAD>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html">
+rocks</HEAD>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html">
+this</HEAD>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html">
+rocks</HEAD>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html">
+this</HEAD>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html">
+rocks</HEAD>
+<SPAN>this</SPAN><HEAD>
+<META http-equiv="Content-Type" content="text/html">
+rocks</HEAD>
+<SPAN>this</SPAN>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html">
+rocks</HEAD>
+</xslTutorial>

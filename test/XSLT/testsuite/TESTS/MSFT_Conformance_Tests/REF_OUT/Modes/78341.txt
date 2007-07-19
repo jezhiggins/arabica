@@ -1,0 +1,7 @@
+<SPAN style="color=blue" xmlns:abc="urn:foo">book :Seven Years in Trenton</SPAN><br xmlns:abc="urn:foo" />
+<SPAN style="color=blue" xmlns:abc="urn:foo">book :History of Trenton</SPAN><br xmlns:abc="urn:foo" />
+<SPAN style="color=blue" xmlns:abc="urn:foo">book :XQL The Golden Years</SPAN><br xmlns:abc="urn:foo" />
+<SPAN style="color=blue" xmlns:abc="urn:foo">book :History of Trenton 2</SPAN><br xmlns:abc="urn:foo" />
+<SPAN style="color=blue" xmlns:abc="urn:foo">book :History of Trenton Vol 3</SPAN><br xmlns:abc="urn:foo" />
+<SPAN style="color=blue" xmlns:abc="urn:foo">book :How To Fix Computers</SPAN><br xmlns:abc="urn:foo" />
+<SPAN style="color=blue" xmlns:abc="urn:foo">book :Trenton Today, Trenton Tomorrow</SPAN><br xmlns:abc="urn:foo" />

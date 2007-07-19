@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><root xmlns:p1="ns1"><b1 /><c1 /></root>

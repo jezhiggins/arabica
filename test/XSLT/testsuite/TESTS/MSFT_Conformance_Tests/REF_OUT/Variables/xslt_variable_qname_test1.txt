@@ -1,0 +1,7 @@
+﻿<hello xmlns:foo="http://domain" />
+<hello xmlns:foo="http://domain" />
+<hello xmlns:foo="http://domain" />
+<hello xmlns:foo="http://domain" />
+<hello xmlns:foo="http://domain" />
+<hello xmlns:foo="http://domain" />
+<hello xmlns:foo="http://domain" />

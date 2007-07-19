@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?><out>
+   -- This should read In style sheet a --
+   <e1>In style sheet a</e1>
+   -- This should read In style sheet b --
+   <e2>In style sheet b</e2>
+   -- This should read In style sheet c --
+   <e3>In style sheet c</e3>
+   -- This should read In style sheet d --
+   <e4>In style sheet d</e4>
+   -- This should read In style sheet e --
+   <e5>In style sheet e</e5></out>

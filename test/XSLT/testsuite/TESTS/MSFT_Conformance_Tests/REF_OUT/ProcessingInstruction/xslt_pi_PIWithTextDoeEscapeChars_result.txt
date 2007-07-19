@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><root><?doe <">&'?><foo>bar</foo><?doe  & < > ' " ?><foo>bar2</foo></root>

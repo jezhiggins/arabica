@@ -1,0 +1,16 @@
+root
+/bookstore/my:book  pri 0.5
+my:title  pri 0
+my:*  pri -0.25
+@*  pri -0.5
+@*  pri -0.5
+/bookstore/my:book  pri 0.5
+my:title  pri 0
+@*  pri -0.5
+@*  pri -0.5
+/bookstore/my:book  pri 0.5
+my:title  pri 0
+@*  pri -0.5
+@*  pri -0.5
+@*  pri -0.5
+node()  pri -0.5

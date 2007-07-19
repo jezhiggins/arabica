@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  In final: value set in var30mid, should have highest precedence
+  
+  In main: value set in var30mid, should have highest precedence
+    
+  In middle: value set in var30mid, should have highest precedence
+      
+  In main again: value set in var30mid, should have highest precedence
+    
+  
+</out>

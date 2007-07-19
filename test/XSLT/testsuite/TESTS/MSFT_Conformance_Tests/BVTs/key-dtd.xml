@@ -1,0 +1,17 @@
+<!-- key-dtd.xml -->
+<!DOCTYPE orders [
+<!ELEMENT orders (#PCDATA | order)*>
+
+<!ELEMENT order EMPTY>
+<!ATTLIST order
+			id CDATA #IMPLIED
+			defattr CDATA #FIXED "val">
+
+<!ENTITY external-orders SYSTEM "./inc/external-orders.ent">
+]>
+
+<orders>
+    <order id="ORD1000"/>
+    &external-orders;
+    <order id="ORD1004"/>
+</orders>

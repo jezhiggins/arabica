@@ -1,0 +1,142 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Template" description="" outpath="out">
+	<variation name="_84581">
+		<description>84581.XSL | XSLT- CodeCoverage | onTransformNode Event | Return False</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84581.xsl</xsl>
+		</data>
+		<result expected="valid">84581_output.txt</result>
+	</variation>
+	<variation name="ApplyTemplateWithDuplicateParameter">
+		<description>It is an error if a single xsl:apply-templates element contains more than one xsl:with-param element with the same name. [Bug 71240]</description>
+		<data>
+			<xml>IDontExist.xml</xml>
+			<xsl>xslt_template_duplicate_param.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="CallTemplateWithDuplicateParameter">
+		<description>It is an error if a single xsl:call-template element contains more than one xsl:with-param element with the same name. [Bug 71240]</description>
+		<data>
+			<xml>IDontExist.xml</xml>
+			<xsl>xslt_call_template_duplicate_param.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="DocumentFNTakesStringParam">
+		<description>Use the apply templates with a select attribute expression of Document(string literal filename). The root node to the file should be returned. [Bug 61167]</description>
+		<data>
+			<xml>xslt_template_DocumentFnTakesStringParam.xml</xml>
+			<xsl>xslt_template_DocumentFnTakesStringParam.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_DocumentFnTakesStringParam_result.txt</result>
+	</variation>
+	<variation name="MatchFirstElementBelowDocRootWithExpression">
+		<description>Use the xpath expression document(foo.xml)/* to return the first element below the doc root. It should not return the root. This bug tests the regression of the previous infinite recursion behavior.  [Bug 59216]</description>
+		<data>
+			<xml>xslt_template_MatchFirstElmtBelowDocRoot.xml</xml>
+			<xsl>xslt_template_MatchFirstElmtBelowDocRoot.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_MatchFirstElmtBelowDocRoot_result.txt</result>
+	</variation>
+	<variation name="MatchPatternVariation1">
+		<description>Code coverage for union match pattern "doc/foo/bar | //bar" in xsl:template.</description>
+		<data>
+			<xml>xslt_template_pattern1.xml</xml>
+			<xsl>xslt_template_pattern1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_pattern1.txt</result>
+	</variation>
+	<variation name="MatchPatternVariation2">
+		<description>Code coverage for union match pattern "//bar[1] | foo/bar[2]" in xsl:template.</description>
+		<data>
+			<xml>xslt_template_pattern2.xml</xml>
+			<xsl>xslt_template_pattern2.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_pattern2.txt</result>
+	</variation>
+	<variation name="MatchPatternVariation3">
+		<description>Code coverage for union match pattern "doc/foo | doc/bar" and RTF in xsl:template.</description>
+		<data>
+			<xml>xslt_template_pattern3.xml</xml>
+			<xsl>xslt_template_pattern3.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_pattern3.txt</result>
+	</variation>
+	<variation name="MatchPatternVariation4">
+		<description>Code coverage for union match pattern "foo[position()&lt;2] | foo[position()=4]" in xsl:template.</description>
+		<data>
+			<xml>xslt_template_pattern4.xml</xml>
+			<xsl>xslt_template_pattern4.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_pattern4.txt</result>
+	</variation>
+	<variation name="MatchPatternVariation5">
+		<description>Code coverage for union match pattern "foo[@att1='b'][@att2='ok'] | foo[@att1='b'][@att2='no']" in xsl:template.</description>
+		<data>
+			<xml>xslt_template_pattern5.xml</xml>
+			<xsl>xslt_template_pattern5.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_pattern5.txt</result>
+	</variation>
+	<variation name="MatchPatternVariation6">
+		<description>Code coverage for union match pattern "letter[position()=last()] | letter[position()=1]" in xsl:template.</description>
+		<data>
+			<xml>xslt_template_pattern6.xml</xml>
+			<xsl>xslt_template_pattern6.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_pattern6.txt</result>
+	</variation>
+	<variation name="MatchPatternVariation7">
+		<description>Code coverage for union match pattern with a complex expression "doc/element1[2]/child1[last()]" in xsl:template.</description>
+		<data>
+			<xml>xslt_template_pattern7.xml</xml>
+			<xsl>xslt_template_pattern7.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_pattern7.txt</result>
+	</variation>
+	<variation name="MatchPatternVariation8">
+		<description>Code coverage for union match pattern with a group expression in xsl:template.</description>
+		<data>
+			<xml>xslt_template_pattern8.xml</xml>
+			<xsl>xslt_template_pattern8.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_pattern8.txt</result>
+	</variation>
+	<variation name="TestForMatchPattern">
+		<description>XSLT: Test for //name match pattern in xsl:template fails. [Bug 71764]</description>
+		<data>
+			<xml>xslt_template_test_match_pattern.xml</xml>
+			<xsl>xslt_template_test_match_pattern.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_template_test_match_pattern.txt</result>
+	</variation>
+	<variation name="TestParamValueAfterCallTemplate">
+		<description>XSLT: XSLT: call-template causes local parameter to lose its value. [Bug 70950]</description>
+		<data>
+			<xml>xslt_test_param_value_before_and_after_call_template.xml</xml>
+			<xsl>xslt_test_param_value_before_and_after_call_template.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_param_value_before_and_after_call_template.txt</result>
+	</variation>
+	<variation name="Bug85313">
+		<description>XSLT: apply-templates produces incorrect results when there is a fake named template in the style sheet</description>
+		<data>
+			<xml>Bug85313.xml</xml>
+			<xsl>Bug85313.xsl</xsl>
+		</data>
+		<result expected="valid">Bug85313.txt</result>
+	</variation>
+	<variation name="Bug85313_1">
+		<description>XSLT: apply-templates produces incorrect results when there is a fake named template in the style sheet</description>
+		<data>
+			<xml>Bug85313.xml</xml>
+			<xsl>Bug85313_1.xsl</xsl>
+		</data>
+		<result expected="valid">Bug85313.txt</result>
+	</variation>
+</testcase>

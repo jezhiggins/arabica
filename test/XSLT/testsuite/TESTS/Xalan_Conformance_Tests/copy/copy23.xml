@@ -1,0 +1,5 @@
+<?xml version="1.0"?> 
+<doc>
+  <simple>abcde</simple>
+  <coded>ab<![CDATA[<P>&nbsp;</P>]]>de</coded>
+</doc>

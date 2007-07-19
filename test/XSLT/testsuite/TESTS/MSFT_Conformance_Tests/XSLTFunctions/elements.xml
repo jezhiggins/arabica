@@ -1,0 +1,38 @@
+<elements>
+	<element>xsl:apply-imports	<!--Instruction--></element>
+	<element>xsl:apply-templates<!--Instruction--></element>
+	<element>xsl:attribute		<!--Instruction--></element>
+	<element>xsl:attribute-set	<!--Top Level--></element>
+	<element>xsl:call-template	<!--Instruction--></element>
+	<element>xsl:choose			<!--Instruction--></element>
+	<element>xsl:comment		<!--Instruction--></element>
+	<element>xsl:copy			<!--Instruction--></element>
+	<element>xsl:copy-of		<!--Instruction--></element>
+	<element>xsl:decimal-format	<!--Top Level--></element>
+	<element>xsl:element		<!--Instruction--></element>
+	<element>xsl:fallback		<!--Instruction--></element>
+	<element>xsl:for-each		<!--Instruction--></element>
+	<element>xsl:if				<!--Instruction--></element>
+	<element>xsl:import			<!--Top Level--></element>
+	<element>xsl:include		<!--Top Level--></element>
+	<element>xsl:key			<!--Top Level--></element>
+	<element>xsl:message		<!--Instruction--></element>
+	<element>xsl:namespace-alias<!--Top Level--></element>
+	<element>xsl:number			<!--Instruction--></element>
+	<element>xsl:otherwise			</element>
+	<element>xsl:output			<!--Top Level--></element>
+	<element>xsl:param			<!--Top Level--></element>
+	<element>xsl:preserve-space	<!--Top Level--></element>
+	<element>xsl:processing-instruction<!--Instruction--></element>
+	<element>xsl:sort</element>
+	<element>xsl:strip-space	<!--Top Level--></element>
+	<element>xsl:stylesheet</element>
+	<element>xsl:template		<!--Top Level--></element>
+	<element>xsl:text			<!--Instruction--></element>
+	<element>xsl:transform</element>
+	<element>xsl:value-of		<!--Instruction--></element>
+	<element>xsl:variable		<!--Top Level--><!--Instruction--></element>
+	<element>xsl:when</element>
+	<element>xsl:with-param</element>
+	<element>msxsl:script</element>
+</elements>

@@ -1,0 +1,8 @@
+﻿<root xml:space="default" xp_0:space="preserve" xml:lang="en" mode="b" xsl:version="a" xp_0:xsl="b" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xp_0="abc">
+  <a xp_1:b="" xmlns:xp_1="b">
+    <a a:b="" xmlns:a="b">
+      <a a:b="">
+      </a>
+    </a>
+  </a>
+</root>

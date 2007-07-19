@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>Match on /doc in top xsl
+  <B>outer<D>outer Switching to middle...
+<A>middle<C>middle Switching to inner...
+<top>inner<D>inner</D></top></C></A></D></B>
+</out>

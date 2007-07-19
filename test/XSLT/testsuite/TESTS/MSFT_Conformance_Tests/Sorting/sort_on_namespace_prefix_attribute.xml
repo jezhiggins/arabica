@@ -1,0 +1,11 @@
+<?xml version='1.0' ?>
+<type name="test" xmlns:test="http://localhost/test.xsd">
+<elements>
+	<element name="element_1" test:foo="1" />
+	<element name="element_2" test:foo="2" />
+	<element name="element_6" test:foo="6" />
+	<element name="element_5" test:foo="5" />
+	<element name="element_4" test:foo="4" />
+	<element name="element_3" test:foo="3" />
+</elements>
+</type>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  In final: set in var29side, should have highest precedence
+  
+  On the side: set in var29side, should have highest precedence
+    
+  In main: set in var29side, should have highest precedence
+      
+  Side again: set in var29side, should have highest precedence
+    
+  
+</out>

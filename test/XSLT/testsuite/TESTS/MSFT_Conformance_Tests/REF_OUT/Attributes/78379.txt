@@ -1,0 +1,1 @@
+<root><child1> abc </child1></root>

@@ -1,0 +1,4 @@
+<span style="color=green">
+  This text is from the main stylesheet. 
+          <p />  
+         value of param: Bob</span>

@@ -1,0 +1,96 @@
+<?xml version="1.0"  encoding="windows-1250"?>
+
+<struktura>
+        <oblast id="1">
+                <obsah image="http://notarkom.corpus.cz/pic/evidence.gif">
+                        <b>Centrální&amp;nbsp;evidence</b>
+                </obsah>
+                <oblast id="komory" href="komory.sqw">
+                        <obsah image="http://notarkom.corpus.cz/pic/komory.gif" active="http://notarkom.corpus.cz/pic/komory_a.gif" width="150" height="22">
+                                <div>Notářské&amp;nbsp;komory</div>
+                        </obsah>
+                </oblast>
+                <oblast id="newkom" href="komory.sqw" align="right">
+								<obsah image="http://notarkom.corpus.cz/pic/nkomora.gif" active="http://notarkom.corpus.cz/pic/nkomora_a.gif" width="150" height="22">
+							        <font size="-1">Nová komora</font>
+								</obsah>
+					 </oblast>
+			       <oblast id="updkom" href="komory.sqw" align="right" param="1" required="id_komora">
+ 								<obsah image="http://notarkom.corpus.cz/pic/opravau.gif" active="http://notarkom.corpus.cz/pic/opravau_a.gif" disabled="http://notarkom.corpus.cz/pic/opravau_n.gif" width="150" height="22">
+							        <font size="-1">Oprava údajů</font>
+ 				  		 	   </obsah>
+					 </oblast>
+                <oblast id="notari" href="notar.sqw">
+                        <obsah image="http://notarkom.corpus.cz/pic/seznam.gif" active="http://notarkom.corpus.cz/pic/seznam_a.gif" width="150" height="22">
+                                <div>Seznam&amp;nbsp;notářů</div>
+                        </obsah>
+                </oblast>
+                <oblast id="newnot" href="notar.sqw" align="right">
+                        <obsah image="http://notarkom.corpus.cz/pic/nnotar.gif" active="http://notarkom.corpus.cz/pic/nnotar_a.gif" width="150" height="22">
+                                <font size="-1">Nový notář</font>
+                        </obsah>
+                </oblast>
+			       <oblast id="not" href="notar.sqw" param="1" required="id_osoba">
+ 								<obsah image="http://notarkom.corpus.cz/pic/inotar.gif" active="http://notarkom.corpus.cz/pic/inotar_a.gif" disabled="http://notarkom.corpus.cz/pic/inotar_n.gif" width="150" height="22">
+							        <div>Informace&amp;nbsp;o&amp;nbsp;notáři</div>
+ 				  		 	   </obsah>
+					 </oblast>
+<!--			       <oblast id="updnot" align="right" param="1">
+ 								<obsah>
+							        <font size="-1">Oprava údajů</font>
+ 				  		 	   </obsah>
+					 </oblast>
+-->
+<!--                <oblast id="usch" href="uschova.sqw" param="1" required="id_osoba">
+                        <obsah>
+                                <div>Notářské&amp;nbsp;úschovy</div>
+                        </obsah>
+                </oblast>
+-->
+                <oblast id="priusch" href="uschova.sqw" align="right" param="1" required="id_osoba">
+                        <obsah image="http://notarkom.corpus.cz/pic/zuschovy.gif" active="http://notarkom.corpus.cz/pic/zuschovy_a.gif" disabled="http://notarkom.corpus.cz/pic/zuschovy_n.gif" width="150" height="22">
+                                <font size="-1">Živé úschovy</font>
+                        </obsah>
+                </oblast>
+                <oblast id="vyusch" href="uschova.sqw" align="right" param="1" required="id_osoba">
+                        <obsah image="http://notarkom.corpus.cz/pic/kuschovy.gif" active="http://notarkom.corpus.cz/pic/kuschovy_a.gif" disabled="http://notarkom.corpus.cz/pic/kuschovy_n.gif" width="150" height="22">
+                                <font size="-1">Ukončené úschovy</font>
+                        </obsah>
+                </oblast>
+                <oblast id="newusch" href="uschova.sqw" align="right" param="1" required="id_osoba">
+                        <obsah image="http://notarkom.corpus.cz/pic/nuschova.gif" active="http://notarkom.corpus.cz/pic/nuschova_a.gif" disabled="http://notarkom.corpus.cz/pic/nuschova_n.gif" width="150" height="22">
+                                <font size="-1">Nová&amp;nbsp;úschova</font>
+                        </obsah>
+                </oblast>
+                <oblast id="vytisk" href="vytisk.sqw" target="_blank" align="right" param="1">
+                        <obsah image="http://notarkom.corpus.cz/pic/vytisk.gif" width="150" height="22">
+                                <font size="-1">Kontrolní&amp;nbsp;výtisk</font>
+                        </obsah>
+                </oblast>
+		<oblast id="konf" href="konference.sqw" param="1">
+			<obsah image="http://notarkom.corpus.cz/pic/konference.gif" active="http://notarkom.corpus.cz/pic/konference_a.gif" width="150" height="22">
+				<div>Notářské konference</div>
+			</obsah>
+		</oblast>
+		<oblast id="newkonf" align="right" href="konference.sqw" param="1">
+			<obsah image="http://notarkom.corpus.cz/pic/nkonference.gif" active="http://notarkom.corpus.cz/pic/nkonference_a.gif" width="150" height="22">
+				<font size="-1">Nová konference</font>
+			</obsah>
+		</oblast>
+		<oblast id="prispevky" align="right" href="konference.sqw" param="1" required="id_konference">
+			<obsah image="http://notarkom.corpus.cz/pic/prispevky.gif" active="http://notarkom.corpus.cz/pic/prispevky_a.gif" disabled="http://notarkom.corpus.cz/pic/prispevky_n.gif" width="150" height="22">
+				<font size="-1">Příspěvky</font>
+			</obsah>
+		</oblast>
+		<oblast id="akcie" align="right" href="akcie.sqw" param="1">
+			<obsah image="http://notarkom.corpus.cz/pic/akcie.gif" active="http://notarkom.corpus.cz/pic/akcie_a.gif" width="150" height="22">
+				<font size="-1">Oceňování akcií</font>
+			</obsah>
+		</oblast>
+		<oblast id="home" href="http://www.cisnk.cz/">
+			<obsah image="http://notarkom.corpus.cz/pic/homepage.gif" width="150" height="22">
+				<font color="blue" size="-1">Hlavní strana</font>
+			</obsah>
+		</oblast>
+        </oblast>
+</struktura>

@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<ISINDEX>this</ISINDEX><ISINDEX>rocks</ISINDEX>
+<ISINDEX>this</ISINDEX> <ISINDEX>rocks</ISINDEX>
+<ISINDEX>this</ISINDEX>
+<ISINDEX>rocks</ISINDEX>
+<ISINDEX>this</ISINDEX>		<ISINDEX>rocks</ISINDEX>
+
+<SPAN>this</SPAN><ISINDEX>rocks</ISINDEX>
+<SPAN>this</SPAN> <ISINDEX>rocks</ISINDEX>
+</xslTutorial>

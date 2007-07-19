@@ -1,0 +1,6 @@
+
+ 
+sort first on descending price, then ascending price, then on ascending title
+
+
+          History of Trenton is a textbook priced at 55History of Trenton is a textbook priced at 54Seven Years in Trenton is a autobiography priced at 12Seven Years in Trenton is a autobiography priced at 5Seven Years in Trenton1 is a autobiography priced at 5

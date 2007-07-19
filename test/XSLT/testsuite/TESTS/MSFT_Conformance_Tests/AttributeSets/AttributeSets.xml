@@ -1,0 +1,314 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="AttributeSets" description="" outpath="out">
+	<variation name="_91035">
+		<description>NamedAttributeSets:Use-attribute-sets on xsl:element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91035.xsl</xsl>
+		</data>
+		<result expected="valid">91035.txt</result>
+	</variation>
+	<variation name="_91036">
+		<description>NamedAttributeSets: Use-attribute-sets on xsl:copy</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91036.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91037">
+		<description>NamedAttributeSets: Use-attribute-sets on xsl:attribute-set</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91037.xsl</xsl>
+		</data>
+		<result expected="valid">91037.txt</result>
+	</variation>
+	<variation name="_91038">
+		<description>NamedAttributeSets: Xsl:use-attribute-sets on literal result element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91038.xsl</xsl>
+		</data>
+		<result expected="valid">91038.txt</result>
+	</variation>
+	<variation name="_91042">
+		<description>NamedAttributeSets: xsl:variable, xsl:param declared in top level element, should be picked up in xsl:attribute-set</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91042.xsl</xsl>
+		</data>
+		<result expected="valid">91042_output.txt</result>
+	</variation>
+	<variation name="_91043">
+		<description>NamedAttributeSets: Set-attribute-sets name='foobar' while there is &lt;xsl:attribute name='foobar'/&gt; also exist under the attribute set.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91043.xsl</xsl>
+		</data>
+		<result expected="valid">91043_output.txt</result>
+	</variation>
+	<variation name="_91045">
+		<description>NamedAttributeSets: Xsl:attribute-set with no xsl:attribute element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91045.xsl</xsl>
+		</data>
+		<result expected="valid">91045.txt</result>
+	</variation>
+	<variation name="_91046">
+		<description>NamedAttributeSets: Xsl:attribute-set with thousand of xsl:attribute element (may take 30 seconds to finish loading)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91046.xsl</xsl>
+		</data>
+		<result expected="valid">91046.txt</result>
+	</variation>
+	<variation name="_91077">
+		<description>NamedAttributeSets: Xsl:attribute-set contain same xsl:attribute node</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91077.xsl</xsl>
+		</data>
+		<result expected="valid">91077.txt</result>
+	</variation>
+	<variation name="_91078">
+		<description>NamedAttributeSets: regress for bug #50244 should not cause error on use-attribute-sets on xsl:attribute (regress for bug #50244)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91078.xsl</xsl>
+		</data>
+		<result expected="valid">91078.txt</result>
+	</variation>
+	<variation name="_91080">
+		<description>NamedAttributeSets: Xsl:use-attribuet-sets on literal element which has some attributes</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91080.xsl</xsl>
+		</data>
+		<result expected="valid">91080.txt</result>
+	</variation>
+	<variation name="_91081">
+		<description>NamedAttributeSets: Xsl:use-attribuet-sets on literal element which has some attributes, and individual xsl:attribute nodes</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91081.xsl</xsl>
+		</data>
+		<result expected="valid">91081.txt</result>
+	</variation>
+	<variation name="_91083">
+		<description>NamedAttributeSets: Test that attributes in the specified attributes can be overridden by xsl:attribute (xsl:copy)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91083.xsl</xsl>
+		</data>
+		<result expected="valid">91083.txt</result>
+	</variation>
+	<variation name="_91084">
+		<description>NamedAttributeSets: Test that specified attributes can be overridden by attributes from xsl:attribute (xsl:element)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91084.xsl</xsl>
+		</data>
+		<result expected="valid">91084.txt</result>
+	</variation>
+	<variation name="_91085">
+		<description>NamedAttributeSets: xsl:param used in xsl:attribute-set, but pass in an object to change the value of xsl:param, the new value should be picked up in the xsl:attribute-set</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91085.xsl</xsl>
+		</data>
+		<result expected="valid">91085.txt</result>
+	</variation>
+	<variation name="_91091">
+		<description>NamedAttributeSets: Xsl: attribute-sets with no name attribute</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91091.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91093">
+		<description>NamedAttributeSets: Xsl:attribute-set within it declare non xsl:attribute node(text)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91093.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91094">
+		<description>NamedAttributeSets: Xsl:attribute-set within it declare non xsl:attribute node(pi)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91094.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91095">
+		<description>NamedAttributeSets: Xsl:attribute-set within it declare non xsl:attribute node(comment)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91095.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91096">
+		<description>NamedAttributeSets: Xsl:attribute-set within it declare non xsl:attribute node(literal element)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91096.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91097">
+		<description>NamedAttributeSets: Xsl:attribute-set within it declare non xsl:attribute node( xsl:element)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91097.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91098">
+		<description>NamedAttributeSets: use-attribute-sets used in xsl:text,  cdata, apply-templates, for-each, value-of and all other xsl:  nodes</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91098.xsl</xsl>
+		</data>
+		<result expected="valid">91098.txt</result>
+	</variation>
+	<variation name="_91099">
+		<description>NamedAttributeSets: use-attribute-sets used in xsl:comment (regress for bug #50251)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91099.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91100">
+		<description>NamedAttributeSets: use-attribute-sets used in xsl:text, comment, cdata, apply-templates, for-each, value-of (with import)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91100.xsl</xsl>
+		</data>
+		<result expected="valid">91100.txt</result>
+	</variation>
+	<variation name="_91101">
+		<description>NamedAttributeSets: Use-attribute-sets attributes on xsl:attribute-set elements causes an attribute to directly use itself (cycle1)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91101.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_91119">
+		<description>NamedAttributeSets: Use-attribute-sets attributes on xsl:attribute-set elements causes an attribute to indirectly use itself (cycle2)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91119.xsl</xsl>
+		</data>
+		<result expected="valid">91119.txt</result>
+	</variation>
+	<variation name="_91120">
+		<description>NamedAttributeSets: Use-attribute-sets attributes on xsl:attribute-set elements causes an attribute to indirectly use itself (cycle2-circular referencing) (Regress for Bug#50268)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91120.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91139">
+		<description>NamedAttributeSets: xsl:variable, xsl:param declared in non-top level element should not be picked up in xsl:attribute-set</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91139.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91140">
+		<description>NamedAttributeSets: Use-attribute-sets attributes on xsl:attribute-set elements causes an attribute to indirectly use itself (cycle from  xsl:import,</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91140.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91141">
+		<description>NamedAttributeSets: Use-attribute-sets attributes on xsl:attribute-set elements causes an attribute to indirectly use itself (cycle from  xsl:copy, xsl:include</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91141.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91142">
+		<description>NamedAttributeSets: Use-attribute-sets attributes on xsl:attribute-set elements causes an attribute to indirectly use itself (3 sets to loop back)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91142.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="AttributeSets_EmptyAttribSet">
+		<description>NamedAttributeSets: Use of an empty attribute set should not throw an error. [Bug 70879]</description>
+		<data>
+			<xml>xslt_attributeset_empty.xml</xml>
+			<xsl>xslt_attributeset_empty.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_attributeset_empty.txt</result>
+	</variation>
+	<variation name="AttributeSets_ImportAttributeSetOfSameName">
+		<description>Use an attribute set that imports an attribute-set that uses the same name. Same values should be respected by import precedence. Different/New values should be merged. [Bug 65665]</description>
+		<data>
+			<xml>xslt_attributeset_ImportSameName.xml</xml>
+			<xsl>xslt_attributeset_ImportSameName.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_attributeset_ImportSameName_result.txt</result>
+	</variation>
+	<variation name="AttributeSets_IncludeAttributeSetOfSamePrecedence">
+		<description>Use an attribute set that has the same name as an included import set (a couple of the same attributes). The attributes in the result document that have the same import precedence, should be chosen based on the last attribute specified in the stylesheet (according to the spec). [Bug 65665]</description>
+		<data>
+			<xml>xslt_attributeset_ImportSamePrec.xml</xml>
+			<xsl>xslt_attributeset_ImportSamePrec.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_attributeset_ImportSamePrec_result.txt</result>
+	</variation>
+	<variation name="AttributeSets_WithPI">
+		<description>NamedAttributeSets: Should not get a compile error when using a PI within attribute-set content. [Bug 70882]</description>
+		<data>
+			<xml>xslt_attributeset_with_pi.xml</xml>
+			<xsl>xslt_attributeset_with_pi.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_attributeset_with_pi.txt</result>
+	</variation>
+	<variation name="DoeInAttributeWithinAttributeSet">
+		<description>Use xsl:text within in an attribute that is within an attributeset. The xsl:text element has a disable-output-escaping attribute equal to yes. The doe attribute should be ignored. [Bug 53329]</description>
+		<data>
+			<xml>DoeWithAttributeSets.xml</xml>
+			<xsl>DoeWithAttributeSets.xsl</xsl>
+		</data>
+		<result expected="valid">DoeWithAttributeSets_Result.txt</result>
+	</variation>
+	<variation name="RefToUndefinedAttributeSet">
+		<description>NamedAttributeSets: Should get a compile error when use-attribute-sets contains a reference to an undefined attribute-set. [Bug 71236]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_attributeset_undefined_ref.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+</testcase>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+<match>Rule doc/l1/v2; value of matched node:  doc-l1-v2</match>
+<match>Rule doc/child::l1/x2; value of matched node:  doc-l1-x2</match>
+<match>Rule doc/l1//v3; value of matched node:  doc-l1-l2-v3</match>
+<match>Rule doc//l2/w3; value of matched node:  doc-l1-l2-w3</match>
+<match>Rule doc/child::l1//x3; value of matched node:  doc-l1-l2-x3</match>
+<match>Rule doc//child::l2/y3; value of matched node:  doc-l1-l2-y3</match>
+<match>Rule doc//l2//v4; value of matched node:  doc-l1-l2-l3-v4</match>
+<match>Rule doc//child::l2//x4; value of matched node:  doc-l1-l2-l3-x4</match></out>

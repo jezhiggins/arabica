@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?><root xmlns="urn:http//www.placeholder-name-here.com/schema/"><SPAN style="color=black">specialty
+		: novel</SPAN><br /><SPAN style="color=green">book
+	: Seven Years in Trenton</SPAN><SPAN style="color=black">style
+		: autobiography</SPAN><br /><SPAN style="color=green">book
+	: History of Trenton</SPAN><SPAN style="color=black">style
+		: textbook</SPAN><br /><SPAN style="color=green">book
+	: XQL The Golden Years</SPAN><SPAN style="color=black">style
+		: storybook</SPAN><br /><SPAN style="color=black">dt:dt
+		: fixed.14.4</SPAN><br /><SPAN style="color=black">style
+		: glossy</SPAN><br /><SPAN style="color=black">frequency
+		: monthly</SPAN><br /><SPAN style="color=black">price
+		: 24</SPAN><br /><SPAN style="color=black">per
+		: year</SPAN><br /><SPAN style="color=black">per_year
+		: 1</SPAN><br /><SPAN style="color=black">style
+		: glossy</SPAN><br /><SPAN style="color=black">frequency
+		: weekly</SPAN><br /><SPAN style="color=black">style
+		: glossy</SPAN><br /><SPAN style="color=black">frequency
+		: bi-monthly</SPAN><br /><SPAN style="color=black">dt:dt
+		: fiXed.14.4</SPAN><br /><SPAN style="color=black">dt:dt
+		: date</SPAN><br /><SPAN style="color=black">style
+		: glossy</SPAN><br /><SPAN style="color=black">frequency
+		: monthly</SPAN><br /><SPAN style="color=black">style
+		: glossy</SPAN><br /><SPAN style="color=black">frequency
+		: monthly</SPAN><br /><SPAN style="color=green">book
+	: History of Trenton 2</SPAN><SPAN style="color=black">style
+		: textbook</SPAN><br /><SPAN style="color=green">book
+	: History of Trenton Vol 3</SPAN><SPAN style="color=black">style
+		: textbook</SPAN><br /><SPAN style="color=green">book
+	: How To Fix Computers</SPAN><SPAN style="color=black">style
+		: textbook</SPAN><br /><SPAN style="color=black">from
+		: Harvard</SPAN><br /><SPAN style="color=black">style
+		: glossy</SPAN><br /><SPAN style="color=black">frequency
+		: monthly</SPAN><br /><SPAN style="color=black">price
+		: 24</SPAN><br /><SPAN style="color=black">per
+		: year</SPAN><br /><SPAN style="color=black">style
+		: flat</SPAN><br /><SPAN style="color=black">frequency
+		: monthly</SPAN><br /><SPAN style="color=black">price
+		: 10.75</SPAN><br /><SPAN style="color=black">per
+		: year</SPAN><br /><SPAN style="color=green">book
+	: Trenton Today, Trenton Tomorrow</SPAN><SPAN style="color=black">style
+		: novel</SPAN><br /><SPAN style="color=black">id
+		: myfave</SPAN><br /><SPAN style="color=black">from
+		: Trenton U</SPAN><br /><SPAN style="color=black">from
+		: Harvard</SPAN><br /><SPAN style="color=black">intl
+		: canada</SPAN><br /><SPAN style="color=black">exchange
+		: 0.7</SPAN><br /><SPAN style="color=black">style
+		: leather</SPAN><br /><SPAN style="color=black">price
+		: 29.50</SPAN><br /><SPAN style="color=black">style
+		: hard back</SPAN><br /><SPAN style="color=black">price
+		: 99.95</SPAN><br /><SPAN style="color=black">dt:style
+		: string</SPAN><br /><SPAN style="color=black">style
+		: hard back</SPAN><br /><SPAN style="color=black">price
+		: 19.99</SPAN><br /></root>

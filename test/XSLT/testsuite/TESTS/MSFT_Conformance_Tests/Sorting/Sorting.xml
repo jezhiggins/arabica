@@ -1,0 +1,1016 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Sorting" description="" outpath="out">
+	<variation name="_77516">
+		<description>XSLT18104 xsl:sort on an attribute &amp; XSLT18113  xsl:sort on multiple keys</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT18104.xsl</xsl>
+		</data>
+		<result expected="valid">77516.txt</result>
+	</variation>
+	<variation name="_77517">
+		<description>XSLT18103 xsl:sort -  CONTEXT: sort on an ancestor - jscript</description>
+		<data>
+			<xml>sorttest.xml</xml>
+			<xsl>XSLT18103.xsl</xsl>
+		</data>
+		<result expected="valid">77517.txt</result>
+	</variation>
+	<variation name="_77524">
+		<description>XSLT18003: Related to 72791 XSL: 5.2.5 - Sorting - 16 - order-by attribute has garbage contents</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT18003.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77525">
+		<description>XSLT18120: ERROR xsl:sort select="price;name"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT18120.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77526">
+		<description>XSLT18110: xsl:sort select="." &lt;br/&gt; XSLT18108: two identical results verify kept document order</description>
+		<data>
+			<xml>numbers.xml</xml>
+			<xsl>XSLT18110.xsl</xsl>
+		</data>
+		<result expected="valid">77526.txt</result>
+	</variation>
+	<variation name="_77527">
+		<description>XSLT18114  xsl:sort - empty sort following two valid sorts, &lt;xsl:sort/&gt; should be equivalent to &lt;xsl:sort select="."/&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT18114.xsl</xsl>
+		</data>
+		<result expected="valid">77527.txt</result>
+	</variation>
+	<variation name="_77528">
+		<description>XSLTBUG88701:  xsl:sort -sort select="."  following element, and attribute sorts - should sort first by frequency then by title.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>multisortbug.xsl</xsl>
+		</data>
+		<result expected="valid">77528.txt</result>
+	</variation>
+	<variation name="_77529">
+		<description>XSLT18122: xsl:sort (no select) default to self</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt18122.xsl</xsl>
+		</data>
+		<result expected="valid">77529.txt</result>
+	</variation>
+	<variation name="_77530">
+		<description>XSLT18116: xsl:sort international sufficiency case (for select)</description>
+		<data>
+			<xml>intlsuff.xml</xml>
+			<xsl>xslt18116.xsl</xsl>
+		</data>
+		<result expected="valid">77530.txt</result>
+	</variation>
+	<variation name="_77532">
+		<description>XSLT18107: xsl:sort select="foo" - where there is only one result &lt;br/&gt;XSLT18101:&lt;xsl:sort select="price"/&gt; - where price element has a namespace</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT18107.xsl</xsl>
+		</data>
+		<result expected="valid">77532.txt</result>
+	</variation>
+	<variation name="_77533">
+		<description>XSLT18102: xsl:sort select="price" - where there is no price. Results should be the same as if there were no sort at all.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt18102.xsl</xsl>
+		</data>
+		<result expected="valid">77533.txt</result>
+	</variation>
+	<variation name="_77534">
+		<description>XSLT18111: &lt;xsl:sort select="*"/&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt18111.xsl</xsl>
+		</data>
+		<result expected="valid">77534.txt</result>
+	</variation>
+	<variation name="_77535">
+		<description>XSLT18118:  xsl:sort - sort on non-existant node  following two sucessful sorts</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT18118.xsl</xsl>
+		</data>
+		<result expected="valid">77535.txt</result>
+	</variation>
+	<variation name="_77539">
+		<description>XSLT18201:  xsl:sort select= element with a namespace - related to 77532</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT18201.xsl</xsl>
+		</data>
+		<result expected="valid">77539.txt</result>
+	</variation>
+	<variation name="_77541">
+		<description>XSLT18203:  xsl:sort  attribute - related to 77516. Sort magazines by @frequency then title</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT18203a.xsl</xsl>
+		</data>
+		<result expected="valid">77541.txt</result>
+	</variation>
+	<variation name="_77544">
+		<description>ascending and descending sort</description>
+		<data>
+			<xml>sort2.xml</xml>
+			<xsl>XSLT20001.xsl</xsl>
+		</data>
+		<result expected="valid">77544_output.txt</result>
+	</variation>
+	<variation name="_77548">
+		<description>XSLT19001:  xsl:sort  attribute with number data-type descending order</description>
+		<data>
+			<xml>sort3.xml</xml>
+			<xsl>xslt19001.xsl</xsl>
+		</data>
+		<result expected="valid">77548.txt</result>
+	</variation>
+	<variation name="_77550">
+		<description>XSLT19008: &lt;xsl:sort data-type=""/&gt;</description>
+		<data>
+			<xml>sort3.xml</xml>
+			<xsl>XSLT19008.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77552">
+		<description>XSLT19008: &lt;xsl:sort data-type="foo"/&gt;</description>
+		<data>
+			<xml>sort3.xml</xml>
+			<xsl>XSLT19009.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77553">
+		<description>XSLT20011: &lt;xsl:sort order="-"/&gt;</description>
+		<data>
+			<xml>sort3.xml</xml>
+			<xsl>XSLT20011.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77555">
+		<description>XSLT20010: &lt;xsl:sort order=""/&gt;</description>
+		<data>
+			<xml>sort3.xml</xml>
+			<xsl>XSLT20010.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77556">
+		<description>XSLT19006: &lt;xsl:sort data-type="number;text"/&gt;</description>
+		<data>
+			<xml>sort3.xml</xml>
+			<xsl>XSLT19006.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77557">
+		<description>XSLT19003: &lt;xsl:sort data-type="text"/&gt;</description>
+		<data>
+			<xml>sort3.xml</xml>
+			<xsl>xslt19003.xsl</xsl>
+		</data>
+		<result expected="valid">77557.txt</result>
+	</variation>
+	<variation name="_77559">
+		<description>XSLT19014:  xsl:sort text as data-type number</description>
+		<data>
+			<xml>sort4.xml</xml>
+			<xsl>XSLT19014.xsl</xsl>
+		</data>
+		<result expected="valid">77559.txt</result>
+	</variation>
+	<variation name="_77560">
+		<description>XSLT19010:  xsl:sort data-type text  xsl:sort data-type number</description>
+		<data>
+			<xml>books2.xml</xml>
+			<xsl>XSLT19010.xsl</xsl>
+		</data>
+		<result expected="valid">77560.txt</result>
+	</variation>
+	<variation name="_77561">
+		<description>XSLT19004:  number data type attribute, "5" string typed item -&gt; sort as number</description>
+		<data>
+			<xml>books2.xml</xml>
+			<xsl>XSLT19004.xsl</xsl>
+		</data>
+		<result expected="valid">77561.txt</result>
+	</variation>
+	<variation name="_77563">
+		<description>XSLT20000: sort with order="ascending" - Copy of 77516: XSLT18104 xsl:sort on an attribute &amp; XSLT18113  xsl:sort on multiple keys</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT20000.xsl</xsl>
+		</data>
+		<result expected="valid">77563.txt</result>
+	</variation>
+	<variation name="_77565">
+		<description>XSLT20005: sort with order="descending" - &amp; XSLT20009: two sort keys both descending</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT20005.xsl</xsl>
+		</data>
+		<result expected="valid">77565.txt</result>
+	</variation>
+	<variation name="_77566">
+		<description>XSLT20007: two sort keys first ascending second descending, same data type</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT20007.xsl</xsl>
+		</data>
+		<result expected="valid">77566.txt</result>
+	</variation>
+	<variation name="_77567">
+		<description>XSLT20008: two sort keys first descending second ascending, different data type</description>
+		<data>
+			<xml>books3.xml</xml>
+			<xsl>XSLT20008.xsl</xsl>
+		</data>
+		<result expected="valid">77567.txt</result>
+	</variation>
+	<variation name="_77568">
+		<description>XSLT20012: two sort keys for same element first descending second ascending</description>
+		<data>
+			<xml>books3.xml</xml>
+			<xsl>XSLT20012.xsl</xsl>
+		</data>
+		<result expected="valid">77568.txt</result>
+	</variation>
+	<variation name="_77569">
+		<description>XSLT18208: sort on foo where there are two identical results verify kept document order - apply templates, related to 77526</description>
+		<data>
+			<xml>numbers.xml</xml>
+			<xsl>XSLT18208.xsl</xsl>
+		</data>
+		<result expected="valid">77569.txt</result>
+	</variation>
+	<variation name="_77977">
+		<description>XSLT29601: Sort: Multilingual Sorting</description>
+		<data>
+			<xml>multilingualsort.xml</xml>
+			<xsl>xslt18304.xsl</xsl>
+		</data>
+		<result expected="valid">77977.txt</result>
+	</variation>
+	<variation name="_77979">
+		<description>XSLT18202: Sort: apply-templates sort on explicit child</description>
+		<data>
+			<xml>sorttest.xml</xml>
+			<xsl>xslt18202.xsl</xsl>
+		</data>
+		<result expected="valid">77979.txt</result>
+	</variation>
+	<variation name="_77980">
+		<description>XSLT18100: Sort: for-each sort on explicit child</description>
+		<data>
+			<xml>sorttest.xml</xml>
+			<xsl>xslt18100.xsl</xsl>
+		</data>
+		<result expected="valid">77980.txt</result>
+	</variation>
+	<variation name="_77981">
+		<description>XSLT18218: Sort: apply-templates, template does not match</description>
+		<data>
+			<xml>sorttest.xml</xml>
+			<xsl>xslt18218.xsl</xsl>
+		</data>
+		<result expected="valid">77981.txt</result>
+	</variation>
+	<variation name="_77982">
+		<description>XSLT18217: Sort: apply-templates, international sufficiency case (for select)</description>
+		<data>
+			<xml>intlsuff.xml</xml>
+			<xsl>xslt18217.xsl</xsl>
+		</data>
+		<result expected="valid">77982.txt</result>
+	</variation>
+	<variation name="_77985">
+		<description>XSLT18109: Sort: 16 sort keys</description>
+		<data>
+			<xml>XSLT18109.xml</xml>
+			<xsl>xslt18109.xsl</xsl>
+		</data>
+		<result expected="valid">77985_output.txt</result>
+	</variation>
+	<variation name="_77986">
+		<description>XSLT18117:  &lt;xsl:sort select="foo"&gt;foo&lt;/sort&gt;</description>
+		<data>
+			<xml>xslt18109.xml</xml>
+			<xsl>xslt18117.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_78191">
+		<description>XSLT190xx:  xsl:sort on multiple datatypes specified on elements - when data-type not specified should sort as text, unless element is typed, should convert all to first type specified.</description>
+		<data>
+			<xml>sortNodeType.xml</xml>
+			<xsl>xslt19012.xsl</xsl>
+		</data>
+		<result expected="valid">78191_output.txt</result>
+	</variation>
+	<variation name="_78286">
+		<description>XSLT18123: Sort on union query</description>
+		<data>
+			<xml>XSLT18123.xml</xml>
+			<xsl>XSLT18123.xsl</xsl>
+		</data>
+		<result expected="valid">78286.txt</result>
+	</variation>
+	<variation name="_78288">
+		<description>XSLT18106: non-whitespace node before sort</description>
+		<data>
+			<xml>XSLT18123.xml</xml>
+			<xsl>XSLT18106a.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78291">
+		<description>XSLT18105: non-whitespace node - CDATA, PI, COMMENT</description>
+		<data>
+			<xml>XSLT18123.xml</xml>
+			<xsl>XSLT18105.xsl</xsl>
+		</data>
+		<result expected="valid">78291.txt</result>
+	</variation>
+	<variation name="_81684">
+		<description>XSL: 5.2.5 - 1 - repeat</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_1_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">81684.txt</result>
+	</variation>
+	<variation name="_81685">
+		<description>XSL: 5.2.5 - 2 - repeat</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_2_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">81685.txt</result>
+	</variation>
+	<variation name="_81686">
+		<description>XSL: 5.2.5 - 3 - repeat</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_3_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">81686.txt</result>
+	</variation>
+	<variation name="_81687">
+		<description>XSL: 5.2.5 - 4 - repeat</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_4_repeat.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81688">
+		<description>XSL: 5.2.5 - 5 - repeat - value of order-by attribute has extraneous preceeding ';'</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_5_repeat.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81689">
+		<description>XSL: 5.2.5 - 6 - repeat - value of order-by attribute has extraneous following ';'</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_6_repeat.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81690">
+		<description>XSL: 5.2.5 - 7 - repeat - value of order-by attribute is ';'</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_7_repeat.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81691">
+		<description>XSL: 5.2.5 - 8 - repeat - two criteria, opposite directions</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_8_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">81691.txt</result>
+	</variation>
+	<variation name="_81692">
+		<description>XSL: 5.2.5 - 9 - repeat - two criteria, same direction</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_9_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">81692.txt</result>
+	</variation>
+	<variation name="_81693">
+		<description>XSL: 5.2.5 - 10 - repeat - two criteria, same criterion twice</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_10_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">81693.txt</result>
+	</variation>
+	<variation name="_81710">
+		<description>XSL: 5.2.5 - 1 - use-templates</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_1_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">81710.txt</result>
+	</variation>
+	<variation name="_81711">
+		<description>XSL: 5.2.5 - 2 - use-templates</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_2_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">81711.txt</result>
+	</variation>
+	<variation name="_81712">
+		<description>XSL: 5.2.5 - 3 - use-templates</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_3_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">81712.txt</result>
+	</variation>
+	<variation name="_81713">
+		<description>XSL: 5.2.5 - 4 - use-templates</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_4_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">81713.txt</result>
+	</variation>
+	<variation name="_81715">
+		<description>XSL: 5.2.5 - 6 - use-templates - value of order-by attribute has extraneous following ';'</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_6_use-templates.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81716">
+		<description>XSL: 5.2.5 - 7 - use-templates - value of order-by attribute is ';'</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_7_use-templates.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_81717">
+		<description>XSL: 5.2.5 - 8 - use-templates - two criteria, opposite directions</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_8_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">81717.txt</result>
+	</variation>
+	<variation name="_81718">
+		<description>XSL: 5.2.5 - 9 - use-templates - two criteria, same direction</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_9_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">81718.txt</result>
+	</variation>
+	<variation name="_81719">
+		<description>XSL: 5.2.5 - 10 - use-templates - two criteria, same criterion twice</description>
+		<data>
+			<xml>faraz-books.xml</xml>
+			<xsl>2_5_10_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">81719.txt</result>
+	</variation>
+	<variation name="_83821">
+		<description>XSL: regression of bug #66071 : Sorting</description>
+		<data>
+			<xml>bug66071.xml</xml>
+			<xsl>bug66071.xsl</xsl>
+		</data>
+		<result expected="valid">83821.txt</result>
+	</variation>
+	<variation name="_84006">
+		<description>XSLT18105: non-whitespace node - CDATA, PI, COMMENT</description>
+		<data>
+			<xml>XSLT18123.xml</xml>
+			<xsl>XSLT18105a.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84186">
+		<description>Copy of 83821: XSL: regression of bug #66071 : Sorting</description>
+		<data>
+			<xml>84186a.xml</xml>
+			<xsl>84186.xsl</xsl>
+		</data>
+		<result expected="valid">84186.txt</result>
+	</variation>
+	<variation name="_84465">
+		<description>Copy of 77516: XSLT18104 xsl:sort on an attribute &amp; XSLT18113  xsl:sort on multiple keys</description>
+		<data>
+			<xml>84465.xml</xml>
+			<xsl>84465.xsl</xsl>
+		</data>
+		<result expected="valid">84465.txt</result>
+	</variation>
+	<variation name="_84466">
+		<description>Copy of 77532: XSLT18107: xsl:sort select="foo" - where there is only one result &lt;br/&gt;XSLT18101:&lt;xsl:sort select="price"/&gt; - where price element has a namespace</description>
+		<data>
+			<xml>84466.xml</xml>
+			<xsl>84466.xsl</xsl>
+		</data>
+		<result expected="valid">84466.txt</result>
+	</variation>
+	<variation name="_84467">
+		<description>Copy of 77541: XSLT18203:  xsl:sort  attribute - related to 77516. Sort magazines by @frequency then title</description>
+		<data>
+			<xml>84467.xml</xml>
+			<xsl>84467.xsl</xsl>
+		</data>
+		<result expected="valid">84467.txt</result>
+	</variation>
+	<variation name="_84468">
+		<description>Copy of 77563: XSLT20000: sort with order="ascending" - Copy of 77516: XSLT18104 xsl:sort on an attribute &amp; XSLT18113  xsl:sort on multiple keys</description>
+		<data>
+			<xml>84468.xml</xml>
+			<xsl>84468.xsl</xsl>
+		</data>
+		<result expected="valid">84468.txt</result>
+	</variation>
+	<variation name="_84469">
+		<description>Copy of 77566: XSLT20007: two sort keys first ascending second descending, same data type</description>
+		<data>
+			<xml>84469.xml</xml>
+			<xsl>84469.xsl</xsl>
+		</data>
+		<result expected="valid">84469.txt</result>
+	</variation>
+	<variation name="_84470">
+		<description>Copy of 77565: XSLT20005: sort with order="descending" - &amp; XSLT20009: two sort keys both descending</description>
+		<data>
+			<xml>84470.xml</xml>
+			<xsl>84470.xsl</xsl>
+		</data>
+		<result expected="valid">84470.txt</result>
+	</variation>
+	<variation name="_84471">
+		<description>Copy of 77567:  XSLT20008: two sort keys first descending second ascending, different data type</description>
+		<data>
+			<xml>84471.xml</xml>
+			<xsl>84471.xsl</xsl>
+		</data>
+		<result expected="valid">84471.txt</result>
+	</variation>
+	<variation name="_84472">
+		<description>Copy of 77568: XSLT20012: two sort keys for same element first descending second ascending</description>
+		<data>
+			<xml>84472.xml</xml>
+			<xsl>84472.xsl</xsl>
+		</data>
+		<result expected="valid">84472.txt</result>
+	</variation>
+	<variation name="_84479">
+		<description>Copy of 77979: XSLT18202: Sort: apply-templates sort on explicit child</description>
+		<data>
+			<xml>84479.xml</xml>
+			<xsl>84479.xsl</xsl>
+		</data>
+		<result expected="valid">84479.txt</result>
+	</variation>
+	<variation name="_89290">
+		<description>XSL: 5.2.5 - Sorting - 16 - order-by attribute has garbage contents - repeat</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>2_5_16_repeat.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_89749">
+		<description>XSL: 5.2.5 - Sorting - 13 - sort by an ancestral element - xsl:repeat</description>
+		<data>
+			<xml>sorttest.xml</xml>
+			<xsl>2_5_13_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89749.txt</result>
+	</variation>
+	<variation name="_89751">
+		<description>XSL: 5.2.5 - Sorting - 13 - sort by an ancestral element - xsl:use-templates</description>
+		<data>
+			<xml>sorttest.xml</xml>
+			<xsl>2_5_13_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89751.txt</result>
+	</variation>
+	<variation name="_89758">
+		<description>XSL: 5.2.5 - Sorting - 14 - sort by a child node - xsl:repeat</description>
+		<data>
+			<xml>sorttest.xml</xml>
+			<xsl>2_5_14_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89758.txt</result>
+	</variation>
+	<variation name="_89760">
+		<description>XSL: 5.2.5 - Sorting - 14 - sort by a child node - xsl:use-templates</description>
+		<data>
+			<xml>sorttest.xml</xml>
+			<xsl>2_5_14_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89760.txt</result>
+	</variation>
+	<variation name="_89762">
+		<description>XSL: 5.2.5 - Sorting - 12 - sort by nodes of heterogeneous types - xsl:repeat</description>
+		<data>
+			<xml>hsortdata.xml</xml>
+			<xsl>2_5_12_repeat.xsl</xsl>
+		</data>
+		<result expected="valid">89762.txt</result>
+	</variation>
+	<variation name="_89763">
+		<description>XSL: 5.2.5 - Sorting - 12 - sort by nodes of heterogeneous types - xsl:use-templates</description>
+		<data>
+			<xml>hsortdata.xml</xml>
+			<xsl>2_5_12_use-templates.xsl</xsl>
+		</data>
+		<result expected="valid">89763.txt</result>
+	</variation>
+	<variation name="_91689">
+		<description>XSLT : Sort | Base Case for Lang Attribute | xsl:sort lang="es"  case-order="upper-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91689.xsl</xsl>
+		</data>
+		<result expected="valid">91689_output.txt</result>
+	</variation>
+	<variation name="_91691">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | xsl:sort lang="es"  case-order="lower-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91691.xsl</xsl>
+		</data>
+		<result expected="valid">91691_output.txt</result>
+	</variation>
+	<variation name="_91692">
+		<description> XSLT : Sort | Base Case for Lang  Attribute | xsl:sort lang=""</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91692.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91693">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | default lang  case-order="lower-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91693.xsl</xsl>
+		</data>
+		<result expected="valid">91693_output.txt</result>
+	</variation>
+	<variation name="_91694">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | default lang  case-order="upper-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91694.xsl</xsl>
+		</data>
+		<result expected="valid">91694_output.txt</result>
+	</variation>
+	<variation name="_91695">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | xsl:sort lang="en"  case-order="lower-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91695.xsl</xsl>
+		</data>
+		<result expected="valid">91695_output.txt</result>
+	</variation>
+	<variation name="_91696">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | xsl:sort lang="en"  case-order="upper-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91696.xsl</xsl>
+		</data>
+		<result expected="valid">91696_output.txt</result>
+	</variation>
+	<variation name="_91697">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | xsl:sort lang="fr"  case-order="upper-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91697.xsl</xsl>
+		</data>
+		<result expected="valid">91697_output.txt</result>
+	</variation>
+	<variation name="_91698">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | xsl:sort lang="fr"  case-order="lower-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91698.xsl</xsl>
+		</data>
+		<result expected="valid">91698_output.txt</result>
+	</variation>
+	<variation name="_91699">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | xsl:sort lang="sv"  case-order="lower-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91699.xsl</xsl>
+		</data>
+		<result expected="valid">91699_output.txt</result>
+	</variation>
+	<variation name="_91700">
+		<description> XSLT : Sort | Base Case for Lang and Case-order Attributes | xsl:sort lang="sv"  case-order="upper-first"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91700.xsl</xsl>
+		</data>
+		<result expected="valid">91700_output.txt</result>
+	</variation>
+	<variation name="_91701">
+		<description>XSLT : Sort | Base Case for Lang and Case-order Attributes | multiple keys</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91701.xsl</xsl>
+		</data>
+		<result expected="valid">91701_output.txt</result>
+	</variation>
+	<variation name="_91703">
+		<description>XSLT : Sort | Base Case for Case-order  Attribute | xsl:sort case-order="something"</description>
+		<data>
+			<xml>91703.xsl</xml>
+			<xsl>91703.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91704">
+		<description> XSLT : Sort | Base Case for Case-order  Attribute | xsl:sort case-order="upper-first" data-type="number"(bug#52947)</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91704.xsl</xsl>
+		</data>
+		<result expected="valid">91704_output.txt</result>
+	</variation>
+	<variation name="_91705">
+		<description>XSLT : Sort | Base Case for Case-order  Attribute | xsl:sort lang="sv" data-type="number"(lang should be ignored, bug#52947)</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91705.xsl</xsl>
+		</data>
+		<result expected="valid">91705_output.txt</result>
+	</variation>
+	<variation name="_91751">
+		<description> XSLT : Sort | Base Case for Lang | xsl:sort Lang="en"  (note captial L in Lang)</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91751.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91752">
+		<description>XSLT : Sort | Base Case for case-order |xsl:sort lang="en" default value of case-order should be lower-first</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91752.xsl</xsl>
+		</data>
+		<result expected="valid">91752_output.txt</result>
+	</variation>
+	<variation name="_91753">
+		<description> Sort | Base Case for lang attribute |xsl:sort lang="en" , "En", "eN" and "EN"</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91753.xsl</xsl>
+		</data>
+		<result expected="valid">91753_output.txt</result>
+	</variation>
+	<variation name="_91754">
+		<description>Sort | Base Case for lang attribute |xsl:sort lang="en-ZZZZZZZZZZ"(bug#53015)</description>
+		<data>
+			<xml>sortlang.xml</xml>
+			<xsl>91754.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Sort_AllTextElementsAreSame">
+		<description>Use xsl:sort with data-type='text' and numerous text elements of the same value. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_TextElementsAllSame.xml</xml>
+			<xsl>xslt_sort_TextElementsAllSame.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_TextElementsAllSame_result.txt</result>
+	</variation>
+	<variation name="Sort_CommaDelimitedNumber">
+		<description>Use xsl:sort with a comma-delimited number. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_CommaDelimitedValuesNumber.xml</xml>
+			<xsl>xslt_sort_CommaDelimitedValuesNumber.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_CommaDelimitedValuesNumber_result.txt</result>
+	</variation>
+	<variation name="Sort_LongTextWithTrailingNumbers">
+		<description>Use xsl:sort to sort text that is identical except for a trailing number at the end of the text node. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_LongTextWithNumbers.xml</xml>
+			<xsl>xslt_sort_LongTextWithNumbers.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_LongTextWithNumbers_result.txt</result>
+	</variation>
+	<variation name="Sort_MixedCaseWithUpperSet">
+		<description>Use xsl:sort with text that contains both upper an lower case letters. Using upper sort. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_MixedCaseUpperFirst.xml</xml>
+			<xsl>xslt_sort_MixedCaseUpperFirst.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_MixedCaseUpperFirst_result.txt</result>
+	</variation>
+	<variation name="Sort_NumbersWithLanguageNotEnglish">
+		<description>Use xsl:sort on data-type=numbers and lang!=en (used french). [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_SortNumbersWithDifferentLang.xml</xml>
+			<xsl>xslt_sort_SortNumbersWithDifferentLang.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_SortNumbersWithDifferentLang_result.txt</result>
+	</variation>
+	<variation name="Sort_PositiveNumbersHavePlusSign">
+		<description>Use xsl:sort on numbers that are prefixed by the positive sign '+'. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_SortWithPositiveSignChar.xml</xml>
+			<xsl>xslt_sort_SortWithPositiveSignChar.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_SortWithPositiveSignChar_result.txt</result>
+	</variation>
+	<variation name="Sort_SortEmptyTextNodesWithDataTypeNumber">
+		<description>Use xsl:sort to sort numbers, some of whom are null/empty. Should be consistently sorted. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_SortOnEmptyTextNodesWithTypeNumber.xml</xml>
+			<xsl>xslt_sort_SortOnEmptyTextNodesWithTypeNumber.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_SortOnEmptyTextNodesWithTypeNumber_result.txt</result>
+	</variation>
+	<variation name="Sort_SortOnDecimalPointWithoutPrefixedZero">
+		<description>Use xsl:sort with decimal fraction numbers that do or do not contain preceeding zero's. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_DecimalPointsWithoutPrefixZeroMix.xml</xml>
+			<xsl>xslt_sort_DecimalPointsWithoutPrefixZeroMix.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_DecimalPointsWithoutPrefixZeroMix_result.txt</result>
+	</variation>
+	<variation name="Sort_SortOnNumbersWithAttributeCaseOrder">
+		<description>Use xsl:sort with data-type equal to number and the case-order attribute set to various ordering styles. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_DataTypeNumberWithCaseOrders.xml</xml>
+			<xsl>xslt_sort_DataTypeNumberWithCaseOrders.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_DataTypeNumberWithCaseOrders_result.txt</result>
+	</variation>
+	<variation name="Sort_SortSameNumbers">
+		<description>Use xsl:sort to same numbers of the same value. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_SortSameNumbers.xml</xml>
+			<xsl>xslt_sort_SortSameNumbers.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_SortSameNumbers_result.txt</result>
+	</variation>
+	<variation name="Sort_SortTextWithNonTextCharacters">
+		<description>Use xsl:sort with data-type equals text and non-standard english alphabet characters are part of the text node. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_SortWithNonAlphaChars.xml</xml>
+			<xsl>xslt_sort_SortWithNonAlphaChars.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_SortWithNonAlphaChars_result.txt</result>
+	</variation>
+	<variation name="Sort_SortWithUpperCharactersInMiddleOfTextLowerCaseFirst">
+		<description>Use xsl:sort on data-type='text' and case-order='lower-first' with capital letters appearing in the middle of text. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_TextWithUpperInMiddle.xml</xml>
+			<xsl>xslt_sort_TextWithUpperInMiddle.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_TextWithUpperInMiddle_result.txt</result>
+	</variation>
+	<variation name="Sort_SortWithUpperCharactersInMiddleOfTextUpperCaseFirst">
+		<description>Use:xsl sort on data-type='text' and case-order='upper-first' with capital letters appearing in the middle of text. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_UpperFirstWithUpperCaseInMiddle.xml</xml>
+			<xsl>xslt_sort_UpperFirstWithUpperCaseInMiddle.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_UpperFirstWithUpperCaseInMiddle_result.txt</result>
+	</variation>
+	<variation name="Sort_TextNodesSpanMultipleLines">
+		<description>Use xsl:sort to sort text nodes that span multiple lines (cr/lf). [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_TextNodesSpanMultipleLines.xml</xml>
+			<xsl>xslt_sort_TextNodesSpanMultipleLines.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_TextNodesSpanMultipleLines_result.txt</result>
+	</variation>
+	<variation name="Sort_UpperFirstOnTextWithUpper">
+		<description>Use xsl:sort with the case-order attribute set to upper-first. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_SortUpperFirstBase.xml</xml>
+			<xsl>xslt_sort_SortUpperFirstBase.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_SortUpperFirstBase_result.txt</result>
+	</variation>
+	<variation name="Sort_ZeroAndNegativeZero">
+		<description>Use xsl:sort to sort 0 and -0 from ascending and descending orders. Order is same (0 and -0 equal in IEEE754, use document ordering)[Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_ZeroAndNegativeZero.xml</xml>
+			<xsl>xslt_sort_ZeroAndNegativeZero.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_ZeroAndNegativeZero_result.txt</result>
+	</variation>
+	<variation name="Sort_ZeroPrefixedNegativeNumbers">
+		<description>Use xsl:sort with data-type equals numbers and negative zero prefixed numbers. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_ZeroPrefixedNegNumbers.xml</xml>
+			<xsl>xslt_sort_ZeroPrefixedNegNumbers.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_ZeroPrefixedNegNumbers_result.txt</result>
+	</variation>
+	<variation name="SortEquivalentValueDiffRepresentationBothDir">
+		<description>Use xsl:sort to sort ascending and descending numbers that are of equivalent value, but different representations (1.0 vs. 01 vs. 1) [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_SortEquivalentNumbersBothDir.xml</xml>
+			<xsl>xslt_sort_SortEquivalentNumbersBothDir.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_SortEquivalentNumbersBothDir_result.txt</result>
+	</variation>
+	<variation name="ValidSortThreeNumbers">
+		<description>Use xsl:sort to sort three numbers. [Bug 52357]</description>
+		<data>
+			<xml>xslt_sort_SortThreeNumbers.xml</xml>
+			<xsl>xslt_sort_SortThreeNumbers.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_sort_SortThreeNumbers_result.txt</result>
+	</variation>
+	<variation name="SortExprWithCurrentInsideForEach">
+		<description>System.Xml.Xsl : Sorting does not work as expected when sort expression uses function current(). [Bug 85697]</description>
+		<data>
+			<xml>SortExprWithCurrentInsideForEach.xml</xml>
+			<xsl>SortExprWithCurrentInsideForEach.xsl</xsl>
+		</data>
+		<result expected="valid">SortExprWithCurrentInsideForEach.txt</result>
+	</variation>
+	<variation name="SortExprWithCurrentInsideForEach1">
+		<description>System.Xml.Xsl : Sorting does not work as expected when sort expression uses function current(). [Bug 85697]</description>
+		<data>
+			<xml>SortExprWithCurrentInsideForEach1.xml</xml>
+			<xsl>SortExprWithCurrentInsideForEach1.xsl</xsl>
+		</data>
+		<result expected="valid">SortExprWithCurrentInsideForEach1.txt</result>
+	</variation>
+	<variation name="SortOnAttributeWithNamespacePrefix">
+		<description>Sort using @foo:attr</description>
+		<data>
+			<xml>sort_on_namespace_prefix_attribute.xml</xml>
+			<xsl>sort_on_namespace_prefix_attribute.xsl</xsl>
+		</data>
+		<result expected="valid">sort_on_namespace_prefix_attribute.txt</result>
+	</variation>
+	<variation name="SortExprWithCurrentInApplyTemplates">
+		<description>XSLT: Sort inside xsl:apply-templates does not work as expected when sort expression uses current(). [Bug 85859]</description>
+		<data>
+			<xml>SortExprWithCurrentInApplyTemplates.xml</xml>
+			<xsl>SortExprWithCurrentInApplyTemplates.xsl</xsl>
+		</data>
+		<result expected="valid">SortExprWithCurrentInApplyTemplates.txt</result>
+	</variation>
+	<variation name="TurkishISortingTest">
+		<description>Turkish i sorting test</description>
+		<data>
+			<xml>turkish.xml</xml>
+			<xsl>turkish.xsl</xsl>
+		</data>
+		<result expected="valid">turkish.txt</result>
+	</variation>
+</testcase>

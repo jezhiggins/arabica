@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>0: Test for source tree numbering
+1: Level A
+2: Level B
+3: Level B
+4: Level C
+5: Level B
+6: Level C
+7: Level D
+8: Level A
+9: Level B
+10: Level C
+11: Level D
+12: Level E
+13: Level A
+14: Level B
+15: Level C
+16: Level D
+17: Level E
+18: Level D
+19: Level E
+20: Level C
+21: Level D
+22: Level B
+</out>

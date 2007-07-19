@@ -1,0 +1,14 @@
+<SPAN style="color=blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+    From A  book : Seven Years in Trenton</SPAN><br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" />
+<SPAN style="color=yellow">
+    From C book : History of Trenton</SPAN><br />
+<SPAN style="color=yellow">
+    From C book : History of Trenton 2</SPAN><br />
+<SPAN style="color=yellow">
+    From C book : History of Trenton Vol 3</SPAN><br />
+<SPAN style="color=yellow">
+    From C book : How To Fix Computers</SPAN><br />
+<SPAN style="color=red" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+	From E my:book : Where is Trenton?</SPAN><br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" />
+<SPAN style="color=red" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+	From E my:book : Where in the world is Trenton?</SPAN><br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" />

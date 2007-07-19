@@ -1,0 +1,1 @@
+22<item type="Nokia" made="US" model="2000" xmlns:b="x-schema:91733b.sch">reliable</item><item type="IBM" made="US" model="2000" xmlns:b="x-schema:91733b.sch">expensive</item><item type="Nokia" made="US" model="2000" xmlns:b="x-schema:91733b.sch">reliable</item><item type="IBM" made="US" model="2000" xmlns:b="x-schema:91733b.sch">expensive</item>

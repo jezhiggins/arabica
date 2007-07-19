@@ -1,0 +1,1 @@
+<foo big="dog" medium="elephant" small="cat">text</foo>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>  
+<!DOCTYPE xslTutorial  [  
+<!ELEMENT xslTutorial (doc,note*)>  
+<!ELEMENT doc (#PCDATA|ref)*>  
+<!ELEMENT  ref EMPTY>  
+<!ATTLIST ref id IDREF #REQUIRED>  
+<!ELEMENT note (#PCDATA)>  
+<!ATTLIST note id ID #REQUIRED>]>  
+<xslTutorial >  
+ 
+<doc>  
+This text <ref id="n3"/> demonstrates <ref id="n1"/> a possible usage of id function <ref id="n2"/>.  
+</doc>  
+<note id="n1">Note n1</note>  
+<note id="n2">Note n2</note>  
+<note id="n3">Note n3</note>
+</xslTutorial> 
+
+
+
+

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>  
+<root xmlns:a="ns1">
+ 
+<a:Item1 id='a1' pos='start'>   
+	<foo id='1'>
+	 some text
+	</foo>
+	<bar id='2'>
+	 some more text
+	</bar>
+</a:Item1>
+
+</root> 
+
+
+
+
+
+
+

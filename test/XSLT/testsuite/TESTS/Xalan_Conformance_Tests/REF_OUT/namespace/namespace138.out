@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:n="http://ns.test.com">
+<n:x>from stylesheet</n:x>
+<e xmlns="http://literalURI"><n:a xmlns:n="http://example.com">content</n:a></e></out>

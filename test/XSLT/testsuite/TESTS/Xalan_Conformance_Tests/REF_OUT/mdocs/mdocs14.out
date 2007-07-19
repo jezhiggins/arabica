@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <body>
+    <table>
+      <tr><td>xxx</td></tr>
+      <tr><td>XML<table>
+  <foo><b>zzz</b></foo>
+</table></td></tr>
+      <tr><td>xxx</td></tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,352 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Keys" description="" outpath="out">
+	<variation name="SortNodesetReturnedByKey">
+		<description>Use apply-templates, select nodeset returned by key() and sort it.</description>
+		<data>
+			<xml>SortNodesetReturnedByKey.xml</xml>
+			<xsl>SortNodesetReturnedByKey.xsl</xsl>
+		</data>
+		<result expected="valid">SortNodesetReturnedByKey.txt</result>
+	</variation>
+	<variation name="MultipltKeysInclude">
+		<description>Use multiple keys with same name and match expression across stylesheets.</description>
+		<data>
+			<xml>MultipltKeysInclude.xml</xml>
+			<xsl>MultipltKeysInclude.xsl</xsl>
+		</data>
+		<result expected="valid">MultipltKeysInclude.txt</result>
+	</variation>
+	<variation name="_10050">
+		<description>Iterate over returned nodeset and test position() and last() functions, use variable in key('bar',$var)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>10050.xsl</xsl>
+		</data>
+		<result expected="valid">10050.txt</result>
+	</variation>
+	<variation name="_10051">
+		<description>Iterate over returned nodeset and test position() and last() functions</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>10051.xsl</xsl>
+		</data>
+		<result expected="valid">10051.txt</result>
+	</variation>
+	<variation name="_91690">
+		<description>Base case | xsl:key name="mykey" match="p" use=".//term"</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91690.xsl</xsl>
+		</data>
+		<result expected="valid">91690.txt</result>
+	</variation>
+	<variation name="_91706">
+		<description>xsl:key - without name attribute</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91706.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91707">
+		<description>xsl:key - name=""</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91707.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91708">
+		<description>xsl:key - name="#" (invalid char in name)</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91708.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91709">
+		<description>xsl:key - name=" ab c"  (space inside name)</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91709.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91710">
+		<description>xsl:key - missing match attribute</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91710.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91711">
+		<description>xsl:key - match="" (empty match attribute)</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91711.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91712">
+		<description>xsl:key - match="$$" (invalid expression)</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91712.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91713">
+		<description>xsl:key - match=" " (space in expression  in match)</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91713.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91714">
+		<description>xsl:key - missing use attribute</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91714.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91715">
+		<description>xsl:key - use = "" empty use</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91715.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91716">
+		<description>xsl:key - use=" ", space in use</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91716.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91717">
+		<description>xsl:key - use = "//%%", invalid char in use</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91717.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91718">
+		<description>xsl:key - with invalid attribute foo</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91718.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91719">
+		<description>xsl:key - declare xsl:key inside a template</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91719.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91720">
+		<description>xsl:key - declare xsl:key inside a xsl:variable</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91720.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91721">
+		<description>Call the function key('foo','bar') without declaring 'foo' as the key</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91721.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91722">
+		<description>xsl:key - key()  with no argument</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91722.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91723">
+		<description>xsl:key - key('a')  with one argument</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91723.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91724">
+		<description>xsl:key - key('a','b','c')  with more than 2 argument</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91724.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91725">
+		<description>xsl:key - key(' a', object')  invalid name in first argument</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91725.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91726">
+		<description>xsl:key - key(string, object) where string is very big</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91726.xsl</xsl>
+		</data>
+		<result expected="valid">91726.txt</result>
+	</variation>
+	<variation name="_91727">
+		<description>xsl:key - key(string, object) where string is a $param.</description>
+		<data>
+			<xml>key.xml</xml>
+			<xsl>91727.xsl</xsl>
+		</data>
+		<result expected="valid">91727.txt</result>
+	</variation>
+	<variation name="_91730">
+		<description>xsl:key - key(string, object) where object is a node-set.</description>
+		<data>
+			<xml>91730.xml</xml>
+			<xsl>91730.xsl</xsl>
+		</data>
+		<result expected="valid">91730.txt</result>
+	</variation>
+	<variation name="_91732">
+		<description>xsl:key - key(string, object) where object is a $param.</description>
+		<data>
+			<xml>91730.xml</xml>
+			<xsl>91732.xsl</xsl>
+		</data>
+		<result expected="valid">91732.txt</result>
+	</variation>
+	<variation name="_91832">
+		<description>xsl:key - Example from xslt spec to generate hyper links</description>
+		<data>
+			<xml>91832.xml</xml>
+			<xsl>91832.xsl</xsl>
+		</data>
+		<result expected="valid">91832.txt</result>
+	</variation>
+	<variation name="_91833">
+		<description>xsl:key - Example from xslt spec to generate hyper links</description>
+		<data>
+			<xml>91832.xml</xml>
+			<xsl>91833.xsl</xsl>
+		</data>
+		<result expected="valid">91833.txt</result>
+	</variation>
+	<variation name="_91834">
+		<description>xsl:key - Example from xslt spec : retrieve a key from a document other than the document containing the context node.</description>
+		<data>
+			<xml>91834.xml</xml>
+			<xsl>91834.xsl</xsl>
+		</data>
+		<result expected="valid">91834.txt</result>
+	</variation>
+	<variation name="_91835">
+		<description>xsl:key - XSLT: parameter used in XSLT function are not working, should not give error : 'the parameter is incorrect' (bug #53167)</description>
+		<data>
+			<xml>91835.xml</xml>
+			<xsl>91835.xsl</xsl>
+		</data>
+		<result expected="valid">91835.txt</result>
+	</variation>
+	<variation name="_91836">
+		<description>xsl:key - Index Entity nodes (GE and PE)</description>
+		<data>
+			<xml>91836.xml</xml>
+			<xsl>91836.xsl</xsl>
+		</data>
+		<result expected="valid">91836.txt</result>
+	</variation>
+	<variation name="_91858">
+		<description>xsl:key - Index  &amp;a;&amp;b; as a node value,  Where &amp;a;='a' and &amp;b;='b' (bug #53185)</description>
+		<data>
+			<xml>91858.xml</xml>
+			<xsl>91858.xsl</xsl>
+		</data>
+		<result expected="valid">91858.txt</result>
+	</variation>
+	<variation name="_91859">
+		<description>xsl:key - Index default attribute nodes</description>
+		<data>
+			<xml>91859.xml</xml>
+			<xsl>91859.xsl</xsl>
+		</data>
+		<result expected="valid">91859.txt</result>
+	</variation>
+	<variation name="_91860">
+		<description>xsl:key - The ancestor of default attribute should be the element node and the documentElment and the document. Currently we are returning the DTD node as the ancestor of default attribute. (bug #53188)</description>
+		<data>
+			<xml>91860.xml</xml>
+			<xsl>91860.xsl</xsl>
+		</data>
+		<result expected="valid">91860.txt</result>
+	</variation>
+	<variation name="Bug76935">
+		<description>XsltFunction.Clone() doesn't clone _ResultQuery field and failed to work properly.</description>
+		<data>
+			<xml>keytest.xml</xml>
+			<xsl>keytest.xsl</xsl>
+		</data>
+		<result expected="valid">keytest.txt</result>
+	</variation>
+	<variation name="PerfRepro2">
+		<description>Use of xsl:key results in very poor and sometimes unacceptable performance. [Bug 79250]</description>
+		<data>
+			<xml>Report.xml</xml>
+			<xsl>DailyVolumePackageSummary.xslt</xsl>
+		</data>
+		<result expected="valid">PerfRepro2.txt</result>
+	</variation>
+	<variation name="PerfRepro3">
+		<description>QFE 548: RFO: Slow XSLT performance with Managed Parser</description>
+		<data>
+			<xml>input.xml</xml>
+			<xsl>input.xsl</xsl>
+		</data>
+		<result expected="valid">PerfRepro3.txt</result>
+	</variation>
+	<variation name="PositionLastTest1">
+		<description>Test position and last functions</description>
+		<data>
+			<xml>keytest.xml</xml>
+			<xsl>PositionLastTest1.xsl</xsl>
+		</data>
+		<result expected="valid">PositionLastTest1.txt</result>
+	</variation>
+</testcase>

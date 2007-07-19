@@ -1,0 +1,1 @@
+﻿<root><XslElement Foo=" &gt; &lt; ' &quot; &amp; Q &lt; &amp; "></XslElement><LitResult Bar=" &gt; &lt; ' &quot; &amp; Q &lt; &amp; "></LitResult><XslElement Foo="' &quot; &lt; &gt; &amp; Q &lt; &amp; "></XslElement><LitResult Bar="' &quot; &lt; &gt; &amp; Q &lt; &amp; "></LitResult></root>

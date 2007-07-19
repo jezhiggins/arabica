@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<doc>
+<foo>
+<bar attr="Test1" />
+<bar attr="Test2" />
+<bar attr="Test3" />
+<bar attr="Test4" />		
+</foo>
+</doc>

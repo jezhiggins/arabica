@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  Any-PI:a-pi
+  PI-named-b:some data
+  PI-by-content:b-pi
+  PI-by-content:c-pi
+</out>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE test [ 
+  <!ELEMENT test (#PCDATA)> 
+  <!ENTITY extEnt SYSTEM "ent22.xml">
+  ]>
+
+<test>abcd&extEnt;fgh</test>

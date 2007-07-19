@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  In middle: main stylesheet, should have highest precedence
+  
+  In main: main stylesheet, should have highest precedence
+    
+  In final: main stylesheet, should have highest precedence
+      
+  In main again: main stylesheet, should have highest precedence
+    
+  
+</out>

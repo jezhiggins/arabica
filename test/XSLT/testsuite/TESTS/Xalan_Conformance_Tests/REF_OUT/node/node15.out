@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>A:att
+  N-content:
+  ,
+N-named:a-pi...,
+N-content:
+  ,
+N-content: This is the 1st comment ,
+N-content:
+  text-in-doc
+  ,
+N-named:inner...A:blat
+  N-content:
+    inner-text
+    ,
+N-content: This is the 2nd comment ,
+N-content:
+    ,
+N-named:sub...N-content:subtext,
+,
+N-content:
+  ,
+,
+N-content:
+  text-in-doc2
+,
+</out>

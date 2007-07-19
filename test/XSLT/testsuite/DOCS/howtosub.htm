@@ -1,0 +1,2766 @@
+<html>
+<head>
+<title>Submission Procedure for XSLT/XPath Test Suites</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.17">
+</head>
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="book" id="N235">
+<div class="titlepage">
+<h1 class="title">
+<a name="N235">Submission Procedure for XSLT/XPath Test Suites</a>
+</h1>
+<hr>
+</div>
+<div class="toc">
+<p>
+<b>Table of Contents</b>
+</p>
+<dl>
+<dt> <a href="#N238">Introduction</a>
+</dt>
+<dt> <a href="#N261">Purpose of this Guide</a>
+</dt>
+<dt> <a href="#N278">Scope of this Guide</a>
+</dt>
+<dt> <a href="#N298">Audience of this Guide</a>
+</dt>
+<dt> <a href="#N303">Related Documents</a>
+</dt>
+<dt>1. <a href="#N326">Creating a Test Catalog: A Walk-through of the Collection Catalog
+		DTD</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N381">&lt;test-suite&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N384">Syntax</a>
+</dt>
+<dt> <a href="#N390">Purpose</a>
+</dt>
+<dt> <a href="#N399">Usage</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N407">&lt;test-catalog&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N410">Syntax</a>
+</dt>
+<dt> <a href="#N423">Purpose</a>
+</dt>
+<dt> <a href="#N432">Usage</a>
+</dt>
+<dt> <a href="#N437">Attribute: submitter</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N454">&lt;creator&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N457">Syntax</a>
+</dt>
+<dt> <a href="#N463">Purpose</a>
+</dt>
+<dt> <a href="#N475">Usage</a>
+</dt>
+<dt> <a href="#N500">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N514">&lt;date&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N517">Syntax</a>
+</dt>
+<dt> <a href="#N523">Purpose</a>
+</dt>
+<dt> <a href="#N532">Usage</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N543"> &lt;test-case&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N546">Syntax</a>
+</dt>
+<dt> <a href="#N561">Purpose</a>
+</dt>
+<dt> <a href="#N569">Usage</a>
+</dt>
+<dt> <a href="#N580">Attribute: <tt>id</tt></a>
+</dt>
+<dt> <a href="#N605">Attribute: <tt>category</tt></a>
+</dt>
+<dt> <a href="#N711">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#file-path-section"> &lt;file-path&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N724">Syntax</a>
+</dt>
+<dt> <a href="#N730">Purpose</a>
+</dt>
+<dt> <a href="#N744">Usage</a>
+</dt>
+<dt> <a href="#N754">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N763"> &lt;creator&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N766">Syntax</a>
+</dt>
+<dt> <a href="#N772">Purpose</a>
+</dt>
+<dt> <a href="#N792">Usage</a>
+</dt>
+<dt> <a href="#N800">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N809"> &lt;date&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N812">Syntax</a>
+</dt>
+<dt> <a href="#N818">Purpose</a>
+</dt>
+<dt> <a href="#N826">Usage</a>
+</dt>
+<dt> <a href="#N834">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N843"> &lt;purpose&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N846">Syntax</a>
+</dt>
+<dt> <a href="#N852">Purpose</a>
+</dt>
+<dt> <a href="#N866">Usage</a>
+</dt>
+<dt> <a href="#N882">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N891"> &lt;elaboration&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N894">Syntax</a>
+</dt>
+<dt> <a href="#N909">Purpose</a>
+</dt>
+<dt> <a href="#N921">Usage</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N933"> &lt;spec-citation&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N936">Syntax</a>
+</dt>
+<dt> <a href="#N972">Purpose</a>
+</dt>
+<dt> <a href="#N991">Usage</a>
+</dt>
+<dt> <a href="#N1043">Attribute: <tt>spec</tt></a>
+</dt>
+<dt> <a href="#N1080">Attribute: <tt>version</tt></a>
+</dt>
+<dt> <a href="#N1102">Attribute: <tt>type</tt></a>
+</dt>
+<dt> <a href="#N1180">Attribute: <tt>place</tt></a>
+</dt>
+<dt> <a href="#N1199">Attribute: <tt>version-drop</tt></a>
+</dt>
+<dt> <a href="#N1217">Attribute: <tt>errata-add</tt></a>
+</dt>
+<dt> <a href="#N1228">Attribute: <tt>errata-add-date</tt></a>
+</dt>
+<dt> <a href="#N1237">Attribute: <tt>errata-drop</tt></a>
+</dt>
+<dt> <a href="#N1246">Attribute: <tt>errata-drop-date</tt></a>
+</dt>
+<dt> <a href="#N1255">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1264"> &lt;discretionary&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1267">Syntax</a>
+</dt>
+<dt> <a href="#N1285">Purpose</a>
+</dt>
+<dt> <a href="#N1310">Usage</a>
+</dt>
+<dt> <a href="#N1320">The Catalog of Discretion</a>
+</dt>
+<dt> <a href="#N1331">Attribute: name</a>
+</dt>
+<dt> <a href="#N1342">Attribute: behavior</a>
+</dt>
+<dt> <a href="#N1353">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1368"> &lt;gray-area&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1371">Syntax</a>
+</dt>
+<dt> <a href="#N1389">Purpose</a>
+</dt>
+<dt> <a href="#N1405">Usage</a>
+</dt>
+<dt> <a href="#N1436">Attribute: name</a>
+</dt>
+<dt> <a href="#N1463">Attribute: behavior</a>
+</dt>
+<dt> <a href="#N1506">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1521"> &lt;scenario&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1524">Syntax</a>
+</dt>
+<dt> <a href="#N1542">Purpose</a>
+</dt>
+<dt> <a href="#N1563">Usage</a>
+</dt>
+<dt> <a href="#N1579">Attribute: <tt>operation</tt></a>
+</dt>
+<dt> <a href="#N1662">Attribute: <tt>message</tt></a>
+</dt>
+<dt> <a href="#N1672">Attribute: <tt>error</tt></a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1682">&lt;input-file&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1685">Syntax</a>
+</dt>
+<dt> <a href="#N1697">Purpose</a>
+</dt>
+<dt> <a href="#N1708">Usage</a>
+</dt>
+<dt> <a href="#N1727">Attribute: <tt>role</tt></a>
+</dt>
+<dt> <a href="#N1785">Example</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1797">&lt;output-file&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1800">Syntax</a>
+</dt>
+<dt> <a href="#N1815">Purpose</a>
+</dt>
+<dt> <a href="#N1836">Usage</a>
+</dt>
+<dt> <a href="#N1849">Attribute: <tt>role</tt></a>
+</dt>
+<dt> <a href="#N1898">Attribute: <tt>compare</tt></a>
+</dt>
+<dt> <a href="#N1985">Example</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1996">&lt;param-set&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1999">Syntax</a>
+</dt>
+<dt> <a href="#N2017">Purpose</a>
+</dt>
+<dt> <a href="#N2031">Usage</a>
+</dt>
+<dt> <a href="#N2039">Attribute: <tt>name</tt></a>
+</dt>
+<dt> <a href="#N2049">Attribute: <tt>type</tt></a>
+</dt>
+<dt> <a href="#N2090">Attribute: <tt>value</tt></a>
+</dt>
+<dt> <a href="#N2100">Example</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N2112">&lt;console&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N2115">Syntax</a>
+</dt>
+<dt> <a href="#N2130">Purpose</a>
+</dt>
+<dt> <a href="#N2135">Usage</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt>2. <a href="#ValidatingCatalog">Validating the Test Catalog</a>
+</dt>
+<dt>3. <a href="#PackagingFiles">Packaging the Files</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N2337">Directory Structure</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N2365">The VALIDATE Directory</a>
+</dt>
+<dt> <a href="#N2380">The TEST Directory</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N2398">How to Package Your Submission</a>
+</dt>
+</dl>
+</dd>
+<dt>4. <a href="#N2434">Updating a Submission</a>
+</dt>
+</dl>
+</div>
+<div id="N238" class="preface">
+<h2 class="title">
+<a name="N238">Introduction</a>
+</h2>
+<p>The OASIS XSLT/XPath Conformance Committee ("the Committee") collects
+		test cases to include in its XSLT/XPath Conformance Test Suite. This document
+		explains how to submit a catalog of test cases for consideration by the
+		Committee. </p>
+<p>The submission must include the following items: 
+		<div class="itemizedlist">
+<ul>
+<li>
+<a name="N246"></a>
+<p>a catalog of test cases, in the form of an XML instance
+				conforming to the OASIS Collection Catalog DTD (collcat.dtd). </p>
+</li>
+<li>
+<a name="N249"></a>
+<p>a file tree of test cases, including (allegedly) correct
+				results</p>
+</li>
+</ul>
+</div> </p>
+<p>The first chapter of this document walks through the DTD in document
+		order, clarifying the specific requirements of the XSLT/XPath Conformance
+		Committee.</p>
+<p>The second chapter of this document explains how to validate the
+		catalog.</p>
+<p>The third chapter explains how to package the files that make up the
+		test suite.</p>
+<p>The fourth chapter explains how to re-submit or update a test
+		catalog.</p>
+</div>
+<div id="N261" class="preface">
+<h2 class="title">
+<a name="N261">Purpose of this Guide</a>
+</h2>
+<p>The purpose of this guide is to provide submitters with everything
+		they need to know to prepare the following items for submission:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="N267"></a>
+<p>test case(s)</p>
+</li>
+<li>
+<a name="N270"></a>
+<p>reference output</p>
+</li>
+<li>
+<a name="N273"></a>
+<p>test catalog</p>
+</li>
+</ul>
+</div>
+<p>If you need help figuring out what to submit, see the separate
+		Submission Guidelines document (subguide.htm).</p>
+</div>
+<div id="N278" class="preface">
+<h2 class="title">
+<a name="N278">Scope of this Guide</a>
+</h2>
+<p>This guide instructs you on how to prepare and submit test cases for
+		XSLT/XPath conformance. </p>
+<p>This includes the following:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="N286"></a>
+<p>gathering the input and output files</p>
+</li>
+<li>
+<a name="N289"></a>
+<p>creating the test catalog according to the Collection Catalog
+			 DTD</p>
+</li>
+<li>
+<a name="N292"></a>
+<p>validating the submission</p>
+</li>
+</ul>
+</div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N295">Note</a>
+</h3>
+<p>The Committee recommends that you set aside a clean directory tree
+		  to unpack the OASIS package and organize all the files to be submitted.</p>
+</div>
+</div>
+<div id="N298" class="preface">
+<h2 class="title">
+<a name="N298">Audience of this Guide</a>
+</h2>
+<p>This document is addressed to test submitters, using the second
+		person ("you"). </p>
+</div>
+<div id="N303" class="preface">
+<h2 class="title">
+<a name="N303">Related Documents</a>
+</h2>
+<p>All submitters should read the following documents:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="reference-policy-doc"></a>
+<p>Submission Guidelines and Policy (subguide.htm)</p>
+</li>
+<li>
+<a name="catalog-of-discretion-doc"></a>
+<p>Catalog of Discretion (xsltdisc.htm)</p>
+</li>
+</ul>
+</div>
+<p>For advanced information, submitters may also read:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="xslt-config-doc"></a>
+<p>
+<tt>xsltcfg.htm</tt>
+</p>
+</li>
+</ul>
+</div>
+</div>
+<div id="N326" class="chapter">
+<h2 class="title">
+<a name="N326">1. Creating a Test Catalog: A Walk-through of the Collection Catalog
+		DTD</a>
+</h2>
+<div class="toc">
+<p>
+<b>Table of Contents</b>
+</p>
+<dl>
+<dt> <a href="#N381">&lt;test-suite&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N384">Syntax</a>
+</dt>
+<dt> <a href="#N390">Purpose</a>
+</dt>
+<dt> <a href="#N399">Usage</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N407">&lt;test-catalog&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N410">Syntax</a>
+</dt>
+<dt> <a href="#N423">Purpose</a>
+</dt>
+<dt> <a href="#N432">Usage</a>
+</dt>
+<dt> <a href="#N437">Attribute: submitter</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N454">&lt;creator&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N457">Syntax</a>
+</dt>
+<dt> <a href="#N463">Purpose</a>
+</dt>
+<dt> <a href="#N475">Usage</a>
+</dt>
+<dt> <a href="#N500">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N514">&lt;date&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N517">Syntax</a>
+</dt>
+<dt> <a href="#N523">Purpose</a>
+</dt>
+<dt> <a href="#N532">Usage</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N543"> &lt;test-case&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N546">Syntax</a>
+</dt>
+<dt> <a href="#N561">Purpose</a>
+</dt>
+<dt> <a href="#N569">Usage</a>
+</dt>
+<dt> <a href="#N580">Attribute: <tt>id</tt></a>
+</dt>
+<dt> <a href="#N605">Attribute: <tt>category</tt></a>
+</dt>
+<dt> <a href="#N711">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#file-path-section"> &lt;file-path&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N724">Syntax</a>
+</dt>
+<dt> <a href="#N730">Purpose</a>
+</dt>
+<dt> <a href="#N744">Usage</a>
+</dt>
+<dt> <a href="#N754">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N763"> &lt;creator&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N766">Syntax</a>
+</dt>
+<dt> <a href="#N772">Purpose</a>
+</dt>
+<dt> <a href="#N792">Usage</a>
+</dt>
+<dt> <a href="#N800">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N809"> &lt;date&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N812">Syntax</a>
+</dt>
+<dt> <a href="#N818">Purpose</a>
+</dt>
+<dt> <a href="#N826">Usage</a>
+</dt>
+<dt> <a href="#N834">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N843"> &lt;purpose&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N846">Syntax</a>
+</dt>
+<dt> <a href="#N852">Purpose</a>
+</dt>
+<dt> <a href="#N866">Usage</a>
+</dt>
+<dt> <a href="#N882">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N891"> &lt;elaboration&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N894">Syntax</a>
+</dt>
+<dt> <a href="#N909">Purpose</a>
+</dt>
+<dt> <a href="#N921">Usage</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N933"> &lt;spec-citation&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N936">Syntax</a>
+</dt>
+<dt> <a href="#N972">Purpose</a>
+</dt>
+<dt> <a href="#N991">Usage</a>
+</dt>
+<dt> <a href="#N1043">Attribute: <tt>spec</tt></a>
+</dt>
+<dt> <a href="#N1080">Attribute: <tt>version</tt></a>
+</dt>
+<dt> <a href="#N1102">Attribute: <tt>type</tt></a>
+</dt>
+<dt> <a href="#N1180">Attribute: <tt>place</tt></a>
+</dt>
+<dt> <a href="#N1199">Attribute: <tt>version-drop</tt></a>
+</dt>
+<dt> <a href="#N1217">Attribute: <tt>errata-add</tt></a>
+</dt>
+<dt> <a href="#N1228">Attribute: <tt>errata-add-date</tt></a>
+</dt>
+<dt> <a href="#N1237">Attribute: <tt>errata-drop</tt></a>
+</dt>
+<dt> <a href="#N1246">Attribute: <tt>errata-drop-date</tt></a>
+</dt>
+<dt> <a href="#N1255">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1264"> &lt;discretionary&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1267">Syntax</a>
+</dt>
+<dt> <a href="#N1285">Purpose</a>
+</dt>
+<dt> <a href="#N1310">Usage</a>
+</dt>
+<dt> <a href="#N1320">The Catalog of Discretion</a>
+</dt>
+<dt> <a href="#N1331">Attribute: name</a>
+</dt>
+<dt> <a href="#N1342">Attribute: behavior</a>
+</dt>
+<dt> <a href="#N1353">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1368"> &lt;gray-area&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1371">Syntax</a>
+</dt>
+<dt> <a href="#N1389">Purpose</a>
+</dt>
+<dt> <a href="#N1405">Usage</a>
+</dt>
+<dt> <a href="#N1436">Attribute: name</a>
+</dt>
+<dt> <a href="#N1463">Attribute: behavior</a>
+</dt>
+<dt> <a href="#N1506">Examples</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1521"> &lt;scenario&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1524">Syntax</a>
+</dt>
+<dt> <a href="#N1542">Purpose</a>
+</dt>
+<dt> <a href="#N1563">Usage</a>
+</dt>
+<dt> <a href="#N1579">Attribute: <tt>operation</tt></a>
+</dt>
+<dt> <a href="#N1662">Attribute: <tt>message</tt></a>
+</dt>
+<dt> <a href="#N1672">Attribute: <tt>error</tt></a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1682">&lt;input-file&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1685">Syntax</a>
+</dt>
+<dt> <a href="#N1697">Purpose</a>
+</dt>
+<dt> <a href="#N1708">Usage</a>
+</dt>
+<dt> <a href="#N1727">Attribute: <tt>role</tt></a>
+</dt>
+<dt> <a href="#N1785">Example</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1797">&lt;output-file&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1800">Syntax</a>
+</dt>
+<dt> <a href="#N1815">Purpose</a>
+</dt>
+<dt> <a href="#N1836">Usage</a>
+</dt>
+<dt> <a href="#N1849">Attribute: <tt>role</tt></a>
+</dt>
+<dt> <a href="#N1898">Attribute: <tt>compare</tt></a>
+</dt>
+<dt> <a href="#N1985">Example</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N1996">&lt;param-set&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N1999">Syntax</a>
+</dt>
+<dt> <a href="#N2017">Purpose</a>
+</dt>
+<dt> <a href="#N2031">Usage</a>
+</dt>
+<dt> <a href="#N2039">Attribute: <tt>name</tt></a>
+</dt>
+<dt> <a href="#N2049">Attribute: <tt>type</tt></a>
+</dt>
+<dt> <a href="#N2090">Attribute: <tt>value</tt></a>
+</dt>
+<dt> <a href="#N2100">Example</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N2112">&lt;console&gt;</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N2115">Syntax</a>
+</dt>
+<dt> <a href="#N2130">Purpose</a>
+</dt>
+<dt> <a href="#N2135">Usage</a>
+</dt>
+</dl>
+</dd>
+</dl>
+</div>
+<p>The Collection Catalog DTD allows the following information to be
+		associated with a test case:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="N332"></a>
+<p>Identification 
+			 <div class="itemizedlist">
+<ul>
+<li>
+<a name="N336"></a>
+<p>who submitted the test case?</p>
+</li>
+<li>
+<a name="N339"></a>
+<p>when was the test case submitted?</p>
+</li>
+<li>
+<a name="N342"></a>
+<p>who created the test case?</p>
+</li>
+</ul>
+</div>
+</p>
+</li>
+<li>
+<a name="N345"></a>
+<p>Description 
+			 <div class="itemizedlist">
+<ul>
+<li>
+<a name="N349"></a>
+<p>what is the purpose of the test case?</p>
+</li>
+<li>
+<a name="N352"></a>
+<p>which specific provisions of the specification(s) are under
+					 test in this case?</p>
+</li>
+<li>
+<a name="N355"></a>
+<p>which version of the specification is being tested?</p>
+</li>
+<li>
+<a name="N358"></a>
+<p>what errata, if any, are being tested?</p>
+</li>
+</ul>
+</div>
+</p>
+</li>
+<li>
+<a name="N361"></a>
+<p>Filtering &amp; Discretionary Choices 
+			 <div class="itemizedlist">
+<ul>
+<li>
+<a name="N365"></a>
+<p>should the test case be executed with a given
+					 processor?</p>
+</li>
+</ul>
+</div>
+</p>
+</li>
+<li>
+<a name="N368"></a>
+<p>Operational Parameters</p>
+</li>
+</ul>
+</div>
+<p>The high-level structures in the Collection Catalog DTD are used to
+		group and identify a set of test cases.</p>
+<p>A test catalog will contain one <tt>test-case</tt> element
+		for each test case. All tests from one submitter should be collected into a
+		<tt>test-catalog</tt> element. The Committee will review the catalogs
+		it receives, and will publish selected catalogs as a test-suite.</p>
+<div id="N381" class="section">
+<h2 class="title" style="clear: all">
+<a name="N381"><b>&lt;test-suite&gt;</b></a>
+</h2>
+<div id="N384" class="section">
+<h3 class="title">
+<a name="N384"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT test-suite ( test-catalog+
+			 )&gt;</p>
+</div>
+<div id="N390" class="section">
+<h3 class="title">
+<a name="N390"><b>Purpose</b></a>
+</h3>
+<p>A <tt>test-suite</tt> element is the
+			 document element for a submitter's test catalog. </p>
+</div>
+<div id="N399" class="section">
+<h3 class="title">
+<a name="N399"><b>Usage</b></a>
+</h3>
+<p>The final test suite published by the Committee will contain
+			 several test catalogs, one from each submitter. In contrast, a submitter's
+			 test-suite must contain only one test-catalog.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N404">Note</a>
+</h3>
+<p>Some confusion can arise because the DTD allows more than one
+				test-catalog in a test-suite. Keep in mind that the Collection Catalog DTD is
+				used not only by test submitters; it will also be used by the Committee to
+				process the test cases it receives, and to publish the final test suite.
+				</p>
+</div>
+</div>
+</div>
+<div id="N407" class="section">
+<h2 class="title" style="clear: all">
+<a name="N407"><b>&lt;test-catalog&gt;</b></a>
+</h2>
+<div id="N410" class="section">
+<h3 class="title">
+<a name="N410"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT test-catalog ( creator, date?, test-case *
+			 )&gt;</p>
+<p>&lt;!ATTLIST test-catalog
+			 </p>
+<p>submitter ID #IMPLIED&gt;</p>
+</div>
+<div id="N423" class="section">
+<h3 class="title">
+<a name="N423"><b>Purpose</b></a>
+</h3>
+<p>The <tt>test-catalog</tt> element is a
+			 container for the test cases from one submitter. </p>
+</div>
+<div id="N432" class="section">
+<h3 class="title">
+<a name="N432"><b>Usage</b></a>
+</h3>
+<p>
+</p>
+</div>
+<div id="N437" class="section">
+<h3 class="title">
+<a name="N437"><b>Attribute: submitter</b></a>
+</h3>
+<p>The submitter attribute
+			 value will be assigned by the Committee during the production process. It will
+			 be a globally unique string used to identify the person or organization
+			 submitting the test suite. </p>
+<p>The value of the submitter attribute will also be used as the
+			 name of the top-level directory which will contain all test cases from that
+			 submitter. For example, if the Committee assigns "ABC" as the identifier for
+			 ABC Corporation, then all test cases submitted by ABC Corporation will be
+			 stored in a directory named ABC, and the submitter attribute is "ABC". </p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N451">Note</a>
+</h3>
+<p>Any value supplied by the submitter is subject to change
+				by the Committee.</p>
+</div>
+</div>
+</div>
+<div id="N454" class="section">
+<h2 class="title" style="clear: all">
+<a name="N454"><b>&lt;creator&gt;</b></a>
+</h2>
+<div id="N457" class="section">
+<h3 class="title">
+<a name="N457"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT creator ( #PCDATA )&gt;</p>
+</div>
+<div id="N463" class="section">
+<h3 class="title">
+<a name="N463"><b>Purpose</b></a>
+</h3>
+<p>The <tt>creator</tt> element that is a
+			 child of <tt>test-catalog</tt> identifies the person or organization
+			 submitting the test catalog. </p>
+</div>
+<div id="N475" class="section">
+<h3 class="title">
+<a name="N475"><b>Usage</b></a>
+</h3>
+<p>While the Committee will assign the value of the
+			 submitter attribute, the submitting body
+			 can identify itself in the <tt>creator</tt> element.
+			 The submitter can decide what information to include in this element. It could
+			 include company name and URL, or personal name and email address, for
+			 example.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N488">Note</a>
+</h3>
+<p>Do not confuse this <tt>creator</tt> element with the
+				<tt>creator</tt> child of <tt>test-case</tt>. The latter
+				identifies the individuals who created an individual test case.</p>
+</div>
+</div>
+<div id="N500" class="section">
+<h3 class="title">
+<a name="N500"><b>Examples</b></a>
+</h3>
+<p>The Committee may assign the value "ABC" or "X123" to the
+			 <tt>submitter</tt> attribute, as a unique identifier of the
+			 submitter. The <tt>creator</tt> element allows the submitter to
+			 provide a fuller description of itself, such as:</p>
+<p>&lt;creator&gt;Abner Bentley Conundrum
+			 Corporation&lt;/creator&gt;</p>
+</div>
+</div>
+<div id="N514" class="section">
+<h2 class="title" style="clear: all">
+<a name="N514"><b>&lt;date&gt;</b></a>
+</h2>
+<div id="N517" class="section">
+<h3 class="title">
+<a name="N517"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT date ( #PCDATA )&gt;</p>
+</div>
+<div id="N523" class="section">
+<h3 class="title">
+<a name="N523"><b>Purpose</b></a>
+</h3>
+<p>The <tt>date</tt> element indicates the
+			 date on which the test catalog is submitted to OASIS. </p>
+</div>
+<div id="N532" class="section">
+<h3 class="title">
+<a name="N532"><b>Usage</b></a>
+</h3>
+<p>The Committee will add the <tt>date</tt> element to
+			 track the date the catalog is received from the submitter.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N540">Note</a>
+</h3>
+<p>The submitter can also assign a date to each test case
+				individually. This allows, for example, the submitter to record when a test
+				case was last modified.</p>
+</div>
+</div>
+</div>
+<div id="N543" class="section">
+<h2 class="title" style="clear: all">
+<a name="N543"><b> &lt;test-case&gt;</b></a>
+</h2>
+<div id="N546" class="section">
+<h3 class="title">
+<a name="N546"><b>Syntax</b></a>
+</h3>
+<p>
+<tt>&lt;!ELEMENT test-case ( file-path , creator* , date? ,
+			 purpose , elaboration? , spec-citation+ , discretionary? , gray-area? ,
+			 scenario )&gt;</tt>
+</p>
+<p>
+<tt>&lt;!ATTLIST test-case </tt>
+</p>
+<p>
+<tt>id ID #REQUIRED</tt>
+</p>
+<p>
+<tt>category NMTOKEN #REQUIRED&gt;</tt>
+</p>
+</div>
+<div id="N561" class="section">
+<h3 class="title">
+<a name="N561"><b>Purpose</b></a>
+</h3>
+<p>A catalog can contain any number of test cases. Each
+			 <tt>test-case</tt> element should contain the information necessary
+			 to locate and run one test case. </p>
+</div>
+<div id="N569" class="section">
+<h3 class="title">
+<a name="N569"><b>Usage</b></a>
+</h3>
+<p>The <tt>test-case</tt> element is a container for
+			 information about where the test files are located, their purpose and how to
+			 use them. The attributes on <tt>test-case</tt> identify the case
+			 uniquely and associate it with a Committee-defined category.</p>
+</div>
+<div id="N580" class="section">
+<h3 class="title">
+<a name="N580"><b>Attribute: <tt>id</tt></b></a>
+</h3>
+<p>The purpose of the <tt>id</tt> attribute is to identify
+			 a test case uniquely within the catalog. </p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N590">Note</a>
+</h3>
+<p>When assembling a test suite, the Committee will prefix the
+				<tt>id</tt> value with the value of the <tt>submitter</tt>
+				attribute and the <tt>filepath</tt> element. This will ensure that
+				the <tt>id</tt> values are unique across the published test suite.
+				</p>
+</div>
+</div>
+<div id="N605" class="section">
+<h3 class="title">
+<a name="N605"><b>Attribute: <tt>category</tt></b></a>
+</h3>
+<p>Each test case must be associated with one of the categories that
+			 have been defined by the Committee. The categories are listed in the
+			 xsltcfg.xml file, in the <tt>categories</tt> element. No other values
+			 are permitted; if a test applies to more than one category, the attribute value
+			 should be specified as "Mixed".</p>
+<p>In the xsltcfg.xml file, each <tt>category</tt> element
+			 identifies one category, in its <tt>id</tt> attribute. The associated
+			 <tt>p</tt> element provides a brief description of the
+			 category.</p>
+<p>In the Collection Catalog DTD, the <tt>category</tt>
+			 attribute allows each test case to be associated with Committee-defined
+			 category, without imposing constraints on test names or directory
+			 structure.</p>
+<p>The following table lists the categories initially defined for
+			 XSLT/XPath tests. However, submitters should always consult the newest copy of
+			 the xsltcfg.xml file for an up-to-date list. </p>
+<div class="table">
+<p>
+<a name="N633"></a><b>Table 1.1. Allowable Categories of Test Cases</b>
+</p>
+<table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>CATEGORY</td><td>DEFINITION</td>
+</tr>
+<tr>
+<td>Mixed</td><td>Tests that fit into more than one category</td>
+</tr>
+<tr>
+<td>XPath-Core-Function</td><td>All XPath functions</td>
+</tr>
+<tr>
+<td>XPath-Data-Model</td><td>All XPath not covered by the categories listed
+					 here</td>
+</tr>
+<tr>
+<td>XPath-Expression</td><td>Operators, type conversion</td>
+</tr>
+<tr>
+<td>XPath-Location-Path</td><td>
+<p>Axes, node tests, predicates</p>
+</td>
+</tr>
+<tr>
+<td>XSLT-Data-Manipulation</td><td>
+<p>Sort, for-each, conditionals, variables,
+						keys</p>
+</td>
+</tr>
+<tr>
+<td>XSLT-Data-Model</td><td>
+<p>Treatment of source XML, text and whitespace,
+						entities</p>
+</td>
+</tr>
+<tr>
+<td>XSLT-Extendability</td><td>Functions and instructions related to
+					 extendability</td>
+</tr>
+<tr>
+<td>XSLT-Output</td><td>Output, message</td>
+</tr>
+<tr>
+<td>XSLT-Result-Tree</td><td>
+<p>Creation of nodes in result</p>
+</td>
+</tr>
+<tr>
+<td>XSLT-Structure</td><td>
+<p>Stylesheet/transform, namespace, import,
+						include</p>
+</td>
+</tr>
+<tr>
+<td>XSLT-Template</td><td>Matching, call named, priority</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="N711" class="section">
+<h3 class="title">
+<a name="N711"><b>Examples</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N714"></a><b>Example 1.1.  test-case Tag</b>
+</p>
+<p>&lt;test-case id="first-test"
+				category="XSLT-Result-Tree"&gt;</p>
+</div>
+</div>
+</div>
+<div id="file-path-section" class="section">
+<h2 class="title" style="clear: all">
+<a name="file-path-section"><b> &lt;file-path&gt;</b></a>
+</h2>
+<div id="N724" class="section">
+<h3 class="title">
+<a name="N724"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT file-path (#PCDATA)&gt;</p>
+</div>
+<div id="N730" class="section">
+<h3 class="title">
+<a name="N730"><b>Purpose</b></a>
+</h3>
+<p>The <tt>file-path</tt> element specifies a path,
+			 starting with a directory that is directly under the submitter's root directory
+			 (i.e., the directory named in the <tt>submitter</tt> attribute). The
+			 path must end with the directory containing the file that has been designated
+			 as the "principal" stylesheet file. For those cases without a separate stylesheet,
+                   use the directory containing the principal data file. (See the <tt>role</tt> attribute for
+			 more information about how to designate one file as the principal input file.)
+			 </p>
+</div>
+<div id="N744" class="section">
+<h3 class="title">
+<a name="N744"><b>Usage</b></a>
+</h3>
+<p>If the <tt>file-path</tt> element contains a
+			 multi-level file path, it must use forward slashes as separators, but it should
+			 not begin or end with a slash. The string shall begin with the name of a
+			 directory that is directly within the submitter's root directory, and it must
+			 end with the name of the directory that contains the principal input
+			 file(s). The stylesheet and XML data may be in different directories,
+                   in which case the directory containing the stylesheet should be specified
+                   in this element. For those cases without a separate stylesheet,
+                   use the directory containing the principal data file. (This identifies the
+                   directory that will be the current directory for running the
+                   individual test case.)</p>
+<p>Names in the file path must not contain spaces, must start with a
+			 letter, and should be of reasonable length.</p>
+</div>
+<div id="N754" class="section">
+<h3 class="title">
+<a name="N754"><b>Examples</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N757"></a><b>Example 1.2. file-path tag</b>
+</p>
+<p>&lt;file-path&gt;functions/math/round&gt;</p>
+</div>
+</div>
+</div>
+<div id="N763" class="section">
+<h2 class="title" style="clear: all">
+<a name="N763"><b> &lt;creator&gt;</b></a>
+</h2>
+<div id="N766" class="section">
+<h3 class="title">
+<a name="N766"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT creator (#PCDATA)&gt;</p>
+</div>
+<div id="N772" class="section">
+<h3 class="title">
+<a name="N772"><b>Purpose</b></a>
+</h3>
+<p>The optional and repeatable <tt>creator</tt> element is
+			 intended to identify individual test contributors. It serves two purposes: it
+			 allows the submitting organization to track the creator(s) of each test case,
+			 and it allows the individual test creators to get public credit for their
+			 work.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N780">Note</a>
+</h3>
+<p>Do not confuse this <tt>creator</tt> element with the
+				<tt>creator</tt> child of the <tt>test-catalog</tt>
+				element. The latter identifies the creator of the entire test catalog: that is,
+				the submitter.</p>
+</div>
+</div>
+<div id="N792" class="section">
+<h3 class="title">
+<a name="N792"><b>Usage</b></a>
+</h3>
+<p>In the published test suite, the content of the
+			 <tt>creator</tt> element will be published verbatim.</p>
+</div>
+<div id="N800" class="section">
+<h3 class="title">
+<a name="N800"><b>Examples</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N803"></a><b>Example 1.3. creator tag</b>
+</p>
+<p>&lt;creator&gt;Raffi&lt;/creator&gt;</p>
+</div>
+</div>
+</div>
+<div id="N809" class="section">
+<h2 class="title" style="clear: all">
+<a name="N809"><b> &lt;date&gt;</b></a>
+</h2>
+<div id="N812" class="section">
+<h3 class="title">
+<a name="N812"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT date (#PCDATA)&gt;</p>
+</div>
+<div id="N818" class="section">
+<h3 class="title">
+<a name="N818"><b>Purpose</b></a>
+</h3>
+<p>The <tt>date</tt> element is optional in the DTD, but
+			 the Committee will need to use it if a submitter re-submits a test case.
+			 Therefore, the use of this element is encouraged. </p>
+</div>
+<div id="N826" class="section">
+<h3 class="title">
+<a name="N826"><b>Usage</b></a>
+</h3>
+<p>In accordance with ISO-8601, the date format shall be yyyy-mm-dd
+			 or yyyy/mm/dd. 
+			 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N831">Note</a>
+</h3>
+<p>When processing the catalog, the Committee will strip out the
+				  "-" or "/" separators to allow numeric date comparisons.</p>
+</div>
+</p>
+</div>
+<div id="N834" class="section">
+<h3 class="title">
+<a name="N834"><b>Examples</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N837"></a><b>Example 1.4. date tag</b>
+</p>
+<p>&lt;date&gt;2002-01-17&lt;/date&gt;</p>
+</div>
+</div>
+</div>
+<div id="N843" class="section">
+<h2 class="title" style="clear: all">
+<a name="N843"><b> &lt;purpose&gt;</b></a>
+</h2>
+<div id="N846" class="section">
+<h3 class="title">
+<a name="N846"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT purpose (#PCDATA)&gt;</p>
+</div>
+<div id="N852" class="section">
+<h3 class="title">
+<a name="N852"><b>Purpose</b></a>
+</h3>
+<p>The <tt>purpose</tt> and <tt>elaboration</tt>
+			 elements are closely related: only <tt>purpose</tt> is required. It
+			 should succinctly describe the reason for the test. </p>
+</div>
+<div id="N866" class="section">
+<h3 class="title">
+<a name="N866"><b>Usage</b></a>
+</h3>
+<p>The <tt>purpose</tt> element shall contain a text
+			 string of 255 characters or less, with no new-lines. This text will be used in
+			 the final test suite document to briefly summarize each test. </p>
+<p>If the creator or submitter feels the need to elaborate on the
+			 information in the <tt>purpose</tt> element, comments and/or the
+			 <tt>elaboration</tt> element may be used.</p>
+</div>
+<div id="N882" class="section">
+<h3 class="title">
+<a name="N882"><b>Examples</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N885"></a><b>Example 1.5.  purpose tag</b>
+</p>
+<p>&lt;purpose&gt;Show that 0 equals -0.&lt;/purpose&gt;</p>
+</div>
+</div>
+</div>
+<div id="N891" class="section">
+<h2 class="title" style="clear: all">
+<a name="N891"><b> &lt;elaboration&gt;</b></a>
+</h2>
+<div id="N894" class="section">
+<h3 class="title">
+<a name="N894"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT elaboration &amp;prose;&gt;</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N900">Note</a>
+</h3>
+<p>See the Prose DTD (<tt>prose.dtd</tt>) for an
+				up-to-date content model. Initially, the prose model is very simple: (p
+				| em | strong )*</p>
+</div>
+</div>
+<div id="N909" class="section">
+<h3 class="title">
+<a name="N909"><b>Purpose</b></a>
+</h3>
+<p>The optional <tt>elaboration</tt>
+			 element allows the submitter to provide a more detailed description of the
+			 test's purpose.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N918">Note</a>
+</h3>
+<p>This element can be used to explain non-obvious techniques.
+				Remember that the Committee will be reviewing many tests; any help
+				understanding the non-obvious ones will be greatly appreciated.</p>
+</div>
+</div>
+<div id="N921" class="section">
+<h3 class="title">
+<a name="N921"><b>Usage</b></a>
+</h3>
+<p>If the submitter feels the need to elaborate on the information
+			 in the <tt>purpose</tt> element, the
+			 <tt>elaboration</tt> element may be used.</p>
+</div>
+</div>
+<div id="N933" class="section">
+<h2 class="title" style="clear: all">
+<a name="N933"><b> &lt;spec-citation&gt;</b></a>
+</h2>
+<div id="N936" class="section">
+<h3 class="title">
+<a name="N936"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT spec-citation EMPTY&gt;</p>
+<p>&lt;!ATTLIST spec-citation</p>
+<p>spec NMTOKEN #REQUIRED</p>
+<p>version CDATA #REQUIRED</p>
+<p>type NMTOKEN #REQUIRED</p>
+<p>version-drop NMTOKEN #IMPLIED</p>
+<p>errata-add NMTOKEN #IMPLIED</p>
+<p>errata-add-date CDATA #IMPLIED</p>
+<p>errata-drop NMTOKEN #IMPLIED</p>
+<p>errata-drop-date CDATA #IMPLIED</p>
+<p>place CDATA #REQUIRED&gt;</p>
+</div>
+<div id="N972" class="section">
+<h3 class="title">
+<a name="N972"><b>Purpose</b></a>
+</h3>
+<p>For each test case, the submitter must clearly identify which
+			 specification(s) are being tested.</p>
+<p>The submitter must also supply a pointer to the provisions within
+			 each specification that are involved in a test. The more precise the pointer,
+			 the better. A precise pointer will decrease the need for an
+			 <tt>elaboration</tt> element and will improve the inversion from the
+			 specification to the test cases.</p>
+<p>The pointer information may be used to generate and display
+			 citations.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N984">Note</a>
+</h3>
+<p>Each test case should involve only one testable assertion. See
+				the Submission Policy Guide for a more detailed definition of
+				"assertion".</p>
+</div>
+<p>Each pertinent specification should be cited by version number
+			 and (if relevant) errata status. </p>
+<p>Some tests are developed in response to an erratum, as opposed to
+			 the specification itself. The release of an errata document may require new
+			 test cases, and it may make other tests obsolete. Submitters should keep in
+			 mind that a version of a specification can have any number of errata issued
+			 against it (including none). In addition, an erratum issued against one version
+			 of a specification does not apply to later versions of that
+			 specification.</p>
+</div>
+<div id="N991" class="section">
+<h3 class="title">
+<a name="N991"><b>Usage</b></a>
+</h3>
+<p>To cite a specification unambiguously, the submitter must
+			 indicate the name of the specification (<tt>spec</tt>) and its
+			 version (version). The submitter must also
+			 indicate the kind of pointer used to isolate the relevant portion of the
+			 specification (<tt>type</tt>) and provide the pointer itself
+			 (<tt>place</tt>).</p>
+<p>The values of these attributes may function as components in a
+			 displayable (and possibly linkable) citation to the specification.</p>
+<p>For example, given the following attribute values:</p>
+<table class="simplelist" border="0">
+<tr>
+<td><tt>spec="XSLT"</tt></td>
+</tr>
+<tr>
+<td><tt>version="1999-11-16"</tt></td>
+</tr>
+<tr>
+<td><tt>type="section"</tt></td>
+</tr>
+<tr>
+<td><tt>place="7.7 Numbering"</tt></td>
+</tr>
+</table>
+<p>the following pointer could be displayed:</p>
+<p>Doc: http://www.w3.org/TR/1999/REC-xslt-19991116 Section: 7.7
+			 Numbering</p>
+<p>See the <tt>citation-specifications</tt> element in the
+			 <tt>xsltcfg.xml</tt> document for more information about the
+			 specifications that the Committee recognizes, and the permitted methods of
+			 citing these specifications. The following Attribute sections (spec, version,
+			 type, etc.) provide instructions on how to read this part of the
+			 <tt>xsltcfg.xml</tt> document.</p>
+</div>
+<div id="N1043" class="section">
+<h3 class="title">
+<a name="N1043"><b>Attribute: <tt>spec</tt></b></a>
+</h3>
+<p>XSLT/XPath conformance tests can be related to one of three
+			 Recommendations or corresponding Errata. Therefore, the <tt>spec</tt>
+			 attribute value must match one of the following five values:</p>
+<p> 
+			 <div class="orderedlist">
+<ol>
+<li>
+<a name="N1058"></a>
+<p>XSLT</p>
+</li>
+<li>
+<a name="N1061"></a>
+<p>XPath</p>
+</li>
+<li>
+<a name="N1064"></a>
+<p>XML-stylesheet</p>
+</li>
+<li>
+<a name="N1067"></a>
+<p>XSLT-errata</p>
+</li>
+<li>
+<a name="N1070"></a>
+<p>XPath-errata</p>
+</li>
+</ol>
+</div>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N1073">Note</a>
+</h3>
+<p>Always consult the latest version of the
+				<tt>xsltcfg.xml</tt> document for an up-to-date list of allowable
+				specifications.</p>
+</div>
+</div>
+<div id="N1080" class="section">
+<h3 class="title">
+<a name="N1080"><b>Attribute: <tt>version</tt></b></a>
+</h3>
+<p>This attribute identifies the version of the specification being
+			 tested.</p>
+<p>The <tt>version</tt> attribute facilitates inequality
+			 tests, so its value must be numeric.</p>
+<p>If more than one specification is implicated by the test, the
+			 main specification should always be cited. If the test is really about XPath or
+			 XML-Stylesheet, try to use only the base features of XSLT (version 1.0 without
+			 any errata).</p>
+<p>If the test concerns an erratum, then the
+			 <tt>version</tt> attribute should specify the version of the base
+			 specification (e.g., XSLT 1.0), and the version of the errata should be
+			 specified in the appropriate <tt>errata-*</tt> attribute.</p>
+</div>
+<div id="N1102" class="section">
+<h3 class="title">
+<a name="N1102"><b>Attribute: <tt>type</tt></b></a>
+</h3>
+<p>There are three types of pointers that a submitter can use to
+			 identify the relevant portions of specifications. The three possible values
+			 are:</p>
+<p> 
+			 <div class="orderedlist">
+<ol>
+<li>
+<a name="N1114"></a>
+<p>
+<tt>type="section"</tt>, to point to a numbered
+					 section.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N1119">Note</a>
+</h3>
+<p>Always consult the latest version of the
+						<tt>xsltcfg.xml</tt> document for an up-to-date list of allowable
+						specifications.</p>
+</div>
+<p>Since a <tt>section</tt> pointer is human-legible
+					 and not intended for automated linking, it should be used only when neither of
+					 the other two types of pointers are possible.</p>
+<p>Example: </p>
+</li>
+<li>
+<a name="N1133"></a>
+<p>
+<tt>type="anchor"</tt>, to point to an HTML-style
+					 anchor.</p>
+<p>This type of pointer is machine-readable, used for linking
+					 directly into HTML source information.</p>
+<p>For example, given a citation to the XPath Recommendation,
+					 with </p>
+<p>For example, given a citation to the XPath Recommendation,
+					 with <tt>type="anchor"</tt> and <tt>place="number"</tt>,
+					 the resulting pointer becomes: </p>
+<p>
+<tt>http://www.w3.org/TR/1999/REC-xpath-19991116.xml#number</tt>.</p>
+</li>
+<li>
+<a name="N1154"></a>
+<p>
+<tt>type="XPointer"</tt>, to use an ID from the
+					 specification document, optionally followed by an XPath expression to qualify
+					 it further.</p>
+<p>This type of pointer is machine-readable, used for linking
+					 directly into XML source information.</p>
+<p>For example, given a citation to the XPath Recommendation,
+					 with <tt>type="XPointer"</tt> and
+					 <tt>place="id(number)/ulist[2]/item[2]/p[1]/text()[1]"</tt>, the
+					 resulting pointer becomes: </p>
+<p>
+<tt>http://www.w3.org/TR/1999/REC-xpath-19991116.xml#pointer(id(number)/ulist[2]/item[2]/p[1]/text()[1])</tt>.</p>
+</li>
+</ol>
+</div>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N1173">Note</a>
+</h3>
+<p>Always consult the latest version of the
+				<tt>xsltcfg.xml</tt> document for an up-to-date list of allowable
+				types.</p>
+</div>
+</div>
+<div id="N1180" class="section">
+<h3 class="title">
+<a name="N1180"><b>Attribute: <tt>place</tt></b></a>
+</h3>
+<p>The <tt>place</tt> attribute should contain a precise
+			 pointer to the part of the specification covered by the test. You must use a
+			 pointer that corresponds to the value of the <tt>type</tt> attribute.
+			 For example, if <tt>type="section"</tt>, then the
+			 <tt>place</tt> attribute should specify a section number.</p>
+</div>
+<div id="N1199" class="section">
+<h3 class="title">
+<a name="N1199"><b>Attribute: <tt>version-drop</tt></b></a>
+</h3>
+<p>The <tt>version-drop</tt> attribute indicates a version
+			 of the specification that makes the test case unnecessary.</p>
+<p>If the <tt>version-drop</tt> attribute is specified,
+			 the value must be numerically greater than the value of the
+			 <tt>version</tt> attribute.</p>
+</div>
+<div id="N1217" class="section">
+<h3 class="title">
+<a name="N1217"><b>Attribute: <tt>errata-add</tt></b></a>
+</h3>
+<p>The errata-add or (errata-add-date) attribute indicates that the
+			 test case became necessary when the errata document was issued. </p>
+<p>The submitter has a choice of identifying the pertinent erratum by
+			 errata number or date, because some Working Groups do not number their errata.
+			 All dates in a test-suite should be in ISO-8601 format: yyyy-mm-dd.</p>
+<p>Errata are issued against a particular version of a
+			 Recommendation. Therefore, the submitter must specify the version of the base
+			 specification, plus the errata number or date.</p>
+</div>
+<div id="N1228" class="section">
+<h3 class="title">
+<a name="N1228"><b>Attribute: <tt>errata-add-date</tt></b></a>
+</h3>
+<p>The errata-add or (errata-add-date) attribute indicates that the
+			 test case became necessary when the errata document was issued. </p>
+<p>The submitter has a choice of identifying the pertinent errata by
+			 errata number or date, because some Working Groups do not number their errata.
+			 All dates in a test-suite should be in ISO-8601 format: yyyy-mm-dd.</p>
+</div>
+<div id="N1237" class="section">
+<h3 class="title">
+<a name="N1237"><b>Attribute: <tt>errata-drop</tt></b></a>
+</h3>
+<p>The errata-drop (or errata-drop-date) attribute indicates that
+			 the test case is no longer necessary, now that the errata document has been issued. The
+			 value of the errata-drop or (errata-drop-date) attribute must always be
+			 numerically greater than the value of the errata-add (or errata-add-date)
+			 attribute.</p>
+<p>The submitter has a choice of identifying the pertinent erratum by
+			 errata number or date, because some Working Groups do not number their errata.
+			 All dates in a test-suite should be in ISO-8601 format: yyyy-mm-dd.</p>
+</div>
+<div id="N1246" class="section">
+<h3 class="title">
+<a name="N1246"><b>Attribute: <tt>errata-drop-date</tt></b></a>
+</h3>
+<p>The errata-drop (or errata-drop-date) attribute indicates that
+			 the test case is no longer necessary, now that the errata document has been issued. The
+			 value of the errata-drop or (errata-drop-date) attribute must always be
+			 numerically greater than the value of the errata-add (or errata-add-date)
+			 attribute.</p>
+<p>The submitter has a choice of identifying the pertinent erratum by
+			 errata number or date, because some Working Groups do not number their errata.
+			 All dates in a test-suite should be in ISO-8601 format: yyyy-mm-dd.</p>
+</div>
+<div id="N1255" class="section">
+<h3 class="title">
+<a name="N1255"><b>Examples</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N1258"></a><b>Example 1.6. spec-citation tag </b>
+</p>
+<p>&lt;spec-citation spec="XPath" version="1.0"
+				type="XPointer" place="id('strip')/p[3]/text()[1]"/&gt;</p>
+</div>
+</div>
+</div>
+<div id="N1264" class="section">
+<h2 class="title" style="clear: all">
+<a name="N1264"><b> &lt;discretionary&gt;</b></a>
+</h2>
+<div id="N1267" class="section">
+<h3 class="title">
+<a name="N1267"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT discretionary ( discretionary-choice )+
+			 &gt;</p>
+<p>&lt;!ELEMENT discretionary-choice EMPTY
+			 &gt;</p>
+<p>&lt;!ATTLIST discretionary-choice </p>
+<p>name NMTOKEN #REQUIRED</p>
+<p>behavior NMTOKEN #REQUIRED&gt;</p>
+</div>
+<div id="N1285" class="section">
+<h3 class="title">
+<a name="N1285"><b>Purpose</b></a>
+</h3>
+<p>The Committee has identified and named the areas in the XSLT and
+			 XPath Recommendations where the processor's behavior is left up to the
+			 discretion of the developer. If a test case examines a processor's response to
+			 one or more discretionary items, you must indicate this with the
+			 <tt>discretionary</tt> element. </p>
+<p>The <tt>discretionary</tt> element will be used by
+			 testers to filter out irrelevant test cases when a test suite is assembled.
+			 Typically, if a test case mentions a discretionary item, the test case would be
+			 excluded from a rendered test suite for those processors that have made a
+			 different choice for that item. It would be included for those processors that
+			 have made the same choice as the one indicated in the test.</p>
+<p>On the other hand, if a test case does not mention a
+			 discretionary item, the tester should assume that the test case does not depend
+			 on that specific discretionary choice. Therefore, the test case would be
+			 included for any choice made on that item.</p>
+<p>For example, if a test case specifies the discretionary item
+			 "attribute-name-not-Qname" and the behavior "raise-error", then a test lab will
+			 likely exclude it when testing a processor that has implemented the "ignore"
+			 behavior.</p>
+<p>Submitters may, if they wish, submit a separate test case for
+			 each branch of a multiple choice. In that case, each test must have its own
+			 distinct test name and reference output file.</p>
+<p> See the Catalog of Discretion
+			 (<tt>xsltdisc.htm</tt>) for details about each discretionary item
+			 that has been identified by the Committee.</p>
+</div>
+<div id="N1310" class="section">
+<h3 class="title">
+<a name="N1310"><b>Usage</b></a>
+</h3>
+<p>If a test case examines a processor's behavior in one or more
+			 discretionary areas, the submitter must create a
+			 <tt>discretionary-choice</tt> element for each area. </p>
+<p>This information will allow a test lab to exclude tests that deal
+			 with discretionary items or behaviors not implemented by the processor being
+			 tested.</p>
+</div>
+<div id="N1320" class="section">
+<h3 class="title">
+<a name="N1320"><b>The Catalog of Discretion</b></a>
+</h3>
+<p>The Committee has cataloged the discretionary choices that are
+			 available to the processor developer. Each entry in the catalog has been
+			 assigned a name, and the allowed choices have been identified by keywords.
+			 These names and keywords must be used as the values of the
+			 <tt>name</tt> and <tt>behavior</tt> attributes,
+			 respectively.</p>
+</div>
+<div id="N1331" class="section">
+<h3 class="title">
+<a name="N1331"><b>Attribute: name</b></a>
+</h3>
+<p>For each discretionary choice element, the
+			 <tt>name</tt> attribute must specify the name of the discretionary
+			 area. See the Catalog of Discretion for a list of allowable
+			 discretionary-choice names.</p>
+</div>
+<div id="N1342" class="section">
+<h3 class="title">
+<a name="N1342"><b>Attribute: behavior</b></a>
+</h3>
+<p>For each discretionary-choice element, the
+			 <tt>behavior</tt> attribute must specify the choice being tested. The
+			 Committee has created keywords to identify possible behaviors. See the Catalog
+			 of Discretion for a list of behaviors allowed for each discretionary
+			 choice.</p>
+</div>
+<div id="N1353" class="section">
+<h3 class="title">
+<a name="N1353"><b>Examples</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N1356"></a><b>Example 1.7. discretionary element</b>
+</p>
+<p>&lt;discretionary&gt;</p>
+<p>&lt;discretionary-choice
+				name="two-attribute-set-same-attribute"
+				behavior="choose-last"/&gt;</p>
+<p>&lt;/discretionary&gt;</p>
+</div>
+</div>
+</div>
+<div id="N1368" class="section">
+<h2 class="title" style="clear: all">
+<a name="N1368"><b> &lt;gray-area&gt;</b></a>
+</h2>
+<div id="N1371" class="section">
+<h3 class="title">
+<a name="N1371"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT gray-area ( gray-area-choice )+
+			 &gt;</p>
+<p>&lt;!ELEMENT gray-area-choice EMPTY&gt;</p>
+<p>&lt;!ATTLIST gray-area-choice</p>
+<p>name NMTOKEN #REQUIRED</p>
+<p> behavior NMTOKEN #REQUIRED&gt;</p>
+</div>
+<div id="N1389" class="section">
+<h3 class="title">
+<a name="N1389"><b>Purpose</b></a>
+</h3>
+<p>The Committee is currently identifying and cataloging the gray
+			 areas it finds in the XSLT-related specifications, and defining some allowable
+			 actions for each gray area, which can be used as a basis for writing tests. See
+			 the <tt>xsltcfg.xml</tt> file for the current list of gray
+			 areas.</p>
+<p>The <tt>gray-area</tt> element will be used by testers
+			 to filter out irrelevant test cases when a test suite is assembled. Typically,
+			 if a test case mentions a gray area, the test case would be excluded from a
+			 rendered test suite for those processors that have made a different choice for
+			 that gray area. It would be included for those processors that have made the
+			 same choice as the one indicated in the test.</p>
+<p>On the other hand, if a test case does not mention a gray area,
+			 the tester should assume that the test case does not depend on any specific
+			 behavior by the processor. Therefore, the test case would be included for any
+			 choice made on that item.</p>
+</div>
+<div id="N1405" class="section">
+<h3 class="title">
+<a name="N1405"><b>Usage</b></a>
+</h3>
+<p>The <tt>gray-area</tt> element must be used when a test
+			 case examines a processor's response to a vague area in the specification. This
+			 is not to be confused with discretionary areas, where the specification offers
+			 clear choices to the processor developer. </p>
+<p>In the xsltcfg.xml file, the Committee has cataloged the
+			 gray-area choices that are available to the processor developer. Each entry in
+			 the catalog has been assigned a name, and the allowed choices have been
+			 identified by keywords. These names and keywords must be used as the values of
+			 the <tt>name</tt> and <tt>behavior</tt> attributes,
+			 respectively.</p>
+<p>Submitters may, if they wish, submit a separate test case for
+			 each branch of a two-way choice. In that case, each test must have its own
+			 distinct test name and reference output file.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N1423">Note</a>
+</h3>
+<p>Errata should clear up some gray areas, so the submitter should
+				monitor new releases and indicate any relevant errata document using the
+				errata-add attribute on
+				<tt>spec-citation</tt>. </p>
+<p>For example, if a case tests a vague area, and the vagueness is
+				later addressed in an erratum, then the submitter should resubmit the test, with
+				the erratum specified. This will allow the same test to be used in examining the
+				processor's conformance to the errata.</p>
+</div>
+</div>
+<div id="N1436" class="section">
+<h3 class="title">
+<a name="N1436"><b>Attribute: name</b></a>
+</h3>
+<p>The <tt>name</tt> attribute must specify the name of
+			 the gray area being tested. </p>
+<p>See the file <tt>xsltcfg.xml</tt> for a list of
+			 allowable gray-area names. In each <tt>gray-area</tt> element, the
+			 value of the <tt>id</tt> attribute is the name of the gray area. For
+			 example, in <tt>&lt;&lt;gray-area id="gray1"&gt;&gt;</tt>,
+			 the gray-area's name is "gray1".</p>
+</div>
+<div id="N1463" class="section">
+<h3 class="title">
+<a name="N1463"><b>Attribute: behavior</b></a>
+</h3>
+<p>For each gray-area named, the <tt>behavior</tt>
+			 attribute must specify the choice being tested. The Committee has created
+			 keywords to identify possible behaviors. </p>
+<p>See the file <tt>xsltcfg.xml</tt> for a list of
+			 allowable behaviors for each gray area. Each <tt>gray-area</tt>
+			 element has one or more <tt>choice</tt> descendants. The value of the
+			 <tt>value</tt> attribute on the <tt>choice</tt> element is
+			 the keyword for an allowable behavior. For example, if there are two such
+			 elements (<tt>&lt;choice value="ignore"&gt;</tt> and
+			 <tt>&lt;choice value="raise-error"&gt;</tt>, then the value of the
+			 <tt>behavior</tt> attribute must be either "ignore" or "raise-error".
+			 No other values will be accepted by the Committee.</p>
+<p> 
+			 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N1503">Note</a>
+</h3>
+<p>Be sure to update your copy of the xsltcfg.xml file
+				  regularly, since it may change. At the time of this writing, the xsltcfg.xml
+				  file was part of a submissions prototype, and the gray area choices were not
+				  complete.</p>
+</div>
+</p>
+</div>
+<div id="N1506" class="section">
+<h3 class="title">
+<a name="N1506"><b>Examples</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N1509"></a><b>Example 1.8. gray-area element</b>
+</p>
+<p>&lt;gray-area&gt;</p>
+<p>&lt;gray-area-choice name="gray1"
+				behavior="ignore"/&gt;</p>
+<p>&lt;/gray-area&gt;</p>
+</div>
+</div>
+</div>
+<div id="N1521" class="section">
+<h2 class="title" style="clear: all">
+<a name="N1521"><b> &lt;scenario&gt;</b></a>
+</h2>
+<div id="N1524" class="section">
+<h3 class="title">
+<a name="N1524"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT scenario ( input-file* , output-file* ,
+			 param-set* , console? )&gt;</p>
+<p>&lt;!ATTLIST scenario </p>
+<p>operation NMTOKEN #REQUIRED</p>
+<p>message ( message ) #IMPLIED</p>
+<p>error ( error ) #IMPLIED&gt;</p>
+</div>
+<div id="N1542" class="section">
+<h3 class="title">
+<a name="N1542"><b>Purpose</b></a>
+</h3>
+<p>The <tt>scenario</tt> element defines the parameters
+			 needed to run the test, such as:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="N1551"></a>
+<p>inputs</p>
+</li>
+<li>
+<a name="N1554"></a>
+<p>outputs</p>
+</li>
+<li>
+<a name="N1557"></a>
+<p>instructions on how to run the test</p>
+</li>
+<li>
+<a name="N1560"></a>
+<p>indication of how to evaluate the results</p>
+</li>
+</ul>
+</div>
+</div>
+<div id="N1563" class="section">
+<h3 class="title">
+<a name="N1563"><b>Usage</b></a>
+</h3>
+<p>Each test case requires a <tt>scenario</tt> element. It
+			 is a container element that allows the submitter to list and describe the input
+			 and output files, parameters, etc. See the sections for each of those elements
+			 below.</p>
+<p>The names of individual input and output files are provided as
+			 the content of the <tt>input-file</tt> and
+			 <tt>output-file</tt>elements. The full path to the principal input
+			 file, for example, is generated by concatenating the following values:
+			 suite/submitter/file-path/principal-input-file. (The "principal input
+                   file" is the stylesheet, if there is one, otherwise the XML data file,
+                   that is provided as an argument when the processor is invoked.)</p>
+</div>
+<div id="N1579" class="section">
+<h3 class="title">
+<a name="N1579"><b>Attribute: <tt>operation</tt></b></a>
+</h3>
+<p>The <tt>operation</tt> attribute indicates how to run
+			 the test. For example, if <tt>operation="standard"</tt>, one XML
+			 document is used as the input document ( <tt>&lt;input-file
+			 role="principal-data"&gt;</tt>), a stylesheet file is applied
+			 (<tt>&lt;input-file role="principal-stylesheet"&gt;</tt>), and the output is
+			 captured in a file that can be compared to a "reference output" file. </p>
+<p>The <tt>operations</tt> element in the
+			 <tt>xsltcfg.xml</tt> document identifies the valid operations that
+			 can be performed in an XSLT/XPath test. Initially, this attribute can take one
+			 of the following five values:</p>
+<div class="table">
+<p>
+<a name="N1607"></a><b>Table 1.2. Allowable Operations</b>
+</p>
+<table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>OPERATION</td><td>DEFINITION</td>
+</tr>
+<tr>
+<td>standard</td><td>
+<p>Indicates that there are 2 principal inputs (the XML
+						input document and the stylesheet) and 1 principal output.</p>
+</td>
+</tr>
+<tr>
+<td>embedded</td><td>
+<p>Indicates that the XML input document contains embedded
+						styling; there should be no separate stylesheet file.</p>
+<p>If a separate XSL stylesheet exists, it should be
+						ignored.</p>
+</td>
+</tr>
+<tr>
+<td>external-param</td><td>
+<p>Indicates that parameters are passed in; otherwise, an
+						external-param test is the same as a standard test.</p>
+<p>In other words, the processor should be launched with
+						parameters that are set via whatever mechanism the processor
+						supports.</p>
+</td>
+</tr>
+<tr>
+<td>execution-error</td><td>
+<p>Indicates that there are 2 principal inputs, but the test
+						should not generate an output file.</p>
+</td>
+</tr>
+<tr>
+<td>result-analysis</td><td>
+<p>Indicates that some interaction is required during the
+						test; otherwise, a result-analysis test is the same as a standard
+						test.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N1655">Note</a>
+</h3>
+<p>See the <tt>xsltcfg.xml</tt> file for an up-to-date
+				list of allowable operations.</p>
+</div>
+</div>
+<div id="N1662" class="section">
+<h3 class="title">
+<a name="N1662"><b>Attribute: <tt>message</tt></b></a>
+</h3>
+<p>The <tt>message</tt> attribute is optional. If it is
+			 used, it must contain an exact string that should be found in either the
+			 standard output or the standard error stream.</p>
+</div>
+<div id="N1672" class="section">
+<h3 class="title">
+<a name="N1672"><b>Attribute: <tt>error</tt></b></a>
+</h3>
+<p>The <tt>error</tt> attribute is optional. Its presence
+			 indicates that the test should generate an error. The element must contain an
+			 exact string that should be found in the standard error stream.
+                   (See below for a way to express the substance of an error instead
+                   of the exact message.)</p>
+</div>
+</div>
+<div id="N1682" class="section">
+<h2 class="title" style="clear: all">
+<a name="N1682"><b>&lt;input-file&gt;</b></a>
+</h2>
+<div id="N1685" class="section">
+<h3 class="title">
+<a name="N1685"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT input-file ( #PCDATA ) &gt;</p>
+<p>&lt;!ATTLIST input-file</p>
+<p>role NMTOKEN #REQUIRED&gt;</p>
+</div>
+<div id="N1697" class="section">
+<h3 class="title">
+<a name="N1697"><b>Purpose</b></a>
+</h3>
+<p>Each <tt>input-file</tt> element provides the name of
+			 one input file. The role of each file is specified by the
+			 <tt>role</tt> attribute.</p>
+</div>
+<div id="N1708" class="section">
+<h3 class="title">
+<a name="N1708"><b>Usage</b></a>
+</h3>
+<p>The value of the <tt>input-file</tt> element must be
+			 the exact name of a file used in the test. </p>
+<p>For a principal input file, the <tt>input-file</tt>
+			 element must specify only a filename, without a path. If the principal
+                   input file is a stylesheet, the principal data file may be referenced by
+                   a relative path, allowing the re-use of shared data files. For supplemental input
+			 files, the <tt>input-file</tt> element may supply a path, relative to
+			 the one in the <tt>file-path</tt> element.</p>
+</div>
+<div id="N1727" class="section">
+<h3 class="title">
+<a name="N1727"><b>Attribute: <tt>role</tt></b></a>
+</h3>
+<p>The input and output files must be assigned roles. The allowable
+			 values for the <tt>role</tt> attribute are listed in the xsltcfg.xml
+			 file. See the <tt>roles</tt> element (a child of
+			 <tt>scenarios</tt>) for details. The value of the
+			 <tt>role</tt> attribute must match the <tt>id</tt>
+			 attribute on one of the <tt>role</tt> elements. </p>
+<p>The <tt>p</tt> element provides a description of each
+			 role, including whether it applies to an input file or an output file.</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N1757">Note</a>
+</h3>
+<p>As shown below, the <tt>role</tt> attribute defines
+				some files as "principal" files. These are the files that are named when the
+				processor is invoked (as command-line or API arguments).</p>
+</div>
+<p>Examples of valid roles for an input file are:
+			 <tt>principal-data</tt>, <tt>principal-stylesheet</tt>, <tt>supplemental-data</tt>, <tt>supplemental-stylesheet</tt>, and
+			 <tt>supplemental-params</tt>.</p>
+</div>
+<div id="N1785" class="section">
+<h3 class="title">
+<a name="N1785"><b>Example</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N1788"></a><b>Example 1.9. <tt>&lt;input-file&gt;</tt> element</b>
+</p>
+<p>&lt;input-file role="principal-data"
+				test1.xml&lt;/input-file&gt;</p>
+</div>
+</div>
+</div>
+<div id="N1797" class="section">
+<h2 class="title" style="clear: all">
+<a name="N1797"><b>&lt;output-file&gt;</b></a>
+</h2>
+<div id="N1800" class="section">
+<h3 class="title">
+<a name="N1800"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT output-file ( #PCDATA ) &gt;</p>
+<p>&lt;!ATTLIST output-file</p>
+<p>role NMTOKEN #REQUIRED</p>
+<p>compare NMTOKEN #REQUIRED&gt;</p>
+</div>
+<div id="N1815" class="section">
+<h3 class="title">
+<a name="N1815"><b>Purpose</b></a>
+</h3>
+<p>Each <tt>output-file</tt> element provides the name of
+			 one output file. Some tests will not expect any output files; in that case,
+			 there will be no <tt>output-file</tt> element.</p>
+<p>The role of each file is specified by the <tt>role</tt>
+			 attribute.</p>
+<p>The method by which the output file is to be evaluated is
+			 conveyed by the <tt>compare</tt> attribute.</p>
+</div>
+<div id="N1836" class="section">
+<h3 class="title">
+<a name="N1836"><b>Usage</b></a>
+</h3>
+<p>The value of the <tt>output-file</tt> element must be
+			 the exact name of a file used in the test. </p>
+<p>For the principal output file, the <tt>output-file</tt>
+			 element specify only the filename. Since XSLT 1.0 does not allow supplemental
+			 output files, the "supplemental" designation should be used only for captured
+			 console output. </p>
+</div>
+<div id="N1849" class="section">
+<h3 class="title">
+<a name="N1849"><b>Attribute: <tt>role</tt></b></a>
+</h3>
+<p>The input and output files must be assigned roles. The allowable
+			 values for the <tt>role</tt> attribute are listed in the
+			 <tt>roles</tt> element of the <tt>xsltcfg.xml</tt> file.
+			 The value of the <tt>role</tt> attribute in the Collection Catalog
+			 instance must match the <tt>id</tt> attribute on one of the
+			 <tt>role</tt> elements from the <tt>xsltcfg.xml</tt>
+			 files.</p>
+<p>In the <tt>xsltcfg.xml</tt> file, the
+			 <tt>p</tt> element provides a description of each role, including
+			 whether it applies to an input file or an output file.</p>
+<p>Examples of valid roles for an output file are:
+			 <tt>principal</tt>, and <tt>supplemental</tt>.</p>
+</div>
+<div id="N1898" class="section">
+<h3 class="title">
+<a name="N1898"><b>Attribute: <tt>compare</tt></b></a>
+</h3>
+<p>The <tt>compare</tt> attribute of the
+			 <tt>output-file</tt> element describes how to evaluate the outcome of
+			 the test; that is, it indicates how to compare the expected output to the
+			 actual output.</p>
+<p>The allowable values for the <tt>compare</tt> attribute
+			 are listed in the <tt>comparisons</tt> element of the
+			 <tt>xsltcfg.xml</tt> file. The value of the
+			 <tt>compare</tt> attribute in the Collection Catalog instance must
+			 match the <tt>id</tt> attribute on one of the
+			 <tt>comparison</tt> elements from the
+			 <tt>xsltcfg.xml</tt> files.</p>
+<p>In the <tt>xsltcfg.xml</tt> file, the
+			 <tt>p</tt> elements provides a description of each possible method of
+			 comparison.</p>
+<p>Examples of valid methods of comparison are shown in the
+			 following table.</p>
+<div class="table">
+<p>
+<a name="N1947"></a><b>Table 1.3. Allowable Methods of Comparison</b>
+</p>
+<table border="1">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td>XML</td><td>The output should be an XML file.</td>
+</tr>
+<tr>
+<td>HTML</td><td>The output should be an HTML file.</td>
+</tr>
+<tr>
+<td>Text</td><td>The output should be a text file.</td>
+</tr>
+<tr>
+<td>Manual</td><td>
+<p>The output cannot be automatically verified.</p>
+<p>This value should be used sparingly, for generate-id()
+						and system-property() output.</p>
+</td>
+</tr>
+<tr>
+<td>Ignore</td><td>The test should not produce any output.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An "ignore" value indicates that the test should not have produced any output
+			 file. You may still want to designate a name for such a file, just in case it
+                   gets produced in error.</p>
+</div>
+<div id="N1985" class="section">
+<h3 class="title">
+<a name="N1985"><b>Example</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N1988"></a><b>Example 1.10. <tt>output-file</tt> element</b>
+</p>
+<p>&lt;output-file role="principal"
+				compare="XML"&gt;test1.out&lt;/output-file&gt;</p>
+</div>
+</div>
+</div>
+<div id="N1996" class="section">
+<h2 class="title" style="clear: all">
+<a name="N1996"><b>&lt;param-set&gt;</b></a>
+</h2>
+<div id="N1999" class="section">
+<h3 class="title">
+<a name="N1999"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT param-set EMPTY&gt;</p>
+<p>&lt;!ATTLIST param-set</p>
+<p>name NMTOKEN #REQUIRED</p>
+<p>type NMTOKEN #REQUIRED</p>
+<p>value CDATA #REQUIRED&gt;</p>
+</div>
+<div id="N2017" class="section">
+<h3 class="title">
+<a name="N2017"><b>Purpose</b></a>
+</h3>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N2020">Note</a>
+</h3>
+<p>The <tt>param-set</tt> element type is in its
+				preliminary stages of development, so it is subject to change. </p>
+</div>
+<p>In addition to input files, some processors may use command-line
+			 parameters or parameters of their API. The <tt>param-set</tt> element
+			 allows these parameters to be specified in the collection catalog. </p>
+</div>
+<div id="N2031" class="section">
+<h3 class="title">
+<a name="N2031"><b>Usage</b></a>
+</h3>
+<p>Use one <tt>param-set</tt> element for each parameter.
+			 </p>
+</div>
+<div id="N2039" class="section">
+<h3 class="title">
+<a name="N2039"><b>Attribute: <tt>name</tt></b></a>
+</h3>
+<p>The <tt>name</tt> attribute specifies the name of the
+			 parameter.</p>
+</div>
+<div id="N2049" class="section">
+<h3 class="title">
+<a name="N2049"><b>Attribute: <tt>type</tt></b></a>
+</h3>
+<p>The <tt>type</tt> indicates the format of the parameter
+			 value. The allowable values are found in the xsltcfg.xml file, in the
+			 <tt>parameter-types</tt> element. The value of the
+			 <tt>type</tt> attribute in the collection catalog must match the
+			 value of the <tt>id</tt> attribute on one of the
+			 <tt>parameter-type</tt> elements in the xsltcfg.xml file.</p>
+<p>In the xsltcfg.xml file, the <tt>p</tt> elements
+			 provide a description of each type of parameter.</p>
+<p>Examples of allowable parameter types are:
+			 <tt>string</tt>, <tt>number</tt>, and <tt>boolean</tt>.</p>
+</div>
+<div id="N2090" class="section">
+<h3 class="title">
+<a name="N2090"><b>Attribute: <tt>value</tt></b></a>
+</h3>
+<p>The <tt>value</tt> attribute specifies the value of the
+			 parameter.</p>
+</div>
+<div id="N2100" class="section">
+<h3 class="title">
+<a name="N2100"><b>Example</b></a>
+</h3>
+<div class="example">
+<p>
+<a name="N2103"></a><b>Example 1.11. <tt>&lt;param-set&gt;</tt> tag</b>
+</p>
+<p>&lt;param-set name="param-a" type="number"
+				value="1"&gt;</p>
+</div>
+</div>
+</div>
+<div id="N2112" class="section">
+<h2 class="title" style="clear: all">
+<a name="N2112"><b>&lt;console&gt;</b></a>
+</h2>
+<div id="N2115" class="section">
+<h3 class="title">
+<a name="N2115"><b>Syntax</b></a>
+</h3>
+<p>&lt;!ELEMENT console (%prose)&gt;</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N2121">Note</a>
+</h3>
+<p>See the latest version of the Prose DTD
+				(<tt>prose.dtd</tt>) for an up-to-date content model. Initially, it
+				is defined simply: (p | em | strong )*</p>
+</div>
+</div>
+<div id="N2130" class="section">
+<h3 class="title">
+<a name="N2130"><b>Purpose</b></a>
+</h3>
+<p>The console element is optional. Its presence signifies that the
+			 console output should be captured as the test is run. </p>
+</div>
+<div id="N2135" class="section">
+<h3 class="title">
+<a name="N2135"><b>Usage</b></a>
+</h3>
+<p>The console element can contain a description of the anticipated
+			 result on a console or ancillary output device separate from any principal or
+			 supplemental expected outputs. This item may be used to describe the gist of an
+			 error message (as opposed to the <tt>error</tt> attribute on the
+			 <tt>scenario</tt> element, which specifies an exact string from an
+			 error message).</p>
+</div>
+</div>
+</div>
+<div id="ValidatingCatalog" class="chapter">
+<h2 class="title">
+<a name="ValidatingCatalog">2. Validating the Test Catalog</a>
+</h2>
+<p>You must validate your submission before submitting it to the
+		Committee, to ensure that it is configured properly for the XSLT/XPath
+		Conformance Test Suite.</p>
+<p>This chapter explains how to use the
+		<tt>SYSTEM/SUPPORT/valcat.xsl</tt> file to validate your submission. The
+		following steps should be done in the order specified.</p>
+<div class="orderedlist">
+<ol>
+<li>
+<a name="N2161"></a>
+<p>Choose a short name for your submission. To accommodate the
+			 various platforms that may be used by test labs, this name must be no longer
+			 than 8 characters, with no spaces.</p>
+</li>
+<li>
+<a name="N2164"></a>
+<p>Make a subdirectory of that name under the VALIDATE directory,
+			 and another one under the TESTS directory. </p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">
+<a name="N2167">Note</a>
+</h3>
+<p>As mentioned in Chapter 1, this name corresponds to the the
+				<tt>submitter</tt> attribute of the <tt>test-catalog</tt>
+                        element and must be approved by the Committee to
+				ensure uniqueness. Therefore, the Committee reserves the right to change the
+				name you have chosen for your submission.</p>
+</div>
+<p>In the example submission files, the name "XampleCo" was chosen
+			 as the submission name. Therefore, there are two subdirectories by that name,
+			 one under VALIDATE and the other under TESTS.</p>
+</li>
+<li>
+<a name="N2178"></a>
+<p>In the subdirectory you have created under VALIDATE, create an
+			 XML file containing the data about your test cases. This XML file must conform
+			 to the Collection Catalog DTD (<tt>collcat.dtd</tt>), according to
+			 the guidelines in Chapter 1.</p>
+<p>The name of this file is up to you, but should be obvious to
+			 testers. For example, you may want to use the subdirectory name (as in
+			 <tt>XampleCo.xml</tt>) or a generic name like
+			 <tt>testcat.xml</tt>.</p>
+</li>
+<li>
+<a name="N2195"></a>
+<p>In the subdirectory you have created under VALIDATE, create a
+			 second XML file. This will be smaller than the Collection Catalog instance,
+			 because it will contain only the submission header. </p>
+<p>Pattern this new file after the sample file
+			 <tt>Validate/XampleCo/subsgood.xml</tt>. You can copy
+			 <tt>subsgood.xml</tt>, rename it <tt>casesub.xml</tt>,
+			 and change the following element:</p>
+<p>
+<tt>&lt;submission href="testgood.xml" submitter="XampleCo"
+                 date="2001-12-07"/&gt;</tt>
+</p>
+<p>so that it matches the catalog name, submitter name, and date
+			 used in your main Collection Catalog instance from Step 3. (Chapter 1 explains
+			 how use the markup in the Collection Catalog DTD.)</p>
+</li>
+<li>
+<a name="N2217"></a>
+<p>Copy the <tt>test.bat</tt> file from VALIDATE/XampleCo to the
+			 subdirectory you created under VALIDATE in Step 2 above, and edit it.
+			 Alternatively, you could create your own equivalent script for your operating
+			 system. In either case, the script must do the following: </p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="N2225"></a>
+<p>validate the two XML files, casesub.xml and the catalog of test cases,
+                          that you have created in Steps 3 and 4;</p>
+</li>
+<li>
+<a name="N2228"></a>
+<p>run the <tt>valcat</tt> transformation on the
+				  catalog file to produce a report of any problems.</p>
+</li>
+</ul>
+</div>
+<p>You must also consider the following:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="N2238"></a>
+<p>The example batch file (<tt>test.bat</tt>) calls
+				  validation and XSLT via batch files. You can create files that work for you,
+				  based on whatever XSLT processor and XML parser you are using.</p>
+</li>
+<li>
+<a name="N2245"></a>
+<p>It is strongly recommended that the XSLT output go to a
+				  file. That will give you a checklist of problems.</p>
+</li>
+<li>
+<a name="N2248"></a>
+<p>There are examples for a clean catalog, <tt>testgood.xml</tt>,
+                          and a <tt>testbad.xml</tt> with all of the problems that
+				  <tt>valcat</tt> knows how to find. You can debug
+				  <tt>test.bat</tt> for XampleCo.</p>
+</li>
+<li>
+<a name="N2267"></a>
+<p>If your <tt>xsl.bat</tt> adds filetype
+				  extensions, then <tt>test.bat</tt> shouldn't add them.</p>
+</li>
+<li>
+<a name="N2278"></a>
+<p>
+<tt>xsl.bat</tt> may need a path to the XML and
+				  XSL executables.</p>
+</li>
+<li>
+<a name="N2284"></a>
+<p>
+<tt>test.bat</tt> may need a path to the
+				  <tt>xml.bat</tt> and <tt>xsl.bat</tt> files.</p>
+</li>
+<li>
+<a name="N2298"></a>
+<p>If your XSLT validates XML input, you could use it in
+				  <tt>xml.bat</tt>.</p>
+</li>
+<li>
+<a name="N2305"></a>
+<p>[This is obvious, but stated as a reminder to check.] Change
+				  the names of the XML files being validated to whatever names you have
+				  used.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<a name="N2308"></a>
+<p>Once you have <tt>test.bat</tt> working correctly
+			 with XML/XSL subsidiary batch files, run it in the subdirectory you created
+			 under VALIDATE, and read the resulting <tt>err-good.xml</tt>.
+                   (Or whatever filename you assigned to the <tt>valcat</tt> output.)
+			 </p>
+<p>If no problems are reported, you are ready to submit your test
+			 cases.</p>
+<p>If there are problems, fix your catalog of test cases as
+			 indicated in the <tt>err-good.xml</tt> file.</p>
+</li>
+</ol>
+</div>
+</div>
+<div id="PackagingFiles" class="chapter">
+<h2 class="title">
+<a name="PackagingFiles">3. Packaging the Files</a>
+</h2>
+<div class="toc">
+<p>
+<b>Table of Contents</b>
+</p>
+<dl>
+<dt> <a href="#N2337">Directory Structure</a>
+</dt>
+<dd>
+<dl>
+<dt> <a href="#N2365">The VALIDATE Directory</a>
+</dt>
+<dt> <a href="#N2380">The TEST Directory</a>
+</dt>
+</dl>
+</dd>
+<dt> <a href="#N2398">How to Package Your Submission</a>
+</dt>
+</dl>
+</div>
+<p>This Chapter explains how to package the files that make up your
+		submission. Before submitting your package, you must also validate it according
+		to the directions in the preceeding chapter.</p>
+<div id="N2337" class="section">
+<h2 class="title" style="clear: all">
+<a name="N2337"><b>Directory Structure</b></a>
+</h2>
+<p>Package the files according to the directory structure shown in
+		  this section.</p>
+<p>When you unpacked this package as downloaded, you obtained
+		  the following subdirectories:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="N2345"></a>
+<p>VALIDATE</p>
+<p>Work area for test-case catalogs, with a subdirectory for
+                     each submitter.</p>
+</li>
+<li>
+<a name="N2350"></a>
+<p>DOCS</p>
+<p>Explanatory documents from OASIS.</p>
+</li>
+<li>
+<a name="N2355"></a>
+<p>SYSTEM</p>
+<p>Scripts, DTDs, stylesheets, configuration data, and other files
+                     that define the OASIS testing framework. The SUPPORT subdirectory
+                     contains files that apply to all test regimes, and the XSLT
+                     subdirectory contains files specific to XSLT/XPath testing.</p>
+</li>
+<li>
+<a name="N2360"></a>
+<p>TESTS</p>
+<p>Contains all the test cases and reference output, with a
+                      subdirectory for each submitter.</p>
+</li>
+</ul>
+</div>
+<div id="N2365" class="section">
+<h3 class="title">
+<a name="N2365"><b>The VALIDATE Directory</b></a>
+</h3>
+<div id="N2368" class="section">
+<h4 class="title">
+<a name="N2368"><b>Purpose</b></a>
+</h4>
+<p>The VALIDATE directory is for your catalog and submissions
+				file.</p>
+</div>
+<div id="N2373" class="section">
+<h4 class="title">
+<a name="N2373"><b>Usage</b></a>
+</h4>
+<p>The VALIDATE directory must contain a subdirectory for each
+				submitter. </p>
+<p>In the example files provided, the submitter is XampleCo, so
+				there is one XampleCo subdirectory.</p>
+</div>
+</div>
+<div id="N2380" class="section">
+<h3 class="title">
+<a name="N2380"><b>The TEST Directory</b></a>
+</h3>
+<div id="N2383" class="section">
+<h4 class="title">
+<a name="N2383"><b>Purpose</b></a>
+</h4>
+<p>The TEST directory is for your test cases and reference output
+				files.</p>
+</div>
+<div id="N2388" class="section">
+<h4 class="title">
+<a name="N2388"><b>Usage</b></a>
+</h4>
+<p>The TEST directory must contain a subdirectory for each
+				submitter. The directory you create for yourself is the one that
+                        will be the "staging area" for your submitted tests and data.</p>
+<p>In the example files provided, the submitter is XampleCo, so
+				there is one XampleCo subdirectory. In the steps below, we will use
+                        the string "YourName"
+                        to represent the name of your directory in TESTS, which must match the
+                        <tt>submitter</tt> attribute of the test catalog.</p>
+</div>
+</div>
+</div>
+<div id="N2398" class="section">
+<h2 class="title" style="clear: all">
+<a name="N2398"><b>How to Package Your Submission</b></a>
+</h2>
+<div class="orderedlist">
+<ol>
+<li>
+<a name="N2404"></a>
+<p>Put your test inputs somewhere in the subdirectory you've
+				created under TESTS.</p>
+<p>You can create any structure you want under this new
+				directory. For example, you may wish to create TESTS/YourName/Input/ for input
+				files, or you may wish to have a subdirectory for each category of tests.
+                        Use the file-path element in the catalog of test cases to record the
+                        path under YourName where the principal input is located.</p>
+</li>
+<li>
+<a name="N2409"></a>
+<p>Put your proposed reference output files, in raw form,
+				somewhere under the TESTS/YourName directory. </p>
+<p>For example, you may wish to create TESTS/YourName/Output/ for output
+				files.</p>
+</li>
+<li>
+<a name="N2414"></a>
+<p>Make sure that the data in the test case catalog accurately
+				reflects the location of the files from steps 1 &amp; 2. Use the TESTS/YourName
+				directory as the base point for the file-path value.</p>
+</li>
+<li>
+<a name="N2417"></a>
+<p>Put the test case catalog and the small submissions file
+				(renamed <tt>casesub.xml</tt>) directly in the TESTS/YourName
+				directory.</p>
+</li>
+<li>
+<a name="N2424"></a>
+<p>Zip up the YourName directory tree using a recent version of PKZip,
+				WinZIP, or similar utility.</p>
+</li>
+<li>
+<a name="N2427"></a>
+<p>Submit the zipfile by visiting
+                   <a href="http://www.oasis-open.org/committees/xslt/xslt_upload.phtml">our
+                   upload page</a> and uploading.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="N2434" class="chapter">
+<h2 class="title">
+<a name="N2434">4. Updating a Submission</a>
+</h2>
+<p>Sometimes you may need to re-submit a test catalog. In this case, the
+		following rules must be observed:</p>
+<div class="itemizedlist">
+<ul>
+<li>
+<a name="N2440"></a>
+<p>the names of new tests (<tt>&lt;test-case
+			 id="new-name"&gt;</tt>) must not conflict with the names of tests
+			 previously submitted.</p>
+</li>
+<li>
+<a name="N2446"></a>
+<p>changed tests must have a newer date
+			 (<tt>&lt;test-case&gt;&lt;date&gt;newer-date&lt;/date&gt;&lt;/test-case&gt;</tt>)
+			 than the tests they replace.</p>
+</li>
+<li>
+<a name="N2452"></a>
+<p>if an entire test catalog is re-submitted, the Committee must be
+			 able to determine easily and unambiguously which tests have changed since the
+			 previous submission.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

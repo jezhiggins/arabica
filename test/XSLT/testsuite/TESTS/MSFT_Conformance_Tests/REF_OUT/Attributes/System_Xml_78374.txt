@@ -1,0 +1,45 @@
+﻿<root>
+  <Schema name="Schema1">
+    <ElementType name="e1" dt:type="int" xmlns:dt="urn:schemas-micrsooft-com:datatypes">
+    </ElementType>
+    <ElementType name="e" content="eltOnly">
+      <element type="e1">
+      </element>
+    </ElementType>
+  </Schema>
+  <Schema name="Schema2">
+    <ElementType name="e1" dt:type="int" xmlns:dt="urn:schemas-micrsooft-com:datatypes">
+    </ElementType>
+    <ElementType name="e" content="eltOnly">
+      <element type="e1">
+      </element>
+    </ElementType>
+  </Schema>
+  <x:e xmlns:x="x-schema:#Schema1">
+    <x:e1 xp_0:foo="bar" xmlns:xp_0="foo">
+      <x:e1>
+        <x:e1>
+          <x:e1 xmlns:x="urn:bar">
+            <x:e1 xmlns:x="x-schema:#Schema1">
+              <x:e1>
+                <x:e1>
+                  <x:e1>
+                    <x:e1 xmlns:x="urn:foo">
+                      <x:e1 xmlns:x="x-schema:#Schema1">
+                        <x:e1>
+                          <x:e1>
+                            <x:e1 />
+                          </x:e1>
+                        </x:e1>
+                      </x:e1>
+                    </x:e1>
+                  </x:e1>
+                </x:e1>
+              </x:e1>
+            </x:e1>
+          </x:e1>
+        </x:e1>
+      </x:e1>
+    </x:e1>
+  </x:e>
+</root>

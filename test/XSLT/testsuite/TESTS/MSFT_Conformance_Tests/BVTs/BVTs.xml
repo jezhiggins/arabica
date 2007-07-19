@@ -1,0 +1,692 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="BVTs" description="" outpath="out">
+	<variation name="bvt001">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>apply-templ.xsl</xsl>
+		</data>
+		<result expected="valid">bvt001.txt</result>
+	</variation>
+	<variation name="bvt002">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attr-dup.xsl</xsl>
+		</data>
+		<result expected="valid">bvt002.txt</result>
+	</variation>
+	<variation name="bvt003">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset.xsl</xsl>
+		</data>
+		<result expected="valid">bvt003.txt</result>
+	</variation>
+	<variation name="bvt004">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>avt-children.xsl</xsl>
+		</data>
+		<result expected="valid">bvt004.txt</result>
+	</variation>
+	<variation name="bvt005">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>avt.xsl</xsl>
+		</data>
+		<result expected="valid">bvt005.txt</result>
+	</variation>
+	<variation name="bvt007">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>builtin.xsl</xsl>
+		</data>
+		<result expected="valid">bvt007.txt</result>
+	</variation>
+	<variation name="bvt008">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>call-templ.xsl</xsl>
+		</data>
+		<result expected="valid">bvt008.txt</result>
+	</variation>
+	<variation name="bvt009">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>choose-ws.xsl</xsl>
+		</data>
+		<result expected="valid">bvt009.txt</result>
+	</variation>
+	<variation name="bvt011">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>copyof-empty.xsl</xsl>
+		</data>
+		<result expected="valid">bvt011.txt</result>
+	</variation>
+	<variation name="bvt012">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>copyof-identity.xsl</xsl>
+		</data>
+		<result expected="valid">bvt012.txt</result>
+	</variation>
+	<variation name="bvt013">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>copyof-mult.xsl</xsl>
+		</data>
+		<result expected="valid">bvt013.txt</result>
+	</variation>
+	<variation name="bvt014">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>copyof-string.xsl</xsl>
+		</data>
+		<result expected="valid">bvt014.txt</result>
+	</variation>
+	<variation name="bvt015">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>decimal-format.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="bvt016">
+		<description>BVT Case</description>
+		<data>
+			<xml>doc-dtd.xml</xml>
+			<xsl>doc.xsl</xsl>
+		</data>
+		<result expected="valid">bvt016.txt</result>
+	</variation>
+	<variation name="bvt017">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>encoding00.xsl</xsl>
+		</data>
+		<result expected="valid">bvt017.txt</result>
+	</variation>
+	<variation name="bvt018">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>encoding01.xsl</xsl>
+		</data>
+		<result expected="valid">bvt018.txt</result>
+	</variation>
+	<variation name="bvt019">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>encoding02.xsl</xsl>
+		</data>
+		<result expected="valid">bvt019.txt</result>
+	</variation>
+	<variation name="bvt020">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>exclprefix.xsl</xsl>
+		</data>
+		<result expected="valid">bvt020.txt</result>
+	</variation>
+	<variation name="bvt021">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>expr.xsl</xsl>
+		</data>
+		<result expected="valid">bvt021.txt</result>
+	</variation>
+	<variation name="bvt022">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>extelem.xsl</xsl>
+		</data>
+		<result expected="valid">bvt022.txt</result>
+	</variation>
+	<variation name="bvt023">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fallback.xsl</xsl>
+		</data>
+		<result expected="valid">bvt023.txt</result>
+	</variation>
+	<variation name="bvt024">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>format-number.xsl</xsl>
+		</data>
+		<result expected="valid">bvt024.txt</result>
+	</variation>
+	<variation name="bvt027">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>frag-params.xsl</xsl>
+		</data>
+		<result expected="valid">bvt027.txt</result>
+	</variation>
+	<variation name="bvt029">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>frag-types.xsl</xsl>
+		</data>
+		<result expected="valid">bvt029.txt</result>
+	</variation>
+	<variation name="bvt030">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>func-com.xsl</xsl>
+		</data>
+		<result expected="valid">bvt030.txt</result>
+	</variation>
+	<variation name="bvt032">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>func-simple.xsl</xsl>
+		</data>
+		<result expected="valid">bvt032.txt</result>
+	</variation>
+	<variation name="bvt033">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdcompat.xsl</xsl>
+		</data>
+		<result expected="valid">bvt033.txt</result>
+	</variation>
+	<variation name="bvt034">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdcompat2.xsl</xsl>
+		</data>
+		<result expected="valid">bvt034.txt</result>
+	</variation>
+	<variation name="bvt035">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdref-nocycle.xsl</xsl>
+		</data>
+		<result expected="valid">bvt035.txt</result>
+	</variation>
+	<variation name="bvt036">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdref-simple.xsl</xsl>
+		</data>
+		<result expected="valid">bvt036.txt</result>
+	</variation>
+	<variation name="bvt037">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdref.xsl</xsl>
+		</data>
+		<result expected="valid">bvt037.txt</result>
+	</variation>
+	<variation name="bvt038">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>ignore.xsl</xsl>
+		</data>
+		<result expected="valid">bvt038.txt</result>
+	</variation>
+	<variation name="bvt039">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-alias.xsl</xsl>
+		</data>
+		<result expected="valid">bvt039.txt</result>
+	</variation>
+	<variation name="bvt040">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-attrset.xsl</xsl>
+		</data>
+		<result expected="valid">bvt040.txt</result>
+	</variation>
+	<variation name="bvt041">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-out.xsl</xsl>
+		</data>
+		<result expected="valid">bvt041.txt</result>
+	</variation>
+	<variation name="bvt042">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-override.xsl</xsl>
+		</data>
+		<result expected="valid">bvt042.txt</result>
+	</variation>
+	<variation name="bvt043">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-tmpl.xsl</xsl>
+		</data>
+		<result expected="valid">bvt043.txt</result>
+	</variation>
+	<variation name="bvt044">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-var.xsl</xsl>
+		</data>
+		<result expected="valid">bvt044.txt</result>
+	</variation>
+	<variation name="bvt045">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>include.xsl</xsl>
+		</data>
+		<result expected="valid">bvt045.txt</result>
+	</variation>
+	<variation name="bvt047">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>indent-html.xsl</xsl>
+		</data>
+		<result expected="valid">bvt047.txt</result>
+	</variation>
+	<variation name="bvt051">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>mix-ns.xsl</xsl>
+		</data>
+		<result expected="valid">bvt051.txt</result>
+	</variation>
+	<variation name="bvt052">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>mode-override.xsl</xsl>
+		</data>
+		<result expected="valid">bvt052.txt</result>
+	</variation>
+	<variation name="bvt053">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>mode.xsl</xsl>
+		</data>
+		<result expected="valid">bvt053.txt</result>
+	</variation>
+	<variation name="bvt054">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>name.xsl</xsl>
+		</data>
+		<result expected="valid">bvt054.txt</result>
+	</variation>
+	<variation name="bvt055">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>namespace.xsl</xsl>
+		</data>
+		<result expected="valid">bvt055.txt</result>
+	</variation>
+	<variation name="bvt056">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>no-rules.xsl</xsl>
+		</data>
+		<result expected="valid">bvt056.txt</result>
+	</variation>
+	<variation name="bvt057">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>ns-conflict.xsl</xsl>
+		</data>
+		<result expected="valid">bvt057.txt</result>
+	</variation>
+	<variation name="bvt058">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>nsalias.xsl</xsl>
+		</data>
+		<result expected="valid">bvt058.txt</result>
+	</variation>
+	<variation name="bvt059">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>num-intl.xsl</xsl>
+		</data>
+		<result expected="valid">bvt059.txt</result>
+	</variation>
+	<variation name="bvt060">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>num-toobig.xsl</xsl>
+		</data>
+		<result expected="valid">bvt060.txt</result>
+	</variation>
+	<variation name="bvt061">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>num.xsl</xsl>
+		</data>
+		<result expected="valid">bvt061.txt</result>
+	</variation>
+	<variation name="bvt062">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-cdata.xsl</xsl>
+		</data>
+		<result expected="valid">bvt062.txt</result>
+	</variation>
+	<variation name="bvt063">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-combine.xsl</xsl>
+		</data>
+		<result expected="valid">bvt063.txt</result>
+	</variation>
+	<variation name="bvt064">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-default.xsl</xsl>
+		</data>
+		<result expected="valid">bvt064.txt</result>
+	</variation>
+	<variation name="bvt065">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-default2.xsl</xsl>
+		</data>
+		<result expected="valid">bvt065.txt</result>
+	</variation>
+	<variation name="bvt066">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-default3.xsl</xsl>
+		</data>
+		<result expected="valid">bvt066.txt</result>
+	</variation>
+	<variation name="bvt067">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-html.xsl</xsl>
+		</data>
+		<result expected="valid">bvt067.txt</result>
+	</variation>
+	<variation name="bvt069">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-text.xsl</xsl>
+		</data>
+		<result expected="valid">bvt069.txt</result>
+	</variation>
+	<variation name="bvt070">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-text2.xsl</xsl>
+		</data>
+		<result expected="valid">bvt070.txt</result>
+	</variation>
+	<variation name="bvt072">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>param-simple.xsl</xsl>
+		</data>
+		<result expected="valid">bvt072.txt</result>
+	</variation>
+	<variation name="bvt073">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>param.xsl</xsl>
+		</data>
+		<result expected="valid">bvt073.txt</result>
+	</variation>
+	<variation name="bvt074">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pi-badname.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="bvt075">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pri-defaults.xsl</xsl>
+		</data>
+		<result expected="valid">bvt075.txt</result>
+	</variation>
+	<variation name="bvt076">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pri-explicit.xsl</xsl>
+		</data>
+		<result expected="valid">bvt076.txt</result>
+	</variation>
+	<variation name="bvt077">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pri-include.xsl</xsl>
+		</data>
+		<result expected="valid">bvt077.txt</result>
+	</variation>
+	<variation name="bvt078">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pri-union.xsl</xsl>
+		</data>
+		<result expected="valid">bvt078.txt</result>
+	</variation>
+	<variation name="bvt079">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>process-instr.xsl</xsl>
+		</data>
+		<result expected="valid">bvt079.txt</result>
+	</variation>
+	<variation name="bvt080">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>recursion.xsl</xsl>
+		</data>
+		<result expected="valid">bvt080.txt</result>
+	</variation>
+	<variation name="bvt081">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>single-tmpl.xsl</xsl>
+		</data>
+		<result expected="valid">bvt081.txt</result>
+	</variation>
+	<variation name="bvt082">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort-intl.xsl</xsl>
+		</data>
+		<result expected="valid">bvt082.txt</result>
+	</variation>
+	<variation name="bvt083">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort.xsl</xsl>
+		</data>
+		<result expected="valid">bvt083.txt</result>
+	</variation>
+	<variation name="bvt085">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>surrogate.xsl</xsl>
+		</data>
+		<result expected="valid">bvt085.txt</result>
+	</variation>
+	<variation name="bvt086">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>text.xsl</xsl>
+		</data>
+		<result expected="valid">bvt086.txt</result>
+	</variation>
+	<variation name="bvt087">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>transform.xsl</xsl>
+		</data>
+		<result expected="valid">bvt087.txt</result>
+	</variation>
+	<variation name="bvt088">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>tt.xsl</xsl>
+		</data>
+		<result expected="valid">bvt088.txt</result>
+	</variation>
+	<variation name="bvt089">
+		<description>BVT Case</description>
+		<data>
+			<xml>unparsed-entity.xml</xml>
+			<xsl>unparsed-entity.xsl</xsl>
+		</data>
+		<result expected="valid">bvt089.txt</result>
+	</variation>
+	<variation name="bvt090">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>valof.xsl</xsl>
+		</data>
+		<result expected="valid">bvt090.txt</result>
+	</variation>
+	<variation name="bvt091">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-nested.xsl</xsl>
+		</data>
+		<result expected="valid">bvt091.txt</result>
+	</variation>
+	<variation name="bvt092">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-query.xsl</xsl>
+		</data>
+		<result expected="valid">bvt092.txt</result>
+	</variation>
+	<variation name="bvt093">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-query2.xsl</xsl>
+		</data>
+		<result expected="valid">bvt093.txt</result>
+	</variation>
+	<variation name="bvt094">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-shadow.xsl</xsl>
+		</data>
+		<result expected="valid">bvt094.txt</result>
+	</variation>
+	<variation name="bvt095">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-simple.xsl</xsl>
+		</data>
+		<result expected="valid">bvt095.txt</result>
+	</variation>
+	<variation name="bvt096">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>variable.xsl</xsl>
+		</data>
+		<result expected="valid">bvt096.txt</result>
+	</variation>
+	<variation name="bvt098">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>ws.xsl</xsl>
+		</data>
+		<result expected="valid">bvt098.txt</result>
+	</variation>
+	<variation name="bvt099">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>filtermatch.xsl</xsl>
+		</data>
+		<result expected="valid">bvt099.txt</result>
+	</variation>
+	<variation name="bvt100">
+		<description>BVT Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pred.xsl</xsl>
+		</data>
+		<result expected="valid">bvt100.txt</result>
+	</variation>
+</testcase>

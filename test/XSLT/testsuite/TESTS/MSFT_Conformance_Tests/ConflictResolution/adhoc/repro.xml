@@ -1,0 +1,5 @@
+<root>
+	<foo attr="bar">1</foo>
+	<foo attr="bar">2</foo>
+	<foo attr="bar">3</foo>
+</root>

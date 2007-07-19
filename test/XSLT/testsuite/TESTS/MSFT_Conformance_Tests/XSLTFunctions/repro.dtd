@@ -1,0 +1,3 @@
+<!ELEMENT categories (category+)>
+<!ELEMENT category (#PCDATA)>
+<!ATTLIST category id ID #REQUIRED>

@@ -1,0 +1,166 @@
+<?xml version='1.0'?>
+
+
+<!-- top level comment -->
+<?f foo='3.0'?>
+<Plant-Sheet>
+
+<Author>Wayne Steele</Author>
+<Date><![CDATA[June 24, 1998]]></Date>
+<Title>List of Flora</Title>
+<?f foo='3.0'?>
+<Section>			<!--Native Flora-->
+<Title>Native</Title>
+<item><?not version='2.0'?>
+<latin>Acorus americanus (Raf.)</latin>
+<common>sweetflag</common>
+</item>
+<item>
+<latin>Alisma gramineum Lej.</latin>
+<common>narrowleaf water plantain</common>
+</item>
+<item>
+<latin>Alisma plantago-aquatica L.</latin>
+<common>American waterplantain</common>
+</item>
+<item>
+<latin>Rhus glabra L.</latin>
+<common>smooth sumac</common>
+</item>
+<item>
+<latin>Toxicodendron diversilobum</latin>
+<common>Pacific poison oak</common>
+</item>
+<item>
+<latin>Toxicodendron rydbergii</latin>
+<common>western poison ivy</common>
+</item>
+<item>
+<latin>Alisma triviale Pursh</latin>
+<common>northern water plantain</common>
+</item>
+<item>
+<latin>Baldellia ranunculoides</latin>
+<common>lesser waterplantain</common>
+</item>
+<item>
+<latin>Machaerocarpus californicus</latin>
+<common>California damsonium</common>
+</item>
+<item>
+<latin>Sagittaria latifolia Willd.</latin>
+<common>broadleaf arrowhead</common>
+</item>
+<item>
+<latin>Sagittaria subulata</latin>
+<common>awlleaf arrowhead</common>
+</item>
+<item>
+<latin>Acer glabrum Torr.</latin>
+<common>Rocky Mountain maple</common>
+</item>
+<item>
+<latin>Acer glabrum var. douglasii</latin>
+<common>Douglas maple</common>
+</item>
+<item>
+<latin>Acer grandidentatum Nutt.</latin>
+<common>bigtooth maple</common>
+</item>
+<item>
+<latin>Acer macrophyllum Pursh</latin>
+<common>bigleaf maple</common>
+</item>
+<item>
+<latin>Acer negundo L.</latin>
+<common>boxelder</common>
+</item>
+<item>
+<common>Pacific Madrone</common>
+<latin>Arbutus menziesii</latin>
+<photo>madrone.jpg</photo>
+</item>
+<item>
+<common>Oregon Grape</common>
+<latin>Berberis (Mahonia), var.</latin>
+<photo>ogrape.jpg</photo>
+</item>
+<item><latin>Blechnum spicant</latin><common>deer fern</common></item>
+<item>
+<common>Yarrow</common>
+<latin>Achillea millefolium L</latin>
+</item>
+<item>
+<common>Vine Maple</common>
+<latin>Acer circinatum Pursh</latin>
+<photo>vmaple.jpg</photo>
+</item>
+<item>
+<common>Salal</common>
+<photo>salal.jpg</photo>
+<latin>Gaultheria shallon Pursh</latin>
+</item>
+<item>
+<latin>Taxus brevifolia Nutt.</latin>
+<common>Pacific Yew</common>
+<photo>pyew.jpg</photo>
+</item>
+<item>
+<latin>Artemisia, Var.</latin>
+<common>Sagebrush</common>
+</item>
+<item><latin>Vitis vinifera L.</latin><common>domestic grape</common></item>
+<item><latin>Zannichellia palustris L.</latin><common>horned pondweed</common></item>
+<item><latin>Phyllospadix scouleri</latin><common>Scouler's surfgrass</common></item>
+<item><latin>Phyllospadix serrulatus</latin><common>toothed surfgrass</common></item>
+<item><latin>Phyllospadix torreyi</latin><common>Torrey's surfgrass</common></item>
+<item><latin>Zostera japonica</latin><common>dwarf eelgrass</common></item>
+<item><latin>Zostera marina L.</latin><common>seawrack</common></item>
+<item><latin>Peganum harmala L.</latin><common>Syrian rue</common></item>
+<item><latin>Tribulus terrestris L.</latin><common>puncturevine</common></item>
+<item><latin>Zygophyllum fabago L.</latin><common>Syrian beancaper</common></item>
+
+</Section>			<!--End of Native Flora-->
+
+<Section>			<!--Exotic Flora-->
+<Title>Exotic or Introduced</Title>
+<item>
+<latin>Picea pungens Engelm</latin>
+<common>Colorado Blue Spruce</common>
+</item>
+<item>
+<latin>Gleditsia triacanthos L.</latin>
+<common>Honey Locust</common>
+</item>
+<item>
+<latin>Galium aparine L.</latin>
+<common>Cleavers; Strangleweed</common>
+</item>
+</Section>			<!-- End of Exotic Flora -->
+
+<Section>			<!--Fungi-->
+<Title>Fungi</Title>
+
+<item>
+<common>Death Cap Mushroom</common>
+<latin>Amanita phalloides</latin>
+</item>
+<item>
+<common>Yellow Morel</common>
+<latin>Morchella esculenta</latin>
+</item>
+<item>
+<common>Black Morel</common>
+<latin>Morchella elata</latin>
+</item>
+<item>
+<common>Half-free Morel</common>
+<latin>Morchella semilibera</latin>
+</item>
+<item>
+<common>Wrinkled Thimble Cap; Early Morel</common>
+<latin>Verpa bohemica</latin>
+</item>
+
+</Section>			<!-- End of Fungi-->
+</Plant-Sheet>

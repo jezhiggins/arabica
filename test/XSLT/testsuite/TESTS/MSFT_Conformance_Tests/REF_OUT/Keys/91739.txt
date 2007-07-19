@@ -1,0 +1,3 @@
+3
+        THERE ARE 3 node with attribute @made="US"
+    

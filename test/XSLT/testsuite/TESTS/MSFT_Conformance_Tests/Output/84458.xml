@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<html>
+<Q cite="http://www.yahoo.com">http://www.yahoo.com</Q>
+<Q cite="http://日本">http://日本</Q>
+<Q cite="http://www.this space.com" >http://www.this space.com </Q>
+<Q cite="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </Q>
+<Q cite="ĀāĂă">ĀāĂă</Q>
+<Q cite="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </Q>
+
+<BLOCKQUOTE cite="http://www.yahoo.com">http://www.yahoo.com</BLOCKQUOTE>
+<BLOCKQUOTE cite="http://日本">http://日本</BLOCKQUOTE>
+<BLOCKQUOTE cite="http://www.this space.com" >http://www.this space.com </BLOCKQUOTE>
+<BLOCKQUOTE cite="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </BLOCKQUOTE>
+<BLOCKQUOTE cite="ĀāĂă">ĀāĂă</BLOCKQUOTE>
+<BLOCKQUOTE cite="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </BLOCKQUOTE>
+
+<INS cite="http://www.yahoo.com">http://www.yahoo.com</INS>
+<INS cite="http://日本">http://日本</INS>
+<INS cite="http://www.this space.com" >http://www.this space.com </INS>
+<INS cite="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </INS>
+<INS cite="ĀāĂă">ĀāĂă</INS>
+<INS cite="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </INS>
+
+<DEL cite="http://www.yahoo.com">http://www.yahoo.com</DEL>
+<DEL cite="http://日本">http://日本</DEL>
+<DEL cite="http://www.this space.com" >http://www.this space.com </DEL>
+<DEL cite="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </DEL>
+<DEL cite="ĀāĂă">ĀāĂă</DEL>
+<DEL cite="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </DEL>
+
+</html>

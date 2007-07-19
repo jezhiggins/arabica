@@ -1,0 +1,19 @@
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<AAA>   
+   <BBB>   
+      <CCC>C1</CCC>  
+   </BBB>  
+   <CCC>C2</CCC>   
+   <CCC>C3</CCC>   
+</AAA>   
+<AAA>   
+   <CCC>   
+     <DDD>D1</DDD>   
+     <DDD>D2</DDD>   
+   </CCC>   
+ </AAA>   
+</xslTutorial> 
+
+

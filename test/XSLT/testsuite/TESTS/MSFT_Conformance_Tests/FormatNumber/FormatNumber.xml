@@ -1,0 +1,131 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="FormatNumber" description="" outpath="out">
+	<variation name="DecimalFormatInfinityTest">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_format_no_decimal_format_infinity_test.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_format_no_decimal_format_infinity_test.txt</result>
+	</variation>
+	<variation name="DecimalFormatNaNTest">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_format_no_decimal_format_NaN_test.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_format_no_decimal_format_NaN_test.txt</result>
+	</variation>
+	<variation name="DecimalFormatSameCharForDecimalAndGrpSep">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_format_no_same_char_as_decimal_and_grp_sep.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="DecimalFormatZeroDigit">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_decimal_format_zero_digit.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_decimal_format_zero_digit.txt</result>
+	</variation>
+	<variation name="DecimalFormatZeroDigit1">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_decimal_format_zero_digit1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_decimal_format_zero_digit1.txt</result>
+	</variation>
+	<variation name="DecimalFormatZeroDigit2">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_decimal_format_zero_digit2.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_decimal_format_zero_digit2.txt</result>
+	</variation>
+	<variation name="extraParameters">
+		<description>extraParameter.XSL | XSLT- Functions - format-number | with four parameters, should error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>extraParameter.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="FormatNumber_SemiColonDelimitsToWhitespace">
+		<description> Use function format number with format pattern ending in colon followed by whitespace. This is not a valid format pattern, exception should be thrown. [Bug 66613] </description>
+		<data>
+			<xml>xslt_formatnumber_SemiColonDelimitsToWs.xml</xml>
+			<xsl>xslt_formatnumber_SemiColonDelimitsToWs.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="FormatNumberWithDecimalFormatAndEuropeanStandard">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_format_number_decimal_fo.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_format_number_decimal_fo.txt</result>
+	</variation>
+	<variation name="FormatNumberWithDecimalFormatInfinity">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_format_number_infinity.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_format_number_infinity.txt</result>
+	</variation>
+	<variation name="FormatNumberWithPattern.00">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_format_number_test_pattern_.00.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_format_number_test_pattern_.00.txt</result>
+	</variation>
+	<variation name="FormatNumberWithPattern.000">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_format_number_test_pattern_.000.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_format_number_test_pattern_.000.txt</result>
+	</variation>
+	<variation name="TestGrpSepr">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_test_grp_sepr.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_grp_sepr.txt</result>
+	</variation>
+	<variation name="ValueOf_FormatNumberWithoutPositiveNumberFormatPattern">
+		<description>Use of the format-pattern function with an empty positive number format pattern (e.g. ";#0"), and the presence of a positive number. An exception is thrown indicating invalid pattern for the format-number function. [Bug 65719]</description>
+		<data>
+			<xml>xslt_formatnumber_SemiColonDelimitsToWs.xml</xml>
+			<xsl>xslt_formatnumber_SemiColonDelimitsToWs.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+</testcase>

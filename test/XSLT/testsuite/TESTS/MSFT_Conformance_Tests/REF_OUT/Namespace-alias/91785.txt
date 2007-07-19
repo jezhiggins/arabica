@@ -1,0 +1,3 @@
+<xsl2:stylesheet version="1.0" xmlns:xsl2="http://www.myxsl2.com" xmlns:xsl1="http://www.myxsl1.com">
+<xsl2:variable name="v"></xsl2:variable>
+</xsl2:stylesheet>

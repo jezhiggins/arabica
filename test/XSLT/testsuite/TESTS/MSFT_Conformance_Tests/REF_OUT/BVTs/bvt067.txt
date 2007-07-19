@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "public" "system"><area><base><basefont><br><col><frame><hr><img><input><isindex><link><meta><param>
+<AREA><bAsE><BaseFont><bR><Col><FramE><HR><iMg><InPut><isIndex><lInk><MEta><paRAM>
+<Årëæ></Årëæ><ßãçé></ßãçé><basefont-></basefont-><b></b><col1></col1><iframe></iframe><h-r></h-r><ìñþûï></ìñþûï>
+<hr><area>Hello
+<html><title></title><body><h1><br><b>hello</b></h1></body></html>
+<foo:area xmlns:foo="http://my.com"/><area xmlns="http://my.com"/>
+<input checked>
+<dir compact></dir><dl compact></dl><menu compact></menu><ol compact></ol><ul compact></ul>
+<object declare></object>
+<script defer></script>
+<button disabled></button><input disabled><optgroup disabled></optgroup><option disabled></option><select disabled></select><textarea disabled></textarea>
+<img ismap><input ismap>
+<select multiple></select>
+<area nohref>
+<frame noresize>
+<hr noshade>
+<td nowrap></td><th nowrap></th>
+<textarea readonly></textarea><input readonly>
+<option selected></option>
+<input Checked CHECKED checkED>
+<foo:input checked="checked" xmlns:foo="http://my.com"/><input checked="checked" xmlns="http://my.com"/><link checked="checked"><not-html checked="checked"></not-html><input foo:checked="checked" xmlns:foo="http://my.com">
+<input checked=""><non-html checked=""></non-html>
+<area href="<&{%C3%85r%C3%AB%C3%A6"><link href="<&{%C3%85r%C3%AB%C3%A6"><a href="<&{%C3%85r%C3%AB%C3%A6"></a><base href="<&{%C3%85r%C3%AB%C3%A6">
+<script src="<&{%C3%85r%C3%AB%C3%A6"></script><input src="<&{%C3%85r%C3%AB%C3%A6"><img src="<&{%C3%85r%C3%AB%C3%A6">
+<img longdesc="<&{%C3%85r%C3%AB%C3%A6">
+<input usemap="<&{%C3%85r%C3%AB%C3%A6"><img usemap="<&{%C3%85r%C3%AB%C3%A6"><object usemap="<&{%C3%85r%C3%AB%C3%A6"></object>
+<object classid="<&{%C3%85r%C3%AB%C3%A6"></object>
+<object codebase="<&{%C3%85r%C3%AB%C3%A6"></object>
+<object data="<&{%C3%85r%C3%AB%C3%A6"></object>
+<q cite="<&{%C3%85r%C3%AB%C3%A6"></q><blockquote cite="<&{%C3%85r%C3%AB%C3%A6"></blockquote><ins cite="<&{%C3%85r%C3%AB%C3%A6"></ins><del cite="<&{%C3%85r%C3%AB%C3%A6"></del>
+<form action="<&{%C3%85r%C3%AB%C3%A6"></form>
+<head profile="<&{%C3%85r%C3%AB%C3%A6">
+<META http-equiv="Content-Type" content="text and html">
+</head><script for="<&{%C3%85r%C3%AB%C3%A6"></script><table datasrc="<&{%C3%85r%C3%AB%C3%A6"></table>
+<html name="<hello>"></html>
+<foo:html name="&lt;hello&gt;" xmlns:foo="http://my.com"/>
+<script>if (a < b) foo()</script>
+<script>if (a < b) foo()</script>
+<style>&<></style>
+<style>&<></style>
+<script>a < b <embedded> a < b </embedded> a < b </script>
+<script attr="a &amp; b"></script>
+<BODY bgcolor="&{randomrbg}"></BODY>
+<BODY bgcolor="&{randomrbg}"></BODY>
+<BODY bgcolor="begin&{&amp;end&amp;}"></BODY>
+<AREA href="&{randomrbg}">
+<foo:AREA href="&amp;{randomrbg}" xmlns:foo="http://my.com"/>
+<HEAD>
+<META http-equiv="Content-Type" content="text and html">
+</HEAD>
+<HEAD>
+<META http-equiv="Content-Type" content="text and html">
+<H1>Hello</H1>
+</HEAD>
+<BODY></BODY>
+<BODY></BODY>
+<BODY></BODY>
+<DIV><SPAN></SPAN><SPAN></SPAN><SPAN></SPAN></DIV>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+<list m="ByReference">10/20/30/</list>
+<list m="ByValue">10/20/30/</list>
+<list m="ByReference">10-20-30-</list>
+<list m="ByValue">10-20-30-</list>
+</out>

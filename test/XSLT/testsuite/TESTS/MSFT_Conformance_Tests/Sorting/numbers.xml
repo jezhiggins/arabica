@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<sorttest xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" >
+<numbers dtype="text">
+	<no pos="1">1</no>
+	<no pos="2">01</no>
+	<no pos="3">10</no>
+	<no pos="4">-1</no>
+	<no pos="5">2</no>
+	<no pos="6">0.52</no>
+	<no pos="7">0.5</no>
+	<no pos="8">1</no>
+</numbers>
+<numbers dtype="number">
+	<no pos="1" dt:dt="int" >1</no>
+	<no pos="2">01</no>
+	<no pos="3">10</no>
+	<no pos="4">-1</no>
+	<no pos="5">2</no>
+	<no pos="6">0.52</no>
+	<no pos="7">0.5</no>
+	<no pos="8">1</no>
+</numbers>
+<attnumbers dtype="atttext">
+	<no pos="1" number="1"/>
+	<no pos="2" number="01"/>
+	<no pos="3" number="10"/>
+	<no pos="4" number="-1"/>
+	<no pos="5" number="2"/>
+	<no pos="6" number="0.52"/>
+	<no pos="7" number="0.5"/>
+	<no pos="8" number="1"/>
+</attnumbers>
+
+
+
+
+
+</sorttest>

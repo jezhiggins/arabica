@@ -1,0 +1,1 @@
+<DIV style="color:purple">AAA id=a1</DIV><DIV style="color:purple">AAA id=a2</DIV>

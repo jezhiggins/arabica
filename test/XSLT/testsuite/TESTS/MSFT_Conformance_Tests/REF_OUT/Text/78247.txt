@@ -1,0 +1,1 @@
+Unicode Ideographic w h i t e s p a c e, but not XML whitespace

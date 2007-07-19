@@ -1,0 +1,5 @@
+﻿<root><text>bar far</text><text>bar fAr</text><text>bAr
+	far</text>
+		Split Here
+		<text>bAr
+	far</text><text>bar fAr</text><text>bar far</text></root>

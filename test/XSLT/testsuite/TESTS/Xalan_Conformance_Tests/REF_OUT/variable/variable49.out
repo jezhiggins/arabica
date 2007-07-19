@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>id0,  id0
+id1,  id1
+id2,  id2
+id3,  id3
+id4,  id4
+id5,  id5
+id6,  id6
+id7,  id7
+
+== apply above, call below ==
+id0,  id0
+id1,  id1
+id2,  id2
+id3,  id3
+id4,  id4
+id5,  id5
+id6,  id6
+id7,  id7
+</out>

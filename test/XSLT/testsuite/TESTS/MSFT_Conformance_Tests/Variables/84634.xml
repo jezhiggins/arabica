@@ -1,0 +1,18 @@
+<?xml version= "1.0"?>
+<?xml-stylesheet type="text/xsl" href = "Template Variable shadowing.xsl"?>
+
+<!-- A binding shadow is not allowed.  Processor must raise error. -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 03/26/2000 -->
+
+<sold_books>
+	<book>
+		<name>Ender's Game</name>
+		<buyer_name>Khalil</buyer_name>
+	</book>
+	
+	<book>
+		<name>The Forever War</name>
+		<buyer_name>John</buyer_name>
+	</book>
+</sold_books>

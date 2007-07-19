@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<?xml-stylesheet type="text/xsl" href="DailyVolumePackageSummary.xslt"?>
+
+<ROOT>
+	<NewDataSet>
+		<DVPSIH>
+			<P>800</P>
+			<BusTeamDescription>FDS - Foods</BusTeamDescription>
+			<PL>1188</PL>
+			<PlanLevelDescription>32 oz Mixers - Retail</PlanLevelDescription>
+			<PG>40</PG>
+			<PkgGrpDescription>Bar Bottle</PkgGrpDescription>
+			<InvMTD>63</InvMTD>
+			<PDV>3</PDV>
+			<InvYTD>11325</InvYTD>
+			<InvYTDLY>42547</InvYTDLY>
+			<ID>b017e723-915f-44b7-a14f-f017ed4ab32f</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>800</P>
+			<BusTeamDescription>FDS - Foods</BusTeamDescription>
+			<PL>0</PL>
+			<PlanLevelDescription>Unassigned</PlanLevelDescription>
+			<PG>10</PG>
+			<PkgGrpDescription>Portion Controlled -</PkgGrpDescription>
+			<InvMTD>25</InvMTD>
+			<PDV>2</PDV>
+			<InvYTD>284</InvYTD>
+			<InvYTDLY>21080</InvYTDLY>
+			<ID>70b024bf-7c64-4d88-bff8-2e180e9ab793</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>700</P>
+			<BusTeamDescription>Nantucket Nectars</BusTeamDescription>
+			<PL>17</PL>
+			<PlanLevelDescription>Chilled Multiserve In-Home</PlanLevelDescription>
+			<PG>44</PG>
+			<PkgGrpDescription>NN Chilled</PkgGrpDescription>
+			<InvMTD>14175</InvMTD>
+			<PDV>1785</PDV>
+			<InvYTD>59843</InvYTD>
+			<InvYTDLY>71643</InvYTDLY>
+			<ID>4182eb7a-f405-40d7-9965-c362327587d6</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>1187</PL>
+			<PlanLevelDescription>11.5 oz SS - Retail</PlanLevelDescription>
+			<PG>21</PG>
+			<PkgGrpDescription>Single Serve Can</PkgGrpDescription>
+			<InvMTD>1187</InvMTD>
+			<PDV>4</PDV>
+			<InvYTD>23563</InvYTD>
+			<InvYTDLY>12625</InvYTDLY>
+			<ID>b8022904-60db-42dc-9b2b-8c5dbbbc4394</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>1126</PL>
+			<PlanLevelDescription>11.75 oz Spritzers - Military</PlanLevelDescription>
+			<PG>54</PG>
+			<PkgGrpDescription>Spritzers</PkgGrpDescription>
+			<InvMTD>72</InvMTD>
+			<InvYTD>1467</InvYTD>
+			<ID>3d693e72-9973-4fbe-b7e5-6be69a0536f5</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>192</PL>
+			<PlanLevelDescription>SS Mass Merch 8oz</PlanLevelDescription>
+			<PG>34</PG>
+			<PkgGrpDescription>Sserve PET</PkgGrpDescription>
+			<InvMTD>12218</InvMTD>
+			<PDV>30460</PDV>
+			<InvYTD>1334957.994</InvYTD>
+			<InvYTDLY>1320748</InvYTDLY>
+			<ID>e36321be-a5a9-4aab-a0d5-d7e87bd5bdf5</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>191</PL>
+			<PlanLevelDescription>SS Club 8 oz</PlanLevelDescription>
+			<PG>34</PG>
+			<PkgGrpDescription>Sserve PET</PkgGrpDescription>
+			<InvMTD>14625</InvMTD>
+			<PDV>30460</PDV>
+			<InvYTD>1334957.994</InvYTD>
+			<InvYTDLY>1320748</InvYTDLY>
+			<ID>3e6a9b04-93de-4399-82bb-bcd5ba870c78</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>171</PL>
+			<PlanLevelDescription>SS Retail 8oz</PlanLevelDescription>
+			<PG>34</PG>
+			<PkgGrpDescription>Sserve PET</PkgGrpDescription>
+			<InvMTD>21601</InvMTD>
+			<PDV>30460</PDV>
+			<InvYTD>1334957.994</InvYTD>
+			<InvYTDLY>1320748</InvYTDLY>
+			<ID>90502c8d-4618-43e3-9fc7-2139637653cb</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>132</PL>
+			<PlanLevelDescription>16z SSVariety - CLUB</PlanLevelDescription>
+			<PG>34</PG>
+			<PkgGrpDescription>Sserve PET</PkgGrpDescription>
+			<InvMTD>55301</InvMTD>
+			<PDV>30460</PDV>
+			<InvYTD>1334957.994</InvYTD>
+			<InvYTDLY>1320748</InvYTDLY>
+			<ID>2491cb37-9878-4c61-8bc0-e8711cdd9852</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>14</PL>
+			<PlanLevelDescription>SS 16oz In-Home</PlanLevelDescription>
+			<PG>34</PG>
+			<PkgGrpDescription>Sserve PET</PkgGrpDescription>
+			<InvMTD>58794</InvMTD>
+			<PDV>30460</PDV>
+			<InvYTD>1334957.994</InvYTD>
+			<InvYTDLY>1320748</InvYTDLY>
+			<ID>9ff7e900-12d1-408b-a932-31065c0c6856</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>0</PL>
+			<PlanLevelDescription>Unassigned</PlanLevelDescription>
+			<PG>301</PG>
+			<PkgGrpDescription>Crnbry Canned &amp; Bot</PkgGrpDescription>
+			<InvMTD>76</InvMTD>
+			<PDV>5</PDV>
+			<InvYTD>572</InvYTD>
+			<InvYTDLY>14460</InvYTDLY>
+			<ID>46795aaf-5511-4331-adfb-510e077421ff</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>600</P>
+			<BusTeamDescription>Retail SS Beverage</BusTeamDescription>
+			<PL>0</PL>
+			<PlanLevelDescription>Unassigned</PlanLevelDescription>
+			<PG>5</PG>
+			<PkgGrpDescription>Single Serve Glass</PkgGrpDescription>
+			<InvMTD>3506</InvMTD>
+			<InvYTD>8128</InvYTD>
+			<InvYTDLY>84526</InvYTDLY>
+			<ID>5d069daa-cb74-4862-a2ae-8220c0b4d657</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>500</P>
+			<BusTeamDescription>Citrus</BusTeamDescription>
+			<PL>1047</PL>
+			<PlanLevelDescription>Citrus In &amp; Outs</PlanLevelDescription>
+			<PG>56</PG>
+			<PkgGrpDescription>Citrus Team In &amp; Out</PkgGrpDescription>
+			<InvMTD>0</InvMTD>
+			<PDV>344</PDV>
+			<InvYTD>1560</InvYTD>
+			<ID>90b6709f-6655-4d4e-aedd-79dfba20fab9</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>500</P>
+			<BusTeamDescription>Citrus</BusTeamDescription>
+			<PL>151</PL>
+			<PlanLevelDescription>Citrus Refill</PlanLevelDescription>
+			<PG>3</PG>
+			<PkgGrpDescription>Refill</PkgGrpDescription>
+			<InvMTD>542</InvMTD>
+			<InvYTD>7019</InvYTD>
+			<InvYTDLY>27563</InvYTDLY>
+			<ID>720240fa-17b1-4f6a-a405-60e11de24a28</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>500</P>
+			<BusTeamDescription>Citrus</BusTeamDescription>
+			<PL>128</PL>
+			<PlanLevelDescription>Core Citrus - CLUB</PlanLevelDescription>
+			<PG>501</PG>
+			<PkgGrpDescription>Citrus Canned &amp; Bot</PkgGrpDescription>
+			<InvMTD>28584</InvMTD>
+			<PDV>23554</PDV>
+			<InvYTD>1950845</InvYTD>
+			<InvYTDLY>3610451</InvYTDLY>
+			<ID>3dfed7e0-140f-49e3-a2cb-2a02180f7602</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>500</P>
+			<BusTeamDescription>Citrus</BusTeamDescription>
+			<PL>13</PL>
+			<PlanLevelDescription>100% Premium Citrus</PlanLevelDescription>
+			<PG>533</PG>
+			<PkgGrpDescription>Citrus Prem 100% Jce</PkgGrpDescription>
+			<InvMTD>153433</InvMTD>
+			<OpenOrders>200</OpenOrders>
+			<PDV>14736</PDV>
+			<InvYTD>1250966</InvYTD>
+			<InvYTDLY>2968447</InvYTDLY>
+			<ID>53159df6-7bb8-4769-a168-ab1d9f3fce6f</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>500</P>
+			<BusTeamDescription>Citrus</BusTeamDescription>
+			<PL>11</PL>
+			<PlanLevelDescription>Core Citrus</PlanLevelDescription>
+			<PG>501</PG>
+			<PkgGrpDescription>Citrus Canned &amp; Bot</PkgGrpDescription>
+			<InvMTD>241481</InvMTD>
+			<PDV>23554</PDV>
+			<InvYTD>1950845</InvYTD>
+			<InvYTDLY>3610451</InvYTDLY>
+			<ID>d8f2de9d-b663-475e-ab41-9e795a6ea809</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>150</PL>
+			<PlanLevelDescription>Cran Refill</PlanLevelDescription>
+			<PG>3</PG>
+			<PkgGrpDescription>Refill</PkgGrpDescription>
+			<InvMTD>24773</InvMTD>
+			<PDV>2305</PDV>
+			<InvYTD>227137</InvYTD>
+			<InvYTDLY>589378</InvYTDLY>
+			<ID>026b6092-c4ff-4778-ae4c-f59680c7e003</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>126</PL>
+			<PlanLevelDescription>Core Cran - CLUB</PlanLevelDescription>
+			<PG>301</PG>
+			<PkgGrpDescription>Crnbry Canned &amp; Bot</PkgGrpDescription>
+			<InvMTD>102144</InvMTD>
+			<PDV>146355</PDV>
+			<InvYTD>9450444</InvYTD>
+			<InvYTDLY>17861375</InvYTDLY>
+			<ID>8f1c652b-2471-40a8-b546-11c4049a56d7</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>126</PL>
+			<PlanLevelDescription>Core Cran - CLUB</PlanLevelDescription>
+			<PG>37</PG>
+			<PkgGrpDescription>White Cranberry</PkgGrpDescription>
+			<InvMTD>65464</InvMTD>
+			<PDV>25719</PDV>
+			<InvYTD>1775065</InvYTD>
+			<InvYTDLY>83866</InvYTDLY>
+			<ID>bf7c6257-616b-42f0-9fb7-af50b5feae2d</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>123</PL>
+			<PlanLevelDescription>100% Cran- CLUB</PlanLevelDescription>
+			<PG>33</PG>
+			<PkgGrpDescription>Premium 100% Juice</PkgGrpDescription>
+			<InvMTD>37268</InvMTD>
+			<PDV>21741</PDV>
+			<InvYTD>1595143</InvYTD>
+			<InvYTDLY>3027046</InvYTDLY>
+			<ID>106cf22a-2385-4506-97f2-343d9b068d74</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>6</PL>
+			<PlanLevelDescription>Crantastics</PlanLevelDescription>
+			<PG>38</PG>
+			<PkgGrpDescription>Juice Box</PkgGrpDescription>
+			<InvMTD>1779</InvMTD>
+			<InvYTD>54089</InvYTD>
+			<InvYTDLY>1112787</InvYTDLY>
+			<ID>c7ba4331-7ab3-4467-9469-abe41d4f609f</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>5</PL>
+			<PlanLevelDescription>100% Premium Cranberry</PlanLevelDescription>
+			<PG>33</PG>
+			<PkgGrpDescription>Premium 100% Juice</PkgGrpDescription>
+			<InvMTD>185081</InvMTD>
+			<PDV>21741</PDV>
+			<InvYTD>1595143</InvYTD>
+			<InvYTDLY>3027046</InvYTDLY>
+			<ID>91d5a9d2-9eb0-46e5-9dce-e7a40fe12891</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>3</PL>
+			<PlanLevelDescription>Core Cranberry</PlanLevelDescription>
+			<PG>301</PG>
+			<PkgGrpDescription>Crnbry Canned &amp; Bot</PkgGrpDescription>
+			<InvMTD>1135425</InvMTD>
+			<PDV>146355</PDV>
+			<InvYTD>9450444</InvYTD>
+			<InvYTDLY>17861375</InvYTDLY>
+			<ID>ecfeb70f-9368-49e8-a603-8bad1fa08c35</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>3</PL>
+			<PlanLevelDescription>Core Cranberry</PlanLevelDescription>
+			<PG>26</PG>
+			<PkgGrpDescription>Light Style</PkgGrpDescription>
+			<InvMTD>187774</InvMTD>
+			<PDV>13359</PDV>
+			<InvYTD>1236838</InvYTD>
+			<InvYTDLY>1941070</InvYTDLY>
+			<ID>08aff80f-89e1-499a-a921-dabc5d49ae3a</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>300</P>
+			<BusTeamDescription>Cranberry Drinks</BusTeamDescription>
+			<PL>3</PL>
+			<PlanLevelDescription>Core Cranberry</PlanLevelDescription>
+			<PG>37</PG>
+			<PkgGrpDescription>White Cranberry</PkgGrpDescription>
+			<InvMTD>246776</InvMTD>
+			<PDV>25719</PDV>
+			<InvYTD>1775065</InvYTD>
+			<InvYTDLY>83866</InvYTDLY>
+			<ID>f9c43431-dab2-4ad3-b8b5-ad55af482c11</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>200</P>
+			<BusTeamDescription>Cranberry Foods</BusTeamDescription>
+			<PL>529</PL>
+			<PlanLevelDescription>PL Canned Sauce</PlanLevelDescription>
+			<PG>52</PG>
+			<PkgGrpDescription>Private Label Sauce</PkgGrpDescription>
+			<InvMTD>2772</InvMTD>
+			<PDV>-208</PDV>
+			<InvYTD>75036</InvYTD>
+			<InvYTDLY>122080</InvYTDLY>
+			<ID>0204c283-ea3a-4d61-af5d-4dd8b63d57b2</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>200</P>
+			<BusTeamDescription>Cranberry Foods</BusTeamDescription>
+			<PL>131</PL>
+			<PlanLevelDescription>Craisins - CLUB</PlanLevelDescription>
+			<PG>25</PG>
+			<PkgGrpDescription>SDC (Consumer)</PkgGrpDescription>
+			<InvMTD>10662</InvMTD>
+			<PDV>6567</PDV>
+			<InvYTD>850084</InvYTD>
+			<InvYTDLY>911126</InvYTDLY>
+			<ID>af609ae8-c52a-406e-a91a-a988426a0720</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>200</P>
+			<BusTeamDescription>Cranberry Foods</BusTeamDescription>
+			<PL>10</PL>
+			<PlanLevelDescription>Canned Sauce</PlanLevelDescription>
+			<PG>9</PG>
+			<PkgGrpDescription>Canned Sauce</PkgGrpDescription>
+			<InvMTD>-65969</InvMTD>
+			<PDV>4335</PDV>
+			<InvYTD>1163091</InvYTD>
+			<InvYTDLY>4864178</InvYTDLY>
+			<ID>76b870a3-a26a-4ca5-bb25-57b04cd48c81</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>200</P>
+			<BusTeamDescription>Cranberry Foods</BusTeamDescription>
+			<PL>9</PL>
+			<PlanLevelDescription>Craisins</PlanLevelDescription>
+			<PG>25</PG>
+			<PkgGrpDescription>SDC (Consumer)</PkgGrpDescription>
+			<InvMTD>66467</InvMTD>
+			<PDV>6567</PDV>
+			<InvYTD>850084</InvYTD>
+			<InvYTDLY>911126</InvYTDLY>
+			<ID>bc92e840-d73f-4f1c-b631-fb9dcce82920</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>200</P>
+			<BusTeamDescription>Cranberry Foods</BusTeamDescription>
+			<PL>8</PL>
+			<PlanLevelDescription>Resealable Sauce</PlanLevelDescription>
+			<PG>19</PG>
+			<PkgGrpDescription>Resealables</PkgGrpDescription>
+			<InvMTD>1758</InvMTD>
+			<PDV>1144</PDV>
+			<InvYTD>141815</InvYTD>
+			<InvYTDLY>194782</InvYTDLY>
+			<ID>1476910a-0179-4dd2-b648-1eb4f3faad6d</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>200</P>
+			<BusTeamDescription>Cranberry Foods</BusTeamDescription>
+			<PL>0</PL>
+			<PlanLevelDescription>Unassigned</PlanLevelDescription>
+			<PG>13</PG>
+			<PkgGrpDescription>SDC (Ingredient)</PkgGrpDescription>
+			<InvMTD>118</InvMTD>
+			<PDV>12</PDV>
+			<InvYTD>1320</InvYTD>
+			<InvYTDLY>1432</InvYTDLY>
+			<ID>d6299809-28c2-4a6a-b516-a5f1a00f47c3</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>34</PG>
+			<PkgGrpDescription>Sserve PET</PkgGrpDescription>
+			<InvMTD>8959</InvMTD>
+			<PDV>8367.995</PDV>
+			<InvYTD>72776.995</InvYTD>
+			<InvYTDLY>252652</InvYTDLY>
+			<ID>f8f2894f-9b52-4939-893c-cd7f0913b839</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>3</PG>
+			<PkgGrpDescription>Refill</PkgGrpDescription>
+			<InvMTD>2880</InvMTD>
+			<PDV>3600</PDV>
+			<InvYTD>15294</InvYTD>
+			<InvYTDLY>40374</InvYTDLY>
+			<ID>2488f2d4-9e3f-4cd4-bf5d-7cc5ac1016ba</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>33</PG>
+			<PkgGrpDescription>Premium 100% Juice</PkgGrpDescription>
+			<InvMTD>10</InvMTD>
+			<PDV>1</PDV>
+			<InvYTD>1339</InvYTD>
+			<InvYTDLY>3320</InvYTDLY>
+			<ID>50d203fa-549d-41ac-83f8-567d63fc090d</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>40</PG>
+			<PkgGrpDescription>Bar Bottle</PkgGrpDescription>
+			<InvMTD>4359</InvMTD>
+			<PDV>43</PDV>
+			<InvYTD>14800</InvYTD>
+			<InvYTDLY>4806</InvYTDLY>
+			<ID>1b0eb225-f09d-4121-a84b-a432c9ed2907</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>301</PG>
+			<PkgGrpDescription>Crnbry Canned &amp; Bot</PkgGrpDescription>
+			<InvMTD>1027</InvMTD>
+			<PDV>684</PDV>
+			<InvYTD>18721</InvYTD>
+			<InvYTDLY>70469</InvYTDLY>
+			<ID>c76a226b-4815-40c4-96c7-3eb706410861</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>501</PG>
+			<PkgGrpDescription>Citrus Canned &amp; Bot</PkgGrpDescription>
+			<InvMTD>4490</InvMTD>
+			<PDV>683</PDV>
+			<InvYTD>15706</InvYTD>
+			<InvYTDLY>24821</InvYTDLY>
+			<ID>ea4a61fa-c266-4926-8aaa-476ccb3e096c</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>533</PG>
+			<PkgGrpDescription>Citrus Prem 100% Jce</PkgGrpDescription>
+			<InvMTD>1786</InvMTD>
+			<PDV>111</PDV>
+			<InvYTD>15588</InvYTD>
+			<InvYTDLY>48173</InvYTDLY>
+			<ID>cbac32b7-0af0-41a6-a532-71fe5b78508d</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>701</PG>
+			<PkgGrpDescription>NMem Canned &amp; Bot</PkgGrpDescription>
+			<InvMTD>234</InvMTD>
+			<PDV>4</PDV>
+			<InvYTD>4501</InvYTD>
+			<InvYTDLY>8120</InvYTDLY>
+			<ID>25db7cd3-c8eb-404c-9bc5-c371661ff015</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>9</PG>
+			<PkgGrpDescription>Canned Sauce</PkgGrpDescription>
+			<InvMTD>4765</InvMTD>
+			<PDV>467</PDV>
+			<InvYTD>24071</InvYTD>
+			<InvYTDLY>45812</InvYTDLY>
+			<ID>2e6dac7f-20c3-4c9d-a1e2-7b4031b54ea0</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>25</PG>
+			<PkgGrpDescription>SDC (Consumer)</PkgGrpDescription>
+			<InvMTD>926</InvMTD>
+			<InvYTD>6056</InvYTD>
+			<InvYTDLY>49554</InvYTDLY>
+			<ID>9d8201d4-c48d-4092-b7e2-fd24ed599067</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>38</PG>
+			<PkgGrpDescription>Juice Box</PkgGrpDescription>
+			<InvMTD>2584</InvMTD>
+			<InvYTD>12952</InvYTD>
+			<InvYTDLY>23521</InvYTDLY>
+			<ID>bca287f3-ccf9-4b84-b771-9b31684d97b4</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>41</PG>
+			<PkgGrpDescription>NN SS Glass</PkgGrpDescription>
+			<InvMTD>89</InvMTD>
+			<PDV>335</PDV>
+			<InvYTD>63855</InvYTD>
+			<InvYTDLY>9886</InvYTDLY>
+			<ID>4a500120-be3a-445e-97a1-aeefcc8dff50</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>52</PG>
+			<PkgGrpDescription>Private Label Sauce</PkgGrpDescription>
+			<InvMTD>10</InvMTD>
+			<InvYTD>19</InvYTD>
+			<InvYTDLY>33</InvYTDLY>
+			<ID>b98050b2-5158-463c-a445-5a8eb02f9f34</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>54</PG>
+			<PkgGrpDescription>Spritzers</PkgGrpDescription>
+			<InvMTD>124</InvMTD>
+			<PDV>25</PDV>
+			<InvYTD>1932</InvYTD>
+			<ID>6242b3d3-8365-4b53-ac9f-3a04d551715e</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>5</PG>
+			<PkgGrpDescription>Single Serve Glass</PkgGrpDescription>
+			<InvMTD>859</InvMTD>
+			<PDV>393</PDV>
+			<InvYTD>7936</InvYTD>
+			<InvYTDLY>52328</InvYTDLY>
+			<ID>85346816-132d-462d-a840-d734d974e59f</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>10</PG>
+			<PkgGrpDescription>Portion Controlled -</PkgGrpDescription>
+			<InvMTD>308</InvMTD>
+			<InvYTD>1275</InvYTD>
+			<InvYTDLY>40650</InvYTDLY>
+			<ID>88618d21-b9bf-4d67-990c-95aa409464c7</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>21</PG>
+			<PkgGrpDescription>Single Serve Can</PkgGrpDescription>
+			<InvMTD>2989</InvMTD>
+			<PDV>3050</PDV>
+			<InvYTD>37017</InvYTD>
+			<InvYTDLY>33447</InvYTDLY>
+			<ID>d8b03877-2689-46db-bad7-d967d1f1f916</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>26</PG>
+			<PkgGrpDescription>Light Style</PkgGrpDescription>
+			<InvMTD>183</InvMTD>
+			<PDV>1335</PDV>
+			<InvYTD>4766</InvYTD>
+			<InvYTDLY>28257</InvYTDLY>
+			<ID>3ba650f8-cc2d-46ca-bc6f-21463e3d5e0b</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>37</PG>
+			<PkgGrpDescription>White Cranberry</PkgGrpDescription>
+			<InvMTD>103</InvMTD>
+			<PDV>78</PDV>
+			<InvYTD>3378</InvYTD>
+			<InvYTDLY>2475</InvYTDLY>
+			<ID>b25c6aa3-1d45-485b-ba4e-b6a229b056c6</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>42</PG>
+			<PkgGrpDescription>NN SS Can</PkgGrpDescription>
+			<InvMTD>282</InvMTD>
+			<PDV>89</PDV>
+			<InvYTD>10001</InvYTD>
+			<InvYTDLY>100</InvYTDLY>
+			<ID>2e1ca70a-8b0e-49f8-a8dd-b001aea0a269</ID>
+		</DVPSIH>
+		<DVPSIH>
+			<P>2</P>
+			<BusTeamDescription>MISC</BusTeamDescription>
+			<PL>102</PL>
+			<PlanLevelDescription>IH MIsc</PlanLevelDescription>
+			<PG>53</PG>
+			<PkgGrpDescription>Cran Caribe</PkgGrpDescription>
+			<InvMTD>1787</InvMTD>
+			<InvYTD>1787</InvYTD>
+			<ID>2853f13d-8ffc-4f7c-8c47-50323e304562</ID>
+		</DVPSIH>
+	</NewDataSet>
+</ROOT>

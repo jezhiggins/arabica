@@ -1,0 +1,22 @@
+<?xml version="1.0"?> 
+<doc>
+  <div>
+    <title>Introduction</title>
+    <p>Intro_Section</p>
+  </div>
+  
+  <div>
+    <title>Stylesheet Structure</title>
+    <p>SS_Section</p>
+  </div>
+  
+  <div>
+    <title>Expressions</title>
+    <p>Exp_Section</p>
+  </div>
+
+  <div>
+    <title>Patterns</title>
+    <p>Pat_Section</p>
+  </div>
+</doc>

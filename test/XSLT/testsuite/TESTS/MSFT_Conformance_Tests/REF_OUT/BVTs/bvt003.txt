@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<x attr="override-attr" attr2="simple-use" attr3="multiple-use" attr4="'override-attr4'" use-attribute-sets="not-recognized">
+<y />
+</x>
+<x attr="simple" attr6="fwd" attr7="ns">
+<y />
+</x>
+<bookstore attr="simple" attr2="override-attr2" xmlns:my="http://my.com">
+<elem attr="simple" attr6="fwd" attr5="fwd-use" />
+</bookstore>

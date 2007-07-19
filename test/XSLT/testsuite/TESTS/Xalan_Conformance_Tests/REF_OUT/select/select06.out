@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+      Inside an A node
+      Finished C node: A1B2C1Finished C node: A1B2C2Finished C node: A1B2C3|
+            |
+            Finished C node: A1B3C4
+      Inside an A node
+      |
+            A2B4C5D3E1,Finished C node: A2B4C5
+      Inside an A node
+      |
+            A3B5C6D4E2,|
+            A3B5C6D5E3,Finished C node: A3B5C6|
+            |
+            A3B5C7D7E4,A3B5C7D7E5,A3B5C7D7E6,|
+            Finished C node: A3B5C7|
+            A3B9C8D9E7,Finished C node: A3B9C8</out>

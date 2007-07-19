@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<sorttest>
+<a><b>one</b></a>
+<a><b>two</b></a>
+<a><b>three</b></a>
+<a><b>four</b></a>
+<a><b>five</b></a>
+
+<c><d>1</d></c>
+<c><d>10</d></c>
+<c><d>2</d></c>
+<c><d>3</d></c>
+<c><d>0.5</d></c>
+<c><d>-1</d></c>
+
+</sorttest>

@@ -1,0 +1,1 @@
+<a:b auto-ns1:b="ab" b="text" xmlns:auto-ns1="aa" xmlns:a="ab" />

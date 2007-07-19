@@ -1,0 +1,86 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Completeness" description="" outpath="out">
+	<variation name="_84351">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84351.xsl</xsl>
+		</data>
+		<result expected="valid">84351_output.txt</result>
+	</variation>
+	<variation name="_84354">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84354.xsl</xsl>
+		</data>
+		<result expected="valid">84354_output.txt</result>
+	</variation>
+	<variation name="_84355">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84355.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84356">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84356.xsl</xsl>
+		</data>
+		<result expected="valid">84356_output.txt</result>
+	</variation>
+	<variation name="_84357">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84357.xsl</xsl>
+		</data>
+		<result expected="valid">84357_output.txt</result>
+	</variation>
+	<variation name="_84358">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84358.xsl</xsl>
+		</data>
+		<result expected="valid">84358_output.txt</result>
+	</variation>
+	<variation name="_84359">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84359.xsl</xsl>
+		</data>
+		<result expected="valid">84359_output.txt</result>
+	</variation>
+	<variation name="_84360">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84360.xsl</xsl>
+		</data>
+		<result expected="valid">84360_output.txt</result>
+	</variation>
+	<variation name="_84361">
+		<description>
+		</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>84361.xsl</xsl>
+		</data>
+		<result expected="valid">84361_output.txt</result>
+	</variation>
+</testcase>

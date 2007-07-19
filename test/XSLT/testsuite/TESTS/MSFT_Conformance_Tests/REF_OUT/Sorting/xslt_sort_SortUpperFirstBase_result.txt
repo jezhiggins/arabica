@@ -1,0 +1,1 @@
+﻿<root><text>Bar</text><text>bar</text><text>Car</text><text>car</text><text>car</text><text>Car</text><text>bar</text><text>Bar</text></root>

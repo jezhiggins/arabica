@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="84720.xsl"?>
+
+<!-- XSLT - Numbering - format= "&#x0049;" (Roman-Upper) & = "&#x0069;" (Roman-Lower)  - letter-value="alphabetic" | "traditional" -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 04/12/2000 -->
+
+<beings>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+</beings>
+
+

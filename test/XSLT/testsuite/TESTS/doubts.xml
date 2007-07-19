@@ -1,0 +1,3582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Table of types of doubts
+doubt: specific error or issue with the test case
+extension: uses an extension feature
+gray-area: the spec does not give enough precision to distinguish correct behavior on the indicated detail
+processor-specific: processors are required to provide a unique value (should be marked as "manual" compare in catalog)
+serial: processor has options regarding serialization (This doubt only used for detail issues, not general discretion about encoding.)
+
+Overall note: many cases have xsl:output indent="yes" and except for the whitespace groups, it needs to be overcome in the
+output-comparison stage. The infoset converter should have a switchable option for this.
+-->
+<test-suite>
+  <test-catalog submitter="Lotus">
+    <test-case id="attribset_attribset01"/>
+    <test-case id="attribset_attribset02"/>
+    <test-case id="attribset_attribset03"/>
+    <test-case id="attribset_attribset04"/>
+    <test-case id="attribset_attribset05"/>
+    <test-case id="attribset_attribset06"/>
+    <test-case id="attribset_attribset07"/>
+    <test-case id="attribset_attribset08"/>
+    <test-case id="attribset_attribset09"/>
+    <test-case id="attribset_attribset10"/>
+    <test-case id="attribset_attribset11"/>
+    <test-case id="attribset_attribset12"/>
+    <test-case id="attribset_attribset13"/>
+    <test-case id="attribset_attribset14"/>
+    <test-case id="attribset_attribset15"/>
+    <test-case id="attribset_attribset16">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="attribset_attribset17"/>
+    <test-case id="attribset_attribset18"/>
+    <test-case id="attribset_attribset19"/>
+    <test-case id="attribset_attribset20"/>
+    <test-case id="attribset_attribset21"/>
+    <test-case id="attribset_attribset22"/>
+    <test-case id="attribset_attribset23">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="attribset_attribset24"/>
+    <test-case id="attribset_attribset25"/>
+    <test-case id="attribset_attribset26"/>
+    <test-case id="attribset_attribset27"/>
+    <test-case id="attribset_attribset28"/>
+    <test-case id="attribset_attribset29"/>
+    <test-case id="attribset_attribset30"/>
+    <test-case id="attribset_attribset31"/>
+    <test-case id="attribset_attribset32"/>
+    <test-case id="attribset_attribset33"/>
+    <test-case id="attribset_attribset34"/>
+    <test-case id="attribset_attribset35"/>
+    <test-case id="attribset_attribset36"/>
+    <test-case id="attribset_attribset37"/>
+    <test-case id="attribset_attribset38"/>
+    <test-case id="attribset_attribset39"/>
+    <test-case id="attribset_attribset40">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="attribset_attribset41"/>
+    <test-case id="attribset_attribset42"/>
+    <test-case id="attribset_attribset43"/>
+    <test-case id="attribset_attribset44"/>
+    <test-case id="attribset_attribset45"/>
+    <test-case id="attribset_attribset46"/>
+    <test-case id="attribset_attribset47"/>
+    <test-case id="attribset_attribset48"/>
+    <test-case id="attribset_attribset49"/>
+    <test-case id="attribvaltemplate_attribvaltemplate01"/>
+    <test-case id="attribvaltemplate_attribvaltemplate02"/>
+    <test-case id="attribvaltemplate_attribvaltemplate03"/>
+    <test-case id="attribvaltemplate_attribvaltemplate04"/>
+    <test-case id="attribvaltemplate_attribvaltemplate05"/>
+    <test-case id="attribvaltemplate_attribvaltemplate06"/>
+    <test-case id="attribvaltemplate_attribvaltemplate08"/>
+    <test-case id="attribvaltemplate_attribvaltemplate09"/>
+    <test-case id="attribvaltemplate_attribvaltemplate10"/>
+    <test-case id="attribvaltemplate_attribvaltemplate11"/>
+    <test-case id="attribvaltemplate_attribvaltemplate12"/>
+    <test-case id="attribvaltemplate_attribvaltemplate12"/>
+    <test-case id="axes_axes01"/>
+    <test-case id="axes_axes02"/>
+    <test-case id="axes_axes03"/>
+    <test-case id="axes_axes04"/>
+    <test-case id="axes_axes05"/>
+    <test-case id="axes_axes06"/>
+    <test-case id="axes_axes07"/>
+    <test-case id="axes_axes08"/>
+    <test-case id="axes_axes09"/>
+    <test-case id="axes_axes10"/>
+    <test-case id="axes_axes11"/>
+    <test-case id="axes_axes12"/>
+    <test-case id="axes_axes13"/>
+    <test-case id="axes_axes14"/>
+    <test-case id="axes_axes15"/>
+    <test-case id="axes_axes16"/>
+    <test-case id="axes_axes17"/>
+    <test-case id="axes_axes18"/>
+    <test-case id="axes_axes19"/>
+    <test-case id="axes_axes20"/>
+    <test-case id="axes_axes21"/>
+    <test-case id="axes_axes22"/>
+    <test-case id="axes_axes23"/>
+    <test-case id="axes_axes24"/>
+    <test-case id="axes_axes25"/>
+    <test-case id="axes_axes26"/>
+    <test-case id="axes_axes27"/>
+    <test-case id="axes_axes28"/>
+    <test-case id="axes_axes29"/>
+    <test-case id="axes_axes30"/>
+    <test-case id="axes_axes31"/>
+    <test-case id="axes_axes32"/>
+    <test-case id="axes_axes33"/>
+    <test-case id="axes_axes34"/>
+    <test-case id="axes_axes35"/>
+    <test-case id="axes_axes36"/>
+    <test-case id="axes_axes37"/>
+    <test-case id="axes_axes38"/>
+    <test-case id="axes_axes39"/>
+    <test-case id="axes_axes40"/>
+    <test-case id="axes_axes41"/>
+    <test-case id="axes_axes42"/>
+    <test-case id="axes_axes43"/>
+    <test-case id="axes_axes44"/>
+    <test-case id="axes_axes45"/>
+    <test-case id="axes_axes46"/>
+    <test-case id="axes_axes47"/>
+    <test-case id="axes_axes48"/>
+    <test-case id="axes_axes49"/>
+    <test-case id="axes_axes50"/>
+    <test-case id="axes_axes51"/>
+    <test-case id="axes_axes52"/>
+    <test-case id="axes_axes53"/>
+    <test-case id="axes_axes54"/>
+    <test-case id="axes_axes55"/>
+    <test-case id="axes_axes56"/>
+    <test-case id="axes_axes57"/>
+    <test-case id="axes_axes58"/>
+    <test-case id="axes_axes59"/>
+    <test-case id="axes_axes60"/>
+    <test-case id="axes_axes61"/>
+    <test-case id="axes_axes62"/>
+    <test-case id="axes_axes63"/>
+    <test-case id="axes_axes64"/>
+    <test-case id="axes_axes65"/>
+    <test-case id="axes_axes66"/>
+    <test-case id="axes_axes67"/>
+    <test-case id="axes_axes68"/>
+    <test-case id="axes_axes69"/>
+    <test-case id="axes_axes70"/>
+    <test-case id="axes_axes71"/>
+    <test-case id="axes_axes72"/>
+    <test-case id="axes_axes73"/>
+    <test-case id="axes_axes74"/>
+    <test-case id="axes_axes75"/>
+    <test-case id="axes_axes76"/>
+    <test-case id="axes_axes77"/>
+    <test-case id="axes_axes78"/>
+    <test-case id="axes_axes79"/>
+    <test-case id="axes_axes80"/>
+    <test-case id="axes_axes81"/>
+    <test-case id="axes_axes82"/>
+    <test-case id="axes_axes83"/>
+    <test-case id="axes_axes84"/>
+    <test-case id="axes_axes85"/>
+    <test-case id="axes_axes86"/>
+    <test-case id="axes_axes87"/>
+    <test-case id="axes_axes88"/>
+    <test-case id="axes_axes89"/>
+    <test-case id="axes_axes90"/>
+    <test-case id="axes_axes91"/>
+    <test-case id="axes_axes92"/>
+    <test-case id="axes_axes93"/>
+    <test-case id="axes_axes94"/>
+    <test-case id="axes_axes95"/>
+    <test-case id="axes_axes96"/>
+    <test-case id="axes_axes97"/>
+    <test-case id="axes_axes98"/>
+    <test-case id="axes_axes99"/>
+    <test-case id="axes_axes100"/>
+    <test-case id="axes_axes101"/>
+    <test-case id="axes_axes102"/>
+    <test-case id="axes_axes103"/>
+    <test-case id="axes_axes104"/>
+    <test-case id="axes_axes105"/>
+    <test-case id="axes_axes106"/>
+    <test-case id="axes_axes107"/>
+    <test-case id="axes_axes108"/>
+    <test-case id="axes_axes109"/>
+    <test-case id="axes_axes110"/>
+    <test-case id="axes_axes111"/>
+    <test-case id="axes_axes112"/>
+    <test-case id="axes_axes113"/>
+    <test-case id="axes_axes114"/>
+    <test-case id="axes_axes115"/>
+    <test-case id="axes_axes116"/>
+    <test-case id="axes_axes116"/>
+    <test-case id="axes_axes119"/>
+    <test-case id="axes_axes120"/>
+    <test-case id="axes_axes121"/>
+    <test-case id="axes_axes122"/>
+    <test-case id="axes_axes123"/>
+    <test-case id="axes_axes123"/>
+    <test-case id="axes_axes125"/>
+    <test-case id="axes_axes126"/>
+    <test-case id="axes_axes127"/>
+    <test-case id="axes_axes128"/>
+    <test-case id="axes_axes129"/>
+    <test-case id="axes_axes130"/>
+    <test-case id="axes_axes131"/>
+    <test-case id="boolean_boolean01"/>
+    <test-case id="boolean_boolean02"/>
+    <test-case id="boolean_boolean03"/>
+    <test-case id="boolean_boolean04"/>
+    <test-case id="boolean_boolean05"/>
+    <test-case id="boolean_boolean06"/>
+    <test-case id="boolean_boolean07"/>
+    <test-case id="boolean_boolean08"/>
+    <test-case id="boolean_boolean09"/>
+    <test-case id="boolean_boolean10"/>
+    <test-case id="boolean_boolean11"/>
+    <test-case id="boolean_boolean12"/>
+    <test-case id="boolean_boolean13"/>
+    <test-case id="boolean_boolean14"/>
+    <test-case id="boolean_boolean15"/>
+    <test-case id="boolean_boolean16"/>
+    <test-case id="boolean_boolean17"/>
+    <test-case id="boolean_boolean18"/>
+    <test-case id="boolean_boolean19"/>
+    <test-case id="boolean_boolean20"/>
+    <test-case id="boolean_boolean21"/>
+    <test-case id="boolean_boolean22"/>
+    <test-case id="boolean_boolean23"/>
+    <test-case id="boolean_boolean24"/>
+    <test-case id="boolean_boolean25"/>
+    <test-case id="boolean_boolean26"/>
+    <test-case id="boolean_boolean27"/>
+    <test-case id="boolean_boolean28"/>
+    <test-case id="boolean_boolean29"/>
+    <test-case id="boolean_boolean30"/>
+    <test-case id="boolean_boolean31"/>
+    <test-case id="boolean_boolean32"/>
+    <test-case id="boolean_boolean33"/>
+    <test-case id="boolean_boolean34"/>
+    <test-case id="boolean_boolean35"/>
+    <test-case id="boolean_boolean36"/>
+    <test-case id="boolean_boolean37"/>
+    <test-case id="boolean_boolean38"/>
+    <test-case id="boolean_boolean39">
+      <gray-area>
+        <gray-area-choice name="boolean-of-Infinity" behavior="false"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="boolean_boolean40"/>
+    <test-case id="boolean_boolean41"/>
+    <test-case id="boolean_boolean42"/>
+    <test-case id="boolean_boolean43"/>
+    <test-case id="boolean_boolean44"/>
+    <test-case id="boolean_boolean45"/>
+    <test-case id="boolean_boolean46"/>
+    <test-case id="boolean_boolean47"/>
+    <test-case id="boolean_boolean48"/>
+    <test-case id="boolean_boolean49"/>
+    <test-case id="boolean_boolean50"/>
+    <test-case id="boolean_boolean51"/>
+    <test-case id="boolean_boolean52"/>
+    <test-case id="boolean_boolean53"/>
+    <test-case id="boolean_boolean54"/>
+    <test-case id="boolean_boolean55"/>
+    <test-case id="boolean_boolean56"/>
+    <test-case id="boolean_boolean57"/>
+    <test-case id="boolean_boolean58"/>
+    <test-case id="boolean_boolean59"/>
+    <test-case id="boolean_boolean60"/>
+    <test-case id="boolean_boolean61"/>
+    <test-case id="boolean_boolean62"/>
+    <test-case id="boolean_boolean63"/>
+    <test-case id="boolean_boolean64"/>
+    <test-case id="boolean_boolean65"/>
+    <test-case id="boolean_boolean66"/>
+    <test-case id="boolean_boolean67"/>
+    <test-case id="boolean_boolean68"/>
+    <test-case id="boolean_boolean69"/>
+    <test-case id="boolean_boolean70"/>
+    <test-case id="boolean_boolean71"/>
+    <test-case id="boolean_boolean72"/>
+    <test-case id="boolean_boolean73"/>
+    <test-case id="boolean_boolean74"/>
+    <test-case id="boolean_boolean75"/>
+    <test-case id="boolean_boolean76"/>
+    <test-case id="boolean_boolean77"/>
+    <test-case id="boolean_boolean78"/>
+    <test-case id="boolean_boolean79"/>
+    <test-case id="boolean_boolean80"/>
+    <test-case id="boolean_boolean81"/>
+    <test-case id="boolean_boolean82"/>
+    <test-case id="boolean_boolean83"/>
+    <test-case id="boolean_boolean84"/>
+    <test-case id="boolean_boolean85"/>
+    <test-case id="boolean_boolean86"/>
+    <test-case id="boolean_boolean87"/>
+    <test-case id="boolean_boolean88"/>
+    <test-case id="boolean_boolean89"/>
+    <test-case id="boolean_boolean90"/>
+    <test-case id="conditional_conditional01"/>
+    <test-case id="conditional_conditional02"/>
+    <test-case id="conditional_conditional03"/>
+    <test-case id="conditional_conditional04"/>
+    <test-case id="conditional_conditional05"/>
+    <test-case id="conditional_conditional06"/>
+    <test-case id="conditional_conditional07"/>
+    <test-case id="conditional_conditional08"/>
+    <test-case id="conditional_conditional09"/>
+    <test-case id="conditional_conditional10"/>
+    <test-case id="conditional_conditional11"/>
+    <test-case id="conditional_conditional12"/>
+    <test-case id="conditional_conditional13"/>
+    <test-case id="conditional_conditional14"/>
+    <test-case id="conditional_conditional15"/>
+    <test-case id="conditional_conditional16"/>
+    <test-case id="conditional_conditional17"/>
+    <test-case id="conditional_conditional18"/>
+    <test-case id="conditional_conditional19"/>
+    <test-case id="conditional_conditional20"/>
+    <test-case id="conditional_conditional21"/>
+    <test-case id="conditional_conditional22"/>
+    <test-case id="conditional_conditional23"/>
+    <test-case id="conflictres_conflictres01"/>
+    <test-case id="conflictres_conflictres02"/>
+    <test-case id="conflictres_conflictres03"/>
+    <test-case id="conflictres_conflictres04"/>
+    <test-case id="conflictres_conflictres05"/>
+    <test-case id="conflictres_conflictres06"/>
+    <test-case id="conflictres_conflictres07"/>
+    <test-case id="conflictres_conflictres08"/>
+    <test-case id="conflictres_conflictres10"/>
+    <test-case id="conflictres_conflictres11"/>
+    <test-case id="conflictres_conflictres12"/>
+    <test-case id="conflictres_conflictres13"/>
+    <test-case id="conflictres_conflictres14"/>
+    <test-case id="conflictres_conflictres15"/>
+    <test-case id="conflictres_conflictres16"/>
+    <test-case id="conflictres_conflictres17"/>
+    <test-case id="conflictres_conflictres18"/>
+    <test-case id="conflictres_conflictres19"/>
+    <test-case id="conflictres_conflictres20"/>
+    <test-case id="conflictres_conflictres21"/>
+    <test-case id="conflictres_conflictres22"/>
+    <test-case id="conflictres_conflictres23"/>
+    <test-case id="conflictres_conflictres24"/>
+    <test-case id="conflictres_conflictres25"/>
+    <test-case id="conflictres_conflictres26"/>
+    <test-case id="conflictres_conflictres27"/>
+    <test-case id="conflictres_conflictres28"/>
+    <test-case id="conflictres_conflictres29"/>
+    <test-case id="conflictres_conflictres30"/>
+    <test-case id="conflictres_conflictres31"/>
+    <test-case id="conflictres_conflictres32"/>
+    <test-case id="conflictres_conflictres33"/>
+    <test-case id="conflictres_conflictres34"/>
+    <test-case id="conflictres_conflictres35"/>
+    <test-case id="conflictres_conflictres36"/>
+    <test-case id="copy_copy01"/>
+    <test-case id="copy_copy02"/>
+    <test-case id="copy_copy03"/>
+    <test-case id="copy_copy04"/>
+    <test-case id="copy_copy05"/>
+    <test-case id="copy_copy06"/>
+    <test-case id="copy_copy07"/>
+    <test-case id="copy_copy08"/>
+    <test-case id="copy_copy09">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="copy_copy10"/>
+    <test-case id="copy_copy11"/>
+    <test-case id="copy_copy12"/>
+    <test-case id="copy_copy13"/>
+    <test-case id="copy_copy14"/>
+    <test-case id="copy_copy15"/>
+    <test-case id="copy_copy16"/>
+    <test-case id="copy_copy17"/>
+    <test-case id="copy_copy18"/>
+    <test-case id="copy_copy19"/>
+    <test-case id="copy_copy20"/>
+    <test-case id="copy_copy21"/>
+    <test-case id="copy_copy22"/>
+    <test-case id="copy_copy23"/>
+    <test-case id="copy_copy24"/>
+    <test-case id="copy_copy25"/>
+    <test-case id="copy_copy26"/>
+    <test-case id="copy_copy27"/>
+    <test-case id="copy_copy28"/>
+    <test-case id="copy_copy29"/>
+    <test-case id="copy_copy30"/>
+    <test-case id="copy_copy31">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="copy_copy32"/>
+    <test-case id="copy_copy33"/>
+    <test-case id="copy_copy34"/>
+    <test-case id="copy_copy35"/>
+    <test-case id="copy_copy36"/>
+    <test-case id="copy_copy37"/>
+    <test-case id="copy_copy38"/>
+    <test-case id="copy_copy39"/>
+    <test-case id="copy_copy40"/>
+    <test-case id="copy_copy41"/>
+    <test-case id="copy_copy42"/>
+    <test-case id="copy_copy43"/>
+    <test-case id="copy_copy44"/>
+    <test-case id="copy_copy45"/>
+    <test-case id="copy_copy46"/>
+    <test-case id="copy_copy47"/>
+    <test-case id="copy_copy48"/>
+    <test-case id="copy_copy49"/>
+    <test-case id="copy_copy50"/>
+    <test-case id="copy_copy51"/>
+    <test-case id="copy_copy52"/>
+    <test-case id="copy_copy53"/>
+    <test-case id="copy_copy54"/>
+    <test-case id="copy_copy55"/>
+    <test-case id="copy_copy56"/>
+    <test-case id="copy_copy57"/>
+    <test-case id="copy_copy58"/>
+    <test-case id="copy_copy59"/>
+    <test-case id="copy_copy60"/>
+    <test-case id="copy_copy61"/>
+    <test-case id="copy_copy62"/>
+    <test-case id="dflt_dflt01"/>
+    <test-case id="dflt_dflt02"/>
+    <test-case id="dflt_dflt03"/>
+    <test-case id="dflt_dflt04"/>
+    <test-case id="expression_expression01"/>
+    <test-case id="expression_expression02"/>
+    <test-case id="expression_expression03"/>
+    <test-case id="expression_expr04"/>
+    <test-case id="expression_expression05"/>
+    <test-case id="expression_expression06"/>
+    <test-case id="extend_extend01"/>
+    <test-case id="extend_extend02"/>
+    <test-case id="extend_extend03"/>
+    <test-case id="extend_extend04"/>
+    <test-case id="extend_ac137.xsl"/>
+    <test-case id="idkey_idkey01"/>
+    <test-case id="idkey_idkey02"/>
+    <test-case id="idkey_idkey03"/>
+    <test-case id="idkey_idkey04"/>
+    <test-case id="idkey_idkey05"/>
+    <test-case id="idkey_idkey06"/>
+    <test-case id="idkey_idkey07"/>
+    <test-case id="idkey_idkey08"/>
+    <test-case id="idkey_idkey09"/>
+    <test-case id="idkey_idkey10"/>
+    <test-case id="idkey_idkey11"/>
+    <test-case id="idkey_idkey12"/>
+    <test-case id="idkey_idkey13"/>
+    <test-case id="idkey_idkey15"/>
+    <test-case id="idkey_idkey16"/>
+    <test-case id="idkey_idkey17"/>
+    <test-case id="idkey_idkey18"/>
+    <test-case id="idkey_idkey19"/>
+    <test-case id="idkey_idkey20"/>
+    <test-case id="idkey_idkey21"/>
+    <test-case id="idkey_idkey22"/>
+    <test-case id="idkey_idkey23"/>
+    <test-case id="idkey_idkey24"/>
+    <test-case id="idkey_idkey25"/>
+    <test-case id="idkey_idkey26"/>
+    <test-case id="idkey_idkey27"/>
+    <test-case id="idkey_idkey28"/>
+    <test-case id="idkey_idkey29"/>
+    <test-case id="idkey_idkey30"/>
+    <test-case id="idkey_idkey31"/>
+    <test-case id="idkey_idkey32"/>
+    <test-case id="idkey_idkey33"/>
+    <test-case id="idkey_idkey34"/>
+    <test-case id="idkey_idkey35"/>
+    <test-case id="idkey_idkey36"/>
+    <test-case id="idkey_idkey37"/>
+    <test-case id="idkey_idkey38"/>
+    <test-case id="idkey_idkey39"/>
+    <test-case id="idkey_idkey40"/>
+    <test-case id="idkey_idkey41"/>
+    <test-case id="idkey_idkey42"/>
+    <test-case id="idkey_idkey43"/>
+    <test-case id="idkey_idkey44"/>
+    <test-case id="idkey_idkey45"/>
+    <test-case id="idkey_idkey46"/>
+    <test-case id="idkey_idkey47"/>
+    <test-case id="idkey_idkey48"/>
+    <test-case id="idkey_idkey49"/>
+    <test-case id="idkey_idkey50"/>
+    <test-case id="idkey_idkey51"/>
+    <test-case id="idkey_idkey52"/>
+    <test-case id="idkey_idkey53"/>
+    <test-case id="idkey_idkey54"/>
+    <test-case id="idkey_idkey55"/>
+    <test-case id="idkey_idkey56"/>
+    <test-case id="idkey_idkey57"/>
+    <test-case id="idkey_idkey58"/>
+    <test-case id="idkey_idkey59"/>
+    <test-case id="idkey_idkey60"/>
+    <test-case id="idkey_idkey61"/>
+    <test-case id="idkey_idkey62"/>
+    <test-case id="idkey_idkey63"/>
+    <test-case id="impincl_impincl01"/>
+    <test-case id="impincl_impincl02"/>
+    <test-case id="impincl_impincl03"/>
+    <test-case id="impincl_impincl04"/>
+    <test-case id="impincl_impincl05"/>
+    <test-case id="impincl_impincl06"/>
+    <test-case id="impincl_impincl07"/>
+    <test-case id="impincl_impincl08"/>
+    <test-case id="impincl_impincl09"/>
+    <test-case id="impincl_impincl10"/>
+    <test-case id="impincl_impincl11"/>
+    <test-case id="impincl_impincl12"/>
+    <test-case id="impincl_impincl13"/>
+    <test-case id="impincl_impincl14"/>
+    <test-case id="impincl_impincl15"/>
+    <test-case id="impincl_impincl16"/>
+    <test-case id="impincl_impincl17"/>
+    <test-case id="impincl_impincl18"/>
+    <test-case id="impincl_impincl19"/>
+    <test-case id="impincl_impincl20"/>
+    <test-case id="impincl_impincl21"/>
+    <test-case id="impincl_impincl22"/>
+    <test-case id="impincl_impincl23"/>
+    <test-case id="impincl_impincl24"/>
+    <test-case id="impincl_impincl25"/>
+    <test-case id="impincl_impincl26"/>
+    <test-case id="impincl_impincl27">
+      <extension name="href-scheme"/>
+    </test-case>
+    <test-case id="impincl_impincl28"/>
+    <test-case id="impincl_impincl29"/>
+    <test-case id="lre_lre01"/>
+    <test-case id="lre_lre02"/>
+    <test-case id="lre_lre03"/>
+    <test-case id="lre_lre04"/>
+    <test-case id="lre_lre05"/>
+    <test-case id="lre_lre06"/>
+    <test-case id="lre_lre07"/>
+    <test-case id="lre_lre08"/>
+    <test-case id="lre_lre09"/>
+    <test-case id="lre_lre10"/>
+    <test-case id="lre_lre12"/>
+    <test-case id="lre_lre13"/>
+    <test-case id="lre_lre14"/>
+    <test-case id="lre_lre15"/>
+    <test-case id="lre_lre16"/>
+    <test-case id="lre_lre17"/>
+    <test-case id="lre_lre18"/>
+    <test-case id="lre_lre19"/>
+    <test-case id="lre_lre20"/>
+    <test-case id="lre_lre21"/>
+    <test-case id="lre_lre22"/>
+    <test-case id="lre_lre23"/>
+    <test-case id="match_match01"/>
+    <test-case id="match_match02"/>
+    <test-case id="match_match03"/>
+    <test-case id="match_match04"/>
+    <test-case id="match_match05"/>
+    <test-case id="match_match06"/>
+    <test-case id="match_match07"/>
+    <test-case id="match_match08"/>
+    <test-case id="match_match09"/>
+    <test-case id="match_match10"/>
+    <test-case id="match_match11"/>
+    <test-case id="match_match12"/>
+    <test-case id="match_match13"/>
+    <test-case id="match_match14"/>
+    <test-case id="match_match15"/>
+    <test-case id="match_match16"/>
+    <test-case id="match_match17"/>
+    <test-case id="match_match18"/>
+    <test-case id="match_match19"/>
+    <test-case id="match_match20"/>
+    <test-case id="match_match21"/>
+    <test-case id="match_match22"/>
+    <test-case id="match_match23"/>
+    <test-case id="match_match24"/>
+    <test-case id="match_match25"/>
+    <test-case id="match_match26"/>
+    <test-case id="match_match27"/>
+    <test-case id="match_match28"/>
+    <test-case id="match_match29"/>
+    <test-case id="match_match30"/>
+    <test-case id="match_match31"/>
+    <test-case id="match_match32"/>
+    <test-case id="math_math01"/>
+    <test-case id="math_math02"/>
+    <test-case id="math_math03"/>
+    <test-case id="math_math04"/>
+    <test-case id="math_math05"/>
+    <test-case id="math_math06"/>
+    <test-case id="math_math07"/>
+    <test-case id="math_math08"/>
+    <test-case id="math_math09"/>
+    <test-case id="math_math10"/>
+    <test-case id="math_math11"/>
+    <test-case id="math_math12"/>
+    <test-case id="math_math13"/>
+    <test-case id="math_math14"/>
+    <test-case id="math_math15"/>
+    <test-case id="math_math16"/>
+    <test-case id="math_math17"/>
+    <test-case id="math_math18"/>
+    <test-case id="math_math19"/>
+    <test-case id="math_math20"/>
+    <test-case id="math_math21"/>
+    <test-case id="math_math22"/>
+    <test-case id="math_math23"/>
+    <test-case id="math_math24"/>
+    <test-case id="math_math25"/>
+    <test-case id="math_math26"/>
+    <test-case id="math_math27"/>
+    <test-case id="math_math28"/>
+    <test-case id="math_math29"/>
+    <test-case id="math_math30"/>
+    <test-case id="math_math31"/>
+    <test-case id="math_math32"/>
+    <test-case id="math_math33"/>
+    <test-case id="math_math34"/>
+    <test-case id="math_math35"/>
+    <test-case id="math_math36"/>
+    <test-case id="math_math37"/>
+    <test-case id="math_math38"/>
+    <test-case id="math_math39"/>
+    <test-case id="math_math40"/>
+    <test-case id="math_math41"/>
+    <test-case id="math_math42"/>
+    <test-case id="math_math43"/>
+    <test-case id="math_math44"/>
+    <test-case id="math_math45"/>
+    <test-case id="math_math46"/>
+    <test-case id="math_math47"/>
+    <test-case id="math_math48"/>
+    <test-case id="math_math49"/>
+    <test-case id="math_math50"/>
+    <test-case id="math_math51"/>
+    <test-case id="math_math52"/>
+    <test-case id="math_math53"/>
+    <test-case id="math_math54"/>
+    <test-case id="math_math55"/>
+    <test-case id="math_math56"/>
+    <test-case id="math_math57"/>
+    <test-case id="math_math58"/>
+    <test-case id="math_math59"/>
+    <test-case id="math_math60"/>
+    <test-case id="math_math61"/>
+    <test-case id="math_math62"/>
+    <test-case id="math_math63"/>
+    <test-case id="math_math64"/>
+    <test-case id="math_math65"/>
+    <test-case id="math_math66"/>
+    <test-case id="math_math67"/>
+    <test-case id="math_math68"/>
+    <test-case id="math_math69"/>
+    <test-case id="math_math70"/>
+    <test-case id="math_math71"/>
+    <test-case id="math_math72"/>
+    <test-case id="math_math73"/>
+    <test-case id="math_math74"/>
+    <test-case id="math_math75"/>
+    <test-case id="math_math76"/>
+    <test-case id="math_math77"/>
+    <test-case id="math_math78"/>
+    <test-case id="math_math79"/>
+    <test-case id="math_math80"/>
+    <test-case id="math_math81"/>
+    <test-case id="math_math82"/>
+    <test-case id="math_math83"/>
+    <test-case id="math_math84"/>
+    <test-case id="math_math85"/>
+    <test-case id="math_math86"/>
+    <test-case id="math_math87"/>
+    <test-case id="math_math88"/>
+    <test-case id="math_math89"/>
+    <test-case id="math_math90"/>
+    <test-case id="math_math91"/>
+    <test-case id="math_math92"/>
+    <test-case id="math_math93"/>
+    <test-case id="math_math94"/>
+    <test-case id="math_math95"/>
+    <test-case id="math_math96"/>
+    <test-case id="math_math97"/>
+    <test-case id="math_math98"/>
+    <test-case id="math_math99"/>
+    <test-case id="math_math100"/>
+    <test-case id="math_math101"/>
+    <test-case id="math_math102"/>
+    <test-case id="math_math103"/>
+    <test-case id="math_math104"/>
+    <test-case id="math_math105"/>
+    <test-case id="math_math110"/>
+    <test-case id="math_math111"/>
+    <test-case id="mdocs_mdocs01"/>
+    <test-case id="mdocs_mdocs02"/>
+    <test-case id="mdocs_mdocs03"/>
+    <test-case id="mdocs_mdocs04"/>
+    <test-case id="mdocs_mdocs05"/>
+    <test-case id="mdocs_mdocs06"/>
+    <test-case id="mdocs_mdocs07"/>
+    <test-case id="mdocs_mdocs08"/>
+    <test-case id="mdocs_mdocs09"/>
+    <test-case id="mdocs_mdocs10"/>
+    <test-case id="mdocs_mdocs11"/>
+    <test-case id="mdocs_mdocs12"/>
+    <test-case id="mdocs_mdocs13"/>
+    <test-case id="mdocs_mdocs14"/>
+    <test-case id="mdocs_mdocs15"/>
+    <test-case id="mdocs_mdocsxxx"/>
+    <test-case id="mdocs_mdocs17"/>
+    <test-case id="mdocs_mdocs18"/>
+    <test-case id="message_message01"/>
+    <test-case id="message_message02"/>
+    <test-case id="message_message03"/>
+    <test-case id="message_message04"/>
+    <test-case id="message_message05"/>
+    <test-case id="message_message06"/>
+    <test-case id="message_message07"/>
+    <test-case id="message_message08"/>
+    <test-case id="message_message09"/>
+    <test-case id="message_message10"/>
+    <test-case id="message_message11"/>
+    <test-case id="message_message12"/>
+    <test-case id="message_message13"/>
+    <test-case id="message_message14"/>
+    <test-case id="message_message15"/>
+    <test-case id="message_message16"/>
+    <test-case id="modes_modes01"/>
+    <test-case id="modes_modes02"/>
+    <test-case id="modes_modes03"/>
+    <test-case id="modes_modes04"/>
+    <test-case id="modes_modes05"/>
+    <test-case id="modes_modes06"/>
+    <test-case id="modes_modes07"/>
+    <test-case id="modes_modes08"/>
+    <test-case id="modes_modes09"/>
+    <test-case id="modes_modes10"/>
+    <test-case id="modes_modes11"/>
+    <test-case id="modes_modes12"/>
+    <test-case id="modes_modes13"/>
+    <test-case id="modes_modes14"/>
+    <test-case id="modes_modes15"/>
+    <test-case id="modes_modes16"/>
+    <test-case id="modes_modes17"/>
+    <test-case id="namedtemplate_namedtemplate01"/>
+    <test-case id="namedtemplate_namedtemplate02"/>
+    <test-case id="namedtemplate_namedtemplate03"/>
+    <test-case id="namedtemplate_namedtemplate04"/>
+    <test-case id="namedtemplate_namedtemplate05"/>
+    <test-case id="namedtemplate_namedtemplate06"/>
+    <test-case id="namedtemplate_namedtemplate07"/>
+    <test-case id="namedtemplate_namedtemplate08"/>
+    <test-case id="namedtemplate_namedtemplate09"/>
+    <test-case id="namedtemplate_namedtemplate10"/>
+    <test-case id="namedtemplate_namedtemplate11"/>
+    <test-case id="namedtemplate_namedtemplate12"/>
+    <test-case id="namedtemplate_namedtemplate13"/>
+    <test-case id="namedtemplate_namedtemplate14"/>
+    <test-case id="namedtemplate_namedtemplate15"/>
+    <test-case id="namedtemplate_namedtemplate16"/>
+    <test-case id="namedtemplate_namedtemplate17"/>
+    <test-case id="namedtemplate_namedtemplate18"/>
+    <test-case id="namedtemplate_namedtemplate19"/>
+    <test-case id="namespace_namespace01">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="namespace_namespace02"/>
+    <test-case id="namespace_namespace03"/>
+    <test-case id="namespace_namespace04"/>
+    <test-case id="namespace_nspc05"/>
+    <test-case id="namespace_namespace06"/>
+    <test-case id="namespace_namespace07"/>
+    <test-case id="namespace_namespace08"/>
+    <test-case id="namespace_namespace09"/>
+    <test-case id="namespace_namespace10"/>
+    <test-case id="namespace_namespace11"/>
+    <test-case id="namespace_namespace12"/>
+    <test-case id="namespace_namespace14"/>
+    <test-case id="namespace_namespace15"/>
+    <test-case id="namespace_namespace16"/>
+    <test-case id="namespace_namespace17">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="namespace_namespace18">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="namespace_namespace19"/>
+    <test-case id="namespace_namespace20"/>
+    <test-case id="namespace_namespace21"/>
+    <test-case id="namespace_namespace22"/>
+    <test-case id="namespace_namespace23"/>
+    <test-case id="namespace_namespace24"/>
+    <test-case id="namespace_namespace25"/>
+    <test-case id="namespace_namespace26"/>
+    <test-case id="namespace_namespace27"/>
+    <test-case id="namespace_namespace28"/>
+    <test-case id="namespace_namespace29"/>
+    <test-case id="namespace_namespace30"/>
+    <test-case id="namespace_namespace31"/>
+    <test-case id="namespace_namespace32"/>
+    <test-case id="namespace_namespace33"/>
+    <test-case id="namespace_namespace34"/>
+    <test-case id="namespace_namespace35"/>
+    <test-case id="namespace_namespace36"/>
+    <test-case id="namespace_namespace37"/>
+    <test-case id="namespace_namespace38"/>
+    <test-case id="namespace_namespace39"/>
+    <test-case id="namespace_namespace40"/>
+    <test-case id="namespace_namespace41"/>
+    <test-case id="namespace_namespace42"/>
+    <test-case id="namespace_namespace43"/>
+    <test-case id="namespace_namespace44"/>
+    <test-case id="namespace_namespace45"/>
+    <test-case id="namespace_namespace46">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="namespace_namespace47"/>
+    <test-case id="namespace_namespace48"/>
+    <test-case id="namespace_namespace49"/>
+    <test-case id="namespace_namespace50"/>
+    <test-case id="namespace_namespace51"/>
+    <test-case id="namespace_namespace52"/>
+    <test-case id="namespace_namespace53"/>
+    <test-case id="namespace_namespace54"/>
+    <test-case id="namespace_namespace55"/>
+    <test-case id="namespace_namespace56"/>
+    <test-case id="namespace_namespace57"/>
+    <test-case id="namespace_namespace58"/>
+    <test-case id="namespace_namespace59"/>
+    <test-case id="namespace_namespace60"/>
+    <test-case id="namespace_namespace61"/>
+    <test-case id="namespace_namespace62"/>
+    <test-case id="namespace_namespace63"/>
+    <test-case id="namespace_namespace64"/>
+    <test-case id="namespace_namespace65"/>
+    <test-case id="namespace_namespace66"/>
+    <test-case id="namespace_namespace67"/>
+    <test-case id="namespace_namespace68"/>
+    <test-case id="namespace_namespace69"/>
+    <test-case id="namespace_namespace70"/>
+    <test-case id="namespace_namespace71"/>
+    <test-case id="namespace_namespace72"/>
+    <test-case id="namespace_namespace73"/>
+    <test-case id="namespace_namespace74"/>
+    <test-case id="namespace_namespace75"/>
+    <test-case id="namespace_namespace77"/>
+    <test-case id="namespace_namespace78"/>
+    <test-case id="namespace_namespace79"/>
+    <test-case id="namespace_namespace80"/>
+    <test-case id="namespace_namespace81"/>
+    <test-case id="namespace_namespace82"/>
+    <test-case id="namespace_namespace83"/>
+    <test-case id="namespace_namespace84"/>
+    <test-case id="namespace_namespace86"/>
+    <test-case id="namespace_namespace87"/>
+    <test-case id="namespace_namespace88"/>
+    <test-case id="namespace_namespace89"/>
+    <test-case id="namespace_namespace90"/>
+    <test-case id="namespace_namespace91"/>
+    <test-case id="namespace_namespace92"/>
+    <test-case id="namespace_namespace93"/>
+    <test-case id="namespace_namespace94"/>
+    <test-case id="namespace_namespace95"/>
+    <test-case id="namespace_namespace96"/>
+    <test-case id="namespace_namespace97"/>
+    <test-case id="namespace_namespace98"/>
+    <test-case id="namespace_namespace99"/>
+    <test-case id="namespace_namespace100"/>
+    <test-case id="namespace_namespace101"/>
+    <test-case id="namespace_namespace102"/>
+    <test-case id="namespace_namespace103"/>
+    <test-case id="namespace_namespace104"/>
+    <test-case id="namespace_namespace105"/>
+    <test-case id="namespace_namespace106"/>
+    <test-case id="namespace_namespace107"/>
+    <test-case id="namespace_namespace108"/>
+    <test-case id="namespace_namespace109"/>
+    <test-case id="namespace_namespace110"/>
+    <test-case id="namespace_namespace111"/>
+    <test-case id="namespace_namespace112"/>
+    <test-case id="namespace_namespace113"/>
+    <test-case id="namespace_namespace115"/>
+    <test-case id="namespace_namespace116"/>
+    <test-case id="namespace_namespace117"/>
+    <test-case id="namespace_namespace119"/>
+    <test-case id="namespace_namespace120"/>
+    <test-case id="namespace_namespace121"/>
+    <test-case id="namespace_namespace122"/>
+    <test-case id="namespace_namespace123"/>
+    <test-case id="namespace_namespace124"/>
+    <test-case id="namespace_namespace125"/>
+    <test-case id="namespace_namespace126"/>
+    <test-case id="namespace_namespace127">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="namespace_namespace128">
+      <serial name="generated-namespace-prefix"/>
+    </test-case>
+    <test-case id="namespace_namespace130"/>
+    <test-case id="namespace_namespace131"/>
+    <test-case id="namespace_namespace132"/>
+    <test-case id="namespace_namespace134"/>
+    <test-case id="namespace_namespace137"/>
+    <test-case id="namespace_namespace138"/>
+    <test-case id="namespace_namespace139"/>
+    <test-case id="namespace_namespace140"/>
+    <test-case id="namespace_namespace141"/>
+    <test-case id="namespace_namespace142"/>
+    <test-case id="node_node01"/>
+    <test-case id="node_node02"/>
+    <test-case id="node_node03"/>
+    <test-case id="node_node04"/>
+    <test-case id="node_node05"/>
+    <test-case id="node_node06"/>
+    <test-case id="node_node07"/>
+    <test-case id="node_node08"/>
+    <test-case id="node_node09"/>
+    <test-case id="node_node10"/>
+    <test-case id="node_node11"/>
+    <test-case id="node_node12"/>
+    <test-case id="node_node13"/>
+    <test-case id="node_node14"/>
+    <test-case id="node_node15"/>
+    <test-case id="node_node16"/>
+    <test-case id="node_node17"/>
+    <test-case id="node_node18"/>
+    <test-case id="node_node19"/>
+    <test-case id="node_node20"/>
+    <test-case id="node_node21"/>
+    <test-case id="numberformat_numberformat01"/>
+    <test-case id="numberformat_numberformat02"/>
+    <test-case id="numberformat_numberformat03"/>
+    <test-case id="numberformat_numberformat04"/>
+    <test-case id="numberformat_numberformat05"/>
+    <test-case id="numberformat_numberformat06">
+      <serial name="per-mille"/>
+    </test-case>
+    <test-case id="numberformat_numberformat07">
+      <gray-area>
+        <gray-area-choice name="numberformat-char-164" behavior="pass-through"/>
+      </gray-area>
+    </test-case>
+    <test-case id="numberformat_numberformat08"/>
+    <test-case id="numberformat_numberformat09"/>
+    <test-case id="numberformat_numberformat11"/>
+    <test-case id="numberformat_numberformat12"/>
+    <test-case id="numberformat_numberformat13"/>
+    <test-case id="numberformat_numberformat14"/>
+    <test-case id="numberformat_numberformat15"/>
+    <test-case id="numberformat_numberformat16"/>
+    <test-case id="numberformat_numberformat17"/>
+    <test-case id="numberformat_numberformat18"/>
+    <test-case id="numberformat_numberformat19"/>
+    <test-case id="numberformat_numberformat20"/>
+    <test-case id="numberformat_numberformat21"/>
+    <test-case id="numberformat_numberformat22"/>
+    <test-case id="numberformat_numberformat23"/>
+    <test-case id="numberformat_numberformat24"/>
+    <test-case id="numberformat_numberformat25">
+      <gray-area>
+        <gray-area-choice name="decimal-format-char-conflict" behavior="stop-at-first"/>
+      </gray-area>
+    </test-case>
+    <test-case id="numberformat_numberformat26"/>
+    <test-case id="numberformat_numberformat27"/>
+    <test-case id="numberformat_numberformat28"/>
+    <test-case id="numberformat_numberformat29"/>
+    <test-case id="numberformat_numberformat30"/>
+    <test-case id="numberformat_numberformat31">
+      <gray-area>
+        <gray-area-choice name="numberformat-supply-minus" behavior="true"/>
+      </gray-area>
+    </test-case>
+    <test-case id="numberformat_numberformat32"/>
+    <test-case id="numberformat_numberformat34">
+      <gray-area>
+        <gray-area-choice name="numberformat-0-when-change-zero-digit" behavior="pass-through"/>
+      </gray-area>
+    </test-case>
+    <test-case id="numberformat_numberformat35"/>
+    <test-case id="numberformat_numberformat36"/>
+    <test-case id="numberformat_numberformat37"/>
+    <test-case id="numberformat_numberformat38"/>
+    <test-case id="numberformat_numberformat39"/>
+    <test-case id="numberformat_numberformat40"/>
+    <test-case id="numberformat_numberformat41"/>
+    <test-case id="numberformat_numberformat42"/>
+    <test-case id="numberformat_numberformat43"/>
+    <test-case id="numberformat_numberformat44"/>
+    <test-case id="numberformat_numberformat45"/>
+    <test-case id="numberformat_numberformat46"/>
+    <test-case id="numbering_numbering01"/>
+    <test-case id="numbering_numbering02"/>
+    <test-case id="numbering_numbering03"/>
+    <test-case id="numbering_numbering04"/>
+    <test-case id="numbering_numbering05"/>
+    <test-case id="numbering_numbering06"/>
+    <test-case id="numbering_numbering07"/>
+    <test-case id="numbering_numbering08"/>
+    <test-case id="numbering_numbering09"/>
+    <test-case id="numbering_numbering10"/>
+    <test-case id="numbering_numbering11"/>
+    <test-case id="numbering_numbering12"/>
+    <test-case id="numbering_numbering13"/>
+    <test-case id="numbering_numbering14"/>
+    <test-case id="numbering_numbering17"/>
+    <test-case id="numbering_numbering18">
+      <gray-area>
+        <gray-area-choice name="special-from-case-any" behavior="use-zero"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering19"/>
+    <test-case id="numbering_numbering20">
+      <gray-area>
+        <gray-area-choice name="special-from-case-single" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering21">
+      <gray-area>
+        <gray-area-choice name="special-from-case-any" behavior="use-zero"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering22"/>
+    <test-case id="numbering_numbering23"/>
+    <test-case id="numbering_numbering24"/>
+    <test-case id="numbering_numbering25"/>
+    <test-case id="numbering_numbering26"/>
+    <test-case id="numbering_numbering27"/>
+    <test-case id="numbering_numbering28"/>
+    <test-case id="numbering_numbering29"/>
+    <test-case id="numbering_numbering30"/>
+    <test-case id="numbering_numbering31"/>
+    <test-case id="numbering_numbering32"/>
+    <test-case id="numbering_numbering33"/>
+    <test-case id="numbering_numbering34"/>
+    <test-case id="numbering_numbering35"/>
+    <test-case id="numbering_numbering36"/>
+    <test-case id="numbering_numbering37"/>
+    <test-case id="numbering_numbering38"/>
+    <test-case id="numbering_numbering39"/>
+    <test-case id="numbering_numbering40"/>
+    <test-case id="numbering_numbering41"/>
+    <test-case id="numbering_numbering42"/>
+    <test-case id="numbering_numbering43"/>
+    <test-case id="numbering_numbering44"/>
+    <test-case id="numbering_numbering45"/>
+    <test-case id="numbering_numbering46"/>
+    <test-case id="numbering_numbering47"/>
+    <test-case id="numbering_numbering48"/>
+    <test-case id="numbering_numbering49"/>
+    <test-case id="numbering_numbering50"/>
+    <test-case id="numbering_numbering51"/>
+    <test-case id="numbering_numbering52"/>
+    <test-case id="numbering_numbering53"/>
+    <test-case id="numbering_numbering54"/>
+    <test-case id="numbering_numbering55"/>
+    <test-case id="numbering_numbering56"/>
+    <test-case id="numbering_numbering57"/>
+    <test-case id="numbering_numbering58"/>
+    <test-case id="numbering_numbering59"/>
+    <test-case id="numbering_numbering60">
+      <gray-area>
+        <gray-area-choice name="special-from-case-any" behavior="use-zero"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering61">
+      <gray-area>
+        <gray-area-choice name="special-from-case-any" behavior="use-zero"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering62"/>
+    <test-case id="numbering_numbering63">
+      <gray-area>
+        <gray-area-choice name="special-from-case-single" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering64"/>
+    <test-case id="numbering_numbering65">
+      <gray-area>
+        <gray-area-choice name="special-from-case-multiple" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering66">
+      <gray-area>
+        <gray-area-choice name="special-from-case-multiple" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering67"/>
+    <test-case id="numbering_numbering68">
+      <gray-area>
+        <gray-area-choice name="special-from-case-any" behavior="use-zero"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering69">
+      <gray-area>
+        <gray-area-choice name="special-from-case-any" behavior="use-zero"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering70"/>
+    <test-case id="numbering_numbering71">
+      <gray-area>
+        <gray-area-choice name="special-from-case-single" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering72"/>
+    <test-case id="numbering_numbering73"/>
+    <test-case id="numbering_numbering74">
+      <gray-area>
+        <gray-area-choice name="special-from-case-single" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering75"/>
+    <test-case id="numbering_numbering76"/>
+    <test-case id="numbering_numbering77">
+      <gray-area>
+        <gray-area-choice name="special-from-case-multiple" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering78">
+      <gray-area>
+        <gray-area-choice name="special-from-case-multiple" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering79">
+      <gray-area>
+        <gray-area-choice name="number-NaN-handling" behavior="pass-through"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering80"/>
+    <test-case id="numbering_numbering81"/>
+    <test-case id="numbering_numbering82"/>
+    <test-case id="numbering_numbering83">
+      <gray-area>
+        <gray-area-choice name="number-any-no-nodes" behavior="return-empty"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="numbering_numbering84"/>
+    <test-case id="numbering_numbering85"/>
+    <test-case id="numbering_numbering86"/>
+    <test-case id="numbering_numbering87"/>
+    <test-case id="numbering_numbering88"/>
+    <test-case id="numbering_numbering89"/>
+    <test-case id="numbering_numbering90"/>
+    <test-case id="numbering_numbering91"/>
+    <test-case id="numbering_numbering92"/>
+    <test-case id="numbering_numbering93"/>
+    <test-case id="numbering_numbering94"/>
+    <test-case id="numbering_numbering95"/>
+    <test-case id="output_output01"/>
+    <test-case id="output_output02"/>
+    <test-case id="output_output03"/>
+    <test-case id="output_output04"/>
+    <test-case id="output_output05"/>
+    <test-case id="output_output06"/>
+    <test-case id="output_output07"/>
+    <test-case id="output_output08"/>
+    <test-case id="output_output09"/>
+    <test-case id="output_output10"/>
+    <test-case id="output_output11"/>
+    <test-case id="output_output12"/>
+    <test-case id="output_output13"/>
+    <test-case id="output_output14"/>
+    <test-case id="output_output15"/>
+    <test-case id="output_output16"/>
+    <test-case id="output_output17"/>
+    <test-case id="output_output18"/>
+    <test-case id="output_output19"/>
+    <test-case id="output_output20"/>
+    <test-case id="output_output21"/>
+    <test-case id="output_output22">
+      <serial name="support-EBCDIC-CP-IT"/>
+    </test-case>
+    <test-case id="output_output23"/>
+    <test-case id="output_output24"/>
+    <test-case id="output_output25"/>
+    <test-case id="output_output26"/>
+    <test-case id="output_output28"/>
+    <test-case id="output_output29"/>
+    <test-case id="output_output30"/>
+    <test-case id="output_output32"/>
+    <test-case id="output_output33"/>
+    <test-case id="output_output34"/>
+    <test-case id="output_output35"/>
+    <test-case id="output_output36"/>
+    <test-case id="output_output37"/>
+    <test-case id="output_output38"/>
+    <test-case id="output_output39"/>
+    <test-case id="output_output40"/>
+    <test-case id="output_output41"/>
+    <test-case id="output_output42"/>
+    <test-case id="output_output43"/>
+    <test-case id="output_output44"/>
+    <test-case id="output_output45"/>
+    <test-case id="output_output46"/>
+    <test-case id="output_output47"/>
+    <test-case id="output_output48"/>
+    <test-case id="output_output49"/>
+    <test-case id="output_output50"/>
+    <test-case id="output_output51"/>
+    <test-case id="output_output52"/>
+    <test-case id="output_output53"/>
+    <test-case id="output_output54"/>
+    <test-case id="output_output55"/>
+    <test-case id="output_output56"/>
+    <test-case id="output_output57"/>
+    <test-case id="output_output58"/>
+    <test-case id="output_output59"/>
+    <test-case id="output_output60"/>
+    <test-case id="output_output61"/>
+    <test-case id="output_output62"/>
+    <test-case id="output_output63"/>
+    <test-case id="output_output64"/>
+    <test-case id="output_output65"/>
+    <test-case id="output_output66"/>
+    <test-case id="output_output67"/>
+    <test-case id="output_output68"/>
+    <test-case id="output_output69"/>
+    <test-case id="output_output70"/>
+    <test-case id="output_output71"/>
+    <test-case id="output_output72"/>
+    <test-case id="output_output73">
+      <serial name="support-SHIFT_JIS"/>
+    </test-case>
+    <test-case id="output_output74"/>
+    <test-case id="output_output75"/>
+    <test-case id="output_output76"/>
+    <test-case id="output_output77"/>
+    <test-case id="output_output80"/>
+    <test-case id="output_output81"/>
+    <test-case id="output_output82"/>
+    <test-case id="output_output84"/>
+    <test-case id="output_output85"/>
+    <test-case id="output_output86"/>
+    <test-case id="output_output87"/>
+    <test-case id="output_output88"/>
+    <test-case id="output_output89"/>
+    <test-case id="output_output90"/>
+    <test-case id="output_output91"/>
+    <test-case id="output_output92"/>
+    <test-case id="output_output93"/>
+    <test-case id="output_output94"/>
+    <test-case id="output_output95"/>
+    <test-case id="output_output96"/>
+    <test-case id="output_output97"/>
+    <test-case id="output_output98"/>
+    <test-case id="output_output99"/>
+    <test-case id="output_output100"/>
+    <test-case id="output_output101"/>
+    <test-case id="output_output102"/>
+    <test-case id="output_output103"/>
+    <test-case id="output_output104"/>
+    <test-case id="output_output105"/>
+    <test-case id="output_output106"/>
+    <test-case id="output_output107"/>
+    <test-case id="output_output109"/>
+    <test-case id="output_output110"/>
+    <test-case id="output_output111"/>
+    <test-case id="output_output112"/>
+    <test-case id="output_output113"/>
+    <test-case id="output_output114"/>
+    <test-case id="position_position01"/>
+    <test-case id="position_position02"/>
+    <test-case id="position_position03"/>
+    <test-case id="position_position04"/>
+    <test-case id="position_position05"/>
+    <test-case id="position_position06"/>
+    <test-case id="position_position07"/>
+    <test-case id="position_position08"/>
+    <test-case id="position_position09"/>
+    <test-case id="position_position10"/>
+    <test-case id="position_position11"/>
+    <test-case id="position_position12"/>
+    <test-case id="position_position13"/>
+    <test-case id="position_position14"/>
+    <test-case id="position_position15"/>
+    <test-case id="position_position16"/>
+    <test-case id="position_position17"/>
+    <test-case id="position_position18"/>
+    <test-case id="position_position19"/>
+    <test-case id="position_position20"/>
+    <test-case id="position_position21"/>
+    <test-case id="position_position22"/>
+    <test-case id="position_position23"/>
+    <test-case id="position_position24"/>
+    <test-case id="position_position25"/>
+    <test-case id="position_position26"/>
+    <test-case id="position_position27"/>
+    <test-case id="position_position28"/>
+    <test-case id="position_position29"/>
+    <test-case id="position_position30"/>
+    <test-case id="position_position31"/>
+    <test-case id="position_position32"/>
+    <test-case id="position_position33"/>
+    <test-case id="position_position34"/>
+    <test-case id="position_position35"/>
+    <test-case id="position_position36"/>
+    <test-case id="position_position37"/>
+    <test-case id="position_position38"/>
+    <test-case id="position_position39"/>
+    <test-case id="position_position40"/>
+    <test-case id="position_position41"/>
+    <test-case id="position_position42"/>
+    <test-case id="position_position43"/>
+    <test-case id="position_position44"/>
+    <test-case id="position_position45"/>
+    <test-case id="position_position46"/>
+    <test-case id="position_position47"/>
+    <test-case id="position_position48"/>
+    <test-case id="position_position49"/>
+    <test-case id="position_position50"/>
+    <test-case id="position_position51"/>
+    <test-case id="position_position52"/>
+    <test-case id="position_position53"/>
+    <test-case id="position_position54"/>
+    <test-case id="position_position55"/>
+    <test-case id="position_position56"/>
+    <test-case id="position_position57"/>
+    <test-case id="position_position58"/>
+    <test-case id="position_position59"/>
+    <test-case id="position_position60"/>
+    <test-case id="position_position61"/>
+    <test-case id="position_position62"/>
+    <test-case id="position_position63"/>
+    <test-case id="position_position64"/>
+    <test-case id="position_position65"/>
+    <test-case id="position_position66"/>
+    <test-case id="position_position67"/>
+    <test-case id="position_position68"/>
+    <test-case id="position_position69"/>
+    <test-case id="position_position70"/>
+    <test-case id="position_position71"/>
+    <test-case id="position_position72"/>
+    <test-case id="position_position73"/>
+    <test-case id="position_position74"/>
+    <test-case id="position_position75"/>
+    <test-case id="position_position76"/>
+    <test-case id="position_position77"/>
+    <test-case id="position_position78"/>
+    <test-case id="position_position79"/>
+    <test-case id="position_position80"/>
+    <test-case id="position_position81"/>
+    <test-case id="position_position82"/>
+    <test-case id="position_position83"/>
+    <test-case id="position_position83"/>
+    <test-case id="position_position85"/>
+    <test-case id="position_position86"/>
+    <test-case id="position_position87"/>
+    <test-case id="position_position88"/>
+    <test-case id="position_position89"/>
+    <test-case id="position_position90"/>
+    <test-case id="position_position91"/>
+    <test-case id="position_position92"/>
+    <test-case id="position_position93"/>
+    <test-case id="position_position94"/>
+    <test-case id="position_position95"/>
+    <test-case id="position_position96"/>
+    <test-case id="position_position97"/>
+    <test-case id="position_position98"/>
+    <test-case id="position_position99"/>
+    <test-case id="position_position100"/>
+    <test-case id="position_position101"/>
+    <test-case id="position_position102"/>
+    <test-case id="position_position103"/>
+    <test-case id="position_position104"/>
+    <test-case id="position_position105"/>
+    <test-case id="position_position106"/>
+    <test-case id="position_position107"/>
+    <test-case id="position_position108"/>
+    <test-case id="position_position109"/>
+    <test-case id="position_position101"/>
+    <test-case id="position_position111"/>
+    <test-case id="predicate_predicate01"/>
+    <test-case id="predicate_predicate02"/>
+    <test-case id="predicate_predicate03"/>
+    <test-case id="predicate_predicate04"/>
+    <test-case id="predicate_predicate05"/>
+    <test-case id="predicate_predicate06"/>
+    <test-case id="predicate_predicate07"/>
+    <test-case id="predicate_predicate08"/>
+    <test-case id="predicate_predicate09"/>
+    <test-case id="predicate_predicate10"/>
+    <test-case id="predicate_predicate11"/>
+    <test-case id="predicate_predicate12"/>
+    <test-case id="predicate_predicate13"/>
+    <test-case id="predicate_predicate14"/>
+    <test-case id="predicate_predicate15"/>
+    <test-case id="predicate_predicate16"/>
+    <test-case id="predicate_predicate17"/>
+    <test-case id="predicate_predicate18"/>
+    <test-case id="predicate_predicate19"/>
+    <test-case id="predicate_predicate20"/>
+    <test-case id="predicate_predicate21"/>
+    <test-case id="predicate_predicate22"/>
+    <test-case id="predicate_predicate23"/>
+    <test-case id="predicate_predicate24"/>
+    <test-case id="predicate_predicate25"/>
+    <test-case id="predicate_predicate26"/>
+    <test-case id="predicate_predicate27"/>
+    <test-case id="predicate_predicate28"/>
+    <test-case id="predicate_predicate29"/>
+    <test-case id="predicate_predicate30"/>
+    <test-case id="predicate_predicate31"/>
+    <test-case id="predicate_predicate32"/>
+    <test-case id="predicate_predicate33"/>
+    <test-case id="predicate_predicate34"/>
+    <test-case id="predicate_predicate35"/>
+    <test-case id="predicate_predicate36"/>
+    <test-case id="predicate_predicate37"/>
+    <test-case id="predicate_predicate38"/>
+    <test-case id="predicate_predicate39"/>
+    <test-case id="predicate_predicate40"/>
+    <test-case id="predicate_predicate41"/>
+    <test-case id="predicate_predicate42"/>
+    <test-case id="predicate_predicate43"/>
+    <test-case id="predicate_predicate44"/>
+    <test-case id="predicate_predicate45"/>
+    <test-case id="predicate_predicate46"/>
+    <test-case id="predicate_predicate47"/>
+    <test-case id="predicate_predicate48"/>
+    <test-case id="predicate_predicate49"/>
+    <test-case id="predicate_predicate50"/>
+    <test-case id="predicate_predicate51"/>
+    <test-case id="predicate_predicate52"/>
+    <test-case id="predicate_predicate53"/>
+    <test-case id="predicate_predicate54"/>
+    <test-case id="predicate_predicate55"/>
+    <test-case id="predicate_predicate56"/>
+    <test-case id="predicate_predicate57"/>
+    <test-case id="predicate_predicate58"/>
+    <test-case id="processorinfo_processorinfo03">
+      <processor-specific name="vendor-url"/>
+    </test-case>
+    <test-case id="reluri_reluri01"/>
+    <test-case id="reluri_reluri02"/>
+    <test-case id="reluri_reluri03"/>
+    <test-case id="reluri_reluri04"/>
+    <test-case id="reluri_reluri05"/>
+    <test-case id="reluri_reluri06"/>
+    <test-case id="reluri_reluri07"/>
+    <test-case id="reluri_reluri08"/>
+    <test-case id="reluri_reluri09"/>
+    <test-case id="reluri_reluri10"/>
+    <test-case id="reluri_reluri11"/>
+    <test-case id="select_select01"/>
+    <test-case id="select_select02"/>
+    <test-case id="select_select03"/>
+    <test-case id="select_select04"/>
+    <test-case id="select_select05"/>
+    <test-case id="select_select06"/>
+    <test-case id="select_select07"/>
+    <test-case id="select_select08"/>
+    <test-case id="select_select09"/>
+    <test-case id="select_select10"/>
+    <test-case id="select_select11"/>
+    <test-case id="select_select12"/>
+    <test-case id="select_select13"/>
+    <test-case id="select_select14"/>
+    <test-case id="select_select15"/>
+    <test-case id="select_select16"/>
+    <test-case id="select_select17"/>
+    <test-case id="select_select18"/>
+    <test-case id="select_select19"/>
+    <test-case id="select_select20"/>
+    <test-case id="select_select21"/>
+    <test-case id="select_select22"/>
+    <test-case id="select_select23"/>
+    <test-case id="select_select24"/>
+    <test-case id="select_select25"/>
+    <test-case id="select_select26"/>
+    <test-case id="select_select27"/>
+    <test-case id="select_select28"/>
+    <test-case id="select_select29"/>
+    <test-case id="select_select30"/>
+    <test-case id="select_select31"/>
+    <test-case id="select_select32"/>
+    <test-case id="select_select33"/>
+    <test-case id="select_select34"/>
+    <test-case id="select_select35"/>
+    <test-case id="select_select36"/>
+    <test-case id="select_select37"/>
+    <test-case id="select_select38"/>
+    <test-case id="select_select39"/>
+    <test-case id="select_select40"/>
+    <test-case id="select_select41"/>
+    <test-case id="select_select42"/>
+    <test-case id="select_select43"/>
+    <test-case id="select_select44"/>
+    <test-case id="select_select45"/>
+    <test-case id="select_select47"/>
+    <test-case id="select_select48"/>
+    <test-case id="select_select49"/>
+    <test-case id="select_select50"/>
+    <test-case id="select_select51"/>
+    <test-case id="select_select52"/>
+    <test-case id="select_select53"/>
+    <test-case id="select_select54"/>
+    <test-case id="select_select55"/>
+    <test-case id="select_select56"/>
+    <test-case id="select_select57"/>
+    <test-case id="select_select58"/>
+    <test-case id="select_select59"/>
+    <test-case id="select_select60"/>
+    <test-case id="select_select61"/>
+    <test-case id="select_select62"/>
+    <test-case id="select_select63"/>
+    <test-case id="select_select64"/>
+    <test-case id="select_select65"/>
+    <test-case id="select_select66"/>
+    <test-case id="select_select67"/>
+    <test-case id="select_select68"/>
+    <test-case id="select_select69"/>
+    <test-case id="select_select70"/>
+    <test-case id="select_select71"/>
+    <test-case id="select_select72"/>
+    <test-case id="select_select73"/>
+    <test-case id="select_select74"/>
+    <test-case id="select_select75"/>
+    <test-case id="select_select76"/>
+    <test-case id="select_select77"/>
+    <test-case id="select_select78"/>
+    <test-case id="select_select79"/>
+    <test-case id="select_select80"/>
+    <test-case id="select_select81"/>
+    <test-case id="select_select82"/>
+    <test-case id="select_select83"/>
+    <test-case id="select_select84"/>
+    <test-case id="select_select85"/>
+    <test-case id="select_select86"/>
+    <test-case id="sort_sort01"/>
+    <test-case id="sort_sort02"/>
+    <test-case id="sort_sort03"/>
+    <test-case id="sort_sort04"/>
+    <test-case id="sort_sort05"/>
+    <test-case id="sort_sort06"/>
+    <test-case id="sort_sort07"/>
+    <test-case id="sort_sort08"/>
+    <test-case id="sort_sort09"/>
+    <test-case id="sort_sort10"/>
+    <test-case id="sort_sort11"/>
+    <test-case id="sort_sort12"/>
+    <test-case id="sort_sort13"/>
+    <test-case id="sort_sort14"/>
+    <test-case id="sort_sort15"/>
+    <test-case id="sort_sort16"/>
+    <test-case id="sort_sort20"/>
+    <test-case id="sort_sort21"/>
+    <test-case id="sort_sort22"/>
+    <test-case id="sort_sort23"/>
+    <test-case id="sort_sort24"/>
+    <test-case id="sort_sort25"/>
+    <test-case id="sort_sort26"/>
+    <test-case id="sort_sort27"/>
+    <test-case id="sort_sort28"/>
+    <test-case id="sort_sort29"/>
+    <test-case id="sort_sort30"/>
+    <test-case id="sort_sort31"/>
+    <test-case id="sort_sort32"/>
+    <test-case id="sort_sort33"/>
+    <test-case id="sort_sort34"/>
+    <test-case id="sort_sort35"/>
+    <test-case id="sort_sort36"/>
+    <test-case id="sort_sort37"/>
+    <test-case id="sort_sort38"/>
+    <test-case id="sort_sort39"/>
+    <test-case id="sort_sort40"/>
+    <test-case id="string_string01"/>
+    <test-case id="string_string02"/>
+    <test-case id="string_string04"/>
+    <test-case id="string_str05"/>
+    <test-case id="string_str06"/>
+    <test-case id="string_str07"/>
+    <test-case id="string_str08"/>
+    <test-case id="string_str09"/>
+    <test-case id="string_str10"/>
+    <test-case id="string_str11"/>
+    <test-case id="string_str09"/>
+    <test-case id="string_str13"/>
+    <test-case id="string_string14"/>
+    <test-case id="string_str15"/>
+    <test-case id="string_str16"/>
+    <test-case id="string_str17"/>
+    <test-case id="string_str18"/>
+    <test-case id="string_str19"/>
+    <test-case id="string_str20"/>
+    <test-case id="string_str21"/>
+    <test-case id="string_str22"/>
+    <test-case id="string_str30"/>
+    <test-case id="string_"/>
+    <test-case id="string_"/>
+    <test-case id="string_"/>
+    <test-case id="string_"/>
+    <test-case id="string_"/>
+    <test-case id="string_"/>
+    <test-case id="string_str37"/>
+    <test-case id="string_str38"/>
+    <test-case id="string_str39"/>
+    <test-case id="string_str40"/>
+    <test-case id="string_str41"/>
+    <test-case id="string_str42"/>
+    <test-case id="string_str43"/>
+    <test-case id="string_str44"/>
+    <test-case id="string_str45"/>
+    <test-case id="string_str46"/>
+    <test-case id="string_str47"/>
+    <test-case id="string_str48"/>
+    <test-case id="string_str49"/>
+    <test-case id="string_str50"/>
+    <test-case id="string_str51"/>
+    <test-case id="string_str52"/>
+    <test-case id="string_str53"/>
+    <test-case id="string_str54"/>
+    <test-case id="string_str55"/>
+    <test-case id="string_str56"/>
+    <test-case id="string_str57"/>
+    <test-case id="string_str58"/>
+    <test-case id="string_str59"/>
+    <test-case id="string_str60"/>
+    <test-case id="string_str61"/>
+    <test-case id="string_str62"/>
+    <test-case id="string_str63"/>
+    <test-case id="string_str64"/>
+    <test-case id="string_str65"/>
+    <test-case id="string_str66"/>
+    <test-case id="string_str67"/>
+    <test-case id="string_str68"/>
+    <test-case id="string_str69"/>
+    <test-case id="string_str70"/>
+    <test-case id="string_str71"/>
+    <test-case id="string_str72"/>
+    <test-case id="string_str73"/>
+    <test-case id="string_str74"/>
+    <test-case id="string_str75"/>
+    <test-case id="string_str76"/>
+    <test-case id="string_str77"/>
+    <test-case id="string_str78"/>
+    <test-case id="string_str79"/>
+    <test-case id="string_str80"/>
+    <test-case id="string_str81"/>
+    <test-case id="string_str82"/>
+    <test-case id="string_str83"/>
+    <test-case id="string_str84"/>
+    <test-case id="string_str85"/>
+    <test-case id="string_str86"/>
+    <test-case id="string_str87"/>
+    <test-case id="string_str88"/>
+    <test-case id="string_str89"/>
+    <test-case id="string_str90"/>
+    <test-case id="string_str91"/>
+    <test-case id="string_str92"/>
+    <test-case id="string_str93"/>
+    <test-case id="string_str94"/>
+    <test-case id="string_str95"/>
+    <test-case id="string_str96"/>
+    <test-case id="string_str97"/>
+    <test-case id="string_str98"/>
+    <test-case id="string_str99"/>
+    <test-case id="string_str100"/>
+    <test-case id="string_str101"/>
+    <test-case id="string_str102"/>
+    <test-case id="string_str103"/>
+    <test-case id="string_str104"/>
+    <test-case id="string_str105"/>
+    <test-case id="string_str106"/>
+    <test-case id="string_string107"/>
+    <test-case id="string_str108"/>
+    <test-case id="string_str109"/>
+    <test-case id="string_str110"/>
+    <test-case id="string_str111"/>
+    <test-case id="string_str112"/>
+    <test-case id="string_str113"/>
+    <test-case id="string_str114"/>
+    <test-case id="string_str115"/>
+    <test-case id="string_str116"/>
+    <test-case id="string_str117"/>
+    <test-case id="string_str118"/>
+    <test-case id="string_str119"/>
+    <test-case id="string_str120"/>
+    <test-case id="string_str121"/>
+    <test-case id="string_string122"/>
+    <test-case id="string_string123"/>
+    <test-case id="string_string124"/>
+    <test-case id="string_string125"/>
+    <test-case id="string_string126"/>
+    <test-case id="string_string127"/>
+    <test-case id="string_string128"/>
+    <test-case id="string_string129"/>
+    <test-case id="string_string130"/>
+    <test-case id="string_string131"/>
+    <test-case id="string_string132"/>
+    <test-case id="string_string133"/>
+    <test-case id="string_string134"/>
+    <test-case id="string_string135"/>
+    <test-case id="string_string136"/>
+    <test-case id="string_string137"/>
+    <test-case id="string_string138"/>
+    <test-case id="string_string139"/>
+    <test-case id="string_string140"/>
+    <test-case id="string_string141"/>
+    <test-case id="variable_variable01"/>
+    <test-case id="variable_variable02"/>
+    <test-case id="variable_variable03"/>
+    <test-case id="variable_variable04"/>
+    <test-case id="variable_variable05"/>
+    <test-case id="variable_variable06"/>
+    <test-case id="variable_variable07"/>
+    <test-case id="variable_variable08"/>
+    <test-case id="variable_variable09"/>
+    <test-case id="variable_variable10"/>
+    <test-case id="variable_variable11"/>
+    <test-case id="variable_variable12"/>
+    <test-case id="variable_variable13"/>
+    <test-case id="variable_variable14"/>
+    <test-case id="variable_variable15"/>
+    <test-case id="variable_variable16"/>
+    <test-case id="variable_variable17"/>
+    <test-case id="variable_variable18"/>
+    <test-case id="variable_variable19"/>
+    <test-case id="variable_variable20"/>
+    <test-case id="variable_variable21"/>
+    <test-case id="variable_variable22"/>
+    <test-case id="variable_variable23"/>
+    <test-case id="variable_variable24"/>
+    <test-case id="variable_variable25"/>
+    <test-case id="variable_variable26"/>
+    <test-case id="variable_variable27"/>
+    <test-case id="variable_variable28"/>
+    <test-case id="variable_variable29"/>
+    <test-case id="variable_variable30"/>
+    <test-case id="variable_variable31"/>
+    <test-case id="variable_variable32"/>
+    <test-case id="variable_variable33"/>
+    <test-case id="variable_variable34"/>
+    <test-case id="variable_variable35"/>
+    <test-case id="variable_variable36"/>
+    <test-case id="variable_variable37"/>
+    <test-case id="variable_variable38"/>
+    <test-case id="variable_variable39"/>
+    <test-case id="variable_variable40"/>
+    <test-case id="variable_variable41"/>
+    <test-case id="variable_variable42"/>
+    <test-case id="variable_variable43"/>
+    <test-case id="variable_variable44"/>
+    <test-case id="variable_variable45"/>
+    <test-case id="variable_variable46"/>
+    <test-case id="variable_variable47"/>
+    <test-case id="variable_variable48"/>
+    <test-case id="variable_variable49"/>
+    <test-case id="variable_variable50"/>
+    <test-case id="variable_variable51"/>
+    <test-case id="variable_variable52"/>
+    <test-case id="variable_variable53"/>
+    <test-case id="variable_variable54"/>
+    <test-case id="variable_variable55"/>
+    <test-case id="variable_variable56"/>
+    <test-case id="variable_variable57"/>
+    <test-case id="variable_variable58"/>
+    <test-case id="variable_variable59"/>
+    <test-case id="variable_variable60"/>
+    <test-case id="variable_variable61"/>
+    <test-case id="variable_variable62"/>
+    <test-case id="variable_variable63"/>
+    <test-case id="variable_variable64"/>
+    <test-case id="variable_variable65"/>
+    <test-case id="variable_variable65"/>
+    <test-case id="variable_variable67"/>
+    <test-case id="variable_variable68"/>
+    <test-case id="variable_variable69"/>
+    <test-case id="variable_variable70"/>
+    <test-case id="ver_ver01"/>
+    <test-case id="ver_ver04"/>
+    <test-case id="ver_ver05"/>
+    <test-case id="ver_ver06"/>
+    <test-case id="ver_ver07"/>
+    <test-case id="whitespace_whitespace01"/>
+    <test-case id="whitespace_whitespace02"/>
+    <test-case id="whitespace_whitespace03"/>
+    <test-case id="whitespace_whitespace04"/>
+    <test-case id="whitespace_whitespace05"/>
+    <test-case id="whitespace_whitespace06"/>
+    <test-case id="whitespace_whitespace07"/>
+    <test-case id="whitespace_whitespace08"/>
+    <test-case id="whitespace_whitespace09"/>
+    <test-case id="whitespace_whitespace10"/>
+    <test-case id="whitespace_whitespace11"/>
+    <test-case id="whitespace_whitespace12"/>
+    <test-case id="whitespace_whitespace13"/>
+    <test-case id="whitespace_whitespace15"/>
+    <test-case id="whitespace_whitespace17"/>
+    <test-case id="whitespace_whitespace18"/>
+    <test-case id="whitespace_whitespace19"/>
+    <test-case id="whitespace_whitespace20"/>
+    <test-case id="whitespace_whitespace21"/>
+    <test-case id="whitespace_whitespace22"/>
+    <test-case id="whitespace_whitespace23"/>
+    <test-case id="whitespace_whitespace35"/>
+  </test-catalog>
+  <test-catalog submitter="Microsoft">
+    <test-case id="Attributes_SpecExample"/>
+    <test-case id="Attributes__78365"/>
+    <test-case id="Attributes__78366"/>
+    <test-case id="Attributes__78367"/>
+    <test-case id="Attributes__78368"/>
+    <test-case id="Attributes__78369"/>
+    <test-case id="Attributes__78370"/>
+    <test-case id="Attributes__78372"/>
+    <test-case id="Attributes__78373"/>
+    <test-case id="Attributes__78374"/>
+    <test-case id="Attributes__78375"/>
+    <test-case id="Attributes__78376"/>
+    <test-case id="Attributes__78377"/>
+    <test-case id="Attributes__78378"/>
+    <test-case id="Attributes__78379"/>
+    <test-case id="Attributes__78380"/>
+    <test-case id="Attributes__78381"/>
+    <test-case id="Attributes__78382"/>
+    <test-case id="Attributes__78386"/>
+    <test-case id="Attributes__78387"/>
+    <test-case id="Attributes__81430"/>
+    <test-case id="Attributes__81431"/>
+    <test-case id="Attributes__81482"/>
+    <test-case id="Attributes__81483"/>
+    <test-case id="Attributes__81484"/>
+    <test-case id="Attributes__81485"/>
+    <test-case id="Attributes__81486"/>
+    <test-case id="Attributes__81487"/>
+    <test-case id="Attributes__81488"/>
+    <test-case id="Attributes__81489"/>
+    <test-case id="Attributes__81491"/>
+    <test-case id="Attributes__81492"/>
+    <test-case id="Attributes__81493"/>
+    <test-case id="Attributes__81494"/>
+    <test-case id="Attributes__81495"/>
+    <test-case id="Attributes__81496"/>
+    <test-case id="Attributes__81497"/>
+    <test-case id="Attributes__81498"/>
+    <test-case id="Attributes__81499"/>
+    <test-case id="Attributes__81543"/>
+    <test-case id="Attributes__81544"/>
+    <test-case id="Attributes__81545"/>
+    <test-case id="Attributes__81546"/>
+    <test-case id="Attributes__81547"/>
+    <test-case id="Attributes__81548"/>
+    <test-case id="Attributes__81550"/>
+    <test-case id="Attributes__81551"/>
+    <test-case id="Attributes__81552"/>
+    <test-case id="Attributes__83030"/>
+    <test-case id="Attributes__83822"/>
+    <test-case id="Attributes__84169"/>
+    <test-case id="Attributes__89433"/>
+    <test-case id="Attributes__89434"/>
+    <test-case id="Attributes__89435"/>
+    <test-case id="Attributes__89436"/>
+    <test-case id="Attributes__89437"/>
+    <test-case id="Attributes__89438"/>
+    <test-case id="Attributes__89439"/>
+    <test-case id="Attributes__89440"/>
+    <test-case id="Attributes__89441"/>
+    <test-case id="Attributes__89442"/>
+    <test-case id="Attributes__89445"/>
+    <test-case id="Attributes__89446"/>
+    <test-case id="Attributes__89459"/>
+    <test-case id="Attributes__89460"/>
+    <test-case id="Attributes__89461"/>
+    <test-case id="Attributes__89462"/>
+    <test-case id="Attributes__89463"/>
+    <test-case id="Attributes__89464"/>
+    <test-case id="Attributes__89465"/>
+    <test-case id="Attributes__89466"/>
+    <test-case id="Attributes_Attribute_AttributeWithEmptyName"/>
+    <test-case id="Attributes_Attribute_DoeWithTextAndValueOf"/>
+    <test-case id="Attributes_Attribute_EmptyNameAttributeWithNS"/>
+    <test-case id="Attributes_Attribute_HandCreatedXmlNamespace"/>
+    <test-case id="Attributes_Attribute_InvalidNamespacePrefix"/>
+    <test-case id="Attributes_Attribute_LiteralResultAttributeIsAmpersand"/>
+    <test-case id="Attributes_Attribute_UseXmlnsAsNamespaceForAttributeImplicitly"/>
+    <test-case id="Attributes_Attribute_UseXmlnsNsAsNamespaceForAttribute"/>
+    <test-case id="Attributes_Attribute_WhitespaceInUseAttributeSets"/>
+    <test-case id="Attributes_EmptyStringInUseAttribSets"/>
+    <test-case id="Attributes_AttrNameBeginsWithXml"/>
+    <test-case id="Attributes_xsl_attribute_dup_attr_with_namespace_conflict"/>
+    <test-case id="AttributeSets__91035">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91036">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91037"/>
+    <test-case id="AttributeSets__91038">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91042"/>
+    <test-case id="AttributeSets__91043"/>
+    <test-case id="AttributeSets__91045"/>
+    <test-case id="AttributeSets__91046"/>
+    <test-case id="AttributeSets__91077"/>
+    <test-case id="AttributeSets__91078"/>
+    <test-case id="AttributeSets__91080">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91081">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91083">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91084"/>
+    <test-case id="AttributeSets__91085"/>
+    <test-case id="AttributeSets__91091"/>
+    <test-case id="AttributeSets__91093"/>
+    <test-case id="AttributeSets__91094"/>
+    <test-case id="AttributeSets__91095"/>
+    <test-case id="AttributeSets__91096"/>
+    <test-case id="AttributeSets__91097"/>
+    <test-case id="AttributeSets__91098">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91099"/>
+    <test-case id="AttributeSets__91100">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91101">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="AttributeSets__91119"/>
+    <test-case id="AttributeSets__91120"/>
+    <test-case id="AttributeSets__91139"/>
+    <test-case id="AttributeSets__91140">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="AttributeSets__91141"/>
+    <test-case id="AttributeSets__91142"/>
+    <test-case id="AttributeSets_AttributeSets_EmptyAttribSet"/>
+    <test-case id="AttributeSets_AttributeSets_ImportAttributeSetOfSameName"/>
+    <test-case id="AttributeSets_AttributeSets_IncludeAttributeSetOfSamePrecedence"/>
+    <test-case id="AttributeSets_AttributeSets_WithPI"/>
+    <test-case id="AttributeSets_DoeInAttributeWithinAttributeSet"/>
+    <test-case id="AttributeSets_RefToUndefinedAttributeSet">
+      <doubt>The Rec does not say that this has to be an error</doubt>
+    </test-case>
+    <test-case id="AVTs__77531"/>
+    <test-case id="AVTs__77536"/>
+    <test-case id="AVTs__77558"/>
+    <test-case id="AVTs__77562"/>
+    <test-case id="AVTs__77564"/>
+    <test-case id="AVTs__77570"/>
+    <test-case id="AVTs__77571"/>
+    <test-case id="AVTs__77574"/>
+    <test-case id="AVTs__77575"/>
+    <test-case id="AVTs__77576"/>
+    <test-case id="AVTs__77577"/>
+    <test-case id="AVTs__77579"/>
+    <test-case id="AVTs__77580"/>
+    <test-case id="AVTs__77582"/>
+    <test-case id="AVTs__77588"/>
+    <test-case id="AVTs__77589"/>
+    <test-case id="AVTs__77591">
+      <doubt>Possible whitespace/normalization problems</doubt>
+    </test-case>
+    <test-case id="AVTs__77592"/>
+    <test-case id="AVTs__77593"/>
+    <test-case id="AVTs__77594"/>
+    <test-case id="AVTs__77595"/>
+    <test-case id="AVTs__77596"/>
+    <test-case id="AVTs__77597"/>
+    <test-case id="AVTs__77598"/>
+    <test-case id="AVTs__77599"/>
+    <test-case id="BVTs_bvt001"/>
+    <test-case id="BVTs_bvt002"/>
+    <test-case id="BVTs_bvt003"/>
+    <test-case id="BVTs_bvt004"/>
+    <test-case id="BVTs_bvt005"/>
+    <test-case id="BVTs_bvt007"/>
+    <test-case id="BVTs_bvt008"/>
+    <test-case id="BVTs_bvt009"/>
+    <test-case id="BVTs_bvt011"/>
+    <test-case id="BVTs_bvt012"/>
+    <test-case id="BVTs_bvt013"/>
+    <test-case id="BVTs_bvt014"/>
+    <test-case id="BVTs_bvt015"/>
+    <test-case id="BVTs_bvt017"/>
+    <test-case id="BVTs_bvt018"/>
+    <test-case id="BVTs_bvt019"/>
+    <test-case id="BVTs_bvt020">
+      <gray-area>
+        <gray-area-choice name="xsl-prefixed-attrib-on-xsl-instruction" behavior="ignore"/>
+        <!-- The spec seems to disallow this. -->
+      </gray-area>
+    </test-case>
+    <test-case id="BVTs_bvt021"/>
+    <test-case id="BVTs_bvt022">
+      <doubt>stylesheet-prefix="#default" not associated with a namespace</doubt>
+    </test-case>
+    <test-case id="BVTs_bvt023"/>
+    <test-case id="BVTs_bvt024">
+      <doubt>various discrepancies, some from patterns with no digit characters</doubt>
+    </test-case>
+    <test-case id="BVTs_bvt027"/>
+    <test-case id="BVTs_bvt029"/>
+    <test-case id="BVTs_bvt033">
+      <doubt>Uses version 2.0, better to pick a higher number</doubt>
+      <doubt>Has xsl:import in illegal place</doubt>
+    </test-case>
+    <test-case id="BVTs_bvt034">
+      <doubt>Uses version 2.0, better to pick a higher number</doubt>
+    </test-case>
+    <test-case id="BVTs_bvt035"/>
+    <test-case id="BVTs_bvt036"/>
+    <test-case id="BVTs_bvt037"/>
+    <test-case id="BVTs_bvt038"/>
+    <test-case id="BVTs_bvt039"/>
+    <test-case id="BVTs_bvt040"/>
+    <test-case id="BVTs_bvt041"/>
+    <test-case id="BVTs_bvt042"/>
+    <test-case id="BVTs_bvt043"/>
+    <test-case id="BVTs_bvt044"/>
+    <test-case id="BVTs_bvt045">
+      <doubt>Main function of test seems to have been commented out</doubt>
+    </test-case>
+    <test-case id="BVTs_bvt047"/>
+    <test-case id="BVTs_bvt051"/>
+    <test-case id="BVTs_bvt052">
+      <extension name="nodeset-function"/>
+    </test-case>
+    <test-case id="BVTs_bvt053"/>
+    <test-case id="BVTs_bvt054"/>
+    <test-case id="BVTs_bvt055"/>
+    <test-case id="BVTs_bvt056"/>
+    <test-case id="BVTs_bvt057"/>
+    <test-case id="BVTs_bvt058">
+      <doubt>stylesheet-prefix="#default" not associated with a namespace</doubt>
+    </test-case>
+    <test-case id="BVTs_bvt060"/>
+    <test-case id="BVTs_bvt061"/>
+    <test-case id="BVTs_bvt062"/>
+    <test-case id="BVTs_bvt063"/>
+    <test-case id="BVTs_bvt064"/>
+    <test-case id="BVTs_bvt065"/>
+    <test-case id="BVTs_bvt066"/>
+    <test-case id="BVTs_bvt067"/>
+    <test-case id="BVTs_bvt069"/>
+    <test-case id="BVTs_bvt070"/>
+    <test-case id="BVTs_bvt072"/>
+    <test-case id="BVTs_bvt073"/>
+    <test-case id="BVTs_bvt074"/>
+    <test-case id="BVTs_bvt075"/>
+    <test-case id="BVTs_bvt076"/>
+    <test-case id="BVTs_bvt077"/>
+    <test-case id="BVTs_bvt078"/>
+    <test-case id="BVTs_bvt079"/>
+    <test-case id="BVTs_bvt080"/>
+    <test-case id="BVTs_bvt081"/>
+    <test-case id="BVTs_bvt083"/>
+    <test-case id="BVTs_bvt085"/>
+    <test-case id="BVTs_bvt086"/>
+    <test-case id="BVTs_bvt087"/>
+    <test-case id="BVTs_bvt089"/>
+    <test-case id="BVTs_bvt090"/>
+    <test-case id="BVTs_bvt091"/>
+    <test-case id="BVTs_bvt092"/>
+    <test-case id="BVTs_bvt093"/>
+    <test-case id="BVTs_bvt094"/>
+    <test-case id="BVTs_bvt095"/>
+    <test-case id="BVTs_bvt096"/>
+    <test-case id="BVTs_bvt098"/>
+    <test-case id="BVTs_bvt099"/>
+    <test-case id="BVTs_bvt100"/>
+    <test-case id="Comment_Comment_CDATAWithDoubleHyphen"/>
+    <test-case id="Comment_Comment_CDATAWithDoubleHyphenEntities"/>
+    <test-case id="Comment_Comment_CDATAWithSingleHyphen"/>
+    <test-case id="Comment_Comment_CommentWithCDATAValidText"/>
+    <test-case id="Comment_Comment_CommentWithForeignCharacters"/>
+    <test-case id="Comment_Comment_CommentWithOnlyValidText"/>
+    <test-case id="Comment_Comment_DoubleHypenEntitywithDelCharacter"/>
+    <test-case id="Comment_Comment_DoubleHypenInText"/>
+    <test-case id="Comment_Comment_DoubleHyphenONLY"/>
+    <test-case id="Comment_Comment_EmptyComment"/>
+    <test-case id="Comment_Comment_HyphenEntityAndHyphen"/>
+    <test-case id="Comment_Comment_LineOfAllHyphens"/>
+    <test-case id="Comment_Comment_SingleHyphenOnly"/>
+    <test-case id="Comment_Comment_Test1"/>
+    <test-case id="Comment_Comment_Test2"/>
+    <test-case id="Comment_Comment_Test3"/>
+    <test-case id="Comment_DisableOutputEscaping_XslTextInXslComment"/>
+    <test-case id="Completeness__84351"/>
+    <test-case id="Completeness__84354"/>
+    <test-case id="Completeness__84355"/>
+    <test-case id="Completeness__84356"/>
+    <test-case id="Completeness__84357"/>
+    <test-case id="Completeness__84358"/>
+    <test-case id="Completeness__84359"/>
+    <test-case id="Completeness__84360"/>
+    <test-case id="Completeness__84361"/>
+    <test-case id="ConflictResolution__77572"/>
+    <test-case id="ConflictResolution__77619"/>
+    <test-case id="ConflictResolution__77621"/>
+    <test-case id="ConflictResolution__77622"/>
+    <test-case id="ConflictResolution__77623"/>
+    <test-case id="ConflictResolution__77626"/>
+    <test-case id="ConflictResolution__77746"/>
+    <test-case id="ConflictResolution__77781"/>
+    <test-case id="ConflictResolution__77782"/>
+    <test-case id="ConflictResolution__77783"/>
+    <test-case id="ConflictResolution__77784"/>
+    <test-case id="ConflictResolution__77802"/>
+    <test-case id="ConflictResolution__77833"/>
+    <test-case id="ConflictResolution__77847"/>
+    <test-case id="ConflictResolution__77870"/>
+    <test-case id="ConflictResolution__77871"/>
+    <test-case id="ConflictResolution__77872"/>
+    <test-case id="ConflictResolution__77874"/>
+    <test-case id="ConflictResolution__77875"/>
+    <test-case id="ConflictResolution__77876"/>
+    <test-case id="ConflictResolution__77877"/>
+    <test-case id="ConflictResolution__77878"/>
+    <test-case id="ConflictResolution__77879"/>
+    <test-case id="ConflictResolution__77881"/>
+    <test-case id="ConflictResolution__77882"/>
+    <test-case id="ConflictResolution__77883"/>
+    <test-case id="ConflictResolution__77884"/>
+    <test-case id="ConflictResolution__77885"/>
+    <test-case id="ConflictResolution__77886"/>
+    <test-case id="ConflictResolution__77889"/>
+    <test-case id="ConflictResolution__77891"/>
+    <test-case id="ConflictResolution__77893"/>
+    <test-case id="ConflictResolution__77897"/>
+    <test-case id="ConflictResolution__77898"/>
+    <test-case id="ConflictResolution__77902"/>
+    <test-case id="ConflictResolution__77904"/>
+    <test-case id="ConflictResolution__84476"/>
+    <test-case id="ConflictResolution__84477"/>
+    <test-case id="ConflictResolution__84478"/>
+    <test-case id="ConflictResolution_ConflictResBetweenStripSpaceAndPreserveSpace"/>
+    <test-case id="Copying__84388"/>
+    <test-case id="Copying__84389"/>
+    <test-case id="Copying_Copy-of_CopyOfFromDocumentRoot"/>
+    <test-case id="Copying_ResultTreeFragmentWithEscapedText"/>
+    <test-case id="Copying_UseXmlnsWithEmptyStringAsDefaultNs"/>
+    <test-case id="Elements__78318"/>
+    <test-case id="Elements__78319"/>
+    <test-case id="Elements__78320"/>
+    <test-case id="Elements__78344"/>
+    <test-case id="Elements__78345"/>
+    <test-case id="Elements__78346"/>
+    <test-case id="Elements__78347"/>
+    <test-case id="Elements__78351"/>
+    <test-case id="Elements__78358"/>
+    <test-case id="Elements__78362"/>
+    <test-case id="Elements__78363"/>
+    <test-case id="Elements__78364"/>
+    <test-case id="Elements__83968"/>
+    <test-case id="Elements__89062"/>
+    <test-case id="Elements__89063"/>
+    <test-case id="Elements__89065"/>
+    <test-case id="Elements__89066"/>
+    <test-case id="Elements__89067"/>
+    <test-case id="Elements__89069"/>
+    <test-case id="Elements__89070"/>
+    <test-case id="Elements__89071"/>
+    <test-case id="Elements__89072"/>
+    <test-case id="Elements__89104"/>
+    <test-case id="Elements__89107"/>
+    <test-case id="Elements__89108"/>
+    <test-case id="Elements__89109"/>
+    <test-case id="Elements__89110"/>
+    <test-case id="Elements__89111"/>
+    <test-case id="Elements__89112"/>
+    <test-case id="Elements__89113"/>
+    <test-case id="Elements__89171"/>
+    <test-case id="Elements__89172"/>
+    <test-case id="Elements__89175"/>
+    <test-case id="Elements__89177"/>
+    <test-case id="Elements__89203"/>
+    <test-case id="Elements__89204"/>
+    <test-case id="Elements__89205"/>
+    <test-case id="Elements__89207"/>
+    <test-case id="Elements__89278"/>
+    <test-case id="Elements__89279"/>
+    <test-case id="Elements__89280"/>
+    <test-case id="Elements__89281"/>
+    <test-case id="Elements__89282"/>
+    <test-case id="Elements__89283"/>
+    <test-case id="Elements__89284"/>
+    <test-case id="Elements__89285"/>
+    <test-case id="Elements__89286"/>
+    <test-case id="Elements__89287"/>
+    <test-case id="Elements__89605"/>
+    <test-case id="Elements__89705"/>
+    <test-case id="Elements__89709"/>
+    <test-case id="Elements__89710"/>
+    <test-case id="Elements__89711"/>
+    <test-case id="Elements__89712"/>
+    <test-case id="Elements__89713"/>
+    <test-case id="Elements__89714"/>
+    <test-case id="Elements__89715"/>
+    <test-case id="Elements__89716"/>
+    <test-case id="Elements__89717"/>
+    <test-case id="Elements__89718"/>
+    <test-case id="Elements__89723"/>
+    <test-case id="Elements__89731"/>
+    <test-case id="Elements_Element_ElementWithEmptyElementTag"/>
+    <test-case id="Elements_Element_ElementWithNoNameSpecified"/>
+    <test-case id="Elements_Element_ElementWithNoNameSpecifiedButValidNS"/>
+    <test-case id="Elements_Element_ElementWithNSFromNameFn"/>
+    <test-case id="Elements_Element_UseXslElementWithNameSpaceAttrEqualToXmlnsUri"/>
+    <test-case id="Elements_Element_UseXslElementWIthNamespaceEqualToXmlnsUri"/>
+    <test-case id="Elements_ValidAttribute"/>
+    <test-case id="Errors__84386"/>
+    <test-case id="Errors__84387"/>
+    <test-case id="Errors__84390"/>
+    <test-case id="Errors__84391">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Errors__84392"/>
+    <test-case id="Errors_err001"/>
+    <test-case id="Errors_err002"/>
+    <test-case id="Errors_err003"/>
+    <test-case id="Errors_err004"/>
+    <test-case id="Errors_err005"/>
+    <test-case id="Errors_err006"/>
+    <test-case id="Errors_err007"/>
+    <test-case id="Errors_err008"/>
+    <test-case id="Errors_err009"/>
+    <test-case id="Errors_err010"/>
+    <test-case id="Errors_err011"/>
+    <test-case id="Errors_err012"/>
+    <test-case id="Errors_err013"/>
+    <test-case id="Errors_err014"/>
+    <test-case id="Errors_err015"/>
+    <test-case id="Errors_err016"/>
+    <test-case id="Errors_err017"/>
+    <test-case id="Errors_err021"/>
+    <test-case id="Errors_err022"/>
+    <test-case id="Errors_err023"/>
+    <test-case id="Errors_err024"/>
+    <test-case id="Errors_err025"/>
+    <test-case id="Errors_err026"/>
+    <test-case id="Errors_err028"/>
+    <test-case id="Errors_err029"/>
+    <test-case id="Errors_err030"/>
+    <test-case id="Errors_err031"/>
+    <test-case id="Errors_err032"/>
+    <test-case id="Errors_err033"/>
+    <test-case id="Errors_err034"/>
+    <test-case id="Errors_err035"/>
+    <test-case id="Errors_err036"/>
+    <test-case id="Errors_err037"/>
+    <test-case id="Errors_err038"/>
+    <test-case id="Errors_err044"/>
+    <test-case id="Errors_err045"/>
+    <test-case id="Errors_err046"/>
+    <test-case id="Errors_err047"/>
+    <test-case id="Errors_err048"/>
+    <test-case id="Errors_err049"/>
+    <test-case id="Errors_err050"/>
+    <test-case id="Errors_err051"/>
+    <test-case id="Errors_err052"/>
+    <test-case id="Errors_err053"/>
+    <test-case id="Errors_err054"/>
+    <test-case id="Errors_err055"/>
+    <test-case id="Errors_err056"/>
+    <test-case id="Errors_err057"/>
+    <test-case id="Errors_err058"/>
+    <test-case id="Errors_err059"/>
+    <test-case id="Errors_err060"/>
+    <test-case id="Errors_err061"/>
+    <test-case id="Errors_err062"/>
+    <test-case id="Errors_err063"/>
+    <test-case id="Errors_err064"/>
+    <test-case id="Errors_err065"/>
+    <test-case id="Errors_err066"/>
+    <test-case id="Errors_err067"/>
+    <test-case id="Errors_err068"/>
+    <test-case id="Errors_err069"/>
+    <test-case id="Errors_err070"/>
+    <test-case id="Errors_err071"/>
+    <test-case id="Errors_err072"/>
+    <test-case id="Errors_err073"/>
+    <test-case id="Errors_err074"/>
+    <test-case id="Errors_err075"/>
+    <test-case id="Errors_err076"/>
+    <test-case id="Errors_err077"/>
+    <test-case id="Errors_err078"/>
+    <test-case id="Errors_err079"/>
+    <test-case id="Errors_err088"/>
+    <test-case id="Errors_err089"/>
+    <test-case id="Errors_err090"/>
+    <test-case id="Errors_err091"/>
+    <test-case id="Errors_err092"/>
+    <test-case id="Errors_err093"/>
+    <test-case id="Errors_err094"/>
+    <test-case id="Errors_err095"/>
+    <test-case id="Errors_err096"/>
+    <test-case id="Errors_err097"/>
+    <test-case id="Errors_err098"/>
+    <test-case id="Errors_err099"/>
+    <test-case id="Errors_err100"/>
+    <test-case id="Errors_err101"/>
+    <test-case id="Errors_err103"/>
+    <test-case id="Errors_err104"/>
+    <test-case id="Errors_err105"/>
+    <test-case id="Errors_err106"/>
+    <test-case id="Errors_err107"/>
+    <test-case id="Errors_err108"/>
+    <test-case id="Errors_err109"/>
+    <test-case id="Errors_err110"/>
+    <test-case id="Errors_InvalidFormatPattern1"/>
+    <test-case id="Errors_InvalidPriorityValue"/>
+    <test-case id="Errors_InvalidTopLevelElement"/>
+    <test-case id="Errors_MissingVersionAttribute"/>
+    <test-case id="Errors_WrongXSLNamespace"/>
+    <test-case id="Errors_xsl_choose_without_xsl_when1"/>
+    <test-case id="Errors_xsl_choose_without_xsl_when2"/>
+    <test-case id="Errors_xsl_template_complicated_match_pattern_with_variable_ref"/>
+    <test-case id="Errors_xsl_template_document_func_in_match_pattern"/>
+    <test-case id="Errors_xsl_template_match_pattern_with_variable_ref"/>
+    <test-case id="Fallback__91817"/>
+    <test-case id="Fallback__91818"/>
+    <test-case id="Fallback__91819"/>
+    <test-case id="Fallback__91820"/>
+    <test-case id="Fallback__91821"/>
+    <test-case id="Fallback__91822"/>
+    <test-case id="Fallback__91823"/>
+    <test-case id="Fallback__91824"/>
+    <test-case id="Fallback__91825"/>
+    <test-case id="Fallback__91826"/>
+    <test-case id="ForEach_ForEach_ForeachWithXPATHEvaluatesToNull"/>
+    <test-case id="FormatNumber_DecimalFormatInfinityTest"/>
+    <test-case id="FormatNumber_DecimalFormatNaNTest"/>
+    <test-case id="FormatNumber_DecimalFormatSameCharForDecimalAndGrpSep"/>
+    <test-case id="FormatNumber_DecimalFormatZeroDigit"/>
+    <test-case id="FormatNumber_DecimalFormatZeroDigit1"/>
+    <test-case id="FormatNumber_DecimalFormatZeroDigit2"/>
+    <test-case id="FormatNumber_extraParameters"/>
+    <test-case id="FormatNumber_FormatNumber_SemiColonDelimitsToWhitespace"/>
+    <test-case id="FormatNumber_FormatNumberWithDecimalFormatAndEuropeanStandard"/>
+    <test-case id="FormatNumber_FormatNumberWithDecimalFormatInfinity"/>
+    <test-case id="FormatNumber_FormatNumberWithPattern.00"/>
+    <test-case id="FormatNumber_FormatNumberWithPattern.000"/>
+    <test-case id="FormatNumber_TestGrpSepr"/>
+    <test-case id="FormatNumber_ValueOf_FormatNumberWithoutPositiveNumberFormatPattern"/>
+    <test-case id="ForwardComp__91837"/>
+    <test-case id="ForwardComp__91838"/>
+    <test-case id="ForwardComp__91839"/>
+    <test-case id="ForwardComp__91840"/>
+    <test-case id="ForwardComp__91841"/>
+    <test-case id="ForwardComp__91842"/>
+    <test-case id="ForwardComp__91843"/>
+    <test-case id="ForwardComp__91844"/>
+    <test-case id="ForwardComp__91845"/>
+    <test-case id="ForwardComp__91846"/>
+    <test-case id="ForwardComp__91847"/>
+    <test-case id="ForwardComp__91848"/>
+    <test-case id="ForwardComp__91849"/>
+    <test-case id="ForwardComp__91850"/>
+    <test-case id="ForwardComp__91853"/>
+    <test-case id="ForwardComp__91854"/>
+    <test-case id="ForwardComp__91855"/>
+    <test-case id="ForwardComp__91856"/>
+    <test-case id="Import__10000"/>
+    <test-case id="Import__10001"/>
+    <test-case id="Import__84611"/>
+    <test-case id="Import__84612"/>
+    <test-case id="Import__84613"/>
+    <test-case id="Import__84614"/>
+    <test-case id="Import__84615"/>
+    <test-case id="Import__91032"/>
+    <test-case id="Import__91033"/>
+    <test-case id="Import__91048"/>
+    <test-case id="Import__91116">
+      <doubt>Files to be imported are missing</doubt>
+    </test-case>
+    <test-case id="Import__91117">
+      <doubt>Files to be imported are missing</doubt>
+    </test-case>
+    <test-case id="Import__91118">
+      <doubt>Files to be imported are missing</doubt>
+    </test-case>
+    <test-case id="Import__91134"/>
+    <test-case id="Import__91135"/>
+    <test-case id="Import__91136"/>
+    <test-case id="Import__91143"/>
+    <test-case id="Import__91144"/>
+    <test-case id="Import__91145"/>
+    <test-case id="Import__91146"/>
+    <test-case id="Import__91147"/>
+    <test-case id="Import__91148"/>
+    <test-case id="Import__91150">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Import__91151"/>
+    <test-case id="Import__91152"/>
+    <test-case id="Import__91153"/>
+    <test-case id="Import__91154"/>
+    <test-case id="Import__91155"/>
+    <test-case id="Import__91156">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Import__91157">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Import__91158">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Import__91159">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Import__91162"/>
+    <test-case id="Import__91163"/>
+    <test-case id="Import__91164"/>
+    <test-case id="Import__91165">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Import__91166">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Import__91173"/>
+    <test-case id="Import_Import_IncludeBeforeImportInStylesheet"/>
+    <test-case id="Import_ImportPrecedanceTest1"/>
+    <test-case id="Import_ImportPrecedanceTest2"/>
+    <test-case id="Import_NestedImportsWithModeTemplate"/>
+    <test-case id="Import_NestedImportsWithNoMatch"/>
+    <test-case id="Import_VariableScopeInNestedImports"/>
+    <test-case id="Include__77489"/>
+    <test-case id="Include__77504">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include__77506"/>
+    <test-case id="Include__77507"/>
+    <test-case id="Include__77509">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include__77510">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include__77511">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include__77512"/>
+    <test-case id="Include__77513"/>
+    <test-case id="Include__77514"/>
+    <test-case id="Include__77515"/>
+    <test-case id="Include__77736"/>
+    <test-case id="Include__77745">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include__77747"/>
+    <test-case id="Include__77750"/>
+    <test-case id="Include__77751"/>
+    <test-case id="Include__78293">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include__78295">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include__78296">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include__78398"/>
+    <test-case id="Include__84463"/>
+    <test-case id="Include__84464">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Include_Include_IncludedStylesheetShouldHaveDifferentBaseUri"/>
+    <test-case id="Include_Include_IncludeStylesheetWithoutXslNamespace"/>
+    <test-case id="Include_Include_ParentExplicitlyExcludesChildNamespace"/>
+    <test-case id="Include_Include_ParentImplicitlyExcludesChildNamespace"/>
+    <test-case id="Include_Include_ParentNSVisibleToIncludedDoc"/>
+    <test-case id="Include_RelUriTest1"/>
+    <test-case id="Include_RelUriTest2"/>
+    <test-case id="Include_RelUriTest3"/>
+    <test-case id="Include_RelUriTest4"/>
+    <test-case id="Include_RelUriTest5"/>
+    <test-case id="Include_RelUriTest6"/>
+    <test-case id="Include_NestedIncludes"/>
+    <test-case id="Keys_SortNodesetReturnedByKey"/>
+    <test-case id="Keys_MultipltKeysInclude"/>
+    <test-case id="Keys__10050"/>
+    <test-case id="Keys__10051"/>
+    <test-case id="Keys__91690"/>
+    <test-case id="Keys__91706"/>
+    <test-case id="Keys__91707"/>
+    <test-case id="Keys__91708"/>
+    <test-case id="Keys__91709"/>
+    <test-case id="Keys__91710"/>
+    <test-case id="Keys__91711"/>
+    <test-case id="Keys__91712"/>
+    <test-case id="Keys__91713"/>
+    <test-case id="Keys__91714"/>
+    <test-case id="Keys__91715"/>
+    <test-case id="Keys__91716"/>
+    <test-case id="Keys__91717"/>
+    <test-case id="Keys__91718"/>
+    <test-case id="Keys__91719"/>
+    <test-case id="Keys__91720"/>
+    <test-case id="Keys__91721"/>
+    <test-case id="Keys__91722"/>
+    <test-case id="Keys__91723"/>
+    <test-case id="Keys__91724"/>
+    <test-case id="Keys__91725"/>
+    <test-case id="Keys__91726"/>
+    <test-case id="Keys__91727"/>
+    <test-case id="Keys__91730"/>
+    <test-case id="Keys__91732"/>
+    <test-case id="Keys__91832"/>
+    <test-case id="Keys__91833"/>
+    <test-case id="Keys__91834"/>
+    <test-case id="Keys__91835"/>
+    <test-case id="Keys__91836"/>
+    <test-case id="Keys__91858"/>
+    <test-case id="Keys__91859"/>
+    <test-case id="Keys__91860"/>
+    <test-case id="Keys_Bug76935"/>
+    <test-case id="Keys_PerfRepro2">
+      <extension name="nodeset-function"/>
+    </test-case>
+    <test-case id="Keys_PerfRepro3"/>
+    <test-case id="Keys_PositionLastTest1"/>
+    <test-case id="Messages__78220"/>
+    <test-case id="Messages__91758"/>
+    <test-case id="Messages__91759"/>
+    <test-case id="Messages__91760"/>
+    <test-case id="Messages__91761"/>
+    <test-case id="Messages__91762"/>
+    <test-case id="Messages__91763"/>
+    <test-case id="Messages__91764"/>
+    <test-case id="Messages__91765"/>
+    <test-case id="Messages__91765_1"/>
+    <test-case id="Messages_XmlFragmentInsideMessage"/>
+    <test-case id="Miscellaneous__77809"/>
+    <test-case id="Miscellaneous__78298"/>
+    <test-case id="Miscellaneous__78302"/>
+    <test-case id="Miscellaneous__78303"/>
+    <test-case id="Miscellaneous__83599"/>
+    <test-case id="Miscellaneous__83600"/>
+    <test-case id="Miscellaneous__83601"/>
+    <test-case id="Miscellaneous__83602"/>
+    <test-case id="Miscellaneous__83603"/>
+    <test-case id="Miscellaneous__83604"/>
+    <test-case id="Miscellaneous__83605"/>
+    <test-case id="Miscellaneous__83606"/>
+    <test-case id="Miscellaneous__83607"/>
+    <test-case id="Miscellaneous__83608"/>
+    <test-case id="Miscellaneous__83609"/>
+    <test-case id="Miscellaneous__83610"/>
+    <test-case id="Miscellaneous__83996"/>
+    <test-case id="Miscellaneous__84001"/>
+    <test-case id="Miscellaneous__84002"/>
+    <test-case id="Miscellaneous__84039"/>
+    <test-case id="Miscellaneous__84111"/>
+    <test-case id="Miscellaneous__84229"/>
+    <test-case id="Miscellaneous__84230"/>
+    <test-case id="Miscellaneous__84231"/>
+    <test-case id="Miscellaneous__84232"/>
+    <test-case id="Miscellaneous__84233"/>
+    <test-case id="Miscellaneous__84234"/>
+    <test-case id="Miscellaneous__84235"/>
+    <test-case id="Miscellaneous__84236"/>
+    <test-case id="Miscellaneous__84237"/>
+    <test-case id="Miscellaneous__84238"/>
+    <test-case id="Miscellaneous__84239"/>
+    <test-case id="Miscellaneous__84240"/>
+    <test-case id="Miscellaneous__84362"/>
+    <test-case id="Miscellaneous__84406"/>
+    <test-case id="Miscellaneous__84407"/>
+    <test-case id="Miscellaneous__84408"/>
+    <test-case id="Miscellaneous__84409"/>
+    <test-case id="Miscellaneous__84410"/>
+    <test-case id="Miscellaneous__84411"/>
+    <test-case id="Miscellaneous__84412"/>
+    <test-case id="Miscellaneous__84420"/>
+    <test-case id="Miscellaneous__84423"/>
+    <test-case id="Miscellaneous__84424"/>
+    <test-case id="Miscellaneous__84425"/>
+    <test-case id="Miscellaneous__84426"/>
+    <test-case id="Miscellaneous__84427"/>
+    <test-case id="Miscellaneous__84430"/>
+    <test-case id="Miscellaneous__84435"/>
+    <test-case id="Miscellaneous__84475"/>
+    <test-case id="Miscellaneous__84610"/>
+    <test-case id="Miscellaneous__91177"/>
+    <test-case id="Miscellaneous__91178"/>
+    <test-case id="Miscellaneous__91183"/>
+    <test-case id="Miscellaneous_Bug74174"/>
+    <test-case id="Miscellaneous_TestOfPrecedingAxis"/>
+    <test-case id="Modes__78321"/>
+    <test-case id="Modes__78322"/>
+    <test-case id="Modes__78323"/>
+    <test-case id="Modes__78324"/>
+    <test-case id="Modes__78325"/>
+    <test-case id="Modes__78327"/>
+    <test-case id="Modes__78328"/>
+    <test-case id="Modes__78329"/>
+    <test-case id="Modes__78330"/>
+    <test-case id="Modes__78331"/>
+    <test-case id="Modes__78332"/>
+    <test-case id="Modes__78333"/>
+    <test-case id="Modes__78334"/>
+    <test-case id="Modes__78340"/>
+    <test-case id="Modes__78341"/>
+    <test-case id="Modes__78342"/>
+    <test-case id="Modes__78343"/>
+    <test-case id="Modes__84413"/>
+    <test-case id="Modes__84414"/>
+    <test-case id="NamedTemplates__84027"/>
+    <test-case id="NamedTemplates__84028"/>
+    <test-case id="NamedTemplates__84029"/>
+    <test-case id="NamedTemplates__84031"/>
+    <test-case id="NamedTemplates__84032"/>
+    <test-case id="NamedTemplates__84033"/>
+    <test-case id="NamedTemplates__84037"/>
+    <test-case id="NamedTemplates__84038"/>
+    <test-case id="NamedTemplates__84040"/>
+    <test-case id="NamedTemplates__84041"/>
+    <test-case id="NamedTemplates__84042"/>
+    <test-case id="NamedTemplates__84043"/>
+    <test-case id="NamedTemplates__84044"/>
+    <test-case id="NamedTemplates__84045"/>
+    <test-case id="NamedTemplates__84046"/>
+    <test-case id="NamedTemplates__84047"/>
+    <test-case id="NamedTemplates__84416"/>
+    <test-case id="NamedTemplates__84417"/>
+    <test-case id="NamedTemplates__84418"/>
+    <test-case id="NamedTemplates__84419"/>
+    <test-case id="NamedTemplates__84436"/>
+    <test-case id="NamedTemplates__84437"/>
+    <test-case id="NamedTemplates_NamedTemplate_ImportTemplateThatCallsParentStylesheetNT"/>
+    <test-case id="NamedTemplates_NamedTemplate_ImportTemplateWithSameName"/>
+    <test-case id="NamedTemplates_NamedTemplate_IncludeNamedTemplateSameName"/>
+    <test-case id="NamedTemplates_NamedTemplate_NameTemplateWithEscapeCharacterInName"/>
+    <test-case id="NamedTemplates_NamedTemplate_Bug85244"/>
+    <test-case id="Namespace__77652"/>
+    <test-case id="Namespace__77655"/>
+    <test-case id="Namespace__77658"/>
+    <test-case id="Namespace__77659">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Namespace__77660"/>
+    <test-case id="Namespace__77664"/>
+    <test-case id="Namespace__77665">
+      <doubt>The Rec does not say that this has to be an error</doubt>
+    </test-case>
+    <test-case id="Namespace__77669"/>
+    <test-case id="Namespace__77670"/>
+    <test-case id="Namespace__77700"/>
+    <test-case id="Namespace__77672"/>
+    <test-case id="Namespace__77674">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Namespace__77675">
+      <doubt>The Rec does not say that this has to be an error</doubt>
+    </test-case>
+    <test-case id="Namespace__77692"/>
+    <test-case id="Namespace__77699"/>
+    <test-case id="Namespace__77700"/>
+    <test-case id="Namespace__77701"/>
+    <test-case id="Namespace__77702"/>
+    <test-case id="Namespace__77703"/>
+    <test-case id="Namespace__77704"/>
+    <test-case id="Namespace__77730"/>
+    <test-case id="Namespace__77731"/>
+    <test-case id="Namespace__77732"/>
+    <test-case id="Namespace__77733"/>
+    <test-case id="Namespace__77734"/>
+    <test-case id="Namespace__77735"/>
+    <test-case id="Namespace__77806"/>
+    <test-case id="Namespace__77983"/>
+    <test-case id="Namespace__77984"/>
+    <test-case id="Namespace__78027"/>
+    <test-case id="Namespace__78028"/>
+    <test-case id="Namespace__78193"/>
+    <test-case id="Namespace__78194"/>
+    <test-case id="Namespace__78207"/>
+    <test-case id="Namespace__78208"/>
+    <test-case id="Namespace__78210"/>
+    <test-case id="Namespace__78214"/>
+    <test-case id="Namespace__78215"/>
+    <test-case id="Namespace__84003"/>
+    <test-case id="Namespace__84473"/>
+    <test-case id="Namespace__84474"/>
+    <test-case id="Namespace_CheckXmlnsResetOnResultTree"/>
+    <test-case id="Namespace_Bug85356"/>
+    <test-case id="Namespace_XPath_Conflict_XPath_XSLT"/>
+    <test-case id="Namespace_XPath_CopyNamespaceNodeToOutput"/>
+    <test-case id="Namespace_XPath_DefaultNamespace"/>
+    <test-case id="Namespace_XPath_NavigatorMethods"/>
+    <test-case id="Namespace_XPath_PredefinedPrefix_XML">
+      <doubt>namespace URIs may cause trouble for some processors</doubt>
+    </test-case>
+    <test-case id="Namespace_XPath_PredefinedPrefix_XMLNS"/>
+    <test-case id="Namespace_XPath_SameQuery_DiffNamespace"/>
+    <test-case id="Namespace_XPath_ScopingRules"/>
+    <test-case id="Namespace_XPath_UndeclaredPrefix"/>
+    <test-case id="Namespace-alias__91766"/>
+    <test-case id="Namespace-alias__91767"/>
+    <test-case id="Namespace-alias__91768"/>
+    <test-case id="Namespace-alias__91769"/>
+    <test-case id="Namespace-alias__91770"/>
+    <test-case id="Namespace-alias__91771"/>
+    <test-case id="Namespace-alias__91772"/>
+    <test-case id="Namespace-alias__91773"/>
+    <test-case id="Namespace-alias__91774"/>
+    <test-case id="Namespace-alias__91775"/>
+    <test-case id="Namespace-alias__91776"/>
+    <test-case id="Namespace-alias__91779"/>
+    <test-case id="Namespace-alias__91780"/>
+    <test-case id="Namespace-alias__91781"/>
+    <test-case id="Namespace-alias__91782"/>
+    <test-case id="Namespace-alias__91783"/>
+    <test-case id="Namespace-alias__91784"/>
+    <test-case id="Namespace-alias__91785"/>
+    <test-case id="Namespace-alias__91786"/>
+    <test-case id="Namespace-alias__91788"/>
+    <test-case id="Namespace-alias__91789"/>
+    <test-case id="Namespace-alias__91790"/>
+    <test-case id="Namespace-alias__91791"/>
+    <test-case id="Namespace-alias__91792"/>
+    <test-case id="Namespace-alias__91793"/>
+    <test-case id="Namespace-alias__91794"/>
+    <test-case id="Namespace-alias__91795"/>
+    <test-case id="Namespace-alias__91796"/>
+    <test-case id="Namespace-alias__91797"/>
+    <test-case id="Namespace-alias__91798"/>
+    <test-case id="Namespace-alias__91799"/>
+    <test-case id="Namespace-alias__91800"/>
+    <test-case id="Namespace-alias__91801"/>
+    <test-case id="Namespace-alias_Namespace-Alias_NSAliasForDefaultWithExcludeResPref"/>
+    <test-case id="Namespace-alias_Namespace-Alias_RenameAliasIfClauseForResultDocument"/>
+    <test-case id="Namespace-alias_Namespace-Alias_Test1"/>
+    <test-case id="Namespace-alias_Namespace-Alias_Test2"/>
+    <test-case id="Namespace-alias_Namespace-Alias_WithinRTF"/>
+    <test-case id="Namespace-alias_NSAlias_In_Import"/>
+    <test-case id="Namespace-alias_NSAlias_Inside_CallTemplate"/>
+    <test-case id="Number__10052"/>
+    <test-case id="Number__10053"/>
+    <test-case id="Number__84431"/>
+    <test-case id="Number__84679"/>
+    <test-case id="Number__84680"/>
+    <test-case id="Number__84681"/>
+    <test-case id="Number__84682"/>
+    <test-case id="Number__84683">
+      <doubt>Spurious . and new-line before each occurrence of "chapter"</doubt>
+    </test-case>
+    <test-case id="Number__84684"/>
+    <test-case id="Number__84687">
+      <gray-area>
+        <gray-area-choice name="special-from-case-single" behavior="use-zero"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="Number__84688"/>
+    <test-case id="Number__84692">
+      <doubt>sub-elements missing in REF_OUT</doubt>
+    </test-case>
+    <test-case id="Number__84694"/>
+    <test-case id="Number__84698"/>
+    <test-case id="Number__84699"/>
+    <test-case id="Number__84700"/>
+    <test-case id="Number__84702"/>
+    <test-case id="Number__84705"/>
+    <test-case id="Number__84706"/>
+    <test-case id="Number__84714"/>
+    <test-case id="Number__84715"/>
+    <test-case id="Number__84716"/>
+    <test-case id="Number__84717"/>
+    <test-case id="Number__84719"/>
+    <test-case id="Number__84720"/>
+    <test-case id="Number__84722"/>
+    <test-case id="Number__84723"/>
+    <test-case id="Number__84724"/>
+    <test-case id="Number__84725"/>
+    <test-case id="Number__84726"/>
+    <test-case id="Number__91021"/>
+    <test-case id="Number__91022"/>
+    <test-case id="Number__91023"/>
+    <test-case id="Number__91026"/>
+    <test-case id="Number__91027"/>
+    <test-case id="Number__91028">
+      <gray-area>
+        <gray-area-choice name="special-from-case-any" behavior="use-blank"/>
+        <gray-area-choice name="special-from-case-multiple" behavior="use-blank"/>
+        <gray-area-choice name="special-from-case-single" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="Number__91029">
+      <gray-area>
+        <gray-area-choice name="special-from-case-any" behavior="use-blank"/>
+        <gray-area-choice name="special-from-case-multiple" behavior="use-blank"/>
+        <gray-area-choice name="special-from-case-single" behavior="use-blank"/>
+        <!-- This has been referred to the WG for an erratum. -->
+      </gray-area>
+    </test-case>
+    <test-case id="Number__91030"/>
+    <test-case id="Number__91031"/>
+    <test-case id="Number_format01"/>
+    <test-case id="Number_GroupingSeperatorShouldBe1Char"/>
+    <test-case id="Number_NaNOrInvalidValue">
+      <doubt>number() would have returned NaN for first sub-case</doubt>
+    </test-case>
+    <test-case id="Number_TestFormat1"/>
+    <test-case id="Number_TestFormatPattern_1"/>
+    <test-case id="Number_TestFormatPattern01"/>
+    <test-case id="Number_TestFormatPatternA.1"/>
+    <test-case id="Number_ValueAsNodesetTest1">
+      <doubt>Numbering should be visible as "NaN" each time</doubt>
+    </test-case>
+    <test-case id="Number_ValueAsNodesetTest2"/>
+    <test-case id="Number_ValueAsEmptyNodeset">
+      <doubt>One of the input files must be the wrong one</doubt>
+    </test-case>
+    <test-case id="Output__77926"/>
+    <test-case id="Output__77927">
+      <doubt>Possible new-line/normalization problems</doubt>
+    </test-case>
+    <test-case id="Output__77928">
+      <doubt>Possible new-line/normalization problems</doubt>
+    </test-case>
+    <test-case id="Output__77929"/>
+    <test-case id="Output__77930"/>
+    <test-case id="Output__77931">
+      <extension name="output-method"/>
+    </test-case>
+    <test-case id="Output__77932"/>
+    <test-case id="Output__77933"/>
+    <test-case id="Output__77934"/>
+    <test-case id="Output__77935"/>
+    <test-case id="Output__77936"/>
+    <test-case id="Output__77937"/>
+    <test-case id="Output__77938"/>
+    <test-case id="Output__77939"/>
+    <test-case id="Output__77940"/>
+    <test-case id="Output__77957"/>
+    <test-case id="Output__77959"/>
+    <test-case id="Output__77960"/>
+    <test-case id="Output__77961"/>
+    <test-case id="Output__77966"/>
+    <test-case id="Output__77967"/>
+    <test-case id="Output__78175"/>
+    <test-case id="Output__78176">
+      <doubt>The Rec does not say that this has to be an error</doubt>
+    </test-case>
+    <test-case id="Output__78177"/>
+    <test-case id="Output__78180"/>
+    <test-case id="Output__78182"/>
+    <test-case id="Output__78183"/>
+    <test-case id="Output__78221"/>
+    <test-case id="Output__78222">
+      <serial name="support-SHIFT_JIS"/>
+    </test-case>
+    <test-case id="Output__78223"/>
+    <test-case id="Output__78224"/>
+    <test-case id="Output__78225"/>
+    <test-case id="Output__78226"/>
+    <test-case id="Output__78227">
+      <serial name="support-SHIFT_JIS"/>
+    </test-case>
+    <test-case id="Output__78229">
+      <serial name="support-SHIFT_JIS"/>
+    </test-case>
+    <test-case id="Output__84008"/>
+    <test-case id="Output__84009"/>
+    <test-case id="Output__84010"/>
+    <test-case id="Output__84011"/>
+    <test-case id="Output__84012"/>
+    <test-case id="Output__84013"/>
+    <test-case id="Output__84014"/>
+    <test-case id="Output__84015"/>
+    <test-case id="Output__84016"/>
+    <test-case id="Output__84017"/>
+    <test-case id="Output__84018"/>
+    <test-case id="Output__84019"/>
+    <test-case id="Output__84020">
+      <serial name="support-SHIFT_JIS"/>
+    </test-case>
+    <test-case id="Output__84021"/>
+    <test-case id="Output__84022"/>
+    <test-case id="Output__84025"/>
+    <test-case id="Output__84143"/>
+    <test-case id="Output__84144"/>
+    <test-case id="Output__84145"/>
+    <test-case id="Output__84146"/>
+    <test-case id="Output__84147"/>
+    <test-case id="Output__84148"/>
+    <test-case id="Output__84149"/>
+    <test-case id="Output__84150"/>
+    <test-case id="Output__84151"/>
+    <test-case id="Output__84152"/>
+    <test-case id="Output__84153"/>
+    <test-case id="Output__84154"/>
+    <test-case id="Output__84155"/>
+    <test-case id="Output__84156"/>
+    <test-case id="Output__84160"/>
+    <test-case id="Output__84161"/>
+    <test-case id="Output__84162"/>
+    <test-case id="Output__84163"/>
+    <test-case id="Output__84164"/>
+    <test-case id="Output__84165"/>
+    <test-case id="Output__84259"/>
+    <test-case id="Output__84260"/>
+    <test-case id="Output__84261"/>
+    <test-case id="Output__84262"/>
+    <test-case id="Output__84263"/>
+    <test-case id="Output__84264"/>
+    <test-case id="Output__84265"/>
+    <test-case id="Output__84266"/>
+    <test-case id="Output__84267"/>
+    <test-case id="Output__84268"/>
+    <test-case id="Output__84269"/>
+    <test-case id="Output__84270"/>
+    <test-case id="Output__84271"/>
+    <test-case id="Output__84272"/>
+    <test-case id="Output__84273"/>
+    <test-case id="Output__84274"/>
+    <test-case id="Output__84275"/>
+    <test-case id="Output__84276"/>
+    <test-case id="Output__84277"/>
+    <test-case id="Output__84278"/>
+    <test-case id="Output__84279"/>
+    <test-case id="Output__84280"/>
+    <test-case id="Output__84281"/>
+    <test-case id="Output__84282"/>
+    <test-case id="Output__84283"/>
+    <test-case id="Output__84284"/>
+    <test-case id="Output__84285"/>
+    <test-case id="Output__84286"/>
+    <test-case id="Output__84287"/>
+    <test-case id="Output__84288"/>
+    <test-case id="Output__84289"/>
+    <test-case id="Output__84290"/>
+    <test-case id="Output__84291"/>
+    <test-case id="Output__84292"/>
+    <test-case id="Output__84293"/>
+    <test-case id="Output__84294"/>
+    <test-case id="Output__84295"/>
+    <test-case id="Output__84296"/>
+    <test-case id="Output__84304">
+      <doubt>Possible new-line/normalization problems</doubt>
+    </test-case>
+    <test-case id="Output__84305">
+      <doubt>Possible new-line/normalization problems</doubt>
+    </test-case>
+    <test-case id="Output__84306"/>
+    <test-case id="Output__84309"/>
+    <test-case id="Output__84312">
+      <doubt>Possible new-line/normalization problems</doubt>
+    </test-case>
+    <test-case id="Output__84313"/>
+    <test-case id="Output__84374"/>
+    <test-case id="Output__84428"/>
+    <test-case id="Output__84429"/>
+    <test-case id="Output__84432"/>
+    <test-case id="Output__84433"/>
+    <test-case id="Output__84434"/>
+    <test-case id="Output__84452"/>
+    <test-case id="Output__84453"/>
+    <test-case id="Output__84454"/>
+    <test-case id="Output__84455"/>
+    <test-case id="Output__84456"/>
+    <test-case id="Output__84457"/>
+    <test-case id="Output__84458"/>
+    <test-case id="Output__84459"/>
+    <test-case id="Output__84460"/>
+    <test-case id="Output__84461"/>
+    <test-case id="Output__84462"/>
+    <test-case id="Output__84480"/>
+    <test-case id="Output__84580"/>
+    <test-case id="Output__84616"/>
+    <test-case id="Output__84617"/>
+    <test-case id="Output__84618"/>
+    <test-case id="Output__84619">
+      <doubt>Possible new-line/normalization problems</doubt>
+    </test-case>
+    <test-case id="Output__84620">
+      <doubt>Possible new-line/normalization problems</doubt>
+    </test-case>
+    <test-case id="Output__84621"/>
+    <test-case id="Output__84622"/>
+    <test-case id="Output__84623"/>
+    <test-case id="Output__84624"/>
+    <test-case id="Output__84625"/>
+    <test-case id="Output__84626"/>
+    <test-case id="Output_SignInHrefAttribute"/>
+    <test-case id="Output_AmpersandWithinHtmlAttribute"/>
+    <test-case id="Output_CdataSectionOnHtmlModeShouldBeIgnored"/>
+    <test-case id="Output_DoctypePublicAndSystemAttribute"/>
+    <test-case id="Output_DoctypePublicAttribute"/>
+    <test-case id="Output_DoctypeSystemAttribute"/>
+    <test-case id="Output_EmptyElement1"/>
+    <test-case id="Output_EntityRefInAttribHtml">
+      <doubt>Possible new-line/normalization problems</doubt>
+    </test-case>
+    <test-case id="Output_Html_Op_Href_Attr_non_ascii_value"/>
+    <test-case id="Output_HtmlOutputWithAmpersandCurlyBracket"/>
+    <test-case id="Output_HtmlOutputWithLessThanInAttribute"/>
+    <test-case id="Output_HtmlWithTwoAdjacentEscapedAmpersands"/>
+    <test-case id="Output_MatchOnCellData"/>
+    <test-case id="Output_MediaTypeTest"/>
+    <test-case id="Output_MethodEqualsHtmlWithoutIndentSet"/>
+    <test-case id="Output_Modified84433"/>
+    <test-case id="Output_Output_PreserveImportPrecedenceOnOuputElement"/>
+    <test-case id="Output_Output_UseStandAloneAttributeWithMultipleRoots"/>
+    <test-case id="Output_OutputHTMLWithForcedXmlDeclaration"/>
+    <test-case id="Output_UseLiteralResultElementHead"/>
+    <test-case id="ProcessingInstruction__78188"/>
+    <test-case id="ProcessingInstruction__78190"/>
+    <test-case id="ProcessingInstruction__78196"/>
+    <test-case id="ProcessingInstruction__78197"/>
+    <test-case id="ProcessingInstruction__78198"/>
+    <test-case id="ProcessingInstruction__78199"/>
+    <test-case id="ProcessingInstruction__78200"/>
+    <test-case id="ProcessingInstruction__78201"/>
+    <test-case id="ProcessingInstruction__78202"/>
+    <test-case id="ProcessingInstruction__78203"/>
+    <test-case id="ProcessingInstruction__78204"/>
+    <test-case id="ProcessingInstruction__78217"/>
+    <test-case id="ProcessingInstruction__78218"/>
+    <test-case id="ProcessingInstruction__78219"/>
+    <test-case id="ProcessingInstruction__78393"/>
+    <test-case id="ProcessingInstruction__78394"/>
+    <test-case id="ProcessingInstruction_InvalidPIName1"/>
+    <test-case id="ProcessingInstruction_InvalidPIName2">
+      <doubt>REF_OUT output is missing</doubt>
+    </test-case>
+    <test-case id="ProcessingInstruction_ValueOfandTextWithDoeInProcInstr"/>
+    <test-case id="RTF_RTF_to_boolean_test"/>
+    <test-case id="RTF_RTF_to_number_in_format_number"/>
+    <test-case id="RTF_RTF_to_string_substring_function"/>
+    <test-case id="Sorting__77516"/>
+    <test-case id="Sorting__77517"/>
+    <test-case id="Sorting__77524"/>
+    <test-case id="Sorting__77525"/>
+    <test-case id="Sorting__77526"/>
+    <test-case id="Sorting__77527"/>
+    <test-case id="Sorting__77528"/>
+    <test-case id="Sorting__77529"/>
+    <test-case id="Sorting__77530"/>
+    <test-case id="Sorting__77532"/>
+    <test-case id="Sorting__77533"/>
+    <test-case id="Sorting__77534"/>
+    <test-case id="Sorting__77535"/>
+    <test-case id="Sorting__77539"/>
+    <test-case id="Sorting__77541"/>
+    <test-case id="Sorting__77544"/>
+    <test-case id="Sorting__77548"/>
+    <test-case id="Sorting__77550"/>
+    <test-case id="Sorting__77552"/>
+    <test-case id="Sorting__77553"/>
+    <test-case id="Sorting__77555"/>
+    <test-case id="Sorting__77556"/>
+    <test-case id="Sorting__77557"/>
+    <test-case id="Sorting__77559"/>
+    <test-case id="Sorting__77560"/>
+    <test-case id="Sorting__77561"/>
+    <test-case id="Sorting__77563"/>
+    <test-case id="Sorting__77565"/>
+    <test-case id="Sorting__77566"/>
+    <test-case id="Sorting__77567"/>
+    <test-case id="Sorting__77568"/>
+    <test-case id="Sorting__77569"/>
+    <test-case id="Sorting__77977"/>
+    <test-case id="Sorting__77979"/>
+    <test-case id="Sorting__77980"/>
+    <test-case id="Sorting__77981"/>
+    <test-case id="Sorting__77982"/>
+    <test-case id="Sorting__77985"/>
+    <test-case id="Sorting__77986"/>
+    <test-case id="Sorting__78191">
+      <doubt>Output is hard to match but may be missing some characters</doubt>
+    </test-case>
+    <test-case id="Sorting__78286"/>
+    <test-case id="Sorting__78288"/>
+    <test-case id="Sorting__78291"/>
+    <test-case id="Sorting__81684"/>
+    <test-case id="Sorting__81685"/>
+    <test-case id="Sorting__81686"/>
+    <test-case id="Sorting__81687"/>
+    <test-case id="Sorting__81688"/>
+    <test-case id="Sorting__81689"/>
+    <test-case id="Sorting__81690"/>
+    <test-case id="Sorting__81691"/>
+    <test-case id="Sorting__81692"/>
+    <test-case id="Sorting__81693"/>
+    <test-case id="Sorting__81710"/>
+    <test-case id="Sorting__81711"/>
+    <test-case id="Sorting__81712"/>
+    <test-case id="Sorting__81713"/>
+    <test-case id="Sorting__81715"/>
+    <test-case id="Sorting__81716"/>
+    <test-case id="Sorting__81717"/>
+    <test-case id="Sorting__81718"/>
+    <test-case id="Sorting__81719"/>
+    <test-case id="Sorting__83821"/>
+    <test-case id="Sorting__84006"/>
+    <test-case id="Sorting__84186"/>
+    <test-case id="Sorting__84465"/>
+    <test-case id="Sorting__84466"/>
+    <test-case id="Sorting__84467"/>
+    <test-case id="Sorting__84468"/>
+    <test-case id="Sorting__84469"/>
+    <test-case id="Sorting__84470"/>
+    <test-case id="Sorting__84471"/>
+    <test-case id="Sorting__84472"/>
+    <test-case id="Sorting__84479"/>
+    <test-case id="Sorting__89290"/>
+    <test-case id="Sorting__89749"/>
+    <test-case id="Sorting__89751"/>
+    <test-case id="Sorting__89758"/>
+    <test-case id="Sorting__89760"/>
+    <test-case id="Sorting__89762"/>
+    <test-case id="Sorting__89763"/>
+    <test-case id="Sorting__91689"/>
+    <test-case id="Sorting__91691"/>
+    <test-case id="Sorting__91692"/>
+    <test-case id="Sorting__91693"/>
+    <test-case id="Sorting__91694"/>
+    <test-case id="Sorting__91695"/>
+    <test-case id="Sorting__91696"/>
+    <test-case id="Sorting__91697"/>
+    <test-case id="Sorting__91698"/>
+    <test-case id="Sorting__91699"/>
+    <test-case id="Sorting__91700"/>
+    <test-case id="Sorting__91701"/>
+    <test-case id="Sorting__91703"/>
+    <test-case id="Sorting__91704"/>
+    <test-case id="Sorting__91705"/>
+    <test-case id="Sorting__91751"/>
+    <test-case id="Sorting__91752"/>
+    <test-case id="Sorting__91753"/>
+    <test-case id="Sorting__91754"/>
+    <test-case id="Sorting_Sort_AllTextElementsAreSame"/>
+    <test-case id="Sorting_Sort_CommaDelimitedNumber"/>
+    <test-case id="Sorting_Sort_LongTextWithTrailingNumbers"/>
+    <test-case id="Sorting_Sort_MixedCaseWithUpperSet"/>
+    <test-case id="Sorting_Sort_NumbersWithLanguageNotEnglish"/>
+    <test-case id="Sorting_Sort_PositiveNumbersHavePlusSign"/>
+    <test-case id="Sorting_Sort_SortEmptyTextNodesWithDataTypeNumber"/>
+    <test-case id="Sorting_Sort_SortOnDecimalPointWithoutPrefixedZero"/>
+    <test-case id="Sorting_Sort_SortOnNumbersWithAttributeCaseOrder"/>
+    <test-case id="Sorting_Sort_SortSameNumbers"/>
+    <test-case id="Sorting_Sort_SortTextWithNonTextCharacters"/>
+    <test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextLowerCaseFirst"/>
+    <test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextUpperCaseFirst"/>
+    <test-case id="Sorting_Sort_TextNodesSpanMultipleLines"/>
+    <test-case id="Sorting_Sort_UpperFirstOnTextWithUpper"/>
+    <test-case id="Sorting_Sort_ZeroAndNegativeZero"/>
+    <test-case id="Sorting_Sort_ZeroPrefixedNegativeNumbers"/>
+    <test-case id="Sorting_SortEquivalentValueDiffRepresentationBothDir"/>
+    <test-case id="Sorting_ValidSortThreeNumbers"/>
+    <test-case id="Sorting_SortExprWithCurrentInsideForEach"/>
+    <test-case id="Sorting_SortExprWithCurrentInsideForEach1"/>
+    <test-case id="Sorting_SortOnAttributeWithNamespacePrefix"/>
+    <test-case id="Sorting_SortExprWithCurrentInApplyTemplates"/>
+    <test-case id="Sorting_TurkishISortingTest"/>
+    <test-case id="Stylesheet__91802"/>
+    <test-case id="Stylesheet__91803"/>
+    <test-case id="Stylesheet__91804"/>
+    <test-case id="Stylesheet__91806"/>
+    <test-case id="Stylesheet__91807"/>
+    <test-case id="Stylesheet__91808"/>
+    <test-case id="Stylesheet__91809"/>
+    <test-case id="Stylesheet__91810"/>
+    <test-case id="Stylesheet__91811"/>
+    <test-case id="Stylesheet__91812"/>
+    <test-case id="Stylesheet__91813"/>
+    <test-case id="Stylesheet__91814"/>
+    <test-case id="Stylesheet__91815"/>
+    <test-case id="Stylesheet__91816"/>
+    <test-case id="Stylesheet_InvalidStylesheetMustThrowException"/>
+    <test-case id="Stylesheet_Stylsheet_ExcludeResultPrefixesOnStylesheet"/>
+    <test-case id="Stylesheet_UseStylesheetWithXmlnsEqualToXmlnsUri"/>
+    <test-case id="Template__84581"/>
+    <test-case id="Template_ApplyTemplateWithDuplicateParameter">
+      <doubt>Source missing but seems like it's needed</doubt>
+    </test-case>
+    <test-case id="Template_CallTemplateWithDuplicateParameter">
+      <doubt>Source missing but seems like it's needed</doubt>
+    </test-case>
+    <test-case id="Template_DocumentFNTakesStringParam"/>
+    <test-case id="Template_MatchFirstElementBelowDocRootWithExpression"/>
+    <test-case id="Template_MatchPatternVariation1"/>
+    <test-case id="Template_MatchPatternVariation2"/>
+    <test-case id="Template_MatchPatternVariation3"/>
+    <test-case id="Template_MatchPatternVariation4"/>
+    <test-case id="Template_MatchPatternVariation5"/>
+    <test-case id="Template_MatchPatternVariation6"/>
+    <test-case id="Template_MatchPatternVariation7"/>
+    <test-case id="Template_MatchPatternVariation8"/>
+    <test-case id="Template_TestForMatchPattern"/>
+    <test-case id="Template_TestParamValueAfterCallTemplate"/>
+    <test-case id="Template_Bug85313"/>
+    <test-case id="Template_Bug85313_1"/>
+    <test-case id="Text__78230"/>
+    <test-case id="Text__78242"/>
+    <test-case id="Text__78243"/>
+    <test-case id="Text__78244"/>
+    <test-case id="Text__78245"/>
+    <test-case id="Text__78246"/>
+    <test-case id="Text__78247"/>
+    <test-case id="Text__78249"/>
+    <test-case id="Text__78272"/>
+    <test-case id="Text__78273"/>
+    <test-case id="Text__78274">
+      <doubt>xsl:preserve-space is not an attribute</doubt>
+    </test-case>
+    <test-case id="Text__78275"/>
+    <test-case id="Text__78276">
+      <doubt>xsl:preserve-space is not an attribute</doubt>
+    </test-case>
+    <test-case id="Text__78277"/>
+    <test-case id="Text__78278"/>
+    <test-case id="Text__78279"/>
+    <test-case id="Text__78280"/>
+    <test-case id="Text__78281"/>
+    <test-case id="Text__78307"/>
+    <test-case id="Text__78308"/>
+    <test-case id="Text__78309"/>
+    <test-case id="Text__78311"/>
+    <test-case id="Text__78312"/>
+    <test-case id="Text__78313"/>
+    <test-case id="Text__78315"/>
+    <test-case id="Text__83979"/>
+    <test-case id="Text__91137"/>
+    <test-case id="Text__78282"/>
+    <test-case id="Text_DoeWithCdataInText"/>
+    <test-case id="Text_modified78307"/>
+    <test-case id="Text_modified78308"/>
+    <test-case id="Text_modified78309"/>
+    <test-case id="Text_Modified78311"/>
+    <test-case id="Text_Modified78312"/>
+    <test-case id="Text_ReservedCharsInAttribute"/>
+    <test-case id="Text_Text_ConvCdataLitResult"/>
+    <test-case id="Text_Text_ConvCdataLitResultSpacesOnly"/>
+    <test-case id="Text_Text_ConvCdataLitResultTextOnly"/>
+    <test-case id="Value-of_DisableOutputEscaping_XslValueOfInXslComment"/>
+    <test-case id="Value-of_ValueOf_BooleanExpressionsConvertedToStringEquivalent"/>
+    <test-case id="Value-of_ValueOf_ConcatTextNodesIntoSingle"/>
+    <test-case id="Value-of_ValueOf_KeyReferenceInSelect"/>
+    <test-case id="Variables__78097"/>
+    <test-case id="Variables__78098"/>
+    <test-case id="Variables__78099"/>
+    <test-case id="Variables__78100"/>
+    <test-case id="Variables__78101"/>
+    <test-case id="Variables__78110"/>
+    <test-case id="Variables__78111"/>
+    <test-case id="Variables__78112"/>
+    <test-case id="Variables__78115"/>
+    <test-case id="Variables__78116"/>
+    <test-case id="Variables__78117"/>
+    <test-case id="Variables__78118"/>
+    <test-case id="Variables__78120"/>
+    <test-case id="Variables__78121"/>
+    <test-case id="Variables__78125"/>
+    <test-case id="Variables__78131"/>
+    <test-case id="Variables__78132"/>
+    <test-case id="Variables__78137"/>
+    <test-case id="Variables__78153"/>
+    <test-case id="Variables__78154"/>
+    <test-case id="Variables__78159"/>
+    <test-case id="Variables__78160"/>
+    <test-case id="Variables__78161"/>
+    <test-case id="Variables__78162"/>
+    <test-case id="Variables__78163"/>
+    <test-case id="Variables__78164"/>
+    <test-case id="Variables__78292"/>
+    <test-case id="Variables__78304"/>
+    <test-case id="Variables__78305"/>
+    <test-case id="Variables__78306"/>
+    <test-case id="Variables__78314"/>
+    <test-case id="Variables__78316"/>
+    <test-case id="Variables__78317"/>
+    <test-case id="Variables__78348"/>
+    <test-case id="Variables__78349"/>
+    <test-case id="Variables__78350"/>
+    <test-case id="Variables__78352"/>
+    <test-case id="Variables__78353"/>
+    <test-case id="Variables__78354"/>
+    <test-case id="Variables__78355"/>
+    <test-case id="Variables__78356"/>
+    <test-case id="Variables__78357"/>
+    <test-case id="Variables__78359"/>
+    <test-case id="Variables__78360"/>
+    <test-case id="Variables__78361"/>
+    <test-case id="Variables__78371">
+      <doubt>The Rec does not say that this has to be an error</doubt>
+    </test-case>
+    <test-case id="Variables__78399"/>
+    <test-case id="Variables__78400"/>
+    <test-case id="Variables__78401"/>
+    <test-case id="Variables__78402"/>
+    <test-case id="Variables__78403"/>
+    <test-case id="Variables__78404"/>
+    <test-case id="Variables__78409"/>
+    <test-case id="Variables__84026"/>
+    <test-case id="Variables__84034"/>
+    <test-case id="Variables__84035"/>
+    <test-case id="Variables__84036"/>
+    <test-case id="Variables__84438"/>
+    <test-case id="Variables__84439"/>
+    <test-case id="Variables__84632"/>
+    <test-case id="Variables__84633"/>
+    <test-case id="Variables__84634"/>
+    <test-case id="Variables__84635"/>
+    <test-case id="Variables__84636"/>
+    <test-case id="Variables__84637"/>
+    <test-case id="Variables__84697"/>
+    <test-case id="Variables__84709"/>
+    <test-case id="Variables__84710"/>
+    <test-case id="Variables__84712"/>
+    <test-case id="Variables__91490"/>
+    <test-case id="Variables_GlobalVarHaveLocalVarDefinedWithin"/>
+    <test-case id="Variables_InvalidVariableNameShouldProduceError"/>
+    <test-case id="Variables_PositionAndLastComparisonShouldBeEqual"/>
+    <test-case id="Variables_SelectAttributeAndWhitespaceBetweenElement"/>
+    <test-case id="Variables_UseDocumentFnToReturnRootNode">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="Variables_VarDefinedEqualToAnotherVarNotYetDefined"/>
+    <test-case id="Variables_VariableAssignmentAfterIteration"/>
+    <test-case id="Variables_VariableWithinVariable"/>
+    <test-case id="Variables_VarScopeInCallTemplate"/>
+    <test-case id="Variables_VarScopeInImportedStylesheet"/>
+    <test-case id="Variables_xslt_variable_qname_test1"/>
+    <test-case id="Variables_xslt_variable_qname_test2"/>
+    <test-case id="Variables_VariableScopeWithinLRE"/>
+    <test-case id="Whitespaces__84599"/>
+    <test-case id="Whitespaces__91024"/>
+    <test-case id="Whitespaces__91025"/>
+    <test-case id="Whitespaces__91221"/>
+    <test-case id="Whitespaces__91222"/>
+    <test-case id="Whitespaces__91223"/>
+    <test-case id="Whitespaces__91224"/>
+    <test-case id="Whitespaces__91225"/>
+    <test-case id="Whitespaces__91226"/>
+    <test-case id="Whitespaces__91227"/>
+    <test-case id="Whitespaces__91228"/>
+    <test-case id="Whitespaces__91421"/>
+    <test-case id="Whitespaces__91422"/>
+    <test-case id="Whitespaces__91423"/>
+    <test-case id="Whitespaces__91424"/>
+    <test-case id="Whitespaces__91425"/>
+    <test-case id="Whitespaces__91426"/>
+    <test-case id="Whitespaces__91427"/>
+    <test-case id="Whitespaces__91428"/>
+    <test-case id="Whitespaces__91429"/>
+    <test-case id="Whitespaces__91430"/>
+    <test-case id="Whitespaces__91431"/>
+    <test-case id="Whitespaces__91432"/>
+    <test-case id="Whitespaces__91433"/>
+    <test-case id="Whitespaces__91434"/>
+    <test-case id="Whitespaces__91435"/>
+    <test-case id="Whitespaces__91436"/>
+    <test-case id="Whitespaces__91437"/>
+    <test-case id="Whitespaces__91438"/>
+    <test-case id="Whitespaces__91439"/>
+    <test-case id="Whitespaces__91440"/>
+    <test-case id="Whitespaces__91441"/>
+    <test-case id="Whitespaces__91442"/>
+    <test-case id="Whitespaces__91443"/>
+    <test-case id="Whitespaces__91444">
+      <doubt>REF_OUT value seems too high</doubt>
+    </test-case>
+    <test-case id="Whitespaces__91445"/>
+    <test-case id="Whitespaces__91446"/>
+    <test-case id="Whitespaces__91447"/>
+    <test-case id="Whitespaces__91448"/>
+    <test-case id="Whitespaces__91449"/>
+    <test-case id="Whitespaces__91450"/>
+    <test-case id="Whitespaces__91451"/>
+    <test-case id="Whitespaces__91452"/>
+    <test-case id="Whitespaces__91453"/>
+    <test-case id="Whitespaces__91454"/>
+    <test-case id="Whitespaces__91455"/>
+    <test-case id="Whitespaces__91456"/>
+    <test-case id="Whitespaces_WhitespaceStripTest1"/>
+    <test-case id="Whitespaces_XSLT_StripSpace_WhitespaceWithText"/>
+    <test-case id="XSLTFunctions__10002">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10003">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10004">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10005">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10006">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10007">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10008">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10009"/>
+    <test-case id="XSLTFunctions__10010">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10011">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10012">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10013">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10014">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10015">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10016">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10017">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10018">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10019">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10020">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10021">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10022">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10023">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10024">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10025">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10026">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__10049">
+      <doubt>This should succeed rather than raise an error</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__84048"/>
+    <test-case id="XSLTFunctions__84049">
+      <processor-specific name="vendor"/>
+    </test-case>
+    <test-case id="XSLTFunctions__84050">
+      <processor-specific name="vendor-url"/>
+    </test-case>
+    <test-case id="XSLTFunctions__84053"/>
+    <test-case id="XSLTFunctions__84054"/>
+    <test-case id="XSLTFunctions__84056"/>
+    <test-case id="XSLTFunctions__84058"/>
+    <test-case id="XSLTFunctions__84170"/>
+    <test-case id="XSLTFunctions__84171"/>
+    <test-case id="XSLTFunctions__84172"/>
+    <test-case id="XSLTFunctions__84173"/>
+    <test-case id="XSLTFunctions__84175"/>
+    <test-case id="XSLTFunctions__84176"/>
+    <test-case id="XSLTFunctions__84177"/>
+    <test-case id="XSLTFunctions__84178"/>
+    <test-case id="XSLTFunctions__84179"/>
+    <test-case id="XSLTFunctions__84415"/>
+    <test-case id="XSLTFunctions__84421"/>
+    <test-case id="XSLTFunctions__84422"/>
+    <test-case id="XSLTFunctions__84484"/>
+    <test-case id="XSLTFunctions__crahedOnEmptyVariable"/>
+    <test-case id="XSLTFunctions__currency"/>
+    <test-case id="XSLTFunctions__defaultPattern"/>
+    <test-case id="XSLTFunctions__DifferentDecimalFormatsWithSameName"/>
+    <test-case id="XSLTFunctions__doublePeriod"/>
+    <test-case id="XSLTFunctions__emptyParameters"/>
+    <test-case id="XSLTFunctions__EuropeanPattern"/>
+    <test-case id="XSLTFunctions__extraParameter"/>
+    <test-case id="XSLTFunctions__InvalidPattern"/>
+    <test-case id="XSLTFunctions__minimalValue">
+      <doubt>REF_OUT shows scientific notation</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__minimumValue">
+      <doubt>REF_OUT shows scientific notation</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions__mixingInvalids"/>
+    <test-case id="XSLTFunctions__Non_DigitPattern"/>
+    <test-case id="XSLTFunctions__Pattern-separator"/>
+    <test-case id="XSLTFunctions__percentPattern"/>
+    <test-case id="XSLTFunctions__sameDecimalFormats"/>
+    <test-case id="XSLTFunctions__sameDecimalFormatsWithImport"/>
+    <test-case id="XSLTFunctions__specialCharInPattern"/>
+    <test-case id="XSLTFunctions__testOn-0.00"/>
+    <test-case id="XSLTFunctions__testWithNumber"/>
+    <test-case id="XSLTFunctions__threeSubpatterns"/>
+    <test-case id="XSLTFunctions__without1stParameter"/>
+    <test-case id="XSLTFunctions__without2rdParameter"/>
+    <test-case id="XSLTFunctions__withoutAnyParameter"/>
+    <test-case id="XSLTFunctions__wrongPositionDecimalFormat"/>
+    <test-case id="XSLTFunctions_BooleanFunction"/>
+    <test-case id="XSLTFunctions_CurrentFunctionInVariable"/>
+    <test-case id="XSLTFunctions_Document"/>
+    <test-case id="XSLTFunctions_DocumentFunctionAbsArgument"/>
+    <test-case id="XSLTFunctions_DocumentFunctionNoArg"/>
+    <test-case id="XSLTFunctions_DocumentFunctionWithAbsoluteArgument">
+      <doubt>Resource to be fetched is on a specific computer, not available as part of the suite</doubt>
+    </test-case>
+    <test-case id="XSLTFunctions_DocumentFunctionWithEntityRef"/>
+    <test-case id="XSLTFunctions_DocumentFunctionWithNonExistingFilename"/>
+    <test-case id="XSLTFunctions_DocumentInUnion"/>
+    <test-case id="XSLTFunctions_DocumentInUnionWithDuplicateNodes"/>
+    <test-case id="XSLTFunctions_ElementAvailFunctionFalseTest"/>
+    <test-case id="XSLTFunctions_ElementAvailFunctionTrueTest"/>
+    <test-case id="XSLTFunctions_GenereateIdAppliedToNamespaceNodesOnDifferentElements"/>
+    <test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset"/>
+    <test-case id="XSLTFunctions_LastFuncAppliedToNodesetBoundToVariable"/>
+    <test-case id="XSLTFunctions_NumberFunctWithNoArg1"/>
+    <test-case id="XSLTFunctions_NumberFunctWithNoArg2"/>
+    <test-case id="XSLTFunctions_RepeatedUseOfDivOperator"/>
+    <test-case id="XSLTFunctions_RoundTripNumber_UsingStringFn"/>
+    <test-case id="XSLTFunctions_SubstringFunctionTest1"/>
+    <test-case id="XSLTFunctions_SubstringFunctionTest2"/>
+    <test-case id="XSLTFunctions_TestIdFuncInComplexStruct"/>
+    <test-case id="XSLTFunctions_TestOfIdFunction"/>
+    <test-case id="XSLTFunctions_Bug76054"/>
+    <test-case id="XSLTFunctions_Bug76984"/>
+    <test-case id="XSLTFunctions_DocumentFuncWithEmptyArg"/>
+  </test-catalog>
+</test-suite>

@@ -1,0 +1,339 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Namespace-alias" description="" outpath="out">
+	<variation name="_91766">
+		<description>XSLT | xsl:namespace-alias | Skip both the attributes stylesheet-prefix and result-prefix</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91766.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91767">
+		<description>XSLT | xsl:namespace-alias | Declare myxsl as an alias without declaring it in the xsl:stylesheet</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91767.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91768">
+		<description>XSLT | xsl:namespace-alias | Declare myxsl as an alias with a declaration in the xsl:stylesheet and a blank template | Do nothing</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91768.xsl</xsl>
+		</data>
+		<result expected="valid">91768.txt</result>
+	</variation>
+	<variation name="_91769">
+		<description>XSLT | xsl:namespace-alias | skip stylesheet-prefix, result-prefix="xsl" | Required attribute 'stylesheet-prefix' is missing</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91769.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91770">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="myxsl", skip result-prefix | Required attribute 'result-prefix' is missing</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91770.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91771">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="", result-prefix="xsl" | '' is not a valid namespace prefix value</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91771.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91772">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="myxsl", result-prefix="" | '' is not a valid namespace prefix value</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91772.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91773">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix=" ", result-prefix="xsl" | ' ' is not a valid namespace prefix value</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91773.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91774">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="myxsl", result-prefix=" " | ' ' is not a valid namespace prefix value</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91774.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91775">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix=" myxsl ", result-prefix="xsl" | ' myxsl ' is not a valid namespace prefix value</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91775.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91776">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="myxsl", result-prefix=" xsl " | ' xsl ' is not a valid namespace prefix value</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91776.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91779">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="123", result-prefix="xsl" | 123 is not a valid namespace prefix value</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91779.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91780">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="myxsl", result-prefix="123" | '' is not a valid namespace prefix value</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91780.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91781">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="#default", result-prefix="xsl" | Process Normally</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91781.xsl</xsl>
+		</data>
+		<result expected="valid">91781.txt</result>
+	</variation>
+	<variation name="_91782">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="myxsl", result-prefix="#default" | Process Normally</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91782.xsl</xsl>
+		</data>
+		<result expected="valid">91782.txt</result>
+	</variation>
+	<variation name="_91783">
+		<description>XSLT | xsl:namespace-alias | stylesheet-prefix="myxsl", result-prefix="xsl" | Both Prefixes point to the same namespace URI</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91783.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91784">
+		<description>XSLT | xsl:namespace-alias | Declare an alias to itself, stylesheet-prefix="myxsl" result-prefix="myxsl"</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91784.xsl</xsl>
+		</data>
+		<result expected="valid">91784.txt</result>
+	</variation>
+	<variation name="_91785">
+		<description>XSLT | xsl:namespace-alias | Declare an alias to multiple results | The last alias declared should override all</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91785.xsl</xsl>
+		</data>
+		<result expected="valid">91785.txt</result>
+	</variation>
+	<variation name="_91786">
+		<description>XSLT | xsl:namespace-alias | Create a namespace alias using an another existing alias</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91786.xsl</xsl>
+		</data>
+		<result expected="valid">91786.txt</result>
+	</variation>
+	<variation name="_91788">
+		<description>XSLT | xsl:namespace-alias | exclude-result-prefixes to NULL | Ignore and behave normally</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91788.xsl</xsl>
+		</data>
+		<result expected="valid">91788.txt</result>
+	</variation>
+	<variation name="_91789">
+		<description>XSLT | xsl:namespace-alias | set exclude-result-prefixes to a space | Behave normally</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91789.xsl</xsl>
+		</data>
+		<result expected="valid">91789.txt</result>
+	</variation>
+	<variation name="_91790">
+		<description>XSLT | xsl:namespace-alias | Exclude a result prefix which has no namespace declaration | Error out</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91790.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91791">
+		<description>XSLT | xsl:namespace-alias | Exclude a result prefix "default" which has no namespace declaration | Error out</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91791.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91792">
+		<description>XSLT | xsl:namespace-alias | exclude-result-prefixes="#default" | Behave normally</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91792.xsl</xsl>
+		</data>
+		<result expected="valid">91792.txt</result>
+	</variation>
+	<variation name="_91793">
+		<description>XSLT | xsl:namespace-alias | Declare 3 namespaces xsla, xslb, xslc and exclude xslb. Create alias to only xsla | no xslb namespaces in the output</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91793.xsl</xsl>
+		</data>
+		<result expected="valid">91793.txt</result>
+	</variation>
+	<variation name="_91794">
+		<description>XSLT | xsl:namespace-alias | Declare 3 namespaces xsla, xslb, xslc, and exclude xslb and xslc by spaces, alias only to xsla | output without xslb and xslc namespaces</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91794.xsl</xsl>
+		</data>
+		<result expected="valid">91794.txt</result>
+	</variation>
+	<variation name="_91795">
+		<description>XSLT | xsl:namespace-alias | Declare 3 namespaces xsla, xslb, xslc, and exclude xslb and xslc by tabs, alias only to xsla | output without xslb and xslc namespaces</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91795.xsl</xsl>
+		</data>
+		<result expected="valid">91795.txt</result>
+	</variation>
+	<variation name="_91796">
+		<description>XSLT | xsl:namespace-alias | Declare 3 namespaces xsla, xslb, xslc, and exclude xslb and xslc by newline, alias only to xsla | output without xslb and xslc namespaces</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91796.xsl</xsl>
+		</data>
+		<result expected="valid">91796.txt</result>
+	</variation>
+	<variation name="_91797">
+		<description>XSLT | xsl:namespace-alias | Exclude the same alias twice</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91797.xsl</xsl>
+		</data>
+		<result expected="valid">91797.txt</result>
+	</variation>
+	<variation name="_91798">
+		<description>XSLT | xsl:namespace-alias | Use xsl:exclude-result-prefixes attribute in an element instead of using it in xsl:stylesheet | Output selected namespaces</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91798.xsl</xsl>
+		</data>
+		<result expected="valid">91798.txt</result>
+	</variation>
+	<variation name="_91799">
+		<description>XSLT | xsl:namespace-alias | exclude-result-prefixes is null on xsl:stylesheet. xslb is excluded in one element and xslc is excluded in another element | Ignore the one on xsl:stylesheet and use whatever is in elements</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91799.xsl</xsl>
+		</data>
+		<result expected="valid">91799.txt</result>
+	</variation>
+	<variation name="_91800">
+		<description>XSLT | xsl:namespace-alias | exclude-result-prefixes is xsla on xsl:stylesheet. xslb is excluded in one element and xslc is excluded in another element | Since xsla is an alias to xsl, ouput that excluding xslb on one and xslc on the other</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91800.xsl</xsl>
+		</data>
+		<result expected="valid">91800.txt</result>
+	</variation>
+	<variation name="_91801">
+		<description>XSLT | xsl:namespace-alias | exclude-result-prefixes is xsl on xsl:stylesheet. xslb and xslc are excluded on 2 different elements | Since xsla is an alias to xsl, ouput that excluding xslb on one and xslc on the other</description>
+		<data>
+			<xml>nsalias.xml</xml>
+			<xsl>91801.xsl</xsl>
+		</data>
+		<result expected="valid">91801.txt</result>
+	</variation>
+	<variation name="Namespace-Alias_NSAliasForDefaultWithExcludeResPref">
+		<description>Use a namespace alias for #default, and exclude-result-prefixes on that name (which is the same as another namespace declared within xsl:stylesheet. Should not remove the prefix. [Bug 71054]</description>
+		<data>
+			<xml>NSaliasWithDefaultResultPrefix.xml</xml>
+			<xsl>NSaliasWithDefaultResultPrefix.xsl</xsl>
+		</data>
+		<result expected="valid">NSaliasWithDefaultResultPrefix_result.txt</result>
+	</variation>
+	<variation name="Namespace-Alias_RenameAliasIfClauseForResultDocument">
+		<description>Use the xsl:namespace-alias element to rename a namespace in the stylesheet (xslalias) to another namespace alias in the result xml document. In this particular regression case, we are producing and Xsl stylesheet as output, so the alias goes from xslalias to xsl. This was previously being ignored when used inside of an If Conditional. [Bug 65525]</description>
+		<data>
+			<xml>xslt_nsalias_NsAliasForXslOutput.xml</xml>
+			<xsl>xslt_nsalias_NsAliasForXslOutput.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_nsalias_NsAliasForXslOutput_result.txt</result>
+	</variation>
+	<variation name="Namespace-Alias_Test1">
+		<description>XSLT: xsl:namespace-alias results in wrong namespace declaration in output stylesheet. [Bug 73638]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_nsalias_test1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_nsalias_test1.txt</result>
+	</variation>
+	<variation name="Namespace-Alias_Test2">
+		<description>XSLT: xsl:namespace-alias results in wrong namespace declaration in output stylesheet. [Bug 73638]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_nsalias_test2.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_nsalias_test2.txt</result>
+	</variation>
+	<variation name="Namespace-Alias_WithinRTF">
+		<description>Namespace aliasing does not work correctly for RTFs. [Bug 71052]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_NSaliasWithinRTF.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_NSaliasWithinRTF.txt</result>
+	</variation>
+	<variation name="NSAlias_In_Import">
+		<description>XSLT: XSLT: Ignores namespace alias when inside named template. [Bug 73649]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_test_ns_alias_in_import.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_ns_alias_in_import.txt</result>
+	</variation>
+	<variation name="NSAlias_Inside_CallTemplate">
+		<description>XSLT: XSLT: Ignores namespace alias when inside named template. [Bug 73649]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_test_namespace_alias_inside_call_template.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_namespace_alias_inside_call_template.txt</result>
+	</variation>
+</testcase>

@@ -1,0 +1,12 @@
+<!DOCTYPE doc [
+    <!ELEMENT doc ANY>
+    <!ELEMENT elem ANY>
+    <!ATTLIST elem 
+        att CDATA "Redmond"
+    >
+]>
+
+<doc>
+    <elem/>             <!-- BUG grandParentNodename of the @att is ''??? -->
+    <elem att="Redmond"/>    <!-- grandParentNodename of the @att is 'doc' -->
+</doc>

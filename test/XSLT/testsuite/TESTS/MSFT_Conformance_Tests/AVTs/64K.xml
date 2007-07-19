@@ -1,0 +1,2070 @@
+<?xml version="1.0"?>
+<XML><![CDATA[
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> item: Painting # 2456 </ORDER>
+				<ORDER> item: Sclupture # 4567 </ORDER>
+				<ORDER> item: Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<STREET/>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY> XYZ Inc. </COMPANY>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> item: Painting # 2456 </ORDER>
+				<ORDER> item: Sclupture # 4567 </ORDER>
+				<ORDER> item: Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY> XYZ Inc. </COMPANY>
+	</COMPANIES>
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> item: Painting # 2456 </ORDER>
+				<ORDER> item: Sclupture # 4567 </ORDER>
+				<ORDER> item: Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY> XYZ Inc. </COMPANY>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> item:Painting #2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+]]><![CDATA[			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+			<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Someting </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+]]><![CDATA[	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+		<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="123456789"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customr of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E</STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!---->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<CITY> Bellevue</CITY>
+				<STREET>8th</STREET>
+				<STATE>Redmond</STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+				<ORDER type="food"> Frozen Spinach </ORDER>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company XYZ -->
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+				<STATE> Redmond </STATE>
+				<ZIP type="national"> 98054 </ZIP>
+				<COUNTRY> USA </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY mainBusiness="Artwork"> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Painting # 2456 </ORDER>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Antique Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY mainBusiness="food"> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="pre baked processed food"> Pizza Dough </ORDER>
+			</ORDERS>
+		</CUSTOMERS>
+	</COMPANIES>	
+	<COMPANIES>
+		<COMPANY> ABC </COMPANY>
+		<CUSTOMERS>
+			<NAME> Michael Aspel </NAME>
+			<ORDERS>
+				<ORDER> Sclupture # 4567 </ORDER>
+				<ORDER> Small Sofa # 10980 </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<!-- Address for the customer of company ABC -->
+				<CITY> Timbuctoo </CITY>
+				<STREET> 2, Mahatma Gandhi Road </STREET>
+				<STATE> GOA </STATE>
+				<ZIP type="international"> 45976 </ZIP>
+				<COUNTRY> METHOW </COUNTRY>
+			</ADDRESS>
+		</CUSTOMERS>
+		<COMPANY> XYZ </COMPANY>
+		<CUSTOMERS>
+			<NAME species="Homo Sapien"> Michelle Something </NAME>
+			<ORDERS>
+				<ORDER type="drink"> Carton of Milk </ORDER>
+			</ORDERS>
+			<ADDRESS>
+				<CITY> Bellevue </CITY>
+				<STREET> 34A 8th street N.E. </STREET>
+			</ADDRESS>
+		</CUSTOMERS>
+	</COMPANIES>
+]]></XML>

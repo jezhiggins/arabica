@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="#style1"?>
+<!DOCTYPE doc [
+<!ELEMENT doc (xsl:transform | body)*>
+
+<!ELEMENT body ANY>
+
+<!ELEMENT xsl:transform ANY>
+<!ATTLIST xsl:transform 
+		  id ID #REQUIRED
+		  xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform"
+		  version NMTOKEN #REQUIRED>
+<!ELEMENT xsl:key EMPTY>
+<!ATTLIST xsl:key 
+		  name CDATA #REQUIRED
+		  match CDATA #REQUIRED
+		  use CDATA #REQUIRED
+		  >
+<!ELEMENT xsl:template ANY>
+<!ATTLIST xsl:template 
+		  match CDATA #REQUIRED
+		  >
+<!ELEMENT xsl:value-of ANY>
+<!ATTLIST xsl:value-of 
+		  select CDATA #REQUIRED
+		  >
+<!ELEMENT transform ANY>
+<!ELEMENT para ANY>
+<!ATTLIST para 
+		  id ID #REQUIRED>
+
+]>
+<doc>
+<xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+               id="style1">
+
+  <!-- FileName: embed07 -->
+  <!-- Document: http://www.w3.org/TR/xslt -->
+  <!-- DocVersion: 19991116 -->
+  <!-- Section: 2.7 Embedding Stylesheets. -->
+  <!-- Creator: Paul Dick -->
+  <!-- Purpose: General test of embedded "transform" using fragment identifier -->
+
+<xsl:key name="test" match="para" use="@id"/>
+
+<xsl:template match="/">
+  <transform>
+    <xsl:value-of select="doc/body/para"/>
+	<xsl:value-of select="key('test','foey')"/>
+  </transform>
+</xsl:template>
+</xsl:transform>
+
+<body>
+<para id="foo">
+Hello
+</para>
+<para id="foey">
+Goodbye
+</para>
+</body>
+</doc>

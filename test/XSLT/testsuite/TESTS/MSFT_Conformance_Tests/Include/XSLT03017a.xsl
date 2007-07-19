@@ -1,0 +1,13 @@
+
+<div>
+this stylesheet is just a literal result element with no template matches
+<template match="/" mode="m">
+mode should be ignored
+</template>
+<span priority="10">
+as should priority
+</span>
+<span version="2"/>
+
+</div>
+    

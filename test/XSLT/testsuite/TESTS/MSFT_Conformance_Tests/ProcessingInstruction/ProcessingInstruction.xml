@@ -1,0 +1,164 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="ProcessingInstruction" description="" outpath="out">
+	<variation name="_78188">
+		<description>XSLT16010: xsl:processing-instruction   Base Case</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16010.xsl</xsl>
+		</data>
+		<result expected="valid">78188.txt</result>
+	</variation>
+	<variation name="_78190">
+		<description>XSLT16009: xsl:processing-instruction   Completeness - xsl:pi inside of xsl:template</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16009.xsl</xsl>
+		</data>
+		<result expected="valid">78190.txt</result>
+	</variation>
+	<variation name="_78196">
+		<description>XSLT16008: xsl:processing-instruction   Completeness - xsl:element inside of xsl:pi</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16008.xsl</xsl>
+		</data>
+		<result expected="valid">78196.txt</result>
+	</variation>
+	<variation name="_78197">
+		<description>XSLT16007: xsl:processing-instruction   Element Keywords - B - element has unexpected attributes, specified in DTD with default value - pi</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16007.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78198">
+		<description>XSLT16006: xsl:processing-instruction   Element Keywords - (A) Unexpected Attributes - pi</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16006.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78199">
+		<description>XSLT16005: xsl:processing-instruction  xsl:pi - 2 - create pi with unspecified name</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16005.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78200">
+		<description>XSLT16004: xsl:processing-instruction   Element Keywords - Element has global attribute in the 'xsl' namespace declared and set in DTD - pi</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16004.xsl</xsl>
+		</data>
+		<result expected="valid">78200_output.txt</result>
+	</variation>
+	<variation name="_78201">
+		<description>XSLT16003: xsl:processing-instruction   xsl:pi - 1 - create pi with specified name</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16003.xsl</xsl>
+		</data>
+		<result expected="valid">78201.txt</result>
+	</variation>
+	<variation name="_78202">
+		<description>XSLT16002: xsl:processing-instruction   Attribute Keywords - 8 - element "pi", attribute "name"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16002.xsl</xsl>
+		</data>
+		<result expected="valid">78202_output.txt</result>
+	</variation>
+	<variation name="_78203">
+		<description>XSLT16001: xsl:processing-instruction   Attribute Keywords - 3 - element "pi", attribute "name"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16001.xsl</xsl>
+		</data>
+		<result expected="valid">78203.txt</result>
+	</variation>
+	<variation name="_78204">
+		<description>XSLT16000: xsl:processing-instruction   Attribute Keywords - 7 - element "pi", attribute "name"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16000.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_78217">
+		<description>XSLT16102: xsl:processing-instruction   content of the xsl:processing-instruction contains the string ?&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16102.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78218">
+		<description>XSLT16101: xsl:processing-instruction    creating anything other than characters (ie. element)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16101.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78219">
+		<description>XSLT16100: xsl:processing-instruction    the name attribute is not both an NCName and a PITarget</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT16100.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78393">
+		<description>XSLT12004: Built-In Template Rules      Root Mode processed in absence of successful match</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT12004.xsl</xsl>
+		</data>
+		<result expected="valid">78393.txt</result>
+	</variation>
+	<variation name="_78394">
+		<description>XSLT12003: Built-In Template Rules      Element Mode processed in absence of successful match</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT12003.xsl</xsl>
+		</data>
+		<result expected="valid">78394.txt</result>
+	</variation>
+	<variation name="InvalidPIName1">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_invalid_pi_name1.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="InvalidPIName2">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_invalid_pi_name2.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_invalid_pi_name.txt</result>
+	</variation>
+	<variation name="ValueOfandTextWithDoeInProcInstr">
+		<description>Use an xsl:value-of and xsl:text with disable-output-escaping attribute set to yes within an xsl:processing-instruction element. Should silently ignore. [Bug 53329]</description>
+		<data>
+			<xml>xslt_pi_PIWithTextDoeEscapeChars.xml</xml>
+			<xsl>xslt_pi_PIWithTextDoeEscapeChars.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_pi_PIWithTextDoeEscapeChars_result.txt</result>
+	</variation>
+</testcase>

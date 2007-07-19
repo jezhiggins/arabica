@@ -1,0 +1,1 @@
+<child-count xmlns:my="http://my.com">15</child-count><child-count xmlns:my="http://my.com">15</child-count>

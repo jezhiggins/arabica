@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  
+    <bnote number="1">aaa</bnote>
+    <bnote number="2">bbb</bnote>
+    <bnote number="3">ccc</bnote>
+  
+  
+    <bnote number="1">ddd</bnote>
+    <bnote number="2">eee</bnote>
+    <bnote number="3">fff</bnote>
+  
+</out>

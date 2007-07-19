@@ -1,0 +1,18 @@
+<test1><imported /></test1>
+<test2><template-invoked /></test2>
+<test3 x="" />
+<test4><template-invoked /></test4>
+<test5><x /></test5>
+<test6><!----></test6>
+<test7><bookstore xmlns:my="http://my.com" /></test7>
+<test8><last-name xmlns:my="http://my.com">Bob</last-name></test8>
+<test9><x attr="" /></test9>
+<test10></test10>
+<test11><x /></test11>
+<test12><x /></test12>
+<test13>1</test13>
+<test14><?pi?></test14>
+<test15>Book 1Book 2Book 3Book 4Book 6How To Fix Computers</test15>
+<test16>text</test16>
+<test17>value</test17>
+<test18><cdata><![CDATA[Some text]]></cdata><cdata2>More text</cdata2></test18>

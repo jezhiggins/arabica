@@ -1,0 +1,31 @@
+<ROOT>
+ <elem a='1'/>
+ <elem  a='2'/>
+ <elem  a='3'/>
+ <elem a='4'>
+	<elem  a='5'/>
+	<elem  a='6'/>
+	<elem a='7' />
+ </elem>
+ <elem  a='8'/>
+ <elem  a='9'/>
+ <elem a='10'>
+	<elem a='11'>
+		<elem  a='12'/>
+   		<elem a='13'>
+    			<elem  a='14'/>
+			<elem a="15" />
+   		</elem>
+   		<elem  a='16'/>
+   		<elem a='17'>
+   			<elem  a='18'>
+				<elem a='19'>
+					<elem a='20' />
+				</elem>
+			</elem>
+   		</elem>
+  	</elem>
+	<elem a="21" />
+ </elem>
+ <elem  a='22'/>
+</ROOT>

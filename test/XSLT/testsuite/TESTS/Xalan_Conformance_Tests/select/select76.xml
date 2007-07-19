@@ -1,0 +1,6 @@
+<?xml version="1.0"?> 
+<Q level="0">bad0
+  <Q level="1">bad1
+    <Q level="2">bad2</Q>
+  </Q>
+</Q>

@@ -1,0 +1,1 @@
+﻿<html><body><area checked="&{foo}">foo</body></html>

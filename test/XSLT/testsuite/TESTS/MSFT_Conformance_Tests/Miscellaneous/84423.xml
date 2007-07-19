@@ -1,0 +1,25 @@
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<AAA>  
+  <BBB id="b1">  
+     <CCC name="q" size="12"/>  
+ <EEE id="e1">  
+    <SSS/>  
+</EEE>  
+     <CCC weight="45"/>  
+     <CCC/>  
+  </BBB>  
+</AAA>  
+<AAA>  
+  <EEE id="e2"/>  
+  <CCC>  
+    <DDD/>  
+    <DDD/>  
+  </CCC>  
+</AAA>  
+</xslTutorial> 
+
+
+
+

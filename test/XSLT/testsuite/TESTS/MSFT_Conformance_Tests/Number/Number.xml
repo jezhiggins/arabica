@@ -1,0 +1,408 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Number" description="" outpath="out">
+	<variation name="_10052">
+		<description>XSLT - Numbering - xsl:number at the document root</description>
+		<data>
+			<xml>91021.xml</xml>
+			<xsl>10052.xsl</xsl>
+		</data>
+		<result expected="valid">10052_output.txt</result>
+	</variation>
+	<variation name="_10053">
+		<description>XSLT - Numbering - xsl:number at the document root</description>
+		<data>
+			<xml>91021.xml</xml>
+			<xsl>10053.xsl</xsl>
+		</data>
+		<result expected="valid">10053_output.txt</result>
+	</variation>
+	<variation name="_84431">
+		<description>ZVON XSLT Example 84 - number()</description>
+		<data>
+			<xml>84431.xml</xml>
+			<xsl>84431.xsl</xsl>
+		</data>
+		<result expected="valid">84431.txt</result>
+	</variation>
+	<variation name="_84679">
+		<description>XSLT - Numbering - Defaults - All</description>
+		<data>
+			<xml>84679.xml</xml>
+			<xsl>84679.xsl</xsl>
+		</data>
+		<result expected="valid">84679.txt</result>
+	</variation>
+	<variation name="_84680">
+		<description>XSLT - Numbering - level = "single" </description>
+		<data>
+			<xml>84680.xml</xml>
+			<xsl>84680.xsl</xsl>
+		</data>
+		<result expected="valid">84680.txt</result>
+	</variation>
+	<variation name="_84681">
+		<description>XSLT - Numbering - level = "any"</description>
+		<data>
+			<xml>84681.xml</xml>
+			<xsl>84681.xsl</xsl>
+		</data>
+		<result expected="valid">84681.txt</result>
+	</variation>
+	<variation name="_84682">
+		<description>XSLT - Numbering - level = "multiple"</description>
+		<data>
+			<xml>84682.xml</xml>
+			<xsl>84682.xsl</xsl>
+		</data>
+		<result expected="valid">84682.txt</result>
+	</variation>
+	<variation name="_84683">
+		<description>XSLT - Numbering - count = "[expression]" </description>
+		<data>
+			<xml>84683.xml</xml>
+			<xsl>84683.xsl</xsl>
+		</data>
+		<result expected="valid">84683.txt</result>
+	</variation>
+	<variation name="_84684">
+		<description>XSLT - Numbering - count = "[expression]" (for-each)</description>
+		<data>
+			<xml>84684.xml</xml>
+			<xsl>84684.xsl</xsl>
+		</data>
+		<result expected="valid">84684.txt</result>
+	</variation>
+	<variation name="_84687">
+		<description>XSLT - Numbering - from = "[expression]"</description>
+		<data>
+			<xml>84687.xml</xml>
+			<xsl>84687.xsl</xsl>
+		</data>
+		<result expected="valid">84687.txt</result>
+	</variation>
+	<variation name="_84688">
+		<description>XSLT - Numbering - invalid level - level != ("single" &amp;&amp; "any" &amp;&amp; "multiple")</description>
+		<data>
+			<xml>84688.xml</xml>
+			<xsl>84688.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84692">
+		<description>XSLT - Numbering - format = "a.a.a" | "A.A.A" | "1.1.1" | "i.i.i" |" I.I.I" | "@1I@A" | "1*I*A" | "1&gt;a?i"</description>
+		<data>
+			<xml>84692.xml</xml>
+			<xsl>84692.xsl</xsl>
+		</data>
+		<result expected="valid">84692.txt</result>
+	</variation>
+	<variation name="_84694">
+		<description>XSLT - Numbering within templates - count - level = "any" - format = any</description>
+		<data>
+			<xml>84694.xml</xml>
+			<xsl>84694.xsl</xsl>
+		</data>
+		<result expected="valid">84694.txt</result>
+	</variation>
+	<variation name="_84698">
+		<description>XSLT - Numbering - value attribute</description>
+		<data>
+			<xml>84698.xml</xml>
+			<xsl>84698.xsl</xsl>
+		</data>
+		<result expected="valid">84698.txt</result>
+	</variation>
+	<variation name="_84699">
+		<description>XSLT - Numbering - value attribute - format = "a" | "A" | "1" | "I" | "I" | "I.I.a.A" | "@a" | "*1A" | "  1&gt; "</description>
+		<data>
+			<xml>84699.xml</xml>
+			<xsl>84699.xsl</xsl>
+		</data>
+		<result expected="valid">84699_output.txt</result>
+	</variation>
+	<variation name="_84700">
+		<description>XSLT: Number formatting - format= "&amp;#x0031;" (Arabic)- &amp; = "&amp;#x0023;" (Arabic alphabetic) &amp; =  "&amp;#xff11;" (Arabic double byte) - letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84700.xml</xml>
+			<xsl>84700.xsl</xsl>
+		</data>
+		<result expected="valid">84700_output.txt</result>
+	</variation>
+	<variation name="_84702">
+		<description>XSLT - Numbering - Defaults - All</description>
+		<data>
+			<xml>84702.xml</xml>
+			<xsl>84702.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84705">
+		<description>XSLT - Numbering - format="&amp;#x05d0;" (Hebrew) - letter-value="alphabetic" &amp;&amp; "traditional"</description>
+		<data>
+			<xml>84705.xml</xml>
+			<xsl>84705.xsl</xsl>
+		</data>
+		<result expected="valid">84705_output.txt</result>
+	</variation>
+	<variation name="_84706">
+		<description>XSLT - Invalid letter-value - != ("alphabetic" &amp;&amp; "traditional")</description>
+		<data>
+			<xml>84706.xml</xml>
+			<xsl>84706.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84714">
+		<description>XSLT - Numbering - format= "&amp;#x0905" (Hindi Consonants) &amp;  = "&amp;#x0905;" (Hindi Vowels) &amp;  "&amp;#x0967;" (Hindi Numbers) &amp; letterValue="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84714.xml</xml>
+			<xsl>84714.xsl</xsl>
+		</data>
+		<result expected="valid">84714_output.txt</result>
+	</variation>
+	<variation name="_84715">
+		<description>XSLT - Numbering - format= "&amp;#x0e01;" (Thai Alphabet) &amp; = "&amp;#x0e51;" (Thai Numbers) - letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84715.xml</xml>
+			<xsl>84715.xsl</xsl>
+		</data>
+		<result expected="valid">84715_output.txt</result>
+	</variation>
+	<variation name="_84716">
+		<description>XSLT - Numbering - format= "&amp;#x0410;" (Russian-Upper) &amp; = "&amp;#x0430;" (Russian-Lower) - letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84716.xml</xml>
+			<xsl>84716.xsl</xsl>
+		</data>
+		<result expected="valid">84716_output.txt</result>
+	</variation>
+	<variation name="_84717">
+		<description>XSLT - Numbering - format= "&amp;#x30a2;" (Japanese Aiueo DBCS) &amp; = "&amp;#x30a4;" (Iroha DBCS) &amp; = "&amp;#xff71;" (Aiueo SBCS) &amp; = "&amp;#xff72;" (Iroha SBCS) - letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84717.xml</xml>
+			<xsl>84717.xsl</xsl>
+		</data>
+		<result expected="valid">84717_output.txt</result>
+	</variation>
+	<variation name="_84719">
+		<description>XSLT - Numbering - format= "&amp;#xc77c;" (Korean Decimal 2) &amp; = "&amp;#xd558;" (Korean 99) &amp; = "&amp;#xac00;" (Korean Ganada) &amp; = "&amp;#x3131;" (Korean Chosung) &amp; = "&amp;#x4e01;" (Korean Decimal)  - letter-value="alphabetic" | "traditional" - lang="ko"</description>
+		<data>
+			<xml>84719.xml</xml>
+			<xsl>84719.xsl</xsl>
+		</data>
+		<result expected="valid">84719_output.txt</result>
+	</variation>
+	<variation name="_84720">
+		<description>XSLT - Numbering - format= "&amp;#x0049;" (Roman-Upper) &amp; = "&amp;#x0069;" (Roman-Lower)  - letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84720.xml</xml>
+			<xsl>84720.xsl</xsl>
+		</data>
+		<result expected="valid">84720.txt</result>
+	</variation>
+	<variation name="_84722">
+		<description>XSLT - Numbering - format= "&amp;#x0041;" (Finnish,Norwegian,Swedish,Denmark,US-Upper) &amp; = "&amp;#x0061;" (Finnish,Norwegian,Swedish,Denmark,US-Lower) - lang = "no" &amp; "sv" &amp; "da" &amp; "en"  - letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84722.xml</xml>
+			<xsl>84722.xsl</xsl>
+		</data>
+		<result expected="valid">84722_output.txt</result>
+	</variation>
+	<variation name="_84723">
+		<description>XSLT - Numbering - format= "&amp;#x58f9;" (Taiwan traditional) &amp; = "&amp;#x4e01;" (Taiwan decimal)  - letter-value="alphabetic" | "traditional" - lang="zh-tw"</description>
+		<data>
+			<xml>84723.xml</xml>
+			<xsl>84723.xsl</xsl>
+		</data>
+		<result expected="valid">84723_output.txt</result>
+	</variation>
+	<variation name="_84724">
+		<description>XSLT - Numbering - format= "&amp;#x5b50;" (Zodiac 12) &amp; = "&amp;#x7532;" (Zodiac 10)  - &amp; = "&amp;#x7532;&amp;#x5b50;" (Zodiac 60) -  letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84724.xml</xml>
+			<xsl>84724.xsl</xsl>
+		</data>
+		<result expected="valid">84724_output.txt</result>
+	</variation>
+	<variation name="_84725">
+		<description>XSLT - Numbering - format= "&amp;#x58f9;" (Chinese traditional) -  letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84725.xml</xml>
+			<xsl>84725.xsl</xsl>
+		</data>
+		<result expected="valid">84725_output.txt</result>
+	</variation>
+	<variation name="_84726">
+		<description>XSLT - Numbering - format= "&amp;#x4e01;" (Far East Decimal) &amp; = "&amp;#x58f1;" (Far East Ideographic) - letter-value="alphabetic" | "traditional"</description>
+		<data>
+			<xml>84726.xml</xml>
+			<xsl>84726.xsl</xsl>
+		</data>
+		<result expected="valid">84726_output.txt</result>
+	</variation>
+	<variation name="_91021">
+		<description>XSLT - Numbering - xsl:number at the document root</description>
+		<data>
+			<xml>91021.xml</xml>
+			<xsl>91021.xsl</xsl>
+		</data>
+		<result expected="valid">91021.txt</result>
+	</variation>
+	<variation name="_91022">
+		<description>XSLT - Numbering - Rounding and conversion to number of value attribute</description>
+		<data>
+			<xml>91022.xml</xml>
+			<xsl>91022.xsl</xsl>
+		</data>
+		<result expected="valid">91022_output.txt</result>
+	</variation>
+	<variation name="_91023">
+		<description>XSLT - Numbering - grouping-separator &amp;amp; grouping-size attributes</description>
+		<data>
+			<xml>91023.xml</xml>
+			<xsl>91023.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91026">
+		<description>XSLT - Numbering - Using variables within AVT attributes.</description>
+		<data>
+			<xml>91026.xml</xml>
+			<xsl>91026.xsl</xsl>
+		</data>
+		<result expected="valid">91026_output.txt</result>
+	</variation>
+	<variation name="_91027">
+		<description>XSLT - Numbering - Additional formatting tests - level = "multiple" - count="x|x|x" x=node name  format="" &amp; "A" &amp; ";1" &amp; "A=" &amp; "*" &amp; "A 1 A 1 A 1 A 1 A" &amp; "A.1" &amp; "=" &amp; "1.1"</description>
+		<data>
+			<xml>91027.xml</xml>
+			<xsl>91027.xsl</xsl>
+		</data>
+		<result expected="valid">91027_output.txt</result>
+	</variation>
+	<variation name="_91028">
+		<description>XSLT - Numbering - Additional counting tests - level = "single" &amp; "multiple" &amp; "any"  - count - from</description>
+		<data>
+			<xml>91028.xml</xml>
+			<xsl>91028.xsl</xsl>
+		</data>
+		<result expected="valid">91028_output.txt</result>
+	</variation>
+	<variation name="_91029">
+		<description>XSLT - Numbering - Counting  from a context node that is not an element - level = "any" &amp; "single" &amp; "multiple" - count = "node()" - from</description>
+		<data>
+			<xml>91029.xml</xml>
+			<xsl>91029.xsl</xsl>
+		</data>
+		<result expected="valid">91029_output.txt</result>
+	</variation>
+	<variation name="_91030">
+		<description>XSLT - Numbering - number out of range - upper limit</description>
+		<data>
+			<xml>91030.xml</xml>
+			<xsl>91030.xsl</xsl>
+		</data>
+		<result expected="valid">91030_output.txt</result>
+	</variation>
+	<variation name="_91031">
+		<description>XSLT - Numbering - number out of range - lower limit</description>
+		<data>
+			<xml>91031.xml</xml>
+			<xsl>91031.xsl</xsl>
+		</data>
+		<result expected="valid">91031_output.txt</result>
+	</variation>
+	<variation name="format01">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_xsl_number_format_pattern_01.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_xsl_number_format_pattern_01.txt</result>
+	</variation>
+	<variation name="GroupingSeperatorShouldBe1Char">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_xsl_number_grp_sepr_test.xml</xml>
+			<xsl>xslt_xsl_number_grp_sepr_test.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="NaNOrInvalidValue">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_xsl_number_invalid_value.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_xsl_number_invalid_value.txt</result>
+	</variation>
+	<variation name="TestFormat1">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_numbering_test1.xml</xml>
+			<xsl>xslt_numbering_test1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_numbering_test1.txt</result>
+	</variation>
+	<variation name="TestFormatPattern_1">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_xsl_number_format_pattern01.xml</xml>
+			<xsl>xslt_xsl_number_format_pattern_1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_xsl_number_format_pattern_1.txt</result>
+	</variation>
+	<variation name="TestFormatPattern01">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_xsl_number_format_pattern01.xml</xml>
+			<xsl>xslt_xsl_number_format_pattern01.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_xsl_number_format_pattern01.txt</result>
+	</variation>
+	<variation name="TestFormatPatternA.1">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_numbering_formatA1.xml</xml>
+			<xsl>xslt_numbering_formatA1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_numbering_formatA1.txt</result>
+	</variation>
+	<variation name="ValueAsNodesetTest1">
+		<description>XSLT: xsl:number produces wrong results when value attribute is a nodeset. [Bug 77061]</description>
+		<data>
+			<xml>ValueAsNodesetTest1.xml</xml>
+			<xsl>ValueAsNodesetTest1.xsl</xsl>
+		</data>
+		<result expected="valid">ValueAsNodesetTest1.txt</result>
+	</variation>
+	<variation name="ValueAsNodesetTest1">
+		<description>XSLT: xsl:number produces wrong results when value attribute is a nodeset. [Bug 77061]</description>
+		<data>
+			<xml>ValueAsNodesetTest2.xml</xml>
+			<xsl>ValueAsNodesetTest2.xsl</xsl>
+		</data>
+		<result expected="valid">ValueAsNodesetTest2.txt</result>
+	</variation>
+	<variation name="ValueAsEmptyNodeset">
+		<description>XSLT: xsl:number produces wrong results when value attribute is a nodeset. [Bug 77061]</description>
+		<data>
+			<xml>ValueAsNodesetTest1.xml</xml>
+			<xsl>ValueAsEmptyNodeset.xsl</xsl>
+		</data>
+		<result expected="valid">ValueAsEmptyNodeset.txt</result>
+	</variation>
+</testcase>

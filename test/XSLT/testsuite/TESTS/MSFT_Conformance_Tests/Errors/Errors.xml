@@ -1,0 +1,976 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Errors" description="" outpath="out">
+	<variation name="_84386">
+		<description>84386.XSL | XSLT- Parsing Errors | Plain Text within apply-templates</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>84386.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84387">
+		<description>84387.XSL | XSLT- Parsing Errors |  &lt;xsl:text&gt; node within apply-templates</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>84387.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84390">
+		<description>84390.XSL | XSLT- Parsing Errors | &lt;xsl:text&gt; within &lt;xsl:choose&gt; element</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>84390.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84391">
+		<description>84391.XSL | XSLT- Parsing Errors | &lt;xsl:include&gt; within &lt;xsl:choose&gt; element</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>84391.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84392">
+		<description>84392.XSL | XSLT- Parsing Errors | no version attribute on &lt;xsl:stylesheet&gt; element</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>84392.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err001">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>apply-badch.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err002">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>apply-pcdata.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err003">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attr-resname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err004">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset-cycle.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err005">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset-cycle2.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err006">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset-cycle3.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err007">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset-instr.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err008">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset-noname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err009">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset-pcdata.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err010">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset-selfref.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err011">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>attrset-undef.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err012">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>avt-no-rbrace.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err013">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>avt-rbrace.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err014">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>bad-decfmt.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err015">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>bad-decfmt2.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err016">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>bad-decfmt3.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err017">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>bad-prefix.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err021">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>call-noname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err022">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>call-nosort.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err023">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>cdata-ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err024">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>choose-literal.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err025">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>copyof-noselect.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err026">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>currentmatch.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err028">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>doctype-ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err029">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>elem-badname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err030">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>elem-noname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err031">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>elem-resname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err032">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>entityref-ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err033">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>eval-ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err034">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>extelem-bad.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err035">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>extelem-ss.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err036">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>format-fract.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err037">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>format-int.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err038">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>frag-circular.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err044">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdcompat-avt.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err045">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdcompat-empty.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err046">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdcompat-expr.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err047">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdcompat-text.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err048">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdref-cycle1.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err049">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>fwdref-cycle2.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err050">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-cycle1.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err051">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-cycle2.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err052">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>import-in-for-each.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err053">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>inc-cyc.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err054">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>inc-nohref.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err055">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>inc-parserr.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err056">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>key-badname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err057">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>key-undefined.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err058">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>keymatch.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err059">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>keyvar.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err060">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>message.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err061">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>mode-badname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err062">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>mode-nomatch.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err063">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>mode-noname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err064">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>nested-templ.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err065">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>no-fallback.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err066">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>node-name-ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err067">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>nsalias-noresult.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err068">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>nsalias-nostyle.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err069">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>num-letval.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err070">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>num-level.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err071">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>oldns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err072">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>out-badcdata.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err073">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>param-dup.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err074">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>param-literal.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err075">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>param-pcdata.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err076">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pi-badname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err077">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pi-ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err078">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>pi-xmldecl.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err079">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>root-templ.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err088">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>script.ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err089">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>script2-ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err090">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort-badcase.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err091">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort-baddt.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err092">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort-badelem.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err093">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort-badlang.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err094">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort-badord.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err095">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort-literal.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err096">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>sort-noempty.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err097">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>templ-noexist.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err098">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>templ-set-ns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err099">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>text-badesc.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err100">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>text-child.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err101">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>tmpl-nomatch.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err103">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-dup.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err104">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-nodelist.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err105">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-noname.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err106">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-tmpl-dup.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err107">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>var-undefined.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err108">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>version-bad.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err109">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>version-global.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="err110">
+		<description>Error Case</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>version-noglobal.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="InvalidFormatPattern1">
+		<description>
+		</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>xslt_invalid_format_pattern1.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="InvalidPriorityValue">
+		<description>XSLT: priority="1,0" in xsl:template should throw a compile error. [bug 72264]</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>xslt_template_priority_error.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="InvalidTopLevelElement">
+		<description>
+		</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>xslt_invalid_top_level_element.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="MissingVersionAttribute">
+		<description>
+		</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>xslt_missing_version_attr.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="WrongXSLNamespace">
+		<description>
+		</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>xslt_wrong_xsl_namespace.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="xsl_choose_without_xsl_when1">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_xsl_choose_without_when.xml</xml>
+			<xsl>xslt_xsl_choose_without_when1.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="xsl_choose_without_xsl_when2">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_xsl_choose_without_when.xml</xml>
+			<xsl>xslt_xsl_choose_without_when2.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="xsl_template_complicated_match_pattern_with_variable_ref">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_template_match_pattern_with_var_ref1.xml</xml>
+			<xsl>xslt_template_match_pattern_with_var_ref1.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="xsl_template_document_func_in_match_pattern">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_xsl_template_document_func_in_match_pattern.xml</xml>
+			<xsl>xslt_xsl_template_document_func_in_match_pattern.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="xsl_template_match_pattern_with_variable_ref">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_template_match_pattern_with_var_ref.xml</xml>
+			<xsl>xslt_template_match_pattern_with_var_ref.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+</testcase>

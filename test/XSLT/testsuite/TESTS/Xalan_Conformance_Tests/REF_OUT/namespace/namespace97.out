@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:p1="http://testguys.com"><p1:foo><yyy xmlns="http://other.com"/></p1:foo></out>

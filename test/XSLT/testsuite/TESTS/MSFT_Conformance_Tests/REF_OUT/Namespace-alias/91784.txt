@@ -1,0 +1,3 @@
+<myxsl:stylesheet version="1.0" xmlns:myxsl="http://www.myxsl.com">
+<myxsl:variable name="v"></myxsl:variable>
+</myxsl:stylesheet>

@@ -1,0 +1,221 @@
+<!-- a list of test data -->
+<testcases name="format-number">
+    <testcase number="1234.5" description="fraction number with mixing pattern">
+		<defaultPattern>#,##0.00</defaultPattern>
+		<europeanPattern>#.##0,00</europeanPattern>
+		<non_digitPattern>-,--a.aa</non_digitPattern>
+		<percentPattern>#,##0.00</percentPattern>
+		<Nan_InfinityPattern>#,##0.00</Nan_InfinityPattern>
+	</testcase>
+    <testcase number="123.456" description="fraction number with mixing pattern">
+    	<defaultPattern>#,##0.00</defaultPattern>
+    	<europeanPattern>#.##0,00</europeanPattern>
+		<non_digitPattern>-,--a.aa</non_digitPattern>
+	</testcase>
+    <testcase number="1000000" description="integer number with mixing pattern">
+		<defaultPattern>#,##0.00</defaultPattern>	
+		<europeanPattern>#.##0,00</europeanPattern>
+		<non_digitPattern>-,--a.aa</non_digitPattern>
+	</testcase>
+    <testcase number="-59" description="negative number with mixing pattern" >	
+		<defaultPattern>#,##0.00</defaultPattern>	
+		<europeanPattern>#.##0,00</europeanPattern>
+		<non_digitPattern>-,--a.aa</non_digitPattern>
+		<patternPattern>"#,##0.00!(#,##0.00)"</patternPattern>
+	</testcase>
+    <testcase number="1 div 0" description="special number with mixing pattern" >
+		<defaultPattern>#,##0.00</defaultPattern>	
+		<europeanPattern>#.##0,00</europeanPattern>
+		<non_digitPattern>-,--a.aa</non_digitPattern>
+		<Nan_InfinityPattern>#,##0.00</Nan_InfinityPattern>
+	</testcase>
+    <testcase number="-1 div 0" description="special number with mixing pattern" >
+		<defaultPattern>#,##0.00</defaultPattern>	
+		<europeanPattern>#.##0,00</europeanPattern>
+		<non_digitPattern>-,--a.aa</non_digitPattern>
+		<Nan_InfinityPattern>#,##0.00</Nan_InfinityPattern>
+	</testcase>
+    <testcase number="1234" description="integer number with mixing pattern" >		
+		<defaultPattern>###0.0###</defaultPattern>	
+		<europeanPattern>###0,0###</europeanPattern>
+		<non_digitPattern>---a.a---</non_digitPattern>
+	</testcase>
+    <testcase number="1234.5" description="fraction number with mixing pattern" >	
+		<defaultPattern>###0.0###</defaultPattern>	
+		<europeanPattern>###0,0###</europeanPattern>
+		<non_digitPattern>---a.a---</non_digitPattern>
+	</testcase>
+    <testcase number="0.00035" description="fraction number with mixing pattern">	
+		<defaultPattern>###0.0###</defaultPattern>
+		<europeanPattern>###0,0###</europeanPattern>
+		<non_digitPattern>---a.a---</non_digitPattern>
+	</testcase>
+    <testcase number="0.25" description="fraction number with percent/per-mille pattern">		
+		<defaultPattern>#00%</defaultPattern>	
+		<europeanPattern>#00%</europeanPattern>
+		<non_digitPattern>-aa%</non_digitPattern>
+		<percentPattern>#00c</percentPattern>
+
+		<defaultPattern>#00&#x2030;</defaultPattern>	
+		<europeanPattern>#00&#x2030;</europeanPattern>
+		<non_digitPattern>-aa&#x2030;</non_digitPattern>
+		<percentPattern>#00m</percentPattern>
+	</testcase>
+    <testcase number="0.736"  description="fraction number with percent/per-mille pattern" >	
+		<defaultPattern>#00%</defaultPattern>		
+		<europeanPattern>#00%</europeanPattern>
+		<non_digitPattern>-aa%</non_digitPattern>
+		<percentPattern>#00c</percentPattern>
+
+		<defaultPattern>#00&#x2030;</defaultPattern>	
+		<europeanPattern>#00&#x2030;</europeanPattern>
+		<non_digitPattern>-aa&#x2030;</non_digitPattern>
+		<percentPattern>#00m</percentPattern>
+	</testcase>
+    <testcase number="1"  description="integer number with percent/per-mille pattern" >		
+		<defaultPattern>#00%</defaultPattern>		
+		<europeanPattern>#00%</europeanPattern>
+		<non_digitPattern>-aa%</non_digitPattern>
+		<percentPattern>#00c</percentPattern>
+
+		<defaultPattern>#00&#x2030;</defaultPattern>	
+		<europeanPattern>#00&#x2030;</europeanPattern>
+		<non_digitPattern>-aa&#x2030;</non_digitPattern>
+		<percentPattern>#00m</percentPattern>
+	</testcase>
+    <testcase number="-42"  description="negative number with percent/per-mille pattern">		
+		<defaultPattern>#00%</defaultPattern>		
+		<europeanPattern>#00%</europeanPattern>
+		<non_digitPattern>-aa%</non_digitPattern>
+		<percentPattern>#00c</percentPattern>
+
+		<defaultPattern>#00&#x2030;</defaultPattern>	
+		<europeanPattern>#00&#x2030;</europeanPattern>
+		<non_digitPattern>-aa&#x2030;</non_digitPattern>
+		<percentPattern>#00m</percentPattern>
+	</testcase>
+    <testcase number="-3.12"  description="negative pattern">	
+		<defaultPattern>#.00;(#.00)</defaultPattern>
+		<europeanPattern>#,00;(#,00)</europeanPattern>
+		<non_digitPattern>-.aa;(-.aa)</non_digitPattern>
+		<patternPattern>#.00!(#.00)</patternPattern>
+
+		<defaultPattern>#.00;#.00CR</defaultPattern> 
+		<europeanPattern>#,00;#,00CR</europeanPattern>
+		<non_digitPattern>-.aa;-.aaCR</non_digitPattern>
+		<patternPattern>#.00!#.00CR</patternPattern>
+
+		<defaultPattern>#.00;(#)</defaultPattern>
+		<europeanPattern>#,00;(#)</europeanPattern>
+		<non_digitPattern>-.aa;(-)</non_digitPattern>
+		<patternPattern>#.00!(#)</patternPattern>
+
+	</testcase>
+    <testcase number="123abc" description="invalid numbers" >		
+		<defaultPattern>#</defaultPattern>			
+		<europeanPattern>#</europeanPattern>
+		<non_digitPattern>-</non_digitPattern>
+		<percentPattern>#c</percentPattern>
+		<Nan_InfinityPattern>#</Nan_InfinityPattern>
+	</testcase>
+
+    <testcase number="-429999999999999" description="different grouping numbers">		
+		<defaultPattern>#,##,###,####</defaultPattern>		
+		<europeanPattern>#.##.###.####</europeanPattern>
+		<non_digitPattern>-,--,---,----</non_digitPattern>
+
+		<defaultPattern>######,####</defaultPattern>		
+		<europeanPattern>######.####</europeanPattern>
+		<non_digitPattern>-----,---</non_digitPattern>
+	</testcase>
+    <testcase number="9999999999999999999999999999999999999999999999999999999999999999999999" description="maximium number">		
+		<defaultPattern>#,##,###,###</defaultPattern>		
+		<europeanPattern>#.##.###.###</europeanPattern>
+		<non_digitPattern>-,--,---,---</non_digitPattern>
+
+		<defaultPattern>######,####</defaultPattern>		
+		<europeanPattern>######.####</europeanPattern>
+		<non_digitPattern>-----,----</non_digitPattern>
+	</testcase>
+    <!--testcase number="12345" description="exponent character" >		
+		<defaultPattern>###.##E0</defaultPattern>		
+		<europeanPattern>###,##E0</europeanPattern>
+		<non_digitPattern>-.-E0</non_digitPattern>
+		<percentPattern>###.##E0</percentPattern>
+	</testcase-->
+    <testcase number="-0.00" description="special numbers" >	
+		<defaultPattern>#,##0.00</defaultPattern>	
+		<europeanPattern>#.##0,00</europeanPattern>
+		<non_digitPattern>-,-a.aa</non_digitPattern>
+		<percentPattern>#,##0.00c</percentPattern>
+	</testcase>
+	<testcase number="12345678" description="currency character in format pattern, should error">
+			<currency>&#xa4;#,##0.00</currency>
+	</testcase>
+	<testcase number="12345" description="'#.#.#' in format pattern, should error">
+			<doublePeriod>#.#.#</doublePeriod>
+	</testcase>
+	<testcase number="12345" description="'#_#*#' in format pattern, should error">
+			<mixingInvalids>#_#*#</mixingInvalids>
+	</testcase>
+	<testcase number="12345" description="three subpatterns in format pattern, should error">
+			<threeSubpatterns>#;#;#</threeSubpatterns>
+	</testcase>
+	<testcase number="12345" description="special character in format pattern, should error">
+			<specialCharInPattern>;#</specialCharInPattern>
+	</testcase>
+	<testcase number="12345" description="invalid format pattern, should error">
+			<invalidPattern>##0#0.00</invalidPattern>
+	</testcase>
+	<testcase number="" description="without any parameter, should error">
+			<withoutAnyParameter></withoutAnyParameter>
+	</testcase>
+	<testcase number="-1234.5" description="aprstrphe character in format pattern">
+		<defaultPattern>'#'#,##0.00'#'</defaultPattern>
+		<europeanPattern>'#'#.##0,00'#'</europeanPattern>
+		<non_digitPattern>'#'-,-a.aa'#'</non_digitPattern>
+		<percentPattern>'#'#,##0.00c'#'</percentPattern>
+		<patternPattern>'#'#,##0.00'#'!('#'#,##0.00'#') </patternPattern>
+	</testcase>
+	<testcase number="123abc" description="aprstrphe character in format pattern">
+		<Nan_InfinityPattern>'#'#,##0.00'#'</Nan_InfinityPattern>
+	</testcase>
+	<testcase number="-1234.5" description="prefix and suffix in format pattern w/ negative number">
+		<defaultPattern>&#xfffd;#,##0.00&#xfffd;</defaultPattern>
+		<europeanPattern>&#xfffd;#.##0,00&#xfffd;</europeanPattern>
+		<non_digitPattern>&#xfffd;-,--a.aa&#xfffd;</non_digitPattern>
+		<percentPattern>&#xfffd;#,##0.00c&#xfffd;</percentPattern>
+		<patternPattern>&#xfffd;#,##0.00&#xfffd;!(&#xfffd;#,##0.00&#xfffd;) </patternPattern>
+
+		<defaultPattern>&#x1234;#,##0.00&#x1234;</defaultPattern>
+		<europeanPattern>&#x1234;#.##0,00&#x1234;</europeanPattern>
+		<non_digitPattern>&#x1234;-,--a.aa&#x1234;</non_digitPattern>
+		<percentPattern>&#x1234;#,##0.00m&#x1234;</percentPattern>
+		<patternPattern>&#x1234;#,##0.00&#x1234;!(&#x1234;#,##0.00&#x1234;) </patternPattern>
+	</testcase>
+	<testcase number="123abc" description="prefix and suffix in format pattern ">
+		<Nan_InfinityPattern>&#xfffd;#,##0.00&#xfffd;;(&#xfffd;#,##0.00&#xfffd;)</Nan_InfinityPattern>
+		<Nan_InfinityPattern>&#x1234;#,##0.00&#x1234;;(&#x1234;#,##0.00&#x1234;)</Nan_InfinityPattern>
+	</testcase>
+	<testcase number="1234.5" description="prefix and suffix in format pattern w/ positive number">
+		<defaultPattern>&#xfffd;#,##0.00&#xfffd;</defaultPattern>
+		<europeanPattern>&#xfffd;#.##0,00&#xfffd;</europeanPattern>
+		<non_digitPattern>&#xfffd;-,--a.aa&#xfffd;</non_digitPattern>
+		<percentPattern>&#xfffd;#,##0.00c&#xfffd;</percentPattern>
+		<patternPattern>&#xfffd;#,##0.00&#xfffd;!(&#xfffd;#,##0.00&#xfffd;) </patternPattern>
+
+		<defaultPattern>&#x1234;#,##0.00&#x1234;</defaultPattern>
+		<europeanPattern>&#x1234;#.##0,00&#x1234;</europeanPattern>
+		<non_digitPattern>&#x1234;-,--a.aa&#x1234;</non_digitPattern>
+		<percentPattern>&#x1234;#,##0.00m&#x1234;</percentPattern>
+		<patternPattern>&#x1234;#,##0.00&#x1234;!(&#x1234;#,##0.00&#x1234;) </patternPattern>
+	</testcase>
+	<testcase number="-1234.5" description="negative number with '-' in format pattern">
+		<defaultPattern>-#,##0.00</defaultPattern>
+		<europeanPattern>-#.##0,00</europeanPattern>
+		<non_digitPattern>~-,-a.aa</non_digitPattern>
+		<percentPattern>-#,##0.00c</percentPattern>
+		<patternPattern>#,##0.00!(-#,##0.00)</patternPattern>
+	</testcase>
+</testcases>
+

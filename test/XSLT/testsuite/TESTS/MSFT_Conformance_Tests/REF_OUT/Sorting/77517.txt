@@ -1,0 +1,45 @@
+<HTML>
+<BODY>
+		
+       
+	fruit name: apple1
+		
+       
+	fruit name: apple34
+		
+       
+	fruit name: apple0
+		
+       
+	fruit name: bananna
+		
+       
+	fruit name: bananna10
+		
+       
+	fruit name: bananna76
+		
+       
+	fruit name: bananna
+		
+       
+	fruit name: currant9
+		
+       
+	fruit name: currant6
+		
+       
+	fruit name: date
+		
+       
+	fruit name: date45
+		
+       
+	fruit name: date0001
+		
+       
+	fruit name: walnut9
+		
+       
+	fruit name: walnut22</BODY>
+</HTML>

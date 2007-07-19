@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:jad="http://administrator.com" xmlns:ljh="http://buster.com" x="by the corner">
+<jad:output1/>
+<jad:output2>
+<jad:output2a/>
+</jad:output2>
+<ljh:output1/>
+<ljh:output2>
+<ljh:output2a/>
+</ljh:output2>
+</out>

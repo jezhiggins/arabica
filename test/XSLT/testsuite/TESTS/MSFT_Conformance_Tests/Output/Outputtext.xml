@@ -1,0 +1,12 @@
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<AAA id="12"/>  
+<text>
+	<![CDATA[1234 <A href="http://1234">http://1234</A> 1234]]>
+</text>
+<text>
+&lt;emptythis/&gt;
+</text>
+
+</xslTutorial> 

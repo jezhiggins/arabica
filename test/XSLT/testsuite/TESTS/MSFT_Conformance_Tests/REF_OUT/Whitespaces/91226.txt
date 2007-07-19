@@ -1,0 +1,11 @@
+<book>book1</book>
+<book>book2</book>
+<book>book3</book>
+<book />
+<book>book5</book>
+<book />
+<book />
+<book />
+<book>book9</book>
+<book>   </book>
+<book>book11</book>

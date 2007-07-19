@@ -1,0 +1,6 @@
+<root xmlns:a="foo">
+<a>xmlns</a>
+<b>bbb</b>
+<a:a>xsl</a:a>
+<c c1="c1" c2="c2">ccc<d>d</d></c>
+</root>

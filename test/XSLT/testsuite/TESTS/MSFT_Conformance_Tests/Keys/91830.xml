@@ -1,0 +1,26 @@
+<!DOCTYPE doc [
+    <!ELEMENT doc ANY>
+    <!ELEMENT a ANY>
+    <!ELEMENT b ANY>
+    <!ELEMENT c ANY>
+    <!ATTLIST a id ID #IMPLIED>
+    <!ATTLIST b id ID #IMPLIED>
+    <!ATTLIST c ref IDREF #IMPLIED>
+]>
+
+<doc>
+    <a id="a1"/>
+    <a id="a2">
+        <b id="b1"/>
+    </a>
+
+    <b id="b2">
+        <a id="a3"/>
+        <a id="a4">
+            <b id="b3"/>
+        </a>
+    </b>
+
+    <c ref="a3"/>
+        
+</doc>

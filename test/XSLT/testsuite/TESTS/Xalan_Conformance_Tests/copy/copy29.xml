@@ -1,0 +1,6 @@
+<?xml version="1.0"?> 
+<doc name="foo">
+  <!-- This is a comment -->
+    test<![CDATA[<]]> 
+  <?a-pi some data?>
+</doc>

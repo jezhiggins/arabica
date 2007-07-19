@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<out>
+<first>hello</first><other/>
+<first>goodbye</first><other/><other/>
+<first>aloha</first>
+<first>shalom</first><other/><other/></out>

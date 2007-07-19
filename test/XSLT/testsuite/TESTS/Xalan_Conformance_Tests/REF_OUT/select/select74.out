@@ -1,0 +1,18 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Customers</title>
+</head>
+<body>
+<table>
+<tbody>
+<tr>
+<th>William</th><td>pc10</td><td>pc20</td>
+</tr>
+<tr>
+<th>Harry</th><td>pc21</td><td>pc22</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

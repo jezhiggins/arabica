@@ -1,0 +1,3 @@
+
+text!
+<foo><bar /></foo>

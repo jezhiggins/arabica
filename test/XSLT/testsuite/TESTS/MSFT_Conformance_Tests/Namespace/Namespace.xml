@@ -1,0 +1,372 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Namespace" description="" outpath="out">
+	<variation name="_77652">
+		<description>XSLT01009: null namespace</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01009.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_77655">
+		<description>XSLT01012: set xsl namespace to fooxsl</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01012.xsl</xsl>
+		</data>
+		<result expected="valid">77655_output.txt</result>
+	</variation>
+	<variation name="_77658">
+		<description>XSLT01021: xsl:foo</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01021.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77659">
+		<description>XSLT01107:1.0 Namespace - 1 - element "comment", attribute "name"</description>
+		<data>
+			<xml>http://webxtest/Managed_Data/xslt/Plants.xml</xml>
+			<xsl>comment10.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77660">
+		<description>XSLT01108: Namespace 1.0 Copy Test using XSL:Explicit End Tags: [tag/] in source document; [copy][attribute /][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>copy10.xsl</xsl>
+		</data>
+		<result expected="valid">77660.txt</result>
+	</variation>
+	<variation name="_77664">
+		<description>XSLT01210: 1.0 namespace using xsl:template syntax for defining a rule</description>
+		<data>
+			<xml>plantsW.xml</xml>
+			<xsl>outline10.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77665">
+		<description>xsl:otherwise</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>choose2_10.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_77669">
+		<description>XSLT01105: New Namespace - xsl:element</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>element10.xsl</xsl>
+		</data>
+		<result expected="valid">77669_output.txt</result>
+	</variation>
+	<variation name="_77670">
+		<description>XSLT01106:XSLT Namespace 1.0 - xsl:element inside of xsl:attribute</description>
+		<data>
+			<xml>plants.xml</xml>
+			<xsl>element_in_attribute10.xsl</xsl>
+		</data>
+		<result expected="valid">77670_output.txt</result>
+	</variation>
+	<variation name="_77700">
+		<description>XSLT01115: Namespace 1.0 - xsl:otherwise, xsl:when</description>
+		<data>
+			<xml>otherwise.xml</xml>
+			<xsl>otherwise.xsl</xsl>
+		</data>
+		<result expected="valid">77700_output.txt</result>
+	</variation>
+	<variation name="_77672">
+		<description>XSLT01406: Keyword sort may not be used in namespace http://www.w3.org/TR/WD-xsl.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01406.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77674">
+		<description>XSLT01400: Keyword include may not be used in namespace http://www.w3.org/TR/WD-xsl.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01400.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77675">
+		<description>XSLT NAMESPACE 1.0: Copy of 76264: XSL Debugging: 1: verify that every xsl keyword gets trapped</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>choose2_10.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77692">
+		<description>XSLT01209: Nested templates may not be used in namespace http://www.w3.org/TR/WD-xsl.</description>
+		<data>
+			<xml>ledger.xml</xml>
+			<xsl>XSLT01209.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77699">
+		<description>XSLT01201: eval  may not be used in namespace http://www.w3.org/TR/WD-xsl.</description>
+		<data>
+			<xml>ledger.xml</xml>
+			<xsl>XSLT01201.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77700">
+		<description>XSLT01115: Namespace 1.0 - xsl:otherwise, xsl:when</description>
+		<data>
+			<xml>otherwise.xml</xml>
+			<xsl>otherwise.xsl</xsl>
+		</data>
+		<result expected="valid">77700.txt</result>
+	</variation>
+	<variation name="_77701">
+		<description>XSLT01111: Namespace 1.0 - xsl:if test</description>
+		<data>
+			<xml>if.xml</xml>
+			<xsl>if.xsl</xsl>
+		</data>
+		<result expected="valid">77701.txt</result>
+	</variation>
+	<variation name="_77702">
+		<description>XSLT01006: Namespace 1.0 - default namespace</description>
+		<data>
+			<xml>if.xml</xml>
+			<xsl>defaultns.xsl</xsl>
+		</data>
+		<result expected="valid">77702.txt</result>
+	</variation>
+	<variation name="_77703">
+		<description>XSLT01000: Namespace 1.0 - xslt element in xml source (inside xsl namespace)</description>
+		<data>
+			<xml>XSLT01000.xml</xml>
+			<xsl>if.xsl</xsl>
+		</data>
+		<result expected="valid">77703.txt</result>
+	</variation>
+	<variation name="_77704">
+		<description>XSLT01020: Namespace 1.0 - intl sufficiency on QNAME (utf-8), should pass on all platforms</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01020.xsl</xsl>
+		</data>
+		<result expected="valid">77704.txt</result>
+	</variation>
+	<variation name="_77730">
+		<description>XSLT01205: Existing XSL Functionality not included in XSLT- xsl:pi</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01205.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77731">
+		<description>XSLT01208: Existing XSL Functionality not included in XSLT- xsl:cdata</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01208.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77732">
+		<description>XSLT01207: Existing XSL Functionality not included in XSLT- xsl:entity-ref</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01207.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77733">
+		<description>XSLT01200: Existing XSL Functionality not included in XSLT- stylesheet beginning with template</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01200.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77734">
+		<description>XSLT01206: Existing XSL Functionality not included in XSLT- node-name</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01206.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77735">
+		<description>XSLT01204: Existing XSL Functionality not included in XSLT- built in function (eval)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01204.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77806">
+		<description>XSLT01401 : XSLT Features in the old Namespace - xsl:text</description>
+		<data>
+			<xml>XSLT01401.xml</xml>
+			<xsl>XSLT01401.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77983">
+		<description>XSLT01402: XSLT Features in the old Namespace -attributes: mode, priority</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt01402.xsl</xsl>
+		</data>
+		<result expected="valid">77983_output.txt</result>
+	</variation>
+	<variation name="_77984">
+		<description>XSLT01412: XSLT Features in the old Namespace -xsl:output</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt01412.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78027">
+		<description>XSLT29202: Namespace -version=""</description>
+		<data>
+			<xml>output.xml</xml>
+			<xsl>XSLT01003.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78028">
+		<description>XSLT29203: Namespace -version attribute missing</description>
+		<data>
+			<xml>output.xml</xml>
+			<xsl>XSLT01004.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78193">
+		<description>XSLT01405: xsl:processing-instruction in the old namespace - copy of XSLT16010.xsl</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01405.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78194">
+		<description>XSLT01407: xsl:variable in the old namespace</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01407.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78207">
+		<description>XSLT01408: xsl:param in the old namespace</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01408a.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78208">
+		<description>XSLT01409: xsl:with-param in the  old namespace</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01409A.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78210">
+		<description>XSLT01410: xsl:copy-of in the old namespace</description>
+		<data>
+			<xml>XSLT01410.xml</xml>
+			<xsl>XSLT01410.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78214">
+		<description>XSLT01023: literal result element with xsl:version attribute not 1.0</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01023a.xsl</xsl>
+		</data>
+		<result expected="valid">78214.txt</result>
+	</variation>
+	<variation name="_78215">
+		<description>XSLT01022: literal result element with xsl:version attribute = 1.0</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT01022.xsl</xsl>
+		</data>
+		<result expected="valid">78215.txt</result>
+	</variation>
+	<variation name="_84003">
+		<description>Bug 42903: XSL: We shouldn't allow xsl:template without a match attribute under the new namespace</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>bug42903.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84473">
+		<description>Copy of 77700: XSLT01115: Namespace 1.0 - xsl:otherwise, xsl:when</description>
+		<data>
+			<xml>84473.xml</xml>
+			<xsl>84473.xsl</xsl>
+		</data>
+		<result expected="valid">84473.txt</result>
+	</variation>
+	<variation name="_84474">
+		<description>Copy of 77701: XSLT01111: Namespace 1.0 - xsl:if test</description>
+		<data>
+			<xml>84474.xml</xml>
+			<xsl>84474.xsl</xsl>
+		</data>
+		<result expected="valid">84474.txt</result>
+	</variation>
+	<variation name="CheckXmlnsResetOnResultTree">
+		<description>Use an xmlns="" attribute and then query for all namespaces on the result element. any default namespaces should not be applied.  [Bug 71781].</description>
+		<data>
+			<xml>XmlnsResetOnResultElement.xml</xml>
+			<xsl>XmlnsResetOnResultElement.xsl</xsl>
+		</data>
+		<result expected="valid">XmlnsResetOnResultElement_result.txt</result>
+	</variation>
+	<variation name="Bug85356">
+		<description>XSLT: Does not follow Errata rule for copying namespace node when namespace node has a null name</description>
+		<data>
+			<xml>Bug85356.xml</xml>
+			<xsl>Bug85356.xsl</xsl>
+		</data>
+		<result expected="valid">Bug85356.txt</result>
+	</variation>
+</testcase>

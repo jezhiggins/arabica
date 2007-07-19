@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><root xmlns:p0="ns0" xmlns:p1="ns1" xmlns:namespace="http://www.w3.org/XML/1998/namespace" xmlns:a="ns_output"><a:AAA xml:space="preserve">a1</a:AAA><DDD xml:space="default">d0</DDD><a:AAA xml:space="default">a2</a:AAA></root>

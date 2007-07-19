@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>!From ss2!!From ss3!!From ss4!!From ss5!
+  
+  Main stylesheet - title:
+  Testing import/include nesting
+  
+  m-author:  
+  Joe Jones
+  
+  p-publisher: 
+  Conformance Press
+  
+  o-overview: 
+  testing-import
+  
+    
+  n-contents of first chapter:  
+  know XSL
+    love XSL
+  
+</out>

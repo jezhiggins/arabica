@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:anamespace="http://foo.com">
+<test xmlns="http://foo.com">
+<inner xmlns=""/>
+</test>
+<later/>
+<anamespace:anelement/>
+</out>

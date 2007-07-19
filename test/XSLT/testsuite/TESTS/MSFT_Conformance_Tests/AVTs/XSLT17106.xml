@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="yes" ?>
+<?pi TOP LEVEL NODE?>
+<xslTutorial att="123">
+	<text name="Bob" size="34}"> Teacher </text>
+	<text name="Cathy" size="23"> Nurse </text>
+	<?pi target?>
+</xslTutorial>

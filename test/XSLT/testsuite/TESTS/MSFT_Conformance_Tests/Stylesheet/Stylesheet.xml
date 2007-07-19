@@ -1,0 +1,147 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Stylesheet" description="" outpath="out">
+	<variation name="_91802">
+		<description>XSLT | Extension Elements | Non-XSLT Top level elements are not treated as extension elements. Put myelement as top level element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91802.xsl</xsl>
+		</data>
+		<result expected="valid">91802.txt</result>
+	</variation>
+	<variation name="_91803">
+		<description>XSLT | Extension Elements | Declare an extension element on the xsl:stylesheet element using extension-element-prefixes attribute | If the element is not existing process the content of fallback</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91803.xsl</xsl>
+		</data>
+		<result expected="valid">91803.txt</result>
+	</variation>
+	<variation name="_91804">
+		<description>XSLT | Extension Elements | Declare an extension element on a literal result element using xsl:extension-element-prefixes attribute | If the element is not existing process the content of fallback</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91804.xsl</xsl>
+		</data>
+		<result expected="valid">91804.txt</result>
+	</variation>
+	<variation name="_91806">
+		<description>XSLT | Extension Elements | Declare an extension element setting extension-element-prefixes to a value #default | Output the literal element with its namespace prefix</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91806.xsl</xsl>
+		</data>
+		<result expected="valid">91806.txt</result>
+	</variation>
+	<variation name="_91807">
+		<description>XSLT | Extension Elements | Import a Stylesheet with an extension element | Do not apply and should be treated as a literal result element, not as an extension element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91807.xsl</xsl>
+		</data>
+		<result expected="valid">91807.txt</result>
+	</variation>
+	<variation name="_91808">
+		<description>XSLT | Extension Elements | Include a Stylesheet with an extension element | Do not apply and should be treated as a literal result element, not as an extension element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91808.xsl</xsl>
+		</data>
+		<result expected="valid">91808_output.txt</result>
+	</variation>
+	<variation name="_91809">
+		<description>XSLT | Extension Elements | Declare x xsl:extension-element-prefixes="foo" inside a element | Element 'x' is not a recognized extension element | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91809.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91810">
+		<description>XSLT | Extension Elements | Run element-available function on the extension element created | Return true if implemented or false if not implemented in the namespace of the extension element</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91810.xsl</xsl>
+		</data>
+		<result expected="valid">91810.txt</result>
+	</variation>
+	<variation name="_91811">
+		<description>XSLT | Extension Elements | Instantiate an extension element which has no implementation in the namespace | Fallback if &lt;xsl:fallback&gt; exists | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91811.xsl</xsl>
+		</data>
+		<result expected="valid">91811.txt</result>
+	</variation>
+	<variation name="_91812">
+		<description>XSLT | Extension Elements | Create an extension-element with an invalid prefix with colon in name | 'a:b' is not a valid namespace prefix value | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91812.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91813">
+		<description>XSLT | Extension Elements | Create an extension-element with an invalid #defaultx as prefix | '#defaultx' is not a valid namespace prefix value | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91813.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91814">
+		<description>XSLT | Extension Elements | Create an extension-element with an invalid 'undefined' prefix | Reference to undeclared namespace prefix: 'undefined' | Error out</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91814.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91815">
+		<description>XSLT | Extension Elements | Create an extension-element on an XSL instruction element | Don't recognize the prefix.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91815.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91816">
+		<description>XSLT | Extension Elements |</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91816.xsl</xsl>
+		</data>
+		<result expected="valid">91816.txt</result>
+	</variation>
+	<variation name="InvalidStylesheetMustThrowException">
+		<description>Use xsl:stylesheet with text as a toplevel element. This invalidates the stylesheet and should generate an exception. [Bug 65771]</description>
+		<data>
+			<xml>xslt_stylesheet_InvalidStylesheetThrowExcep.xml</xml>
+			<xsl>xslt_stylesheet_InvalidStylesheetThrowExcep.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="Stylsheet_ExcludeResultPrefixesOnStylesheet">
+		<description>Regression uses the exclude-result-prefixes attribute to on xsl:stylesheet element as well as an individual literal result element [Bug 57159]</description>
+		<data>
+			<xml>xslt_stylesheet_ValidExcludeNSPrefix.xml</xml>
+			<xsl>xslt_stylesheet_ValidExcludeNSPrefix.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_stylesheet_ValidExcludeNSPrefix_Result.txt</result>
+	</variation>
+	<variation name="UseStylesheetWithXmlnsEqualToXmlnsUri">
+		<description>Use xsl:stylesheet with an xmlns equal to the reserved xmlns Uri. Should generate an error. [Bug 54232]</description>
+		<data>
+			<xml>xslt_stylesheet_XmlnsNsOnStylesheet.xml</xml>
+			<xsl>xslt_stylesheet_XmlnsNsOnStylesheet.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+</testcase>

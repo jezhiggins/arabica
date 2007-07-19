@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><root><b:BBB id="b1" xmlns:a="ns1" xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root" /><b:BBB id="b2" xmlns:a="ns1" xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root">
+	   <DDD id="d0" ws:space="default" xmlns="ns0" xmlns:ws="http://www.w3.org/XML/1998/namespace" />
+      </b:BBB><b:BBB id="b3" xmlns:a="ns1" xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root" /><b:BBB id="b4" xmlns:a="ns1" xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root" /><b:BBB id="b5" xmlns:a="ns1" xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root">   
+           <c:CCC id="c2" />   
+      </b:BBB><c:CCC xmlns:a="ns1" xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root" /><c:CCC xmlns:a="ns1" xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root" /></root>

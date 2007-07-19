@@ -1,0 +1,5 @@
+<variations name="Sort">
+	<variation case_id="Foo" />
+	<variation case_id="Bar" />
+	<variation case_id="8675309" />
+</variations>

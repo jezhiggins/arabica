@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+  <div mark="0">
+    <title>Introduction</title>
+    <finder>0</finder>
+    <p>Intro Section.</p>
+  </div>
+  
+  <div mark="2">
+    <title>Expressions</title>
+    <finder>1</finder>
+    <p>Exp Section.</p>
+  </div>
+
+  <div mark="5">
+    <title>Stylesheet Structure</title>
+    <finder>2</finder>
+    <p>SS Section.</p>
+  </div>
+  
+  <div mark="1">
+    <title>Expressions</title>
+    <finder>3</finder>
+    <p>Second Exp Section.</p>
+  </div>
+
+  <div mark="3">
+    <title>Stylesheet Processing</title>
+    <finder>4</finder>
+    <p>SP Section.</p>
+  </div>
+  
+  <div mark="4">
+    <title>Expressions</title>
+    <finder>5</finder>
+    <p>Third Exp Section.</p>
+  </div>
+</doc>

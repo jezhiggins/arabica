@@ -1,0 +1,5 @@
+<no-entities></no-entities>
+<relative>ts/xslt/bvts/pic.gif</relative>
+<absolute>http://my.com/pic2.gif</absolute>
+<name-expr>http://my.com/pic2.gif</name-expr>
+<not-found></not-found>

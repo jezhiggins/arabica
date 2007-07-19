@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?><root><html><head><title> Document</title></head><body><H2>Descendant or Self Axis</H2><b>Me.<br></br> Preceeding child.<br></br> Child. <br></br>preceeding Descendant.<br></br> Descendant.<br></br> Following Descendant.<br></br> following child.<br></br> </b><H2>Descendant Axis</H2><b>Preceeding child.<br></br> Child. <br></br>preceeding Descendant.<br></br> Descendant.<br></br> Following Descendant.<br></br> following child.<br></br> </b><H2>Self Axis</H2><b>Me.<br></br> </b><H2>Child Axis</H2><b>Preceeding child.<br></br> Child. <br></br>following child.<br></br> </b><H2>Attribute Axis</H2><b>id001</b></body></html><H2>value of .</H2><b>  
+Me.   
+  
+ 
+    
+   Preceeding child.   
+    
+    
+    Child.   
+  
+      
+      preceeding Descendant.   
+      
+     
+    Descendant.   
+     
+     
+     Following Descendant.   
+     
+    
+    
+   following child.   
+    
+ 
+ </b><H2>value of ..</H2><b>  
+Parent.   
+      
+Preceeding sibling.   
+      
+ 
+   
+Me.   
+  
+ 
+    
+   Preceeding child.   
+    
+    
+    Child.   
+  
+      
+      preceeding Descendant.   
+      
+     
+    Descendant.   
+     
+     
+     Following Descendant.   
+     
+    
+    
+   following child.   
+    
+ 
+   
+ 
+   
+   Following Sibling.   
+   
+</b></root>

@@ -1,0 +1,4 @@
+
+		category : XSLT-Result-Tree
+		id($category) : creation of nodes in result
+		name(id($category)) : category

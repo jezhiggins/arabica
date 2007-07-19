@@ -1,0 +1,1 @@
+﻿<area checked="&amp;&amp;" />

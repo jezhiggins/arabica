@@ -1,0 +1,173 @@
+
+
+------------(2)
+<Schema name="sc_ab.sch" xmlns="urn:schemas-microsoft-com:xml-data" xmlns:dt="urn:schemas-microsoft-com:datatypes">
+	<AttributeType name="att" dt:type="int" default="1" required="yes"/>
+	<AttributeType name="btt" dt:type="i4" default="2" required="yes"/>
+	<ElementType name="b">
+		<attribute type="btt"/>
+	</ElementType>
+	<ElementType name="a" model="closed">
+		<description> This is a root element that contain all different types of schema decls</description>
+		<element type="b"/>
+		<attribute type="att"/>
+	</ElementType>
+</Schema>
+
+------------(2)
+<Schema name="sc_ac.sch" xmlns="urn:schemas-microsoft-com:xml-data" xmlns:dt="urn:schemas-microsoft-com:datatypes">
+	<AttributeType name="id" dt:type="id" required="yes"/>
+	<AttributeType name="ctt" dt:type="i4" default="2" required="yes"/>
+	<ElementType name="c">
+		<attribute type="ctt"/>
+	</ElementType>
+	<ElementType name="a" model="closed">
+		<element type="c"/>
+		<attribute type="id"/>
+	</ElementType>
+</Schema>
+
+------------(2)
+<Schema xmlns="uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:a="urn:unknown">
+	<!--  Test Global AttributeType  -->
+	<AttributeType name="ga11" default="abc"/>
+	<!--  Test ElementType  with all attributes -->
+	<!--  test contents -->
+	<ElementType name="e11" content="empty">
+		<attribute type="ga11"/>
+	</ElementType>
+	<ElementType name="e12" content="eltOnly">
+		<element type="e11"/>
+	</ElementType>
+	<ElementType name="e13" content="textOnly">
+		<attribute type="ga11"/>
+	</ElementType>
+	<ElementType name="e14" content="mixed">
+		<element type="e11"/>
+		<element type="e13"/>
+	</ElementType>
+	<!--  test content default (mixed)  -->
+	<ElementType name="e15">
+		<element type="e11"/>
+		<element type="e13"/>
+	</ElementType>
+	<!--  test order  -->
+	<ElementType name="e21" content="eltOnly" order="seq">
+		<!--  test attribute for element -->
+		<element type="e11" minOccurs="0"/>
+		<element type="e13"/>
+		<element type="e14"/>
+	</ElementType>
+	<ElementType name="e22" content="eltOnly" order="one">
+		<element type="e11"/>
+		<element type="e13"/>
+		<element type="e14"/>
+	</ElementType>
+	<ElementType name="e23" content="eltOnly" order="many">
+		<element type="e11"/>
+		<element type="e13"/>
+		<element type="e14"/>
+	</ElementType>
+	<!--  dt:type at ElementType -->
+	<ElementType name="e31" dt:type="int" content="textOnly"/>
+	<!--  Test AttributeType with all attributes -->
+	<ElementType name="e41" content="textOnly">
+		<!--  attribute with default, thus not #REQUIRED and is a type string -->
+		<AttributeType name="a11" default="abc"/>
+		<attribute type="a11"/>
+		<!--  a basic #FIXED declare  -->
+		<AttributeType name="a12" dt:type="string" required="yes" default="abc"/>
+		<attribute type="a12"/>
+		<!--  testing for required="no" && #REQUIRED is on -->
+		<AttributeType name="a13" dt:type="string" required="no"/>
+		<attribute type="a13"/>
+		<!--  testing for enumeration  -->
+		<AttributeType name="a14" dt:type="enumeration" dt:values="aaa bbb ccc" default="aaa"/>
+		<attribute type="a14"/>
+		<!--  testing for id  -->
+		<AttributeType name="a15" dt:type="id"/>
+		<attribute type="a15"/>
+		<!--  testing for datatype under AttributeType -->
+		<AttributeType name="a16" dt:type="enumeration" dt:values="aaa bbb ccc" default="bbb"/>
+		<attribute type="a16"/>
+		<!-- rewrite ability  -->
+		<AttributeType name="a17"/>
+		<attribute type="a17" default="abc"/>
+	</ElementType>
+	<!--  Test group -->
+	<ElementType name="e51" content="eltOnly">
+		<element type="e11"/>
+		<group order="one">
+			<element type="e13"/>
+			<element type="e31"/>
+		</group>
+		<group order="one" minOccurs="0" maxOccurs="*">
+			<element type="e21"/>
+		</group>
+		<element type="e41"/>
+	</ElementType>
+	<!--  Multi-Group test  -->
+	<ElementType name="e01" content="eltOnly">
+		<group order="seq">
+			<element type="e11"/>
+			<group order="seq">
+				<group order="seq">
+					<element type="e11"/>
+				</group>
+				<element type="e11"/>
+			</group>
+		</group>
+	</ElementType>
+	<!--  testing for open content in schema itself  -->
+	<!--  test the whole branch of elements... as open content  -->
+	<a:sadf name="a" bb="c">
+		<hi man="yes"/>
+		<ho hehe="boo">
+			<lala/>
+		</ho>
+	</a:sadf>
+	<!--  test just one attribute that will be ignored when parsing  -->
+	<ElementType content="textOnly" name="e3">
+		<AttributeType name="a1">
+		</AttributeType>
+		<!--  test if it ignores the child nodes for elements that are not suppose to contain children  -->
+		<!--  it should work both with <aa/> in and w/o <aa/>  -->
+		<attribute type="a1">
+		</attribute>
+	</ElementType>
+	<!--  test the datatype under ElemenType  -->
+	<ElementType name="e5" content="textOnly"/>
+	<ElementType name="e6" dt:type="int" content="textOnly">
+	</ElementType>
+	<ElementType name="e10"/>
+	<!--  test see if it ignores order after the content="empty" -->
+	<ElementType name="haha" content="empty" order="many">
+	</ElementType>
+	<!--  When content is mixed, we cannot change order, adding order in will give an error  -->
+	<ElementType name="abc" content="mixed">
+		<element type="e3" minOccurs="0" maxOccurs="1"/>
+		<element type="e10"/>
+	</ElementType>
+	<!--  Must contain root element, and test for the spaces in between tags -->
+	<ElementType name="root" content="eltOnly" order="many">
+		<element type="e01"/>
+		<element type="e11"/>
+		<element type="e13"/>
+		<element type="e14"/>
+		<element type="e15"/>
+		<element type="e21"/>
+		<element type="e22"/>
+		<element type="e23"/>
+		<element type="e31"/>
+		<element type="e41"/>
+		<element type="e51"/>
+		<element type="haha"/>
+		<element type="abc"/>
+		<group order="one">
+			<element type="e5"/>
+			<element type="e6"/>
+		</group>
+		<element type="e10"/>
+	</ElementType>
+	<ElementType name="b"/>
+</Schema>

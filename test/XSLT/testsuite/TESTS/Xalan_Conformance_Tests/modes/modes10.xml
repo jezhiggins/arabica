@@ -1,0 +1,6 @@
+<?xml version="1.0"?> 
+<doc>
+  <x test="x attribute">content
+    <y>why</y>
+  </x>
+</doc>

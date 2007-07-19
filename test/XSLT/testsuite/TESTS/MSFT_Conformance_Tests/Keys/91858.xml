@@ -1,0 +1,13 @@
+<!DOCTYPE doc [
+    <!ELEMENT doc ANY>
+    <!ELEMENT elem ANY>
+    <!ATTLIST elem 
+        att CDATA "Redmond"
+    >
+    <!ENTITY a "a">
+    <!ENTITY b "b">
+]>
+
+<doc>
+    <elem att="&a;&b;">xxx&a;&b;yyy</elem>
+</doc>

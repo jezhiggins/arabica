@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<html>
+<INPUT usemap="http://www.yahoo.com">http://www.yahoo.com</INPUT>
+<INPUT usemap="http://日本">http://日本</INPUT>
+<INPUT usemap="http://www.this space.com" >http://www.this space.com </INPUT>
+<INPUT usemap="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </INPUT>
+<INPUT usemap="ĀāĂă">ĀāĂă</INPUT>
+<INPUT usemap="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </INPUT>
+
+<IMG usemap="http://www.yahoo.com">http://www.yahoo.com</IMG>
+<IMG usemap="http://日本">http://日本</IMG>
+<IMG usemap="http://www.this space.com" >http://www.this space.com </IMG>
+<IMG usemap="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </IMG>
+<IMG usemap="ĀāĂă">ĀāĂă</IMG>
+<IMG usemap="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </IMG>
+
+<OBJECT usemap="http://www.yahoo.com">http://www.yahoo.com</OBJECT>
+<OBJECT usemap="http://日本">http://日本</OBJECT>
+<OBJECT usemap="http://www.this space.com" >http://www.this space.com </OBJECT>
+<OBJECT usemap="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </OBJECT>
+<OBJECT usemap="ĀāĂă">ĀāĂă</OBJECT>
+<OBJECT usemap="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </OBJECT>
+
+</html>

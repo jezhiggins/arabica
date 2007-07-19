@@ -1,0 +1,38 @@
+<!DOCTYPE doc SYSTEM "91836.dtd" [
+    <!ELEMENT doc ANY>
+    <!ELEMENT city ANY>
+    <!ELEMENT town ANY>
+    <!ELEMENT place ANY>
+    <!ATTLIST city id ID #IMPLIED
+              name CDATA #IMPLIED
+    >
+    <!ATTLIST town id ID #IMPLIED
+              name CDATA #IMPLIED
+    >
+
+    <!ELEMENT foo  ANY>
+
+    <!ENTITY se "Seattle">
+    <!ENTITY be "Bellevue">
+    <!ENTITY ref SYSTEM "91836a.xml">
+    <!ENTITY ref1 SYSTEM "91836b.xml">
+]>
+
+<doc>
+    <city name="&se;">book seattle</city>
+    <city name="&be;">book bellevue</city>
+    <city name="&be;">book bellevue2
+        &ref;
+    </city>
+    &ref1; <!-- external GE -->
+    &ref1; <!-- external GE -->
+    &ext3; <!-- external PE -->
+    <foo>
+    &ref1; <!-- external GE -->
+    &ref1; <!-- external GE -->
+    </foo>
+
+    <a att="Seattle"> default test 1 </a>
+    <a att="abc" att1="xyz"> default test 3 </a>
+    <b> empyt default value </b>
+</doc>

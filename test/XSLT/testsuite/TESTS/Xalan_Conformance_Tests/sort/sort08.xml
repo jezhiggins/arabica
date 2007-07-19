@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Test for xsl:sort -->
+<!-- UTF-8 order: space, !, %, lower-case letters -->
+<doc>
+  <t>abc</t>
+  <t>a b</t>
+  <t>ab </t>
+  <t>ac </t>
+  <t>abcd</t>
+  <t>ab!</t>
+  <t>ab%</t>
+  <t>a!b</t>
+  <t>a!b!</t>
+  <t>ac!</t>
+  <t>a c%</t>
+  <t>abd</t>
+  <t>a!cd</t>
+  <t>ab</t>
+  <t>a c</t>
+  <t>a!b </t>
+  <t>a  d</t>
+  <t>a!c</t>
+  <t>acc</t>
+</doc>
+

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out><list>
+Node doc has on-doc in @x
+Node a has on-a in @x
+Node b has on-b in @x
+Node bbb has on-bbb in @x
+Node c has on-c in @x</list></out>

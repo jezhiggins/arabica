@@ -1,0 +1,15 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<SCRIPT>
+        
+        document.write("<P>Hi Oren");
+        if((2 < 5) & (6 < 3))
+        {
+          ...
+        }
+        
+      </SCRIPT>
+</HEAD>
+<BODY></BODY>
+</HTML>

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+
+<!-- Purpose: Test that number() with no argument applies to context node. [Bug 71690] -->
+
+<doc>This is not a number.</doc>

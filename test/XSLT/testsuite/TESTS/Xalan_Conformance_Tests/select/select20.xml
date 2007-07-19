@@ -1,0 +1,6 @@
+<?xml version="1.0"?> 
+<doc>bad0
+  <string-length>ThisIsBad
+    <sub>ThisIsWorse</sub>
+  </string-length>
+</doc>

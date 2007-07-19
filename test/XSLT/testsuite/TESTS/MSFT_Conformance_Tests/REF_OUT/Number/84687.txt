@@ -1,0 +1,7 @@
+<TABLE BORDER="1"><TR><TH>Formatting</TH><TH>text</TH></TR><TR><TD>1</TD><TD>Chapter 1</TD></TR><TR><TD>2</TD><TD>Chapter 2  
+		</TD></TR><TR><TD>1</TD><TD>Subchapter 2.1</TD></TR><TR><TD>2</TD><TD>Subchapter 2.2</TD></TR><TR><TD>3</TD><TD>Chapter 3
+		</TD></TR><TR><TD>1</TD><TD>Subchapter 3.1</TD></TR><TR><TD>2</TD><TD>Subchapter 3.2  
+			</TD></TR><TR><TD>1</TD><TD>sub 3.2.1</TD></TR><TR><TD>2</TD><TD>sub 3.2.2</TD></TR><TR><TD>3</TD><TD>Subchapter 3.3</TD></TR><TR><TD></TD><TD>Chapter one</TD></TR><TR><TD></TD><TD>Chapter two  
+		</TD></TR><TR><TD></TD><TD>Subchapter two.one</TD></TR><TR><TD></TD><TD>Subchapter two.two</TD></TR><TR><TD></TD><TD>Chapter three
+		</TD></TR><TR><TD></TD><TD>Subchapter three.one</TD></TR><TR><TD></TD><TD>Subchapter three.two  
+			</TD></TR><TR><TD></TD><TD>sub three.two.one</TD></TR><TR><TD></TD><TD>sub three.two.two</TD></TR><TR><TD></TD><TD>Subchapter three.three</TD></TR></TABLE>

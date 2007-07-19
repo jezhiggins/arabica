@@ -1,0 +1,10 @@
+<!--bookstore[@specialty='novel'][1]/book[position() < 4][title != 'Book 1']-->
+Book 2, Book 3, 
+<!--bookstore[1][@specialty='novel']/book[title != 'Book 1'][position() < 4]-->
+Book 2, Book 3, Book 4, 
+<!--node()[position() = last()][name() = 'bookstore']/book[title != 'Book 1'][position() < last()][position() < last()]-->
+Book 2, Book 3, Book 4, 
+<!--node()[position() = last()][position() = last()][name() = 'bookstore']/book[author/last-name = 'Bob' or author/first-name = 'Hack'][position() = last() or position() = last() - 1]-->
+Book 5, Book 6, 
+<!--node()[name() = 'bookstore'][1]/book[title = 'Book 2'][1][title = 'Book 2'][1][title = 'Book 2']-->
+Book 2, 

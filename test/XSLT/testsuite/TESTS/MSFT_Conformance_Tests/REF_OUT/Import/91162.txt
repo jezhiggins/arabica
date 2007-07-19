@@ -1,0 +1,4 @@
+<SPAN style="color=blue">
+    From B  book : Seven Years in Trenton</SPAN><br />
+<SPAN style="color=blue">
+    From D  book : XQL The Golden Years</SPAN><br />

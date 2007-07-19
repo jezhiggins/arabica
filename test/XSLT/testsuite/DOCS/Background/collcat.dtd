@@ -1,0 +1,340 @@
+<!--Document model for test-suite collection catalog submission-->
+<!--$Date: 2001/09/25 01:46:03 $(UTC)-->
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
+
+<!--===== Overview =========================================================
+
+Typical use: <!DOCTYPE test-suite SYSTEM "collcat.dtd">
+
+Purpose: To collect test cases for submission to the production process, to
+         maintain collections of test cases during the production process,
+         and to publish the final suite of test cases.
+
+This DTD has 3 main areas:
+
+1.  Test case identification
+
+    - identifying and categorizing a test case within a catalogue within
+      a suite of catalogues
+
+2.  Test case documentation
+
+    - documenting a test case and how it is relevant
+    - for some cases, providing data that allows the test to be applied
+      only against those processors that behave the way it anticipates
+
+3.  Operational parameters
+
+    - identifying the file path of the base location from which the test is
+      executed
+    - identifying the inputs
+    - specifying names for outputs
+    - specifying (abstractly) the style of invocation
+    - specifying (abstractly) how actual and reference outputs are compared
+
+External DTD fragments:
+
+1.  Citations to the Recommendations
+
+    - methods by which Recommendations are cited
+    - this is a reference to a shared DTD fragment: citation.dtd
+
+2.  Prose documentation elements
+
+    - the vocabulary by which prose documentation is captured for a test case
+      (could allow some formatting of text, such as emphasis tags)
+    - this is a reference to a shared DTD fragment: prose.dtd
+
+Notes:
+
+i) References in the documentation to "the production process" refer to the
+manipulation of test cases after having been received from the submitter.  Any
+production-oriented information items authored by the submitter will be
+ignored and are not considered in error. (In particular the "submitter"
+attribute on test-catalog here serves a much more demanding purpose than the
+"submitter" attribute on "submission" in the DTD used by an individual
+submitter.)
+
+ii) Enumerations of "constraints" refer to the element type name of those
+constructs in the test regime configuration instance with the ID values
+being the name token used as the attribute in the catalogue instance
+
+iii) Certain information items are inspired by the Dublin Core ("DC") names
+     for similar concepts, though no attempt is made to preserve the case of
+     letters used in any names described therein.
+     ref: http://purl.org/DC/documents/rec-dces-19990702.htm
+
+iv) Most values will be interpreted as strings. Values can be interpreted
+numerically, specifically in inequality relations, when they refer to versions
+and dates.
+-->
+<!--===== External document model fragments ================================-->
+
+<!--citations to the Recommendations-->
+<!ENTITY % citation-dtd SYSTEM "citation.dtd">
+%citation-dtd;
+
+<!--prose-oriented constructs-->
+<!ENTITY % prose-dtd SYSTEM "prose.dtd">
+%prose-dtd;
+
+<!--===== Test case identification =========================================-->
+
+<!--the document element: a collection of catalogues-->
+<!ELEMENT test-suite ( test-catalog+ )>
+
+<!--a catalogue: a collection of test cases-->
+<!--note: the submitter attribute is assigned by the production process-->
+<!--Constraint: submitter must be valid as a directory name. It will be part of
+file-paths for the full suite of tests. -->
+
+<!ELEMENT test-catalog ( creator, date?, test-case* )>
+<!ATTLIST test-catalog submitter ID #IMPLIED>
+
+<!--a test case: an individual test in the catalogue-->
+<!--Note: as a supplement to the case being uniquely identified by the id=
+          attribute, documentation for a case will typically include a
+          file specification to the principal output file.
+          This way, no particular name of an input object is required to
+          lend its name to either the name of the output nor to a logging
+          entry, though the design of a particular regime may choose to
+          impose such a tie-in. -->
+<!ELEMENT test-case ( file-path , creator* , date? , purpose , elaboration? ,
+                      spec-citation+ , discretionary? , gray-area?, scenario )>
+<!ATTLIST test-case 
+          id ID #REQUIRED
+          category NMTOKEN #REQUIRED>
+<!--Constraints: category -> configuration <category> 
+-->
+
+<!--===== Test case documentation ==========================================-->
+<!--
+The <file-path> element is used to convey the separation of tests into various
+directories, but is also used operationally. Further discussion is under
+"operational parameters" below.
+
+Submitters may use the <creator> element to name contributors at the 
+individual-person level. They may also wish to use an element called <date> 
+to record their date stamp on the test case. 
+Alternatively,the submitter may encode the creator element with some 
+abstract value they can use internally but is opaque to readers (though 
+readers may find this confusing when published).
+These values allow the submitter to match cases with their own source
+code management systems, and will likely aid in future updates, either due
+to submitter enhancements or W3C changes. OASIS will track the date
+received in the date attribute of the test-catalog element.
+-->
+
+<!--who created the test case and when it was created-->
+<!--note: this will be published verbatim; should a submitter wish to maintain
+          this internally but not have its content published, it must be
+          removed from the catalogue submitted to the production process-->
+<!ELEMENT creator ( #PCDATA )>
+<!--DC/ISO-8601 Date for the date of submission (from creator's viewpoint) -->
+<!--note: this field is either yyyymmdd or yyyy-mm-dd or yyyy/mm/dd; 
+          production processes will remove the "-" characters to make a
+          numeric value for relative comparisons-->
+<!ELEMENT date ( #PCDATA )>
+
+<!--Two ways to describe the test: the <purpose> element is used as a label
+    without rich markup; the <elaboration> element is used for prose.
+    The <purpose> is expected to appear in tables of test cases. Other
+    source-file comments are useful for reviewers, but will not be extracted
+    by the test system.
+-->
+<!ELEMENT purpose ( #PCDATA )>
+<!--Constraint: max 255 characters, no new-lines -->
+<!ELEMENT elaboration %prose;>
+<!--Constraint: the production processes will pass this content verbatim to
+                publishing processes for interpretation-->
+
+<!-- The <spec-citation> elements, defined in another DTD, should point to
+     parts of Recommendations that a person examining the test would want to
+     consult to check the <purpose> statement. -->
+
+<!--
+The discretionary choices document in the regime definition enumerates
+named choices which act as excluders when a test suite is assembled. By serving
+as excluders, the need to specify all of them in every test case is eliminated;
+if a discretionary item is not mentioned, the test case doesn't care
+about that item and should be included for any choice made on that item.
+The value can be expressed as a keyword from a set of keywords designated
+by the Committee and encoded in and validated against the discretionary
+document.
+
+For example, in XSLT the attribute-name-not-QName discretionary item
+contains a choice element of either "raise-error" or "ignore" to 
+show that the case should be excluded when the processor under test 
+made the other choice on this item. Depending on the choice, there could 
+be parallel tests (differently named), with distinct parallel "correct 
+output" files, for different values of the choice, and only one would be 
+selected in any assembly of a test suite. 
+
+The questionnaire to developers about discretionary choices may allow "moot" as
+a response in some situations, but one cannot use "moot" as a behavior
+value in the test case catalog because, as stated above, moot items are
+just omitted from the "discretionary" element.
+-->
+<!ELEMENT discretionary ( discretionary-choice )+ >
+<!ELEMENT discretionary-choice EMPTY>
+<!ATTLIST discretionary-choice 
+          name NMTOKEN #REQUIRED
+          behavior NMTOKEN #REQUIRED>
+<!--Constraints: name -> <item> within discretionary description
+                 behavior -> <choice> within description
+-->
+
+<!--
+Vague areas in the spec are handled in the same manner as the
+discretionary items above, with <gray-area> substituting for the
+<discretionary> and the names chosen from the regime configuration document.
+This is where the errata level is likely to come in to play, since errata
+should clear up some vague areas. The tester must ask the developer about
+their design decisions or discern them by early-stage testing, and the answers
+should be encoded using keywords which can then be matched to the <gray-area>
+elements. One test case could serve as both a gray-area for one choice and
+as the lone case for errata-add, when that gray-area choice is the one that
+the errata later chose.
+-->
+<!ELEMENT gray-area ( gray-area-choice )+>
+<!ELEMENT gray-area-choice EMPTY>
+<!ATTLIST gray-area-choice 
+          name NMTOKEN #REQUIRED
+          behavior NMTOKEN #REQUIRED>
+<!--Constraints: name -> <item> within gray-area description
+                 behavior -> <choice> within description
+-->
+
+<!--===== Operational parameters ===========================================-->
+
+<!--
+The <file-path> element allows the submitter to have a full tree structure for
+input files to the test cases, and it is also used to generate file-paths for
+output and command lines to execute the processor under test. This string may
+contain internal directory separators for a multi-level directory structure.
+The first name in the string must be the name of a directory found in the
+base directory of a submission. The last name in the string must be the name of
+a directory in which the input-file of a designated principal role (see test
+regime specs) is located. If the submission consists of a small number of tests
+that are directly in the submitter's base directory, the file-path should be
+the null string. Diagrammatically, the full file structure is:
+suite/submitter/file-path/principal-input-file(s)
+where only file-path may have a multi-level structure. In the test lab, the
+submitter/file-path combination is always used to specify file paths that
+are unique across the whole suite. (Specifically, conflicts among output files
+can only be avoided by using the directory structure defined by the combined
+submitter/file-path strings.)
+
+Each test regime must specify the directory within which the test is assumed to
+be executed, which is important for relative file path dereferencing.  The
+production processes translate any "\" to "/" and ensure the first and last
+characters of the file path are not slashes.
+
+The actual name of particular files used are defined in the input-file and
+output-file elements.  The file-path must not contain assumptions regarding
+any ancestral subdirectories "above" the base directory of the submitter's
+collection, except where the Testing Committee has designated standardized input
+data with a path. Note that the submitted test collection may contain directories
+that have no test cases, only utility or supplemental files.
+
+Note: The regime may have one or more required files for every test, which
+      is encoded in the role definition of the regime and confirmed in
+      validation.
+
+Example: For XSLT at least one output-file must be specified as the 
+         principal output file (per that configuration document),
+         and it must be unique from every other output file name for
+         the given file-path value.  This is true even if no output is
+         expected (in which case the compare value is typically 'ignore'),
+         because the generation of output would indicate inappropriate
+         behaviour by the processor.
+
+XSLT can transform the catalog data into a variety of scripts that can be used
+in the test lab for setup, test running, output comparison, cleanup, etc.
+
+Though the test suite is delivered with all inputs as files, it can be used to
+test processors that take input in more dynamic formats. The test lab will need
+to set up the methods that extract the file content and provide the input in a
+dynamic format such as a byte stream.
+-->
+<!ELEMENT file-path ( #PCDATA )>
+
+<!--
+The <scenario> element gathers parameters needed to run the test.
+The "operation" attribute describes how to run the test, while "error" 
+and "message" may be used to describe side effects that aren't 
+channeled into outputs. 
+Use "message" to contain an exact string that should be found in the console
+output. Use the presence of the <console> element to signify that console
+output should be captured as the test is run.
+-->
+
+<!ELEMENT scenario ( input-file* , output-file* , param-set* , console? )>
+<!ATTLIST scenario operation NMTOKEN #REQUIRED
+                   message ( message ) #IMPLIED
+                   error ( error ) #IMPLIED>
+<!--Constraints: operation -> configuration <operation>
+-->
+
+<!ELEMENT input-file ( #PCDATA ) >
+<!ATTLIST input-file
+          role NMTOKEN #REQUIRED>
+<!--Constraint: role -> configuration <role>
+Some roles may only apply to input-files.
+-->
+
+<!ELEMENT output-file ( #PCDATA ) >
+<!ATTLIST output-file
+          role    NMTOKEN #REQUIRED
+          compare NMTOKEN #REQUIRED>
+<!--Constraint: role-> configuration <role>
+Some roles may only apply to output-files.
+                compare -> configuration <comparison>
+-->
+
+<!--
+In addition to inputs, some processors may use command-line parameters,
+or parameters of their APIs. The <param-set> element allows specification
+of those parameters in the catalog.
+-->
+<!ELEMENT param-set EMPTY>
+<!ATTLIST param-set
+          name  NMTOKEN #REQUIRED
+          type  NMTOKEN #REQUIRED
+          value CDATA #REQUIRED>
+<!--Constraint: type -> configuration <parameter-type>
+-->
+
+<!--
+A description of the anticipated result on a console or ancilliary output
+device separate from any principal or supplemental expected outputs.
+This item may be used to describe the essence of an error message.
+-->
+<!ELEMENT console %prose; >
+
+<!--end of file-->

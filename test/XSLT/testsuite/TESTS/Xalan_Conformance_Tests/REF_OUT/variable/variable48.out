@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc Value="top, id=id0">
+  <a Value="top, id=id1">
+    *id1*
+    <a Value="top, id=id2">*id2*
+      <a Value="top, id=id3">*id3*<from>top, id2</from></a>
+      <b Value="top, id=id4">*id4*<from>top, id2</from></b>
+      <c Value="top, id=id5">*id5*<from>top, id2</from></c>
+    <from>top, id1</from></a>
+    <b Value="top, id=id6">*id6*<from>top, id1</from></b>
+    <c Value="top, id=id7">*id7*<from>top, id1</from></c>
+  <from>top, id0</from></a>
+  <b Value="top, id=id8">
+    *id8*
+    <a Value="top, id=id9">*id9*<from>top, id8</from></a>
+    <b Value="top, id=id10">*id10*
+      <a Value="top, id=id11">*id11*<from>top, id10</from></a>
+      <b Value="top, id=id12">*id12*<from>top, id10</from></b>
+      <c Value="top, id=id13">*id13*<from>top, id10</from></c>
+    <from>top, id8</from></b>
+    <c Value="top, id=id14">*id14*<from>top, id8</from></c>
+  <from>top, id0</from></b>
+  <c Value="top, id=id15">
+    *id15*
+    <a Value="top, id=id16">*id16*<from>top, id15</from></a>
+    <b Value="top, id=id17">*id17*<from>top, id15</from></b>
+    <c Value="top, id=id18">*id18*
+      <a Value="top, id=id19">*id19*<from>top, id18</from></a>
+    <from>top, id15</from></c>
+  <from>top, id0</from></c>
+<from>top, root</from></doc>

@@ -1,0 +1,108 @@
+<name>Author, Second</name>
+<name>Author of Book 3, Second</name>
+<name>Bob, Joe</name>
+<name>Bob, Mary</name>
+<name>Bob, Toni</name>
+<name>er, Hack</name>
+<name>Robinson, </name>
+<name>Robinson, Mary F</name>
+			
+					
+            
+			
+			Whitespace
+		
+			
+					
+            
+			
+			Whitespace
+		
+			
+					
+            
+			
+			Whitespace
+		
+			
+					
+            
+			
+			Whitespace
+		
+			
+					
+            
+			
+			Whitespace
+		
+			
+					
+            
+			
+			Whitespace
+		
+			
+					
+            
+			
+			Whitespace
+		
+			
+					
+            
+			
+			Whitespace
+		<price>55</price>
+<by>Mary</by>
+<by>Second</by>
+<price>55</price>
+<by>Mary</by>
+<by>Second</by>
+<price>55</price>
+<by></by>
+<by>Second</by>
+<price>45</price>
+<by></by>
+<by>Second</by>
+<price>12</price>
+<by>Joe</by>
+<price>10</price>
+<by>Mary F</by>
+<price>08</price>
+<by>Hack</by>
+<price>6.50</price>
+<by>Toni</by>
+<price>3.95</price>
+<price>3.50</price>
+<price>2.50</price>
+<price>0.98</price>
+<price>free</price>
+<name>book</name>
+<name>author</name>
+<name>award</name>
+<name>first-name</name>
+<name>last-name</name>
+<name>price</name>
+<name>published</name>
+<name>title</name>
+<last>11</last><pos>1</pos><title xmlns:my="http://my.com">Book 1</title>
+<last>11</last><pos>2</pos><title xmlns:my="http://my.com">Book 2</title>
+<last>11</last><pos>3</pos><title xmlns:my="http://my.com">Road and Track</title>
+<last>11</last><pos>4</pos><title xmlns:my="http://my.com">PC Week</title>
+<last>11</last><pos>5</pos><title xmlns:my="http://my.com">PC Magazine</title>
+<last>11</last><pos>6</pos><title xmlns:my="http://my.com">Book 3</title>
+<last>11</last><pos>7</pos><title xmlns:my="http://my.com">Book 4</title>
+<last>11</last><pos>8</pos><title xmlns:my="http://my.com">How To Fix Computers</title>
+<last>11</last><pos>9</pos><title xmlns:my="http://my.com">Tracking Trenton</title>
+<last>11</last><pos>10</pos><title xmlns:my="http://my.com">Tracking Trenton Stocks</title>
+<last>11</last><pos>11</pos><title xmlns:my="http://my.com">Book 6</title>
+<last-name>Bob</last-name>
+<last-name>Bob</last-name>
+<last-name>Author</last-name>
+<last-name>Robinson</last-name>
+<last-name>Author of Book 3</last-name>
+<last-name>Robinson</last-name>
+<last-name>er</last-name>
+<last-name>Bob</last-name>
+<max-depth>6</max-depth>

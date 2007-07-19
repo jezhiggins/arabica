@@ -1,0 +1,259 @@
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">bookstore:   Seven Years in Trenton  Joe Bob Trenton Literary Review Honorable Mention USA  12   History of Trenton  Mary Bob 
+				Selected Short Stories of
+				JoeBob Loser US   55   XQL The Golden Years  Mike Hyman 
+				XQL For Dummies
+				Jonathan Marsh   55.95   Road and Track 3.50  Yes   PC Week free Ziff Davis   PC Magazine 3.95 Ziff Davis  Create a dream PC
+				Create a list of needed hardware  The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23  Visual Basic 5.0 - Will it stand the test of time?
+			     Sport Cars - Can you really dream?
+			    PC Magazine Best Product of 1997   History of Trenton 2  Mary F Robinson 
+				Selected Short Stories of
+				Mary F Robinson   55   History of Trenton Vol 3  Mary F Robinson Frank Anderson Pulizer 
+				Selected Short Stories of
+				Mary F Robinson   10   How To Fix Computers  Hack er Ph.D.  08   Tracking Trenton 2.50    Tracking Trenton Stocks 0.98    Trenton Today, Trenton Tomorrow  Toni Bob B.A. Ph.D. Pulizer Still in Trenton Trenton Forever  6.50  It was a dark and stormy night. But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			  Trenton misery     Who's Who in Trenton Robert Bob   Where is Trenton?   Where in the world is Trenton?  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">book:  Seven Years in Trenton  Joe Bob Trenton Literary Review Honorable Mention USA  12 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: Seven Years in Trenton</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">author:  Joe Bob Trenton Literary Review Honorable Mention USA </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first-name: Joe</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Bob</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">award: Trenton Literary Review Honorable Mention</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:country: USA</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 12</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">book:  History of Trenton  Mary Bob 
+				Selected Short Stories of
+				JoeBob Loser US   55 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: History of Trenton</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">author:  Mary Bob 
+				Selected Short Stories of
+				JoeBob Loser US  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first-name: Mary</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Bob</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">publication: 
+				Selected Short Stories of
+				JoeBob Loser US </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first-name: JoeBob</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Loser</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">country: US</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 55</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">book:  XQL The Golden Years  Mike Hyman 
+				XQL For Dummies
+				Jonathan Marsh   55.95 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: XQL The Golden Years</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">author:  Mike Hyman 
+				XQL For Dummies
+				Jonathan Marsh  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first.name: Mike</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last.name: Hyman</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">publication: 
+				XQL For Dummies
+				Jonathan Marsh </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first.name: Jonathan</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last.name: Marsh</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 55.95</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">magazine:  Road and Track 3.50  Yes </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: Road and Track</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 3.50</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">subscription: </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">special_edition: Yes</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">magazine:  PC Week free Ziff Davis </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: PC Week</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: free</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">publisher: Ziff Davis</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">magazine:  PC Magazine 3.95 Ziff Davis  Create a dream PC
+				Create a list of needed hardware  The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23  Visual Basic 5.0 - Will it stand the test of time?
+			  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: PC Magazine</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 3.95</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">publisher: Ziff Davis</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">articles:  Create a dream PC
+				Create a list of needed hardware  The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23  Visual Basic 5.0 - Will it stand the test of time?
+			 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">story1: Create a dream PC
+				Create a list of needed hardware </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">details: Create a list of needed hardware</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">story2: The future of the web
+				Can Netscape stay alive with Microsoft eating up its browser share? MSFT 99.30 1998-06-23 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">details: Can Netscape stay alive with Microsoft eating up its browser share?</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">stock: MSFT 99.30</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">date: 1998-06-23</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">story3: Visual Basic 5.0 - Will it stand the test of time?
+			</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">magazine:   Sport Cars - Can you really dream?
+			  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">articles:  Sport Cars - Can you really dream?
+			 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">story1: Sport Cars - Can you really dream?
+			</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">magazine:  PC Magazine Best Product of 1997 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">award: PC Magazine Best Product of 1997</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">book:  History of Trenton 2  Mary F Robinson 
+				Selected Short Stories of
+				Mary F Robinson   55 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: History of Trenton 2</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">author:  Mary F Robinson 
+				Selected Short Stories of
+				Mary F Robinson  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first.name: Mary F</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Robinson</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">publication: 
+				Selected Short Stories of
+				Mary F Robinson </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first.name: Mary F</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Robinson</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 55</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">book:  History of Trenton Vol 3  Mary F Robinson Frank Anderson Pulizer 
+				Selected Short Stories of
+				Mary F Robinson   10 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: History of Trenton Vol 3</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">author:  Mary F Robinson Frank Anderson Pulizer 
+				Selected Short Stories of
+				Mary F Robinson  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first-name: Mary F</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Robinson</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first-name: Frank</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Anderson</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">award: Pulizer</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">publication: 
+				Selected Short Stories of
+				Mary F Robinson </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first-name: Mary F</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Robinson</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 10</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">book:  How To Fix Computers  Hack er Ph.D.  08 </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: How To Fix Computers</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">author:  Hack er Ph.D. </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first-name: Hack</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: er</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">degree: Ph.D.</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 08</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">magazine:  Tracking Trenton 2.50  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: Tracking Trenton</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 2.50</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">subscription: </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:magazine:  Tracking Trenton Stocks 0.98  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: Tracking Trenton Stocks</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 0.98</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">subscription: </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">book:  Trenton Today, Trenton Tomorrow  Toni Bob B.A. Ph.D. Pulizer Still in Trenton Trenton Forever  6.50  It was a dark and stormy night. But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			  Trenton misery   </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">title: Trenton Today, Trenton Tomorrow</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">author:  Toni Bob B.A. Ph.D. Pulizer Still in Trenton Trenton Forever </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">first-name: Toni</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">last-name: Bob</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">degree: B.A.</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">degree: Ph.D.</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">award: Pulizer</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">publication: Still in Trenton</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">publication: Trenton Forever</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">price: 6.50</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">excerpt:  It was a dark and stormy night. But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			  Trenton misery  </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">p: It was a dark and stormy night.</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">p: But then all nights in Trenton seem dark and
+			stormy to someone who has gone through what
+			I have.
+			</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">emph: I</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">definition-list:  Trenton misery </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">term: Trenton</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">definition: misery</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:book:  Who's Who in Trenton Robert Bob </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:title: Who's Who in Trenton</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:author: Robert Bob</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:book:  Where is Trenton? </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:title: Where is Trenton?</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>
+<my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:book:  Where in the world is Trenton? </my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color=green" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">my:title: Where in the world is Trenton?</my:SPAN>
+<my:br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" /><my:SPAN style="color:blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/"></my:SPAN>

@@ -1,0 +1,1 @@
+﻿<root><!--<>&'--><foo>bar</foo></root>

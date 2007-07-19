@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>begin root template, $var=level0
+begin doc template, $var=level1
+begin a template, $var=first
+in b template, $var=level3
+end a template, $var=first
+begin a template, $var=second
+in b template, $var=level3
+end a template, $var=second
+end doc template, $var=level1
+end root template, $var=level0
+</out>

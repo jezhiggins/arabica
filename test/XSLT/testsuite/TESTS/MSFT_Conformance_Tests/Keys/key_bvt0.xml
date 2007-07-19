@@ -1,0 +1,29 @@
+<collection>
+	<ref refid="1"/>
+	<ref refid="2"/>
+	<ref refid="3"/>
+	<ref refid="4"/>
+	<ref refid="5"/>
+	<ref refid="6"/>
+	<ref refid="7"/>
+	<ref refid="8"/>
+	<ref refid="9"/>
+	<part id="1" type="type-a" />
+	<part id="2" type="type-a" />
+	<part id="3" type="type-b" />
+	<part id="4" type="type-d" />
+	<part id="5" type="type-b" />
+	<part id="6" type="type-c" />
+	<part id="7" type="type-d" />
+	<part id="8" type="type-b" />
+	<part id="9" type="type-c" />
+	<prices>
+		<price value="aaa">10</price>
+		<price value="bbb">20</price>
+		<price value="aaa">30</price>
+		<price value="ccc">40</price>
+		<price value="bbb">50</price>
+		<price value="aaa">60</price>
+		<price value="ccc">70</price>
+	</prices>
+</collection>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<item cell='1'> cell 1 </item>  
+<item cell='2'> cell 2 </item>  
+<name cell='1'> name 1 </name>  
+<name cell='2'> name 2 </name>  
+<size cell='1'> size 1 </size>  
+<size cell='2'> size 2 </size>  
+</xslTutorial> 
+
+
+
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>: Test for source tree numbering
+..I..: Level A
+..I.A..: Level B
+..I.B..: Level B
+..I.B.A..: Level C
+..I.C..: Level B
+..I.C.A..: Level C
+..I.C.A.A..: Level D
+..II..: Level A
+..II.A..: Level B
+..II.A.A..: Level C
+..II.A.A.A..: Level D
+..II.A.A.A.A..: Level E
+..III..: Level A
+..III.A..: Level B
+..III.A.A..: Level C
+..III.A.A.A..: Level D
+..III.A.A.A.A..: Level E
+..III.A.A.B..: Level D
+..III.A.A.B.A..: Level E
+..III.A.B..: Level C
+..III.A.B.A..: Level D
+..III.B..: Level B
+</out>

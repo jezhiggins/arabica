@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:baz="http://xyz"><baz:foo><baz:yyy/></baz:foo></out>

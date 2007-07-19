@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<one xmlns:fiscus="http://www.fiscus.de" fiscus:objectID="1">
+  <two fiscus:objectID="2">
+    <three fiscus:objectID="3">drei</three>
+  </two>
+</one>

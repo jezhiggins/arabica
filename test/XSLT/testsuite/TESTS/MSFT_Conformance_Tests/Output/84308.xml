@@ -1,0 +1,28 @@
+<?xml version="1.0"?>  
+<xslTutorial xmlns:my="urn:http//www.placeholder-name-here.com/schema/" >  
+ 
+<HR> </HR>  
+<HR></HR>  
+<HR/>  
+
+<HR>text</HR>  
+<hr> </hr>
+<hR> </hR>
+<hr size='3'></hr>
+<hr size='5' width='35%' align='right'></hr>
+<hr noshade='true'/>
+<hr noshade='false'/>
+<hr noshade=''/>
+<hr noshade='noshade' disabled='disabled'/>
+<hr foo='foo'/>
+<hr alight="center"> </hr>
+
+
+<h3>one<hr>two</hr></h3>
+<hr foo="bar"/>
+<hr><HR/></hr>
+<script>document.write <![CDATA[<hr> </hr>]]></script>
+<dog disabled='disabled'><hr> </hr></dog>
+<my:dog disabled='disabled'><hr> </hr></my:dog>
+</xslTutorial> 
+

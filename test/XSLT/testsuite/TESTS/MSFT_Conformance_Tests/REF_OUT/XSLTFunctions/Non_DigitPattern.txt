@@ -1,0 +1,34 @@
+<test>1234.5***-,--a.aa***b,cde.fa</test>
+<test>123.456***-,--a.aa***bcd.eg</test>
+<test>1000000***-,--a.aa***b,aaa,aaa.aa</test>
+<test>-59***-,--a.aa***~fj.aa</test>
+<test>1 div 0***-,--a.aa***NaN</test>
+<test>-1 div 0***-,--a.aa***NaN</test>
+<test>1234***---a.a---***bcde.a</test>
+<test>1234.5***---a.a---***bcde.f</test>
+<test>0.00035***---a.a---***a.aaae</test>
+<test>0.25***-aa%***cf%</test>
+<test>0.25***-aa‰***cfa‰</test>
+<test>0.736***-aa%***he%</test>
+<test>0.736***-aa‰***hdg‰</test>
+<test>1***-aa%***baa%</test>
+<test>1***-aa‰***baaa‰</test>
+<test>-42***-aa%***~ecaa%</test>
+<test>-42***-aa‰***~ecaaa‰</test>
+<test>-3.12***-.aa;(-.aa)***(d.bc)</test>
+<test>-3.12***-.aa;-.aaCR***d.bcCR</test>
+<test>-3.12***-.aa;(-)***(d.bc)</test>
+<test>123abc***-***NaN</test>
+<test>-429999999999999***-,--,---,----***~ecj,jjjj,jjjj,jjjj</test>
+<test>-429999999999999***-----,---***~ecj,jjj,jjj,jjj,jjj</test>
+<test>9999999999999999999999999999999999999999999999999999999999999999999999***-,--,---,---***ba,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa,aaa</test>
+<test>9999999999999999999999999999999999999999999999999999999999999999999999***-----,----***baa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa,aaaa</test>
+<test>-0.00***-,-a.aa***a.aa</test>
+<test>-1234.5***'#'-,-a.aa'#'***~#bc,de.fa#</test>
+<test>-1234.5***?-,--a.aa?***~?b,cde.fa?</test>
+<test>-1234.5***?-,--a.aa?***~?b,cde.fa?</test>
+<test>1234.5***?-,--a.aa?***?b,cde.fa?</test>
+<test>1234.5***?-,--a.aa?***?b,cde.fa?</test>
+<test>-1234.5***~-,-a.aa***~~bc,de.fa</test>
+<test>1 div 0***#***Infinity</test>
+<test>-1 div 0***#***~Infinity</test>

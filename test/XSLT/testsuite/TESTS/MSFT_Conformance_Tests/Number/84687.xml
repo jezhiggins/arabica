@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="84687.xsl"?>
+
+<!-- Number Formatting - from -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 04/03/2000 -->
+
+<xslTutorial>  
+
+  <xslTutorial1>  
+	<chapter>Chapter 1</chapter>  
+	<chapter>Chapter 2  
+		<chapter>Subchapter 2.1</chapter>  
+		<chapter>Subchapter 2.2</chapter>  
+	</chapter>  
+	 
+	<chapter>Chapter 3
+		<chapter>Subchapter 3.1</chapter>  
+		<chapter>Subchapter 3.2  
+			<chapter>sub 3.2.1</chapter>  
+			<chapter>sub 3.2.2</chapter>  
+		</chapter>  
+		<chapter>Subchapter 3.3</chapter>  
+	</chapter>  
+  </xslTutorial1>  
+
+  <xslTutorial2>  
+	<chapter>Chapter one</chapter>  
+	<chapter>Chapter two  
+		<chapter>Subchapter two.one</chapter>  
+		<chapter>Subchapter two.two</chapter>  
+	</chapter>  
+	 
+	<chapter>Chapter three
+		<chapter>Subchapter three.one</chapter>  
+		<chapter>Subchapter three.two  
+			<chapter>sub three.two.one</chapter>  
+			<chapter>sub three.two.two</chapter>  
+		</chapter>  
+		<chapter>Subchapter three.three</chapter>  
+	</chapter>  
+  </xslTutorial2>  
+
+</xslTutorial> 

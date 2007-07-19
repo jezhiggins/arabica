@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="84722.xsl"?>
+
+<!-- XSLT - Numbering - format= "&#x0041;" (Finnish,Norwegian,Swedish,Denmark,US-Upper) -->
+<!-- & = "&#x0061;" (Finnish,Norwegian,Swedish,Denmark,US-Lower) - lang = "no" & "sv" & "da" & "en" -->
+<!-- letter-value="alphabetic" | "traditional" -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 04/12/2000 -->
+
+<beings>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+</beings>
+
+

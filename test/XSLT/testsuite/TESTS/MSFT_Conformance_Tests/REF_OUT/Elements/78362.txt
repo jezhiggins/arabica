@@ -1,0 +1,26 @@
+<root xmlns="k">
+<a:b xmlns:a="a:b">
+			x &lt; &gt; &amp; ' " 
+		   
+			x &lt; &gt; &amp; ' " 
+			   Y ` a b
+			
+ 
+
+			y
+
+		   
+			text
+		   <!-- 
+			&abc; <  > 
+			 cdata node should not be ignored -->
+<?PI-NODE  
+			&abc; <  > 
+			 cdata node should not be ignored ?>
+<!-- &abc; <  > -->
+</a:b>
+<b xmlns="a">
+			&amp;abc; &lt;  &gt; 
+			 cdata node should not be ignored <INSIDE xmlns="b" />
+<abc xmlns="b">xxxxxx</abc>  cdcdcdcdcdcdcd  </b>
+</root>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?><author xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+			<first-name>Joe</first-name>
+			<last-name>Bob</last-name>
+			<award>Trenton Literary Review Honorable Mention</award>
+			<my:country>USA</my:country>
+		</author><author xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+			<first-name>Mary</first-name>
+			<last-name>Bob</last-name>
+			<publication>
+				Selected Short Stories of
+				<first-name>JoeBob</first-name>
+				<last-name>Loser</last-name>
+				<country>US</country>
+			</publication>
+		</author><author xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+			<first.name>Mike</first.name>
+			<last.name>Hyman</last.name>
+			<publication>
+				XQL For Dummies
+				<first.name>Jonathan</first.name>
+				<last.name>Marsh</last.name>
+			</publication>
+		</author><author xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+			<first.name>Mary F</first.name>
+			<last-name>Robinson</last-name>
+			<publication>
+				Selected Short Stories of
+				<first.name>Mary F</first.name>
+				<last-name>Robinson</last-name>
+			</publication>
+		</author><author xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+			<first-name>Mary F</first-name>
+			<last-name>Robinson</last-name>
+			<first-name>Frank</first-name>
+			<last-name>Anderson</last-name>
+			<award>Pulizer</award>
+			<publication>
+				Selected Short Stories of
+				<first-name>Mary F</first-name>
+				<last-name>Robinson</last-name>
+			</publication>
+		</author><author xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+			<first-name>Hack</first-name>
+			<last-name>er</last-name>
+			<degree from="Harvard">Ph.D.</degree>
+		</author><author xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+			<first-name>Toni</first-name>
+			<last-name>Bob</last-name>
+			<degree from="Trenton U">B.A.</degree>
+			<degree from="Harvard">Ph.D.</degree>
+			<award>Pulizer</award>
+			<publication>Still in Trenton</publication>
+			<publication>Trenton Forever</publication>
+		</author>

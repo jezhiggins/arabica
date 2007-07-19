@@ -1,0 +1,1 @@
+xsl:include is not supposed to be inside a template but since there is a fallback, this will be ignored

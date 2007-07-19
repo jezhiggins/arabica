@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<todo>
+  <action priority="high" context="y">HIGH</action>
+  <action priority="medium" context="x">MEDIUM</action>
+  <action priority="low" context="w">LOW</action>
+</todo>

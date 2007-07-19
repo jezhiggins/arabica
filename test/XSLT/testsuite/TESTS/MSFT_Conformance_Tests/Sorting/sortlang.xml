@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<sorting>
+<!-- Test case-order attribute -->
+<data>LYE</data>
+<data>LÜE</data>
+<data>char</data>
+<data>CÆSAR</data>
+<data>CAESAR</data>
+<data>cÆSAR</data>
+
+<!-- The ü character sorts after y in Swedish -->
+<data>lye</data>
+<data>lüe</data>
+
+<!-- Ch is a compression in Spanish that sorts after C -->
+<data>Czech</data>
+<data>Char</data>
+
+<!-- Three caesars should compare equal and retain document order -->
+<data tie-breaker="abä">cæsar</data>      
+<data tie-breaker="äba">caesar</data>
+<data tie-breaker="Abä">cæsar</data>
+
+<!-- Different languages sort diacritics differently.
+     French sorts them right to left when all else is equal.
+     Swedish sorts 'ä' after z. -->
+<data>äba</data>
+<data>abä</data>
+
+</sorting>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axsl:stylesheet xmlns:axsl="http://www.w3.org/1999/XSL/TransAlias" version="1.0">
+<axsl:template xmlns:axsl="http://www.w3.org/1999/XSL/Transform" match="h1"><axsl:apply-templates/></axsl:template>
+</axsl:stylesheet>

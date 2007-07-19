@@ -1,0 +1,17 @@
+  
+COPY-OF:
+<html>
+<TABLE datasrc="http://www.yahoo.com">http://www.yahoo.com</TABLE>
+<TABLE datasrc="http://%E6%97%A5%E6%9C%AC">http://??</TABLE>
+<TABLE datasrc="http://www.this space.com">http://www.this space.com </TABLE>
+<TABLE datasrc="http://%D0%81%D0%82%D0%83%D0%A7%D1%84%D1%85%D1%86%D1%88%D1%A6%D1%A8 "> http://?????????? </TABLE>
+<TABLE datasrc="%C4%80%C4%81%C4%82%C4%83">AaAa</TABLE>
+<TABLE datasrc="%E0%AE%83%E0%AE%85%E0%AE%86%E0%AE%87%E0%AE%88%E0%AE%89%E0%AE%8A%E0%AE%B9%E0%AE%B8">????????? </TABLE>
+</html>  
+GET TEXT:
+<TABLE datasrc="http://www.yahoo.com"></TABLE>
+<TABLE datasrc="http://%E6%97%A5%E6%9C%AC"></TABLE>
+<TABLE datasrc="http://www.this space.com "></TABLE>
+<TABLE datasrc=" http://%D0%81%D0%82%D0%83%D0%A7%D1%84%D1%85%D1%86%D1%88%D1%A6%D1%A8 "></TABLE>
+<TABLE datasrc="%C4%80%C4%81%C4%82%C4%83"></TABLE>
+<TABLE datasrc="%E0%AE%83%E0%AE%85%E0%AE%86%E0%AE%87%E0%AE%88%E0%AE%89%E0%AE%8A%E0%AE%B9%E0%AE%B8 "></TABLE>

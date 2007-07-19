@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><root xmlns:a="ns1" xmlns:foo="ns2" xmlns:bar="ns3"><a:AAA xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root">a1<b:BBB>b1</b:BBB><b:BBB>b2</b:BBB></a:AAA><a:AAA xmlns:b="ns2" xmlns:c="ns3" xmlns:root="ns_root">a2<b:BBB>b3</b:BBB><b:BBB>b4</b:BBB><c:CCC>c1</c:CCC><b:BBB>b5<c:CCC>c2</c:CCC></b:BBB></a:AAA></root>

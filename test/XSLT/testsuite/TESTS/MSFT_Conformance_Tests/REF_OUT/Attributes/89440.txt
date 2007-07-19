@@ -1,0 +1,2 @@
+
+BEFORE<foo-element A1="yow!">xxx</foo-element>AFTER

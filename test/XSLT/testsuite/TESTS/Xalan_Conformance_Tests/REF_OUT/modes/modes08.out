@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+modeA: a-text
+modeB: a-texta attribute
+modeC: a-text
+modeD: a-texta attribute
+modeE: a-text
+modeA: b-text
+modeB: b-text
+</out>

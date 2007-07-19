@@ -1,0 +1,15 @@
+<foo:test1 xmlns:foo="http://my.com">foo:x fallback instantiated</foo:test1>
+<foo:test2 xmlns:foo="http://my.com">#default:x fallback instantiated, where #default is null</foo:test2>
+<foo:test3 xmlns:foo="http://my.com">#default:x fallback instantiated, where #default is non-null</foo:test3>
+<foo:test4 xmlns:foo="http://my.com" />
+<foo:test5 xmlns:foo="http://my.com">
+<x />
+</foo:test5>
+<foo:test6 xmlns:foo="http://my.com">
+<x />
+</foo:test6>
+<foo:test7 xmlns:foo="http://my.com">
+<x />
+</foo:test7>
+<foo:test8 xmlns:foo="http://my.com" />
+<x xmlns="http://default" />

@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+	<?xml-stylesheet type="text/xsl" href="play.xsl"?>
+<xmlConfig>
+	<item>Shirt</item>
+	<item>Socks</item>
+	<item>Belt</item>
+</xmlConfig>

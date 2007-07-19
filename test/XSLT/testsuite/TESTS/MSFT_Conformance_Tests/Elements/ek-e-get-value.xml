@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<?This is a PI. Ain't it cool?>
+<!DOCTYPE ROOT [
+	<!ELEMENT ROOT (#PCDATA)* >
+]>
+<ROOT>true</ROOT>

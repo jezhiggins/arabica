@@ -1,0 +1,9 @@
+<test1>
+<x>
+<y>last-name: Bob</y>
+</x>
+</test1>
+<test2> </test2>
+<test3></test3>
+<test4>foo-value</test4>
+<test5>foo-value</test5>

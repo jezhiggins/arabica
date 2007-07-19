@@ -1,0 +1,9 @@
+Redmond : wine : city;
+Redmond : wine : city;
+Redmond : wine : city;
+Redmond : wine : city;
+Redmond : party redmond : doc;
+Redmond : party redmond : doc;
+Redmond : car : doc;
+Redmond : party redmond : foo;
+Redmond : party redmond : foo;

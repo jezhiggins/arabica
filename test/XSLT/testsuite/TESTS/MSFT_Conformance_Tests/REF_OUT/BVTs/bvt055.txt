@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.http.com">
+<xml xmlns="Hello World">
+<Joe xmlns="Hello World2" />
+<foo xmlns="Bob" />
+<Joe xmlns="Bob" />
+</xml>
+<xml bar="" xp_0:foo="" xp_1:foo="" xsl:foo="" real-ns:foo="" xmlns:real-ns="http://my.com" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xp_1="http://www.w3.org/XML/1998/namespace" xmlns:xp_0="http://my.com2" xmlns="http://my.com"></xml>
+</html>

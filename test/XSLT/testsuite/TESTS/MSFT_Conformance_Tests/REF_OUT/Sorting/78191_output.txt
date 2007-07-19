@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?><STRING>stringxml applestringxml applestringxml apple2stringzml apple</STRING><INT>int int0int1int-1int-10int8int8</INT><dateTime>dateTime1998-05-05T09:45:30dateTime1998-05-05T09:45:30dateTime1998-05-05T09:45:30dateTime1998-05-05T19:45:30dateTime1998-05-06T09:45:30dateTime1998-06-05T09:45:30dateTime1999-05-05T09:45:30dateTime2000-05-05T09:45:30dateTime2082-05-05T09:45:30</dateTime><ui4 order="descending">ui426555ui42655ui425555ui425555ui425555ui425535ui415555</ui4><uri>urihttp://www.msnbc.co.jpurihttp://www.msnbc.comurihttp://www.msnbc.comurihttp://www.msnbc.com/default.aspurihttp://www.msnbc.com/default.htm</uri><INTasSTRING>int int0int1int-1int-10int8int8</INTasSTRING><MIXED asTYPE="none">MIXED1MIXED-10MIXED1988-04-07T18:39:09-08:00MIXED1999-05-05T09:45:30MIXED26555MIXEDhttp://www.msnbc.com/default.htm</MIXED><MIXED asTYPE="text">MIXED1MIXED-10MIXED1988-04-07T18:39:09-08:00MIXED1999-05-05T09:45:30MIXED26555MIXEDhttp://www.msnbc.com/default.htm</MIXED><MIXED asTYPE="text" order="descending">MIXEDhttp://www.msnbc.com/default.htmMIXED26555MIXED1999-05-05T09:45:30MIXED1988-04-07T18:39:09-08:00MIXED-10MIXED1</MIXED><WHOLEDOC asTYPE="number">binhexbinbase64int datatypes 
+  	xml apple
+   	650
+	8
+	565454.5E15
+
+   	6.95
+        1
+
+	-127
+	-32768
+	2147483647
+	2147483647
+
+   	53
+	703
+	25555
+	25555
+
+	900.123
+	32768.234565
+
+	F04DA480-65B9-11d1-A29F-00AA00C14882
+   	http://www.msnbc.com
+	
+	
+	S
+
+	1998-05-05T09:45:30
+	1988-04-07T18:39:09-08:00
+	1988-04-07
+	08:15:00
+	08:15:00+05:03
+doc
+ 
+  	xml apple
+   	650
+	8
+	565454.5E15
+
+   	6.95
+        1
+
+	-127
+	-32768
+	2147483647
+	2147483647
+
+   	53
+	703
+	25555
+	25555
+
+	900.123
+	32768.234565
+
+	F04DA480-65B9-11d1-A29F-00AA00C14882
+   	http://www.msnbc.com
+	
+	
+	S
+
+	1998-05-05T09:45:30
+	1988-04-07T18:39:09-08:00
+	1988-04-07
+	08:15:00
+	08:15:00+05:03
+
+
+
+zml apple
+xml apple
+xml apple2
+
+8
+0
+ 
+-1
+-10
+1
+
+1999-05-05T09:45:30
+1998-05-05T09:45:30
+1998-06-05T09:45:30
+1998-05-06T09:45:30
+1998-05-05T19:45:30
+1998-05-05T09:45:30
+2000-05-05T09:45:30
+2082-05-05T09:45:30
+
+
+25555
+26555
+25535
+15555
+2655
+
+http://www.msnbc.com
+http://www.msnbc.com/default.htm
+http://www.msnbc.com/default.asp
+http://www.msnbc.co.jp
+
+
+1999-05-05T09:45:30
+26555
+http://www.msnbc.com/default.htm
+-10
+1988-04-07T18:39:09-08:00
+
+1
+
+
+
+
+
+sorttest
+zml apple
+xml apple
+xml apple2
+
+8
+0
+ 
+-1
+-10
+1
+
+1999-05-05T09:45:30
+1998-05-05T09:45:30
+1998-06-05T09:45:30
+1998-05-06T09:45:30
+1998-05-05T19:45:30
+1998-05-05T09:45:30
+2000-05-05T09:45:30
+2082-05-05T09:45:30
+
+
+25555
+26555
+25535
+15555
+2655
+
+http://www.msnbc.com
+http://www.msnbc.com/default.htm
+http://www.msnbc.com/default.asp
+http://www.msnbc.co.jp
+
+
+1999-05-05T09:45:30
+26555
+http://www.msnbc.com/default.htm
+-10
+1988-04-07T18:39:09-08:00
+
+1
+
+int0time08:15:00timetz08:15:00+05:03boolean1int1MIXED1int-1int-10MIXED-10i1-127ui415555date1988-04-07dateTimetz1988-04-07T18:39:09-08:00MIXED1988-04-07T18:39:09-08:00dateTime1998-05-05T09:45:30dateTime1998-05-05T09:45:30dateTime1998-05-05T09:45:30dateTime1998-05-05T19:45:30dateTime1998-05-06T09:45:30dateTime1998-06-05T09:45:30dateTime1999-05-05T09:45:30MIXED1999-05-05T09:45:30dateTime2000-05-05T09:45:30dateTime2082-05-05T09:45:30i42147483647i42147483647ui425535ui425555ui425555ui425555ui42655ui426555MIXED26555i2-32768r832768.234565ui153float565454.5E15fixed6.95number650ui2703int8int8r4900.123uuidF04DA480-65B9-11d1-A29F-00AA00C14882urihttp://www.msnbc.co.jpurihttp://www.msnbc.comurihttp://www.msnbc.comurihttp://www.msnbc.com/default.aspurihttp://www.msnbc.com/default.htmMIXEDhttp://www.msnbc.com/default.htmcharSstringxml applestringxml applestringxml apple2stringzml apple</WHOLEDOC>

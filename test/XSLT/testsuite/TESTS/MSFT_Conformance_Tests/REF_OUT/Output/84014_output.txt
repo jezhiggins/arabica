@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>  
+ 
+ &lt;!ELEMENT AAA ANY&gt; &lt;!ATTLIST AAA id ID #REQUIRED&gt; Look at my source in your browser  
+
+Literal result element with &lt;tag/&gt;
+&lt;xsl:template match="text()"&gt;
+&lt;xsl:template/&gt;
+  
+
+	1234 &lt;A href="http://1234"&gt;http://1234&lt;/A&gt; 1234
+
+
+&lt;emptythis/&gt;
+
+

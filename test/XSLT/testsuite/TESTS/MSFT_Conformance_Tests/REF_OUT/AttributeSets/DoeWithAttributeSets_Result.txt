@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><bareroot><litresult green-lantern="&lt;lantern" silver-surfer="&quot;silver&quot; &lt; &gt; '" green-arrow="green &lt; &amp;">foobar</litresult></bareroot>

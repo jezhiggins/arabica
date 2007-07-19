@@ -1,0 +1,11 @@
+Robinson    10Robinson    45er    08Bob    6.50Bob    12Bob    55<test1 attr="Bob" attr2="Joe" attr3="//first-name" attr4="" attr5="" />
+<test2 xmlns:my-ns="{'hello'}" xmlns="{'goodbye'}" />
+<test3 attr="BobJoe" attr2="Bob" />
+<test4 attr="startBob" attr2="Bobend" attr3="BobmiddleJoe" />
+<test5 attr="{" attr2="}" attr4="{Bob}" />
+<test6 attr="Hello" />
+<Bob Bob="" />
+<?Bob?>
+<!--Hello-->
+<elem />
+<test7 attr="current: Book 1, document: 1.0" />

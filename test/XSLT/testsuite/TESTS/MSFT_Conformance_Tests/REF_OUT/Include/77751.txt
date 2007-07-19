@@ -1,0 +1,11 @@
+Road and TrackPC WeekPC MagazineTracking Trenton<span style="color=green"><br />
+  Include file with dtd (transformed stylesheet in green, included in black, if magazine titles from included template are wrapped in a span with style=red transform was done in the wrong order) </span>
+<p />
+<span style="color=green" ID="test">Trenton Literary Review Honorable Mention</span><br />
+<span style="color=green" ID="test"></span><br />
+<span style="color=green" ID="test"></span><br />
+<span style="color=green" ID="test"></span><br />
+<span style="color=green" ID="test">Pulizer</span><br />
+<span style="color=green" ID="test"></span><br />
+<span style="color=green" ID="test">Pulizer</span><br />
+<span style="color:red"></span>

@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<BDO>this</BDO><BDO>rocks</BDO>
+<BDO>this</BDO><U> </U><BDO>rocks</BDO>
+<BDO>this </BDO><BDO>rocks</BDO>
+<BDO>this</BDO><BDO> rocks</BDO>
+<BDO>this
+</BDO><BDO>
+rocks</BDO>
+<BDO>this</BDO>
+<BDO>rocks</BDO>
+<BDO>this</BDO>	<BDO>rocks</BDO>
+<BDO>this<![CDATA[  ]]></BDO><BDO>rocks</BDO>
+<![CDATA[ <BDO>this</BDO><U> </U><BDO>rocks</BDO> ]]>
+</xslTutorial>

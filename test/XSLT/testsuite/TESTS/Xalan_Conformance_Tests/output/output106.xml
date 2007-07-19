@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<baz:out xmlns:baz="http://baz.com">should be wrapped</baz:out>

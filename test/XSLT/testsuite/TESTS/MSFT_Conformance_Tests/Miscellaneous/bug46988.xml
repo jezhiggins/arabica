@@ -1,0 +1,9 @@
+
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<p id="a12">  <![CDATA[ <opentag> without an </endtag> and & <! are all ok here ]]>
+Compare <B>these constructs</B>.  
+
+</p>  
+</xslTutorial> 

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<article>
+<title>XSLT Usage</title>
+  <p>XSLT has a number of implications for the development of XML based 
+<term>client/server</term> applications. In addition to performing XML to HTML 
+<term>transformations</term>, XSLT can convert XML to a different XML format, can add scripts to perform dynamic 
+<term>validation</term> of content, and can interface with 
+<term>COM Objects</term> to perform 
+<term>automation</term> on such components.</p> 
+
+<p>Additionally, through XSLT you can effectively handle a lot of your 
+<term>business logic</term> that is typically found in the 
+<term>middle tier</term> of 
+<term>three-tier</term> architectures. Thus XSLT can be seen as an addition to 
+<term>COM Objects</term> as a means to produce sophisticated 
+<term>web applications</term>.
+<!-- more paragraphs -->
+</p>
+
+<!--This is a comment-->
+
+</article>

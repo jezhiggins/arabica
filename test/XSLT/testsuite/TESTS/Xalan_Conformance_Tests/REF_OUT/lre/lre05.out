@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<main><foo/>
+  <sub-element-in-main xmlns:ped="http://tester.com"/>
+  <sub-element-in-import xmlns:ped="http://tester.com"/>
+  <sub-element-in-include xmlns:ped="http://tester.com"/>
+</main>

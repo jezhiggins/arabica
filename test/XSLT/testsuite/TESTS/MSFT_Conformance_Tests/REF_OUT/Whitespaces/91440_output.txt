@@ -1,0 +1,1 @@
+<following-count xmlns:my="http://my.com">0</following-count><following-count xmlns:my="http://my.com">0</following-count>

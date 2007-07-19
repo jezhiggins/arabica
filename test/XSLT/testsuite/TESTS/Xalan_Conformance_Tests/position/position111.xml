@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Doc bar:foo1="attr1" xmlns:bar="http://example.org/bar" bar:foo2="attr2"
+     xmlns:foo="http://example.org/foo"/>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="84699.xsl"?>
+
+<!-- XSLT: Number formatting - value attribute -format = "a" | "A" | "1" | "I" | "I" | "I.I.a.A" | "@a" | "*1A" | "  1> " -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 04/05/2000 -->
+
+<xslNumbering>  
+	<n>one</n>  
+	<n>two</n>  
+	<n>three</n>  
+	<n>four</n>  
+	<n>five</n>  
+	<n>six</n>  
+	<n>seven</n>  
+	<n>eight</n>  
+	<n>nine</n>
+	<n>ten</n>
+</xslNumbering> 

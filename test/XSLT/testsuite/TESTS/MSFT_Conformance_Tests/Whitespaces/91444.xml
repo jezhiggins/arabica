@@ -1,0 +1,34 @@
+<?xml version="1.0"?><!-- This is a comment --><?my-pi This is a pi?><html>
+	<h1>This is an XML/HTML document</h1>
+
+	<p>It's intended to be used to test whitespace preservation and stripping.</p>
+	<p>In order to do this, it must have a variety of interesting data.</p>
+
+    <!-- Alternate between xml:space="preserve" and xml:space="default" -->
+    <div xml:space="preserve">
+        <p xml:space="default">
+
+            <!-- The u element has multiple text, whitespace, and element children.  The element children change xml:space. -->
+            <u xml:space="preserve"> Hello<u xml:space="default">  </u>  <u xml:space="default"/>  <b>World </b>  </u>
+
+        </p>
+        <span xml:space="default">
+            <!-- Always preserve CDATA whitespace -->
+            <![CDATA[       ]]>
+        </span>    
+        <table>
+            <tr>
+                <td> Column 1 </td>
+            </tr>
+            <tr>
+                <td> Column 2 </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Use namespaces -->
+    <my:element xmlns:my="http://my.com">
+        <!-- Comment -->
+        <my:content>  </my:content>
+    </my:element>
+</html>

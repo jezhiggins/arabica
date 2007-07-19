@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<doc>
+  <sub1>
+    <child1>preceding sibling number 1</child1>
+    <child2>current node</child2>
+    <child3>following sibling number 3</child3>
+  </sub1>
+</doc>

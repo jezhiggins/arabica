@@ -1,0 +1,5 @@
+apple,1;
+bananna,10;
+date,45;
+walnut,9;
+currant,9;

@@ -1,0 +1,16 @@
+  
+BLOCK ELEMENTS TEST
+
+FROM XML:
+<xslTutorial>
+<ISINDEX>this<ISINDEX>rocks
+<ISINDEX>this
+<ISINDEX>rocks
+<ISINDEX>this
+<ISINDEX>rocks
+<ISINDEX>this
+<ISINDEX>rocks
+<SPAN>this</SPAN><ISINDEX>rocks
+<SPAN>this</SPAN>
+<ISINDEX>rocks
+</xslTutorial>

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<xslTutorial>
+	<text name="a{" size="1}">   {{} </text>
+	<text name="b}" size="{">   { </text>
+</xslTutorial>

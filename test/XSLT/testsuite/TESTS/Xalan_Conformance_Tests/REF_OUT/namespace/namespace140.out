@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:someprefix="http://someURI">
+<elementName/>
+<elementName xmlns="http://literalURI"/>
+<someprefix:elementName/>
+<someprefix:elementName xmlns:someprefix="http://literalURI"/>
+</out>

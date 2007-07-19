@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+- <SPAN style="color=yellow">mode
+book :Seven Years in Trenton</SPAN><br />
+- <SPAN style="color=yellow">mode
+book :History of Trenton</SPAN><br />
+- <SPAN style="color=yellow">mode
+book :XQL The Golden Years</SPAN><br />
+- <SPAN style="color=brown">mode
+magazine :</SPAN><SPAN style="color:blue">Road and Track</SPAN><br />
+- <SPAN style="color=brown">mode
+title :</SPAN><SPAN style="color:blue"></SPAN><br />
+- <SPAN style="color=brown">mode
+magazine :</SPAN><SPAN style="color:blue">PC Week</SPAN><br />
+- <SPAN style="color=brown">mode
+title :</SPAN><SPAN style="color:blue"></SPAN><br />
+- <SPAN style="color=brown">mode
+magazine :</SPAN><SPAN style="color:blue">PC Magazine</SPAN><br />
+- <SPAN style="color=brown">mode
+title :</SPAN><SPAN style="color:blue"></SPAN><br />
+- <SPAN style="color=brown">mode
+magazine :</SPAN><SPAN style="color:blue"></SPAN><br />
+- <SPAN style="color=brown">mode
+magazine :</SPAN><SPAN style="color:blue"></SPAN><br />
+- <SPAN style="color=yellow">mode
+book :History of Trenton 2</SPAN><br />
+- <SPAN style="color=yellow">mode
+book :History of Trenton Vol 3</SPAN><br />
+- <SPAN style="color=yellow">mode
+book :How To Fix Computers</SPAN><br />
+- <SPAN style="color=brown">mode
+magazine :</SPAN><SPAN style="color:blue">Tracking Trenton</SPAN><br />
+- <SPAN style="color=brown">mode
+title :</SPAN><SPAN style="color:blue"></SPAN><br />
+- <SPAN style="color=yellow">mode
+book :Trenton Today, Trenton Tomorrow</SPAN><br />

@@ -1,0 +1,1 @@
+<root x:a="bbb" y:a="jjj" xmlns:auto-ns1="a" xmlns:x="a" xmlns:auto-ns2="b" xmlns:y="b" />

@@ -1,0 +1,2 @@
+<SPAN style="color=blue" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+    From A  book : Seven Years in Trenton</SPAN><br xmlns:my="urn:http//www.placeholder-name-here.com/schema/" />

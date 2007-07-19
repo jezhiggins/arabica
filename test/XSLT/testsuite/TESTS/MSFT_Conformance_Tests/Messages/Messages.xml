@@ -1,0 +1,99 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Messages" description="" outpath="out">
+	<variation name="_78220">
+		<description>xsl:message  | Base Case | Throw a message and terminate</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>78220.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_91758">
+		<description>XSLT | xsl:message | terminate="no", continue processing the stylesheet</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91758.xsl</xsl>
+		</data>
+		<result expected="valid">91758.txt</result>
+	</variation>
+	<variation name="_91759">
+		<description>XSLT | xsl:message | use xsl:text element as the content of the xsl:message, terminate="yes"</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91759.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_91760">
+		<description>XSLT | xsl:message | terminate="", Error out showing the valid values "yes" or "no"</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91760.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91761">
+		<description>XSLT | xsl:message | terminate="foo", Error out showing the valid values "yes" or "no"</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91761.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91762">
+		<description>XSLT | xsl:message | Invalid attribute foo="bar", Error out "Attribute 'foo' is invalid on xsl:message</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91762.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91763">
+		<description>XSLT | xsl:message | terminate="yes" foo="bar", Error out "Attribute 'foo' is invalid on 'xsl:message'"</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91763.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91764">
+		<description>XSLT | xsl:message | Use as a top level element | Error out "Keyword xsl:stylesheet may not contain xsl:message"</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91764.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91765">
+		<description>XSLT | xsl:message | use xsl:value-of select="foo" as the content of xsl:message | Unspecified Error</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91765.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_91765_1">
+		<description>
+		</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>91765_1.xsl</xsl>
+		</data>
+		<result expected="valid">91765_output.txt</result>
+	</variation>
+	<variation name="XmlFragmentInsideMessage">
+		<description>
+		</description>
+		<data>
+			<xml>message.xml</xml>
+			<xsl>xslt_xsl_message1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_xsl_message1.txt</result>
+	</variation>
+</testcase>

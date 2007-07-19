@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?><html xml:space="default" xmlns="urn:xhtml">
+<foo:p xp_0:attr="" xmlns:xp_0="http://my.com.2" xmlns:foo="http://my.com"></foo:p>
+<auto-ns1:p xp_1:attr="" xp_1:attr2="" xmlns:xp_1="urn:another" xmlns:auto-ns1="urn:xhtml"></auto-ns1:p>
+<p auto-ns1:attr="" auto-ns1:attr2="" auto-ns1:attr3="" xmlns:auto-ns1="urn:another" xmlns="" xmlns:auto-ns2="urn:cause-conflict" xmlns:auto-ns3="urn:cause-conflict-again"></p>
+<p xmlns:foo="urn:foo">
+<foo:p foo:attr="" xmlns:foo="urn:foo2"></foo:p>
+</p>
+<p xmlns:foo="urn:foo">
+<p foo:attr="val" xp_2:attr="" xmlns:xp_2="urn:foo2"></p>
+</p>
+</html>

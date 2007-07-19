@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="84724.xsl"?>
+
+<!-- XSLT - Numbering - format= "&#x5b50;" (Zodiac 12) & = "&#x7532;" (Zodiac 10)  -->
+<!-- & = "&#x7532;&#x5b50;" (Zodiac 60) -  letter-value="alphabetic" | "traditional" -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 04/12/2000 -->
+
+<beings>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+	<humanoid>person</humanoid>
+</beings>
+
+

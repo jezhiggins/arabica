@@ -1,0 +1,9 @@
+<?xml version="1.0"?> 
+<doc>
+  text-in-doc
+  <inner>
+    inner-text
+    <sub>subtext</sub>
+  </inner>
+  text-in-doc2
+</doc>

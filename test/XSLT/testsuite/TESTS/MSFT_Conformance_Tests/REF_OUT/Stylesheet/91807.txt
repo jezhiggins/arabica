@@ -1,0 +1,2 @@
+<foo:myelement xmlns:foo="http://my.com"></foo:myelement>
+<foo xmlns="http://default" />

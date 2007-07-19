@@ -1,0 +1,328 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="ConflictResolution" description="" outpath="out">
+	<variation name="_77572">
+		<description>XSLT08004 : priority - null case</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT08004a.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77619">
+		<description>XSLT08005 : priority - 0 case (span color green if 0 &gt; -.5, red for failure)</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT08005.xsl</xsl>
+		</data>
+		<result expected="valid">77619.txt</result>
+	</variation>
+	<variation name="_77621">
+		<description>XSLT08006 : priority &lt;br/&gt;Author country: positive green, and negative red (.5)&lt;br/&gt;Author last name: 1.222222222222222 green, 1.222222222222221 red&lt;br/&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT08006a.xsl</xsl>
+		</data>
+		<result expected="valid">77621.txt</result>
+	</variation>
+	<variation name="_77622">
+		<description>XSLT08007 : priority upper boundary cases, concatenates &lt;br/&gt;Expected results: red on author country, red on author last name</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT08007.xsl</xsl>
+		</data>
+		<result expected="valid">77622.txt</result>
+	</variation>
+	<variation name="_77623">
+		<description>XSLT08008 : priority contains text</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT08008.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77626">
+		<description>XSLT08014 : priority contains text - hex notation</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT08014.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77746">
+		<description>XSLT08112: default priority in attribute value template with x|y (bug 86835)</description>
+		<data>
+			<xml>xslt08112.XML</xml>
+			<xsl>xslt08112.xsl</xsl>
+		</data>
+		<result expected="valid">77746.txt</result>
+	</variation>
+	<variation name="_77781">
+		<description>XSLT09103: Conflict Resultion - priority .0 versus -.0, expect document order to break the tie</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09103.xsl</xsl>
+		</data>
+		<result expected="valid">77781.txt</result>
+	</variation>
+	<variation name="_77782">
+		<description>XSLT09102: Conflict Resultion - priority 1 versus 1 expect document order to break the tie</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09102.xsl</xsl>
+		</data>
+		<result expected="valid">77782.txt</result>
+	</variation>
+	<variation name="_77783">
+		<description>XSLT09104: Conflict Resultion - default priority n versus default priority n expect document order to break the tie</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09104.xsl</xsl>
+		</data>
+		<result expected="valid">77783.txt</result>
+	</variation>
+	<variation name="_77784">
+		<description>Copy of 77783: XSLT09104: Conflict Resultion - default priority n versus default priority n expect document order to break the tie</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09105.xsl</xsl>
+		</data>
+		<result expected="valid">77784_output.txt</result>
+	</variation>
+	<variation name="_77802">
+		<description>XSLT09000 : priority &lt;br/&gt;Author country: positive green, and negative red (.5)&lt;br/&gt;Author last name: 0.499999999999999 (15 digits) red vs .5 green&lt;br/&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT09000.xsl</xsl>
+		</data>
+		<result expected="valid">77802.txt</result>
+	</variation>
+	<variation name="_77833">
+		<description>XSLT08103 : pattern has the form processing-instruction(literal)</description>
+		<data>
+			<xml>plants01.xml</xml>
+			<xsl>xslt08103.xsl</xsl>
+		</data>
+		<result expected="valid">77833.txt</result>
+	</variation>
+	<variation name="_77847">
+		<description>XSLT08104: Conflict Resultion - Pattern has the form NCName:* - should have default priority of -0.25</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08104.xsl</xsl>
+		</data>
+		<result expected="valid">77847_output.txt</result>
+	</variation>
+	<variation name="_77870">
+		<description>XSLT08101: Conflict Resultion - Pattern has the form Qname - should have default priority of 0</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08101.xsl</xsl>
+		</data>
+		<result expected="valid">77870_output.txt</result>
+	</variation>
+	<variation name="_77871">
+		<description>XSLT08102: Conflict Resultion - Pattern has the form @Qname - should have default priority of 0</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08102.xsl</xsl>
+		</data>
+		<result expected="valid">77871.txt</result>
+	</variation>
+	<variation name="_77872">
+		<description>XSLT08106: Conflict Resultion - specific match title[@style='foo'] - should have default priority of .5</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08106.xsl</xsl>
+		</data>
+		<result expected="valid">77872_output.txt</result>
+	</variation>
+	<variation name="_77874">
+		<description>XSLT08100: Conflict Resultion - * (and @*) with no namespace where stylesheet has a default namespace - default priority of - .5</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08100.xsl</xsl>
+		</data>
+		<result expected="valid">77874_output.txt</result>
+	</variation>
+	<variation name="_77875">
+		<description>XSLT08105: Conflict Resultion - pattern consists of just a NodeTest, just a processing-instruction, just a comment, just node()</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08105.xsl</xsl>
+		</data>
+		<result expected="valid">77875_output.txt</result>
+	</variation>
+	<variation name="_77876">
+		<description>XSLT08107: Conflict Resultion -muliple alternatives separated by | : two equivalent priorities - a|b</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08107.xsl</xsl>
+		</data>
+		<result expected="valid">77876_output.txt</result>
+	</variation>
+	<variation name="_77877">
+		<description>XSLT08110: Conflict Resultion -multiple alternates in a group : (a|a/b) a= 0, a/b = .5</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08110.xsl</xsl>
+		</data>
+		<result expected="valid">77877_output.txt</result>
+	</variation>
+	<variation name="_77878">
+		<description>XSLT08109: Conflict Resultion -muliple alternatives : split priorities - a|a/b  specify a .25  c|c/d specify .6</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08109.xsl</xsl>
+		</data>
+		<result expected="valid">77878_output.txt</result>
+	</variation>
+	<variation name="_77879">
+		<description>XSLT08113: Conflict Resultion -multiple alternates in a group : (a|a/b) both take highest priority</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08109.xsl</xsl>
+		</data>
+		<result expected="valid">77879_output.txt</result>
+	</variation>
+	<variation name="_77881">
+		<description>XSLT08114: (Copy of 77878)  Conflict Resultion -muliple alternatives : split priorities - a|a/b  specify a .25  c|c/d specify .6 &lt;br/&gt; with 17 template rules</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08114.xsl</xsl>
+		</data>
+		<result expected="valid">77881_output.txt</result>
+	</variation>
+	<variation name="_77882">
+		<description>XSLT08108: muliple alternatives : a|b|a/b|c/d|c  -three splits &gt; 17 template rules</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08108.xsl</xsl>
+		</data>
+		<result expected="valid">77882_output.txt</result>
+	</variation>
+	<variation name="_77883">
+		<description>XSLT08111: mutliple alternatives including group:  a|c/d|(a/b|b) &gt; 17 template rules</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt08111.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_77884">
+		<description>XSLT09001: default priority -0.5 versus specified priority -1</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09001.xsl</xsl>
+		</data>
+		<result expected="valid">77884_output.txt</result>
+	</variation>
+	<variation name="_77885">
+		<description>XSLT09002:  Conflict Resolution: the same template rule over 16 times, mixed in with other templates</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09002.xsl</xsl>
+		</data>
+		<result expected="valid">77885.txt</result>
+	</variation>
+	<variation name="_77886">
+		<description>XSLT09005:  Conflict Resolution: over 16 template rules all named, equivalent matches use document order</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09005.xsl</xsl>
+		</data>
+		<result expected="valid">77886_output.txt</result>
+	</variation>
+	<variation name="_77889">
+		<description>XSLT09007:  Conflict Resolution: include (xsl into default ns), literal results(with my: ns and exclude-result-prefixes) , inter-mixed priorities</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09007.xsl</xsl>
+		</data>
+		<result expected="valid">77889_output.txt</result>
+	</variation>
+	<variation name="_77891">
+		<description>XSLT09008:  Conflict Resolution: include, literal results, inter-mixed priorities, equivalent matches use document order</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09008.xsl</xsl>
+		</data>
+		<result expected="valid">77891_output.txt</result>
+	</variation>
+	<variation name="_77893">
+		<description>XSLT09005:  Conflict Resolution:over 16 template rules all wildcard, equivalent matches use document order</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09005a.xsl</xsl>
+		</data>
+		<result expected="valid">77893_output.txt</result>
+	</variation>
+	<variation name="_77897">
+		<description>XSLT09010:  Conflict Resolution:include literal result element, inter-mixed priorities with groups and |</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09010.xsl</xsl>
+		</data>
+		<result expected="valid">77897_output.txt</result>
+	</variation>
+	<variation name="_77898">
+		<description>XSLT09011:  Conflict Resolution:include literal result element, inter-mixed priorities with groups and |, &lt;br/&gt; document order breaks tie.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09011.xsl</xsl>
+		</data>
+		<result expected="valid">77898_output.txt</result>
+	</variation>
+	<variation name="_77902">
+		<description>XSLT09009:  Conflict Resolution: specified priority in stylesheet versus higher default priority in included stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09009.xsl</xsl>
+		</data>
+		<result expected="valid">77902_output.txt</result>
+	</variation>
+	<variation name="_77904">
+		<description>XSLT09013: XSLT09014  Conflict Resolution: include, literal results, inter-mixed priorities...  groups and |  with Qnames</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt09013.xsl</xsl>
+		</data>
+		<result expected="valid">77904_output.txt</result>
+	</variation>
+	<variation name="_84476">
+		<description>Copy of 77871: XSLT08102: Conflict Resultion - Pattern has the form @Qname - should have default priority of 0</description>
+		<data>
+			<xml>84476.xml</xml>
+			<xsl>84476.xsl</xsl>
+		</data>
+		<result expected="valid">84476.txt</result>
+	</variation>
+	<variation name="_84477">
+		<description>Copy of 77878:  XSLT08109: Conflict Resultion -muliple alternatives : split priorities - a|a/b  specify a .25  c|c/d specify .6</description>
+		<data>
+			<xml>84477.xml</xml>
+			<xsl>84477.xsl</xsl>
+		</data>
+		<result expected="valid">84477_output.txt</result>
+	</variation>
+	<variation name="_84478">
+		<description>Copy of 77884: XSLT09001: default priority -0.5 versus specified priority -1</description>
+		<data>
+			<xml>84478.xml</xml>
+			<xsl>84478.xsl</xsl>
+		</data>
+		<result expected="valid">84478_output.txt</result>
+	</variation>
+	<variation name="ConflictResBetweenStripSpaceAndPreserveSpace">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_conflict_res_between_preservespace_and_strpspace.xml</xml>
+			<xsl>xslt_conflict_res_between_preservespace_and_strpspace.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_conflict_res_between_preservespace_and_strpspace.txt</result>
+	</variation>
+</testcase>

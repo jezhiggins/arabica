@@ -1,0 +1,3 @@
+﻿<out>
+	Inside named template
+      </out>

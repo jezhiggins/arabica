@@ -1,0 +1,83 @@
+<doc xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<datatypes> 
+  	<string dt:dt="string">xml apple</string>
+   	<number dt:dt="number">650</number>
+	<int dt:dt="int">8</int>
+	<float dt:dt="float.IEEE.754.64">565454.5E15</float>
+
+   	<fixed dt:dt="fixed.14.4">6.95</fixed>
+        <boolean dt:dt="boolean">1</boolean>
+
+	<i1 dt:dt="i1">-127</i1>
+	<i2 dt:dt="i2">-32768</i2>
+	<i4 dt:dt="i4">2147483647</i4>
+	<i4 dt:dt="i4">2147483647</i4>
+
+   	<ui1 dt:dt="ui1">53</ui1>
+	<ui2 dt:dt="ui2">703</ui2>
+	<ui4 dt:dt="ui4">25555</ui4>
+	<ui4 dt:dt="ui4">25555</ui4>
+
+	<r4 dt:dt="r4">900.123</r4>
+	<r8 dt:dt="r8">32768.234565</r8>
+
+	<uuid dt:dt="uuid">F04DA480-65B9-11d1-A29F-00AA00C14882</uuid>
+   	<uri dt:dt="uri">http://www.msnbc.com</uri>
+	<binhex dt:dt="bin.hex"></binhex>
+	<binbase64 dt:dt="bin.base64"></binbase64>
+	<char dt:dt="char">S</char>
+
+	<dateTime dt:dt="dateTime">1998-05-05T09:45:30</dateTime>
+	<dateTimetz dt:dt="dateTime.tz">1988-04-07T18:39:09-08:00</dateTimetz>
+	<date dt:dt="date">1988-04-07</date>
+	<time dt:dt="time">08:15:00</time>
+	<timetz dt:dt="time.tz">08:15:00+05:03</timetz>
+</datatypes>
+
+<sorttest>
+<string dt:dt="string">zml apple</string>
+<string dt:dt="string">xml apple</string>
+<string dt:dt="string">xml apple2</string>
+
+<int dt:dt="int">8</int>
+<int dt:dt="int">0</int>
+<int dt:dt="int"> </int>
+<int dt:dt="int">-1</int>
+<int dt:dt="int">-10</int>
+<int dt:dt="int">1</int>
+
+<dateTime dt:dt="dateTime">1999-05-05T09:45:30</dateTime>
+<dateTime dt:dt="dateTime">1998-05-05T09:45:30</dateTime>
+<dateTime dt:dt="dateTime">1998-06-05T09:45:30</dateTime>
+<dateTime dt:dt="dateTime">1998-05-06T09:45:30</dateTime>
+<dateTime dt:dt="dateTime">1998-05-05T19:45:30</dateTime>
+<dateTime dt:dt="dateTime">1998-05-05T09:45:30</dateTime>
+<dateTime dt:dt="dateTime">2000-05-05T09:45:30</dateTime>
+<dateTime dt:dt="dateTime">2082-05-05T09:45:30</dateTime>
+
+
+<ui4 dt:dt="ui4">25555</ui4>
+<ui4 dt:dt="ui4">26555</ui4>
+<ui4 dt:dt="ui4">25535</ui4>
+<ui4 dt:dt="ui4">15555</ui4>
+<ui4 dt:dt="ui4">2655</ui4>
+
+<uri dt:dt="uri">http://www.msnbc.com</uri>
+<uri dt:dt="uri">http://www.msnbc.com/default.htm</uri>
+<uri dt:dt="uri">http://www.msnbc.com/default.asp</uri>
+<uri dt:dt="uri">http://www.msnbc.co.jp</uri>
+
+
+<MIXED dt:dt="dateTime">1999-05-05T09:45:30</MIXED>
+<MIXED dt:dt="ui4">26555</MIXED>
+<MIXED dt:dt="uri">http://www.msnbc.com/default.htm</MIXED>
+<MIXED dt:dt="int">-10</MIXED>
+<MIXED dt:dt="dateTime.tz">1988-04-07T18:39:09-08:00</MIXED>
+
+<MIXED dt:dt="boolean">1</MIXED>
+
+</sorttest>
+
+
+
+</doc>

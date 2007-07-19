@@ -1,0 +1,164 @@
+<html version="1.0">
+  <span style="color:green">title : Road and Track</span>
+  <br>
+  <span style="color:green">title : PC Week</span>
+  <br>
+  <span style="color:green">title : PC Magazine</span>
+  <br>
+  <span style="color:green">title : Tracking Trenton</span>
+  <br>
+        
+- 
+        <SPAN style="color=brown">
+            Pri .25 - 
+            <book>Seven Years in Trenton</book></SPAN>
+        
+- 
+        <SPAN style="color=green">
+            Default Pri .5 - 
+            <title>Seven Years in Trenton</title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <price></price></SPAN>
+        
+- 
+        <SPAN style="color=brown">
+            Pri .25 - 
+            <book>History of Trenton</book></SPAN>
+        
+- 
+        <SPAN style="color=green">
+            Default Pri .5 - 
+            <title>History of Trenton</title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <price></price></SPAN>
+        
+- 
+        <SPAN style="color=brown">
+            Pri .25 - 
+            <book>XQL The Golden Years</book></SPAN>
+        
+- 
+        <SPAN style="color=green">
+            Default Pri .5 - 
+            <title>XQL The Golden Years</title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <price></price></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <magazine></magazine></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <title></title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <magazine></magazine></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <title></title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <magazine></magazine></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <title></title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <magazine></magazine></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <magazine></magazine></SPAN>
+        
+- 
+        <SPAN style="color=brown">
+            Pri .25 - 
+            <book>History of Trenton 2</book></SPAN>
+        
+- 
+        <SPAN style="color=green">
+            Default Pri .5 - 
+            <title>History of Trenton 2</title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <price></price></SPAN>
+        
+- 
+        <SPAN style="color=brown">
+            Pri .25 - 
+            <book>History of Trenton Vol 3</book></SPAN>
+        
+- 
+        <SPAN style="color=green">
+            Default Pri .5 - 
+            <title>History of Trenton Vol 3</title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <price></price></SPAN>
+        
+- 
+        <SPAN style="color=brown">
+            Pri .25 - 
+            <book>How To Fix Computers</book></SPAN>
+        
+- 
+        <SPAN style="color=green">
+            Default Pri .5 - 
+            <title>How To Fix Computers</title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <price></price></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <magazine></magazine></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <title></title></SPAN>
+        
+- 
+        <SPAN style="color=brown">
+            Pri .25 - 
+            <book>Trenton Today, Trenton Tomorrow</book></SPAN>
+        
+- 
+        <SPAN style="color=green">
+            Default Pri .5 - 
+            <title>Trenton Today, Trenton Tomorrow</title></SPAN>
+        
+- 
+        <SPAN style="color=blue">
+         Pri 0.6 - 
+            <price></price></SPAN></html>

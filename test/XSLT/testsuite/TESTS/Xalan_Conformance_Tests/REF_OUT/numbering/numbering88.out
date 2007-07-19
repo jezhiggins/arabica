@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  <chap number="1" position="2">aaa<sel number="1" position="1"/></chap>
+  <chap number="2" position="4">zzz<sel number="2" position="1"/></chap>
+</out>

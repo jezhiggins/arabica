@@ -1,0 +1,4 @@
+
+BEFORE
+<foo-element foo-attribute="yow!">content goes here</foo-element>
+AFTER

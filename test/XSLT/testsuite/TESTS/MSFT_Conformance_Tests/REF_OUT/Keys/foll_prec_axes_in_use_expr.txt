@@ -1,0 +1,10 @@
+﻿<out>
+  <price1>40</price1>
+  <price1>50</price1>
+  <price1>60</price1>
+  <price1>70</price1>
+  <price1>80</price1>
+  <price2>10</price2>
+  <price2>20</price2>
+  <price2>30</price2>
+</out>

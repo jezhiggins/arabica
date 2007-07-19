@@ -1,0 +1,62 @@
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<doc>  
+  <ancprec>  
+<p>Preceeding Ancestor. <br/></p>  
+   </ancprec>  
+ 
+<gf>  
+<p>Ancestor. <br/></p>  
+ 
+   <pprec choice="a">  
+<p>Preceeding Parent.<br/> </p>  
+   </pprec>  
+ 
+<par>  
+<p>Parent. <br/></p>  
+    <sibprec>  
+<p>Preceeding sibling.<br/> </p>  
+    </sibprec>  
+ 
+ <me id="id001">  
+<p>Me.<br/> </p>  
+<!-- Comment after Me -->  
+ 
+  <chprec>  
+   <p>Preceeding child.<br/> </p>  
+  </chprec>  
+  <child idref="id001">  
+    <p>Child. <br/></p>  
+<?pi Processing Instruction ?>  
+    <dprec>  
+      <p>Preceeding Descendant.<br/> </p>  
+    </dprec>  
+   <desc>  
+    <p>Descendant.<br/> </p>  
+   </desc>  
+   <dfoll>  
+     <p>Following Descendant.<br/> </p>  
+   </dfoll>  
+  </child>  
+  <chfoll>  
+   <p>following child.<br/> </p>  
+  </chfoll>  
+ 
+ </me>  
+ 
+ <sibfoll>  
+   <p>Following Sibling.<br/> </p>  
+ </sibfoll>  
+</par>  
+ 
+<pfoll>  
+<p>Following Parent.<br/> </p>  
+</pfoll>  
+</gf>  
+<ancfoll>  
+<p>following Ancestor.<br/></p>  
+</ancfoll>  
+ 
+</doc>  
+</xslTutorial> 

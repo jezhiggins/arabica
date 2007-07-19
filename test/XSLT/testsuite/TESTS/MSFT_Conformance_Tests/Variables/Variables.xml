@@ -1,0 +1,698 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Variables" description="" outpath="out">
+	<variation name="_78097">
+		<description>XSLT:  &lt;xsl:variable&gt; - match both prefix and base name.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21000.xsl</xsl>
+		</data>
+		<result expected="valid">78097_output.txt</result>
+	</variation>
+	<variation name="_78098">
+		<description>XSLT:  &lt;xsl:variable&gt; - match base name (no namespace).</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21001.xsl</xsl>
+		</data>
+		<result expected="valid">78098_output.txt</result>
+	</variation>
+	<variation name="_78099">
+		<description>XSLT:  xsl:variable- without name attribute ERROR CASE.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21003.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78100">
+		<description>XSLT: &lt;xsl:variable name-"x" select=""bookstore/book/title"/&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21200.xsl</xsl>
+		</data>
+		<result expected="valid">78100_output.txt</result>
+	</variation>
+	<variation name="_78101">
+		<description>XSLT: &lt;xsl:variable name="x"&gt;1&lt;/xsl:variable&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21201.xsl</xsl>
+		</data>
+		<result expected="valid">78101_output.txt</result>
+	</variation>
+	<variation name="_78110">
+		<description>XSLT: &lt;xsl:variable name="x"/&gt;  x is equal to empty string.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21203.xsl</xsl>
+		</data>
+		<result expected="valid">78110_output.txt</result>
+	</variation>
+	<variation name="_78111">
+		<description>XSLT: &lt;xsl:variable name="x" select="bookstore/magazine/title"/&gt;  x is equal to all mazazine title's.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21205.xsl</xsl>
+		</data>
+		<result expected="valid">78111_output.txt</result>
+	</variation>
+	<variation name="_78112">
+		<description>XSLT: &lt;xsl:variable name="foo:y" select="bookstore/book/title"/&gt;  foo:y is equal to all book title's.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21206.xsl</xsl>
+		</data>
+		<result expected="valid">78112_output.txt</result>
+	</variation>
+	<variation name="_78115">
+		<description>XSLT: &lt;xsl:variable name="bar:x" select="bookstore/book/title"/&gt;  bar:x equal to all book title's.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21207.xsl</xsl>
+		</data>
+		<result expected="valid">78115_output.txt</result>
+	</variation>
+	<variation name="_78116">
+		<description>XSLT: &lt;xsl:value-of select="(bookstore/book)[$x]/title"/&gt;  Using variable as an index, return the first book's title.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21208.xsl</xsl>
+		</data>
+		<result expected="valid">78116_output.txt</result>
+	</variation>
+	<variation name="_78117">
+		<description>XSLT: &lt;xsl:variable&gt; Circular Reference - ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21210.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78118">
+		<description>XSLT: &lt;xsl:variable name="x" select="1"&gt;2&lt;/xsl:variable&gt;  Should be attribute value.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21211.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78120">
+		<description>XSLT: &lt;xsl:variable name="x" select="$x"/&gt;  Illegal, ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21212.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78121">
+		<description>XSLT: &lt;xsl:variable name="x" select="foo()"/&gt;   ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21213.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78125">
+		<description>XSLT: Variable and parameter defined in same block -  ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21300.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78131">
+		<description>XSLT:  stylesheet contains more than one binding of a top level variable with same name. -  ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21304.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78132">
+		<description>XSLT:  Reference to top level variable at top level after template (nested) level variable binding with same name.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21306.xsl</xsl>
+		</data>
+		<result expected="valid">78132_output.txt</result>
+	</variation>
+	<variation name="_78137">
+		<description>XSLT:  Reference to top level variable in a templatel after template level variable binding with same name (in a separate template).</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21307.xsl</xsl>
+		</data>
+		<result expected="valid">78137_output.txt</result>
+	</variation>
+	<variation name="_78153">
+		<description>XSLT:   x references y before y defined (Global).</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21301.xsl</xsl>
+		</data>
+		<result expected="valid">78153_output.txt</result>
+	</variation>
+	<variation name="_78154">
+		<description>XSLT:   x references y before y defined (Within Template) ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21308.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78159">
+		<description>XSLT:   error - reference variable before declared</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21400.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78160">
+		<description>XSLT:   in template shadow binding of top level</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21401.xsl</xsl>
+		</data>
+		<result expected="valid">78160_output.txt</result>
+	</variation>
+	<variation name="_78161">
+		<description>XSLT:  error shadow binding in template</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21402.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78162">
+		<description>XSLT:  QNAME test - match both URI and base name in a template</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21403.xsl</xsl>
+		</data>
+		<result expected="valid">78162_output.txt</result>
+	</variation>
+	<variation name="_78163">
+		<description>XSLT:  QNAME test - no namespace prefix</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21404.xsl</xsl>
+		</data>
+		<result expected="valid">78163_output.txt</result>
+	</variation>
+	<variation name="_78164">
+		<description>XSLT:  xsl:variable on sort</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21405.xsl</xsl>
+		</data>
+		<result expected="valid">78164_output.txt</result>
+	</variation>
+	<variation name="_78292">
+		<description>XSLT:  xsl:variable on mode (apply-templates parameter) - ERROR</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21406.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78304">
+		<description>XSLT:  xsl:variable on include - ERROR</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21407.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78305">
+		<description>XSLT:  xsl:variable, forward reference to global within template</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21410.xsl</xsl>
+		</data>
+		<result expected="valid">78305_output.txt</result>
+	</variation>
+	<variation name="_78306">
+		<description>XSLT:  xsl:variable, scoping 3 levels deep.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT21411.xsl</xsl>
+		</data>
+		<result expected="valid">78306_output.txt</result>
+	</variation>
+	<variation name="_78314">
+		<description>XSLT:  xsl:param- without name attribute ERROR CASE.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22000.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78316">
+		<description>XSLT:  xsl:param - match both prefix and base name.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22001.xsl</xsl>
+		</data>
+		<result expected="valid">78316_output.txt</result>
+	</variation>
+	<variation name="_78317">
+		<description>XSLT:  xsl:param - match base name (no namespace).</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22002.xsl</xsl>
+		</data>
+		<result expected="valid">78317_output.txt</result>
+	</variation>
+	<variation name="_78348">
+		<description>XSLT: xsl:param name-"x" select=""bookstore/book/title"/</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22200.xsl</xsl>
+		</data>
+		<result expected="valid">78348_output.txt</result>
+	</variation>
+	<variation name="_78349">
+		<description>XSLT: &lt;xsl:param name="x"&gt;1 &lt;/xsl:param&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22201.xsl</xsl>
+		</data>
+		<result expected="valid">78349_output.txt</result>
+	</variation>
+	<variation name="_78350">
+		<description>XSLT:  xsl:param name="x"/&gt;  x is equal to empty string.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22203.xsl</xsl>
+		</data>
+		<result expected="valid">78350_output.txt</result>
+	</variation>
+	<variation name="_78352">
+		<description>XSLT:  xsl:param name="x" select="bookstore/magazine/title"/&gt;  x is equal to all mazazine title's.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22205.xsl</xsl>
+		</data>
+		<result expected="valid">78352_output.txt</result>
+	</variation>
+	<variation name="_78353">
+		<description>XSLT:  xsl:param name="foo:y" select="bookstore/book/title"/&gt;  foo:y is equal to all book title's.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22206.xsl</xsl>
+		</data>
+		<result expected="valid">78353_output.txt</result>
+	</variation>
+	<variation name="_78354">
+		<description>XSLT:  xsl:value-of select="(bookstore/book)[$x]/title"/&gt;  Using param as an index, return the first book's title.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22208.xsl</xsl>
+		</data>
+		<result expected="valid">78354_output.txt</result>
+	</variation>
+	<variation name="_78355">
+		<description>XSLT:  xsl:variable name="bar:x" select="bookstore/book/title"/&gt;  bar:x equal to all book title's.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22207.xsl</xsl>
+		</data>
+		<result expected="valid">78355_output.txt</result>
+	</variation>
+	<variation name="_78356">
+		<description>XSLT:  xsl:param&gt; Circular Reference - ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22210.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78357">
+		<description>XSLT:  &amp;lt;xsl:param name="x" select="1"&gt;2 &amp;lt;/xsl:param&gt;  ERROR case.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22211.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78359">
+		<description>XSLT:  xsl:param name="x" select="foo()"/&gt;   ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22213.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78360">
+		<description>XSLT: Variable and parameter defined in same block -  ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22300.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78361">
+		<description>XSLT:   x references y before y defined (Global).</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22301.xsl</xsl>
+		</data>
+		<result expected="valid">78361_output.txt</result>
+	</variation>
+	<variation name="_78371">
+		<description>Copy of 78293:  XSLT03020: INCLUDE - conflicting top level variables</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT03020.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78399">
+		<description>XSLT:  stylesheet contains more than one binding of a top level variable with same name. -  ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22303.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78400">
+		<description>XSLT:  Reference to top level variable at top level after template (nested) level variable binding with same name.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22306.xsl</xsl>
+		</data>
+		<result expected="valid">78400_output.txt</result>
+	</variation>
+	<variation name="_78401">
+		<description>XSLT:  Reference to top level variable in a template after template level variable binding with same name (in a separate template).</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22307.xsl</xsl>
+		</data>
+		<result expected="valid">78401_output.txt</result>
+	</variation>
+	<variation name="_78402">
+		<description>XSLT:   x references y before y defined (Within Template) ERROR CASE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22308.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78403">
+		<description>XSLT:   error - reference param before declared</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22400.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78404">
+		<description>XSLT:   in template shadow binding of top level PARAM</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22401.xsl</xsl>
+		</data>
+		<result expected="valid">78404_output.txt</result>
+	</variation>
+	<variation name="_78409">
+		<description>78306: XSLT:  xsl:variable, save variable defined in 3 different scopes, within template, with literal elements separating scopes.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT22411.xsl</xsl>
+		</data>
+		<result expected="valid">78409_output.txt</result>
+	</variation>
+	<variation name="_84026">
+		<description>XSLT: &amp;lt;xsl:with-param&gt; - No NS prefix</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT23002.xsl</xsl>
+		</data>
+		<result expected="valid">84026_output.txt</result>
+	</variation>
+	<variation name="_84034">
+		<description>XSLT: &amp;lt;xsl:with-param&gt; - With NS prefix</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT23001.xsl</xsl>
+		</data>
+		<result expected="valid">84034_output.txt</result>
+	</variation>
+	<variation name="_84035">
+		<description>XSLT:  Error - &amp;lt;xsl:with-param&gt; - No NAME parameter.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT23000.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84036">
+		<description>XSLT: &amp;lt;xsl:with-param&gt; - Data type=node-list</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT23200.xsl</xsl>
+		</data>
+		<result expected="valid">84036_output.txt</result>
+	</variation>
+	<variation name="_84438">
+		<description>ZVON XSLT Example 81 - recursion &amp; param</description>
+		<data>
+			<xml>84438.xml</xml>
+			<xsl>84438.xsl</xsl>
+		</data>
+		<result expected="valid">84438.txt</result>
+	</variation>
+	<variation name="_84439">
+		<description>ZVON XSLT Example 82 -  param &amp; with-param</description>
+		<data>
+			<xml>84439.xml</xml>
+			<xsl>84439.xsl</xsl>
+		</data>
+		<result expected="valid">84439.txt</result>
+	</variation>
+	<variation name="_84632">
+		<description>XSLT - Circular references of an xsl:variable should raise an error.</description>
+		<data>
+			<xml>84632.xml</xml>
+			<xsl>84632.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84633">
+		<description>XSLT - Self reference of an xsl:variable should raise an error.</description>
+		<data>
+			<xml>84633.xml</xml>
+			<xsl>84633.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84634">
+		<description>XSLT - A binding shadow is not allowed.  Processor must raise error - WR</description>
+		<data>
+			<xml>84634.xml</xml>
+			<xsl>84634.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84635">
+		<description>XSLT -Template parameters - WR</description>
+		<data>
+			<xml>84635.xml</xml>
+			<xsl>84635.xsl</xsl>
+		</data>
+		<result expected="valid">84635_output.txt</result>
+	</variation>
+	<variation name="_84636">
+		<description>XSLT -Forward variables - WR</description>
+		<data>
+			<xml>84636.xml</xml>
+			<xsl>84636.xsl</xsl>
+		</data>
+		<result expected="valid">84636.txt</result>
+	</variation>
+	<variation name="_84637">
+		<description>XSLT -Variable casting - WR</description>
+		<data>
+			<xml>84637.xml</xml>
+			<xsl>84637.xsl</xsl>
+		</data>
+		<result expected="valid">84637.txt</result>
+	</variation>
+	<variation name="_84697">
+		<description>BUG# 49422 XSLT: Circular reference in Arabic/Hebrew spelled variable returns error msg with var name displayed as ?'s</description>
+		<data>
+			<xml>84697.xml</xml>
+			<xsl>84697.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84709">
+		<description>XSLT -Forward variables</description>
+		<data>
+			<xml>84709.xml</xml>
+			<xsl>84709.xsl</xsl>
+		</data>
+		<result expected="valid">84709.txt</result>
+	</variation>
+	<variation name="_84710">
+		<description>XSLT - A binding shadow is not allowed.  Processor must raise error</description>
+		<data>
+			<xml>84710.xml</xml>
+			<xsl>84710.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_84712">
+		<description>XSLT -Variable casting (using params)</description>
+		<data>
+			<xml>84712.xml</xml>
+			<xsl>84712.xsl</xsl>
+		</data>
+		<result expected="valid">84712.txt</result>
+	</variation>
+	<variation name="_91490">
+		<description>XSLT - Regression Bug # 47714 - global variable from within attribute value template.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91490.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="GlobalVarHaveLocalVarDefinedWithin">
+		<description>Use global variables that have local variables defined within themself. [Bug 66748]</description>
+		<data>
+			<xml>xslt_variables_VarsDefinedInGlobalVars.xml</xml>
+			<xsl>xslt_variables_VarsDefinedInGlobalVars.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_variables_VarsDefinedInGlobalVars_result.txt</result>
+	</variation>
+	<variation name="InvalidVariableNameShouldProduceError">
+		<description>Use a variable whose identifier has not been defined. A useful error message should be produced indicating the name of the variable and the conditions by which it is invalid. [Bug 59292]</description>
+		<data>
+			<xml>xslt_variable_InvalidVariableNameErrorMsg.xml</xml>
+			<xsl>xslt_variable_InvalidVariableNameErrorMsg.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="PositionAndLastComparisonShouldBeEqual">
+		<description>Use the Expression Position()=Last in an if conditional to compare the two. At the last position, should evaluate to true and output correctly. [Bug 60525]</description>
+		<data>
+			<xml>xslt_variable_PositionAndLastComparison.xml</xml>
+			<xsl>xslt_variable_PositionAndLastComparison.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_variable_PositionAndLastComparison_result.txt</result>
+	</variation>
+	<variation name="SelectAttributeAndWhitespaceBetweenElement">
+		<description>use the xsl:variable element with a select attribute and white space between start and end elements. No error should be thrown, whitespace should be ignored. [Bug 59293]</description>
+		<data>
+			<xml>xslt_variable_SelectAttrAndWsBetweenElement.xml</xml>
+			<xsl>xslt_variable_SelectAttrAndWsBetweenElement.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_variable_SelectAttrAndWsBetweenElement_result.txt</result>
+	</variation>
+	<variation name="UseDocumentFnToReturnRootNode">
+		<description>Use the document() function to return the root node of a valid Xml document at a valid UNC; define variable with. [Bug 60311]</description>
+		<data>
+			<xml>xslt_variable_DocumentFnReturnRootNode.xml</xml>
+			<xsl>xslt_variable_DocumentFnReturnRootNode.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_variable_DocumentFnReturnRootNode_result.txt</result>
+	</variation>
+	<variation name="VarDefinedEqualToAnotherVarNotYetDefined">
+		<description>Use xsl:variable to define a variable equal to another local variable, that has not yet been defined (comes afterward). [Bug 66580]</description>
+		<data>
+			<xml>xslt_variable_DefineVarEqualVarNotYetDefined.xml</xml>
+			<xsl>xslt_variable_DefineVarEqualVarNotYetDefined.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="VariableAssignmentAfterIteration">
+		<description>Use an apply-templates on a node-set, within the template create a local variable and assign to an attribute value. Iteration is implicit (as opposed to for-each). [Bug 58536]</description>
+		<data>
+			<xml>xslt_variable_VariableAssignmentInIteration.xml</xml>
+			<xsl>xslt_variable_VariableAssignmentInIteration.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_variable_VariableAssignmentInIteration_result.txt</result>
+	</variation>
+	<variation name="VariableWithinVariable">
+		<description>Use xsl:variable within xsl:variable with a variable of the same name. Also, a global variable exist (with the same name as well). [Bug 71037]</description>
+		<data>
+			<xml>VariableWithinVariable.xml</xml>
+			<xsl>VariableWithinVariable.xsl</xsl>
+		</data>
+		<result expected="valid">VariableWithinVariable_result.txt</result>
+	</variation>
+	<variation name="VarScopeInCallTemplate">
+		<description>XSLT: XSL transformation generates exception on VariableAction.Execute  [Bug 66262]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_duplicate_variable_in_call_template.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_duplicate_variable_in_call_template.txt</result>
+	</variation>
+	<variation name="VarScopeInImportedStylesheet">
+		<description>XSLT: IndexOutOfRangeException when variable is duplicated in lower import precedence. [Bug 67722]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_duplicate_variable_in_imported_stylesheet.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_duplicate_variable_in_imported_stylesheet.txt</result>
+	</variation>
+	<variation name="xslt_variable_qname_test1">
+		<description>XSLT - Test case for bug 71091, when a qualified variable name is used (foo:bookstore), simple selection returns no results.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_variable_qname_test1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_variable_qname_test1.txt</result>
+	</variation>
+	<variation name="xslt_variable_qname_test2">
+		<description>XSLT - Test case for bug 71091, when a qualified variable name is used (foo:bookstore), simple selection returns no results.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt_variable_qname_test2.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_variable_qname_test2.txt</result>
+	</variation>
+	<variation name="VariableScopeWithinLRE">
+		<description>XSLT - Test case for variable scope within LRE</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>VariableScopeWithinLRE.xsl</xsl>
+		</data>
+		<result expected="valid">VariableScopeWithinLRE.txt</result>
+	</variation>
+</testcase>

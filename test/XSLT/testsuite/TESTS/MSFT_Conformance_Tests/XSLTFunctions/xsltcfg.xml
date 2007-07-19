@@ -1,0 +1,5 @@
+<!DOCTYPE suite SYSTEM "repro.dtd">
+<categories>
+    <category id="XSLT-Template">matching, call named, priority</category>
+    <category id="XSLT-Result-Tree">creation of nodes in result</category>
+</categories>

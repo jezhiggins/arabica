@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Bookstore>
+   <Book>
+      <Title blah="blah">Elephant Knows All</Title>
+      <Author>Homer Simpson</Author>
+      <Year_Published>1995</Year_Published>
+      <ISBN>0-9546-0274-3</ISBN>
+      <Price>20.00</Price>
+   </Book>
+   <Book>
+      <Title>A story about Radioactive Man</Title>
+      <Author cool="hell yeah">Bart Simpson</Author>
+      <Year_Published>1996</Year_Published>
+      <ISBN>0-9546-0274-3</ISBN>
+      <Price>23.00</Price>
+   </Book>
+   <Book>
+      <Title blah="fooey">Beta Quality</Title>
+      <Author>Marge Simpson</Author>
+      <Year_Published>1997</Year_Published>
+      <ISBN>0-6726-0047-6</ISBN>
+      <Price>21.00</Price>
+   </Book>
+   <Book>
+      <Title>Beta Quality</Title>
+      <Author>Maggie Simpson</Author>
+      <Year_Published>1997</Year_Published>
+      <ISBN>0-6726-0047-6</ISBN>
+      <Price>25.00</Price>
+   </Book>
+   <Book>
+      <Title>Determination</Title>
+      <Author>Lisa Simpson</Author>
+      <Year_Published>1994</Year_Published>
+      <ISBN>0-2456-7580-4</ISBN>
+      <Price>15.00</Price>
+   </Book>
+</Bookstore>

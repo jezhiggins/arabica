@@ -1,0 +1,95 @@
+﻿<testmodule><testcases>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P28-ibm28i01.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P29-ibm29i01.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P32-ibm32i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P32-ibm32i02.xml"><note /></variation>
+  <variation name="ibm-invalid-P32-ibm32i03.xml"><note /></variation>
+  <variation name="ibm-invalid-P32-ibm32i04.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P39-ibm39i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P39-ibm39i02.xml"><note /></variation>
+  <variation name="ibm-invalid-P39-ibm39i03.xml"><note /></variation>
+  <variation name="ibm-invalid-P39-ibm39i04.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P41-ibm41i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P41-ibm41i02.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P45-ibm45i01.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P49-ibm49i01.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P50-ibm50i01.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P51-ibm51i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P51-ibm51i03.xml"><note /></variation>
+</variations></testcase>
+
+<testcase><variations>
+  <variation name="ibm-invalid-P56-ibm56i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i02.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i03.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i05.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i06.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i07.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i08.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i09.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i10.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i11.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i12.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i13.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i14.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i15.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i16.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i17.xml"><note /></variation>
+  <variation name="ibm-invalid-P56-ibm56i18.xml"><note /></variation>
+</variations></testcase>
+<testcase><variations>
+  <variation name="ibm-invalid-P58-ibm58i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P58-ibm58i02.xml"><note /></variation>
+</variations></testcase>
+<testcase><variations>
+  <variation name="ibm-invalid-P59-ibm59i01.xml"><note /></variation>
+</variations></testcase>
+<testcase><variations>
+  <variation name="ibm-invalid-P60-ibm60i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P60-ibm60i02.xml"><note /></variation>
+  <variation name="ibm-invalid-P60-ibm60i03.xml"><note /></variation>
+  <variation name="ibm-invalid-P60-ibm60i04.xml"><note /></variation>
+</variations></testcase>
+<testcase><variations>
+  <variation name="ibm-invalid-P68-ibm68i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P68-ibm68i02.xml"><note /></variation>
+  <variation name="ibm-invalid-P68-ibm68i03.xml"><note /></variation>
+  <variation name="ibm-invalid-P68-ibm68i04.xml"><note /></variation>
+</variations></testcase>
+<testcase><variations>
+  <variation name="ibm-invalid-P69-ibm69i01.xml"><note /></variation>
+  <variation name="ibm-invalid-P69-ibm69i02.xml"><note /></variation>
+  <variation name="ibm-invalid-P69-ibm69i03.xml"><note /></variation>
+  <variation name="ibm-invalid-P69-ibm69i04.xml"><note /></variation>
+</variations></testcase>
+<testcase><variations>
+  <variation name="ibm-invalid-P76-ibm76i01.xml"><note /></variation>
+</variations></testcase>
+
+</testcases></testmodule>

@@ -1,0 +1,2 @@
+<xsl2>
+<xtl:value-of select="." xmlns:xtl="http://www.w3.org/TR/WD-xsl" />bookstore 2</xsl2>

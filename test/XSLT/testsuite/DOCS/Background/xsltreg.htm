@@ -1,0 +1,82 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <title>Test regime for OASIS XSLT/XPath Conformance</title>
+   </head>
+   <body>
+      <h1>Test regime for OASIS XSLT/XPath Conformance</h1>
+A "test regime" is an instance of the OASIS Generic Testing System.
+The system is driven by XML data. Most of the configuration is divided
+between two DTDs: collcat.dtd defines the generic aspects of the test
+data, and (in this instance) xsltcfg.xml contains the data specific to
+the XSLT/XPath conformance suite.
+<p>
+Test case data has 3 main areas:
+<p>
+1.  Test case identification
+<p>
+    - identifying and categorizing a test case within a catalogue within
+      a suite of catalogues
+<p>
+2.  Test case documentation
+<p>
+    - documenting a test case and how it is relevant
+    - for some cases, providing data that allows the test to be applied
+      only against those processors that behave the way it anticipates
+<p>
+3.  Operational parameters
+<p>
+    - identifying the file path of the base location from which the test is
+      executed
+    - identifying the inputs
+    - specifying names for outputs
+    - specifying (abstractly) the style of invocation
+    - specifying (abstractly) how actual and reference outputs are compared
+
+<h1>Notes:</h1>
+
+i) Enumerations of "constraints" refer to the element type name of those
+constructs in the test regime configuration instance (xsltcfg.xml for XSLT)
+with the ID values being the name token used as the attribute in the catalogue
+instance. (A sample of a catalogue instance is supplied in
+validate/XampleCo/testgood.xml.)
+<p>
+ii) Certain information items are inspired by the Dublin Core names
+     for similar concepts, though no attempt is made to preserve the case of
+     letters used in any names described therein.
+     ref: http://purl.org/DC/documents/rec-dces-19990702.htm
+<p>
+iii) Most values will be interpreted as strings. Values can be interpreted
+numerically, specifically in inequality relations, when they refer to versions
+and dates.
+</body>
+</html>

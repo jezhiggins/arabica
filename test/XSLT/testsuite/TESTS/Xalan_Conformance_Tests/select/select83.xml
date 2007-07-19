@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<doc x="on-doc">
+  <a x="on-a">in-a</a>
+  <b x="on-b">
+    <bb NO="on-bb">
+      <bbb x="on-bbb"/>
+    </bb>
+  </b>
+  <c x="on-c">in-c</c>
+</doc>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?><x:a xmlns:x="uri1"><y:a xmlns:y="uri1">boo</y:a></x:a><xslTutorial>
+<HR>
+</HR>
+<HR></HR>
+<HR />
+</xslTutorial>  
+Expected results: 
+&lt;x:a xmlns:x="uri1"&gt;
+  &lt;y:a xmlns:y="uri1"&gt;boo&lt;/y:a&gt;
+&lt;/x:a&gt;
+

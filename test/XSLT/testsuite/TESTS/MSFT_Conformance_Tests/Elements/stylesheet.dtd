@@ -1,0 +1,54 @@
+<!ELEMENT xsl:stylesheet ANY>		<!ATTLIST xsl:stylesheet xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform" version CDATA #FIXED "1.0">
+<!ELEMENT xsl:template ANY>		<!ATTLIST xsl:template xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:copy ANY>			<!ATTLIST xsl:copy xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:element ANY>		<!ATTLIST xsl:element xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:attribute ANY>		<!ATTLIST xsl:attribute xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:processing-instruction ANY>			<!ATTLIST xsl:pi xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:comment ANY>		<!ATTLIST xsl:comment xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT msxsl:script ANY>		<!ATTLIST msxsl:script xmlns:msxsl CDATA #FIXED "urn:schemas-microsoft-com:xslt">
+<!ELEMENT xsl:apply-templates ANY>	<!ATTLIST xsl:apply-templates xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:text ANY>			<!ATTLIST xsl:text xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:if ANY>			<!ATTLIST xsl:if xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:choose ANY>		<!ATTLIST xsl:choose xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:when ANY>			<!ATTLIST xsl:when xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:otherwise ANY>		<!ATTLIST xsl:otherwise xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:for-each ANY>		<!ATTLIST xsl:for-each xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:value-of ANY>		<!ATTLIST xsl:value-of xmlns:xsl CDATA #FIXED "http://www.w3.org/1999/XSL/Transform">
+<!ELEMENT xsl:output ANY>		<!ATTLIST xsl:output method CDATA #IMPLIED omit-xml-declaration CDATA #IMPLIED>
+
+
+<!ELEMENT p ANY>  <!ELEMENT P ANY>
+
+<!ATTLIST xsl:template
+	match CDATA #REQUIRED>
+
+<!ATTLIST xsl:apply-templates
+	select	CDATA #IMPLIED 
+>
+
+<!ATTLIST xsl:for-each
+	select	CDATA #REQUIRED 
+>
+
+<!ATTLIST xsl:value-of
+	select	CDATA #REQUIRED >
+
+<!ATTLIST xsl:element
+	name CDATA #REQUIRED>
+<!ATTLIST xsl:attribute
+	name CDATA #REQUIRED>
+<!ATTLIST xsl:processing-instruction
+	name CDATA #REQUIRED>
+<!ATTLIST xsl:comment
+	name CDATA #REQUIRED>
+
+<!ATTLIST xsl:template
+	match CDATA #REQUIRED
+	name CDATA #IMPLIED
+	priority CDATA #IMPLIED
+	mode CDATA #IMPLIED>
+
+<!ATTLIST msxsl:script
+	language CDATA #IMPLIED
+	implements-prefix CDATA #IMPLIED>
+

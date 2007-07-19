@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<IMG>this</IMG><IMG>rocks</IMG>
+<IMG>this</IMG><U> </U><IMG>rocks</IMG>
+<IMG>this </IMG><IMG>rocks</IMG>
+<IMG>this</IMG><IMG> rocks</IMG>
+<IMG>this
+</IMG><IMG>
+rocks</IMG>
+<IMG>this</IMG>
+<IMG>rocks</IMG>
+<IMG>this</IMG>	<IMG>rocks</IMG>
+<IMG>this</IMG>		<IMG>rocks</IMG>
+<IMG>this<![CDATA[  ]]></IMG><IMG>rocks</IMG>
+<![CDATA[ <IMG>this</IMG><U> </U><IMG>rocks</IMG> ]]>
+</xslTutorial>

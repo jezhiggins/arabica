@@ -1,0 +1,1 @@
+﻿<doc>foo</doc><doc>bar</doc><doc>foo</doc><doc>bar</doc>

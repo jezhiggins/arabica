@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<doc>1<a>in-a</a>2<!-- upper comment -->
+  <b>3<bb>4<bbb>5</bbb>6</bb>7</b>
+  <!-- lower comment -->8<c>in-c</c>9
+</doc>

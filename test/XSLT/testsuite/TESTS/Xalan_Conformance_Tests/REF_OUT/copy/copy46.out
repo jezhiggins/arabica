@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:huh="http://unknown.com" xmlns:joes="http://joes.com" xmlns:foo="http://foo.test.com"><star><bar xmlns:yow="http://yow.test.com">18 Generic Ave.</bar><foo:bar>157 Fourth St.</foo:bar><wonder:bar xmlns:wonder="http://wonder.com">777 Broadway</wonder:bar><bar>12 Slammin Ave.</bar><joes:bar>17 Generic Ave.</joes:bar></star></out>

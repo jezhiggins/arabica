@@ -1,0 +1,5 @@
+<!ELEMENT myname ANY>
+<!ELEMENT firstname ANY>
+<!ELEMENT lastname ANY>
+<!NOTATION JPEG SYSTEM "urn:foo">
+<!ENTITY pic SYSTEM "http://webserver/somepic.jpg" NDATA JPEG>

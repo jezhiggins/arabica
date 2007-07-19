@@ -1,0 +1,3 @@
+<!DOCTYPE html PUBLIC "PUBLIC"><html xmlns:foo="http://my.com"><head>
+<META http-equiv="Content-Type" content="a little of this, a little of that">
+</head><h1><b>Hello</b></h1></html>

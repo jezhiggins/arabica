@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<foo xmlns:my-ns="http://my.com"><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+<foo><![CDATA[cdata]]><foobar>nocdata
+
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+nocdata</foobar><![CDATA[cdata]]></foo>
+<foo xmlns:my-ns="http://my.com"><![CDATA[cdata]]></foo>
+<foo xmlns:my-ns="http://my.com" xmlns="http://default"><![CDATA[cdata]]></foo>
+<foo xmlns:my-ns="http://my.com" xmlns="unknown">no-cdata</foo>
+<foobar xmlns:my-ns="http://my.com">no-cdata</foobar>
+<my-ns:foo xmlns:my-ns="http://my.com"><![CDATA[cdata]]></my-ns:foo>
+<ns:foo xmlns:my-ns="http://my.com" xmlns:ns="http://changed"><![CDATA[cdata]]></ns:foo>
+<ns:foo xmlns:my-ns="http://my.com" xmlns:ns="unknown">no-cdata</ns:foo>
+<foo xmlns:my-ns="http://my.com"><![CDATA[
+            cdata
+            more-cdata]]><?my-pi?><![CDATA[
+            cdata
+            ]]><!----><![CDATA[
+            cdata
+            ]]><foobar>
+                no-cdata
+                <foo><![CDATA[cdata]]></foo>
+                no-cdata
+            </foobar><![CDATA[
+            cdata
+        ]]></foo>

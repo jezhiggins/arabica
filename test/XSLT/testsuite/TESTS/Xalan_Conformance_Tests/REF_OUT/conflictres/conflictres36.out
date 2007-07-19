@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>a:b:c-Wildcard-last,
+b:d-Wildcard-last,
+d:c-Wildcard-in-middle,
+</out>

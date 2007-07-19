@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<FIELDSET>this</FIELDSET><FIELDSET>rocks</FIELDSET>
+<FIELDSET>this</FIELDSET> <FIELDSET>rocks</FIELDSET>
+<FIELDSET>this</FIELDSET>
+<FIELDSET>rocks</FIELDSET>
+<FIELDSET>this</FIELDSET>		<FIELDSET>rocks</FIELDSET>
+
+<SPAN>this</SPAN><FIELDSET>rocks</FIELDSET>
+<SPAN>this</SPAN> <FIELDSET>rocks</FIELDSET>
+</xslTutorial>

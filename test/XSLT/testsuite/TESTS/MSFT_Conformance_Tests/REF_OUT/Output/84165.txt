@@ -1,0 +1,38 @@
+  
+BOOLEAN LITERAL RESULT ELEMENT
+<TH checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></TH> 
+
+COPY-OF XML:
+<xslTutorial>  
+ 
+NOT an HTML ELEMENT
+<bAtt checked="checked" compact="compact" declare="declare" defer="defer" disabled="disabled" ismap="ismap" multiple="multiple" nohref="nohref" noresize="noresize" noshade="noshade" nowrap="nowrap" readonly="readonly" selected="selected"></bAtt>
+
+AN HTML EMPTY ELEMENT INSIDE SPAN, DOES HAVE BOOLEAN ATTRIBUTES
+<span><input checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></span>
+
+ALL BOOLEAN ATTRIBUTES ON ELEMENTS THAT HAVE SOME BOOLEAN ATTRIBUTES
+
+<input Checked cOmpact deClare DEFER disabled ismap mUltiple nohref Noresize noshadE Nowrap readOnly selecteD>
+<MENU checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></MENU>
+<DIR checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></DIR>
+<DL checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></DL>
+<OL checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></OL>
+<UL checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></UL>
+<object checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></object> <script checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></script> <button checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></button>
+<optgroup checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></optgroup>
+<option checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></option>
+<select checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></select> <textarea checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></textarea> <img checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected>
+<AREA checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected>
+<FRAME checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected>
+<HR checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected>
+<TD checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></TD>
+<TH checked compact declare defer disabled ismap multiple nohref noresize noshade nowrap readonly selected></TH>
+
+ELEMENTS THAT DO NOT HAVE BOOLEAN ATTRIBUTES
+
+<COL checked="checked" compact="compact" declare="declare" defer="defer" disabled="disabled" ismap="ismap" multiple="multiple" nohref="nohref" noresize="noresize" noshade="noshade" nowrap="nowrap" readonly="readonly" selected="selected">
+<OL>
+<LI checked="checked" compact="compact" declare="declare" defer="defer" disabled="disabled" ismap="ismap" multiple="multiple" nohref="nohref" noresize="noresize" noshade="noshade" nowrap="nowrap" readonly="readonly" selected="selected"></LI>
+</OL>
+</xslTutorial>

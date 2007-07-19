@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="84682.xsl"?>
+
+<!-- Number Formatting - level = "multiple" -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 04/02/2000 -->
+
+<XMLBook>  
+ 
+	<chapter>chapter 1</chapter>  
+	<chapter>chapter 2  
+		<chapter>subchapter 2.1</chapter>  
+		<chapter>subchapter 2.2</chapter>  
+	</chapter>  
+	 
+	<chapter>chapter 3  
+		<chapter>subchapter 3.1</chapter>  
+		<chapter>Subchapter 3.2  
+			<chapter>subchapter 3.2.1</chapter>  
+			<chapter>subchapter 3.2.2</chapter>  
+		</chapter>  
+		<chapter>subchapter 3.3</chapter>  
+	</chapter>  
+
+</XMLBook> 

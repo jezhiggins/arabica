@@ -1,0 +1,1 @@
+Keyword xsl:sort may not contain PCDATA nodes.

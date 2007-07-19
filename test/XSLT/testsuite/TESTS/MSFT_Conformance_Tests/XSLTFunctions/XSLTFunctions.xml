@@ -1,0 +1,802 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="XSLTFunctions" description="" outpath="out">
+	<variation name="_10002">
+		<description>XSLT Functions : unparsed-entity-uri() Base Case (file://)</description>
+		<data>
+			<xml>10002.xml</xml>
+			<xsl>10002.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10003">
+		<description>XSLT Functions : unparsed-entity-uri() Base Case (http://)</description>
+		<data>
+			<xml>10003.xml</xml>
+			<xsl>10003.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10004">
+		<description>XSLT Functions : unparsed-entity-uri() Empty Argument</description>
+		<data>
+			<xml>10004.xml</xml>
+			<xsl>10004.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10005">
+		<description>XSLT Functions : unparsed-entity-uri() Non existing entity</description>
+		<data>
+			<xml>10005.xml</xml>
+			<xsl>10005.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10006">
+		<description>XSLT Functions : unparsed-entity-uri() Case Sensitivity Test</description>
+		<data>
+			<xml>10006.xml</xml>
+			<xsl>10006.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10007">
+		<description>XSLT Functions : unparsed-entity-uri() Include a DTD with an entity</description>
+		<data>
+			<xml>10007.xml</xml>
+			<xsl>10007.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10008">
+		<description>XSLT Functions : unparsed-entity-uri() Long entity name</description>
+		<data>
+			<xml>10008.xml</xml>
+			<xsl>10008.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10009">
+		<description>XSLT Functions : unparsed-entity-uri() Null Entity (Bug 55973)</description>
+		<data>
+			<xml>10009.xml</xml>
+			<xsl>10009.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10010">
+		<description>XSLT Functions : unparsed-entity-uri() Relative Path in Entity (file://)</description>
+		<data>
+			<xml>10010.xml</xml>
+			<xsl>10010.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10011">
+		<description>XSLT Functions : unparsed-entity-uri() Function argument as name expression</description>
+		<data>
+			<xml>10011.xml</xml>
+			<xsl>10011.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10012">
+		<description>XSLT Functions : unparsed-entity-uri() Use the return value of function-available() as the entity name ('true')</description>
+		<data>
+			<xml>10012.xml</xml>
+			<xsl>10012.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10013">
+		<description>XSLT Functions : unparsed-entity-uri() Use the return value of function-available() as the entity name ('false')</description>
+		<data>
+			<xml>10013.xml</xml>
+			<xsl>10013.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10014">
+		<description>XSLT Functions : unparsed-entity-uri() Relative Path in Entity (http://)</description>
+		<data>
+			<xml>10014.xml</xml>
+			<xsl>10014.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10015">
+		<description>XSLT Functions : unparsed-entity-uri() Use @attribute as an argument</description>
+		<data>
+			<xml>10015.xml</xml>
+			<xsl>10015.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10016">
+		<description>XSLT Functions : unparsed-entity-uri() Use non existing @attribute as an argument</description>
+		<data>
+			<xml>10016.xml</xml>
+			<xsl>10016.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10017">
+		<description>XSLT Functions : unparsed-entity-uri() Use node value as an argument</description>
+		<data>
+			<xml>10017.xml</xml>
+			<xsl>10017.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10018">
+		<description>XSLT Functions : unparsed-entity-uri() Use non existing node value as an argument</description>
+		<data>
+			<xml>10018.xml</xml>
+			<xsl>10018.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10019">
+		<description>XSLT Functions : unparsed-entity-uri() Use string('pic') as an argument</description>
+		<data>
+			<xml>10019.xml</xml>
+			<xsl>10019.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10020">
+		<description>XSLT Functions : unparsed-entity-uri() Use string(pic) as an argument</description>
+		<data>
+			<xml>10020.xml</xml>
+			<xsl>10020.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10021">
+		<description>XSLT Functions : unparsed-entity-uri() Use name() function as an argument</description>
+		<data>
+			<xml>10021.xml</xml>
+			<xsl>10021.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10022">
+		<description>XSLT Functions : unparsed-entity-uri() Use '.' Operator as an argument</description>
+		<data>
+			<xml>10022.xml</xml>
+			<xsl>10022.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10023">
+		<description>XSLT Functions : unparsed-entity-uri() Use $pic variable as an argument</description>
+		<data>
+			<xml>10023.xml</xml>
+			<xsl>10023.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10024">
+		<description>XSLT Functions : unparsed-entity-uri() Use $pic param as an argument</description>
+		<data>
+			<xml>10024.xml</xml>
+			<xsl>10024.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10025">
+		<description>XSLT Functions : unparsed-entity-uri() Use the string 'unparsed-entity-uri' as an argument</description>
+		<data>
+			<xml>10025.xml</xml>
+			<xsl>10025.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10026">
+		<description>XSLT Functions : unparsed-entity-uri() Use the node unparsed-entity-uri as an argument</description>
+		<data>
+			<xml>10026.xml</xml>
+			<xsl>10026.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_10049">
+		<description>XSLT Functions : unparsed-entity-uri() Call this function when there are no entities existing in the DTD</description>
+		<data>
+			<xml>10049.xml</xml>
+			<xsl>10049.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_84048">
+		<description>84048.XSL | XSLT- Functions - system-property |  xsl:version</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84048.xsl</xsl>
+		</data>
+		<result expected="valid">84048.txt</result>
+	</variation>
+	<variation name="_84049">
+		<description>84049.XSL | XSLT- Functions - system-property |  xsl:vendor</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84049.xsl</xsl>
+		</data>
+		<result expected="valid">84049.txt</result>
+	</variation>
+	<variation name="_84050">
+		<description>84050.XSL | XSLT- Functions - system-property |  xsl:vendor-url</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84050.xsl</xsl>
+		</data>
+		<result expected="valid">84050.txt</result>
+	</variation>
+	<variation name="_84053">
+		<description>84053.XSL | XSLT- Functions - function-available |  current()</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84053.xsl</xsl>
+		</data>
+		<result expected="valid">84053.txt</result>
+	</variation>
+	<variation name="_84054">
+		<description>84054.XSL | XSLT- Functions - function-available : format-number()</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84054.xsl</xsl>
+		</data>
+		<result expected="valid">84054.txt</result>
+	</variation>
+	<variation name="_84056">
+		<description>84056.XSL | XSLT- Functions - function-available : function-available()</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84056.xsl</xsl>
+		</data>
+		<result expected="valid">84056.txt</result>
+	</variation>
+	<variation name="_84058">
+		<description>84058.XSL | XSLT- Functions - function-available : nonexist-function</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84058.xsl</xsl>
+		</data>
+		<result expected="valid">84058.txt</result>
+	</variation>
+	<variation name="_84170">
+		<description>84170.XSL | XSLT- Functions - element-available |  xsl:stylesheet</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84170.xsl</xsl>
+		</data>
+		<result expected="valid">84170.txt</result>
+	</variation>
+	<variation name="_84171">
+		<description>84171.XSL | XSLT- Functions - element-available |  xsl:nonexist</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84171.xsl</xsl>
+		</data>
+		<result expected="valid">84171.txt</result>
+	</variation>
+	<variation name="_84172">
+		<description>84172.XSL | XSLT- Functions - element-available |  xsl:transform</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84172.xsl</xsl>
+		</data>
+		<result expected="valid">84172.txt</result>
+	</variation>
+	<variation name="_84173">
+		<description>84173.XSL | XSLT- Functions - element-available |  xsl:value-of</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84173.xsl</xsl>
+		</data>
+		<result expected="valid">84173.txt</result>
+	</variation>
+	<variation name="_84175">
+		<description>84175.XSL | XSLT- Functions - current |  current()</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84175.xsl</xsl>
+		</data>
+		<result expected="valid">84175_output.txt</result>
+	</variation>
+	<variation name="_84176">
+		<description>84176.XSL | XSLT- Functions - current | magazine titles</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84176.xsl</xsl>
+		</data>
+		<result expected="valid">84176.txt</result>
+	</variation>
+	<variation name="_84177">
+		<description>84177.XSL | XSLT- Functions - current | "."</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78298.xsl</xsl>
+		</data>
+		<result expected="valid">84177.txt</result>
+	</variation>
+	<variation name="_84178">
+		<description>84178.XSL | XSLT- Functions - current | non existing titles</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78298.xsl</xsl>
+		</data>
+		<result expected="valid">84178.txt</result>
+	</variation>
+	<variation name="_84179">
+		<description>84179.XSL | XSLT- Functions - current | Qname Format Titles</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78298.xsl</xsl>
+		</data>
+		<result expected="valid">84179.txt</result>
+	</variation>
+	<variation name="_84415">
+		<description>ZVON XSLT Example 72 - Xpath</description>
+		<data>
+			<xml>84415.xml</xml>
+			<xsl>84415.xsl</xsl>
+		</data>
+		<result expected="valid">84415.txt</result>
+	</variation>
+	<variation name="_84421">
+		<description>ZVON XSLT Example 75 - current()</description>
+		<data>
+			<xml>84421.xml</xml>
+			<xsl>84421.xsl</xsl>
+		</data>
+		<result expected="valid">84421.txt</result>
+	</variation>
+	<variation name="_84422">
+		<description>ZVON XSLT Example 76 - current()</description>
+		<data>
+			<xml>84422.xml</xml>
+			<xsl>84422.xsl</xsl>
+		</data>
+		<result expected="valid">84422.txt</result>
+	</variation>
+	<variation name="_84484">
+		<description>Copy of 84422: ZVON XSLT Example 76 - current()</description>
+		<data>
+			<xml>84484.xml</xml>
+			<xsl>84484.xsl</xsl>
+		</data>
+		<result expected="valid">84484.txt</result>
+	</variation>
+	<variation name="_crahedOnEmptyVariable">
+		<description>crash.XSL | XSLT- Functions - format-number | set decimal-format to an empty variable, should error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>crash.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_currency">
+		<description>currency.XSL | XSLT- Functions - format-number | invalid pattern- '#xa4'</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>currency.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_defaultPattern">
+		<description>fmt-no.XSL | XSLT- Functions - format-number | combinations of numbers and format patterns with default decimal foramt</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>fmt-no.xsl</xsl>
+		</data>
+		<result expected="valid">defaultPattern.txt</result>
+	</variation>
+	<variation name="_DifferentDecimalFormatsWithSameName">
+		<description>sameDecimalFormats2.XSL | XSLT- Functions - format-number | the same Decimal-Formats with xsl:import, should not error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>diffDecimalFmtWithSameName.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_doublePeriod">
+		<description>doubleperiod.XSL | XSLT- Functions - format-number | invalid patttern - '#.#.#</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>doublePeriod.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_emptyParameters">
+		<description>emptyParamters.XSL | XSLT- Functions - format-number | empty for first and second paramters</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>emptyParameters.xsl</xsl>
+		</data>
+		<result expected="valid">emptyParameters.txt</result>
+	</variation>
+	<variation name="_EuropeanPattern">
+		<description>fmt-no-eu.XSL | XSLT- Functions - format-number | combinations of numbers and format patterns with european decimal foramt</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>fmt-no-eu.xsl</xsl>
+		</data>
+		<result expected="valid">EuropeanPattern.txt</result>
+	</variation>
+	<variation name="_extraParameter">
+		<description>extraParameter.XSL | XSLT- Functions - format-number | with four parameters, should error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>extraParameter.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_InvalidPattern">
+		<description>InvalidPattern.XSL | XSLT- Functions - format-number | invalid patttern - '0###.00</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>InvalidPattern.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_minimalValue">
+		<description>min-value2.XSL | XSLT- Functions - format-number | Test on minimum value(2.E-324)</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>min-value2.xsl</xsl>
+		</data>
+		<result expected="valid">minimalValue.txt</result>
+	</variation>
+	<variation name="_minimumValue">
+		<description>min-value.XSL | XSLT- Functions - format-number | Test on minimum value(2.22E-308)</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>min-value.xsl</xsl>
+		</data>
+		<result expected="valid">minimumValue.txt</result>
+	</variation>
+	<variation name="_mixingInvalids">
+		<description>mixingInvalids.XSL | XSLT- Functions - format-number | invalid patttern - '#_#*#</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>mixingInvalids.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_Non_DigitPattern">
+		<description>fmt-no-nd.XSL | XSLT- Functions - format-number | combinations of numbers and format patterns with non-digit(zero-digit ='a') decimal foramt</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>fmt-no-nd.xsl</xsl>
+		</data>
+		<result expected="valid">Non_DigitPattern.txt</result>
+	</variation>
+	<variation name="_Pattern-separator">
+		<description>fmt-no-pa.XSL | XSLT- Functions - format-number | combinations of numbers and format patterns with new pattern saparator</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>fmt-no-pa.xsl</xsl>
+		</data>
+		<result expected="valid">Pattern-separator.txt</result>
+	</variation>
+	<variation name="_percentPattern">
+		<description>fmt-no-pe.XSL | XSLT- Functions - format-number | combinations of numbers and format patterns with new percent/per-mille decimal foramt</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>fmt-no-pe.xsl</xsl>
+		</data>
+		<result expected="valid">percentPattern.txt</result>
+	</variation>
+	<variation name="_sameDecimalFormats">
+		<description>sameDecimalFormats.XSL | XSLT- Functions - format-number | the same Decimal-Formats should not error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>sameDecimalFormats.xsl</xsl>
+		</data>
+		<result expected="valid">sameDecimalFormats.txt</result>
+	</variation>
+	<variation name="_sameDecimalFormatsWithImport">
+		<description>diffDeciamlFmtWithSameName.XSL | XSLT- Functions - format-number | the different Decimal-Formats with the same names, should error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>sameDecimalFormats2.xsl</xsl>
+		</data>
+		<result expected="valid">sameDecimalFormatsWithImport.txt</result>
+	</variation>
+	<variation name="_specialCharInPattern">
+		<description>specialCharInPattern.XSL | XSLT- Functions - format-number | invalid patttern - ';#</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>specialCharInPattern.xsl</xsl>
+		</data>
+		<result expected="valid">specialCharInPattern.txt</result>
+	</variation>
+	<variation name="_testOn-0.00">
+		<description>testOn-0.XSL | XSLT- Functions - format-number | test on -0.00 should return 0.00</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>testOn-0.xsl</xsl>
+		</data>
+		<result expected="valid">testOn-0.00.txt</result>
+	</variation>
+	<variation name="_testWithNumber">
+		<description>testWithNumber.XSL | XSLT- Functions - format-number | number(format-number('-1234.5', '#0.00 ')) should return -1234.5</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>testWithNumber.xsl</xsl>
+		</data>
+		<result expected="valid">testWithNumber.txt</result>
+	</variation>
+	<variation name="_threeSubpatterns">
+		<description>threeSubpatterns.XSL | XSLT- Functions - format-number | invalid patttern - '#;#;#</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>threeSubpatterns.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_without1stParameter">
+		<description>without2rdPara.XSL | XSLT- Functions - format-number | without first paramter, should error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>without1stPara.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_without2rdParameter">
+		<description>without2rdPara.XSL | XSLT- Functions - format-number | first paramter only, should error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>without2rdPara.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_withoutAnyParameter">
+		<description>withoutAnyPara.XSL | XSLT- Functions - format-number | without any parameter, should error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>withoutAnyPara.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_wrongPositionDecimalFormat">
+		<description>wrongPositionDecimalFormat.XSL | XSLT- Functions - format-number | wrong position of the  Decimal-Format should error</description>
+		<data>
+			<xml>fmt-no.xml</xml>
+			<xsl>wrongPositionDecimalFormat.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="BooleanFunction">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_functions_TestBooleanEmptyRTF.xml</xml>
+			<xsl>xslt_functions_TestBooleanEmptyRTF.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_TestBooleanEmptyRTF.txt</result>
+	</variation>
+	<variation name="CurrentFunctionInVariable">
+		<description>XSLT: current() function causes error when used in a variable. [Bug 70079]</description>
+		<data>
+			<xml>xslt_functions_current_in_variable.xml</xml>
+			<xsl>xslt_functions_current_in_variable.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_current_in_variable.txt</result>
+	</variation>
+	<variation name="Document">
+		<description>document() -- Base case</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>Document.xsl</xsl>
+		</data>
+		<result expected="valid">xsltfunctions_2.txt</result>
+	</variation>
+	<variation name="DocumentFunctionAbsArgument">
+		<description>XSLT: If 1st argument is absolute, document() function shouldn't return empty node-set. [Bug 70906]</description>
+		<data>
+			<xml>xslt_functions_current_in_variable.xml</xml>
+			<xsl>xslt_functions_current_in_variable.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_current_in_variable.txt</result>
+	</variation>
+	<variation name="DocumentFunctionNoArg">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_functions_document_fn.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_document_fn.txt</result>
+	</variation>
+	<variation name="DocumentFunctionWithAbsoluteArgument">
+		<description>XSLT: If 1st argument is absolute, document() function shouldn't return the empty node-set. [Bug 70906]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_func_document_function_abs_arg.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_func_document_function_abs_arg.txt</result>
+	</variation>
+	<variation name="DocumentFunctionWithEntityRef">
+		<description>XSLT: Base URI of document() argument must be derived from the entity in which argument node is located. [Bug 70901]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_functions_doc_function_with_entity_ref.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_doc_function_with_entity_ref.txt</result>
+	</variation>
+	<variation name="DocumentFunctionWithNonExistingFilename">
+		<description>XSLT: document( ) function with non existent file should throw error, resolved by design. [Bug 74158]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_func_document_fn_with_nonexistent_filename.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_func_document_fn_with_nonexistent_filename.txt</result>
+	</variation>
+	<variation name="DocumentInUnion">
+		<description>document function used in union query</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>DocumentInUnion.xsl</xsl>
+		</data>
+		<result expected="valid">DocumentInUnion.txt</result>
+	</variation>
+	<variation name="DocumentInUnionWithDuplicateNodes">
+		<description>Union should not contain duplicate nodes. Bug [71692]</description>
+		<data>
+			<xml>xslt_test_document_function_for_union.xml</xml>
+			<xsl>xslt_test_document_function_for_union.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_document_function_for_union.txt</result>
+	</variation>
+	<variation name="ElementAvailFunctionFalseTest">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_functions_element_avail_false.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_element_avail_false.txt</result>
+	</variation>
+	<variation name="ElementAvailFunctionTrueTest">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_functions_element_avail_true.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_element_avail_true.txt</result>
+	</variation>
+	<variation name="GenereateIdAppliedToNamespaceNodesOnDifferentElements">
+		<description>
+		</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>xslt_functions_generate_id_namespace.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_generate_id_namespace.txt</result>
+	</variation>
+	<variation name="KeyFuncTestDescendantsNodeset">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_functions_key_desc_nodeset_test.xml</xml>
+			<xsl>xslt_functions_key_desc_nodeset_test.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_key_desc_nodeset_test.txt</result>
+	</variation>
+	<variation name="LastFuncAppliedToNodesetBoundToVariable">
+		<description>
+		</description>
+		<data>
+			<xml>data.xml</xml>
+			<xsl>xslt_functions_last_function.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_last_function.txt</result>
+	</variation>
+	<variation name="NumberFunctWithNoArg1">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_functions_number_test1.xml</xml>
+			<xsl>xslt_functions_number_no_argument.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_number_test1.txt</result>
+	</variation>
+	<variation name="NumberFunctWithNoArg2">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_functions_number_test2.xml</xml>
+			<xsl>xslt_functions_number_no_argument.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_number_test2.txt</result>
+	</variation>
+	<variation name="RepeatedUseOfDivOperator">
+		<description>Test of repeated division. [Bug 71647]</description>
+		<data>
+			<xml>xslt_function_repeated_DIV.xml</xml>
+			<xsl>xslt_function_repeated_DIV.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_function_repeated_DIV.txt</result>
+	</variation>
+	<variation name="RoundTripNumber_UsingStringFn">
+		<description>Use the string function to compare two numbers that are originally int's - then converted back to strings --&gt; roundtripping used to truncate after 7 digits. This no longer occurs, but this is a regression case for such. [Bug 70777].</description>
+		<data>
+			<xml>StringFn_RoundTrippedNumbersNoTrunc.xml</xml>
+			<xsl>StringFn_RoundTrippedNumbersNoTrunc.xsl</xsl>
+		</data>
+		<result expected="valid">StringFn_RoundTrippedNumbersNoTrunc_result.txt</result>
+	</variation>
+	<variation name="SubstringFunctionTest1">
+		<description>XSLT: XSLT: substring( ) function should not throw exception when empty string is passed to as an argument. [Bug 74263]</description>
+		<data>
+			<xml>xslt_functions_substring_test1.xml</xml>
+			<xsl>xslt_functions_substring_test1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_substring_test1.txt</result>
+	</variation>
+	<variation name="SubstringFunctionTest2">
+		<description>XSLT: XSLT: substring( ) function should not throw exception when empty string is passed to as an argument. [Bug 74263]</description>
+		<data>
+			<xml>xslt_functions_substring_test1.xml</xml>
+			<xsl>xslt_functions_substring_test2.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_functions_substring_test1.txt</result>
+	</variation>
+	<variation name="TestIdFuncInComplexStruct">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_test_id_function.xml</xml>
+			<xsl>xslt_test_id_function.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_id_function.txt</result>
+	</variation>
+	<variation name="TestOfIdFunction">
+		<description>Test of id('literal') as match pattern. [Bug 71649]</description>
+		<data>
+			<xml>xslt_func_test_id_literal.xml</xml>
+			<xsl>xslt_func_test_id_literal.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_func_test_id_literal.txt</result>
+	</variation>
+	<variation name="Bug76054">
+		<description>Context is lost when mutliple documents are loaded using document() function. [Bug 76054]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>document_function_context.xsl</xsl>
+		</data>
+		<result expected="valid">document_function_context.txt</result>
+	</variation>
+	<variation name="Bug76984">
+		<description>XSLT: position() behaves incorrectly for nested for-each statements with same variable in select expression.</description>
+		<data>
+			<xml>Bug76984.xml</xml>
+			<xsl>Bug76984.xsl</xsl>
+		</data>
+		<result expected="valid">Bug76984.txt</result>
+	</variation>
+	<variation name="DocumentFuncWithEmptyArg">
+		<description>Test document() function with empty argument</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>DocumentFuncWithEmptyArg.xsl</xsl>
+		</data>
+		<result expected="valid">DocumentFuncWithEmptyArg.txt</result>
+	</variation>
+</testcase>

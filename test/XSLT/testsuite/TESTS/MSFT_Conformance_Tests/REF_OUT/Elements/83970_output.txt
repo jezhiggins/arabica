@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><html><!-- This is a boundary case XML data --><!-- What is available: all sections (according to minOccurs) and fields with required = "yes" --><PurchaseOrder xmlns="x-schema:83970.sch">
+   <POHeader Purpose="Purpose A" Type="Type A" Number="10" CreationDate="1999-01-01" />
+   <BillTo>
+      <Address Name="Mr Bill1" Address1="Bill1 Ave" Address2="Apt# bill1" City="BillC1" State="BillS1" PostalCode="B001" Country="Bill1" />
+   </BillTo>
+   <ShipTo>
+      <Address Name="Ms Ship1" Address1="Ship1 St" Address2="Suite# ship1" City="ShipC1" State="ShipS1" PostalCode="S001" Country="Ship1" />
+   </ShipTo>
+   <Item>
+      <ItemHeader LineNumber="001" ItemNumber="001" Description="description item 1" Quantity="1" Price="1" UnitOfMeasure="item1" ExtendedPrice="1" BuyerPart="Buyer item1" VendorPart="Vendor item 1" UPC="UPC1" />
+   </Item>
+</PurchaseOrder></html>

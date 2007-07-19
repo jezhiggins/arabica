@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<CAPTION>this</CAPTION><CAPTION>rocks</CAPTION>
+<CAPTION>this</CAPTION> <CAPTION>rocks</CAPTION>
+<CAPTION>this</CAPTION>
+<CAPTION>rocks</CAPTION>
+<CAPTION>this</CAPTION>		<CAPTION>rocks</CAPTION>
+
+<SPAN>this</SPAN><CAPTION>rocks</CAPTION>
+<SPAN>this</SPAN> <CAPTION>rocks</CAPTION>
+</xslTutorial>

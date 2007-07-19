@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ref refid="1" />
+<part id="1" type="type-a" />
+<ref refid="2" />
+<part id="2" type="type-a" />
+<ref refid="3" />
+<part id="3" type="type-b" />
+<ref refid="5" />
+<part id="5" type="type-b" />
+<ref refid="8" />
+<part id="8" type="type-b" />
+<ref refid="6" />
+<part id="6" type="type-c" />
+<ref refid="9" />
+<part id="9" type="type-c" />
+<ref refid="4" />
+<part id="4" type="type-d" />
+<ref refid="7" />
+<part id="7" type="type-d" />

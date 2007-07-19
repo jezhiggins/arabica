@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  MAIN title matched...
+  B-author: Joe Jones,
+  D-overview: testing-include
+  C-chapters: 
+    MAIN chapter 1: know xsl
+    MAIN chapter 2: love xsl
+</out>

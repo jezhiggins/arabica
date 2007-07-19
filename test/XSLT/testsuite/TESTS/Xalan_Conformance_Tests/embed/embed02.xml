@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="foo.xsl"?>
+
+  <!-- FileName: embed02 -->
+  <!-- Document: http://www.w3.org/TR/xslt -->
+  <!-- DocVersion: 19991116 -->
+  <!-- Section: 2.7 Embedding Stylesheets. -->
+  <!-- Purpose: Minimal test of embedded stylesheet -->
+
+<doc>
+<head>
+</head>
+<body>
+<para id="foo">
+Hello down there.
+</para>
+</body>
+</doc>

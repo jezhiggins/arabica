@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="bug_example.xslt" ?>
+<Root>
+	<List>
+		<ListItem>
+			<Title>FirstTitle</Title>
+		</ListItem>
+		<ListItem>
+			<Title>SecondTitle</Title>
+		</ListItem>
+		<ListItem>
+			<Title>ThirdTitle</Title>
+		</ListItem>
+		<ListItem>
+			<Title>FourthTitle</Title>
+		</ListItem>
+	</List>
+</Root>

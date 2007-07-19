@@ -1,0 +1,13 @@
+<x>	Leading and trailing	 </x>
+<x>				 </x>
+<x> </x>
+<x> </x>
+<x> </x>
+<x>This is a test&lt;use entities&gt;</x>
+<x>This is a test&lt;use entities&gt;</x>
+<x>This is a test<use entities with disable-output-encoding></x>
+<foo bar="disable-output-escaping=&quot;yes&quot; should be ignored">
+<?my-pi disable-output-escaping="no" should be ignored?>
+<!--disable-output-escaping="no" should be ignored-->
+</foo>
+<x>      Here is some text   </x>

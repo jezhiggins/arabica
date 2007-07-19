@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>has ex: 2
+has ex, eq null: 1
+has ex, measure null: 4
+has ex, neq null: 1
+has ex, measure non-null: 1
+not has ex: 3
+not has ex, eq null: 4
+not has ex, measure null: 1
+has why, eq value: 1
+has why, neq value: 1</out>

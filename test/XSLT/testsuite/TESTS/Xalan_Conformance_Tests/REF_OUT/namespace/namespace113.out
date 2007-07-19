@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ixsl:stylesheet xmlns:ixsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+  <ixsl:template match="foo"><ixsl:text>Recognized foo</ixsl:text></ixsl:template>
+  <ixsl:template match="bar"><ixsl:text>Recognized bar</ixsl:text></ixsl:template>
+</ixsl:stylesheet>

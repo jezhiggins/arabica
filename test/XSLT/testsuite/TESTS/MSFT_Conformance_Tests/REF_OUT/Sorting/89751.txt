@@ -1,0 +1,14 @@
+bananna;
+bananna;
+date;
+apple;
+date;
+apple;
+bananna;
+walnut;
+apple;
+date;
+currant;
+bananna;
+walnut;
+currant;

@@ -1,0 +1,4 @@
+<TABLE BORDER="1"><TR><TH>numbering output</TH><TH>text</TH></TR><TR><TD>1</TD><TD>chapter 1</TD></TR><TR><TD>2</TD><TD>chapter 2  
+		</TD></TR><TR><TD>2.1</TD><TD>subchapter 2.1</TD></TR><TR><TD>2.2</TD><TD>subchapter 2.2</TD></TR><TR><TD>3</TD><TD>chapter 3  
+		</TD></TR><TR><TD>3.1</TD><TD>subchapter 3.1</TD></TR><TR><TD>3.2</TD><TD>Subchapter 3.2  
+			</TD></TR><TR><TD>3.2.1</TD><TD>subchapter 3.2.1</TD></TR><TR><TD>3.2.2</TD><TD>subchapter 3.2.2</TD></TR><TR><TD>3.3</TD><TD>subchapter 3.3</TD></TR></TABLE>

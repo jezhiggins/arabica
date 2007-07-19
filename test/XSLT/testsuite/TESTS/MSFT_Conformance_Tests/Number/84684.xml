@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="84684.xsl"?>
+
+<!-- Number Formatting - count -->
+<!-- Created : Khalil Jabrane -->
+<!-- Date: 04/03/2000 -->
+
+<book>
+	<chapter>
+		<name>chapter 1</name>
+		<section>
+			<name>section 1.1</name>
+			<subsection>
+				<name>subsection 1.1.1</name>
+			</subsection>
+			<subsection>
+				<name>subsection 1.1.2</name>
+			</subsection>			
+		</section>	
+		
+		<section>
+			<name>section 1.2</name>
+			<subsection>
+				<name>subsection 1.2.1</name>
+			</subsection>
+		</section>
+
+		<section>
+			<name>section 1.3</name>
+			<subsection>
+				<name>subsection 1.3.1</name>
+			</subsection>
+			<subsection>
+				<name>subsection 1.3.2</name>
+			</subsection>			
+			<subsection>
+				<name>subsection 1.3.3</name>
+			</subsection>
+			<subsection>
+				<name>subsection 1.3.4</name>
+			</subsection>	
+		</section>		
+	</chapter>  		
+
+	<chapter>
+		<name>chapter 2</name>
+		<section>
+			<name>section 2.1</name>
+			<chapter>
+				<name>Bonus Chapter</name>
+			</chapter>
+
+			<subsection>
+				<name>subsection 2.1.1</name>
+			</subsection>
+			<subsection>
+				<name>subsection 2.1.2</name>
+			</subsection>			
+		</section>
+
+		<section>
+			<name>section 2.2</name>
+			<subsection>
+				<name>subsection 2.2.1</name>
+			</subsection>
+		</section>
+
+		<section>
+			<name>section 2.3</name>
+			<subsection>
+				<name>subsection 2.3.1</name>
+			</subsection>
+			<subsection>
+				<name>subsection 2.3.2</name>
+			</subsection>			
+		</section>
+	</chapter>  		
+
+</book>

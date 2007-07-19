@@ -1,0 +1,15 @@
+﻿<out>
+  case of include, include, import
+  including level1_include2.xsl
+  
+		 
+  inside level1_include2.xsl, including level2_include1.xsl
+  Text of one-tag
+		 
+  inside level2_include1.xsl, importing level2_import1.xsl
+  Text of two-tag
+		 
+  inside level2_import1.xsl
+
+		 Text of four-tag
+</out>

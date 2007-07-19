@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+<local>Item a1 is in position 1</local>
+<local>Item a2 is in position 2</local>
+<local>Item a3 is in position 3</local>
+<direct>Item b1 is in position 1</direct>
+<direct>Item b2 is in position 2</direct>
+<direct>Item b3 is in position 3</direct>
+<apply level="main">Item c1 is in position 1</apply>
+<apply level="import">Item c1 is in position 1</apply>
+<apply level="main">Item c2 is in position 2</apply>
+<apply level="import">Item c2 is in position 2</apply>
+<apply level="main">Item c3 is in position 3</apply>
+<apply level="import">Item c3 is in position 3</apply></out>

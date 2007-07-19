@@ -1,0 +1,1 @@
+<root xmlns:a="a"><a:a xp_0:foo="abc" xmlns:xp_0="bar"></a:a></root>

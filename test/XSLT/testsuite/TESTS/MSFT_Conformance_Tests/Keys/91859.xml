@@ -1,0 +1,15 @@
+<!DOCTYPE doc SYSTEM "91859.dtd" [
+    <!ELEMENT doc ANY>
+    <!ELEMENT c ANY>
+    <!ATTLIST c
+        att CDATA "Redmond"
+    >
+]>
+
+<doc>
+    &ext3;
+    <b att="Redmond"/>
+    <c att="Seattle"/> <!-- this should not be match for 'Redmond' -->
+    <c/>
+    &ext3;
+</doc>

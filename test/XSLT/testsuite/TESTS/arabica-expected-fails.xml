@@ -1,0 +1,97 @@
+<test-suite>
+  <test-case id="attribvaltemplate_attribvaltemplate08" skip="yes" reason="HTML output, with an entity."/>
+  <test-case id="axes_axes59" compiles="no"/>
+  <test-case id="axes_axes113" compiles="no"/>
+  <test-case id="boolean_boolean08" compiles="no"/>
+  <test-case id="conflictres_conflictres24" compiles="no"/>
+  <test-case id="copy_copy16" compiles="no"/>
+  <test-case id="copy_copy19" skip="yes" reason="External entity.  ISO-8859-1 output."/>
+  <test-case id="copy_copy20" skip="yes" reason="External entity."/>
+  <test-case id="copy_copy21" skip="yes" reason="External entity in source."/>
+  <test-case id="copy_copy22" skip="yes" reason="External entity in source.  ISO-8859-1 output."/>
+  <test-case id="copy_copy27" compiles="yes" runs="no"/>
+  <test-case id="copy_copy30" compiles="no"/>
+  <test-case id="copy_copy38" skip="yes" reason="HTML output"/>
+  <test-case id="copy_copy40" compiles="no"/>
+  <test-case id="expression_expression01" compiles="no"/>
+  <test-case id="expression_expression02" compiles="no"/>
+  <test-case id="expression_expression03" compiles="no"/>
+  <test-case id="expression_expression04" compiles="no"/>
+  <test-case id="expression_expression05" compiles="no"/>
+  <test-case id="expression_expression06" compiles="no"/>
+  <test-case id="extend_extend01" compiles="no"/>
+  <test-case id="extend_extend02" compiles="no"/>
+  <test-case id="extend_extend03" compiles="no"/>
+  <test-case id="extend_extend04" compiles="no"/>
+  <test-case id="impincl_impincl09" compiles="no"/>
+  <test-case id="impincl_impincl11" compiles="no"/>
+  <test-case id="impincl_impincl17" compiles="no"/>
+  <test-case id="match_match01" compiles="no"/>
+  <test-case id="mdocs_mdocs02" runs="no"/>
+  <test-case id="mdocs_mdocs04" runs="no"/>
+  <test-case id="mdocs_mdocs05" runs="no"/>
+  <test-case id="mdocs_mdocs06" runs="no"/>
+  <test-case id="mdocs_mdocs07" runs="no"/>
+  <test-case id="mdocs_mdocs08" runs="no"/>
+  <test-case id="mdocs_mdocs18" runs="no"/>
+  <test-case id="message_message14" compiles="no"/>
+  <test-case id="message_message15" compiles="no"/>
+  <test-case id="namedtemplate_namedtemplate12" compiles="no"/>
+  <test-case id="position_position05" compiles="no"/>
+  <test-case id="position_position07" compiles="no"/>
+  <test-case id="position_position42" compiles="no"/>
+  <test-case id="position_position43" compiles="no"/>
+  <test-case id="position_position44" compiles="no"/>
+  <test-case id="position_position45" compiles="no"/>
+  <test-case id="position_position46" compiles="no"/>
+  <test-case id="position_position47" compiles="no"/>
+  <test-case id="position_position49" compiles="no"/>
+  <test-case id="position_position50" compiles="no"/>
+  <test-case id="position_position51" compiles="no"/>
+  <test-case id="position_position56" compiles="no"/>
+  <test-case id="position_position57" compiles="no"/>
+  <test-case id="position_position70" compiles="no"/>
+  <test-case id="position_position106" compiles="no"/>
+  <test-case id="reluri_reluri10" runs="no"/>
+  <test-case id="reluri_reluri11" runs="no"/>
+  <test-case id="select_select07" skip="yes" reason="Text output"/>
+  <test-case id="select_select54" compiles="no"/>
+  <test-case id="select_select55" compiles="no"/>
+  <test-case id="select_select59" compiles="no"/>
+  <test-case id="select_select64" compiles="no"/>
+  <test-case id="select_select67" runs="no"/>
+  <test-case id="select_select68" runs="no"/>
+  <test-case id="select_select74" skip="yes" reason="HTML output"/>
+  <test-case id="sort_sort08" skip="yes" reason="Test case is bad.  Xalan sorts % ahead of space.  Others, including comment in test data, disagree."/>
+  <test-case id="sort_sort22" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort23" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort24" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort25" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort27" skip="yes" reason="Test case is bad.  Xalan regards leading whitespace as insignificant.  Everyone else disagrees."/>
+  <test-case id="sort_sort30" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort31" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort35" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort37" skip="yes" reason="Text output"/>
+  <test-case id="string_string13" compiles="no"/>
+  <test-case id="string_string106" compiles="no"/>
+  <test-case id="string_string108" compiles="no"/>
+  <test-case id="string_string109" compiles="no"/>
+  <test-case id="string_string110" compiles="no"/>
+  <test-case id="string_string124" compiles="no"/>
+  <test-case id="string_string129" compiles="no"/>
+  <test-case id="string_string130" compiles="no"/>
+  <test-case id="ver_ver01" compiles="no"/>
+  <test-case id="ver_ver05" compiles="no"/>
+  <test-case id="ver_ver06" compiles="no"/>
+  <test-case id="ver_ver07" compiles="no"/>
+  <test-case id="whitespace_whitespace01" compiles="no"/>
+  <test-case id="whitespace_whitespace02" compiles="no"/>
+  <test-case id="whitespace_whitespace03" compiles="no"/>
+  <test-case id="whitespace_whitespace04" compiles="no"/>
+  <test-case id="whitespace_whitespace05" compiles="no"/>
+  <test-case id="whitespace_whitespace06" compiles="no"/>
+  <test-case id="whitespace_whitespace07" compiles="no"/>
+  <test-case id="whitespace_whitespace12" compiles="no"/>
+  <test-case id="whitespace_whitespace22" compiles="no"/>
+  <test-case id="whitespace_whitespace35" compiles="no"/>
+</test-suite>

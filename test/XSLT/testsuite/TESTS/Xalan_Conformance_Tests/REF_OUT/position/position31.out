@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  Group: 1
+     left front bracket
+     momentary button
+     toggle button
+     source select dial
+  Group: 2
+     power switch button
+     main panel light
+     selector light
+  Group: 1
+     right front bracket
+  Group: 2
+     top inner bracket
+  Group: 1
+     output select dial
+  Group: 3
+     frequency dial
+     voltage dial
+  Group: 1
+     power light
+  Group: 2
+     safety light
+</out>

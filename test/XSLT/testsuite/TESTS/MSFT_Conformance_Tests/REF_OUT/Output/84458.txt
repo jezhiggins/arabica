@@ -1,0 +1,25 @@
+  
+COPY-OF:
+<html>
+<Q cite="http://www.yahoo.com">http://www.yahoo.com</Q> <Q cite="http://%E6%97%A5%E6%9C%AC">http://??</Q> <Q cite="http://www.this space.com">http://www.this space.com </Q> <Q cite="http://%D0%81%D0%82%D0%83%D0%A7%D1%84%D1%85%D1%86%D1%88%D1%A6%D1%A8 "> http://?????????? </Q> <Q cite="%C4%80%C4%81%C4%82%C4%83">AaAa</Q> <Q cite="%E0%AE%83%E0%AE%85%E0%AE%86%E0%AE%87%E0%AE%88%E0%AE%89%E0%AE%8A%E0%AE%B9%E0%AE%B8">????????? </Q>
+<BLOCKQUOTE cite="http://www.yahoo.com">http://www.yahoo.com</BLOCKQUOTE>
+<BLOCKQUOTE cite="http://%E6%97%A5%E6%9C%AC">http://??</BLOCKQUOTE>
+<BLOCKQUOTE cite="http://www.this space.com">http://www.this space.com </BLOCKQUOTE>
+<BLOCKQUOTE cite="http://%D0%81%D0%82%D0%83%D0%A7%D1%84%D1%85%D1%86%D1%88%D1%A6%D1%A8 "> http://?????????? </BLOCKQUOTE>
+<BLOCKQUOTE cite="%C4%80%C4%81%C4%82%C4%83">AaAa</BLOCKQUOTE>
+<BLOCKQUOTE cite="%E0%AE%83%E0%AE%85%E0%AE%86%E0%AE%87%E0%AE%88%E0%AE%89%E0%AE%8A%E0%AE%B9%E0%AE%B8">????????? </BLOCKQUOTE>
+<INS cite="http://www.yahoo.com">http://www.yahoo.com</INS>
+<INS cite="http://%E6%97%A5%E6%9C%AC">http://??</INS>
+<INS cite="http://www.this space.com">http://www.this space.com </INS>
+<INS cite="http://%D0%81%D0%82%D0%83%D0%A7%D1%84%D1%85%D1%86%D1%88%D1%A6%D1%A8 "> http://?????????? </INS>
+<INS cite="%C4%80%C4%81%C4%82%C4%83">AaAa</INS>
+<INS cite="%E0%AE%83%E0%AE%85%E0%AE%86%E0%AE%87%E0%AE%88%E0%AE%89%E0%AE%8A%E0%AE%B9%E0%AE%B8">????????? </INS>
+<DEL cite="http://www.yahoo.com">http://www.yahoo.com</DEL>
+<DEL cite="http://%E6%97%A5%E6%9C%AC">http://??</DEL>
+<DEL cite="http://www.this space.com">http://www.this space.com </DEL>
+<DEL cite="http://%D0%81%D0%82%D0%83%D0%A7%D1%84%D1%85%D1%86%D1%88%D1%A6%D1%A8 "> http://?????????? </DEL>
+<DEL cite="%C4%80%C4%81%C4%82%C4%83">AaAa</DEL>
+<DEL cite="%E0%AE%83%E0%AE%85%E0%AE%86%E0%AE%87%E0%AE%88%E0%AE%89%E0%AE%8A%E0%AE%B9%E0%AE%B8">????????? </DEL>
+</html>  
+GET TEXT:
+<Q cite="http://www.yahoo.com"></Q><Q cite="http://%E6%97%A5%E6%9C%AC"></Q><Q cite="http://www.this space.com "></Q><Q cite=" http://%D0%81%D0%82%D0%83%D0%A7%D1%84%D1%85%D1%86%D1%88%D1%A6%D1%A8 "></Q><Q cite="%C4%80%C4%81%C4%82%C4%83"></Q><Q cite="%E0%AE%83%E0%AE%85%E0%AE%86%E0%AE%87%E0%AE%88%E0%AE%89%E0%AE%8A%E0%AE%B9%E0%AE%B8 "></Q>

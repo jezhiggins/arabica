@@ -1,0 +1,16 @@
+  
+BLOCK ELEMENTS TEST
+
+FROM XML:
+<xslTutorial>
+<FORM>this</FORM><FORM>rocks</FORM>
+<FORM>this</FORM>
+<FORM>rocks</FORM>
+<FORM>this</FORM>
+<FORM>rocks</FORM>
+<FORM>this</FORM>
+<FORM>rocks</FORM>
+<SPAN>this</SPAN><FORM>rocks</FORM>
+<SPAN>this</SPAN>
+<FORM>rocks</FORM>
+</xslTutorial>

@@ -1,0 +1,6 @@
+<span style="color=green">
+<p />
+				Title of Current Magazine: Road and Track
+				Title of Current Magazine: PC Week
+				Title of Current Magazine: PC Magazine
+				Title of Current Magazine: Tracking Trenton</span>

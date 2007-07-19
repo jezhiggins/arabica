@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:ped="http://ped.test.com">
+   <Out xmlns:ns0="http://www.ns0.com" ns0:Attr0="Hello" Attr1="Whatsup" ped:Attr2="Goodbye"/>
+   <Out2 xmlns:bdd="http://bdd.test.com">
+      <Out3 xmlns:jad="http://jad.test.com"/>
+   </Out2>
+</root>

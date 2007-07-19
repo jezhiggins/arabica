@@ -1,0 +1,77 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Namespace_XPath" description="" outpath="out">
+	<variation name="Conflict_XPath_XSLT">
+		<description>Verify XPath uses namespaces from XSLT, not from XmlNavigator</description>
+		<data>
+			<xml>prefixes.xml</xml>
+			<xsl>namespace_xpath_1.xsl</xsl>
+		</data>
+		<result expected="valid">Namespace_XPath_1.txt</result>
+	</variation>
+	<variation name="CopyNamespaceNodeToOutput">
+		<description>Copy namespace nodes to output. [bug 70935]</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_copy_namespace_nodes.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_copy_namespace_nodes.txt</result>
+	</variation>
+	<variation name="DefaultNamespace">
+		<description>Use default namespace from xsl file and xml file</description>
+		<data>
+			<xml>prefixes.xml</xml>
+			<xsl>namespace_xpath_4.xsl</xsl>
+		</data>
+		<result expected="valid">Namespace_XPath_4.txt</result>
+	</variation>
+	<variation name="NavigatorMethods">
+		<description>Use each of the XmlNavigator methods (select, matches, evaluate) with different prefixes from xml file</description>
+		<data>
+			<xml>prefixes.xml</xml>
+			<xsl>namespace_xpath_3.xsl</xsl>
+		</data>
+		<result expected="valid">Namespace_XPath_3.txt</result>
+	</variation>
+	<variation name="PredefinedPrefix_XML">
+		<description>Use xml prefix and its namespace to find xml:space attributes</description>
+		<data>
+			<xml>prefixes.xml</xml>
+			<xsl>namespace_xpath_6.xsl</xsl>
+		</data>
+		<result expected="valid">Namespace_XPath_6.txt</result>
+	</variation>
+	<variation name="PredefinedPrefix_XMLNS">
+		<description>Verify xpath does not return xmlns attributes</description>
+		<data>
+			<xml>prefixes.xml</xml>
+			<xsl>namespace_xpath_7.xsl</xsl>
+		</data>
+		<result expected="valid">Namespace_XPath_7.txt</result>
+	</variation>
+	<variation name="SameQuery_DiffNamespace">
+		<description>Use same query many times with different namespace mapping</description>
+		<data>
+			<xml>prefixes.xml</xml>
+			<xsl>namespace_xpath_8.xsl</xsl>
+		</data>
+		<result expected="valid">Namespace_XPath_8.txt</result>
+	</variation>
+	<variation name="ScopingRules">
+		<description>Verify all namespace scoping rules in stylesheet</description>
+		<data>
+			<xml>prefixes.xml</xml>
+			<xsl>namespace_xpath_5.xsl</xsl>
+		</data>
+		<result expected="valid">Namespace_XPath_5.txt</result>
+	</variation>
+	<variation name="UndeclaredPrefix">
+		<description>Prefix is declared in xml file, but not in stylesheet</description>
+		<data>
+			<xml>prefixes.xml</xml>
+			<xsl>namespace_xpath_2.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+</testcase>

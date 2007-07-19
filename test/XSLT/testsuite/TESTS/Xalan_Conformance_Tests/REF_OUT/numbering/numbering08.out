@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  Test for source tree numbering
+  
+    01. First Chapter
+    
+      01-001. First Section In first Chapter
+      01-001-001. First Subsection in first Section In first Chapter
+      01-001-002. Second Subsection in first Section In first Chapter
+      01-001-003. Third Subsection in first Section In first Chapter
+      01-001-004. Fourth Subsection in first Section In first Chapter
+      01-001-005. Fifth Subsection in first Section In first Chapter
+    
+    
+      01-002. Second Section In first Chapter
+      01-002-001. First Subsection in second Section In first Chapter
+      01-002-002. Second Subsection in second Section In first Chapter
+      01-002-003. Third Subsection in second Section In first Chapter
+      01-002-004. Fourth Subsection in second Section In first Chapter
+      01-002-005. Fifth Subsection in second Section In first Chapter
+      01-002-006. Sixth Subsection in second Section In first Chapter
+      01-002-007. Seventh Subsection in second Section In first Chapter
+      01-002-008. Eighth Subsection in second Section In first Chapter
+      01-002-009. Ninth Subsection in second Section In first Chapter
+      01-002-010. Tenth Subsection in second Section In first Chapter
+      01-002-011. Eleventh Subsection in second Section In first Chapter
+    
+    
+      01-003. Third Section In first Chapter
+      01-003-001. First Subsection in third Section In first Chapter
+      01-003-002. Second Subsection in third Section In first Chapter
+      01-003-003. Third Subsection in third Section In first Chapter
+      01-003-004. Fourth Subsection in third Section In first Chapter
+      01-003-005. Fifth Subsection in third Section In first Chapter
+    
+    
+      01-004. Fourth Section In first Chapter
+      01-004-001. First Subsection in fourth Section In first Chapter
+      01-004-002. Second Subsection in fourth Section In first Chapter
+      01-004-003. Third Subsection in fourth Section In first Chapter
+      01-004-004. Fourth Subsection in fourth Section In first Chapter
+      01-004-005. Fifth Subsection in fourth Section In first Chapter
+      01-004-006. Sixth Subsection in fourth Section In first Chapter
+      01-004-007. Seventh Subsection in fourth Section In first Chapter
+      01-004-008. Eighth Subsection in fourth Section In first Chapter
+      01-004-009. Ninth Subsection in fourth Section In first Chapter
+      01-004-010. Tenth Subsection in fourth Section In first Chapter
+      01-004-011. Eleventh Subsection in fourth Section In first Chapter
+    
+  
+  
+    02. Second Chapter
+    
+      02-001. First Section In second Chapter
+      02-001-001. First Subsection in first Section In second Chapter
+      02-001-002. Second Subsection in first Section In second Chapter
+      02-001-003. Third Subsection in first Section In second Chapter
+      02-001-004. Fourth Subsection in first Section In second Chapter
+      02-001-005. Fifth Subsection in first Section In second Chapter
+    
+    
+      02-002. Second Section In second Chapter
+      02-002-001. First Subsection in second Section In second Chapter
+      02-002-002. Second Subsection in second Section In second Chapter
+      02-002-003. Third Subsection in second Section In second Chapter
+      02-002-004. Fourth Subsection in second Section In second Chapter
+      02-002-005. Fifth Subsection in second Section In second Chapter
+      02-002-006. Sixth Subsection in second Section In second Chapter
+      02-002-007. Seventh Subsection in second Section In second Chapter
+      02-002-008. Eighth Subsection in second Section In second Chapter
+      02-002-009. Ninth Subsection in second Section In second Chapter
+    
+    
+      02-003. Third Section In second Chapter
+      02-003-001. First Subsection in third Section In second Chapter
+      02-003-002. Second Subsection in third Section In second Chapter
+      02-003-003. Third Subsection in third Section In second Chapter
+      02-003-004. Fourth Subsection in third Section In second Chapter
+      02-003-005. Fifth Subsection in third Section In second Chapter
+      02-003-006. Sixth Subsection in third Section In second Chapter
+      02-003-007. Seventh Subsection in third Section In second Chapter
+      02-003-008. Eighth Subsection in third Section In second Chapter
+      02-003-009. Ninth Subsection in third Section In second Chapter
+      02-003-010. Tenth Subsection in third Section In second Chapter
+      02-003-011. Eleventh Subsection in third Section In second Chapter
+      02-003-012. Twelveth Subsection in third Section In second Chapter
+    
+    
+      02-004. Fouth Section In second Chapter
+      02-004-001. First Subsection in fourth Section In second Chapter
+      02-004-002. Second Subsection in fourth Section In second Chapter
+      02-004-003. Third Subsection in fourth Section In second Chapter
+      02-004-004. Fourth Subsection in fourth Section In second Chapter
+      02-004-005. Fifth Subsection in fourth Section In second Chapter
+      02-004-006. Sixth Subsection in fourth Section In second Chapter
+      02-004-007. Seventh Subsection in fourth Section In second Chapter
+    
+  
+  
+    03. Third Chapter
+    
+      03-001. First Section In third Chapter
+      03-001-001. First Subsection in first Section In third Chapter
+    
+  
+  
+    04. Fourth Chapter
+    
+      04-001. First Section In fourth Chapter
+      04-001-001. First Subsection in first Section In fourth Chapter
+    
+  
+  
+    05. Fifth Chapter
+    
+      05-001. First Section In fifth Chapter
+      05-001-001. First Subsection in first Section In fifth Chapter
+    
+  
+  
+    A. First Appendix
+    
+      A-001. First Section In first Appendix
+      A-001-001. First Subsection in first Section In first Appendix
+      A-001-002. Second Subsection in first Section In first Appendix
+      A-001-003. Third Subsection in first Section In first Appendix
+      A-001-004. Fourth Subsection in first Section In first Appendix
+      A-001-005. Fifth Subsection in first Section In first Appendix
+    
+    
+      A-002. Second Section In first Appendix
+      A-002-001. First Subsection in second Section In first Appendix
+      A-002-002. Second Subsection in second Section In first Appendix
+      A-002-003. Third Subsection in second Section In first Appendix
+      A-002-004. Fourth Subsection in second Section In first Appendix
+      A-002-005. Fifth Subsection in second Section In first Appendix
+      A-002-006. Sixth Subsection in second Section In first Appendix
+      A-002-007. Seventh Subsection in second Section In first Appendix
+      A-002-008. Eighth Subsection in second Section In first Appendix
+      A-002-009. Ninth Subsection in second Section In first Appendix
+      A-002-010. Tenth Subsection in second Section In first Appendix
+      A-002-011. Eleventh Subsection in second Section In first Appendix
+      A-002-012. Twelveth Subsection in second Section In first Appendix
+      A-002-013. Thirteenth Subsection in second Section In first Appendix
+      A-002-014. Fourteenth Subsection in second Section In first Appendix
+    
+    
+      A-003. Third Section In first Appendix
+      A-003-001. First Subsection in third Section In first Appendix
+      A-003-002. Second Subsection in third Section In first Appendix
+      A-003-003. Third Subsection in third Section In first Appendix
+      A-003-004. Fourth Subsection in third Section In first Appendix
+      A-003-005. Fifth Subsection in third Section In first Appendix
+      A-003-006. Sixth Subsection in third Section In first Appendix
+      A-003-007. Seventh Subsection in third Section In first Appendix
+      A-003-008. Eighth Subsection in third Section In first Appendix
+      A-003-009. Ninth Subsection in third Section In first Appendix
+      A-003-010. Tenth Subsection in third Section In first Appendix
+      A-003-011. Eleventh Subsection in third Section In first Appendix
+    
+  
+  
+    B. Second Appendix
+    
+      B-001. First Section In second Appendix
+      B-001-001. First Subsection in first Section In second Appendix
+      B-001-002. Second Subsection in first Section In second Appendix
+      B-001-003. Third Subsection in first Section In second Appendix
+      B-001-004. Fourth Subsection in first Section In second Appendix
+      B-001-005. Fifth Subsection in first Section In second Appendix
+    
+    
+      B-002. Second Section In second Appendix
+      B-002-001. First Subsection in second Section In second Appendix
+      B-002-002. Second Subsection in second Section In second Appendix
+      B-002-003. Third Subsection in second Section In second Appendix
+      B-002-004. Fourth Subsection in second Section In second Appendix
+      B-002-005. Fifth Subsection in second Section In second Appendix
+      B-002-006. Sixth Subsection in second Section In second Appendix
+      B-002-007. Seventh Subsection in second Section In second Appendix
+    
+    
+      B-003. Third Section In second Appendix
+      B-003-001. First Subsection in third Section In second Appendix
+      B-003-002. Second Subsection in third Section In second Appendix
+      B-003-003. Third Subsection in third Section In second Appendix
+      B-003-004. Fourth Subsection in third Section In second Appendix
+      B-003-005. Fifth Subsection in third Section In second Appendix
+      B-003-006. Sixth Subsection in third Section In second Appendix
+      B-003-007. Seventh Subsection in third Section In second Appendix
+      B-003-008. Eighth Subsection in third Section In second Appendix
+      B-003-009. Ninth Subsection in third Section In second Appendix
+      B-003-010. Tenth Subsection in third Section In second Appendix
+    
+    
+      B-004. Fourth Section In second Appendix
+      B-004-001. First Subsection in fourth Section In second Appendix
+      B-004-002. Second Subsection in fourth Section In second Appendix
+      B-004-003. Third Subsection in fourth Section In second Appendix
+      B-004-004. Fourth Subsection in fourth Section In second Appendix
+      B-004-005. Fifth Subsection in fourth Section In second Appendix
+      B-004-006. Sixth Subsection in fourth Section In second Appendix
+      B-004-007. Seventh Subsection in fourth Section In second Appendix
+      B-004-008. Eighth Subsection in fourth Section In second Appendix
+    
+  
+  
+    C. Third Appendix
+    
+      C-001. First Section In third Appendix
+      C-001-001. First Subsection in first Section In third Appendix
+    
+  
+  
+    D. Fourth Appendix
+    
+      D-001. First Section In fourth Appendix
+      D-001-001. First Subsection in first Section In fourth Appendix
+    
+  
+  
+    E. Fifth Appendix
+    
+      E-001. First Section In fifth Appendix
+      E-001-001. First Subsection in first Section In fifth Appendix
+    
+  
+</out>

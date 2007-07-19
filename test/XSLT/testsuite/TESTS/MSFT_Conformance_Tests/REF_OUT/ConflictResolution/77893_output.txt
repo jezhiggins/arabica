@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><span style="color:orange">title</span>
+	:
+        <span style="color:orange">price</span>
+	:
+        <span style="color:orange">subscription</span>
+	:
+        <span style="color:orange">special_edition</span>
+	:
+        <span style="color:orange">title</span>
+	:
+        <span style="color:orange">price</span>
+	:
+        <span style="color:orange">publisher</span>
+	:
+        <span style="color:orange">title</span>
+	:
+        <span style="color:orange">price</span>
+	:
+        <span style="color:orange">publisher</span>
+	:
+        <span style="color:orange">articles</span>
+	:
+        <span style="color:orange">articles</span>
+	:
+        <span style="color:orange">award</span>
+	:
+        <span style="color:orange">title</span>
+	:
+        <span style="color:orange">price</span>
+	:
+        <span style="color:orange">subscription</span>
+	:
+        

@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<LI>this</LI><LI>rocks</LI>
+<LI>this</LI> <LI>rocks</LI>
+<LI>this</LI>
+<LI>rocks</LI>
+<LI>this</LI>		<LI>rocks</LI>
+
+<SPAN>this</SPAN><LI>rocks</LI>
+<SPAN>this</SPAN> <LI>rocks</LI>
+</xslTutorial>

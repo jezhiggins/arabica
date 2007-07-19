@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minding xmlns:ped="http://tester.com" x="his peas and queues">
+<jad:output1 xmlns:jad="http://administrator.com"/>
+<jad:output2 xmlns:jad="http://administrator.com">
+<jad:output2a/>
+</jad:output2>
+<ljh:output1 xmlns:ljh="http://buster.com"/>
+<ljh:output2 xmlns:ljh="http://buster.com">
+<ljh:output2a/>
+</ljh:output2>
+</minding>

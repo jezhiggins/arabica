@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out><test-info>(a or b and c or d)</test-info><test-output>1 3 5 6 7 8 9 a b c d e f </test-output></out>

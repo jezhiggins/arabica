@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<x attr1="attr1 pri0 2" attr5="attr5 pri -2" attr4="attr4 pri -1" attr2="attr2 pri0" attr3="attr3 pri0" merge2-1="" merge2-2="" merge-import-2="" merge-import-1="" />

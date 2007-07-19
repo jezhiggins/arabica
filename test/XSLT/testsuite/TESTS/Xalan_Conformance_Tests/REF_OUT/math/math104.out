@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>0 is a number
+1 is a number
+2 is a number
+-1 is a number
+0.0001 is a number
+five is not a number
+NaN is not a number
+ is not a number
+. is not a number
+0. is a number
+.0 is a number
+-0 is a number
+</out>

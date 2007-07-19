@@ -1,0 +1,18 @@
+<priority-scramble />
+<x>foo1 pri 0 depends on foo1 pri -2</x>
+<x>foo2 pri 0 depends on foo2 pri -2</x>
+<x>foo3 pri 0 depends on foo3 pri -2</x>
+<x>foo4 pri 0 depends on foo4 pri -2</x>
+<x>foo5 pri 0 depends on foo5 pri -1</x>
+<x>foo6 pri -1 depends on foo6 pri -2</x>
+<x>foo7 pri -1 depends on foo7 pri -2</x>
+<forward-refs />
+<x>foo1 pri 0 depends on foo1 pri -2</x>
+<x>foo3 pri 0 depends on foo3 pri -2</x>
+<x>foo5 pri 0 depends on foo5 pri -1</x>
+<x>foo7 pri -1 depends on foo7 pri -2</x>
+<x>foo8 pri 0 depends on foo8 pri -1</x>
+<import-resolves-circular-ref />
+<x>foo10 pri -1 depends on foo9 pri 0</x>
+<import-overriden-with-new-type />
+<x>NaN</x>

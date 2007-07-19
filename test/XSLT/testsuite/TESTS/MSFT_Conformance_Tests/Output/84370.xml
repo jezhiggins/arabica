@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<BUTTON>this</BUTTON><BUTTON>rocks</BUTTON>
+<BUTTON>this</BUTTON><U> </U><BUTTON>rocks</BUTTON>
+<BUTTON>this </BUTTON><BUTTON>rocks</BUTTON>
+<BUTTON>this</BUTTON><BUTTON> rocks</BUTTON>
+<BUTTON>this
+</BUTTON><BUTTON>
+rocks</BUTTON>
+<BUTTON>this</BUTTON>
+<BUTTON>rocks</BUTTON>
+<BUTTON>this</BUTTON>	<BUTTON>rocks</BUTTON>
+<BUTTON>this<![CDATA[  ]]></BUTTON><BUTTON>rocks</BUTTON>
+<![CDATA[ <BUTTON>this</BUTTON><U> </U><BUTTON>rocks</BUTTON> ]]>
+</xslTutorial>

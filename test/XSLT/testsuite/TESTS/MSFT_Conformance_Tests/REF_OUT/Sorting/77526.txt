@@ -1,0 +1,5 @@
+<HTML>
+<BODY>-1 is at position 4<br />0.5 is at position 7<br />0.52 is at position 6<br />1 is at position 1<br />01 is at position 2<br />1 is at position 8<br />2 is at position 5<br />10 is at position 3<br />
+<br />
+</BODY>
+</HTML>

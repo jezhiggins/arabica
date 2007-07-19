@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out><p2:foo xmlns:p2="http://barz.com"><yyy xmlns:p2="http://testguys.com"/></p2:foo></out>

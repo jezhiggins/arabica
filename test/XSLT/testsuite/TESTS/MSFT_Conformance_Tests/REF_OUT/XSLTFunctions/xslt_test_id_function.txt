@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?><out>
+  Test for id selection and pattern matching...
+  Next line should read: -*id17*-    
+  -*id17*-
+
+  Next line should read: (*id14*)    
+  (*id14*)
+
+  Next line should read: -*id4*-     
+  -*id4*-
+
+  Next line should read: +*id9*+     
+  +*id9*+
+
+  Next line should read: (*id13*)    
+  (*id13*)
+
+  Next line should read: -*id6*-     
+  -*id6*-
+
+  Next line should read: @*id19*@    
+  @*id19*@
+
+  Next line should read: %*id12*%    
+  %*id12*%
+
+  Next line should read: !*id11*!    
+  !*id11*!
+
+  Next line should read: [*id3*] \*id5*\ =*id16*=  
+  [*id3*]
+
+  \*id5*\
+
+  =*id16*=
+</out>

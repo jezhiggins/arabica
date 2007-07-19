@@ -1,0 +1,11 @@
+<root>
+   <Book Title="Let's Go to the Zoo">
+      <Summary>
+          All you need to know about Monkeys
+          <![CDATA[  Zebras, Pigs and ]]>
+          Snakes
+          <Details>...</Details>
+          For more details go to http://www.zoo.com
+      </Summary>
+   </Book>
+</root>

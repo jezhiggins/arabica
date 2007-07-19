@@ -1,0 +1,113 @@
+<!--Configurable Test Suite Discretionary items-->
+<!--$Id: disc.dtd,v 1.6 2001/12/07 15:56:29 Administrator Exp $-->
+<!--
+  Catalogue of discretionary items in a specification.
+  This catalog may be used to generate:
+    1. A narrative document about discretionary items
+    2. A questionnaire for developers about choices they made
+    3. Validation data for an associated test-case catalog
+-->
+<!--
+Copyright (C) The Organization for the Advancement of
+Structured Information Standards [OASIS] (2001). All Rights Reserved.
+
+This document and translations of it may be copied and furnished to
+others, and derivative works that comment on or otherwise explain it or
+assist in its implementation may be prepared, copied, published and
+distributed, in whole or in part, without restriction of any kind,
+provided that the above copyright notice and this paragraph are included
+on all such copies and derivative works. However, this document itself
+may not be modified in any way, such as by removing the copyright notice
+or references to OASIS, except as needed for the purpose of developing
+OASIS specifications, in which case the procedures for copyrights
+defined in the OASIS Intellectual Property Rights document must be
+followed, or as required to translate it into languages
+other than English.
+
+The limited permissions granted above are perpetual and
+will not be revoked by OASIS or its successors or assigns.
+
+This document and the information contained herein is provided on an
+"AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+-->
+
+<!--common fragments-->
+
+<!ENTITY % prose "#PCDATA | em | strong | span">
+<!ENTITY % citations SYSTEM "citation.dtd">
+%citations;
+
+<!--========================================================================-->
+<!--high-level constructs-->
+<!ELEMENT doc (verbiage, items, interlocks, changes)>
+<!ATTLIST doc date CDATA #REQUIRED
+          configuration-href CDATA #REQUIRED>
+<!ELEMENT items ( item )*>
+<!ELEMENT interlocks ( interlock* )>
+<!ELEMENT changes ( change* )>
+
+<!-- verbiage is used in the narrative document
+     items contains all <item> elements, regardless of attributes
+     interlocks is the means of associating items that are interdependent
+     changes is for internal logging and the long-form human-readable document -->
+
+<!--========================================================================-->
+<!--mid-level constructs-->
+
+<!ELEMENT title ( %prose; )*>
+<!ELEMENT intro ( p | ul )*>
+<!ELEMENT verbiage ( title, intro, group-intro*, question-intro )>
+<!ELEMENT group-intro ( p | ul )*>
+<!ATTLIST group-intro status ID #REQUIRED>
+<!ELEMENT question-intro ( p | ul )*>
+<!ELEMENT item ( spec-citation+, choices?, excerpt, question*, elaborator? )>
+<!ATTLIST item id ID #REQUIRED
+               expandable CDATA #IMPLIED
+               status IDREF #REQUIRED>
+<!ELEMENT choices ( choice+ )>
+<!ATTLIST choices mootable (yes | no) #IMPLIED>
+<!ELEMENT excerpt ( p | ul )*>
+
+<!ELEMENT interlock ( p | ul )*>
+<!ELEMENT change ( p | ul )*>
+
+<!--========================================================================-->
+<!--low-level constructs-->
+
+<!ELEMENT p ( %prose; | party | all-choices )*>
+<!ATTLIST p style CDATA #IMPLIED>
+<!ELEMENT strong ( %prose; )*>
+<!ELEMENT em ( %prose; )*>
+<!ELEMENT span ( %prose; )*>
+<!ATTLIST span style CDATA #REQUIRED>
+<!ELEMENT ul ( li* )>
+<!ELEMENT li ( %prose; | party )*>
+<!ELEMENT question ( %prose; )*>
+<!ATTLIST question scope ( Filter | Configuration | Prototype ) #IMPLIED>
+<!-- A question of the "Filter" type should be expressed so that test cases can be
+     included/excluded based on the answers; it would typically be used if the
+     "status" of the item is not Configuration or Recognized.
+     For Configuration, question should elicit information useful to the Test Lab.
+     A Prototype question is a general example, which will be instantiated as a
+     Filter question for each language/locale represented in the test suite.
+     "Recognized" items probably don't warrant a question, hence it's optional. -->
+<!ELEMENT choice EMPTY>
+<!ATTLIST choice value CDATA #REQUIRED>
+<!-- Don't validate values here, because the function of a document conforming to
+     this DTD is to *define* the values. Note, however that the use of "yes" and "no"
+     is discouraged for Filter questions (for readability). -->
+<!ELEMENT elaborator ( %prose; )*>
+<!ATTLIST elaborator choice CDATA #REQUIRED>
+<!ATTLIST change date CDATA #REQUIRED>
+
+<!--========================================================================-->
+<!--specialist low-level constructs-->
+
+<!ELEMENT party EMPTY>
+<!ATTLIST party idref IDREF #REQUIRED>
+<!ELEMENT all-choices EMPTY>
+
+<!--end of file-->

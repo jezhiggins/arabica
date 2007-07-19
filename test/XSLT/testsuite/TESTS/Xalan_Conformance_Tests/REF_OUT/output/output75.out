@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+<out1 attrib1="_&lt;Whoa-No&gt;_" attrib2="&lt;&lt;&lt;P&gt;&gt;&gt;"/>
+<out2 attrib3="_&lt;Whoa-Yes&gt;_" attrib4="&lt;&lt;&lt;P&gt;&gt;&gt;"/>
+<out3><<<P>>></out3>
+</xml>

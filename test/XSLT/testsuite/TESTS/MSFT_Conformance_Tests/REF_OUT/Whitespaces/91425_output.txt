@@ -1,0 +1,27 @@
+<docfrag> Hello   World 52 Hello    World   </docfrag><document>
+	This is an XML/HTML document
+
+	It's intended to be used to test whitespace preservation and stripping.
+	In order to do this, it must have a variety of interesting data.
+
+    
+    
+         Hello    World   
+                   
+        
+            
+                 Column 1 
+            
+            
+                 Column 2 
+            
+        
+    
+
+    
+    
+        
+          
+    
+</document><comment> This is a comment </comment><pi>This is a pi</pi><attribute>preserve</attribute><cdata>       </cdata><pcdata-notws>This is an XML/HTML document</pcdata-notws><pcdata-stripws></pcdata-stripws><pcdata-preservews>
+        </pcdata-preservews>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out xmlns:anamespace="http://foo.com">
+<p anamespace:Attr1="true"/>
+<p xmlns:ns0="http://baz.com" ns0:Attr2="true"/>
+<p Attr3="true"/>
+</out>

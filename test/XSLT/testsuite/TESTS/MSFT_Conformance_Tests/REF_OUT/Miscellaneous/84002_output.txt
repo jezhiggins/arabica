@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><DIV><B> copy-of : </B><p id="a12">   &lt;opentag&gt; without an &lt;/endtag&gt; and &amp; &lt;! are all ok here 
+Compare <B>these constructs</B>.  
+
+</p></DIV><DIV><B> copy : </B><p /></DIV><DIV><B> value-of : </B>   &lt;opentag&gt; without an &lt;/endtag&gt; and &amp; &lt;! are all ok here 
+Compare these constructs.  
+
+</DIV>
+         
+FOR EACH 
+
+           &lt;opentag&gt; without an &lt;/endtag&gt; and &amp; &lt;! are all ok here 
+Compare <B />.  
+

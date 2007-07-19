@@ -1,0 +1,1344 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Output" description="" outpath="out">
+	<variation name="_77926">
+		<description>XSLT29500: Output - method equals null</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29500.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77927">
+		<description>XSLT29501: Output - method is missing</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29501.xsl</xsl>
+		</data>
+		<result expected="valid">77927.txt</result>
+	</variation>
+	<variation name="_77928">
+		<description>XSLT29502: Output - method equals xml</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29502.xsl</xsl>
+		</data>
+		<result expected="valid">77928.txt</result>
+	</variation>
+	<variation name="_77929">
+		<description>XSLT29504: Output - method equals html</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29504.xsl</xsl>
+		</data>
+		<result expected="valid">77929.txt</result>
+	</variation>
+	<variation name="_77930">
+		<description>XSLT29505: Output - method equals text</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29505.xsl</xsl>
+		</data>
+		<result expected="valid">77930.txt</result>
+	</variation>
+	<variation name="_77931">
+		<description>XSLT29506: Output - method equals Qname</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29506.xsl</xsl>
+		</data>
+		<result expected="valid">77931.txt</result>
+	</variation>
+	<variation name="_77932">
+		<description>XSLT29107: Output - version = buffer overflow</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29107.xsl</xsl>
+		</data>
+		<result expected="valid">77932.txt</result>
+	</variation>
+	<variation name="_77933">
+		<description>XSLT29101: Output - version without method</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29101.xsl</xsl>
+		</data>
+		<result expected="valid">77933_output.txt</result>
+	</variation>
+	<variation name="_77934">
+		<description>XSLT29100: Output - version="1.0"</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29100.xsl</xsl>
+		</data>
+		<result expected="valid">77934_output.txt</result>
+	</variation>
+	<variation name="_77935">
+		<description>XSLT29005: Output -not  top level element</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>XSLT29005.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77936">
+		<description>XSLT29304: Output -method="xml"  version="1.0", encoding="UTF-16", standalone="yes"</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29304.xsl</xsl>
+		</data>
+		<result expected="valid">77936_output.txt</result>
+	</variation>
+	<variation name="_77937">
+		<description>XSLT29404: Output -method="xml"  version="1.0", encoding="UTF-16", standalone=""</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29404.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77938">
+		<description>XSLT29403: Output -method="xml"  version="1.0", encoding="UTF-16", standalone="foo"</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29403.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77939">
+		<description>XSLT29402: Output -method="xml"  version="1.0", encoding="UTF-16".  Standalone default</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29402.xsl</xsl>
+		</data>
+		<result expected="valid">77939.txt</result>
+	</variation>
+	<variation name="_77940">
+		<description>XSLT29401: Output -method="xml"  version="1.0", encoding="UTF-16", standalone="no"</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29401.xsl</xsl>
+		</data>
+		<result expected="valid">77940.txt</result>
+	</variation>
+	<variation name="_77957">
+		<description>XSLT29305: Output -method="xml"  indent default = no</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt29305.xsl</xsl>
+		</data>
+		<result expected="valid">77957.txt</result>
+	</variation>
+	<variation name="_77959">
+		<description>XSLT29301: Output -method="xml"  indent = no</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt29301.xsl</xsl>
+		</data>
+		<result expected="valid">77959.txt</result>
+	</variation>
+	<variation name="_77960">
+		<description>XSLT29303: Output -method="xml"  indent default = "foo"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt29303.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77961">
+		<description>XSLT29302: Output -method="xml"  indent default = null</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt29302.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77966">
+		<description>XSLT29503: Output -method="foo"</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt29503.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_77967">
+		<description>XSLT29601: Output - with unsupported attributes</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>xslt29601.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78175">
+		<description>XSLT29000: Output -conflicting namespace on multiple outputs - takes last</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29000.xsl</xsl>
+		</data>
+		<result expected="valid">78175.txt</result>
+	</variation>
+	<variation name="_78176">
+		<description>XSLT29001: Output -specified through attributes by variable</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29001.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_78177">
+		<description>XSLT29002: Output -multple xsl:output elements - should take last</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29002.xsl</xsl>
+		</data>
+		<result expected="valid">78177.txt</result>
+	</variation>
+	<variation name="_78180">
+		<description>XSLT29003: Output -included xsl:output element</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29003.xsl</xsl>
+		</data>
+		<result expected="valid">78180_output.txt</result>
+	</variation>
+	<variation name="_78182">
+		<description>XSLT29007: Output default namespace - node context</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29007.xsl</xsl>
+		</data>
+		<result expected="valid">78182.txt</result>
+	</variation>
+	<variation name="_78183">
+		<description>XSLT29008: Output generated through change in prefix (spec example)</description>
+		<data>
+			<xml>testdata.xml</xml>
+			<xsl>xslt29008.xsl</xsl>
+		</data>
+		<result expected="valid">78183.txt</result>
+	</variation>
+	<variation name="_78221">
+		<description>XSLT29209: XSL:OUTPUT encoding=iso-8859-2 (central european)</description>
+		<data>
+			<xml>www.toplist.cz.xml</xml>
+			<xsl>xslt29209a.xsl</xsl>
+		</data>
+		<result expected="valid">78221.txt</result>
+	</variation>
+	<variation name="_78222">
+		<description>XSLT29224: XSL:OUTPUT encoding=shift-jis tests large file, test input from jis. 932 NLS must be installed</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>XSLT29224.xsl</xsl>
+		</data>
+		<result expected="valid">78222.txt</result>
+	</variation>
+	<variation name="_78223">
+		<description>XSLT29200: XSL:OUTPUT encoding=utf-7 mlang supports, but not valid xml (displays utf-7 as opened in windows-1252 to see correctly converted and displayed utf-7 change charset to utf-7 in javascript file)</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>XSLT29200.xsl</xsl>
+		</data>
+		<result expected="valid">78223.txt</result>
+	</variation>
+	<variation name="_78224">
+		<description>XSLT29206: XSL:OUTPUT encoding=iso-2022-jp</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>XSLT29206.xsl</xsl>
+		</data>
+		<result expected="valid">78224.txt</result>
+	</variation>
+	<variation name="_78225">
+		<description>XSLT29207: XSL:OUTPUT multilingual xml to  encoding=windows-1252</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>XSLT29207.xsl</xsl>
+		</data>
+		<result expected="valid">78225.txt</result>
+	</variation>
+	<variation name="_78226">
+		<description>XSLT29205: XSL:OUTPUT encoding=euc - with leading x- mapped to euc in mime database</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>XSLT29205.xsl</xsl>
+		</data>
+		<result expected="valid">78226.txt</result>
+	</variation>
+	<variation name="_78227">
+		<description>XSLT29219: XSL:OUTPUT encoding=case insenstive  SHIFT_jis</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>XSLT29219.xsl</xsl>
+		</data>
+		<result expected="valid">78227.txt</result>
+	</variation>
+	<variation name="_78229">
+		<description>XSLT29226: XSL:OUTPUT two outputs to different encodings</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>XSLT29226.xsl</xsl>
+		</data>
+		<result expected="valid">78229.txt</result>
+	</variation>
+	<variation name="_84008">
+		<description>XSL:Output method="text" : 2 methods on one output</description>
+		<data>
+			<xml>Outputtext.xml</xml>
+			<xsl>84009.xsl</xsl>
+		</data>
+		<result expected="valid">84009_output.txt</result>
+	</variation>
+	<variation name="_84009">
+		<description>XSL:Output method="text" : 2  outputs, second one method="text"</description>
+		<data>
+			<xml>Outputtext.xml</xml>
+			<xsl>84008.xsl</xsl>
+		</data>
+		<result expected="valid">84008_output.txt</result>
+	</variation>
+	<variation name="_84010">
+		<description>XSL:Output method="text" : spacing between nodes</description>
+		<data>
+			<xml>xslt05001.xml</xml>
+			<xsl>84010.xsl</xsl>
+		</data>
+		<result expected="valid">84010.txt</result>
+	</variation>
+	<variation name="_84011">
+		<description>XSL:Output method="text" : spacing between literals</description>
+		<data>
+			<xml>OutputText.xml</xml>
+			<xsl>84011.xsl</xsl>
+		</data>
+		<result expected="valid">84011_output.txt</result>
+	</variation>
+	<variation name="_84012">
+		<description>XSL:Output method="text" : with xml attributes</description>
+		<data>
+			<xml>OutputText.xml</xml>
+			<xsl>84012.xsl</xsl>
+		</data>
+		<result expected="valid">84012_output.txt</result>
+	</variation>
+	<variation name="_84013">
+		<description>XSL:Output method="text" with foo="bar" attribute</description>
+		<data>
+			<xml>OutputText.xml</xml>
+			<xsl>84013.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_84014">
+		<description>XSL:Output method="text" XSL escaped characters</description>
+		<data>
+			<xml>OutputText.xml</xml>
+			<xsl>84014.xsl</xsl>
+		</data>
+		<result expected="valid">84014_output.txt</result>
+	</variation>
+	<variation name="_84015">
+		<description>XSL:Output method="text" XML escaped characters</description>
+		<data>
+			<xml>xslt05001.xml</xml>
+			<xsl>84015.xsl</xsl>
+		</data>
+		<result expected="valid">84015.txt</result>
+	</variation>
+	<variation name="_84016">
+		<description>XSL:Output method="text" media-type="text/plain"</description>
+		<data>
+			<xml>outputtext.xml</xml>
+			<xsl>84016.xsl</xsl>
+		</data>
+		<result expected="valid">84016_output.txt</result>
+	</variation>
+	<variation name="_84017">
+		<description>XSL:Output method="text" media-type="message/http"</description>
+		<data>
+			<xml>outputtext.xml</xml>
+			<xsl>84017.xsl</xsl>
+		</data>
+		<result expected="valid">84017_output.txt</result>
+	</variation>
+	<variation name="_84018">
+		<description>XSL:Output method="text" media-type=""</description>
+		<data>
+			<xml>outputtext.xml</xml>
+			<xsl>84018.xsl</xsl>
+		</data>
+		<result expected="valid">84018_output.txt</result>
+	</variation>
+	<variation name="_84019">
+		<description>XSL:Output method="text" encoding="utf-7"</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>84019.xsl</xsl>
+		</data>
+		<result expected="valid">84019.txt</result>
+	</variation>
+	<variation name="_84020">
+		<description>XSL:Output method="text" encoding="shift-jis"</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>84020.xsl</xsl>
+		</data>
+		<result expected="valid">84020.txt</result>
+	</variation>
+	<variation name="_84021">
+		<description>XSL:Output method="text" encoding="eUC-jP"</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>84021.xsl</xsl>
+		</data>
+		<result expected="valid">84021.txt</result>
+	</variation>
+	<variation name="_84022">
+		<description>XSL:Output method="text" encoding="x-euc"</description>
+		<data>
+			<xml>iso-2022-jp.xml</xml>
+			<xsl>84022.xsl</xsl>
+		</data>
+		<result expected="valid">84022.txt</result>
+	</variation>
+	<variation name="_84025">
+		<description>XSL:Output method="text" complex XSL</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84025.xsl</xsl>
+		</data>
+		<result expected="valid">84025.txt</result>
+	</variation>
+	<variation name="_84143">
+		<description>XSL:Output method="html" BLOCK element test - ADDRESS</description>
+		<data>
+			<xml>BlockADDRESS.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84143.txt</result>
+	</variation>
+	<variation name="_84144">
+		<description>XSL:Output method="html" BLOCK element test - BLOCKQUOTE</description>
+		<data>
+			<xml>BlockBLOCKQUOTE.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84144.txt</result>
+	</variation>
+	<variation name="_84145">
+		<description>XSL:Output method="html" BLOCK element test - DIV</description>
+		<data>
+			<xml>BlockDIV.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84145.txt</result>
+	</variation>
+	<variation name="_84146">
+		<description>XSL:Output method="html" BLOCK element test - DL</description>
+		<data>
+			<xml>BlockDL.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84146.txt</result>
+	</variation>
+	<variation name="_84147">
+		<description>XSL:Output method="html" BLOCK element test - FIELDSET</description>
+		<data>
+			<xml>BlockFIELDSET.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84147.txt</result>
+	</variation>
+	<variation name="_84148">
+		<description>XSL:Output method="html" BLOCK element test - FORM</description>
+		<data>
+			<xml>BlockFORM.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84148.txt</result>
+	</variation>
+	<variation name="_84149">
+		<description>XSL:Output method="html" BLOCK element test - H1</description>
+		<data>
+			<xml>BlockH1.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84149.txt</result>
+	</variation>
+	<variation name="_84150">
+		<description>XSL:Output method="html" BLOCK element test - H2</description>
+		<data>
+			<xml>BlockH2.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84150.txt</result>
+	</variation>
+	<variation name="_84151">
+		<description>XSL:Output method="html" BLOCK element test - H3</description>
+		<data>
+			<xml>BlockH3.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84151.txt</result>
+	</variation>
+	<variation name="_84152">
+		<description>XSL:Output method="html" BLOCK element test - H4</description>
+		<data>
+			<xml>BlockH4.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84152.txt</result>
+	</variation>
+	<variation name="_84153">
+		<description>XSL:Output method="html" BLOCK element test - H5</description>
+		<data>
+			<xml>BlockH5.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84153.txt</result>
+	</variation>
+	<variation name="_84154">
+		<description>XSL:Output method="html" BLOCK element test - H6</description>
+		<data>
+			<xml>BlockH6.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84154.txt</result>
+	</variation>
+	<variation name="_84155">
+		<description>XSL:Output method="html" BLOCK element test - NOSCRIPT</description>
+		<data>
+			<xml>BlockNOSCRIPT.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84155.txt</result>
+	</variation>
+	<variation name="_84156">
+		<description>XSL:Output method="html" BLOCK element test - OL</description>
+		<data>
+			<xml>BlockOL.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84156.txt</result>
+	</variation>
+	<variation name="_84160">
+		<description>XSL:Output method="html" BLOCK element test - P</description>
+		<data>
+			<xml>BlockP.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84160.txt</result>
+	</variation>
+	<variation name="_84161">
+		<description>XSL:Output method="html" BLOCK element test - PRE</description>
+		<data>
+			<xml>BlockPRE.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84161.txt</result>
+	</variation>
+	<variation name="_84162">
+		<description>XSL:Output method="html" BLOCK element test - TABLE</description>
+		<data>
+			<xml>BlockTABLE.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84162.txt</result>
+	</variation>
+	<variation name="_84163">
+		<description>XSL:Output method="html" BLOCK element test - UL</description>
+		<data>
+			<xml>BlockUL.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84163.txt</result>
+	</variation>
+	<variation name="_84164">
+		<description>XSL:Output method="html" OTHER  element test - OPTGROUP</description>
+		<data>
+			<xml>84164.xml</xml>
+			<xsl>84164.xsl</xsl>
+		</data>
+		<result expected="valid">84164.txt</result>
+	</variation>
+	<variation name="_84165">
+		<description>XSL:Output method="html" BOOLEAN ATTRIBUTE TEST</description>
+		<data>
+			<xml>84165.xml</xml>
+			<xsl>84165.xsl</xsl>
+		</data>
+		<result expected="valid">84165.txt</result>
+	</variation>
+	<variation name="_84259">
+		<description>XSL:Output method="html" OTHER  element test -APPLET</description>
+		<data>
+			<xml>84259.xml</xml>
+			<xsl>84259.xsl</xsl>
+		</data>
+		<result expected="valid">84259.txt</result>
+	</variation>
+	<variation name="_84260">
+		<description>XSL:Output method="html" OTHER  element test - BASEFONT</description>
+		<data>
+			<xml>84260.xml</xml>
+			<xsl>84260.xsl</xsl>
+		</data>
+		<result expected="valid">84260.txt</result>
+	</variation>
+	<variation name="_84261">
+		<description>XSL:Output method="html" OTHER  element test - BODY</description>
+		<data>
+			<xml>84261.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84261.txt</result>
+	</variation>
+	<variation name="_84262">
+		<description>XSL:Output method="html" OTHER  element test -CAPTION</description>
+		<data>
+			<xml>84262.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84262.txt</result>
+	</variation>
+	<variation name="_84263">
+		<description>XSL:Output method="html" OTHER  element test - CENTER</description>
+		<data>
+			<xml>84263.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84263.txt</result>
+	</variation>
+	<variation name="_84264">
+		<description>XSL:Output method="html" OTHER  element test - COL</description>
+		<data>
+			<xml>84264.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84264.txt</result>
+	</variation>
+	<variation name="_84265">
+		<description>XSL:Output method="html" OTHER  element test - COLGROUP</description>
+		<data>
+			<xml>84265.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84265.txt</result>
+	</variation>
+	<variation name="_84266">
+		<description>XSL:Output method="html" OTHER  element test - DD</description>
+		<data>
+			<xml>84266.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84266.txt</result>
+	</variation>
+	<variation name="_84267">
+		<description>XSL:Output method="html" OTHER  element test - DEL</description>
+		<data>
+			<xml>84267.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84267.txt</result>
+	</variation>
+	<variation name="_84268">
+		<description>XSL:Output method="html" OTHER  element test - DIR</description>
+		<data>
+			<xml>84268.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84268.txt</result>
+	</variation>
+	<variation name="_84269">
+		<description>XSL:Output method="html" OTHER  element test - DT</description>
+		<data>
+			<xml>84269.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84269.txt</result>
+	</variation>
+	<variation name="_84270">
+		<description>XSL:Output method="html" OTHER  element test - FONT</description>
+		<data>
+			<xml>84270.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84270.txt</result>
+	</variation>
+	<variation name="_84271">
+		<description>XSL:Output method="html" OTHER  element test - FRAME</description>
+		<data>
+			<xml>84271.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84271.txt</result>
+	</variation>
+	<variation name="_84272">
+		<description>XSL:Output method="html" OTHER  element test - FRAMESET</description>
+		<data>
+			<xml>84272.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84272.txt</result>
+	</variation>
+	<variation name="_84273">
+		<description>XSL:Output method="html" OTHER  element test -HEAD</description>
+		<data>
+			<xml>84273.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84273.txt</result>
+	</variation>
+	<variation name="_84274">
+		<description>XSL:Output method="html" OTHER  element test -HTML</description>
+		<data>
+			<xml>84274.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84274.txt</result>
+	</variation>
+	<variation name="_84275">
+		<description>XSL:Output method="html" OTHER  element test - IFRAME</description>
+		<data>
+			<xml>84275.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84275.txt</result>
+	</variation>
+	<variation name="_84276">
+		<description>XSL:Output method="html" OTHER  element test - INS</description>
+		<data>
+			<xml>84276.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84276.txt</result>
+	</variation>
+	<variation name="_84277">
+		<description>XSL:Output method="html" OTHER  element test - ISINDEX</description>
+		<data>
+			<xml>84277.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84277.txt</result>
+	</variation>
+	<variation name="_84278">
+		<description>XSL:Output method="html" OTHER  element test - LEGEND</description>
+		<data>
+			<xml>84278.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84278.txt</result>
+	</variation>
+	<variation name="_84279">
+		<description>XSL:Output method="html" OTHER  element test - LI</description>
+		<data>
+			<xml>84279.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84279.txt</result>
+	</variation>
+	<variation name="_84280">
+		<description>XSL:Output method="html" OTHER  element test -LINK</description>
+		<data>
+			<xml>84280.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84280.txt</result>
+	</variation>
+	<variation name="_84281">
+		<description>XSL:Output method="html" OTHER  element test - MENU</description>
+		<data>
+			<xml>84281.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84281.txt</result>
+	</variation>
+	<variation name="_84282">
+		<description>XSL:Output method="html" OTHER  element test - META</description>
+		<data>
+			<xml>84282.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84282.txt</result>
+	</variation>
+	<variation name="_84283">
+		<description>XSL:Output method="html" OTHER  element test - NOFRAMES</description>
+		<data>
+			<xml>84283.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84283.txt</result>
+	</variation>
+	<variation name="_84284">
+		<description>XSL:Output method="html" OTHER  element test - OPTION</description>
+		<data>
+			<xml>84284.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84284.txt</result>
+	</variation>
+	<variation name="_84285">
+		<description>XSL:Output method="html" OTHER  element test - PARAM</description>
+		<data>
+			<xml>84285.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84285.txt</result>
+	</variation>
+	<variation name="_84286">
+		<description>XSL:Output method="html" OTHER  element test - S</description>
+		<data>
+			<xml>84286.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84286.txt</result>
+	</variation>
+	<variation name="_84287">
+		<description>XSL:Output method="html" OTHER  element test - STRIKE</description>
+		<data>
+			<xml>84287.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84287.txt</result>
+	</variation>
+	<variation name="_84288">
+		<description>XSL:Output method="html" OTHER  element test -STYLE</description>
+		<data>
+			<xml>84288.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84288.txt</result>
+	</variation>
+	<variation name="_84289">
+		<description>XSL:Output method="html" OTHER  element test - TBODY</description>
+		<data>
+			<xml>84289.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84289.txt</result>
+	</variation>
+	<variation name="_84290">
+		<description>XSL:Output method="html" OTHER  element test - TD</description>
+		<data>
+			<xml>84290.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84290.txt</result>
+	</variation>
+	<variation name="_84291">
+		<description>XSL:Output method="html" OTHER  element test - TFOOT</description>
+		<data>
+			<xml>84291.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84291.txt</result>
+	</variation>
+	<variation name="_84292">
+		<description>XSL:Output method="html" OTHER  element test - TH</description>
+		<data>
+			<xml>84292.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84292.txt</result>
+	</variation>
+	<variation name="_84293">
+		<description>XSL:Output method="html" OTHER  element test - THEAD</description>
+		<data>
+			<xml>84293.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84293.txt</result>
+	</variation>
+	<variation name="_84294">
+		<description>XSL:Output method="html" OTHER  element test - TITLE</description>
+		<data>
+			<xml>84294.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84294.txt</result>
+	</variation>
+	<variation name="_84295">
+		<description>XSL:Output method="html" OTHER  element test - TR</description>
+		<data>
+			<xml>84295.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84295.txt</result>
+	</variation>
+	<variation name="_84296">
+		<description>XSL:Output method="html" INLINE  element test -U (changed from BLOCK bug#48497)</description>
+		<data>
+			<xml>84296.xml</xml>
+			<xsl>BLOCKElemTest.xsl</xsl>
+		</data>
+		<result expected="valid">84296.txt</result>
+	</variation>
+	<variation name="_84304">
+		<description>XSL:Output method="html" version=4</description>
+		<data>
+			<xml>84304.xml</xml>
+			<xsl>84304.xsl</xsl>
+		</data>
+		<result expected="valid">84304.txt</result>
+	</variation>
+	<variation name="_84305">
+		<description>XSL:Output method="html" version=4.01</description>
+		<data>
+			<xml>84305.xml</xml>
+			<xsl>84305.xsl</xsl>
+		</data>
+		<result expected="valid">84305.txt</result>
+	</variation>
+	<variation name="_84306">
+		<description>XSL:Output method="html" version=""</description>
+		<data>
+			<xml>84306.xml</xml>
+			<xsl>84306.xsl</xsl>
+		</data>
+		<result expected="valid">84306.txt</result>
+	</variation>
+	<variation name="_84309">
+		<description>XSL:Output method="html" -  should terminate processing-instruction with &gt; rather than ?&gt;</description>
+		<data>
+			<xml>84309.xml</xml>
+			<xsl>84309.xsl</xsl>
+		</data>
+		<result expected="valid">84309.txt</result>
+	</variation>
+	<variation name="_84312">
+		<description>XSL:Output method="html" indent=no with Block and Inline elements</description>
+		<data>
+			<xml>84312.xml</xml>
+			<xsl>84312.xsl</xsl>
+		</data>
+		<result expected="valid">84312.txt</result>
+	</variation>
+	<variation name="_84313">
+		<description>XSL:Output method="html" indent=no with Unknown and XML elements</description>
+		<data>
+			<xml>84313.xml</xml>
+			<xsl>84313.xsl</xsl>
+		</data>
+		<result expected="valid">84313.txt</result>
+	</variation>
+	<variation name="_84374">
+		<description>ZVON XSLT Example 62 - ENCODING</description>
+		<data>
+			<xml>84374.xml</xml>
+			<xsl>84374.xsl</xsl>
+		</data>
+		<result expected="valid">84374.txt</result>
+	</variation>
+	<variation name="_84428">
+		<description>ZVON XSLT Example 80 - output(1/2)</description>
+		<data>
+			<xml>84428.xml</xml>
+			<xsl>84428.xsl</xsl>
+		</data>
+		<result expected="valid">84428.txt</result>
+	</variation>
+	<variation name="_84429">
+		<description>ZVON XSLT Example 80 - output(2/2)</description>
+		<data>
+			<xml>84429.xml</xml>
+			<xsl>84429.xsl</xsl>
+		</data>
+		<result expected="valid">84429.txt</result>
+	</variation>
+	<variation name="_84432">
+		<description>ZVON XSLT Example 85 - output &amp; disable-output-escaping(1/3)</description>
+		<data>
+			<xml>84432.xml</xml>
+			<xsl>84432.xsl</xsl>
+		</data>
+		<result expected="valid">84432.txt</result>
+	</variation>
+	<variation name="_84433">
+		<description>ZVON XSLT Example 85 - output &amp; disable-output-escaping(2/3)</description>
+		<data>
+			<xml>84433.xml</xml>
+			<xsl>84433.xsl</xsl>
+		</data>
+		<result expected="valid">84433.txt</result>
+	</variation>
+	<variation name="_84434">
+		<description>ZVON XSLT Example 85 - output &amp; disable-output-escaping(3/3)</description>
+		<data>
+			<xml>84434.xml</xml>
+			<xsl>84434.xsl</xsl>
+		</data>
+		<result expected="valid">84434.txt</result>
+	</variation>
+	<variation name="_84452">
+		<description>Output method="html" w/ UTF-8 XML - SRC in SCRIPT, INPUT, IMG</description>
+		<data>
+			<xml>84452.xml</xml>
+			<xsl>84452.xsl</xsl>
+		</data>
+		<result expected="valid">84452.txt</result>
+	</variation>
+	<variation name="_84453">
+		<description>Output method="html" w/ UTF-8 XML - longdesc in IMG</description>
+		<data>
+			<xml>84453.xml</xml>
+			<xsl>84453.xsl</xsl>
+		</data>
+		<result expected="valid">84453.txt</result>
+	</variation>
+	<variation name="_84454">
+		<description>Output method="html" w/ UTF-8 XML - usemap in INPUT, IMG,OBJECT</description>
+		<data>
+			<xml>84454.xml</xml>
+			<xsl>84454.xsl</xsl>
+		</data>
+		<result expected="valid">84454.txt</result>
+	</variation>
+	<variation name="_84455">
+		<description>Output method="html" w/ UTF-8 XML - classid in OBJECT</description>
+		<data>
+			<xml>84455.xml</xml>
+			<xsl>84455.xsl</xsl>
+		</data>
+		<result expected="valid">84455.txt</result>
+	</variation>
+	<variation name="_84456">
+		<description>Output method="html" w/ UTF-8 XML - CODEBASE in OBJECT</description>
+		<data>
+			<xml>84456.xml</xml>
+			<xsl>84456.xsl</xsl>
+		</data>
+		<result expected="valid">84456.txt</result>
+	</variation>
+	<variation name="_84457">
+		<description>Output method="html" w/ UTF-8 XML - data in OBJECT</description>
+		<data>
+			<xml>84457.xml</xml>
+			<xsl>84457.xsl</xsl>
+		</data>
+		<result expected="valid">84457.txt</result>
+	</variation>
+	<variation name="_84458">
+		<description>Output method="html" w/ UTF-8 XML - cite in Q, BLOCKQUOTE, INS, DEL</description>
+		<data>
+			<xml>84458.xml</xml>
+			<xsl>84458.xsl</xsl>
+		</data>
+		<result expected="valid">84458.txt</result>
+	</variation>
+	<variation name="_84459">
+		<description>Output method="html" w/ UTF-8 XML - action in FORM</description>
+		<data>
+			<xml>84459.xml</xml>
+			<xsl>84459.xsl</xsl>
+		</data>
+		<result expected="valid">84459.txt</result>
+	</variation>
+	<variation name="_84460">
+		<description>Output method="html" w/ UTF-8 XML - profile in HEAD</description>
+		<data>
+			<xml>84460.xml</xml>
+			<xsl>84460.xsl</xsl>
+		</data>
+		<result expected="valid">84460.txt</result>
+	</variation>
+	<variation name="_84461">
+		<description>Output method="html" w/ UTF-8 XML - for in SCRIPT</description>
+		<data>
+			<xml>84461.xml</xml>
+			<xsl>84461.xsl</xsl>
+		</data>
+		<result expected="valid">84461.txt</result>
+	</variation>
+	<variation name="_84462">
+		<description>Output method="html" w/ UTF-8 XML - datasrc in TABLE</description>
+		<data>
+			<xml>84462.xml</xml>
+			<xsl>84462.xsl</xsl>
+		</data>
+		<result expected="valid">84462.txt</result>
+	</variation>
+	<variation name="_84480">
+		<description>Copy of 78183: XSLT29008: Output generated through change in prefix (spec example)</description>
+		<data>
+			<xml>84480.xml</xml>
+			<xsl>84480.xsl</xsl>
+		</data>
+		<result expected="valid">84480.txt</result>
+	</variation>
+	<variation name="_84580">
+		<description>BUG 46969  Shouldn't output whitespace before or after text nodes as part of indentation algorithm</description>
+		<data>
+			<xml>84580.xml</xml>
+			<xsl>84580.xsl</xsl>
+		</data>
+		<result expected="valid">84580.txt</result>
+	</variation>
+	<variation name="_84616">
+		<description>BUG 47732: XSLT: omit-xml-declaration is ignored if method is omitted</description>
+		<data>
+			<xml>84616.xml</xml>
+			<xsl>84616.xsl</xsl>
+		</data>
+		<result expected="valid">84616.txt</result>
+	</variation>
+	<variation name="_84617">
+		<description>BUG 47770: XSLT: Multiple xsl:output elements incorrectly override specified values with default values</description>
+		<data>
+			<xml>84617.xml</xml>
+			<xsl>84617.xsl</xsl>
+		</data>
+		<result expected="valid">84617.txt</result>
+	</variation>
+	<variation name="_84618">
+		<description>XSL:Output default method tests - null namespace not 'html' - expect XML</description>
+		<data>
+			<xml>84618.xml</xml>
+			<xsl>84618.xsl</xsl>
+		</data>
+		<result expected="valid">84618.txt</result>
+	</variation>
+	<variation name="_84619">
+		<description>XSL:Output default method tests -  null namespace 'HTML' - expect html</description>
+		<data>
+			<xml>84619.xml</xml>
+			<xsl>84619.xsl</xsl>
+		</data>
+		<result expected="valid">84619.txt</result>
+	</variation>
+	<variation name="_84620">
+		<description>XSL:Output default method tests -  null namespace 'hTmL' - expect html</description>
+		<data>
+			<xml>84620.xml</xml>
+			<xsl>84620.xsl</xsl>
+		</data>
+		<result expected="valid">84620.txt</result>
+	</variation>
+	<variation name="_84621">
+		<description>XSL:Output default method tests -  null namespace 'html', text node that contains more than whitespace  - expect xml</description>
+		<data>
+			<xml>84621.xml</xml>
+			<xsl>84621.xsl</xsl>
+		</data>
+		<result expected="valid">84621.txt</result>
+	</variation>
+	<variation name="_84622">
+		<description>XSL:Output default method tests -  non null namespace 'html'  - expect xml</description>
+		<data>
+			<xml>84622.xml</xml>
+			<xsl>84622.xsl</xsl>
+		</data>
+		<result expected="valid">84622.txt</result>
+	</variation>
+	<variation name="_84623">
+		<description>XSL:Output default method tests - no element child  - expect xml</description>
+		<data>
+			<xml>84623.xml</xml>
+			<xsl>84623.xsl</xsl>
+		</data>
+		<result expected="valid">84623.txt</result>
+	</variation>
+	<variation name="_84624">
+		<description>XSL:Output default method tests - null namespace 'html', text node that contains whitespace  - expect html</description>
+		<data>
+			<xml>84624.xml</xml>
+			<xsl>84624.xsl</xsl>
+		</data>
+		<result expected="valid">84624.txt</result>
+	</variation>
+	<variation name="_84625">
+		<description>XSL:Output method="html" BLOCK  element test - XMP</description>
+		<data>
+			<xml>84625.xml</xml>
+			<xsl>84625.xsl</xsl>
+		</data>
+		<result expected="valid">84625.txt</result>
+	</variation>
+	<variation name="_84626">
+		<description>BUG 48518 XSLT: output method=html where attribute has a qname does not escape &lt; in attribute</description>
+		<data>
+			<xml>84626.xml</xml>
+			<xsl>84626.xsl</xsl>
+		</data>
+		<result expected="valid">84626.txt</result>
+	</variation>
+	<variation name="SignInHrefAttribute">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_output_html_#_sign_in_href_attribute.xsl</xsl>
+		</data>
+		<result expected="valid">SignInHrefAttribute.txt</result>
+	</variation>
+	<variation name="AmpersandWithinHtmlAttribute">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_output_html_attr_with_amp.xsl</xsl>
+		</data>
+		<result expected="valid">AmpersandWithinHtmlAttribute.txt</result>
+	</variation>
+	<variation name="CdataSectionOnHtmlModeShouldBeIgnored">
+		<description>Use Cdata-Section-Element with two elements output to Html. This attribute should be ignored, Cdata sections are not allowed in Html. [Bug 66801]</description>
+		<data>
+			<xml>xslt_output_CdataSectElementAttrWithHtml.xml</xml>
+			<xsl>xslt_output_CdataSectElementAttrWithHtml.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_CdataSectElementAttrWithHtml.txt</result>
+	</variation>
+	<variation name="DoctypePublicAndSystemAttribute">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_output_HTML_DocType.xml</xml>
+			<xsl>xslt_output_HTML_DocType_SystemAndPublic.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_HTML_DocType_SystemAndPublic.txt</result>
+	</variation>
+	<variation name="DoctypePublicAttribute">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_output_HTML_DocType.xml</xml>
+			<xsl>xslt_output_HTML_DocType_Public.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_HTML_DocType_Public.txt</result>
+	</variation>
+	<variation name="DoctypeSystemAttribute">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_output_HTML_DocType.xml</xml>
+			<xsl>xslt_output_HTML_DocType_System.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_HTML_DocType_System.txt</result>
+	</variation>
+	<variation name="EmptyElement1">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_out_html_empty_tag.xml</xml>
+			<xsl>xslt_out_html_empty_tag.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_out_html_empty_tag.txt</result>
+	</variation>
+	<variation name="EntityRefInAttribHtml">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>EntityRefInAttribHtml.xsl</xsl>
+		</data>
+		<result expected="valid">EntityRefInAttribHtml.txt</result>
+	</variation>
+	<variation name="Html_Op_Href_Attr_non_ascii_value">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_html_op_href_attr_non_ascii_value.xsl</xsl>
+		</data>
+		<result expected="valid">Html_Op_Href_Attr_non_ascii_value.txt</result>
+	</variation>
+	<variation name="HtmlOutputWithAmpersandCurlyBracket">
+		<description>Use xsl:output with method equal to html and an ampersand located adjacent to a suffixed curly bracket - specified in an attribute. The XSLT transformer should not escape the ampersand in the output because the method is equal to html. [Bug 66562]</description>
+		<data>
+			<xml>xslt_output_HtmlWithAmpersandCurlyBracket.xml</xml>
+			<xsl>xslt_output_HtmlWithAmpersandCurlyBracket.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_HtmlWithAmpersandCurlyBracket.txt</result>
+	</variation>
+	<variation name="HtmlOutputWithLessThanInAttribute">
+		<description>Use xsl:output with method equal to html and an &lt; specified as an attribute. With method equals html, the attributes &lt; should not be escaped to the resulting xml. [Bug 66576]</description>
+		<data>
+			<xml>xslt_output_NoEscapedLessThanWithHtmlOutput.xml</xml>
+			<xsl>xslt_output_NoEscapedLessThanWithHtmlOutput.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_NoEscapedLessThanWithHtmlOutput.txt</result>
+	</variation>
+	<variation name="HtmlWithTwoAdjacentEscapedAmpersands">
+		<description>Use the xsl:output tag with Html, but specify a literal result element with two escaped ampersands side by side. Result should contain to escaped ampersand side by side as well. [Bug 66561]</description>
+		<data>
+			<xml>xslt_output_HtmlWithTwoAdjacentEscapedAmpersand.xml</xml>
+			<xsl>xslt_output_HtmlWithTwoAdjacentEscapedAmpersand.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_HtmlWithTwoAdjacentEscapedAmpersand.txt</result>
+	</variation>
+	<variation name="MatchOnCellData">
+		<description>Use a stylesheet with method=html, and a match pattern on '//celldata'. Should not match template at root (for template //celldata). </description>
+		<data>
+			<xml>xslt_output_MatchOnCellData.xml</xml>
+			<xsl>xslt_output_MatchOnCellData.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_MatchOnCellData.txt</result>
+	</variation>
+	<variation name="MediaTypeTest">
+		<description>
+		</description>
+		<data>
+			<xml>foo.xml</xml>
+			<xsl>xslt_html_output_media_type.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_html_output_media_type.txt</result>
+	</variation>
+	<variation name="MethodEqualsHtmlWithoutIndentSet">
+		<description>Use xsl:output with method=html and indent not set. The behaviour should default to indent='yes' when method equals html [Bug 58698]</description>
+		<data>
+			<xml>xslt_output_OutputHtmlIndentNotSpecified.xml</xml>
+			<xsl>xslt_output_OutputHtmlIndentNotSpecified.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_OutputHtmlIndentNotSpecified.txt</result>
+	</variation>
+	<variation name="Modified84433">
+		<description>
+		</description>
+		<data>
+			<xml>84433.xml</xml>
+			<xsl>output_DoeOnAmpersandXslText.xsl</xsl>
+		</data>
+		<result expected="valid">output_DoeOnAmpersandXslText.txt</result>
+	</variation>
+	<variation name="Output_PreserveImportPrecedenceOnOuputElement">
+		<description>Use xsl:output in the parent stylesheet, only to have its imported children declare separate xsl:output elements with different attributes. Parent attributes/settings should be preserved. [Bug 65746]</description>
+		<data>
+			<xml>xslt_output_ImportPrecForOutput.xml</xml>
+			<xsl>xslt_output_ImportPrecForOutput.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_ImportPrecForOutput_result.txt</result>
+	</variation>
+	<variation name="Output_UseStandAloneAttributeWithMultipleRoots">
+		<description>Use xsl:output with standalone='yes' and literal result elements. Should generate an error. [Bug 65747]</description>
+		<data>
+			<xml>xslt_output_MultipleRootsWithStandalone.xml</xml>
+			<xsl>xslt_output_MultipleRootsWithStandalone.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="OutputHTMLWithForcedXmlDeclaration">
+		<description>Use xsl:output omit-xml-declaration="no" and method="html". The xml declaration should NOT appear in the result file. [Bug 58690]</description>
+		<data>
+			<xml>xslt_output_ForcedXmlDeclOnHtml.xml</xml>
+			<xsl>xslt_output_ForcedXmlDeclOnHtml.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_ForcedXmlDeclOnHtml.txt</result>
+	</variation>
+	<variation name="UseLiteralResultElementHead">
+		<description>Use xsl:output with method='html' and a literal result element 'head'. A META tag should be generated in the resulting html with the proper encoding, ... [Bug 67778/58698]</description>
+		<data>
+			<xml>xslt_output_HtmlWithLiteralResultHeadElement.xml</xml>
+			<xsl>xslt_output_HtmlWithLiteralResultHeadElement.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_output_HtmlWithLiteralResultHeadElement.txt</result>
+	</variation>
+</testcase>

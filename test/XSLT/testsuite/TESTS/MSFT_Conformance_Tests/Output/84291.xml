@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xslTutorial>
+<TFOOT>this</TFOOT><TFOOT>rocks</TFOOT>
+<TFOOT>this</TFOOT> <TFOOT>rocks</TFOOT>
+<TFOOT>this</TFOOT>
+<TFOOT>rocks</TFOOT>
+<TFOOT>this</TFOOT>		<TFOOT>rocks</TFOOT>
+
+<TFOOTPAN>this</TFOOTPAN><TFOOT>rocks</TFOOT>
+<TFOOTPAN>this</TFOOTPAN> <TFOOT>rocks</TFOOT>
+</xslTutorial>

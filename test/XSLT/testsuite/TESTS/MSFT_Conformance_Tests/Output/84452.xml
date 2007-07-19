@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<html>
+<SCRIPT SRC="http://www.yahoo.com">http://www.yahoo.com</SCRIPT>
+<SCRIPT SRC="http://日本">http://日本</SCRIPT>
+<SCRIPT SRC="http://www.this space.com" >http://www.this space.com </SCRIPT>
+<SCRIPT SRC="http://ЁЂЃЧфхцшѦѨ"> http:/ ЁЂЃЧфхцшѦѨ </SCRIPT>
+<SCRIPT SRC="ĀāĂă">ĀāĂă</SCRIPT>
+<SCRIPT SRC="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </SCRIPT>
+
+<INPUT SRC="http://www.yahoo.com">http://www.yahoo.com</INPUT>
+<INPUT SRC="http://日本">http://日本</INPUT>
+<INPUT SRC="http://www.this space.com" >http://www.this space.com </INPUT>
+<INPUT SRC="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </INPUT>
+<INPUT SRC="ĀāĂă">ĀāĂă</INPUT>
+<INPUT SRC="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ</INPUT>
+
+<IMG SRC="http://www.yahoo.com">http://www.yahoo.com</IMG>
+<IMG SRC="http://日本">http://日本</IMG>
+<IMG SRC="http://www.this space.com" >http://www.this space.com </IMG>
+<IMG SRC="http://ЁЂЃЧфхцшѦѨ "> http://ЁЂЃЧфхцшѦѨ </IMG>
+<IMG SRC="ĀāĂă">ĀāĂă</IMG>
+<IMG SRC="ஃஅஆஇஈஉஊஹஸ">ஃஅஆஇஈஉஊஹஸ </IMG>
+
+</html>

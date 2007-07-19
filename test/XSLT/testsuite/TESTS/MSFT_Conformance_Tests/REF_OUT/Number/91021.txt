@@ -1,0 +1,1 @@
+<H2>Numbering at the document root</H2><BR />xsl:number - 1<BR />level = "single" -1<BR />level = "multiple" -<BR />level = "any" - 1<BR />

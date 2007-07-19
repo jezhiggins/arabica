@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>  	
+There is a Line Feed at the beginning of the sentence.
+	There is a Carriage Return and a Tab at the beginning of the sentence.There is a Line Feed at the end of the sentence.
+There is a Tab and a Carriage Return at the end of the sentence.	

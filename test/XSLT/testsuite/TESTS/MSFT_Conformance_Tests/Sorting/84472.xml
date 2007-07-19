@@ -1,0 +1,67 @@
+<?xml version='1.0'?>
+<!-- This file represents a fragment of a book store inventory database -->
+<bookstore specialty="novel" xmlns:dt="urn:uuid:C2F41010-65B3-11d1-A29F-00AA00C14882/" xmlns:my="urn:http//www.placeholder-name-here.com/schema/">
+	<book style="autobiography">
+	<title>Seven Years in Trenton</title>
+		<author>
+			<first-name>Joe</first-name>
+			<last-name>Bob</last-name>
+			<award>Trenton Literary Review Honorable Mention</award>
+			<my:country>USA</my:country>
+		</author>
+		<number>10</number>
+		<price>12</price>
+	</book>
+	<book style="textbook">
+		<title>History of Trenton</title>
+		<author>
+			<first-name>Mary</first-name>
+			<last-name>Bob</last-name>
+			<publication>
+				Selected Short Stories of
+				<first-name>JoeBob</first-name>
+				<last-name>Loser</last-name>
+				<country>US</country>
+			</publication>
+		</author>
+		<number>5</number>
+		<price>55</price>
+	</book>
+	<book style="textbook">
+		<title>History of Trenton</title>
+		<author>
+			<first-name>Mary</first-name>
+			<last-name>Bob</last-name>
+			<publication>
+				Selected Short Stories of
+				<first-name>JoeBob</first-name>
+				<last-name>Loser</last-name>
+				<country>US</country>
+			</publication>
+		</author>
+		<number>3</number>
+		<price>54</price>
+	</book>
+	<book style="autobiography">
+	<title>Seven Years in Trenton1</title>
+		<author>
+			<first-name>Joe</first-name>
+			<last-name>Bob</last-name>
+			<award>Trenton Literary Review Honorable Mention</award>
+			<my:country>USA</my:country>
+		</author>
+		<number>6</number>
+		<price>5</price>
+	</book>
+	<book style="autobiography">
+	<title>Seven Years in Trenton</title>
+		<author>
+			<first-name>Joe</first-name>
+			<last-name>Bob</last-name>
+			<award>Trenton Literary Review Honorable Mention</award>
+			<my:country>USA</my:country>
+		</author>
+		<number dt:dt="string">5</number>
+		<price>5</price>
+	</book>
+</bookstore>

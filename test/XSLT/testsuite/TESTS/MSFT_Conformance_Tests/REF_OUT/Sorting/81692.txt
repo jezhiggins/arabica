@@ -1,0 +1,6 @@
+<HTML><BODY><H3>Books:</H3><OL><LI>A story about Radioactive Man</LI>
+	by Bart Simpson19960-9546-0274-323.00<LI>Beta Quality</LI>
+	by Maggie Simpson19970-6726-0047-625.00<LI>Beta Quality</LI>
+	by Marge Simpson19970-6726-0047-621.00<LI>Determination</LI>
+	by Lisa Simpson19940-2456-7580-415.00<LI>Elephant Knows All</LI>
+	by Homer Simpson19950-9546-0274-320.00</OL></BODY></HTML>

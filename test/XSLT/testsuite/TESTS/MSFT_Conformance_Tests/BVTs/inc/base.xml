@@ -1,0 +1,10 @@
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+	<xsl:output method="html" encoding="UTF-8" omit-xml-declaration="yes" indent="yes"/>
+
+	<xsl:template match="/">
+		<h3>XSL file from domain "http://webdata" loaded relative to a BASE tag in an HTML document</h3>
+		<b><font color="#008000" face="arial">PASSED</font></b>
+	</xsl:template>
+
+</xsl:stylesheet>

@@ -1,0 +1,17 @@
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+	<xsl:output method="html" encoding="UTF-8" omit-xml-declaration="yes" indent="yes"/>
+
+	<xsl:include href="local-file-name"/>
+
+	<xsl:template match="/">
+		<h3>Secure base URL is from local hard drive, XSLT page is from domain "http://webdata", we allow xsl:include back to local hard drive</h3>
+		<b><font color="#008000" face="arial">PASSED</font></b>
+
+		<xsl:if test="document(document('')//@href)">
+			<h3>Secure base URL is from local hard drive, XSLT page is from domain "http://webdata", we allow document() back to local hard drive</h3>
+			<b><font color="#008000" face="arial">PASSED</font></b>
+		</xsl:if>
+	</xsl:template>
+
+</xsl:stylesheet>

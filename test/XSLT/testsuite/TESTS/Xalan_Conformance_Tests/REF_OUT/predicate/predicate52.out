@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out><test-info>((a and b) or (c and d))</test-info><test-output>3 7 b c d e f </test-output></out>

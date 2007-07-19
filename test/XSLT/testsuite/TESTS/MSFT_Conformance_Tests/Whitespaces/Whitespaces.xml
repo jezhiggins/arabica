@@ -1,0 +1,397 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Whitespaces" description="" outpath="out">
+	<variation name="_84599">
+		<description>BUG 47897:  XSLT: not preserving whitespace in &lt;xsl:text&gt; &lt;/xsl:text&gt;</description>
+		<data>
+			<xml>84599.xml</xml>
+			<xsl>84599.xsl</xsl>
+		</data>
+		<result expected="valid">84599_output.txt</result>
+	</variation>
+	<variation name="_91024">
+		<description>BUG 47334:  XSLT: Stripping whitespace off element nodes</description>
+		<data>
+			<xml>91024.xml</xml>
+			<xsl>91024.xsl</xsl>
+		</data>
+		<result expected="valid">91024_output.txt</result>
+	</variation>
+	<variation name="_91025">
+		<description>BUG 47334:  XSLT: xsl:value-of select should be required - CONFORMANCE CASE</description>
+		<data>
+			<xml>91025.xml</xml>
+			<xsl>91025.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91221">
+		<description>XSLT - Whitespace stripping - xsl:copy - preserveWhiteSpace ="true" - indent ="yes" - xml:space="preserve"</description>
+		<data>
+			<xml>91221.xml</xml>
+			<xsl>91221.xsl</xsl>
+		</data>
+		<result expected="valid">91221.txt</result>
+	</variation>
+	<variation name="_91222">
+		<description>XSLT - Whitespace stripping - xsl:copy - preserveWhiteSpace = "true" - indent = "yes" - xml:space="default"</description>
+		<data>
+			<xml>91222.xml</xml>
+			<xsl>91222.xsl</xsl>
+		</data>
+		<result expected="valid">91222.txt</result>
+	</variation>
+	<variation name="_91223">
+		<description>XSLT - Whitespace stripping - xsl:copy - preserveWhiteSpace = "true" - indent = "no" - xml:space="preserve"</description>
+		<data>
+			<xml>91223.xml</xml>
+			<xsl>91223.xsl</xsl>
+		</data>
+		<result expected="valid">91223.txt</result>
+	</variation>
+	<variation name="_91224">
+		<description>XSLT - Whitespace stripping - xsl:copy - preserveWhiteSpace = "true" - indent = "no" - xml:space="default"</description>
+		<data>
+			<xml>91224.xml</xml>
+			<xsl>91224.xsl</xsl>
+		</data>
+		<result expected="valid">91224.txt</result>
+	</variation>
+	<variation name="_91225">
+		<description>XSLT - Whitespace stripping - xsl:copy - preserveWhiteSpace ="false" - indent = "yes" - xml:space="preserve"</description>
+		<data>
+			<xml>91225.xml</xml>
+			<xsl>91225.xsl</xsl>
+		</data>
+		<result expected="valid">91225.txt</result>
+	</variation>
+	<variation name="_91226">
+		<description>XSLT - Whitespace stripping - xsl:copy - preserveWhiteSpace = "false" - indent = "yes" - xml:space="default"</description>
+		<data>
+			<xml>91226.xml</xml>
+			<xsl>91226.xsl</xsl>
+		</data>
+		<result expected="valid">91226.txt</result>
+	</variation>
+	<variation name="_91227">
+		<description>XSLT - Whitespace stripping - xsl:copy - preserveWhiteSpace = "false" - indent = "no" - xml:space="preserve"</description>
+		<data>
+			<xml>91227.xml</xml>
+			<xsl>91227.xsl</xsl>
+		</data>
+		<result expected="valid">91227.txt</result>
+	</variation>
+	<variation name="_91228">
+		<description>XSLT - Whitespace stripping - xsl:copy - preserveWhiteSpace ="false" - indent = "no" - xml:space="default"</description>
+		<data>
+			<xml>91228.xml</xml>
+			<xsl>91228.xsl</xsl>
+		</data>
+		<result expected="valid">91228.txt</result>
+	</variation>
+	<variation name="_91421">
+		<description>XSLT - Whitespace stripping - calling getText on various node types: comment() - processing-instruction() - CDATA - PCDATA -  HTML:DIV - SPAN - xsl:preserve-space - xml:space="preserve" -  indent = "yes"</description>
+		<data>
+			<xml>91421.xml</xml>
+			<xsl>91421.xsl</xsl>
+		</data>
+		<result expected="valid">91421_output.txt</result>
+	</variation>
+	<variation name="_91422">
+		<description>XSLT - Whitespace stripping - calling getText on various node types: comment() - processing-instruction() - CDATA - PCDATA -  HTML:DIV - SPAN - xsl:strip-space - xml:space="preserve" -  indent = "yes"</description>
+		<data>
+			<xml>91422.xml</xml>
+			<xsl>91422.xsl</xsl>
+		</data>
+		<result expected="valid">91422_output.txt</result>
+	</variation>
+	<variation name="_91423">
+		<description>XSLT - Whitespace stripping - calling getText on various node types: comment() - processing-instruction() - CDATA - PCDATA -  HTML:DIV - SPAN - xsl:strip-space - xml:space="default" -  indent = "yes"</description>
+		<data>
+			<xml>91423.xml</xml>
+			<xsl>91423.xsl</xsl>
+		</data>
+		<result expected="valid">91423_output.txt</result>
+	</variation>
+	<variation name="_91424">
+		<description>XSLT - Whitespace stripping - calling getText on various node types: comment() - processing-instruction() - CDATA - PCDATA -  HTML:DIV - SPAN - xsl:preserve-space - xml:space="default" -  indent = "yes"</description>
+		<data>
+			<xml>91424.xml</xml>
+			<xsl>91424.xsl</xsl>
+		</data>
+		<result expected="valid">91424_output.txt</result>
+	</variation>
+	<variation name="_91425">
+		<description>XSLT - Whitespace stripping - calling getText on various node types: comment() - processing-instruction() - CDATA - PCDATA -  HTML:DIV - SPAN - xsl:strip-space - xml:space="default" -  indent = "no"</description>
+		<data>
+			<xml>91425.xml</xml>
+			<xsl>91425.xsl</xsl>
+		</data>
+		<result expected="valid">91425_output.txt</result>
+	</variation>
+	<variation name="_91426">
+		<description>XSLT - Whitespace stripping - calling getText on various node types: comment() - processing-instruction() - CDATA - PCDATA -  HTML:DIV - SPAN - xsl:preserve-space - xml:space="default" -  indent = "no"</description>
+		<data>
+			<xml>91426.xml</xml>
+			<xsl>91426.xsl</xsl>
+		</data>
+		<result expected="valid">91426_output.txt</result>
+	</variation>
+	<variation name="_91427">
+		<description>XSLT - Whitespace stripping - calling getText on various node types: comment() - processing-instruction() - CDATA - PCDATA -  HTML:DIV - SPAN - xsl:preserve-space - xml:space="preserve" -  indent = "no"</description>
+		<data>
+			<xml>91427.xml</xml>
+			<xsl>91427.xsl</xsl>
+		</data>
+		<result expected="valid">91427_output.txt</result>
+	</variation>
+	<variation name="_91428">
+		<description>XSLT - Whitespace stripping - calling getText on various node types: comment() - processing-instruction() - CDATA - PCDATA -  HTML:DIV - SPAN - xsl:strip-space - xml:space="preserve" -  indent = "no"</description>
+		<data>
+			<xml>91428.xml</xml>
+			<xsl>91428.xsl</xsl>
+		</data>
+		<result expected="valid">91428_output.txt</result>
+	</variation>
+	<variation name="_91429">
+		<description>XSLT - Whitespace stripping - Queries - Children query (matching and selection) - xsl:strip-space - indent = "yes"</description>
+		<data>
+			<xml>91429.xml</xml>
+			<xsl>91429.xsl</xsl>
+		</data>
+		<result expected="valid">91429_output.txt</result>
+	</variation>
+	<variation name="_91430">
+		<description>XSLT - Whitespace stripping - Queries - Children query (matching and selection) - xsl:strip-space - indent = "no"</description>
+		<data>
+			<xml>91430.xml</xml>
+			<xsl>91430.xsl</xsl>
+		</data>
+		<result expected="valid">91430_output.txt</result>
+	</variation>
+	<variation name="_91431">
+		<description>XSLT - Whitespace stripping - Queries - Children query (matching and selection) - xsl:preserve-space - indent = "yes"</description>
+		<data>
+			<xml>91431.xml</xml>
+			<xsl>91431.xsl</xsl>
+		</data>
+		<result expected="valid">91431_output.txt</result>
+	</variation>
+	<variation name="_91432">
+		<description>XSLT - Whitespace stripping - Queries - Children query (matching and selection) - xsl:preserve-space - indent = "no"</description>
+		<data>
+			<xml>91432.xml</xml>
+			<xsl>91432.xsl</xsl>
+		</data>
+		<result expected="valid">91432_output.txt</result>
+	</variation>
+	<variation name="_91433">
+		<description>XSLT - Whitespace stripping - Queries - Self query (matching) - xsl:preserve-space - indent = "yes"</description>
+		<data>
+			<xml>91433.xml</xml>
+			<xsl>91433.xsl</xsl>
+		</data>
+		<result expected="valid">91433_output.txt</result>
+	</variation>
+	<variation name="_91434">
+		<description>XSLT - Whitespace stripping - Queries - Self query (matching) - xsl:preserve-space - indent = "no"</description>
+		<data>
+			<xml>91434.xml</xml>
+			<xsl>91434.xsl</xsl>
+		</data>
+		<result expected="valid">91434_output.txt</result>
+	</variation>
+	<variation name="_91435">
+		<description>XSLT - Whitespace stripping - Queries - Self query (matching) - xsl:strip-space - indent = "yes"</description>
+		<data>
+			<xml>91435.xml</xml>
+			<xsl>91435.xsl</xsl>
+		</data>
+		<result expected="valid">91435_output.txt</result>
+	</variation>
+	<variation name="_91436">
+		<description>XSLT - Whitespace stripping - Queries - Self query (matching) - xsl:strip-space - indent = "no"</description>
+		<data>
+			<xml>91436.xml</xml>
+			<xsl>91436.xsl</xsl>
+		</data>
+		<result expected="valid">91436_output.txt</result>
+	</variation>
+	<variation name="_91437">
+		<description>XSLT - Whitespace stripping - Queries - Following query  (matching and selection) - xsl:preserve-space - indent = "yes"</description>
+		<data>
+			<xml>91437.xml</xml>
+			<xsl>91437.xsl</xsl>
+		</data>
+		<result expected="valid">91437_output.txt</result>
+	</variation>
+	<variation name="_91438">
+		<description>XSLT - Whitespace stripping - Queries - Following query  (matching and selection) - xsl:preserve-space - indent = "no"</description>
+		<data>
+			<xml>91438.xml</xml>
+			<xsl>91438.xsl</xsl>
+		</data>
+		<result expected="valid">91438_output.txt</result>
+	</variation>
+	<variation name="_91439">
+		<description>XSLT - Whitespace stripping - Queries - Following query  (matching and selection) - xsl:strip-space - indent = "yes"</description>
+		<data>
+			<xml>91439.xml</xml>
+			<xsl>91439.xsl</xsl>
+		</data>
+		<result expected="valid">91439_output.txt</result>
+	</variation>
+	<variation name="_91440">
+		<description>XSLT - Whitespace stripping - Queries - Following query  (matching and selection) - xsl:strip-space - indent = "no"</description>
+		<data>
+			<xml>91440.xml</xml>
+			<xsl>91440.xsl</xsl>
+		</data>
+		<result expected="valid">91440_output.txt</result>
+	</variation>
+	<variation name="_91441">
+		<description>XSLT - Whitespace stripping - Queries - Preceding query (selection)  - xsl:preserve-space - indent = "yes"</description>
+		<data>
+			<xml>91441.xml</xml>
+			<xsl>91441.xsl</xsl>
+		</data>
+		<result expected="valid">91441_output.txt</result>
+	</variation>
+	<variation name="_91442">
+		<description>XSLT - Whitespace stripping - Queries - Preceding query (selection)  - xsl:preserve-space - indent = "no"</description>
+		<data>
+			<xml>91442.xml</xml>
+			<xsl>91442.xsl</xsl>
+		</data>
+		<result expected="valid">91442_output.txt</result>
+	</variation>
+	<variation name="_91443">
+		<description>XSLT - Whitespace stripping - Queries - Preceding query (selection)  - xsl:strip-space - indent = "yes"</description>
+		<data>
+			<xml>91443.xml</xml>
+			<xsl>91443.xsl</xsl>
+		</data>
+		<result expected="valid">91443_output.txt</result>
+	</variation>
+	<variation name="_91444">
+		<description>XSLT - Whitespace stripping - Queries - Preceding query (selection)  - xsl:strip-space - indent = "no"</description>
+		<data>
+			<xml>91444.xml</xml>
+			<xsl>91444.xsl</xsl>
+		</data>
+		<result expected="valid">91444_output.txt</result>
+	</variation>
+	<variation name="_91445">
+		<description>XSLT - Whitespace stripping - Queries - Preceding-sibling query (selection) - xsl:preserve-space - indent = "yes"</description>
+		<data>
+			<xml>91445.xml</xml>
+			<xsl>91445.xsl</xsl>
+		</data>
+		<result expected="valid">91445_output.txt</result>
+	</variation>
+	<variation name="_91446">
+		<description>XSLT - Whitespace stripping - Queries - Preceding-sibling query (selection) - xsl:preserve-space - indent = "no"</description>
+		<data>
+			<xml>91446.xml</xml>
+			<xsl>91446.xsl</xsl>
+		</data>
+		<result expected="valid">91446_output.txt</result>
+	</variation>
+	<variation name="_91447">
+		<description>XSLT - Whitespace stripping - Queries - Preceding-sibling query (selection) - xsl:strip-space - indent = "yes"</description>
+		<data>
+			<xml>91447.xml</xml>
+			<xsl>91447.xsl</xsl>
+		</data>
+		<result expected="valid">91447_output.txt</result>
+	</variation>
+	<variation name="_91448">
+		<description>XSLT - Whitespace stripping - Queries - Preceding-sibling query (selection) - xsl:strip-space - indent = "no"</description>
+		<data>
+			<xml>91448.xml</xml>
+			<xsl>91448.xsl</xsl>
+		</data>
+		<result expected="valid">91448_output.txt</result>
+	</variation>
+	<variation name="_91449">
+		<description>XSLT - Whitespace stripping - Queries -  Following-sibling query (selection) - xsl:preserve-space - indent = "yes"</description>
+		<data>
+			<xml>91449.xml</xml>
+			<xsl>91449.xsl</xsl>
+		</data>
+		<result expected="valid">91449_output.txt</result>
+	</variation>
+	<variation name="_91450">
+		<description>XSLT - Whitespace stripping - Queries -  Following-sibling query (selection) - xsl:preserve-space - indent = "no"</description>
+		<data>
+			<xml>91450.xml</xml>
+			<xsl>91450.xsl</xsl>
+		</data>
+		<result expected="valid">91450_output.txt</result>
+	</variation>
+	<variation name="_91451">
+		<description>XSLT - Whitespace stripping - Queries -  Following-sibling query (selection) - xsl:strip-space - indent = "yes"</description>
+		<data>
+			<xml>91451.xml</xml>
+			<xsl>91451.xsl</xsl>
+		</data>
+		<result expected="valid">91451_output.txt</result>
+	</variation>
+	<variation name="_91452">
+		<description>XSLT - Whitespace stripping - Queries -  Following-sibling query (selection) - xsl:strip-space - indent = "no"</description>
+		<data>
+			<xml>91452.xml</xml>
+			<xsl>91452.xsl</xsl>
+		</data>
+		<result expected="valid">91452_output.txt</result>
+	</variation>
+	<variation name="_91453">
+		<description>XSLT - Whitespace stripping - Overriding imported strip-space elements with xsl:include and xsl:import - xsl:preserve-space - indent="yes"</description>
+		<data>
+			<xml>91453.xml</xml>
+			<xsl>91453.xsl</xsl>
+		</data>
+		<result expected="valid">91453_output.txt</result>
+	</variation>
+	<variation name="_91454">
+		<description>XSLT - Whitespace stripping - Overriding imported strip-space elements with xsl:include and xsl:import - xsl:preserve-space - indent="no"</description>
+		<data>
+			<xml>91454.xml</xml>
+			<xsl>91454.xsl</xsl>
+		</data>
+		<result expected="valid">91454_output.txt</result>
+	</variation>
+	<variation name="_91455">
+		<description>XSLT - Whitespace stripping - Overriding imported strip-space elements with xsl:include and xsl:import - xsl:strip-space - indent="yes"</description>
+		<data>
+			<xml>91455.xml</xml>
+			<xsl>91455.xsl</xsl>
+		</data>
+		<result expected="valid">91455_output.txt</result>
+	</variation>
+	<variation name="_91456">
+		<description>XSLT - Whitespace stripping - Overriding imported strip-space elements with xsl:include and xsl:import - xsl:strip-space - indent="no"</description>
+		<data>
+			<xml>91456.xml</xml>
+			<xsl>91456.xsl</xsl>
+		</data>
+		<result expected="valid">91456_output.txt</result>
+	</variation>
+	<variation name="WhitespaceStripTest1">
+		<description>XSLT - Whitespace stripping - Count the string length for whitespace preserve elements.</description>
+		<data>
+			<xml>xslt_test_whitespace_preserve1.xml</xml>
+			<xsl>xslt_test_whitespace_preserve1.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_whitespace_preserve1.txt</result>
+	</variation>
+	<variation name="XSLT_StripSpace_WhitespaceWithText">
+		<description>Strip-space should not strip text nodes along with whitespace. [Bug 70837]</description>
+		<data>
+			<xml>xslt_strip_space_with_text_ws.xml</xml>
+			<xsl>xslt_strip_space_with_text_ws.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_strip_space_with_text_ws.txt</result>
+	</variation>
+</testcase>

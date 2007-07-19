@@ -1,0 +1,15 @@
+<!ELEMENT Plant-Sheet (Author | Date | Title | Section)* >
+<!ELEMENT Author (#PCDATA) >
+<!ELEMENT Date (#PCDATA) >
+<!ELEMENT Title (#PCDATA) >
+<!ELEMENT Section (Title | item)* >
+<!ELEMENT item (common | latin | photo)* > 
+<!ELEMENT common (#PCDATA) >
+<!ELEMENT latin (#PCDATA) >
+<!ELEMENT photo (#PCDATA) >
+
+
+<!-- the below is included for some silly tests -->
+
+<!ATTLIST Plant-Sheet xmlns:xsl CDATA #FIXED 'http://www.w3.org/TR/WD-xsl'>
+ 

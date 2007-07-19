@@ -1,0 +1,8 @@
+<prices>
+	<price foo="1"  attr="aaa">10</price>
+	<price foo="1"  attr="ccc">20</price>
+	<price foo="1"  attr="bbb">30</price>
+	<price foo="1"  attr="ddd">40</price>
+	<price foo="2"  attr="ddd">50</price>
+	<price foo="2"  attr="ddd">60</price>
+</prices>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<template-1 />
+<template-2 />
+<template-3 />
+<template-3 />
+<import2-book-template />

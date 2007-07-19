@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>
+  a:
+    b-Child,c:
+    b-Child,c:d:e:
+    e:c:
+    e:b-Descendant,
+    e:c:d:
+  
+</out>

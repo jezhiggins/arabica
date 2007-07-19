@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+
+<!-- This is a test for bug # 70832 -->
+
+<author>
+	<first-name>Mary</first-name>
+	<first-name>Bob</first-name>
+</author>

@@ -1,0 +1,1 @@
+﻿<foo big="dog" medium="frog" small="cat">text</foo>

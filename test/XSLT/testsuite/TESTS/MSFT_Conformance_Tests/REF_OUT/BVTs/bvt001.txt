@@ -1,0 +1,16 @@
+<title-text xmlns:my="http://my.com">autobiography, Book 1</title-text>
+<title-text xmlns:my="http://my.com">flat, Tracking Trenton Stocks</title-text>
+<title-text xmlns:my="http://my.com">glossy, Tracking Trenton</title-text>
+<title-text xmlns:my="http://my.com">glossy, Road and Track</title-text>
+<title-text xmlns:my="http://my.com">glossy, PC Week</title-text>
+<title-text xmlns:my="http://my.com">glossy, PC Magazine</title-text>
+<title-text xmlns:my="http://my.com">glossy, </title-text>
+<title-text xmlns:my="http://my.com">glossy, </title-text>
+<title-text xmlns:my="http://my.com">hard back, MY:BOOK 2</title-text>
+<title-text xmlns:my="http://my.com">hard back, MY:BOOK 3</title-text>
+<title-text xmlns:my="http://my.com">leather, MY:BOOK 1</title-text>
+<title-text xmlns:my="http://my.com">novel, Book 6</title-text>
+<title-text xmlns:my="http://my.com">textbook, How To Fix Computers</title-text>
+<title-text xmlns:my="http://my.com">textbook, Book 4</title-text>
+<title-text xmlns:my="http://my.com">textbook, Book 3</title-text>
+<title-text xmlns:my="http://my.com">textbook, Book 2</title-text>

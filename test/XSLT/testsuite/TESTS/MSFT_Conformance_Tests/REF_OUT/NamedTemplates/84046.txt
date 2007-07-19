@@ -1,0 +1,1 @@
+<TABLE><TR><TH>date</TH><TD>year =1999 month =11 day =23 </TD></TR><TR><TH>weight</TH><TD>kg =24 g =314 </TD></TR></TABLE>

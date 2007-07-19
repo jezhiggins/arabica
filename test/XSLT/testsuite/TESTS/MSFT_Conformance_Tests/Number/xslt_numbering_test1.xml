@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="84698.xsl"?>
+
+<xslNumbering>  
+	<n>one</n>  
+	<n>two</n>  
+	<n>three</n>  
+	<n>four</n>  
+	<n>five</n>  
+	<n>six</n>  
+	<n>seven</n>  
+	<n>eight</n>  
+	<n>nine</n>
+	<n>ten</n>
+</xslNumbering> 

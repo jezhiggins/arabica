@@ -1,0 +1,14 @@
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<SECTION>  
+<DATA>I need a pen.</DATA>  
+<DATA>I need some paper.</DATA>  
+<SUMMARY>I need a pen and some paper</SUMMARY>  
+</SECTION>  
+<SECTION>  
+<DATA>I need bread.</DATA>  
+<DATA>I need butter.</DATA>  
+</SECTION>  
+ 
+</xslTutorial> 

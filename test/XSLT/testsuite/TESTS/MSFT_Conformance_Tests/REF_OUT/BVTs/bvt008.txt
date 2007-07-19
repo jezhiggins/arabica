@@ -1,0 +1,9 @@
+<simple-call-template />
+<forward-call-template />
+<with-match-and-mode></with-match-and-mode>
+<with-match-and-mode>Book 1</with-match-and-mode>
+<with-params>param1: string, param2: 10</with-params>
+<recursive-template>
+<recursive-template />
+</recursive-template>
+<last-name>Bob</last-name>

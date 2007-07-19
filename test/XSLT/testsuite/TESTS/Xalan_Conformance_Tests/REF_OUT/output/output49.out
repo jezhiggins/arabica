@@ -1,0 +1,5 @@
+<HTML>
+<foo name="<abcd>"></foo>
+<h1 title="<contacts>">People</h1>
+<frame name="z<this>z">
+</HTML>

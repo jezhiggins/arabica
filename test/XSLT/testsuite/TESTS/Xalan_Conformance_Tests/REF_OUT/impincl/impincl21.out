@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>Match on /doc in top xsl
+<A><D>foo - match on bar in top xsl</D></A>
+<A><B><C>goo - match on bar in top xsl</C></B></A>
+</out>

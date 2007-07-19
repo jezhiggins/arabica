@@ -1,0 +1,458 @@
+<!--XSLT 1.0 Tests-->
+<!--Copyright 2002 Microsoft Corporation. All Rights Reserved.-->
+<testcase name="Miscellaneous" description="" outpath="out">
+	<variation name="_77809">
+		<description>XSLT07100 :  XPATH Basic Support Tests</description>
+		<data>
+			<xml>XSLT07100.xml</xml>
+			<xsl>XSLT07100.xsl</xsl>
+		</data>
+		<result expected="valid">77809_output.txt</result>
+	</variation>
+	<variation name="_78298">
+		<description>XSLT25000: current() &lt;xsl:value-of select="current()"/&gt;</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>78298.xsl</xsl>
+		</data>
+		<result expected="valid">78298.txt</result>
+	</variation>
+	<variation name="_78302">
+		<description>XSLT25001: current() inside square brackets</description>
+		<data>
+			<xml>XSLT25001.xml</xml>
+			<xsl>XSLT25001.xsl</xsl>
+		</data>
+		<result expected="valid">78302.txt</result>
+	</variation>
+	<variation name="_78303">
+		<description>XSLT25002: current() inside pattern</description>
+		<data>
+			<xml>XSLT25001.xml</xml>
+			<xsl>XSLT25002.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_83599">
+		<description>XSL:Explicit End Tags: [tag /] in source document; [copy/] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_src_1.xsl</xsl>
+		</data>
+		<result expected="valid">83599.txt</result>
+	</variation>
+	<variation name="_83600">
+		<description>XSL:Explicit End Tags: [tag][/tag] in source document; [copy/] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_src_2.xsl</xsl>
+		</data>
+		<result expected="valid">83600.txt</result>
+	</variation>
+	<variation name="_83601">
+		<description>XSL:Explicit End Tags: [tag/] in source document; [copy][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_src_3.xsl</xsl>
+		</data>
+		<result expected="valid">83601.txt</result>
+	</variation>
+	<variation name="_83602">
+		<description>XSL:Explicit End Tags: [tag][/tag] in source document; [copy][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_src_4.xsl</xsl>
+		</data>
+		<result expected="valid">83602.txt</result>
+	</variation>
+	<variation name="_83603">
+		<description>XSL:Explicit End Tags: [tag/] in source document; [copy][attribute /][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_src_5.xsl</xsl>
+		</data>
+		<result expected="valid">83603.txt</result>
+	</variation>
+	<variation name="_83604">
+		<description>XSL:Explicit End Tags: [tag][/tag] in source document; [copy][attribute /][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_src_6.xsl</xsl>
+		</data>
+		<result expected="valid">83604.txt</result>
+	</variation>
+	<variation name="_83605">
+		<description>XSL:Explicit End Tags: [tag /] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_ss_1.xsl</xsl>
+		</data>
+		<result expected="valid">83605.txt</result>
+	</variation>
+	<variation name="_83606">
+		<description>XSL:Explicit End Tags: [tag][/tag] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_ss_2.xsl</xsl>
+		</data>
+		<result expected="valid">83606.txt</result>
+	</variation>
+	<variation name="_83607">
+		<description>XSL:Explicit End Tags: [tag][xsl:attribute.. /][/tag] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_ss_3.xsl</xsl>
+		</data>
+		<result expected="valid">83607.txt</result>
+	</variation>
+	<variation name="_83608">
+		<description>XSL:Explicit End Tags: [xsl:element/] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_elem_1.xsl</xsl>
+		</data>
+		<result expected="valid">83608.txt</result>
+	</variation>
+	<variation name="_83609">
+		<description>XSL:Explicit End Tags: [xsl:element...][/xsl:element] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_elem_2.xsl</xsl>
+		</data>
+		<result expected="valid">83609.txt</result>
+	</variation>
+	<variation name="_83610">
+		<description>XSL:Explicit End Tags: [xsl:element] [xsl:attribute /] [/xsl:element] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>endtags_elem_3.xsl</xsl>
+		</data>
+		<result expected="valid">83610.txt</result>
+	</variation>
+	<variation name="_83996">
+		<description>Bug #46331 Regressions test.  ".//@*" should be a valid query in transformNode.</description>
+		<data>
+			<xml>83996.xml</xml>
+			<xsl>83996.xsl</xsl>
+		</data>
+		<result expected="valid">83996_output.txt</result>
+	</variation>
+	<variation name="_84001">
+		<description>Bug 46988: XSLT: AV when &lt;![CDATA[]]&gt; is included as a stylesheet literal result element</description>
+		<data>
+			<xml>bug46988.xml</xml>
+			<xsl>bug46988.xsl</xsl>
+		</data>
+		<result expected="invalid"></result>
+	</variation>
+	<variation name="_84002">
+		<description>Bug 43954: LangSpec: Parser hangs when loading XML with invalid external ELEMENT declaration</description>
+		<data>
+			<xml>bug43954.xml</xml>
+			<xsl>bug43954.xsl</xsl>
+		</data>
+		<result expected="valid">84002_output.txt</result>
+	</variation>
+	<variation name="_84039">
+		<description>XSLT: &amp;lt;xsl:copy-of&gt; - Select attribute equal to variable.</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>XSLT24001.xsl</xsl>
+		</data>
+		<result expected="valid">84039_output.txt</result>
+	</variation>
+	<variation name="_84111">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>84111.xsl</xsl>
+		</data>
+		<result expected="valid">84111_output.txt</result>
+	</variation>
+	<variation name="_84229">
+		<description>Copy of 83610: XSL:Explicit End Tags: [xsl:element] [xsl:attribute /] [/xsl:element] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84229.xsl</xsl>
+		</data>
+		<result expected="valid">84229.txt</result>
+	</variation>
+	<variation name="_84230">
+		<description>Copy of 83609: XSL:Explicit End Tags: [xsl:element...][/xsl:element] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84230.xsl</xsl>
+		</data>
+		<result expected="valid">84230.txt</result>
+	</variation>
+	<variation name="_84231">
+		<description>Copy of 83608: XSL:Explicit End Tags: [xsl:element/] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84231.xsl</xsl>
+		</data>
+		<result expected="valid">84231.txt</result>
+	</variation>
+	<variation name="_84232">
+		<description>Copy of 83607: XSL:Explicit End Tags: [tag][xsl:attribute.. /][/tag] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84232.xsl</xsl>
+		</data>
+		<result expected="valid">84232.txt</result>
+	</variation>
+	<variation name="_84233">
+		<description>Copy of 83606: XSL:Explicit End Tags: [tag][/tag] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84233.xsl</xsl>
+		</data>
+		<result expected="valid">84233.txt</result>
+	</variation>
+	<variation name="_84234">
+		<description>Copy of 83605: XSL:Explicit End Tags: [tag /] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84234.xsl</xsl>
+		</data>
+		<result expected="valid">84234.txt</result>
+	</variation>
+	<variation name="_84235">
+		<description>Copy of 83604: XSL:Explicit End Tags: [tag][/tag] in source document; [copy][attribute /][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84235.xsl</xsl>
+		</data>
+		<result expected="valid">84235.txt</result>
+	</variation>
+	<variation name="_84236">
+		<description>Copy of 83603: XSL:Explicit End Tags: [tag/] in source document; [copy][attribute /][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84236.xsl</xsl>
+		</data>
+		<result expected="valid">84236.txt</result>
+	</variation>
+	<variation name="_84237">
+		<description>Copy of 83602: XSL:Explicit End Tags: [tag][/tag] in source document; [copy][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84237.xsl</xsl>
+		</data>
+		<result expected="valid">84237.txt</result>
+	</variation>
+	<variation name="_84238">
+		<description>Copy of 83601: XSL:Explicit End Tags: [tag/] in source document; [copy][/copy] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84238.xsl</xsl>
+		</data>
+		<result expected="valid">84238.txt</result>
+	</variation>
+	<variation name="_84239">
+		<description>Copy of 83600: XSL:Explicit End Tags: [tag][/tag] in source document; [copy/] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84239.xsl</xsl>
+		</data>
+		<result expected="valid">84239.txt</result>
+	</variation>
+	<variation name="_84240">
+		<description>Copy of 83599: XSL:Explicit End Tags: [tag /] in source document; [copy/] in stylesheet</description>
+		<data>
+			<xml>endtags_src.xml</xml>
+			<xsl>84240.xsl</xsl>
+		</data>
+		<result expected="valid">84240.txt</result>
+	</variation>
+	<variation name="_84362">
+		<description>ZVON XSLT Example 44 - INFINITY</description>
+		<data>
+			<xml>84362.xml</xml>
+			<xsl>84362.xsl</xsl>
+		</data>
+		<result expected="valid">84362.txt</result>
+	</variation>
+	<variation name="_84406">
+		<description>ZVON XSLT Example 69 - xsl:template(1/6)</description>
+		<data>
+			<xml>84406.xml</xml>
+			<xsl>84406.xsl</xsl>
+		</data>
+		<result expected="valid">84406.txt</result>
+	</variation>
+	<variation name="_84407">
+		<description>ZVON XSLT Example 69 - xsl:template(2/6)</description>
+		<data>
+			<xml>84407.xml</xml>
+			<xsl>84407.xsl</xsl>
+		</data>
+		<result expected="valid">84407.txt</result>
+	</variation>
+	<variation name="_84408">
+		<description>ZVON XSLT Example 69 - xsl:template(3/6)</description>
+		<data>
+			<xml>84408.xml</xml>
+			<xsl>84408.xsl</xsl>
+		</data>
+		<result expected="valid">84408.txt</result>
+	</variation>
+	<variation name="_84409">
+		<description>ZVON XSLT Example 69 - xsl:template(4/6)</description>
+		<data>
+			<xml>84409.xml</xml>
+			<xsl>84409.xsl</xsl>
+		</data>
+		<result expected="valid">84409.txt</result>
+	</variation>
+	<variation name="_84410">
+		<description>ZVON XSLT Example 69 - xsl:template(5/6)</description>
+		<data>
+			<xml>84410.xml</xml>
+			<xsl>84410.xsl</xsl>
+		</data>
+		<result expected="valid">84410.txt</result>
+	</variation>
+	<variation name="_84411">
+		<description>ZVON XSLT Example 69 - xsl:template(6/6)</description>
+		<data>
+			<xml>84411.xml</xml>
+			<xsl>84411.xsl</xsl>
+		</data>
+		<result expected="valid">84411.txt</result>
+	</variation>
+	<variation name="_84412">
+		<description>ZVON XSLT Example 70 - xsl:template</description>
+		<data>
+			<xml>84412.xml</xml>
+			<xsl>84412.xsl</xsl>
+		</data>
+		<result expected="valid">84412.txt</result>
+	</variation>
+	<variation name="_84420">
+		<description>ZVON XSLT Example 74 - for-each(/)</description>
+		<data>
+			<xml>84420.xml</xml>
+			<xsl>84420.xsl</xsl>
+		</data>
+		<result expected="valid">84420.txt</result>
+	</variation>
+	<variation name="_84423">
+		<description>ZVON XSLT Example 78 - descendant, current() &amp; name() (1/4)</description>
+		<data>
+			<xml>84423.xml</xml>
+			<xsl>84423.xsl</xsl>
+		</data>
+		<result expected="valid">84423_output.txt</result>
+	</variation>
+	<variation name="_84424">
+		<description>
+		</description>
+		<data>
+			<xml>84424.xml</xml>
+			<xsl>84424.xsl</xsl>
+		</data>
+		<result expected="valid">84424_output.txt</result>
+	</variation>
+	<variation name="_84425">
+		<description>ZVON XSLT Example 78 - descendant, current() &amp; name() (3/4)</description>
+		<data>
+			<xml>84425.xml</xml>
+			<xsl>84425.xsl</xsl>
+		</data>
+		<result expected="valid">84425_output.txt</result>
+	</variation>
+	<variation name="_84426">
+		<description>ZVON XSLT Example 78 - descendant, current() &amp; name() (4/4)</description>
+		<data>
+			<xml>84426.xml</xml>
+			<xsl>84426.xsl</xsl>
+		</data>
+		<result expected="valid">84426_output.txt</result>
+	</variation>
+	<variation name="_84427">
+		<description>ZVON XSLT Example 79 - xsl:if</description>
+		<data>
+			<xml>84427.xml</xml>
+			<xsl>84427.xsl</xsl>
+		</data>
+		<result expected="valid">84427.txt</result>
+	</variation>
+	<variation name="_84430">
+		<description>ZVON XSLT Example 83 - start-with()</description>
+		<data>
+			<xml>84430.xml</xml>
+			<xsl>84430.xsl</xsl>
+		</data>
+		<result expected="valid">84430.txt</result>
+	</variation>
+	<variation name="_84435">
+		<description>ZVON XSLT Example 68 - id &amp; position</description>
+		<data>
+			<xml>84435.xml</xml>
+			<xsl>84435.xsl</xsl>
+		</data>
+		<result expected="valid">84435.txt</result>
+	</variation>
+	<variation name="_84475">
+		<description>Complex XPATH tests inside of union</description>
+		<data>
+			<xml>84475.xml</xml>
+			<xsl>84475.xsl</xsl>
+		</data>
+		<result expected="valid">84475_output.txt</result>
+	</variation>
+	<variation name="_84610">
+		<description>Example showing how to pass parameters to a common JS file thru test case URL</description>
+		<data>
+			<xml>example.xml</xml>
+			<xsl>example.xsl</xsl>
+		</data>
+		<result expected="valid">84610.txt</result>
+	</variation>
+	<variation name="_91177">
+		<description>XSLT - transformNodeToObject to a FreeThreadedDOMDocument with a non-existing function</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91177.xsl</xsl>
+		</data>
+		<result expected="invalid">
+		</result>
+	</variation>
+	<variation name="_91178">
+		<description>XSLT - &lt;xsl:output&gt; Inline Element spacing with method=html, indent=yes , preserveWhiteSpace=False</description>
+		<data>
+			<xml>91178.xml</xml>
+			<xsl>91178.xsl</xsl>
+		</data>
+		<result expected="valid">91178.txt</result>
+	</variation>
+	<variation name="_91183">
+		<description>
+		</description>
+		<data>
+			<xml>books.xml</xml>
+			<xsl>91183.xsl</xsl>
+		</data>
+		<result expected="valid">91183_output.txt</result>
+	</variation>
+	<variation name="Bug74174">
+		<description>
+		</description>
+		<data>
+			<xml>xslt_xpath_predicate_pattern.xml</xml>
+			<xsl>xslt_xpath_predicate_pattern.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_xpath_predicate_pattern.txt</result>
+	</variation>
+	<variation name="TestOfPrecedingAxis">
+		<description>XSLT: XPathSupport: preceding axis does not produce nodes in reverse document order when variable used for position.  [Bug 74228].</description>
+		<data>
+			<xml>xslt_test_preceding_axis.xml</xml>
+			<xsl>xslt_test_preceding_axis.xsl</xsl>
+		</data>
+		<result expected="valid">xslt_test_preceding_axis.txt</result>
+	</variation>
+</testcase>

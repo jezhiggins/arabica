@@ -1,0 +1,6 @@
+  
+This text <SUP>1</SUP> demonstrates <SUP>2</SUP> a possible usage of id function <SUP>3</SUP>.  
+<HR>
+<DIV>1. Note n3</DIV>
+<DIV>2. Note n1</DIV>
+<DIV>3. Note n2</DIV>

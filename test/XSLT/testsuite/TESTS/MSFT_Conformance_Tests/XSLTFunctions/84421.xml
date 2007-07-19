@@ -1,0 +1,29 @@
+<?xml version="1.0"?>  
+<xslTutorial >  
+ 
+<RESPONSE>  
+    <PRODUCT>  
+        <ID>ABC</ID>  
+        <NAME>Brown dog</NAME>  
+    </PRODUCT>  
+    <PRODUCT>  
+        <ID>DEF</ID>  
+        <NAME>Black cat</NAME>  
+    </PRODUCT>  
+    <PRODUCT>  
+        <ID>GHI</ID>  
+        <NAME>Yellow giraffe</NAME>  
+    </PRODUCT>  
+    <PRODUCT>  
+        <ID>JKL</ID>  
+        <NAME>Orange monkey</NAME>  
+    </PRODUCT>  
+    <SELECTEDPRODUCT>ABC</SELECTEDPRODUCT>  
+    <SELECTEDPRODUCT>GHI</SELECTEDPRODUCT>  
+</RESPONSE>  
+</xslTutorial> 
+
+
+
+
+

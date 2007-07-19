@@ -1,0 +1,1 @@
+<?xml version="1.0"?><user:html xmlns:user="http://foo"><UL><LI>TOMATO: Red and Juicy</LI><LI>CUCUMBER: Green and Crisp</LI><LI>RADISH: Red and Spicy</LI></UL></user:html>

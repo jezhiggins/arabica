@@ -1,0 +1,16 @@
+We are aware of the following bugs (SPR ID# and description):
+DMAN4H3TBV: Test harness needs robustness review for L1T, L2T, L2D setups. ( lre01)
+DMAN4H3VML: Attribute values fail to override in DOM scenario. ( nspc03)
+DMAN4H429H: Torture test of format-number obtains garbage. ( numberformat10)
+DMAN4H6RZ2: Use of position() inside for-each loop has different behavior under TX scenario. ( pos10)
+EFAR4H2RQ6: LotusXSL: include a batch file that will combine the JAR files. ( )
+PDIK4D2JJ7: The escaping of quotes in inlined JavaScript died again. ( )
+PDIK4D2JP5: Escaping of attribute quotes wasn't being done correctly when method="html".. ( outp31)
+PDIK4D2JPR: Equality comparisons with nodesets and other nodesets, strings, and numbers not to spec.. ( )
+PDIK4DJS4Q: cdata-section-elements not outputing literal result element correctly. ( outp42,outp43,outp46)
+PDIK4DRPKM: Use of 9/5 in a xpath expression generates a cryptic error message. ( spr02)
+PDIK4E6MR3: Concat() does not check for number of arguments.. ( str105)
+PDIK4E6NZE: Stylesheet should not contain more then 1 template with the same name.. ( ntmp06)
+PDIK4ERNDJ: Errors messages are overly verbose. Simplify where possible.. ( )
+PDIK4EUNA6: "xsl:element" created element does not acquire namespace prefixes from stylesheet.. ( lre07)
+

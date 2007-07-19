@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<out>A:attT:
+  P:a-piT:
+  C: This is the 1st comment T:
+  text-in-doc
+  E:innerA:blatT:
+    inner-text
+    C: This is the 2nd comment T:
+    E:subT:subtext
+T:
+  
+T:
+  text-in-doc2
+</out>

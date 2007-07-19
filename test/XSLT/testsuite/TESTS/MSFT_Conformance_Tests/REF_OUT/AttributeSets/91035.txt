@@ -1,0 +1,2 @@
+<foo:elem attr="simple" xmlns:foo="urn:foo" />
+<complex att1="complex1" att2="complex2" />

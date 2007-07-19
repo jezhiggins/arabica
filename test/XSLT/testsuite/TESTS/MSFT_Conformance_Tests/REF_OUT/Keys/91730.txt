@@ -1,0 +1,6 @@
+<LI><item type="toyota" made="Japan" model="1999">good</item></LI>
+<LI><item type="Honda" made="Japan" model="2000">reliable</item></LI>
+<LI><item type="sony" made="Japan" model="1999">good</item></LI>
+<LI><item type="Nokia" made="US" model="2000">reliable</item></LI>
+<LI><item type="IBM" made="US" model="2000">expensive</item></LI>
+<LI><item type="SUN" made="US" model="1999">very expensive</item></LI>

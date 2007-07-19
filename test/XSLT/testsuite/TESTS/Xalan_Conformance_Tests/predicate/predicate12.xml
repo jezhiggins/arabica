@@ -1,0 +1,8 @@
+<?xml version="1.0"?> 
+<doc>
+  <a squish="heavy">1</a>
+  <a>2
+    <achild>target</achild>
+  </a>
+  <a>3</a>
+</doc>

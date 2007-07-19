@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a>
+  <Definition>
+    <LAMBDA id="i1"/>
+    <LAMBDA id="i5"/>
+  </Definition>
+  <Annotation of="i1"><node id="i5"/></Annotation>
+  <Annotation of="i5"/>
+</a>

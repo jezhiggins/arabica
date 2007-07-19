@@ -1,0 +1,9 @@
+<?xml version="1.0"?> 
+<OL>
+  <LI>item1</LI>
+  <LI>item2</LI>
+  <OL place="inner">
+    <LI>subitem1</LI>
+    <LI>subitem2</LI>
+  </OL>
+</OL>
