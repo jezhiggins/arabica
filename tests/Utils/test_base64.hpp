@@ -69,7 +69,7 @@ class Base64Test : public TestCase
 
 			const char* out_next = out;
 			char* in_next = in;
-			std::codecvt_base::result res = cvt->in(state, out, out+10, out_next, in, in+4, in_next);
+			std::codecvt_base::result res = cvt->in(state, out, out+4, out_next, in, in+10, in_next);
 
 			// delete cvt;
 
