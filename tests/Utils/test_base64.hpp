@@ -73,9 +73,9 @@ class Base64Test : public TestCase
 
 			// delete cvt;
 
+			assertEquals("ABC", std::string(in, in_next));
 			assertEquals(3, (in_next-in));
       assertEquals('#', in[3]);
-			assertEquals("ABC", std::string(in, in_next));
 			assertEquals(std::codecvt_base::ok, res);
 		} // testDecode1
 

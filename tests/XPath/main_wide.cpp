@@ -3,10 +3,9 @@
 #pragma warning(disable:4224 4267)
 #endif
 
+#include <iostream>
 #ifndef ARABICA_NO_WCHAR_T
 #include "xpath_test_suite.hpp"
-#else
-#include <iostream>
 #endif
 
 /////////////////////////////////////////
