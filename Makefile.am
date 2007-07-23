@@ -1,7 +1,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS= src tests examples
+SUBDIRS= src examples tests
 
 install-data-local:
 	@echo "------------------------------------------------------------"
@@ -22,7 +22,7 @@ uninstall-local:
 	  do rm -rf "$(includedir)/$$dir"; \
 	done 
 
-DIST_SUBDIRS= src tests examples 
+DIST_SUBDIRS= src examples tests
 EXTRA_DIST=vs7 \
            include \
            src/SAX/wrappers/saxexpat.cpp \
