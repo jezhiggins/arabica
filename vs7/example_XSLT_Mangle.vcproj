@@ -290,9 +290,6 @@
 						RelativePath="..\include\Xslt\impl\handler\xslt_template_handler.hpp">
 					</File>
 					<File
-						RelativePath="..\test\Xslt\xslt_test.hpp">
-					</File>
-					<File
 						RelativePath="..\include\Xslt\impl\handler\xslt_text_handler.hpp">
 					</File>
 					<File
