@@ -314,6 +314,7 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
 
 
   private:
+    void setCallbacks();
     void startElementNoNS(const char* qName, const char** atts);
     void endElementNoNS(const char* qName);
     void convertXML_Content(std::ostream& os, const XML_Content* model, bool isChild = false);
@@ -362,6 +363,17 @@ expat_wrapper<stringT, T0, T1>::expat_wrapper() :
   prefixes_(true),
   externalResolving_(false)
 {
+} // expat
+
+template<class stringT, class T0, class T1>
+expat_wrapper<stringT, T0, T1>::~expat_wrapper()
+{
+  XML_ParserFree(parser_);
+} // ~expat
+
+template<class stringT, class T0, class T1>
+void expat_wrapper<stringT, T0, T1>::setCallbacks()
+{
   XML_SetUserData(parser_, reinterpret_cast<void*>(static_cast<expat_wrapper_impl_mumbojumbo::expat2base*>(this)));
   XML_SetCharacterDataHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_charHandler);
   XML_SetElementHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_startElement, expat_wrapper_impl_mumbojumbo::ewim_endElement);
@@ -374,13 +386,7 @@ expat_wrapper<stringT, T0, T1>::expat_wrapper() :
   XML_SetCommentHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_commentHandler);
   XML_SetExternalEntityRefHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_externalEntityRefHandler);
   XML_SetProcessingInstructionHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_processingInstruction);
-} // expat
-
-template<class stringT, class T0, class T1>
-expat_wrapper<stringT, T0, T1>::~expat_wrapper()
-{
-  XML_ParserFree(parser_);
-} // ~expat
+} // setCallbacks
 
 template<class stringT, class T0, class T1>
 void expat_wrapper<stringT, T0, T1>::setFeature(const stringT& name, bool value)
@@ -448,6 +454,8 @@ bool expat_wrapper<stringT, T0, T1>::getFeature(const stringT& name) const
 template<class stringT, class T0, class T1>
 void expat_wrapper<stringT, T0, T1>::parse(inputSourceT& source)
 {
+  setCallbacks();
+
   publicId_ = source.getPublicId();
   systemId_ = source.getSystemId();
 
@@ -467,6 +475,8 @@ void expat_wrapper<stringT, T0, T1>::parse(inputSourceT& source)
     contentHandler_->endDocument();
 
   parsing_ = false;
+
+  XML_ParserReset(parser_, 0);
 } // parse
 
 template<class stringT, class T0, class T1>
