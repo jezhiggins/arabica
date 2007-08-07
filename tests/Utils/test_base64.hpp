@@ -23,7 +23,7 @@ class Base64Test : public TestCase
       std::memset(out, '#', 10);
 
       std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
-      std::mbstate_t state;
+      std::mbstate_t state(0);
 
       const char* in_next = in;
       char* out_next = out;
@@ -44,7 +44,7 @@ class Base64Test : public TestCase
       std::memset(out, '#', 10);
 
       std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
-      std::mbstate_t state;
+      std::mbstate_t state(0);
 
       const char* in_next = in;
       char* out_next = out;
@@ -65,7 +65,7 @@ class Base64Test : public TestCase
       std::memset(in, '#', 10);
 
       std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
-      std::mbstate_t state;
+      std::mbstate_t state(0);
 
       const char* out_next = out;
       char* in_next = in;
@@ -86,7 +86,7 @@ class Base64Test : public TestCase
       std::memset(in, '#', 10);
 
       std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
-      std::mbstate_t state;
+      std::mbstate_t state(0);
 
       const char* out_next = out;
       char* in_next = in;
@@ -107,7 +107,7 @@ class Base64Test : public TestCase
       std::memset(in, '#', 10);
 
       std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
-      std::mbstate_t state;
+      std::mbstate_t state(0);
 
       const char* out_next = out;
       char* in_next = in;
@@ -140,7 +140,7 @@ class Base64Test : public TestCase
       std::memset(in, '#', 10);
 
       std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
-      std::mbstate_t state;
+      std::mbstate_t state(0);
 
       const char* out_next = out;
       char* in_next = in;
