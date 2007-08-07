@@ -462,6 +462,8 @@ void libxml2_wrapper<stringT, T0, T1>::parse(basic_InputSource<stringT>& source)
 		xmlParseChunk(context_, buffer, is.resolve()->gcount(), is.resolve()->eof());
 	} // while(!in.eof())
 
+  xmlCtxtResetPush(context_, 0, 0, 0, 0);
+
   parsing_ = false;
 } // parse
 
