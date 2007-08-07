@@ -141,6 +141,14 @@ public:
       systemId_(),
       encoding_()
   { }
+  
+  basic_InputSource(std::auto_ptr<std::iostream> byteStream) :
+      byteStream_(byteStream),
+      publicId_(),
+      systemId_(),
+      encoding_()
+  { }
+
 
   virtual ~basic_InputSource() { }
 

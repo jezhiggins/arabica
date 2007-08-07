@@ -169,6 +169,7 @@ public:
      *
      */
     explicit IStreamHandle(std::auto_ptr<std::istream> is);
+    explicit IStreamHandle(std::auto_ptr<std::iostream> is);
 
     /** Construct an IStreamHandle sharing a std::istream with <em>rhs</em>.
      * 
@@ -224,6 +225,7 @@ public:
      *
      */
     IStreamHandle& operator=(std::auto_ptr<std::istream> rhs);
+    IStreamHandle& operator=(std::auto_ptr<std::iostream> rhs);
 
     /** Assign a new std::istream to <code>this</code>.  This destroys the
      * std::istream held by <code>this</code> if <code>this</code> <i>owns</i>
@@ -304,6 +306,17 @@ IStreamHandle::IStreamHandle(std::auto_ptr<std::istream> is)
 }
 
 inline
+IStreamHandle::IStreamHandle(std::auto_ptr<std::iostream> is)
+:   is_(is.release()),
+    counter_(new int(0)),
+    owner_(true)
+{
+    addRef();
+    ISTREAMHANDLE_POSTCONDITION(*counter_ == 1);
+    ISTREAMHANDLE_POSTCONDITION(is.get() == 0);
+}
+
+inline
 IStreamHandle::IStreamHandle(const IStreamHandle& rhs)
 :   is_(rhs.is_),
     counter_(rhs.counter_),
@@ -339,6 +352,19 @@ IStreamHandle& IStreamHandle::operator=(const IStreamHandle& rhs)
 
 inline
 IStreamHandle& IStreamHandle::operator=(std::auto_ptr<std::istream> rhs)
+{
+    removeRef();
+    set(rhs.release(), true);
+
+    ISTREAMHANDLE_POSTCONDITION(*counter_ == 1);
+    ISTREAMHANDLE_POSTCONDITION(owner_ == true);
+    ISTREAMHANDLE_POSTCONDITION(rhs.get() == 0);
+
+    return *this;
+}
+
+inline
+IStreamHandle& IStreamHandle::operator=(std::auto_ptr<std::iostream> rhs)
 {
     removeRef();
     set(rhs.release(), true);
