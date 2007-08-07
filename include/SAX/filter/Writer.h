@@ -286,6 +286,8 @@ void basic_Writer<string_type>::processingInstruction(const stringT& target, con
     *stream_ << UnicodeT::QUESTION_MARK
              << UnicodeT::GREATER_THAN_SIGN;
   }
+
+  XMLFilterT::processingInstruction(target, data);
 } // processingInstruction
 
 template<class string_type>
@@ -293,6 +295,8 @@ void basic_Writer<string_type>::skippedEntity(const stringT& name)
 {
   if(!isDtd(name))
     *stream_ << UnicodeT::AMPERSAND << name << UnicodeT::SEMI_COLON;
+
+  XMLFilterT::skippedEntity(name);
 } // skippedEntity
 
 template<class string_type>
