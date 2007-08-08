@@ -5,7 +5,7 @@
 #include "../CppUnit/TestRunner.hpp"
 #include "../CppUnit/framework/Test.h"
 #include "../CppUnit/framework/TestSuite.h"
-#include <Utils/StringAdaptor.h>
+#include "../silly_string/silly_string.hpp"
 #include "test_WhitespaceStripper.hpp"
 
 ////////////////////////////////////////////////
@@ -13,7 +13,7 @@ int main(int argc, const char* argv[])
 {
   TestRunner runner;
 
-  runner.addTest("WhitespaceStripperTest", WhitespaceStripper_test_suite<std::string, Arabica::default_string_adaptor<std::string> >());
+  runner.addTest("WhitespaceStripperTest", WhitespaceStripper_test_suite<silly_string, silly_string_adaptor>());
 
   runner.run(argc, argv);
 

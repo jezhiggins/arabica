@@ -13,7 +13,7 @@ int main(int argc, const char* argv[])
 {
   TestRunner runner;
 
-  runner.addTest("WhitespaceStripperTest", WhitespaceStripper_test_suite<std::string, Arabica::default_string_adaptor<std::string> >());
+  runner.addTest("WhitespaceStripperTest", WhitespaceStripper_test_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >());
 
   runner.run(argc, argv);
 
