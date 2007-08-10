@@ -658,7 +658,7 @@
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP -D USE_MSXML  ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
+						CommandLine="cl /TC /EP -D USE_MSXML -D NO_BOOST ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
 "
 						Outputs="ArabicaConfig.h"/>
 				</FileConfiguration>

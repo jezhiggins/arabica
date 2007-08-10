@@ -888,14 +888,14 @@
 				>
 			</File>
 			<File
-				RelativePath="ArabicaConfig.S"
+				RelativePath="..\vs7\ArabicaConfig.S"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP  -D USE_LIBXML2 ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h&#x0D;&#x0A;"
+						CommandLine="cl /TC /EP  -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h&#x0D;&#x0A;"
 						Outputs="..\include\SAX\ArabicaConfig.h"
 					/>
 				</FileConfiguration>
@@ -904,7 +904,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP -D USE_MSXML  ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h&#x0D;&#x0A;"
+						CommandLine="cl /TC /EP -D USE_MSXML  ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h&#x0D;&#x0A;"
 						Outputs="ArabicaConfig.h"
 					/>
 				</FileConfiguration>
