@@ -108,8 +108,45 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
     virtual void parse(SAX::basic_InputSource<string_type>& input);
 
   protected:
-	virtual std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> doGetProperty(const string_type& name);
-	virtual void doSetProperty(const string_type& name, std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> value);
+  	virtual std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> doGetProperty(const string_type& name)
+    {
+      if(name == properties_.lexicalHandler)
+      {
+        Property<SAX::basic_LexicalHandler<string_type>*>* prop = new Property<SAX::basic_LexicalHandler<string_type>*>(lexicalHandler_.getLexicalHandler());
+        return std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase>(prop);
+      }
+      if(name == properties_.declHandler)
+      {
+        Property<SAX::basic_DeclHandler<string_type>*>* prop = new Property<SAX::basic_DeclHandler<string_type>*>(declHandler_.getDeclHandler());
+        return std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase>(prop);
+      }
+      throw SAX::SAXNotRecognizedException("Property not recognized ");    
+    } // doGetProperty
+
+	  virtual void doSetProperty(const string_type& name, std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> value)
+    {
+      if(name == properties_.lexicalHandler)
+      {
+	      Property<SAX::basic_LexicalHandler<string_type>&>* prop = dynamic_cast<Property<SAX::basic_LexicalHandler<string_type>&>*>(value.get());
+
+        if(!prop)
+          throw std::runtime_error("bad_cast: Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
+
+        lexicalHandler_.setLexicalHandler(prop->get());
+        return;
+      } // if ...
+      if(name == properties_.declHandler)
+      {
+        Property<SAX::basic_DeclHandler<string_type>&>* prop = dynamic_cast<Property<SAX::basic_DeclHandler<string_type>&>*>(value.get());
+
+        if(!prop)
+          throw std::runtime_error("bad_cast: Property DeclHandler is wrong type, should be SAX::DeclHandler&");
+
+        declHandler_.setDeclHandler(prop->get());
+        return;
+      } // if ...
+      throw SAX::SAXNotRecognizedException("Property not recognized ");    
+    } // doSetProperty
 
 	private:
     //////////////////////////////////////////////////////
@@ -887,52 +924,6 @@ SAX::basic_ErrorHandler<string_type>* msxml2_wrapper<string_type, T0, T1>::getEr
 {
   return errorHandler_.getErrorHandler();
 } // getErrorHandler
-
-template<class string_type, class T0, class T1>
-#ifndef ARABICA_VS6_WORKAROUND
-std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> msxml2_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-#else
-std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> msxml2_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-#endif
-{
-  if(name == properties_.lexicalHandler)
-  {
-    Property<SAX::basic_LexicalHandler<string_type>*>* prop = new Property<SAX::basic_LexicalHandler<string_type>*>(lexicalHandler_.getLexicalHandler());
-    return std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase>(prop);
-  }
-  if(name == properties_.declHandler)
-  {
-    Property<SAX::basic_DeclHandler<string_type>*>* prop = new Property<SAX::basic_DeclHandler<string_type>*>(declHandler_.getDeclHandler());
-    return std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase>(prop);
-  }
-  throw SAX::SAXNotRecognizedException("Property not recognized ");    
-} // doGetProperty
-
-template<class string_type, class T0, class T1>
-void msxml2_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> value)
-{
-  if(name == properties_.lexicalHandler)
-  {
-	Property<SAX::basic_LexicalHandler<string_type>&>* prop = dynamic_cast<Property<SAX::basic_LexicalHandler<string_type>&>*>(value.get());
-
-    if(!prop)
-      throw std::runtime_error("bad_cast: Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
-
-    lexicalHandler_.setLexicalHandler(prop->get());
-    return;
-  } // if ...
-  if(name == properties_.declHandler)
-  {
-    Property<SAX::basic_DeclHandler<string_type>&>* prop = dynamic_cast<Property<SAX::basic_DeclHandler<string_type>&>*>(value.get());
-
-    if(!prop)
-      throw std::runtime_error("bad_cast: Property DeclHandler is wrong type, should be SAX::DeclHandler&");
-
-    declHandler_.setDeclHandler(prop->get());
-    return;
-  } // if ...
-  throw SAX::SAXNotRecognizedException("Property not recognized ");    
-} // doSetProperty
 
 template<class string_type, class T0, class T1>
 void msxml2_wrapper<string_type, T0, T1>::parse(SAX::basic_InputSource<string_type>& source)
