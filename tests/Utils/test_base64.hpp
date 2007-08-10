@@ -29,8 +29,6 @@ class Base64Test : public TestCase
       char* out_next = out;
       std::codecvt_base::result res = cvt->out(state, in, in+3, in_next, out, out+10, out_next);
 
-      // delete cvt;
-
       assertEquals(std::codecvt_base::ok, res);
       assertEquals(4, (out_next-out));
       assertEquals('#', out[4]);
@@ -49,8 +47,6 @@ class Base64Test : public TestCase
       const char* in_next = in;
       char* out_next = out;
       std::codecvt_base::result res = cvt->out(state, in, in+4, in_next, out, out+10, out_next);
-
-      // delete cvt;
 
       assertEquals(std::codecvt_base::ok, res);
       assertEquals(8, (out_next-out));
@@ -71,8 +67,6 @@ class Base64Test : public TestCase
       char* in_next = in;
       std::codecvt_base::result res = cvt->in(state, out, out+4, out_next, in, in+10, in_next);
 
-      // delete cvt;
-
       assertEquals("ABC", std::string(in, in_next));
       assertEquals(3, (in_next-in));
       assertEquals('#', in[3]);
@@ -91,8 +85,6 @@ class Base64Test : public TestCase
       const char* out_next = out;
       char* in_next = in;
       std::codecvt_base::result res = cvt->in(state, out, out+8, out_next, in, in+10, in_next);
-
-      // delete cvt;
 
       assertEquals(std::codecvt_base::ok, res);
       assertEquals(4, (in_next-in));
