@@ -667,6 +667,9 @@
 				Name="Utils"
 				Filter="">
 				<File
+					RelativePath="..\src\Utils\uri.cpp">
+				</File>
+				<File
 					RelativePath="..\src\Utils\base64codecvt.cpp">
 				</File>
 				<File
