@@ -24,7 +24,7 @@
  *
  * \section license License
  * 
- * Copyright (c) 2001-2005 Jez UK Ltd<br>
+ * Copyright (c) 2001-2007 Jez UK Ltd<br>
  * All rights reserved.
  * <p>
  * Redistribution and use in source and binary forms, with or <br>
