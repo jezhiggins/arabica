@@ -6,6 +6,8 @@
 #include <XPath/XPath.hpp>
 #include <stack>
 
+#include "xslt_stylesheet_parser.hpp"
+
 namespace Arabica
 {
 namespace XSLT
@@ -17,7 +19,7 @@ class ItemContainer;
 class CompilationContext
 {
 public:
-  CompilationContext(SAX::NamespaceTracker<std::string>& parser,
+  CompilationContext(StylesheetParser& parser,
                      Arabica::XPath::XPath<std::string>& xpathCompiler,
                      Stylesheet& stylesheet) :
     parser_(parser),
@@ -42,19 +44,18 @@ public:
     handlerStack_.push(&root);
   } // root
 
-  SAX::basic_XMLReader<std::string>& parser() const { return parser_; }
+  StylesheetParser& parser() const { return parser_; }
   const Arabica::XPath::XPath<std::string>& xpath() const { return xpath_; }
   Stylesheet& stylesheet() const { return stylesheet_; }
 
   std::pair<std::string, std::string> processQName(const std::string& qName) const
   {
-    return parser_.process(qName);
+    return parser_.processQName(qName);
   } // processQName
 
   std::string makeAbsolute(const std::string& href) const
   {
-    SAX::XMLBaseTracker<std::string>* tracker = static_cast<SAX::XMLBaseTracker<std::string>*>(parser_.getParent());
-    return tracker->makeAbsolute(href);
+    return parser_.makeAbsolute(href);
   } // makeAbsolute
 
   void push(ItemContainer* parent,
@@ -121,7 +122,7 @@ public:
 private:
   typedef std::pair<std::string, std::string> Namespace;
 
-  SAX::NamespaceTracker<std::string>& parser_;
+  StylesheetParser& parser_;
   const Arabica::XPath::XPath<std::string>& xpath_;
   Stylesheet& stylesheet_;
   std::stack<SAX::DefaultHandler*> handlerStack_;

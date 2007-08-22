@@ -3,10 +3,8 @@
 
 #include <XML/XMLCharacterClasses.h>
 #include <memory>
-#include <SAX/filter/NamespaceTracker.hpp>
-#include <SAX/filter/XMLBaseTracker.hpp>
-#include <SAX/filter/TextCoalescer.hpp>
 
+#include "xslt_stylesheet_parser.hpp"
 #include "xslt_stylesheet.hpp"
 #include "xslt_compilation_context.hpp"
 #include "xslt_functions.hpp"
@@ -129,29 +127,11 @@ const ChildElement StylesheetHandler::allowedChildren[] =
     { 0, 0 }
   }; // StylesheetHandler::allowedChildren
 
-class NamespaceTracker : public SAX::NamespaceTracker<std::string>,
-                         public XPath::NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >
-{
-  typedef SAX::basic_XMLReader<std::string> XMLReaderT;
-
-public:
-  NamespaceTracker(XMLReaderT& parent) : 
-    SAX::NamespaceTracker<std::string, Arabica::default_string_adaptor<std::string> >(parent)
-  { 
-  } // NamespaceTracker
-
-  virtual std::string namespaceURI(const std::string& prefix) const
-  {
-    return this->getURI(prefix);
-  } // namespaceURI
-}; // class NamespaceTracker
-
 class StylesheetCompiler 
                            
 {
 public:
   StylesheetCompiler() :
-    handler_(0),
     stylesheet_(new Stylesheet)
   {
   } // StylesheetCompiler
@@ -164,10 +144,7 @@ public:
   {
     error_ = "";
 
-    SAX::XMLReader<std::string> base_parser;
-    SAX::TextCoalescer<std::string> text_coalescer(base_parser);
-    SAX::XMLBaseTracker<std::string> xmlbase_tracker(text_coalescer);
-    NamespaceTracker parser(xmlbase_tracker);
+    StylesheetParser parser;
 
     Arabica::XPath::XPath<std::string> xpathCompiler;
     xpathCompiler.setNamespaceContext(parser);
@@ -210,7 +187,6 @@ private:
   } // fatalError
 
   std::auto_ptr<Stylesheet> stylesheet_;
-  std::auto_ptr<SAX::ContentHandler> handler_;       
   std::string error_;
   XsltFunctionResolver fnResolver_;
 }; // class StylesheetCompiler
