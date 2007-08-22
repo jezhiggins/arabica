@@ -24,7 +24,7 @@ public:
   typedef basic_Attributes<string_type> AttributesT;
 
   TextCoalescer() : 
-    XMLFilterT(0)
+    XMLFilterT()
   { 
   } // basic_TextCoalescer
 
