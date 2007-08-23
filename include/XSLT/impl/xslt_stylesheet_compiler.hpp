@@ -2,6 +2,7 @@
 #define ARABICA_XSLT_STYLESHEETCONSTANT_HPP
 
 #include <XML/XMLCharacterClasses.h>
+#include <XPath/impl/xpath_namespace_context.hpp>
 #include <memory>
 
 #include "xslt_stylesheet_parser.hpp"
@@ -23,7 +24,8 @@ class StylesheetHandler : public SAX::DefaultHandler
 public:
   StylesheetHandler(CompilationContext& context) :
     context_(context),
-    top_(true)
+    top_(true),
+    foreign_(0)
   {
     context_.root(*this);
     includer_.context(context_, this);      
@@ -50,41 +52,48 @@ public:
       return;
     } // if(stylesheet_ == 0)
 
-    if(namespaceURI == StylesheetConstant::NamespaceURI())
+    if(namespaceURI != StylesheetConstant::NamespaceURI())
     {
-      if((localName == "import") || (localName == "include"))
-      {
-        include_stylesheet(namespaceURI, localName, qName, atts);
-        return;
-      } // if ...
+      ++foreign_;
+      std::cerr << "Foreign " << foreign_ << ": "<< qName << std::endl;
+      return;
+    }  // 
 
-      for(const ChildElement* c = allowedChildren; c->name != 0; ++c)
-        if(c->name == localName)
-        {
-          context_.push(0,
-                        c->createHandler(context_),
-                        namespaceURI, 
-                        qName, 
-                        localName, 
-                        atts);
-          return;
-        } // if ...
+    if((localName == "import") || (localName == "include"))
+    {
+      include_stylesheet(namespaceURI, localName, qName, atts);
+      return;
     } // if ...
 
-    throw SAX::SAXException(qName + " <- Sorry, don't know about that yet :)");
+    for(const ChildElement* c = allowedChildren; c->name != 0; ++c)
+      if(c->name == localName)
+      {
+        context_.push(0,
+                      c->createHandler(context_),
+                      namespaceURI, 
+                      qName, 
+                      localName, 
+                      atts);
+        return;
+      } // if ...
   } // startElement
 
   virtual void endElement(const std::string& namespaceURI,
                           const std::string& localName,
                           const std::string& qName)
   {
+    if(namespaceURI != StylesheetConstant::NamespaceURI())    
+      --foreign_;
   } // endElement
 
   virtual void characters(const std::string& ch)
   {
+    if(foreign_)
+      return;
+
     for(std::string::const_iterator s = ch.begin(), e = ch.end(); s != e; ++s)
       if(!Arabica::XML::is_space(*s))
-        throw SAX::SAXException("stylesheet element can not contain character data");
+        throw SAX::SAXException("stylesheet element can not contain character data :'" + ch +"'");
   } // characters
 
   virtual void endDocument()
@@ -106,6 +115,7 @@ private:
   SAX::DefaultHandler* child_;
   IncludeHandler includer_;
   bool top_;
+  unsigned int foreign_;
 
   static const ChildElement allowedChildren[];
 }; // class StylesheetHandler
@@ -127,12 +137,12 @@ const ChildElement StylesheetHandler::allowedChildren[] =
     { 0, 0 }
   }; // StylesheetHandler::allowedChildren
 
-class StylesheetCompiler 
-                           
+class StylesheetCompiler :
+    private Arabica::XPath::FunctionResolver<std::string>,
+    private Arabica::XPath::NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
-  StylesheetCompiler() :
-    stylesheet_(new Stylesheet)
+  StylesheetCompiler() 
   {
   } // StylesheetCompiler
 
@@ -144,34 +154,34 @@ public:
   {
     error_ = "";
 
-    StylesheetParser parser;
-
     Arabica::XPath::XPath<std::string> xpathCompiler;
-    xpathCompiler.setNamespaceContext(parser);
-    xpathCompiler.setFunctionResolver(fnResolver_);
+    xpathCompiler.setNamespaceContext(*this);
+    xpathCompiler.setFunctionResolver(*this);
 
-    CompilationContext context(parser, 
+    std::auto_ptr<Stylesheet> stylesheet(new Stylesheet());
+
+    CompilationContext context(parser_, 
                                xpathCompiler,
-                               *stylesheet_.get());
+                               *stylesheet.get());
 
     StylesheetHandler stylesheetHandler(context);
 
-    parser.setContentHandler(stylesheetHandler);
-    //parser.setErrorHandler(*this);
+    parser_.setContentHandler(stylesheetHandler);
+    //parser_.setErrorHandler(*this);
   
     //if(entityResolver_)
-    //  parser.setEntityResolver(*entityResolver_);
+    //  parser_.setEntityResolver(*entityResolver_);
     try {
-      parser.parse(source);
+      parser_.parse(source);
     } // try
     catch(std::exception& ex)
     {
       error_ = ex.what();
       //std::cerr << "Compilation Failed : " << ex.what() << std::endl;
-      stylesheet_.reset();
+      stylesheet.reset();
     } // catch
 
-    return stylesheet_;
+    return stylesheet;
   } // compile
 
   const std::string& error() const
@@ -186,9 +196,38 @@ private:
     stylesheet_.reset();
   } // fatalError
 
+  // FunctionResolver 
+  virtual Arabica::XPath::XPathFunction<std::string>* resolveFunction(
+                                         const std::string& namespace_uri, 
+                                         const std::string& name,
+                                         const std::vector<Arabica::XPath::XPathExpressionPtr<std::string> >& argExprs) const
+  {
+    if(!namespace_uri.empty())
+      return 0;
+
+    // document
+    if(name == "document")
+      return new DocumentFunction(parser_.currentBase(), argExprs);
+    // key
+    // format-number
+    if(name == "current")
+      return new CurrentFunction(argExprs);
+    // unparsed-entity-uri
+    // generate-id
+    if(name == "system-property")
+      return new SystemPropertyFunction(argExprs);
+    return 0;
+  } // resolveFunction
+
+  // NamespaceContext 
+  virtual std::string namespaceURI(const std::string& prefix) const
+  {
+    return parser_.namespaceURI(prefix);
+  } // namespaceURI
+
+  StylesheetParser parser_;
   std::auto_ptr<Stylesheet> stylesheet_;
   std::string error_;
-  XsltFunctionResolver fnResolver_;
 }; // class StylesheetCompiler
 
 } // namespace XSLT

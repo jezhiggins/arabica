@@ -5,14 +5,13 @@
 #include <SAX/filter/XMLBaseTracker.hpp>
 #include <SAX/filter/TextCoalescer.hpp>
 
-#include <XPath/impl/xpath_namespace_context.hpp>
 
 namespace Arabica
 {
 namespace XSLT
 {
 
-class StylesheetParser : public XPath::NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >
+class StylesheetParser
 {
 public:
   StylesheetParser() { }
@@ -32,7 +31,7 @@ public:
     namespace_tracker_.parse(source);
   } // parse
 
-  virtual std::string namespaceURI(const std::string& prefix) const
+  std::string namespaceURI(const std::string& prefix) const
   {
     return namespace_tracker_.getURI(prefix);
   } // namespaceURI
@@ -46,6 +45,11 @@ public:
   {
     return namespace_tracker_.inScopeNamespaces();
   } // inScopeNamespaces
+
+  std::string currentBase() const
+  {
+    return xmlbase_tracker_.currentBase();
+  } // currentBase
 
   std::string makeAbsolute(const std::string& href) 
   {

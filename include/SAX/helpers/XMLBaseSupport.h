@@ -80,13 +80,20 @@ public:
     --depth_;
   } // endElement
 
-  stringT makeAbsolute(const stringT& spec)
+  stringT currentBase() const
+  {
+    if(!bases_.size())
+      return stringT();
+    return bases_.top().second;
+  } // currentBase()
+
+  stringT makeAbsolute(const stringT& spec) const
   {
     return absolutise(currentBase(), spec);
   } // makeAbsolute
 
 private:
-  stringT absolutise(const stringT& baseURI, const stringT& location)
+  stringT absolutise(const stringT& baseURI, const stringT& location) const
   {
     Arabica::io::URI absolute(Arabica::io::URI(baseURI), location);
     return string_adaptorT::construct_from_utf8(absolute.as_string().c_str());
@@ -106,13 +113,6 @@ private:
 
     return location.substr(0, location.rfind(FORWARD_SLASH)+1);
   } // trim
-
-  stringT currentBase() const
-  {
-    if(!bases_.size())
-      return stringT();
-    return bases_.top().second;
-  } // currentBase()
 
   int currentDepth() const
   {

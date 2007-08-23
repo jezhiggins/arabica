@@ -38,8 +38,7 @@ public:
 
   void setDocumentLocation(const string_type& loc)
   {
-    base_set_ = true;
-    xmlbase_.setDocumentLocation(loc);
+    setDocLoc(loc);
   } // setDocumentLocation
 
   virtual void setDocumentLocator(const LocatorT& locator)
@@ -62,17 +61,30 @@ public:
     xmlbase_.endElement();
   } // endElement
 
-  string_type makeAbsolute(const string_type& url)
+  string_type currentBase() const
   {
     if(!base_set_ && locator_)
-      setDocumentLocation(locator_->getSystemId());
+      setDocLoc(locator_->getSystemId());
+    return xmlbase_.currentBase();
+  } // currentBase
+
+  string_type makeAbsolute(const string_type& url) const
+  {
+    if(!base_set_ && locator_)
+      setDocLoc(locator_->getSystemId());
     return xmlbase_.makeAbsolute(url);
   } // makeAbsolute
 
 private:
-  XMLBaseSupportT xmlbase_;
+  void setDocLoc(const string_type& loc) const
+  {
+    base_set_ = true;
+    xmlbase_.setDocumentLocation(loc);
+  } // setDocLoc
+
+  mutable XMLBaseSupportT xmlbase_;
   const LocatorT* locator_;
-  bool base_set_;
+  mutable bool base_set_;
 }; // class XMLBaseTracker
 
 } // namespace SAX

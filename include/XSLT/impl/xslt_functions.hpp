@@ -33,8 +33,10 @@ class DocumentFunction : public Arabica::XPath::XPathFunction<std::string>
   typedef Arabica::XPath::XPathFunction<std::string> baseT;
 
 public:
-  DocumentFunction(const std::vector<Arabica::XPath::XPathExpressionPtr<std::string> >& args) :
-      Arabica::XPath::XPathFunction<std::string>(1, 2, args)
+  DocumentFunction(const std::string& currentBase, 
+                   const std::vector<Arabica::XPath::XPathExpressionPtr<std::string> >& args) :
+      Arabica::XPath::XPathFunction<std::string>(1, 2, args),
+      baseURI_(currentBase)
   { } 
 
   /*
@@ -154,16 +156,18 @@ public:
   } // evaluate
 
 private:
-  Arabica::XPath::XPathValue<std::string>* load_document(const std::string& url) const
+  Arabica::XPath::XPathValue<std::string>* load_document(const std::string& location) const
   {
-    if(url.empty())
+    if(location.empty())
       throw Arabica::XPath::UnsupportedException("document('')");
 
     SAX2DOM::Parser<std::string> domParser;
     SAX::CatchErrorHandler<std::string> eh;
     domParser.setErrorHandler(eh);
 
-    SAX::InputSource is(url);
+    Arabica::io::URI absolute(Arabica::io::URI(baseURI_), location);
+
+    SAX::InputSource is(absolute.as_string());
     domParser.parse(is);
 
     Arabica::XPath::NodeSet<std::string> set;
@@ -175,6 +179,8 @@ private:
 
     return new Arabica::XPath::NodeSetValue<std::string>(set);
   } // load_document
+
+  std::string baseURI_; 
 }; // DocumentFunction
 
 // object system-property(string)
@@ -200,32 +206,6 @@ public:
     return new Arabica::XPath::StringValue<std::string>(result);
   } // evaluate
 }; // SystemPropertyFunction
-
-class XsltFunctionResolver : public Arabica::XPath::FunctionResolver<std::string>
-{
-public:
-  virtual Arabica::XPath::XPathFunction<std::string>* resolveFunction(
-                                         const std::string& namespace_uri, 
-                                         const std::string& name,
-                                         const std::vector<Arabica::XPath::XPathExpressionPtr<std::string> >& argExprs) const
-  {
-    if(!namespace_uri.empty())
-      return 0;
-
-    // document
-    if(name == "document")
-      return new DocumentFunction(argExprs);
-    // key
-    // format-number
-    if(name == "current")
-      return new CurrentFunction(argExprs);
-    // unparsed-entity-uri
-    // generate-id
-    if(name == "system-property")
-      return new SystemPropertyFunction(argExprs);
-    return 0;
-  } // resolveFunction
-}; // class XsltFunctionResolver
 
 
 } // namespace XSLT
