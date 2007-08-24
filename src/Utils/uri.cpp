@@ -34,8 +34,11 @@ URI::URI(const URI& base, const std::string& relativeUrl) :
   path_(base.path_),
   port_(base.port_)
 {
-  URI relUrl(relativeUrl);
-  absolutise(relUrl);
+  if(!relativeUrl.empty())
+  {
+    URI relUrl(relativeUrl);
+    absolutise(relUrl);
+  } // if ... 
 } // URI         
 
 const std::string& URI::port() const
