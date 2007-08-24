@@ -49,7 +49,9 @@ public:
     {
       if((localName == "template") || 
          (localName == "param") ||
-         (localName == "variable"))
+         (localName == "variable") ||
+         (localName == "stylesheet") ||
+         (localName == "transform"))
         start_pass_through = true;
       if(localName == "import")
       {

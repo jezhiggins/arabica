@@ -55,7 +55,6 @@ public:
     if(namespaceURI != StylesheetConstant::NamespaceURI())
     {
       ++foreign_;
-      std::cerr << "Foreign " << foreign_ << ": "<< qName << std::endl;
       return;
     }  // 
 
