@@ -59,7 +59,7 @@ public:
 
   void setDocumentLocation(const stringT& loc)
   {
-    bases_.push(std::make_pair(-1, trim(loc)));
+    bases_.push(std::make_pair(-1, loc));
   } // setDocumentLocation
 
   void startElement(const AttributesT& atts)
@@ -69,7 +69,7 @@ public:
     if(base.empty())
       return;
 
-    stringT baseURI = absolutiseAndTrim(currentBase(), base);
+    stringT baseURI = absolutise(currentBase(), base);
     bases_.push(std::make_pair(depth_, baseURI));
   } // startElement
 
@@ -98,21 +98,6 @@ private:
     Arabica::io::URI absolute(Arabica::io::URI(baseURI), location);
     return string_adaptorT::construct_from_utf8(absolute.as_string().c_str());
   } // absolutise
-
-  stringT absolutiseAndTrim(const stringT& baseURI, const stringT& location)
-  {
-    return trim(absolutise(baseURI, location));
-  } // absolutiseAndTrim
-
-  stringT trim(const stringT& location)
-  {
-    static const valueT FORWARD_SLASH = string_adaptorT::convert_from_utf8(Arabica::Unicode<char>::SLASH);
-
-    if(location[location.length()] == FORWARD_SLASH)
-      return location;
-
-    return location.substr(0, location.rfind(FORWARD_SLASH)+1);
-  } // trim
 
   int currentDepth() const
   {
