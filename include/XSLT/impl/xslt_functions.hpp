@@ -158,9 +158,6 @@ public:
 private:
   Arabica::XPath::XPathValue<std::string>* load_document(const std::string& location) const
   {
-    if(location.empty())
-      throw Arabica::XPath::UnsupportedException("document('')");
-
     SAX2DOM::Parser<std::string> domParser;
     SAX::CatchErrorHandler<std::string> eh;
     domParser.setErrorHandler(eh);
