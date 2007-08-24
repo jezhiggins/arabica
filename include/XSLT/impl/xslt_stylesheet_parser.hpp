@@ -20,6 +20,11 @@ public:
   {
     namespace_tracker_.setContentHandler(handler);
   } // setContentHandler
+
+  SAX::ContentHandler& contentHandler() 
+  {
+    return text_coalescer_;
+  } // contentHandler
  
   void parse(SAX::InputSource& source)
   {
@@ -46,6 +51,13 @@ public:
     return namespace_tracker_.inScopeNamespaces();
   } // inScopeNamespaces
 
+  std::string setBase(const std::string& loc)
+  {
+    std::string current = currentBase();
+    xmlbase_tracker_.setDocumentLocation(loc);
+    return current;
+  } // setBase
+  
   std::string currentBase() const
   {
     return xmlbase_tracker_.currentBase();

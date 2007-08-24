@@ -58,6 +58,11 @@ public:
     return parser_.makeAbsolute(href);
   } // makeAbsolute
 
+  std::string setBase(const std::string& href) const
+  {
+    return parser_.setBase(href);
+  } // setBase
+
   void push(ItemContainer* parent,
             SAX::DefaultHandler* newHandler,
             const std::string& namespaceURI,
@@ -84,9 +89,10 @@ public:
     return *parentStack_.top();
   } // parentContainer
 
-  SAX::DefaultHandler& parentHandler() const
+  SAX::ContentHandler& parentHandler() const
   {
-    return *handlerStack_.top();
+    parser_.setContentHandler(*handlerStack_.top());
+    return parser_.contentHandler();
   } // parentHandler
 
   std::map<std::string, std::string> inScopeNamespaces() const

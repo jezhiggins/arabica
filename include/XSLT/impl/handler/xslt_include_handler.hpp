@@ -149,13 +149,17 @@ private:
     check_for_loops(current_includes_, href);
     current_includes_.push_back(href);
 
+    std::string prev = context_->setBase(href);
+
     SAX::InputSource source(href);
     SAX::XMLReader<std::string> include_parser;
     SAX::CatchErrorHandler<std::string> errorHandler;
-
+ 
     include_parser.setContentHandler(*this);
     include_parser.setErrorHandler(errorHandler);
     include_parser.parse(source);
+
+    context_->setBase(prev);
 
     if(errorHandler.errorsReported())
       throw std::runtime_error("Could not import/include stylesheet '" + href + "' - " + errorHandler.errors());
