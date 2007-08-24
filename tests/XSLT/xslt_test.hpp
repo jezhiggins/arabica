@@ -8,7 +8,7 @@
 #include <Utils/normalize_whitespace.hpp>
 
 #ifdef ARABICA_WINDOWS
-const std::string PATH_PREFIX="../test/XSLT/testsuite/TESTS/";
+const std::string PATH_PREFIX="../tests/XSLT/testsuite/TESTS/";
 const std::string SEPERATOR = "/";
 #else
 const std::string PATH_PREFIX="testsuite/TESTS/";
