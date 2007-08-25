@@ -9,7 +9,6 @@
   <test-case id="copy_copy20" skip="yes" reason="External entity."/>
   <test-case id="copy_copy21" skip="yes" reason="External entity in source."/>
   <test-case id="copy_copy22" skip="yes" reason="External entity in source.  ISO-8859-1 output."/>
-  <test-case id="copy_copy27" compiles="yes" runs="no"/>
   <test-case id="copy_copy30" compiles="no"/>
   <test-case id="copy_copy38" skip="yes" reason="HTML output"/>
   <test-case id="copy_copy40" compiles="no"/>
@@ -24,7 +23,6 @@
   <test-case id="extend_extend03" compiles="no"/>
   <test-case id="extend_extend04" compiles="no"/>
   <test-case id="impincl_impincl09" compiles="no"/>
-  <test-case id="impincl_impincl11" compiles="no"/>
   <test-case id="impincl_impincl17" compiles="no"/>
   <test-case id="match_match01" compiles="no"/>
   <test-case id="mdocs_mdocs02" runs="no"/>
