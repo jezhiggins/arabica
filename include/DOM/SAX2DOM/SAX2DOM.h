@@ -82,6 +82,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
       document_ = di.createDocument(string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), 0);
       currentNode_ = document_;
       inCDATA_ = false;
+      inDTD_ = false;
       inEntity_ = 0;
 
       SAX_parser parser;
@@ -143,6 +144,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
     Features features_;
 
     bool inCDATA_;
+    bool inDTD_;
     int inEntity_;
 
     std::map<stringT, EntityT*> declaredEntities_;
@@ -246,7 +248,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
 
     virtual void skippedEntity(const stringT& name)
     {
-      if(currentNode_ == 0)
+      if(currentNode_ == 0 || inDTD_ == true)
         return;
 
       currentNode_.appendChild(document_.createEntityReference(name));
@@ -280,11 +282,13 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
     {
       documentType_ = new DocumentType<stringT, string_adaptorT >(name, publicId, systemId);
       document_.insertBefore(documentType_, 0);
+      inDTD_ = true;
     } // startDTD
 
     virtual void endDTD()
     {
       documentType_->setReadOnly(true);
+      inDTD_ = false;
     } // endDTD
 
     virtual void startEntity(const stringT& name)
