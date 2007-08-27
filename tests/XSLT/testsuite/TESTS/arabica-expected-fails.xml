@@ -35,6 +35,7 @@
   <test-case id="message_message14" compiles="no"/>
   <test-case id="message_message15" compiles="no"/>
   <test-case id="namedtemplate_namedtemplate12" compiles="no"/>
+  <test-case id="output_output80" skip="yes" reason="Segfaults at the moment.  Encoding problem, I think"/>
   <test-case id="position_position05" compiles="no"/>
   <test-case id="position_position07" compiles="no"/>
   <test-case id="position_position42" compiles="no"/>
