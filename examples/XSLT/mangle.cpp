@@ -71,23 +71,3 @@ DOM::Document<std::string> buildDOM(const std::string& filename)
   return parser.getDocument();
 } // buildDOM
 
-/*
-///////////////////////////////////////////////
-#include "../src/test/CppUnit/TestRunner.hpp"
-#include "../src/test/CppUnit/framework/Test.h"
-#include "../src/test/CppUnit/framework/TestSuite.h"
-
-#include "tests/scope_test.hpp"
-
-typedef std::string string_type;
-typedef Arabica::default_string_adaptor<std::string> string_adaptor;
-
-void test_suite(int argc, const char* argv[])
-{
-  TestRunner runner;
-
-  runner.addTest("ScopeTest", ScopeTest_suite<string_type, string_adaptor>());
-
-	runner.run(argc-1, argv+1);
-} // test_suite
-*/
