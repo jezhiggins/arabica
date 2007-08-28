@@ -73,7 +73,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\..\lib\Arabica.lib"
+				OutputFile=".\..\lib\Arabica-debug.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool

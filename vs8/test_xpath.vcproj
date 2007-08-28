@@ -67,10 +67,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/xpath_test.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/xpathic.pdb"
+				ProgramDatabaseFile="$(OutDir)/xpath_test.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -128,7 +129,7 @@
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
-				DisableLanguageExtensions="true"
+				DisableLanguageExtensions="false"
 				TreatWChar_tAsBuiltInType="true"
 				ForceConformanceInForLoopScope="true"
 				RuntimeTypeInfo="true"
@@ -148,6 +149,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/xpath_test.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -250,14 +252,6 @@
 			</File>
 			<File
 				RelativePath="..\tests\XPath\xpath_test_suite.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

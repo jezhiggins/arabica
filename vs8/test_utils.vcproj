@@ -67,6 +67,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/utils_test.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
@@ -148,6 +149,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/utils_test.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -214,14 +216,6 @@
 			</File>
 			<File
 				RelativePath="..\tests\Utils\util_test_suite.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

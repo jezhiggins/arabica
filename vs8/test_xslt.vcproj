@@ -67,12 +67,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/xslt_test.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/xslt_test.pdb"
 				SubSystem="1"
-				TargetMachine="1"
+				TargetMachine="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -128,7 +129,7 @@
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
-				DisableLanguageExtensions="true"
+				DisableLanguageExtensions="false"
 				TreatWChar_tAsBuiltInType="true"
 				ForceConformanceInForLoopScope="true"
 				RuntimeTypeInfo="true"
@@ -148,13 +149,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/xslt_test.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="false"
 				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"
+				OptimizeReferences="0"
+				EnableCOMDATFolding="0"
+				TargetMachine="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -202,14 +204,6 @@
 			>
 			<File
 				RelativePath="..\tests\Xslt\xslt_test.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

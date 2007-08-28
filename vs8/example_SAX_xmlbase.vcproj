@@ -63,10 +63,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/XMLBase.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/example_XMLBase.pdb"
+				ProgramDatabaseFile="$(OutDir)/XMLBase.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -141,6 +142,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/XMLBase.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -185,14 +187,6 @@
 			>
 			<File
 				RelativePath="..\examples\Sax\xmlbase.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

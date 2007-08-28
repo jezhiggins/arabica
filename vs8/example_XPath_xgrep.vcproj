@@ -64,10 +64,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/xgrep.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/XPath.pdb"
+				ProgramDatabaseFile="$(OutDir)/xgrep.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -141,6 +142,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/XPath.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -185,14 +187,6 @@
 			>
 			<File
 				RelativePath="..\examples\XPath\xgrep.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

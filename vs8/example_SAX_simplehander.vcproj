@@ -37,7 +37,6 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\..\bin/SimpleHandler.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -50,10 +49,6 @@
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile=".\Debug/SimpleHandler.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -73,13 +68,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/SimpleHandler.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\..\..\bin/SimpleHandler.pdb"
+				ProgramDatabaseFile="$(OutDir)/SimpleHandler.pdb"
 				SubSystem="1"
 			/>
 			<Tool
@@ -131,7 +125,6 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin/SimpleHandler.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -165,12 +158,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/SimpleHandler.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				ProgramDatabaseFile=".\..\bin/SimpleHandler.pdb"
 				SubSystem="1"
 			/>
 			<Tool
@@ -221,14 +212,6 @@
 			>
 			<File
 				RelativePath="..\examples\Sax\SimpleHandler.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

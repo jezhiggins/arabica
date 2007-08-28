@@ -37,7 +37,6 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\..\bin/pyx.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -51,9 +50,6 @@
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Debug_examples_SAX_pyx/pyx.pch"
-				AssemblerListingLocation=".\Debug_examples_SAX_pyx/"
-				ObjectFile=".\Debug_examples_SAX_pyx/"
-				ProgramDataBaseFileName=".\Debug_examples_SAX_pyx/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
@@ -72,14 +68,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/pyx.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\..\..\bin/pyx.pdb"
+				ProgramDatabaseFile="$(OutDir)/pyx.pdb"
 				SubSystem="1"
 			/>
 			<Tool
@@ -131,7 +126,6 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin/pyx.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -165,12 +159,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/pyx.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				ProgramDatabaseFile=".\..\bin/pyx.pdb"
 				SubSystem="1"
 			/>
 			<Tool
@@ -208,14 +200,6 @@
 			>
 			<File
 				RelativePath="..\examples\Sax\pyx.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

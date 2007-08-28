@@ -54,7 +54,7 @@
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
+				ProgramDataBaseFileName="$(OutDir)/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
@@ -73,7 +73,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\..\lib\Arabica.lib"
+				OutputFile=".\..\lib\Arabica-debug.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -895,7 +895,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP  -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h&#x0D;&#x0A;"
+						CommandLine="cl /TC /EP  -D USE_EXPAT ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h&#x0D;&#x0A;"
 						Outputs="..\include\SAX\ArabicaConfig.h"
 					/>
 				</FileConfiguration>
@@ -905,7 +905,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						CommandLine="cl /TC /EP -D USE_MSXML  ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h&#x0D;&#x0A;"
-						Outputs="ArabicaConfig.h"
+						Outputs="..\include\SAX\ArabicaConfig.h"
 					/>
 				</FileConfiguration>
 			</File>

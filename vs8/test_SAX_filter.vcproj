@@ -43,17 +43,16 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib wsock32.lib"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/sax_filter_test.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\..\bin/Writer.pdb"
+				ProgramDatabaseFile="$(OutDir)/sax_filter_test.pdb"
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\..\bin/Writer.tlb"/>
+			/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -104,8 +103,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/sax_filter_test.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -113,7 +111,7 @@
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Release/Writer.tlb"/>
+			/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool

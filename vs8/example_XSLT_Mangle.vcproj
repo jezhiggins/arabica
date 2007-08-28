@@ -50,7 +50,7 @@
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -64,10 +64,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/mangle.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/example_XSLTMangle.pdb"
+				ProgramDatabaseFile="$(OutDir)/mangle.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -144,6 +145,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/mangle.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -429,10 +431,6 @@
 				</Filter>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath="..\lib\Arabica.lib"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -63,6 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/transcode.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
@@ -146,6 +147,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/transcode.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -189,14 +191,6 @@
 			>
 			<File
 				RelativePath="..\examples\Utils\transcode.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

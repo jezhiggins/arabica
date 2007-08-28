@@ -65,6 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/DOMWriter.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -149,7 +150,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/DOMWriter.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
@@ -193,14 +194,6 @@
 			>
 			<File
 				RelativePath="..\examples\Dom\DOMWriter.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>

@@ -37,7 +37,6 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin/DOM_test.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -51,9 +50,6 @@
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Debug_test_DOM/DOM_test.pch"
-				AssemblerListingLocation=".\Debug_test_DOM/"
-				ObjectFile=".\Debug_test_DOM/"
-				ProgramDataBaseFileName=".\Debug_test_DOM/"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
@@ -72,14 +68,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/DOM_test.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\..\bin/DOM_test.pdb"
+				ProgramDatabaseFile="$(OutDir)/DOM_test.pdb"
 				SubSystem="1"
 			/>
 			<Tool
@@ -131,7 +126,6 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Release_test_DOM/DOM_test.tlb"
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -164,12 +158,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/DOM_test.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				ProgramDatabaseFile=".\Release_test_DOM/DOM_test.pdb"
 				SubSystem="1"
 			/>
 			<Tool
@@ -264,14 +256,6 @@
 			</File>
 			<File
 				RelativePath=".\..\tests\DOM\test_Text.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs"
-			>
-			<File
-				RelativePath="..\lib\Arabica.lib"
 				>
 			</File>
 		</Filter>
