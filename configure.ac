@@ -1,6 +1,6 @@
 AC_INIT([Arabica], [Aug07], [jez@jezuk.co.uk])
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([1.9 tar-ustar])
  
 AC_PROG_CXX
 AC_PROG_LIBTOOL
