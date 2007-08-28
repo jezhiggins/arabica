@@ -38,6 +38,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/utils_test.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
@@ -77,7 +78,7 @@
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
-				DisableLanguageExtensions="TRUE"
+				DisableLanguageExtensions="FALSE"
 				TreatWChar_tAsBuiltInType="TRUE"
 				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
@@ -89,6 +90,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/utils_test.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
@@ -144,12 +146,6 @@
 			</File>
 			<File
 				RelativePath="..\tests\Utils\util_test_suite.hpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs">
-			<File
-				RelativePath="..\lib\Arabica.lib">
 			</File>
 		</Filter>
 		<Filter

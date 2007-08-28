@@ -25,6 +25,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -34,10 +35,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/XMLBase.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/example_XMLBase.pdb"
+				ProgramDatabaseFile="$(OutDir)/XMLBase.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -73,6 +75,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -82,6 +85,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/XMLBase.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
@@ -120,12 +124,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
 				RelativePath="..\examples\Sax\xmlbase.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs">
-			<File
-				RelativePath="..\lib\Arabica.lib">
 			</File>
 		</Filter>
 	</Files>

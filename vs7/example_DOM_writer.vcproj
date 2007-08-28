@@ -36,6 +36,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/DOMWriter.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -81,6 +82,7 @@
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -90,7 +92,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/DOMWriter.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
@@ -128,12 +130,6 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
 				RelativePath="..\examples\Dom\DOMWriter.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs">
-			<File
-				RelativePath="..\lib\Arabica.lib">
 			</File>
 		</Filter>
 	</Files>

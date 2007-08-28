@@ -2,9 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="test_xslt"
-	ProjectGUID="{44BA3424-C58E-4A49-ADDD-6180C61E5E34}"
-	Keyword="Win32Proj">
+	Name="test_SAXFilter_wide"
+	ProjectGUID="{FB5B88E9-DAB3-401C-B413-77403C562C49}"
+	SccProjectName=""
+	SccLocalPath="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
@@ -12,39 +13,41 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\Debug_test_xslt"
+			OutputDirectory="..\bin"
+			IntermediateDirectory=".\Debug_test_SAXFilter_wide"
 			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Zm1000 "
+				AdditionalOptions="/Zm200
+"
 				Optimization="0"
-				InlineFunctionExpansion="0"
 				AdditionalIncludeDirectories="..\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
-				MinimalRebuild="FALSE"
-				BasicRuntimeChecks="0"
+				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
+				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				DisableLanguageExtensions="FALSE"
 				TreatWChar_tAsBuiltInType="TRUE"
 				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"
+				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="..\lib\arabica-debug.lib"
-				OutputFile="$(OutDir)/xslt_test.exe"
+				OutputFile="$(OutDir)/sax_filter_test_wide.exe"
 				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/xslt_test.pdb"
-				SubSystem="1"
-				TargetMachine="1"/>
+				ProgramDatabaseFile="$(OutDir)/sax_filter_test_wide.pdb"
+				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -54,7 +57,9 @@
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="2057"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -68,36 +73,36 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\Release_test_xslt"
+			OutputDirectory="..\bin"
+			IntermediateDirectory=".\Release_test_SAXFilter_wide"
 			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Zm1000 "
+				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
+				StringPooling="TRUE"
 				RuntimeLibrary="2"
-				DisableLanguageExtensions="FALSE"
+				EnableFunctionLevelLinking="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
 				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="..\lib\arabica.lib"
-				OutputFile="$(OutDir)/xslt_test.exe"
+				OutputFile="$(OutDir)/sax_filter_test_wide.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="TRUE"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
+				SuppressStartupBanner="TRUE"
+				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -107,7 +112,10 @@
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="2057"
+				AdditionalIncludeDirectories=""/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -125,18 +133,9 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\tests\Xslt\main.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
-			<File
-				RelativePath="..\tests\Xslt\xslt_test.hpp">
+				RelativePath="..\tests\Sax\filter_test_wide.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -193,12 +192,13 @@
 				RelativePath="..\tests\CppUnit\textui\TextTestResult.h">
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\tests\Xslt\testsuite\Tests\arabica-expected-fails.xml">
-		</File>
-		<File
-			RelativePath="..\tests\Xslt\testsuite\Tests\catalog.xml">
-		</File>
+		<Filter
+			Name="Header Files"
+			Filter="">
+			<File
+				RelativePath="..\tests\Sax\test_WhitespaceStripper.hpp">
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

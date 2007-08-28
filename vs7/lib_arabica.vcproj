@@ -33,9 +33,6 @@
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=""
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
@@ -44,7 +41,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\..\lib\Arabica.lib"
+				OutputFile=".\..\lib\Arabica-debug.lib"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -87,9 +84,6 @@
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Release/SAX.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
@@ -683,7 +677,7 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP  -D USE_LIBXML2 ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
+						CommandLine="cl /TC /EP  -D USE_MSXML ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
 "
 						Outputs="..\include\SAX\ArabicaConfig.h"/>
 				</FileConfiguration>
@@ -693,7 +687,7 @@
 						Name="VCCustomBuildTool"
 						CommandLine="cl /TC /EP -D USE_MSXML  ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
 "
-						Outputs="ArabicaConfig.h"/>
+						Outputs="..\include\SAX\ArabicaConfig.h"/>
 				</FileConfiguration>
 			</File>
 			<Filter

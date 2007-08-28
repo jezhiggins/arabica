@@ -13,8 +13,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\..\..\bin"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory="..\bin"
+			IntermediateDirectory=".\Debug_test_SAXFilter"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -24,17 +24,15 @@
 				AdditionalOptions="/Zm200
 "
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\include"
+				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Debug/Writer.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
@@ -44,16 +42,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib wsock32.lib"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/sax_filter_test.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\..\bin/Writer.pdb"
+				ProgramDatabaseFile="$(OutDir)/sax_filter_test.pdb"
 				SubSystem="1"/>
 			<Tool
-				Name="VCMIDLTool"
-				TypeLibraryName=".\..\..\bin/Writer.tlb"/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -77,8 +74,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\..\..\bin"
-			IntermediateDirectory=".\Release"
+			OutputDirectory="..\bin"
+			IntermediateDirectory=".\Release_test_SAXFilter"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -86,18 +83,16 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\include"
+				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=".\Release/Writer.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
@@ -105,15 +100,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/sax_filter_test.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/Writer.pdb"
 				SubSystem="1"/>
 			<Tool
-				Name="VCMIDLTool"
-				TypeLibraryName=".\Release/Writer.tlb"/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -144,14 +137,68 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath=".\test\SAX\FilterTest.cpp">
+				RelativePath="..\tests\Sax\filter_test.cpp">
 			</File>
 		</Filter>
 		<Filter
-			Name="Libs"
-			Filter="lib">
+			Name="CppUnit">
 			<File
-				RelativePath="..\..\lib\Arabica.lib">
+				RelativePath="..\tests\CppUnit\framework\CppUnitException.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\estring.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\Guards.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\Test.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestCaller.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestCase.cpp">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestCase.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestFailure.cpp">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestFailure.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestResult.cpp">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestResult.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\TestRunner.cpp">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\TestRunner.hpp">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestSuite.cpp">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestSuite.h">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\TextTestResult.cpp">
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\TextTestResult.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="">
+			<File
+				RelativePath="..\tests\Sax\test_WhitespaceStripper.hpp">
 			</File>
 		</Filter>
 	</Files>

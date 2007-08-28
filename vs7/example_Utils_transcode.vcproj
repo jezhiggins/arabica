@@ -25,6 +25,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -34,6 +35,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/transcode.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
@@ -78,6 +80,7 @@
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -87,6 +90,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/transcode.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
@@ -124,12 +128,6 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
 				RelativePath="..\examples\Utils\transcode.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs">
-			<File
-				RelativePath="..\lib\Arabica.lib">
 			</File>
 		</Filter>
 	</Files>

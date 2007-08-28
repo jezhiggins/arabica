@@ -35,10 +35,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/mangle.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/example_XSLTMangle.pdb"
+				ProgramDatabaseFile="$(OutDir)/mangle.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -85,6 +86,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/mangle.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
@@ -307,9 +309,6 @@
 				</Filter>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath="..\lib\Arabica.lib">
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

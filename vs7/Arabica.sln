@@ -145,6 +145,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_XSLT_Mangle", "exam
 		{FA1A13A0-07D3-4FC9-A2D2-9F5FA8C3C3A4} = {FA1A13A0-07D3-4FC9-A2D2-9F5FA8C3C3A4}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAXFilter", "test_SAX_filter.vcproj", "{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAXFilter_silly", "test_SAX_filter_silly.vcproj", "{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAXFilter_wide", "test_SAX_filter_wide.vcproj", "{FB5B88E9-DAB3-401C-B413-77403C562C49}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -219,6 +231,18 @@ Global
 		{FDF423F0-ACF8-4963-81A4-C886B9174B72}.Debug.Build.0 = Debug|Win32
 		{FDF423F0-ACF8-4963-81A4-C886B9174B72}.Release.ActiveCfg = Release|Win32
 		{FDF423F0-ACF8-4963-81A4-C886B9174B72}.Release.Build.0 = Release|Win32
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Debug.ActiveCfg = Debug|Win32
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Debug.Build.0 = Debug|Win32
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Release.ActiveCfg = Release|Win32
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Release.Build.0 = Release|Win32
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}.Debug.ActiveCfg = Debug|Win32
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}.Debug.Build.0 = Debug|Win32
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}.Release.ActiveCfg = Release|Win32
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}.Release.Build.0 = Release|Win32
+		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Debug.ActiveCfg = Debug|Win32
+		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Debug.Build.0 = Debug|Win32
+		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Release.ActiveCfg = Release|Win32
+		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

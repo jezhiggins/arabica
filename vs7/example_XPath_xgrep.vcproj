@@ -35,10 +35,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/xgrep.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/XPath.pdb"
+				ProgramDatabaseFile="$(OutDir)/xgrep.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -74,6 +75,8 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -82,7 +85,8 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/XPath.exe"
+				AdditionalDependencies="..\lib\arabica.lib"
+				OutputFile="$(OutDir)/xgrep.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
@@ -120,12 +124,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
 				RelativePath="..\examples\XPath\xgrep.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs">
-			<File
-				RelativePath="..\lib\Arabica.lib">
 			</File>
 		</Filter>
 	</Files>

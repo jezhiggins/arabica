@@ -28,12 +28,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Debug_test_DOM/SAX2DOM_test.pch"
-				AssemblerListingLocation=".\Debug_test_DOM/"
-				ObjectFile=".\Debug_test_DOM/"
-				ProgramDataBaseFileName=".\Debug_test_DOM/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
@@ -43,17 +41,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/DOM_test_silly.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin/DOM_test_silly.pdb"
+				ProgramDatabaseFile="$(OutDir)/DOM_test_silly.pdb"
 				SubSystem="1"/>
 			<Tool
-				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin/DOM_test_silly.tlb"/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -92,12 +89,10 @@
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
+				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Release_test_DOM/DOM_test.pch"
-				AssemblerListingLocation=".\Release_test_DOM/"
-				ObjectFile=".\Release_test_DOM/"
-				ProgramDataBaseFileName=".\Release_test_DOM/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
@@ -105,15 +100,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="wsock32.lib"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/DOM_test_silly.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release_test_DOM/DOM_test_silly.pdb"
 				SubSystem="1"/>
 			<Tool
-				Name="VCMIDLTool"
-				TypeLibraryName=".\Release_test_DOM/DOM_test_silly.tlb"/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -193,12 +186,6 @@
 			</File>
 			<File
 				RelativePath="..\tests\Dom\test_Text.hpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Libs">
-			<File
-				RelativePath="..\lib\Arabica.lib">
 			</File>
 		</Filter>
 		<Filter
