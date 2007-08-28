@@ -32,7 +32,7 @@ silly_string_sources = ../silly_string/silly_string.cpp \
 
 
 test_sources = util_test_suite.hpp \
-               test_normalize_string.hpp \
+               test_normalize_whitespace.hpp \
                test_base64.hpp \
                test_uri.hpp 
 

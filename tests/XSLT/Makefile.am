@@ -23,9 +23,12 @@ cppunit_sources = ../CppUnit/framework/CppUnitException.h \
                    ../CppUnit/textui/TextTestResult.h
 
 
-test_sources = scope_test.hpp 
+test_sources = scope_test.hpp \
+               xslt_test.hpp
 
-xslt_test_SOURCES = main.cpp $(cppunit_sources) $(test_sources)
+xslt_test_SOURCES = main.cpp \
+                    $(cppunit_sources) \
+                    $(test_sources)
 xslt_test_LDADD =  $(LIBARABICA)
 xslt_test_DEPENDENCIES = $(LIBARABICA)
 
