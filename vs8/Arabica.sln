@@ -159,6 +159,23 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_XSLT_Mangle", "exam
 		{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8} = {74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAX_filter", "test_SAX_filter.vcproj", "{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CA72415-D03A-4447-BE4E-C093A5146CAC} = {4CA72415-D03A-4447-BE4E-C093A5146CAC}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAX_filter_silly", "test_SAX_filter_silly.vcproj", "{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2} = {A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}
+		{4CA72415-D03A-4447-BE4E-C093A5146CAC} = {4CA72415-D03A-4447-BE4E-C093A5146CAC}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAX_filter_wide", "test_SAX_filter_wide.vcproj", "{FB5B88E9-DAB3-401C-B413-77403C562C49}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A} = {2E63A3DC-7A79-49F4-B0F9-78438DCA876A}
+		{4CA72415-D03A-4447-BE4E-C093A5146CAC} = {4CA72415-D03A-4447-BE4E-C093A5146CAC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -233,6 +250,18 @@ Global
 		{FDF423F0-ACF8-4963-81A4-C886B9174B72}.Debug|Win32.Build.0 = Debug|Win32
 		{FDF423F0-ACF8-4963-81A4-C886B9174B72}.Release|Win32.ActiveCfg = Release|Win32
 		{FDF423F0-ACF8-4963-81A4-C886B9174B72}.Release|Win32.Build.0 = Release|Win32
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Debug|Win32.Build.0 = Debug|Win32
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Release|Win32.ActiveCfg = Release|Win32
+		{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}.Release|Win32.Build.0 = Release|Win32
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}.Debug|Win32.Build.0 = Debug|Win32
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}.Release|Win32.ActiveCfg = Release|Win32
+		{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}.Release|Win32.Build.0 = Release|Win32
+		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Debug|Win32.Build.0 = Debug|Win32
+		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Release|Win32.ActiveCfg = Release|Win32
+		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
