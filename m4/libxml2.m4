@@ -1,6 +1,6 @@
 AC_DEFUN([ARABICA_HAS_LIBXML2],
 [ AC_ARG_WITH(libxml2,
-	      [  --with-libxml2=PREFIX    Specify libxml2 library location],
+	      AS_HELP_STRING([--with-libxml2=PREFIX],[Specify libxml2 library location]),
 	      , with_libxml2=yes)
 
   LIBXML2_CFLAGS=

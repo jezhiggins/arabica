@@ -1,7 +1,8 @@
 AC_DEFUN([ARABICA_SELECT_XML_PARSER],
 [
-  AC_ARG_WITH(parser, 
-              [  --with-parser=expat|libxml2|xerces|garden  Specify a particular parser library],
+  AC_ARG_WITH([parser], 
+              AS_HELP_STRING([--with-parser=expat|libxml2|xerces|garden],
+                             [Specify a particular parser library]),
               , )
 
   if test "$with_parser" != ""; then

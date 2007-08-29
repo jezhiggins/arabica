@@ -1,6 +1,6 @@
 AC_DEFUN([ARABICA_HAS_XERCES],
 [ AC_ARG_WITH([xerces],
-	      [  --with-xerces=PREFIX     Specify xerces library location],
+	      AS_HELP_STRING([--with-xerces=PREFIX],[Specify xerces library location]),
 	      [], 
               [with_xerces=yes])
 

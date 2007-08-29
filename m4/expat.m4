@@ -1,7 +1,7 @@
 AC_DEFUN([ARABICA_HAS_EXPAT],
 [ 
   AC_ARG_WITH([expat],
-	      [  --with-expat=PREFIX     Specify expat library location],
+	      AS_HELP_STRING([--with-expat=PREFIX],[Specify expat library location]),
 	      [], 
               [with_expat=yes])
 
