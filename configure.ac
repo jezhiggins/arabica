@@ -1,4 +1,4 @@
-AC_INIT([Arabica], [Aug07], [jez@jezuk.co.uk])
+AC_INIT([Arabica], [Aug2007-pre], [jez@jezuk.co.uk])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar])
  
@@ -24,6 +24,7 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([arabica.pc])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([tests/Makefile])
+AC_CONFIG_FILES([tests/CppUnit/Makefile])
 AC_CONFIG_FILES([tests/Utils/Makefile])
 AC_CONFIG_FILES([tests/SAX/Makefile])
 AC_CONFIG_FILES([tests/DOM/Makefile])

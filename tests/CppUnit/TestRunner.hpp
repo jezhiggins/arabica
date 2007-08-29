@@ -12,16 +12,12 @@ protected:
 	std::vector<std::pair<std::string,Test *> > m_mappings;
 
 public:
-	TestRunner() : m_wait(false), verbose_(true) {}
+	TestRunner() : m_wait(false), verbose_(false) {}
 	~TestRunner();
 
 	void run(int ac, const char **av);
 	void addTest(std::string name, Test *test)
 	{ m_mappings.push_back(std::make_pair(name, test)); }
-
-protected:
-	void run(Test *test);
-	void printBanner();
 }; // TestRunner;
 
 #endif

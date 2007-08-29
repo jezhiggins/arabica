@@ -19,12 +19,22 @@
  */
 using namespace std;
 
+
 typedef pair<string, Test *>           mapping;
 typedef vector<pair<string, Test *> >   mappings;
 
-void TestRunner::printBanner ()
+void run(const string& name, Test *test, bool verbose)
 {
-  cout << "Usage: driver [-q] [ -wait ] testName, where name is the name of a test case class" << endl;
+  if(verbose)
+    cout << "Running " << name << endl;
+  TextTestResult  result(name, verbose);
+  test->run (&result);
+  cout << result;
+} // run
+
+void printBanner ()
+{
+  cout << "Usage: driver [-v] [ -wait ] testName, where name is the name of a test case class" << endl;
 } // printBanner
 
 void TestRunner::run(int ac, const char **av)
@@ -42,9 +52,9 @@ void TestRunner::run(int ac, const char **av)
       continue;
     }
 
-    if(string(av[i]) == "-q")
+    if(string(av[i]) == "-v")
     {
-      verbose_ = false;
+      verbose_ = true;
       ++opt;
       continue;
     }
@@ -65,10 +75,8 @@ void TestRunner::run(int ac, const char **av)
     {
       if((*it).first == testCase) 
       {
-	if(verbose_)
-          cout << (*it).first << std::endl;
         testToRun = (*it).second;
-        run(testToRun);
+        ::run((*it).first, testToRun, verbose_);
       }
     }
 
@@ -86,9 +94,7 @@ void TestRunner::run(int ac, const char **av)
     // run everything
     for(mappings::iterator it = m_mappings.begin(); it != m_mappings.end(); ++it) 
     {
-      if(verbose_)
-	cout << (*it).first << std::endl;
-      run((*it).second);
+      ::run((*it).first, (*it).second, verbose_);
     }
     return;
   } 
@@ -113,11 +119,4 @@ TestRunner::~TestRunner ()
              ++it)
     delete it->second;
 } // ~TestRunner
-
-void TestRunner::run(Test *test)
-{
-  TextTestResult  result(verbose_);
-  test->run (&result);
-  cout << result;
-} // run
 

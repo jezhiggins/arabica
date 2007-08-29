@@ -21,44 +21,57 @@ class NormalizeWhitespaceTest : public TestCase
     void testNormalize1()
     {
       string_type s = SA::construct_from_utf8("hello");
-      assertEquals("hello", Arabica::string::normalize_whitespace<string_type, string_adaptor>(s));
+      string_type n = normalize(s);
+      assertTrue(SA::construct_from_utf8("hello") == n);
     } 
     
     void testNormalize2()
     {
       string_type s = SA::construct_from_utf8("hello   ");
-      assertEquals("hello", Arabica::string::normalize_whitespace<string_type, string_adaptor>(s));
+      string_type n = normalize(s);
+      assertTrue(SA::construct_from_utf8("hello") == n);
     } 
     
     void testNormalize3()
     {
       string_type s = SA::construct_from_utf8("    hello");
-      assertEquals("hello", Arabica::string::normalize_whitespace<string_type, string_adaptor>(s));
+      string_type n = normalize(s);
+      assertTrue(SA::construct_from_utf8("hello") == n);
     } 
     
     void testNormalize4()
     {
       string_type s = SA::construct_from_utf8("    hello      ");
-      assertEquals("hello", Arabica::string::normalize_whitespace<string_type, string_adaptor>(s));
+      string_type n = normalize(s);
+      assertTrue(SA::construct_from_utf8("hello") == n);
     } 
 
     void testNormalize5()
     {
       string_type s = SA::construct_from_utf8("    hello world     ");
-      assertEquals("hello world", Arabica::string::normalize_whitespace<string_type, string_adaptor>(s));
+      string_type n = normalize(s);
+      assertTrue(SA::construct_from_utf8("hello world") == n);
     } 
 
     void testNormalize6()
     {
       string_type s = SA::construct_from_utf8("\t\t\thello\tworld\t\t\t\t\t");
-      assertEquals("hello world", Arabica::string::normalize_whitespace<string_type, string_adaptor>(s));
+      string_type n = normalize(s);
+      assertTrue(SA::construct_from_utf8("hello world") == n);
     } 
 
     void testNormalize7()
     {
       string_type s = SA::construct_from_utf8("\r\n    h e  l   l    o \t\r\n w    \t   o \t r   l d     ");
-      assertEquals("h e l l o w o r l d", Arabica::string::normalize_whitespace<string_type, string_adaptor>(s));
+      string_type n = normalize(s);
+      assertTrue(SA::construct_from_utf8("h e l l o w o r l d") == n);
     } 
+
+private:
+   string_type normalize(const string_type& s)
+   {
+     return Arabica::string::normalize_whitespace<string_type, string_adaptor>(s);
+   } // normalize
 };
 
 template<class string_type, class string_adaptor>

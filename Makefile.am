@@ -38,10 +38,6 @@ dist-hook:
 pkgconfigdir = src/pkgconfig
 pkgconfig_DATA = arabica.pc
 
-test:
-	@cd tests && make test;
-	@cd ..
-
 docs:
 	doxygen doc/arabica.dox
 	@echo "------------------------------------------------------------"

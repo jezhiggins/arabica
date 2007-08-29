@@ -1,4 +1,4 @@
-SUBDIRS = SAX Utils
+SUBDIRS = CppUnit Utils SAX
 if WANT_DOM
   SUBDIRS += DOM 
 endif
@@ -9,8 +9,3 @@ endif
 install:
 	echo "Nothing to install here"
 
-test:
-	@for p in $(SUBDIRS); do \
-	  cd $$p && make test; \
-          cd ..; \
-	done

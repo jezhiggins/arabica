@@ -27,7 +27,8 @@ void TextTestResult::addFailure (Test *test, CppUnitException *e)
 void TextTestResult::addSkip (Test *test, CppUnitException *e)
 {
   TestResult::addSkip (test, e);
-  cerr << "S" << endl;
+  if(verbose_)
+    cerr << "S" << endl;
 }
 
 void TextTestResult::startTest (Test *test)
@@ -122,9 +123,10 @@ void TextTestResult::print (ostream& stream)
     printHeader (stream);
     printErrors (stream);
     printFailures (stream);
-    printSkips (stream);
+    if(verbose_)
+      printSkips (stream);
     if(verbose_ || !wasSuccessful())
-      cout << endl;
+    cout << endl;
 }
 
 
@@ -134,6 +136,7 @@ void TextTestResult::printHeader (ostream& stream)
     {
       if(verbose_)
       {
+        cout << endl << name_;
         if(testSkips())
           cout << endl << "OK (" << runTests () << " tests, with " << testSkips() << " skips)" << endl;
       else
@@ -142,6 +145,7 @@ void TextTestResult::printHeader (ostream& stream)
     }
     else
         cout << endl
+             << name_ << endl
              << "!!!FAILURES!!!" << endl
              << "Test Results:" << endl
              << "Run:  "
@@ -153,5 +157,4 @@ void TextTestResult::printHeader (ostream& stream)
              << "   Skips: "
              << testSkips ()
              << endl;
-
 }

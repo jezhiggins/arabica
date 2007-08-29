@@ -9,7 +9,7 @@
 class TextTestResult : public TestResult
 {
 public:
-    TextTestResult(bool verbose) : verbose_(verbose) { }
+    TextTestResult(const std::string& name, bool verbose) : name_(name), verbose_(verbose) { }
     virtual void        addError      (Test *test, CppUnitException *e);
     virtual void        addFailure    (Test *test, CppUnitException *e);
     virtual void        addSkip       (Test *test, CppUnitException *e);
@@ -21,6 +21,7 @@ public:
     virtual void        printHeader   (std::ostream& stream);
 
 private:
+    std::string name_;
     bool verbose_;
 };
 
