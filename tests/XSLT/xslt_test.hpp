@@ -11,7 +11,8 @@
 const std::string PATH_PREFIX="../tests/XSLT/testsuite/TESTS/";
 const std::string SEPERATOR = "/";
 #else
-const std::string PATH_PREFIX="testsuite/TESTS/";
+#include "test_path.hpp"
+const std::string PATH_PREFIX=test_path;
 const std::string SEPERATOR = "/";
 #endif
   
