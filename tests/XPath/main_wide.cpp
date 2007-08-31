@@ -1,6 +1,6 @@
 
 #ifdef _MSC_VER
-#pragma warning(disable:4224 4267)
+#pragma warning(disable:4244 4267)
 #endif
 
 #include <iostream>
