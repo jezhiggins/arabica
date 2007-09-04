@@ -4,15 +4,15 @@
 #include <string>
 #include <vector>
 #include <utility>
-#include <DOM/Node.h>
-#include <DOM/Attr.h>
+#include <DOM/Node.hpp>
+#include <DOM/Attr.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
 #ifdef __BORLANDC__
 #include <math>
 #endif
 #include <cmath>
-#include <Utils/StringAdaptor.h>
+#include <Utils/StringAdaptor.hpp>
 #include <Utils/normalize_whitespace.hpp>
 #include "xpath_axis_enumerator.hpp"
 

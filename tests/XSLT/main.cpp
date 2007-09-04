@@ -5,8 +5,8 @@
 #include <string>
 #include <sstream>
 
-#include <SAX/InputSource.h>
-#include <DOM/SAX2DOM/SAX2DOM.h>
+#include <SAX/InputSource.hpp>
+#include <DOM/SAX2DOM/SAX2DOM.hpp>
 #include <XSLT/XSLT.hpp>
 
 ///////////////////////////////////////////////

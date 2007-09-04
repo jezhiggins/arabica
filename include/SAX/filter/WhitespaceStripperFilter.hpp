@@ -1,7 +1,7 @@
 #ifndef WHITESPACE_STRIPPER_FILTER_HPP
 #define WHITESPACE_STRIPPER_FILTER_HPP
 
-#include <SAX/helpers/XMLFilterImpl.h>
+#include <SAX/helpers/XMLFilterImpl.hpp>
 
 #include <Utils/normalize_whitespace.hpp>
 

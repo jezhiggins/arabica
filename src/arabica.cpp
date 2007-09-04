@@ -4,7 +4,7 @@
 #pragma warning(disable: 4786)
 #endif
 
-#include <SAX/ArabicaConfig.h>
+#include <SAX/ArabicaConfig.hpp>
 
 #ifdef USE_EXPAT
 #include "SAX/wrappers/saxexpat.cpp"

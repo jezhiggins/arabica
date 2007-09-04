@@ -1,9 +1,9 @@
 #ifndef ARABICA_XPATHIC_XPATH_AXIS_ENUMERATOR_H
 #define ARABICA_XPATHIC_XPATH_AXIS_ENUMERATOR_H
 
-#include <DOM/Node.h>
-#include <DOM/Document.h>
-#include <DOM/NamedNodeMap.h>
+#include <DOM/Node.hpp>
+#include <DOM/Document.hpp>
+#include <DOM/NamedNodeMap.hpp>
 #include "xpath_namespace_node.hpp"
 
 namespace Arabica

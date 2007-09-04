@@ -2,12 +2,12 @@
 #  pragma warning(disable:4786)
 #endif
 
-#include <SAX/XMLReader.h>
-#include <SAX/helpers/FeatureNames.h>
-#include <SAX/InputSource.h>
+#include <SAX/XMLReader.hpp>
+#include <SAX/helpers/FeatureNames.hpp>
+#include <SAX/InputSource.hpp>
 #include <iostream>
-#include <SAX/filter/Writer.h>
-#include <SAX/helpers/CatchErrorHandler.h>
+#include <SAX/filter/Writer.hpp>
+#include <SAX/helpers/CatchErrorHandler.hpp>
 
 ////////////////////////////////////////////////
 int main(int argc, char* argv[])

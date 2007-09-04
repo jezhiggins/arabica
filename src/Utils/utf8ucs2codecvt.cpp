@@ -1,9 +1,9 @@
 //---------------------------------------------------------------------------
 // $Id$
 //---------------------------------------------------------------------------
-#include <Utils/utf8ucs2codecvt.h>
-#include <Utils/impl/ucs2_utf16.h>
-#include <Utils/impl/ucs2_utf8.h>
+#include <Utils/utf8ucs2codecvt.hpp>
+#include <Utils/impl/ucs2_utf16.hpp>
+#include <Utils/impl/ucs2_utf8.hpp>
 //---------------------------------------------------------------------------
 #ifndef ARABICA_NO_WCHAR_T
 

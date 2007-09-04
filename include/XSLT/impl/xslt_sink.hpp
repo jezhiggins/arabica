@@ -4,9 +4,9 @@
 #include <ostream>
 #include <sstream>
 #include <XML/escaper.hpp>
-#include <SAX/ContentHandler.h>
-#include <SAX/ext/LexicalHandler.h>
-#include <SAX/helpers/AttributesImpl.h>
+#include <SAX/ContentHandler.hpp>
+#include <SAX/ext/LexicalHandler.hpp>
+#include <SAX/helpers/AttributesImpl.hpp>
 #include "xslt_namespace_stack.hpp"
 #include "xslt_qname.hpp"
 

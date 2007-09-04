@@ -1,8 +1,8 @@
 //---------------------------------------------------------------------------
 // $Id$
 //---------------------------------------------------------------------------
-#include <Utils/utf16utf8codecvt.h>
-#include <Utils/impl/ucs2_utf8.h>
+#include <Utils/utf16utf8codecvt.hpp>
+#include <Utils/impl/ucs2_utf8.hpp>
 //---------------------------------------------------------------------------
 // This facet converts from wide chars to char using the
 // FSS-UTF (UCS2) encoding.

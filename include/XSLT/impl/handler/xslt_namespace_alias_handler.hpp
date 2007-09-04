@@ -1,7 +1,7 @@
 #ifndef ARABICA_XSLT_NAMESPACE_ALIAS_HANDLER_HPP
 #define ARABICA_XSLT_NAMESPACE_ALIAS_HANDLER_HPP
 
-#include <XML/XMLCharacterClasses.h>
+#include <XML/XMLCharacterClasses.hpp>
 
 namespace Arabica
 {

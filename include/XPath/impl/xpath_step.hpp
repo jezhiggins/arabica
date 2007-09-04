@@ -1,7 +1,7 @@
 #ifndef ARABICA_XPATHIC_XPATH_STEP_H
 #define ARABICA_XPATHIC_XPATH_STEP_H
 
-#include <DOM/Document.h>
+#include <DOM/Document.hpp>
 #include <algorithm>
 #include "xpath_object.hpp"
 #include "xpath_value.hpp"

@@ -1,12 +1,12 @@
 //---------------------------------------------------------------------------
 // $Id$
 //---------------------------------------------------------------------------
-#include <Utils/utf16leucs2codecvt.h>
+#include <Utils/utf16leucs2codecvt.hpp>
 #ifndef ARABICA_NO_WCHAR_T
-#include <Utils/impl/ucs2_utf16.h>
+#include <Utils/impl/ucs2_utf16.hpp>
 
 #ifdef ARABICA_VS6_WORKAROUND
-#include <Utils/impl/VS6Workaround.h>
+#include <Utils/impl/VS6Workaround.hpp>
 #endif
 
 using namespace Arabica::convert;

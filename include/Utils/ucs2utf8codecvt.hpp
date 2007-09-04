@@ -12,16 +12,16 @@
 //
 // $Id$
 //---------------------------------------------------------------------------
-#include <SAX/ArabicaConfig.h>
+#include <SAX/ArabicaConfig.hpp>
 
 #include <locale>
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
-#include <Utils/impl/codecvt_specialisations.h>
+#include <Utils/impl/codecvt_specialisations.hpp>
 #endif
 
 #ifdef ARABICA_VS6_WORKAROUND
-#include <Utils/impl/VS6Workaround.h>
+#include <Utils/impl/VS6Workaround.hpp>
 #endif
 
 namespace Arabica

@@ -1,7 +1,7 @@
 #ifndef ARABICA_XPATHIC_XPATH_NODE_TEST_HPP
 #define ARABICA_XPATHIC_XPATH_NODE_TEST_HPP
 
-#include <DOM/Node.h>
+#include <DOM/Node.hpp>
 #include "xpath_namespace_node.hpp"
 #include <boost/shared_ptr.hpp>
 

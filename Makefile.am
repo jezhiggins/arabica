@@ -34,7 +34,7 @@ EXTRA_DIST=vs7 \
 dist-hook:
 	find $(distdir) -print | grep \.svn | xargs rm -rf
 	find $(distdir) -print | grep \~$ | xargs rm -rf
-	rm $(distdir)/include/SAX/ArabicaConfig.h
+	rm $(distdir)/include/SAX/ArabicaConfig.hpp
 
 pkgconfigdir = src/pkgconfig
 pkgconfig_DATA = arabica.pc

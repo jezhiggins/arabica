@@ -6,7 +6,7 @@ LIBARABICA = $(top_builddir)/src/libarabica.la
 pyx_SOURCES = pyx.cpp
 pyx_LDADD =  $(LIBARABICA)
 
-simple_handler_SOURCES = SimpleHandler.cpp SimpleHandler.h wrapper.cpp
+simple_handler_SOURCES = SimpleHandler.cpp SimpleHandler.hpp wrapper.cpp
 simple_handler_LDADD = $(LIBARABICA)
 
 writer_SOURCES = writer.cpp

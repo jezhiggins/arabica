@@ -1,8 +1,8 @@
 #ifndef ARABICA_XSLT_CREATE_HANDLER_HPP
 #define ARABICA_XSLT_CREATE_HANDLER_HPP
 
-#include <SAX/XMLReader.h>
-#include <SAX/helpers/DefaultHandler.h>
+#include <SAX/XMLReader.hpp>
+#include <SAX/helpers/DefaultHandler.hpp>
 #include <XPath/XPath.hpp>
 
 #include "../xslt_compilation_context.hpp"

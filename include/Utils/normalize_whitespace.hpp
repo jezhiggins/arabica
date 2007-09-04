@@ -1,9 +1,9 @@
 #ifndef ARABICA_UTILS_NORMALIZE_WHITESPACE_HPP
 #define ARABICA_UTILS_NORMALIZE_WHITESPACE_HPP
 
-#include <Utils/StringAdaptor.h>
-#include <XML/XMLCharacterClasses.h>
-#include <XML/UnicodeCharacters.h>
+#include <Utils/StringAdaptor.hpp>
+#include <XML/XMLCharacterClasses.hpp>
+#include <XML/UnicodeCharacters.hpp>
 
 namespace Arabica
 {

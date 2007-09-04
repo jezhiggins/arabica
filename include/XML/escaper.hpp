@@ -2,7 +2,7 @@
 #define ARABICA_UTILS_ESCAPER_HPP
 
 #include <iostream>
-#include <XML/UnicodeCharacters.h>
+#include <XML/UnicodeCharacters.hpp>
 
 namespace Arabica {
 namespace XML {

@@ -5,8 +5,8 @@
 #pragma warning(disable: 4786 4800)
 #endif
 
-#include <SAX/ParserConfig.h>
-#include <SAX/wrappers/saxxerces.h>
+#include <SAX/ParserConfig.hpp>
+#include <SAX/wrappers/saxxerces.hpp>
 
 namespace SAX
 {

@@ -1,7 +1,7 @@
 #include "silly_string.hpp"
 
-#include <Utils/convertstream.h>
-#include <Utils/utf8ucs2codecvt.h>
+#include <Utils/convertstream.hpp>
+#include <Utils/utf8ucs2codecvt.hpp>
 #include <Utils/ucs2utf8codecvt.hpp>
 
 silly_string::silly_string()

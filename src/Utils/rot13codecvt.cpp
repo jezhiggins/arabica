@@ -4,9 +4,9 @@
 //
 ///////////////////////////////////////////
 
-#include <Utils/rot13codecvt.h>
+#include <Utils/rot13codecvt.hpp>
 #ifdef ARABICA_VS6_WORKAROUND
-#include <Utils/impl/VS6Workaround.h>
+#include <Utils/impl/VS6Workaround.hpp>
 #endif
 
 using namespace Arabica::convert;

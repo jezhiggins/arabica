@@ -1,10 +1,10 @@
 #ifndef ARABICA_SAX_XMLBASE_TRACKER_HPP
 #define ARABICA_SAX_XMLBASE_TRACKER_HPP
 
-#include <SAX/ArabicaConfig.h>
-#include <SAX/helpers/XMLFilterImpl.h>
-#include <SAX/helpers/XMLBaseSupport.h>
-#include <Utils/StringAdaptor.h>
+#include <SAX/ArabicaConfig.hpp>
+#include <SAX/helpers/XMLFilterImpl.hpp>
+#include <SAX/helpers/XMLBaseSupport.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace SAX
 {

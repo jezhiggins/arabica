@@ -1,9 +1,9 @@
 #ifndef ARABICA_TEXT_ONLY_HPP
 #define ARABICA_TEXT_ONLY_HPP
 
-#include <SAX/ArabicaConfig.h>
-#include <SAX/helpers/XMLFilterImpl.h>
-#include <Utils/StringAdaptor.h>
+#include <SAX/ArabicaConfig.hpp>
+#include <SAX/helpers/XMLFilterImpl.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace SAX
 {

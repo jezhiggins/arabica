@@ -2,10 +2,10 @@
 #define ARABICA_SAX_NAMESPACE_TRACKER_HPP
 
 #include <map>
-#include <SAX/ArabicaConfig.h>
-#include <SAX/helpers/XMLFilterImpl.h>
-#include <SAX/helpers/NamespaceSupport.h>
-#include <Utils/StringAdaptor.h>
+#include <SAX/ArabicaConfig.hpp>
+#include <SAX/helpers/XMLFilterImpl.hpp>
+#include <SAX/helpers/NamespaceSupport.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace SAX
 {

@@ -4,7 +4,7 @@
 #include <string>
 #include <functional>
 #include <Utils/stringadaptortag.hpp>
-#include <SAX/ArabicaConfig.h>
+#include <SAX/ArabicaConfig.hpp>
 // testing purposes only
 // a string with as minimal interface as possible
 

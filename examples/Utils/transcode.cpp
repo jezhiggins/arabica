@@ -9,15 +9,15 @@
 #endif
 
 #include <iostream>
-#include <Utils/convert_adaptor.h>
-#include <Utils/utf8iso88591codecvt.h>
-#include <Utils/iso88591utf8codecvt.h>
-#include <Utils/rot13codecvt.h>
-#include <Utils/base64codecvt.h>
-#include <Utils/utf8ucs2codecvt.h>
-#include <Utils/utf16utf8codecvt.h>
-#include <Utils/utf16beucs2codecvt.h>
-#include <Utils/utf16leucs2codecvt.h>
+#include <Utils/convert_adaptor.hpp>
+#include <Utils/utf8iso88591codecvt.hpp>
+#include <Utils/iso88591utf8codecvt.hpp>
+#include <Utils/rot13codecvt.hpp>
+#include <Utils/base64codecvt.hpp>
+#include <Utils/utf8ucs2codecvt.hpp>
+#include <Utils/utf16utf8codecvt.hpp>
+#include <Utils/utf16beucs2codecvt.hpp>
+#include <Utils/utf16leucs2codecvt.hpp>
 
 #include <fstream>
 std::ifstream inputFile;

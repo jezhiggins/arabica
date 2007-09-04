@@ -2,7 +2,7 @@
 #define ARABICA_XSLT_INLINE_ELEMENT_HPP
 
 #include "xslt_item.hpp"
-#include <SAX/helpers/AttributesImpl.h>
+#include <SAX/helpers/AttributesImpl.hpp>
 
 namespace Arabica
 {

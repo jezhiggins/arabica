@@ -12,10 +12,10 @@
 #pragma warning(disable : 4786)
 #endif
 
-#include <SAX/helpers/DefaultHandler.h>
-#include <SAX/InputSource.h>
-#include <SAX/XMLReader.h>
-#include <SAX/helpers/XMLBaseSupport.h>
+#include <SAX/helpers/DefaultHandler.hpp>
+#include <SAX/InputSource.hpp>
+#include <SAX/XMLReader.hpp>
+#include <SAX/helpers/XMLBaseSupport.hpp>
 #include <iostream>
 
 class hrefPrinter : public SAX::DefaultHandler

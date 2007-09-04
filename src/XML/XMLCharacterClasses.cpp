@@ -1,7 +1,7 @@
 
-#include <XML/XMLCharacterClasses.h>
-#include <XML/UnicodeCharacters.h>
-#include <SAX/ArabicaConfig.h>
+#include <XML/XMLCharacterClasses.hpp>
+#include <XML/UnicodeCharacters.hpp>
+#include <SAX/ArabicaConfig.hpp>
 
 const wchar_t base_char_ranges[][2] = 
 {

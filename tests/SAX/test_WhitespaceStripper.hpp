@@ -5,8 +5,8 @@
 #include <sstream>
 #include <iostream>
 
-#include <SAX/XMLReader.h>
-#include <SAX/InputSource.h>
+#include <SAX/XMLReader.hpp>
+#include <SAX/InputSource.hpp>
 #include <SAX/filter/WhitespaceStripperFilter.hpp>
 #include <SAX/filter/PYXWriter.hpp>
 

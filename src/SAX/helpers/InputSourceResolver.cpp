@@ -6,10 +6,10 @@
 #pragma warning(disable: 4786)
 #endif
 
-#include <SAX/helpers/InputSourceResolver.h>
+#include <SAX/helpers/InputSourceResolver.hpp>
 #include <istream>
 #include <fstream>
-#include <Utils/socket_stream.h>
+#include <Utils/socket_stream.hpp>
 #include <Utils/uri.hpp>
 #include <cmath>
 

@@ -6,7 +6,7 @@
 #include "../CppUnit/framework/TestCaller.h"
 
 #include <XPath/XPath.hpp>
-#include <DOM/Simple/DOMImplementation.h>
+#include <DOM/Simple/DOMImplementation.hpp>
 
 template<class string_type, class string_adaptor>
 class StepTest : public TestCase

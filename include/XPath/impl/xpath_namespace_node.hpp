@@ -5,9 +5,9 @@
 #pragma warning(disable: 4250)
 #endif
 
-#include <DOM/Simple/DocumentImpl.h>
-#include <DOM/Simple/NodeImpl.h>
-#include <Utils/StringAdaptor.h>
+#include <DOM/Simple/DocumentImpl.hpp>
+#include <DOM/Simple/NodeImpl.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace Arabica
 {

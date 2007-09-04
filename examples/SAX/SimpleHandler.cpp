@@ -2,7 +2,7 @@
 #  pragma warning(disable:4786)
 #endif
 
-#include "SimpleHandler.h"
+#include "SimpleHandler.hpp"
 #include <iostream>
 
 //////////////////////////////////////////////

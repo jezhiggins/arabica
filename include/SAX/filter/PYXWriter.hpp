@@ -1,9 +1,9 @@
 #ifndef ARABICA_SAX_PYX_WRITER_H
 #define ARABICA_SAX_PYX_WRITER_H
 
-#include <SAX/ArabicaConfig.h>
-#include <SAX/helpers/XMLFilterImpl.h>
-#include <XML/UnicodeCharacters.h>
+#include <SAX/ArabicaConfig.hpp>
+#include <SAX/helpers/XMLFilterImpl.hpp>
+#include <XML/UnicodeCharacters.hpp>
 #include <ostream>
 
 namespace SAX {

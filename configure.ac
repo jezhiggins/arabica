@@ -19,7 +19,7 @@ ARABICA_CHECK_SOCKETS
 ARABICA_HAS_BOOST([1.33])
 ARABICA_WANT_DOM
 
-AC_CONFIG_HEADERS([include/SAX/ArabicaConfig.h])
+AC_CONFIG_HEADERS([include/SAX/ArabicaConfig.hpp])
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([arabica.pc])
 AC_CONFIG_FILES([src/Makefile])

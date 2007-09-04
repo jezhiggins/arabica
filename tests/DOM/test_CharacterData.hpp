@@ -5,7 +5,7 @@
 #include "../CppUnit/framework/TestSuite.h"
 #include "../CppUnit/framework/TestCaller.h"
 
-#include <DOM/Simple/DOMImplementation.h>
+#include <DOM/Simple/DOMImplementation.hpp>
 
 template<class string_type, class string_adaptor>
 class CharacterDataTest : public TestCase 

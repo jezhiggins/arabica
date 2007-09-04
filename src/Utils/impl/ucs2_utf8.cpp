@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 // $Id$
 //---------------------------------------------------------------------------
-#include <Utils/impl/ucs2_utf8.h>
+#include <Utils/impl/ucs2_utf8.hpp>
 //---------------------------------------------------------------------------
 // Some of this code is derived from work done by Ken Thompson,
 // provided to the X/Open Group.

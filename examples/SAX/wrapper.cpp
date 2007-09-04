@@ -2,10 +2,10 @@
 #pragma warning(disable:4786)
 #endif
 
-#include "SimpleHandler.h"
-#include <SAX/InputSource.h>
-#include <SAX/helpers/FeatureNames.h>
-#include <SAX/helpers/PropertyNames.h>
+#include "SimpleHandler.hpp"
+#include <SAX/InputSource.hpp>
+#include <SAX/helpers/FeatureNames.hpp>
+#include <SAX/helpers/PropertyNames.hpp>
 #include <iostream>
 #include <sstream>
 

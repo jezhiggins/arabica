@@ -6,9 +6,9 @@
 #endif
 
 #include <string>
-#include <SAX/helpers/CatchErrorHandler.h>
-#include <DOM/SAX2DOM/SAX2DOM.h>
-#include <DOM/Utils/Stream.h>
+#include <SAX/helpers/CatchErrorHandler.hpp>
+#include <DOM/SAX2DOM/SAX2DOM.hpp>
+#include <DOM/Utils/Stream.hpp>
 #include <XPath/XPath.hpp>
 
 ////////////////////////////////////////////////

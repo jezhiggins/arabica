@@ -6,9 +6,9 @@
 #pragma warning(disable: 4786 4800)
 #endif
 
-#include <SAX/ParserConfig.h>
+#include <SAX/ParserConfig.hpp>
 
-#include <SAX/SAXNotRecognizedException.h>
+#include <SAX/SAXNotRecognizedException.hpp>
 
 namespace SAX
 {

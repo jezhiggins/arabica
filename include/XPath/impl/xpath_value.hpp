@@ -2,10 +2,10 @@
 #define ARABICA_XPATHIC_XPATH_VALUE_H
 
 #include <string>
-#include <DOM/Node.h>
+#include <DOM/Node.hpp>
 #include <boost/lexical_cast.hpp>
 #include <vector>
-#include <Utils/StringAdaptor.h>
+#include <Utils/StringAdaptor.hpp>
 #include "xpath_object.hpp"
 #include "xpath_expression.hpp"
 

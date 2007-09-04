@@ -6,8 +6,8 @@
 #include "../CppUnit/framework/TestCaller.h"
 
 #include <XPath/XPath.hpp>
-#include <DOM/SAX2DOM/SAX2DOM.h>
-#include <SAX/helpers/CatchErrorHandler.h>
+#include <DOM/SAX2DOM/SAX2DOM.hpp>
+#include <SAX/helpers/CatchErrorHandler.hpp>
 
 
 template<class string_type, class string_adaptor>

@@ -1,7 +1,7 @@
 #ifndef ARABICA_XSLT_VALUE_OF_HANDLER_HPP
 #define ARABICA_XSLT_VALUE_OF_HANDLER_HPP
 
-#include <XML/XMLCharacterClasses.h>
+#include <XML/XMLCharacterClasses.hpp>
 #include "../xslt_value_of.hpp"
 
 namespace Arabica

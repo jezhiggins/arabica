@@ -142,3 +142,4 @@ void URI::combinePath(const std::string& relPath)
     dot = path_.find("/./", dot);
   }
 } // combinePath
+

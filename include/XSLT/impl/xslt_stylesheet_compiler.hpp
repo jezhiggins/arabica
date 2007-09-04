@@ -1,7 +1,7 @@
 #ifndef ARABICA_XSLT_STYLESHEETCONSTANT_HPP
 #define ARABICA_XSLT_STYLESHEETCONSTANT_HPP
 
-#include <XML/XMLCharacterClasses.h>
+#include <XML/XMLCharacterClasses.hpp>
 #include <XPath/impl/xpath_namespace_context.hpp>
 #include <memory>
 

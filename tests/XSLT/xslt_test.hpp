@@ -1,9 +1,9 @@
 #ifndef XSLT_XSLT_TEST_HPP
 #define XSLT_XSLT_TEST_HPP
 
-#include <SAX/InputSource.h>
-#include <DOM/SAX2DOM/SAX2DOM.h>
-#include <DOM/Utils/Stream.h>
+#include <SAX/InputSource.hpp>
+#include <DOM/SAX2DOM/SAX2DOM.hpp>
+#include <DOM/Utils/Stream.hpp>
 #include <XSLT/XSLT.hpp>
 #include <Utils/normalize_whitespace.hpp>
 

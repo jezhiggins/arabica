@@ -6,9 +6,9 @@
 #endif
 
 #include <string>
-#include <DOM/SAX2DOM/SAX2DOM.h>
-#include <SAX/helpers/CatchErrorHandler.h>
-#include <DOM/Utils/Stream.h>
+#include <DOM/SAX2DOM/SAX2DOM.hpp>
+#include <SAX/helpers/CatchErrorHandler.hpp>
+#include <DOM/Utils/Stream.hpp>
 
 ////////////////////////////////////////////////
 int main(int argc, char* argv[])

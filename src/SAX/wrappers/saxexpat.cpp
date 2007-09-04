@@ -6,7 +6,7 @@
 #pragma warning(disable: 4786)
 #endif
 
-#include <SAX/ParserConfig.h>
+#include <SAX/ParserConfig.hpp>
 
 namespace SAX
 {

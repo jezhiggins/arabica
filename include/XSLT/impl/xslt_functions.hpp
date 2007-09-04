@@ -1,8 +1,8 @@
 #ifndef ARABICA_XSLT_FUNCTIONS_HPP
 #define ARABICA_XSLT_FUNCTIONS_HPP
 
-#include <DOM/SAX2DOM/SAX2DOM.h>
-#include <SAX/helpers/CatchErrorHandler.h>
+#include <DOM/SAX2DOM/SAX2DOM.hpp>
+#include <SAX/helpers/CatchErrorHandler.hpp>
 
 namespace Arabica
 {

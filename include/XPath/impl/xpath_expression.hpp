@@ -2,7 +2,7 @@
 #define ARABICA_XPATHIC_XPATH_EXPRESSION_H
 
 #include <string>
-#include <DOM/Node.h>
+#include <DOM/Node.hpp>
 #include "xpath_object.hpp"
 #include "xpath_execution_context.hpp"
 

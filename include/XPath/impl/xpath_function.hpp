@@ -3,8 +3,8 @@
 
 #include <boost/shared_ptr.hpp>
 #include <cmath>
-#include <XML/XMLCharacterClasses.h>
-#include <XML/UnicodeCharacters.h>
+#include <XML/XMLCharacterClasses.hpp>
+#include <XML/UnicodeCharacters.hpp>
 #include <Utils/normalize_whitespace.hpp>
 #include "xpath_value.hpp"
 #include "xpath_execution_context.hpp"
