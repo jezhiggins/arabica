@@ -39,11 +39,11 @@ namespace SAX
       std::auto_ptr<XMLPScanTokenParserImpl> data_;
   }; // XMLPScanToken
 
-  template<class string_type>
-  class ProgressiveParser : public XMLReaderInterface<string_type>
+  template<class string_type, class string_adaptor>
+  class ProgressiveParser : public XMLReaderInterface<string_type, string_adaptor>
   {
     public:
-      typedef typename XMLReaderInterface<string_type>::InputSourceT InputSourceT;
+      typedef typename XMLReaderInterface<string_type, string_adaptor>::InputSourceT InputSourceT;
 
       /** @name Progressive Parsing Methods */
       //@{

@@ -7,8 +7,8 @@
 #include <string>
 
 #include <SAX/ArabicaConfig.hpp>
-
 #include <SAX/InputSource.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace Arabica
 {
@@ -69,14 +69,14 @@ namespace SAX
  * @see Parser#setEntityResolver
  * @see InputSource
  */
-template<class string_type>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class EntityResolver
 {
 public:
   typedef string_type stringT;
-  typedef InputSource<stringT> InputSourceT;
+  typedef InputSource<string_type, string_adaptor> InputSourceT;
 
-	virtual ~EntityResolver() { };
+  virtual ~EntityResolver() { };
 
   /**
    * Allow the application to resolve external entities.

@@ -40,8 +40,8 @@ namespace SAX
  * @see LexicalHandler
  * @see DeclHandler
  */
-template<class string_type>
-class DefaultHandler2 : public DefaultHandler<string_type>
+template<class string_type, class string_adaptor>
+class DefaultHandler2 : public DefaultHandler<string_type, string_adaptor>
 {
 public:
   typedef string_type stringT;

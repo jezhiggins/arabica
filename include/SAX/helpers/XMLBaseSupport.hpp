@@ -27,39 +27,34 @@ namespace Arabica
 namespace SAX
 {
 
-template<class string_type, class string_adaptor_type>
+template<class string_type, class string_adaptor>
 struct XMLBaseConstants
 {
-  typedef string_type stringT;
-  typedef string_adaptor_type string_adaptorT;
-
-  const stringT xml;
-  const stringT xml_uri;
-  const stringT colon;
-  const stringT base;
+  const string_type xml;
+  const string_type xml_uri;
+  const string_type colon;
+  const string_type base;
 
   XMLBaseConstants() :
-    xml(string_adaptorT().construct_from_utf8("xml")),
-    xml_uri(string_adaptorT().construct_from_utf8("http://www.w3.org/XML/1998/namespace")),
-    colon(string_adaptorT().construct_from_utf8(":")),
-    base(string_adaptorT().construct_from_utf8("base"))
+    xml(string_adaptor::construct_from_utf8("xml")),
+    xml_uri(string_adaptor::construct_from_utf8("http://www.w3.org/XML/1998/namespace")),
+    colon(string_adaptor::construct_from_utf8(":")),
+    base(string_adaptor::construct_from_utf8("base"))
   {
   } // XMLBaseConstants
 }; // struct XMLBaseConstants
 
-template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class XMLBaseSupport
 {
 public:
-  typedef string_type stringT;
-  typedef string_adaptor_type string_adaptorT;
-  typedef typename string_adaptor_type::value_type valueT;
-  typedef Attributes<stringT> AttributesT;
+  typedef typename string_adaptor::value_type valueT;
+  typedef Attributes<string_type, string_adaptor> AttributesT;
 
   XMLBaseSupport() :
       depth_(0) { }
 
-  void setDocumentLocation(const stringT& loc)
+  void setDocumentLocation(const string_type& loc)
   {
     bases_.push(std::make_pair(-1, loc));
   } // setDocumentLocation
@@ -67,11 +62,11 @@ public:
   void startElement(const AttributesT& atts)
   {
     ++depth_;
-    stringT base = atts.getValue(xbc_.xml_uri, xbc_.base);
+    string_type base = atts.getValue(xbc_.xml_uri, xbc_.base);
     if(base.empty())
       return;
 
-    stringT baseURI = absolutise(currentBase(), base);
+    string_type baseURI = absolutise(currentBase(), base);
     bases_.push(std::make_pair(depth_, baseURI));
   } // startElement
 
@@ -82,23 +77,23 @@ public:
     --depth_;
   } // endElement
 
-  stringT currentBase() const
+  string_type currentBase() const
   {
     if(!bases_.size())
-      return stringT();
+      return string_type();
     return bases_.top().second;
   } // currentBase()
 
-  stringT makeAbsolute(const stringT& spec) const
+  string_type makeAbsolute(const string_type& spec) const
   {
     return absolutise(currentBase(), spec);
   } // makeAbsolute
 
 private:
-  stringT absolutise(const stringT& baseURI, const stringT& location) const
+  string_type absolutise(const string_type& baseURI, const string_type& location) const
   {
     Arabica::io::URI absolute(Arabica::io::URI(baseURI), location);
-    return string_adaptorT::construct_from_utf8(absolute.as_string().c_str());
+    return string_adaptor::construct_from_utf8(absolute.as_string().c_str());
   } // absolutise
 
   int currentDepth() const
@@ -109,13 +104,13 @@ private:
   } // currentDepths
 
 private:
-  typedef std::pair<int, stringT> baseInfoT;
+  typedef std::pair<int, string_type> baseInfoT;
   typedef std::stack<baseInfoT> baseStackT;
 
   baseStackT bases_;
   int depth_;
 
-  const XMLBaseConstants<stringT, string_adaptorT> xbc_;
+  const XMLBaseConstants<string_type, string_adaptor> xbc_;
 
   // no impl
   XMLBaseSupport(const XMLBaseSupport&);

@@ -50,18 +50,18 @@ namespace SAX
   * @see DocumentHandler
   * @see ErrorHandler
   */
-template<class string_type>
-class HandlerBase : public EntityResolver<string_type>, 
-					public DTDHandler<string_type>,
-					public DocumentHandler<string_type>, 
-					public ErrorHandler<string_type>
+template<class string_type, class string_adaptor>
+class HandlerBase : public EntityResolver<string_type, string_adaptor>, 
+					public DTDHandler<string_type, string_adaptor>,
+					public DocumentHandler<string_type, string_adaptor>, 
+					public ErrorHandler<string_type, string_adaptor>
 {
 public:
   typedef string_name stringT;
-  typedef Locator<stringT> LocatorT;
-  typedef AttributeList<stringT> AttributeListT;
-  typedef InputSource<stringT> InputSourceT;
-  typedef ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+  typedef Locator<string_type, string_adaptor> LocatorT;
+  typedef AttributeList<string_type, string_adaptor> AttributeListT;
+  typedef InputSource<string_type, string_adaptor> InputSourceT;
+  typedef ErrorHandler<string_type, string_adaptor>::SAXParseExceptionT SAXParseExceptionT;
 
   virtual ~HandlerBase() { }
 

@@ -43,7 +43,7 @@ namespace SAX
  * @version 2.0
  * @see ContentHandler#setDocumentLocator 
  */
-template<class string_type>
+template<class string_type, class string_adaptor>
 class Locator
 {
 public:

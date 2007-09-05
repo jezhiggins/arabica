@@ -9,6 +9,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/IStreamHandle.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace Arabica
 {
@@ -48,12 +49,10 @@ namespace SAX
  * @see Parser#parse
  * @see EntityResolver#resolveEntity
  */
-template<class string_type>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class InputSource
 {
 public:
-  typedef string_type stringT;
-
   /**
    * Zero-argument default constructor.
    *
@@ -83,7 +82,7 @@ public:
    * @see #setByteStream
    * @see #setEncoding
    */
-  InputSource(const stringT& systemId) : 
+  InputSource(const string_type& systemId) : 
     byteStream_(),
     publicId_(),
     systemId_(systemId), 
@@ -176,14 +175,14 @@ public:
    * @see Locator#getPublicId
    * @see SAXParseException#getPublicId
    */
-  void setPublicId(const stringT& publicId) { publicId_ = publicId; }
+  void setPublicId(const string_type& publicId) { publicId_ = publicId; }
   /**
    * Get the public identifier for this input source.
    *
    * @return The public identifier, or an empty string if none was supplied.
    * @see #setPublicId
    */
-  const stringT& getPublicId() const { return publicId_; }
+  const string_type& getPublicId() const { return publicId_; }
 
   /**
    * Set the system identifier for this input source.
@@ -207,7 +206,7 @@ public:
    * @see Locator#getSystemId
    * @see SAXParseException#getSystemId
    */
-  void setSystemId(const stringT& systemId) { systemId_ = systemId; }
+  void setSystemId(const string_type& systemId) { systemId_ = systemId; }
   /**
    * Get the system identifier for this input source.
    *
@@ -220,7 +219,7 @@ public:
    * @see #setSystemId
    * @see #getEncoding
    */
-  const stringT& getSystemId() const { return systemId_; }
+  const string_type& getSystemId() const { return systemId_; }
 
   /**
    * Set the byte stream for this input source.
@@ -310,7 +309,7 @@ public:
    * @see #setByteStream
    * @see #getEncoding
    */
-  void setEncoding(const stringT& encoding) { encoding_ = encoding; }
+  void setEncoding(const string_type& encoding) { encoding_ = encoding; }
   /**
    * Get the character encoding for a byte stream or URI.
    *
@@ -319,14 +318,14 @@ public:
    * @see #getSystemId
    * @see #getByteStream
    */
-  const stringT& getEncoding() const { return encoding_; }
+  const string_type& getEncoding() const { return encoding_; }
 
   ///////////////////////////////////////////////////////////
 private:
   IStreamHandle byteStream_;
-	stringT publicId_;
-	stringT systemId_;
-	stringT encoding_;
+	string_type publicId_;
+	string_type systemId_;
+	string_type encoding_;
 
   bool operator==(const InputSource&); // no implementation
 }; // class InputSource

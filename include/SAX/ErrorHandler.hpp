@@ -7,7 +7,7 @@
 #include <string>
 
 #include <SAX/ArabicaConfig.hpp>
-
+#include <Utils/StringAdaptor.hpp>
 #include <SAX/SAXParseException.hpp>
 
 namespace Arabica
@@ -44,12 +44,12 @@ namespace SAX
  * @see Parser#setErrorHandler
  * @see SAXParseException 
  */
-template<class string_type>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class ErrorHandler
 {
 public:
   typedef string_type stringT;
-  typedef SAXParseException<stringT> SAXParseExceptionT;
+  typedef SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
 
   virtual ~ErrorHandler() { };
 

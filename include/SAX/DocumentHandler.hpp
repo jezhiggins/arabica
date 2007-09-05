@@ -10,8 +10,8 @@ namespace Arabica
 namespace SAX 
 {
 
-template<class string_type> class Locator;
-template<class string_type> class AttributeList;
+template<class string_type, class string_adaptor> class Locator;
+template<class string_type, class string_adaptor> class AttributeList;
 
 /**
   * Receive notification of general document events.
@@ -42,13 +42,13 @@ template<class string_type> class AttributeList;
   * @see Locator
   * @see HandlerBase
   */
-template<class string_type>
+template<class string_type, class string_adaptor>
 class DocumentHandler
 {
 public:
   typedef string_type stringT;
-  typedef Locator<stringT> LocatorT;
-  typedef AttributeList<stringT> AttributeListT;
+  typedef Locator<string_type, string_adaptor> LocatorT;
+  typedef AttributeList<string_type, string_adaptor> AttributeListT;
 
 	virtual ~DocumentHandler() { }
 

@@ -15,26 +15,23 @@ namespace Arabica
 namespace SAX
 {
 
-template<class string_type, class string_adaptor_type>
+template<class string_type, class string_adaptor>
 struct NamespaceConstants
 {
-  typedef string_type stringT;
-  typedef string_adaptor_type string_adaptorT;
-
-  const stringT xml;
-  const stringT xmlns;
-  const stringT xml_uri;
-  const stringT xmlns_uri;
-  const stringT xmlns11_uri;
-  const stringT colon;
+  const string_type xml;
+  const string_type xmlns;
+  const string_type xml_uri;
+  const string_type xmlns_uri;
+  const string_type xmlns11_uri;
+  const string_type colon;
 
   NamespaceConstants() :
-    xml(string_adaptorT::construct_from_utf8("xml")),
-    xmlns(string_adaptorT::construct_from_utf8("xmlns")),
-    xml_uri(string_adaptorT::construct_from_utf8("http://www.w3.org/XML/1998/namespace")),
+    xml(string_adaptor::construct_from_utf8("xml")),
+    xmlns(string_adaptor::construct_from_utf8("xmlns")),
+    xml_uri(string_adaptor::construct_from_utf8("http://www.w3.org/XML/1998/namespace")),
     xmlns_uri(),
-    xmlns11_uri(string_adaptorT::construct_from_utf8("http://www.w3.org/2000/xmlns/")),
-    colon(string_adaptorT::construct_from_utf8(":"))
+    xmlns11_uri(string_adaptor::construct_from_utf8("http://www.w3.org/2000/xmlns/")),
+    colon(string_adaptor::construct_from_utf8(":"))
   {
   } // NamespaceConstants
 }; // struct NamespaceContants
@@ -83,18 +80,18 @@ struct NamespaceConstants
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
  */
-template<class stringT, class string_adaptorT>
+template<class string_type, class string_adaptor>
 class NamespaceSupport
 {
   public:
-    typedef std::vector<stringT> stringListT;
+    typedef std::vector<string_type> stringListT;
 
     struct Parts
     {
-      stringT URI;
-      stringT localName;
-      stringT rawName;
-      stringT prefix;
+      string_type URI;
+      string_type localName;
+      string_type rawName;
+      string_type prefix;
     }; // struct Parts
 
     // functions
@@ -186,7 +183,7 @@ class NamespaceSupport
      * @see #getURI
      * @see #getPrefix
      */
-    bool declarePrefix(const stringT& prefix, const stringT& uri)
+    bool declarePrefix(const string_type& prefix, const string_type& uri)
     {
       if((prefix == nsc_.xml) || (prefix == nsc_.xmlns))
         return false;
@@ -219,24 +216,24 @@ class NamespaceSupport
      *         1.0 name.
      * @see #declarePrefix
      */
-    Parts processName(const stringT& qName, bool isAttribute) const
+    Parts processName(const string_type& qName, bool isAttribute) const
     {
       Parts name;
-      typename string_adaptorT::size_type index = string_adaptorT::find(qName, nsc_.colon);
+      typename string_adaptor::size_type index = string_adaptor::find(qName, nsc_.colon);
 
-      if(index == string_adaptorT::npos())
+      if(index == string_adaptor::npos())
       {
         // no prefix
-        name.URI = isAttribute ? stringT() : getURI(stringT());
+        name.URI = isAttribute ? string_type() : getURI(string_type());
         name.localName = qName;
       }
       else
       {
         // prefix
-        stringT prefix = string_adaptorT::substr(qName, 0, index);
+        string_type prefix = string_adaptor::substr(qName, 0, index);
 
         name.URI = getURI(prefix);
-        name.localName = string_adaptorT::substr(qName, index + 1);
+        name.localName = string_adaptor::substr(qName, index + 1);
         name.prefix = prefix;
       } // if ...
 
@@ -256,7 +253,7 @@ class NamespaceSupport
      * @see #getPrefix
      * @see #getPrefixes
      */
-    stringT getURI(const stringT& prefix) const
+    string_type getURI(const string_type& prefix) const
     {
       for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
       {
@@ -265,7 +262,7 @@ class NamespaceSupport
           return u->second;
       } // for ...
 
-      return stringT();
+      return string_type();
     } // getURI
 
     /**
@@ -284,10 +281,10 @@ class NamespaceSupport
      * @return One of the prefixes currently mapped to the URI supplied,
      *         or an empty string if none is mapped or if the URI is assigned to
      *         the default Namespace.
-     * @see #getPrefixes(const stringT&)
+     * @see #getPrefixes(const string_type&)
      * @see #getURI
      */
-    stringT getPrefix(const stringT& uri) const
+    string_type getPrefix(const string_type& uri) const
     {
       for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
       {
@@ -296,7 +293,7 @@ class NamespaceSupport
             return u->first;
       } // for ...
 
-      return stringT();
+      return string_type();
     } // getPrefix
 
     /**
@@ -347,7 +344,7 @@ class NamespaceSupport
      * @see #getDeclaredPrefixes
      * @see #getURI
      */
-    stringListT getPrefixes(const stringT& uri) const
+    stringListT getPrefixes(const string_type& uri) const
     {
       stringListT prefixes;
 
@@ -384,14 +381,14 @@ class NamespaceSupport
     } // getDeclaredPrefixes
 
   private:
-    typedef typename std::multimap<stringT, stringT> stringMapT;
+    typedef typename std::multimap<string_type, string_type> stringMapT;
     typedef stringMapT Context;
     typedef typename std::vector<Context> contextListT;
 
     // member variables
     contextListT contexts_;
 
-    const NamespaceConstants<stringT, string_adaptorT> nsc_;
+    const NamespaceConstants<string_type, string_adaptor> nsc_;
 
     // no impl
     NamespaceSupport(const NamespaceSupport&);

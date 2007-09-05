@@ -42,21 +42,19 @@ namespace SAX
  * @see Parser
  */
 template<class string_type, class string_adaptor_type>
-class ParserAdaptor : public XMLReaderInterface<string_type>, 
-                            public DocumentHandler<string_type>
+class ParserAdaptor : public XMLReaderInterface<string_type, string_adaptor, int>, 
+                            public DocumentHandler<string_type, string_adaptor>
 {
 public:
-  typedef string_type stringT;
-  typedef string_adaptor_type string_adaptorT;
-  typedef Parser<stringT> ParserT;
-  typedef EntityResolver<stringT> EntityResolverT;
-  typedef DTDHandler<stringT> DTDHandlerT;
-  typedef DocumentHandler<stringT> DocumentHandlerT;
-  typedef ContentHandler<stringT> ContentHandlerT;
-  typedef InputSource<stringT> InputSourceT;
-  typedef Locator<stringT> LocatorT;
-  typedef SAXParseException<stringT> SAXParseExceptionT;
-  typedef AttributeList<stringT> AttributeListT;
+  typedef Parser<string_type, string_adaptor> ParserT;
+  typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
+  typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
+  typedef DocumentHandler<string_type, string_adaptor> DocumentHandlerT;
+  typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;
+  typedef InputSource<string_type, string_adaptor> InputSourceT;
+  typedef Locator<string_type, string_adaptor> LocatorT;
+  typedef SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
+  typedef AttributeList<string_type, string_adaptor> AttributeListT;
 
   ParserAdaptor(ParserT& parser) :
     parser_(parser),
@@ -87,7 +85,7 @@ public:
    *            state is not supported.
    * @see XMLReader#setFeature
    */
-  virtual void setFeature(const stringT& name, bool value)
+  virtual void setFeature(const string_type& name, bool value)
   {
     if(name == NAMESPACES)
     {
@@ -129,7 +127,7 @@ public:
    *            feature state is not supported.
    * @see XMLReader#setFeature
    */
-  virtual bool getFeature(const stringT& name) const
+  virtual bool getFeature(const string_type& name) const
   {
     if(name == NAMESPACES)
     {
@@ -152,12 +150,12 @@ public:
   } // getFeature
 
 protected:
-  virtual std::auto_ptr<PropertyBase> doGetProperty(const stringT& name)
+  virtual std::auto_ptr<PropertyBase> doGetProperty(const string_type& name)
   {
     throw SAXNotRecognizedException("Property not recognized " + makeString(name));
   } // doGetProperty
 
-  virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBase> value)
+  virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBase> value)
   {
     throw SAXNotRecognizedException("Property not recognized " + makeString(name));
   } // doSetProperty
@@ -292,7 +290,7 @@ public:
    * @param qName The qualified (prefixed) name.
    * @param qAtts The XML 1.0 attribute list (with qnames).
    */
-  virtual void startElement(const stringT& qName,
+  virtual void startElement(const string_type& qName,
 	                          const AttributeListT& qAtts)
   {
     if(!namespaces_)
@@ -314,17 +312,17 @@ public:
     int length = qAtts.getLength();
     for(int i = 0; i < length; ++i)
     {
-      stringT attQName = qAtts.getName(i);
-      stringT type = qAtts.getType(i);
-      stringT value = qAtts.getValue(i);
+      string_type attQName = qAtts.getName(i);
+      string_type type = qAtts.getType(i);
+      string_type value = qAtts.getValue(i);
 
       // declaration?
       if(attQName.find(NamespaceSupportT::XMLNS) == 0) 
       {
-        stringT prefix;
+        string_type prefix;
         int n = attQName.find(NamespaceSupportT::COLON);
-        if(n != stringT::npos())
-            prefix = stringT(attQName.begin() + n + 1, attQName.end());
+        if(n != string_type::npos())
+            prefix = string_type(attQName.begin() + n + 1, attQName.end());
         if(!nsSupport_.declarePrefix(prefix, value)) 
           reportError("Illegal Namespace prefix " + makeString(prefix));
         if(contentHandler_)
@@ -346,7 +344,7 @@ public:
        int length = atts_.getLength();
        for(int i = 0; i < length; ++i)
        {
-         stringT attQName = atts_.getQName(i);
+         string_type attQName = atts_.getQName(i);
          if(attQName.find(NamespaceSupportT::XMLNS)) 
          {
            NamespaceSupportT::Parts attName = processName(attQName, true);
@@ -371,7 +369,7 @@ public:
    * @param qName The qualified (prefixed) name.
    * @see DocumentHandler#endElement
    */
-  void endElement(const stringT& qName)
+  void endElement(const string_type& qName)
   {
       if(!namespaces_) 
       {
@@ -397,7 +395,7 @@ public:
    * @param ch The characters.
    * @see DocumentHandler#characters
    */
-  virtual void characters(const stringT& ch)
+  virtual void characters(const string_type& ch)
   {
     if(contentHandler_)
       contentHandler_->characters(ch);
@@ -409,7 +407,7 @@ public:
    * @param ch Thecharacters.
    * @see DocumentHandler#ignorableWhitespace
    */
-  virtual void ignorableWhitespace(const stringT& ch)
+  virtual void ignorableWhitespace(const string_type& ch)
   {
     if(contentHandler_)
       contentHandler_->ignorableWhitespace(ch);
@@ -422,15 +420,15 @@ public:
    * @param data The remainder of the processing instruction
    * @see DocumentHandler#processingInstruction
    */
-  virtual void processingInstruction(const stringT& target, const stringT& data) 
+  virtual void processingInstruction(const string_type& target, const string_type& data) 
   {
     if(contentHandler_)
       contentHandler_->processingInstruction(target, data);
   } // processingInstruction
 
 private:
-  typedef NamespaceSupport<stringT, string_adaptorT> NamespaceSupportT;
-  typedef AttributesImpl<stringT> AttributesImplT;
+  typedef NamespaceSupport<string_type, string_adaptor> NamespaceSupportT;
+  typedef AttributesImpl<string_type> AttributesImplT;
 
   void setupParser()
   {
@@ -446,7 +444,7 @@ private:
     locator_ = 0;
   } // setupParser
 
-  NamespaceSupportT::Parts processName(const stringT& qName, bool isAttribute)
+  NamespaceSupportT::Parts processName(const string_type& qName, bool isAttribute)
   {
     NamespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
     if(p.URI == NULL_STRING && p.prefix != NULL_STRING)
@@ -465,23 +463,23 @@ private:
       errorHandler_->error(SAXParseExceptionT(message, NULL_STRING, NULL_STRING, -1, -1));
   } // reportError
 
-  void checkNotParsing(const std::string& type, const stringT& name)
+  void checkNotParsing(const std::string& type, const string_type& name)
   {
     if(parsing_)
        throw SAXNotSupportedException("Can't change feature while parsing");
   } // checkNotParsing
 
-  std::string makeString(const stringT& str) const
+  std::string makeString(const string_type& str) const
   {
-    return string_adaptorT().asStdString(str);
+    return string_adaptor::asStdString(str);
   } // makeString
 
   // This wrapper is used only when Namespace support is disabled.
-  class AttributesListAdaptor : public Attributes<stringT>
+  class AttributesListAdaptor : public Attributes<string_type>
   {
   public:  
-    typedef typename ParserAdaptor<stringT, string_adaptorT> ParserAdaptorT;
-    typedef typename AttributeList<stringT> AttributeListT;
+    typedef typename ParserAdaptor<string_type, string_adaptor> ParserAdaptorT;
+    typedef typename AttributeList<string_type, string_adaptor> AttributeListT;
 
     void setAttributeList(const AttributeListT& attList)
     {
@@ -489,14 +487,14 @@ private:
     } // setAttributeList
 
     virtual int getLength() const { return attList_->getLength(); }
-    virtual stringT getURI(int) const { return stringT(); } 
-    virtual stringT getLocalName(int) const { return stringT(); }
-    virtual stringT getQName(int i) const { return attList_->getName(i); }
-    virtual stringT getType(int i) const { return attList_->getType(i); }
-    virtual stringT getValue(int i) const { return attList_->getValue(i); }
+    virtual string_type getURI(int) const { return string_type(); } 
+    virtual string_type getLocalName(int) const { return string_type(); }
+    virtual string_type getQName(int i) const { return attList_->getName(i); }
+    virtual string_type getType(int i) const { return attList_->getType(i); }
+    virtual string_type getValue(int i) const { return attList_->getValue(i); }
 
-    virtual int getIndex(const stringT&, const stringT&) const { return -1; }
-    virtual int getIndex(const stringT& qName) const
+    virtual int getIndex(const string_type&, const string_type&) const { return -1; }
+    virtual int getIndex(const string_type& qName) const
     {
       int max = attList_->getLength();
       for(int i = 0; i < max; ++i)
@@ -504,13 +502,13 @@ private:
             return i;
       return -1;
     } // getIndex
-    virtual stringT getType(const stringT&, const stringT&) const { return stringT(); }
-    virtual stringT getType(const stringT& qName) const { return attList_->getType(qName); }
-    virtual stringT getValue(const stringT&, const stringT&) const { return stringT(); }
-    virtual stringT getValue(const stringT& qName) const { return attList_->getValue(qName); }
+    virtual string_type getType(const string_type&, const string_type&) const { return string_type(); }
+    virtual string_type getType(const string_type& qName) const { return attList_->getType(qName); }
+    virtual string_type getValue(const string_type&, const string_type&) const { return string_type(); }
+    virtual string_type getValue(const string_type& qName) const { return attList_->getValue(qName); }
 
   private:
-    static stringT empty_;
+    static string_type empty_;
     const AttributeListT* attList_;
   }; // AttributesListAdaptor
 
@@ -535,7 +533,7 @@ private:
   ErrorHandler* errorHandler_;
 
 public:
-  const stringT NULL_STRING;
+  const string_type NULL_STRING;
 
 private:
   ParserAdaptor();

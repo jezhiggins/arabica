@@ -7,14 +7,15 @@
 #include <string>
 
 #include <SAX/ArabicaConfig.hpp>
+#include <SAX/Attributes.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace Arabica
 {
 namespace SAX
 {
 
-template<class string_type> class Locator;
-template<class string_type> class Attributes;
+template<class string_type, class string_adaptor> class Locator;
 
 /**
  * Receive notification of the logical content of a document.
@@ -46,15 +47,15 @@ template<class string_type> class Attributes;
  * @see DTDHandler
  * @see ErrorHandler
  */
-template<class string_type>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class ContentHandler
 {
 public:
   typedef string_type stringT;
-  typedef Locator<stringT> LocatorT;
-  typedef Attributes<stringT> AttributesT;
+  typedef Locator<string_type, string_adaptor> LocatorT;
+  typedef Attributes<string_type, string_adaptor> AttributesT;
 
-	virtual ~ContentHandler() { }
+  virtual ~ContentHandler() { }
 
   /**
    * Receive an object for locating the origin of SAX document events.

@@ -6,6 +6,7 @@
 
 #include <string>
 #include <SAX/ArabicaConfig.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace Arabica
 {
@@ -43,7 +44,7 @@ namespace SAX
  * @see SAXNotRecognizedException
  * @see SAXNotSupportedException
  */
-template<class string_type>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class LexicalHandler
 {
 public:

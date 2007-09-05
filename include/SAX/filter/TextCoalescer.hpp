@@ -17,13 +17,13 @@ namespace SAX
   This filter buffers up multiple calls to characters(...) and reports text in a single lump.
  */
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class TextCoalescer : public XMLFilterImpl<string_type>
+class TextCoalescer : public XMLFilterImpl<string_type, string_adaptor>
 {
-  typedef XMLFilterImpl<string_type> XMLFilterT;
+  typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
 
 public:
-  typedef XMLReaderInterface<string_type> XMLReaderT;
-  typedef Attributes<string_type> AttributesT;
+  typedef XMLReaderInterface<string_type, string_adaptor>XMLReaderT;
+  typedef Attributes<string_type, string_adaptor> AttributesT;
 
   TextCoalescer() : 
     XMLFilterT()

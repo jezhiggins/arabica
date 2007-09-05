@@ -200,29 +200,26 @@ private:
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class expat_wrapper : public SAX::XMLReaderInterface<string_type>, 
-               public SAX::Locator<string_type>,
+class expat_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>, 
                public expat_wrapper_impl_mumbojumbo::expat2base
 {
   public:
-    typedef string_type stringT;
     typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
                                Arabica::default_string_adaptor<string_type>, 
                                T0, 
-                               T1>::type string_adaptor_type;
-    typedef string_adaptor_type string_adaptorT;
-    typedef string_adaptor_type SA;
-    typedef SAX::EntityResolver<stringT> entityResolverT;
-    typedef SAX::DTDHandler<stringT> dtdHandlerT;
-    typedef SAX::ContentHandler<stringT> contentHandlerT;
-    typedef SAX::DeclHandler<stringT> declHandlerT;
-    typedef SAX::LexicalHandler<stringT> lexicalHandlerT;
-    typedef SAX::InputSource<stringT> inputSourceT;
-    typedef SAX::Locator<stringT> locatorT;
-    typedef SAX::NamespaceSupport<stringT, string_adaptorT> namespaceSupportT;
-    typedef SAX::ErrorHandler<stringT> errorHandlerT;
-    typedef SAX::SAXParseException<stringT> SAXParseExceptionT;
-    typedef SAX::XMLReaderInterface<stringT> XMLReaderT;
+                               T1>::type string_adaptor;
+    typedef string_adaptor SA;
+    typedef SAX::EntityResolver<string_type, string_adaptor> entityResolverT;
+    typedef SAX::DTDHandler<string_type, string_adaptor> dtdHandlerT;
+    typedef SAX::ContentHandler<string_type, string_adaptor> contentHandlerT;
+    typedef SAX::DeclHandler<string_type, string_adaptor> declHandlerT;
+    typedef SAX::LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
+    typedef SAX::InputSource<string_type, string_adaptor> inputSourceT;
+    typedef SAX::Locator<string_type, string_adaptor> locatorT;
+    typedef SAX::NamespaceSupport<string_type, string_adaptor> namespaceSupportT;
+    typedef SAX::ErrorHandler<string_type, string_adaptor> errorHandlerT;
+    typedef SAX::SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
+    typedef SAX::XMLReaderInterface<string_type, T0, T1> XMLReaderT;
     typedef typename XMLReaderT::PropertyBase PropertyBaseT;
     typedef typename XMLReaderT::template Property<lexicalHandlerT*> getLexicalHandlerT;
     typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
@@ -234,8 +231,8 @@ class expat_wrapper : public SAX::XMLReaderInterface<string_type>,
 
     /////////////////////////////////////////////////
     // Configuration
-    virtual bool getFeature(const stringT& name) const;
-    virtual void setFeature(const stringT& name, bool value);
+    virtual bool getFeature(const string_type& name) const;
+    virtual void setFeature(const string_type& name, bool value);
   
     /////////////////////////////////////////////////
     // Event Handlers
@@ -258,23 +255,39 @@ class expat_wrapper : public SAX::XMLReaderInterface<string_type>,
   private:
     bool do_parse(inputSourceT& source, XML_Parser parser);
 
-  public:
+  private:
     //////////////////////////////////////////////////
     // Locator
-    virtual stringT getPublicId() const;
-    virtual stringT getSystemId() const;
-    virtual int getLineNumber() const;
-    virtual int getColumnNumber() const;
+    class Locator : public SAX::Locator<string_type, string_adaptor>
+    {
+      public:
+        Locator(const expat_wrapper<string_type, T0, T1>& e) : e_(e) { }
+        virtual string_type getPublicId() const { return e_.getPublicId(); }
+        virtual string_type getSystemId() const { return e_.getSystemId(); }
+        virtual int getLineNumber() const { return e_.getLineNumber(); }
+        virtual int getColumnNumber() const { return e_.getColumnNumber(); }
+      private:
+        const expat_wrapper<string_type, T0, T1>& e_;
+    }; // class Locator
+
+    friend class Locator;
+
+    Locator locator_;
+
+    string_type getPublicId() const;
+    string_type getSystemId() const;
+    int getLineNumber() const;
+    int getColumnNumber() const;
 
     ///////////////////////////////////////////////////
     // properties
   protected:
-    virtual std::auto_ptr<PropertyBaseT> doGetProperty(const stringT& name);
-    virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value);
+    virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& name);
+    virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value);
   private:
-    typename namespaceSupportT::Parts processName(const stringT& qName, bool isAttribute);
+    typename namespaceSupportT::Parts processName(const string_type& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
-    void checkNotParsing(const stringT& type, const stringT& name) const;
+    void checkNotParsing(const string_type& type, const string_type& name) const;
   
   private:
     virtual void charHandler(const char* txt, int txtlen);
@@ -331,8 +344,8 @@ class expat_wrapper : public SAX::XMLReaderInterface<string_type>,
     namespaceSupportT nsSupport_;
 
     XML_Parser parser_;
-    stringT publicId_;
-    stringT systemId_;
+    string_type publicId_;
+    string_type systemId_;
     bool parsing_;
 
     // features
@@ -340,19 +353,19 @@ class expat_wrapper : public SAX::XMLReaderInterface<string_type>,
     bool prefixes_;
     bool externalResolving_;
 
-    stringT emptyString_;
-    const SAX::FeatureNames<stringT, string_adaptorT> features_;
-    const SAX::PropertyNames<stringT, string_adaptorT> properties_;
-    const SAX::NamespaceConstants<stringT, string_adaptorT> nsc_;
-    const SAX::AttributeDefaults<stringT, string_adaptorT> attrDefaults_;
+    string_type emptyString_;
+    const SAX::FeatureNames<string_type, string_adaptor> features_;
+    const SAX::PropertyNames<string_type, string_adaptor> properties_;
+    const SAX::NamespaceConstants<string_type, string_adaptor> nsc_;
+    const SAX::AttributeDefaults<string_type, string_adaptor> attrDefaults_;
 
-    std::map<stringT, stringT> declaredExternalEnts_;
+    std::map<string_type, string_type> declaredExternalEnts_;
 }; // class expat_wrapper
 
 //////////////////////////////////////////////////////////////////
 // expat wrapper definition
-template<class stringT, class T0, class T1>
-expat_wrapper<stringT, T0, T1>::expat_wrapper() :
+template<class string_type, class T0, class T1>
+expat_wrapper<string_type, T0, T1>::expat_wrapper() :
   entityResolver_(0),
   dtdHandler_(0),
   contentHandler_(0),
@@ -363,18 +376,19 @@ expat_wrapper<stringT, T0, T1>::expat_wrapper() :
   parsing_(false),
   namespaces_(true),
   prefixes_(true),
-  externalResolving_(false)
+  externalResolving_(false),
+  locator_(*this)
 {
 } // expat
 
-template<class stringT, class T0, class T1>
-expat_wrapper<stringT, T0, T1>::~expat_wrapper()
+template<class string_type, class T0, class T1>
+expat_wrapper<string_type, T0, T1>::~expat_wrapper()
 {
   XML_ParserFree(parser_);
 } // ~expat
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::setCallbacks()
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::setCallbacks()
 {
   XML_SetUserData(parser_, reinterpret_cast<void*>(static_cast<expat_wrapper_impl_mumbojumbo::expat2base*>(this)));
   XML_SetCharacterDataHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_charHandler);
@@ -390,8 +404,8 @@ void expat_wrapper<stringT, T0, T1>::setCallbacks()
   XML_SetProcessingInstructionHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_processingInstruction);
 } // setCallbacks
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::setFeature(const stringT& name, bool value)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bool value)
 {
   if(name == features_.namespaces)
   {
@@ -435,8 +449,8 @@ void expat_wrapper<stringT, T0, T1>::setFeature(const stringT& name, bool value)
 #endif
 } // setFeature
 
-template<class stringT, class T0, class T1>
-bool expat_wrapper<stringT, T0, T1>::getFeature(const stringT& name) const
+template<class string_type, class T0, class T1>
+bool expat_wrapper<string_type, T0, T1>::getFeature(const string_type& name) const
 {
   if(name == features_.namespaces)
     return namespaces_;
@@ -453,8 +467,8 @@ bool expat_wrapper<stringT, T0, T1>::getFeature(const stringT& name) const
   throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + SA::asStdString(name));
 } // getFeature
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::parse(inputSourceT& source)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::parse(inputSourceT& source)
 {
   setCallbacks();
 
@@ -462,7 +476,7 @@ void expat_wrapper<stringT, T0, T1>::parse(inputSourceT& source)
   systemId_ = source.getSystemId();
 
   if(contentHandler_)
-    contentHandler_->setDocumentLocator(*this);
+    contentHandler_->setDocumentLocator(locator_);
 
   parsing_ = true;
 
@@ -481,10 +495,10 @@ void expat_wrapper<stringT, T0, T1>::parse(inputSourceT& source)
   XML_ParserReset(parser_, 0);
 } // parse
 
-template<class stringT, class T0, class T1>
-bool expat_wrapper<stringT, T0, T1>::do_parse(inputSourceT& source, XML_Parser parser)  
+template<class string_type, class T0, class T1>
+bool expat_wrapper<string_type, T0, T1>::do_parse(inputSourceT& source, XML_Parser parser)  
 {
-  InputSourceResolver is(source, string_adaptorT());
+  InputSourceResolver is(source, string_adaptor());
   if(is.resolve() == 0)
   {
     reportError("Could not resolve XML document", true);
@@ -513,11 +527,11 @@ bool expat_wrapper<stringT, T0, T1>::do_parse(inputSourceT& source, XML_Parser p
   return true;
 } // do_parse
 
-template<class stringT, class T0, class T1>
+template<class string_type, class T0, class T1>
 #ifndef ARABICA_VS6_WORKAROUND
-std::auto_ptr<typename expat_wrapper<stringT, T0, T1>::PropertyBaseT> expat_wrapper<stringT, T0, T1>::doGetProperty(const stringT& name)
+std::auto_ptr<typename expat_wrapper<string_type, T0, T1>::PropertyBaseT> expat_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
 #else
-std::auto_ptr<expat_wrapper<stringT, T0, T1>::PropertyBaseT> expat_wrapper<stringT, T0, T1>::doGetProperty(const stringT& name)
+std::auto_ptr<expat_wrapper<string_type, T0, T1>::PropertyBaseT> expat_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
 #endif
 {
   if(name == properties_.lexicalHandler)
@@ -534,8 +548,8 @@ std::auto_ptr<expat_wrapper<stringT, T0, T1>::PropertyBaseT> expat_wrapper<strin
   throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA::asStdString(name));    
 } // doGetProperty
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::doSetProperty(const stringT& name, std::auto_ptr<PropertyBaseT> value)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value)
 {
   if(name == properties_.lexicalHandler)
   {
@@ -564,32 +578,32 @@ void expat_wrapper<stringT, T0, T1>::doSetProperty(const stringT& name, std::aut
 } // doSetProperty
 
 // Locator implementation
-template<class stringT, class T0, class T1>
-stringT expat_wrapper<stringT, T0, T1>::getPublicId() const
+template<class string_type, class T0, class T1>
+string_type expat_wrapper<string_type, T0, T1>::getPublicId() const
 {
   return publicId_;
 } // getPublicId
 
-template<class stringT, class T0, class T1>
-stringT expat_wrapper<stringT, T0, T1>::getSystemId() const
+template<class string_type, class T0, class T1>
+string_type expat_wrapper<string_type, T0, T1>::getSystemId() const
 {
   return systemId_;
 } // getSystemId
 
-template<class stringT, class T0, class T1>
-int expat_wrapper<stringT, T0, T1>::getLineNumber() const
+template<class string_type, class T0, class T1>
+int expat_wrapper<string_type, T0, T1>::getLineNumber() const
 {
   return XML_GetCurrentLineNumber(parser_);
 } // getLineNumber
 
-template<class stringT, class T0, class T1>
-int expat_wrapper<stringT, T0, T1>::getColumnNumber() const
+template<class string_type, class T0, class T1>
+int expat_wrapper<string_type, T0, T1>::getColumnNumber() const
 {
   return XML_GetCurrentColumnNumber(parser_);
 } // getColumnNumber
 
-template<class stringT, class T0, class T1>
-typename SAX::NamespaceSupport<stringT, typename expat_wrapper<stringT, T0, T1>::string_adaptorT>::Parts expat_wrapper<stringT, T0, T1>::processName(const stringT& qName, bool isAttribute)
+template<class string_type, class T0, class T1>
+typename SAX::NamespaceSupport<string_type, typename expat_wrapper<string_type, T0, T1>::string_adaptor>::Parts expat_wrapper<string_type, T0, T1>::processName(const string_type& qName, bool isAttribute)
 {
   typename namespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
   if(SA::empty(p.URI) && !SA::empty(p.prefix))
@@ -597,8 +611,8 @@ typename SAX::NamespaceSupport<stringT, typename expat_wrapper<stringT, T0, T1>:
   return p;
 } // processName
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::reportError(const std::string& message, bool fatal)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::reportError(const std::string& message, bool fatal)
 {
   if(!errorHandler_)
     return;
@@ -614,8 +628,8 @@ void expat_wrapper<stringT, T0, T1>::reportError(const std::string& message, boo
     errorHandler_->error(e);
 } // reportError
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::checkNotParsing(const stringT& type, const stringT& name) const
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::checkNotParsing(const string_type& type, const string_type& name) const
 {
   if(parsing_)
   {
@@ -625,16 +639,16 @@ void expat_wrapper<stringT, T0, T1>::checkNotParsing(const stringT& type, const 
   } // if(parsing_)
 } // checkNotParsing
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::charHandler(const char* txt, int txtlen)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::charHandler(const char* txt, int txtlen)
 {
   if(!contentHandler_)
     return;
   contentHandler_->characters(SA::construct_from_utf8(txt, txtlen));
 } // charHandler
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char** atts)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const char** atts)
 {
   if(!contentHandler_)
     return;
@@ -647,7 +661,7 @@ void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char*
 
   // OK we're doing Namespaces
   nsSupport_.pushContext();
-  SAX::AttributesImpl<stringT> attributes;
+  SAX::AttributesImpl<string_type, string_adaptor> attributes;
 
   // take a first pass and copy all the attributes, noting any declarations
   if(atts && *atts != 0)
@@ -655,13 +669,13 @@ void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char*
     const char** a1 = atts;
     while(*a1 != 0)
     {
-      stringT attQName = SA::construct_from_utf8(*a1++);
-      stringT value = SA::construct_from_utf8(*a1++);
+      string_type attQName = SA::construct_from_utf8(*a1++);
+      string_type value = SA::construct_from_utf8(*a1++);
 
       // declaration?
       if(SA::find(attQName, nsc_.xmlns) == 0) 
       {
-        stringT prefix;
+        string_type prefix;
         typename SA::size_type n = SA::find(attQName, nsc_.colon);
         if(n != SA::npos())
           prefix = SA::construct(SA::begin(attQName) + n + 1, SA::end(attQName));
@@ -679,8 +693,8 @@ void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char*
 
     while(*atts != 0)
     {
-      stringT attQName = SA::construct_from_utf8(*atts++);
-      stringT value = SA::construct_from_utf8(*atts++);
+      string_type attQName = SA::construct_from_utf8(*atts++);
+      string_type value = SA::construct_from_utf8(*atts++);
 
       // declaration?
       if(SA::find(attQName, nsc_.xmlns) != 0) 
@@ -696,17 +710,17 @@ void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char*
   contentHandler_->startElement(name.URI, name.localName, name.rawName, attributes);
 } // startElement
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::startElementNoNS(const char* qName, const char** atts)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::startElementNoNS(const char* qName, const char** atts)
 {
-  SAX::AttributesImpl<stringT> attributes;
+  SAX::AttributesImpl<string_type, string_adaptor> attributes;
 
   if(atts && *atts != 0)
   {
     while(*atts != 0)
     {
-      stringT attQName = SA::construct_from_utf8(*atts++);
-      stringT value = SA::construct_from_utf8(*atts++);
+      string_type attQName = SA::construct_from_utf8(*atts++);
+      string_type value = SA::construct_from_utf8(*atts++);
 
       attributes.addAttribute(emptyString_, emptyString_, attQName, emptyString_, value);
     } // while ..
@@ -715,8 +729,8 @@ void expat_wrapper<stringT, T0, T1>::startElementNoNS(const char* qName, const c
   contentHandler_->startElement(emptyString_, emptyString_, SA::construct_from_utf8(qName), attributes);
 } // startElementNoNS
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::endElement(const char* qName)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::endElement(const char* qName)
 {
   if(!contentHandler_)
     return;
@@ -735,22 +749,22 @@ void expat_wrapper<stringT, T0, T1>::endElement(const char* qName)
   nsSupport_.popContext();
 } // endElement
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::endElementNoNS(const char* qName)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::endElementNoNS(const char* qName)
 {
   if(contentHandler_)
     contentHandler_->endElement(emptyString_, emptyString_, SA::construct_from_utf8(qName));    
 } // endElementNoNS
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::processingInstruction(const char* target, const char* data)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::processingInstruction(const char* target, const char* data)
 {
   if(contentHandler_)
     contentHandler_->processingInstruction(SA::construct_from_utf8(target), SA::construct_from_utf8(data));
 } // processingInstruction
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::elementDeclaration(const XML_Char* name,
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::elementDeclaration(const XML_Char* name,
                                          const XML_Content* model)
 {
   if(!declHandler_)
@@ -761,8 +775,8 @@ void expat_wrapper<stringT, T0, T1>::elementDeclaration(const XML_Char* name,
   declHandler_->elementDecl(SA::construct_from_utf8(name), SA::construct_from_utf8(os.str().c_str()));
 } // elementDeclaration
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::convertXML_Content(std::ostream& os, const XML_Content* model, bool isChild)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::convertXML_Content(std::ostream& os, const XML_Content* model, bool isChild)
 {
 /*
 enum XML_Content_Type {
@@ -871,8 +885,8 @@ struct XML_cp {
   } // switch
 } // convertXML_Content
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::attListDeclaration(const XML_Char* elname, 
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::attListDeclaration(const XML_Char* elname, 
                                      const XML_Char* attname,
                                      const XML_Char* att_type,
                                      const XML_Char* dflt,
@@ -887,7 +901,7 @@ void expat_wrapper<stringT, T0, T1>::attListDeclaration(const XML_Char* elname,
   default is non-NULL, then this is a "#FIXED" default. */
   if(declHandler_)
   {
-    const stringT* defType = &attrDefaults_.implied;
+    const string_type* defType = &attrDefaults_.implied;
     if(isrequired)
       defType = dflt ? &attrDefaults_.fixed : &attrDefaults_.required;
     declHandler_->attributeDecl(SA::construct_from_utf8(elname), 
@@ -898,8 +912,8 @@ void expat_wrapper<stringT, T0, T1>::attListDeclaration(const XML_Char* elname,
   }
 } // attListDeclaration
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::entityDeclaration(const XML_Char* entityName,
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::entityDeclaration(const XML_Char* entityName,
                            int is_parameter_entity,
                            const XML_Char* value,
                            int value_length,
@@ -919,7 +933,7 @@ void expat_wrapper<stringT, T0, T1>::entityDeclaration(const XML_Char* entityNam
    provided. The notationName argument will have a non-null value only
    for unparsed entity declarations. */
 
-  const stringT s_entityName(SA::construct_from_utf8(entityName));
+  const string_type s_entityName(SA::construct_from_utf8(entityName));
   if(!systemId && !publicId && !notationName)
   {
     // internal entity!
@@ -928,8 +942,8 @@ void expat_wrapper<stringT, T0, T1>::entityDeclaration(const XML_Char* entityNam
     return;
   } 
 
-  const stringT s_publicId(SA::construct_from_utf8(publicId));
-  const stringT s_systemId(SA::construct_from_utf8(systemId));
+  const string_type s_publicId(SA::construct_from_utf8(publicId));
+  const string_type s_systemId(SA::construct_from_utf8(systemId));
   if(notationName == 0)
   {
     if(declHandler_)
@@ -944,8 +958,8 @@ void expat_wrapper<stringT, T0, T1>::entityDeclaration(const XML_Char* entityNam
   } 
 } // entityDeclaration
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::notationDeclaration(const XML_Char* notationName,
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::notationDeclaration(const XML_Char* notationName,
                              const XML_Char* base,
                              const XML_Char* systemId,
                              const XML_Char* publicId)
@@ -957,8 +971,8 @@ void expat_wrapper<stringT, T0, T1>::notationDeclaration(const XML_Char* notatio
                             SA::construct_from_utf8(systemId));
 } // notationDeclaration
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::startDoctypeDecl(const XML_Char *doctypeName,
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::startDoctypeDecl(const XML_Char *doctypeName,
                           const XML_Char *systemId,
                           const XML_Char *publicId,
                           int has_internal_subset)
@@ -966,9 +980,9 @@ void expat_wrapper<stringT, T0, T1>::startDoctypeDecl(const XML_Char *doctypeNam
   if(!lexicalHandler_)
     return;
 
-  stringT s_publicId = SA::construct_from_utf8(publicId);
-  stringT s_systemId = SA::construct_from_utf8(systemId);
-  stringT dtd = SA::construct_from_utf8("[dtd]");
+  string_type s_publicId = SA::construct_from_utf8(publicId);
+  string_type s_systemId = SA::construct_from_utf8(systemId);
+  string_type dtd = SA::construct_from_utf8("[dtd]");
   declaredExternalEnts_.insert(std::make_pair(s_publicId, dtd));
   declaredExternalEnts_.insert(std::make_pair(s_systemId, dtd));
   lexicalHandler_->startDTD(SA::construct_from_utf8(doctypeName),
@@ -976,45 +990,45 @@ void expat_wrapper<stringT, T0, T1>::startDoctypeDecl(const XML_Char *doctypeNam
                             s_systemId);
 } // startDoctypeDecl
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::endDoctypeDecl()
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::endDoctypeDecl()
 {
   if(lexicalHandler_)
     lexicalHandler_->endDTD();
 } // endDoctypeDecl
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::startCdataSection()
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::startCdataSection()
 {
   if(lexicalHandler_)
     lexicalHandler_->startCDATA();
 } // startCdataSection
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::endCdataSection()
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::endCdataSection()
 {
   if(lexicalHandler_)
     lexicalHandler_->endCDATA();
 } // endCdataSection
 
-template<class stringT, class T0, class T1>
-void expat_wrapper<stringT, T0, T1>::commentHandler(const XML_Char *data)
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::commentHandler(const XML_Char *data)
 {
   if(lexicalHandler_)
     lexicalHandler_->comment(SA::construct_from_utf8(data));
 } // commentHandler
 
-template<class stringT, class T0, class T1>
-int expat_wrapper<stringT, T0, T1>::externalEntityRefHandler(XML_Parser parser, 
+template<class string_type, class T0, class T1>
+int expat_wrapper<string_type, T0, T1>::externalEntityRefHandler(XML_Parser parser, 
                                                                       const XML_Char* context,
                                                                       const XML_Char* base,
                                                                       const XML_Char* systemId,
                                                                       const XML_Char* publicId)
 {
-  stringT pubId(SA::construct_from_utf8(publicId));
-  stringT sysId(SA::construct_from_utf8(systemId));
+  string_type pubId(SA::construct_from_utf8(publicId));
+  string_type sysId(SA::construct_from_utf8(systemId));
 
-  stringT entityName;
+  string_type entityName;
   if(systemId)
     entityName = declaredExternalEnts_[sysId];
   else if(publicId)

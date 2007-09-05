@@ -18,6 +18,9 @@
 #include <SAX/ext/DeclHandler.hpp>
 #include <SAX/SAXNotSupportedException.hpp>
 
+#include <Utils/StringAdaptor.hpp>
+#include <Utils/getparam.hpp>
+
 namespace Arabica
 {
 namespace SAX
@@ -60,20 +63,23 @@ namespace SAX
  * @see helpers.ParserAdapter
  * @see helpers.XMLReaderAdapter 
  */
-template<class string_type>
+template<class string_type, class T0, class T1>
 class XMLReaderInterface
 {
 public:
-  typedef string_type stringT;
-  typedef EntityResolver<stringT> EntityResolverT;
-  typedef DTDHandler<stringT> DTDHandlerT;
-  typedef ContentHandler<stringT> ContentHandlerT;
-  typedef InputSource<stringT> InputSourceT;
-  typedef ErrorHandler<stringT> ErrorHandlerT;
-  typedef DeclHandler<stringT> DeclHandlerT;
-  typedef LexicalHandler<stringT> LexicalHandlerT;
+  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                             Arabica::default_string_adaptor<string_type>, 
+                             T0, 
+                             T1>::type string_adaptor;
+  typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
+  typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
+  typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;
+  typedef InputSource<string_type, string_adaptor> InputSourceT;
+  typedef ErrorHandler<string_type, string_adaptor> ErrorHandlerT;
+  typedef DeclHandler<string_type, string_adaptor> DeclHandlerT;
+  typedef LexicalHandler<string_type, string_adaptor> LexicalHandlerT;
 
-	virtual ~XMLReaderInterface() { }
+  virtual ~XMLReaderInterface() { }
 
   /////////////////////////////////////////////////
   // Configuration
@@ -127,7 +133,7 @@ public:
    * @return The current state of the feature (true or false).
    * @see #setFeature
    */
-  virtual bool getFeature(const stringT& name) const = 0;
+  virtual bool getFeature(const string_type& name) const = 0;
   /**
    * Set the state of a feature.
    *
@@ -157,7 +163,7 @@ public:
    * @see FeatureNames
    * @see http://www.saxproject.org/apidoc/org/xml/sax/package-summary.html#package_description for a list of SAX2 features.
    */
-  virtual void setFeature(const stringT& name, bool value) = 0;
+  virtual void setFeature(const string_type& name, bool value) = 0;
   
   /////////////////////////////////////////////////
   // Event Handlers
@@ -295,7 +301,7 @@ public:
    * @param systemId The system identifier (URI).
    * @see #parse(InputSource&)
    */
-  void parse(const stringT& systemId)
+  void parse(const string_type& systemId)
   {
     InputSourceT is(systemId);
     parse(is);
@@ -324,7 +330,7 @@ public:
    * @param input The input source for the top-level of the
    *        XML document.
    * @see InputSource
-   * @see #parse(const stringT&)
+   * @see #parse(const string_type&)
    * @see #setEntityResolver
    * @see #setDTDHandler
    * @see #setContentHandler
@@ -354,8 +360,8 @@ protected:
   }; // class Property
 
 public:
-  virtual std::auto_ptr<PropertyBase> doGetProperty(const stringT& name) = 0;
-  virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBase> value) = 0;
+  virtual std::auto_ptr<PropertyBase> doGetProperty(const string_type& name) = 0;
+  virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBase> value) = 0;
 
   /**
    * Look up the value of a property.
@@ -386,7 +392,7 @@ public:
    * @see #setProperty
    */
   template<typename propertyTypeT>
-  propertyTypeT& getProperty(const stringT& name) const
+  propertyTypeT& getProperty(const string_type& name) const
   {
     std::auto_ptr<PropertyBase> pb = doGetProperty(name);
     Property<propertyTypeT&>* prop = dynamic_cast<Property<propertyTypeT&>* >(pb.get());
@@ -426,7 +432,7 @@ public:
    *            cannot set the requested value.
    */
   template<typename propertyTypeT>
-  void setProperty(const stringT& name, propertyTypeT& value)
+  void setProperty(const string_type& name, propertyTypeT& value)
   {
     Property<propertyTypeT&>* prop = new Property<propertyTypeT&>(value);
     doSetProperty(name, std::auto_ptr<PropertyBase>(prop));

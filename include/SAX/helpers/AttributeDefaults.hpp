@@ -12,20 +12,17 @@ namespace Arabica
 namespace SAX
 {
 
-template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 struct AttributeDefaults
 {
-    typedef string_type stringT;
-    typedef string_adaptor_type string_adaptorT;
-  
-    const stringT required;
-    const stringT implied;
-    const stringT fixed;
+    const string_type required;
+    const string_type implied;
+    const string_type fixed;
 
     AttributeDefaults() :
-      required(string_adaptorT::construct_from_utf8("#REQUIRED")),
-      implied(string_adaptorT::construct_from_utf8("#IMPLIED")),
-      fixed(string_adaptorT::construct_from_utf8("#FIXED"))
+      required(string_adaptor::construct_from_utf8("#REQUIRED")),
+      implied(string_adaptor::construct_from_utf8("#IMPLIED")),
+      fixed(string_adaptor::construct_from_utf8("#FIXED"))
     {
     } // AttributeDefaults
 }; // struct AttributeDefaults

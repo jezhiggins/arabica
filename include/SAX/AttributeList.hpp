@@ -74,7 +74,7 @@ namespace SAX
  * @see DocumentHandler#startElement startElement
  * @see AttributeListImpl 
  */
-template<class string_type>
+template<class string_type, class string_adaptor>
 class AttributeList
 {
 public:

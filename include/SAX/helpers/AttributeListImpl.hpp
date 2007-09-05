@@ -13,21 +13,19 @@ namespace Arabica
 namespace SAX
 {
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class Attribute
 {
 public:
-  typedef string_type stringT;
-
-  Attribute(const stringT& name, const stringT& type, const stringT& value)
+  Attribute(const string_type& name, const string_adaptor& type, const string_adaptor& value)
 		: name_(name), type_(type), value_(value)
 	{}
 	virtual ~Attribute() { }
 
 public:
-	stringT name_;
-	const stringT& type_;
-	stringT value_;
+	string_type name_;
+	const string_type& type_;
+	string_type value_;
 };
 
 static const std::string empty_;
@@ -51,7 +49,7 @@ const std::string const types[] = { empty_, "CDATA", "ID", "IDREF", "IDREFS", "N
  * <pre>
  * private AttributeList myatts;
  *
- * void startElement(const stringT& name, const AttributeList& atts)
+ * void startElement(const string_type& name, const AttributeList& atts)
  * {
  *   // create a persistent copy of the attribute list
  *   // for use outside this method
@@ -80,8 +78,8 @@ const std::string const types[] = { empty_, "CDATA", "ID", "IDREF", "IDREFS", "N
  * @see AttributeList
  * @see DocumentHandler#startElement 
  */
-template<class stringT>
-class AttributeListImpl : public AttributeList<stringT>
+template<class string_type, class string_adaptor>
+class AttributeListImpl : public AttributeList<string_type, string_adaptor>
 {
 public:
   AttributeListImpl() : atts_() { }
@@ -134,9 +132,9 @@ public:
    * @see #removeAttribute
    * @see DocumentHandler#startElement
    */
-  void addAttribute(const stringT& name, const stringT& type, const stringT& value)
+  void addAttribute(const string_type& name, const string_adaptor& type, const string_adaptor& value)
   {
-	  atts_.push_back(new Attribute<stringT>(name, type, value)); // TV
+	  atts_.push_back(new Attribute<string_type, string_adaptor>(name, type, value)); // TV
   } // addAttribute
 
   /**
@@ -153,7 +151,7 @@ public:
    * @param name The attribute name.
    * @see #addAttribute
    */
-  void removeAttribute(const stringT& name)
+  void removeAttribute(const string_type& name)
   {
     int i = index(name);
 
@@ -203,7 +201,7 @@ public:
    *         is no attribute at that position.
    * @see AttributeList#getName(int)
    */
-  virtual const stringT& getName(int i) const
+  virtual const string_type& getName(int i) const
   {
 	  if(i > atts_.size())
 		  return empty_;
@@ -220,7 +218,7 @@ public:
    *         that position.
    * @see AttributeList#getType(int)
    */
-  virtual const stringT& getType(int i) const
+  virtual const string_type& getType(int i) const
   {
 	  if(i > atts_.size())
 		  return empty_;
@@ -235,7 +233,7 @@ public:
    *         there is no attribute at that position.
    * @see AttributeList#getValue(int)
    */
-  virtual const stringT& getValue(int i) const
+  virtual const string_type& getValue(int i) const
   {
 	  if(i > atts_.size())
 		  return empty_;
@@ -251,7 +249,7 @@ public:
    *         read).
    * @see AttributeList#getType(java.lang.String)
    */
-  virtual const stringT& getType(const stringT& name) const
+  virtual const string_type& getType(const string_adaptor& name) const
   {
 	  int i = index(name);
 	  return i < 0 ? empty_ : getType(i);
@@ -263,7 +261,7 @@ public:
    * @param name The attribute name.
    * @see AttributeList#getValue(java.lang.String)
    */
-  virtual const stringT& getValue(const stringT& name) const
+  virtual const string_type& getValue(const string_adaptor& name) const
   {
 	  int i = index(name);
 	  return i < 0 ? empty_ : getValue(i);
@@ -273,12 +271,12 @@ private:
   //////////////////////////////////////////////////////////////////////
   // Internal state.
   //////////////////////////////////////////////////////////////////////
-  std::vector<Attribute<stringT> *> atts_;
+  std::vector<Attribute<string_type, string_adaptor> *> atts_;
 
-  int index(const stringT& name) const
+  int index(const string_type& name) const
   {
 	  int i = 0, res = -1;
-	  std::vector<Attribute<stringT>*>::const_iterator iter;
+	  std::vector<Attribute<string_type, string_adaptor>*>::const_iterator iter;
 	  for (iter = atts_.begin() ; iter != atts_.end() ; i++, iter++)
 		  if ((*iter)->name_ == name) {
 			  res = i;

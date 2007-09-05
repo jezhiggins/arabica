@@ -28,8 +28,8 @@ namespace SAX
  * @see Attributes
  * @see Attributes2Impl
  */
-template<class string_type>
-class Attributes2 : public Attributes<string_type>
+template<class string_type, class string_adaptor>
+class Attributes2 : public Attributes<string_type, string_adaptor>
 {
 
 public:

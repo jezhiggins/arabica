@@ -36,28 +36,31 @@ namespace SAX
  * @see ContentHandler
  * @see ErrorHandler
  */
-template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
-class XMLFilterImpl : public XMLFilter<string_type>,
-                            public EntityResolver<string_type>, 
-                  					public DTDHandler<string_type>,
-					                  public ContentHandler<string_type>, 
-					                  public ErrorHandler<string_type>,
-                            public DeclHandler<string_type>,
-                            public LexicalHandler<string_type>
+template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
+class XMLFilterImpl : public XMLFilter<string_type, T0, T1>,
+                            public EntityResolver<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>, 
+                            public DTDHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>,
+                            public ContentHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>, 
+                            public ErrorHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>,
+                            public DeclHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>,
+                            public LexicalHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>
 {
 public:
-  typedef string_type stringT;
-  typedef string_adaptor_type string_adaptorT;
-  typedef XMLReaderInterface<stringT> XMLReaderT;
-  typedef EntityResolver<stringT> EntityResolverT;
-  typedef DTDHandler<stringT> DTDHandlerT;
-  typedef ContentHandler<stringT> ContentHandlerT;
-  typedef InputSource<stringT> InputSourceT;
-  typedef Locator<stringT> LocatorT;
-  typedef ErrorHandler<stringT> ErrorHandlerT;
-  typedef DeclHandler<stringT> DeclHandlerT;
-  typedef LexicalHandler<stringT> LexicalHandlerT;
-  typedef typename ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                             Arabica::default_string_adaptor<string_type>, 
+                             T0, 
+                             T1>::type string_adaptor;
+  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+  typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
+  typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
+  typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;
+  typedef InputSource<string_type, string_adaptor> InputSourceT;
+  typedef Locator<string_type, string_adaptor> LocatorT;
+  typedef ErrorHandler<string_type, string_adaptor> ErrorHandlerT;
+  typedef DeclHandler<string_type, string_adaptor> DeclHandlerT;
+  typedef LexicalHandler<string_type, string_adaptor> LexicalHandlerT;
+  typedef typename ErrorHandler<string_type, string_adaptor>::SAXParseExceptionT SAXParseExceptionT;
+  typedef DefaultHandler<string_type, string_adaptor> DefaultHandlerT;
 
 
   XMLFilterImpl() : 
@@ -113,13 +116,13 @@ public:
    *            cannot set the requested value.
    * @see XMLReader#setFeature
    */
-  virtual void setFeature(const stringT& name, bool value)
+  virtual void setFeature(const string_type& name, bool value)
   {
   	if(!parent_)
     {
-      stringT ex = string_adaptorT::construct_from_utf8("Feature: ");
-      string_adaptorT::append(ex, name);
-      throw SAXNotRecognizedException(string_adaptorT::asStdString(ex));
+      string_type ex = string_adaptor::construct_from_utf8("Feature: ");
+      string_adaptor::append(ex, name);
+      throw SAXNotRecognizedException(string_adaptor::asStdString(ex));
     } // if ...
 
     parent_->setFeature(name, value);
@@ -138,13 +141,13 @@ public:
    *            cannot determine its state at this time.
    * @see XMLReader#getFeature
    */
-  virtual bool getFeature(const stringT& name) const
+  virtual bool getFeature(const string_type& name) const
   {
   	if(!parent_)
     {
-      stringT ex = string_adaptorT::construct_from_utf8("Feature: ");
-      string_adaptorT::append(ex, name);
-      throw SAXNotRecognizedException(string_adaptorT::asStdString(ex));
+      string_type ex = string_adaptor::construct_from_utf8("Feature: ");
+      string_adaptor::append(ex, name);
+      throw SAXNotRecognizedException(string_adaptor::asStdString(ex));
     } // if ...
 
     return parent_->getFeature(name);
@@ -224,17 +227,17 @@ public:
     parent_->parse(input);
   } // parse
 
-  virtual std::auto_ptr<typename XMLReaderT::PropertyBase> doGetProperty(const stringT& name)
+  virtual std::auto_ptr<typename XMLReaderT::PropertyBase> doGetProperty(const string_type& name)
   {
    	if(parent_)
 	    return parent_->doGetProperty(name);
 
-    stringT ex = string_adaptorT::construct_from_utf8("Property: ");
-    string_adaptorT::append(ex, name);
-    throw SAXNotRecognizedException(string_adaptorT::asStdString(ex));
+    string_type ex = string_adaptor::construct_from_utf8("Property: ");
+    string_adaptor::append(ex, name);
+    throw SAXNotRecognizedException(string_adaptor::asStdString(ex));
   } // doGetProperty
 
-  virtual void doSetProperty(const stringT& name, typename std::auto_ptr<typename XMLReaderT::PropertyBase> value)
+  virtual void doSetProperty(const string_type& name, typename std::auto_ptr<typename XMLReaderT::PropertyBase> value)
   {
     if(parent_)
     {
@@ -242,9 +245,9 @@ public:
       return;
     } // if(parent_)
 
-    stringT ex = string_adaptorT::construct_from_utf8("Property: ");
-    string_adaptorT::append(ex, name);
-    throw SAXNotRecognizedException(string_adaptorT::asStdString(ex));
+    string_type ex = string_adaptor::construct_from_utf8("Property: ");
+    string_adaptor::append(ex, name);
+    throw SAXNotRecognizedException(string_adaptor::asStdString(ex));
   } // doSetProperty
 
 public:
@@ -259,7 +262,7 @@ public:
    *         <code>InputSourceT</code> for the default.
    * @see EntityResolver#resolveEntity
    */
-  virtual InputSourceT resolveEntity(const stringT& publicId, const stringT& systemId)
+  virtual InputSourceT resolveEntity(const string_type& publicId, const string_type& systemId)
   {
     if(entityResolver_)
       return entityResolver_->resolveEntity(publicId, systemId);
@@ -276,9 +279,9 @@ public:
    * @param systemId The notation's system identifier, or an empty string.
    * @see DTDHandler#notationDecl
    */
-  virtual void notationDecl(const stringT& name,
-                            const stringT& publicId,
-                            const stringT& systemId)
+  virtual void notationDecl(const string_type& name,
+                            const string_type& publicId,
+                            const string_type& systemId)
   {
     dtdHandler_->notationDecl(name, publicId, systemId);
   } // notationDecl
@@ -292,10 +295,10 @@ public:
    * @param notationName The name of the associated notation.
    * @see DTDHandler#unparsedEntityDecl
    */
-  virtual void unparsedEntityDecl(const stringT& name,
-	                                const stringT& publicId,
-                                  const stringT& systemId,
-                                  const stringT& notationName)
+  virtual void unparsedEntityDecl(const string_type& name,
+	                                const string_type& publicId,
+                                  const string_type& systemId,
+                                  const string_type& notationName)
   {
     dtdHandler_->unparsedEntityDecl(name, publicId, systemId, notationName);
   } // unparsedEntityDecl
@@ -340,7 +343,7 @@ public:
    * @param uri The Namespace URI.
    * @see ContentHandler#startPrefixMapping
    */
-  virtual void startPrefixMapping(const stringT& prefix, const stringT& uri) 
+  virtual void startPrefixMapping(const string_type& prefix, const string_type& uri) 
   { 
     contentHandler_->startPrefixMapping(prefix, uri);
   } // startPrefixMapping
@@ -351,7 +354,7 @@ public:
    * @param prefix The Namespace prefix.
    * @see ContentHandler#endPrefixMapping
    */
-  virtual void endPrefixMapping(const stringT& prefix) 
+  virtual void endPrefixMapping(const string_type& prefix) 
   { 
     contentHandler_->endPrefixMapping(prefix);
   } // endPrefixMapping
@@ -366,8 +369,8 @@ public:
    * @param atts The element's attributes.
    * @see ContentHandler#startElement
    */
-  virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName, const typename ContentHandlerT::AttributesT& atts) 
+  virtual void startElement(const string_type& namespaceURI, const string_type& localName,
+                            const string_type& qName, const typename ContentHandlerT::AttributesT& atts) 
   { 
     contentHandler_->startElement(namespaceURI, localName, qName, atts);
   } // startElement
@@ -381,8 +384,8 @@ public:
    *        string.
    * @see ContentHandler#endElement
    */
-  virtual void endElement(const stringT& namespaceURI, const stringT& localName,
-                          const stringT& qName) 
+  virtual void endElement(const string_type& namespaceURI, const string_type& localName,
+                          const string_type& qName) 
   { 
     contentHandler_->endElement(namespaceURI, localName, qName);
   }  // endElement
@@ -393,7 +396,7 @@ public:
    * @param ch The characters.
    * @see ContentHandler#characters
    */
-  virtual void characters(const stringT& ch) 
+  virtual void characters(const string_type& ch) 
   { 
     contentHandler_->characters(ch);
   } // characters
@@ -404,7 +407,7 @@ public:
    * @param ch The whitespace
    * @see ContentHandler#ignorableWhitespace
    */
-  virtual void ignorableWhitespace(const stringT& ch) 
+  virtual void ignorableWhitespace(const string_type& ch) 
   { 
     contentHandler_->ignorableWhitespace(ch);
   } // ignorableWhitespace
@@ -416,7 +419,7 @@ public:
    * @param data The text following the target.
    * @see ContentHandler#processingInstruction
    */
-  virtual void processingInstruction(const stringT& target, const stringT& data) 
+  virtual void processingInstruction(const string_type& target, const string_type& data) 
   { 
     contentHandler_->processingInstruction(target, data);
   } // processingInstruction
@@ -427,7 +430,7 @@ public:
    * @param name The name of the skipped entity.
    * @see ContentHandler#skippedEntity
    */
-  virtual void skippedEntity(const stringT& name) 
+  virtual void skippedEntity(const string_type& name) 
   { 
     contentHandler_->skippedEntity(name);
   } // skippedEntity
@@ -472,7 +475,7 @@ public:
   /**
    * Filter an element type declaration.
    */
-  virtual void elementDecl(const stringT& name, const stringT& model) 
+  virtual void elementDecl(const string_type& name, const string_type& model) 
   { 
     declHandler_->elementDecl(name, model);
   } // elementDecl
@@ -480,11 +483,11 @@ public:
   /**
    * Filter an attribute type declaration.
    */
-  virtual void attributeDecl(const stringT& elementName,
-                             const stringT& attributeName,
-                             const stringT& type,
-                             const stringT& valueDefault,
-                             const stringT& value) 
+  virtual void attributeDecl(const string_type& elementName,
+                             const string_type& attributeName,
+                             const string_type& type,
+                             const string_type& valueDefault,
+                             const string_type& value) 
   { 
     declHandler_->attributeDecl(elementName, attributeName, type, valueDefault, value);
   } // attributeDecl
@@ -492,7 +495,7 @@ public:
   /**
    * Filter an internal entity declaration.
    */
-  virtual void internalEntityDecl(const stringT& name, const stringT& value) 
+  virtual void internalEntityDecl(const string_type& name, const string_type& value) 
   { 
     declHandler_->internalEntityDecl(name, value);
   } // internalEntityDecl
@@ -500,9 +503,9 @@ public:
   /**
    * Filter a parsed external entity declaration.
    */
-  virtual void externalEntityDecl(const stringT& name, 
-                                  const stringT& publicId,
-                                  const stringT& systemId) 
+  virtual void externalEntityDecl(const string_type& name, 
+                                  const string_type& publicId,
+                                  const string_type& systemId) 
   { 
     declHandler_->externalEntityDecl(name, publicId, systemId);
   } // externalEntityDecl
@@ -512,9 +515,9 @@ public:
   /**
    * Filter the start of DTD declarations, if any.
    */
-  virtual void startDTD(const stringT& name,
-                        const stringT& publicId,
-                        const stringT& systemId) 
+  virtual void startDTD(const string_type& name,
+                        const string_type& publicId,
+                        const string_type& systemId) 
   { 
     lexicalHandler_->startDTD(name, publicId, systemId);
   } // startDTD
@@ -530,7 +533,7 @@ public:
   /**
    * Filter the beginning of some internal and external XML entities.
    */
-  virtual void startEntity(const stringT& name) 
+  virtual void startEntity(const string_type& name) 
   { 
     lexicalHandler_->startEntity(name);
   } // startEntity
@@ -538,7 +541,7 @@ public:
   /**
    * Filter the end of an entity.
    */
-  virtual void endEntity(const stringT& name) 
+  virtual void endEntity(const string_type& name) 
   { 
     lexicalHandler_->endEntity(name);
   } // endEntity
@@ -562,7 +565,7 @@ public:
   /**
    * Filter an XML comment anywhere in the document.
    */
-  virtual void comment(const stringT& text) 
+  virtual void comment(const string_type& text) 
   { 
     lexicalHandler_->comment(text);
   } // comment
@@ -599,7 +602,7 @@ private:
   ErrorHandlerT* errorHandler_;
   DeclHandlerT* declHandler_;
   LexicalHandlerT* lexicalHandler_;
-  DefaultHandler<stringT> defaultHandler_;
+  DefaultHandlerT defaultHandler_;
 }; // class XMLFilter
 
 } // namespace SAX

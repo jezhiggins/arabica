@@ -48,12 +48,11 @@ namespace SAX
  * @version 2.0
  * @see Locator Locator
  */
-template<class string_type>
-class LocatorImpl : public Locator<string_type>
+template<class string_type, class string_adaptor>
+class LocatorImpl : public Locator<string_type, string_adaptor>
 {
 public:
-  typedef string_type stringT;
-  typedef Locator<stringT> LocatorT;
+  typedef Locator<string_type, string_adaptor> LocatorT;
   
   LocatorImpl() : 
     publicId_(), 
@@ -75,10 +74,10 @@ public:
 
   LocatorImpl& operator=(const LocatorT& rhs)
   {
-  	publicId_ = rhs.getPublicId();
-  	systemId_ = rhs.getSystemId(); 
-  	lineNumber_ = rhs.getLineNumber();
-  	columnNumber_ = rhs.getColumnNumber();
+    publicId_ = rhs.getPublicId();
+    systemId_ = rhs.getSystemId(); 
+    lineNumber_ = rhs.getLineNumber();
+    columnNumber_ = rhs.getColumnNumber();
   } // operator=
 
   //////////////////////////////////////////////////////////////////////
@@ -91,7 +90,7 @@ public:
    * @see Locator#getPublicId
    * @see #setPublicId
    */
-  virtual stringT getPublicId() const { return publicId_; }
+  virtual string_type getPublicId() const { return publicId_; }
   /**
    * Return the saved system identifier.
    *
@@ -100,7 +99,7 @@ public:
    * @see Locator#getSystemId
    * @see #setSystemId
    */
-  virtual stringT getSystemId() const { return systemId_; }
+  virtual string_type getSystemId() const { return systemId_; }
   /**
    * Return the saved line number (1-based).
    *
@@ -127,7 +126,7 @@ public:
    *        if none is available.
    * @see #getPublicId
    */
-  void setPublicId(const stringT& publicId) { publicId_ = publicId; }
+  void setPublicId(const string_type& publicId) { publicId_ = publicId; }
   /**
    * Set the system identifier for this locator.
    *
@@ -135,7 +134,7 @@ public:
    *        if none is available.
    * @see #getSystemId
    */
-  void setSystemId(const stringT& systemId) { systemId_ = systemId; }
+  void setSystemId(const string_type& systemId) { systemId_ = systemId; }
   /**
    * Set the line number for this locator (1-based).
    *
@@ -154,8 +153,8 @@ public:
 private:
   //////////////////////////////////////////////////////////////////////
   // Internal state.
-  stringT publicId_;
-  stringT systemId_;
+  string_type publicId_;
+  string_type systemId_;
   int lineNumber_;
   int columnNumber_;
 

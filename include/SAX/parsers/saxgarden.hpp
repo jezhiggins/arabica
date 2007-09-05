@@ -24,28 +24,27 @@ namespace SAX
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class Garden : public XMLReaderInterface<string_type>
+class Garden : public XMLReaderInterface<string_type, T0, T1>
 {
 public:
-  typedef string_type stringT;
   typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
                              Arabica::default_string_adaptor<string_type>, 
                              T0, 
                              T1>::type string_adaptor_type;
-  typedef EntityResolver<stringT> EntityResolverT;
-  typedef DTDHandler<stringT> DTDHandlerT;
-  typedef ContentHandler<stringT> ContentHandlerT;
-  typedef InputSource<stringT> InputSourceT;
-  typedef AttributesImpl<stringT> AttributesImplT;
-  typedef ErrorHandler<stringT> ErrorHandlerT;
-  typedef DeclHandler<stringT> declHandlerT;
-  typedef LexicalHandler<stringT> lexicalHandlerT;
-  typedef typename XMLReaderInterface<stringT>::PropertyBase PropertyBase;
+  typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
+  typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
+  typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;
+  typedef InputSource<string_type, string_adaptor> InputSourceT;
+  typedef AttributesImpl<string_type, string_adaptor> AttributesImplT;
+  typedef ErrorHandler<string_type, string_adaptor> ErrorHandlerT;
+  typedef DeclHandler<string_type, string_adaptor> declHandlerT;
+  typedef LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
+  typedef typename XMLReaderInterface<string_type, string_adaptor>::PropertyBase PropertyBase;
 
   Garden();
 
-  virtual bool getFeature(const stringT& name) const;
-  virtual void setFeature(const stringT& name, bool value);
+  virtual bool getFeature(const string_type& name) const;
+  virtual void setFeature(const string_type& name, bool value);
 
   virtual void setEntityResolver(EntityResolverT& resolver) { entityResolver_ = &resolver; }
   virtual EntityResolverT* getEntityResolver() const { return entityResolver_; }
@@ -62,8 +61,8 @@ public:
 
   virtual void parse(InputSourceT& input);
 
-  virtual std::auto_ptr<PropertyBase> doGetProperty(const stringT& name);
-  virtual void doSetProperty(const stringT& name, std::auto_ptr<PropertyBase> value);
+  virtual std::auto_ptr<PropertyBase> doGetProperty(const string_type& name);
+  virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBase> value);
 
 private:
   void reportError(const std::string& message, bool fatal = false);
@@ -100,7 +99,7 @@ private:
                 CharRef, EntityRef, EncName, document_,
                 Name, Comment1, Spaces;
 
-  stringT str(iterator_t s, iterator_t e, int trim = 0);
+  string_type str(iterator_t s, iterator_t e, int trim = 0);
 
   //////////////////////////////
   // member variables
@@ -109,14 +108,14 @@ private:
   ContentHandlerT* contentHandler_;
   ErrorHandlerT* errorHandler_;
 
-  std::stack<stringT> elements_;
+  std::stack<string_type> elements_;
   AttributesImplT attrs_;
   typedef typename AttributesImplT::Attr Attr;
   Attr currentAttr_;
-  stringT piTarget_;
-  stringT piData_;
-  stringT entityRef_;
-  std::map<stringT, stringT> declaredEntities_;
+  string_type piTarget_;
+  string_type piData_;
+  string_type entityRef_;
+  std::map<string_type, stringT> declaredEntities_;
   std::map<char, int> conversion_;
 }; // parser
 
@@ -201,11 +200,11 @@ Garden<string_type, T0, T1>::Garden() :
 
 
   /////////////////
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("lt"), string_adaptor_type::construct("<")));
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("gt"), string_adaptor_type::construct(">")));
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("amp"), string_adaptor_type::construct("&")));
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("apos"), string_adaptor_type::construct("'")));
-  declaredEntities_.insert(std::make_pair<stringT, stringT>(string_adaptor_type::construct("quot"), string_adaptor_type::construct("\"")));
+  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("lt"), string_adaptor_type::construct("<")));
+  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("gt"), string_adaptor_type::construct(">")));
+  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("amp"), string_adaptor_type::construct("&")));
+  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("apos"), string_adaptor_type::construct("'")));
+  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("quot"), string_adaptor_type::construct("\"")));
 
   conversion_.insert(std::make_pair('0', 0));
   conversion_.insert(std::make_pair('1', 1));
@@ -234,13 +233,13 @@ Garden<string_type, T0, T1>::Garden() :
 //////////////////////////////////////
 // features
 template<class string_type, class T0, class T1>
-bool Garden<string_type, T0, T1>::getFeature(const stringT& name) const
+bool Garden<string_type, T0, T1>::getFeature(const string_type& name) const
 {
   throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
 } // getFeature
 
 template<class string_type, class T0, class T1>
-void Garden<string_type, T0, T1>::setFeature(const stringT& name, bool value)
+void Garden<string_type, T0, T1>::setFeature(const string_type& name, bool value)
 {
   throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
 } // setFeature
@@ -248,13 +247,13 @@ void Garden<string_type, T0, T1>::setFeature(const stringT& name, bool value)
 ///////////////////////////////////////
 // properties
 template<class string_type, class T0, class T1>
-std::auto_ptr<typename Garden<string_type, T0, T1>::PropertyBase> Garden<string_type, T0, T1>::doGetProperty(const stringT& name)
+std::auto_ptr<typename Garden<string_type, T0, T1>::PropertyBase> Garden<string_type, T0, T1>::doGetProperty(const string_type& name)
 {
   throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
 } // doGetProperty
 
 template<class string_type, class T0, class T1>
-void Garden<string_type, T0, T1>::doSetProperty(const stringT& name, std::auto_ptr<typename XMLReaderInterface<string_type>::PropertyBase> value)
+void Garden<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<typename XMLReaderInterface<string_type, T0, T1>::PropertyBase> value)
 {
   throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
 } // doSetProperty
@@ -326,7 +325,7 @@ void Garden<string_type, T0, T1>::closeEmptyElement(iterator_t s, iterator_t e)
 template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::endElementName(iterator_t s, iterator_t e)
 {
-  stringT name = str(s, e);
+  string_type name = str(s, e);
   if(name != elements_.top())
     reportError("Expect end element " + string_adaptor_type::asStdString(elements_.top()), true);
 } // endElementName
@@ -388,9 +387,9 @@ void Garden<string_type, T0, T1>::entityRef(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
   {
-    stringT name(str(s, e, 1));
+    string_type name(str(s, e, 1));
 
-    typedef typename std::map<stringT, stringT>::iterator entity_iterator;
+    typedef typename std::map<string_type, stringT>::iterator entity_iterator;
 
     entity_iterator ent = declaredEntities_.find(name);
     if(ent != declaredEntities_.end())
@@ -435,12 +434,12 @@ void Garden<string_type, T0, T1>::characterRef(iterator_t s, iterator_t e, int b
     next = *s;
   } 
 
-  contentHandler_->characters(string_adaptor_type::construct("?"));//stringT(1, val));
+  contentHandler_->characters(string_adaptor_type::construct("?"));//string_type(1, val));
 } // characterRef
 
 ///////////////////////////////  
 template<class string_type, class T0, class T1>
-typename Garden<string_type, T0, T1>::stringT Garden<string_type, T0, T1>::str(iterator_t s, iterator_t e, int trim)
+typename Garden<string_type, T0, T1>::string_type Garden<string_type, T0, T1>::str(iterator_t s, iterator_t e, int trim)
 {
   return string_adaptor_type::construct(s, e-trim);
 } // str
@@ -451,7 +450,7 @@ void Garden<string_type, T0, T1>::reportError(const std::string& message, bool f
   if(!errorHandler_)
     return;
   
-  SAX::SAXParseException<stringT> e(message);
+  SAX::SAXParseException<string_type> e(message);
 
   if(fatal)
     errorHandler_->fatalError(e);

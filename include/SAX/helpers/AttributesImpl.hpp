@@ -38,20 +38,19 @@ namespace SAX
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
  */
-template<class string_type>
-class AttributesImpl : public Attributes<string_type>
+template<class string_type, class string_adaptor>
+class AttributesImpl : public Attributes<string_type, string_adaptor>
 {
 public:
-  typedef string_type stringT;
-  typedef Attributes<stringT> AttributesT;
+  typedef Attributes<string_type, string_adaptor> AttributesT;
 
   struct Attr
   {
-    Attr(const stringT& uri, 
-         const stringT& localName, 
-         const stringT& qName, 
-         const stringT& type, 
-         const stringT& value) :
+    Attr(const string_type& uri, 
+         const string_type& localName, 
+         const string_type& qName, 
+         const string_type& type, 
+         const string_type& value) :
          uri_(uri), localName_(localName), qName_(qName), type_(type), value_(value) 
          { } 
     Attr() { }
@@ -66,11 +65,11 @@ public:
       return *this;
     } // operator=
 
-    stringT uri_;
-	  stringT localName_;
-	  stringT qName_;
-	  stringT type_;
-	  stringT value_;
+    string_type uri_;
+	  string_type localName_;
+	  string_type qName_;
+	  string_type type_;
+	  string_type value_;
   }; // Attr
 
   ////////////////////////////////////////////////////////////////////
@@ -102,7 +101,7 @@ public:
    *         available, or if the index is out of range.
    * @see Attributes#getURI
    */
-  virtual stringT getURI(unsigned int index) const
+  virtual string_type getURI(unsigned int index) const
   {
 	  if(index < attributes_.size())
       return attributes_[index].uri_;
@@ -117,7 +116,7 @@ public:
    *         none is available, or if the index if out of range.
    * @see Attributes#getLocalName
    */
-  virtual stringT getLocalName(unsigned int index) const
+  virtual string_type getLocalName(unsigned int index) const
   {
 	  if(index < attributes_.size())
       return attributes_[index].localName_;
@@ -133,7 +132,7 @@ public:
    *         none is available, or if the index is out of bounds.
    * @see Attributes#getQName
    */
-  virtual stringT getQName(unsigned int index) const
+  virtual string_type getQName(unsigned int index) const
   {
     if(index < attributes_.size())
       return attributes_[index].qName_;
@@ -149,7 +148,7 @@ public:
    *         string if the index is out of bounds.
    * @see Attributes#getType(int)
    */
-  virtual stringT getType(unsigned int index) const
+  virtual string_type getType(unsigned int index) const
   {
 	  if(index < attributes_.size())
 	    return attributes_[index].type_;
@@ -164,7 +163,7 @@ public:
    * @return The attribute's value or an empty string if the index is out of bounds.
    * @see Attributes#getValue(int)
    */
-  virtual stringT getValue(unsigned int index) const
+  virtual string_type getValue(unsigned int index) const
   {
 	  if(index < attributes_.size())
 	    return attributes_[index].value_;
@@ -183,9 +182,9 @@ public:
    *        string if none is available.
    * @param localName The attribute's local name.
    * @return The attribute's index, or -1 if none matches.
-   * @see Attributes#getIndex(const stringT&,const stringT&)
+   * @see Attributes#getIndex(const string_type&,const string_type&)
    */
-  virtual int getIndex(const stringT& uri, const stringT& localName) const
+  virtual int getIndex(const string_type& uri, const string_type& localName) const
   {
     typename AttrList::const_iterator a = std::find_if(attributes_.begin(), attributes_.end(), AttributeNamed(uri, localName));
     if(a != attributes_.end())
@@ -198,9 +197,9 @@ public:
    *
    * @param qName The qualified name.
    * @return The attribute's index, or -1 if none matches.
-   * @see Attributes#getIndex(const stringT&)
+   * @see Attributes#getIndex(const string_type&)
    */
-  virtual int getIndex(const stringT& qName) const
+  virtual int getIndex(const string_type& qName) const
   {
 	  size_t max = attributes_.size();
 	  for(size_t i = 0; i < max; ++i)
@@ -219,9 +218,9 @@ public:
    * @param localName The local name.
    * @return The attribute's type, or an empty string if there is no
    *         matching attribute.
-   * @see Attributes#getType(const stringT&,const stringT&)
+   * @see Attributes#getType(const string_type&,const string_type&)
    */
-  virtual stringT getType(const stringT& uri, const stringT& localName) const
+  virtual string_type getType(const string_type& uri, const string_type& localName) const
   {
     typename AttrList::const_iterator a = std::find_if(attributes_.begin(), attributes_.end(), AttributeNamed(uri, localName));
     if(a != attributes_.end())
@@ -235,9 +234,9 @@ public:
    * @param qName The qualified name.
    * @return The attribute's type, or an empty string if there is no
    *         matching attribute.
-   * @see Attributes#getType(const stringT&)
+   * @see Attributes#getType(const string_type&)
    */
-  virtual stringT getType(const stringT& qName) const
+  virtual string_type getType(const string_type& qName) const
   {
 	  size_t max = attributes_.size();
 	  for(size_t i = 0; i < max; ++i) 
@@ -256,9 +255,9 @@ public:
    * @param localName The local name.
    * @return The attribute's value, or an empty string if there is no
    *         matching attribute.
-   * @see Attributes#getValue(const stringT&,const stringT&)
+   * @see Attributes#getValue(const string_type&,const string_type&)
    */
-  virtual stringT getValue(const stringT& uri, const stringT& localName) const
+  virtual string_type getValue(const string_type& uri, const string_type& localName) const
   {
     typename AttrList::const_iterator a = std::find_if(attributes_.begin(), attributes_.end(), AttributeNamed(uri, localName));
     if(a != attributes_.end())
@@ -272,9 +271,9 @@ public:
    * @param qName The qualified name.
    * @return The attribute's value, or an empty string if there is no
    *         matching attribute.
-   * @see Attributes#getValue(const stringT&)
+   * @see Attributes#getValue(const string_type&)
    */
-  virtual stringT getValue(const stringT& qName) const
+  virtual string_type getValue(const string_type& qName) const
   {
 	  size_t max = attributes_.size();
 	  for(size_t i = 0; i < max; ++i) 
@@ -333,11 +332,11 @@ public:
    * @param type The attribute type as a string.
    * @param value The attribute value.
    */
-  void addAttribute(const stringT& uri, 
-                    const stringT& localName, 
-                    const stringT& qName,
-	 	                const stringT& type, 
-                    const stringT& value)
+  void addAttribute(const string_type& uri, 
+                    const string_type& localName, 
+                    const string_type& qName,
+	 	                const string_type& type, 
+                    const string_type& value)
   {
     attributes_.push_back(Attr(uri, localName, qName, type, value));
   } // addAttribute
@@ -360,11 +359,11 @@ public:
    * @param type The attribute type as a string.
    * @param value The attribute value.
    */
-  void addOrReplaceAttribute(const stringT& uri, 
-                             const stringT& localName, 
-                             const stringT& qName,
-	 	                         const stringT& type, 
-                             const stringT& value)
+  void addOrReplaceAttribute(const string_type& uri, 
+                             const string_type& localName, 
+                             const string_type& qName,
+	 	                         const string_type& type, 
+                             const string_type& value)
   {
     typename AttrList::iterator a = std::find_if(attributes_.begin(), attributes_.end(), AttributeNamed(uri, localName));
     if(a != attributes_.end())
@@ -398,11 +397,11 @@ public:
    *            in the list.
    */
   void setAttribute(unsigned int index,
-                    const stringT& uri, 
-                    const stringT& localName, 
-                    const stringT& qName,
-			              const stringT& type, 
-                    const stringT& value)
+                    const string_type& uri, 
+                    const string_type& localName, 
+                    const string_type& qName,
+			              const string_type& type, 
+                    const string_type& value)
   {
 	  if(index >= 0 && index < attributes_.size()) 
     {
@@ -443,7 +442,7 @@ public:
    *            supplied index does not point to an attribute
    *            in the list.
    */
-  void setURI(unsigned int index, const stringT& uri)
+  void setURI(unsigned int index, const string_type& uri)
   {
 	  if(index < attributes_.size())
       attributes_[index].uri_ = uri;
@@ -461,7 +460,7 @@ public:
    *            supplied index does not point to an attribute
    *            in the list.
    */
-  void setLocalName(unsigned int index, const stringT& localName)
+  void setLocalName(unsigned int index, const string_type& localName)
   {
 	  if(index < attributes_.size())
       attributes_[index].localName_ = localName;
@@ -479,7 +478,7 @@ public:
    *            supplied index does not point to an attribute
    *            in the list.
    */
-  void setQName(unsigned int index, const stringT& qName)
+  void setQName(unsigned int index, const string_type& qName)
   {
 	  if(index >= 0 && index < attributes_.size()) 
       attributes_[index].qName_ = qName;
@@ -496,7 +495,7 @@ public:
    *            supplied index does not point to an attribute
    *            in the list.
    */
-  void setType(unsigned int index, const stringT& type)
+  void setType(unsigned int index, const string_type& type)
   {
 	  if(index >= 0 && index < attributes_.size()) 
       attributes_[index].type_ = type;
@@ -513,7 +512,7 @@ public:
    *            supplied index does not point to an attribute
    *            in the list.
    */
-  void setValue(unsigned int index, const stringT& value)
+  void setValue(unsigned int index, const string_type& value)
   {
 	  if(index >= 0 && index < attributes_.size()) 
       attributes_[index].value_ = value;
@@ -536,7 +535,7 @@ private:
   class AttributeNamed
   {
   public:
-    AttributeNamed(const stringT& uri, const stringT& localName) :
+    AttributeNamed(const string_type& uri, const string_type& localName) :
         uri_(uri), localName_(localName) { }
     AttributeNamed(const AttributeNamed& rhs) :
         uri_(rhs.uri_), localName_(rhs.localName_) { }
@@ -548,8 +547,8 @@ private:
     } // operator()
 
   private:
-    const stringT& uri_;
-    const stringT& localName_;
+    const string_type& uri_;
+    const string_type& localName_;
 
     AttributeNamed& operator=(const AttributeNamed&);
     bool operator==(const AttributeNamed&) const;
@@ -558,7 +557,7 @@ private:
   typedef typename std::deque<Attr> AttrList;
   AttrList attributes_;
   
-  stringT emptyString_;
+  string_type emptyString_;
 }; // class AttributesImpl
 
 } // namespace SAX

@@ -8,6 +8,7 @@
 #include <SAX/Locator.hpp>
 #include <sstream>
 #include <Utils/convertstream.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace Arabica
 {
@@ -36,12 +37,11 @@ namespace SAX
  * @see Locator
  * @see ErrorHandler
  */
-template<class string_type>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class SAXParseException : public SAXException
 {
 public:
-  typedef string_type stringT;
-  typedef Locator<stringT> LocatorT;
+  typedef Locator<string_type, string_adaptor> LocatorT;
 
   SAXParseException(const std::string& message) :
     SAXException(message),
@@ -65,8 +65,8 @@ public:
   } // SAXParseException
 
   SAXParseException(const std::string& message,
-	                        const stringT& publicId, 
-                          const stringT& systemId,
+	                        const string_type& publicId, 
+                          const string_type& systemId,
                           int lineNumber, 
                           int columnNumber) :
     SAXException(message),
@@ -110,7 +110,7 @@ public:
    *         if none is available.
    * @see Locator#getPublicId
    */
-  const stringT& getPublicId() const { return publicId_; }
+  const string_type& getPublicId() const { return publicId_; }
   /**
    * Get the system identifier of the entity where the exception occurred.
    *
@@ -121,7 +121,7 @@ public:
    *         if none is available.
    * @see Locator#getSystemId
    */
-  const stringT& getSystemId() const { return systemId_; }
+  const string_type& getSystemId() const { return systemId_; }
   /**
    * The line number of the end of the text where the exception occurred.
    *
@@ -157,8 +157,8 @@ private:
 
   std::string msg_;
 
-  stringT publicId_;
-  stringT systemId_;
+  string_type publicId_;
+  string_type systemId_;
   int lineNumber_;
   int columnNumber_;
 

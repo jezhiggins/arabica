@@ -11,11 +11,11 @@ namespace Arabica
 {
 namespace SAX
 {
-template<class string_type>
-class CatchErrorHandler : public SAX::ErrorHandler<string_type>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class CatchErrorHandler : public SAX::ErrorHandler<string_type, string_adaptor>
 {
 public:
-  typedef SAX::SAXParseException<string_type> SAXParseExceptionT;
+  typedef SAX::SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
 
   CatchErrorHandler() : errors_() { }
   virtual ~CatchErrorHandler() { }

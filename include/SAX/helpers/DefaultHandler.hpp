@@ -16,6 +16,8 @@
 #include <SAX/ext/DeclHandler.hpp>
 #include <SAX/ext/LexicalHandler.hpp>
 
+#include <Utils/StringAdaptor.hpp>
+
 namespace Arabica
 {
 namespace SAX 
@@ -52,20 +54,19 @@ namespace SAX
  * @see ContentHandler
  * @see ErrorHandler
  */
-template<class string_type>
-class DefaultHandler : public EntityResolver<string_type>, 
-					public DTDHandler<string_type>,
-					public ContentHandler<string_type>, 
-					public ErrorHandler<string_type>, 
-					public LexicalHandler<string_type>,
-					public DeclHandler<string_type>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class DefaultHandler : public EntityResolver<string_type, string_adaptor>, 
+					public DTDHandler<string_type, string_adaptor>,
+					public ContentHandler<string_type, string_adaptor>, 
+					public ErrorHandler<string_type, string_adaptor>, 
+					public LexicalHandler<string_type, string_adaptor>,
+					public DeclHandler<string_type, string_adaptor>
 {
 public:
-  typedef string_type stringT;
-  typedef InputSource<stringT> InputSourceT;
-  typedef Locator<stringT> LocatorT;
-  typedef Attributes<stringT> AttributesT;
-  typedef SAXParseException<stringT> SAXParseExceptionT;
+  typedef InputSource<string_type, string_adaptor> InputSourceT;
+  typedef Locator<string_type, string_adaptor> LocatorT;
+  typedef Attributes<string_type, string_adaptor> AttributesT;
+  typedef SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
 
   DefaultHandler() { }
   virtual ~DefaultHandler() { }
@@ -90,7 +91,7 @@ public:
    * @exception SAXException Any SAX exception.
    * @see EntityResolver#resolveEntity
    */
-  virtual InputSourceT resolveEntity(const stringT& /* publicId */, const stringT& /* systemId */)
+  virtual InputSourceT resolveEntity(const string_type& /* publicId */, const string_type& /* systemId */)
   {
     return InputSourceT();
   } // resolveEntity
@@ -112,9 +113,9 @@ public:
    *            wrapping another exception.
    * @see DTDHandler#notationDecl
    */
-  virtual void notationDecl(const stringT& /* name */,
-                            const stringT& /* publicId */,
-                            const stringT& /* systemId */)
+  virtual void notationDecl(const string_type& /* name */,
+                            const string_type& /* publicId */,
+                            const string_type& /* systemId */)
   {
   } // notationDecl
 
@@ -134,10 +135,10 @@ public:
    *            wrapping another exception.
    * @see DTDHandler#unparsedEntityDecl
    */
-  virtual void unparsedEntityDecl(const stringT& /* name */,
-	                                const stringT& /* publicId */,
-                                  const stringT& /* systemId */,
-                                  const stringT& /* notationName */)
+  virtual void unparsedEntityDecl(const string_type& /* name */,
+	                                const string_type& /* publicId */,
+                                  const string_type& /* systemId */,
+                                  const string_type& /* notationName */)
   {
   } // unparsedEntityDecl
 
@@ -196,7 +197,7 @@ public:
    *            wrapping another exception.
    * @see ContentHandler#startPrefixMapping
    */
-  virtual void startPrefixMapping(const stringT& /* prefix */, const stringT& /* uri */) { }
+  virtual void startPrefixMapping(const string_type& /* prefix */, const string_type& /* uri */) { }
   /**
    * Receive notification of the end of a Namespace mapping.
    *
@@ -209,7 +210,7 @@ public:
    *            wrapping another exception.
    * @see ContentHandler#endPrefixMapping
    */
-  virtual void endPrefixMapping(const stringT& /* prefix */) { }
+  virtual void endPrefixMapping(const string_type& /* prefix */) { }
 
   /**
    * Receive notification of the start of an element.
@@ -232,8 +233,8 @@ public:
    *            wrapping another exception.
    * @see ContentHandler#startElement
    */
-  virtual void startElement(const stringT& /* namespaceURI */, const stringT& /* localName */,
-                            const stringT& /* qName */, const AttributesT& /* atts */) { }
+  virtual void startElement(const string_type& /* namespaceURI */, const string_type& /* localName */,
+                            const string_type& /* qName */, const AttributesT& /* atts */) { }
   /**
    * Receive notification of the end of an element.
    *
@@ -253,8 +254,8 @@ public:
    *            wrapping another exception.
    * @see ContentHandler#endElement
    */
-  virtual void endElement(const stringT& /* namespaceURI */, const stringT& /* localName */,
-                          const stringT& /* qName */) { }
+  virtual void endElement(const string_type& /* namespaceURI */, const string_type& /* localName */,
+                          const string_type& /* qName */) { }
 
   /**
    * Receive notification of character data inside an element.
@@ -269,7 +270,7 @@ public:
    *            wrapping another exception.
    * @see ContentHandler#characters
    */
-  virtual void characters(const stringT& /* ch */) { }
+  virtual void characters(const string_type& /* ch */) { }
   /**
    * Receive notification of ignorable whitespace in element content.
    *
@@ -283,7 +284,7 @@ public:
    *            wrapping another exception.
    * @see ContentHandler#ignorableWhitespace
    */
-  virtual void ignorableWhitespace(const stringT& /* ch */) { }
+  virtual void ignorableWhitespace(const string_type& /* ch */) { }
 
   /**
    * Receive notification of a processing instruction.
@@ -300,7 +301,7 @@ public:
    *            wrapping another exception.
    * @see ContentHandler#processingInstruction
    */
-  virtual void processingInstruction(const stringT& /* target */, const stringT& /* data */) { }
+  virtual void processingInstruction(const string_type& /* target */, const string_type& /* data */) { }
 
   /**
    * Receive notification of a skipped entity.
@@ -315,7 +316,7 @@ public:
    *            wrapping another exception.
    * @see ContentHandler#processingInstruction
    */
-  virtual void skippedEntity(const stringT& /* name */) { }
+  virtual void skippedEntity(const string_type& /* name */) { }
 
   /////////////////////////////////////////////////////
   // ErrorHandler
@@ -410,9 +411,9 @@ public:
    * @see #endDTD
    * @see #startEntity
    */
-  virtual void startDTD(const stringT& name,
-                        const stringT& publicId,
-                        const stringT& systemId) { } 
+  virtual void startDTD(const string_type& name,
+                        const string_type& publicId,
+                        const string_type& systemId) { } 
 
   /**
    * Report the end of DTD declarations.
@@ -473,14 +474,14 @@ public:
    * @see DeclHandler#internalEntityDecl
    * @see DeclHandler#externalEntityDecl 
    */
-  virtual void startEntity(const stringT& name) { }
+  virtual void startEntity(const string_type& name) { }
   /**
    * Report the end of an entity.
    *
    * @param name The name of the entity that is ending.
    * @see #startEntity
    */
-  virtual void endEntity(const stringT& name) { }
+  virtual void endEntity(const string_type& name) { }
 
   /**
    * Report the start of a CDATA section.
@@ -511,7 +512,7 @@ public:
    *
    * @param text A string holding the comment.
    */
-  virtual void comment(const stringT& text) { }
+  virtual void comment(const string_type& text) { }
 
   ////////////////////////////////////////////////////////////
   // DeclHandler
@@ -530,7 +531,7 @@ public:
    * @param name The element type name.
    * @param model The content model as a normalized string.
    */
-  virtual void elementDecl(const stringT& name, const stringT& model) { }
+  virtual void elementDecl(const string_type& name, const string_type& model) { }
   /**
    * Report an attribute type declaration.
    *
@@ -554,11 +555,11 @@ public:
    * @param value A string representing the attribute's default value,
    *        or empty string if there is none.
    */
-  virtual void attributeDecl(const stringT& elementName,
-                             const stringT& attributeName,
-                             const stringT& type,
-                             const stringT& valueDefault,
-                             const stringT& value) { }
+  virtual void attributeDecl(const string_type& elementName,
+                             const string_type& attributeName,
+                             const string_type& type,
+                             const string_type& valueDefault,
+                             const string_type& value) { }
   /**
    * Report an internal entity declaration.
    *
@@ -572,7 +573,7 @@ public:
    * @see #externalEntityDecl
    * @see DTDHandler#unparsedEntityDecl
    */
-  virtual void internalEntityDecl(const stringT& name, const stringT& value) { }
+  virtual void internalEntityDecl(const string_type& name, const string_type& value) { }
   /**
    * Report a parsed external entity declaration.
    *
@@ -587,9 +588,9 @@ public:
    * @see #internalEntityDecl
    * @see DTDHandler#unparsedEntityDecl
    */
-  virtual void externalEntityDecl(const stringT& name, 
-                                  const stringT& publicId,
-                                  const stringT& systemId) { }
+  virtual void externalEntityDecl(const string_type& name, 
+                                  const string_type& publicId,
+                                  const string_type& systemId) { }
 private:
   DefaultHandler(const DefaultHandler&);
   DefaultHandler& operator=(const DefaultHandler&);

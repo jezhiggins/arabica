@@ -51,15 +51,15 @@ namespace SAX
  * @see HandlerBase
  * @see InputSource
  */
-template<class string_type>
+template<class string_type, class string_adaptor>
 class Parser
 {
 public:
   typedef string_name stringT;
-  typedef EntityResolver<stringT> EntityResolverT;
-  typedef DTDHandler<stringT> DTDHandlerT;
-  typedef DocumentHandler<stringT> DocumentHandlerT;
-  typedef InputSource<stringT> InputSourceT;
+  typedef EntityResolver<string_type, string_adaptor>  EntityResolverT;
+  typedef DTDHandler<string_type, string_adaptor>  DTDHandlerT;
+  typedef DocumentHandler<string_type, string_adaptor>  DocumentHandlerT;
+  ypedef InputSource<string_type, string_adaptor>  InputSourceT;
 
   virtual ~Parser() { }
 

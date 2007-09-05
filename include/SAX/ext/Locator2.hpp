@@ -25,8 +25,8 @@ namespace SAX
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
  */
-template<class string_type>
-class Locator2 : public Locator<string_type>
+template<class string_type, class string_adaptor>
+class Locator2 : public Locator<string_type, string_adaptor>
 {
 public:
   typedef string_type stringT;

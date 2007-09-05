@@ -8,6 +8,8 @@
 #include <XML/UnicodeCharacters.hpp>
 #include <SAX/helpers/PropertyNames.hpp>
 #include <XML/escaper.hpp>
+#include <Utils/StringAdaptor.hpp>
+#include <Utils/getparam.hpp>
 #include <ostream>
 #include <algorithm>
 #include <typeinfo>
@@ -17,24 +19,27 @@ namespace Arabica
 namespace SAX 
 {
 
-template<class string_type>
-class Writer : public XMLFilterImpl<string_type>
+template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
+class Writer : public XMLFilterImpl<string_type, T0, T1>
 {
   public:
-    typedef string_type stringT;
-    typedef Writer<stringT> WriterT;
+  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                             Arabica::default_string_adaptor<string_type>, 
+                             T0, 
+                             T1>::type string_adaptor;
+    typedef Writer<string_type, string_adaptor> WriterT;
     typedef typename string_type::value_type charT;
     typedef typename string_type::traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
-    typedef XMLReaderInterface<stringT> XMLReaderT;
-    typedef XMLFilterImpl<stringT> XMLFilterT;
-    typedef typename XMLFilterImpl<stringT>::AttributesT AttributesT;
+    typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+    typedef XMLFilterImpl<string_type, T0, T1> XMLFilterT;
+    typedef typename XMLFilterImpl<string_type, T0, T1>::AttributesT AttributesT;
     typedef Arabica::Unicode<charT> UnicodeT;
     typedef Arabica::XML::text_escaper<charT, traitsT> text_escaperT;
     typedef Arabica::XML::attribute_escaper<charT, traitsT> attribute_escaperT;
   private:
-    typedef LexicalHandler<stringT> LexicalHandlerT;
-    typedef DeclHandler<stringT> DeclHandlerT;
+    typedef LexicalHandler<string_type, string_adaptor> LexicalHandlerT;
+    typedef DeclHandler<string_type, string_adaptor> DeclHandlerT;
     typedef typename XMLReaderT::InputSourceT InputSourceT;
     typedef typename XMLReaderT::PropertyBase PropertyBaseT;
     using XMLFilterT::getParent;
@@ -65,7 +70,7 @@ class Writer : public XMLFilterImpl<string_type>
     {
     } // Writer
 
-    Writer(ostreamT& stream, const stringT& encoding, unsigned int indent = 2) :
+    Writer(ostreamT& stream, const string_type& encoding, unsigned int indent = 2) :
       inCDATA_(false),
       inDTD_(false),
       internalSubset_(true),
@@ -77,7 +82,7 @@ class Writer : public XMLFilterImpl<string_type>
     {
     } // Writer
 
-    Writer(ostreamT& stream, XMLReaderT& parent, const stringT& encoding, unsigned int indent = 2) :
+    Writer(ostreamT& stream, XMLReaderT& parent, const string_type& encoding, unsigned int indent = 2) :
       XMLFilterT(parent),
       inCDATA_(false),
       inDTD_(false),
@@ -96,47 +101,47 @@ class Writer : public XMLFilterImpl<string_type>
     // NOTE:  This is merely a label.  The writer will not perform any transcoding.  It is 
     // your responsibility to ensure that the data is already properly encoded, or that the 
     // destination stream will perform any necessary transcoding.
-    void setEncoding(const stringT& encoding) { encoding_ = encoding; }
+    void setEncoding(const string_type& encoding) { encoding_ = encoding; }
 
   public:
     // ContentHandler
     virtual void startDocument();
     virtual void endDocument();
-    virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const AttributesT& atts);
-    virtual void endElement(const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName);
-    virtual void characters(const stringT& ch);
-    virtual void ignorableWhitespace(const stringT& ch);
-    virtual void processingInstruction(const stringT& target, const stringT& data);
-    virtual void skippedEntity(const stringT& name);
+    virtual void startElement(const string_type& namespaceURI, const string_type& localName,
+                              const string_type& qName, const AttributesT& atts);
+    virtual void endElement(const string_type& namespaceURI, const string_type& localName,
+                            const string_type& qName);
+    virtual void characters(const string_type& ch);
+    virtual void ignorableWhitespace(const string_type& ch);
+    virtual void processingInstruction(const string_type& target, const string_type& data);
+    virtual void skippedEntity(const string_type& name);
 
     // Lexical Handler
-    virtual void startDTD(const stringT& name, const stringT& publicId, const stringT& systemId);
+    virtual void startDTD(const string_type& name, const string_type& publicId, const string_type& systemId);
     virtual void endDTD();
-    virtual void startEntity(const stringT& name);
-    virtual void endEntity(const stringT& name);
+    virtual void startEntity(const string_type& name);
+    virtual void endEntity(const string_type& name);
     virtual void startCDATA();
     virtual void endCDATA();
-    virtual void comment(const stringT& text);
+    virtual void comment(const string_type& text);
 
     // DTD Handler
-    virtual void notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId);
-    virtual void unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName);
+    virtual void notationDecl(const string_type& name, const string_type& publicId, const string_type& systemId);
+    virtual void unparsedEntityDecl(const string_type& name, const string_type& publicId, const string_type& systemId, const string_type& notationName);
 
     // Decl Handler
-    virtual void elementDecl(const stringT& name, const stringT& model);
-    virtual void attributeDecl(const stringT& elementName, const stringT& attributeName,
-                               const stringT& type, const stringT& valueDefault, const stringT& value);
-    virtual void internalEntityDecl(const stringT& name, const stringT& value);
-    virtual void externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId);
+    virtual void elementDecl(const string_type& name, const string_type& model);
+    virtual void attributeDecl(const string_type& elementName, const string_type& attributeName,
+                               const string_type& type, const string_type& valueDefault, const string_type& value);
+    virtual void internalEntityDecl(const string_type& name, const string_type& value);
+    virtual void externalEntityDecl(const string_type& name, const string_type& publicId, const string_type& systemId);
 
   protected:
     /////////////////
-    void startEntityDecl(const stringT& name);
-    void publicAndSystem(const stringT& publicId, const stringT& systemId);
+    void startEntityDecl(const string_type& name);
+    void publicAndSystem(const string_type& publicId, const string_type& systemId);
     void doIndent();
-    bool isDtd(const stringT& name);
+    bool isDtd(const string_type& name);
 
   private:
     bool inCDATA_;
@@ -145,14 +150,14 @@ class Writer : public XMLFilterImpl<string_type>
     int indent_;
     int depth_;
     ostreamT* stream_;
-    stringT encoding_;
+    string_type encoding_;
     enum { startTag, endTag, docTag } lastTag_;
-    const SAX::PropertyNames<stringT> properties_;
+    const SAX::PropertyNames<string_type> properties_;
 
 }; // class Writer
 
-template<class string_type>
-void Writer<string_type>::startDocument()
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::startDocument()
 {
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::QUESTION_MARK
@@ -201,17 +206,17 @@ void Writer<string_type>::startDocument()
   lastTag_ = docTag;
 } // startDocument
 
-template<class string_type>
-void Writer<string_type>::endDocument()
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::endDocument()
 {
   XMLFilterT::endDocument();
   lastTag_ = endTag;
 } // endDocument
 
-template<class string_type>
-void Writer<string_type>::startElement(
-                              const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const AttributesT& atts)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::startElement(
+                              const string_type& namespaceURI, const string_type& localName,
+                              const string_type& qName, const AttributesT& atts)
 { 
   if((lastTag_ == startTag) && (indent_ > 0))
     *stream_ << UnicodeT::LINE_FEED;
@@ -224,7 +229,7 @@ void Writer<string_type>::startElement(
              << (!atts.getQName(i).empty() ? atts.getQName(i) : atts.getLocalName(i))
              << UnicodeT::EQUALS_SIGN
              << UnicodeT::QUOTATION_MARK;
-    stringT value = atts.getValue(i); 
+    string_type value = atts.getValue(i); 
     std::for_each(value.begin(), value.end(), attribute_escaperT(*stream_));
     *stream_ << UnicodeT::QUOTATION_MARK;
   }
@@ -236,10 +241,10 @@ void Writer<string_type>::startElement(
   XMLFilterT::startElement(namespaceURI, localName, qName, atts);
 } // startElement
 
-template<class string_type>
-void Writer<string_type>::endElement(
-                            const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::endElement(
+                            const string_type& namespaceURI, const string_type& localName,
+                            const string_type& qName)
 {
   depth_ -= indent_;
   if(lastTag_ == endTag)
@@ -255,8 +260,8 @@ void Writer<string_type>::endElement(
   XMLFilterT::endElement(namespaceURI, localName, qName);
 } // endElement
 
-template<class string_type>
-void Writer<string_type>::characters(const stringT& ch)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::characters(const string_type& ch)
 {
   if(!inCDATA_)
     std::for_each(ch.begin(), ch.end(), text_escaperT(*stream_));
@@ -266,16 +271,16 @@ void Writer<string_type>::characters(const stringT& ch)
   XMLFilterT::characters(ch);
 } // characters
 
-template<class string_type>
-void Writer<string_type>::ignorableWhitespace(const stringT& ch)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::ignorableWhitespace(const string_type& ch)
 {
   *stream_ << ch;
 
   XMLFilterT::ignorableWhitespace(ch);
 } // ignorableWhitespace
 
-template<class string_type>
-void Writer<string_type>::processingInstruction(const stringT& target, const stringT& data)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::processingInstruction(const string_type& target, const string_type& data)
 {
   if((!inDTD_) || (inDTD_ && internalSubset_))
   {
@@ -293,8 +298,8 @@ void Writer<string_type>::processingInstruction(const stringT& target, const str
   XMLFilterT::processingInstruction(target, data);
 } // processingInstruction
 
-template<class string_type>
-void Writer<string_type>::skippedEntity(const stringT& name)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::skippedEntity(const string_type& name)
 {
   if(!isDtd(name))
     *stream_ << UnicodeT::AMPERSAND << name << UnicodeT::SEMI_COLON;
@@ -302,15 +307,15 @@ void Writer<string_type>::skippedEntity(const stringT& name)
   XMLFilterT::skippedEntity(name);
 } // skippedEntity
 
-template<class string_type>
-void Writer<string_type>::doIndent()
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::doIndent()
 {
   for(int i = 0; i < depth_; ++i)
     *stream_ << UnicodeT::SPACE;
 } // doIndent
 
-template<class string_type>
-bool Writer<string_type>::isDtd(const string_type& name)
+template<class string_type, class T0, class T1>
+bool Writer<string_type, T0, T1>::isDtd(const string_type& name)
 {
   return (name.length() == 5 && 
      name[0] == UnicodeT::LEFT_SQUARE_BRACKET &&
@@ -320,8 +325,8 @@ bool Writer<string_type>::isDtd(const string_type& name)
      name[4] == UnicodeT::RIGHT_SQUARE_BRACKET);
 } // isDtd
 
-template<class string_type>
-void Writer<string_type>::startDTD(const stringT& name, const stringT& publicId, const stringT& systemId)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::startDTD(const string_type& name, const string_type& publicId, const string_type& systemId)
 {
   inDTD_ = true;
   depth_ += indent_;
@@ -347,8 +352,8 @@ void Writer<string_type>::startDTD(const stringT& name, const stringT& publicId,
   XMLFilterT::startDTD(name, publicId, systemId);
 } // startDTD
 
-template<class string_type>
-void Writer<string_type>::endDTD()
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::endDTD()
 {
   *stream_ << UnicodeT::RIGHT_SQUARE_BRACKET
            << UnicodeT::GREATER_THAN_SIGN
@@ -360,8 +365,8 @@ void Writer<string_type>::endDTD()
   XMLFilterT::endDTD();
 } // endDTD
 
-template<class string_type>
-void Writer<string_type>::startEntity(const stringT& name)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::startEntity(const string_type& name)
 {
   if(isDtd(name))
     internalSubset_ = false;
@@ -369,8 +374,8 @@ void Writer<string_type>::startEntity(const stringT& name)
   XMLFilterT::startEntity(name);
 } // startEntity
 
-template<class string_type>
-void Writer<string_type>::endEntity(const stringT& name)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::endEntity(const string_type& name)
 {
   if(isDtd(name))
     internalSubset_ = true;
@@ -378,8 +383,8 @@ void Writer<string_type>::endEntity(const stringT& name)
   XMLFilterT::endEntity(name);
 } // endEntity
 
-template<class string_type>
-void Writer<string_type>::startCDATA()
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::startCDATA()
 {
   inCDATA_ = true;
 
@@ -396,8 +401,8 @@ void Writer<string_type>::startCDATA()
   XMLFilterT::startCDATA();
 } // startCDATA
 
-template<class string_type>
-void Writer<string_type>::endCDATA()
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::endCDATA()
 {
   *stream_ << UnicodeT::RIGHT_SQUARE_BRACKET
            << UnicodeT::RIGHT_SQUARE_BRACKET
@@ -408,8 +413,8 @@ void Writer<string_type>::endCDATA()
   XMLFilterT::endCDATA();
 } // endCDATA
 
-template<class string_type>
-void Writer<string_type>::comment(const stringT& text)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::comment(const string_type& text)
 {
   if((!inDTD_) || (inDTD_ && internalSubset_))
     *stream_ << UnicodeT::LESS_THAN_SIGN
@@ -424,8 +429,8 @@ void Writer<string_type>::comment(const stringT& text)
   XMLFilterT::comment(text);
 } // comment
 
-template<class string_type>
-void Writer<string_type>::notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::notationDecl(const string_type& name, const string_type& publicId, const string_type& systemId)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -453,8 +458,8 @@ void Writer<string_type>::notationDecl(const stringT& name, const stringT& publi
   XMLFilterT::notationDecl(name, publicId, systemId);
 } // notationDecl
 
-template<class string_type>
-void Writer<string_type>::unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::unparsedEntityDecl(const string_type& name, const string_type& publicId, const string_type& systemId, const string_type& notationName)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -478,8 +483,8 @@ void Writer<string_type>::unparsedEntityDecl(const stringT& name, const stringT&
   XMLFilterT::unparsedEntityDecl(name, publicId, systemId, notationName);
 } // unparsedEntityDecl
 
-template<class string_type>
-void Writer<string_type>::elementDecl(const stringT& name, const stringT& model)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::elementDecl(const string_type& name, const string_type& model)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -506,9 +511,9 @@ void Writer<string_type>::elementDecl(const stringT& name, const stringT& model)
   XMLFilterT::elementDecl(name, model);
 } // elementDecl
 
-template<class string_type>
-void Writer<string_type>::attributeDecl(const stringT& elementName, const stringT& attributeName,
-                               const stringT& type, const stringT& valueDefault, const stringT& value)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::attributeDecl(const string_type& elementName, const string_type& attributeName,
+                               const string_type& type, const string_type& valueDefault, const string_type& value)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -547,8 +552,8 @@ void Writer<string_type>::attributeDecl(const stringT& elementName, const string
   XMLFilterT::attributeDecl(elementName, attributeName, type, valueDefault, value);
 } // attributeDecl
 
-template<class string_type>
-void Writer<string_type>::internalEntityDecl(const stringT& name, const stringT& value)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::internalEntityDecl(const string_type& name, const string_type& value)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -565,8 +570,8 @@ void Writer<string_type>::internalEntityDecl(const stringT& name, const stringT&
   XMLFilterT::internalEntityDecl(name, value);
 } // internalEntityDecl
 
-template<class string_type>
-void Writer<string_type>::externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::externalEntityDecl(const string_type& name, const string_type& publicId, const string_type& systemId)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -580,8 +585,8 @@ void Writer<string_type>::externalEntityDecl(const stringT& name, const stringT&
   XMLFilterT::externalEntityDecl(name, publicId, systemId);
 } // externalEntityDecl
 
-template<class string_type>
-void Writer<string_type>::startEntityDecl(const stringT& name)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::startEntityDecl(const string_type& name)
 {
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::EXCLAMATION_MARK
@@ -595,8 +600,8 @@ void Writer<string_type>::startEntityDecl(const stringT& name)
            << name;
 } // startEntityDecl
 
-template<class string_type>
-void Writer<string_type>::publicAndSystem(const stringT& publicId, const stringT& systemId)
+template<class string_type, class T0, class T1>
+void Writer<string_type, T0, T1>::publicAndSystem(const string_type& publicId, const string_type& systemId)
 {
   *stream_ << UnicodeT::SPACE;
 

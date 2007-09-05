@@ -1,4 +1,4 @@
-#ifndef ARABICA_SAX_FWD_H
+def ARABICA_SAX_FWD_H
 #define ARABICA_SAX_FWD_H
 
 // $Id$
@@ -73,15 +73,15 @@ namespace Arabica
 namespace SAX 
 {
 
-template<class string_type> class AttributeList;
-template<class string_type> class DocumentHandler;
-template<class string_type> class DTDHandler;
-template<class string_type> class EntityResolver;
-template<class string_type> class InputSource;
-template<class string_type> class Locator;
-template<class string_type> class Parser;
-template<class string_type> class SAXParseException;
-template<class string_type> class ErrorHandler;
+template<class string_type, class string_adaptor> class AttributeList;
+template<class string_type, class string_adaptor> class DocumentHandler;
+template<class string_type, class string_adaptor> class DTDHandler;
+template<class string_type, class string_adaptor> class EntityResolver;
+template<class string_type, class string_adaptor> class InputSource;
+template<class string_type, class string_adaptor> class Locator;
+template<class string_type, class string_adaptor> class Parser;
+template<class string_type, class string_adaptor> class SAXParseException;
+template<class string_type, class string_adaptor> class ErrorHandler;
 
 } // namespace SAX
 } // namespace Arabica

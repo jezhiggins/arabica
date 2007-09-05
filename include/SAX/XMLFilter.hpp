@@ -34,12 +34,15 @@ namespace SAX
   * @version 2.0
   * @see XMLFilterImpl
   */
-template<class string_type>
-class XMLFilter : public XMLReaderInterface<string_type>
+template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
+class XMLFilter : public XMLReaderInterface<string_type, T0, T1>
 {
 public:
-  typedef string_type stringT;
-  typedef XMLReaderInterface<stringT> XMLReaderT;
+  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                             Arabica::default_string_adaptor<string_type>, 
+                             T0, 
+                             T1>::type string_adaptor;
+  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
 
   virtual ~XMLFilter() { }
 
