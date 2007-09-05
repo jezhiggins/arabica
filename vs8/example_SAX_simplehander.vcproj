@@ -211,7 +211,7 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\examples\Sax\SimpleHandler.h"
+				RelativePath="..\examples\Sax\SimpleHandler.hpp"
 				>
 			</File>
 		</Filter>

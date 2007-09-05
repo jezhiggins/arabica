@@ -124,85 +124,85 @@
 				Name="SAX"
 				Filter="">
 				<File
-					RelativePath="..\include\Sax\AttributeList.h">
+					RelativePath="..\include\Sax\AttributeList.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\Attributes.h">
+					RelativePath="..\include\Sax\Attributes.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\ContentHandler.h">
+					RelativePath="..\include\Sax\ContentHandler.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\DocumentHandler.h">
+					RelativePath="..\include\Sax\DocumentHandler.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\DTDHandler.h">
+					RelativePath="..\include\Sax\DTDHandler.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\EntityResolver.h">
+					RelativePath="..\include\Sax\EntityResolver.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\ErrorHandler.h">
+					RelativePath="..\include\Sax\ErrorHandler.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\HandlerBase.h">
+					RelativePath="..\include\Sax\HandlerBase.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\InputSource.h">
+					RelativePath="..\include\Sax\InputSource.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\IStreamHandle.h">
+					RelativePath="..\include\Sax\IStreamHandle.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\Locator.h">
+					RelativePath="..\include\Sax\Locator.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\Parser.h">
+					RelativePath="..\include\Sax\Parser.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\ParserConfig.h">
+					RelativePath="..\include\Sax\ParserConfig.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\SAXException.h">
+					RelativePath="..\include\Sax\SAXException.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\saxfwd.h">
+					RelativePath="..\include\Sax\saxfwd.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\SAXNotRecognizedException.h">
+					RelativePath="..\include\Sax\SAXNotRecognizedException.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\SAXNotSupportedException.h">
+					RelativePath="..\include\Sax\SAXNotSupportedException.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\SAXParseException.h">
+					RelativePath="..\include\Sax\SAXParseException.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\XMLFilter.h">
+					RelativePath="..\include\Sax\XMLFilter.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Sax\XMLReader.h">
+					RelativePath="..\include\Sax\XMLReader.hpp">
 				</File>
 				<Filter
 					Name="ext"
 					Filter="">
 					<File
-						RelativePath="..\include\Sax\ext\Attributes2.h">
+						RelativePath="..\include\Sax\ext\Attributes2.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\ext\DeclHandler.h">
+						RelativePath="..\include\Sax\ext\DeclHandler.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\ext\DefaultHandler2.h">
+						RelativePath="..\include\Sax\ext\DefaultHandler2.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\ext\LexicalHandler.h">
+						RelativePath="..\include\Sax\ext\LexicalHandler.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\ext\Locator2.h">
+						RelativePath="..\include\Sax\ext\Locator2.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\ext\ProgressiveParser.h">
+						RelativePath="..\include\Sax\ext\ProgressiveParser.hpp">
 					</File>
 				</Filter>
 				<Filter
@@ -218,7 +218,7 @@
 						RelativePath="..\include\Sax\filter\TextOnly.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\filter\Writer.h">
+						RelativePath="..\include\Sax\filter\Writer.hpp">
 					</File>
 					<File
 						RelativePath="..\include\Sax\filter\XMLBaseTracker.hpp">
@@ -228,75 +228,75 @@
 					Name="helpers"
 					Filter="">
 					<File
-						RelativePath="..\include\Sax\helpers\AttributeDefaults.h">
+						RelativePath="..\include\Sax\helpers\AttributeDefaults.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\AttributeListImpl.h">
+						RelativePath="..\include\Sax\helpers\AttributeListImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\AttributesImpl.h">
+						RelativePath="..\include\Sax\helpers\AttributesImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\AttributeTypes.h">
+						RelativePath="..\include\Sax\helpers\AttributeTypes.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\CatchErrorHandler.h">
+						RelativePath="..\include\Sax\helpers\CatchErrorHandler.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\DefaultHandler.h">
+						RelativePath="..\include\Sax\helpers\DefaultHandler.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\FeatureNames.h">
+						RelativePath="..\include\Sax\helpers\FeatureNames.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\InputSourceResolver.h">
+						RelativePath="..\include\Sax\helpers\InputSourceResolver.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\LocatorImpl.h">
+						RelativePath="..\include\Sax\helpers\LocatorImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\NamespaceSupport.h">
+						RelativePath="..\include\Sax\helpers\NamespaceSupport.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\ParserAdaptor.h">
+						RelativePath="..\include\Sax\helpers\ParserAdaptor.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\PropertyNames.h">
+						RelativePath="..\include\Sax\helpers\PropertyNames.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\XMLBaseSupport.h">
+						RelativePath="..\include\Sax\helpers\XMLBaseSupport.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\XMLFilterImpl.h">
+						RelativePath="..\include\Sax\helpers\XMLFilterImpl.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="parsers"
 					Filter="">
 					<File
-						RelativePath="..\include\Sax\parsers\saxgarden.h">
+						RelativePath="..\include\Sax\parsers\saxgarden.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="wrappers"
 					Filter="">
 					<File
-						RelativePath="..\include\Sax\wrappers\saxexpat.h">
+						RelativePath="..\include\Sax\wrappers\saxexpat.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\wrappers\saxlibxml2.h">
+						RelativePath="..\include\Sax\wrappers\saxlibxml2.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\wrappers\saxmsxml2.h">
+						RelativePath="..\include\Sax\wrappers\saxmsxml2.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\wrappers\saxxerces.h">
+						RelativePath="..\include\Sax\wrappers\saxxerces.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\wrappers\XercesFeatureNames.h">
+						RelativePath="..\include\Sax\wrappers\XercesFeatureNames.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Sax\wrappers\XercesPropertyNames.h">
+						RelativePath="..\include\Sax\wrappers\XercesPropertyNames.hpp">
 					</File>
 				</Filter>
 			</Filter>
@@ -304,61 +304,61 @@
 				Name="DOM"
 				Filter="">
 				<File
-					RelativePath="..\include\Dom\Attr.h">
+					RelativePath="..\include\Dom\Attr.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\CDATASection.h">
+					RelativePath="..\include\Dom\CDATASection.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\CharacterData.h">
+					RelativePath="..\include\Dom\CharacterData.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\Comment.h">
+					RelativePath="..\include\Dom\Comment.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\Document.h">
+					RelativePath="..\include\Dom\Document.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\DocumentFragment.h">
+					RelativePath="..\include\Dom\DocumentFragment.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\DocumentType.h">
+					RelativePath="..\include\Dom\DocumentType.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\DOMException.h">
+					RelativePath="..\include\Dom\DOMException.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\DOMImplementation.h">
+					RelativePath="..\include\Dom\DOMImplementation.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\Element.h">
+					RelativePath="..\include\Dom\Element.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\Entity.h">
+					RelativePath="..\include\Dom\Entity.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\EntityReference.h">
+					RelativePath="..\include\Dom\EntityReference.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\NamedNodeMap.h">
+					RelativePath="..\include\Dom\NamedNodeMap.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\Node.h">
+					RelativePath="..\include\Dom\Node.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\NodeList.h">
+					RelativePath="..\include\Dom\NodeList.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\Notation.h">
+					RelativePath="..\include\Dom\Notation.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\ProcessingInstruction.h">
+					RelativePath="..\include\Dom\ProcessingInstruction.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\Proxy.h">
+					RelativePath="..\include\Dom\Proxy.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Dom\Text.h">
+					RelativePath="..\include\Dom\Text.hpp">
 				</File>
 				<Filter
 					Name="DualMode"
@@ -371,131 +371,131 @@
 					Name="Events"
 					Filter="">
 					<File
-						RelativePath="..\include\Dom\Events\DocumentEvent.h">
+						RelativePath="..\include\Dom\Events\DocumentEvent.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Events\Event.h">
+						RelativePath="..\include\Dom\Events\Event.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Events\EventException.h">
+						RelativePath="..\include\Dom\Events\EventException.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Events\EventListener.h">
+						RelativePath="..\include\Dom\Events\EventListener.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Events\EventTarget.h">
+						RelativePath="..\include\Dom\Events\EventTarget.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Events\MutationEvent.h">
+						RelativePath="..\include\Dom\Events\MutationEvent.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="SAX2DOM"
 					Filter="">
 					<File
-						RelativePath="..\include\Dom\Sax2dom\DocumentTypeImpl.h">
+						RelativePath="..\include\Dom\Sax2dom\DocumentTypeImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Sax2dom\SAX2DOM.h">
+						RelativePath="..\include\Dom\Sax2dom\SAX2DOM.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="Simple"
 					Filter="">
 					<File
-						RelativePath="..\include\Dom\Simple\AttrImpl.h">
+						RelativePath="..\include\Dom\Simple\AttrImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\AttrMap.h">
+						RelativePath="..\include\Dom\Simple\AttrMap.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\AttrNSImpl.h">
+						RelativePath="..\include\Dom\Simple\AttrNSImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\CDATASectionImpl.h">
+						RelativePath="..\include\Dom\Simple\CDATASectionImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\CharacterDataImpl.h">
+						RelativePath="..\include\Dom\Simple\CharacterDataImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\CommentImpl.h">
+						RelativePath="..\include\Dom\Simple\CommentImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\DocumentFragmentImpl.h">
+						RelativePath="..\include\Dom\Simple\DocumentFragmentImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\DocumentImpl.h">
+						RelativePath="..\include\Dom\Simple\DocumentImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\DocumentTypeImpl.h">
+						RelativePath="..\include\Dom\Simple\DocumentTypeImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\DOMImplementation.h">
+						RelativePath="..\include\Dom\Simple\DOMImplementation.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\ElementByTagImpl.h">
+						RelativePath="..\include\Dom\Simple\ElementByTagImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\ElementImpl.h">
+						RelativePath="..\include\Dom\Simple\ElementImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\ElementNSImpl.h">
+						RelativePath="..\include\Dom\Simple\ElementNSImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\EntityImpl.h">
+						RelativePath="..\include\Dom\Simple\EntityImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\EntityReferenceImpl.h">
+						RelativePath="..\include\Dom\Simple\EntityReferenceImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\Helpers.h">
+						RelativePath="..\include\Dom\Simple\Helpers.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\NamedNodeMapImpl.h">
+						RelativePath="..\include\Dom\Simple\NamedNodeMapImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\NodeImpl.h">
+						RelativePath="..\include\Dom\Simple\NodeImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\NotationImpl.h">
+						RelativePath="..\include\Dom\Simple\NotationImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\ProcessingInstructionImpl.h">
+						RelativePath="..\include\Dom\Simple\ProcessingInstructionImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Simple\TextImpl.h">
+						RelativePath="..\include\Dom\Simple\TextImpl.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="Traversal"
 					Filter="">
 					<File
-						RelativePath="..\include\Dom\Traversal\DocumentTraversal.h">
+						RelativePath="..\include\Dom\Traversal\DocumentTraversal.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Traversal\DocumentTraversalImpl.h">
+						RelativePath="..\include\Dom\Traversal\DocumentTraversalImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Traversal\NodeFilter.h">
+						RelativePath="..\include\Dom\Traversal\NodeFilter.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Traversal\NodeIterator.h">
+						RelativePath="..\include\Dom\Traversal\NodeIterator.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Traversal\TraversalImpl.h">
+						RelativePath="..\include\Dom\Traversal\TraversalImpl.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Traversal\TreeWalker.h">
+						RelativePath="..\include\Dom\Traversal\TreeWalker.hpp">
 					</File>
 					<File
-						RelativePath="..\include\Dom\Traversal\TreeWalkerImpl.h">
+						RelativePath="..\include\Dom\Traversal\TreeWalkerImpl.hpp">
 					</File>
 				</Filter>
 				<Filter
 					Name="Utils"
 					Filter="">
 					<File
-						RelativePath="..\include\Dom\Utils\Stream.h">
+						RelativePath="..\include\Dom\Utils\Stream.hpp">
 					</File>
 				</Filter>
 			</Filter>
@@ -585,46 +585,46 @@
 				Name="Utils"
 				Filter="">
 				<File
-					RelativePath="..\include\Utils\base64codecvt.h">
+					RelativePath="..\include\Utils\base64codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\codecvt_specialisations.h">
+					RelativePath="..\include\Utils\impl\codecvt_specialisations.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\convert_adaptor.h">
+					RelativePath="..\include\Utils\convert_adaptor.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\convertstream.h">
+					RelativePath="..\include\Utils\convertstream.hpp">
 				</File>
 				<File
 					RelativePath="..\include\Utils\getparam.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\iso88591_utf8.h">
+					RelativePath="..\include\Utils\impl\iso88591_utf8.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\iso88591utf8codecvt.h">
+					RelativePath="..\include\Utils\iso88591utf8codecvt.hpp">
 				</File>
 				<File
 					RelativePath="..\include\Utils\normalize_whitespace.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\rot13codecvt.h">
+					RelativePath="..\include\Utils\rot13codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\socket_stream.h">
+					RelativePath="..\include\Utils\socket_stream.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\StringAdaptor.h">
+					RelativePath="..\include\Utils\StringAdaptor.hpp">
 				</File>
 				<File
 					RelativePath="..\include\Utils\stringadaptortag.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\ucs2_utf16.h">
+					RelativePath="..\include\Utils\impl\ucs2_utf16.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\ucs2_utf8.h">
+					RelativePath="..\include\Utils\impl\ucs2_utf8.hpp">
 				</File>
 				<File
 					RelativePath="..\include\Utils\ucs2utf8codecvt.hpp">
@@ -633,22 +633,22 @@
 					RelativePath="..\include\Utils\uri.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf16beucs2codecvt.h">
+					RelativePath="..\include\Utils\utf16beucs2codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf16leucs2codecvt.h">
+					RelativePath="..\include\Utils\utf16leucs2codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf16utf8codecvt.h">
+					RelativePath="..\include\Utils\utf16utf8codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf8iso88591codecvt.h">
+					RelativePath="..\include\Utils\utf8iso88591codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf8ucs2codecvt.h">
+					RelativePath="..\include\Utils\utf8ucs2codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\VS6Workaround.h">
+					RelativePath="..\include\Utils\impl\VS6Workaround.hpp">
 				</File>
 			</Filter>
 			<Filter
@@ -658,10 +658,10 @@
 					RelativePath="..\include\Xml\escaper.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Xml\UnicodeCharacters.h">
+					RelativePath="..\include\Xml\UnicodeCharacters.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Xml\XMLCharacterClasses.h">
+					RelativePath="..\include\Xml\XMLCharacterClasses.hpp">
 				</File>
 			</Filter>
 		</Filter>
@@ -677,17 +677,17 @@
 					Name="Debug|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP -D USE_MSXML ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
+						CommandLine="cl /TC /EP -D USE_MSXML ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
 "
-						Outputs="..\include\SAX\ArabicaConfig.h"/>
+						Outputs="..\include\SAX\ArabicaConfig.hpp"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP -D USE_MSXML ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.h
+						CommandLine="cl /TC /EP -D USE_MSXML ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
 "
-						Outputs="..\include\SAX\ArabicaConfig.h"/>
+						Outputs="..\include\SAX\ArabicaConfig.hpp"/>
 				</FileConfiguration>
 			</File>
 			<Filter

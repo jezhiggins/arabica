@@ -152,7 +152,7 @@
 				RelativePath="..\tests\silly_string\silly_string.hpp">
 			</File>
 			<File
-				RelativePath="..\tests\Dom\test_Attribute.h">
+				RelativePath="..\tests\Dom\test_Attribute.hpp">
 			</File>
 			<File
 				RelativePath="..\tests\Dom\test_CDATA.hpp">
@@ -161,28 +161,28 @@
 				RelativePath="..\tests\Dom\test_CharacterData.hpp">
 			</File>
 			<File
-				RelativePath="..\tests\Dom\test_Document.h">
+				RelativePath="..\tests\Dom\test_Document.hpp">
 			</File>
 			<File
-				RelativePath="..\tests\Dom\test_DocumentFragment.h">
+				RelativePath="..\tests\Dom\test_DocumentFragment.hpp">
 			</File>
 			<File
-				RelativePath="..\tests\Dom\test_DocumentType.h">
+				RelativePath="..\tests\Dom\test_DocumentType.hpp">
 			</File>
 			<File
-				RelativePath="..\tests\Dom\test_DOMImplementation.h">
+				RelativePath="..\tests\Dom\test_DOMImplementation.hpp">
 			</File>
 			<File
-				RelativePath="..\tests\Dom\test_Element.h">
+				RelativePath="..\tests\Dom\test_Element.hpp">
 			</File>
 			<File
-				RelativePath="..\tests\Dom\test_ProcessingInstruction.h">
+				RelativePath="..\tests\Dom\test_ProcessingInstruction.hpp">
 			</File>
 			<File
 				RelativePath="..\tests\Dom\test_SAX2DOM.hpp">
 			</File>
 			<File
-				RelativePath="..\tests\Dom\test_Siblings.h">
+				RelativePath="..\tests\Dom\test_Siblings.hpp">
 			</File>
 			<File
 				RelativePath="..\tests\Dom\test_Text.hpp">
