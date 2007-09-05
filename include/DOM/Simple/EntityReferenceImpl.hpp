@@ -3,6 +3,8 @@
 
 #include <DOM/EntityReference.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -64,8 +66,8 @@ class EntityReferenceImpl : public DOM::EntityReference_impl<stringT>,
     stringT name_;
 }; // class EntityReferenceImpl
 
-
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

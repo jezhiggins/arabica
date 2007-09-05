@@ -7,6 +7,8 @@
 #include <DOM/Simple/DocumentTypeImpl.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -87,6 +89,7 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT>
 }; // class DOMImplementationImpl
 
 } // namespace Simple
+} // namespace Arabica
 
 #endif
 // end of file

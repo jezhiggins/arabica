@@ -3,13 +3,15 @@
 
 #include <DOM/Simple/DocumentTypeImpl.hpp>
 
+namespace Arabica
+{
 namespace SAX2DOM
 {
 
 template<class stringT, class string_adaptorT>
-class DocumentType : public SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT>
+class DocumentType : public Arabica::SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT>
 {
-    typedef SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT> BaseDT;
+    typedef Arabica::SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT> BaseDT;
   public:
     DocumentType(const stringT& qualifiedName,
                  const stringT& publicId,
@@ -22,30 +24,30 @@ class DocumentType : public SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT
 
     //////////////////////////////////////////////////////
     // DOM::DOMImplementation extensions
-    void addEntity(SimpleDOM::EntityImpl<stringT, string_adaptorT>* entity)
+    void addEntity(Arabica::SimpleDOM::EntityImpl<stringT, string_adaptorT>* entity)
     {
       BaseDT::addEntity(entity);
     } // addEntity
 
-    void addNotation(SimpleDOM::NotationImpl<stringT, string_adaptorT>* notation)
+    void addNotation(Arabica::SimpleDOM::NotationImpl<stringT, string_adaptorT>* notation)
     {
       BaseDT::addNotation(notation);
     } // addNotation
 
     void addElement(const stringT& name)
     {
-      BaseDT::addElement(new SimpleDOM::ElementImpl<stringT, string_adaptorT>(BaseDT::ownerDoc_, name));
+      BaseDT::addElement(new Arabica::SimpleDOM::ElementImpl<stringT, string_adaptorT>(BaseDT::ownerDoc_, name));
     } // addElement
 
     void addDefaultAttr(const stringT& elementName, const stringT& attributeName, const stringT& attributeValue)
     {
-      SimpleDOM::ElementImpl<stringT, string_adaptorT>* elem = dynamic_cast<SimpleDOM::ElementImpl<stringT, string_adaptorT>*>(BaseDT::getElements()->getNamedItem(elementName));
+      Arabica::SimpleDOM::ElementImpl<stringT, string_adaptorT>* elem = dynamic_cast<Arabica::SimpleDOM::ElementImpl<stringT, string_adaptorT>*>(BaseDT::getElements()->getNamedItem(elementName));
       if(elem == 0)
       {
         addElement(elementName);
-        elem = dynamic_cast<SimpleDOM::ElementImpl<stringT, string_adaptorT>*>(BaseDT::getElements()->getNamedItem(elementName));
+        elem = dynamic_cast<Arabica::SimpleDOM::ElementImpl<stringT, string_adaptorT>*>(BaseDT::getElements()->getNamedItem(elementName));
       }
-      SimpleDOM::AttrImpl<stringT, string_adaptorT>* attr = new SimpleDOM::AttrImpl<stringT, string_adaptorT>(BaseDT::ownerDoc_, attributeName);
+      Arabica::SimpleDOM::AttrImpl<stringT, string_adaptorT>* attr = new Arabica::SimpleDOM::AttrImpl<stringT, string_adaptorT>(BaseDT::ownerDoc_, attributeName);
       attr->setValue(attributeValue);
       attr->setSpecified(false);
       elem->setAttributeNode(attr);
@@ -58,6 +60,7 @@ class DocumentType : public SimpleDOM::DocumentTypeImpl<stringT, string_adaptorT
 }; // class DOMImplementation
 
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 // end of file

@@ -9,6 +9,8 @@
 
 #include <DOM/CharacterData.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 template<class stringT> class Text_impl;
@@ -54,6 +56,7 @@ class Text_impl : virtual public CharacterData_impl<stringT>
 }; // Text_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

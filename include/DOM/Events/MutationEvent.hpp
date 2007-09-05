@@ -3,6 +3,8 @@
 
 #include <DOM/Events/Event.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -102,6 +104,7 @@ class MutationEvent_impl : virtual public Event_impl<stringT>
 } // namespace Events
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 // end of file

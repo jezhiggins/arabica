@@ -4,6 +4,8 @@
 #include <DOM/Simple/ElementImpl.hpp>
 #include <DOM/Simple/Helpers.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -115,8 +117,8 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
     bool hasNamespaceURI_;
 }; // class ElementNSImpl
 
-
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

@@ -11,6 +11,8 @@
 #include <typeinfo>
 #include <algorithm>
 
+namespace Arabica
+{ 
 namespace DOM
 {
 
@@ -216,6 +218,7 @@ class Node_impl
 }; // class Node_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif // JEZUK_DOM_NODE_H
 // end of file

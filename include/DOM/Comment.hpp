@@ -9,6 +9,8 @@
 
 #include <DOM/CharacterData.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 template<class stringT> class Comment_impl;
@@ -35,7 +37,7 @@ class Comment_impl : virtual public CharacterData_impl<stringT>
     virtual ~Comment_impl() { }
 }; // Comment_impl
 
-
 } // namespace DOM
+} // namespace Arabica
 
 #endif

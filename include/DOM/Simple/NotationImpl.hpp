@@ -4,6 +4,8 @@
 #include <DOM/Notation.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -68,6 +70,7 @@ class NotationImpl : public DOM::Notation_impl<stringT>,
 
 
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

@@ -24,6 +24,8 @@
 #include <DOM/Traversal/DocumentTraversal.hpp>
 #include <DOM/Traversal/DocumentTraversalImpl.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -171,6 +173,7 @@ class Document_impl : virtual public Node_impl<stringT>
 }; // class Document_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

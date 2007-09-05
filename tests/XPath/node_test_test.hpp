@@ -11,22 +11,22 @@
 template<class string_type, class string_adaptor>
 class NodeTestTest : public TestCase
 {
-  DOM::DOMImplementation<string_type> factory_;
-  DOM::Document<string_type> document_;
+  Arabica::DOM::DOMImplementation<string_type> factory_;
+  Arabica::DOM::Document<string_type> document_;
 
-  DOM::Element<string_type> root_;
+  Arabica::DOM::Element<string_type> root_;
 
-  DOM::Element<string_type> element1_;
-  DOM::Element<string_type> element2_;
-  DOM::Element<string_type> element3_;
+  Arabica::DOM::Element<string_type> element1_;
+  Arabica::DOM::Element<string_type> element2_;
+  Arabica::DOM::Element<string_type> element3_;
 
-  DOM::Attr<string_type> attr_;
+  Arabica::DOM::Attr<string_type> attr_;
 
-  DOM::Text<string_type> text_;
+  Arabica::DOM::Text<string_type> text_;
 
-  DOM::Comment<string_type> comment_;
+  Arabica::DOM::Comment<string_type> comment_;
 
-  DOM::ProcessingInstruction<string_type> processingInstruction_;
+  Arabica::DOM::ProcessingInstruction<string_type> processingInstruction_;
 
   typedef string_adaptor SA;
 
@@ -37,7 +37,7 @@ public:
 
   void setUp()
   {
-    factory_ = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
     document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
@@ -218,17 +218,17 @@ public:
     impl::QNameNodeTest<string_type> test(SA::construct_from_utf8("http://example.com/test"), 
                                            SA::construct_from_utf8("one"));
 
-    DOM::Element<string_type> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+    Arabica::DOM::Element<string_type> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
                                                                SA::construct_from_utf8("ns:one"));
-    DOM::Element<string_type> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+    Arabica::DOM::Element<string_type> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
                                                                SA::construct_from_utf8("ttt:one"));
-    DOM::Element<string_type> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+    Arabica::DOM::Element<string_type> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
                                                                SA::construct_from_utf8("ns:two"));
-    DOM::Element<string_type> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+    Arabica::DOM::Element<string_type> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
                                                                SA::construct_from_utf8("ttt:two"));
-    DOM::Element<string_type> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), 
+    Arabica::DOM::Element<string_type> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), 
                                                                SA::construct_from_utf8("ns:one"));
-    DOM::Element<string_type> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), 
+    Arabica::DOM::Element<string_type> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), 
                                                                SA::construct_from_utf8("ttt:one"));
 
     assertTrue(test(e1_));
@@ -244,12 +244,12 @@ public:
     using namespace Arabica::XPath;
     impl::QStarNodeTest<string_type> test(SA::construct_from_utf8("http://example.com/test"));
 
-    DOM::Element<string_type> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:one"));
-    DOM::Element<string_type> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:one"));
-    DOM::Element<string_type> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:two"));
-    DOM::Element<string_type> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:two"));
-    DOM::Element<string_type> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), SA::construct_from_utf8("ns:one"));
-    DOM::Element<string_type> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), SA::construct_from_utf8("ttt:one"));
+    Arabica::DOM::Element<string_type> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:one"));
+    Arabica::DOM::Element<string_type> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:one"));
+    Arabica::DOM::Element<string_type> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:two"));
+    Arabica::DOM::Element<string_type> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:two"));
+    Arabica::DOM::Element<string_type> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), SA::construct_from_utf8("ns:one"));
+    Arabica::DOM::Element<string_type> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), SA::construct_from_utf8("ttt:one"));
 
     assertTrue(test(e1_));
     assertTrue(test(e2_));

@@ -9,6 +9,8 @@
 
 #include <DOM/Proxy.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -92,6 +94,7 @@ class DOMImplementation_impl
 }; // class DOMImplementation_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif // JEZUK_DOM_NODE_H
 // end of file

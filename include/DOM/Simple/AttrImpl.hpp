@@ -6,6 +6,8 @@
 #include <DOM/Simple/TextImpl.hpp>
 #include <DOM/Simple/DocumentTypeImpl.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -152,5 +154,6 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 }; // class CDATAImpl
 
 } // namespace SimpleDOM
+} // namespace Arabica
 
 #endif

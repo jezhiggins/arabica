@@ -175,7 +175,7 @@ public:
   } // test14
 
 private:
-  DOM::Node<string_type> dummy_;
+  Arabica::DOM::Node<string_type> dummy_;
 }; // ArithmeticTest
 
 template<class string_type, class string_adaptor>

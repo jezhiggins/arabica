@@ -7,6 +7,8 @@
 // $Id$
 /////////////////////////////////////////
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -36,6 +38,7 @@ class NodeFilter
 } // namespace Traversal
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif 
 // end of file

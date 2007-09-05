@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class PITest : public TestCase 
 {
-  DOM::DOMImplementation<string_type> factory;
+  Arabica::DOM::DOMImplementation<string_type> factory;
   typedef string_adaptor SA;
 
   public: 
@@ -21,13 +21,13 @@ class PITest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
+      factory = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void testNull() 
     {
-      DOM::ProcessingInstruction<string_type> d;
-      DOM::Node<string_type> n;
+      Arabica::DOM::ProcessingInstruction<string_type> d;
+      Arabica::DOM::Node<string_type> n;
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
@@ -35,8 +35,8 @@ class PITest : public TestCase
 
     void testCreate()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
 
       assert(p.getTarget() == SA::construct_from_utf8("target"));
       assert(p.getData() == SA::construct_from_utf8("data"));
@@ -49,10 +49,10 @@ class PITest : public TestCase
 
     void testConversion()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""),  0);
-      DOM::ProcessingInstruction<string_type> pi = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""),  0);
+      Arabica::DOM::ProcessingInstruction<string_type> pi = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
 
-      DOM::Node<string_type> n;
+      Arabica::DOM::Node<string_type> n;
 
       assert(n != pi);
 
@@ -60,20 +60,20 @@ class PITest : public TestCase
 
       assert(n == pi);
 
-      DOM::ProcessingInstruction<string_type> pi2;
+      Arabica::DOM::ProcessingInstruction<string_type> pi2;
 
       assert(n != pi2);
-      pi2 = DOM::ProcessingInstruction<string_type>(n);
+      pi2 = Arabica::DOM::ProcessingInstruction<string_type>(n);
       assert(pi == pi2);
       assert(n == pi2);
     } // testConverstion
 
     void testEverythingElse()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::ProcessingInstruction<string_type> pi = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::ProcessingInstruction<string_type> pi = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
 
-      assert(pi.getNodeType() == DOM::Node<string_type>::PROCESSING_INSTRUCTION_NODE);
+      assert(pi.getNodeType() == Arabica::DOM::Node<string_type>::PROCESSING_INSTRUCTION_NODE);
       assert(pi.hasAttributes() == false);
       assert(pi.getAttributes() == 0);
       assert(pi.getChildNodes() == 0);
@@ -81,9 +81,9 @@ class PITest : public TestCase
 
       try
       {
-        pi.appendChild(DOM::Node<string_type>());
+        pi.appendChild(Arabica::DOM::Node<string_type>());
       } 
-      catch(const DOM::DOMException&)
+      catch(const Arabica::DOM::DOMException&)
       {
       } 
 

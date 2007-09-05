@@ -13,16 +13,16 @@ class StepTest : public TestCase
 {
   typedef string_adaptor SA;
 
-  DOM::DOMImplementation<string_type> factory_;
-  DOM::Document<string_type> document_;
+  Arabica::DOM::DOMImplementation<string_type> factory_;
+  Arabica::DOM::Document<string_type> document_;
 
-  DOM::Element<string_type> root_;
+  Arabica::DOM::Element<string_type> root_;
 
-  DOM::Element<string_type> element1_;
-  DOM::Element<string_type> element2_;
-  DOM::Element<string_type> element3_;
+  Arabica::DOM::Element<string_type> element1_;
+  Arabica::DOM::Element<string_type> element2_;
+  Arabica::DOM::Element<string_type> element3_;
 
-  DOM::Attr<string_type> attr_;
+  Arabica::DOM::Attr<string_type> attr_;
 
 public:
   StepTest(const std::string& name) : TestCase(name)
@@ -31,7 +31,7 @@ public:
 
   void setUp()
   {
-    factory_ = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
     document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
@@ -75,13 +75,13 @@ public:
     NodeSet<string_type> set = step->evaluateAsNodeSet(element2_);
 
     assertEquals(4, set.size());
-    DOM::Attr<string_type> attr = static_cast<DOM::Attr<string_type> >(set[0]);
+    Arabica::DOM::Attr<string_type> attr = static_cast<Arabica::DOM::Attr<string_type> >(set[0]);
     assertTrue(attr.getNodeName() == SA::construct_from_utf8("one"));
-    attr = static_cast<DOM::Attr<string_type> >(set[1]);
+    attr = static_cast<Arabica::DOM::Attr<string_type> >(set[1]);
     assertTrue(attr.getNodeName() == SA::construct_from_utf8("two"));
-    attr = static_cast<DOM::Attr<string_type> >(set[2]);
+    attr = static_cast<Arabica::DOM::Attr<string_type> >(set[2]);
     assertTrue(attr.getNodeName() == SA::construct_from_utf8("three"));
-    attr = static_cast<DOM::Attr<string_type> >(set[3]);
+    attr = static_cast<Arabica::DOM::Attr<string_type> >(set[3]);
     assertTrue(attr.getNodeName() == SA::construct_from_utf8("four"));
   } // test2
 

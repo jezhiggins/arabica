@@ -3,6 +3,8 @@
 
 #include <DOM/CDATASection.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -54,6 +56,7 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
 }; // class CDATAImpl
 
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

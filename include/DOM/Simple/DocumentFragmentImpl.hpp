@@ -3,6 +3,8 @@
 
 #include <DOM/DocumentFragment.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -61,8 +63,8 @@ class DocumentFragmentImpl : public DOM::DocumentFragment_impl<stringT>,
     } // checkChildType
 }; // class DocumentFragmentImpl
 
-
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

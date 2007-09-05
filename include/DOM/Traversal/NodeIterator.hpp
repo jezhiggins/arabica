@@ -10,6 +10,8 @@
 #include <DOM/Traversal/NodeFilter.hpp>
 #include <DOM/Node.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -80,6 +82,7 @@ class NodeIterator_impl
 } // namespace Traversal
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif 
 // end of file

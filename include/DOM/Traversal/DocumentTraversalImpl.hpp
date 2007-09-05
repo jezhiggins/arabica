@@ -9,6 +9,8 @@
 
 #include <DOM/Traversal/TreeWalkerImpl.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 namespace Traversal
@@ -48,10 +50,9 @@ DocumentTraversal<stringT> make_document_traversal_t()
   return docTraversal;
 }
 
-
-
 } // namespace Traversal
 } // namespace DOM
+} // namespace Arabica
 
 #endif //JEZUK_DOM_TRAVERSAL_DOCUMENT_TRAVERSAL_IMPL_H
 // end of file

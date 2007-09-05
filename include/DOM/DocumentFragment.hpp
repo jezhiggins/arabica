@@ -10,6 +10,8 @@
 #include <DOM/Node.hpp>
 #include <typeinfo>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -38,6 +40,7 @@ class DocumentFragment_impl : virtual public Node_impl<stringT>
 }; // class DocumentFragment_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

@@ -24,7 +24,7 @@ public:
 
   void testParse()
   {
-    DOM::Node<string_type> dummy;
+    Arabica::DOM::Node<string_type> dummy;
     assertTrue(SA::construct_from_utf8("hello") == compileThis("hello")->evaluateAsString(dummy));
     assertTrue(SA::construct_from_utf8("") == compileThis("{hello}")->evaluateAsString(dummy));
     assertTrue(SA::construct_from_utf8("{hello}") == compileThis("{{hello}}")->evaluateAsString(dummy));

@@ -14,6 +14,8 @@
 
 //#include <iostream>
 
+namespace Arabica 
+{
 namespace SimpleDOM
 {
 
@@ -502,6 +504,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 }; // class NodeImplWithChildren
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif // JEZUK_DOM_NODE_H
 // end of file

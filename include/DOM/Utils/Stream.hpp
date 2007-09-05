@@ -12,7 +12,7 @@
 // exists for the DOM::Node's string_type.
 //
 // e.g.
-//  SAX2DOM::Parser<std::wstring> domParser;
+//  Arabica::SAX2DOM::Parser<std::wstring> domParser;
 //  SAX::wInputSource is;
 //  ... load instance from somewhere ...
 //  domParser.parse(is);
@@ -29,6 +29,8 @@
 #include <XML/UnicodeCharacters.hpp>
 #include <XML/escaper.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -302,4 +304,6 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
 } // operator<<
 
 } // namespace DOM
+} // namespace Arabica
+
 #endif

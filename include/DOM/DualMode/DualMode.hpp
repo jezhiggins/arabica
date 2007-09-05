@@ -4,16 +4,18 @@
 #include <DOM/SAX2DOM/SAX2DOM.h>
 #include <boost/function.hpp>
 
+namespace Arabica
+{
 namespace DualMode
 {
 template<class stringT, 
          class string_adaptorT = Arabica::default_string_adaptor<stringT>,
          class SAX_parser = Arabica::SAX::XMLReader<stringT, string_adaptorT> >
-class Parser : public SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser>
+class Parser : public Arabica::SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser>
 {
-    typedef SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser> BaseT;
+    typedef Arabica::SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser> BaseT;
   public:
-    typedef boost::function2<void, DOM::Node<stringT> &, DOM::Node<stringT> &> ElementHandlerT;
+    typedef boost::function2<void, Arabica::DOM::Node<stringT> &, Arabica::DOM::Node<stringT> &> ElementHandlerT;
 
     void setElementEndHandler(ElementHandlerT func)
     {
@@ -27,7 +29,7 @@ class Parser : public SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser>
       if(BaseT::currentNode() == 0)
         return;
 
-      DOM::Node<stringT> child(BaseT::currentNode());
+      Arabica::DOM::Node<stringT> child(BaseT::currentNode());
 
       BaseT::endElement(namespaceURI, localName, qName);
       
@@ -40,5 +42,6 @@ class Parser : public SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser>
 }; // class Parser
 
 } // namespace DualMode
+} // namespace Arabica
 
 #endif

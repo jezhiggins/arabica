@@ -9,6 +9,8 @@
 
 #include <DOM/Node.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -63,6 +65,7 @@ class NodeList_impl
 }; // class NodeList_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

@@ -10,7 +10,7 @@
 #include <XSLT/XSLT.hpp>
 
 void test_suite(int argc, const char* argv[]);
-DOM::Document<std::string> buildDOM(const std::string& xml);
+Arabica::DOM::Document<std::string> buildDOM(const std::string& xml);
 
 int main(int argc, const char* argv[])
 {
@@ -43,7 +43,7 @@ int main(int argc, const char* argv[])
 
     stylesheet->set_error_output(errors);
 
-    DOM::Document<std::string> document = buildDOM(argv[1]); 
+    Arabica::DOM::Document<std::string> document = buildDOM(argv[1]); 
     if(document == 0)
     {
       std::cerr << "Could not parse XML source" << std::endl;
@@ -62,10 +62,10 @@ int main(int argc, const char* argv[])
   return 0;
 } // main
 
-DOM::Document<std::string> buildDOM(const std::string& filename)
+Arabica::DOM::Document<std::string> buildDOM(const std::string& filename)
 {
   Arabica::SAX::InputSource is(filename);
-  SAX2DOM::Parser<std::string> parser;
+  Arabica::SAX2DOM::Parser<std::string> parser;
   parser.parse(is);       
 
   return parser.getDocument();

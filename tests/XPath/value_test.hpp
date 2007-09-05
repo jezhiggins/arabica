@@ -11,7 +11,7 @@ template<class string_type, class string_adaptor>
 class ValueTest : public TestCase
 {
 private:
-  DOM::Node<string_type> dummy_;
+  Arabica::DOM::Node<string_type> dummy_;
   typedef string_adaptor SA;
 
 public:

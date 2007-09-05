@@ -16,30 +16,30 @@ const std::string PATH_PREFIX=test_path;
 const std::string SEPERATOR = "/";
 #endif
   
-DOM::Document<std::string> buildDOM(const std::string& filename)
+Arabica::DOM::Document<std::string> buildDOM(const std::string& filename)
 {
   Arabica::SAX::InputSource is(filename);
-  SAX2DOM::Parser<std::string> parser;
+  Arabica::SAX2DOM::Parser<std::string> parser;
   parser.parse(is);       
 
-  DOM::Document<std::string> d = parser.getDocument();
+  Arabica::DOM::Document<std::string> d = parser.getDocument();
   if(d != 0)
     d.normalize();
   return d;
 } // buildDOM
 
-Arabica::XPath::NodeSet<std::string> selectNodes(const std::string& path, const DOM::Node<std::string>& node)
+Arabica::XPath::NodeSet<std::string> selectNodes(const std::string& path, const Arabica::DOM::Node<std::string>& node)
 {
   Arabica::XPath::XPath<std::string> xpath;
   return xpath.evaluate(path, node)->asNodeSet();
 } // selectNodes
 
-DOM::Node<std::string> selectNode(const std::string& path, const DOM::Node<std::string>& node)
+Arabica::DOM::Node<std::string> selectNode(const std::string& path, const Arabica::DOM::Node<std::string>& node)
 {
   return selectNodes(path, node)[0];
 } // selectNode
 
-std::string selectString(const std::string& path, const DOM::Node<std::string>& node)
+std::string selectString(const std::string& path, const Arabica::DOM::Node<std::string>& node)
 {
   Arabica::XPath::XPath<std::string> xpath;
   return xpath.evaluate_expr(path, node)->asString();
@@ -124,7 +124,7 @@ protected:
     std::ostringstream errors;
     stylesheet->set_error_output(errors);
 
-    DOM::Document<std::string> document = buildDOM(input_xml_); 
+    Arabica::DOM::Document<std::string> document = buildDOM(input_xml_); 
     try {
       stylesheet->execute(document);
     }
@@ -169,7 +169,7 @@ protected:
     std::ostringstream errors;
     stylesheet->set_error_output(errors);
 
-    DOM::Document<std::string> document = buildDOM(input_xml_); 
+    Arabica::DOM::Document<std::string> document = buildDOM(input_xml_); 
     try {
       stylesheet->execute(document);
     }
@@ -177,10 +177,10 @@ protected:
       assertImplementation(false, "Failed to run " + input_xslt_ + " : " + e.what());
     }
 
-    DOM::Document<std::string> ref = buildDOM(output_xml_);
+    Arabica::DOM::Document<std::string> ref = buildDOM(output_xml_);
     if(ref == 0)
       assertImplementation(false, "Couldn't read " + output_xml_ + ". Perhaps it isn't well-formed XML?");
-    DOM::Node<std::string> out = output.node();
+    Arabica::DOM::Node<std::string> out = output.node();
 
     std::string refs = docToString(ref.getFirstChild());
     std::string outs = docToString(out.getFirstChild());
@@ -196,19 +196,19 @@ protected:
     }
   } // runTest
 
-  std::string docToString(DOM::Node<std::string> node)
+  std::string docToString(Arabica::DOM::Node<std::string> node)
   {
     std::ostringstream ss;
     ss << node;
     return Arabica::string::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(ss.str());
   } // docToString
 
-  void stripWhitespace(DOM::Node<std::string> doc)
+  void stripWhitespace(Arabica::DOM::Node<std::string> doc)
   {
     Arabica::XPath::NodeSet<std::string> textNodes = selectNodes("//text()", doc);
     for(int i = 0; i != textNodes.size(); ++i)
     {
-      DOM::Node<std::string> t = textNodes[i];
+      Arabica::DOM::Node<std::string> t = textNodes[i];
       std::string text = t.getNodeValue();
       size_t index = text.find_first_of(" \n");
       while(index != std::string::npos)
@@ -230,7 +230,7 @@ class Expected
 public:
   Expected() 
   {
-    DOM::Document<std::string> fail_doc = buildDOM(PATH_PREFIX + "arabica-expected-fails.xml");
+    Arabica::DOM::Document<std::string> fail_doc = buildDOM(PATH_PREFIX + "arabica-expected-fails.xml");
     Arabica::XPath::NodeSet<std::string> failcases = selectNodes("/test-suite/test-case", fail_doc);
     for(int i = 0; i != failcases.size(); ++i)
     {
@@ -264,7 +264,7 @@ static Expected expected;
 
 TestSuite* XSLTTest_suite(const std::string& path)
 {
-  static DOM::Document<std::string> catalog = buildDOM(PATH_PREFIX  + "catalog.xml");
+  static Arabica::DOM::Document<std::string> catalog = buildDOM(PATH_PREFIX  + "catalog.xml");
   
   TestSuite *suiteOfTests = new TestSuite;
 

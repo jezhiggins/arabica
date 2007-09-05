@@ -13,27 +13,27 @@ template<class string_type, class string_adaptor>
 class ExpressionTest : public TestCase
 {
   Arabica::XPath::XPath<string_type> parser;
-  DOM::DOMImplementation<string_type> factory_;
-  DOM::Document<string_type> document_;
+  Arabica::DOM::DOMImplementation<string_type> factory_;
+  Arabica::DOM::Document<string_type> document_;
 
-  DOM::Element<string_type> root_;
+  Arabica::DOM::Element<string_type> root_;
 
-  DOM::Element<string_type> element1_;
-  DOM::Element<string_type> element2_;
-  DOM::Element<string_type> element3_;
-  DOM::Element<string_type> spinkle_;
+  Arabica::DOM::Element<string_type> element1_;
+  Arabica::DOM::Element<string_type> element2_;
+  Arabica::DOM::Element<string_type> element3_;
+  Arabica::DOM::Element<string_type> spinkle_;
 
-  DOM::Attr<string_type> attr_;
+  Arabica::DOM::Attr<string_type> attr_;
 
-  DOM::Text<string_type> text_;
+  Arabica::DOM::Text<string_type> text_;
 
-  DOM::Comment<string_type> comment_;
+  Arabica::DOM::Comment<string_type> comment_;
 
-  DOM::ProcessingInstruction<string_type> processingInstruction_;
+  Arabica::DOM::ProcessingInstruction<string_type> processingInstruction_;
 
-  DOM::Document<string_type> chapters_;
+  Arabica::DOM::Document<string_type> chapters_;
 
-  DOM::Document<string_type> numbers_;
+  Arabica::DOM::Document<string_type> numbers_;
 
   typedef string_adaptor SA;
 public:
@@ -43,7 +43,7 @@ public:
 
   void setUp()
   {
-    factory_ = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
     document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 

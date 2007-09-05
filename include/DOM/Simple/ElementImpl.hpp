@@ -6,6 +6,8 @@
 #include <DOM/Simple/ElementByTagImpl.hpp>
 #include <DOM/Simple/AttrMap.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -193,8 +195,8 @@ class ElementImpl : public DOM::Element_impl<stringT>,
     stringT const* tagName_;
 }; // class ElementImpl
 
-
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

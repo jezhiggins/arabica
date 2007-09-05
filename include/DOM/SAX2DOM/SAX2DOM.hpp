@@ -15,6 +15,8 @@
 #include <SAX/helpers/PropertyNames.hpp>
 #include <SAX/SAXParseException.hpp>
 
+namespace Arabica
+{
 namespace SAX2DOM
 {
 
@@ -28,9 +30,9 @@ class Parser : protected Arabica::SAX::basic_DefaultHandler<stringT>
     typedef Arabica::SAX::basic_LexicalHandler<stringT> LexicalHandlerT;
     typedef Arabica::SAX::basic_DeclHandler<stringT> DeclHandlerT;
     typedef Arabica::SAX::basic_InputSource<stringT> InputSourceT;
-    typedef SimpleDOM::EntityImpl<stringT, string_adaptorT> EntityT;
-    typedef SimpleDOM::NotationImpl<stringT, string_adaptorT> NotationT;
-    typedef SimpleDOM::ElementImpl<stringT, string_adaptorT> ElementT;
+    typedef Arabica::SimpleDOM::EntityImpl<stringT, string_adaptorT> EntityT;
+    typedef Arabica::SimpleDOM::NotationImpl<stringT, string_adaptorT> NotationT;
+    typedef Arabica::SimpleDOM::ElementImpl<stringT, string_adaptorT> ElementT;
     typedef typename Arabica::SAX::basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
   public:
@@ -78,7 +80,7 @@ class Parser : protected Arabica::SAX::basic_DefaultHandler<stringT>
     {
       Arabica::SAX::PropertyNames<stringT, string_adaptorT> pNames;
       
-      DOM::DOMImplementation<stringT> di = SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
+      DOM::DOMImplementation<stringT> di = Arabica::SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
       document_ = di.createDocument(string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), 0);
       currentNode_ = document_;
       inCDATA_ = false;
@@ -391,7 +393,8 @@ class Parser : protected Arabica::SAX::basic_DefaultHandler<stringT>
     } // unparsedEntityDecl
 }; // class Parser
 
-} // namespace
+} // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

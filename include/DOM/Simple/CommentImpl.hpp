@@ -4,6 +4,8 @@
 #include <DOM/Comment.hpp>
 #include <DOM/Simple/CharacterDataImpl.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -40,6 +42,7 @@ class CommentImpl : public DOM::Comment_impl<stringT>,
 }; // class CommentImpl
 
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

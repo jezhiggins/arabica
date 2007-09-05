@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
   } // if(argc < 2)
 
   { // narrow
-    SAX2DOM::Parser<std::string> domParser;
+    Arabica::SAX2DOM::Parser<std::string> domParser;
     Arabica::SAX::CatchErrorHandler<std::string> eh;
     domParser.setErrorHandler(eh);
 
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 
       if(!eh.errorsReported())
       {
-        DOM::Document<std::string> doc = domParser.getDocument();
+        Arabica::DOM::Document<std::string> doc = domParser.getDocument();
         doc.normalize();
         std::cout << doc;
      }
@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 
 /*
   { // wide
-    SAX2DOM::Parser<std::wstring> domParser;
+    SAX2Arabica::DOM::Parser<std::wstring> domParser;
 
     Arabica::SAX::wInputSource is;
     is.setSystemId(L"stdin");
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
 
     domParser.parse(is);
 
-    DOM::Document<std::wstring> doc = domParser.getDocument();
+    Arabica::DOM::Document<std::wstring> doc = domParser.getDocument();
 
     std::wcout << doc;
   }

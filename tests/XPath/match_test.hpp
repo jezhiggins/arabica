@@ -100,7 +100,7 @@ public:
 
   void testEvaluateDocMatch()
   {
-    DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
 
     assertTrue(applyMatch("/", doc));
 
@@ -111,7 +111,7 @@ public:
 
   void testDocElementMatch()
   {
-    DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
 
     assertTrue(applyMatch("doc", doc.getFirstChild()));
     assertTrue(applyMatch("doc[para]", doc.getFirstChild()));
@@ -135,7 +135,7 @@ public:
 
   void testDocElementNotMatch()
   {
-    DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
 
     assertFalse(applyMatch("para", doc.getFirstChild()));
     assertFalse(applyMatch("@*", doc.getFirstChild()));
@@ -152,9 +152,9 @@ public:
 
   void testAttributeMatch()
   {
-    DOM::Document<string_type> doc = parseXML("<doc><para id='woop' name='charlie'>hello</para></doc>");
-    DOM::Node<string_type> a1 = doc.getFirstChild().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("id"));
-    DOM::Node<string_type> a2 = doc.getFirstChild().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("name"));
+    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para id='woop' name='charlie'>hello</para></doc>");
+    Arabica::DOM::Node<string_type> a1 = doc.getFirstChild().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("id"));
+    Arabica::DOM::Node<string_type> a2 = doc.getFirstChild().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("name"));
 
     assertTrue(applyMatch("@id", a1));
     assertTrue(applyMatch("@*", a1));
@@ -184,8 +184,8 @@ public:
 
   void testCommentMatch()
   {
-    DOM::Document<string_type> doc = parseXML("<doc><para>hello</para><!-- woo --></doc>");
-    DOM::Node<string_type> comment = doc.getFirstChild().getLastChild();
+    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para><!-- woo --></doc>");
+    Arabica::DOM::Node<string_type> comment = doc.getFirstChild().getLastChild();
 
     assertFalse(applyMatch("comment()", doc));
     assertFalse(applyMatch("comment()", doc.getFirstChild()));
@@ -195,8 +195,8 @@ public:
 
   void testProcessingInstructionMatch()
   {
-    DOM::Document<string_type> doc = parseXML("<doc><para>hello</para><?target data?></doc>");
-    DOM::Node<string_type> pi = doc.getFirstChild().getLastChild();
+    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para><?target data?></doc>");
+    Arabica::DOM::Node<string_type> pi = doc.getFirstChild().getLastChild();
 
     assertFalse(applyMatch("processing-instruction()", doc));
     assertFalse(applyMatch("processing-instruction()", doc.getFirstChild()));
@@ -220,7 +220,7 @@ public:
     nsContext.addNamespaceDeclaration(SA::construct_from_utf8("bang"), SA::construct_from_utf8("bang"));
     parser.setNamespaceContext(nsContext);
 
-    DOM::Document<string_type> doc = parseXML("<bang:doc xmlns:bang='bang'><bang:para>hello</bang:para></bang:doc>");
+    Arabica::DOM::Document<string_type> doc = parseXML("<bang:doc xmlns:bang='bang'><bang:para>hello</bang:para></bang:doc>");
 
     assertFalse(applyMatch("bang:*", doc));
     assertTrue(applyMatch("bang:*", doc.getFirstChild()));
@@ -385,7 +385,7 @@ public:
     return matches;
   } // compileMatches
 
-  bool applyMatches(const char* match, const DOM::Node<string_type>& node)
+  bool applyMatches(const char* match, const Arabica::DOM::Node<string_type>& node)
   {
     compileMatches(match);
     for(unsigned int i = 0; i < matches.size(); ++i)
@@ -394,19 +394,19 @@ public:
     return false;
   } // applyMatches
 
-  bool applyMatch(const char* match, const DOM::Node<string_type>& node)
+  bool applyMatch(const char* match, const Arabica::DOM::Node<string_type>& node)
   {
     return compileMatch(match)->evaluateAsBool(node);
   } // applyMatch
 
-  DOM::Document<string_type> parseXML(const char* match)
+  Arabica::DOM::Document<string_type> parseXML(const char* match)
   {
     std::stringstream ss;
     ss << match;
 
     Arabica::SAX::basic_InputSource<string_type> is(ss);
     Arabica::SAX::CatchErrorHandler<string_type> eh;
-    SAX2DOM::Parser<string_type, string_adaptor> parser;
+    Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
     parser.setErrorHandler(eh);
     parser.parse(is);       
 

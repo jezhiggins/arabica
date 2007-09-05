@@ -9,6 +9,8 @@
 
 #include <DOM/Node.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -68,5 +70,6 @@ class Attr_impl : virtual public Node_impl<stringT>
 }; // class Attr_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif

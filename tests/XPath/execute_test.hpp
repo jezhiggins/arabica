@@ -65,7 +65,7 @@ public:
   TestFunction(const std::vector<Arabica::XPath::XPathExpressionPtr<string_type> >& args) :
       Arabica::XPath::XPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
-  virtual Arabica::XPath::XPathValue<string_type>* evaluate(const DOM::Node<string_type>& context, 
+  virtual Arabica::XPath::XPathValue<string_type>* evaluate(const Arabica::DOM::Node<string_type>& context, 
                                             const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type name = string_adaptor::construct_from_utf8("test-");
@@ -94,27 +94,27 @@ template<class string_type, class string_adaptor>
 class ExecuteTest : public TestCase
 {
   Arabica::XPath::XPath<string_type> parser;
-  DOM::DOMImplementation<string_type> factory_;
-  DOM::Document<string_type> document_;
+  Arabica::DOM::DOMImplementation<string_type> factory_;
+  Arabica::DOM::Document<string_type> document_;
 
-  DOM::Element<string_type> root_;
+  Arabica::DOM::Element<string_type> root_;
 
-  DOM::Element<string_type> element1_;
-  DOM::Element<string_type> element2_;
-  DOM::Element<string_type> element3_;
-  DOM::Element<string_type> spinkle_;
+  Arabica::DOM::Element<string_type> element1_;
+  Arabica::DOM::Element<string_type> element2_;
+  Arabica::DOM::Element<string_type> element3_;
+  Arabica::DOM::Element<string_type> spinkle_;
 
-  DOM::Attr<string_type> attr_;
+  Arabica::DOM::Attr<string_type> attr_;
 
-  DOM::Text<string_type> text_;
+  Arabica::DOM::Text<string_type> text_;
 
-  DOM::Comment<string_type> comment_;
+  Arabica::DOM::Comment<string_type> comment_;
 
-  DOM::ProcessingInstruction<string_type> processingInstruction_;
+  Arabica::DOM::ProcessingInstruction<string_type> processingInstruction_;
 
-  DOM::Document<string_type> chapters_;
+  Arabica::DOM::Document<string_type> chapters_;
 
-  DOM::Document<string_type> numbers_;
+  Arabica::DOM::Document<string_type> numbers_;
 
   typedef string_adaptor SA;
 public:
@@ -124,7 +124,7 @@ public:
 
   void setUp()
   {
-    factory_ = SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
     document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
@@ -182,7 +182,7 @@ public:
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    DOM::Node<string_type> n = result->asNodeSet()[0];
+    Arabica::DOM::Node<string_type> n = result->asNodeSet()[0];
     assertTrue(root_ == n);
   } // test1
 
@@ -194,7 +194,7 @@ public:
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    DOM::Node<string_type> n = result->asNodeSet()[0];
+    Arabica::DOM::Node<string_type> n = result->asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test2
 
@@ -341,7 +341,7 @@ public:
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    DOM::Node<string_type> n = result->asNodeSet()[0];
+    Arabica::DOM::Node<string_type> n = result->asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test12
 
@@ -414,7 +414,7 @@ public:
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());
-    DOM::Node<string_type> n = result->asNodeSet()[0];
+    Arabica::DOM::Node<string_type> n = result->asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test19
 
@@ -651,10 +651,10 @@ public:
   void test42()
   {
     using namespace Arabica::XPath;
-    DOM::Element<string_type> f1 = chapters_.createElement(SA::construct_from_utf8("footer"));
-    DOM::Element<string_type> f2 = chapters_.createElement(SA::construct_from_utf8("footer"));
+    Arabica::DOM::Element<string_type> f1 = chapters_.createElement(SA::construct_from_utf8("footer"));
+    Arabica::DOM::Element<string_type> f2 = chapters_.createElement(SA::construct_from_utf8("footer"));
     XPathValuePtr<string_type> ch = parser.evaluate(SA::construct_from_utf8("/document/chapter"), chapters_);
-    DOM::Node<string_type> n = ch->asNodeSet()[0];
+    Arabica::DOM::Node<string_type> n = ch->asNodeSet()[0];
     n.appendChild(f1);
     n = ch->asNodeSet()[1];
     n.appendChild(f2);
@@ -799,7 +799,7 @@ public:
   void testUnion11()
   {
     using namespace Arabica::XPath;
-    DOM::DocumentFragment<string_type> frag = document_.createDocumentFragment();
+    Arabica::DOM::DocumentFragment<string_type> frag = document_.createDocumentFragment();
     frag.appendChild(document_.createElement(SA::construct_from_utf8("foo")));
 
     NodeSetVariableResolver<string_type, string_adaptor> svr;
@@ -817,9 +817,9 @@ public:
   void testUnion12()
   {
     using namespace Arabica::XPath;
-    DOM::DocumentFragment<string_type> frag = document_.createDocumentFragment();
-    DOM::Node<string_type> n1 = document_.createElement(SA::construct_from_utf8("foo"));
-    DOM::Node<string_type> n2 = document_.createElement(SA::construct_from_utf8("bar"));
+    Arabica::DOM::DocumentFragment<string_type> frag = document_.createDocumentFragment();
+    Arabica::DOM::Node<string_type> n1 = document_.createElement(SA::construct_from_utf8("foo"));
+    Arabica::DOM::Node<string_type> n2 = document_.createElement(SA::construct_from_utf8("bar"));
 
     frag.appendChild(n1);
     frag.appendChild(n2);

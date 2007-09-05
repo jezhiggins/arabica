@@ -9,6 +9,8 @@
 
 #include <DOM/ImplProxy.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -68,6 +70,7 @@ class DocumentEvent_impl : virtual public DOM::Impl
 } // namespace Events
 
 } // namespace DOM 
+} // namespace Arabica
 
 #endif
 // end of file

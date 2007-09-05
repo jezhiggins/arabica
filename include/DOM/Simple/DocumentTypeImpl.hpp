@@ -5,6 +5,8 @@
 #include <DOM/Simple/NodeImpl.hpp>
 #include <vector>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 template<class stringT, class string_adaptorT> class ElementImpl;
@@ -124,7 +126,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
     } // getIDs
 
   protected:
-    void addEntity(SimpleDOM::EntityImpl<stringT, string_adaptorT>* entity)
+    void addEntity(Arabica::SimpleDOM::EntityImpl<stringT, string_adaptorT>* entity)
     {
       entities_.setReadOnly(false);
       entity->setOwnerDoc(NodeT::ownerDoc_);
@@ -132,7 +134,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
       entities_.setReadOnly(true);
     } // setEntity
 
-    void addNotation(SimpleDOM::NotationImpl<stringT, string_adaptorT>* notation)
+    void addNotation(Arabica::SimpleDOM::NotationImpl<stringT, string_adaptorT>* notation)
     {
       notations_.setReadOnly(false);
       notation->setOwnerDoc(NodeT::ownerDoc_);
@@ -140,7 +142,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
       notations_.setReadOnly(true);
     } // setNotation
 
-    void addElement(SimpleDOM::ElementImpl<stringT, string_adaptorT>* element)
+    void addElement(Arabica::SimpleDOM::ElementImpl<stringT, string_adaptorT>* element)
     {
       if(elements_.getNamedItem(element->getNodeName()) != 0)
       {
@@ -171,6 +173,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
 }; // class DOMImplementation
 
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 // end of file

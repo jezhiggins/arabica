@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class CDATATest : public TestCase 
 {
-  DOM::DOMImplementation<string_type> factory;
+  Arabica::DOM::DOMImplementation<string_type> factory;
   typedef string_adaptor SA;
 
   public: 
@@ -21,13 +21,13 @@ class CDATATest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
+      factory = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void testNull() 
     {
-      DOM::CDATASection<string_type> d;
-      DOM::Node<string_type> n;
+      Arabica::DOM::CDATASection<string_type> d;
+      Arabica::DOM::Node<string_type> n;
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
@@ -35,8 +35,8 @@ class CDATATest : public TestCase
 
     void testCreate()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
 
       assert(t.getData() == SA::construct_from_utf8("some data"));
       assert(t.getNodeName() == SA::construct_from_utf8("#cdata-section"));
@@ -48,32 +48,32 @@ class CDATATest : public TestCase
 
     void testConversion()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
 
-      DOM::Node<string_type> n;
+      Arabica::DOM::Node<string_type> n;
 
       assert(n != t);
 
       n = t;
       assert(n == t);
 
-      DOM::CDATASection<string_type> t2;
+      Arabica::DOM::CDATASection<string_type> t2;
 
       assert(n != t2);
 
-      t2 = DOM::CDATASection<string_type>(n);
+      t2 = Arabica::DOM::CDATASection<string_type>(n);
       assert(t == t2);
       assert(n == t2);
 
-      DOM::CDATASection<string_type> t3;
+      Arabica::DOM::CDATASection<string_type> t3;
       t3 = t2;
       assert(t3 == t2);
       assert(t3 == t);
 
-      DOM::Comment<string_type> c = d.createComment(SA::construct_from_utf8("woo"));
+      Arabica::DOM::Comment<string_type> c = d.createComment(SA::construct_from_utf8("woo"));
       try {
-        t = DOM::CDATASection<string_type>(c);
+        t = Arabica::DOM::CDATASection<string_type>(c);
         assertImplementation(false, "converted comment to text");
       } 
       catch(const std::bad_cast&) {
@@ -82,18 +82,18 @@ class CDATATest : public TestCase
 
     void testConversionToText()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      DOM::CDATASection<string_type> cd = d.createCDATASection(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::CDATASection<string_type> cd = d.createCDATASection(SA::construct_from_utf8("some data"));
 
-      DOM::Text<string_type> t;
+      Arabica::DOM::Text<string_type> t;
       assert(t == 0);
       assert(cd != t);
       t = cd;
       assert(cd == t);
 
-      DOM::CDATASection<string_type> cd2;
+      Arabica::DOM::CDATASection<string_type> cd2;
       assert(cd2 == 0);
-      cd2 = DOM::CDATASection<string_type>(t);
+      cd2 = Arabica::DOM::CDATASection<string_type>(t);
       assert(cd2 == t);
       assert(t == cd2);
       assert(cd == cd2);
@@ -101,7 +101,7 @@ class CDATATest : public TestCase
 
       t = d.createTextNode(SA::construct_from_utf8("boom"));
       try {
-        cd = DOM::CDATASection<string_type>(t);
+        cd = Arabica::DOM::CDATASection<string_type>(t);
         assertImplementation(false, "converted text to CDATA");
       } 
       catch(const std::bad_cast&) {
@@ -110,10 +110,10 @@ class CDATATest : public TestCase
 
     void testEverythingElse()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::CDATASection<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
 
-      assert(t.getNodeType() == DOM::Node<string_type>::CDATA_SECTION_NODE);
+      assert(t.getNodeType() == Arabica::DOM::Node<string_type>::CDATA_SECTION_NODE);
       assert(t.hasAttributes() == false);
       assert(t.getAttributes() == 0);
       assert(t.getChildNodes() == 0);
@@ -121,9 +121,9 @@ class CDATATest : public TestCase
 
       try
       {
-        t.appendChild(DOM::Node<string_type>());
+        t.appendChild(Arabica::DOM::Node<string_type>());
       } 
-      catch(const DOM::DOMException&)
+      catch(const Arabica::DOM::DOMException&)
       {
       } 
 

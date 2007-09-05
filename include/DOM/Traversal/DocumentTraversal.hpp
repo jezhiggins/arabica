@@ -13,6 +13,8 @@
 #include <DOM/Node.hpp>
 #include <DOM/Traversal/TraversalImpl.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -124,6 +126,7 @@ class DocumentTraversal_impl : virtual public TraversalImpl
 } // namespace Traversal
 
 } // namespace DOM 
+} // namespace Arabica
 
 #endif
 // end of file

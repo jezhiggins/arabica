@@ -9,6 +9,8 @@
 
 #include <DOM/ImplProxy.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -89,5 +91,6 @@ class EventTarget_impl : virtual public Impl
 } // namespace Events
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif

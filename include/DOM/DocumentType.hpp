@@ -11,6 +11,8 @@
 #include <DOM/NamedNodeMap.hpp>
 #include <DOM/DOMImplementation.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -73,6 +75,7 @@ class DocumentType_impl : virtual public Node_impl<stringT>
 }; // class DocumentType_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

@@ -9,6 +9,8 @@
 
 #include <stdexcept>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -82,6 +84,7 @@ private:
 }; // class DOMException
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

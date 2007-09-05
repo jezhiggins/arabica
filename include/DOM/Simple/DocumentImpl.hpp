@@ -20,6 +20,8 @@
 #include <list>
 #include <algorithm>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -489,7 +491,8 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
     const stringT empty_;
 }; // class DocumentImpl
 
-
 } // namespace SAX2DOM
+} // namespace Arabica
+
 #endif
 // end of file

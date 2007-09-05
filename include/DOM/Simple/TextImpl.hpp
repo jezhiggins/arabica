@@ -4,6 +4,8 @@
 #include <DOM/Text.hpp>
 #include <DOM/Simple/CharacterDataImpl.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -55,6 +57,7 @@ class TextImpl : public DOM::Text_impl<stringT>,
 }; // class TextImpl
 
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

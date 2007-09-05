@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class DocumentFragmentTest : public TestCase 
 {
-  DOM::DOMImplementation<string_type> factory;
+  Arabica::DOM::DOMImplementation<string_type> factory;
   typedef string_adaptor SA;
 
   public: 
@@ -21,13 +21,13 @@ class DocumentFragmentTest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
+      factory = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void test1() 
     {
-      DOM::DocumentFragment<string_type> d;
-      DOM::Node<string_type> n;
+      Arabica::DOM::DocumentFragment<string_type> d;
+      Arabica::DOM::Node<string_type> n;
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
@@ -35,8 +35,8 @@ class DocumentFragmentTest : public TestCase
 
     void test2()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
 
       frag.appendChild(d.createElement(SA::construct_from_utf8("child")));
       frag.appendChild(d.createElement(SA::construct_from_utf8("child2")));
@@ -47,13 +47,13 @@ class DocumentFragmentTest : public TestCase
 
     void test3()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
       frag.appendChild(d.createElement(SA::construct_from_utf8("child")));
       frag.appendChild(d.createElement(SA::construct_from_utf8("child2")));
       frag.appendChild(d.createElement(SA::construct_from_utf8("child3")));
 
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       elem.appendChild(frag);
       assert(elem.getChildNodes().getLength() == 3);
       assert(elem.getFirstChild().getNodeName() == SA::construct_from_utf8("child"));
@@ -63,13 +63,13 @@ class DocumentFragmentTest : public TestCase
 
     void test4()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
       frag.appendChild(d.createElement(SA::construct_from_utf8("child")));
       frag.appendChild(d.createElement(SA::construct_from_utf8("child2")));
       frag.appendChild(d.createElement(SA::construct_from_utf8("child3")));
 
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       elem.appendChild(d.createElement(SA::construct_from_utf8("t")));
       assert(elem.getChildNodes().getLength() == 1);
 
@@ -82,13 +82,13 @@ class DocumentFragmentTest : public TestCase
 
     void test5()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::DocumentFragment<string_type> frag = d.createDocumentFragment();
       frag.appendChild(d.createElement(SA::construct_from_utf8("child")));
       frag.appendChild(d.createElement(SA::construct_from_utf8("child2")));
       frag.appendChild(d.createElement(SA::construct_from_utf8("child3")));
 
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       elem.appendChild(d.createElement(SA::construct_from_utf8("t")));
       assert(elem.getChildNodes().getLength() == 1);
 

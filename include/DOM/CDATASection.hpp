@@ -9,6 +9,8 @@
 
 #include <DOM/Text.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 template<class stringT> class CDATASection_impl;
@@ -43,7 +45,7 @@ class CDATASection_impl : public virtual Text_impl<stringT>
     virtual ~CDATASection_impl() { }
 }; // CDATASection_impl
 
-
 } // namespace DOM
+} // namespace Arabica
 
 #endif

@@ -4,6 +4,8 @@
 #include <DOM/Node.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -134,6 +136,6 @@ class ElementByTagList : public DOM::NodeList_impl<stringT>
 }; // class ElementByTagList
 
 } // namespace SimpleDOM
-
+} // namespace Arabica
 #endif
 

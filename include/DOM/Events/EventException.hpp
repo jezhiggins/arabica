@@ -9,6 +9,8 @@
 
 #include <exception>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -29,5 +31,6 @@ public:
 } // namespace Events
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif

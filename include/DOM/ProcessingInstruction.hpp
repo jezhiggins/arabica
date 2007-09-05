@@ -9,6 +9,8 @@
 
 #include <DOM/Node.hpp>
 
+namespace Arabica
+{ 
 namespace DOM
 {
 
@@ -54,6 +56,6 @@ class ProcessingInstruction_impl : virtual public Node_impl<stringT>
 }; // class ProcessingInstruction_impl
 
 } // namespace DOM
-
+} // namespace Arabica
 #endif
 

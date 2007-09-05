@@ -9,6 +9,8 @@
 
 #include <DOM/Node.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 template<class stringT> class EntityReference_impl;
@@ -35,8 +37,8 @@ class EntityReference_impl : virtual public Node_impl<stringT>
     virtual ~EntityReference_impl () { }
 }; // EntityReference_impl
 
-
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

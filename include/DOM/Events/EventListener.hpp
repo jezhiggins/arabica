@@ -6,6 +6,8 @@
 // $Id$
 ////////////////////////////
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -27,5 +29,6 @@ protected:
 } // namespace Events
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif

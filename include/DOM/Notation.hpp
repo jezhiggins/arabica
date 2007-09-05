@@ -10,6 +10,8 @@
 #include <DOM/Node.hpp>
 #include <typeinfo>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -54,6 +56,7 @@ class Notation_impl : virtual public Node_impl<stringT>
 }; // class Notation_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

@@ -9,7 +9,8 @@
 
 #include <DOM/Traversal/DocumentTraversal.hpp>
 
-
+namespace Arabica
+{
 namespace DOM
 {
 namespace Traversal
@@ -297,5 +298,6 @@ private:
 
 } // namespace Traversal
 } // namespace DOM
+} // namespace Arabica
 
 #endif //JEZUK_DOM_TRAVERSAL_TREEWALKER_IMPL_H

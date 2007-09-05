@@ -11,6 +11,8 @@
 #include <DOM/Traversal/NodeFilter.hpp>
 #include <DOM/Traversal/TraversalImpl.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -104,6 +106,7 @@ class TreeWalker_impl : public TraversalImpl
 } // namespace Traversal
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif 
 // end of file

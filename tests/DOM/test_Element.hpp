@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class ElementTest : public TestCase 
 {
-  DOM::DOMImplementation<string_type> factory;
+  Arabica::DOM::DOMImplementation<string_type> factory;
   typedef string_adaptor SA;
 
   public: 
@@ -21,13 +21,13 @@ class ElementTest : public TestCase
     
     void setUp() 
     {
-      factory = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
+      factory = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     } // setUp
 
     void test1() 
     {
-      DOM::Element<string_type> d;
-      DOM::Node<string_type> n;
+      Arabica::DOM::Element<string_type> d;
+      Arabica::DOM::Node<string_type> n;
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
@@ -35,43 +35,43 @@ class ElementTest : public TestCase
 
     void test2()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       assert(elem.getParentNode() == 0);
       assert(elem.getOwnerDocument() == d);
       d.appendChild(elem);
 
-      DOM::Element<string_type> child = d.createElement(SA::construct_from_utf8("child"));
+      Arabica::DOM::Element<string_type> child = d.createElement(SA::construct_from_utf8("child"));
       elem.appendChild(child);
     } // test2
 
     void test3()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       assert(elem.getParentNode() == 0);
       assert(elem.getOwnerDocument() == d);
       d.appendChild(elem);
 
-      DOM::Attr<string_type> attr = d.createAttribute(SA::construct_from_utf8("attr"));
+      Arabica::DOM::Attr<string_type> attr = d.createAttribute(SA::construct_from_utf8("attr"));
       attr.setNodeValue(SA::construct_from_utf8("trousers"));
       try
       {
         elem.appendChild(attr);
       }
-      catch(const DOM::DOMException&) { }
+      catch(const Arabica::DOM::DOMException&) { }
       assert(elem.getFirstChild() == 0);
     } // test3
 
     void test4()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       assert(elem.getParentNode() == 0);
       assert(elem.getOwnerDocument() == d);
       d.appendChild(elem);
 
-      DOM::Attr<string_type> attr = d.createAttribute(SA::construct_from_utf8("attr"));
+      Arabica::DOM::Attr<string_type> attr = d.createAttribute(SA::construct_from_utf8("attr"));
       elem.setAttributeNode(attr);
       assert(elem.getAttributeNode(SA::construct_from_utf8("attr")) == attr);
       assert(elem.removeAttributeNode(attr) == attr);
@@ -79,8 +79,8 @@ class ElementTest : public TestCase
 
     void test5()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       assert(elem.getParentNode() == 0);
       assert(elem.getOwnerDocument() == d);
       d.appendChild(elem);
@@ -91,15 +91,15 @@ class ElementTest : public TestCase
       assert(elem.hasAttributes() == true);
       assert(elem.hasAttribute(SA::construct_from_utf8("attr")) == true);
 
-      DOM::Node<string_type> n = elem.getAttributeNode(SA::construct_from_utf8("attr"));
+      Arabica::DOM::Node<string_type> n = elem.getAttributeNode(SA::construct_from_utf8("attr"));
       assert(n.getNodeValue() == SA::construct_from_utf8("poop"));
       assert(elem.setAttributeNode(d.createAttribute(SA::construct_from_utf8("attr"))) == n);
     } // test5
 
     void test6()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       assert(elem.getParentNode() == 0);
       assert(elem.getOwnerDocument() == d);
       d.appendChild(elem);
@@ -116,12 +116,12 @@ class ElementTest : public TestCase
 
     void test7()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       elem.setAttribute(SA::construct_from_utf8("attr"), SA::construct_from_utf8("poop"));
       elem.appendChild(d.createElement(SA::construct_from_utf8("child")));
 
-      DOM::Element<string_type> e2 = DOM::Element<string_type>(elem.cloneNode(false));
+      Arabica::DOM::Element<string_type> e2 = Arabica::DOM::Element<string_type>(elem.cloneNode(false));
       assert(e2.getOwnerDocument() == d);
       assert(e2.getParentNode() == 0);
       assert(e2.hasAttributes() == true);
@@ -131,12 +131,12 @@ class ElementTest : public TestCase
 
     void test8()
     {
-      DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Element<string_type> elem = d.createElement(SA::construct_from_utf8("root"));
       elem.setAttribute(SA::construct_from_utf8("attr"), SA::construct_from_utf8("poop"));
       elem.appendChild(d.createElement(SA::construct_from_utf8("child")));
 
-      DOM::Element<string_type> e2 = DOM::Element<string_type>(elem.cloneNode(true));
+      Arabica::DOM::Element<string_type> e2 = Arabica::DOM::Element<string_type>(elem.cloneNode(true));
       assert(e2.getOwnerDocument() == d);
       assert(e2.getParentNode() == 0);
       assert(e2.hasAttributes() == true);

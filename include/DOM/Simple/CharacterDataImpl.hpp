@@ -4,6 +4,8 @@
 #include <DOM/CharacterData.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -97,5 +99,7 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
 }; // class CharacterDataImpl
 
 } // namespace SAX2DOM
+} // namespace Arabica
+
 #endif
 

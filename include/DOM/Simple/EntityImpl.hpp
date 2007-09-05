@@ -4,6 +4,8 @@
 #include <DOM/Entity.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -82,8 +84,8 @@ class EntityImpl : public DOM::Entity_impl<stringT>,
     stringT notationName_;
 }; // class EntityImpl
 
-
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

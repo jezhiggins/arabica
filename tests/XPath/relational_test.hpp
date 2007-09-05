@@ -174,7 +174,7 @@ public:
   } // testLessThanEquals3
 
 private:
-  DOM::Node<string_type> dummy_;
+  Arabica::DOM::Node<string_type> dummy_;
 }; // class RelationalTest
 
 template<class string_type, class string_adaptor>

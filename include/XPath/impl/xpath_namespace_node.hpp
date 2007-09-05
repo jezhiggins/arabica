@@ -20,13 +20,13 @@ namespace impl
 {
 
 template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
-class NamespaceNodeImpl : public SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT>
+class NamespaceNodeImpl : public Arabica::SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT>
 {
-    typedef SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
+    typedef Arabica::SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
   public:
     NamespaceNodeImpl(stringT localname,
                       stringT value) : 
-        SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT>(0),
+        Arabica::SimpleDOM::ChildlessNodeImpl<stringT, string_adaptorT>(0),
         localname_(localname),
         value_(value),
         ref_(0)

@@ -1,6 +1,8 @@
 #ifndef JEZUK_DOM_TRAVERSAL_IMPL_H
 #define JEZUK_DOM_TRAVERSAL_IMPL_H
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -29,11 +31,9 @@ public:
 
 private:
   int refCount_;
-
-}; //class Impl
-
-
+}; //class TraversalImpl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif //JEZUK_DOM_TRAVERSAL_IMPL_H

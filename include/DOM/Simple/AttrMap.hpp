@@ -5,6 +5,8 @@
 #include <DOM/Simple/AttrImpl.hpp>
 #include <DOM/Simple/AttrNSImpl.hpp>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -176,6 +178,7 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
 
 } // namespace SAX2DOM
+} // namespace Arabica
 
 #endif
 

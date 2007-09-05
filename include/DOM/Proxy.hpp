@@ -1,6 +1,8 @@
 #ifndef JEZUK_DOM_PROXY_H
 #define JEZUK_DOM_PROXY_H
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -67,6 +69,7 @@ class Proxy
 }; // class Proxy
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

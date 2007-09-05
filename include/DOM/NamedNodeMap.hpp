@@ -9,6 +9,8 @@
 
 #include <DOM/Proxy.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -92,6 +94,7 @@ class NamedNodeMap_impl
 }; // class NamedNodeMap_impl
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 

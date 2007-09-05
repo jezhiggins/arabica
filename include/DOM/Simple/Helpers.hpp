@@ -4,6 +4,8 @@
 #include <DOM/Node.hpp>
 #include <utility>
 
+namespace Arabica
+{
 namespace SimpleDOM
 {
 
@@ -48,6 +50,7 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
 } // checkPrefixAndNamespace
 
 } // namespace SimpleDOM
+} // namespace Arabica
 
 #endif
 

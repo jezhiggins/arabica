@@ -23,14 +23,14 @@ class TreeWalkerTest : public TestCase
     {
     } // setUp
 
-    DOM::Document<string_type> parse(string_type str)
+    Arabica::DOM::Document<string_type> parse(string_type str)
     {
       std::stringstream ss;
       ss << SA::asStdString(str);
 
       Arabica::SAX::basic_InputSource<string_type> is(ss);
       Arabica::SAX::CatchErrorHandler<string_type> eh;
-      SAX2DOM::Parser<string_type, string_adaptor> parser;
+      Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
       parser.setErrorHandler(eh);
       parser.parse(is);       
 
@@ -42,14 +42,14 @@ class TreeWalkerTest : public TestCase
 
     void test1()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root/>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root/>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_ALL,
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_ALL,
                                                                                   true);
-      assert(walker.getWhatToShow() == DOM::Traversal::SHOW_ALL);
+      assert(walker.getWhatToShow() == Arabica::DOM::Traversal::SHOW_ALL);
       assert(walker.getFilter() == 0);
       assert(walker.getCurrentNode() == elem);
       assert(walker.nextNode() == 0);
@@ -57,12 +57,12 @@ class TreeWalkerTest : public TestCase
 
     void test2()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><parp/><poop/></root>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><parp/><poop/></root>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_ALL,
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_ALL,
                                                                                   true);
       assert(walker.getCurrentNode() == elem);
       assert(walker.nextNode() == elem.getFirstChild());
@@ -72,12 +72,12 @@ class TreeWalkerTest : public TestCase
 
     void test3()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><parp>hello</parp><poop>mother</poop></root>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><parp>hello</parp><poop>mother</poop></root>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_ALL,
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_ALL,
                                                                                   true);
       assert(walker.getCurrentNode() == elem);
       assert(walker.nextNode() == elem.getFirstChild());
@@ -89,12 +89,12 @@ class TreeWalkerTest : public TestCase
 
     void test4()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><parp>hello</parp><poop>mother</poop></root>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><parp>hello</parp><poop>mother</poop></root>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_ELEMENT,
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_ELEMENT,
                                                                                   true);
       assert(walker.getCurrentNode() == elem);
       assert(walker.nextNode() == elem.getFirstChild());
@@ -104,12 +104,12 @@ class TreeWalkerTest : public TestCase
 
     void test5()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><parp>hello</parp><poop>mother</poop></root>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><parp>hello</parp><poop>mother</poop></root>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_TEXT,
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_TEXT,
                                                                                   true);
       assert(walker.getCurrentNode() == elem);
       assert(walker.nextNode() == elem.getFirstChild().getFirstChild());
@@ -119,12 +119,12 @@ class TreeWalkerTest : public TestCase
 
     void test6()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop>mother</poop></root>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop>mother</poop></root>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_ALL,
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_ALL,
                                                                                   true);
       assert(walker.getCurrentNode() == elem);
       assert(walker.nextNode() == elem.getFirstChild());
@@ -136,12 +136,12 @@ class TreeWalkerTest : public TestCase
 
     void test7()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother</poop></root>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother</poop></root>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_COMMENT,
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_COMMENT,
                                                                                   true);
       assert(walker.getCurrentNode() == elem);
       assert(walker.nextNode() == elem.getLastChild().getFirstChild());
@@ -150,26 +150,26 @@ class TreeWalkerTest : public TestCase
 
     void test8()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother<?nard nurb?></poop></root>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother<?nard nurb?></poop></root>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_PROCESSING_INSTRUCTION,
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_PROCESSING_INSTRUCTION,
                                                                                   true);
       assert(walker.getCurrentNode() == elem);
       assert(walker.nextNode() == elem.getLastChild().getLastChild());
       assert(walker.nextNode() == 0);
     } // test8
 
-    class TestFilter : public DOM::Traversal::NodeFilter<string_type>
+    class TestFilter : public Arabica::DOM::Traversal::NodeFilter<string_type>
     {
-      typedef DOM::Traversal::NodeFilter<string_type> base_t;
+      typedef Arabica::DOM::Traversal::NodeFilter<string_type> base_t;
     public:
-      typedef typename DOM::Traversal::NodeFilter<string_type>::Result Result;
-      virtual Result acceptNode(const DOM::Node<string_type>& node) const
+      typedef typename Arabica::DOM::Traversal::NodeFilter<string_type>::Result Result;
+      virtual Result acceptNode(const Arabica::DOM::Node<string_type>& node) const
       {
-        if(node.getFirstChild().getNodeType() == DOM::Node_base::COMMENT_NODE)
+        if(node.getFirstChild().getNodeType() == Arabica::DOM::Node_base::COMMENT_NODE)
           return base_t::FILTER_REJECT;
         return base_t::FILTER_ACCEPT;
       } // acceptNode
@@ -177,13 +177,13 @@ class TreeWalkerTest : public TestCase
 
     void test9()
     {
-      DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother<?nard nurb?></poop></root>"));
-      DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root id='0'><parp>hello</parp><poop><!--woo-->mother<?nard nurb?></poop></root>"));
+      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
 
-      DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
+      Arabica::DOM::Traversal::DocumentTraversal<string_type> traversal = d.createDocumentTraversal();
       TestFilter filter;
-      DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
-                                                                                  DOM::Traversal::SHOW_ELEMENT,
+      Arabica::DOM::Traversal::TreeWalker<string_type> walker = traversal.createTreeWalker(d.getDocumentElement(),
+                                                                                  Arabica::DOM::Traversal::SHOW_ELEMENT,
                                                                                   filter,
                                                                                   true);
       assert(walker.getCurrentNode() == elem);

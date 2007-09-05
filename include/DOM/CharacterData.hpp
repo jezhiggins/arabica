@@ -9,6 +9,8 @@
 
 #include <DOM/Node.hpp>
 
+namespace Arabica
+{
 namespace DOM
 {
 template<class stringT> class CharacterData_impl;
@@ -86,7 +88,7 @@ class CharacterData_impl : virtual public Node_impl<stringT>
     virtual void replaceData(int offset, int count, const stringT& arg) = 0;
 }; // CharacterData_impl
 
-
 } // namespace DOM
+} // namespace Arabica
 
 #endif

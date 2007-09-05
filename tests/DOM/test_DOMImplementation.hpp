@@ -23,11 +23,11 @@ class DOMImplementationTest : public TestCase
 
     void testNull() 
     {
-      DOM::DOMImplementation<string_type> di;
+      Arabica::DOM::DOMImplementation<string_type> di;
       assert(di == 0);
       assert(!di);
 
-      DOM::DOMImplementation<string_type> di2 = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
+      Arabica::DOM::DOMImplementation<string_type> di2 = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
       assert(di2 != 0);
       assert(di2);
 
@@ -41,7 +41,7 @@ class DOMImplementationTest : public TestCase
 
     void testFeatures()
     {
-      DOM::DOMImplementation<string_type> di = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
+      Arabica::DOM::DOMImplementation<string_type> di = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
 
       assert(di.hasFeature(SA::construct_from_utf8("Core"), SA::construct_from_utf8("")) == true);
       assert(di.hasFeature(SA::construct_from_utf8("Core"), SA::construct_from_utf8("1.0")) == true);

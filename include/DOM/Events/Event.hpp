@@ -1,6 +1,8 @@
 #ifndef JEZUK_EVENTS_EVENT_H
 #define JEZUK_EVENTS_EVENT_H
 
+namespace Arabica
+{
 namespace DOM
 {
 
@@ -96,6 +98,7 @@ class Event_impl : virtual public Impl
 } // namespace Events
 
 } // namespace DOM
+} // namespace Arabica
 
 #endif
 // end of file
