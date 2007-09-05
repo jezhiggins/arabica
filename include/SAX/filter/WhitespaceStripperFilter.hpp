@@ -11,12 +11,12 @@ namespace SAX
 {
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class WhitespaceStripper : public SAX::basic_XMLFilterImpl<string_type>
+class WhitespaceStripper : public SAX::XMLFilterImpl<string_type>
 {
   public:
     typedef string_type stringT;
-    typedef SAX::basic_XMLFilterImpl<stringT> baseT;
-    typedef SAX::basic_XMLReader<stringT> XMLReaderT;
+    typedef SAX::XMLFilterImpl<stringT> baseT;
+    typedef SAX::XMLReader<stringT> XMLReaderT;
 
     WhitespaceStripper() : 
       baseT() 

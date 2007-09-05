@@ -25,16 +25,16 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_Attributes
- * @see basic_Attributes2Impl
+ * @see Attributes
+ * @see Attributes2Impl
  */
 template<class string_type>
-class basic_Attributes2 : public basic_Attributes<string_type>
+class Attributes2 : public Attributes<string_type>
 {
 
 public:
   typedef string_type stringT;
-  virtual ~basic_Attributes2() { }
+  virtual ~Attributes2() { }
 
   /**
    *  Returns true unless the attribute value was provided by DTD defaulting.
@@ -70,12 +70,7 @@ public:
    *         does not identify an attribute
    */
   virtual bool isSpecified(const stringT& uri, const stringT& localName) const = 0;
-}; // class basic_Attributes2
-
-typedef basic_Attributes2<std::string> Attributes2;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_Attributes2<std::wstring> wAttributes2;
-#endif
+}; // class Attributes2
 
 } // namespace SAX
 } // namespace Arabica

@@ -16,17 +16,17 @@ class StylesheetParser
 public:
   StylesheetParser() { }
 
-  void setContentHandler(SAX::ContentHandler& handler)
+  void setContentHandler(SAX::ContentHandler<std::string>& handler)
   {
     namespace_tracker_.setContentHandler(handler);
   } // setContentHandler
 
-  SAX::ContentHandler& contentHandler() 
+  SAX::ContentHandler<std::string>& contentHandler() 
   {
     return text_coalescer_;
   } // contentHandler
  
-  void parse(SAX::InputSource& source)
+  void parse(SAX::InputSource<std::string>& source)
   {
     SAX::XMLReader<std::string> base_parser;
     text_coalescer_.setParent(base_parser);

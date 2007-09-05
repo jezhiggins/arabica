@@ -14,10 +14,10 @@ namespace SAX
 class InputSourceResolver
 {
 public:
-  InputSourceResolver(const SAX::InputSource& inputSource);
+  InputSourceResolver(const SAX::InputSource<std::string>& inputSource);
 
   template<class stringT, class stringAdaptorT>
-  InputSourceResolver(const SAX::basic_InputSource<stringT>& inputSource,
+  InputSourceResolver(const SAX::InputSource<stringT>& inputSource,
                       const stringAdaptorT& SA) :
     deleteStream_(false),
     byteStream_(0)

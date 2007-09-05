@@ -60,7 +60,7 @@ class COMMultiThreadInitializer  : public COMInitializer_tag
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
+class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 {
   typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
                                Arabica::default_string_adaptor<string_type>, 
@@ -72,14 +72,14 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
                                T0>::type COMInitializer_type;
 
   public:
-    typedef SAX::basic_EntityResolver<string_type> entityResolverT;
-    typedef SAX::basic_DTDHandler<string_type> dtdHandlerT;
-    typedef SAX::basic_ContentHandler<string_type> contentHandlerT;
-    typedef SAX::basic_DeclHandler<string_type> declHandlerT;
-    typedef SAX::basic_LexicalHandler<string_type> lexicalHandlerT;
-    typedef SAX::basic_InputSource<string_type> inputSourceT;
-    typedef SAX::basic_Locator<string_type> locatorT;
-    typedef SAX::basic_ErrorHandler<string_type> errorHandlerT;
+    typedef SAX::EntityResolver<string_type> entityResolverT;
+    typedef SAX::DTDHandler<string_type> dtdHandlerT;
+    typedef SAX::ContentHandler<string_type> contentHandlerT;
+    typedef SAX::DeclHandler<string_type> declHandlerT;
+    typedef SAX::LexicalHandler<string_type> lexicalHandlerT;
+    typedef SAX::InputSource<string_type> inputSourceT;
+    typedef SAX::Locator<string_type> locatorT;
+    typedef SAX::ErrorHandler<string_type> errorHandlerT;
 
     msxml2_wrapper();
     virtual ~msxml2_wrapper();
@@ -92,14 +92,14 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
     /////////////////////////////////////////////////
     // Event Handlers
     /* MSXML does not use EntityResolver currently */
-    virtual void setEntityResolver(SAX::basic_EntityResolver<string_type>& resolver) { } 
-    virtual SAX::basic_EntityResolver<string_type>* getEntityResolver() const { return 0; }
-    virtual void setDTDHandler(SAX::basic_DTDHandler<string_type>& handler) { dtdHandler_.setDTDHandler(handler); } 
-    virtual SAX::basic_DTDHandler<string_type>* getDTDHandler() const { return dtdHandler_.getDTDHandler(); }
-    virtual void setContentHandler(SAX::basic_ContentHandler<string_type>& handler) {	contentHandler_.setContentHandler(handler); }
-    virtual SAX::basic_ContentHandler<string_type>* getContentHandler() const { return contentHandler_.getContentHandler(); }
-    virtual void setErrorHandler(SAX::basic_ErrorHandler<string_type>& handler);
-    virtual SAX::basic_ErrorHandler<string_type>* getErrorHandler() const;
+    virtual void setEntityResolver(SAX::EntityResolver<string_type>& resolver) { } 
+    virtual SAX::EntityResolver<string_type>* getEntityResolver() const { return 0; }
+    virtual void setDTDHandler(SAX::DTDHandler<string_type>& handler) { dtdHandler_.setDTDHandler(handler); } 
+    virtual SAX::DTDHandler<string_type>* getDTDHandler() const { return dtdHandler_.getDTDHandler(); }
+    virtual void setContentHandler(SAX::ContentHandler<string_type>& handler) {	contentHandler_.setContentHandler(handler); }
+    virtual SAX::ContentHandler<string_type>* getContentHandler() const { return contentHandler_.getContentHandler(); }
+    virtual void setErrorHandler(SAX::ErrorHandler<string_type>& handler);
+    virtual SAX::ErrorHandler<string_type>* getErrorHandler() const;
     virtual void setDeclHandler(declHandlerT& handler) { declHandler_.setDeclHandler(handler); }
     virtual declHandlerT* getDeclHandler() const { return declHandler_.getDeclHandler(); }
     virtual void setLexicalHandler(lexicalHandlerT& handler) { lexicalHandler_.setLexicalHandler(handler); }
@@ -107,29 +107,29 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
 
     //////////////////////////////////////////////////
     // Parsing
-    virtual void parse(SAX::basic_InputSource<string_type>& input);
+    virtual void parse(SAX::InputSource<string_type>& input);
 
   protected:
-  	virtual std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> doGetProperty(const string_type& name)
+  	virtual std::auto_ptr<typename SAX::XMLReaderInterface<string_type>::PropertyBase> doGetProperty(const string_type& name)
     {
       if(name == properties_.lexicalHandler)
       {
-        Property<SAX::basic_LexicalHandler<string_type>*>* prop = new Property<SAX::basic_LexicalHandler<string_type>*>(lexicalHandler_.getLexicalHandler());
-        return std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase>(prop);
+        Property<SAX::LexicalHandler<string_type>*>* prop = new Property<SAX::LexicalHandler<string_type>*>(lexicalHandler_.getLexicalHandler());
+        return std::auto_ptr<SAX::XMLReaderInterface<string_type>::PropertyBase>(prop);
       }
       if(name == properties_.declHandler)
       {
-        Property<SAX::basic_DeclHandler<string_type>*>* prop = new Property<SAX::basic_DeclHandler<string_type>*>(declHandler_.getDeclHandler());
-        return std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase>(prop);
+        Property<SAX::DeclHandler<string_type>*>* prop = new Property<SAX::DeclHandler<string_type>*>(declHandler_.getDeclHandler());
+        return std::auto_ptr<SAX::XMLReaderInterface<string_type>::PropertyBase>(prop);
       }
       throw SAX::SAXNotRecognizedException("Property not recognized ");    
     } // doGetProperty
 
-	  virtual void doSetProperty(const string_type& name, std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> value)
+	  virtual void doSetProperty(const string_type& name, std::auto_ptr<typename SAX::XMLReaderInterface<string_type>::PropertyBase> value)
     {
       if(name == properties_.lexicalHandler)
       {
-	      Property<SAX::basic_LexicalHandler<string_type>&>* prop = dynamic_cast<Property<SAX::basic_LexicalHandler<string_type>&>*>(value.get());
+	      Property<SAX::LexicalHandler<string_type>&>* prop = dynamic_cast<Property<SAX::LexicalHandler<string_type>&>*>(value.get());
 
         if(!prop)
           throw std::runtime_error("bad_cast: Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
@@ -139,7 +139,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
       } // if ...
       if(name == properties_.declHandler)
       {
-        Property<SAX::basic_DeclHandler<string_type>&>* prop = dynamic_cast<Property<SAX::basic_DeclHandler<string_type>&>*>(value.get());
+        Property<SAX::DeclHandler<string_type>&>* prop = dynamic_cast<Property<SAX::DeclHandler<string_type>&>*>(value.get());
 
         if(!prop)
           throw std::runtime_error("bad_cast: Property DeclHandler is wrong type, should be SAX::DeclHandler&");
@@ -153,7 +153,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
 	private:
     //////////////////////////////////////////////////////
     // COM interface -> C++ interface adaptors
-    class LocatorAdaptor : public SAX::basic_Locator<string_type>
+    class LocatorAdaptor : public SAX::Locator<string_type>
     {
       public:
         LocatorAdaptor() : locator_(0) { }
@@ -219,8 +219,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         DTDHandlerAdaptor() : dtdHandler_(0) { }
         ~DTDHandlerAdaptor() { }
 
-		void setDTDHandler(SAX::basic_DTDHandler<string_type>& handler) { dtdHandler_ = &handler; }
-        SAX::basic_DTDHandler<string_type>* getDTDHandler() const { return dtdHandler_; }
+		void setDTDHandler(SAX::DTDHandler<string_type>& handler) { dtdHandler_ = &handler; }
+        SAX::DTDHandler<string_type>* getDTDHandler() const { return dtdHandler_; }
 
     virtual HRESULT STDMETHODCALLTYPE notationDecl( 
             /* [in] */ const wchar_t *pwchName,
@@ -261,7 +261,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         unsigned long __stdcall Release() { return 0; }
 
       private:
-        SAX::basic_DTDHandler<string_type>* dtdHandler_;
+        SAX::DTDHandler<string_type>* dtdHandler_;
     }; // class DTDHandlerAdaptor
 
     class ContentHandlerAdaptor : public ISAXContentHandler 
@@ -270,8 +270,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         ContentHandlerAdaptor() : contentHandler_(0) { } 
         ~ContentHandlerAdaptor() { }
 
-        void setContentHandler(SAX::basic_ContentHandler<string_type>& handler) { contentHandler_ = &handler; }
-        SAX::basic_ContentHandler<string_type>* getContentHandler() const { return contentHandler_; }
+        void setContentHandler(SAX::ContentHandler<string_type>& handler) { contentHandler_ = &handler; }
+        SAX::ContentHandler<string_type>* getContentHandler() const { return contentHandler_; }
 
 
         virtual HRESULT STDMETHODCALLTYPE putDocumentLocator( 
@@ -396,12 +396,12 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
       private:
         ////////////////////////////////////////////////
         // member varaibles
-        SAX::basic_ContentHandler<string_type>* contentHandler_;
+        SAX::ContentHandler<string_type>* contentHandler_;
         LocatorAdaptor locator_;
 
         //////////////////////////////////////////////////////
         // COM interface -> C++ interface adaptors
-        class AttributesAdaptor : public SAX::basic_Attributes<string_type>
+        class AttributesAdaptor : public SAX::Attributes<string_type>
         {
           public:
             AttributesAdaptor(ISAXAttributes __RPC_FAR *pAttributes) : attributes_(pAttributes) { }
@@ -564,8 +564,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
                                 { }
         virtual ~ErrorHandlerAdaptor() { }
 
-        void setErrorHandler(SAX::basic_ErrorHandler<string_type>& handler) { errorHandler_ = &handler; }
-        SAX::basic_ErrorHandler<string_type>* getErrorHandler() const { return errorHandler_; }
+        void setErrorHandler(SAX::ErrorHandler<string_type>& handler) { errorHandler_ = &handler; }
+        SAX::ErrorHandler<string_type>* getErrorHandler() const { return errorHandler_; }
 
         virtual HRESULT STDMETHODCALLTYPE error( 
             /* [in] */ ISAXLocator *pLocator,
@@ -625,7 +625,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         unsigned long __stdcall Release() { return 0; }
 
 	  private:
-        typedef SAX::basic_SAXParseException<string_type> SAXParseExceptionT;
+        typedef SAX::SAXParseException<string_type> SAXParseExceptionT;
         bool bWarning_;
         bool bError_;
         bool bFatal_;
@@ -633,7 +633,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         SAXParseExceptionT eError_;
         SAXParseExceptionT eFatal_;
 
-        SAX::basic_ErrorHandler<string_type>* errorHandler_;
+        SAX::ErrorHandler<string_type>* errorHandler_;
     }; // class ErrorHandlerAdaptor
 
     class LexicalHandlerAdaptor : public ISAXLexicalHandler 
@@ -642,8 +642,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         LexicalHandlerAdaptor() : lexicalHandler_(0) { }
         virtual ~LexicalHandlerAdaptor() { }
 
-        void setLexicalHandler(SAX::basic_LexicalHandler<string_type>& handler) { lexicalHandler_ = &handler; }
-        SAX::basic_LexicalHandler<string_type>* getLexicalHandler() const { return lexicalHandler_; }
+        void setLexicalHandler(SAX::LexicalHandler<string_type>& handler) { lexicalHandler_ = &handler; }
+        SAX::LexicalHandler<string_type>* getLexicalHandler() const { return lexicalHandler_; }
 
         virtual HRESULT STDMETHODCALLTYPE startDTD( 
             /* [in] */ const wchar_t *pwchName,
@@ -721,7 +721,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         unsigned long __stdcall Release() { return 0; }
 
       private:
-        SAX::basic_LexicalHandler<string_type>* lexicalHandler_;
+        SAX::LexicalHandler<string_type>* lexicalHandler_;
     }; // class LexicalHandlerAdaptor
 
     class DeclHandlerAdaptor : public ISAXDeclHandler 
@@ -730,8 +730,8 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         DeclHandlerAdaptor() : declHandler_(0) { }
         virtual ~DeclHandlerAdaptor() { }
 
-        void setDeclHandler(SAX::basic_DeclHandler<string_type>& handler) { declHandler_ = &handler; }
-        SAX::basic_DeclHandler<string_type>* getDeclHandler() const { return declHandler_; }
+        void setDeclHandler(SAX::DeclHandler<string_type>& handler) { declHandler_ = &handler; }
+        SAX::DeclHandler<string_type>* getDeclHandler() const { return declHandler_; }
 
         virtual HRESULT STDMETHODCALLTYPE elementDecl( 
             /* [in] */ const wchar_t *pwchName,
@@ -807,13 +807,13 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         unsigned long __stdcall Release() { return 0; }
 
       private:
-        SAX::basic_DeclHandler<string_type>* declHandler_;
+        SAX::DeclHandler<string_type>* declHandler_;
     }; // class DeclHandlerAdaptor
 
     class StreamAdaptor : public ISequentialStream
     {
       public:
-		StreamAdaptor(SAX::basic_InputSource<string_type>& source) :
+		StreamAdaptor(SAX::InputSource<string_type>& source) :
           source_(source)
         {
         } // StreamAdaptor
@@ -847,7 +847,7 @@ class msxml2_wrapper : public SAX::basic_XMLReader<string_type>
         unsigned long __stdcall Release() { return 1; }
 
       private:
-        SAX::basic_InputSource<string_type>& source_;
+        SAX::InputSource<string_type>& source_;
     }; // StreamAdaptor
 
 
@@ -916,19 +916,19 @@ void msxml2_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bo
 } // setFeature
 
 template<class string_type, class T0, class T1>
-void msxml2_wrapper<string_type, T0, T1>::setErrorHandler(SAX::basic_ErrorHandler<string_type>& handler)
+void msxml2_wrapper<string_type, T0, T1>::setErrorHandler(SAX::ErrorHandler<string_type>& handler)
 {
 	errorHandler_.setErrorHandler(handler);
 } // setErrorHandler
 
 template<class string_type, class T0, class T1>
-SAX::basic_ErrorHandler<string_type>* msxml2_wrapper<string_type, T0, T1>::getErrorHandler() const
+SAX::ErrorHandler<string_type>* msxml2_wrapper<string_type, T0, T1>::getErrorHandler() const
 {
   return errorHandler_.getErrorHandler();
 } // getErrorHandler
 
 template<class string_type, class T0, class T1>
-void msxml2_wrapper<string_type, T0, T1>::parse(SAX::basic_InputSource<string_type>& source)
+void msxml2_wrapper<string_type, T0, T1>::parse(SAX::InputSource<string_type>& source)
 {
   if(source.getByteStream() == 0)
   {

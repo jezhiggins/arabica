@@ -48,15 +48,15 @@ struct XMLBaseConstants
 }; // struct XMLBaseConstants
 
 template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
-class basic_XMLBaseSupport
+class XMLBaseSupport
 {
 public:
   typedef string_type stringT;
   typedef string_adaptor_type string_adaptorT;
   typedef typename string_adaptor_type::value_type valueT;
-  typedef basic_Attributes<stringT> AttributesT;
+  typedef Attributes<stringT> AttributesT;
 
-  basic_XMLBaseSupport() :
+  XMLBaseSupport() :
       depth_(0) { }
 
   void setDocumentLocation(const stringT& loc)
@@ -118,15 +118,10 @@ private:
   const XMLBaseConstants<stringT, string_adaptorT> xbc_;
 
   // no impl
-  basic_XMLBaseSupport(const basic_XMLBaseSupport&);
-  basic_XMLBaseSupport& operator=(const basic_XMLBaseSupport&);
-  bool operator==(const basic_XMLBaseSupport&);
-}; // class basic_XMLBaseSupport
-
-typedef basic_XMLBaseSupport<std::string> XMLBaseSupport;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_XMLBaseSupport<std::wstring> wXMLBaseSupport;
-#endif
+  XMLBaseSupport(const XMLBaseSupport&);
+  XMLBaseSupport& operator=(const XMLBaseSupport&);
+  bool operator==(const XMLBaseSupport&);
+}; // class XMLBaseSupport
 
 } // namespace SAX
 } // namespace Arabica

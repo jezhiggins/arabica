@@ -23,17 +23,17 @@ namespace SAX2DOM
 template<class stringT, 
          class string_adaptorT = Arabica::default_string_adaptor<stringT>,
          class SAX_parser = Arabica::SAX::XMLReader<stringT, string_adaptorT> >
-class Parser : protected Arabica::SAX::basic_DefaultHandler<stringT>
+class Parser : protected Arabica::SAX::DefaultHandler<stringT>
 {
-    typedef Arabica::SAX::basic_EntityResolver<stringT> EntityResolverT;
-    typedef Arabica::SAX::basic_ErrorHandler<stringT> ErrorHandlerT;
-    typedef Arabica::SAX::basic_LexicalHandler<stringT> LexicalHandlerT;
-    typedef Arabica::SAX::basic_DeclHandler<stringT> DeclHandlerT;
-    typedef Arabica::SAX::basic_InputSource<stringT> InputSourceT;
+    typedef Arabica::SAX::EntityResolver<stringT> EntityResolverT;
+    typedef Arabica::SAX::ErrorHandler<stringT> ErrorHandlerT;
+    typedef Arabica::SAX::LexicalHandler<stringT> LexicalHandlerT;
+    typedef Arabica::SAX::DeclHandler<stringT> DeclHandlerT;
+    typedef Arabica::SAX::InputSource<stringT> InputSourceT;
     typedef Arabica::SimpleDOM::EntityImpl<stringT, string_adaptorT> EntityT;
     typedef Arabica::SimpleDOM::NotationImpl<stringT, string_adaptorT> NotationT;
     typedef Arabica::SimpleDOM::ElementImpl<stringT, string_adaptorT> ElementT;
-    typedef typename Arabica::SAX::basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+    typedef typename Arabica::SAX::ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
   public:
     Parser() :
@@ -187,7 +187,7 @@ class Parser : protected Arabica::SAX::basic_DefaultHandler<stringT>
     } // endDocument
 
     virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const Arabica::SAX::basic_Attributes<stringT>& atts)
+                              const stringT& qName, const Arabica::SAX::Attributes<stringT>& atts)
     {
       if(currentNode_ == 0)
         return;

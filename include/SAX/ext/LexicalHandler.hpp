@@ -27,7 +27,7 @@ namespace SAX
  * endDocument events.</p>
  *
  * <p>To set the LexicalHandler for an XML reader, use the
- * {@link basic_XMLReader#setProperty setProperty} method
+ * {@link XMLReader#setProperty setProperty} method
  * with the propertyId "http://xml.org/sax/properties/lexical-handler".
  * If the reader does not support lexical events, it will throw a
  * {@link SAXNotRecognizedException SAXNotRecognizedException}
@@ -39,17 +39,17 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 1.0
- * @see basic_XMLReader#setProperty
+ * @see XMLReader#setProperty
  * @see SAXNotRecognizedException
  * @see SAXNotSupportedException
  */
 template<class string_type>
-class basic_LexicalHandler
+class LexicalHandler
 {
 public:
   typedef string_type stringT;
   
-  virtual ~basic_LexicalHandler() { }
+  virtual ~LexicalHandler() { }
 
    /**
    * Report the start of DTD declarations, if any.
@@ -59,8 +59,8 @@ public:
    * this method will not be invoked.</p>
    *
    * <p>All declarations reported through 
-   * {@link basic_DTDHandler DTDHandler} or
-   * {@link basic_DeclHandler DeclHandler} events must appear
+   * {@link DTDHandler DTDHandler} or
+   * {@link DeclHandler DeclHandler} events must appear
    * between the startDTD and {@link #endDTD endDTD} events.
    * Declarations are assumed to belong to the internal DTD subset
    * unless they appear between {@link #startEntity startEntity}
@@ -74,7 +74,7 @@ public:
    * <p>Note that the start/endDTD events will appear within
    * the start/endDocument events from ContentHandler and
    * before the first 
-   * {@link basic_ContentHandler#startElement startElement}
+   * {@link ContentHandler#startElement startElement}
    * event.</p>
    *
    * @param name The document type name.
@@ -116,11 +116,11 @@ public:
    * <p>When a SAX2 driver is providing these events, all other 
    * events must be properly nested within start/end entity 
    * events.  There is no additional requirement that events from 
-   * {@link basic_DeclHandler DeclHandler} or
-   * {@link basic_DTDHandler DTDHandler} be properly ordered.</p>
+   * {@link DeclHandler DeclHandler} or
+   * {@link DTDHandler DTDHandler} be properly ordered.</p>
    *
    * <p>Note that skipped entities will be reported through the
-   * {@link basic_ContentHandler#skippedEntity skippedEntity}
+   * {@link ContentHandler#skippedEntity skippedEntity}
    * event, which is part of the ContentHandler interface.</p>
    *
    * <p>Because of the streaming event model that SAX uses, some
@@ -144,8 +144,8 @@ public:
    *        entity, the name will begin with '%', and if it is the
    *        external DTD subset, it will be "[dtd]".
    * @see #endEntity
-   * @see basic_DeclHandler#internalEntityDecl
-   * @see basic_DeclHandler#externalEntityDecl 
+   * @see DeclHandler#internalEntityDecl
+   * @see DeclHandler#externalEntityDecl 
    */
   virtual void startEntity(const stringT& name) = 0;
   /**
@@ -160,7 +160,7 @@ public:
    * Report the start of a CDATA section.
    *
    * <p>The contents of the CDATA section will be reported through
-   * the regular {@link basic_ContentHandler#characters
+   * the regular {@link ContentHandler#characters
    * characters} event; this event is intended only to report
    * the boundary.</p>
    *
@@ -186,12 +186,7 @@ public:
    * @param text A string holding the comment.
    */
   virtual void comment(const stringT& text) = 0;
-}; // class basic_LexicalHandler
-
-typedef basic_LexicalHandler<std::string> LexicalHandler;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_LexicalHandler<std::wstring> wLexicalHandler;
-#endif 
+}; // class LexicalHandler
 
 } // namespace SAX
 } // namespace Arabica

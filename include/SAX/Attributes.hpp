@@ -39,7 +39,7 @@ namespace SAX
  * may not be available.</p>
  *
  * <p>This interface replaces the now-deprecated SAX1 {@link
- * basic_AttributeList AttributeList} interface, which does not 
+ * AttributeList AttributeList} interface, which does not 
  * contain Namespace support.  In addition to Namespace support, it 
  * adds the <var>getIndex</var> methods (below).</p>
  *
@@ -50,15 +50,15 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_AttributesImpl
+ * @see AttributesImpl
  */
 template<class string_type>
-class basic_Attributes
+class Attributes
 {
 public:
   typedef string_type stringT;
 
-  virtual ~basic_Attributes() { }
+  virtual ~Attributes() { }
 
   //
   // indexed access
@@ -226,11 +226,6 @@ public:
   virtual stringT getValue(const stringT& qName) const = 0;
 
 }; // class Attributes
-
-typedef basic_Attributes<std::string> Attributes;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_Attributes<std::wstring> wAttributes;
-#endif
 
 } // namespace SAX
 } // namespace Arabica

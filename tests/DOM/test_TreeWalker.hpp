@@ -28,7 +28,7 @@ class TreeWalkerTest : public TestCase
       std::stringstream ss;
       ss << SA::asStdString(str);
 
-      Arabica::SAX::basic_InputSource<string_type> is(ss);
+      Arabica::SAX::InputSource<string_type> is(ss);
       Arabica::SAX::CatchErrorHandler<string_type> eh;
       Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
       parser.setErrorHandler(eh);

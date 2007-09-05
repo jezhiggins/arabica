@@ -15,7 +15,7 @@
 
 using namespace Arabica::SAX;
 
-InputSourceResolver::InputSourceResolver(const Arabica::SAX::InputSource& inputSource) :
+InputSourceResolver::InputSourceResolver(const Arabica::SAX::InputSource<std::string>& inputSource) :
   deleteStream_(false),
   byteStream_(0)
 {

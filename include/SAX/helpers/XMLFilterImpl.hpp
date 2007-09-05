@@ -18,7 +18,7 @@ namespace SAX
 /**
  * Base class for deriving an XML filter.
  *
- * <p>This class is designed to sit between an {@link basic_XMLReader
+ * <p>This class is designed to sit between an {@link XMLReader
  * XMLReader} and the client application's event handlers.  By default, it
  * does nothing but pass requests up to the reader and events
  * on to the handlers unmodified, but subclasses can override
@@ -29,56 +29,56 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_XMLFilter
- * @see basic_XMLReader
- * @see basic_EntityResolver
- * @see basic_DTDHandler
- * @see basic_ContentHandler
- * @see basic_ErrorHandler
+ * @see XMLFilter
+ * @see XMLReader
+ * @see EntityResolver
+ * @see DTDHandler
+ * @see ContentHandler
+ * @see ErrorHandler
  */
 template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
-class basic_XMLFilterImpl : public basic_XMLFilter<string_type>,
-                            public basic_EntityResolver<string_type>, 
-                  					public basic_DTDHandler<string_type>,
-					                  public basic_ContentHandler<string_type>, 
-					                  public basic_ErrorHandler<string_type>,
-                            public basic_DeclHandler<string_type>,
-                            public basic_LexicalHandler<string_type>
+class XMLFilterImpl : public XMLFilter<string_type>,
+                            public EntityResolver<string_type>, 
+                  					public DTDHandler<string_type>,
+					                  public ContentHandler<string_type>, 
+					                  public ErrorHandler<string_type>,
+                            public DeclHandler<string_type>,
+                            public LexicalHandler<string_type>
 {
 public:
   typedef string_type stringT;
   typedef string_adaptor_type string_adaptorT;
-  typedef basic_XMLReader<stringT> XMLReaderT;
-  typedef basic_EntityResolver<stringT> EntityResolverT;
-  typedef basic_DTDHandler<stringT> DTDHandlerT;
-  typedef basic_ContentHandler<stringT> ContentHandlerT;
-  typedef basic_InputSource<stringT> InputSourceT;
-  typedef basic_Locator<stringT> LocatorT;
-  typedef basic_ErrorHandler<stringT> ErrorHandlerT;
-  typedef basic_DeclHandler<stringT> DeclHandlerT;
-  typedef basic_LexicalHandler<stringT> LexicalHandlerT;
-  typedef typename basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+  typedef XMLReaderInterface<stringT> XMLReaderT;
+  typedef EntityResolver<stringT> EntityResolverT;
+  typedef DTDHandler<stringT> DTDHandlerT;
+  typedef ContentHandler<stringT> ContentHandlerT;
+  typedef InputSource<stringT> InputSourceT;
+  typedef Locator<stringT> LocatorT;
+  typedef ErrorHandler<stringT> ErrorHandlerT;
+  typedef DeclHandler<stringT> DeclHandlerT;
+  typedef LexicalHandler<stringT> LexicalHandlerT;
+  typedef typename ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
 
-  basic_XMLFilterImpl() : 
+  XMLFilterImpl() : 
     parent_(0)
   { 
     setDefaults();
-  } // basic_XMLFilterImpl
-  basic_XMLFilterImpl(XMLReaderT& parent) : 
+  } // XMLFilterImpl
+  XMLFilterImpl(XMLReaderT& parent) : 
     parent_(&parent) 
   {
     setDefaults();
-  } // basic_XMLFilterImpl
+  } // XMLFilterImpl
 
-  virtual ~basic_XMLFilterImpl() { }
+  virtual ~XMLFilterImpl() { }
 
   /////////////////////////////////////////////////
   // XMLFilter implementation
   /**
    * Set the parent reader.
    *
-   * <p>This is the {@link basic_XMLReader XMLReader} from which 
+   * <p>This is the {@link XMLReader XMLReader} from which 
    * this filter will obtain its events and to which it will pass its 
    * configuration requests.  The parent may itself be another filter.</p>
    *
@@ -111,7 +111,7 @@ public:
    * @exception SAXNotSupportedException When the
    *            XMLReader recognizes the feature name but 
    *            cannot set the requested value.
-   * @see basic_XMLReader#setFeature
+   * @see XMLReader#setFeature
    */
   virtual void setFeature(const stringT& name, bool value)
   {
@@ -136,7 +136,7 @@ public:
    * @exception SAXNotSupportedException When the
    *            XMLReader recognizes the feature name but 
    *            cannot determine its state at this time.
-   * @see basic_XMLReader#getFeature
+   * @see XMLReader#getFeature
    */
   virtual bool getFeature(const stringT& name) const
   {
@@ -154,56 +154,56 @@ public:
    * Set the entity resolver.
    *
    * @param resolver The new entity resolver.
-   * @see basic_XMLReader#setEntityResolver
+   * @see XMLReader#setEntityResolver
    */
   virtual void setEntityResolver(EntityResolverT& resolver) { entityResolver_ = &resolver; }
   /**
    * Get the current entity resolver.
    *
    * @return The current entity resolver, or null if none was set.
-   * @see basic_XMLReader#getEntityResolver
+   * @see XMLReader#getEntityResolver
    */
   virtual EntityResolverT* getEntityResolver() const { return entityResolver_ ; }
   /**
    * Set the DTD event handler.
    *
    * @param handler The new DTD handler.
-   * @see basic_XMLReader#setDTDHandler
+   * @see XMLReader#setDTDHandler
    */
   virtual void setDTDHandler(DTDHandlerT& handler) { dtdHandler_ = &handler; }
   /**
    * Get the current DTD event handler.
    *
    * @return The current DTD handler, or null if none was set.
-   * @see basic_XMLReader#getDTDHandler
+   * @see XMLReader#getDTDHandler
    */
   virtual DTDHandlerT* getDTDHandler() const { return dtdHandler_; }
   /**
    * Set the content event handler.
    *
    * @param handler The new content handler.
-   * @see basic_XMLReader#setContentHandler
+   * @see XMLReader#setContentHandler
    */
   virtual void setContentHandler(ContentHandlerT& handler) { contentHandler_ = &handler; }
   /**
    * Get the content event handler.
    *
    * @return The current content handler, or null if none was set.
-   * @see basic_XMLReader#getContentHandler
+   * @see XMLReader#getContentHandler
    */
   virtual ContentHandlerT* getContentHandler() const { return contentHandler_; }
   /**
    * Set the error event handler.
    *
    * @param handler The new error handler.
-   * @see basic_XMLReader#setErrorHandler
+   * @see XMLReader#setErrorHandler
    */
   virtual void setErrorHandler(ErrorHandlerT& handler) { errorHandler_ = &handler; }
   /**
    * Get the current error event handler.
    *
    * @return The current error handler, or null if none was set.
-   * @see basic_XMLReader#getErrorHandler
+   * @see XMLReader#getErrorHandler
    */
   virtual ErrorHandlerT* getErrorHandler() const { return errorHandler_; }
 
@@ -216,7 +216,7 @@ public:
    * Parse a document.
    *
    * @param input The input source for the document entity.
-   * @see basic_XMLReader#parse(basic_InputSource)
+   * @see XMLReader#parse(InputSource)
    */
   virtual void parse(InputSourceT& input)
   {
@@ -257,7 +257,7 @@ public:
    * @param systemId The entity's system identifier.
    * @return A new InputSource or a default-constructed
    *         <code>InputSourceT</code> for the default.
-   * @see basic_EntityResolver#resolveEntity
+   * @see EntityResolver#resolveEntity
    */
   virtual InputSourceT resolveEntity(const stringT& publicId, const stringT& systemId)
   {
@@ -274,7 +274,7 @@ public:
    * @param name The notation name.
    * @param publicId The notation's public identifier, or an empty string.
    * @param systemId The notation's system identifier, or an empty string.
-   * @see basic_DTDHandler#notationDecl
+   * @see DTDHandler#notationDecl
    */
   virtual void notationDecl(const stringT& name,
                             const stringT& publicId,
@@ -290,7 +290,7 @@ public:
    * @param publicId The entity's public identifier, or an empty string.
    * @param systemId The entity's system identifier, or an empty string.
    * @param notationName The name of the associated notation.
-   * @see basic_DTDHandler#unparsedEntityDecl
+   * @see DTDHandler#unparsedEntityDecl
    */
   virtual void unparsedEntityDecl(const stringT& name,
 	                                const stringT& publicId,
@@ -306,7 +306,7 @@ public:
    * Filter a new document locator event.
    *
    * @param locator The document locator.
-   * @see basic_ContentHandler#setDocumentLocator
+   * @see ContentHandler#setDocumentLocator
    */
   virtual void setDocumentLocator(const LocatorT& locator) 
   { 
@@ -316,7 +316,7 @@ public:
   /**
    * Filter a start document event.
    *
-   * @see basic_ContentHandler#startDocument
+   * @see ContentHandler#startDocument
    */
   virtual void startDocument() 
   { 
@@ -326,7 +326,7 @@ public:
   /**
    * Filter an end document event.
    *
-   * @see basic_ContentHandler#endDocument
+   * @see ContentHandler#endDocument
    */
   virtual void endDocument() 
   { 
@@ -338,7 +338,7 @@ public:
    *
    * @param prefix The Namespace prefix.
    * @param uri The Namespace URI.
-   * @see basic_ContentHandler#startPrefixMapping
+   * @see ContentHandler#startPrefixMapping
    */
   virtual void startPrefixMapping(const stringT& prefix, const stringT& uri) 
   { 
@@ -349,7 +349,7 @@ public:
    * Filter an end Namespace prefix mapping event.
    *
    * @param prefix The Namespace prefix.
-   * @see basic_ContentHandler#endPrefixMapping
+   * @see ContentHandler#endPrefixMapping
    */
   virtual void endPrefixMapping(const stringT& prefix) 
   { 
@@ -364,7 +364,7 @@ public:
    * @param qName The element's qualified (prefixed) name, or the empty
    *        string.
    * @param atts The element's attributes.
-   * @see basic_ContentHandler#startElement
+   * @see ContentHandler#startElement
    */
   virtual void startElement(const stringT& namespaceURI, const stringT& localName,
                             const stringT& qName, const typename ContentHandlerT::AttributesT& atts) 
@@ -379,7 +379,7 @@ public:
    * @param localName The element's local name, or the empty string.
    * @param qName The element's qualified (prefixed) name, or the empty
    *        string.
-   * @see basic_ContentHandler#endElement
+   * @see ContentHandler#endElement
    */
   virtual void endElement(const stringT& namespaceURI, const stringT& localName,
                           const stringT& qName) 
@@ -391,7 +391,7 @@ public:
    * Filter a character data event.
    *
    * @param ch The characters.
-   * @see basic_ContentHandler#characters
+   * @see ContentHandler#characters
    */
   virtual void characters(const stringT& ch) 
   { 
@@ -402,7 +402,7 @@ public:
    * Filter an ignorable whitespace event.
    *
    * @param ch The whitespace
-   * @see basic_ContentHandler#ignorableWhitespace
+   * @see ContentHandler#ignorableWhitespace
    */
   virtual void ignorableWhitespace(const stringT& ch) 
   { 
@@ -414,7 +414,7 @@ public:
    *
    * @param target The processing instruction target.
    * @param data The text following the target.
-   * @see basic_ContentHandler#processingInstruction
+   * @see ContentHandler#processingInstruction
    */
   virtual void processingInstruction(const stringT& target, const stringT& data) 
   { 
@@ -425,7 +425,7 @@ public:
    * Filter a skipped entity event.
    *
    * @param name The name of the skipped entity.
-   * @see basic_ContentHandler#skippedEntity
+   * @see ContentHandler#skippedEntity
    */
   virtual void skippedEntity(const stringT& name) 
   { 
@@ -438,7 +438,7 @@ public:
    * Filter a warning event.
    *
    * @param exception The warning as an exception.
-   * @see basic_ErrorHandler#warning
+   * @see ErrorHandler#warning
    */
   virtual void warning(const SAXParseExceptionT& exception) 
   { 
@@ -449,7 +449,7 @@ public:
    * Filter an error event.
    *
    * @param exception The error as an exception.
-   * @see basic_ErrorHandler#error
+   * @see ErrorHandler#error
    */
   virtual void error(const SAXParseExceptionT& exception) 
   { 
@@ -460,7 +460,7 @@ public:
    * Filter a fatal error event.
    *
    * @param exception The error as an exception.
-   * @see basic_ErrorHandler#fatalError
+   * @see ErrorHandler#fatalError
    */
   virtual void fatalError(const SAXParseExceptionT& exception) 
   { 
@@ -588,9 +588,9 @@ private:
     parent_->setLexicalHandler(*this);
   } // setupParse
 
-  basic_XMLFilterImpl(const basic_XMLFilterImpl&);
-  basic_XMLFilterImpl& operator=(const basic_XMLFilterImpl&); // no impl
-  bool operator==(const basic_XMLFilterImpl&); // no impl
+  XMLFilterImpl(const XMLFilterImpl&);
+  XMLFilterImpl& operator=(const XMLFilterImpl&); // no impl
+  bool operator==(const XMLFilterImpl&); // no impl
 
   XMLReaderT* parent_;
   EntityResolverT* entityResolver_;
@@ -599,13 +599,8 @@ private:
   ErrorHandlerT* errorHandler_;
   DeclHandlerT* declHandler_;
   LexicalHandlerT* lexicalHandler_;
-  basic_DefaultHandler<stringT> defaultHandler_;
-}; // class basic_XMLFilter
-
-typedef basic_XMLFilterImpl<std::string> XMLFilterImpl;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_XMLFilterImpl<std::wstring> wXMLFilterImpl;
-#endif
+  DefaultHandler<stringT> defaultHandler_;
+}; // class XMLFilter
 
 } // namespace SAX
 } // namespace Arabica

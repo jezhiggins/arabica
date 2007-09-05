@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
   { // narrow
     Arabica::SAX::FeatureNames<std::string> fNames;
     Arabica::SAX::XMLReader<std::string> parser;
-    Arabica::SAX::Writer writer(std::cout, 4);
+    Arabica::SAX::Writer<std::string> writer(std::cout, 4);
     Arabica::SAX::CatchErrorHandler<std::string> eh;
 
     writer.setParent(parser);
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
   	for(int i = 1; i < argc; ++i)
     {
       std::string file(argv[i]);
-      Arabica::SAX::InputSource is;
+      Arabica::SAX::InputSource<std::string> is;
       is.setSystemId(file);
 
       if(file != "-")

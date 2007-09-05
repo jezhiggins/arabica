@@ -21,7 +21,7 @@ namespace SAX
  * <p>If a SAX application needs to implement customized handling
  * for external entities, it must implement this interface and
  * register an instance with the SAX driver using the
- * {@link basic_XMLReader#setEntityResolver setEntityResolver}
+ * {@link XMLReader#setEntityResolver setEntityResolver}
  * method.</p>
  *
  * <p>The XML reader will then allow the application to intercept any
@@ -66,17 +66,17 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_Parser#setEntityResolver
- * @see basic_InputSource
+ * @see Parser#setEntityResolver
+ * @see InputSource
  */
 template<class string_type>
-class basic_EntityResolver
+class EntityResolver
 {
 public:
   typedef string_type stringT;
-  typedef basic_InputSource<stringT> InputSourceT;
+  typedef InputSource<stringT> InputSourceT;
 
-	virtual ~basic_EntityResolver() { };
+	virtual ~EntityResolver() { };
 
   /**
    * Allow the application to resolve external entities.
@@ -106,15 +106,10 @@ public:
    *         or a default-constructed <code>InputSource</code> to request that
    *         the parser open a regular URI connection to the system identifier.
    * @exception SAXException Any SAX exception.
-   * @see basic_InputSource
+   * @see InputSource
    */
    virtual InputSourceT resolveEntity(const stringT& publicId, const stringT& systemId) = 0;
 }; // class EntityResolver
-
-typedef basic_EntityResolver<std::string> EntityResolver;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_EntityResolver<std::wstring> wEntityResolver;
-#endif
 
 } // namespace SAX
 } // namespace Arabica

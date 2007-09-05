@@ -45,11 +45,11 @@ namespace SAX
  * @author Jez Higgins,
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_Parser#parse
- * @see basic_EntityResolver#resolveEntity
+ * @see Parser#parse
+ * @see EntityResolver#resolveEntity
  */
 template<class string_type>
-class basic_InputSource
+class InputSource
 {
 public:
   typedef string_type stringT;
@@ -62,7 +62,7 @@ public:
    * @see #setByteStream
    * @see #setEncoding
    */
-  basic_InputSource() : 
+  InputSource() : 
     byteStream_(),
     publicId_(),
     systemId_(),
@@ -83,13 +83,13 @@ public:
    * @see #setByteStream
    * @see #setEncoding
    */
-  basic_InputSource(const stringT& systemId) : 
+  InputSource(const stringT& systemId) : 
     byteStream_(),
     publicId_(),
     systemId_(systemId), 
     encoding_()
     { }
-  basic_InputSource(const basic_InputSource& rhs) :
+  InputSource(const InputSource& rhs) :
     byteStream_(rhs.byteStream_),
     publicId_(rhs.publicId_),
     systemId_(rhs.systemId_),
@@ -104,15 +104,15 @@ public:
    * character encoding.</p>
    *
    * @param byteStream The raw byte stream containing the document.  The
-   *                   basic_InputSource does not assume ownership of 
+   *                   InputSource does not assume ownership of 
    *                   this byteStream.
-   * @see #basic_InputSource(std::auto_ptr<std::istream>)
+   * @see #InputSource(std::auto_ptr<std::istream>)
    * @see #setPublicId
    * @see #setSystemId
    * @see #setEncoding
    * @see #setByteStream
    */
-  basic_InputSource(std::istream& byteStream) :
+  InputSource(std::istream& byteStream) :
       byteStream_(byteStream),
       publicId_(),
       systemId_(),
@@ -129,22 +129,22 @@ public:
    * character encoding.</p>
    *
    * @param byteStream The raw byte stream containing the document.  The
-   *                   basic_InputSource assumes ownership of the byteStream 
+   *                   InputSource assumes ownership of the byteStream 
    *                   and will delete it when no-longer required. 
-   * @see basic_InputSource(std::istream&) 
+   * @see InputSource(std::istream&) 
    * @see #setPublicId
    * @see #setSystemId 
    * @see #setEncoding 
    * @see #setByteStream 
    */
-  basic_InputSource(std::auto_ptr<std::istream> byteStream) :
+  InputSource(std::auto_ptr<std::istream> byteStream) :
       byteStream_(byteStream),
       publicId_(),
       systemId_(),
       encoding_()
   { }
   
-  basic_InputSource(std::auto_ptr<std::iostream> byteStream) :
+  InputSource(std::auto_ptr<std::iostream> byteStream) :
       byteStream_(byteStream),
       publicId_(),
       systemId_(),
@@ -152,9 +152,9 @@ public:
   { }
 
 
-  virtual ~basic_InputSource() { }
+  virtual ~InputSource() { }
 
-  basic_InputSource& operator=(const basic_InputSource& rhs)
+  InputSource& operator=(const InputSource& rhs)
   {
     byteStream_ = rhs.byteStream_;
     publicId_ = rhs.publicId_;
@@ -173,8 +173,8 @@ public:
    *
    * @param publicId The public identifier as a string.
    * @see #getPublicId
-   * @see basic_Locator#getPublicId
-   * @see basic_SAXParseException#getPublicId
+   * @see Locator#getPublicId
+   * @see SAXParseException#getPublicId
    */
   void setPublicId(const stringT& publicId) { publicId_ = publicId; }
   /**
@@ -204,8 +204,8 @@ public:
    * @param systemId The system identifier as a string.
    * @see #setEncoding
    * @see #getSystemId
-   * @see basic_Locator#getSystemId
-   * @see basic_SAXParseException#getSystemId
+   * @see Locator#getSystemId
+   * @see SAXParseException#getSystemId
    */
   void setSystemId(const stringT& systemId) { systemId_ = systemId; }
   /**
@@ -232,7 +232,7 @@ public:
    * byte stream, it should set it with the setEncoding method.</p>
    *
    * @param byteStream A byte stream containing an XML document or
-   *        other entity. The basic_InputSource does not assume 
+   *        other entity. The InputSource does not assume 
    *                   ownership of byteStream. 
    * @see #setByteStream(std::auto_ptr<std::istream>) To transfer ownership of 
    *                                  an std::istream to an  InputSource
@@ -255,7 +255,7 @@ public:
    * byte stream, it should set it with the setEncoding method.</p>
    *
    * @param byteStream A byte stream containing an XML document or
-   *                   other entity.  The basic_InputSource assumes 
+   *                   other entity.  The InputSource assumes 
    *                   ownership of byteStream. 
    * @see #setByteStream(std::istream&) 
    * @see #setEncoding 
@@ -328,13 +328,8 @@ private:
 	stringT systemId_;
 	stringT encoding_;
 
-  bool operator==(const basic_InputSource&); // no implementation
-}; // class basic_InputSource
-
-typedef basic_InputSource<std::string> InputSource;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_InputSource<std::wstring> wInputSource;
-#endif 
+  bool operator==(const InputSource&); // no implementation
+}; // class InputSource
 
 } // namespace SAX
 } // namespace Arabica

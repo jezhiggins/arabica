@@ -40,10 +40,10 @@ namespace SAX
   }; // XMLPScanToken
 
   template<class string_type>
-  class basic_ProgressiveParser : public basic_XMLReader<string_type>
+  class ProgressiveParser : public XMLReaderInterface<string_type>
   {
     public:
-      typedef typename basic_XMLReader<string_type>::InputSourceT InputSourceT;
+      typedef typename XMLReaderInterface<string_type>::InputSourceT InputSourceT;
 
       /** @name Progressive Parsing Methods */
       //@{
@@ -153,12 +153,8 @@ namespace SAX
        */
       virtual void parseReset(XMLPScanToken& token) = 0;
       //@}
-  }; // basic_ProgressiveParser
+  }; // ProgressiveParser
 
-  typedef basic_ProgressiveParser<std::string> ProgressiveParser;
-#ifndef ARABICA_NO_WCHAR_T
-  typedef basic_ProgressiveParser<std::wstring> wProgressiveParser;
-#endif
 } // namespace SAX
 } // namespace Arabica
 

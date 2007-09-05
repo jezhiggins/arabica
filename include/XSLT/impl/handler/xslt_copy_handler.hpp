@@ -19,7 +19,7 @@ public:
   virtual Copy* createContainer(const std::string& namespaceURI,
                                 const std::string& localName,
                                 const std::string& qName,
-                                const SAX::Attributes& atts)
+                                const SAX::Attributes<std::string>& atts)
   {
     static const ValueRule rules[] = { { "use-attribute-sets", false, 0 },
                                        { 0, false, 0} };
@@ -29,7 +29,7 @@ public:
   } // createContainer
 }; // class WhenHandler
 
-class CopyOfHandler : public SAX::DefaultHandler
+class CopyOfHandler : public SAX::DefaultHandler<std::string>
 {
 public:
   CopyOfHandler(CompilationContext& context) : 
@@ -41,7 +41,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(copyOf_ == 0)
     {

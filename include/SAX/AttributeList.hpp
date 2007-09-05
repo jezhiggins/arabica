@@ -17,16 +17,16 @@ namespace SAX
  * Interface for an element's attribute specifications.
  *
  * <p>This is the original SAX1 interface for reporting an element's
- * attributes.  Unlike the new {@link basic_Attributes Attributes}
+ * attributes.  Unlike the new {@link Attributes Attributes}
  * interface, it does not support Namespace-related information.</p>
  *
  * <p>When an attribute list is supplied as part of a
- * {@link basic_DocumentHandler#startElement startElement}
+ * {@link DocumentHandler#startElement startElement}
  * event, the list will return valid results only during the
  * scope of the event; once the event handler returns control
  * to the parser, the attribute list is invalid.  To save a
  * persistent copy of the attribute list, use the SAX1
- * {@link basic_AttributeListImpl AttributeListImpl}
+ * {@link AttributeListImpl AttributeListImpl}
  * helper class.</p>
  *
  * <p>An attribute list includes only attributes that have been
@@ -65,22 +65,22 @@ namespace SAX
  * </pre>
  *
  * @deprecated This interface has been replaced by the SAX2
- *             {@link basic_Attributes Attributes}
+ *             {@link Attributes Attributes}
  *             interface, which includes Namespace support.
  * @since SAX 1.0
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_DocumentHandler#startElement startElement
- * @see basic_AttributeListImpl 
+ * @see DocumentHandler#startElement startElement
+ * @see AttributeListImpl 
  */
 template<class string_type>
-class basic_AttributeList
+class AttributeList
 {
 public:
   typedef string_type stringT;
 
-  virtual ~basic_AttributeList() { }
+  virtual ~AttributeList() { }
 
   //
   // Iteration methods.
@@ -185,11 +185,6 @@ public:
   virtual const stringT& getValue(const stringT& name) const = 0;
 
 }; // class AttributeList
-
-typedef basic_AttributeList<std::string> AttributeList;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_AttributeList<std::wstring> wAttributeList;
-#endif
 
 } // namespace SAX
 } // namespace Arabica

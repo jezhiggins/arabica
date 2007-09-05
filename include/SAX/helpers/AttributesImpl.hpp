@@ -17,7 +17,7 @@ namespace SAX
  * Default implementation of the Attributes interface.
  *
  * <p>This class provides a default implementation of the SAX2
- * {@link basic_Attributes Attributes} interface, with the 
+ * {@link Attributes Attributes} interface, with the 
  * addition of manipulators so that the list can be modified or 
  * reused.</p>
  *
@@ -25,12 +25,12 @@ namespace SAX
  *
  * <ol>
  * <li>to take a persistent snapshot of an Attributes object
- *  in a {@link basic_ContentHandler#startElement startElement} event; or</li>
+ *  in a {@link ContentHandler#startElement startElement} event; or</li>
  * <li>to construct or modify an Attributes object in a SAX2 driver or filter.</li>
  * </ol>
  *
  * <p>This class replaces the now-deprecated SAX1 {@link 
- * basic_AttributeListImpl AttributeListImpl}
+ * AttributeListImpl AttributeListImpl}
  * class.</p>
  *
  * @since SAX 2.0
@@ -39,19 +39,19 @@ namespace SAX
  * @version 2.0
  */
 template<class string_type>
-class basic_AttributesImpl : public basic_Attributes<string_type>
+class AttributesImpl : public Attributes<string_type>
 {
 public:
   typedef string_type stringT;
-  typedef basic_Attributes<stringT> AttributesT;
+  typedef Attributes<stringT> AttributesT;
 
   ////////////////////////////////////////////////////////////////////
   // Constructors.
-  basic_AttributesImpl() { } 
-  basic_AttributesImpl(const AttributesT& atts)
+  AttributesImpl() { } 
+  AttributesImpl(const AttributesT& atts)
   {
   	setAttributes(atts);
-  } // basic_AttributesImpl
+  } // AttributesImpl
 
   ////////////////////////////////////////////////////////////////////
   // Implementation of SAX::Attributes.
@@ -59,7 +59,7 @@ public:
    * Return the number of attributes in the list.
    *
    * @return The number of attributes in the list.
-   * @see basic_Attributes#getLength
+   * @see Attributes#getLength
    */
   virtual int getLength() const
   {
@@ -72,7 +72,7 @@ public:
    * @param index The attribute's index (zero-based).
    * @return The Namespace URI, the empty string if none is
    *         available, or if the index is out of range.
-   * @see basic_Attributes#getURI
+   * @see Attributes#getURI
    */
   virtual stringT getURI(unsigned int index) const
   {
@@ -87,7 +87,7 @@ public:
    * @param index The attribute's index (zero-based).
    * @return The attribute's local name, the empty string if 
    *         none is available, or if the index if out of range.
-   * @see basic_Attributes#getLocalName
+   * @see Attributes#getLocalName
    */
   virtual stringT getLocalName(unsigned int index) const
   {
@@ -103,7 +103,7 @@ public:
    * @param index The attribute's index (zero-based).
    * @return The attribute's qualified name, the empty string if 
    *         none is available, or if the index is out of bounds.
-   * @see basic_Attributes#getQName
+   * @see Attributes#getQName
    */
   virtual stringT getQName(unsigned int index) const
   {
@@ -119,7 +119,7 @@ public:
    * @param index The attribute's index (zero-based).
    * @return The attribute's type, "CDATA" if the type is unknown, or an empty
    *         string if the index is out of bounds.
-   * @see basic_Attributes#getType(int)
+   * @see Attributes#getType(int)
    */
   virtual stringT getType(unsigned int index) const
   {
@@ -134,7 +134,7 @@ public:
    *
    * @param index The attribute's index (zero-based).
    * @return The attribute's value or an empty string if the index is out of bounds.
-   * @see basic_Attributes#getValue(int)
+   * @see Attributes#getValue(int)
    */
   virtual stringT getValue(unsigned int index) const
   {
@@ -155,7 +155,7 @@ public:
    *        string if none is available.
    * @param localName The attribute's local name.
    * @return The attribute's index, or -1 if none matches.
-   * @see basic_Attributes#getIndex(const stringT&,const stringT&)
+   * @see Attributes#getIndex(const stringT&,const stringT&)
    */
   virtual int getIndex(const stringT& uri, const stringT& localName) const
   {
@@ -170,7 +170,7 @@ public:
    *
    * @param qName The qualified name.
    * @return The attribute's index, or -1 if none matches.
-   * @see basic_Attributes#getIndex(const stringT&)
+   * @see Attributes#getIndex(const stringT&)
    */
   virtual int getIndex(const stringT& qName) const
   {
@@ -191,7 +191,7 @@ public:
    * @param localName The local name.
    * @return The attribute's type, or an empty string if there is no
    *         matching attribute.
-   * @see basic_Attributes#getType(const stringT&,const stringT&)
+   * @see Attributes#getType(const stringT&,const stringT&)
    */
   virtual stringT getType(const stringT& uri, const stringT& localName) const
   {
@@ -207,7 +207,7 @@ public:
    * @param qName The qualified name.
    * @return The attribute's type, or an empty string if there is no
    *         matching attribute.
-   * @see basic_Attributes#getType(const stringT&)
+   * @see Attributes#getType(const stringT&)
    */
   virtual stringT getType(const stringT& qName) const
   {
@@ -228,7 +228,7 @@ public:
    * @param localName The local name.
    * @return The attribute's value, or an empty string if there is no
    *         matching attribute.
-   * @see basic_Attributes#getValue(const stringT&,const stringT&)
+   * @see Attributes#getValue(const stringT&,const stringT&)
    */
   virtual stringT getValue(const stringT& uri, const stringT& localName) const
   {
@@ -244,7 +244,7 @@ public:
    * @param qName The qualified name.
    * @return The attribute's value, or an empty string if there is no
    *         matching attribute.
-   * @see basic_Attributes#getValue(const stringT&)
+   * @see Attributes#getValue(const stringT&)
    */
   virtual stringT getValue(const stringT& qName) const
   {
@@ -555,11 +555,6 @@ private:
   
   stringT emptyString_;
 }; // class AttributesImpl
-
-typedef basic_AttributesImpl<std::string> AttributesImpl;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_AttributesImpl<std::wstring> wAttributesImpl;
-#endif 
 
 } // namespace SAX
 } // namespace Arabica

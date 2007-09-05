@@ -8,7 +8,7 @@ namespace Arabica
 namespace XSLT
 {
 
-class NamespaceAliasHandler : public SAX::DefaultHandler
+class NamespaceAliasHandler : public SAX::DefaultHandler<std::string>
 {
 public:
   NamespaceAliasHandler(CompilationContext& context) : 
@@ -20,7 +20,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(!done_)
     {

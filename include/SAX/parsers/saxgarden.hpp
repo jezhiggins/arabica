@@ -24,7 +24,7 @@ namespace SAX
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class Garden : public basic_XMLReader<string_type>
+class Garden : public XMLReaderInterface<string_type>
 {
 public:
   typedef string_type stringT;
@@ -32,15 +32,15 @@ public:
                              Arabica::default_string_adaptor<string_type>, 
                              T0, 
                              T1>::type string_adaptor_type;
-  typedef basic_EntityResolver<stringT> EntityResolverT;
-  typedef basic_DTDHandler<stringT> DTDHandlerT;
-  typedef basic_ContentHandler<stringT> ContentHandlerT;
-  typedef basic_InputSource<stringT> InputSourceT;
-  typedef basic_AttributesImpl<stringT> AttributesImplT;
-  typedef basic_ErrorHandler<stringT> ErrorHandlerT;
-  typedef basic_DeclHandler<stringT> declHandlerT;
-  typedef basic_LexicalHandler<stringT> lexicalHandlerT;
-  typedef typename basic_XMLReader<stringT>::PropertyBase PropertyBase;
+  typedef EntityResolver<stringT> EntityResolverT;
+  typedef DTDHandler<stringT> DTDHandlerT;
+  typedef ContentHandler<stringT> ContentHandlerT;
+  typedef InputSource<stringT> InputSourceT;
+  typedef AttributesImpl<stringT> AttributesImplT;
+  typedef ErrorHandler<stringT> ErrorHandlerT;
+  typedef DeclHandler<stringT> declHandlerT;
+  typedef LexicalHandler<stringT> lexicalHandlerT;
+  typedef typename XMLReaderInterface<stringT>::PropertyBase PropertyBase;
 
   Garden();
 
@@ -254,7 +254,7 @@ std::auto_ptr<typename Garden<string_type, T0, T1>::PropertyBase> Garden<string_
 } // doGetProperty
 
 template<class string_type, class T0, class T1>
-void Garden<string_type, T0, T1>::doSetProperty(const stringT& name, std::auto_ptr<typename basic_XMLReader<string_type>::PropertyBase> value)
+void Garden<string_type, T0, T1>::doSetProperty(const stringT& name, std::auto_ptr<typename XMLReaderInterface<string_type>::PropertyBase> value)
 {
   throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
 } // doSetProperty
@@ -451,7 +451,7 @@ void Garden<string_type, T0, T1>::reportError(const std::string& message, bool f
   if(!errorHandler_)
     return;
   
-  SAX::basic_SAXParseException<stringT> e(message);
+  SAX::SAXParseException<stringT> e(message);
 
   if(fatal)
     errorHandler_->fatalError(e);

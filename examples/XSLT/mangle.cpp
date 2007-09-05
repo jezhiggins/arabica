@@ -33,7 +33,7 @@ int main(int argc, const char* argv[])
   std::ostringstream errors;
   try 
   {
-    Arabica::SAX::InputSource source(argv[2]);
+    Arabica::SAX::InputSource<std::string> source(argv[2]);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
     {
@@ -64,7 +64,7 @@ int main(int argc, const char* argv[])
 
 Arabica::DOM::Document<std::string> buildDOM(const std::string& filename)
 {
-  Arabica::SAX::InputSource is(filename);
+  Arabica::SAX::InputSource<std::string> is(filename);
   Arabica::SAX2DOM::Parser<std::string> parser;
   parser.parse(is);       
 

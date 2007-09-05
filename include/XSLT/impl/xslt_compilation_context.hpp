@@ -39,7 +39,7 @@ public:
     } // while ...
   } // ~CompilationContext
 
-  void root(SAX::DefaultHandler& root)
+  void root(SAX::DefaultHandler<std::string>& root)
   {
     handlerStack_.push(&root);
   } // root
@@ -64,11 +64,11 @@ public:
   } // setBase
 
   void push(ItemContainer* parent,
-            SAX::DefaultHandler* newHandler,
+            SAX::DefaultHandler<std::string>* newHandler,
             const std::string& namespaceURI,
             const std::string& localName,
             const std::string& qName,
-            const SAX::Attributes& atts)
+            const SAX::Attributes<std::string>& atts)
   {
     parentStack_.push(parent);
     handlerStack_.push(newHandler);
@@ -89,7 +89,7 @@ public:
     return *parentStack_.top();
   } // parentContainer
 
-  SAX::ContentHandler& parentHandler() const
+  SAX::ContentHandler<std::string>& parentHandler() const
   {
     parser_.setContentHandler(*handlerStack_.top());
     return parser_.contentHandler();
@@ -131,7 +131,7 @@ private:
   StylesheetParser& parser_;
   const Arabica::XPath::XPath<std::string>& xpath_;
   Stylesheet& stylesheet_;
-  std::stack<SAX::DefaultHandler*> handlerStack_;
+  std::stack<SAX::DefaultHandler<std::string>*> handlerStack_;
   std::stack<ItemContainer*> parentStack_;
   std::map<std::string, Namespace> namespaceRemap_;
 

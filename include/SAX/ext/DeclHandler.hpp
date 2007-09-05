@@ -22,15 +22,15 @@ namespace SAX
  *
  * <p>Note that data-related DTD declarations (unparsed entities and
  * notations) are already reported through the {@link
- * basic_DTDHandler DTDHandler} interface.</p>
+ * DTDHandler DTDHandler} interface.</p>
  *
  * <p>If you are using the declaration handler together with a lexical
  * handler, all of the events will occur between the
- * {@link basic_LexicalHandler#startDTD startDTD} and the
- * {@link basic_LexicalHandler#endDTD endDTD} events.</p>
+ * {@link LexicalHandler#startDTD startDTD} and the
+ * {@link LexicalHandler#endDTD endDTD} events.</p>
  *
  * <p>To set the DeclHandler for an XML reader, use the
- * {@link basic_XMLReader#setProperty setProperty} method
+ * {@link XMLReader#setProperty setProperty} method
  * with the propertyId "http://xml.org/sax/properties/declaration-handler".
  * If the reader does not support declaration events, it will throw a
  * {@link SAXNotRecognizedException SAXNotRecognizedException}
@@ -42,14 +42,14 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 1.0
- * @see basic_XMLReader
+ * @see XMLReader
  */
 template<class string_type>
-class basic_DeclHandler
+class DeclHandler
 {
 public:
   typedef string_type stringT;
-  virtual ~basic_DeclHandler() { }
+  virtual ~DeclHandler() { }
 
   /**
    * Report an element type declaration.
@@ -106,7 +106,7 @@ public:
    *        entity, the name will begin with '%'.
    * @param value The replacement text of the entity.
    * @see #externalEntityDecl
-   * @see basic_DTDHandler#unparsedEntityDecl
+   * @see DTDHandler#unparsedEntityDecl
    */
   virtual void internalEntityDecl(const stringT& name, const stringT& value) = 0;
   /**
@@ -121,17 +121,12 @@ public:
    *        an empty string if none was declared.
    * @param systemId The declared system identifier of the entity.
    * @see #internalEntityDecl
-   * @see basic_DTDHandler#unparsedEntityDecl
+   * @see DTDHandler#unparsedEntityDecl
    */
   virtual void externalEntityDecl(const stringT& name, 
                                   const stringT& publicId,
                                   const stringT& systemId) = 0;
-}; // class basic_DeclHandler
-
-typedef basic_DeclHandler<std::string> DeclHandler;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_DeclHandler<std::wstring> wDeclHandler;
-#endif 
+}; // class DeclHandler
 
 } // namespace SAX
 } // namespace Arabica

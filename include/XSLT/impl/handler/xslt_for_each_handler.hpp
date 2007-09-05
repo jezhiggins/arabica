@@ -23,7 +23,7 @@ protected:
   virtual ForEach* createContainer(const std::string& namespaceURI,
                                    const std::string& localName,
                                    const std::string& qName,
-                                   const SAX::Attributes& atts)
+                                   const SAX::Attributes<std::string>& atts)
   {
     static const ValueRule rules[] = { { "select", true, 0 },
                                        { 0, false, 0} };
@@ -35,7 +35,7 @@ protected:
   virtual bool createChild(const std::string& namespaceURI,
                            const std::string& localName,
                            const std::string& qName,
-                           const SAX::Attributes& atts)
+                           const SAX::Attributes<std::string>& atts)
   {
     if((namespaceURI == StylesheetConstant::NamespaceURI()) &&
        (localName == "sort"))

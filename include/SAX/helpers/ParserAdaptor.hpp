@@ -25,10 +25,10 @@ namespace SAX
 /**
  * Adapt a SAX1 Parser as a SAX2 XMLReader.
  *
- * <p>This class wraps a SAX1 {@link basic_Parser Parser}
- * and makes it act as a SAX2 {@link basic_XMLReader XMLReader},
+ * <p>This class wraps a SAX1 {@link Parser Parser}
+ * and makes it act as a SAX2 {@link XMLReader XMLReader},
  * with feature, property, and Namespace support.  Note
- * that it is not possible to report {@link basic_ContentHandler#skippedEntity
+ * that it is not possible to report {@link ContentHandler#skippedEntity
  * skippedEntity} events, since SAX1 does not make that information available.</p>
  *
  * <p>This adapter does not test for duplicate Namespace-qualified
@@ -38,27 +38,27 @@ namespace SAX
  * @author Jez Higgins,
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_XMLReader
- * @see basic_Parser
+ * @see XMLReader
+ * @see Parser
  */
 template<class string_type, class string_adaptor_type>
-class basic_ParserAdaptor : public basic_XMLReader<string_type>, 
-                            public basic_DocumentHandler<string_type>
+class ParserAdaptor : public XMLReaderInterface<string_type>, 
+                            public DocumentHandler<string_type>
 {
 public:
   typedef string_type stringT;
   typedef string_adaptor_type string_adaptorT;
-  typedef basic_Parser<stringT> ParserT;
-  typedef basic_EntityResolver<stringT> EntityResolverT;
-  typedef basic_DTDHandler<stringT> DTDHandlerT;
-  typedef basic_DocumentHandler<stringT> DocumentHandlerT;
-  typedef basic_ContentHandler<stringT> ContentHandlerT;
-  typedef basic_InputSource<stringT> InputSourceT;
-  typedef basic_Locator<stringT> LocatorT;
-  typedef basic_SAXParseException<stringT> SAXParseExceptionT;
-  typedef basic_AttributeList<stringT> AttributeListT;
+  typedef Parser<stringT> ParserT;
+  typedef EntityResolver<stringT> EntityResolverT;
+  typedef DTDHandler<stringT> DTDHandlerT;
+  typedef DocumentHandler<stringT> DocumentHandlerT;
+  typedef ContentHandler<stringT> ContentHandlerT;
+  typedef InputSource<stringT> InputSourceT;
+  typedef Locator<stringT> LocatorT;
+  typedef SAXParseException<stringT> SAXParseExceptionT;
+  typedef AttributeList<stringT> AttributeListT;
 
-  basic_ParserAdaptor(ParserT& parser) :
+  ParserAdaptor(ParserT& parser) :
     parser_(parser),
     parsing_(false),
     locator_(0),
@@ -85,7 +85,7 @@ public:
    *            name is not known.
    * @exception SAXNotSupportedException If the feature
    *            state is not supported.
-   * @see basic_XMLReader#setFeature
+   * @see XMLReader#setFeature
    */
   virtual void setFeature(const stringT& name, bool value)
   {
@@ -127,7 +127,7 @@ public:
    *            name is not known.
    * @exception SAXNotSupportedException If querying the
    *            feature state is not supported.
-   * @see basic_XMLReader#setFeature
+   * @see XMLReader#setFeature
    */
   virtual bool getFeature(const stringT& name) const
   {
@@ -167,14 +167,14 @@ public:
    * Set the entity resolver.
    *
    * @param resolver The new entity resolver.
-   * @see basic_XMLReader#setEntityResolver
+   * @see XMLReader#setEntityResolver
    */
   virtual void setEntityResolver(EntityResolverT& resolver) { entityResolver_ = &resolver; }
   /**
    * Return the current entity resolver.
    *
    * @return The current entity resolver, or null if none was supplied.
-   * @see basic_XMLReader#getEntityResolver
+   * @see XMLReader#getEntityResolver
    */
   virtual EntityResolverT* getEntityResolver() const { return entityResolver_; }
   
@@ -182,14 +182,14 @@ public:
    * Set the DTD handler.
    *
    * @param handler The new DTD handler.
-   * @see basic_XMLReader#setEntityResolver
+   * @see XMLReader#setEntityResolver
    */
   virtual void setDTDHandler(DTDHandlerT& handler) { dtdHandler_ = &handler; } 
   /**
    * Return the current DTD handler.
    *
    * @return The current DTD handler, or null if none was supplied.
-   * @see basic_XMLReader#getEntityResolver
+   * @see XMLReader#getEntityResolver
    */
   virtual DTDHandlerT* getDTDHandler() const { return dtdHandler_; }
   
@@ -197,14 +197,14 @@ public:
    * Set the content handler.
    *
    * @param handler The new content handler.
-   * @see basic_XMLReader#setEntityResolver
+   * @see XMLReader#setEntityResolver
    */
   virtual void setContentHandler(ContentHandlerT& handler) { contentHandler_ = &handler; }
   /**
    * Return the current content handler.
    *
    * @return The current content handler, or null if none was supplied.
-   * @see basic_XMLReader#getEntityResolver
+   * @see XMLReader#getEntityResolver
    */
   virtual ContentHandlerT* getContentHandler() const { return contentHandler_; }
 
@@ -212,14 +212,14 @@ public:
    * Set the error handler.
    *
    * @param handler The new error handler.
-   * @see basic_XMLReader#setEntityResolver
+   * @see XMLReader#setEntityResolver
    */
   virtual void setErrorHandler(ErrorHandler& handler) { errorHandler_ = &handler; }
   /**
    * Return the current error handler.
    *
    * @return The current error handler, or null if none was supplied.
-   * @see basic_XMLReader#getEntityResolver
+   * @see XMLReader#getEntityResolver
    */
   virtual ErrorHandler* getErrorHandler() const { return errorHandler_; }
 
@@ -227,7 +227,7 @@ public:
    * Parse an XML document.
    *
    * @param input An input source for the document.
-   * @see basic_Parser#parse(InputSource&)
+   * @see Parser#parse(InputSource&)
    */
   virtual void parse(InputSourceT& input)
   {
@@ -253,7 +253,7 @@ public:
    * Adapt a SAX1 document locator event.
    *
    * @param locator A document locator.
-   * @see basic_ContentHandler#setDocumentLocator
+   * @see ContentHandler#setDocumentLocator
    */
   virtual void setDocumentLocator(const LocatorT& locator)
   {
@@ -265,7 +265,7 @@ public:
   /**
    * Adapt a SAX1 start document event.
    *
-   * @see basic_DocumentHandler#startDocument
+   * @see DocumentHandler#startDocument
    */
   virtual void startDocument()
   {
@@ -276,7 +276,7 @@ public:
   /**
    * Adapt a SAX1 end document event.
    *
-   * @see basic_DocumentHandler#endDocument
+   * @see DocumentHandler#endDocument
    */
   virtual void endDocument()
   {
@@ -369,7 +369,7 @@ public:
    * Adapt a SAX1 end element event.
    *
    * @param qName The qualified (prefixed) name.
-   * @see basic_DocumentHandler#endElement
+   * @see DocumentHandler#endElement
    */
   void endElement(const stringT& qName)
   {
@@ -395,7 +395,7 @@ public:
    * Adapt a SAX1 characters event.
    *
    * @param ch The characters.
-   * @see basic_DocumentHandler#characters
+   * @see DocumentHandler#characters
    */
   virtual void characters(const stringT& ch)
   {
@@ -407,7 +407,7 @@ public:
    * Adapt a SAX1 ignorable whitespace event.
    *
    * @param ch Thecharacters.
-   * @see basic_DocumentHandler#ignorableWhitespace
+   * @see DocumentHandler#ignorableWhitespace
    */
   virtual void ignorableWhitespace(const stringT& ch)
   {
@@ -420,7 +420,7 @@ public:
    *
    * @param target The processing instruction target.
    * @param data The remainder of the processing instruction
-   * @see basic_DocumentHandler#processingInstruction
+   * @see DocumentHandler#processingInstruction
    */
   virtual void processingInstruction(const stringT& target, const stringT& data) 
   {
@@ -429,8 +429,8 @@ public:
   } // processingInstruction
 
 private:
-  typedef basic_NamespaceSupport<stringT, string_adaptorT> NamespaceSupportT;
-  typedef basic_AttributesImpl<stringT> AttributesImplT;
+  typedef NamespaceSupport<stringT, string_adaptorT> NamespaceSupportT;
+  typedef AttributesImpl<stringT> AttributesImplT;
 
   void setupParser()
   {
@@ -477,11 +477,11 @@ private:
   } // makeString
 
   // This wrapper is used only when Namespace support is disabled.
-  class AttributesListAdaptor : public basic_Attributes<stringT>
+  class AttributesListAdaptor : public Attributes<stringT>
   {
   public:  
-    typedef typename basic_ParserAdaptor<stringT, string_adaptorT> ParserAdaptorT;
-    typedef typename basic_AttributeList<stringT> AttributeListT;
+    typedef typename ParserAdaptor<stringT, string_adaptorT> ParserAdaptorT;
+    typedef typename AttributeList<stringT> AttributeListT;
 
     void setAttributeList(const AttributeListT& attList)
     {
@@ -538,16 +538,11 @@ public:
   const stringT NULL_STRING;
 
 private:
-  basic_ParserAdaptor();
-  basic_ParserAdaptor(const basic_ParserAdaptor&);
-  basic_ParserAdaptor& operator=(const basic_ParserAdaptor&);
-  bool operator==(const basic_ParserAdaptor&);
+  ParserAdaptor();
+  ParserAdaptor(const ParserAdaptor&);
+  ParserAdaptor& operator=(const ParserAdaptor&);
+  bool operator==(const ParserAdaptor&);
 }; // ParserAdaptor
-
-typedef basic_ParserAdaptor<std::string, char> ParserAdaptor;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_ParserAdaptor<std::wstring, wchar_t> wParserAdaptor;
-#endif
 
 } // namespace SAX
 } // namespace Arabica

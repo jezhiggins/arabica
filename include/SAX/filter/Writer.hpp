@@ -18,29 +18,29 @@ namespace SAX
 {
 
 template<class string_type>
-class basic_Writer : public basic_XMLFilterImpl<string_type>
+class Writer : public XMLFilterImpl<string_type>
 {
   public:
     typedef string_type stringT;
-    typedef basic_Writer<stringT> WriterT;
+    typedef Writer<stringT> WriterT;
     typedef typename string_type::value_type charT;
     typedef typename string_type::traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
-    typedef basic_XMLReader<stringT> XMLReaderT;
-    typedef basic_XMLFilterImpl<stringT> XMLFilterT;
-    typedef typename basic_XMLFilterImpl<stringT>::AttributesT AttributesT;
+    typedef XMLReaderInterface<stringT> XMLReaderT;
+    typedef XMLFilterImpl<stringT> XMLFilterT;
+    typedef typename XMLFilterImpl<stringT>::AttributesT AttributesT;
     typedef Arabica::Unicode<charT> UnicodeT;
     typedef Arabica::XML::text_escaper<charT, traitsT> text_escaperT;
     typedef Arabica::XML::attribute_escaper<charT, traitsT> attribute_escaperT;
   private:
-    typedef basic_LexicalHandler<stringT> LexicalHandlerT;
-    typedef basic_DeclHandler<stringT> DeclHandlerT;
+    typedef LexicalHandler<stringT> LexicalHandlerT;
+    typedef DeclHandler<stringT> DeclHandlerT;
     typedef typename XMLReaderT::InputSourceT InputSourceT;
     typedef typename XMLReaderT::PropertyBase PropertyBaseT;
     using XMLFilterT::getParent;
 
   public:
-    basic_Writer(ostreamT& stream, unsigned int indent = 2) :
+    Writer(ostreamT& stream, unsigned int indent = 2) :
       inCDATA_(false),
       inDTD_(false),
       internalSubset_(true),
@@ -50,9 +50,9 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>
       encoding_(),
       lastTag_(startTag)
     {
-    } // basic_Writer
+    } // Writer
 
-    basic_Writer(ostreamT& stream, XMLReaderT& parent, unsigned int indent = 2) :
+    Writer(ostreamT& stream, XMLReaderT& parent, unsigned int indent = 2) :
       XMLFilterT(parent),
       inCDATA_(false),
       inDTD_(false),
@@ -63,9 +63,9 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>
       encoding_(),
       lastTag_(startTag)
     {
-    } // basic_Writer
+    } // Writer
 
-    basic_Writer(ostreamT& stream, const stringT& encoding, unsigned int indent = 2) :
+    Writer(ostreamT& stream, const stringT& encoding, unsigned int indent = 2) :
       inCDATA_(false),
       inDTD_(false),
       internalSubset_(true),
@@ -75,9 +75,9 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>
       encoding_(encoding),
       lastTag_(startTag)
     {
-    } // basic_Writer
+    } // Writer
 
-    basic_Writer(ostreamT& stream, XMLReaderT& parent, const stringT& encoding, unsigned int indent = 2) :
+    Writer(ostreamT& stream, XMLReaderT& parent, const stringT& encoding, unsigned int indent = 2) :
       XMLFilterT(parent),
       inCDATA_(false),
       inDTD_(false),
@@ -88,7 +88,7 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>
       encoding_(encoding),
       lastTag_(startTag)
     {
-    } // basic_Writer
+    } // Writer
 
     // setEncoding
     // Sets the encoding included in the XML declaration.  If not set, then the encoding 
@@ -149,10 +149,10 @@ class basic_Writer : public basic_XMLFilterImpl<string_type>
     enum { startTag, endTag, docTag } lastTag_;
     const SAX::PropertyNames<stringT> properties_;
 
-}; // class basic_Writer
+}; // class Writer
 
 template<class string_type>
-void basic_Writer<string_type>::startDocument()
+void Writer<string_type>::startDocument()
 {
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::QUESTION_MARK
@@ -202,14 +202,14 @@ void basic_Writer<string_type>::startDocument()
 } // startDocument
 
 template<class string_type>
-void basic_Writer<string_type>::endDocument()
+void Writer<string_type>::endDocument()
 {
   XMLFilterT::endDocument();
   lastTag_ = endTag;
 } // endDocument
 
 template<class string_type>
-void basic_Writer<string_type>::startElement(
+void Writer<string_type>::startElement(
                               const stringT& namespaceURI, const stringT& localName,
                               const stringT& qName, const AttributesT& atts)
 { 
@@ -237,7 +237,7 @@ void basic_Writer<string_type>::startElement(
 } // startElement
 
 template<class string_type>
-void basic_Writer<string_type>::endElement(
+void Writer<string_type>::endElement(
                             const stringT& namespaceURI, const stringT& localName,
                             const stringT& qName)
 {
@@ -256,7 +256,7 @@ void basic_Writer<string_type>::endElement(
 } // endElement
 
 template<class string_type>
-void basic_Writer<string_type>::characters(const stringT& ch)
+void Writer<string_type>::characters(const stringT& ch)
 {
   if(!inCDATA_)
     std::for_each(ch.begin(), ch.end(), text_escaperT(*stream_));
@@ -267,7 +267,7 @@ void basic_Writer<string_type>::characters(const stringT& ch)
 } // characters
 
 template<class string_type>
-void basic_Writer<string_type>::ignorableWhitespace(const stringT& ch)
+void Writer<string_type>::ignorableWhitespace(const stringT& ch)
 {
   *stream_ << ch;
 
@@ -275,7 +275,7 @@ void basic_Writer<string_type>::ignorableWhitespace(const stringT& ch)
 } // ignorableWhitespace
 
 template<class string_type>
-void basic_Writer<string_type>::processingInstruction(const stringT& target, const stringT& data)
+void Writer<string_type>::processingInstruction(const stringT& target, const stringT& data)
 {
   if((!inDTD_) || (inDTD_ && internalSubset_))
   {
@@ -294,7 +294,7 @@ void basic_Writer<string_type>::processingInstruction(const stringT& target, con
 } // processingInstruction
 
 template<class string_type>
-void basic_Writer<string_type>::skippedEntity(const stringT& name)
+void Writer<string_type>::skippedEntity(const stringT& name)
 {
   if(!isDtd(name))
     *stream_ << UnicodeT::AMPERSAND << name << UnicodeT::SEMI_COLON;
@@ -303,14 +303,14 @@ void basic_Writer<string_type>::skippedEntity(const stringT& name)
 } // skippedEntity
 
 template<class string_type>
-void basic_Writer<string_type>::doIndent()
+void Writer<string_type>::doIndent()
 {
   for(int i = 0; i < depth_; ++i)
     *stream_ << UnicodeT::SPACE;
 } // doIndent
 
 template<class string_type>
-bool basic_Writer<string_type>::isDtd(const string_type& name)
+bool Writer<string_type>::isDtd(const string_type& name)
 {
   return (name.length() == 5 && 
      name[0] == UnicodeT::LEFT_SQUARE_BRACKET &&
@@ -321,7 +321,7 @@ bool basic_Writer<string_type>::isDtd(const string_type& name)
 } // isDtd
 
 template<class string_type>
-void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& publicId, const stringT& systemId)
+void Writer<string_type>::startDTD(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
   inDTD_ = true;
   depth_ += indent_;
@@ -348,7 +348,7 @@ void basic_Writer<string_type>::startDTD(const stringT& name, const stringT& pub
 } // startDTD
 
 template<class string_type>
-void basic_Writer<string_type>::endDTD()
+void Writer<string_type>::endDTD()
 {
   *stream_ << UnicodeT::RIGHT_SQUARE_BRACKET
            << UnicodeT::GREATER_THAN_SIGN
@@ -361,7 +361,7 @@ void basic_Writer<string_type>::endDTD()
 } // endDTD
 
 template<class string_type>
-void basic_Writer<string_type>::startEntity(const stringT& name)
+void Writer<string_type>::startEntity(const stringT& name)
 {
   if(isDtd(name))
     internalSubset_ = false;
@@ -370,7 +370,7 @@ void basic_Writer<string_type>::startEntity(const stringT& name)
 } // startEntity
 
 template<class string_type>
-void basic_Writer<string_type>::endEntity(const stringT& name)
+void Writer<string_type>::endEntity(const stringT& name)
 {
   if(isDtd(name))
     internalSubset_ = true;
@@ -379,7 +379,7 @@ void basic_Writer<string_type>::endEntity(const stringT& name)
 } // endEntity
 
 template<class string_type>
-void basic_Writer<string_type>::startCDATA()
+void Writer<string_type>::startCDATA()
 {
   inCDATA_ = true;
 
@@ -397,7 +397,7 @@ void basic_Writer<string_type>::startCDATA()
 } // startCDATA
 
 template<class string_type>
-void basic_Writer<string_type>::endCDATA()
+void Writer<string_type>::endCDATA()
 {
   *stream_ << UnicodeT::RIGHT_SQUARE_BRACKET
            << UnicodeT::RIGHT_SQUARE_BRACKET
@@ -409,7 +409,7 @@ void basic_Writer<string_type>::endCDATA()
 } // endCDATA
 
 template<class string_type>
-void basic_Writer<string_type>::comment(const stringT& text)
+void Writer<string_type>::comment(const stringT& text)
 {
   if((!inDTD_) || (inDTD_ && internalSubset_))
     *stream_ << UnicodeT::LESS_THAN_SIGN
@@ -425,7 +425,7 @@ void basic_Writer<string_type>::comment(const stringT& text)
 } // comment
 
 template<class string_type>
-void basic_Writer<string_type>::notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
+void Writer<string_type>::notationDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -454,7 +454,7 @@ void basic_Writer<string_type>::notationDecl(const stringT& name, const stringT&
 } // notationDecl
 
 template<class string_type>
-void basic_Writer<string_type>::unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName)
+void Writer<string_type>::unparsedEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId, const stringT& notationName)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -479,7 +479,7 @@ void basic_Writer<string_type>::unparsedEntityDecl(const stringT& name, const st
 } // unparsedEntityDecl
 
 template<class string_type>
-void basic_Writer<string_type>::elementDecl(const stringT& name, const stringT& model)
+void Writer<string_type>::elementDecl(const stringT& name, const stringT& model)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -507,7 +507,7 @@ void basic_Writer<string_type>::elementDecl(const stringT& name, const stringT& 
 } // elementDecl
 
 template<class string_type>
-void basic_Writer<string_type>::attributeDecl(const stringT& elementName, const stringT& attributeName,
+void Writer<string_type>::attributeDecl(const stringT& elementName, const stringT& attributeName,
                                const stringT& type, const stringT& valueDefault, const stringT& value)
 {
   if(inDTD_ && internalSubset_)
@@ -548,7 +548,7 @@ void basic_Writer<string_type>::attributeDecl(const stringT& elementName, const 
 } // attributeDecl
 
 template<class string_type>
-void basic_Writer<string_type>::internalEntityDecl(const stringT& name, const stringT& value)
+void Writer<string_type>::internalEntityDecl(const stringT& name, const stringT& value)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -566,7 +566,7 @@ void basic_Writer<string_type>::internalEntityDecl(const stringT& name, const st
 } // internalEntityDecl
 
 template<class string_type>
-void basic_Writer<string_type>::externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
+void Writer<string_type>::externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
 {
   if(inDTD_ && internalSubset_)
   {
@@ -581,7 +581,7 @@ void basic_Writer<string_type>::externalEntityDecl(const stringT& name, const st
 } // externalEntityDecl
 
 template<class string_type>
-void basic_Writer<string_type>::startEntityDecl(const stringT& name)
+void Writer<string_type>::startEntityDecl(const stringT& name)
 {
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::EXCLAMATION_MARK
@@ -596,7 +596,7 @@ void basic_Writer<string_type>::startEntityDecl(const stringT& name)
 } // startEntityDecl
 
 template<class string_type>
-void basic_Writer<string_type>::publicAndSystem(const stringT& publicId, const stringT& systemId)
+void Writer<string_type>::publicAndSystem(const stringT& publicId, const stringT& systemId)
 {
   *stream_ << UnicodeT::SPACE;
 
@@ -627,11 +627,6 @@ void basic_Writer<string_type>::publicAndSystem(const stringT& publicId, const s
              << UnicodeT::QUOTATION_MARK;
   } // if ...
 } // publicAndSystem
-
-typedef basic_Writer<std::string> Writer;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_Writer<std::wstring> wWriter;
-#endif 
 
 } // namespace SAX
 } // namespace Arabica

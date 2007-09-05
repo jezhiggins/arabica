@@ -21,7 +21,7 @@ namespace SAX
  * Basic interface for SAX (Simple API for XML) parsers.
  *
  * <p>This was the main event supplier interface for SAX1; it has
- * been replaced in SAX2 by {@link basic_XMLReader XMLReader},
+ * been replaced in SAX2 by {@link XMLReader XMLReader},
  * which includes Namespace support and sophisticated configurability
  * and extensibility.</p>
  *
@@ -38,30 +38,30 @@ namespace SAX
  * invoke the parse() methods recursively within a parse.</p>
  *
  * @deprecated This interface has been replaced by the SAX2
- *             {@link basic_XMLReader XMLReader}
+ *             {@link XMLReader XMLReader}
  *             interface, which includes Namespace support.
  * @since SAX 1.0
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_EntityResolver
- * @see basic_DTDHandler
- * @see basic_DocumentHandler
- * @see basic_ErrorHandler
- * @see basic_HandlerBase
- * @see basic_InputSource
+ * @see EntityResolver
+ * @see DTDHandler
+ * @see DocumentHandler
+ * @see ErrorHandler
+ * @see HandlerBase
+ * @see InputSource
  */
 template<class string_type>
-class basic_Parser
+class Parser
 {
 public:
   typedef string_name stringT;
-  typedef basic_EntityResolver<stringT> EntityResolverT;
-  typedef basic_DTDHandler<stringT> DTDHandlerT;
-  typedef basic_DocumentHandler<stringT> DocumentHandlerT;
-  typedef basic_InputSource<stringT> InputSourceT;
+  typedef EntityResolver<stringT> EntityResolverT;
+  typedef DTDHandler<stringT> DTDHandlerT;
+  typedef DocumentHandler<stringT> DocumentHandlerT;
+  typedef InputSource<stringT> InputSourceT;
 
-  virtual ~basic_Parser() { }
+  virtual ~Parser() { }
 
   //  virtual void setLocale(Locale locale) throws SAXException = 0;
   /**
@@ -77,8 +77,8 @@ public:
    * the new resolver immediately.</p>
    *
    * @param resolver The object for resolving entities.
-   * @see basic_EntityResolver
-   * @see basic_HandlerBase
+   * @see EntityResolver
+   * @see HandlerBase
    */
   virtual void setEntityResolver(EntityResolverT& resolver) = 0;
   /**
@@ -94,8 +94,8 @@ public:
    * begin using the new handler immediately.</p>
    *
    * @param handler The DTD handler.
-   * @see basic_DTDHandler
-   * @see basic_HandlerBase
+   * @see DTDHandler
+   * @see HandlerBase
    */
   virtual void setDTDHandler(DTDHandlerT& handler) = 0;
   /**
@@ -111,8 +111,8 @@ public:
    * handler immediately.</p>
    *
    * @param handler The document handler.
-   * @see basic_DocumentHandler
-   * @see basic_HandlerBase
+   * @see DocumentHandler
+   * @see HandlerBase
    */
   virtual void setDocumentHandler(DocumentHandlerT& handler) = 0;
   /**
@@ -128,9 +128,9 @@ public:
    * handler immediately.</p>
    *
    * @param handler The error handler.
-   * @see basic_ErrorHandler
-   * @see basic_SAXException
-   * @see basic_HandlerBase
+   * @see ErrorHandler
+   * @see SAXException
+   * @see HandlerBase
    */
   virtual void setErrorHandler(ErrorHandler& handler) = 0;
 
@@ -149,19 +149,14 @@ public:
    *
    * @param source The input source for the top-level of the
    *        XML document.
-   * @see basic_InputSource
+   * @see InputSource
    * @see #setEntityResolver
    * @see #setDTDHandler
    * @see #setDocumentHandler
    * @see #setErrorHandler
    */
   virtual void parse(InputSourceT& source) = 0;
-}; // class basic_Parser
-
-typedef basic_Parser<std::string> Parser;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_Parser<std::wstring> wParser;
-#endif 
+}; // class Parser
 
 } // namespace SAX
 } // namespace Arabica

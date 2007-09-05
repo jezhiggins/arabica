@@ -21,7 +21,7 @@ protected:
   virtual Message* createContainer(const std::string& namespaceURI,
                                    const std::string& localName,
                                    const std::string& qName,
-                                   const SAX::Attributes& atts)
+                                   const SAX::Attributes<std::string>& atts)
   {
     static const ValueRule rules[] = { { "terminate", false, No, AllowedYesNo },
                                        { 0, false, 0} };

@@ -10,7 +10,7 @@ namespace Arabica
 namespace XSLT
 {
 
-class ApplyTemplatesHandler : public SAX::DefaultHandler
+class ApplyTemplatesHandler : public SAX::DefaultHandler<std::string>
 {
 public:
   ApplyTemplatesHandler(CompilationContext& context) :
@@ -22,7 +22,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(applyTemplates_ == 0)
     {

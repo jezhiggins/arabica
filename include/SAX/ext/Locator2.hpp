@@ -26,12 +26,12 @@ namespace SAX
  * @version 2.0
  */
 template<class string_type>
-class basic_Locator2 : public basic_Locator<string_type>
+class Locator2 : public Locator<string_type>
 {
 public:
   typedef string_type stringT;
 
-  virtual ~basic_Locator2() { }
+  virtual ~Locator2() { }
 
   /**
    * Returns the version of XML used for the entity. This will normally 
@@ -65,12 +65,7 @@ public:
    * @return Name of the character encoding being used to interpret the entity's text.
    */
   virtual stringT getEncoding() const = 0;
-}; // class basic_Locator2
-
-typedef basic_Locator2<std::string> Locator2;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_Locator2<std::wstring> wLocator2;
-#endif 
+}; // class Locator2
 
 } // namespace SAX
 } // namespace Arabica

@@ -9,7 +9,7 @@ namespace Arabica
 namespace XSLT
 {
 
-class ValueOfHandler : public SAX::DefaultHandler
+class ValueOfHandler : public SAX::DefaultHandler<std::string>
 {
 public:
   ValueOfHandler(CompilationContext& context) : 
@@ -21,7 +21,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(valueOf_ == 0)
     {

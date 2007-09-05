@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 	for(int i = 2; i < argc; ++i)
   {
     std::string file(argv[i]);
-    Arabica::SAX::InputSource is;
+    Arabica::SAX::InputSource<std::string> is;
     is.setSystemId(file);
 
     if(file != "-")

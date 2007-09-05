@@ -19,7 +19,7 @@ namespace SAX
  * <p>If a SAX parser provides location information to the SAX
  * application, it does so by implementing this interface and then
  * passing an instance to the application using the content
- * handler's {@link basic_ContentHandler#setDocumentLocator
+ * handler's {@link ContentHandler#setDocumentLocator
  * setDocumentLocator} method.  The application can use the
  * object to obtain the location of any other content handler event
  * in the XML source document.</p>
@@ -33,7 +33,7 @@ namespace SAX
  * very strongly encouraged to do so.  If the parser supplies a
  * locator, it must do so before reporting any other document events.
  * If no locator has been set by the time the application receives
- * the {@link basic_ContentHandler#startDocument startDocument}
+ * the {@link ContentHandler#startDocument startDocument}
  * event, the application should assume that a locator is not 
  * available.</p>
  *
@@ -41,15 +41,15 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_ContentHandler#setDocumentLocator 
+ * @see ContentHandler#setDocumentLocator 
  */
 template<class string_type>
-class basic_Locator
+class Locator
 {
 public:
   typedef string_type stringT;
 
-  virtual ~basic_Locator() { }
+  virtual ~Locator() { }
 
   /**
    * Return the public identifier for the current document event.
@@ -123,11 +123,6 @@ public:
    */
   virtual int getColumnNumber() const = 0;
 }; // class Locator
-
-typedef basic_Locator<std::string> Locator;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_Locator<std::wstring> wLocator;
-#endif 
 
 } // namespace SAX
 } // namespace Arabica

@@ -84,7 +84,7 @@ struct NamespaceConstants
  * @version 2.0
  */
 template<class stringT, class string_adaptorT>
-class basic_NamespaceSupport
+class NamespaceSupport
 {
   public:
     typedef std::vector<stringT> stringListT;
@@ -98,10 +98,10 @@ class basic_NamespaceSupport
     }; // struct Parts
 
     // functions
-    basic_NamespaceSupport() 
+    NamespaceSupport() 
     { 
       reset(); 
-    } // basic_NamespaceSupport
+    } // NamespaceSupport
 
     /**
      * Reset this Namespace support object for reuse.
@@ -394,10 +394,10 @@ class basic_NamespaceSupport
     const NamespaceConstants<stringT, string_adaptorT> nsc_;
 
     // no impl
-    basic_NamespaceSupport(const basic_NamespaceSupport&);
-    basic_NamespaceSupport& operator=(const basic_NamespaceSupport&);
-    bool operator==(const basic_NamespaceSupport&) const;
-}; // class basic_NamespaceSupport
+    NamespaceSupport(const NamespaceSupport&);
+    NamespaceSupport& operator=(const NamespaceSupport&);
+    bool operator==(const NamespaceSupport&) const;
+}; // class NamespaceSupport
 
 } // namespace SAX
 } // namespace Arabica

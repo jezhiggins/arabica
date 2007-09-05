@@ -49,12 +49,12 @@ int main(int argc, char* argv[])
 
     if(file != "-")
     {
-      Arabica::SAX::InputSource is(file); 
+      Arabica::SAX::InputSource<std::string> is(file); 
       parser.parse(is);
     }
     else
     {
-      Arabica::SAX::InputSource is;
+      Arabica::SAX::InputSource<std::string> is;
       is.setSystemId("stdin");
       is.setByteStream(std::cin);
 

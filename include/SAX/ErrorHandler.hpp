@@ -21,7 +21,7 @@ namespace SAX
  * <p>If a SAX application needs to implement customized error
  * handling, it must implement this interface and then register an
  * instance with the XML reader using the
- * {@link basic_XMLReader#setErrorHandler setErrorHandler}
+ * {@link XMLReader#setErrorHandler setErrorHandler}
  * method.  The parser will then report all errors and warnings
  * through this interface.</p>
  *
@@ -41,17 +41,17 @@ namespace SAX
  * @author Jez Higgins,
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_Parser#setErrorHandler
- * @see basic_SAXParseException 
+ * @see Parser#setErrorHandler
+ * @see SAXParseException 
  */
 template<class string_type>
-class basic_ErrorHandler
+class ErrorHandler
 {
 public:
   typedef string_type stringT;
-  typedef basic_SAXParseException<stringT> SAXParseExceptionT;
+  typedef SAXParseException<stringT> SAXParseExceptionT;
 
-  virtual ~basic_ErrorHandler() { };
+  virtual ~ErrorHandler() { };
 
   /**
    * Receive notification of a warning.
@@ -69,7 +69,7 @@ public:
    *
    * @param exception The warning information encapsulated in a
    *                  SAX parse exception.
-   * @see basic_SAXParseException 
+   * @see SAXParseException 
    */
   virtual void warning(const SAXParseExceptionT& exception) = 0;
   /**
@@ -93,7 +93,7 @@ public:
    *
    * @param exception The error information encapsulated in a
    *                  SAX parse exception.
-   * @see basic_SAXParseException 
+   * @see SAXParseException 
    */
   virtual void error(const SAXParseExceptionT& exception) = 0;
   /**
@@ -112,15 +112,10 @@ public:
    *
    * @param exception The error information encapsulated in a
    *                  SAX parse exception.  
-   * @see basic_SAXParseException
+   * @see SAXParseException
    */
   virtual void fatalError(const SAXParseExceptionT& exception) = 0;
 }; // class ErrorHandler
-
-typedef basic_ErrorHandler<std::string> ErrorHandler;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_ErrorHandler<std::wstring> wErrorHandler;
-#endif
 
 } // namespace SAX
 } // namespace Arabica

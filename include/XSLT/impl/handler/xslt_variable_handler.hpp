@@ -23,7 +23,7 @@ protected:
   virtual VType* createContainer(const std::string& namespaceURI,
                                  const std::string& localName,
                                  const std::string& qName,
-                                 const SAX::Attributes& atts)
+                                 const SAX::Attributes<std::string>& atts)
   {
     static const ValueRule rules[] = { { "name", true, 0 },
                                        { "select", false, 0 },

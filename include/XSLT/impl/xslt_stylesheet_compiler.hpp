@@ -19,7 +19,7 @@ namespace Arabica
 namespace XSLT
 {
 
-class StylesheetHandler : public SAX::DefaultHandler
+class StylesheetHandler : public SAX::DefaultHandler<std::string>
 {
 public:
   StylesheetHandler(CompilationContext& context) :
@@ -34,7 +34,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(top_)
     {
@@ -105,13 +105,13 @@ private:
   void include_stylesheet(const std::string& namespaceURI,
                           const std::string& localName,
                           const std::string& qName,
-                          const SAX::Attributes& atts)
+                          const SAX::Attributes<std::string>& atts)
   {
     includer_.start_include(namespaceURI, localName, qName, atts);
   } // include_stylesheet
 
   CompilationContext& context_;
-  SAX::DefaultHandler* child_;
+  SAX::DefaultHandler<std::string>* child_;
   IncludeHandler includer_;
   bool top_;
   unsigned int foreign_;
@@ -149,7 +149,7 @@ public:
   {
   } // ~StylesheetCompiler
 
-  std::auto_ptr<Stylesheet> compile(SAX::InputSource& source)
+  std::auto_ptr<Stylesheet> compile(SAX::InputSource<std::string>& source)
   {
     error_ = "";
 

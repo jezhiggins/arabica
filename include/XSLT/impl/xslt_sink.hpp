@@ -221,7 +221,7 @@ public:
 protected:
   virtual void do_start_document(const Settings& settings) = 0;
   virtual void do_end_document() = 0;
-  virtual void do_start_element(const std::string& qName, const std::string& namespaceURI, const SAX::Attributes& atts) = 0;
+  virtual void do_start_element(const std::string& qName, const std::string& namespaceURI, const SAX::Attributes<std::string>& atts) = 0;
   virtual void do_end_element(const std::string& qName, const std::string& namespaceURI) = 0;
   virtual void do_characters(const std::string& ch) = 0;
   virtual void do_comment(const std::string& ch) = 0;
@@ -305,7 +305,7 @@ private:
   int pending_attribute_;
   std::string name_;
   std::string namespaceURI_;
-  SAX::AttributesImpl atts_;
+  SAX::AttributesImpl<std::string> atts_;
   std::stringstream buffer_;
   bool text_mode_;
   NamespaceStack namespaceStack_;
@@ -419,7 +419,7 @@ protected:
 
   void do_start_element(const std::string& qName, 
                         const std::string& namespaceURI,
-                        const SAX::Attributes& atts)
+                        const SAX::Attributes<std::string>& atts)
   {
     if(!seen_root_)
       do_decl(qName);
@@ -650,7 +650,7 @@ protected:
 
   void do_start_element(const std::string& qName,
                         const std::string& namespaceURI,
-                        const SAX::Attributes& atts)
+                        const SAX::Attributes<std::string>& atts)
   {
     indent();
     DOM::Element<std::string> elem = document().createElementNS(namespaceURI, qName);

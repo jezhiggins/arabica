@@ -12,10 +12,10 @@ namespace Arabica
 namespace SAX
 {
 template<class string_type>
-class CatchErrorHandler : public SAX::basic_ErrorHandler<string_type>
+class CatchErrorHandler : public SAX::ErrorHandler<string_type>
 {
 public:
-  typedef SAX::basic_SAXParseException<string_type> SAXParseExceptionT;
+  typedef SAX::SAXParseException<string_type> SAXParseExceptionT;
 
   CatchErrorHandler() : errors_() { }
   virtual ~CatchErrorHandler() { }

@@ -10,8 +10,8 @@ namespace Arabica
 namespace SAX 
 {
 
-template<class string_type> class basic_Locator;
-template<class string_type> class basic_AttributeList;
+template<class string_type> class Locator;
+template<class string_type> class AttributeList;
 
 /**
   * Receive notification of general document events.
@@ -38,19 +38,19 @@ template<class string_type> class basic_AttributeList;
   *
   * @author Jez Higgins, jez@jezuk.co.uk
   * @version 0.1
-  * @see basic_Parser#setDocumentHandler
-  * @see basic_Locator
-  * @see basic_HandlerBase
+  * @see Parser#setDocumentHandler
+  * @see Locator
+  * @see HandlerBase
   */
 template<class string_type>
-class basic_DocumentHandler
+class DocumentHandler
 {
 public:
   typedef string_type stringT;
-  typedef basic_Locator<stringT> LocatorT;
-  typedef basic_AttributeList<stringT> AttributeListT;
+  typedef Locator<stringT> LocatorT;
+  typedef AttributeList<stringT> AttributeListT;
 
-	virtual ~basic_DocumentHandler() { }
+	virtual ~DocumentHandler() { }
 
   virtual void setDocumentLocator(const LocatorT& locator) = 0;
 
@@ -67,12 +67,7 @@ public:
 
   virtual void processingInstruction(const stringT& target,
 	                                   const stringT& data) = 0;
-}; // class basic_DocumentHandler
-
-typedef basic_DocumentHandler<std::string> DocumentHandler;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_DocumentHandler<std::wstring> wDocumentHandler;
-#endif
+}; // class DocumentHandler
 
 } // namespace SAX
 } // namespace Arabica

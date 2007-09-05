@@ -37,12 +37,12 @@ const std::string const types[] = { empty_, "CDATA", "ID", "IDREF", "IDREFS", "N
  * Default implementation for AttributeList.
  *
  * <p>AttributeList implements the deprecated SAX1 {@link
- * basic_AttributeList AttributeList} interface, and has been
- * replaced by the new SAX2 {@link basic_AttributesImpl
+ * AttributeList AttributeList} interface, and has been
+ * replaced by the new SAX2 {@link AttributesImpl
  * AttributesImpl} interface.</p>
  *
  * <p>This class provides a convenience implementation of the SAX
- * {@link basic_AttributeList AttributeList} interface.  This 
+ * {@link AttributeList AttributeList} interface.  This 
  * implementation is useful both for SAX parser writers, who can use 
  * it to provide attributes to the application, and for SAX application 
  * writers, who can use it to create a persistent copy of an element's 
@@ -67,38 +67,38 @@ const std::string const types[] = { empty_, "CDATA", "ID", "IDREF", "IDREFS", "N
  * implementations.</p>
  *
  * @deprecated This class implements a deprecated interface,
- *             {@link basic_AttributeList AttributeList};
+ *             {@link AttributeList AttributeList};
  *             that interface has been replaced by
- *             {@link basic_Attributes Attributes},
+ *             {@link Attributes Attributes},
  *             which is implemented in the
- *             {@link basic_AttributesImpl 
+ *             {@link AttributesImpl 
  *            AttributesImpl} helper class.
  * @since SAX 1.0
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_AttributeList
- * @see basic_DocumentHandler#startElement 
+ * @see AttributeList
+ * @see DocumentHandler#startElement 
  */
 template<class stringT>
-class basic_AttributeListImpl : public basic_AttributeList<stringT>
+class AttributeListImpl : public AttributeList<stringT>
 {
 public:
-  basic_AttributeListImpl() : atts_() { }
-  basic_AttributeListImpl(const basic_AttributeList& atts)
+  AttributeListImpl() : atts_() { }
+  AttributeListImpl(const AttributeList& atts)
 	  : atts_(atts.getLength())
   {
     setAttributeList(atts);
   } // AttributeListImpl
 
-  basic_AttributeListImpl& operator=(const basic_AttributeList& atts)
+  AttributeListImpl& operator=(const AttributeList& atts)
   { 
     setAttributeList(atts);
     
     return *this;
   } // operator=
 
-  virtual ~basic_AttributeListImpl() { clear(); }
+  virtual ~AttributeListImpl() { clear(); }
 
   //////////////////////////////////////////////////////////////////////
   // Methods specific to this class.
@@ -132,7 +132,7 @@ public:
    * @param type The attribute type ("NMTOKEN" for an enumeration).
    * @param value The attribute value.
    * @see #removeAttribute
-   * @see basic_DocumentHandler#startElement
+   * @see DocumentHandler#startElement
    */
   void addAttribute(const stringT& name, const stringT& type, const stringT& value)
   {
@@ -170,7 +170,7 @@ public:
    * it will make sense to reuse the same AttributeListImpl object
    * rather than allocating a new one each time.</p>
    *
-   * @see basic_DocumentHandler#startElement
+   * @see DocumentHandler#startElement
    */
   void clear()
   {
@@ -188,7 +188,7 @@ public:
    * Return the number of attributes in the list.
    *
    * @return The number of attributes in the list.
-   * @see basic_AttributeList#getLength
+   * @see AttributeList#getLength
    */
   virtual int getLength() const
   {
@@ -201,7 +201,7 @@ public:
    * @param i The position of the attribute in the list.
    * @return The attribute name as a string, or an empty string if there
    *         is no attribute at that position.
-   * @see basic_AttributeList#getName(int)
+   * @see AttributeList#getName(int)
    */
   virtual const stringT& getName(int i) const
   {
@@ -218,7 +218,7 @@ public:
    *         enumeration, and "CDATA" if no declaration was
    *         read), or an empty string if there is no attribute at
    *         that position.
-   * @see basic_AttributeList#getType(int)
+   * @see AttributeList#getType(int)
    */
   virtual const stringT& getType(int i) const
   {
@@ -233,7 +233,7 @@ public:
    * @param i The position of the attribute in the list.
    * @return The attribute value as a string, or an empty string if
    *         there is no attribute at that position.
-   * @see basic_AttributeList#getValue(int)
+   * @see AttributeList#getValue(int)
    */
   virtual const stringT& getValue(int i) const
   {
@@ -249,7 +249,7 @@ public:
    * @return The attribute type as a string ("NMTOKEN" for an
    *         enumeration, and "CDATA" if no declaration was
    *         read).
-   * @see basic_AttributeList#getType(java.lang.String)
+   * @see AttributeList#getType(java.lang.String)
    */
   virtual const stringT& getType(const stringT& name) const
   {
@@ -261,7 +261,7 @@ public:
    * Get the value of an attribute (by name).
    *
    * @param name The attribute name.
-   * @see basic_AttributeList#getValue(java.lang.String)
+   * @see AttributeList#getValue(java.lang.String)
    */
   virtual const stringT& getValue(const stringT& name) const
   {
@@ -287,13 +287,8 @@ private:
 	  return res;
   } // index
 
-  bool operator==(const basic_AttributeList&) const; // not implemented
+  bool operator==(const AttributeList&) const; // not implemented
 }; // class AttributeListImpl
-
-typedef basic_AttributeListImpl<std::string> AttributeListImpl;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_AttributeListImpl<std::wstring> wAttributeListImpl;
-#endif 
 
 } // namespace SAX
 } // namespace Arabica

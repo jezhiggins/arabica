@@ -150,7 +150,7 @@ private:
 // so the SAX wrapper maps more or less directly to it.
 
 /**
- * expat_wrapper puts an {@link basic_XMLReader XMLReader} interface
+ * expat_wrapper puts an {@link XMLReader XMLReader} interface
  * around <a href='http://www.libexpat.org/'>Expat</a>.
  * <p>
  * For general usage:<br>
@@ -195,13 +195,13 @@ private:
  * @author Jez Higgins
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version $Id$
- * @see SAX::basic_XMLReader
+ * @see SAX::XMLReader
  */
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class expat_wrapper : public SAX::basic_XMLReader<string_type>, 
-               public SAX::basic_Locator<string_type>,
+class expat_wrapper : public SAX::XMLReaderInterface<string_type>, 
+               public SAX::Locator<string_type>,
                public expat_wrapper_impl_mumbojumbo::expat2base
 {
   public:
@@ -212,17 +212,17 @@ class expat_wrapper : public SAX::basic_XMLReader<string_type>,
                                T1>::type string_adaptor_type;
     typedef string_adaptor_type string_adaptorT;
     typedef string_adaptor_type SA;
-    typedef SAX::basic_EntityResolver<stringT> entityResolverT;
-    typedef SAX::basic_DTDHandler<stringT> dtdHandlerT;
-    typedef SAX::basic_ContentHandler<stringT> contentHandlerT;
-    typedef SAX::basic_DeclHandler<stringT> declHandlerT;
-    typedef SAX::basic_LexicalHandler<stringT> lexicalHandlerT;
-    typedef SAX::basic_InputSource<stringT> inputSourceT;
-    typedef SAX::basic_Locator<stringT> locatorT;
-    typedef SAX::basic_NamespaceSupport<stringT, string_adaptorT> namespaceSupportT;
-    typedef SAX::basic_ErrorHandler<stringT> errorHandlerT;
-    typedef SAX::basic_SAXParseException<stringT> SAXParseExceptionT;
-    typedef SAX::basic_XMLReader<stringT> XMLReaderT;
+    typedef SAX::EntityResolver<stringT> entityResolverT;
+    typedef SAX::DTDHandler<stringT> dtdHandlerT;
+    typedef SAX::ContentHandler<stringT> contentHandlerT;
+    typedef SAX::DeclHandler<stringT> declHandlerT;
+    typedef SAX::LexicalHandler<stringT> lexicalHandlerT;
+    typedef SAX::InputSource<stringT> inputSourceT;
+    typedef SAX::Locator<stringT> locatorT;
+    typedef SAX::NamespaceSupport<stringT, string_adaptorT> namespaceSupportT;
+    typedef SAX::ErrorHandler<stringT> errorHandlerT;
+    typedef SAX::SAXParseException<stringT> SAXParseExceptionT;
+    typedef SAX::XMLReaderInterface<stringT> XMLReaderT;
     typedef typename XMLReaderT::PropertyBase PropertyBaseT;
     typedef typename XMLReaderT::template Property<lexicalHandlerT*> getLexicalHandlerT;
     typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
@@ -589,7 +589,7 @@ int expat_wrapper<stringT, T0, T1>::getColumnNumber() const
 } // getColumnNumber
 
 template<class stringT, class T0, class T1>
-typename SAX::basic_NamespaceSupport<stringT, typename expat_wrapper<stringT, T0, T1>::string_adaptorT>::Parts expat_wrapper<stringT, T0, T1>::processName(const stringT& qName, bool isAttribute)
+typename SAX::NamespaceSupport<stringT, typename expat_wrapper<stringT, T0, T1>::string_adaptorT>::Parts expat_wrapper<stringT, T0, T1>::processName(const stringT& qName, bool isAttribute)
 {
   typename namespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
   if(SA::empty(p.URI) && !SA::empty(p.prefix))
@@ -647,7 +647,7 @@ void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char*
 
   // OK we're doing Namespaces
   nsSupport_.pushContext();
-  SAX::basic_AttributesImpl<stringT> attributes;
+  SAX::AttributesImpl<stringT> attributes;
 
   // take a first pass and copy all the attributes, noting any declarations
   if(atts && *atts != 0)
@@ -699,7 +699,7 @@ void expat_wrapper<stringT, T0, T1>::startElement(const char* qName, const char*
 template<class stringT, class T0, class T1>
 void expat_wrapper<stringT, T0, T1>::startElementNoNS(const char* qName, const char** atts)
 {
-  SAX::basic_AttributesImpl<stringT> attributes;
+  SAX::AttributesImpl<stringT> attributes;
 
   if(atts && *atts != 0)
   {

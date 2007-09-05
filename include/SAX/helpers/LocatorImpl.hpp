@@ -46,34 +46,34 @@ namespace SAX
  * @author Jez Higgins,
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_Locator Locator
+ * @see Locator Locator
  */
 template<class string_type>
-class basic_LocatorImpl : public basic_Locator<string_type>
+class LocatorImpl : public Locator<string_type>
 {
 public:
   typedef string_type stringT;
-  typedef basic_Locator<stringT> LocatorT;
+  typedef Locator<stringT> LocatorT;
   
-  basic_LocatorImpl() : 
+  LocatorImpl() : 
     publicId_(), 
     systemId_(), 
     lineNumber_(-1), 
     columnNumber_(-1) 
   { 
-  } // basic_LocatorImpl
+  } // LocatorImpl
 
-  basic_LocatorImpl(const LocatorT& rhs) : 
+  LocatorImpl(const LocatorT& rhs) : 
     publicId_(rhs.getPublicId()), 
     systemId_(rhs.getSystemId()), 
     lineNumber_(rhs.getLineNumber()), 
     columnNumber_(rhs.getColumnNumber()) 
   { 
-  } // basic_LocatorImpl
+  } // LocatorImpl
 
-  virtual ~basic_LocatorImpl() { }
+  virtual ~LocatorImpl() { }
 
-  basic_LocatorImpl& operator=(const LocatorT& rhs)
+  LocatorImpl& operator=(const LocatorT& rhs)
   {
   	publicId_ = rhs.getPublicId();
   	systemId_ = rhs.getSystemId(); 
@@ -88,7 +88,7 @@ public:
    *
    * @return The public identifier as a string, or an empty string if none
    *         is available.
-   * @see basic_Locator#getPublicId
+   * @see Locator#getPublicId
    * @see #setPublicId
    */
   virtual stringT getPublicId() const { return publicId_; }
@@ -97,7 +97,7 @@ public:
    *
    * @return The system identifier as a string, or an empty string if none
    *         is available.
-   * @see basic_Locator#getSystemId
+   * @see Locator#getSystemId
    * @see #setSystemId
    */
   virtual stringT getSystemId() const { return systemId_; }
@@ -105,7 +105,7 @@ public:
    * Return the saved line number (1-based).
    *
    * @return The line number as an integer, or -1 if none is available.
-   * @see basic_Locator#getLineNumber
+   * @see Locator#getLineNumber
    * @see #setLineNumber
    */
   virtual int getLineNumber() const { return lineNumber_; }
@@ -113,7 +113,7 @@ public:
    * Return the saved column number (1-based).
    *
    * @return The column number as an integer, or -1 if none is available.
-   * @see basic_Locator#getColumnNumber
+   * @see Locator#getColumnNumber
    * @see #setColumnNumber
    */
   virtual int getColumnNumber() const { return columnNumber_; }
@@ -161,11 +161,6 @@ private:
 
   bool operator==(const LocatorT& rhs) const;
 }; // class LocatorImpl
-
-typedef basic_LocatorImpl<std::string> LocatorImpl;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_LocatorImpl<std::wstring> wLocatorImpl;
-#endif
 
 } // namespace SAX
 } // namespace Arabica 

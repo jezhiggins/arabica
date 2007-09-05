@@ -62,7 +62,7 @@ private:
 
     Arabica::io::URI absolute(Arabica::io::URI(baseURI_), location);
 
-    SAX::InputSource is(absolute.as_string());
+    SAX::InputSource<std::string> is(absolute.as_string());
     domParser.parse(is);
 
     if(!eh.errorsReported())

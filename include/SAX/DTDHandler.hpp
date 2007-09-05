@@ -32,7 +32,7 @@ namespace SAX
  * declared; however, all DTD events must be reported after the
  * document handler's startDocument event, and before the first
  * startElement event.
- * (If the {@link basic_LexicalHandler LexicalHandler} is
+ * (If the {@link LexicalHandler LexicalHandler} is
  * used, these events must also be reported before the endDTD event.)
  * </p>
  *
@@ -47,16 +47,16 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version $Id$
- * @see basic_XMLReader#setDTDHandler
+ * @see XMLReader#setDTDHandler
  */
   
 template<class string_type>
-class basic_DTDHandler
+class DTDHandler
 {
 public:
   typedef string_type stringT;
 
-  virtual ~basic_DTDHandler() { }
+  virtual ~DTDHandler() { }
 
 
   /**
@@ -70,7 +70,7 @@ public:
    * When a system identifier is present, applications are responsible
    * for knowing if it is used as a URL, and absolutizing it against
    * the appropriate URI when appropriate.
-   * That base URI is available from {@link basic_Locator#getSystemId} during
+   * That base URI is available from {@link Locator#getSystemId} during
    * this callback, assuming the parser provides a Locator.</p>
    *
    * <p>At least one of publicId and systemId must be non-empty. </p>
@@ -85,7 +85,7 @@ public:
    *        none was given.
    * @exception SAXException Any SAX exception.
    * @see #unparsedEntityDecl
-   * @see basic_Attributes
+   * @see Attributes
    */
   virtual void notationDecl(const stringT& name,
                             const stringT& publicId,
@@ -112,19 +112,14 @@ public:
    * @param systemId The entity's system identifier.
    * @param notationName The name of the associated notation.
    * @see #notationDecl
-   * @see basic_Attributes
+   * @see Attributes
    */
   virtual void unparsedEntityDecl(const stringT& name,
 	                                const stringT& publicId,
                                   const stringT& systemId,
                                   const stringT& notationName) = 0;
 
-}; // class basic_DTDHandler
-
-typedef basic_DTDHandler<std::string> DTDHandler;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_DTDHandler<std::wstring> wDTDHandler;
-#endif
+}; // class DTDHandler
 
 } // namespace SAX
 } // namespace Arabica

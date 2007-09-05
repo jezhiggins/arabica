@@ -13,12 +13,12 @@
 #include <SAX/ext/DeclHandler.hpp>
 #include <SAX/SAXException.hpp>
 
-class SimpleHandler : public Arabica::SAX::EntityResolver, 
-					public Arabica::SAX::DTDHandler,
-					public Arabica::SAX::ContentHandler, 
-          public Arabica::SAX::ErrorHandler,
-          public Arabica::SAX::LexicalHandler,
-          public Arabica::SAX::DeclHandler
+class SimpleHandler : public Arabica::SAX::EntityResolver<std::string>, 
+					public Arabica::SAX::DTDHandler<std::string>,
+					public Arabica::SAX::ContentHandler<std::string>, 
+          public Arabica::SAX::ErrorHandler<std::string>,
+          public Arabica::SAX::LexicalHandler<std::string>,
+          public Arabica::SAX::DeclHandler<std::string>
 {
 public:
   SimpleHandler() { }
@@ -26,7 +26,7 @@ public:
 
   //////////////////////////////////////////////
   // EntityResolver
-  virtual Arabica::SAX::InputSource resolveEntity(const std::string& publicId, const std::string& systemId);
+  virtual Arabica::SAX::InputSource<std::string> resolveEntity(const std::string& publicId, const std::string& systemId);
 
   //////////////////////////////////////////////
   // DTDHandler
@@ -56,9 +56,9 @@ public:
 
   /////////////////////////////////////////////////////
   // ErrorHandler
-  virtual void warning(const Arabica::SAX::SAXParseException&);
-  virtual void error(const Arabica::SAX::SAXParseException&);
-  virtual void fatalError(const Arabica::SAX::SAXParseException& exception);
+  virtual void warning(const Arabica::SAX::SAXParseException<std::string>&);
+  virtual void error(const Arabica::SAX::SAXParseException<std::string>&);
+  virtual void fatalError(const Arabica::SAX::SAXParseException<std::string>& exception);
 
   ///////////////////////////////////////////////////////
   // LexicalHandler

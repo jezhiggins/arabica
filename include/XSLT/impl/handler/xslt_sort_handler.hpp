@@ -8,7 +8,7 @@ namespace Arabica
 namespace XSLT
 {
 
-class SortHandler : public SAX::DefaultHandler
+class SortHandler : public SAX::DefaultHandler<std::string>
 { 
 public:
   SortHandler(CompilationContext& context,
@@ -22,7 +22,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(sort_ == 0)
     {

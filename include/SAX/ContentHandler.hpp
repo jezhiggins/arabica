@@ -13,8 +13,8 @@ namespace Arabica
 namespace SAX
 {
 
-template<class string_type> class basic_Locator;
-template<class string_type> class basic_Attributes;
+template<class string_type> class Locator;
+template<class string_type> class Attributes;
 
 /**
  * Receive notification of the logical content of a document.
@@ -22,7 +22,7 @@ template<class string_type> class basic_Attributes;
  * <p>This is the main interface that most SAX applications
  * implement: if the application needs to be informed of basic parsing 
  * events, it implements this interface and registers an instance with 
- * the SAX parser using the {@link basic_XMLReader#setContentHandler 
+ * the SAX parser using the {@link XMLReader#setContentHandler 
  * setContentHandler} method.  The parser uses the instance to report 
  * basic document-related events like the start and end of elements 
  * and character data.</p>
@@ -42,19 +42,19 @@ template<class string_type> class basic_Attributes;
  * @author Jez Higgins,
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_XMLReader
- * @see basic_DTDHandler
- * @see basic_ErrorHandler
+ * @see XMLReader
+ * @see DTDHandler
+ * @see ErrorHandler
  */
 template<class string_type>
-class basic_ContentHandler
+class ContentHandler
 {
 public:
   typedef string_type stringT;
-  typedef basic_Locator<stringT> LocatorT;
-  typedef basic_Attributes<stringT> AttributesT;
+  typedef Locator<stringT> LocatorT;
+  typedef Attributes<stringT> AttributesT;
 
-	virtual ~basic_ContentHandler() { }
+	virtual ~ContentHandler() { }
 
   /**
    * Receive an object for locating the origin of SAX document events.
@@ -79,7 +79,7 @@ public:
    *
    * @param locator An object that can return the location of
    *                any SAX document event.
-   * @see basic_Locator
+   * @see Locator
    */
   virtual void setDocumentLocator(const LocatorT& locator) = 0;
 
@@ -87,7 +87,7 @@ public:
    * Receive notification of the beginning of a document.
    *
    * <p>The SAX parser will invoke this method only once, before any
-   * other methods in this interface or in {@link basic_DTDHandler
+   * other methods in this interface or in {@link DTDHandler
    * DTDHandler} (except for {@link #setDocumentLocator 
    * setDocumentLocator}).</p>
    *
@@ -219,7 +219,7 @@ public:
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
    * @see #endElement
-   * @see basic_Attributes
+   * @see Attributes
    */
   virtual void startElement(const stringT& namespaceURI, const stringT& localName,
                             const stringT& qName, const AttributesT& atts) = 0;
@@ -267,7 +267,7 @@ public:
    * @param ch The characters from the XML document.
    * @exception SAXException Any SAX exception.
    * @see #ignorableWhitespace 
-   * @see basic_Locator
+   * @see Locator
    */
   virtual void characters(const stringT& ch) = 0;
   /**
@@ -332,12 +332,7 @@ public:
    * @exception SAXException Any SAX exception.
    */
   virtual void skippedEntity(const stringT& name) = 0;
-}; // class basic_ContentHandler
-
-typedef basic_ContentHandler<std::string> ContentHandler;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_ContentHandler<std::wstring> wContentHandler;
-#endif
+}; // class ContentHandler
 
 } // namespace SAX
 } // namespace Arabica

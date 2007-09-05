@@ -122,7 +122,7 @@ namespace XercesImpl
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
+class xerces_wrapper : public SAX::ProgressiveParser<string_type>
 {
   private:
     typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
@@ -132,18 +132,18 @@ class xerces_wrapper : public SAX::basic_ProgressiveParser<string_type>
     typedef string_adaptor_type string_adaptorT;
 
   protected:
-    typedef SAX::basic_XMLReader<string_type> base;
+    typedef SAX::XMLReaderInterface<string_type> base;
 
   public:
     typedef typename base::EntityResolverT EntityResolverT;
     typedef typename base::DTDHandlerT DTDHandlerT;
     typedef typename base::ContentHandlerT ContentHandlerT;
     typedef typename base::InputSourceT InputSourceT;
-    typedef SAX::basic_LexicalHandler<string_type> LexicalHandlerT;
-    typedef SAX::basic_Locator<string_type> LocatorT;
-    typedef SAX::basic_Attributes<string_type> AttributesT;
-    typedef SAX::basic_DeclHandler<string_type> DeclHandlerT;
-    typedef SAX::basic_ErrorHandler<string_type> ErrorHandlerT;
+    typedef SAX::LexicalHandler<string_type> LexicalHandlerT;
+    typedef SAX::Locator<string_type> LocatorT;
+    typedef SAX::Attributes<string_type> AttributesT;
+    typedef SAX::DeclHandler<string_type> DeclHandlerT;
+    typedef SAX::ErrorHandler<string_type> ErrorHandlerT;
     typedef typename ErrorHandlerT::SAXParseExceptionT SAXParseExceptionT;
 
     typedef SAX::XercesFeatureNames<string_type, string_adaptorT> featuresT;
@@ -939,14 +939,14 @@ void xerces_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bo
 
 template<class string_type, class T0, class T1>
 #ifndef ARABICA_VS6_WORKAROUND
-std::auto_ptr<typename SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
+std::auto_ptr<typename SAX::XMLReaderInterface<string_type>::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
 #else
-std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
+std::auto_ptr<SAX::XMLReaderInterface<string_type>::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
 #endif
 {
   if(name == properties_.lexicalHandler)
   {
-    typedef typename SAX::basic_XMLReader<string_type>::template Property<LexicalHandlerT *> Prop;
+    typedef typename SAX::XMLReaderInterface<string_type>::template Property<LexicalHandlerT *> Prop;
     Prop *prop = new Prop(lexicalHandlerAdaptor_.getLexicalHandler());
 #ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename base::PropertyBase>(prop);
@@ -956,7 +956,7 @@ std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<st
   }
   if(name == properties_.declHandler)
   {
-    typedef typename SAX::basic_XMLReader<string_type>::template Property<DeclHandlerT*> Prop;
+    typedef typename SAX::XMLReaderInterface<string_type>::template Property<DeclHandlerT*> Prop;
     Prop* prop = new Prop(declHandlerAdaptor_.getDeclHandler());
 #ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename base::PropertyBase>(prop);
@@ -966,7 +966,7 @@ std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<st
   }
   if (name == properties_.externalSchemaLocation)
   {
-    typedef typename SAX::basic_XMLReader<string_type>::template Property<string_type&> StringPropertyType;
+    typedef typename SAX::XMLReaderInterface<string_type>::template Property<string_type&> StringPropertyType;
 
     XMLCh* xercesExternalSchemaLocation = 
         static_cast<XMLCh*>(xerces_->getProperty(
@@ -989,7 +989,7 @@ std::auto_ptr<SAX::basic_XMLReader<string_type>::PropertyBase> xerces_wrapper<st
   }
   if (name == properties_.externalNoNamespaceSchemaLocation)
   {
-    typedef typename SAX::basic_XMLReader<string_type>::template Property<string_type&> StringPropertyType;
+    typedef typename SAX::XMLReaderInterface<string_type>::template Property<string_type&> StringPropertyType;
 
     XMLCh* xercesExternalNoNamespaceSchemaLocation = 
         static_cast<XMLCh*>(xerces_->getProperty(
@@ -1014,7 +1014,7 @@ void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name,
 {
   if(name == properties_.lexicalHandler)
   {
-    typedef typename SAX::basic_XMLReader<string_type>::template Property<LexicalHandlerT&> Prop;
+    typedef typename SAX::XMLReaderInterface<string_type>::template Property<LexicalHandlerT&> Prop;
     Prop* prop = dynamic_cast<Prop*>(value.get());
 
     if(!prop)
@@ -1026,7 +1026,7 @@ void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name,
 
   if(name == properties_.declHandler)
   {
-    typedef typename SAX::basic_XMLReader<string_type>::template Property<DeclHandlerT&> Prop;
+    typedef typename SAX::XMLReaderInterface<string_type>::template Property<DeclHandlerT&> Prop;
     Prop* prop = dynamic_cast<Prop*>(value.get());
 
     if(!prop)

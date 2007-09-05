@@ -125,11 +125,11 @@ class WhitespaceStripperTest : public TestCase
     } // testStrip
 
   private:
-    std::auto_ptr<Arabica::SAX::InputSource> source(const std::string& str)
+    std::auto_ptr<Arabica::SAX::InputSource<std::string> > source(const std::string& str)
     {
       std::auto_ptr<std::iostream> ss(new std::stringstream());
       (*ss) << str;
-      return std::auto_ptr<Arabica::SAX::InputSource>(new Arabica::SAX::InputSource(ss));
+      return std::auto_ptr<Arabica::SAX::InputSource<std::string> >(new Arabica::SAX::InputSource<std::string>(ss));
     } // source
 }; // WhitespaceStripperTest
 

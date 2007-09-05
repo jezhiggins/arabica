@@ -29,9 +29,9 @@ namespace SAX
  * callbacks in the four core SAX2 handler classes:</p>
  *
  * <ul>
- * <li>{@link basic_EntityResolver EntityResolver}</li>
- * <li>{@link basic_DTDHandler DTDHandler}</li>
- * <li>{@link basic_ContentHandler ContentHandler}</li>
+ * <li>{@link EntityResolver EntityResolver}</li>
+ * <li>{@link DTDHandler DTDHandler}</li>
+ * <li>{@link ContentHandler ContentHandler}</li>
  * <li>{@link ErrorHandler ErrorHandler}</li>
  * </ul>
  *
@@ -41,34 +41,34 @@ namespace SAX
  * application has not supplied its own.</p>
  *
  * <p>This class replaces the deprecated SAX1
- * {@link basic_HandlerBase HandlerBase} class.</p>
+ * {@link HandlerBase HandlerBase} class.</p>
  *
  * @since SAX 2.0
  * @author Jez Higgins,
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_EntityResolver
- * @see basic_DTDHandler
- * @see basic_ContentHandler
- * @see basic_ErrorHandler
+ * @see EntityResolver
+ * @see DTDHandler
+ * @see ContentHandler
+ * @see ErrorHandler
  */
 template<class string_type>
-class basic_DefaultHandler : public basic_EntityResolver<string_type>, 
-					public basic_DTDHandler<string_type>,
-					public basic_ContentHandler<string_type>, 
-					public basic_ErrorHandler<string_type>, 
-					public basic_LexicalHandler<string_type>,
-					public basic_DeclHandler<string_type>
+class DefaultHandler : public EntityResolver<string_type>, 
+					public DTDHandler<string_type>,
+					public ContentHandler<string_type>, 
+					public ErrorHandler<string_type>, 
+					public LexicalHandler<string_type>,
+					public DeclHandler<string_type>
 {
 public:
   typedef string_type stringT;
-  typedef basic_InputSource<stringT> InputSourceT;
-  typedef basic_Locator<stringT> LocatorT;
-  typedef basic_Attributes<stringT> AttributesT;
-  typedef basic_SAXParseException<stringT> SAXParseExceptionT;
+  typedef InputSource<stringT> InputSourceT;
+  typedef Locator<stringT> LocatorT;
+  typedef Attributes<stringT> AttributesT;
+  typedef SAXParseException<stringT> SAXParseExceptionT;
 
-  basic_DefaultHandler() { }
-  virtual ~basic_DefaultHandler() { }
+  DefaultHandler() { }
+  virtual ~DefaultHandler() { }
 
   //////////////////////////////////////////////
   // EntityResolver
@@ -88,7 +88,7 @@ public:
    * @return The new input source, (empty to require the
    *         default behaviour).
    * @exception SAXException Any SAX exception.
-   * @see basic_EntityResolver#resolveEntity
+   * @see EntityResolver#resolveEntity
    */
   virtual InputSourceT resolveEntity(const stringT& /* publicId */, const stringT& /* systemId */)
   {
@@ -110,7 +110,7 @@ public:
    * @param systemId The notation system identifier.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_DTDHandler#notationDecl
+   * @see DTDHandler#notationDecl
    */
   virtual void notationDecl(const stringT& /* name */,
                             const stringT& /* publicId */,
@@ -132,7 +132,7 @@ public:
    * @param notationName The name of the associated notation.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_DTDHandler#unparsedEntityDecl
+   * @see DTDHandler#unparsedEntityDecl
    */
   virtual void unparsedEntityDecl(const stringT& /* name */,
 	                                const stringT& /* publicId */,
@@ -151,8 +151,8 @@ public:
    * with other document events.</p>
    *
    * @param locator A locator for all SAX document events.
-   * @see basic_ContentHandler#setDocumentLocator
-   * @see basic_Locator
+   * @see ContentHandler#setDocumentLocator
+   * @see Locator
    */
   virtual void setDocumentLocator(const LocatorT& /* locator */) { }
 
@@ -166,7 +166,7 @@ public:
    *
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#startDocument
+   * @see ContentHandler#startDocument
    */
   virtual void startDocument() { }
   /**
@@ -179,7 +179,7 @@ public:
    *
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#endDocument
+   * @see ContentHandler#endDocument
    */
   virtual void endDocument() { }
 
@@ -194,7 +194,7 @@ public:
    * @param uri The Namespace URI mapped to the prefix.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#startPrefixMapping
+   * @see ContentHandler#startPrefixMapping
    */
   virtual void startPrefixMapping(const stringT& /* prefix */, const stringT& /* uri */) { }
   /**
@@ -207,7 +207,7 @@ public:
    * @param prefix The Namespace prefix being declared.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#endPrefixMapping
+   * @see ContentHandler#endPrefixMapping
    */
   virtual void endPrefixMapping(const stringT& /* prefix */) { }
 
@@ -230,7 +230,7 @@ public:
    *             attributes, it shall be an empty Attributes object.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#startElement
+   * @see ContentHandler#startElement
    */
   virtual void startElement(const stringT& /* namespaceURI */, const stringT& /* localName */,
                             const stringT& /* qName */, const AttributesT& /* atts */) { }
@@ -251,7 +251,7 @@ public:
    *              qualified names are not available.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#endElement
+   * @see ContentHandler#endElement
    */
   virtual void endElement(const stringT& /* namespaceURI */, const stringT& /* localName */,
                           const stringT& /* qName */) { }
@@ -267,7 +267,7 @@ public:
    * @param ch The characters.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#characters
+   * @see ContentHandler#characters
    */
   virtual void characters(const stringT& /* ch */) { }
   /**
@@ -281,7 +281,7 @@ public:
    * @param ch The whitespace characters.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#ignorableWhitespace
+   * @see ContentHandler#ignorableWhitespace
    */
   virtual void ignorableWhitespace(const stringT& /* ch */) { }
 
@@ -298,7 +298,7 @@ public:
    *             none is supplied.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#processingInstruction
+   * @see ContentHandler#processingInstruction
    */
   virtual void processingInstruction(const stringT& /* target */, const stringT& /* data */) { }
 
@@ -313,7 +313,7 @@ public:
    * @param name The name of the skipped entity.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ContentHandler#processingInstruction
+   * @see ContentHandler#processingInstruction
    */
   virtual void skippedEntity(const stringT& /* name */) { }
 
@@ -330,7 +330,7 @@ public:
    * @param e The warning information encoded as an exception.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ErrorHandler#warning
+   * @see ErrorHandler#warning
    * @see SAXParseException
    */
   virtual void warning(const SAXParseExceptionT& /* e */) { }
@@ -345,7 +345,7 @@ public:
    * @param e The warning information encoded as an exception.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ErrorHandler#error
+   * @see ErrorHandler#error
    * @see SAXParseException
    */
   virtual void error(const SAXParseExceptionT& /* e */) { }
@@ -363,7 +363,7 @@ public:
    * @param e The error information encoded as an exception.
    * @exception SAXException Any SAX exception, possibly
    *            wrapping another exception.
-   * @see basic_ErrorHandler#fatalError
+   * @see ErrorHandler#fatalError
    * @see SAXParseException
    */
   virtual void fatalError(const SAXParseExceptionT& e) 
@@ -384,8 +384,8 @@ public:
    * this method will not be invoked.</p>
    *
    * <p>All declarations reported through 
-   * {@link basic_DTDHandler DTDHandler} or
-   * {@link basic_DeclHandler DeclHandler} events must appear
+   * {@link DTDHandler DTDHandler} or
+   * {@link DeclHandler DeclHandler} events must appear
    * between the startDTD and {@link #endDTD endDTD} events.
    * Declarations are assumed to belong to the internal DTD subset
    * unless they appear between {@link #startEntity startEntity}
@@ -399,7 +399,7 @@ public:
    * <p>Note that the start/endDTD events will appear within
    * the start/endDocument events from ContentHandler and
    * before the first 
-   * {@link basic_ContentHandler#startElement startElement}
+   * {@link ContentHandler#startElement startElement}
    * event.</p>
    *
    * @param name The document type name.
@@ -442,11 +442,11 @@ public:
    * <p>When a SAX2 driver is providing these events, all other 
    * events must be properly nested within start/end entity 
    * events.  There is no additional requirement that events from 
-   * {@link basic_DeclHandler DeclHandler} or
-   * {@link basic_DTDHandler DTDHandler} be properly ordered.</p>
+   * {@link DeclHandler DeclHandler} or
+   * {@link DTDHandler DTDHandler} be properly ordered.</p>
    *
    * <p>Note that skipped entities will be reported through the
-   * {@link basic_ContentHandler#skippedEntity skippedEntity}
+   * {@link ContentHandler#skippedEntity skippedEntity}
    * event, which is part of the ContentHandler interface.</p>
    *
    * <p>Because of the streaming event model that SAX uses, some
@@ -470,8 +470,8 @@ public:
    *        entity, the name will begin with '%', and if it is the
    *        external DTD subset, it will be "[dtd]".
    * @see #endEntity
-   * @see basic_DeclHandler#internalEntityDecl
-   * @see basic_DeclHandler#externalEntityDecl 
+   * @see DeclHandler#internalEntityDecl
+   * @see DeclHandler#externalEntityDecl 
    */
   virtual void startEntity(const stringT& name) { }
   /**
@@ -486,7 +486,7 @@ public:
    * Report the start of a CDATA section.
    *
    * <p>The contents of the CDATA section will be reported through
-   * the regular {@link basic_ContentHandler#characters
+   * the regular {@link ContentHandler#characters
    * characters} event; this event is intended only to report
    * the boundary.</p>
    *
@@ -570,7 +570,7 @@ public:
    *        entity, the name will begin with '%'.
    * @param value The replacement text of the entity.
    * @see #externalEntityDecl
-   * @see basic_DTDHandler#unparsedEntityDecl
+   * @see DTDHandler#unparsedEntityDecl
    */
   virtual void internalEntityDecl(const stringT& name, const stringT& value) { }
   /**
@@ -585,21 +585,16 @@ public:
    *        an empty string if none was declared.
    * @param systemId The declared system identifier of the entity.
    * @see #internalEntityDecl
-   * @see basic_DTDHandler#unparsedEntityDecl
+   * @see DTDHandler#unparsedEntityDecl
    */
   virtual void externalEntityDecl(const stringT& name, 
                                   const stringT& publicId,
                                   const stringT& systemId) { }
 private:
-  basic_DefaultHandler(const basic_DefaultHandler&);
-  basic_DefaultHandler& operator=(const basic_DefaultHandler&);
-  bool operator==(const basic_DefaultHandler&);
-}; // class basic_DefaultHandler
-
-typedef basic_DefaultHandler<std::string> DefaultHandler;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_DefaultHandler<std::wstring> wDefaultHandler;
-#endif 
+  DefaultHandler(const DefaultHandler&);
+  DefaultHandler& operator=(const DefaultHandler&);
+  bool operator==(const DefaultHandler&);
+}; // class DefaultHandler
 
 } // namespace SAX
 } // namespace Arabica

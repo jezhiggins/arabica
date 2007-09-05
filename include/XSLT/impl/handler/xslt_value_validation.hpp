@@ -49,7 +49,7 @@ void validateAttribute(const std::string& parentElement,
 } // validateAttribute
 
 std::map<std::string, std::string> gatherAttributes(const std::string& parentElement,
-                                                    const SAX::Attributes& atts,
+                                                    const SAX::Attributes<std::string>& atts,
                                                     const ValueRule* rules)
 {
   std::map<std::string, std::string> results;

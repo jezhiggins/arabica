@@ -38,7 +38,7 @@ namespace SAX
  * to return before reporting the next event.</p>
  *
  * <p>This interface replaces the (now deprecated) SAX 1.0 {@link
- * basic_Parser Parser} interface.  The XMLReader interface
+ * Parser Parser} interface.  The XMLReader interface
  * contains two important enhancements over the old Parser
  * interface:</p>
  *
@@ -56,24 +56,24 @@ namespace SAX
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_XMLFilter
- * @see basic_helpers.ParserAdapter
- * @see basic_helpers.XMLReaderAdapter 
+ * @see XMLFilter
+ * @see helpers.ParserAdapter
+ * @see helpers.XMLReaderAdapter 
  */
 template<class string_type>
-class basic_XMLReader
+class XMLReaderInterface
 {
 public:
   typedef string_type stringT;
-  typedef basic_EntityResolver<stringT> EntityResolverT;
-  typedef basic_DTDHandler<stringT> DTDHandlerT;
-  typedef basic_ContentHandler<stringT> ContentHandlerT;
-  typedef basic_InputSource<stringT> InputSourceT;
-  typedef basic_ErrorHandler<stringT> ErrorHandlerT;
-  typedef basic_DeclHandler<stringT> DeclHandlerT;
-  typedef basic_LexicalHandler<stringT> LexicalHandlerT;
+  typedef EntityResolver<stringT> EntityResolverT;
+  typedef DTDHandler<stringT> DTDHandlerT;
+  typedef ContentHandler<stringT> ContentHandlerT;
+  typedef InputSource<stringT> InputSourceT;
+  typedef ErrorHandler<stringT> ErrorHandlerT;
+  typedef DeclHandler<stringT> DeclHandlerT;
+  typedef LexicalHandler<stringT> LexicalHandlerT;
 
-	virtual ~basic_XMLReader() { }
+	virtual ~XMLReaderInterface() { }
 
   /////////////////////////////////////////////////
   // Configuration
@@ -134,7 +134,7 @@ public:
    * <p>The feature name is any fully-qualified URI.  It is
    * possible for an XMLReader to recognize a feature name but
    * to be unable to set its value; this is especially true
-   * in the case of an adapter for a SAX1 {@link basic_Parser Parser},
+   * in the case of an adapter for a SAX1 {@link Parser Parser},
    * which has no way of affecting whether the underlying parser is
    * validating, for example.</p>
    *
@@ -293,7 +293,7 @@ public:
    * by the application before it is passed to the parser.</p>
    *
    * @param systemId The system identifier (URI).
-   * @see #parse(basic_InputSource&)
+   * @see #parse(InputSource&)
    */
   void parse(const stringT& systemId)
   {
@@ -323,7 +323,7 @@ public:
    *
    * @param input The input source for the top-level of the
    *        XML document.
-   * @see basic_InputSource
+   * @see InputSource
    * @see #parse(const stringT&)
    * @see #setEntityResolver
    * @see #setDTDHandler
@@ -363,7 +363,7 @@ public:
    * <p>The property name is any fully-qualified URI.  It is
    * possible for an XMLReader to recognize a property name but
    * to be unable to return its state; this is especially true
-   * in the case of an adapter for a SAX1 {@link basic_Parser
+   * in the case of an adapter for a SAX1 {@link Parser
    * Parser}.</p>
    *
    * <p>XMLReaders are not required to recognize any specific
@@ -403,7 +403,7 @@ public:
    * <p>The property name is any fully-qualified URI.  It is
    * possible for an XMLReader to recognize a property name but
    * to be unable to set its value; this is especially true
-   * in the case of an adapter for a SAX1 {@link basic_Parser
+   * in the case of an adapter for a SAX1 {@link Parser
    * Parser}.</p>
    *
    * <p>XMLReaders are not required to recognize setting
@@ -431,7 +431,7 @@ public:
     Property<propertyTypeT&>* prop = new Property<propertyTypeT&>(value);
     doSetProperty(name, std::auto_ptr<PropertyBase>(prop));
   } // setProperty
-}; // class basic_XMLReader
+}; // class XMLReaderInterface
 
 } // namespace SAX
 } // namespace Arabica

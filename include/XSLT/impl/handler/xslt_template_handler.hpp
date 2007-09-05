@@ -22,7 +22,7 @@ protected:
   virtual Template* createContainer(const std::string& namespaceURI,
                                     const std::string& localName,
                                     const std::string& qName,
-                                    const SAX::Attributes& atts)
+                                    const SAX::Attributes<std::string>& atts)
   {
     const std::string& match = atts.getValue("match");
     if((match == "") && (atts.getValue("name") == ""))
@@ -45,7 +45,7 @@ protected:
   virtual bool createChild(const std::string& namespaceURI,
                            const std::string& localName,
                            const std::string& qName,
-                           const SAX::Attributes& atts)
+                           const SAX::Attributes<std::string>& atts)
   {
     if((namespaceURI == StylesheetConstant::NamespaceURI()) &&
        (localName == "param"))

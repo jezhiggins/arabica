@@ -34,16 +34,16 @@ namespace SAX
  * @version 2.0
  * @see SAXException
  * @see Locator
- * @see basic_ErrorHandler
+ * @see ErrorHandler
  */
 template<class string_type>
-class basic_SAXParseException : public SAXException
+class SAXParseException : public SAXException
 {
 public:
   typedef string_type stringT;
-  typedef basic_Locator<stringT> LocatorT;
+  typedef Locator<stringT> LocatorT;
 
-  basic_SAXParseException(const std::string& message) :
+  SAXParseException(const std::string& message) :
     SAXException(message),
     publicId_(), 
     systemId_(),
@@ -51,9 +51,9 @@ public:
     columnNumber_(-1)
   {
     setMsg();
-  } // basic_SAXParseException
+  } // SAXParseException
 
-  basic_SAXParseException(const std::string& message,
+  SAXParseException(const std::string& message,
                           const LocatorT& locator) :
     SAXException(message),
     publicId_(locator.getPublicId()), 
@@ -62,9 +62,9 @@ public:
     columnNumber_(locator.getColumnNumber())
   {
     setMsg();
-  } // basic_SAXParseException
+  } // SAXParseException
 
-  basic_SAXParseException(const std::string& message,
+  SAXParseException(const std::string& message,
 	                        const stringT& publicId, 
                           const stringT& systemId,
                           int lineNumber, 
@@ -76,9 +76,9 @@ public:
     columnNumber_(columnNumber)
   {
     setMsg();
-  } // basic_SAXParseException
+  } // SAXParseException
 
-  basic_SAXParseException(const basic_SAXParseException& rhs) :
+  SAXParseException(const SAXParseException& rhs) :
     SAXException(rhs),
     msg_(rhs.msg_),
     publicId_(rhs.publicId_), 
@@ -86,9 +86,9 @@ public:
     lineNumber_(rhs.lineNumber_),
     columnNumber_(rhs.columnNumber_)
   {
-  } // basic_SAXParseException
+  } // SAXParseException
 
-  basic_SAXParseException& operator=(const basic_SAXParseException& rhs)
+  SAXParseException& operator=(const SAXParseException& rhs)
   {
     SAXException::operator=(rhs);
 
@@ -101,14 +101,14 @@ public:
     return *this;
   } // operator=
 
-  virtual ~basic_SAXParseException() throw() { }
+  virtual ~SAXParseException() throw() { }
 
   /**
    * Get the public identifier of the entity where the exception occurred.
    *
    * @return A string containing the public identifier, or an empty string
    *         if none is available.
-   * @see basic_Locator#getPublicId
+   * @see Locator#getPublicId
    */
   const stringT& getPublicId() const { return publicId_; }
   /**
@@ -119,7 +119,7 @@ public:
    *
    * @return A string containing the system identifier, or an empty string
    *         if none is available.
-   * @see basic_Locator#getSystemId
+   * @see Locator#getSystemId
    */
   const stringT& getSystemId() const { return systemId_; }
   /**
@@ -127,7 +127,7 @@ public:
    *
    * @return An integer representing the line number, or -1
    *         if none is available.
-   * @see basic_Locator#getLineNumber
+   * @see Locator#getLineNumber
    */
   int getLineNumber() const { return lineNumber_; }
   /**
@@ -137,7 +137,7 @@ public:
    *
    * @return An integer representing the column number, or -1
    *         if none is available.
-   * @see basic_Locator#getColumnNumber
+   * @see Locator#getColumnNumber
    */
   int getColumnNumber() const { return columnNumber_; }
 
@@ -162,13 +162,8 @@ private:
   int lineNumber_;
   int columnNumber_;
 
-  basic_SAXParseException();
-}; // class basic_SAXParseException
-
-typedef basic_SAXParseException<std::string> SAXParseException;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_SAXParseException<std::wstring> wSAXParseException;
-#endif 
+  SAXParseException();
+}; // class SAXParseException
 
 } // namespace SAX
 } // namespace Arabica

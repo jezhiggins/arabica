@@ -23,25 +23,25 @@ namespace SAX
   * events as they pass on to the final application.</p>
   *
   * <p>The XMLFilterImpl helper class provides a convenient base
-  * for creating SAX2 filters, by passing on all {@link basic_EntityResolver
-  * EntityResolver}, {@link basic_DTDHandler DTDHandler},
-  * {@link basic_ContentHandler ContentHandler} and {@link ErrorHandler
+  * for creating SAX2 filters, by passing on all {@link EntityResolver
+  * EntityResolver}, {@link DTDHandler DTDHandler},
+  * {@link ContentHandler ContentHandler} and {@link ErrorHandler
   * ErrorHandler} events automatically.</p>
   *
   * @since SAX 2.0
   * @author Jez Higgins, 
   *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
   * @version 2.0
-  * @see basic_XMLFilterImpl
+  * @see XMLFilterImpl
   */
 template<class string_type>
-class basic_XMLFilter : public basic_XMLReader<string_type>
+class XMLFilter : public XMLReaderInterface<string_type>
 {
 public:
   typedef string_type stringT;
-  typedef basic_XMLReader<stringT> XMLReaderT;
+  typedef XMLReaderInterface<stringT> XMLReaderT;
 
-  virtual ~basic_XMLFilter() { }
+  virtual ~XMLFilter() { }
 
   /**
    * Set the parent reader.
@@ -63,12 +63,7 @@ public:
    * @return The parent filter, or 0 if none has been set.
    */
   virtual XMLReaderT* getParent() const = 0;
-}; // class basic_XMLFilter
-
-typedef basic_XMLFilter<std::string> XMLFilter;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_XMLFilter<std::wstring> wXMLFilter;
-#endif 
+}; // class XMLFilter
 
 } // namespace SAX
 } // namespace Arabica

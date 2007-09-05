@@ -21,7 +21,7 @@ public:
   virtual When* createContainer(const std::string& namespaceURI,
                                          const std::string& localName,
                                          const std::string& qName,
-                                         const SAX::Attributes& atts)
+                                         const SAX::Attributes<std::string>& atts)
   {
     static const ValueRule rules[] = { { "test", true, 0 },
                                        { 0, false, 0} };
@@ -53,7 +53,7 @@ public:
   virtual Otherwise* createContainer(const std::string& namespaceURI,
                                      const std::string& localName,
                                      const std::string& qName,
-                                     const SAX::Attributes& atts)
+                                     const SAX::Attributes<std::string>& atts)
   {
     if(atts.getLength())
       throw SAX::SAXException("xsl:otherwise may not have any attributes");
@@ -73,7 +73,7 @@ private:
   Choose* choose_;
 }; // class OtherwiseHandler
 
-class ChooseHandler : public SAX::DefaultHandler
+class ChooseHandler : public SAX::DefaultHandler<std::string>
 {
 public:
   ChooseHandler(CompilationContext& context) :
@@ -86,7 +86,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(!choose_)
     {

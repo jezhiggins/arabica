@@ -27,7 +27,7 @@ namespace SAX
   * interfaces: EntityResolver, DTDHandler, DocumentHandler,
   * and ErrorHandler.  It is now obsolete, but is included in SAX2 to
   * support legacy SAX1 applications.  SAX2 applications should use
-  * the {@link basic_DefaultHandler DefaultHandler}
+  * the {@link DefaultHandler DefaultHandler}
   * class instead.</p>
   *
   * <p>Application writers can extend this class when they need to
@@ -38,32 +38,32 @@ namespace SAX
   * <p>Note that the use of this class is optional.</p>
   *
   * @deprecated This class works with the deprecated
-  *             {@link basic_DocumentHandler DocumentHandler}
+  *             {@link DocumentHandler DocumentHandler}
   *             interface.  It has been replaced by the SAX2
-  *             {@link basic_DefaultHandler DefaultHandler}
+  *             {@link DefaultHandler DefaultHandler}
   *             class.
   * @since SAX 1.0
   * @author Jez Higgins, <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
   * @version 1.0
-  * @see basic_EntityResolver
-  * @see basic_DTDHandler
-  * @see basic_DocumentHandler
-  * @see basic_ErrorHandler
+  * @see EntityResolver
+  * @see DTDHandler
+  * @see DocumentHandler
+  * @see ErrorHandler
   */
 template<class string_type>
-class basic_HandlerBase : public basic_EntityResolver<string_type>, 
-					public basic_DTDHandler<string_type>,
-					public basic_DocumentHandler<string_type>, 
-					public basic_ErrorHandler<string_type>
+class HandlerBase : public EntityResolver<string_type>, 
+					public DTDHandler<string_type>,
+					public DocumentHandler<string_type>, 
+					public ErrorHandler<string_type>
 {
 public:
   typedef string_name stringT;
-  typedef basic_Locator<stringT> LocatorT;
-  typedef basic_AttributeList<stringT> AttributeListT;
-  typedef basic_InputSource<stringT> InputSourceT;
-  typedef basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+  typedef Locator<stringT> LocatorT;
+  typedef AttributeList<stringT> AttributeListT;
+  typedef InputSource<stringT> InputSourceT;
+  typedef ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
-  virtual ~basic_HandlerBase() { }
+  virtual ~HandlerBase() { }
 
   //////////////////////////////////////////////////////////////////////
   // Default implementation of the EntityResolver interface.
@@ -83,7 +83,7 @@ public:
    *                 document.
    * @return The new input source, or an empty string to require the
    *         default behaviour.
-   * @see basic_EntityResolver#resolveEntity
+   * @see EntityResolver#resolveEntity
    */
   virtual InputSourceT resolveEntity(const stringT& publicId, 
 				     const stringT& systemId)
@@ -105,7 +105,7 @@ public:
    * @param publicId The notation public identifier, or an empty string if not
    *                 available.
    * @param systemId The notation system identifier.
-   * @see basic_DTDHandler#notationDecl
+   * @see DTDHandler#notationDecl
    */
   virtual void notationDecl(const stringT& name,
                             const stringT& publicId,
@@ -123,7 +123,7 @@ public:
    *                 available.
    * @param systemId The entity system identifier.
    * @param notationName The name of the associated notation.
-   * @see basic_DTDHandler#unparsedEntityDecl
+   * @see DTDHandler#unparsedEntityDecl
    */
   virtual void unparsedEntityDecl(const stringT& name,
 				  const stringT& publicId,
@@ -141,8 +141,8 @@ public:
    * with other document events.</p>
    *
    * @param locator A locator for all SAX document events.
-   * @see basic_DocumentHandler#setDocumentLocator
-   * @see basic_Locator
+   * @see DocumentHandler#setDocumentLocator
+   * @see Locator
    */
   virtual void setDocumentLocator(const LocatorT& locator) { }
 
@@ -154,7 +154,7 @@ public:
    * of a document (such as allocating the root node of a tree or
    * creating an output file).</p>
    *
-   * @see basic_DocumentHandler#startDocument
+   * @see DocumentHandler#startDocument
    */
   virtual void startDocument() { }
   /**
@@ -165,7 +165,7 @@ public:
    * of a document (such as finalising a tree or closing an output
    * file).</p>
    *
-   * @see basic_DocumentHandler#endDocument
+   * @see DocumentHandler#endDocument
    */
   virtual void endDocument() { }
 
@@ -179,7 +179,7 @@ public:
    *
    * @param name The element type name.
    * @param attributes The specified or defaulted attributes.
-   * @see basic_DocumentHandler#startElement
+   * @see DocumentHandler#startElement
    */
   virtual void startElement(const stringT& name,
 			    const AttributeListT& attributes) { }
@@ -192,7 +192,7 @@ public:
    * output to a file).</p>
    *
    * @param name The element type name.
-   * @see basic_DocumentHandler#endElement
+   * @see DocumentHandler#endElement
    */
   virtual void endElement(const stringT& name) { }
 
@@ -205,7 +205,7 @@ public:
    * a file).</p>
    *
    * @param ch The characters.
-   * @see basic_DocumentHandler#characters
+   * @see DocumentHandler#characters
    */
   virtual void characters(const stringT& ch) { }
   /**
@@ -217,7 +217,7 @@ public:
    * it to a file).</p>
    *
    * @param ch The whitespace characters.
-   * @see basic_DocumentHandler#ignorableWhitespace
+   * @see DocumentHandler#ignorableWhitespace
    */
   virtual void ignorableWhitespace(const stringT& ch) { }
 
@@ -232,7 +232,7 @@ public:
    * @param target The processing instruction target.
    * @param data The processing instruction data, or an empty string if
    *             none is supplied.
-   * @see basic_DocumentHandler#processingInstruction
+   * @see DocumentHandler#processingInstruction
    */
   virtual void processingInstruction(const stringT& target,
 				     const stringT& data) { }
@@ -249,8 +249,8 @@ public:
    * printing it to the console.</p>
    *
    * @param e The warning information encoded as an exception.
-   * @see basic_ErrorHandler#warning
-   * @see basic_SAXParseException
+   * @see ErrorHandler#warning
+   * @see SAXParseException
    */
   virtual void warning(const SAXParseExceptionT& e) { }
   /**
@@ -262,8 +262,8 @@ public:
    * printing it to the console.</p>
    *
    * @param e The warning information encoded as an exception.
-   * @see basic_ErrorHandler#warning
-   * @see basic_SAXParseException
+   * @see ErrorHandler#warning
+   * @see SAXParseException
    */
   virtual void error(const SAXParseExceptionT& e) { }
   /**
@@ -278,16 +278,11 @@ public:
    * the parser may no longer report parsing events.</p>
    *
    * @param e The error information encoded as an exception.
-   * @see basic_ErrorHandler#fatalError
-   * @see basic_SAXParseException
+   * @see ErrorHandler#fatalError
+   * @see SAXParseException
    */
   virtual void fatalError(const SAXParseExceptionT& e) { throw e; }
 }; // class HandlerBase
-
-typedef basic_HandlerBase<std::string> HandlerBase;
-#ifndef ARABICA_NO_WCHAR_T
-typedef basic_HandlerBase<std::wstring> wHandlerBase;
-#endif
 
 } // namespace SAX
 } // namespace Arabica

@@ -15,12 +15,12 @@ namespace XSLT
 {
 
 template<class Handler>
-SAX::DefaultHandler* CreateHandler(CompilationContext& context)
+SAX::DefaultHandler<std::string>* CreateHandler(CompilationContext& context)
 {
   return new Handler(context);
 } // create
 
-class NotImplementedYetHandler : public SAX::DefaultHandler
+class NotImplementedYetHandler : public SAX::DefaultHandler<std::string>
 {
 public:
   NotImplementedYetHandler(CompilationContext& context) { }
@@ -28,13 +28,13 @@ public:
     virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     throw SAX::SAXException("Haven't implemented " + qName + " yet");
   } // startElement
 }; // NotImplementedYetHandler
 
-typedef SAX::DefaultHandler* (*CreateHandlerPtr)(CompilationContext&);
+typedef SAX::DefaultHandler<std::string>* (*CreateHandlerPtr)(CompilationContext&);
 
 struct ChildElement
 {

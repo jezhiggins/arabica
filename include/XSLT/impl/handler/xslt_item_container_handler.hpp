@@ -11,10 +11,10 @@ namespace XSLT
 {
 
 const ChildElement* AllowedChildren();
-SAX::DefaultHandler* createInlineElementHandler(CompilationContext& context);
+SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext& context);
 
 template<class container_type>
-class ItemContainerHandler : public SAX::DefaultHandler
+class ItemContainerHandler : public SAX::DefaultHandler<std::string>
 {
 protected:
   ItemContainerHandler(CompilationContext& context) :
@@ -26,7 +26,7 @@ protected:
   virtual container_type* createContainer(const std::string& namespaceURI,
                                          const std::string& localName,
                                          const std::string& qName,
-                                         const SAX::Attributes& atts) = 0;
+                                         const SAX::Attributes<std::string>& atts) = 0;
 
   CompilationContext& context() const { return context_; }
   container_type* container() const { return container_; }
@@ -35,7 +35,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(container_ == 0)
     {
@@ -71,7 +71,7 @@ protected:
   virtual bool createChild(const std::string& namespaceURI,
                            const std::string& localName,
                            const std::string& qName,
-                           const SAX::Attributes& atts)
+                           const SAX::Attributes<std::string>& atts)
   {
     if(namespaceURI == StylesheetConstant::NamespaceURI())
     {
@@ -156,7 +156,7 @@ const ChildElement* AllowedChildren()
   return allowedChildren;
 } // AllowedChildren
 
-SAX::DefaultHandler* createInlineElementHandler(CompilationContext& context)
+SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext& context)
 {
   return new InlineElementHandler(context);
 } // InlineElementHandler

@@ -12,7 +12,7 @@ namespace SAX
 {
 
 template<class string_type>
-class PYXWriter : public basic_XMLFilterImpl<string_type>
+class PYXWriter : public XMLFilterImpl<string_type>
 {
   public:
     typedef string_type stringT;
@@ -20,9 +20,9 @@ class PYXWriter : public basic_XMLFilterImpl<string_type>
     typedef typename string_type::value_type charT;
     typedef typename string_type::traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
-    typedef basic_XMLReader<stringT> XMLReaderT;
-    typedef basic_XMLFilterImpl<stringT> XMLFilterT;
-    typedef typename basic_XMLFilterImpl<stringT>::AttributesT AttributesT;
+    typedef XMLReaderInterface<stringT> XMLReaderT;
+    typedef XMLFilterImpl<stringT> XMLFilterT;
+    typedef typename XMLFilterImpl<stringT>::AttributesT AttributesT;
     typedef Arabica::Unicode<charT> UnicodeT;
   private:
     using XMLFilterT::getParent;

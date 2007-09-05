@@ -10,7 +10,7 @@ namespace Arabica
 namespace XSLT
 {
 
-class IncludeHandler : public SAX::DefaultHandler
+class IncludeHandler : public SAX::DefaultHandler<std::string>
 {
 public:
   IncludeHandler() :
@@ -21,7 +21,7 @@ public:
   {
   } // IncludeHandler
 
-  void context(CompilationContext& context, SAX::DefaultHandler* compiler)
+  void context(CompilationContext& context, SAX::DefaultHandler<std::string>* compiler)
   {
     context_ = &context;
     compiler_ = compiler;
@@ -30,7 +30,7 @@ public:
   void start_include(const std::string& namespaceURI,
                      const std::string& localName,
                      const std::string& qName,
-                     const SAX::Attributes& atts)
+                     const SAX::Attributes<std::string>& atts)
   {
     context_->parser().setContentHandler(*this);
     startElement(namespaceURI, localName, qName, atts);
@@ -39,7 +39,7 @@ public:
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
-                            const SAX::Attributes& atts)
+                            const SAX::Attributes<std::string>& atts)
   {
     if(no_content_)
       throw SAX::SAXException("xsl:include must be empty");
@@ -130,7 +130,7 @@ public:
   } // unwind_imports
 
 private:
-  std::string validate_href(const std::string& qName, const SAX::Attributes& atts)
+  std::string validate_href(const std::string& qName, const SAX::Attributes<std::string>& atts)
   {
     static const ValueRule rules[] = { { "href", true, 0 },
                                         { 0, false, 0 } };
@@ -157,7 +157,7 @@ private:
 
     std::string prev = context_->setBase(href);
 
-    SAX::InputSource source(href);
+    SAX::InputSource<std::string> source(href);
     SAX::XMLReader<std::string> include_parser;
     SAX::CatchErrorHandler<std::string> errorHandler;
  
@@ -173,7 +173,7 @@ private:
     current_includes_.pop_back();
   } // include_stylesheet
 
-  SAX::DefaultHandler* compiler_;
+  SAX::DefaultHandler<std::string>* compiler_;
   CompilationContext* context_;
   unsigned int pass_through_;
   bool no_content_;

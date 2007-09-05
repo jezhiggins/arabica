@@ -14,12 +14,12 @@ namespace SAX
   Strips out everything except startDocument, endDocument and text
  */
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class TextOnly : public basic_XMLFilterImpl<string_type>
+class TextOnly : public XMLFilterImpl<string_type>
 {
-  typedef basic_XMLFilterImpl<string_type> XMLFilterT;
+  typedef XMLFilterImpl<string_type> XMLFilterT;
 
 public:
-  typedef basic_XMLReader<string_type> XMLReaderT;
+  typedef XMLReaderInterface<string_type> XMLReaderT;
 
   TextOnly() : 
     XMLFilterT(0)

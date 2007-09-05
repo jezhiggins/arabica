@@ -24,13 +24,13 @@ namespace SAX
  *
  * <p>If the parser or application needs to include information about a
  * specific location in an XML document, it should use the
- * {@link basic_SAXParseException SAXParseException} subclass.</p>
+ * {@link SAXParseException SAXParseException} subclass.</p>
  *
  * @since SAX 1.0
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
- * @see basic_SAXParseException
+ * @see SAXParseException
  */
 class SAXException : public std::runtime_error
 {

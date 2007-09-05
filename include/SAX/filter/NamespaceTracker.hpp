@@ -13,23 +13,23 @@ namespace SAX
 {
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class NamespaceTracker : public basic_XMLFilterImpl<string_type>
+class NamespaceTracker : public XMLFilterImpl<string_type>
 {
-  typedef basic_NamespaceSupport<string_type, string_adaptor> NamespaceSupportT;
+  typedef NamespaceSupport<string_type, string_adaptor> NamespaceSupportT;
   typedef typename NamespaceSupportT::stringListT stringListT;
-  typedef basic_XMLFilterImpl<string_type> XMLFilterT;
+  typedef XMLFilterImpl<string_type> XMLFilterT;
 
 public:
-  typedef basic_XMLReader<string_type> XMLReaderT;
-  typedef basic_Attributes<string_type> AttributesT;
+  typedef XMLReaderInterface<string_type> XMLReaderT;
+  typedef Attributes<string_type> AttributesT;
 
   NamespaceTracker() : 
-    basic_XMLFilterImpl<string_type>()
+    XMLFilterImpl<string_type>()
   { 
   } // NamespaceTracker
 
   NamespaceTracker(XMLReaderT& parent) : 
-    basic_XMLFilterImpl<string_type>(parent)
+    XMLFilterImpl<string_type>(parent)
   { 
   } // NamespaceTracker
 

@@ -21,7 +21,7 @@ protected:
   virtual InlineElement* createContainer(const std::string& namespaceURI,
                                          const std::string& localName,
                                          const std::string& qName,
-                                         const SAX::Attributes& atts)
+                                         const SAX::Attributes<std::string>& atts)
   {
     std::vector<InlineAttribute> inlineAtts;
     for(unsigned int i = 0; i != atts.getLength(); ++i)
