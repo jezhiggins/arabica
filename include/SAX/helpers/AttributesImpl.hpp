@@ -45,6 +45,34 @@ public:
   typedef string_type stringT;
   typedef Attributes<stringT> AttributesT;
 
+  struct Attr
+  {
+    Attr(const stringT& uri, 
+         const stringT& localName, 
+         const stringT& qName, 
+         const stringT& type, 
+         const stringT& value) :
+         uri_(uri), localName_(localName), qName_(qName), type_(type), value_(value) 
+         { } 
+    Attr() { }
+    Attr& operator=(const Attr& rhs) 
+    {
+      uri_ = rhs.uri_;
+      localName_ = rhs.localName_;
+      qName_ = rhs.qName_;
+      type_ = rhs.type_;
+      value_ = rhs.value_;
+
+      return *this;
+    } // operator=
+
+    stringT uri_;
+	  stringT localName_;
+	  stringT qName_;
+	  stringT type_;
+	  stringT value_;
+  }; // Attr
+
   ////////////////////////////////////////////////////////////////////
   // Constructors.
   AttributesImpl() { } 
@@ -275,7 +303,7 @@ public:
    * 
    * @param atts The attributes to copy.
    */
-  void setAttributes(const Attributes& atts)
+  void setAttributes(const AttributesT& atts)
   {
 	  clear();
 	  
@@ -312,6 +340,11 @@ public:
                     const stringT& value)
   {
     attributes_.push_back(Attr(uri, localName, qName, type, value));
+  } // addAttribute
+
+  void addAttribute(const Attr& attr)
+  {
+    attributes_.push_back(attr);
   } // addAttribute
 
   /**
@@ -499,34 +532,6 @@ private:
 	    "Attempt to modify attribute at illegal index: " + index;
     throw std::out_of_range(msg);
   }
-
-  struct Attr
-  {
-    Attr(const stringT& uri, 
-         const stringT& localName, 
-         const stringT& qName, 
-         const stringT& type, 
-         const stringT& value) :
-         uri_(uri), localName_(localName), qName_(qName), type_(type), value_(value) 
-         { } 
-    Attr() { }
-    Attr& operator=(const Attr& rhs) 
-    {
-      uri_ = rhs.uri_;
-      localName_ = rhs.localName_;
-      qName_ = rhs.qName_;
-      type_ = rhs.type_;
-      value_ = rhs.value_;
-
-      return *this;
-    } // operator=
-
-    stringT uri_;
-	  stringT localName_;
-	  stringT qName_;
-	  stringT type_;
-	  stringT value_;
-  }; // Attr
 
   class AttributeNamed
   {

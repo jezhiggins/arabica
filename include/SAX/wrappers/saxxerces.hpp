@@ -289,12 +289,12 @@ class xerces_wrapper : public SAX::ProgressiveParser<string_type>
         } // construct_from_XMLByte
 
         static std::auto_ptr<XERCES_CPP_NAMESPACE::XMLTranscoder> transcoder_;
-        static kickoff()
+        static void kickoff()
         {
           XERCES_CPP_NAMESPACE::XMLTransService::Codes  res;
           transcoder_.reset(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgTransService->makeNewTranscoderFor(XERCES_CPP_NAMESPACE::XMLRecognizer::UTF_8, res, 4096, XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager));
         }
-        static shutdown()
+        static void shutdown()
         {
           transcoder_.reset(0);
         } // shutdown
@@ -837,7 +837,7 @@ class xerces_wrapper : public SAX::ProgressiveParser<string_type>
         InputSourceT inputSource_;
     }; // class InputSourceAdaptor
 
-    class XercesXMLPScanToken : public ::SAX::XMLPScanTokenParserImpl
+    class XercesXMLPScanToken : public SAX::XMLPScanTokenParserImpl
     {
       public:
         XERCES_CPP_NAMESPACE::XMLPScanToken token_;
@@ -853,7 +853,7 @@ class xerces_wrapper : public SAX::ProgressiveParser<string_type>
     ErrorHandlerAdaptor errorHandlerAdaptor_;
     LexicalHandlerAdaptor lexicalHandlerAdaptor_;
     DeclHandlerAdaptor declHandlerAdaptor_;
-    SAX::XercesPropertyNames<string_type, string_adaptorT> properties_;
+    Arabica::SAX::XercesPropertyNames<string_type, string_adaptorT> properties_;
 
     // Property values to return by reference
     string_type externalSchemaLocation_;
