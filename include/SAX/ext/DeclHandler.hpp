@@ -7,6 +7,8 @@
 #include <string>
 #include <SAX/ArabicaConfig.hpp>
 
+namespace Arabica
+{
 namespace SAX 
 {
 
@@ -131,7 +133,8 @@ typedef basic_DeclHandler<std::string> DeclHandler;
 typedef basic_DeclHandler<std::wstring> wDeclHandler;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

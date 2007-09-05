@@ -16,7 +16,10 @@
 #include <SAX/ext/DeclHandler.hpp>
 #include <SAX/ext/LexicalHandler.hpp>
 
-namespace SAX {
+namespace Arabica
+{
+namespace SAX 
+{
 
 /**
  * Default base class for SAX2 event handlers.
@@ -599,5 +602,6 @@ typedef basic_DefaultHandler<std::wstring> wDefaultHandler;
 #endif 
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

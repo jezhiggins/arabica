@@ -68,6 +68,8 @@
  * SAX in C++ - A C++ implementation of the SAX2 interface.
  *
  */
+namespace Arabica
+{
 namespace SAX 
 {
 
@@ -103,7 +105,8 @@ typedef basic_SAXParseException<std::wstring> wSAXParseException;
 typedef basic_ErrorHandler<std::wstring> wErrorHandler;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

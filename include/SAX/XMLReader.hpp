@@ -18,7 +18,8 @@
 #include <SAX/ext/DeclHandler.hpp>
 #include <SAX/SAXNotSupportedException.hpp>
 
-
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -432,7 +433,8 @@ public:
   } // setProperty
 }; // class basic_XMLReader
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 /* Included to ensure that #include<SAX/XMLReader.hpp> defines a class called
  * XMLReader.

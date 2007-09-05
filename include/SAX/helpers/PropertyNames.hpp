@@ -8,6 +8,8 @@
 #include <SAX/XMLReader.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -45,6 +47,7 @@ struct PropertyNames
 }; // struct PropertyNames
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

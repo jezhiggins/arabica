@@ -10,6 +10,8 @@
 #include <SAX/SAXNotRecognizedException.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -605,7 +607,8 @@ typedef basic_XMLFilterImpl<std::string> XMLFilterImpl;
 typedef basic_XMLFilterImpl<std::wstring> wXMLFilterImpl;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

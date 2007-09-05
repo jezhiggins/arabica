@@ -5,6 +5,8 @@
 #include <SAX/helpers/XMLFilterImpl.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -94,4 +96,6 @@ private:
 }; // class basic_TextCoalescer
 
 } // namespace SAX
+} // namespace Arabica
+
 #endif

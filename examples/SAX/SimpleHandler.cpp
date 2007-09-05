@@ -7,9 +7,9 @@
 
 //////////////////////////////////////////////
 // EntityResolver
-SAX::InputSource SimpleHandler::resolveEntity(const std::string& publicId, const std::string& systemId)
+Arabica::SAX::InputSource SimpleHandler::resolveEntity(const std::string& publicId, const std::string& systemId)
 {
-  return SAX::InputSource();
+  return Arabica::SAX::InputSource();
 } // resolveEntity
 
 //////////////////////////////////////////////
@@ -57,7 +57,7 @@ void SimpleHandler::endPrefixMapping(const std::string& prefix)
 } // startPrefixMapping 
 
 void SimpleHandler::startElement(const std::string& namespaceURI, const std::string& localName,
-                                 const std::string& qName, const SAX::Attributes& atts)
+                                 const std::string& qName, const Arabica::SAX::Attributes& atts)
 {
   if(localName.length())
 	  std::cout << "Start Element: " << namespaceURI << ":" << localName << std::endl;
@@ -93,17 +93,17 @@ void SimpleHandler::skippedEntity(const std::string& name)
 
 /////////////////////////////////////////////////////
 // ErrorHandler
-void SimpleHandler::warning(const SAX::SAXParseException& exception)
+void SimpleHandler::warning(const Arabica::SAX::SAXParseException& exception)
 {
   std::cerr << "WARNING: " << exception.what() << std::endl;
 } // warning
 
-void SimpleHandler::error(const SAX::SAXParseException& exception)
+void SimpleHandler::error(const Arabica::SAX::SAXParseException& exception)
 {
   std::cerr << "ERROR  : " << exception.what() << std::endl;
 } // error
 
-void SimpleHandler::fatalError(const SAX::SAXParseException& exception)
+void SimpleHandler::fatalError(const Arabica::SAX::SAXParseException& exception)
 {
   std::cerr << "FATAL  : " << exception.what() << std::endl;
 } // fatalError

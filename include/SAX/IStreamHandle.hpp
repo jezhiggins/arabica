@@ -21,6 +21,7 @@
 #define ISTREAMHANDLE_POSTCONDITION(x) do {} while (false)
 #endif
 
+namespace Arabica {
 namespace SAX {
 
 /** Reference-counting pointer to std::istream.
@@ -445,6 +446,7 @@ void IStreamHandle::removeRef()
 }
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif /* SAX_ISTREAMHANDLE_H */
 

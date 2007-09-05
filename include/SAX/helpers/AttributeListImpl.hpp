@@ -8,6 +8,8 @@
 #include <vector>
 #include <algorithm>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -293,7 +295,8 @@ typedef basic_AttributeListImpl<std::string> AttributeListImpl;
 typedef basic_AttributeListImpl<std::wstring> wAttributeListImpl;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

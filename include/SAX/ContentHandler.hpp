@@ -8,6 +8,8 @@
 
 #include <SAX/ArabicaConfig.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -337,7 +339,8 @@ typedef basic_ContentHandler<std::string> ContentHandler;
 typedef basic_ContentHandler<std::wstring> wContentHandler;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

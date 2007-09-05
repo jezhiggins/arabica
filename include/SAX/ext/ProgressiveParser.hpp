@@ -6,6 +6,8 @@
 
 // $Id$
 
+namespace Arabica
+{
 namespace SAX
 {
   /** Abstract base class for the parser-specific XMLPScanToken data.
@@ -157,7 +159,8 @@ namespace SAX
 #ifndef ARABICA_NO_WCHAR_T
   typedef basic_ProgressiveParser<std::wstring> wProgressiveParser;
 #endif
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif /* PROGRESSIVE_PARSER_H */
 // end of file

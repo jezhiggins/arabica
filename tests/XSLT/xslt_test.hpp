@@ -18,7 +18,7 @@ const std::string SEPERATOR = "/";
   
 DOM::Document<std::string> buildDOM(const std::string& filename)
 {
-  SAX::InputSource is(filename);
+  Arabica::SAX::InputSource is(filename);
   SAX2DOM::Parser<std::string> parser;
   parser.parse(is);       
 
@@ -85,7 +85,7 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler compiler;
 
-    SAX::InputSource source(input_xslt_);
+    Arabica::SAX::InputSource source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
     if(stylesheet.get() != 0)
       assertImplementation(false, "Expected " + input_xslt_ + " not to compile.  But it did :o");
@@ -113,7 +113,7 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler compiler;
 
-    SAX::InputSource source(input_xslt_);
+    Arabica::SAX::InputSource source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
@@ -158,7 +158,7 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler compiler;
 
-    SAX::InputSource source(input_xslt_);
+    Arabica::SAX::InputSource source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());

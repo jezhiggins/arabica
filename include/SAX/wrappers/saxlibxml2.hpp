@@ -27,6 +27,8 @@
 #include <SAX/helpers/AttributesImpl.hpp>
 #include <Utils/getparam.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
   
@@ -847,5 +849,6 @@ xmlParserInputPtr libxml2_wrapper<stringT, T0, T1>::SAXresolveEntity(const xmlCh
 
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

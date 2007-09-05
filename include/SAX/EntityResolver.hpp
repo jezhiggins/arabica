@@ -10,6 +10,8 @@
 
 #include <SAX/InputSource.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -114,7 +116,8 @@ typedef basic_EntityResolver<std::string> EntityResolver;
 typedef basic_EntityResolver<std::wstring> wEntityResolver;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

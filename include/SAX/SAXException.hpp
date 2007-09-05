@@ -8,6 +8,8 @@
 
 #include <SAX/ArabicaConfig.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -60,6 +62,7 @@ private:
   bool operator==(const SAXException&);
 }; // class SAXException
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif // SAXExceptionH

@@ -10,6 +10,8 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/IStreamHandle.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -334,7 +336,8 @@ typedef basic_InputSource<std::string> InputSource;
 typedef basic_InputSource<std::wstring> wInputSource;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif // #define InputSourceH
 // end of file

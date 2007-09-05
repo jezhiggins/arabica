@@ -12,7 +12,10 @@
 #include <algorithm>
 #include <typeinfo>
 
-namespace SAX {
+namespace Arabica
+{
+namespace SAX 
+{
 
 template<class string_type>
 class basic_Writer : public basic_XMLFilterImpl<string_type>
@@ -631,5 +634,6 @@ typedef basic_Writer<std::wstring> wWriter;
 #endif 
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

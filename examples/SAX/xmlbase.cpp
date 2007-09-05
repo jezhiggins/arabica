@@ -18,19 +18,19 @@
 #include <SAX/helpers/XMLBaseSupport.hpp>
 #include <iostream>
 
-class hrefPrinter : public SAX::DefaultHandler
+class hrefPrinter : public Arabica::SAX::DefaultHandler
 {
   public:
     virtual void startElement(const std::string& namespaceURI, const std::string& localName,
-                              const std::string& qName, const SAX::Attributes& atts);
+                              const std::string& qName, const Arabica::SAX::Attributes& atts);
     virtual void endElement(const std::string& namespaceURI, const std::string& localName,
                             const std::string& qName);
 
-    virtual void warning(const SAX::SAXParseException& e) { fatalError(e); }
-    virtual void error(const SAX::SAXParseException& e) { fatalError(e); }
+    virtual void warning(const Arabica::SAX::SAXParseException& e) { fatalError(e); }
+    virtual void error(const Arabica::SAX::SAXParseException& e) { fatalError(e); }
 
   private:
-    SAX::XMLBaseSupport xmlbaseTracker_;
+    Arabica::SAX::XMLBaseSupport xmlbaseTracker_;
 }; // class SimpleHandler
 
 int main(int argc, char* argv[])
@@ -47,11 +47,11 @@ int main(int argc, char* argv[])
   {
     try
     {
-      SAX::XMLReader<std::string> myParser;
+      Arabica::SAX::XMLReader<std::string> myParser;
       myParser.setContentHandler(handler);
       myParser.setErrorHandler(handler);
 
-      SAX::InputSource is(argv[i]);
+      Arabica::SAX::InputSource is(argv[i]);
       myParser.parse(is);
     } // try
     catch(std::runtime_error& e)
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
 
 
 void hrefPrinter::startElement(const std::string&, const std::string& localName,
-                               const std::string&, const SAX::Attributes& atts)
+                               const std::string&, const Arabica::SAX::Attributes& atts)
 {
   xmlbaseTracker_.startElement(atts);
 

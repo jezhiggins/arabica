@@ -7,6 +7,8 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -90,6 +92,7 @@ struct FeatureNames
 }; // class FeatureNames
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

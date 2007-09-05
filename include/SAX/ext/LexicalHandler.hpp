@@ -7,6 +7,8 @@
 #include <string>
 #include <SAX/ArabicaConfig.hpp>
 
+namespace Arabica
+{
 namespace SAX 
 {
 
@@ -191,7 +193,8 @@ typedef basic_LexicalHandler<std::string> LexicalHandler;
 typedef basic_LexicalHandler<std::wstring> wLexicalHandler;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

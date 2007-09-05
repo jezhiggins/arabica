@@ -5,6 +5,8 @@
 
 #include <Utils/normalize_whitespace.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -37,5 +39,7 @@ class WhitespaceStripper : public SAX::basic_XMLFilterImpl<string_type>
 }; // class WhitespaceStripper
 
 } // namespace SAX
+} // namespace Arabica
+
 #endif
 // end of file

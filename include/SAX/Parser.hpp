@@ -12,6 +12,8 @@
 
 #include <saxfwd.h>
 
+namespace Arabica
+{
 namespace SAX 
 {
 
@@ -161,7 +163,8 @@ typedef basic_Parser<std::string> Parser;
 typedef basic_Parser<std::wstring> wParser;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

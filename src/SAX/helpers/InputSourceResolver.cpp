@@ -13,7 +13,9 @@
 #include <Utils/uri.hpp>
 #include <cmath>
 
-InputSourceResolver::InputSourceResolver(const SAX::InputSource& inputSource) :
+using namespace Arabica::SAX;
+
+InputSourceResolver::InputSourceResolver(const Arabica::SAX::InputSource& inputSource) :
   deleteStream_(false),
   byteStream_(0)
 {

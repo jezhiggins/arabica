@@ -26,6 +26,8 @@
 #include <map>
 #include <Utils/getparam.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -1059,7 +1061,8 @@ int expat_wrapper<stringT, T0, T1>::externalEntityRefHandler(XML_Parser parser,
   return ok;
 } // externalEntityRefHandler
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

@@ -23,6 +23,8 @@
 #include <comdef.h>
 _COM_SMARTPTR_TYPEDEF(ISAXXMLReader, __uuidof(ISAXXMLReader));
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -945,6 +947,7 @@ void msxml2_wrapper<string_type, T0, T1>::parse(SAX::basic_InputSource<string_ty
 } // parse
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

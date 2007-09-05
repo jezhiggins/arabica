@@ -9,6 +9,8 @@
 #include <sstream>
 #include <Utils/convertstream.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -168,7 +170,8 @@ typedef basic_SAXParseException<std::string> SAXParseException;
 typedef basic_SAXParseException<std::wstring> wSAXParseException;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif 
 // end of file

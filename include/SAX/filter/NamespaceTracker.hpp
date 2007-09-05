@@ -7,6 +7,8 @@
 #include <SAX/helpers/NamespaceSupport.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -90,5 +92,6 @@ private:
 }; // class NamespaceTracker
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

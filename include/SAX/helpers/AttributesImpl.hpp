@@ -8,6 +8,8 @@
 #include <SAX/Attributes.hpp>
 #include <deque>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -560,6 +562,7 @@ typedef basic_AttributesImpl<std::wstring> wAttributesImpl;
 #endif 
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif 
 

@@ -5,6 +5,8 @@
 #include <SAX/helpers/XMLFilterImpl.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -59,4 +61,6 @@ public:
 }; // class TextOnly
 
 } // namespace SAX
+} // namespace Arabica
+
 #endif

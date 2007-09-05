@@ -16,7 +16,10 @@
 #include <Utils/StringAdaptor.hpp>
 #include <Utils/getparam.hpp>
 
-namespace SAX {
+namespace Arabica 
+{
+namespace SAX 
+{
 
 template<class string_type, 
          class T0 = Arabica::nil_t,
@@ -457,5 +460,6 @@ void Garden<string_type, T0, T1>::reportError(const std::string& message, bool f
 } // reportError
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

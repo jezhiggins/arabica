@@ -6,6 +6,8 @@
 #include <SAX/helpers/XMLBaseSupport.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -88,5 +90,6 @@ private:
 }; // class XMLBaseTracker
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

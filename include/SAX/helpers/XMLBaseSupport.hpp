@@ -22,6 +22,8 @@
 #include <XML/UnicodeCharacters.hpp>
 #include <Utils/uri.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -127,6 +129,7 @@ typedef basic_XMLBaseSupport<std::wstring> wXMLBaseSupport;
 #endif
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif
 

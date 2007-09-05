@@ -8,6 +8,8 @@
 #include <SAX/ParserConfig.hpp>
 #include <SAX/wrappers/saxxerces.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -31,4 +33,5 @@ namespace XercesImpl
 } //namespace xerces_implemenation_helper
 
 } // namespace SAX
+} // namespace Arabica
 // end of file

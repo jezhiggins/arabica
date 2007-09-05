@@ -7,6 +7,8 @@
 
 #include <SAX/SAXException.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -48,6 +50,7 @@ public:
 }; // class SAXNotSupportedException
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif 
 // end of file

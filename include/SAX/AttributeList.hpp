@@ -8,6 +8,8 @@
 
 #include <SAX/ArabicaConfig.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -189,7 +191,8 @@ typedef basic_AttributeList<std::string> AttributeList;
 typedef basic_AttributeList<std::wstring> wAttributeList;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

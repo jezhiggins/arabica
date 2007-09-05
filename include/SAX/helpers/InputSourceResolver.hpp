@@ -6,6 +6,11 @@
 #include <map>
 #include <SAX/InputSource.hpp>
 
+namespace Arabica
+{
+namespace SAX
+{
+
 class InputSourceResolver
 {
 public:
@@ -54,5 +59,7 @@ private:
   } // resolverMap
 }; // class InputSourceResolver
 
+} // namespace SAX
+} // namespace Arabica
 #endif
 

@@ -7,6 +7,8 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <Utils/StringAdaptor.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
   template<class string_type, class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
@@ -172,6 +174,7 @@ namespace SAX
     } // XercesFeatureNames
   }; // class XercesFeatureNames
 } // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

@@ -20,18 +20,18 @@ namespace SAX2DOM
 
 template<class stringT, 
          class string_adaptorT = Arabica::default_string_adaptor<stringT>,
-         class SAX_parser = SAX::XMLReader<stringT, string_adaptorT> >
-class Parser : protected SAX::basic_DefaultHandler<stringT>
+         class SAX_parser = Arabica::SAX::XMLReader<stringT, string_adaptorT> >
+class Parser : protected Arabica::SAX::basic_DefaultHandler<stringT>
 {
-    typedef SAX::basic_EntityResolver<stringT> EntityResolverT;
-    typedef SAX::basic_ErrorHandler<stringT> ErrorHandlerT;
-    typedef SAX::basic_LexicalHandler<stringT> LexicalHandlerT;
-    typedef SAX::basic_DeclHandler<stringT> DeclHandlerT;
-    typedef SAX::basic_InputSource<stringT> InputSourceT;
+    typedef Arabica::SAX::basic_EntityResolver<stringT> EntityResolverT;
+    typedef Arabica::SAX::basic_ErrorHandler<stringT> ErrorHandlerT;
+    typedef Arabica::SAX::basic_LexicalHandler<stringT> LexicalHandlerT;
+    typedef Arabica::SAX::basic_DeclHandler<stringT> DeclHandlerT;
+    typedef Arabica::SAX::basic_InputSource<stringT> InputSourceT;
     typedef SimpleDOM::EntityImpl<stringT, string_adaptorT> EntityT;
     typedef SimpleDOM::NotationImpl<stringT, string_adaptorT> NotationT;
     typedef SimpleDOM::ElementImpl<stringT, string_adaptorT> ElementT;
-    typedef typename SAX::basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+    typedef typename Arabica::SAX::basic_ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
 
   public:
     Parser() :
@@ -39,7 +39,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
         errorHandler_(0),
         documentType_(0)
     { 
-      SAX::FeatureNames<stringT, string_adaptorT> fNames;
+      Arabica::SAX::FeatureNames<stringT, string_adaptorT> fNames;
       features_.insert(std::make_pair(fNames.namespaces, true));
       features_.insert(std::make_pair(fNames.namespace_prefixes, true));
       features_.insert(std::make_pair(fNames.validation, false));
@@ -64,7 +64,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
     {
       typename Features::const_iterator f = features_.find(name);
       if(f == features_.end())
-        throw SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + string_adaptorT::asStdString(name));
+        throw Arabica::SAX::SAXNotRecognizedException(std::string("Feature not recognized ") + string_adaptorT::asStdString(name));
       return f->second;
     } // getFeature
 
@@ -76,7 +76,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
 
     bool parse(InputSourceT& source)
     {
-      SAX::PropertyNames<stringT, string_adaptorT> pNames;
+      Arabica::SAX::PropertyNames<stringT, string_adaptorT> pNames;
       
       DOM::DOMImplementation<stringT> di = SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
       document_ = di.createDocument(string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), 0);
@@ -151,7 +151,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
 
     EntityResolverT* entityResolver_;
     ErrorHandlerT* errorHandler_;
-    SAX::AttributeTypes<stringT, string_adaptorT> attributeTypes_;
+    Arabica::SAX::AttributeTypes<stringT, string_adaptorT> attributeTypes_;
 
   protected:
     template<class interfaceT>
@@ -165,7 +165,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
         parser.setProperty(propertyName, *(interfaceT*)this);
 #endif
       } // try
-      catch(SAX::SAXException&) { }
+      catch(Arabica::SAX::SAXException&) { }
     } // setParserProperty
 
     void setParserFeatures(SAX_parser& parser) const
@@ -174,7 +174,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
         try {
           parser.setFeature(f->first, f->second);
         }
-        catch(const SAX::SAXException&) { }
+        catch(const Arabica::SAX::SAXException&) { }
     } // setParserFeatures
 
     ///////////////////////////////////////////////////////////
@@ -185,7 +185,7 @@ class Parser : protected SAX::basic_DefaultHandler<stringT>
     } // endDocument
 
     virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const SAX::basic_Attributes<stringT>& atts)
+                              const stringT& qName, const Arabica::SAX::basic_Attributes<stringT>& atts)
     {
       if(currentNode_ == 0)
         return;

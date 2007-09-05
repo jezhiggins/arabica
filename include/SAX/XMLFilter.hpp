@@ -9,6 +9,8 @@
 
 #include <SAX/XMLReader.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -68,7 +70,8 @@ typedef basic_XMLFilter<std::string> XMLFilter;
 typedef basic_XMLFilter<std::wstring> wXMLFilter;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

@@ -32,8 +32,8 @@ class WhitespaceStripperTest : public TestCase
     void testNoStrip() 
     {
       std::ostringstream o;
-      SAX::XMLReader<std::string> parser;
-      SAX::PYXWriter<std::string> writer(o, parser);
+      Arabica::SAX::XMLReader<std::string> parser;
+      Arabica::SAX::PYXWriter<std::string> writer(o, parser);
       writer.parse(*source("<test><p>  Woo baby   hooray    </p></test>"));
       assertEquals("(test\n(p\n-  Woo baby   hooray    \n)p\n)test\n", o.str());
     } // testNoStrip
@@ -41,9 +41,9 @@ class WhitespaceStripperTest : public TestCase
     void testStripLeading() 
     {
       std::ostringstream o;
-      SAX::XMLReader<std::string> parser;
-      SAX::WhitespaceStripper<std::string> stripper(parser);
-      SAX::PYXWriter<std::string> writer(o, stripper);
+      Arabica::SAX::XMLReader<std::string> parser;
+      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
+      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
       writer.parse(*source("<test><p>Woo</p></test>"));
       assertEquals("(test\n(p\n-Woo\n)p\n)test\n", o.str());
       
@@ -59,9 +59,9 @@ class WhitespaceStripperTest : public TestCase
     void testStripTrailing() 
     {
       std::ostringstream o;
-      SAX::XMLReader<std::string> parser;
-      SAX::WhitespaceStripper<std::string> stripper(parser);
-      SAX::PYXWriter<std::string> writer(o, stripper);
+      Arabica::SAX::XMLReader<std::string> parser;
+      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
+      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
       writer.parse(*source("<test><p>Woo</p></test>"));
       assertEquals("(test\n(p\n-Woo\n)p\n)test\n", o.str());
       
@@ -77,9 +77,9 @@ class WhitespaceStripperTest : public TestCase
     void testStripMid() 
     {
       std::ostringstream o;
-      SAX::XMLReader<std::string> parser;
-      SAX::WhitespaceStripper<std::string> stripper(parser);
-      SAX::PYXWriter<std::string> writer(o, stripper);
+      Arabica::SAX::XMLReader<std::string> parser;
+      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
+      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
       writer.parse(*source("<test><p>Woo yea</p></test>"));
       assertEquals("(test\n(p\n-Woo yea\n)p\n)test\n", o.str());
       
@@ -95,9 +95,9 @@ class WhitespaceStripperTest : public TestCase
     void testStripMid2() 
     {
       std::ostringstream o;
-      SAX::XMLReader<std::string> parser;
-      SAX::WhitespaceStripper<std::string> stripper(parser);
-      SAX::PYXWriter<std::string> writer(o, stripper);
+      Arabica::SAX::XMLReader<std::string> parser;
+      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
+      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
       writer.parse(*source("<test><p>Woo yea man</p></test>"));
       assertEquals("(test\n(p\n-Woo yea man\n)p\n)test\n", o.str());
       
@@ -117,19 +117,19 @@ class WhitespaceStripperTest : public TestCase
     void testStrip() 
     {
       std::ostringstream o;
-      SAX::XMLReader<std::string> parser;
-      SAX::WhitespaceStripper<std::string> stripper(parser);
-      SAX::PYXWriter<std::string> writer(o, stripper);
+      Arabica::SAX::XMLReader<std::string> parser;
+      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
+      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
       writer.parse(*source("<test><p>  Woo baby   hooray    </p><!-- yo mama --></test>"));
       assertEquals("(test\n(p\n-Woo baby hooray\n)p\n)test\n", o.str());
     } // testStrip
 
   private:
-    std::auto_ptr<SAX::InputSource> source(const std::string& str)
+    std::auto_ptr<Arabica::SAX::InputSource> source(const std::string& str)
     {
       std::auto_ptr<std::iostream> ss(new std::stringstream());
       (*ss) << str;
-      return std::auto_ptr<SAX::InputSource>(new SAX::InputSource(ss));
+      return std::auto_ptr<Arabica::SAX::InputSource>(new Arabica::SAX::InputSource(ss));
     } // source
 }; // WhitespaceStripperTest
 

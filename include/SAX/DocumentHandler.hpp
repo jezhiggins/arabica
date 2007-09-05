@@ -5,6 +5,8 @@
 
 #include <SAX/ArabicaConfig.hpp>
 
+namespace Arabica
+{
 namespace SAX 
 {
 
@@ -72,7 +74,8 @@ typedef basic_DocumentHandler<std::string> DocumentHandler;
 typedef basic_DocumentHandler<std::wstring> wDocumentHandler;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

@@ -15,6 +15,8 @@
 #include <SAX/AttributeList.hpp>
 #include <SAX/SAXException.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -287,7 +289,8 @@ typedef basic_HandlerBase<std::string> HandlerBase;
 typedef basic_HandlerBase<std::wstring> wHandlerBase;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

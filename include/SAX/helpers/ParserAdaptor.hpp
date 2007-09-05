@@ -17,6 +17,8 @@
 #include <SAX/SAXNotRecognizedException.hpp>
 #include <sstream>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -548,5 +550,6 @@ typedef basic_ParserAdaptor<std::wstring, wchar_t> wParserAdaptor;
 #endif
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

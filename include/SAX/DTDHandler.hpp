@@ -8,6 +8,8 @@
 
 #include <SAX/ArabicaConfig.hpp>
 
+namespace Arabica
+{
 namespace SAX 
 {
 
@@ -124,7 +126,8 @@ typedef basic_DTDHandler<std::string> DTDHandler;
 typedef basic_DTDHandler<std::wstring> wDTDHandler;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

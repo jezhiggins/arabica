@@ -7,6 +7,8 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/Attributes.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -75,7 +77,8 @@ typedef basic_Attributes2<std::string> Attributes2;
 typedef basic_Attributes2<std::wstring> wAttributes2;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

@@ -74,6 +74,8 @@ std::ostream& operator<<(std::ostream& o, const std::type_info& ti)
 #define XERCES_CPP_NAMESPACE
 #endif
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -1177,6 +1179,7 @@ void xerces_wrapper<string_type, T0, T1>::parseReset(XMLPScanToken& token)
 } // parseReset
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

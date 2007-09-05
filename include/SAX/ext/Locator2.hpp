@@ -7,6 +7,8 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/Locator.hpp>
 
+namespace Arabica
+{
 namespace SAX 
 {
 
@@ -70,7 +72,8 @@ typedef basic_Locator2<std::string> Locator2;
 typedef basic_Locator2<std::wstring> wLocator2;
 #endif 
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

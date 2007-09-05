@@ -19,12 +19,12 @@ int main(int argc, char* argv[])
   } // if(argc == 0)
 
   SimpleHandler myHandler;
-  SAX::FeatureNames<std::string> fNames;
-  SAX::PropertyNames<std::string> pNames;
+  Arabica::SAX::FeatureNames<std::string> fNames;
+  Arabica::SAX::PropertyNames<std::string> pNames;
 
   for(int i = 1; i < argc; ++i)
   {
-    SAX::XMLReader<std::string> parser;
+    Arabica::SAX::XMLReader<std::string> parser;
 
     try 
     {
@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
       parser.setFeature(fNames.namespaces, true);
       parser.setFeature(fNames.namespace_prefixes, true);
     }
-    catch(SAX::SAXException& e) 
+    catch(Arabica::SAX::SAXException& e) 
     { 
       std::cerr << e.what() << std::endl;
     }
@@ -49,12 +49,12 @@ int main(int argc, char* argv[])
 
     if(file != "-")
     {
-      SAX::InputSource is(file); 
+      Arabica::SAX::InputSource is(file); 
       parser.parse(is);
     }
     else
     {
-      SAX::InputSource is;
+      Arabica::SAX::InputSource is;
       is.setSystemId("stdin");
       is.setByteStream(std::cin);
 

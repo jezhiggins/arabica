@@ -7,6 +7,8 @@
 #include <Utils/StringAdaptor.hpp>
 #include <SAX/helpers/PropertyNames.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
   template<class string_type,
@@ -72,6 +74,7 @@ namespace SAX
     } // XercesPropertyNames()
   }; // class XercesPropertyNames
 } // namespace SAX
+} // namespace Arabica
 
 #endif
 // end of file

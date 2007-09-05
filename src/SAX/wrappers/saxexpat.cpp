@@ -8,6 +8,8 @@
 
 #include <SAX/ParserConfig.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -129,6 +131,7 @@ int ewim_externalEntityRefHandler(XML_Parser parser,
 
 } // namespace expat_wrapper_impl_mumbojumbo
 } // namespace SAX
+} // namespace Arabica
 
 // end of file
 

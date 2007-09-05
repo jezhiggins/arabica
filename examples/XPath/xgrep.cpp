@@ -33,13 +33,13 @@ int main(int argc, char* argv[])
   
   
   SAX2DOM::Parser<std::string> domParser;
-  SAX::CatchErrorHandler<std::string> eh;
+  Arabica::SAX::CatchErrorHandler<std::string> eh;
   domParser.setErrorHandler(eh);
 
 	for(int i = 2; i < argc; ++i)
   {
     std::string file(argv[i]);
-    SAX::InputSource is;
+    Arabica::SAX::InputSource is;
     is.setSystemId(file);
 
     if(file != "-")

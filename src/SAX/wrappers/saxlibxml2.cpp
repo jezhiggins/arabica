@@ -10,6 +10,8 @@
 
 #include <SAX/SAXNotRecognizedException.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 namespace libxml2_wrapper_impl_tiddle
@@ -221,5 +223,6 @@ bool lwit_getFeature(xmlParserCtxtPtr context, const char* name)
 } // namespace libxml2_wrapper_impl_tiddle
 
 } // namespace SAX
+} // namespace Arabica
 
 // end of file

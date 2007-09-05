@@ -8,7 +8,7 @@ namespace DualMode
 {
 template<class stringT, 
          class string_adaptorT = Arabica::default_string_adaptor<stringT>,
-         class SAX_parser = SAX::XMLReader<stringT, string_adaptorT> >
+         class SAX_parser = Arabica::SAX::XMLReader<stringT, string_adaptorT> >
 class Parser : public SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser>
 {
     typedef SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser> BaseT;

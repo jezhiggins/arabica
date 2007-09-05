@@ -10,6 +10,8 @@
 
 #include <SAX/SAXParseException.hpp>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -120,7 +122,8 @@ typedef basic_ErrorHandler<std::string> ErrorHandler;
 typedef basic_ErrorHandler<std::wstring> wErrorHandler;
 #endif
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif
 //end of file

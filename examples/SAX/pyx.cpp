@@ -19,18 +19,18 @@
 #include <SAX/XMLReader.hpp>
 #include <iostream>
 
-class SAX2PYX : public SAX::DefaultHandler
+class SAX2PYX : public Arabica::SAX::DefaultHandler
 {
   public:
     virtual void startElement(const std::string& namespaceURI, const std::string& localName,
-                              const std::string& qName, const SAX::Attributes& atts);
+                              const std::string& qName, const Arabica::SAX::Attributes& atts);
     virtual void endElement(const std::string& namespaceURI, const std::string& localName,
                             const std::string& qName);
     virtual void characters(const std::string& ch);
     virtual void processingInstruction(const std::string& target, const std::string& data);
 
-    virtual void warning(const SAX::SAXParseException& e) { fatalError(e); }
-    virtual void error(const SAX::SAXParseException& e) { fatalError(e); }
+    virtual void warning(const Arabica::SAX::SAXParseException& e) { fatalError(e); }
+    virtual void error(const Arabica::SAX::SAXParseException& e) { fatalError(e); }
 
   private:
     std::string escape(const std::string& str) const;
@@ -50,12 +50,12 @@ int main(int argc, char* argv[])
   {
     try
     {
-      SAX::XMLReader<std::string> myParser;
+      Arabica::SAX::XMLReader<std::string> myParser;
       myParser.setContentHandler(handler);
       myParser.setErrorHandler(handler);
       myParser.setFeature("prohibit-dtd", false);
 
-      SAX::InputSource is(argv[i]);
+      Arabica::SAX::InputSource is(argv[i]);
       myParser.parse(is);
     } // try
     catch(std::runtime_error& e)
@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 
 
 void SAX2PYX::startElement(const std::string&, const std::string& localName,
-                           const std::string&, const SAX::Attributes& atts)
+                           const std::string&, const Arabica::SAX::Attributes& atts)
 {
   std::cout << '(' << localName << std::endl;
 

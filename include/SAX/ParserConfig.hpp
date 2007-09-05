@@ -61,6 +61,8 @@
 
 #ifndef NO_DEFAULT_PARSER
 #ifdef DEF_SAX_P
+namespace Arabica
+{
 namespace SAX
 {
 #ifdef HAVE_BOOST
@@ -74,6 +76,7 @@ namespace SAX
 #endif
   class XMLReader : public DEF_SAX_P<string_type, T0, T1> { };
 } // namespace SAX
+} // namespace Arabica
 #else
 #error "No default parser defined."
 #endif

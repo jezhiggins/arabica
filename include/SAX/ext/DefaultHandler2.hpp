@@ -11,7 +11,10 @@
 
 #pragma message("DefaultHandler2 is deprecated.  You can now use DefaultHandler instead.")
 
-namespace SAX {
+namespace Arabica
+{
+namespace SAX 
+{
 
 /**
  * Default base class for SAX2 event handlers.
@@ -58,5 +61,6 @@ typedef basic_DefaultHandler2<std::wstring> wDefaultHandler2;
 #endif 
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

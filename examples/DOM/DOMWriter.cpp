@@ -21,13 +21,13 @@ int main(int argc, char* argv[])
 
   { // narrow
     SAX2DOM::Parser<std::string> domParser;
-    SAX::CatchErrorHandler<std::string> eh;
+    Arabica::SAX::CatchErrorHandler<std::string> eh;
     domParser.setErrorHandler(eh);
 
 	  for(int i = 1; i < argc; ++i)
     {
       std::string file(argv[i]);
-      SAX::InputSource is;
+      Arabica::SAX::InputSource is;
       is.setSystemId(file);
 
       if(file != "-")
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
   { // wide
     SAX2DOM::Parser<std::wstring> domParser;
 
-    SAX::wInputSource is;
+    Arabica::SAX::wInputSource is;
     is.setSystemId(L"stdin");
     is.setByteStream(std::cin);
 

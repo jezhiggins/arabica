@@ -7,6 +7,8 @@
  * An ErrorHandler implementation that keeps hold of any errors for later reporting.
  */
 
+namespace Arabica
+{
 namespace SAX
 {
 template<class string_type>
@@ -51,6 +53,7 @@ private:
   std::string errors_;
 }; // class CatchErrorHandler
 
+} // namespace SAX
 } // namespace Arabica
 
 #endif

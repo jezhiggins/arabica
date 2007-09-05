@@ -6,7 +6,10 @@
 #include <XML/UnicodeCharacters.hpp>
 #include <ostream>
 
-namespace SAX {
+namespace Arabica
+{
+namespace SAX 
+{
 
 template<class string_type>
 class PYXWriter : public basic_XMLFilterImpl<string_type>
@@ -110,5 +113,6 @@ void PYXWriter<string_type>::escape(const stringT& ch)
 } // escape
 
 } // namespace SAX
+} // namespace Arabica
 
 #endif

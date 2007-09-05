@@ -10,6 +10,8 @@
 #include <map>
 #include <vector>
 
+namespace Arabica
+{
 namespace SAX
 {
 
@@ -397,6 +399,7 @@ class basic_NamespaceSupport
     bool operator==(const basic_NamespaceSupport&) const;
 }; // class basic_NamespaceSupport
 
-}; // namespace SAX
+} // namespace SAX
+} // namespace Arabica
 
 #endif // NamespaceSupportH
