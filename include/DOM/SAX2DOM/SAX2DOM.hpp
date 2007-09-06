@@ -23,17 +23,18 @@ namespace SAX2DOM
 template<class stringT, 
          class string_adaptorT = Arabica::default_string_adaptor<stringT>,
          class SAX_parser = Arabica::SAX::XMLReader<stringT, string_adaptorT> >
-class Parser : protected Arabica::SAX::DefaultHandler<stringT>
+class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
 {
-    typedef Arabica::SAX::EntityResolver<stringT> EntityResolverT;
-    typedef Arabica::SAX::ErrorHandler<stringT> ErrorHandlerT;
-    typedef Arabica::SAX::LexicalHandler<stringT> LexicalHandlerT;
-    typedef Arabica::SAX::DeclHandler<stringT> DeclHandlerT;
-    typedef Arabica::SAX::InputSource<stringT> InputSourceT;
+    typedef Arabica::SAX::Attributes<stringT, string_adaptorT> AttributesT;
+    typedef Arabica::SAX::EntityResolver<stringT, string_adaptorT> EntityResolverT;
+    typedef Arabica::SAX::ErrorHandler<stringT, string_adaptorT> ErrorHandlerT;
+    typedef Arabica::SAX::LexicalHandler<stringT, string_adaptorT> LexicalHandlerT;
+    typedef Arabica::SAX::DeclHandler<stringT, string_adaptorT> DeclHandlerT;
+    typedef Arabica::SAX::InputSource<stringT, string_adaptorT> InputSourceT;
     typedef Arabica::SimpleDOM::EntityImpl<stringT, string_adaptorT> EntityT;
     typedef Arabica::SimpleDOM::NotationImpl<stringT, string_adaptorT> NotationT;
     typedef Arabica::SimpleDOM::ElementImpl<stringT, string_adaptorT> ElementT;
-    typedef typename Arabica::SAX::ErrorHandler<stringT>::SAXParseExceptionT SAXParseExceptionT;
+    typedef typename ErrorHandlerT::SAXParseExceptionT SAXParseExceptionT;
 
   public:
     Parser() :
@@ -93,8 +94,8 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT>
       if(entityResolver_)
         parser.setEntityResolver(*entityResolver_);
 
-      setParserProperty<LexicalHandlerT>(parser, pNames.lexicalHandler);
-      setParserProperty<DeclHandlerT>(parser, pNames.declHandler);
+      parser.setLexicalHandler(*this);
+      parser.setDeclHandler(*this);
 
       setParserFeatures(parser);
 
@@ -156,20 +157,6 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT>
     Arabica::SAX::AttributeTypes<stringT, string_adaptorT> attributeTypes_;
 
   protected:
-    template<class interfaceT>
-    void setParserProperty(SAX_parser& parser, const stringT& propertyName)
-    {
-      try {
-#ifndef __BORLANDC__
-        // this line causes a crash with BCB 6 => may be a compiler bug
-        parser.setProperty(propertyName, static_cast<interfaceT&>(*this));
-#else
-        parser.setProperty(propertyName, *(interfaceT*)this);
-#endif
-      } // try
-      catch(Arabica::SAX::SAXException&) { }
-    } // setParserProperty
-
     void setParserFeatures(SAX_parser& parser) const
     {
       for(typename Features::const_iterator f = features_.begin(), e = features_.end(); f != e; ++f)
@@ -187,7 +174,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT>
     } // endDocument
 
     virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const Arabica::SAX::Attributes<stringT>& atts)
+                              const stringT& qName, const AttributesT& atts)
     {
       if(currentNode_ == 0)
         return;

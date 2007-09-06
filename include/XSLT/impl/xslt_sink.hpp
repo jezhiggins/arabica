@@ -305,7 +305,7 @@ private:
   int pending_attribute_;
   std::string name_;
   std::string namespaceURI_;
-  SAX::AttributesImpl<std::string> atts_;
+  SAX::AttributesImpl<std::string, Arabica::default_string_adaptor<std::string> > atts_;
   std::stringstream buffer_;
   bool text_mode_;
   NamespaceStack namespaceStack_;

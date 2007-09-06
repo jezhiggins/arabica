@@ -77,7 +77,7 @@ public:
     }  
   } // startElement
 
-  virtual void startPrefixMapping(const stringT& prefix, const stringT& uri)
+  virtual void startPrefixMapping(const std::string& prefix, const std::string& uri)
   {
     context_->parentHandler().startPrefixMapping(prefix, uri);
   } // startPrefixMapping

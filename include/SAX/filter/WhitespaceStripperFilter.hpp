@@ -10,30 +10,30 @@ namespace Arabica
 namespace SAX
 {
 
-template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class WhitespaceStripper : public SAX::XMLFilterImpl<string_type, string_adaptor>
+template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
+class WhitespaceStripper : public SAX::XMLFilterImpl<string_type, T0, T1>
 {
   public:
-    typedef string_type stringT;
-    typedef SAX::XMLFilterImpl<string_type, string_adaptor> baseT;
-    typedef SAX::XMLReader<string_type, string_adaptor> XMLReaderT;
+    typedef SAX::XMLReader<string_type, T0, T1> XMLReaderT;
+    typedef SAX::XMLFilterImpl<string_type, T0, T1> XMLFilterT;
+    typedef typename XMLFilterT::string_adaptor string_adaptor;
 
     WhitespaceStripper() : 
-      baseT() 
+      XMLFilterT() 
     { 
     } // WhitespaceStripper
 
     WhitespaceStripper(XMLReaderT& parent) :
-      baseT(parent)
+      XMLFilterT(parent)
     {
     } // WhitespaceStripper    
 
-    virtual void characters(const stringT& ch)
+    virtual void characters(const string_type& ch)
     { 
-      baseT::characters(Arabica::string::normalize_whitespace<string_type, string_adaptor>(ch));
+      XMLFilterT::characters(Arabica::string::normalize_whitespace<string_type, string_adaptor>(ch));
     } // characters
 
-    virtual void ignorableWhitespace(const stringT& ch)
+    virtual void ignorableWhitespace(const string_type& ch)
     {
     } // ignorableWhitespace
 }; // class WhitespaceStripper

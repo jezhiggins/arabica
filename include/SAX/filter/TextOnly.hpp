@@ -13,7 +13,7 @@ namespace SAX
 /**
   Strips out everything except startDocument, endDocument and text
  */
-template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
 class TextOnly : public XMLFilterImpl<string_type, string_adaptor>
 {
   typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;

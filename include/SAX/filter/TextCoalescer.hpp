@@ -16,13 +16,14 @@ namespace SAX
   an issue, and sometimes it makes things a little awkward.  
   This filter buffers up multiple calls to characters(...) and reports text in a single lump.
  */
-template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class TextCoalescer : public XMLFilterImpl<string_type, string_adaptor>
+template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
+class TextCoalescer : public XMLFilterImpl<string_type, T0, T1>
 {
-  typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
+  typedef XMLFilterImpl<string_type, T0, T1> XMLFilterT;
+  typedef typename XMLFilterT::string_adaptor string_adaptor;
 
 public:
-  typedef XMLReaderInterface<string_type, string_adaptor>XMLReaderT;
+  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
   typedef Attributes<string_type, string_adaptor> AttributesT;
 
   TextCoalescer() : 

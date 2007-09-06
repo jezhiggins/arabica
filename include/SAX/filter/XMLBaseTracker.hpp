@@ -11,26 +11,27 @@ namespace Arabica
 namespace SAX
 {
 
-template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class XMLBaseTracker : public XMLFilterImpl<string_type, string_adaptor>
+template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
+class XMLBaseTracker : public XMLFilterImpl<string_type, T0, T1>
 {
+  typedef XMLFilterImpl<string_type, T0, T1> XMLFilterT;
+  typedef typename XMLFilterT::string_adaptor string_adaptor;
   typedef XMLBaseSupport<string_type, string_adaptor> XMLBaseSupportT;
-  typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
 
 public:
-  typedef XMLReaderInterface<string_type, string_adaptor> XMLReaderT;
+  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
   typedef Locator<string_type, string_adaptor> LocatorT;
   typedef Attributes<string_type, string_adaptor> AttributesT;
 
   XMLBaseTracker() : 
-    XMLFilterImpl<string_type, string_adaptor>(),
+    XMLFilterT(),
     locator_(0),
     base_set_(false)
   { 
   } // XMLBaseTracker
 
   XMLBaseTracker(XMLReaderT& parent) : 
-    XMLFilterImpl<string_type, string_adaptor>(parent),
+    XMLFilterT(parent),
     locator_(0),
     base_set_(false)
   { 

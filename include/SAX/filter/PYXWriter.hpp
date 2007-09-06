@@ -11,18 +11,17 @@ namespace Arabica
 namespace SAX 
 {
 
-template<class string_type, class string_adaptor>
-class PYXWriter : public XMLFilterImpl<string_type, string_adaptor>
+template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
+class PYXWriter : public XMLFilterImpl<string_type, T0, T1>
 {
   public:
-    typedef string_type stringT;
-    typedef PYXWriter<string_type, string_adaptor> PYXWriterT;
+    typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+    typedef XMLFilterImpl<string_type, T0, T1> XMLFilterT;
+    typedef typename XMLFilterT::AttributesT AttributesT;
+    typedef typename XMLFilterT::string_adaptor string_adaptor;
     typedef typename string_type::value_type charT;
     typedef typename string_type::traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
-    typedef XMLReaderInterface<string_type, string_adaptor> XMLReaderT;
-    typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
-    typedef typename XMLFilterImpl<string_type, string_adaptor>::AttributesT AttributesT;
     typedef Arabica::Unicode<charT> UnicodeT;
   private:
     using XMLFilterT::getParent;
@@ -42,23 +41,23 @@ class PYXWriter : public XMLFilterImpl<string_type, string_adaptor>
 
   public:
     // ContentHandler
-    virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const AttributesT& atts);
-    virtual void endElement(const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName);
-    virtual void characters(const stringT& ch);
-    virtual void processingInstruction(const stringT& target, const stringT& data);
+    virtual void startElement(const string_type& namespaceURI, const string_type& localName,
+                              const string_type& qName, const AttributesT& atts);
+    virtual void endElement(const string_type& namespaceURI, const string_type& localName,
+                            const string_type& qName);
+    virtual void characters(const string_type& ch);
+    virtual void processingInstruction(const string_type& target, const string_type& data);
 
   private: 
-    void escape(const stringT& ch);
+    void escape(const string_type& ch);
 
     ostreamT* stream_;
 }; // class PYXWriter
 
-template<class string_type, class string_adaptor>>
-void PYXWriter<string_type, string_adaptor>::startElement(
-                              const stringT& namespaceURI, const stringT& localName,
-                              const stringT& qName, const AttributesT& atts)
+template<class string_type, class T0, class T1>
+void PYXWriter<string_type, T0, T1>::startElement(
+                              const string_type& namespaceURI, const string_type& localName,
+                              const string_type& qName, const AttributesT& atts)
 { 
   *stream_ << UnicodeT::LEFT_PARENTHESIS << localName << std::endl;
   for(int i = 0; i < atts.getLength(); ++i)
@@ -72,18 +71,18 @@ void PYXWriter<string_type, string_adaptor>::startElement(
   XMLFilterT::startElement(namespaceURI, localName, qName, atts);
 } // startElement
 
-template<class string_type, class string_adaptor>>
-void PYXWriter<string_type, string_adaptor>::endElement(
-                            const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName)
+template<class string_type, class T0, class T1>
+void PYXWriter<string_type, T0, T1>::endElement(
+                            const string_type& namespaceURI, const string_type& localName,
+                            const string_type& qName)
 {
   *stream_ << UnicodeT::RIGHT_PARENTHESIS << localName << std::endl;
 
   XMLFilterT::endElement(namespaceURI, localName, qName);
 } // endElement
 
-template<class string_type, class string_adaptor>>
-void PYXWriter<string_type, string_adaptor>::characters(const stringT& ch)
+template<class string_type, class T0, class T1>
+void PYXWriter<string_type, T0, T1>::characters(const string_type& ch)
 {
   *stream_ << UnicodeT::HYPHEN_MINUS;
   escape(ch);
@@ -92,8 +91,8 @@ void PYXWriter<string_type, string_adaptor>::characters(const stringT& ch)
   XMLFilterT::characters(ch);
 } // characters
 
-template<class string_type, class string_adaptor>>
-void PYXWriter<string_type, string_adaptor>::processingInstruction(const stringT& target, const stringT& data)
+template<class string_type, class T0, class T1>
+void PYXWriter<string_type, T0, T1>::processingInstruction(const string_type& target, const string_type& data)
 {
   *stream_ << UnicodeT::QUESTION_MARK << target
            << UnicodeT::SPACE << data
@@ -102,10 +101,10 @@ void PYXWriter<string_type, string_adaptor>::processingInstruction(const stringT
   XMLFilterT::processingInstruction(target, data);
 } // processingInstruction
 
-template<class string_type, class string_adaptor>>
-void PYXWriter<string_type, string_adaptor>::escape(const stringT& ch)
+template<class string_type, class T0, class T1>
+void PYXWriter<string_type, T0, T1>::escape(const string_type& ch)
 {
-  for(typename stringT::const_iterator s = ch.begin(), se = ch.end(); s != se; ++s)
+  for(typename string_type::const_iterator s = ch.begin(), se = ch.end(); s != se; ++s)
     if(*s == UnicodeT::LINE_FEED)
       *stream_ << UnicodeT::BACK_SLASH << UnicodeT::LOWERCASE_N;
     else

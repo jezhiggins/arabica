@@ -28,8 +28,8 @@ class SAX2DOMTest : public TestCase
       std::stringstream ss;
       ss << SA::asStdString(str);
 
-      Arabica::SAX::InputSource<string_type> is(ss);
-      Arabica::SAX::CatchErrorHandler<string_type> eh;
+      Arabica::SAX::InputSource<string_type, string_adaptor> is(ss);
+      Arabica::SAX::CatchErrorHandler<string_type, string_adaptor> eh;
       Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
       parser.setErrorHandler(eh);
       parser.parse(is);       
