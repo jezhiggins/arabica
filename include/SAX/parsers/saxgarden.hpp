@@ -27,10 +27,8 @@ template<class string_type,
 class Garden : public XMLReaderInterface<string_type, T0, T1>
 {
 public:
-  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
-                             Arabica::default_string_adaptor<string_type>, 
-                             T0, 
-                             T1>::type string_adaptor_type;
+  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+  typedef typename XMLReaderT::string_adaptor string_adaptor;
   typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
   typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
   typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;
@@ -39,7 +37,7 @@ public:
   typedef ErrorHandler<string_type, string_adaptor> ErrorHandlerT;
   typedef DeclHandler<string_type, string_adaptor> declHandlerT;
   typedef LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
-  typedef typename XMLReaderInterface<string_type, string_adaptor>::PropertyBase PropertyBase;
+  typedef typename XMLReaderT::PropertyBase PropertyBase;
 
   Garden();
 
@@ -67,7 +65,7 @@ public:
 private:
   void reportError(const std::string& message, bool fatal = false);
 
-  typedef typename string_adaptor_type::value_type char_t;
+  typedef typename string_adaptor::value_type char_t;
   typedef std::vector<char_t> vector_t;
   typedef typename vector_t::iterator iterator_t;
   typedef boost::spirit::scanner<iterator_t> scanner_t;
@@ -99,7 +97,10 @@ private:
                 CharRef, EntityRef, EncName, document_,
                 Name, Comment1, Spaces;
 
-  string_type str(iterator_t s, iterator_t e, int trim = 0);
+  string_type str(iterator_t s, iterator_t e, int trim = 0)
+  {
+    return string_adaptor::construct(s, e-trim);
+  } // str
 
   //////////////////////////////
   // member variables
@@ -115,7 +116,7 @@ private:
   string_type piTarget_;
   string_type piData_;
   string_type entityRef_;
-  std::map<string_type, stringT> declaredEntities_;
+  std::map<string_type, string_type> declaredEntities_;
   std::map<char, int> conversion_;
 }; // parser
 
@@ -200,11 +201,11 @@ Garden<string_type, T0, T1>::Garden() :
 
 
   /////////////////
-  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("lt"), string_adaptor_type::construct("<")));
-  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("gt"), string_adaptor_type::construct(">")));
-  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("amp"), string_adaptor_type::construct("&")));
-  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("apos"), string_adaptor_type::construct("'")));
-  declaredEntities_.insert(std::make_pair<string_type, stringT>(string_adaptor_type::construct("quot"), string_adaptor_type::construct("\"")));
+  declaredEntities_.insert(std::make_pair<string_type, string_type>(string_adaptor::construct("lt"), string_adaptor::construct("<")));
+  declaredEntities_.insert(std::make_pair<string_type, string_type>(string_adaptor::construct("gt"), string_adaptor::construct(">")));
+  declaredEntities_.insert(std::make_pair<string_type, string_type>(string_adaptor::construct("amp"), string_adaptor::construct("&")));
+  declaredEntities_.insert(std::make_pair<string_type, string_type>(string_adaptor::construct("apos"), string_adaptor::construct("'")));
+  declaredEntities_.insert(std::make_pair<string_type, string_type>(string_adaptor::construct("quot"), string_adaptor::construct("\"")));
 
   conversion_.insert(std::make_pair('0', 0));
   conversion_.insert(std::make_pair('1', 1));
@@ -235,13 +236,13 @@ Garden<string_type, T0, T1>::Garden() :
 template<class string_type, class T0, class T1>
 bool Garden<string_type, T0, T1>::getFeature(const string_type& name) const
 {
-  throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
+  throw SAXNotRecognizedException(string_adaptor::asStdString(name));
 } // getFeature
 
 template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::setFeature(const string_type& name, bool value)
 {
-  throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
+  throw SAXNotRecognizedException(string_adaptor::asStdString(name));
 } // setFeature
 
 ///////////////////////////////////////
@@ -249,13 +250,13 @@ void Garden<string_type, T0, T1>::setFeature(const string_type& name, bool value
 template<class string_type, class T0, class T1>
 std::auto_ptr<typename Garden<string_type, T0, T1>::PropertyBase> Garden<string_type, T0, T1>::doGetProperty(const string_type& name)
 {
-  throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
+  throw SAXNotRecognizedException(string_adaptor::asStdString(name));
 } // doGetProperty
 
 template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<typename XMLReaderInterface<string_type, T0, T1>::PropertyBase> value)
 {
-  throw SAXNotRecognizedException(string_adaptor_type::asStdString(name));
+  throw SAXNotRecognizedException(string_adaptor::asStdString(name));
 } // doSetProperty
 
 //////////////////////////////////////////
@@ -263,7 +264,7 @@ void Garden<string_type, T0, T1>::doSetProperty(const string_type& name, std::au
 template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::parse(InputSourceT& input)
 {
-  InputSourceResolver is(input, string_adaptor_type());
+  InputSourceResolver is(input, string_adaptor());
   if(is.resolve() == 0)
   {
     reportError("Could not resolve XML document", true);
@@ -288,7 +289,7 @@ void Garden<string_type, T0, T1>::parse(InputSourceT& input)
 
   if(!(r && first == last))
   {
-    std::cout << string_adaptor_type::asStdString(input.getSystemId()) << " Fails Parsing\n" << std::endl;
+    std::cout << string_adaptor::asStdString(input.getSystemId()) << " Fails Parsing\n" << std::endl;
     for (int i = 0; i < 50; ++i)
     {
         std::cout << *first++;
@@ -308,7 +309,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::closeElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
-    contentHandler_->startElement(string_adaptor_type::empty_string(), elements_.top(), string_adaptor_type::empty_string(), attrs_);
+    contentHandler_->startElement(string_adaptor::empty_string(), elements_.top(), string_adaptor::empty_string(), attrs_);
 } // closeElement
 
 template<class string_type, class T0, class T1>
@@ -316,8 +317,8 @@ void Garden<string_type, T0, T1>::closeEmptyElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
   {
-    contentHandler_->startElement(string_adaptor_type::empty_string(), elements_.top(), string_adaptor_type::empty_string(), attrs_);
-    contentHandler_->endElement(string_adaptor_type::empty_string(), elements_.top(), string_adaptor_type::empty_string());
+    contentHandler_->startElement(string_adaptor::empty_string(), elements_.top(), string_adaptor::empty_string(), attrs_);
+    contentHandler_->endElement(string_adaptor::empty_string(), elements_.top(), string_adaptor::empty_string());
     elements_.pop();
   } // if ...
 } // closeEmptyElement
@@ -327,14 +328,14 @@ void Garden<string_type, T0, T1>::endElementName(iterator_t s, iterator_t e)
 {
   string_type name = str(s, e);
   if(name != elements_.top())
-    reportError("Expect end element " + string_adaptor_type::asStdString(elements_.top()), true);
+    reportError("Expect end element " + string_adaptor::asStdString(elements_.top()), true);
 } // endElementName
 
 template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::endElement(iterator_t s, iterator_t e)
 {
   if(contentHandler_)
-    contentHandler_->endElement(string_adaptor_type::empty_string(), elements_.top(), string_adaptor_type::empty_string());
+    contentHandler_->endElement(string_adaptor::empty_string(), elements_.top(), string_adaptor::empty_string());
   elements_.pop();
 } // endElement
 
@@ -349,7 +350,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::attributeValue(iterator_t s, iterator_t e)
 {
   currentAttr_.value_ = str(s, e);
-  currentAttr_.type_ = string_adaptor_type::construct("CDATA");
+  currentAttr_.type_ = string_adaptor::construct("CDATA");
   attrs_.addAttribute(currentAttr_);
 } // attributeValue
 
@@ -365,7 +366,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::piTarget(iterator_t s, iterator_t e)
 {
   piTarget_ = str(s, e);
-  piData_ = string_adaptor_type::empty_string();
+  piData_ = string_adaptor::empty_string();
 } // piTarget
 
 template<class string_type, class T0, class T1>
@@ -389,7 +390,7 @@ void Garden<string_type, T0, T1>::entityRef(iterator_t s, iterator_t e)
   {
     string_type name(str(s, e, 1));
 
-    typedef typename std::map<string_type, stringT>::iterator entity_iterator;
+    typedef typename std::map<string_type, string_type>::iterator entity_iterator;
 
     entity_iterator ent = declaredEntities_.find(name);
     if(ent != declaredEntities_.end())
@@ -399,7 +400,7 @@ void Garden<string_type, T0, T1>::entityRef(iterator_t s, iterator_t e)
     } 
     else
     {
-      reportError("Undeclared entity " + string_adaptor_type::asStdString(name));
+      reportError("Undeclared entity " + string_adaptor::asStdString(name));
       return;
     } // if ...
 
@@ -434,16 +435,10 @@ void Garden<string_type, T0, T1>::characterRef(iterator_t s, iterator_t e, int b
     next = *s;
   } 
 
-  contentHandler_->characters(string_adaptor_type::construct("?"));//string_type(1, val));
+  contentHandler_->characters(string_adaptor::construct("?"));//string_type(1, val));
 } // characterRef
 
 ///////////////////////////////  
-template<class string_type, class T0, class T1>
-typename Garden<string_type, T0, T1>::string_type Garden<string_type, T0, T1>::str(iterator_t s, iterator_t e, int trim)
-{
-  return string_adaptor_type::construct(s, e-trim);
-} // str
-
 template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::reportError(const std::string& message, bool fatal)
 {
