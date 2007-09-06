@@ -15,15 +15,6 @@
 
 using namespace Arabica::SAX;
 
-InputSourceResolver::InputSourceResolver(const Arabica::SAX::InputSource<std::string>& inputSource) :
-  deleteStream_(false),
-  byteStream_(0)
-{
-  open(inputSource.getPublicId(),
-       inputSource.getSystemId(),
-       inputSource.getByteStream());
-} // InputSourceResolver
-
 void InputSourceResolver::open(const std::string& publicId, 
             const std::string& systemId,
             std::istream* byteStream)

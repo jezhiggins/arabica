@@ -201,13 +201,12 @@ template<class string_type,
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
 class expat_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>, 
-               public expat_wrapper_impl_mumbojumbo::expat2base
+                      public SAX::Locator<string_type, typename SAX::XMLReaderInterface<string_type, T0, T1>::string_adaptor>, 
+                      public expat_wrapper_impl_mumbojumbo::expat2base
 {
   public:
-    typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
-                               Arabica::default_string_adaptor<string_type>, 
-                               T0, 
-                               T1>::type string_adaptor;
+    typedef SAX::XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+    typedef typename XMLReaderT::string_adaptor string_adaptor;
     typedef string_adaptor SA;
     typedef SAX::EntityResolver<string_type, string_adaptor> entityResolverT;
     typedef SAX::DTDHandler<string_type, string_adaptor> dtdHandlerT;
@@ -219,7 +218,6 @@ class expat_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>,
     typedef SAX::NamespaceSupport<string_type, string_adaptor> namespaceSupportT;
     typedef SAX::ErrorHandler<string_type, string_adaptor> errorHandlerT;
     typedef SAX::SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
-    typedef SAX::XMLReaderInterface<string_type, T0, T1> XMLReaderT;
     typedef typename XMLReaderT::PropertyBase PropertyBaseT;
     typedef typename XMLReaderT::template Property<lexicalHandlerT*> getLexicalHandlerT;
     typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
@@ -255,29 +253,13 @@ class expat_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>,
   private:
     bool do_parse(inputSourceT& source, XML_Parser parser);
 
-  private:
+  public:
     //////////////////////////////////////////////////
     // Locator
-    class Locator : public SAX::Locator<string_type, string_adaptor>
-    {
-      public:
-        Locator(const expat_wrapper<string_type, T0, T1>& e) : e_(e) { }
-        virtual string_type getPublicId() const { return e_.getPublicId(); }
-        virtual string_type getSystemId() const { return e_.getSystemId(); }
-        virtual int getLineNumber() const { return e_.getLineNumber(); }
-        virtual int getColumnNumber() const { return e_.getColumnNumber(); }
-      private:
-        const expat_wrapper<string_type, T0, T1>& e_;
-    }; // class Locator
-
-    friend class Locator;
-
-    Locator locator_;
-
-    string_type getPublicId() const;
-    string_type getSystemId() const;
-    int getLineNumber() const;
-    int getColumnNumber() const;
+    virtual string_type getPublicId() const;
+    virtual string_type getSystemId() const;
+    virtual int getLineNumber() const;
+    virtual int getColumnNumber() const;
 
     ///////////////////////////////////////////////////
     // properties
@@ -376,8 +358,7 @@ expat_wrapper<string_type, T0, T1>::expat_wrapper() :
   parsing_(false),
   namespaces_(true),
   prefixes_(true),
-  externalResolving_(false),
-  locator_(*this)
+  externalResolving_(false)
 {
 } // expat
 
@@ -476,7 +457,7 @@ void expat_wrapper<string_type, T0, T1>::parse(inputSourceT& source)
   systemId_ = source.getSystemId();
 
   if(contentHandler_)
-    contentHandler_->setDocumentLocator(locator_);
+    contentHandler_->setDocumentLocator(*this);
 
   parsing_ = true;
 

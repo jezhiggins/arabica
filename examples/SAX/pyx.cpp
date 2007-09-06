@@ -53,7 +53,11 @@ int main(int argc, char* argv[])
       Arabica::SAX::XMLReader<std::string> myParser;
       myParser.setContentHandler(handler);
       myParser.setErrorHandler(handler);
-      myParser.setFeature("prohibit-dtd", false);
+      try {
+        myParser.setFeature("prohibit-dtd", false);
+      }
+      catch(...) { 
+      }
 
       Arabica::SAX::InputSource<std::string> is(argv[i]);
       myParser.parse(is);
