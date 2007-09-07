@@ -49,7 +49,6 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class DeclHandler
 {
 public:
-  typedef string_type stringT;
   virtual ~DeclHandler() { }
 
   /**
@@ -67,7 +66,7 @@ public:
    * @param name The element type name.
    * @param model The content model as a normalized string.
    */
-  virtual void elementDecl(const stringT& name, const stringT& model) = 0;
+  virtual void elementDecl(const string_type& name, const string_type& model) = 0;
   /**
    * Report an attribute type declaration.
    *
@@ -91,11 +90,11 @@ public:
    * @param value A string representing the attribute's default value,
    *        or empty string if there is none.
    */
-  virtual void attributeDecl(const stringT& elementName,
-                             const stringT& attributeName,
-                             const stringT& type,
-                             const stringT& valueDefault,
-                             const stringT& value) = 0;
+  virtual void attributeDecl(const string_type& elementName,
+                             const string_type& attributeName,
+                             const string_type& type,
+                             const string_type& valueDefault,
+                             const string_type& value) = 0;
   /**
    * Report an internal entity declaration.
    *
@@ -109,7 +108,7 @@ public:
    * @see #externalEntityDecl
    * @see DTDHandler#unparsedEntityDecl
    */
-  virtual void internalEntityDecl(const stringT& name, const stringT& value) = 0;
+  virtual void internalEntityDecl(const string_type& name, const string_type& value) = 0;
   /**
    * Report a parsed external entity declaration.
    *
@@ -124,9 +123,9 @@ public:
    * @see #internalEntityDecl
    * @see DTDHandler#unparsedEntityDecl
    */
-  virtual void externalEntityDecl(const stringT& name, 
-                                  const stringT& publicId,
-                                  const stringT& systemId) = 0;
+  virtual void externalEntityDecl(const string_type& name, 
+                                  const string_type& publicId,
+                                  const string_type& systemId) = 0;
 }; // class DeclHandler
 
 } // namespace SAX

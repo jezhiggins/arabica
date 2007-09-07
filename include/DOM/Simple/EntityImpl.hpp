@@ -10,18 +10,20 @@ namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT>
-class EntityImpl : public DOM::Entity_impl<stringT>,
+class EntityImpl : public DOM::Entity_impl<stringT, string_adaptorT>,
                    public NodeImplWithChildren<stringT, string_adaptorT>
 {
-    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeImplWithChildrenT;
   public:
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+
     EntityImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
                stringT name,
                stringT publicId,
                stringT systemId,
                stringT notationName) :
-        DOM::Entity_impl<stringT>(),
-        NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
+        DOM::Entity_impl<stringT, string_adaptorT>(),
+        NodeImplWithChildrenT(ownerDoc),
         name_(name),
         publicId_(publicId),
         systemId_(systemId),
@@ -39,9 +41,9 @@ class EntityImpl : public DOM::Entity_impl<stringT>,
 
     ///////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual typename DOM::Node<stringT>::Type getNodeType() const
+    virtual typename DOM::Node_base::Type getNodeType() const
     {
-      return DOM::Node<stringT>::ENTITY_NODE;
+      return DOM::Node_base::ENTITY_NODE;
     } // getNodeType
 
     virtual const stringT& getNodeName() const
@@ -49,31 +51,31 @@ class EntityImpl : public DOM::Entity_impl<stringT>,
       return name_;
     } // getNodeName
 
-    virtual typename DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual typename DOMNode_implT* cloneNode(bool deep) const
     {
-      EntityImpl* clone = new EntityImpl(NodeT::ownerDoc_, name_, publicId_, systemId_, notationName_);
+      EntityImpl* clone = new EntityImpl(NodeImplWithChildrenT::ownerDoc_, name_, publicId_, systemId_, notationName_);
       if(deep)
-        for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
+        for(DOMNode_implT* c = NodeImplWithChildrenT::getFirstChild(); c != 0; c = c->getNextSibling())
           clone->appendChild(c->cloneNode(true));
-      NodeT::ownerDoc_->orphaned(clone);
+      NodeImplWithChildrenT::ownerDoc_->orphaned(clone);
       return clone;
     } // cloneNode
 
-    virtual DOM::Node_impl<stringT>* getParentNode() const 
+    virtual DOMNode_implT* getParentNode() const 
     { 
       return 0; 
     } // getParentNode
 
     ///////////////////////////////////////////////
-    virtual void checkChildType(DOM::Node_impl<stringT>* child)
+    virtual void checkChildType(DOMNode_implT* child)
     {
-      typename DOM::Node<stringT>::Type type = child->getNodeType();
-      if((type != DOM::Node<stringT>::ELEMENT_NODE) && 
-         (type != DOM::Node<stringT>::PROCESSING_INSTRUCTION_NODE) && 
-         (type != DOM::Node<stringT>::COMMENT_NODE) && 
-         (type != DOM::Node<stringT>::TEXT_NODE) && 
-         (type != DOM::Node<stringT>::CDATA_SECTION_NODE) && 
-         (type != DOM::Node<stringT>::ENTITY_REFERENCE_NODE)) 
+      typename DOM::Node_base::Type type = child->getNodeType();
+      if((type != DOM::Node_base::ELEMENT_NODE) && 
+         (type != DOM::Node_base::PROCESSING_INSTRUCTION_NODE) && 
+         (type != DOM::Node_base::COMMENT_NODE) && 
+         (type != DOM::Node_base::TEXT_NODE) && 
+         (type != DOM::Node_base::CDATA_SECTION_NODE) && 
+         (type != DOM::Node_base::ENTITY_REFERENCE_NODE)) 
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // checkChildType
 

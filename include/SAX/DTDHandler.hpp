@@ -55,8 +55,6 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class DTDHandler
 {
 public:
-  typedef string_type stringT;
-
   virtual ~DTDHandler() { }
 
 
@@ -88,9 +86,9 @@ public:
    * @see #unparsedEntityDecl
    * @see Attributes
    */
-  virtual void notationDecl(const stringT& name,
-                            const stringT& publicId,
-                            const stringT& systemId) = 0;
+  virtual void notationDecl(const string_type& name,
+                            const string_type& publicId,
+                            const string_type& systemId) = 0;
 
 
   /**
@@ -115,10 +113,10 @@ public:
    * @see #notationDecl
    * @see Attributes
    */
-  virtual void unparsedEntityDecl(const stringT& name,
-	                                const stringT& publicId,
-                                  const stringT& systemId,
-                                  const stringT& notationName) = 0;
+  virtual void unparsedEntityDecl(const string_type& name,
+	                                const string_type& publicId,
+                                  const string_type& systemId,
+                                  const string_type& notationName) = 0;
 
 }; // class DTDHandler
 

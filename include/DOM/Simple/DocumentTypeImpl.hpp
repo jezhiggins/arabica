@@ -14,15 +14,19 @@ template<class stringT, class string_adaptorT> class NotationImpl;
 template<class stringT, class string_adaptorT> class EntityImpl;
 
 template<class stringT, class string_adaptorT>
-class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
+class DocumentTypeImpl : public DOM::DocumentType_impl<stringT, string_adaptorT>,
                          public ChildlessNodeImpl<stringT, string_adaptorT>
 {
-    typedef ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
   public:
+    typedef ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
+    typedef NamedNodeMapImpl<stringT, string_adaptorT> NamedNodeMapT;
+    typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+
     DocumentTypeImpl(const stringT& qualifiedName,
                      const stringT& publicId,
                      const stringT& systemId) :
-      DOM::DocumentType_impl<stringT>(),
+      DOM::DocumentType_impl<stringT, string_adaptorT>(),
       ChildlessNodeImpl<stringT, string_adaptorT>(0),
       qualifiedName_(qualifiedName),
       publicId_(publicId),
@@ -63,12 +67,12 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
       return getNodeName(); 
     } // getName
 
-    virtual DOM::NamedNodeMap_impl<stringT>* getEntities() 
+    virtual DOMNamedNodeMap_implT* getEntities() 
     {
       return &entities_;
     } // getEntities
 
-    virtual DOM::NamedNodeMap_impl<stringT>* getNotations()
+    virtual DOMNamedNodeMap_implT* getNotations()
     {
       return &notations_;
     } // getNotations
@@ -90,9 +94,9 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
 
     //////////////////////////////////////////////////////////
     // DOM::Node methods
-    typename DOM::Node<stringT>::Type getNodeType() const
+    typename DOM::Node_base::Type getNodeType() const
     {
-      return DOM::Node<stringT>::DOCUMENT_TYPE_NODE;
+      return DOM::Node_base::DOCUMENT_TYPE_NODE;
     } // getNodeType
 
     virtual const stringT& getNodeName() const
@@ -100,7 +104,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
       return qualifiedName_;
     } // getNodeName
 
-    DOM::Node_impl<stringT>* cloneNode(bool deep) const 
+    DOMNode_implT* cloneNode(bool deep) const 
     { 
       DocumentTypeImpl* clone = new DocumentTypeImpl(qualifiedName_, publicId_, systemId_);
       return clone;
@@ -115,7 +119,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
         NodeT::ownerDoc_->addRef();
     } // setOwnerDocument
 
-    NamedNodeMapImpl<stringT, string_adaptorT>* getElements() 
+    NamedNodeMapT* getElements() 
     {
       return &elements_;
     } // getElements
@@ -165,9 +169,9 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT>,
     stringT qualifiedName_;
     stringT publicId_;
     stringT systemId_;
-    NamedNodeMapImpl<stringT, string_adaptorT> entities_;
-    NamedNodeMapImpl<stringT, string_adaptorT> notations_;
-    NamedNodeMapImpl<stringT, string_adaptorT> elements_;
+    NamedNodeMapT entities_;
+    NamedNodeMapT notations_;
+    NamedNodeMapT elements_;
     std::vector<stringT> IDs_;
     unsigned int refCount_;
 }; // class DOMImplementation

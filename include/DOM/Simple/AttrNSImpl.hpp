@@ -15,7 +15,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
   public:
     typedef typename string_adaptorT::size_type size_type;
     typedef AttrImpl<stringT, string_adaptorT> AttrImplT;
-    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
 	
     AttrNSImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc,
                const stringT& namespaceURI,
@@ -57,7 +57,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     ///////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual DOMNode_impl* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
       AttrNSImpl* clone = dynamic_cast<AttrNSImpl*>(AttrImplT::ownerDoc_->createAttributeNS(*namespaceURI_, *AttrImplT::name_));
       AttrImplT::cloneChildren(clone);

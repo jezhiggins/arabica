@@ -21,18 +21,18 @@ public:
                   XPathExpression<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    XPathValuePtr<string_type> p1 = baseT::lhs()->evaluate(context, executionContext);
+    XPathValuePtr<string_type, string_adaptor> p1 = baseT::lhs()->evaluate(context, executionContext);
     if(p1->type() != NODE_SET)
       throw RuntimeException("Union operator joins node-sets.  First argument is not a node-set.");
-    XPathValuePtr<string_type> p2 = baseT::rhs()->evaluate(context, executionContext);
+    XPathValuePtr<string_type, string_adaptor> p2 = baseT::rhs()->evaluate(context, executionContext);
     if(p2->type() != NODE_SET)
       throw RuntimeException("Union operator joins node-sets.  Second argument is not a node-set.");
 
-    NodeSet<string_type> ns1(p1->asNodeSet());
-    NodeSet<string_type> ns2(p2->asNodeSet());
+    NodeSet<string_type, string_adaptor> ns1(p1->asNodeSet());
+    NodeSet<string_type, string_adaptor> ns2(p2->asNodeSet());
 
     // do the obvious optimizations
     if(ns1.empty())
@@ -47,9 +47,9 @@ public:
   } // evaluate
 
 private:
-  XPathValuePtr<string_type> wrap(const NodeSet<string_type>& ns) const
+  XPathValuePtr<string_type, string_adaptor> wrap(const NodeSet<string_type, string_adaptor>& ns) const
   {
-    return XPathValuePtr<string_type>(new NodeSetValue<string_type, string_adaptor>(ns));
+    return XPathValuePtr<string_type, string_adaptor>(new NodeSetValue<string_type, string_adaptor>(ns));
   } // wrap
 }; // UnionExpression
 

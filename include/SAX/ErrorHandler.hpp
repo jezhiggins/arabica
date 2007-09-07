@@ -48,7 +48,6 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class ErrorHandler
 {
 public:
-  typedef string_type stringT;
   typedef SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
 
   virtual ~ErrorHandler() { };

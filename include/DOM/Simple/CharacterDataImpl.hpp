@@ -10,7 +10,7 @@ namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT>
-class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT>,
+class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT, string_adaptorT>,
                           public ChildlessNodeImpl<stringT, string_adaptorT>
 {
     typedef ChildlessNodeImpl<stringT, string_adaptorT> NodeT;

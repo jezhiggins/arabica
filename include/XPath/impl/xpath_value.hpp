@@ -15,28 +15,28 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class BoolValue : public XPathValue<string_type>, public XPathExpression<string_type, string_adaptor>
+class BoolValue : public XPathValue<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   BoolValue(bool value) :
       value_(value) { }
 
-  static XPathValuePtr<string_type> createValue(bool value) { return XPathValuePtr<string_type>(new BoolValue(value)); }
+  static XPathValuePtr<string_type, string_adaptor> createValue(bool value) { return XPathValuePtr<string_type, string_adaptor>(new BoolValue(value)); }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return XPathValuePtr<string_type>(new BoolValue(value_));
+    return XPathValuePtr<string_type, string_adaptor>(new BoolValue(value_));
   } // evaluate
-  virtual bool evaluateAsBool(const DOM::Node<string_type>& context) { return asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<string_type>& context) { return asNumber(); }
-  virtual string_type evaluateAsString(const DOM::Node<string_type>& context) { return asString(); }
-  virtual NodeSet<string_type> evaluateAsNodeSet(const DOM::Node<string_type>& context) { return asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) { return asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) { return asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) { return asString(); }
+  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) { return asNodeSet(); }
 
   virtual bool asBool() const { return value_; }
   virtual double asNumber() const { return value_ ? 1 : 0; }
   virtual string_type asString() const { return string_adaptor::construct_from_utf8(value_ ? "true" : "false"); }
-  virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
+  virtual const NodeSet<string_type, string_adaptor>& asNodeSet() const { static NodeSet<string_type, string_adaptor> empty; return empty; }
 
   virtual ValueType type() const { return BOOL; }
 
@@ -45,23 +45,23 @@ private:
 }; // class BoolValue
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class NumericValue : public XPathValue<string_type>, public XPathExpression<string_type, string_adaptor>
+class NumericValue : public XPathValue<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   NumericValue(double value) :
       value_(value) { }
   
-  static XPathValuePtr<string_type> createValue(double value) { return XPathValuePtr<string_type>(new NumericValue(value)); }
+  static XPathValuePtr<string_type, string_adaptor> createValue(double value) { return XPathValuePtr<string_type, string_adaptor>(new NumericValue(value)); }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return createValue(value_);
   } // evaluate
-  virtual bool evaluateAsBool(const DOM::Node<string_type>& context) { return asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<string_type>& context) { return asNumber(); }
-  virtual string_type evaluateAsString(const DOM::Node<string_type>& context) { return asString(); }
-  virtual NodeSet<string_type> evaluateAsNodeSet(const DOM::Node<string_type>& context) { return asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) { return asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) { return asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) { return asString(); }
+  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) { return asNodeSet(); }
 
   virtual bool asBool() const 
   { 
@@ -80,7 +80,7 @@ public:
       return string_adaptor::construct_from_utf8("-Infinity");
     return string_adaptor::construct_from_utf8(boost::lexical_cast<std::string>(value_).c_str());
   } // asString
-  virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
+  virtual const NodeSet<string_type, string_adaptor>& asNodeSet() const { static NodeSet<string_type, string_adaptor> empty; return empty; }
 
   virtual ValueType type() const { return NUMBER; }
 
@@ -89,7 +89,7 @@ private:
 }; // class NumberValue
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class StringValue : public XPathValue<string_type>, public XPathExpression<string_type, string_adaptor>
+class StringValue : public XPathValue<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   StringValue(const char* value) :
@@ -97,17 +97,17 @@ public:
   StringValue(const string_type& value) :
       value_(value) { }
 
-  static XPathValuePtr<string_type> createValue(const string_type& value) { return XPathValuePtr<string_type>(new StringValue(value)); }
+  static XPathValuePtr<string_type, string_adaptor> createValue(const string_type& value) { return XPathValuePtr<string_type, string_adaptor>(new StringValue(value)); }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return XPathValuePtr<string_type>(new StringValue(value_));
+    return XPathValuePtr<string_type, string_adaptor>(new StringValue(value_));
   } // evaluate
-  virtual bool evaluateAsBool(const DOM::Node<string_type>& context) { return asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<string_type>& context) { return asNumber(); }
-  virtual string_type evaluateAsString(const DOM::Node<string_type>& context) { return asString(); }
-  virtual NodeSet<string_type> evaluateAsNodeSet() const { return asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) { return asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) { return asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) { return asString(); }
+  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet() const { return asNodeSet(); }
 
   virtual bool asBool() const { return !string_adaptor::empty(value_); }
   virtual double asNumber() const 
@@ -115,7 +115,7 @@ public:
     return impl::stringAsNumber<string_type, string_adaptor>(value_);
   } // asNumber
   virtual string_type asString() const { return value_; }
-  virtual const NodeSet<string_type>& asNodeSet() const { static NodeSet<string_type> empty; return empty; }
+  virtual const NodeSet<string_type, string_adaptor>& asNodeSet() const { static NodeSet<string_type, string_adaptor> empty; return empty; }
  
   virtual ValueType type() const { return STRING; }
 
@@ -124,25 +124,25 @@ private:
 }; // class StringValue
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class NodeSetValue : public XPathValue<string_type>, public XPathExpression<string_type, string_adaptor>
+class NodeSetValue : public XPathValue<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
 {
 public:
-  NodeSetValue(const NodeSet<string_type>& set) : set_(set) { }
+  NodeSetValue(const NodeSet<string_type, string_adaptor>& set) : set_(set) { }
 
-  static XPathValuePtr<string_type> createValue(const NodeSet<string_type>& set) 
+  static XPathValuePtr<string_type, string_adaptor> createValue(const NodeSet<string_type, string_adaptor>& set) 
   { 
-    return XPathValuePtr<string_type>(new NodeSetValue(set)); 
+    return XPathValuePtr<string_type, string_adaptor>(new NodeSetValue(set)); 
   } // createValue
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return XPathValuePtr<string_type>(this);
+    return XPathValuePtr<string_type, string_adaptor>(this);
   } // evaluate
-  virtual bool evaluateAsBool(const DOM::Node<string_type>& context) const{ return asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<string_type>& context) const { return asNumber(); }
-  virtual string_type evaluateAsString(const DOM::Node<string_type>& context) const { return asString(); }
-  virtual const NodeSet<string_type>& evaluateAsNodeSet() const { return asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) const{ return asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) const { return asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) const { return asString(); }
+  virtual const NodeSet<string_type, string_adaptor>& evaluateAsNodeSet() const { return asNodeSet(); }
 
   virtual bool asBool() const 
   { 
@@ -158,7 +158,7 @@ public:
       return string_adaptor::construct_from_utf8("");  
     return impl::nodeStringValue<string_type, string_adaptor>(set_.top());
   } // asStringx
-  virtual const NodeSet<string_type>& asNodeSet() const 
+  virtual const NodeSet<string_type, string_adaptor>& asNodeSet() const 
   { 
     return set_; 
   } // asNodeSet
@@ -166,7 +166,7 @@ public:
   virtual ValueType type() const { return NODE_SET; }
 
 private:
-  mutable NodeSet<string_type> set_;
+  mutable NodeSet<string_type, string_adaptor> set_;
 }; // NodeSetValue
 
 } // namespace XPath

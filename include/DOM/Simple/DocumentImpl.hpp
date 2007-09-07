@@ -40,15 +40,23 @@ class valueIs : public std::unary_function<AttrImpl<stringT, string_adaptorT>*, 
 }; // class valueIs
 
 template<class stringT, class string_adaptorT>
-class DocumentImpl : public DOM::Document_impl<stringT>,
+class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
                      public NodeImplWithChildren<stringT, string_adaptorT>
 {
     typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
     typedef AttrImpl<stringT, string_adaptorT> AttrImplT;
+    typedef ElementImpl<stringT, string_adaptorT> ElementImplT;
     typedef NodeImplWithChildren<stringT, string_adaptorT> NodeWithChildrenT;
   public:
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+    typedef DOM::Attr_impl<stringT, string_adaptorT> DOMAttr_implT;
+    typedef DOM::Element_impl<stringT, string_adaptorT> DOMElement_implT;
+    typedef DOM::Document_impl<stringT, string_adaptorT> DOMDocument_implT;
+    typedef DOM::DocumentType_impl<stringT, string_adaptorT> DOMDocumentType_implT;
+    typedef DOM::DOMImplementation<stringT, string_adaptorT> DOMDOMImplementationT;
+
     DocumentImpl() : 
-        NodeImplWithChildren<stringT, string_adaptorT>(0),
+        NodeWithChildrenT(0),
         documentElement_(0),
         documentType_(0),
 				domImplementation_(),
@@ -61,8 +69,8 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       NodeImplT::setOwnerDoc(this);
     } // DocumentBaseImpl
 
-    DocumentImpl(DOM::DOMImplementation<stringT> domImpl) : 
-        NodeImplWithChildren<stringT, string_adaptorT>(0),
+    DocumentImpl(DOMDOMImplementationT domImpl) : 
+        NodeWithChildrenT(0),
         documentElement_(0),
         documentType_(0),
         domImplementation_(domImpl),
@@ -76,9 +84,9 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     DocumentImpl(const stringT& namespaceURI,
                  const stringT& qualifiedName,
-                 DOM::DocumentType_impl<stringT>* docType,
-                 DOM::DOMImplementation<stringT> domImpl) : 
-        NodeImplWithChildren<stringT, string_adaptorT>(0),
+                 DOMDocumentType_implT* docType,
+                 DOMDOMImplementationT domImpl) : 
+        NodeWithChildrenT(0),
         documentElement_(0),
         documentType_(0),
         domImplementation_(domImpl),
@@ -117,78 +125,78 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     /////////////////////////////////////////////////////////////////////
     // DOM::Document functions
-    virtual DOM::DocumentType_impl<stringT>* getDoctype() const
+    virtual DOMDocumentType_implT* getDoctype() const
     {
       return documentType_;
     } // getDocType
 
-    virtual DOM::DOMImplementation<stringT> getImplementation() const
+    virtual DOMDOMImplementationT getImplementation() const
     {
       return domImplementation_;
     } // getImplementation
 
-    virtual DOM::Element_impl<stringT>* getDocumentElement() const
+    virtual DOMElement_implT* getDocumentElement() const
     {
       return documentElement_;
     } // getDocumentElement
 
-    virtual DOM::Element_impl<stringT>* createElement(const stringT& tagName) const
+    virtual DOMElement_implT* createElement(const stringT& tagName) const
     {
-      ElementImpl<stringT, string_adaptorT>* n = 
-        new ElementImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), tagName);
+      ElementImplT* n = 
+        new ElementImplT(const_cast<DocumentImpl*>(this), tagName);
       orphaned(n);
       return n;
     } // createElement
 
-    virtual DOM::DocumentFragment_impl<stringT>* createDocumentFragment() const
+    virtual DOM::DocumentFragment_impl<stringT, string_adaptorT>* createDocumentFragment() const
     {
       DocumentFragmentImpl<stringT, string_adaptorT>* n = new DocumentFragmentImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this));
       orphaned(n);
       return n;
     } // createDocumentFragment
 
-    virtual DOM::Text_impl<stringT>* createTextNode(const stringT& data) const
+    virtual DOM::Text_impl<stringT, string_adaptorT>* createTextNode(const stringT& data) const
     {
       TextImpl<stringT, string_adaptorT>* n = new TextImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), data);
       orphaned(n);
       return n;
     } // createTextNode
 
-    virtual DOM::Comment_impl<stringT>* createComment(const stringT& data) const
+    virtual DOM::Comment_impl<stringT, string_adaptorT>* createComment(const stringT& data) const
     {
       CommentImpl<stringT, string_adaptorT>* n = new CommentImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), data);
       orphaned(n);
       return n;
     } // createComment
 
-    virtual DOM::CDATASection_impl<stringT>* createCDATASection(const stringT& data) const
+    virtual DOM::CDATASection_impl<stringT, string_adaptorT>* createCDATASection(const stringT& data) const
     {
       CDATASectionImpl<stringT, string_adaptorT>* n = new CDATASectionImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), data);
       orphaned(n);
       return n;
     } // createCDATASection
 
-    virtual DOM::ProcessingInstruction_impl<stringT>* createProcessingInstruction(const stringT& target, const stringT& data) const
+    virtual DOM::ProcessingInstruction_impl<stringT, string_adaptorT>* createProcessingInstruction(const stringT& target, const stringT& data) const
     {
       ProcessingInstructionImpl<stringT, string_adaptorT>* n = new ProcessingInstructionImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), target, data);
       orphaned(n);
       return n;
     } // createProcessingInstruction
 
-    virtual DOM::Attr_impl<stringT>* createAttribute(const stringT& name) const
+    virtual DOMAttr_implT* createAttribute(const stringT& name) const
     {
       AttrImpl<stringT, string_adaptorT>* n = new AttrImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), name);
       orphaned(n);
       return n;
     } // createAttribute
 
-    virtual DOM::EntityReference_impl<stringT>* createEntityReference(const stringT& name) const
+    virtual DOM::EntityReference_impl<stringT, string_adaptorT>* createEntityReference(const stringT& name) const
     {
       EntityReferenceImpl<stringT, string_adaptorT>* n = new EntityReferenceImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), name);
       if((documentType_ != 0) && (documentType_->getEntities()->getNamedItem(name) != 0))
       {
-        DOM::Node_impl<stringT>* entity = documentType_->getEntities()->getNamedItem(name);
-        for(DOM::Node_impl<stringT>* child = entity->getFirstChild(); child != 0; child = child->getNextSibling())
+        DOMNode_implT* entity = documentType_->getEntities()->getNamedItem(name);
+        for(DOMNode_implT* child = entity->getFirstChild(); child != 0; child = child->getNextSibling())
           n->appendChild(importNode(child, true));
       } // if ...
       orphaned(n);
@@ -196,49 +204,49 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       return n;
     } // createEntityReference
 
-    virtual DOM::NodeList_impl<stringT>* getElementsByTagName(const stringT& tagname) const
+    virtual DOM::NodeList_impl<stringT, string_adaptorT>* getElementsByTagName(const stringT& tagname) const
     {
       return new ElementByTagList<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this),
                                                             const_cast<DocumentImpl*>(this),
                                                             tagname);
     } // getElementsByTagName
 
-    virtual DOM::Node_impl<stringT>* importNode(DOM::Node_impl<stringT>* importedNode, bool deep) const
+    virtual DOMNode_implT* importNode(DOMNode_implT* importedNode, bool deep) const
     {
-      DOM::Node_impl<stringT>* newNode = 0;
+      DOMNode_implT* newNode = 0;
 
       switch(importedNode->getNodeType())
       {
-        case DOM::Node<stringT>::ATTRIBUTE_NODE:
+        case DOM::Node_base::ATTRIBUTE_NODE:
           if(string_adaptorT::empty(importedNode->getLocalName()))
             newNode = createAttribute(importedNode->getNodeName());
           else
             newNode = createAttributeNS(importedNode->getNamespaceURI(), importedNode->getNodeName());
           deep = true;
           break;
-        case DOM::Node<stringT>::DOCUMENT_FRAGMENT_NODE:
+        case DOM::Node_base::DOCUMENT_FRAGMENT_NODE:
           newNode = createDocumentFragment();
           break;
-        case DOM::Node<stringT>::DOCUMENT_NODE:
+        case DOM::Node_base::DOCUMENT_NODE:
           throw DOM::DOMException(DOM::DOMException::NOT_SUPPORTED_ERR);
-        case DOM::Node<stringT>::DOCUMENT_TYPE_NODE:
+        case DOM::Node_base::DOCUMENT_TYPE_NODE:
           throw DOM::DOMException(DOM::DOMException::NOT_SUPPORTED_ERR);
-        case DOM::Node<stringT>::ELEMENT_NODE:
+        case DOM::Node_base::ELEMENT_NODE:
           {
-            DOM::Element_impl<stringT>* elem;
+            DOMElement_implT* elem;
             if(string_adaptorT::empty(importedNode->getLocalName()))
               elem = createElement(importedNode->getNodeName());
             else
               elem = createElementNS(importedNode->getNamespaceURI(), importedNode->getNodeName());
 
-            const DOM::NamedNodeMap_impl<stringT>* attrs = importedNode->getAttributes();
+            const DOM::NamedNodeMap_impl<stringT, string_adaptorT>* attrs = importedNode->getAttributes();
             if(attrs)
               for(unsigned int i = 0; i < attrs->getLength(); ++i)
               {
-                DOM::Attr_impl<stringT>* a = dynamic_cast<DOM::Attr_impl<stringT>*>(attrs->item(i));
+                DOMAttr_implT* a = dynamic_cast<DOMAttr_implT*>(attrs->item(i));
                 if(a->getSpecified())
                 {
-                  DOM::Attr_impl<stringT>* newA = dynamic_cast<DOM::Attr_impl<stringT>*>(importNode(a, true));
+                  DOMAttr_implT* newA = dynamic_cast<DOMAttr_implT*>(importNode(a, true));
                   if(string_adaptorT::empty(a->getLocalName()))
                     elem->setAttributeNode(newA);
                   else
@@ -248,9 +256,9 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
             newNode = elem;
           }
           break;
-        case DOM::Node<stringT>::ENTITY_NODE:
+        case DOM::Node_base::ENTITY_NODE:
           {
-            DOM::Entity_impl<stringT>* entity = dynamic_cast<DOM::Entity_impl<stringT>*>(importedNode);
+            DOM::Entity_impl<stringT, string_adaptorT>* entity = dynamic_cast<DOM::Entity_impl<stringT, string_adaptorT>*>(importedNode);
             newNode = new EntityImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this),
                                               entity->getNodeName(),
                                               entity->getPublicId(),
@@ -258,29 +266,29 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
                                               entity->getNotationName());
           } 
           break;
-        case DOM::Node<stringT>::ENTITY_REFERENCE_NODE:
+        case DOM::Node_base::ENTITY_REFERENCE_NODE:
           newNode = createEntityReference(importedNode->getNodeName());
           deep = false;
           break;
-        case DOM::Node<stringT>::NOTATION_NODE:
+        case DOM::Node_base::NOTATION_NODE:
           {
-            DOM::Notation_impl<stringT>* entity = dynamic_cast<DOM::Notation_impl<stringT>*>(importedNode);
+            DOM::Notation_impl<stringT, string_adaptorT>* entity = dynamic_cast<DOM::Notation_impl<stringT, string_adaptorT>*>(importedNode);
             newNode = new NotationImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this),
                                                 entity->getNodeName(),
                                                 entity->getPublicId(),
                                                 entity->getSystemId());
           } 
           break;
-        case DOM::Node<stringT>::PROCESSING_INSTRUCTION_NODE:
+        case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
           newNode = createProcessingInstruction(importedNode->getNodeName(), importedNode->getNodeValue());
           break;
-        case DOM::Node<stringT>::TEXT_NODE:
+        case DOM::Node_base::TEXT_NODE:
           newNode = createTextNode(importedNode->getNodeValue());
           break;
-        case DOM::Node<stringT>::CDATA_SECTION_NODE:
+        case DOM::Node_base::CDATA_SECTION_NODE:
           newNode = createCDATASection(importedNode->getNodeValue());
           break;
-        case DOM::Node<stringT>::COMMENT_NODE:
+        case DOM::Node_base::COMMENT_NODE:
           newNode = createComment(importedNode->getNodeValue());
           break;
         default:
@@ -289,18 +297,18 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
       if(deep)
       {
-        for(DOM::Node_impl<stringT>* child = importedNode->getFirstChild(); child != 0; child = child->getNextSibling())
+        for(DOMNode_implT* child = importedNode->getFirstChild(); child != 0; child = child->getNextSibling())
           newNode->appendChild(importNode(child, true));
       } // if(deep)
 
-      if(newNode->getNodeType() == DOM::Node<stringT>::ENTITY_NODE)
+      if(newNode->getNodeType() == DOM::Node_base::ENTITY_NODE)
         dynamic_cast<NodeImplT*>(newNode)->setReadOnly(true);
       orphaned(dynamic_cast<NodeImplT*>(newNode));
 
       return newNode;
     } // importNode
 
-    virtual DOM::Element_impl<stringT>* createElementNS(const stringT& namespaceURI, const stringT& qualifiedName) const
+    virtual DOMElement_implT* createElementNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
       ElementNSImpl<stringT, string_adaptorT>* n = 
         new ElementNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
@@ -308,21 +316,21 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       return n;
     } // createElementNS
 
-    virtual DOM::Attr_impl<stringT>* createAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName) const
+    virtual DOMAttr_implT* createAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
       AttrNSImpl<stringT, string_adaptorT>* n = new AttrNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
       orphaned(n);
       return n;
     } // createAttrNS
 
-    virtual DOM::NodeList_impl<stringT>* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const
+    virtual DOM::NodeList_impl<stringT, string_adaptorT>* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const
     {
       return new ElementByTagList<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this),
                                                             const_cast<DocumentImpl*>(this),
                                                             namespaceURI, localName);
     } // getElementsByTagNameNS
 
-    virtual DOM::Element_impl<stringT>* getElementById(const stringT& elementId) const
+    virtual DOMElement_implT* getElementById(const stringT& elementId) const
     {
       typename std::set<AttrImplT*>::const_iterator i = std::find_if(idNodes_.begin(), idNodes_.end(), valueIs<stringT, string_adaptorT>(elementId));
       if(i == idNodes_.end())
@@ -332,14 +340,14 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
 
     ////////////////////////////////////////////////////////
     // DOM Node methods 
-    virtual typename DOM::Node<stringT>::Type getNodeType() const
+    virtual typename DOM::Node_base::Type getNodeType() const
     {
-      return DOM::Node<stringT>::DOCUMENT_NODE;
+      return DOM::Node_base::DOCUMENT_NODE;
     } // getNodeType
     
-    virtual DOM::Node_impl<stringT>* getParentNode() const { return 0; }
+    virtual DOMNode_implT* getParentNode() const { return 0; }
 
-    virtual DOM::Document_impl<stringT>* getOwnerDocument() const { return 0; }
+    virtual DOMDocument_implT* getOwnerDocument() const { return 0; }
 
     virtual const stringT& getNodeName() const
     {
@@ -347,61 +355,61 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       return doc;
     } // getNodeName
 
-    virtual DOM::Node_impl<stringT>* insertBefore(DOM::Node_impl<stringT>* newChild, DOM::Node_impl<stringT>* refChild)
+    virtual DOMNode_implT* insertBefore(DOMNode_implT* newChild, DOMNode_implT* refChild)
     {
-      if((newChild->getNodeType() == DOM::Node<stringT>::ELEMENT_NODE) && (documentElement_ != 0))
+      if((newChild->getNodeType() == DOM::Node_base::ELEMENT_NODE) && (documentElement_ != 0))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
-      if((newChild->getNodeType() == DOM::Node<stringT>::DOCUMENT_TYPE_NODE) && (documentType_ != 0))
+      if((newChild->getNodeType() == DOM::Node_base::DOCUMENT_TYPE_NODE) && (documentType_ != 0))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
 
-      DOM::Node_impl<stringT>* result = NodeImplWithChildren<stringT, string_adaptorT>::insertBefore(newChild, refChild);
+      DOMNode_implT* result = NodeWithChildrenT::insertBefore(newChild, refChild);
 
-      if((newChild->getNodeType() == DOM::Node<stringT>::ELEMENT_NODE) && (documentElement_ == 0))
-        documentElement_ = dynamic_cast<DOM::Element_impl<stringT>*>(newChild);
-      if((newChild->getNodeType() == DOM::Node<stringT>::DOCUMENT_TYPE_NODE) && (documentType_ == 0))
-        documentType_ = dynamic_cast<DOM::DocumentType_impl<stringT>*>(newChild);
+      if((newChild->getNodeType() == DOM::Node_base::ELEMENT_NODE) && (documentElement_ == 0))
+        documentElement_ = dynamic_cast<DOMElement_implT*>(newChild);
+      if((newChild->getNodeType() == DOM::Node_base::DOCUMENT_TYPE_NODE) && (documentType_ == 0))
+        documentType_ = dynamic_cast<DOMDocumentType_implT*>(newChild);
 
       return result;
     } // insertBefore
 
-    virtual DOM::Node_impl<stringT>* replaceChild(DOM::Node_impl<stringT>* newChild, DOM::Node_impl<stringT>* oldChild)
+    virtual DOMNode_implT* replaceChild(DOMNode_implT* newChild, DOMNode_implT* oldChild)
     {
       checkChildType(newChild);
 
-      if((newChild->getNodeType() == DOM::Node<stringT>::DOCUMENT_TYPE_NODE) && (documentType_ == oldChild))
+      if((newChild->getNodeType() == DOM::Node_base::DOCUMENT_TYPE_NODE) && (documentType_ == oldChild))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
-      if((newChild->getNodeType() == DOM::Node<stringT>::ELEMENT_NODE) && 
+      if((newChild->getNodeType() == DOM::Node_base::ELEMENT_NODE) && 
          (documentElement_ != 0) && 
          (documentElement_ != oldChild))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
       
-      DOM::Node_impl<stringT>* result = NodeImplWithChildren<stringT, string_adaptorT>::replaceChild(newChild, oldChild);
+      DOMNode_implT* result = NodeWithChildrenT::replaceChild(newChild, oldChild);
 
-      if((newChild->getNodeType() == DOM::Node<stringT>::ELEMENT_NODE) && 
+      if((newChild->getNodeType() == DOM::Node_base::ELEMENT_NODE) && 
          ((documentElement_ == 0) || (documentElement_ == oldChild)))
-        documentElement_ = dynamic_cast<DOM::Element_impl<stringT>*>(newChild);
+        documentElement_ = dynamic_cast<DOMElement_implT*>(newChild);
 
       return result;
     } // replaceChild
 
-    virtual DOM::Node_impl<stringT>* removeChild(DOM::Node_impl<stringT>* oldChild)
+    virtual DOMNode_implT* removeChild(DOMNode_implT* oldChild)
     {
       if((documentType_ == oldChild))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
-      DOM::Node_impl<stringT>* result = NodeImplWithChildren<stringT, string_adaptorT>::removeChild(oldChild);
+      DOMNode_implT* result = NodeWithChildrenT::removeChild(oldChild);
  
       if(documentElement_ == oldChild)
-        documentElement_ = static_cast<DOM::Element_impl<stringT>*>(0);
+        documentElement_ = static_cast<DOMElement_implT*>(0);
 
       return result;
     } // removeChild
 
-    virtual DOM::Node_impl<stringT>* appendChild(DOM::Node_impl<stringT>* newChild)
+    virtual DOMNode_implT* appendChild(DOMNode_implT* newChild)
     {
       return insertBefore(newChild, 0);
     } // appendChild
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
       DocumentImpl* clone = new DocumentImpl(namespaceURI_, qualifiedName_, 0, domImplementation_);
       if(documentType_ != 0)
@@ -412,7 +420,7 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
       } 
 
       if(deep)
-        for(DOM::Node_impl<stringT>* child = NodeWithChildrenT::getFirstChild(); child != 0; child = child->getNextSibling())
+        for(DOMNode_implT* child = NodeWithChildrenT::getFirstChild(); child != 0; child = child->getNextSibling())
           if((documentType_ != child) && (child != clone->getDocumentElement()))
             clone->appendChild(clone->importNode(child, true));
 
@@ -466,20 +474,20 @@ class DocumentImpl : public DOM::Document_impl<stringT>,
     const stringT& empty_string() const { return empty_; }
 
   private:
-    void checkChildType(typename DOM::Node_impl<stringT>* child)
+    void checkChildType(typename DOMNode_implT* child)
     {
-      typename DOM::Node<stringT>::Type type = child->getNodeType();
-      if((type != DOM::Node<stringT>::ELEMENT_NODE) && 
-         (type != DOM::Node<stringT>::PROCESSING_INSTRUCTION_NODE) && 
-         (type != DOM::Node<stringT>::COMMENT_NODE) && 
-         (type != DOM::Node<stringT>::DOCUMENT_TYPE_NODE)) 
+      typename DOM::Node_base::Type type = child->getNodeType();
+      if((type != DOM::Node_base::ELEMENT_NODE) && 
+         (type != DOM::Node_base::PROCESSING_INSTRUCTION_NODE) && 
+         (type != DOM::Node_base::COMMENT_NODE) && 
+         (type != DOM::Node_base::DOCUMENT_TYPE_NODE)) 
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // checkChildType
 
   private:
-    DOM::Element_impl<stringT>* documentElement_;
-    DOM::DocumentType_impl<stringT>* documentType_;
-    DOM::DOMImplementation<stringT> domImplementation_;
+    DOMElement_implT* documentElement_;
+    DOMDocumentType_implT* documentType_;
+    DOMDOMImplementationT domImplementation_;
     stringT namespaceURI_;
     stringT qualifiedName_;
     unsigned long changesCount_;

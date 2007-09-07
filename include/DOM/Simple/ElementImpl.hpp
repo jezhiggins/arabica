@@ -141,7 +141,7 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
       return const_cast<AttrMapT*>(&attributes_);
     } // getAttributes
 
-    virtual DOMNode_impl* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
       ElementImpl* clone = dynamic_cast<ElementImpl*>(NodeT::ownerDoc_->createElement(*tagName_));
       cloneChildren(clone, deep);
@@ -187,7 +187,7 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
     } // cloneChildren
 
   private:
-    virtual void checkChildType(DOMNode_impl* child)
+    virtual void checkChildType(DOMNode_implT* child)
     {
       typename DOM::Node_base::Type type = child->getNodeType();
       if((type != DOM::Node_base::ELEMENT_NODE) && 

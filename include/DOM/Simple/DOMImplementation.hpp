@@ -18,9 +18,9 @@ template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<
 class DOMImplementation
 {
   public:
-    static DOM::DOMImplementation<stringT> getDOMImplementation() 
+    static DOM::DOMImplementation<stringT, string_adaptorT> getDOMImplementation() 
     {
-      static DOM::DOMImplementation<stringT> domImpl(new DOMImplementationImpl<stringT, string_adaptorT>());
+      static DOM::DOMImplementation<stringT, string_adaptorT> domImpl(new DOMImplementationImpl<stringT, string_adaptorT>());
       return domImpl;
     } // getDOMImplementation
 
@@ -29,7 +29,7 @@ class DOMImplementation
 }; // class DOMImplementation
 
 template<class stringT, class string_adaptorT>
-class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT>
+class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT, string_adaptorT>
 {
   public:
     virtual void addRef() { ++refCount_; }
@@ -53,18 +53,18 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT>
       return false;
     } // hasFeature
 
-    virtual DOM::DocumentType_impl<stringT>* createDocumentType(const stringT& qualifiedName,
-                                                                const stringT& publicId,
-                                                                const stringT& systemId)
+    virtual DOM::DocumentType_impl<stringT, string_adaptorT>* createDocumentType(const stringT& qualifiedName,
+                                                                                 const stringT& publicId,
+                                                                                 const stringT& systemId)
     {
       DocumentTypeImpl<stringT, string_adaptorT>* di = new DocumentTypeImpl<stringT, string_adaptorT>(qualifiedName, publicId, systemId);
       di->setReadOnly(true);
       return di;
     } // createDocumentType
 
-    virtual DOM::Document_impl<stringT>* createDocument(const stringT& namespaceURI,
-                                                        const stringT& qualifiedName,
-                                                        DOM::DocumentType_impl<stringT>* docType)
+    virtual DOM::Document_impl<stringT, string_adaptorT>* createDocument(const stringT& namespaceURI,
+                                                                         const stringT& qualifiedName,
+                                                                         DOM::DocumentType_impl<stringT, string_adaptorT>* docType)
     {
       DocumentImpl<stringT, string_adaptorT>* doc = new DocumentImpl<stringT, string_adaptorT>(namespaceURI, qualifiedName, docType, this);
 

@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class AttributeValueTest : public TestCase
 {
-  Arabica::XPath::XPath<string_type> parser;
+  Arabica::XPath::XPath<string_type, string_adaptor> parser;
   typedef string_adaptor SA;
 
 public:
@@ -24,7 +24,7 @@ public:
 
   void testParse()
   {
-    Arabica::DOM::Node<string_type> dummy;
+    Arabica::DOM::Node<string_type, string_adaptor> dummy;
     assertTrue(SA::construct_from_utf8("hello") == compileThis("hello")->evaluateAsString(dummy));
     assertTrue(SA::construct_from_utf8("") == compileThis("{hello}")->evaluateAsString(dummy));
     assertTrue(SA::construct_from_utf8("{hello}") == compileThis("{{hello}}")->evaluateAsString(dummy));

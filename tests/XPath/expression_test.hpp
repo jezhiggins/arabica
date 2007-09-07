@@ -12,28 +12,28 @@
 template<class string_type, class string_adaptor>
 class ExpressionTest : public TestCase
 {
-  Arabica::XPath::XPath<string_type> parser;
-  Arabica::DOM::DOMImplementation<string_type> factory_;
-  Arabica::DOM::Document<string_type> document_;
+  Arabica::XPath::XPath<string_type, string_adaptor> parser;
+  Arabica::DOM::DOMImplementation<string_type, string_adaptor> factory_;
+  Arabica::DOM::Document<string_type, string_adaptor> document_;
 
-  Arabica::DOM::Element<string_type> root_;
+  Arabica::DOM::Element<string_type, string_adaptor> root_;
 
-  Arabica::DOM::Element<string_type> element1_;
-  Arabica::DOM::Element<string_type> element2_;
-  Arabica::DOM::Element<string_type> element3_;
-  Arabica::DOM::Element<string_type> spinkle_;
+  Arabica::DOM::Element<string_type, string_adaptor> element1_;
+  Arabica::DOM::Element<string_type, string_adaptor> element2_;
+  Arabica::DOM::Element<string_type, string_adaptor> element3_;
+  Arabica::DOM::Element<string_type, string_adaptor> spinkle_;
 
-  Arabica::DOM::Attr<string_type> attr_;
+  Arabica::DOM::Attr<string_type, string_adaptor> attr_;
 
-  Arabica::DOM::Text<string_type> text_;
+  Arabica::DOM::Text<string_type, string_adaptor> text_;
 
-  Arabica::DOM::Comment<string_type> comment_;
+  Arabica::DOM::Comment<string_type, string_adaptor> comment_;
 
-  Arabica::DOM::ProcessingInstruction<string_type> processingInstruction_;
+  Arabica::DOM::ProcessingInstruction<string_type, string_adaptor> processingInstruction_;
 
-  Arabica::DOM::Document<string_type> chapters_;
+  Arabica::DOM::Document<string_type, string_adaptor> chapters_;
 
-  Arabica::DOM::Document<string_type> numbers_;
+  Arabica::DOM::Document<string_type, string_adaptor> numbers_;
 
   typedef string_adaptor SA;
 public:
@@ -43,7 +43,7 @@ public:
 
   void setUp()
   {
-    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
@@ -95,8 +95,8 @@ public:
   void testNode1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type> xpath = parser.compile_expr(SA::construct_from_utf8("node()"));
-    XPathValuePtr<string_type> result = xpath->evaluate(document_);
+    XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile_expr(SA::construct_from_utf8("node()"));
+    XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
     assertValuesEqual(NODE_SET, result->type());
     assertValuesEqual(1, result->asNodeSet().size());

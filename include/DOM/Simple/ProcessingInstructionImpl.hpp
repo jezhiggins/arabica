@@ -10,16 +10,19 @@ namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT>
-class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT>,
+class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT, string_adaptorT>,
                                   public ChildlessNodeImpl<stringT, string_adaptorT>
 {
-    typedef ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
   public:
+    typedef ChildlessNodeImpl<stringT, string_adaptorT> NodeT;
+    typedef DOM::ProcessingInstruction_impl<stringT, string_adaptorT> DOMProcessingInstruction_implT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+
     ProcessingInstructionImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
                               stringT target,
                               stringT data) : 
-        DOM::ProcessingInstruction_impl<stringT>(),
-        ChildlessNodeImpl<stringT, string_adaptorT>(ownerDoc),
+        DOMProcessingInstruction_implT(),
+        NodeT(ownerDoc),
         target_(target),
         data_(data)
     { 
@@ -58,7 +61,7 @@ class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT
       data_ = nodeValue;
     } // setNodeValue
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
       return NodeT::ownerDoc_->createProcessingInstruction(target_, data_);
     } // cloneNode

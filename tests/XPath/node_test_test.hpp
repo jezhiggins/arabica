@@ -11,22 +11,22 @@
 template<class string_type, class string_adaptor>
 class NodeTestTest : public TestCase
 {
-  Arabica::DOM::DOMImplementation<string_type> factory_;
-  Arabica::DOM::Document<string_type> document_;
+  Arabica::DOM::DOMImplementation<string_type, string_adaptor> factory_;
+  Arabica::DOM::Document<string_type, string_adaptor> document_;
 
-  Arabica::DOM::Element<string_type> root_;
+  Arabica::DOM::Element<string_type, string_adaptor> root_;
 
-  Arabica::DOM::Element<string_type> element1_;
-  Arabica::DOM::Element<string_type> element2_;
-  Arabica::DOM::Element<string_type> element3_;
+  Arabica::DOM::Element<string_type, string_adaptor> element1_;
+  Arabica::DOM::Element<string_type, string_adaptor> element2_;
+  Arabica::DOM::Element<string_type, string_adaptor> element3_;
 
-  Arabica::DOM::Attr<string_type> attr_;
+  Arabica::DOM::Attr<string_type, string_adaptor> attr_;
 
-  Arabica::DOM::Text<string_type> text_;
+  Arabica::DOM::Text<string_type, string_adaptor> text_;
 
-  Arabica::DOM::Comment<string_type> comment_;
+  Arabica::DOM::Comment<string_type, string_adaptor> comment_;
 
-  Arabica::DOM::ProcessingInstruction<string_type> processingInstruction_;
+  Arabica::DOM::ProcessingInstruction<string_type, string_adaptor> processingInstruction_;
 
   typedef string_adaptor SA;
 
@@ -37,7 +37,7 @@ public:
 
   void setUp()
   {
-    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
@@ -70,7 +70,7 @@ public:
   void test1()
   {
     using namespace Arabica::XPath;
-    impl::AnyNodeTest<string_type> test;
+    impl::AnyNodeTest<string_type, string_adaptor> test;
 
     assertTrue(test(element1_));
     assertTrue(test(element2_));
@@ -115,7 +115,7 @@ public:
   void test4()
   {
     using namespace Arabica::XPath;
-    impl::TextNodeTest<string_type> test;
+    impl::TextNodeTest<string_type, string_adaptor> test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -129,7 +129,7 @@ public:
   void test5()
   {
     using namespace Arabica::XPath;
-    impl::CommentNodeTest<string_type> test;
+    impl::CommentNodeTest<string_type, string_adaptor> test;
 
     assertTrue(!test(element1_));
     assertTrue(!test(root_));
@@ -185,7 +185,7 @@ public:
   void test9()
   {
     using namespace Arabica::XPath;
-    impl::StarNodeTest<string_type> test;
+    impl::StarNodeTest<string_type, string_adaptor> test;
 
     AxisEnumerator<string_type, string_adaptor> e(element2_, CHILD);
     assertTrue(!test(*e));
@@ -200,7 +200,7 @@ public:
   void test10()
   {
     using namespace Arabica::XPath;
-    impl::QNameNodeTest<string_type> test(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("one"));
+    impl::QNameNodeTest<string_type, string_adaptor> test(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("one"));
 
     assertTrue(!test(element1_));
     assertTrue(!test(element2_));
@@ -215,20 +215,20 @@ public:
   void test11()
   {
     using namespace Arabica::XPath;
-    impl::QNameNodeTest<string_type> test(SA::construct_from_utf8("http://example.com/test"), 
+    impl::QNameNodeTest<string_type, string_adaptor> test(SA::construct_from_utf8("http://example.com/test"), 
                                            SA::construct_from_utf8("one"));
 
-    Arabica::DOM::Element<string_type> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+    Arabica::DOM::Element<string_type, string_adaptor> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
                                                                SA::construct_from_utf8("ns:one"));
-    Arabica::DOM::Element<string_type> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+    Arabica::DOM::Element<string_type, string_adaptor> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
                                                                SA::construct_from_utf8("ttt:one"));
-    Arabica::DOM::Element<string_type> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+    Arabica::DOM::Element<string_type, string_adaptor> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
                                                                SA::construct_from_utf8("ns:two"));
-    Arabica::DOM::Element<string_type> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
+    Arabica::DOM::Element<string_type, string_adaptor> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), 
                                                                SA::construct_from_utf8("ttt:two"));
-    Arabica::DOM::Element<string_type> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), 
+    Arabica::DOM::Element<string_type, string_adaptor> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), 
                                                                SA::construct_from_utf8("ns:one"));
-    Arabica::DOM::Element<string_type> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), 
+    Arabica::DOM::Element<string_type, string_adaptor> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), 
                                                                SA::construct_from_utf8("ttt:one"));
 
     assertTrue(test(e1_));
@@ -242,14 +242,14 @@ public:
   void test12()
   {
     using namespace Arabica::XPath;
-    impl::QStarNodeTest<string_type> test(SA::construct_from_utf8("http://example.com/test"));
+    impl::QStarNodeTest<string_type, string_adaptor> test(SA::construct_from_utf8("http://example.com/test"));
 
-    Arabica::DOM::Element<string_type> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:one"));
-    Arabica::DOM::Element<string_type> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:one"));
-    Arabica::DOM::Element<string_type> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:two"));
-    Arabica::DOM::Element<string_type> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:two"));
-    Arabica::DOM::Element<string_type> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), SA::construct_from_utf8("ns:one"));
-    Arabica::DOM::Element<string_type> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), SA::construct_from_utf8("ttt:one"));
+    Arabica::DOM::Element<string_type, string_adaptor> e1_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:one"));
+    Arabica::DOM::Element<string_type, string_adaptor> e2_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:one"));
+    Arabica::DOM::Element<string_type, string_adaptor> e3_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ns:two"));
+    Arabica::DOM::Element<string_type, string_adaptor> e4_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/test"), SA::construct_from_utf8("ttt:two"));
+    Arabica::DOM::Element<string_type, string_adaptor> e5_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/ssss"), SA::construct_from_utf8("ns:one"));
+    Arabica::DOM::Element<string_type, string_adaptor> e6_ = document_.createElementNS(SA::construct_from_utf8("http://example.com/eeee"), SA::construct_from_utf8("ttt:one"));
 
     assertTrue(test(e1_));
     assertTrue(test(e2_));
@@ -277,7 +277,7 @@ public:
   void test14()
   {
     using namespace Arabica::XPath;
-    impl::NodeNodeTest<string_type> test;
+    impl::NodeNodeTest<string_type, string_adaptor> test;
 
     assertTrue(test(element1_));
     assertTrue(test(element2_));

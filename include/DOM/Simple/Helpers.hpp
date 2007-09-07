@@ -14,7 +14,7 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
                                                 const stringT& prefix, 
                                                 bool hasNamespaceURI, 
                                                 const stringT& namespaceURI, 
-                                                typename DOM::Node<stringT>::Type nodeType)
+                                                typename DOM::Node_base::Type nodeType)
 {
   const stringT xml = string_adaptorT::construct_from_utf8("xml");
   const stringT xmlURI = string_adaptorT::construct_from_utf8("http://www.w3.org/XML/1998/namespace");
@@ -34,7 +34,7 @@ std::pair<bool, stringT> checkPrefixAndNamespace(bool hasPrefix,
     throw DOM::DOMException(DOM::DOMException::NAMESPACE_ERR);
   } // if(prefix == xml)
   
-  if(nodeType == DOM::Node<stringT>::ATTRIBUTE_NODE && prefix == xmlns) 
+  if(nodeType == DOM::Node_base::ATTRIBUTE_NODE && prefix == xmlns) 
   {
     // DOM mandates xmlns: be bound to a namespace URI, XML Namespace rec
     // says not - allow for both here

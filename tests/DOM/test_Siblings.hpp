@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class SiblingsTest : public TestCase 
 {
-  Arabica::DOM::DOMImplementation<string_type> factory;
+  Arabica::DOM::DOMImplementation<string_type, string_adaptor> factory;
   typedef string_adaptor SA;
 
   public: 
@@ -26,14 +26,14 @@ class SiblingsTest : public TestCase
 
     void test1()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Element<string_type> root = d.createElement(SA::construct_from_utf8("root"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Element<string_type, string_adaptor> root = d.createElement(SA::construct_from_utf8("root"));
       d.appendChild(root);
 
       assert(root.getPreviousSibling() == 0);
       assert(root.getNextSibling() == 0);
 
-      Arabica::DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
+      Arabica::DOM::ProcessingInstruction<string_type, string_adaptor> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
       d.insertBefore(p, root);
       assert(d.getFirstChild() == p);
       assert(d.getLastChild() == root);
@@ -42,7 +42,7 @@ class SiblingsTest : public TestCase
       assert(root.getPreviousSibling() == p);
       assert(root.getNextSibling() == 0);
 
-      Arabica::DOM::ProcessingInstruction<string_type> p2 = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
+      Arabica::DOM::ProcessingInstruction<string_type, string_adaptor> p2 = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
       d.insertBefore(p2, root);
       assert(d.getFirstChild() == p);
       assert(d.getLastChild() == root);
@@ -106,30 +106,30 @@ class SiblingsTest : public TestCase
 
     void test2()
     {
-      Arabica::DOM::Element<string_type> root;
+      Arabica::DOM::Element<string_type, string_adaptor> root;
       {
-        Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+        Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
         root = d.createElement(SA::construct_from_utf8("root"));
         d.appendChild(root);
 
         assert(root.getPreviousSibling() == 0);
         assert(root.getNextSibling() == 0);
 
-        Arabica::DOM::ProcessingInstruction<string_type> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
+        Arabica::DOM::ProcessingInstruction<string_type, string_adaptor> p = d.createProcessingInstruction(SA::construct_from_utf8("target"), SA::construct_from_utf8("data"));
         d.insertBefore(p, root);
       }
 
-      Arabica::DOM::Node<string_type> n = root.getPreviousSibling();
-      Arabica::DOM::ProcessingInstruction<string_type> p = Arabica::DOM::ProcessingInstruction<string_type>(n);
+      Arabica::DOM::Node<string_type, string_adaptor> n = root.getPreviousSibling();
+      Arabica::DOM::ProcessingInstruction<string_type, string_adaptor> p = Arabica::DOM::ProcessingInstruction<string_type, string_adaptor>(n);
       assert(p.getTarget() == SA::construct_from_utf8("target"));
       assert(p.getData() == SA::construct_from_utf8("data"));
     } // test2
 
     void test3()
     {
-      Arabica::DOM::Element<string_type> root;
+      Arabica::DOM::Element<string_type, string_adaptor> root;
       {
-        Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+        Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
         root = d.createElement(SA::construct_from_utf8("root"));
         d.appendChild(root);
 
@@ -137,7 +137,7 @@ class SiblingsTest : public TestCase
 	root.appendChild(d.createElement(SA::construct_from_utf8("child2")));
       }
 
-      Arabica::DOM::Node<string_type> c = root.getFirstChild();
+      Arabica::DOM::Node<string_type, string_adaptor> c = root.getFirstChild();
       assert(c.getNextSibling() == root.getLastChild());
 
       root.purgeChild(c);
@@ -148,9 +148,9 @@ class SiblingsTest : public TestCase
 
    void test4()
    {
-      Arabica::DOM::Element<string_type> root;
+      Arabica::DOM::Element<string_type, string_adaptor> root;
       {
-        Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
+        Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8(""), 0);
         root = d.createElement(SA::construct_from_utf8("root"));
         d.appendChild(root);
 
@@ -158,8 +158,8 @@ class SiblingsTest : public TestCase
         root.appendChild(d.createElement(SA::construct_from_utf8("child2")));
       }
     
-      Arabica::DOM::Node<string_type> c1 = root.getFirstChild();
-      Arabica::DOM::Node<string_type> c2 = root.getLastChild();
+      Arabica::DOM::Node<string_type, string_adaptor> c1 = root.getFirstChild();
+      Arabica::DOM::Node<string_type, string_adaptor> c2 = root.getLastChild();
 
       try {
         c1.purgeChild(c2);

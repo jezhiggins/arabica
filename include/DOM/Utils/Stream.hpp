@@ -36,8 +36,8 @@ namespace DOM
 
   namespace StreamImpl
   {
-    template<class stringT, class charT, class traitsT>
-    void streamChildren(std::basic_ostream<charT, traitsT>& stream, DOM::Node<stringT>& node)
+    template<class stringT, class string_adaptorT, class charT, class traitsT>
+    void streamChildren(std::basic_ostream<charT, traitsT>& stream, DOM::Node<stringT, string_adaptorT>& node)
     {
       DOM::Node<stringT> child = node.getFirstChild();
       while(child != 0)
@@ -71,9 +71,9 @@ std::pair<bool, stringT> is_uri_declared(std::vector<std::map<stringT, stringT> 
   return std::make_pair(false, stringT());
 } // prefix_is_declared
 
-template<class stringT, class charT, class traitsT>
+template<class stringT, class string_adaptorT, class charT, class traitsT>
 void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream, 
-                                DOM::Node<stringT>& node, 
+                                DOM::Node<stringT, string_adaptorT>& node, 
                                 std::vector<std::map<stringT, stringT> >* prefix_stack)
 {
   std::map<stringT, stringT>& current = *(prefix_stack->rbegin());
@@ -111,9 +111,9 @@ bool isXmlns(const stringT& str)
   return false;
 } // isXmlns
 
-template<class stringT, class charT, class traitsT>
+template<class stringT, class string_adaptorT, class charT, class traitsT>
 int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
-                   DOM::Node<stringT>& node)
+                   DOM::Node<stringT, string_adaptorT>& node)
 {
   typedef Arabica::Unicode<charT> UnicodeT;
 
@@ -188,9 +188,9 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
   return index;
 } // prefix_mapper
 
-template<class stringT, class charT, class traitsT>
+template<class stringT, class string_adaptorT, class charT, class traitsT>
 void prefix_mapper_pop(std::basic_ostream<charT, traitsT>& stream,
-                       DOM::Node<stringT> node,
+                       DOM::Node<stringT, string_adaptorT> node,
                        int index)
 {
   std::vector<std::map<stringT, stringT> >* prefix_stack = 
@@ -206,10 +206,10 @@ void prefix_mapper_pop(std::basic_ostream<charT, traitsT>& stream,
   } // if ...
 } // prefix_mapper_pop
 
-template<class stringT, class charT, class traitsT>
+template<class stringT, class string_adaptorT, class charT, class traitsT>
 std::basic_ostream<charT, traitsT>&
 operator<<(std::basic_ostream<charT, traitsT>& stream,
-           DOM::Node<stringT>& node)
+           DOM::Node<stringT, string_adaptorT>& node)
 {
   typedef Arabica::Unicode<charT> UnicodeT;
 

@@ -214,7 +214,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT, string_adaptorT>
     bool readOnly_;
 
   protected:
-    DocumentImplT ownerDoc_;
+    DocumentImplT* ownerDoc_;
 }; // class NamedNodeMapImpl
 
 } // namespace SAX2DOM

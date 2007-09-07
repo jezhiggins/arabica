@@ -19,8 +19,9 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
 {
   public:
     typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
-    typedef ElementImpl<stringT, string_adaptorT> ElementImpl;
+    typedef ElementImpl<stringT, string_adaptorT> ElementImplT;
     typedef DOM::Attr_impl<stringT, string_adaptorT> DOMAttr_implT;
+    typedef DOM::Element_impl<stringT, string_adaptorT> DOMElement_implT;
     typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
 
     AttrImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& name) : 
@@ -58,7 +59,7 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
     const stringT& getValue() const { return getNodeValue(); }
     void setValue(const stringT& value) { setNodeValue(value); }
 
-    virtual DOM::Element_impl<stringT>* getOwnerElement() const
+    virtual DOMElement_implT* getOwnerElement() const
     {
       return ownerElement_;
     } // getOwnerElement

@@ -35,18 +35,18 @@ enum ValueType
 namespace impl
 {
 
-template<class string_type>
-DOM::Node<string_type> node_parent_or_owner(const DOM::Node<string_type>& node)
+template<class string_type, class string_adaptor>
+DOM::Node<string_type, string_adaptor> node_parent_or_owner(const DOM::Node<string_type, string_adaptor>& node)
 {
   if(node.getNodeType() == DOM::Node_base::ATTRIBUTE_NODE)
-    return (static_cast<DOM::Attr<string_type> >(node)).getOwnerElement();
+    return (static_cast<DOM::Attr<string_type, string_adaptor> >(node)).getOwnerElement();
   return node.getParentNode();
 } // node_parent_or_owner
 
-template<class string_type>
-unsigned int node_attribute_index(const DOM::Attr<string_type>& attr)
+template<class string_type, class string_adaptor>
+unsigned int node_attribute_index(const DOM::Attr<string_type, string_adaptor>& attr)
 {
-  DOM::NamedNodeMap<string_type> attrs = attr.getOwnerElement().getAttributes();
+  DOM::NamedNodeMap<string_type, string_adaptor> attrs = attr.getOwnerElement().getAttributes();
   unsigned int p = 0;
   for(unsigned int pe = attrs.getLength(); p != pe; ++p)
     if(attrs.item(p) == attr)
@@ -54,14 +54,14 @@ unsigned int node_attribute_index(const DOM::Attr<string_type>& attr)
   return p;
 } // node_attribute_index
 
-template<class string_type>
-unsigned int node_child_position(const DOM::Node<string_type>& node)
+template<class string_type, class string_adaptor>
+unsigned int node_child_position(const DOM::Node<string_type, string_adaptor>& node)
 {
   if(node.getNodeType() == DOM::Node_base::ATTRIBUTE_NODE)
-    return node_attribute_index(static_cast<DOM::Attr<string_type> >(node));
+    return node_attribute_index(static_cast<DOM::Attr<string_type, string_adaptor> >(node));
 
   unsigned int pos = 0;
-  DOM::Node<string_type> n = node;
+  DOM::Node<string_type, string_adaptor> n = node;
   do
   {
     n = n.getPreviousSibling();
@@ -70,11 +70,11 @@ unsigned int node_child_position(const DOM::Node<string_type>& node)
   return pos;
 } // node_child_position
 
-template<class string_type>
-DOM::Node<string_type> ultimate_parent(const DOM::Node<string_type>& origin)
+template<class string_type, class string_adaptor>
+DOM::Node<string_type, string_adaptor> ultimate_parent(const DOM::Node<string_type, string_adaptor>& origin)
 {
-  DOM::Node<string_type> n = origin;
-  DOM::Node<string_type> p = node_parent_or_owner(n);
+  DOM::Node<string_type, string_adaptor> n = origin;
+  DOM::Node<string_type, string_adaptor> p = node_parent_or_owner(n);
   while(p != 0)
   {
     n = p;
@@ -83,15 +83,16 @@ DOM::Node<string_type> ultimate_parent(const DOM::Node<string_type>& origin)
   return n;
 } // ultimate_parent
 
-template<class string_type>
-int resolve_different_subtrees(const DOM::Node<string_type>& lhs, const DOM::Node<string_type>& rhs)
+template<class string_type, class string_adaptor>
+int resolve_different_subtrees(const DOM::Node<string_type, string_adaptor>& lhs, 
+                               const DOM::Node<string_type, string_adaptor>& rhs)
 {
   // if we have something in the document, and a document fragment,
   // sort the doc ahead of the fragment
-  DOM::Node<string_type> lp = ultimate_parent(lhs);
+  DOM::Node<string_type,string_adaptor> lp = ultimate_parent(lhs);
   if(lp.getNodeType() == DOM::Node_base::DOCUMENT_NODE)
     return -1;
-  DOM::Node<string_type> rp = ultimate_parent(rhs);
+  DOM::Node<string_type, string_adaptor> rp = ultimate_parent(rhs);
   if(rp.getNodeType() == DOM::Node_base::DOCUMENT_NODE)
     return 1;
 
@@ -99,11 +100,11 @@ int resolve_different_subtrees(const DOM::Node<string_type>& lhs, const DOM::Nod
   return (lp.unlying_impl() < lp.unlying_impl()) ? -1 : 1;
 } // resolve_different_subtrees
 
-template<class string_type>
-std::vector<unsigned int> node_position(const DOM::Node<string_type>& node)
+template<class string_type, class string_adaptor>
+std::vector<unsigned int> node_position(const DOM::Node<string_type, string_adaptor>& node)
 {
   std::vector<unsigned int> pos;
-  DOM::Node<string_type> n = node;
+  DOM::Node<string_type, string_adaptor> n = node;
   do
   {
     pos.push_back(node_child_position(n));
@@ -113,8 +114,9 @@ std::vector<unsigned int> node_position(const DOM::Node<string_type>& node)
   return pos;
 } // node_position
 
-template<class string_type>
-int compareNodes(const DOM::Node<string_type>& lhs, const DOM::Node<string_type>& rhs)
+template<class string_type, class string_adaptor>
+int compareNodes(const DOM::Node<string_type, string_adaptor>& lhs, 
+                 const DOM::Node<string_type, string_adaptor>& rhs)
 {
   if(lhs == rhs)
     return 0;
@@ -150,8 +152,9 @@ int compareNodes(const DOM::Node<string_type>& lhs, const DOM::Node<string_type>
   return 0;
 } // compareNodes
 
-template<class string_type>
-bool nodes_less_than(const DOM::Node<string_type>& n1, const DOM::Node<string_type>& n2) 
+template<class string_type, class string_adaptor>
+bool nodes_less_than(const DOM::Node<string_type, string_adaptor>& n1, 
+                     const DOM::Node<string_type, string_adaptor>& n2) 
 { 
   return compareNodes(n1, n2) < 0; 
 } // nodes_less_than
@@ -160,12 +163,12 @@ bool nodes_less_than(const DOM::Node<string_type>& n1, const DOM::Node<string_ty
 
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-template<class string_type>
+template<class string_type, class string_adaptor>
 class NodeSet  
 {
 public:
-  typedef typename std::vector<DOM::Node<string_type> >::const_iterator const_iterator;
-  typedef typename std::vector<DOM::Node<string_type> >::iterator iterator;
+  typedef typename std::vector<DOM::Node<string_type, string_adaptor> >::const_iterator const_iterator;
+  typedef typename std::vector<DOM::Node<string_type, string_adaptor> >::iterator iterator;
 
   NodeSet() : 
     nodes_(), 
@@ -181,14 +184,14 @@ public:
   { 
   } // NodeSet
 
-  NodeSet(const NodeSet<string_type>& rhs) : 
+  NodeSet(const NodeSet<string_type, string_adaptor>& rhs) : 
     nodes_(rhs.nodes_),
     forward_(rhs.forward_), 
     sorted_(rhs.sorted_)
   { 
   } // NodeSet
 
-  NodeSet& operator=(const NodeSet<string_type>& rhs) 
+  NodeSet& operator=(const NodeSet<string_type, string_adaptor>& rhs) 
   {
     nodes_ = rhs.nodes_;
     forward_ = rhs.forward_;
@@ -207,7 +210,7 @@ public:
   const_iterator end() const { return nodes_.end(); }
   iterator begin() { return nodes_.begin(); }
   iterator end() { return nodes_.end(); }
-  const DOM::Node<string_type>& operator[](size_t i) const { return nodes_[i]; }
+  const DOM::Node<string_type, string_adaptor>& operator[](size_t i) const { return nodes_[i]; }
   size_t size() const { return nodes_.size(); }
   bool empty() const { return nodes_.empty(); }
 
@@ -218,7 +221,7 @@ public:
     nodes_.insert(position, first, last);
   } // insert
   
-  void push_back(const DOM::Node<string_type>& node) 
+  void push_back(const DOM::Node<string_type, string_adaptor>& node) 
   {
     nodes_.push_back(node);
     sorted_ = false;
@@ -252,15 +255,15 @@ public:
       return;
 
     if(forward_)
-      std::sort(nodes_.begin(), nodes_.end(), impl::nodes_less_than<string_type>);
+      std::sort(nodes_.begin(), nodes_.end(), impl::nodes_less_than<string_type, string_adaptor>);
     else
-      std::sort(nodes_.rbegin(), nodes_.rend(), impl::nodes_less_than<string_type>);
+      std::sort(nodes_.rbegin(), nodes_.rend(), impl::nodes_less_than<string_type, string_adaptor>);
 
     nodes_.erase(std::unique(nodes_.begin(), nodes_.end()), nodes_.end());
     sorted_ = true;
   } // sort
 
-  const DOM::Node<string_type>& top()  
+  const DOM::Node<string_type, string_adaptor>& top()  
   {
     sort();
     if(forward_)
@@ -269,12 +272,12 @@ public:
   } // top()
 
 private:
-  std::vector<DOM::Node<string_type> > nodes_;
+  std::vector<DOM::Node<string_type, string_adaptor> > nodes_;
   bool forward_;
   bool sorted_;
 }; // NodeSet
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class XPathValue
 {
 protected:
@@ -286,7 +289,7 @@ public:
   virtual bool asBool() const = 0;
   virtual double asNumber() const = 0;
   virtual string_type asString() const = 0;
-  virtual const NodeSet<string_type>& asNodeSet() const = 0;
+  virtual const NodeSet<string_type, string_adaptor>& asNodeSet() const = 0;
 
   virtual ValueType type() const = 0;
 
@@ -296,16 +299,16 @@ private:
   XPathValue& operator=(const XPathValue&);
 }; // class XPathValue
 
-template<class string_type>
-class XPathValuePtr : public boost::shared_ptr<const XPathValue<string_type> > 
+template<class string_type, class string_adaptor>
+class XPathValuePtr : public boost::shared_ptr<const XPathValue<string_type, string_adaptor> > 
 { 
 public:
-  explicit XPathValuePtr() : boost::shared_ptr<const XPathValue<string_type> >() { }
-  explicit XPathValuePtr(const XPathValue<string_type>* v) : boost::shared_ptr<const XPathValue<string_type> >(v) { }
-  XPathValuePtr(const XPathValuePtr& rhs) : boost::shared_ptr<const XPathValue<string_type> >(rhs) { }
+  explicit XPathValuePtr() : boost::shared_ptr<const XPathValue<string_type, string_adaptor> >() { }
+  explicit XPathValuePtr(const XPathValue<string_type, string_adaptor>* v) : boost::shared_ptr<const XPathValue<string_type, string_adaptor> >(v) { }
+  XPathValuePtr(const XPathValuePtr& rhs) : boost::shared_ptr<const XPathValue<string_type, string_adaptor> >(rhs) { }
   XPathValuePtr& operator=(const XPathValuePtr& rhs) 
   {
-    boost::shared_ptr<const XPathValue<string_type> >::operator=(rhs);
+    boost::shared_ptr<const XPathValue<string_type, string_adaptor> >::operator=(rhs);
     return *this;
   } // operator=
 }; // class XPathValuePtr
@@ -349,7 +352,7 @@ double stringAsNumber(const string_type& str)
 } // stringAsNumber
 
 template<class string_type, class string_adaptor>
-string_type nodeStringValue(const DOM::Node<string_type>& node)
+string_type nodeStringValue(const DOM::Node<string_type, string_adaptor>& node)
 {
   switch(node.getNodeType())
   {
@@ -384,7 +387,7 @@ string_type nodeStringValue(const DOM::Node<string_type>& node)
 } // nodeStringValue
 
 template<class string_type, class string_adaptor>
-double nodeNumberValue(const DOM::Node<string_type>& node)
+double nodeNumberValue(const DOM::Node<string_type, string_adaptor>& node)
 {
   return stringAsNumber<string_type, string_adaptor>(nodeStringValue<string_type, string_adaptor>(node));
 } // nodeNumberValue
@@ -396,10 +399,10 @@ double nodeNumberValue(const DOM::Node<string_type>& node)
 
 namespace impl {
 template<typename RT, typename string_type, typename string_adaptor> struct value_of_node {
-  RT operator()(const DOM::Node<string_type>& node) { return nodeStringValue<string_type, string_adaptor>(node); }
+  RT operator()(const DOM::Node<string_type, string_adaptor>& node) { return nodeStringValue<string_type, string_adaptor>(node); }
 };
 template<typename string_type, typename string_adaptor> struct value_of_node<double, string_type, string_adaptor> {
-  double operator()(const DOM::Node<string_type>& node) { return nodeNumberValue<string_type, string_adaptor>(node); }
+  double operator()(const DOM::Node<string_type, string_adaptor>& node) { return nodeNumberValue<string_type, string_adaptor>(node); }
 }; 
 
 template<class Op, class string_type, class string_adaptor>
@@ -412,7 +415,7 @@ public:
   compareNodeWith(const T& value) : value_(value) { }
   compareNodeWith(const compareNodeWith& rhs) : value_(rhs.value_) { }
 
-  bool operator()(const DOM::Node<string_type>& node) 
+  bool operator()(const DOM::Node<string_type, string_adaptor>& node) 
   {
     value_of_node<T, string_type, string_adaptor> nv;
     return Op()(nv(node), value_);
@@ -425,20 +428,20 @@ private:
 }; // class compareNodeWith
 
 template<class string_type, class string_adaptor, class predicate1, class predicate2>
-bool nodeSetsCompare(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool nodeSetsCompare(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
-  const NodeSet<string_type>& lns = lhs->asNodeSet();
-  const NodeSet<string_type>& rns = rhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& lns = lhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& rns = rhs->asNodeSet();
 
   if((lns.size() == 0) || (rns.size() == 0))
     return false;
 
   std::set<string_type> values;
-  typename NodeSet<string_type>::const_iterator l = lns.begin();
+  typename NodeSet<string_type, string_adaptor>::const_iterator l = lns.begin();
   string_type lvalue = nodeStringValue<string_type, string_adaptor>(*l);
 
   predicate1 p1;
-  for(typename NodeSet<string_type>::const_iterator r = rns.begin(), rend = rns.end(); r != rend; ++r)
+  for(typename NodeSet<string_type, string_adaptor>::const_iterator r = rns.begin(), rend = rns.end(); r != rend; ++r)
   {
     string_type rvalue = nodeStringValue<string_type, string_adaptor>(*r);
     if(p1(lvalue, rvalue))
@@ -448,7 +451,7 @@ bool nodeSetsCompare(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<
 
   ++l;
   predicate2 p2;
-  for(typename NodeSet<string_type>::const_iterator lend = lns.end(); l != lend; ++l)
+  for(typename NodeSet<string_type, string_adaptor>::const_iterator lend = lns.end(); l != lend; ++l)
     if(p2(values.find(nodeStringValue<string_type, string_adaptor>(*l)),  values.end()))
       return true;
 
@@ -456,7 +459,7 @@ bool nodeSetsCompare(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<
 } // nodeSetsEqual
 
 template<class string_type, class string_adaptor>
-bool nodeSetsEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool nodeSetsEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   return nodeSetsCompare<string_type, string_adaptor, 
                          std::equal_to<string_type>,
@@ -464,7 +467,7 @@ bool nodeSetsEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<st
 }
 
 template<class string_type, class string_adaptor>
-bool nodeSetsNotEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool nodeSetsNotEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   return nodeSetsCompare<string_type, string_adaptor, 
                          std::not_equal_to<string_type>,
@@ -472,9 +475,9 @@ bool nodeSetsNotEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr
 }
 
 template<class string_type, class string_adaptor>
-bool nodeSetAndValueEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool nodeSetAndValueEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
-  const NodeSet<string_type>& lns = lhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& lns = lhs->asNodeSet();
 
   switch(rhs->type())
   {
@@ -501,9 +504,9 @@ bool nodeSetAndValueEqual(const XPathValuePtr<string_type>& lhs, const XPathValu
 } // nodeSetAndValueEqual
 
 template<class string_type, class string_adaptor>
-bool nodeSetAndValueNotEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool nodeSetAndValueNotEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
-  const NodeSet<string_type>& lns = lhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& lns = lhs->asNodeSet();
 
   switch(rhs->type())
   {
@@ -530,10 +533,10 @@ bool nodeSetAndValueNotEqual(const XPathValuePtr<string_type>& lhs, const XPathV
 } // nodeSetAndValueNotEqual
 
 template<class string_type, class string_adaptor> 
-double minValue(const NodeSet<string_type>& ns)
+double minValue(const NodeSet<string_type, string_adaptor>& ns)
 {
   double v = nodeNumberValue<string_type, string_adaptor>(ns[0]);
-  for(typename NodeSet<string_type>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
+  for(typename NodeSet<string_type, string_adaptor>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
   {
     double vt = nodeNumberValue<string_type, string_adaptor>(*i);
     if(isNaN(vt))
@@ -545,10 +548,10 @@ double minValue(const NodeSet<string_type>& ns)
 } // minValue
 
 template<class string_type, class string_adaptor> 
-double maxValue(const NodeSet<string_type>& ns)
+double maxValue(const NodeSet<string_type, string_adaptor>& ns)
 {
   double v = nodeNumberValue<string_type, string_adaptor>(ns[0]);
-  for(typename NodeSet<string_type>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
+  for(typename NodeSet<string_type, string_adaptor>::const_iterator i = ns.begin(), ie = ns.end(); i != ie; ++i)
   {
     double vt = nodeNumberValue<string_type, string_adaptor>(*i);
     if(isNaN(vt))
@@ -560,22 +563,22 @@ double maxValue(const NodeSet<string_type>& ns)
 } // maxValue
 
 template<class Op, class string_type, class string_adaptor>
-bool compareNodeSets(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool compareNodeSets(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   return Op()(minValue<string_type, string_adaptor>(lhs->asNodeSet()), maxValue<string_type, string_adaptor>(rhs->asNodeSet()));
 } // compareNodeSets
 
 template<class Op, class string_type, class string_adaptor>
-bool compareNodeSetWith(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool compareNodeSetWith(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
-  const NodeSet<string_type>& lns = lhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& lns = lhs->asNodeSet();
   return std::find_if(lns.begin(), 
                       lns.end(), 
                       compareNodeWith<Op, string_type, string_adaptor>(rhs->asNumber())) != lns.end();
 } // compareNodeSetAndValue
 
 template<class string_type, class string_adaptor> 
-bool areEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool areEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   ValueType lt = lhs->type();
   ValueType rt = rhs->type();
@@ -601,7 +604,7 @@ bool areEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_
 } // areEqual
 
 template<class string_type, class string_adaptor> 
-bool areNotEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool areNotEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   ValueType lt = lhs->type();
   ValueType rt = rhs->type();
@@ -619,7 +622,7 @@ bool areNotEqual(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<stri
 } // areNotEqual
 
 template<class string_type, class string_adaptor> 
-bool isLessThan(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool isLessThan(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   ValueType lt = lhs->type();
   ValueType rt = rhs->type();
@@ -637,7 +640,7 @@ bool isLessThan(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<strin
 } // isLessThan
 
 template<class string_type, class string_adaptor> 
-bool isLessThanEquals(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool isLessThanEquals(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   ValueType lt = lhs->type();
   ValueType rt = rhs->type();
@@ -655,13 +658,13 @@ bool isLessThanEquals(const XPathValuePtr<string_type>& lhs, const XPathValuePtr
 } // isLessThanEquals
 
 template<class string_type, class string_adaptor> 
-bool isGreaterThan(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool isGreaterThan(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   return isLessThan<string_type, string_adaptor>(rhs, lhs);
 } // isGreaterThan
 
 template<class string_type, class string_adaptor> 
-bool isGreaterThanEquals(const XPathValuePtr<string_type>& lhs, const XPathValuePtr<string_type>& rhs)
+bool isGreaterThanEquals(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
 {
   return isLessThanEquals<string_type, string_adaptor>(rhs, lhs);
 } // isGreaterThanEquals

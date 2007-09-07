@@ -10,13 +10,16 @@ namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT>
-class TextImpl : public DOM::Text_impl<stringT>,
+class TextImpl : public DOM::Text_impl<stringT, string_adaptorT>,
                  public CharacterDataImpl<stringT, string_adaptorT>
 {
-    typedef CharacterDataImpl<stringT, string_adaptorT> CharDataT;
   public:
+    typedef CharacterDataImpl<stringT, string_adaptorT> CharacterDataT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+    typedef DOM::Text_impl<stringT, string_adaptorT> DOMText_implT;
+
     TextImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
-        DOM::Text_impl<stringT>(),
+        DOMText_implT(),
         CharacterDataImpl<stringT, string_adaptorT>(ownerDoc, data)
     { 
     } // TextImpl
@@ -25,15 +28,15 @@ class TextImpl : public DOM::Text_impl<stringT>,
 
     //////////////////////////////////////////////////////////////////
     // DOM::Text methods
-    virtual DOM::Text_impl<stringT>* splitText(int offset)
+    virtual DOMText_implT* splitText(int offset)
     {
-      CharDataT::throwIfReadOnly();
+      CharacterDataT::throwIfReadOnly();
 
-      stringT second = CharDataT::substringData(offset, CharDataT::getLength() - offset);
-      CharDataT::deleteData(offset, CharDataT::getLength() - offset);
+      stringT second = CharacterDataT::substringData(offset, CharacterDataT::getLength() - offset);
+      CharacterDataT::deleteData(offset, CharacterDataT::getLength() - offset);
 
-      TextImpl* splitNode = new TextImpl(CharDataT::getOwnerDoc(), second);
-      CharDataT::getParentNode()->insertBefore(splitNode, CharDataT::getNextSibling());
+      TextImpl* splitNode = new TextImpl(CharacterDataT::getOwnerDoc(), second);
+      CharacterDataT::getParentNode()->insertBefore(splitNode, CharacterDataT::getNextSibling());
       return splitNode;
     } // splitText
 
@@ -44,9 +47,9 @@ class TextImpl : public DOM::Text_impl<stringT>,
       return DOM::Node_base::TEXT_NODE;
     } // getNodeType
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
-      return CharDataT::ownerDoc_->createTextNode(CharDataT::getData());
+      return CharacterDataT::ownerDoc_->createTextNode(CharacterDataT::getData());
     } // cloneNode
 
     virtual const stringT& getNodeName() const 

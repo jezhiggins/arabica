@@ -118,6 +118,7 @@ template<class stringT, class string_adaptorT>
 class DocumentTraversal_impl : virtual public TraversalImpl
 {
   public:
+    typedef DOM::Node<stringT, string_adaptorT> NodeT;
     typedef NodeFilter<stringT, string_adaptorT> NodeFilterT;
     typedef TreeWalker_impl<stringT, string_adaptorT> TreeWalker_implT;
     typedef NodeIterator_impl<stringT, string_adaptorT> NodeIterator_implT;

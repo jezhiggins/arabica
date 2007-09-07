@@ -73,7 +73,6 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class EntityResolver
 {
 public:
-  typedef string_type stringT;
   typedef InputSource<string_type, string_adaptor> InputSourceT;
 
   virtual ~EntityResolver() { };
@@ -108,7 +107,7 @@ public:
    * @exception SAXException Any SAX exception.
    * @see InputSource
    */
-   virtual InputSourceT resolveEntity(const stringT& publicId, const stringT& systemId) = 0;
+   virtual InputSourceT resolveEntity(const string_type& publicId, const string_type& systemId) = 0;
 }; // class EntityResolver
 
 } // namespace SAX

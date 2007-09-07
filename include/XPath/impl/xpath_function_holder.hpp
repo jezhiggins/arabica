@@ -29,10 +29,10 @@ public:
     delete func_;
   } // ~FunctionHolder
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return XPathValuePtr<string_type>(func_->evaluate(context, executionContext));
+    return XPathValuePtr<string_type, string_adaptor>(func_->evaluate(context, executionContext));
   } // evaluate
 
   static FunctionHolder* createFunction(const string_type& namespace_uri,

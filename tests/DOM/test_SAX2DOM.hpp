@@ -23,7 +23,7 @@ class SAX2DOMTest : public TestCase
     {
     } // setUp
 
-    Arabica::DOM::Document<string_type> parse(string_type str)
+    Arabica::DOM::Document<string_type, string_adaptor> parse(string_type str)
     {
       std::stringstream ss;
       ss << SA::asStdString(str);
@@ -42,8 +42,8 @@ class SAX2DOMTest : public TestCase
 
     void test1() 
     {
-      Arabica::DOM::Element<string_type> d;
-      Arabica::DOM::Node<string_type> n;
+      Arabica::DOM::Element<string_type, string_adaptor> d;
+      Arabica::DOM::Node<string_type, string_adaptor> n;
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
@@ -51,24 +51,24 @@ class SAX2DOMTest : public TestCase
 
     void test2()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root/>"));
-      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<root/>"));
+      Arabica::DOM::Element<string_type, string_adaptor> elem = d.getDocumentElement();
       assert(elem.getParentNode() == d);
       assert(elem.getOwnerDocument() == d);
     } // test2
 
     void test3()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root attr=\"poop\"/>"));
-      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<root attr=\"poop\"/>"));
+      Arabica::DOM::Element<string_type, string_adaptor> elem = d.getDocumentElement();
       assert(elem.hasAttributes() == true);
       assert(elem.getAttribute(SA::construct_from_utf8("attr")) == SA::construct_from_utf8("poop"));
     } // test3
 
     void test4()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root><child attr=\"poop\"/></root>"));
-      Arabica::DOM::Element<string_type> elem = Arabica::DOM::Element<string_type>(d.getDocumentElement().getFirstChild());
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<root><child attr=\"poop\"/></root>"));
+      Arabica::DOM::Element<string_type, string_adaptor> elem = Arabica::DOM::Element<string_type, string_adaptor>(d.getDocumentElement().getFirstChild());
       assert(SA::construct_from_utf8("child") == elem.getNodeName());
       assertEquals(true, elem.hasAttributes());
       assert(SA::construct_from_utf8("poop") == elem.getAttribute(SA::construct_from_utf8("attr")));
@@ -76,44 +76,44 @@ class SAX2DOMTest : public TestCase
 
     void test5()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<stuff:elem attr='something' xmlns:stuff='http://example.com/stuff'/>"));
-      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<stuff:elem attr='something' xmlns:stuff='http://example.com/stuff'/>"));
+      Arabica::DOM::Element<string_type, string_adaptor> elem = d.getDocumentElement();
       assertEquals(true, elem.hasNamespaceURI());
       assert(SA::construct_from_utf8("http://example.com/stuff") == elem.getNamespaceURI());
 
-      Arabica::DOM::Attr<string_type> attr = elem.getAttributeNode(SA::construct_from_utf8("attr"));
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = elem.getAttributeNode(SA::construct_from_utf8("attr"));
       assertEquals(false, attr.hasNamespaceURI());
     } // test5
 
     void test6()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<stuff:elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>"));
-      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<stuff:elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>"));
+      Arabica::DOM::Element<string_type, string_adaptor> elem = d.getDocumentElement();
       assertEquals(true, elem.hasNamespaceURI());
       assert(SA::construct_from_utf8("http://example.com/stuff") == elem.getNamespaceURI());
 
-      Arabica::DOM::Attr<string_type> attr = elem.getAttributeNodeNS(SA::construct_from_utf8("http://example.com/stuff"), SA::construct_from_utf8("attr"));
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = elem.getAttributeNodeNS(SA::construct_from_utf8("http://example.com/stuff"), SA::construct_from_utf8("attr"));
       assertEquals(true, attr.hasNamespaceURI());
       assert(SA::construct_from_utf8("http://example.com/stuff") == attr.getNamespaceURI());
     } // test6
 
     void test7()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>"));
-      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<elem stuff:attr='something' xmlns:stuff='http://example.com/stuff'/>"));
+      Arabica::DOM::Element<string_type, string_adaptor> elem = d.getDocumentElement();
       assertEquals(false, elem.hasNamespaceURI());
 
-      Arabica::DOM::Attr<string_type> attr = elem.getAttributeNodeNS(SA::construct_from_utf8("http://example.com/stuff"), SA::construct_from_utf8("attr"));
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = elem.getAttributeNodeNS(SA::construct_from_utf8("http://example.com/stuff"), SA::construct_from_utf8("attr"));
       assertEquals(true, attr.hasNamespaceURI());
       assert(SA::construct_from_utf8("http://example.com/stuff") == attr.getNamespaceURI());
     } // test7
 
     void test8()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<root attr=\"poop\"><child/></root>"));
-      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<root attr=\"poop\"><child/></root>"));
+      Arabica::DOM::Element<string_type, string_adaptor> elem = d.getDocumentElement();
 
-      Arabica::DOM::Element<string_type> e2 = Arabica::DOM::Element<string_type>(elem.cloneNode(true));
+      Arabica::DOM::Element<string_type, string_adaptor> e2 = Arabica::DOM::Element<string_type, string_adaptor>(elem.cloneNode(true));
       assert(e2.getOwnerDocument() == d);
       assert(e2.getParentNode() == 0);
       assert(e2.hasAttributes() == true);
@@ -123,17 +123,17 @@ class SAX2DOMTest : public TestCase
 
     void test9()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<elem attr='something' xmlns:stuff='http://example.com/stuff'/>"));
-      Arabica::DOM::Element<string_type> elem = d.getDocumentElement();
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<elem attr='something' xmlns:stuff='http://example.com/stuff'/>"));
+      Arabica::DOM::Element<string_type, string_adaptor> elem = d.getDocumentElement();
       assertEquals(false, elem.hasNamespaceURI());
 
-      Arabica::DOM::Attr<string_type> attr = elem.getAttributeNode(SA::construct_from_utf8("attr"));
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = elem.getAttributeNode(SA::construct_from_utf8("attr"));
       assertEquals(false, attr.hasNamespaceURI());
     } // test9
 
     void test10()
     {
-      Arabica::DOM::Document<string_type> d = parse(SA::construct_from_utf8("<elem stuff:attr='something' poop:attr='fail' xmlns:stuff='http://example.com/stuff'/>"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = parse(SA::construct_from_utf8("<elem stuff:attr='something' poop:attr='fail' xmlns:stuff='http://example.com/stuff'/>"));
       assert(d == 0);
     } // test10
 

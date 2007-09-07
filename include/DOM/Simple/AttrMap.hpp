@@ -19,9 +19,11 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     typedef AttrNSImpl<stringT, string_adaptorT> AttrNSImplT;
     typedef ElementImpl<stringT, string_adaptorT> ElementImplT;
     typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
+    typedef DocumentTypeImpl<stringT, string_adaptorT> DocumentTypeImplT;
     typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
     typedef DOM::Attr_impl<stringT, string_adaptorT> DOMAttr_implT;
     typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
+
     AttrMap(DocumentImplT* ownerDoc) : 
         NamedNodeMapImplT(ownerDoc),
         ownerElement_(0)

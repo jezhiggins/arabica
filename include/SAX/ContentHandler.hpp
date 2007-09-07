@@ -51,7 +51,6 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class ContentHandler
 {
 public:
-  typedef string_type stringT;
   typedef Locator<string_type, string_adaptor> LocatorT;
   typedef Attributes<string_type, string_adaptor> AttributesT;
 
@@ -145,7 +144,7 @@ public:
    * @see #endPrefixMapping
    * @see #startElement
    */
-  virtual void startPrefixMapping(const stringT& prefix, const stringT& uri) = 0;
+  virtual void startPrefixMapping(const string_type& prefix, const string_type& uri) = 0;
   /**
    * End the scope of a prefix-URI mapping.
    *
@@ -161,7 +160,7 @@ public:
    * @see #startPrefixMapping
    * @see #endElement
    */
-  virtual void endPrefixMapping(const stringT& prefix) = 0;
+  virtual void endPrefixMapping(const string_type& prefix) = 0;
 
   /**
    * Receive notification of the beginning of an element.
@@ -222,8 +221,8 @@ public:
    * @see #endElement
    * @see Attributes
    */
-  virtual void startElement(const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName, const AttributesT& atts) = 0;
+  virtual void startElement(const string_type& namespaceURI, const string_type& localName,
+                            const string_type& qName, const AttributesT& atts) = 0;
   /**
    * Receive notification of the end of an element.
    *
@@ -244,8 +243,8 @@ public:
    *        empty string if qualified names are not available.
    * @exception SAXException Any SAX exception.
    */
-  virtual void endElement(const stringT& namespaceURI, const stringT& localName,
-                          const stringT& qName) = 0;
+  virtual void endElement(const string_type& namespaceURI, const string_type& localName,
+                          const string_type& qName) = 0;
 
   /**
    * Receive notification of character data.
@@ -270,7 +269,7 @@ public:
    * @see #ignorableWhitespace 
    * @see Locator
    */
-  virtual void characters(const stringT& ch) = 0;
+  virtual void characters(const string_type& ch) = 0;
   /**
    * Receive notification of ignorable whitespace in element content.
    *
@@ -292,7 +291,7 @@ public:
    * @exception SAXException Any SAX exception.
    * @see #characters
    */
-  virtual void ignorableWhitespace(const stringT& ch) = 0;
+  virtual void ignorableWhitespace(const string_type& ch) = 0;
 
   /**
    * Receive notification of a processing instruction.
@@ -311,7 +310,7 @@ public:
    *        whitespace separating it from the target.
    * @exception SAXException Any SAX exception.
    */
-  virtual void processingInstruction(const stringT& target, const stringT& data) = 0;
+  virtual void processingInstruction(const string_type& target, const string_type& data) = 0;
 
   /**
    * Receive notification of a skipped entity.
@@ -332,7 +331,7 @@ public:
    *        "[dtd]".
    * @exception SAXException Any SAX exception.
    */
-  virtual void skippedEntity(const stringT& name) = 0;
+  virtual void skippedEntity(const string_type& name) = 0;
 }; // class ContentHandler
 
 } // namespace SAX

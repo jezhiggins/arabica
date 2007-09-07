@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class DocumentTypeTest : public TestCase 
 {
-  Arabica::DOM::DOMImplementation<string_type> factory;
+  Arabica::DOM::DOMImplementation<string_type, string_adaptor> factory;
   typedef string_adaptor SA;
 
   public: 
@@ -26,8 +26,8 @@ class DocumentTypeTest : public TestCase
 
     void testNull() 
     {
-      Arabica::DOM::DocumentType<string_type> d;
-      Arabica::DOM::Node<string_type> n;
+      Arabica::DOM::DocumentType<string_type, string_adaptor> d;
+      Arabica::DOM::Node<string_type, string_adaptor> n;
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
@@ -35,28 +35,28 @@ class DocumentTypeTest : public TestCase
 
     void testCreate()
     {
-      Arabica::DOM::DocumentType<string_type> d = factory.createDocumentType(SA::construct_from_utf8("charlie"), 
+      Arabica::DOM::DocumentType<string_type, string_adaptor> d = factory.createDocumentType(SA::construct_from_utf8("charlie"), 
                                                                     SA::construct_from_utf8(""), 
                                                                     SA::construct_from_utf8("http://gruesome/"));
       assert(d != 0);
 
-      Arabica::DOM::Node<string_type> n;
+      Arabica::DOM::Node<string_type, string_adaptor> n;
       assert(n == 0);
       assert(n != d);
 
       n = d;
 
       assert(n == d);
-      assert(d == Arabica::DOM::DocumentType<string_type>(n));
+      assert(d == (Arabica::DOM::DocumentType<string_type, string_adaptor>(n)));
 
-      Arabica::DOM::DocumentType<string_type> d2;
+      Arabica::DOM::DocumentType<string_type, string_adaptor> d2;
       assert(d != d2);
       assert(d2 != d);
       d2 = d;
       assert(d == d2);
       assert(d2 == d);
 
-      Arabica::DOM::DocumentType<string_type> d3 = factory.createDocumentType(SA::construct_from_utf8("billy"), 
+      Arabica::DOM::DocumentType<string_type, string_adaptor> d3 = factory.createDocumentType(SA::construct_from_utf8("billy"), 
                                                                      SA::construct_from_utf8(""), 
                                                                      SA::construct_from_utf8("http://gruesome/"));
       assert(d != d3);
@@ -68,15 +68,15 @@ class DocumentTypeTest : public TestCase
 
     void testDoc()
     {
-      Arabica::DOM::DocumentType<string_type> d = factory.createDocumentType(SA::construct_from_utf8("charlie"), 
+      Arabica::DOM::DocumentType<string_type, string_adaptor> d = factory.createDocumentType(SA::construct_from_utf8("charlie"), 
                                                                     SA::construct_from_utf8("sss"), 
                                                                     SA::construct_from_utf8("http://gruesome/"));
 
-      Arabica::DOM::Document<string_type> doc = factory.createDocument(SA::construct_from_utf8(""), 
+      Arabica::DOM::Document<string_type, string_adaptor> doc = factory.createDocument(SA::construct_from_utf8(""), 
                                                               SA::construct_from_utf8("doc"), 
                                                               d);
 
-      Arabica::DOM::DocumentType<string_type> dt = doc.getDoctype();
+      Arabica::DOM::DocumentType<string_type, string_adaptor> dt = doc.getDoctype();
       assert(dt.getPublicId() == SA::construct_from_utf8("sss"));
       assert(dt.getSystemId() == SA::construct_from_utf8("http://gruesome/"));
       assert(dt.getNodeName() == SA::construct_from_utf8("charlie"));

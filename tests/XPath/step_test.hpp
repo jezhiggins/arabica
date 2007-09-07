@@ -13,16 +13,16 @@ class StepTest : public TestCase
 {
   typedef string_adaptor SA;
 
-  Arabica::DOM::DOMImplementation<string_type> factory_;
-  Arabica::DOM::Document<string_type> document_;
+  Arabica::DOM::DOMImplementation<string_type, string_adaptor> factory_;
+  Arabica::DOM::Document<string_type, string_adaptor> document_;
 
-  Arabica::DOM::Element<string_type> root_;
+  Arabica::DOM::Element<string_type, string_adaptor> root_;
 
-  Arabica::DOM::Element<string_type> element1_;
-  Arabica::DOM::Element<string_type> element2_;
-  Arabica::DOM::Element<string_type> element3_;
+  Arabica::DOM::Element<string_type, string_adaptor> element1_;
+  Arabica::DOM::Element<string_type, string_adaptor> element2_;
+  Arabica::DOM::Element<string_type, string_adaptor> element3_;
 
-  Arabica::DOM::Attr<string_type> attr_;
+  Arabica::DOM::Attr<string_type, string_adaptor> attr_;
 
 public:
   StepTest(const std::string& name) : TestCase(name)
@@ -31,7 +31,7 @@ public:
 
   void setUp()
   {
-    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type>::getDOMImplementation();
+    factory_ = Arabica::SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     document_ = factory_.createDocument(SA::construct_from_utf8(""), SA::construct_from_utf8("root"), 0);
     root_ = document_.getDocumentElement();
 
@@ -56,10 +56,10 @@ public:
   void test1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type> step(new impl::TestStepExpression<string_type, string_adaptor>(CHILD, new impl::AnyNodeTest<string_type>()));
+    XPathExpressionPtr<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, string_adaptor>(CHILD, new impl::AnyNodeTest<string_type, string_adaptor>()));
 
-    XPathValuePtr<string_type> value = step->evaluate(root_);
-    const NodeSet<string_type>& set = value->asNodeSet();
+    XPathValuePtr<string_type, string_adaptor> value = step->evaluate(root_);
+    const NodeSet<string_type, string_adaptor>& set = value->asNodeSet();
 
     assertEquals(set.size(), 3);
     assertTrue(set[0] == element1_);
@@ -70,29 +70,29 @@ public:
   void test2()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type> step(new impl::TestStepExpression<string_type, string_adaptor>(ATTRIBUTE, new impl::AnyNodeTest<string_type>()));
+    XPathExpressionPtr<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, string_adaptor>(ATTRIBUTE, new impl::AnyNodeTest<string_type, string_adaptor>()));
 
-    NodeSet<string_type> set = step->evaluateAsNodeSet(element2_);
+    NodeSet<string_type, string_adaptor> set = step->evaluateAsNodeSet(element2_);
 
     assertEquals(4, set.size());
-    Arabica::DOM::Attr<string_type> attr = static_cast<Arabica::DOM::Attr<string_type> >(set[0]);
+    Arabica::DOM::Attr<string_type, string_adaptor> attr = static_cast<Arabica::DOM::Attr<string_type, string_adaptor> >(set[0]);
     assertTrue(attr.getNodeName() == SA::construct_from_utf8("one"));
-    attr = static_cast<Arabica::DOM::Attr<string_type> >(set[1]);
+    attr = static_cast<Arabica::DOM::Attr<string_type, string_adaptor> >(set[1]);
     assertTrue(attr.getNodeName() == SA::construct_from_utf8("two"));
-    attr = static_cast<Arabica::DOM::Attr<string_type> >(set[2]);
+    attr = static_cast<Arabica::DOM::Attr<string_type, string_adaptor> >(set[2]);
     assertTrue(attr.getNodeName() == SA::construct_from_utf8("three"));
-    attr = static_cast<Arabica::DOM::Attr<string_type> >(set[3]);
+    attr = static_cast<Arabica::DOM::Attr<string_type, string_adaptor> >(set[3]);
     assertTrue(attr.getNodeName() == SA::construct_from_utf8("four"));
   } // test2
 
   void test3()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type> step(new impl::TestStepExpression<string_type, 
+    XPathExpressionPtr<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, 
       string_adaptor>(CHILD, new impl::NameNodeTest<string_type, string_adaptor>(SA::construct_from_utf8("child2"))));
 
-    XPathValuePtr<string_type> value = step->evaluate(root_);
-    const NodeSet<string_type>& set = value->asNodeSet();
+    XPathValuePtr<string_type, string_adaptor> value = step->evaluate(root_);
+    const NodeSet<string_type, string_adaptor>& set = value->asNodeSet();
 
     assertEquals(1, set.size());
     assertTrue(set[0] == element2_);

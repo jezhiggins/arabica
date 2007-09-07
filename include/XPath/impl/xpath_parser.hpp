@@ -85,14 +85,14 @@ public:
     return (static_cast<impl::MatchExpressionWrapper<string_type, string_adaptor>*>(wrapper.get()))->matches();
   } // compile_match
 
-  XPathValuePtr<string_type> evaluate(const string_type& xpath, const DOM::Node<string_type>& context) const
+  XPathValuePtr<string_type, string_adaptor> evaluate(const string_type& xpath, const DOM::Node<string_type, string_adaptor>& context) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
     executionContext.setVariableResolver(getVariableResolver());
     return compile(xpath)->evaluate(context, executionContext);
   } // evaluate
 
-  XPathValuePtr<string_type> evaluate_expr(const string_type& xpath, const DOM::Node<string_type>& context) const
+  XPathValuePtr<string_type, string_adaptor> evaluate_expr(const string_type& xpath, const DOM::Node<string_type, string_adaptor>& context) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
     executionContext.setVariableResolver(getVariableResolver());
@@ -757,7 +757,7 @@ XPathExpression<string_type, string_adaptor>* XPath<string_type, string_adaptor>
   typename impl::types<string_adaptor>::node_iter_t n = i;
 
   impl::StepList<string_type, string_adaptor> steps;
-  steps.push_back(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::NotAttributeNodeTest<string_type>()));
+  steps.push_back(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::NotAttributeNodeTest<string_type, string_adaptor>()));
   steps.push_back(impl::StepFactory<string_type, string_adaptor>::createSingleStep(n, ie, context, SELF));
   return new impl::MatchExpressionWrapper<string_type, string_adaptor>(new impl::RelativeLocationPath<string_type, string_adaptor>(steps), defaultPriority(i, ie));
 } // createSingleMatchStep
@@ -921,9 +921,9 @@ void createStepsFromPattern(impl::StepList<string_type, string_adaptor>& steps,
     default:
       {
         if(is_attr) 
-          steps.push_front(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::AttributeNodeTest<string_type>()));
+          steps.push_front(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::AttributeNodeTest<string_type, string_adaptor>()));
         else
-          steps.push_front(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::NotAttributeNodeTest<string_type>()));
+          steps.push_front(new impl::TestStepExpression<string_type, string_adaptor>(SELF, new impl::NotAttributeNodeTest<string_type, string_adaptor>()));
 
         Axis axis = getPatternAxis<string_adaptor>(c, end);
         if(override != static_cast<Axis>(-1))

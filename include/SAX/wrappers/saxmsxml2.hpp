@@ -60,26 +60,25 @@ class COMMultiThreadInitializer  : public COMInitializer_tag
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
+class msxml2_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>
 {
-  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
-                               Arabica::default_string_adaptor<string_type>, 
-                               T0, 
-                               T1>::type string_adaptor_type;
-  typedef typename Arabica::get_param<COMInitializer_tag, 
-                               COMSingleThreadInitializer, 
-                               T1, 
-                               T0>::type COMInitializer_type;
-
   public:
-    typedef SAX::EntityResolver<string_type> entityResolverT;
-    typedef SAX::DTDHandler<string_type> dtdHandlerT;
-    typedef SAX::ContentHandler<string_type> contentHandlerT;
-    typedef SAX::DeclHandler<string_type> declHandlerT;
-    typedef SAX::LexicalHandler<string_type> lexicalHandlerT;
-    typedef SAX::InputSource<string_type> inputSourceT;
-    typedef SAX::Locator<string_type> locatorT;
-    typedef SAX::ErrorHandler<string_type> errorHandlerT;
+    typedef SAX::XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+    typedef typename XMLReaderT::string_adaptor string_adaptor;
+    typedef typename Arabica::get_param<COMInitializer_tag, 
+                                        COMSingleThreadInitializer, 
+                                        T1, 
+                                        T0>::type COMInitializer_type;
+
+    typedef SAX::EntityResolver<string_type, string_adaptor> entityResolverT;
+    typedef SAX::DTDHandler<string_type, string_adaptor> dtdHandlerT;
+    typedef SAX::ContentHandler<string_type, string_adaptor> contentHandlerT;
+    typedef SAX::DeclHandler<string_type, string_adaptor> declHandlerT;
+    typedef SAX::LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
+    typedef SAX::InputSource<string_type, string_adaptor> inputSourceT;
+    typedef SAX::Locator<string_type, string_adaptor> locatorT;
+    typedef SAX::ErrorHandler<string_type, string_adaptor> errorHandlerT;
+    typedef SAX::Attributes<string_type, string_adaptor> attributesT;
 
     msxml2_wrapper();
     virtual ~msxml2_wrapper();
@@ -92,14 +91,14 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
     /////////////////////////////////////////////////
     // Event Handlers
     /* MSXML does not use EntityResolver currently */
-    virtual void setEntityResolver(SAX::EntityResolver<string_type>& resolver) { } 
-    virtual SAX::EntityResolver<string_type>* getEntityResolver() const { return 0; }
-    virtual void setDTDHandler(SAX::DTDHandler<string_type>& handler) { dtdHandler_.setDTDHandler(handler); } 
-    virtual SAX::DTDHandler<string_type>* getDTDHandler() const { return dtdHandler_.getDTDHandler(); }
-    virtual void setContentHandler(SAX::ContentHandler<string_type>& handler) {	contentHandler_.setContentHandler(handler); }
-    virtual SAX::ContentHandler<string_type>* getContentHandler() const { return contentHandler_.getContentHandler(); }
-    virtual void setErrorHandler(SAX::ErrorHandler<string_type>& handler);
-    virtual SAX::ErrorHandler<string_type>* getErrorHandler() const;
+    virtual void setEntityResolver(entityResolverT& resolver) { } 
+    virtual entityResolverT* getEntityResolver() const { return 0; }
+    virtual void setDTDHandler(dtdHandlerT& handler) { dtdHandler_.setDTDHandler(handler); } 
+    virtual dtdHandlerT* getDTDHandler() const { return dtdHandler_.getDTDHandler(); }
+    virtual void setContentHandler(contentHandlerT& handler) {	contentHandler_.setContentHandler(handler); }
+    virtual contentHandlerT* getContentHandler() const { return contentHandler_.getContentHandler(); }
+    virtual void setErrorHandler(errorHandlerT& handler);
+    virtual errorHandlerT* getErrorHandler() const { return errorHandler_.getErrorHandler(); }
     virtual void setDeclHandler(declHandlerT& handler) { declHandler_.setDeclHandler(handler); }
     virtual declHandlerT* getDeclHandler() const { return declHandler_.getDeclHandler(); }
     virtual void setLexicalHandler(lexicalHandlerT& handler) { lexicalHandler_.setLexicalHandler(handler); }
@@ -107,29 +106,29 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 
     //////////////////////////////////////////////////
     // Parsing
-    virtual void parse(SAX::InputSource<string_type>& input);
+    virtual void parse(inputSourceT& input);
 
   protected:
-  	virtual std::auto_ptr<typename SAX::XMLReaderInterface<string_type>::PropertyBase> doGetProperty(const string_type& name)
+  	virtual std::auto_ptr<typename XMLReaderT::PropertyBase> doGetProperty(const string_type& name)
     {
       if(name == properties_.lexicalHandler)
       {
-        Property<SAX::LexicalHandler<string_type>*>* prop = new Property<SAX::LexicalHandler<string_type>*>(lexicalHandler_.getLexicalHandler());
-        return std::auto_ptr<SAX::XMLReaderInterface<string_type>::PropertyBase>(prop);
+        Property<lexicalHandlerT*>* prop = new Property<lexicalHandlerT*>(lexicalHandler_.getLexicalHandler());
+        return std::auto_ptr<XMLReaderT::PropertyBase>(prop);
       }
       if(name == properties_.declHandler)
       {
-        Property<SAX::DeclHandler<string_type>*>* prop = new Property<SAX::DeclHandler<string_type>*>(declHandler_.getDeclHandler());
-        return std::auto_ptr<SAX::XMLReaderInterface<string_type>::PropertyBase>(prop);
+        Property<declHandlerT*>* prop = new Property<declHandlerT*>(declHandler_.getDeclHandler());
+        return std::auto_ptr<XMLReaderT::PropertyBase>(prop);
       }
       throw SAX::SAXNotRecognizedException("Property not recognized ");    
     } // doGetProperty
 
-	  virtual void doSetProperty(const string_type& name, std::auto_ptr<typename SAX::XMLReaderInterface<string_type>::PropertyBase> value)
+	  virtual void doSetProperty(const string_type& name, std::auto_ptr<typename XMLReaderT::PropertyBase> value)
     {
       if(name == properties_.lexicalHandler)
       {
-	      Property<SAX::LexicalHandler<string_type>&>* prop = dynamic_cast<Property<SAX::LexicalHandler<string_type>&>*>(value.get());
+	      Property<lexicalHandlerT&>* prop = dynamic_cast<Property<lexicalHandlerT&>*>(value.get());
 
         if(!prop)
           throw std::runtime_error("bad_cast: Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
@@ -139,7 +138,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
       } // if ...
       if(name == properties_.declHandler)
       {
-        Property<SAX::DeclHandler<string_type>&>* prop = dynamic_cast<Property<SAX::DeclHandler<string_type>&>*>(value.get());
+        Property<declHandlerT&>* prop = dynamic_cast<Property<declHandlerT&>*>(value.get());
 
         if(!prop)
           throw std::runtime_error("bad_cast: Property DeclHandler is wrong type, should be SAX::DeclHandler&");
@@ -153,7 +152,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 	private:
     //////////////////////////////////////////////////////
     // COM interface -> C++ interface adaptors
-    class LocatorAdaptor : public SAX::Locator<string_type>
+    class LocatorAdaptor : public locatorT
     {
       public:
         LocatorAdaptor() : locator_(0) { }
@@ -167,7 +166,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 
 		  const wchar_t* pwchPublicId;
           locator_->getPublicId(&pwchPublicId);
-          string_type publicId(string_adaptor_type::construct_from_utf16(pwchPublicId));
+          string_type publicId(string_adaptor::construct_from_utf16(pwchPublicId));
           return publicId;
         } // getPublicId
     
@@ -178,7 +177,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 
           const wchar_t* pwchSystemId;
           locator_->getSystemId(&pwchSystemId);
-          string_type systemId(string_adaptor_type::construct_from_utf16(pwchSystemId));
+          string_type systemId(string_adaptor::construct_from_utf16(pwchSystemId));
           return systemId;
         } // getSystemId
     
@@ -219,8 +218,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         DTDHandlerAdaptor() : dtdHandler_(0) { }
         ~DTDHandlerAdaptor() { }
 
-		void setDTDHandler(SAX::DTDHandler<string_type>& handler) { dtdHandler_ = &handler; }
-        SAX::DTDHandler<string_type>* getDTDHandler() const { return dtdHandler_; }
+		void setDTDHandler(dtdHandlerT& handler) { dtdHandler_ = &handler; }
+        dtdHandlerT* getDTDHandler() const { return dtdHandler_; }
 
     virtual HRESULT STDMETHODCALLTYPE notationDecl( 
             /* [in] */ const wchar_t *pwchName,
@@ -231,9 +230,9 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchSystemId)
         {
           if(dtdHandler_)
-            dtdHandler_->notationDecl(string_adaptor_type::construct_from_utf16(pwchName, cchName),
-                                      string_adaptor_type::construct_from_utf16(pwchPublicId, cchPublicId),
-                                      string_adaptor_type::construct_from_utf16(pwchSystemId, cchSystemId));
+            dtdHandler_->notationDecl(string_adaptor::construct_from_utf16(pwchName, cchName),
+                                      string_adaptor::construct_from_utf16(pwchPublicId, cchPublicId),
+                                      string_adaptor::construct_from_utf16(pwchSystemId, cchSystemId));
           return S_OK;
         } // notationDecl
 
@@ -248,10 +247,10 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchNotationName)
 	   {
           if(dtdHandler_)
-            dtdHandler_->unparsedEntityDecl(string_adaptor_type::construct_from_utf16(pwchName, cchName),
-                                            string_adaptor_type::construct_from_utf16(pwchPublicId, cchPublicId),
-                                            string_adaptor_type::construct_from_utf16(pwchSystemId, cchSystemId),
-                                            string_adaptor_type::construct_from_utf16(pwchNotationName, cchNotationName));
+            dtdHandler_->unparsedEntityDecl(string_adaptor::construct_from_utf16(pwchName, cchName),
+                                            string_adaptor::construct_from_utf16(pwchPublicId, cchPublicId),
+                                            string_adaptor::construct_from_utf16(pwchSystemId, cchSystemId),
+                                            string_adaptor::construct_from_utf16(pwchNotationName, cchNotationName));
           return S_OK;
         } // unparsedEntityDecl
 
@@ -261,7 +260,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         unsigned long __stdcall Release() { return 0; }
 
       private:
-        SAX::DTDHandler<string_type>* dtdHandler_;
+        dtdHandlerT* dtdHandler_;
     }; // class DTDHandlerAdaptor
 
     class ContentHandlerAdaptor : public ISAXContentHandler 
@@ -270,8 +269,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         ContentHandlerAdaptor() : contentHandler_(0) { } 
         ~ContentHandlerAdaptor() { }
 
-        void setContentHandler(SAX::ContentHandler<string_type>& handler) { contentHandler_ = &handler; }
-        SAX::ContentHandler<string_type>* getContentHandler() const { return contentHandler_; }
+        void setContentHandler(contentHandlerT& handler) { contentHandler_ = &handler; }
+        contentHandlerT* getContentHandler() const { return contentHandler_; }
 
 
         virtual HRESULT STDMETHODCALLTYPE putDocumentLocator( 
@@ -302,8 +301,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 
 		{
           if(contentHandler_)
-            contentHandler_->startPrefixMapping(string_adaptor_type::construct_from_utf16(pwchPrefix, cchPrefix),
-                                                string_adaptor_type::construct_from_utf16(pwchUri, cchUri));
+            contentHandler_->startPrefixMapping(string_adaptor::construct_from_utf16(pwchPrefix, cchPrefix),
+                                                string_adaptor::construct_from_utf16(pwchUri, cchUri));
           return S_OK;
         } // startPrefixMapping
        
@@ -311,7 +310,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
                                 /* [in] */ const wchar_t *pwchPrefix,
                                 /* [in] */ int cchPrefix)
         {
-          if(contentHandler_) contentHandler_->endPrefixMapping(string_adaptor_type::construct_from_utf16(pwchPrefix, cchPrefix));
+          if(contentHandler_) contentHandler_->endPrefixMapping(string_adaptor::construct_from_utf16(pwchPrefix, cchPrefix));
           return S_OK;
         } // endPrefixMapping
         
@@ -327,9 +326,9 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
           if(contentHandler_)
           {
             AttributesAdaptor attrs(pAttributes);
-			contentHandler_->startElement(string_adaptor_type::construct_from_utf16(pwchNamespaceUri, cchNamespaceUri),
-                                          string_adaptor_type::construct_from_utf16(pwchLocalName, cchLocalName), 
-                                          string_adaptor_type::construct_from_utf16(pwchQName, cchQName), 
+			contentHandler_->startElement(string_adaptor::construct_from_utf16(pwchNamespaceUri, cchNamespaceUri),
+                                          string_adaptor::construct_from_utf16(pwchLocalName, cchLocalName), 
+                                          string_adaptor::construct_from_utf16(pwchQName, cchQName), 
                                           attrs);
           } // if ...
           return S_OK;
@@ -344,9 +343,9 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
                                 /* [in] */ int cchQName)
         {
           if(contentHandler_)
-            contentHandler_->endElement(string_adaptor_type::construct_from_utf16(pwchNamespaceUri, cchNamespaceUri), 
-                                        string_adaptor_type::construct_from_utf16(pwchLocalName, cchLocalName), 
-                                        string_adaptor_type::construct_from_utf16(pwchQName, cchQName));
+            contentHandler_->endElement(string_adaptor::construct_from_utf16(pwchNamespaceUri, cchNamespaceUri), 
+                                        string_adaptor::construct_from_utf16(pwchLocalName, cchLocalName), 
+                                        string_adaptor::construct_from_utf16(pwchQName, cchQName));
           return S_OK;
         } // endElement
         
@@ -354,7 +353,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ const wchar_t *pwchChars,
             /* [in] */ int cchChars)
         {
-		  if(contentHandler_) contentHandler_->characters(string_adaptor_type::construct_from_utf16(pwchChars, cchChars));
+		  if(contentHandler_) contentHandler_->characters(string_adaptor::construct_from_utf16(pwchChars, cchChars));
           return S_OK;
         } // characters
         
@@ -363,7 +362,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchChars)
         {
           if(contentHandler_)
-            contentHandler_->ignorableWhitespace(string_adaptor_type::construct_from_utf16(pwchChars, cchChars));
+            contentHandler_->ignorableWhitespace(string_adaptor::construct_from_utf16(pwchChars, cchChars));
           return S_OK;
         } // ignorableWhitespace
         
@@ -374,8 +373,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchData)
         {
           if(contentHandler_)
-            contentHandler_->processingInstruction(string_adaptor_type::construct_from_utf16(pwchTarget, cchTarget),
-                                                   string_adaptor_type::construct_from_utf16(pwchData, cchData));
+            contentHandler_->processingInstruction(string_adaptor::construct_from_utf16(pwchTarget, cchTarget),
+                                                   string_adaptor::construct_from_utf16(pwchData, cchData));
           return S_OK;
         } // processingInstruction
         
@@ -384,7 +383,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 			/* [in] */ int cchName)
         {
           if(contentHandler_)
-            contentHandler_->skippedEntity(string_adaptor_type::construct_from_utf16(pwchName, cchName));
+            contentHandler_->skippedEntity(string_adaptor::construct_from_utf16(pwchName, cchName));
           return S_OK;
         } // skippedEntity
 
@@ -396,12 +395,12 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
       private:
         ////////////////////////////////////////////////
         // member varaibles
-        SAX::ContentHandler<string_type>* contentHandler_;
+        contentHandlerT* contentHandler_;
         LocatorAdaptor locator_;
 
         //////////////////////////////////////////////////////
         // COM interface -> C++ interface adaptors
-        class AttributesAdaptor : public SAX::Attributes<string_type>
+        class AttributesAdaptor : public attributesT
         {
           public:
             AttributesAdaptor(ISAXAttributes __RPC_FAR *pAttributes) : attributes_(pAttributes) { }
@@ -423,7 +422,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
               HRESULT hr = attributes_->getURI(index, &pwchUri, &cchUri);
               if (FAILED(hr))
                 return string_type();
-              string_type uri(string_adaptor_type::construct_from_utf16(pwchUri, cchUri));
+              string_type uri(string_adaptor::construct_from_utf16(pwchUri, cchUri));
               return uri;
             } // getURI
 
@@ -434,7 +433,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
               HRESULT hr = attributes_->getLocalName(index, &pwchLocalName, &cchLocalName);
               if (FAILED(hr))
                 return string_type();
-              string_type localName(string_adaptor_type::construct_from_utf16(pwchLocalName, cchLocalName));
+              string_type localName(string_adaptor::construct_from_utf16(pwchLocalName, cchLocalName));
 			  return localName;
             } // getLocalName
 
@@ -445,7 +444,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
               HRESULT hr = attributes_->getQName(index, &pwchQName, &cchQName);
               if (FAILED(hr))
                 return string_type();
-              string_type qName(string_adaptor_type::construct_from_utf16(pwchQName, cchQName));
+              string_type qName(string_adaptor::construct_from_utf16(pwchQName, cchQName));
               return qName;
             } // getQName
 
@@ -456,7 +455,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
               HRESULT hr = attributes_->getType(index, &pwchType, &cchType);
               if (FAILED(hr))
                 return string_type();
-              string_type type(string_adaptor_type::construct_from_utf16(pwchType, cchType));
+              string_type type(string_adaptor::construct_from_utf16(pwchType, cchType));
               return type;
             } // getType
 
@@ -467,7 +466,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
               HRESULT hr = attributes_->getValue(index, &pwchValue, &cchValue);
               if (FAILED(hr))
                 return string_type();
-              string_type value(string_adaptor_type::construct_from_utf16(pwchValue, cchValue));
+              string_type value(string_adaptor::construct_from_utf16(pwchValue, cchValue));
               return value;
             } // getValue
 
@@ -476,8 +475,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             virtual int getIndex(const string_type& uri, const string_type& localName) const
             {
               int index = -1;
-              std::wstring wUri(string_adaptor_type::asStdWString(uri));
-              std::wstring wLocalName(string_adaptor_type::asStdWString(localName));
+              std::wstring wUri(string_adaptor::asStdWString(uri));
+              std::wstring wLocalName(string_adaptor::asStdWString(localName));
               HRESULT hr = attributes_->getIndexFromName(wUri.data(), static_cast<int>(wUri.length()),
                                                          wLocalName.data(), static_cast<int>(wLocalName.length()),
                                                          &index);
@@ -487,7 +486,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             virtual int getIndex(const string_type& qName) const
             {
               int index = -1;
-              std::wstring wQName(string_adaptor_type::asStdWString(qName));
+              std::wstring wQName(string_adaptor::asStdWString(qName));
               attributes_->getIndexFromQName(wQName.data(), static_cast<int>(wQName.length()), &index);
 			  return index;
             } // getIndex
@@ -496,14 +495,14 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             {
               const wchar_t* pwchType;
               int cchType;
-              std::wstring wUri(string_adaptor_type::asStdWString(uri));
-              std::wstring wLocalName(string_adaptor_type::asStdWString(localName));
+              std::wstring wUri(string_adaptor::asStdWString(uri));
+              std::wstring wLocalName(string_adaptor::asStdWString(localName));
               HRESULT hr = attributes_->getTypeFromName(wUri.data(), static_cast<int>(wUri.length()),
                                                         wLocalName.data(), static_cast<int>(wLocalName.length()),
                                                         &pwchType, &cchType);
               if (FAILED(hr))
                 return string_type();
-              string_type type(string_adaptor_type::construct_from_utf16(pwchType, cchType));
+              string_type type(string_adaptor::construct_from_utf16(pwchType, cchType));
               return type;
             } // getType
 
@@ -511,12 +510,12 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             {
               const wchar_t* pwchType;
               int cchType;
-              std::wstring wQName(string_adaptor_type::asStdWString(qName));
+              std::wstring wQName(string_adaptor::asStdWString(qName));
               HRESULT hr = attributes_->getTypeFromQName(wQName.data(), static_cast<int>(wQName.length()),
                                                          &pwchType, &cchType);
               if (FAILED(hr))
                 return string_type();
-			  string_type type(string_adaptor_type::construct_from_utf16(pwchType, cchType));
+			  string_type type(string_adaptor::construct_from_utf16(pwchType, cchType));
               return type;
             } // getType
 
@@ -524,14 +523,14 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             {
               const wchar_t* pwchValue;
               int cchValue;
-              std::wstring wUri(string_adaptor_type::asStdWString(uri));
-              std::wstring wLocalName(string_adaptor_type::asStdWString(localName));
+              std::wstring wUri(string_adaptor::asStdWString(uri));
+              std::wstring wLocalName(string_adaptor::asStdWString(localName));
               HRESULT hr = attributes_->getValueFromName(wUri.data(), static_cast<int>(wUri.length()),
                                                          wLocalName.data(), static_cast<int>(wLocalName.length()),
                                                          &pwchValue, &cchValue);
               if (FAILED(hr))
                 return string_type();
-              string_type value(string_adaptor_type::construct_from_utf16(pwchValue, cchValue));
+              string_type value(string_adaptor::construct_from_utf16(pwchValue, cchValue));
               return value;
             } // getValue
 
@@ -539,12 +538,12 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             {
               const wchar_t* pwchValue;
               int cchValue;
-              std::wstring wQName(string_adaptor_type::asStdWString(qname));
+              std::wstring wQName(string_adaptor::asStdWString(qname));
               HRESULT hr = attributes_->getValueFromQName(wQName.data(), static_cast<int>(wQName.length()),
                                                           &pwchValue, &cchValue);
               if (FAILED(hr))
 				return string_type();
-              string_type value(string_adaptor_type::construct_from_utf16(pwchValue, cchValue));
+              string_type value(string_adaptor::construct_from_utf16(pwchValue, cchValue));
               return value;
             } // getValue
 
@@ -564,8 +563,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
                                 { }
         virtual ~ErrorHandlerAdaptor() { }
 
-        void setErrorHandler(SAX::ErrorHandler<string_type>& handler) { errorHandler_ = &handler; }
-        SAX::ErrorHandler<string_type>* getErrorHandler() const { return errorHandler_; }
+        void setErrorHandler(errorHandlerT& handler) { errorHandler_ = &handler; }
+        errorHandlerT* getErrorHandler() const { return errorHandler_; }
 
         virtual HRESULT STDMETHODCALLTYPE error( 
             /* [in] */ ISAXLocator *pLocator,
@@ -573,8 +572,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 			/* [in] */ HRESULT hrErrorCode)
         {
           bError_ = true;
-          string_type errorMsg(string_adaptor_type::construct_from_utf16(pwchErrorMessage));
-          eError_ = SAXParseExceptionT(string_adaptor_type::asStdString(errorMsg), LocatorAdaptor(pLocator));
+          string_type errorMsg(string_adaptor::construct_from_utf16(pwchErrorMessage));
+          eError_ = SAXParseExceptionT(string_adaptor::asStdString(errorMsg), LocatorAdaptor(pLocator));
           return S_OK;
         } // error
 
@@ -584,8 +583,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ HRESULT hrErrorCode)
         {
           bFatal_ = true;
-          string_type errorMsg(string_adaptor_type::construct_from_utf16(pwchErrorMessage));
-          eFatal_ = SAXParseExceptionT(string_adaptor_type::asStdString(errorMsg), LocatorAdaptor(pLocator));
+          string_type errorMsg(string_adaptor::construct_from_utf16(pwchErrorMessage));
+          eFatal_ = SAXParseExceptionT(string_adaptor::asStdString(errorMsg), LocatorAdaptor(pLocator));
           return S_FALSE;
         } // fatalError
 
@@ -595,8 +594,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ HRESULT hrErrorCode)
         {
           bWarning_ = true;
-          string_type errorMsg(string_adaptor_type::construct_from_utf16(pwchErrorMessage));
-          eWarning_ = SAXParseExceptionT(string_adaptor_type::asStdString(errorMsg), LocatorAdaptor(pLocator));
+          string_type errorMsg(string_adaptor::construct_from_utf16(pwchErrorMessage));
+          eWarning_ = SAXParseExceptionT(string_adaptor::asStdString(errorMsg), LocatorAdaptor(pLocator));
 		  return S_OK;
         } // ignorableWarning
 
@@ -625,7 +624,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         unsigned long __stdcall Release() { return 0; }
 
 	  private:
-        typedef SAX::SAXParseException<string_type> SAXParseExceptionT;
+        typedef SAX::SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
         bool bWarning_;
         bool bError_;
         bool bFatal_;
@@ -633,7 +632,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         SAXParseExceptionT eError_;
         SAXParseExceptionT eFatal_;
 
-        SAX::ErrorHandler<string_type>* errorHandler_;
+        errorHandlerT* errorHandler_;
     }; // class ErrorHandlerAdaptor
 
     class LexicalHandlerAdaptor : public ISAXLexicalHandler 
@@ -642,8 +641,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         LexicalHandlerAdaptor() : lexicalHandler_(0) { }
         virtual ~LexicalHandlerAdaptor() { }
 
-        void setLexicalHandler(SAX::LexicalHandler<string_type>& handler) { lexicalHandler_ = &handler; }
-        SAX::LexicalHandler<string_type>* getLexicalHandler() const { return lexicalHandler_; }
+        void setLexicalHandler(lexicalHandlerT& handler) { lexicalHandler_ = &handler; }
+        lexicalHandlerT* getLexicalHandler() const { return lexicalHandler_; }
 
         virtual HRESULT STDMETHODCALLTYPE startDTD( 
             /* [in] */ const wchar_t *pwchName,
@@ -654,9 +653,9 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 			/* [in] */ int cchSystemId)
         {
           if(lexicalHandler_)
-            lexicalHandler_->startDTD(string_adaptor_type::construct_from_utf16(pwchName, cchName),
-                                      string_adaptor_type::construct_from_utf16(pwchPublicId, cchPublicId),
-                                      string_adaptor_type::construct_from_utf16(pwchSystemId, cchSystemId));
+            lexicalHandler_->startDTD(string_adaptor::construct_from_utf16(pwchName, cchName),
+                                      string_adaptor::construct_from_utf16(pwchPublicId, cchPublicId),
+                                      string_adaptor::construct_from_utf16(pwchSystemId, cchSystemId));
           return S_OK;
         } // startDTD
 
@@ -672,7 +671,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchName)
         {
           if(lexicalHandler_)
-            lexicalHandler_->startEntity(string_adaptor_type::construct_from_utf16(pwchName, cchName));
+            lexicalHandler_->startEntity(string_adaptor::construct_from_utf16(pwchName, cchName));
           return S_OK;
         } // startEntity
 
@@ -681,7 +680,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
 			/* [in] */ int cchName)
         {
           if(lexicalHandler_)
-            lexicalHandler_->endEntity(string_adaptor_type::construct_from_utf16(pwchName, cchName));
+            lexicalHandler_->endEntity(string_adaptor::construct_from_utf16(pwchName, cchName));
           return S_OK;
         } // endEntity
 
@@ -704,7 +703,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchChars)
         {
           if(lexicalHandler_)
-            lexicalHandler_->comment(string_adaptor_type::construct_from_utf16(pwchChars, cchChars));
+            lexicalHandler_->comment(string_adaptor::construct_from_utf16(pwchChars, cchChars));
 		  return S_OK;
         } // comment
 
@@ -721,7 +720,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         unsigned long __stdcall Release() { return 0; }
 
       private:
-        SAX::LexicalHandler<string_type>* lexicalHandler_;
+        lexicalHandlerT* lexicalHandler_;
     }; // class LexicalHandlerAdaptor
 
     class DeclHandlerAdaptor : public ISAXDeclHandler 
@@ -730,8 +729,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         DeclHandlerAdaptor() : declHandler_(0) { }
         virtual ~DeclHandlerAdaptor() { }
 
-        void setDeclHandler(SAX::DeclHandler<string_type>& handler) { declHandler_ = &handler; }
-        SAX::DeclHandler<string_type>* getDeclHandler() const { return declHandler_; }
+        void setDeclHandler(declHandlerT& handler) { declHandler_ = &handler; }
+        declHandlerT* getDeclHandler() const { return declHandler_; }
 
         virtual HRESULT STDMETHODCALLTYPE elementDecl( 
             /* [in] */ const wchar_t *pwchName,
@@ -740,8 +739,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchModel)
         {
           if(declHandler_)
-            declHandler_->elementDecl(string_adaptor_type::construct_from_utf16(pwchName, cchName),
-                                      string_adaptor_type::construct_from_utf16(pwchModel, cchModel));
+            declHandler_->elementDecl(string_adaptor::construct_from_utf16(pwchName, cchName),
+                                      string_adaptor::construct_from_utf16(pwchModel, cchModel));
           return S_OK;
         } // elementDecl
 
@@ -758,11 +757,11 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchValue)
         {
           if(declHandler_)
-            declHandler_->attributeDecl(string_adaptor_type::construct_from_utf16(pwchElementName, cchElementName),
-										string_adaptor_type::construct_from_utf16(pwchAttributeName, cchAttributeName),
-                                        string_adaptor_type::construct_from_utf16(pwchType, cchType),
-                                        string_adaptor_type::construct_from_utf16(pwchValueDefault, cchValueDefault),
-                                        string_adaptor_type::construct_from_utf16(pwchValue, cchValue));
+            declHandler_->attributeDecl(string_adaptor::construct_from_utf16(pwchElementName, cchElementName),
+										string_adaptor::construct_from_utf16(pwchAttributeName, cchAttributeName),
+                                        string_adaptor::construct_from_utf16(pwchType, cchType),
+                                        string_adaptor::construct_from_utf16(pwchValueDefault, cchValueDefault),
+                                        string_adaptor::construct_from_utf16(pwchValue, cchValue));
           return S_OK;
         } // attributeDecl
 
@@ -773,8 +772,8 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchValue)
         {
           if(declHandler_)
-            declHandler_->internalEntityDecl(string_adaptor_type::construct_from_utf16(pwchName, cchName),
-                                             string_adaptor_type::construct_from_utf16(pwchValue, cchValue));
+            declHandler_->internalEntityDecl(string_adaptor::construct_from_utf16(pwchName, cchName),
+                                             string_adaptor::construct_from_utf16(pwchValue, cchValue));
           return S_OK;
         } // internalEntityDecl
 
@@ -787,9 +786,9 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
             /* [in] */ int cchSystemId)
         {
 		  if(declHandler_)
-            declHandler_->externalEntityDecl(string_adaptor_type::construct_from_utf16(pwchName, cchName),
-                                             string_adaptor_type::construct_from_utf16(pwchPublicId, cchPublicId),
-                                             string_adaptor_type::construct_from_utf16(pwchSystemId, cchSystemId));
+            declHandler_->externalEntityDecl(string_adaptor::construct_from_utf16(pwchName, cchName),
+                                             string_adaptor::construct_from_utf16(pwchPublicId, cchPublicId),
+                                             string_adaptor::construct_from_utf16(pwchSystemId, cchSystemId));
           return S_OK;
         } // externalEntityDecl
 
@@ -807,13 +806,13 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         unsigned long __stdcall Release() { return 0; }
 
       private:
-        SAX::DeclHandler<string_type>* declHandler_;
+        declHandlerT* declHandler_;
     }; // class DeclHandlerAdaptor
 
     class StreamAdaptor : public ISequentialStream
     {
       public:
-		StreamAdaptor(SAX::InputSource<string_type>& source) :
+		StreamAdaptor(inputSourceT& source) :
           source_(source)
         {
         } // StreamAdaptor
@@ -847,7 +846,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
         unsigned long __stdcall Release() { return 1; }
 
       private:
-        SAX::InputSource<string_type>& source_;
+        inputSourceT& source_;
     }; // StreamAdaptor
 
 
@@ -861,7 +860,7 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type>
     DeclHandlerAdaptor declHandler_;
 
     ISAXXMLReaderPtr reader_;
-    SAX::PropertyNames<string_type, string_adaptor_type> properties_;
+    SAX::PropertyNames<string_type, string_adaptor> properties_;
 }; // class msxml
 
 template<class string_type, class T0, class T1>
@@ -903,7 +902,7 @@ template<class string_type, class T0, class T1>
 bool msxml2_wrapper<string_type, T0, T1>::getFeature(const string_type& name) const
 {
   VARIANT_BOOL feature;
-  std::wstring wName(string_adaptor_type::asStdWString(name));
+  std::wstring wName(string_adaptor::asStdWString(name));
   reader_->getFeature(wName.c_str(), &feature);
   return (feature == VARIANT_TRUE) ? true : false;
 } // msxml2_wrapper::getFeature
@@ -911,28 +910,22 @@ bool msxml2_wrapper<string_type, T0, T1>::getFeature(const string_type& name) co
 template<class string_type, class T0, class T1>
 void msxml2_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bool value)
 {
-  std::wstring wName(string_adaptor_type::asStdWString(name));
+  std::wstring wName(string_adaptor::asStdWString(name));
   reader_->putFeature(wName.c_str(), value);
 } // setFeature
 
 template<class string_type, class T0, class T1>
-void msxml2_wrapper<string_type, T0, T1>::setErrorHandler(SAX::ErrorHandler<string_type>& handler)
+void msxml2_wrapper<string_type, T0, T1>::setErrorHandler(errorHandlerT& handler)
 {
 	errorHandler_.setErrorHandler(handler);
 } // setErrorHandler
 
 template<class string_type, class T0, class T1>
-SAX::ErrorHandler<string_type>* msxml2_wrapper<string_type, T0, T1>::getErrorHandler() const
-{
-  return errorHandler_.getErrorHandler();
-} // getErrorHandler
-
-template<class string_type, class T0, class T1>
-void msxml2_wrapper<string_type, T0, T1>::parse(SAX::InputSource<string_type>& source)
+void msxml2_wrapper<string_type, T0, T1>::parse(inputSourceT& source)
 {
   if(source.getByteStream() == 0)
   {
-    std::wstring wSysId(string_adaptor_type::asStdWString(source.getSystemId()));
+    std::wstring wSysId(string_adaptor::asStdWString(source.getSystemId()));
     reader_->parseURL(wSysId.c_str());
   }
   else

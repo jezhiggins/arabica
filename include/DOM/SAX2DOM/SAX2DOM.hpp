@@ -81,7 +81,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
     {
       Arabica::SAX::PropertyNames<stringT, string_adaptorT> pNames;
       
-      DOM::DOMImplementation<stringT> di = Arabica::SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
+      DOM::DOMImplementation<stringT, string_adaptorT> di = Arabica::SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
       document_ = di.createDocument(string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), 0);
       currentNode_ = document_;
       inCDATA_ = false;
@@ -117,7 +117,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
       return (document_ != 0);
     } // loadDOM
 
-    DOM::Document<stringT> getDocument() const
+    DOM::Document<stringT, string_adaptorT> getDocument() const
     {
       return document_;
     } // getDocument
@@ -129,7 +129,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
     } // reset
 
   protected:
-    DOM::Node<stringT>& currentNode() { return currentNode_; }
+    DOM::Node<stringT, string_adaptorT>& currentNode() { return currentNode_; }
 
   private:
     // no implementations
@@ -138,10 +138,10 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
     Parser& operator=(const Parser&);
 
     // instance variables
-    DOM::Document<stringT> document_;
+    DOM::Document<stringT, string_adaptorT> document_;
     DocumentType<stringT, string_adaptorT >* documentType_;
-    DOM::Node<stringT> currentNode_;
-    DOM::Node<stringT> cachedCurrent_;
+    DOM::Node<stringT, string_adaptorT> currentNode_;
+    DOM::Node<stringT, string_adaptorT> cachedCurrent_;
 
     typedef std::map<stringT, bool> Features;
     Features features_;
@@ -181,7 +181,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
 
       try 
       {
-        DOM::Element<stringT> elem = document_.createElementNS(namespaceURI, qName);
+        DOM::Element<stringT, string_adaptorT> elem = document_.createElementNS(namespaceURI, qName);
         currentNode_.appendChild(elem);
 
         // attributes here
@@ -350,7 +350,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
       EntityT* entity = new EntityT(0, name, string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""));
       declaredEntities_.insert(std::make_pair(name, entity));
       documentType_->addEntity(entity);
-      DOM::Node<stringT> n = entity;
+      DOM::Node<stringT, string_adaptorT> n = entity;
       n.appendChild(document_.createTextNode(value));
     } // internalEntityDecl
 

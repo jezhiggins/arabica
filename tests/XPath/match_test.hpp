@@ -13,7 +13,7 @@
 template<class string_type, class string_adaptor>
 class MatchTest : public TestCase
 {
-  Arabica::XPath::XPath<string_type> parser;
+  Arabica::XPath::XPath<string_type, string_adaptor> parser;
   typedef string_adaptor SA;
 
 public:
@@ -100,7 +100,7 @@ public:
 
   void testEvaluateDocMatch()
   {
-    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+    Arabica::DOM::Document<string_type, string_adaptor> doc = parseXML("<doc><para>hello</para></doc>");
 
     assertTrue(applyMatch("/", doc));
 
@@ -111,7 +111,7 @@ public:
 
   void testDocElementMatch()
   {
-    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+    Arabica::DOM::Document<string_type, string_adaptor> doc = parseXML("<doc><para>hello</para></doc>");
 
     assertTrue(applyMatch("doc", doc.getFirstChild()));
     assertTrue(applyMatch("doc[para]", doc.getFirstChild()));
@@ -135,7 +135,7 @@ public:
 
   void testDocElementNotMatch()
   {
-    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para></doc>");
+    Arabica::DOM::Document<string_type, string_adaptor> doc = parseXML("<doc><para>hello</para></doc>");
 
     assertFalse(applyMatch("para", doc.getFirstChild()));
     assertFalse(applyMatch("@*", doc.getFirstChild()));
@@ -152,9 +152,9 @@ public:
 
   void testAttributeMatch()
   {
-    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para id='woop' name='charlie'>hello</para></doc>");
-    Arabica::DOM::Node<string_type> a1 = doc.getFirstChild().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("id"));
-    Arabica::DOM::Node<string_type> a2 = doc.getFirstChild().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("name"));
+    Arabica::DOM::Document<string_type, string_adaptor> doc = parseXML("<doc><para id='woop' name='charlie'>hello</para></doc>");
+    Arabica::DOM::Node<string_type, string_adaptor> a1 = doc.getFirstChild().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("id"));
+    Arabica::DOM::Node<string_type, string_adaptor> a2 = doc.getFirstChild().getFirstChild().getAttributes().getNamedItem(SA::construct_from_utf8("name"));
 
     assertTrue(applyMatch("@id", a1));
     assertTrue(applyMatch("@*", a1));
@@ -184,8 +184,8 @@ public:
 
   void testCommentMatch()
   {
-    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para><!-- woo --></doc>");
-    Arabica::DOM::Node<string_type> comment = doc.getFirstChild().getLastChild();
+    Arabica::DOM::Document<string_type, string_adaptor> doc = parseXML("<doc><para>hello</para><!-- woo --></doc>");
+    Arabica::DOM::Node<string_type, string_adaptor> comment = doc.getFirstChild().getLastChild();
 
     assertFalse(applyMatch("comment()", doc));
     assertFalse(applyMatch("comment()", doc.getFirstChild()));
@@ -195,8 +195,8 @@ public:
 
   void testProcessingInstructionMatch()
   {
-    Arabica::DOM::Document<string_type> doc = parseXML("<doc><para>hello</para><?target data?></doc>");
-    Arabica::DOM::Node<string_type> pi = doc.getFirstChild().getLastChild();
+    Arabica::DOM::Document<string_type, string_adaptor> doc = parseXML("<doc><para>hello</para><?target data?></doc>");
+    Arabica::DOM::Node<string_type, string_adaptor> pi = doc.getFirstChild().getLastChild();
 
     assertFalse(applyMatch("processing-instruction()", doc));
     assertFalse(applyMatch("processing-instruction()", doc.getFirstChild()));
@@ -216,11 +216,11 @@ public:
 
   void testNameTestMatch()
   {
-    Arabica::XPath::StandardNamespaceContext<string_type> nsContext;
+    Arabica::XPath::StandardNamespaceContext<string_type, string_adaptor> nsContext;
     nsContext.addNamespaceDeclaration(SA::construct_from_utf8("bang"), SA::construct_from_utf8("bang"));
     parser.setNamespaceContext(nsContext);
 
-    Arabica::DOM::Document<string_type> doc = parseXML("<bang:doc xmlns:bang='bang'><bang:para>hello</bang:para></bang:doc>");
+    Arabica::DOM::Document<string_type, string_adaptor> doc = parseXML("<bang:doc xmlns:bang='bang'><bang:para>hello</bang:para></bang:doc>");
 
     assertFalse(applyMatch("bang:*", doc));
     assertTrue(applyMatch("bang:*", doc.getFirstChild()));
@@ -248,7 +248,7 @@ public:
   void testPriority()
   {
     using namespace Arabica::XPath;
-    Arabica::XPath::StandardNamespaceContext<string_type> nsContext;
+    Arabica::XPath::StandardNamespaceContext<string_type, string_adaptor> nsContext;
     nsContext.addNamespaceDeclaration(SA::construct_from_utf8("bang"), SA::construct_from_utf8("bang"));
     parser.setNamespaceContext(nsContext);
 
@@ -385,7 +385,7 @@ public:
     return matches;
   } // compileMatches
 
-  bool applyMatches(const char* match, const Arabica::DOM::Node<string_type>& node)
+  bool applyMatches(const char* match, const Arabica::DOM::Node<string_type, string_adaptor>& node)
   {
     compileMatches(match);
     for(unsigned int i = 0; i < matches.size(); ++i)
@@ -394,18 +394,18 @@ public:
     return false;
   } // applyMatches
 
-  bool applyMatch(const char* match, const Arabica::DOM::Node<string_type>& node)
+  bool applyMatch(const char* match, const Arabica::DOM::Node<string_type, string_adaptor>& node)
   {
     return compileMatch(match)->evaluateAsBool(node);
   } // applyMatch
 
-  Arabica::DOM::Document<string_type> parseXML(const char* match)
+  Arabica::DOM::Document<string_type, string_adaptor> parseXML(const char* match)
   {
     std::stringstream ss;
     ss << match;
 
-    Arabica::SAX::InputSource<string_type> is(ss);
-    Arabica::SAX::CatchErrorHandler<string_type> eh;
+    Arabica::SAX::InputSource<string_type, string_adaptor> is(ss);
+    Arabica::SAX::CatchErrorHandler<string_type, string_adaptor> eh;
     Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
     parser.setErrorHandler(eh);
     parser.parse(is);       

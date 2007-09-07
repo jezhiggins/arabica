@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class AttrTest : public TestCase 
 {
-  Arabica::DOM::DOMImplementation<string_type> factory;
+  Arabica::DOM::DOMImplementation<string_type, string_adaptor> factory;
   typedef string_adaptor SA;
 
   public: 
@@ -26,8 +26,8 @@ class AttrTest : public TestCase
 
     void test1() 
     {
-      Arabica::DOM::Attr<string_type> d;
-      Arabica::DOM::Node<string_type> n;
+      Arabica::DOM::Attr<string_type, string_adaptor> d;
+      Arabica::DOM::Node<string_type, string_adaptor> n;
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
@@ -35,8 +35,8 @@ class AttrTest : public TestCase
 
     void test2()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttribute(SA::construct_from_utf8("attr"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttribute(SA::construct_from_utf8("attr"));
       assert(attr.getName() == SA::construct_from_utf8("attr"));
       assert(attr.getNodeName() == SA::construct_from_utf8("attr"));
       assert(attr.getLocalName() == SA::construct_from_utf8(""));
@@ -48,8 +48,8 @@ class AttrTest : public TestCase
 
     void test3()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr:value"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr:value"));
       assert(attr.getName() == SA::construct_from_utf8("attr:value"));
       assert(attr.getValue() == SA::construct_from_utf8(""));
       assert(attr.getNodeName() == SA::construct_from_utf8("attr:value"));
@@ -63,8 +63,8 @@ class AttrTest : public TestCase
 
     void test4()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr"));
       assert(attr.getName() == SA::construct_from_utf8("attr"));
       assert(attr.getValue() == SA::construct_from_utf8(""));
       assert(attr.getNodeName() == SA::construct_from_utf8("attr"));
@@ -78,8 +78,8 @@ class AttrTest : public TestCase
 
     void test5()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr:value"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("attr:value"));
 
       attr.setPrefix(SA::construct_from_utf8("monkey"));
       assert(attr.getName() == SA::construct_from_utf8("monkey:value"));
@@ -95,8 +95,8 @@ class AttrTest : public TestCase
 
     void test6()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("value"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8("http://attr"), SA::construct_from_utf8("value"));
 
       attr.setPrefix(SA::construct_from_utf8("monkey"));
       assert(attr.getName() == SA::construct_from_utf8("monkey:value"));
@@ -112,8 +112,8 @@ class AttrTest : public TestCase
 
     void test7()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("xmlns"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("xmlns"));
 
       assert(attr.getName() == SA::construct_from_utf8("xmlns"));
       assert(attr.getValue() == SA::construct_from_utf8(""));
@@ -128,8 +128,8 @@ class AttrTest : public TestCase
 
     void test8()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr;
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr;
       
       try {
         attr = d.createAttributeNS(SA::construct_from_utf8("ppopopop"), SA::construct_from_utf8("xmlns"));
@@ -141,8 +141,8 @@ class AttrTest : public TestCase
 
     void test9()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr;
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr;
       
       try {
         attr = d.createAttributeNS(SA::construct_from_utf8("ahuafh"), SA::construct_from_utf8("xmlns:billy"));
@@ -154,8 +154,8 @@ class AttrTest : public TestCase
 
     void test10()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("nothing:much"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("nothing:much"));
 
       try {
         attr.setPrefix(SA::construct_from_utf8("xmlns"));
@@ -167,8 +167,8 @@ class AttrTest : public TestCase
 
     void test11()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("charles"), SA::construct_from_utf8("nothing:much"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8("charles"), SA::construct_from_utf8("nothing:much"));
 
       try {
         attr.setPrefix(SA::construct_from_utf8("xmlns"));
@@ -180,8 +180,8 @@ class AttrTest : public TestCase
 
     void test12()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8(""), SA::construct_from_utf8("much"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8(""), SA::construct_from_utf8("much"));
 
       try {
         attr.setPrefix(SA::construct_from_utf8("charles"));
@@ -193,8 +193,8 @@ class AttrTest : public TestCase
 
     void test13()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr;
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr;
       
       try {
         attr = d.createAttributeNS(SA::construct_from_utf8(""), SA::construct_from_utf8("trouser:pants"));
@@ -206,8 +206,8 @@ class AttrTest : public TestCase
 
     void test14()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Attr<string_type> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("xmlns"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Attr<string_type, string_adaptor> attr = d.createAttributeNS(SA::construct_from_utf8("http://www.w3.org/2000/xmlns/"), SA::construct_from_utf8("xmlns"));
 
       assert(attr.getName() == SA::construct_from_utf8("xmlns"));
       assert(attr.getValue() == SA::construct_from_utf8(""));

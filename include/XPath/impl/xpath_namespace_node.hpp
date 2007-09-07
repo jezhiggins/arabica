@@ -68,7 +68,7 @@ class NamespaceNodeImpl : public Arabica::SimpleDOM::ChildlessNodeImpl<stringT, 
       return localname_;
     } // getLocalName
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOM::Node_impl<stringT, string_adaptorT>* cloneNode(bool deep) const
     {
       return new NamespaceNodeImpl<stringT, string_adaptorT>(localname_, value_);
     } // cloneNode

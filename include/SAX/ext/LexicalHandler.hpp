@@ -48,8 +48,6 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class LexicalHandler
 {
 public:
-  typedef string_type stringT;
-  
   virtual ~LexicalHandler() { }
 
    /**
@@ -86,9 +84,9 @@ public:
    * @see #endDTD
    * @see #startEntity
    */
-  virtual void startDTD(const stringT& name,
-                        const stringT& publicId,
-                        const stringT& systemId) = 0;
+  virtual void startDTD(const string_type& name,
+                        const string_type& publicId,
+                        const string_type& systemId) = 0;
   /**
    * Report the end of DTD declarations.
    *
@@ -148,14 +146,14 @@ public:
    * @see DeclHandler#internalEntityDecl
    * @see DeclHandler#externalEntityDecl 
    */
-  virtual void startEntity(const stringT& name) = 0;
+  virtual void startEntity(const string_type& name) = 0;
   /**
    * Report the end of an entity.
    *
    * @param name The name of the entity that is ending.
    * @see #startEntity
    */
-  virtual void endEntity(const stringT& name) = 0;
+  virtual void endEntity(const string_type& name) = 0;
 
   /**
    * Report the start of a CDATA section.
@@ -186,7 +184,7 @@ public:
    *
    * @param text A string holding the comment.
    */
-  virtual void comment(const stringT& text) = 0;
+  virtual void comment(const string_type& text) = 0;
 }; // class LexicalHandler
 
 } // namespace SAX

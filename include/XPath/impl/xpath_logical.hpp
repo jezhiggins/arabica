@@ -20,7 +20,7 @@ public:
              XPathExpression<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     // From XPath 1.0 Rec, section 3.4
@@ -44,7 +44,7 @@ public:
               XPathExpression<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     // From XPath 1.0 Rec, section 3.4

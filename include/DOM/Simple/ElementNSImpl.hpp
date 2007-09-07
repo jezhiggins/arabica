@@ -12,14 +12,16 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT>
 class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 {
+  public:
     typedef typename string_adaptorT::size_type size_type;
     typedef ElementImpl<stringT, string_adaptorT> ElementImplT;
-  public:
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+
     ElementNSImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc,
                 const stringT& namespaceURI,
                 bool hasNamespaceURI,
                 const stringT& qualifiedName) : 
-        ElementImpl<stringT, string_adaptorT>(ownerDoc, qualifiedName),
+        ElementImplT(ownerDoc, qualifiedName),
         prefix_(&ownerDoc->empty_string()),
         hasNamespaceURI_(false)
     { 
@@ -38,7 +40,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
       }
 
       std::pair<bool, stringT> mappedURI = 
-        checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, *prefix_, hasNamespaceURI, namespaceURI, DOM::Node<stringT>::ELEMENT_NODE);
+        checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, *prefix_, hasNamespaceURI, namespaceURI, DOM::Node_base::ELEMENT_NODE);
 
       hasNamespaceURI_ = mappedURI.first;
       namespaceURI_ = ElementImplT::ownerDoc_->stringPool(mappedURI.second);
@@ -48,7 +50,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
 
     ///////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
       ElementNSImpl* clone =  dynamic_cast<ElementNSImpl*>(ElementImplT::ownerDoc_->createElementNS(*namespaceURI_, ElementImplT::getNodeName()));
       ElementImplT::cloneChildren(clone, deep);
@@ -79,7 +81,7 @@ class ElementNSImpl : public ElementImpl<stringT, string_adaptorT>
         return;
       } // empty prefix
 
-      checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, *namespaceURI_, DOM::Node<stringT>::ELEMENT_NODE);
+      checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, *namespaceURI_, DOM::Node_base::ELEMENT_NODE);
 
       stringT newTagName = prefix;
       string_adaptorT::append(newTagName, string_adaptorT::construct_from_utf8(":"));

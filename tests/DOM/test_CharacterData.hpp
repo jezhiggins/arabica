@@ -10,7 +10,7 @@
 template<class string_type, class string_adaptor>
 class CharacterDataTest : public TestCase 
 {
-  Arabica::DOM::DOMImplementation<string_type> factory;
+  Arabica::DOM::DOMImplementation<string_type, string_adaptor> factory;
   typedef string_adaptor SA;
 
   public: 
@@ -26,8 +26,8 @@ class CharacterDataTest : public TestCase
 
     void testNull() 
     {
-      Arabica::DOM::CharacterData<string_type> d;
-      Arabica::DOM::Node<string_type> n;
+      Arabica::DOM::CharacterData<string_type, string_adaptor> d;
+      Arabica::DOM::Node<string_type, string_adaptor> n;
       assert(d == 0);
       assert(n == 0);
       assert(n == d);
@@ -35,8 +35,8 @@ class CharacterDataTest : public TestCase
 
     void testCreateText()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::CharacterData<string_type> t = d.createTextNode(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::CharacterData<string_type, string_adaptor> t = d.createTextNode(SA::construct_from_utf8("some data"));
 
       assert(t.getData() == SA::construct_from_utf8("some data"));
       assert(t.getNodeName() == SA::construct_from_utf8("#text"));
@@ -45,7 +45,7 @@ class CharacterDataTest : public TestCase
       t.setData(SA::construct_from_utf8("newData"));
       assert(t.getData() == SA::construct_from_utf8("newData"));
 
-      assert(t.getNodeType() == Arabica::DOM::Node<string_type>::TEXT_NODE);
+      assert(t.getNodeType() == Arabica::DOM::Node_base::TEXT_NODE);
       assert(t.hasAttributes() == false);
       assert(t.getAttributes() == 0);
       assert(t.getChildNodes() == 0);
@@ -53,7 +53,7 @@ class CharacterDataTest : public TestCase
 
       try
       {
-        t.appendChild(Arabica::DOM::Node<string_type>());
+        t.appendChild(Arabica::DOM::Node<string_type, string_adaptor>());
       } 
       catch(const Arabica::DOM::DOMException&)
       {
@@ -67,8 +67,8 @@ class CharacterDataTest : public TestCase
 
     void testCreateCDATA()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::CharacterData<string_type> t = d.createCDATASection(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::CharacterData<string_type, string_adaptor> t = d.createCDATASection(SA::construct_from_utf8("some data"));
 
       assert(t.getData() == SA::construct_from_utf8("some data"));
       assert(t.getNodeName() == SA::construct_from_utf8("#cdata-section"));
@@ -77,7 +77,7 @@ class CharacterDataTest : public TestCase
       t.setData(SA::construct_from_utf8("newData"));
       assert(t.getData() == SA::construct_from_utf8("newData"));
 
-      assert(t.getNodeType() == Arabica::DOM::Node<string_type>::CDATA_SECTION_NODE);
+      assert(t.getNodeType() == Arabica::DOM::Node_base::CDATA_SECTION_NODE);
       assert(t.hasAttributes() == false);
       assert(t.getAttributes() == 0);
       assert(t.getChildNodes() == 0);
@@ -85,7 +85,7 @@ class CharacterDataTest : public TestCase
 
       try
       {
-        t.appendChild(Arabica::DOM::Node<string_type>());
+        t.appendChild(Arabica::DOM::Node<string_type, string_adaptor>());
       } 
       catch(const Arabica::DOM::DOMException&)
       {
@@ -99,13 +99,13 @@ class CharacterDataTest : public TestCase
 
     void testDownCasts()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::CDATASection<string_type> cd = d.createCDATASection(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::CDATASection<string_type, string_adaptor> cd = d.createCDATASection(SA::construct_from_utf8("some data"));
 
-      Arabica::DOM::Text<string_type> t = cd;
-      Arabica::DOM::CharacterData<string_type> c = t;
+      Arabica::DOM::Text<string_type, string_adaptor> t = cd;
+      Arabica::DOM::CharacterData<string_type, string_adaptor> c = t;
 
-      Arabica::DOM::Node<string_type> n = c;
+      Arabica::DOM::Node<string_type, string_adaptor> n = c;
 
       assert(c == cd);
       assert(c == t);
@@ -116,11 +116,11 @@ class CharacterDataTest : public TestCase
 
     void testTextUpCasts()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Node<string_type> n = d.createTextNode(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Node<string_type, string_adaptor> n = d.createTextNode(SA::construct_from_utf8("some data"));
 
-      Arabica::DOM::CharacterData<string_type> c = Arabica::DOM::CharacterData<string_type>(n);
-      Arabica::DOM::Text<string_type> t = Arabica::DOM::Text<string_type>(c);
+      Arabica::DOM::CharacterData<string_type, string_adaptor> c = Arabica::DOM::CharacterData<string_type, string_adaptor>(n);
+      Arabica::DOM::Text<string_type, string_adaptor> t = Arabica::DOM::Text<string_type, string_adaptor>(c);
 
       assert(c == t);
       assert(c == n);
@@ -129,12 +129,12 @@ class CharacterDataTest : public TestCase
 
     void testCDATAUpCasts()
     {
-      Arabica::DOM::Document<string_type> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
-      Arabica::DOM::Node<string_type> n = d.createCDATASection(SA::construct_from_utf8("some data"));
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
+      Arabica::DOM::Node<string_type, string_adaptor> n = d.createCDATASection(SA::construct_from_utf8("some data"));
 
-      Arabica::DOM::CharacterData<string_type> c = Arabica::DOM::CharacterData<string_type>(n);
-      Arabica::DOM::Text<string_type> t = Arabica::DOM::Text<string_type>(c);
-      Arabica::DOM::CDATASection<string_type> cd = Arabica::DOM::CDATASection<string_type>(c);
+      Arabica::DOM::CharacterData<string_type, string_adaptor> c = Arabica::DOM::CharacterData<string_type, string_adaptor>(n);
+      Arabica::DOM::Text<string_type, string_adaptor> t = Arabica::DOM::Text<string_type, string_adaptor>(c);
+      Arabica::DOM::CDATASection<string_type, string_adaptor> cd = Arabica::DOM::CDATASection<string_type, string_adaptor>(c);
 
       assert(c == cd);
       assert(c == t);

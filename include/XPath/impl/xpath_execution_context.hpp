@@ -28,11 +28,11 @@ public:
   { 
   } // ExecutionContext
 
-  const DOM::Node<string_type>& currentNode() const { return current_; }
+  const DOM::Node<string_type, string_adaptor>& currentNode() const { return current_; }
   int position() const { return position_; }
   int last() const { return last_; }
 
-  void setCurrentNode(const DOM::Node<string_type>& current) { current_ = current; }
+  void setCurrentNode(const DOM::Node<string_type, string_adaptor>& current) { current_ = current; }
   void setPosition(int pos) { position_ = pos; }
   void setLast(int last) { last_ = last; }
 
@@ -41,7 +41,7 @@ public:
   void setVariableResolver(VariableResolverPtr<string_type,string_adaptor>& resolver) { variableResolver_.set(resolver); }
 
 private:
-  DOM::Node<string_type> current_;
+  DOM::Node<string_type, string_adaptor> current_;
   int position_;
   int last_;
   impl::ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;

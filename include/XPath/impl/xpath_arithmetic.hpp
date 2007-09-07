@@ -19,7 +19,7 @@ public:
   PlusOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const 
   {
     return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) + baseT::rhs()->evaluateAsNumber(context, executionContext));
@@ -35,7 +35,7 @@ public:
   MinusOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) - baseT::rhs()->evaluateAsNumber(context, executionContext));
@@ -51,7 +51,7 @@ public:
   MultiplyOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) * baseT::rhs()->evaluateAsNumber(context, executionContext));
@@ -67,7 +67,7 @@ public:
   DivideOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) / baseT::rhs()->evaluateAsNumber(context, executionContext));
@@ -83,7 +83,7 @@ public:
   ModOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     double l = baseT::lhs()->evaluateAsNumber(context, executionContext);
@@ -104,7 +104,7 @@ public:
   UnaryNegative(XPathExpression<string_type, string_adaptor>* expr) :
       UnaryExpression<string_type, string_adaptor>(expr) { }
 
-  virtual XPathValuePtr<string_type> evaluate(const DOM::Node<string_type>& context, 
+  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return NumericValue<string_type, string_adaptor>::createValue(-baseT::expr()->evaluate(context, executionContext)->asNumber());

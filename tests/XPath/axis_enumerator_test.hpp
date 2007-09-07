@@ -11,22 +11,22 @@
 template<class string_type, class string_adaptor>
 class AxisEnumeratorTest : public TestCase
 {
-  Arabica::DOM::DOMImplementation<string_type> factory_;
-  Arabica::DOM::Document<string_type> document_;
+  Arabica::DOM::DOMImplementation<string_type, string_adaptor> factory_;
+  Arabica::DOM::Document<string_type, string_adaptor> document_;
 
-  Arabica::DOM::Element<string_type> root_;
+  Arabica::DOM::Element<string_type, string_adaptor> root_;
 
-  Arabica::DOM::Element<string_type> element1_;
-  Arabica::DOM::Element<string_type> element2_;
-  Arabica::DOM::Element<string_type> element3_;
+  Arabica::DOM::Element<string_type, string_adaptor> element1_;
+  Arabica::DOM::Element<string_type, string_adaptor> element2_;
+  Arabica::DOM::Element<string_type, string_adaptor> element3_;
 
-  Arabica::DOM::Attr<string_type> attr_;
+  Arabica::DOM::Attr<string_type, string_adaptor> attr_;
 
-  Arabica::DOM::Text<string_type> text_;
+  Arabica::DOM::Text<string_type, string_adaptor> text_;
 
-  Arabica::DOM::Comment<string_type> comment_;
+  Arabica::DOM::Comment<string_type, string_adaptor> comment_;
 
-  Arabica::DOM::ProcessingInstruction<string_type> processingInstruction_;
+  Arabica::DOM::ProcessingInstruction<string_type, string_adaptor> processingInstruction_;
 
 public:
   AxisEnumeratorTest(const std::string& name) : TestCase(name)
@@ -67,7 +67,7 @@ public:
 
   void childTest1()
   {
-    Arabica::DOM::DocumentFragment<string_type> node;
+    Arabica::DOM::DocumentFragment<string_type, string_adaptor> node;
 
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(node, Arabica::XPath::CHILD);
     assertTrue(*e == 0);
@@ -76,7 +76,7 @@ public:
 
   void childTest2()
   {
-    Arabica::DOM::Node<string_type> node;
+    Arabica::DOM::Node<string_type, string_adaptor> node;
 
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(node, Arabica::XPath::CHILD);
     assertTrue(*e == 0);
@@ -95,7 +95,7 @@ public:
     assertTrue(element3_ == *e);
     assertTrue(string_adaptor::construct_from_utf8("child3") == e->getNodeName());
     ++e;
-    assertTrue(Arabica::DOM::Node<string_type>() == *e);
+    assertTrue((Arabica::DOM::Node<string_type, string_adaptor>()) == *e);
     assertTrue(*e == 0);
   } // test3
 
@@ -110,7 +110,7 @@ public:
 
   void attributeTest1()
   {
-    Arabica::DOM::DocumentFragment<string_type> node;
+    Arabica::DOM::DocumentFragment<string_type, string_adaptor> node;
 
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(node, Arabica::XPath::ATTRIBUTE);
     assertTrue(*e == 0);
@@ -119,7 +119,7 @@ public:
 
   void attributeTest2()
   {
-    Arabica::DOM::Node<string_type> node;
+    Arabica::DOM::Node<string_type, string_adaptor> node;
 
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(node, Arabica::XPath::ATTRIBUTE);
     assertTrue(*e == 0);
@@ -170,7 +170,7 @@ public:
 
   void followingSiblingTest1()
   {
-    Arabica::DOM::Node<string_type> node;
+    Arabica::DOM::Node<string_type, string_adaptor> node;
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(node, Arabica::XPath::FOLLOWING_SIBLING);
     assertTrue(*e == 0);
     assertTrue(e.forward());
@@ -214,7 +214,7 @@ public:
 
   void precedingSiblingTest1()
   {
-    Arabica::DOM::Node<string_type> node;
+    Arabica::DOM::Node<string_type, string_adaptor> node;
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(node, Arabica::XPath::PRECEDING_SIBLING);
     assertTrue(*e == 0);
     assertTrue(e.reverse());
@@ -275,7 +275,7 @@ public:
 
   void selfTest3()
   {
-    Arabica::DOM::Node<string_type> node;
+    Arabica::DOM::Node<string_type, string_adaptor> node;
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(node, Arabica::XPath::SELF);
     assertTrue(*e == 0);
   } // selfTest3
@@ -686,8 +686,8 @@ public:
   void namespaceNodeTest1()
   {
     using namespace Arabica::XPath;
-    Arabica::DOM::Node<string_type> node(new impl::NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("p"), string_adaptor::construct_from_utf8("test-uri")));
-    Arabica::DOM::Node<string_type> node2;
+    Arabica::DOM::Node<string_type, string_adaptor> node(new impl::NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("p"), string_adaptor::construct_from_utf8("test-uri")));
+    Arabica::DOM::Node<string_type, string_adaptor> node2;
 
     node2 = node;
   } // namespaceNodeTest1
@@ -695,9 +695,9 @@ public:
   void namespaceNodeTest2()
   {
     using namespace Arabica::XPath;
-    Arabica::DOM::Node<string_type> node;
+    Arabica::DOM::Node<string_type, string_adaptor> node;
     {
-      Arabica::DOM::Node<string_type> node2(new impl::NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("p"), string_adaptor::construct_from_utf8("test-uri")));
+      Arabica::DOM::Node<string_type, string_adaptor> node2(new impl::NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("p"), string_adaptor::construct_from_utf8("test-uri")));
       node = node2;
     }
   } // namespaceNodeTest2
@@ -705,9 +705,9 @@ public:
   void namespaceNodeTest3()
   {
     using namespace Arabica::XPath;
-    Arabica::DOM::Node<string_type> node;
+    Arabica::DOM::Node<string_type, string_adaptor> node;
     {
-      Arabica::DOM::Node<string_type> node2(new impl::NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("p"), string_adaptor::construct_from_utf8("test-uri")));
+      Arabica::DOM::Node<string_type, string_adaptor> node2(new impl::NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("p"), string_adaptor::construct_from_utf8("test-uri")));
       node = node2;
     }
     node = 0;
@@ -716,7 +716,7 @@ public:
   void namespaceNodeTest4()
   {
     using namespace Arabica::XPath;
-    Arabica::DOM::Node<string_type> node(new impl::NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("p"), string_adaptor::construct_from_utf8("test-uri")));
+    Arabica::DOM::Node<string_type, string_adaptor> node(new impl::NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("p"), string_adaptor::construct_from_utf8("test-uri")));
     assertTrue(string_adaptor::construct_from_utf8("p") == node.getLocalName());
     assertTrue(string_adaptor::construct_from_utf8("test-uri") == node.getNodeValue());
     assertTrue(string_adaptor::construct_from_utf8("") == node.getNamespaceURI());
@@ -727,7 +727,7 @@ public:
   {
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(root_, Arabica::XPath::NAMESPACE);
     assertTrue(*e != 0);
-    Arabica::DOM::Node<string_type> ns = *e;
+    Arabica::DOM::Node<string_type, string_adaptor> ns = *e;
     assertTrue(string_adaptor::construct_from_utf8("xml") == ns.getLocalName());
     assertTrue(string_adaptor::construct_from_utf8("http://www.w3.org/XML/1998/namespace") == ns.getNodeValue());
     ++e;
@@ -741,7 +741,7 @@ public:
                          string_adaptor::construct_from_utf8("urn:test"));
     Arabica::XPath::AxisEnumerator<string_type, string_adaptor> e(root_, Arabica::XPath::NAMESPACE);
     assertTrue(*e != 0);
-    Arabica::DOM::Node<string_type> ns = *e;
+    Arabica::DOM::Node<string_type, string_adaptor> ns = *e;
     assertTrue(string_adaptor::construct_from_utf8("xml") == ns.getLocalName());
     ++e;
     assertTrue(*e != 0);

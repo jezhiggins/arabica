@@ -23,11 +23,18 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT> class DocumentImpl;
 
 template<class stringT, class string_adaptorT>
-class NodeImpl : virtual public DOM::Node_impl<stringT>
+class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
 {
-    typedef DOM::Node_impl<stringT> NodeT;
   public:
-    NodeImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc) :
+    typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
+    typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+    typedef DOM::Text_impl<stringT, string_adaptorT> DOMText_implT;
+    typedef DOM::Document_impl<stringT, string_adaptorT> DOMDocument_implT;
+    typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
+    typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
+
+    NodeImpl(DocumentImplT* ownerDoc) :
       parentNode_(0),
       ownerDoc_(ownerDoc),
       prevSibling_(0),
@@ -64,41 +71,41 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
 
     virtual DOM::Node_base::Type getNodeType() const = 0;
     
-    virtual DOM::Node_impl<stringT>* getParentNode() const { return parentNode_; }
+    virtual DOMNode_implT* getParentNode() const { return parentNode_; }
 
-    virtual DOM::NodeList_impl<stringT>* getChildNodes() const = 0;
+    virtual DOMNodeList_implT* getChildNodes() const = 0;
     
-    virtual DOM::Node_impl<stringT>* getFirstChild() const = 0;
-    virtual DOM::Node_impl<stringT>* getLastChild() const = 0;
+    virtual DOMNode_implT* getFirstChild() const = 0;
+    virtual DOMNode_implT* getLastChild() const = 0;
 
-    virtual DOM::Node_impl<stringT>* getPreviousSibling() const { return prevSibling_; }
-    virtual DOM::Node_impl<stringT>* getNextSibling() const { return nextSibling_; }
+    virtual DOMNode_implT* getPreviousSibling() const { return prevSibling_; }
+    virtual DOMNode_implT* getNextSibling() const { return nextSibling_; }
 
-    virtual DOM::NamedNodeMap_impl<stringT>* getAttributes() const { return 0; }
+    virtual DOMNamedNodeMap_implT* getAttributes() const { return 0; }
 
-    virtual DOM::Document_impl<stringT>* getOwnerDocument() const { return ownerDoc_; }
+    virtual DOMDocument_implT* getOwnerDocument() const { return ownerDoc_; }
 
-    virtual DOM::Node_impl<stringT>* insertBefore(DOM::Node_impl<stringT>* newChild, DOM::Node_impl<stringT>* refChild) = 0;
-    virtual DOM::Node_impl<stringT>* replaceChild(DOM::Node_impl<stringT>*  newChild, DOM::Node_impl<stringT>* oldChild) = 0;
-    virtual DOM::Node_impl<stringT>* removeChild(DOM::Node_impl<stringT>*  oldChild) = 0;
-    virtual DOM::Node_impl<stringT>* appendChild(DOM::Node_impl<stringT>*  newChild) = 0;
-    virtual void purgeChild(DOM::Node_impl<stringT>* oldChild) = 0;
+    virtual DOMNode_implT* insertBefore(DOMNode_implT* newChild, DOMNode_implT* refChild) = 0;
+    virtual DOMNode_implT* replaceChild(DOMNode_implT*  newChild, DOMNode_implT* oldChild) = 0;
+    virtual DOMNode_implT* removeChild(DOMNode_implT*  oldChild) = 0;
+    virtual DOMNode_implT* appendChild(DOMNode_implT*  newChild) = 0;
+    virtual void purgeChild(DOMNode_implT* oldChild) = 0;
 
     virtual bool hasChildNodes() const = 0;
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const = 0;
+    virtual DOMNode_implT* cloneNode(bool deep) const = 0;
 
     virtual void normalize()
     {
-      DOM::Node_impl<stringT>*child = getFirstChild(); 
+      DOMNode_implT*child = getFirstChild(); 
       while(child != 0)
       {
-        DOM::Node_impl<stringT>*next = child->getNextSibling();
+        DOMNode_implT*next = child->getNextSibling();
 
-        if(child->getNodeType() == DOM::Node<stringT>::TEXT_NODE)
+        if(child->getNodeType() == DOM::Node_base::TEXT_NODE)
         {
-          DOM::Text_impl<stringT>* textNode = dynamic_cast<DOM::Text_impl<stringT>*>(child);
-          while((next != 0) && (next->getNodeType() == DOM::Node<stringT>::TEXT_NODE))
+          DOMText_implT* textNode = dynamic_cast<DOMText_implT*>(child);
+          while((next != 0) && (next->getNodeType() == DOM::Node_base::TEXT_NODE))
           {
             textNode->appendData(next->getNodeValue());
             removeChild(next);
@@ -113,7 +120,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
         child = next;
       } // while 
 
-      DOM::NamedNodeMap_impl<stringT>* attrs = getAttributes();
+      DOMNamedNodeMap_implT* attrs = getAttributes();
       if(attrs)
         for(unsigned int i = 0; i < attrs->getLength(); ++i)
           attrs->item(i)->normalize();
@@ -142,7 +149,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
 
     /////////////////////////////////////////////////////
     // implementation specific method
-    void setParentNode(NodeImpl<stringT, string_adaptorT>* parent)
+    void setParentNode(NodeImplT* parent)
     {
       if(!parent && parentNode_ && ownerDoc_)
         ownerDoc_->orphaned(this);
@@ -151,28 +158,28 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
       parentNode_ = parent;
     } // setParentNode
 
-    NodeImpl<stringT, string_adaptorT>* getFirst() { return dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(getFirstChild()); }
+    NodeImplT* getFirst() { return dynamic_cast<NodeImplT*>(getFirstChild()); }
 
-    NodeImpl<stringT, string_adaptorT>* getPrev() { return prevSibling_; }
+    NodeImplT* getPrev() { return prevSibling_; }
 
-    void setPrev(NodeImpl<stringT, string_adaptorT>* prevSibling)
+    void setPrev(NodeImplT* prevSibling)
     {
       prevSibling_ = prevSibling;
     } // setPreviousSibling
 
-    NodeImpl<stringT, string_adaptorT>* getNext() { return nextSibling_; }
+    NodeImplT* getNext() { return nextSibling_; }
 
-    void setNext(NodeImpl<stringT, string_adaptorT>* nextSibling)
+    void setNext(NodeImplT* nextSibling)
     {
       nextSibling_ = nextSibling;
     } // setNextSibling
 
-    DocumentImpl<stringT, string_adaptorT>* getOwnerDoc() const { return ownerDoc_; }
+    DocumentImplT* getOwnerDoc() const { return ownerDoc_; }
 
-    virtual void setOwnerDoc(DocumentImpl<stringT, string_adaptorT>* ownerDoc)
+    virtual void setOwnerDoc(DocumentImplT* ownerDoc)
     {
       ownerDoc_ = ownerDoc;
-      for(NodeImpl<stringT, string_adaptorT>*child = getFirst(); child != 0; child = child->getNext())
+      for(NodeImplT*child = getFirst(); child != 0; child = child->getNext())
         child->setOwnerDoc(ownerDoc);
     } // setOwnerDocument
 
@@ -181,7 +188,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
     virtual void setReadOnly(bool readOnly)
     {
       readOnly_ = true;
-      for(NodeImpl<stringT, string_adaptorT>*child = getFirst(); child != 0; child = child->getNext())
+      for(NodeImplT*child = getFirst(); child != 0; child = child->getNext())
         child->setReadOnly(readOnly_);
     } // setReadOnly
 
@@ -192,10 +199,10 @@ class NodeImpl : virtual public DOM::Node_impl<stringT>
     } // throwIfReadOnly
 
   protected:
-    NodeImpl<stringT, string_adaptorT>* parentNode_;
-    DocumentImpl<stringT, string_adaptorT>* ownerDoc_;
-    NodeImpl<stringT, string_adaptorT>* prevSibling_;
-    NodeImpl<stringT, string_adaptorT>* nextSibling_;
+    NodeImplT* parentNode_;
+    DocumentImplT* ownerDoc_;
+    NodeImplT* prevSibling_;
+    NodeImplT* nextSibling_;
     bool readOnly_;
 }; // class NodeImpl
 
@@ -203,39 +210,43 @@ template<class stringT, class string_adaptorT>
 class ChildlessNodeImpl : public NodeImpl<stringT, string_adaptorT>  
 {
   public:
-    ChildlessNodeImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc) :
+    typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+    typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
+
+    ChildlessNodeImpl(DocumentImplT* ownerDoc) :
       NodeImpl<stringT, string_adaptorT>(ownerDoc)
     {
     } // ChildlessNodeImpl 
 
     ///////////////////////////////////////////////////////
     // Node methods
-    virtual DOM::NodeList_impl<stringT>* getChildNodes() const { return 0; }
+    virtual DOMNodeList_implT* getChildNodes() const { return 0; }
     
-    virtual DOM::Node_impl<stringT>* getFirstChild() const { return 0; }
-    virtual DOM::Node_impl<stringT>* getLastChild() const { return 0; }
+    virtual DOMNode_implT* getFirstChild() const { return 0; }
+    virtual DOMNode_implT* getLastChild() const { return 0; }
 
-    virtual DOM::Node_impl<stringT>* insertBefore(DOM::Node_impl<stringT>*newChild, DOM::Node_impl<stringT>*refChild)
+    virtual DOMNode_implT* insertBefore(DOMNode_implT*newChild, DOMNode_implT*refChild)
     {
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // insertBefore
 
-    virtual DOM::Node_impl<stringT>* replaceChild(DOM::Node_impl<stringT>*newChild, DOM::Node_impl<stringT>*oldChild)
+    virtual DOMNode_implT* replaceChild(DOMNode_implT*newChild, DOMNode_implT*oldChild)
     {
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // insertBefore
 
-    virtual DOM::Node_impl<stringT>* removeChild(DOM::Node_impl<stringT>*oldChild)
+    virtual DOMNode_implT* removeChild(DOMNode_implT*oldChild)
     {
       throw DOM::DOMException(DOM::DOMException::NOT_FOUND_ERR);
     } // removeChild
 
-    virtual DOM::Node_impl<stringT>* appendChild(DOM::Node_impl<stringT>*newChild)
+    virtual DOMNode_implT* appendChild(DOMNode_implT*newChild)
     {
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // appendChild
 
-    virtual void purgeChild(DOM::Node_impl<stringT>* oldChild)
+    virtual void purgeChild(DOMNode_implT* oldChild)
     {
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // purgeChild
@@ -245,12 +256,16 @@ class ChildlessNodeImpl : public NodeImpl<stringT, string_adaptorT>
 
 template<class stringT, class string_adaptorT>
 class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
-                             public DOM::NodeList_impl<stringT>
+                             public DOM::NodeList_impl<stringT, string_adaptorT>
 {
-    typedef NodeImpl<stringT, string_adaptorT> NodeT;
   public:
-    NodeImplWithChildren(DocumentImpl<stringT, string_adaptorT>* ownerDoc) :
-      NodeImpl<stringT, string_adaptorT>(ownerDoc)
+    typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
+    typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+    typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
+
+    NodeImplWithChildren(DocumentImplT* ownerDoc) :
+      NodeImplT(ownerDoc)
     {
     } // NodeImplWithChildren
 
@@ -264,59 +279,59 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
     // Ref counting
     virtual void addRef()
     {
-      NodeImpl<stringT, string_adaptorT>::addRef();
+      NodeImplT::addRef();
     } // addRef
     virtual void releaseRef() 
     {
-      NodeImpl<stringT, string_adaptorT>::releaseRef();
+      NodeImplT::releaseRef();
     } // releaseRef
 
     ///////////////////////////////////////////////////////
     // Node methods
-    virtual DOM::NodeList_impl<stringT>* getChildNodes() const 
+    virtual DOMNodeList_implT* getChildNodes() const 
     { 
-      return const_cast<DOM::NodeList_impl<stringT>*>(static_cast<const DOM::NodeList_impl<stringT>*>(this)); 
+      return const_cast<DOMNodeList_implT*>(static_cast<const DOMNodeList_implT*>(this)); 
     } // getChildNodes
     
-    virtual DOM::Node_impl<stringT>* getFirstChild() const
+    virtual DOMNode_implT* getFirstChild() const
     {
       if(nodes_.size())
         return nodes_[0];
       return 0;
     } // getFirstChild
 
-    virtual DOM::Node_impl<stringT>* getLastChild() const
+    virtual DOMNode_implT* getLastChild() const
     {
       if(nodes_.size())
         return *nodes_.rbegin();
       return 0;
     } // getLastChild
 
-    virtual DOM::Node_impl<stringT>* insertBefore(DOM::Node_impl<stringT>*newChild, DOM::Node_impl<stringT>*refChild)
+    virtual DOMNode_implT* insertBefore(DOMNode_implT*newChild, DOMNode_implT*refChild)
     {
-      return do_insertBefore(dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(newChild), 
-                             dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(refChild));
+      return do_insertBefore(dynamic_cast<NodeImplT*>(newChild), 
+                             dynamic_cast<NodeImplT*>(refChild));
     } // insertBefore
 
-    virtual DOM::Node_impl<stringT>* replaceChild(DOM::Node_impl<stringT>*newChild, DOM::Node_impl<stringT>*oldChild)
+    virtual DOMNode_implT* replaceChild(DOMNode_implT*newChild, DOMNode_implT*oldChild)
     {
-      return do_replaceChild(dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(newChild), 
-                             dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(oldChild));
+      return do_replaceChild(dynamic_cast<NodeImplT*>(newChild), 
+                             dynamic_cast<NodeImplT*>(oldChild));
     } // replaceChild
 
-    virtual DOM::Node_impl<stringT>* removeChild(DOM::Node_impl<stringT>* oldChild)
+    virtual DOMNode_implT* removeChild(DOMNode_implT* oldChild)
     {
-      return do_removeChild(dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(oldChild));
+      return do_removeChild(dynamic_cast<NodeImplT*>(oldChild));
     } // removeChild
 
-    virtual DOM::Node_impl<stringT>* appendChild(DOM::Node_impl<stringT>* newChild)
+    virtual DOMNode_implT* appendChild(DOMNode_implT* newChild)
     {
-      return do_appendChild(dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(newChild));
+      return do_appendChild(dynamic_cast<NodeImplT*>(newChild));
     } // appendChild
 
-    virtual void purgeChild(DOM::Node_impl<stringT>* oldChild)
+    virtual void purgeChild(DOMNode_implT* oldChild)
     {
-      do_purgeChild(dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(oldChild));
+      do_purgeChild(dynamic_cast<NodeImplT*>(oldChild));
     } // purgeChild
 
     virtual bool hasChildNodes() const 
@@ -326,7 +341,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
     ///////////////////////////////////////////////////////
     // NodeList methods
-    virtual DOM::Node_impl<stringT>* item(unsigned int index) const
+    virtual DOMNode_implT* item(unsigned int index) const
     {
       if(index >= nodes_.size())
         return 0;
@@ -342,13 +357,13 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
     /////////////////////////////////////////////////////////////
     // implementation
   protected:
-    NodeImpl<stringT, string_adaptorT>* do_insertBefore(NodeImpl<stringT, string_adaptorT>* newChild, NodeImpl<stringT, string_adaptorT>* refChild)
+    NodeImplT* do_insertBefore(NodeImplT* newChild, NodeImplT* refChild)
     {
-      NodeT::throwIfReadOnly();
+      NodeImplT::throwIfReadOnly();
 
-      if(newChild->getNodeType() == DOM::Node<stringT>::DOCUMENT_FRAGMENT_NODE)
+      if(newChild->getNodeType() == DOM::Node_base::DOCUMENT_FRAGMENT_NODE)
       {
-        for(NodeImpl<stringT, string_adaptorT>* child = newChild->getFirst(); child != 0; child = newChild->getFirst())
+        for(NodeImplT* child = newChild->getFirst(); child != 0; child = newChild->getFirst())
           insertBefore(newChild->removeChild(child), refChild);
         return newChild;
       } // if ...
@@ -359,7 +374,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       {
         nodes_.insert(findChild(refChild), newChild);
 
-        NodeImpl<stringT, string_adaptorT>* prev = refChild->getPrev();
+        NodeImplT* prev = refChild->getPrev();
         if(prev != 0)
           prev->setNext(newChild);
         newChild->setPrev(prev);
@@ -383,27 +398,27 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       return newChild;
     } // insertBefore
 
-    NodeImpl<stringT, string_adaptorT>* do_replaceChild(NodeImpl<stringT, string_adaptorT>* newChild, NodeImpl<stringT, string_adaptorT>* oldChild)
+    NodeImplT* do_replaceChild(NodeImplT* newChild, NodeImplT* oldChild)
     {
-      NodeT::throwIfReadOnly();
+      NodeImplT::throwIfReadOnly();
 
-      if(newChild->getNodeType() == DOM::Node<stringT>::DOCUMENT_FRAGMENT_NODE)
+      if(newChild->getNodeType() == DOM::Node_base::DOCUMENT_FRAGMENT_NODE)
       {
         // not exception safe - but the it's not specified to be :(
-        DOM::Node_impl<stringT>* lc = newChild->getLastChild();
+        DOMNode_implT* lc = newChild->getLastChild();
         replaceChild(newChild->removeChild(lc), oldChild);
         insertBefore(newChild, lc);
         return newChild;
       } // if ...
 
       checkCanAdd(newChild);
-      typename std::deque<NodeImpl<stringT, string_adaptorT>*>::iterator result = findChild(oldChild);
+      typename std::deque<NodeImplT*>::iterator result = findChild(oldChild);
       removeIfRequired(newChild);
       *result = newChild;
       newChild->setParentNode(this);
 
-      NodeImpl<stringT, string_adaptorT>* prev = oldChild->getPrev();
-      NodeImpl<stringT, string_adaptorT>* next = oldChild->getNext();
+      NodeImplT* prev = oldChild->getPrev();
+      NodeImplT* next = oldChild->getNext();
       newChild->setPrev(prev);
       newChild->setNext(next);
       if(prev != 0)
@@ -420,14 +435,14 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       return oldChild;
     } // replaceChild
 
-    NodeImpl<stringT, string_adaptorT>* do_removeChild(NodeImpl<stringT, string_adaptorT>* oldChild)
+    NodeImplT* do_removeChild(NodeImplT* oldChild)
     {
-      NodeT::throwIfReadOnly();
+      NodeImplT::throwIfReadOnly();
 
       nodes_.erase(findChild(oldChild));
 
-      NodeImpl<stringT, string_adaptorT>* prev = oldChild->getPrev();
-      NodeImpl<stringT, string_adaptorT>* next = oldChild->getNext();
+      NodeImplT* prev = oldChild->getPrev();
+      NodeImplT* next = oldChild->getNext();
       if(prev != 0)
         prev->setNext(next);
       if(next != 0)
@@ -442,21 +457,21 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       return oldChild;
     } // removeChild
 
-    NodeImpl<stringT, string_adaptorT>* do_appendChild(NodeImpl<stringT, string_adaptorT>* newChild)
+    NodeImplT* do_appendChild(NodeImplT* newChild)
     {
       return do_insertBefore(newChild, 0);
     } // appendChild
 
-    void do_purgeChild(NodeImpl<stringT, string_adaptorT>* oldChild)
+    void do_purgeChild(NodeImplT* oldChild)
     {
       oldChild = do_removeChild(oldChild);
-      NodeT::ownerDoc_->purge(oldChild);
+      NodeImplT::ownerDoc_->purge(oldChild);
     } // do_purgeChild
 
   private:
-    typedef std::deque<NodeImpl<stringT, string_adaptorT>*> NodeListT;
+    typedef std::deque<NodeImplT*> NodeListT;
 
-    typename NodeListT::iterator findChild(NodeImpl<stringT, string_adaptorT>* refChild)
+    typename NodeListT::iterator findChild(NodeImplT* refChild)
     {
       typename NodeListT::iterator result = std::find(nodes_.begin(), nodes_.end(), refChild);
       if(result == nodes_.end())
@@ -464,40 +479,40 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       return result;
     } // findChild
 
-    void removeIfRequired(NodeImpl<stringT, string_adaptorT>* newNode) const
+    void removeIfRequired(NodeImplT* newNode) const
     {
       if(newNode->getParentNode() != 0)
         newNode->getParentNode()->removeChild(newNode);
     } // removeIfRequired
 
-    void checkCanAdd(NodeImpl<stringT, string_adaptorT>* child)
+    void checkCanAdd(NodeImplT* child)
     {
-      DocumentImpl<stringT, string_adaptorT>* childDoc = child->getOwnerDoc();
+      DocumentImplT* childDoc = child->getOwnerDoc();
       if(childDoc == 0)
       {
-        child->setOwnerDoc(NodeT::getOwnerDoc());
+        child->setOwnerDoc(NodeImplT::getOwnerDoc());
         return;
       } // 
 
-      if(child->getNodeType() == DOM::Node<stringT>::DOCUMENT_NODE) 
+      if(child->getNodeType() == DOM::Node_base::DOCUMENT_NODE) 
       {
-        if(childDoc != dynamic_cast<DocumentImpl<stringT, string_adaptorT>*>(this))
+        if(childDoc != dynamic_cast<DocumentImplT*>(this))
           throw DOM::DOMException(DOM::DOMException::WRONG_DOCUMENT_ERR);
         return;
       } // if(parent is a Document)
 
-      if(NodeT::getOwnerDocument() && childDoc != NodeT::getOwnerDocument())
+      if(NodeImplT::getOwnerDocument() && childDoc != NodeImplT::getOwnerDocument())
         throw DOM::DOMException(DOM::DOMException::WRONG_DOCUMENT_ERR);
 
       checkChildType(child);
     } // checkCanAdd
 
-    virtual void checkChildType(DOM::Node_impl<stringT>* child) = 0;
+    virtual void checkChildType(DOMNode_implT* child) = 0;
 
     void markChanged()
     {
-      if(NodeT::ownerDoc_)
-        NodeT::ownerDoc_->markChanged();
+      if(NodeImplT::ownerDoc_)
+        NodeImplT::ownerDoc_->markChanged();
     } // markChanged
 
     NodeListT nodes_;
