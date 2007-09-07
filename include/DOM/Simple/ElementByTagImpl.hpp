@@ -13,13 +13,13 @@ template<class stringT, class string_adaptorT>
 class DocumentImpl;
 
 template<class stringT, class string_adaptorT>
-class ElementByTagList : public DOM::NodeList_impl<stringT>
+class ElementByTagList : public DOM::NodeList_impl<stringT, string_adaptorT>
 {
   public:
     ElementByTagList(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
-                     DOM::Node_impl<stringT>* rootNode,
+                     DOM::Node_impl<stringT, string_adaptorT>* rootNode,
                      const stringT& tagName) :
-        DOM::NodeList_impl<stringT>(),
+        DOM::NodeList_impl<stringT, string_adaptorT>(),
         rootNode_(rootNode),
         ownerDoc_(ownerDoc),
         tagName_(tagName),
@@ -34,10 +34,10 @@ class ElementByTagList : public DOM::NodeList_impl<stringT>
     } // ElementByTagList
 
     ElementByTagList(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
-                     DOM::Node_impl<stringT>* rootNode,
+                     DOM::Node_impl<stringT, string_adaptorT>* rootNode,
                      const stringT& namespaceURI,
                      const stringT& localName) :
-        DOM::NodeList_impl<stringT>(),
+        DOM::NodeList_impl<stringT, string_adaptorT>(),
         rootNode_(rootNode),
         ownerDoc_(ownerDoc),
         namespaceURI_(namespaceURI),
@@ -72,7 +72,7 @@ class ElementByTagList : public DOM::NodeList_impl<stringT>
 
     /////////////////////////////////////////////////
     // DOM::NodeList methods
-    virtual DOM::Node_impl<stringT>* item(unsigned int index) const
+    virtual DOM::Node_impl<stringT, string_adaptorT>* item(unsigned int index) const
     {
       if(index >= nodes_.size())
         return 0;
@@ -102,29 +102,29 @@ class ElementByTagList : public DOM::NodeList_impl<stringT>
       changes_ = ownerDoc_->changes();
     } // populate
 
-    void checkNode(DOM::Node_impl<stringT>* node) const
+    void checkNode(DOM::Node_impl<stringT, string_adaptorT>* node) const
     {
       if(useNamespace_)
       {
         if((node->hasNamespaceURI() && namespaceURI_ == node->getNamespaceURI()) || allNamespaces_)
         {
-          if((tagName_ == node->getLocalName()) || (allNames_ && node->getNodeType() == DOM::Node<stringT>::ELEMENT_NODE))
+          if((tagName_ == node->getLocalName()) || (allNames_ && node->getNodeType() == DOM::Node<stringT, string_adaptorT>::ELEMENT_NODE))
             nodes_.push_back(node);
         }
       } 
       else
-        if((tagName_ == node->getNodeName()) || (allNames_ && node->getNodeType() == DOM::Node<stringT>::ELEMENT_NODE))
+        if((tagName_ == node->getNodeName()) || (allNames_ && node->getNodeType() == DOM::Node<stringT, string_adaptorT>::ELEMENT_NODE))
           nodes_.push_back(node);
 
-      for(DOM::Node_impl<stringT>* child = node->getFirstChild(); child != 0; child = child->getNextSibling())
-        if(child->getNodeType() == DOM::Node<stringT>::ELEMENT_NODE)
+      for(DOM::Node_impl<stringT, string_adaptorT>* child = node->getFirstChild(); child != 0; child = child->getNextSibling())
+        if(child->getNodeType() == DOM::Node<stringT, string_adaptorT>::ELEMENT_NODE)
           checkNode(child);
     } // checkNode
     
 
-    typedef std::deque<DOM::Node_impl<stringT>*> NodeListT;
+    typedef std::deque<DOM::Node_impl<stringT, string_adaptorT>*> NodeListT;
     mutable NodeListT nodes_;
-    DOM::Node_impl<stringT>* rootNode_;
+    DOM::Node_impl<stringT, string_adaptorT>* rootNode_;
     DocumentImpl<stringT, string_adaptorT>* ownerDoc_;
     stringT namespaceURI_;
     stringT tagName_;

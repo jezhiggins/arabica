@@ -17,36 +17,42 @@ namespace Traversal
 {
 
 
-template<class stringT>
-class DocumentTraversalImpl : public DocumentTraversal_impl<stringT>
+template<class stringT, class string_adaptorT>
+class DocumentTraversalImpl : public DocumentTraversal_impl<stringT, string_adaptorT>
 {
   public:
+    typedef DOM::Node<stringT, string_adaptorT> NodeT;
+    typedef NodeFilter<stringT, string_adaptorT> NodeFilterT;
+    typedef NodeIterator_impl<stringT, string_adaptorT> NodeIterator_implT;
+    typedef TreeWalker_impl<stringT, string_adaptorT> TreeWalker_implT;
+    typedef TreeWalkerImpl<stringT, string_adaptorT> TreeWalkerImplT;
+
     DocumentTraversalImpl() {}
 
-    virtual NodeIterator_impl<stringT>* createNodeIterator(DOM::Node<stringT> root,
-                                                           unsigned long whatToShow,
-                                                           NodeFilter<stringT>* filter,
-                                                           bool entityRefExpansion) 
+    virtual NodeIterator_implT* createNodeIterator(NodeT root,
+                                                   unsigned long whatToShow,
+                                                   NodeFilterT* filter,
+                                                   bool entityRefExpansion) 
     {
       return 0;
     }
 
-    virtual TreeWalker_impl<stringT>* createTreeWalker(DOM::Node<stringT> root,
-                                                       unsigned long whatToShow,
-                                                       NodeFilter<stringT>* filter,
-                                                       bool entityRefExpansion)
+    virtual TreeWalker_implT* createTreeWalker(NodeT root,
+                                               unsigned long whatToShow,
+                                               NodeFilterT* filter,
+                                               bool entityRefExpansion)
     {
-      return new TreeWalkerImpl<stringT>(root, whatToShow, filter, entityRefExpansion);
+      return new TreeWalkerImplT(root, whatToShow, filter, entityRefExpansion);
     }
 }; // class DocumentTraversalImpl
 
 
 
 //todo: move to DOM::Document?
-template<class stringT>
-DocumentTraversal<stringT> make_document_traversal_t()
+template<class stringT, class string_adaptorT>
+DocumentTraversal<stringT, string_adaptorT> make_document_traversal_t()
 {
-  DocumentTraversal<stringT> docTraversal(new DocumentTraversalImpl<stringT>());
+  DocumentTraversal<stringT, string_adaptorT> docTraversal(new DocumentTraversalImpl<stringT, string_adaptorT>());
   return docTraversal;
 }
 

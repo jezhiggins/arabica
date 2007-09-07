@@ -14,15 +14,15 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class Node;
-template<class stringT> class NodeList_impl;
+template<class stringT, class string_adaptorT> class Node;
+template<class stringT, class string_adaptorT> class NodeList_impl;
 
-template<class stringT>
+template<class stringT, class string_adaptorT>
 class NodeList 
 {
   public:
     NodeList() : impl_(0) { }
-    explicit NodeList(NodeList_impl<stringT>* const impl) : impl_(impl) { }
+    explicit NodeList(NodeList_impl<stringT, string_adaptorT>* const impl) : impl_(impl) { }
     NodeList(const NodeList& rhs) : impl_(rhs.impl_) { }
     virtual ~NodeList() { }
 
@@ -37,16 +37,16 @@ class NodeList
       return *this;
     } // operator=
 
-    Node<stringT> item(unsigned int index) const { return impl_->item(index); }
+    Node<stringT, string_adaptorT> item(unsigned int index) const { return impl_->item(index); }
 
     unsigned int getLength() const { return impl_->getLength(); }
 
   private:
-    Proxy<NodeList_impl<stringT> > impl_;
+    Proxy<NodeList_impl<stringT, string_adaptorT> > impl_;
 }; // class NodeList
 
 /////////////////////////////////////////////////////////
-template<class stringT>
+template<class stringT, class string_adaptorT>
 class NodeList_impl 
 {
   public:
@@ -59,7 +59,7 @@ class NodeList_impl
 
     ///////////////////////////////////////////////////////
     // NodeList methods
-    virtual Node_impl<stringT>* item(unsigned int index) const = 0;
+    virtual Node_impl<stringT, string_adaptorT>* item(unsigned int index) const = 0;
 
     virtual unsigned int getLength() const = 0;
 }; // class NodeList_impl

@@ -14,13 +14,17 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT> class ElementImpl;
 
 template<class stringT, class string_adaptorT>
-class AttrImpl : public DOM::Attr_impl<stringT>,
+class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
                  public NodeImplWithChildren<stringT, string_adaptorT>
 {
-    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
   public:
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
+    typedef ElementImpl<stringT, string_adaptorT> ElementImpl;
+    typedef DOM::Attr_impl<stringT, string_adaptorT> DOMAttr_implT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+
     AttrImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& name) : 
-        DOM::Attr_impl<stringT>(),
+        DOMAttr_implT(),
         NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
         name_(ownerDoc->stringPool(name)),
         ownerElement_(0),
@@ -30,7 +34,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
     } // AttrImpl
 
     AttrImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& name, const stringT& value) : 
-        DOM::Attr_impl<stringT>(),
+        DOMAttr_implT(),
         NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
         name_(ownerDoc->stringPool(name)),
         ownerElement_(0),
@@ -61,16 +65,16 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
     /////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual typename DOM::Node<stringT>::Type getNodeType() const
+    virtual typename DOM::Node_base::Type getNodeType() const
     {
-      return DOM::Node<stringT>::ATTRIBUTE_NODE;
+      return DOM::Node_base::ATTRIBUTE_NODE;
     } // getNodeType
 
-    virtual DOM::Node_impl<stringT>* getParentNode() const { return 0; }
-    virtual DOM::Node_impl<stringT>* getPreviousSibling() const { return 0; }
-    virtual DOM::Node_impl<stringT>* getNextSibling() const { return 0; }
+    virtual DOMNode_implT* getParentNode() const { return 0; }
+    virtual DOMNode_implT* getPreviousSibling() const { return 0; }
+    virtual DOMNode_implT* getNextSibling() const { return 0; }
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
       AttrImpl* a = dynamic_cast<AttrImpl*>(NodeT::ownerDoc_->createAttribute(*name_));
       cloneChildren(a);
@@ -88,7 +92,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
       if(!valueCalculated_)
       {
         value_ = string_adaptorT::construct_from_utf8("");
-        for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
+        for(DOMNode_implT* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
           string_adaptorT::append(value_, c->getNodeValue());
         valueCalculated_ = true;
       }
@@ -100,7 +104,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
       NodeT::throwIfReadOnly();
 
       // remove all children
-      for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = NodeT::getFirstChild())
+      for(DOMNode_implT* c = NodeT::getFirstChild(); c != 0; c = NodeT::getFirstChild())
         NodeT::removeChild(c);
 
       // add a new text node
@@ -112,7 +116,7 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
 
     /////////////////////////////////////////////////////////////
     // this implementation
-    void setOwnerElement(ElementImpl<stringT, string_adaptorT>* element)
+    void setOwnerElement(ElementImplT* element)
     {
       ownerElement_ = element;
       if(NodeT::ownerDoc_)
@@ -132,22 +136,22 @@ class AttrImpl : public DOM::Attr_impl<stringT>,
   protected:
     void cloneChildren(AttrImpl* clone) const
     {
-      for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
+      for(DOMNode_implT* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
         clone->appendChild(c->cloneNode(true));
     } // cloneChildren
 
   private:
-    virtual void checkChildType(DOM::Node_impl<stringT>* child)
+    virtual void checkChildType(DOMNode_implT* child)
     {
-      typename DOM::Node<stringT>::Type type = child->getNodeType();
-      if((type != DOM::Node<stringT>::TEXT_NODE) && 
-         (type != DOM::Node<stringT>::ENTITY_REFERENCE_NODE)) 
+      typename DOM::Node_base::Type type = child->getNodeType();
+      if((type != DOM::Node_base::TEXT_NODE) && 
+         (type != DOM::Node_base::ENTITY_REFERENCE_NODE)) 
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // checkChildType
 
   protected:
     stringT const* name_;
-    ElementImpl<stringT, string_adaptorT>* ownerElement_;
+    ElementImplT* ownerElement_;
     bool specified_;
     mutable bool valueCalculated_;
     mutable stringT value_;

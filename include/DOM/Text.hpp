@@ -13,17 +13,20 @@ namespace Arabica
 {
 namespace DOM
 {
-template<class stringT> class Text_impl;
+template<class stringT, class string_adaptorT> class Text_impl;
 
-template<class stringT>
-class Text : public CharacterData<stringT>
+template<class stringT, class string_adaptorT>
+class Text : public CharacterData<stringT, string_adaptorT>
 {
-    typedef CharacterData<stringT> CharDataT;
+    typedef Text_impl<stringT, string_adaptorT> Text_implT;
   public:
-    Text() : CharacterData<stringT>() { }
-    explicit Text(Text_impl<stringT>* impl) : CharacterData<stringT>(impl) { }
-    Text(const Text& rhs) : CharacterData<stringT>(rhs) { }
-    explicit Text(const Node<stringT>& rhs) : CharacterData<stringT>(rhs, 0)  
+    typedef Node<stringT, string_adaptorT> NodeT;
+    typedef CharacterData<stringT, string_adaptorT> CharacterDataT;
+
+    Text() : CharacterDataT() { }
+    explicit Text(Text_implT* impl) : CharacterDataT(impl) { }
+    Text(const Text& rhs) : CharacterDataT(rhs) { }
+    explicit Text(const NodeT& rhs) : CharacterDataT(rhs, 0)  
     {
       typename Text::Type type = rhs.getNodeType();
       if((type != Text::TEXT_NODE) && (type != Text::CDATA_SECTION_NODE))
@@ -32,7 +35,7 @@ class Text : public CharacterData<stringT>
     } // Text
 
   protected:
-    Text(const Node<stringT>& rhs, int dummy) : CharacterData<stringT>(rhs, 0) { }
+    Text(const NodeT& rhs, int dummy) : CharacterDataT(rhs, 0) { }
 
     Text splitText(int offset) 
     { 
@@ -40,19 +43,19 @@ class Text : public CharacterData<stringT>
     } // splitText
 
   protected:
-    Text_impl<stringT>* tImpl() const { return dynamic_cast<Text_impl<stringT>*>(CharDataT::impl()); }
+    Text_implT* tImpl() const { return dynamic_cast<Text_implT*>(CharacterDataT::impl()); }
 }; // class Text
 
 ////////////////////////////////////////////////////////////////////
-template<class stringT>
-class Text_impl : virtual public CharacterData_impl<stringT>
+template<class stringT, class string_adaptorT>
+class Text_impl : virtual public CharacterData_impl<stringT, string_adaptorT>
 {
   public:
     virtual ~Text_impl() { }
 
     ////////////////////////////////////////////////////////////
     // DOM::Text methods
-    virtual Text_impl<stringT>* splitText(int offset) = 0;
+    virtual Text_impl<stringT, string_adaptorT>* splitText(int offset) = 0;
 }; // Text_impl
 
 } // namespace DOM

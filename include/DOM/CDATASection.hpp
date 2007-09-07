@@ -13,33 +13,33 @@ namespace Arabica
 {
 namespace DOM
 {
-template<class stringT> class CDATASection_impl;
+template<class stringT, class string_adaptorT> class CDATASection_impl;
 
-template<class stringT>
-class CDATASection : public Text<stringT>
+template<class stringT, class string_adaptorT>
+class CDATASection : public Text<stringT, string_adaptorT>
 {
-    typedef Text<stringT> TextT;
+    typedef Text<stringT, string_adaptorT> TextT;
   public:
-    CDATASection() : Text<stringT>() { }
-    explicit CDATASection(CDATASection_impl<stringT>* impl) : Text<stringT>(impl) { }
-    CDATASection(const CDATASection& rhs) : Text<stringT>(rhs) { }
-    explicit CDATASection(const Node<stringT>& rhs) : Text<stringT>(rhs, 0)  
+    CDATASection() : Text<stringT, string_adaptorT>() { }
+    explicit CDATASection(CDATASection_impl<stringT, string_adaptorT>* impl) : Text<stringT, string_adaptorT>(impl) { }
+    CDATASection(const CDATASection& rhs) : Text<stringT, string_adaptorT>(rhs) { }
+    explicit CDATASection(const Node<stringT, string_adaptorT>& rhs) : Text<stringT, string_adaptorT>(rhs, 0)  
     {
       if(rhs.getNodeType() != Node_base::CDATA_SECTION_NODE)
         //throw std::runtime_error("bad_cast: Cannot convert Node to CDATA section");
         throw std::bad_cast();
     } // CDATASection
 
-    CDATASection<stringT> splitText(int offset) 
+    CDATASection<stringT, string_adaptorT> splitText(int offset) 
     { 
       TextT::tImpl()->throwIfReadOnly();
-      return static_cast<CDATASection<stringT> >(TextT::tImpl()->splitText(offset)); 
+      return static_cast<CDATASection<stringT, string_adaptorT> >(TextT::tImpl()->splitText(offset)); 
     } // splitText
 }; // class CDATASection
 
 ////////////////////////////////////////////////////////////////////
-template<class stringT>
-class CDATASection_impl : public virtual Text_impl<stringT>
+template<class stringT, class string_adaptorT>
+class CDATASection_impl : public virtual Text_impl<stringT, string_adaptorT>
 {
   public:
     virtual ~CDATASection_impl() { }

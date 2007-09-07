@@ -12,12 +12,17 @@ namespace Arabica
 namespace DOM
 {
 
+template<class stringT, class string_adaptorT> class Node;
+
 namespace Traversal
 {
 
-template<class stringT>
+template<class stringT, class string_adaptorT>
 class NodeFilter 
 {
+  public:
+    typedef DOM::Node<stringT, string_adaptorT> NodeT;
+
   protected:
     virtual ~NodeFilter() { }
 
@@ -31,7 +36,7 @@ class NodeFilter
       FILTER_SKIP = 3
     }; // Result
 
-    virtual Result acceptNode(const DOM::Node<stringT>& node) const = 0;
+    virtual Result acceptNode(const NodeT& node) const = 0;
 
 }; // class NodeFilter
 

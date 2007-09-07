@@ -14,16 +14,16 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class Document;
-template<class stringT> class DocumentType;
-template<class stringT> class DOMImplementation_impl;
+template<class stringT, class string_adaptorT> class Document;
+template<class stringT, class string_adaptorT> class DocumentType;
+template<class stringT, class string_adaptorT> class DOMImplementation_impl;
 
-template<class stringT>
+template<class stringT, class string_adaptorT>
 class DOMImplementation 
 {
   public:
     DOMImplementation() : impl_(0) { }
-    DOMImplementation(DOMImplementation_impl<stringT>* impl) : impl_(impl) { }
+    DOMImplementation(DOMImplementation_impl<stringT, string_adaptorT>* impl) : impl_(impl) { }
     DOMImplementation(const DOMImplementation& rhs) : impl_(rhs.impl_) { }
 
     operator bool() const { return impl_; }
@@ -43,31 +43,31 @@ class DOMImplementation
       return impl_->hasFeature(feature, version);
     } // hasFeature
 
-    DocumentType<stringT> createDocumentType(const stringT& qualifiedName,
+    DocumentType<stringT, string_adaptorT> createDocumentType(const stringT& qualifiedName,
                                              const stringT& publicId,
                                              const stringT& systemId)
     {
       return impl_->createDocumentType(qualifiedName, publicId, systemId);
     } // createDocumentType
 
-    Document<stringT> createDocument(const stringT& namespaceURI,
+    Document<stringT, string_adaptorT> createDocument(const stringT& namespaceURI,
                                      const stringT& qualifiedName,
-                                     DocumentType<stringT> docType)
+                                     DocumentType<stringT, string_adaptorT> docType)
     {
       return impl_->createDocument(namespaceURI, qualifiedName, docType.dtImpl());
     } // createDocument
 
   private:
-    Proxy<DOMImplementation_impl<stringT> > impl_;
+    Proxy<DOMImplementation_impl<stringT, string_adaptorT> > impl_;
 }; // class DOMImplementation
 
 /////////////////////////////////////////////////
-template<class stringT> class Document_impl;
-template<class stringT> class DocumentType_impl;
+template<class stringT, class string_adaptorT> class Document_impl;
+template<class stringT, class string_adaptorT> class DocumentType_impl;
 
 // derive from this class to implement your own
 // DOM provider
-template<class stringT>
+template<class stringT, class string_adaptorT>
 class DOMImplementation_impl
 {
   public:
@@ -80,13 +80,13 @@ class DOMImplementation_impl
     // DOM implementation methods
     virtual bool hasFeature(const stringT& feature, const stringT& version) const = 0;
 
-    virtual DocumentType_impl<stringT>* createDocumentType(const stringT& qualifiedName,
+    virtual DocumentType_impl<stringT, string_adaptorT>* createDocumentType(const stringT& qualifiedName,
                                                            const stringT& publicId,
                                                            const stringT& systemId) = 0;
 
-    virtual Document_impl<stringT>* createDocument(const stringT& namespaceURI,
+    virtual Document_impl<stringT, string_adaptorT>* createDocument(const stringT& namespaceURI,
                                                    const stringT& qualifiedName,
-                                                   DocumentType_impl<stringT>* docType) = 0;
+                                                   DocumentType_impl<stringT, string_adaptorT>* docType) = 0;
 
   protected:
     DOMImplementation_impl() { }

@@ -15,19 +15,19 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class Notation_impl;
+template<class stringT, class string_adaptorT> class Notation_impl;
 
-template<class stringT>
-class Notation : public Node<stringT>
+template<class stringT, class string_adaptorT>
+class Notation : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT> NodeT;
+    typedef Node<stringT, string_adaptorT> NodeT;
   public:
-    Notation() : Node<stringT>() { }
-    explicit Notation(Notation_impl<stringT>* impl) : Node<stringT>(dynamic_cast<Node_impl<stringT>*>(impl)) { }
-    Notation(const Notation& rhs) : Node<stringT>(rhs) { }
-    explicit Notation(const Node<stringT>& rhs) : Node<stringT>(rhs)  
+    Notation() : Node<stringT, string_adaptorT>() { }
+    explicit Notation(Notation_impl<stringT, string_adaptorT>* impl) : Node<stringT>(dynamic_cast<Node_impl<stringT>*>(impl)) { }
+    Notation(const Notation& rhs) : Node<stringT, string_adaptorT>(rhs) { }
+    explicit Notation(const Node<stringT, string_adaptorT>& rhs) : Node<stringT>(rhs)  
     {
-      if(rhs.getNodeType() != Node<stringT>::NOTATION_NODE)
+      if(rhs.getNodeType() != Node<stringT, string_adaptorT>::NOTATION_NODE)
         throw std::bad_cast();
     }
 
@@ -36,14 +36,14 @@ class Notation : public Node<stringT>
     stringT getSystemId() const { nImpl()->getSystemId(); }
 
   private:
-    Notation_impl<stringT>* nImpl() { return dynamic_cast<Notation_impl<stringT>*>(NodeT::impl()); }
+    Notation_impl<stringT, string_adaptorT>* nImpl() { return dynamic_cast<Notation_impl<stringT>*>(NodeT::impl()); }
 }; // class Notation
 
 //////////////////////////////////////////////////////////
-template<class stringT> class NamedNodeMap_impl;
+template<class stringT, class string_adaptorT> class NamedNodeMap_impl;
 
-template<class stringT>
-class Notation_impl : virtual public Node_impl<stringT>
+template<class stringT, class string_adaptorT>
+class Notation_impl : virtual public Node_impl<stringT, string_adaptorT>
 {
   public:
     virtual ~Notation_impl () { }

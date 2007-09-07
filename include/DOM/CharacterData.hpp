@@ -13,17 +13,19 @@ namespace Arabica
 {
 namespace DOM
 {
-template<class stringT> class CharacterData_impl;
+template<class stringT, class string_adaptorT> class CharacterData_impl;
 
-template<class stringT>
-class CharacterData : public Node<stringT>
+template<class stringT, class string_adaptorT>
+class CharacterData : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT> NodeT;
+    typedef CharacterData_impl<stringT, string_adaptorT> CharacterData_implT;
   public:
-    CharacterData() : Node<stringT>() { }
-    explicit CharacterData(CharacterData_impl<stringT>* impl) : Node<stringT>(impl) { }
-    CharacterData(const CharacterData& rhs) : Node<stringT>(rhs) { }
-    explicit CharacterData(const Node<stringT>& rhs) : Node<stringT>(rhs)  
+    typedef Node<stringT, string_adaptorT> NodeT;
+
+    CharacterData() : NodeT() { }
+    explicit CharacterData(CharacterData_implT* impl) : NodeT(impl) { }
+    CharacterData(const CharacterData& rhs) : NodeT(rhs) { }
+    explicit CharacterData(const NodeT& rhs) : NodeT(rhs)  
     {
       typename NodeT::Type type = rhs.getNodeType();
       if((type != NodeT::TEXT_NODE) && (type != NodeT::CDATA_SECTION_NODE))
@@ -31,7 +33,7 @@ class CharacterData : public Node<stringT>
     } // CharacterData
 
   protected:
-    CharacterData(const Node<stringT>& rhs, int dummy) : Node<stringT>(rhs) { }
+    CharacterData(const NodeT& rhs, int dummy) : NodeT(rhs) { }
 
   public:
     const stringT& getData() const { return cdImpl()->getData(); }
@@ -62,13 +64,13 @@ class CharacterData : public Node<stringT>
     } // replaceData
 
   private:
-    CharacterData_impl<stringT>* cdImpl() { return dynamic_cast<CharacterData_impl<stringT>*>(*NodeT::impl_); }
-    const CharacterData_impl<stringT>* cdImpl() const { return dynamic_cast<const CharacterData_impl<stringT>*>(*NodeT::impl_); }
+    CharacterData_implT* cdImpl() { return dynamic_cast<CharacterData_implT*>(*NodeT::impl_); }
+    const CharacterData_implT* cdImpl() const { return dynamic_cast<const CharacterData_implT*>(*NodeT::impl_); }
 }; // class CharacterData
 
 ////////////////////////////////////////////////////////////////////
-template<class stringT>
-class CharacterData_impl : virtual public Node_impl<stringT>
+template<class stringT, class string_adaptorT>
+class CharacterData_impl : virtual public Node_impl<stringT, string_adaptorT>
 {
   public:
     virtual ~CharacterData_impl () { }

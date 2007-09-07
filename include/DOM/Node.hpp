@@ -17,13 +17,13 @@ namespace DOM
 {
 
 namespace Events {
-  template<class stringT> class EventTarget;
+  template<class stringT, class string_adaptorT> class EventTarget;
 } // namespace Events 
 
-template<class stringT> class Document;
-template<class stringT> class NodeList;
-template<class stringT> class NamedNodeMap;
-template<class stringT> class Node_impl;
+template<class stringT, class string_adaptorT> class Document;
+template<class stringT, class string_adaptorT> class NodeList;
+template<class stringT, class string_adaptorT> class NamedNodeMap;
+template<class stringT, class string_adaptorT> class Node_impl;
 
 class Node_base
 {
@@ -47,14 +47,12 @@ class Node_base
 }; // class Node_base
 
 /////////////////////////////////////////////////
-template<class node_string_type>
+template<class stringT, class string_adaptorT>
 class Node : public Node_base
 {
   public:
-    typedef node_string_type string_type;
-
     Node() : impl_() { }
-    Node(Node_impl<string_type>* const impl) : impl_(impl) { }
+    Node(Node_impl<stringT, string_adaptorT>* const impl) : impl_(impl) { }
     Node(const Node& rhs) : impl_(rhs.impl_) { }
     virtual ~Node() { }
 
@@ -70,25 +68,25 @@ class Node : public Node_base
       return *this;
     } // operator=
 
-    const string_type& getNodeName() const { return impl_->getNodeName(); }
+    const stringT& getNodeName() const { return impl_->getNodeName(); }
 
-    const string_type& getNodeValue() const { return impl_->getNodeValue(); }
-    void setNodeValue(const string_type& nodeValue) { impl_->setNodeValue(nodeValue); }
+    const stringT& getNodeValue() const { return impl_->getNodeValue(); }
+    void setNodeValue(const stringT& nodeValue) { impl_->setNodeValue(nodeValue); }
 
     Type getNodeType() const { return impl_->getNodeType(); }
     
     Node getParentNode() const { return impl_->getParentNode(); }
 
-    const NodeList<string_type> getChildNodes() const { return NodeList<string_type>(impl_->getChildNodes()); }
+    const NodeList<stringT, string_adaptorT> getChildNodes() const { return NodeList<stringT, string_adaptorT>(impl_->getChildNodes()); }
     
     Node getFirstChild() const { return impl_->getFirstChild(); }
     Node getLastChild() const { return impl_->getLastChild(); }
     Node getPreviousSibling() const { return impl_->getPreviousSibling(); }
     Node getNextSibling() const { return impl_->getNextSibling(); }
 
-    const NamedNodeMap<string_type> getAttributes() const { return NamedNodeMap<string_type>(impl_->getAttributes()); }
+    const NamedNodeMap<stringT, string_adaptorT> getAttributes() const { return NamedNodeMap<stringT, string_adaptorT>(impl_->getAttributes()); }
 
-    Document<string_type> getOwnerDocument() const { return impl_->getOwnerDocument(); }
+    Document<stringT, string_adaptorT> getOwnerDocument() const { return impl_->getOwnerDocument(); }
 
     Node insertBefore(const Node& newChild, const Node& refChild) { return impl_->insertBefore(*newChild.impl_, *refChild.impl_); } 
     Node replaceChild(const Node& newChild, const Node& oldChild) { return impl_->replaceChild(*newChild.impl_, *oldChild.impl_); }
@@ -96,7 +94,7 @@ class Node : public Node_base
     Node appendChild(const Node& newChild) { return impl_->appendChild(*newChild.impl_); }
     void purgeChild(Node& oldChild) 
     { 
-      Node_impl<string_type>* child = *oldChild.impl_;
+      Node_impl<stringT, string_adaptorT>* child = *oldChild.impl_;
       oldChild = 0;
 
       try {
@@ -115,15 +113,15 @@ class Node : public Node_base
 
     void normalize() { impl_->normalize(); }
 
-    bool isSupported(const string_type& feature, const string_type& version) const { return impl_->isSupported(feature, version); }
+    bool isSupported(const stringT& feature, const stringT& version) const { return impl_->isSupported(feature, version); }
 
-    const string_type& getNamespaceURI() const { return impl_->getNamespaceURI(); }
-    const string_type& getPrefix() const { return impl_->getPrefix(); }
-    void setPrefix(const string_type& prefix) const { impl_->setPrefix(prefix); }
-    const string_type& getLocalName() const { return impl_->getLocalName(); }
+    const stringT& getNamespaceURI() const { return impl_->getNamespaceURI(); }
+    const stringT& getPrefix() const { return impl_->getPrefix(); }
+    void setPrefix(const stringT& prefix) const { impl_->setPrefix(prefix); }
+    const stringT& getLocalName() const { return impl_->getLocalName(); }
 
     // additional three methods - since C++ std::string (and by implication
-    // string_type) don't differenciate between a null string and an empty string,
+    // stringT) don't differenciate between a null string and an empty string,
     // but the DOM recommendation does, I have to introduce these three methods 
     // to disambiguate.  If they return false, the corresponding attribute should be
     // considered null.  If they return true, the attribute has been set EVEN IF 
@@ -134,25 +132,25 @@ class Node : public Node_base
     bool hasAttributes() const { return impl_->hasAttributes(); }
 
     // you almost certainly don't need to use this function
-    Node_impl<string_type>* unlying_impl() const { return *impl_; }
+    Node_impl<stringT, string_adaptorT>* unlying_impl() const { return *impl_; }
 
   protected:
-    Proxy<Node_impl<string_type> > impl_;
+    Proxy<Node_impl<stringT, string_adaptorT> > impl_;
 
-    typedef class Document<string_type> DocumentT;
-    friend class Document<string_type>;
-    typedef class Events::EventTarget<string_type> EventTargetT;
-    friend class Events::EventTarget<string_type>;
+    typedef class Document<stringT, string_adaptorT> DocumentT;
+    friend class Document<stringT, string_adaptorT>;
+    typedef class Events::EventTarget<stringT, string_adaptorT> EventTargetT;
+    friend class Events::EventTarget<stringT, string_adaptorT>;
 }; // class Node
 
 ////////////////////////////////////////////////////////////////////
 // derive from this class to implement your own
 // DOM provider
-template<class string_type> class Document_impl;
-template<class string_type> class NodeList_impl;
-template<class string_type> class NamedNodeMap_impl;
+template<class stringT, class string_adaptorT> class Document_impl;
+template<class stringT, class string_adaptorT> class NodeList_impl;
+template<class stringT, class string_adaptorT> class NamedNodeMap_impl;
 
-template<class string_type>
+template<class stringT, class string_adaptorT>
 class Node_impl
 {
   public:
@@ -165,48 +163,48 @@ class Node_impl
 
     ///////////////////////////////////////////////////////
     // Node methods
-    virtual const string_type& getNodeName() const = 0;
+    virtual const stringT& getNodeName() const = 0;
 
-    virtual const string_type& getNodeValue() const = 0;
-    virtual void setNodeValue(const string_type& nodeValue) = 0;
+    virtual const stringT& getNodeValue() const = 0;
+    virtual void setNodeValue(const stringT& nodeValue) = 0;
 
     virtual Node_base::Type getNodeType() const = 0;
     
-    virtual Node_impl<string_type>* getParentNode() const = 0;
+    virtual Node_impl<stringT, string_adaptorT>* getParentNode() const = 0;
 
-    virtual NodeList_impl<string_type>* getChildNodes() const = 0;
+    virtual NodeList_impl<stringT, string_adaptorT>* getChildNodes() const = 0;
     
-    virtual Node_impl<string_type>* getFirstChild() const = 0;
-    virtual Node_impl<string_type>* getLastChild() const = 0;
+    virtual Node_impl<stringT, string_adaptorT>* getFirstChild() const = 0;
+    virtual Node_impl<stringT, string_adaptorT>* getLastChild() const = 0;
 
-    virtual Node_impl<string_type>* getPreviousSibling() const = 0;
-    virtual Node_impl<string_type>* getNextSibling() const = 0;
+    virtual Node_impl<stringT, string_adaptorT>* getPreviousSibling() const = 0;
+    virtual Node_impl<stringT, string_adaptorT>* getNextSibling() const = 0;
 
-    virtual NamedNodeMap_impl<string_type>* getAttributes() const = 0;
+    virtual NamedNodeMap_impl<stringT, string_adaptorT>* getAttributes() const = 0;
 
-    virtual Document_impl<string_type>* getOwnerDocument() const = 0;
+    virtual Document_impl<stringT, string_adaptorT>* getOwnerDocument() const = 0;
 
-    virtual Node_impl<string_type>* insertBefore(Node_impl<string_type>* newChild, Node_impl<string_type>* refChild) = 0;
-    virtual Node_impl<string_type>* replaceChild(Node_impl<string_type>*  newChild, Node_impl<string_type>* oldChild) = 0;
-    virtual Node_impl<string_type>* removeChild(Node_impl<string_type>*  oldChild) = 0;
-    virtual Node_impl<string_type>* appendChild(Node_impl<string_type>*  newChild) = 0;
-    virtual void purgeChild(Node_impl<string_type>* oldChild) = 0;
+    virtual Node_impl<stringT, string_adaptorT>* insertBefore(Node_impl<stringT, string_adaptorT>* newChild, Node_impl<stringT, string_adaptorT>* refChild) = 0;
+    virtual Node_impl<stringT, string_adaptorT>* replaceChild(Node_impl<stringT, string_adaptorT>*  newChild, Node_impl<stringT, string_adaptorT>* oldChild) = 0;
+    virtual Node_impl<stringT, string_adaptorT>* removeChild(Node_impl<stringT, string_adaptorT>*  oldChild) = 0;
+    virtual Node_impl<stringT, string_adaptorT>* appendChild(Node_impl<stringT, string_adaptorT>*  newChild) = 0;
+    virtual void purgeChild(Node_impl<stringT, string_adaptorT>* oldChild) = 0;
 
     virtual bool hasChildNodes() const = 0;
 
-    virtual Node_impl<string_type>* cloneNode(bool deep) const = 0;
+    virtual Node_impl<stringT, string_adaptorT>* cloneNode(bool deep) const = 0;
 
     virtual void normalize() = 0;
 
-    virtual bool isSupported(const string_type& feature, const string_type& version) const = 0;
+    virtual bool isSupported(const stringT& feature, const stringT& version) const = 0;
 
-    virtual const string_type& getNamespaceURI() const = 0;
-    virtual const string_type& getPrefix() const = 0;
-    virtual void setPrefix(const string_type& prefix) = 0;
-    virtual const string_type& getLocalName() const = 0;
+    virtual const stringT& getNamespaceURI() const = 0;
+    virtual const stringT& getPrefix() const = 0;
+    virtual void setPrefix(const stringT& prefix) = 0;
+    virtual const stringT& getLocalName() const = 0;
 
     // additional methods - since C++ std::string (and by implication
-    // string_type) don't differenciate between a null string and an empty string,
+    // stringT) don't differenciate between a null string and an empty string,
     // but the DOM recommendation does, I have to introduce these three methods 
     // to disambiguate.  If they return false, the corresponding attribute should be
     // considered null.  If they return true, the attribute has been set EVEN IF 

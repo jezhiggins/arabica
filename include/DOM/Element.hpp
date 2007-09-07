@@ -16,21 +16,25 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class Attr;
-template<class stringT> class NodeList;
-template<class stringT> class Element_impl;
+template<class stringT, class string_adaptorT> class Attr;
+template<class stringT, class string_adaptorT> class NodeList;
+template<class stringT, class string_adaptorT> class Element_impl;
 
-template<class stringT> 
-class Element : public Node<stringT>
+template<class stringT, class string_adaptorT> 
+class Element : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT> NodeT;
+    typedef Element_impl<stringT, string_adaptorT> Element_implT;
   public:
-    Element() : Node<stringT>() { }
-    explicit Element(Element_impl<stringT>* impl) : Node<stringT>(impl) { }
-    Element(const Element& rhs) : Node<stringT>(rhs) { }
-    explicit Element(const Node<stringT>& rhs) : Node<stringT>(rhs)  
+    typedef Node<stringT, string_adaptorT> NodeT;
+    typedef NodeList<stringT, string_adaptorT> NodeListT;
+    typedef Attr<stringT, string_adaptorT> AttrT;
+
+    Element() : NodeT() { }
+    explicit Element(Element_implT* impl) : NodeT(impl) { }
+    Element(const Element& rhs) : NodeT(rhs) { }
+    explicit Element(const NodeT& rhs) : NodeT(rhs)  
     {
-      if(rhs.getNodeType() != Node<stringT>::ELEMENT_NODE)
+      if(rhs.getNodeType() != NodeT::ELEMENT_NODE)
         throw std::bad_cast();
     } // Element
 
@@ -40,34 +44,37 @@ class Element : public Node<stringT>
     void setAttribute(const stringT& name, const stringT& value) { eImpl()->setAttribute(name, value); } 
     void removeAttribute(const stringT& name) { eImpl()->removeAttribute(name); }
 
-    Attr<stringT> getAttributeNode(const stringT& name) const { return Attr<stringT>(eImpl()->getAttributeNode(name)); }
-    Attr<stringT> setAttributeNode(const Attr<stringT>& newAttr) { return Attr<stringT>(eImpl()->setAttributeNode(newAttr.attrImpl())); }
-    Attr<stringT> removeAttributeNode(const Attr<stringT>& oldAttr) { return Attr<stringT>(eImpl()->removeAttributeNode(oldAttr.attrImpl())); }
+    AttrT getAttributeNode(const stringT& name) const { return AttrT(eImpl()->getAttributeNode(name)); }
+    AttrT setAttributeNode(const AttrT& newAttr) { return AttrT(eImpl()->setAttributeNode(newAttr.attrImpl())); }
+    AttrT removeAttributeNode(const AttrT& oldAttr) { return AttrT(eImpl()->removeAttributeNode(oldAttr.attrImpl())); }
 
-    NodeList<stringT> getElementsByTagName(const stringT& tagName) const { return NodeList<stringT>(eImpl()->getElementsByTagName(tagName)); }
+    NodeListT getElementsByTagName(const stringT& tagName) const { return NodeListT(eImpl()->getElementsByTagName(tagName)); }
 
     stringT getAttributeNS(const stringT& namespaceURI, const stringT& localName) const  { return eImpl()->getAttributeNS(namespaceURI, localName); }
     void setAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName, const stringT& value) { eImpl()->setAttributeNS(namespaceURI, qualifiedName, value); }
     void removeAttributeNS(const stringT& namespaceURI, const stringT& localName) { return eImpl()->removeAttributeNS(namespaceURI, localName); }
 
-    Attr<stringT> getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const { return Attr<stringT>(eImpl()->getAttributeNodeNS(namespaceURI, localName)); }
-    Attr<stringT> setAttributeNodeNS(const Attr<stringT>& newAttr) { return Attr<stringT>(eImpl()->getAttributeNodeNS(newAttr)); } 
+    AttrT getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const { return AttrT(eImpl()->getAttributeNodeNS(namespaceURI, localName)); }
+    AttrT setAttributeNodeNS(const AttrT& newAttr) { return AttrT(eImpl()->getAttributeNodeNS(newAttr)); } 
 
-    NodeList<stringT> getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const { return NodeList<stringT>(eImpl()->getElementsByTagNameNS(namespaceURI, localName)); }
+    NodeListT getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const { return NodeListT(eImpl()->getElementsByTagNameNS(namespaceURI, localName)); }
 
     bool hasAttribute(const stringT& name) const { return eImpl()->hasAttribute(name); }
 
     bool hasAttributeNS(const stringT& namespaceURI, const stringT& localName) const { return eImpl()->hasAttributeNS(namespaceURI, localName); } 
 
   private:
-    Element_impl<stringT>* eImpl() const { return dynamic_cast<Element_impl<stringT>*>(*NodeT::impl_); }
+    Element_implT* eImpl() const { return dynamic_cast<Element_implT*>(*NodeT::impl_); }
 }; // class Element
 
 ///////////////////////////////////////////////////////////
-template<class stringT>
-class Element_impl : virtual public Node_impl<stringT>
+template<class stringT, class string_adaptorT>
+class Element_impl : virtual public Node_impl<stringT, string_adaptorT>
 {
   public:
+    typedef NodeList_impl<stringT, string_adaptorT> NodeList_implT;
+    typedef Attr_impl<stringT, string_adaptorT> Attr_implT;
+
     virtual ~Element_impl () { }
 
     ////////////////////////////////////////////////////////
@@ -78,20 +85,20 @@ class Element_impl : virtual public Node_impl<stringT>
     virtual void setAttribute(const stringT& name, const stringT& value) = 0;
     virtual void removeAttribute(const stringT& name) = 0;
 
-    virtual Attr_impl<stringT>* getAttributeNode(const stringT& name) const = 0;
-    virtual Attr_impl<stringT>* setAttributeNode(Attr_impl<stringT>* newAttr) = 0;
-    virtual Attr_impl<stringT>* removeAttributeNode(Attr_impl<stringT>* oldAttr) = 0;
+    virtual Attr_implT* getAttributeNode(const stringT& name) const = 0;
+    virtual Attr_implT* setAttributeNode(Attr_implT* newAttr) = 0;
+    virtual Attr_implT* removeAttributeNode(Attr_implT* oldAttr) = 0;
 
-    virtual NodeList_impl<stringT>* getElementsByTagName(const stringT& tagName) const = 0;
+    virtual NodeList_implT* getElementsByTagName(const stringT& tagName) const = 0;
 
     virtual stringT getAttributeNS(const stringT& namespaceURI, const stringT& localName) const = 0;
     virtual void setAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName, const stringT& value) = 0;
     virtual void removeAttributeNS(const stringT& namespaceURI, const stringT& localName) = 0;
 
-    virtual Attr_impl<stringT>* getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const = 0;
-    virtual Attr_impl<stringT>* setAttributeNodeNS(Attr_impl<stringT>* newAttr) = 0;
+    virtual Attr_implT* getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const = 0;
+    virtual Attr_implT* setAttributeNodeNS(Attr_implT* newAttr) = 0;
 
-    virtual NodeList_impl<stringT>* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const = 0;
+    virtual NodeList_implT* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const = 0;
 
     virtual bool hasAttribute(const stringT& name) const = 0;
 

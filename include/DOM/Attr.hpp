@@ -14,20 +14,24 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class Element;
-template<class stringT> class Attr_impl;
+template<class stringT, class string_adaptorT> class Element;
+template<class stringT, class string_adaptorT> class Attr_impl;
 
-template<class stringT>
-class Attr : public Node<stringT>
+template<class stringT, class string_adaptorT>
+class Attr : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT> NodeT;
   public:
-    Attr() : Node<stringT>() { }
-    explicit Attr(Attr_impl<stringT>* impl) : Node<stringT>(impl) { }
-    Attr(const Attr& rhs) : Node<stringT>(rhs) { }
-    explicit Attr(const Node<stringT>& rhs) : Node<stringT>(rhs)  
+    typedef Node<stringT, string_adaptorT> NodeT;
+    typedef Element<stringT, string_adaptorT> ElementT;
+    typedef Attr_impl<stringT, string_adaptorT> Attr_implT;
+
+    Attr() : NodeT() { }
+
+    explicit Attr(Attr_implT* impl) : NodeT(impl) { }
+    Attr(const Attr& rhs) : NodeT(rhs) { }
+    explicit Attr(const NodeT& rhs) : NodeT(rhs)  
     {
-      if(rhs.getNodeType() != Node<stringT>::ATTRIBUTE_NODE)
+      if(rhs.getNodeType() != NodeT::ATTRIBUTE_NODE)
         throw std::bad_cast();
     } // Attr
 
@@ -38,21 +42,20 @@ class Attr : public Node<stringT>
     const stringT& getValue() const { return attrImpl()->getValue(); }
     void setValue(const stringT& value) { attrImpl()->setValue(value); } 
 
-    Element<stringT> getOwnerElement() const { return Element<stringT>(attrImpl()->getOwnerElement()); }
+    ElementT getOwnerElement() const { return ElementT(attrImpl()->getOwnerElement()); }
 
   private:
-    Attr_impl<stringT>* attrImpl() const { return dynamic_cast<Attr_impl<stringT>*>(*NodeT::impl_); }
+    Attr_implT* attrImpl() const { return dynamic_cast<Attr_implT*>(*NodeT::impl_); }
 
-    typedef Element<stringT> ElementT;
-    friend class Element<stringT>;
+    friend class Element<stringT, string_adaptorT>;
 }; // class Attr
 
 
 //////////////////////////////////////////////////////////
-template<class stringT> class Element_impl;
+template<class stringT, class string_adaptorT> class Element_impl;
 
-template<class stringT>
-class Attr_impl : virtual public Node_impl<stringT>
+template<class stringT, class string_adaptorT>
+class Attr_impl : virtual public Node_impl<stringT, string_adaptorT>
 {
   public:
     virtual ~Attr_impl() { }
@@ -66,7 +69,7 @@ class Attr_impl : virtual public Node_impl<stringT>
     virtual const stringT& getValue() const = 0;
     virtual void setValue(const stringT& value) = 0;
 
-    virtual Element_impl<stringT>* getOwnerElement() const = 0;
+    virtual Element_impl<stringT, string_adaptorT>* getOwnerElement() const = 0;
 }; // class Attr_impl
 
 } // namespace DOM

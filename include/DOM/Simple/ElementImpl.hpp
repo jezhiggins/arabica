@@ -12,16 +12,24 @@ namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT>
-class ElementImpl : public DOM::Element_impl<stringT>,
+class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
                     public NodeImplWithChildren<stringT, string_adaptorT>
 {
   protected:
     typedef NodeImplWithChildren<stringT, string_adaptorT> NodeT;
+    typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
+    typedef AttrMap<stringT, string_adaptorT> AttrMapT;
+    typedef ElementByTagList<stringT, string_adaptorT> ElementByTagListT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+    typedef DOM::Attr_impl<stringT, string_adaptorT> DOMAttr_implT;
+    typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
+    typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
+    typedef DOM::Element_impl<stringT, string_adaptorT> DOMElement_implT;
 
   public:
-    ElementImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& tagName) : 
-        DOM::Element_impl<stringT>(),
-        NodeImplWithChildren<stringT, string_adaptorT>(ownerDoc),
+    ElementImpl(DocumentImplT* ownerDoc, const stringT& tagName) : 
+        DOMElement_implT(),
+        NodeT(ownerDoc),
         attributes_(ownerDoc),
         tagName_(ownerDoc->stringPool(tagName))
     { 
@@ -51,26 +59,26 @@ class ElementImpl : public DOM::Element_impl<stringT>,
       attributes_.removeAttribute(name);
     } // removeAttribute
 
-    virtual DOM::Attr_impl<stringT>* getAttributeNode(const stringT& name) const    
+    virtual DOMAttr_implT* getAttributeNode(const stringT& name) const    
     {
       return attributes_.getAttributeNode(name);
     } // getAttributeNode
 
-    virtual DOM::Attr_impl<stringT>* setAttributeNode(DOM::Attr_impl<stringT>* newAttr)
+    virtual DOMAttr_implT* setAttributeNode(DOMAttr_implT* newAttr)
     {
       return attributes_.setAttributeNode(newAttr);
     } // setAttributeNode
 
-    virtual DOM::Attr_impl<stringT>* removeAttributeNode(DOM::Attr_impl<stringT>* oldAttr)    
+    virtual DOMAttr_implT* removeAttributeNode(DOMAttr_implT* oldAttr)    
     {
       return attributes_.removeAttributeNode(oldAttr);
     } // removeAttributeNode
 
-    virtual DOM::NodeList_impl<stringT>* getElementsByTagName(const stringT& tagName) const    
+    virtual DOMNodeList_implT* getElementsByTagName(const stringT& tagName) const    
     {
-      return new ElementByTagList<stringT, string_adaptorT>(NodeT::ownerDoc_,
-                                                            const_cast<ElementImpl*>(this),
-                                                            tagName);
+      return new ElementByTagListT(NodeT::ownerDoc_,
+                                   const_cast<ElementImpl*>(this),
+                                   tagName);
     } // getElementsByTagName
 
     virtual stringT getAttributeNS(const stringT& namespaceURI, const stringT& localName) const    
@@ -88,21 +96,22 @@ class ElementImpl : public DOM::Element_impl<stringT>,
       attributes_.removeAttributeNS(namespaceURI, localName);
     } // removeAttributeNS
 
-    virtual DOM::Attr_impl<stringT>* getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const
+    virtual DOMAttr_implT* getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const
     {
       return attributes_.getAttributeNodeNS(namespaceURI, localName);
     } // getAttributeNodeNS
 
-    virtual DOM::Attr_impl<stringT>* setAttributeNodeNS(DOM::Attr_impl<stringT>* newAttr)    
+    virtual DOMAttr_implT* setAttributeNodeNS(DOMAttr_implT* newAttr)    
     {
       return attributes_.setAttributeNodeNS(newAttr);
     } // setAttributeNodeNS
 
-    virtual DOM::NodeList_impl<stringT>* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const    
+    virtual DOMNodeList_implT* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const    
     {
-      return new ElementByTagList<stringT, string_adaptorT>(NodeT::ownerDoc_,
-                                                            const_cast<ElementImpl*>(this),
-                                                            namespaceURI, localName);
+      return new ElementByTagListT(NodeT::ownerDoc_,
+                                   const_cast<ElementImpl*>(this),
+                                   namespaceURI, 
+                                   localName);
     } // getElementsByTagNameNS
 
     virtual bool hasAttribute(const stringT& name) const    
@@ -127,12 +136,12 @@ class ElementImpl : public DOM::Element_impl<stringT>,
       return *tagName_;
     } // getNodeName
 
-    virtual DOM::NamedNodeMap_impl<stringT>* getAttributes() const
+    virtual DOMNamedNodeMap_implT* getAttributes() const
     {
-      return const_cast<AttrMap<stringT, string_adaptorT>*>(&attributes_);
+      return const_cast<AttrMapT*>(&attributes_);
     } // getAttributes
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOMNode_impl* cloneNode(bool deep) const
     {
       ElementImpl* clone = dynamic_cast<ElementImpl*>(NodeT::ownerDoc_->createElement(*tagName_));
       cloneChildren(clone, deep);
@@ -144,16 +153,16 @@ class ElementImpl : public DOM::Element_impl<stringT>,
       return (attributes_.getLength() > 0);
     } // hasAttributes
 
-    virtual void setOwnerDoc(DocumentImpl<stringT, string_adaptorT>* ownerDoc)
+    virtual void setOwnerDoc(DocumentImplT* ownerDoc)
     {
       attributes_.setOwnerDoc(ownerDoc);
-      NodeImplWithChildren<stringT, string_adaptorT>::setOwnerDoc(ownerDoc);
+      NodeT::setOwnerDoc(ownerDoc);
     } // setOwnerDoc
 
     virtual void setReadOnly(bool readOnly)
     {
       attributes_.setReadOnly(readOnly);
-      NodeImplWithChildren<stringT, string_adaptorT>::setReadOnly(readOnly);
+      NodeT::setReadOnly(readOnly);
     } // setReadOnly
 
   protected:
@@ -161,10 +170,10 @@ class ElementImpl : public DOM::Element_impl<stringT>,
     {
       for(unsigned int i = 0; i < attributes_.getLength(); ++i)
       {
-        DOM::Attr_impl<stringT>* a = dynamic_cast<DOM::Attr_impl<stringT>*>(attributes_.item(i));
+        DOMAttr_implT* a = dynamic_cast<DOMAttr_implT*>(attributes_.item(i));
         if(a->getSpecified())
         {
-          DOM::Attr_impl<stringT>* newA = dynamic_cast<DOM::Attr_impl<stringT>*>(a->cloneNode(true));
+          DOMAttr_implT* newA = dynamic_cast<DOMAttr_implT*>(a->cloneNode(true));
           if(string_adaptorT::empty(a->getLocalName()))
             clone->setAttributeNode(newA);
           else
@@ -173,24 +182,24 @@ class ElementImpl : public DOM::Element_impl<stringT>,
       } // for
 
       if(deep)
-        for(DOM::Node_impl<stringT>* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
+        for(DOMNode_implT* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
           clone->appendChild(c->cloneNode(true));
     } // cloneChildren
 
   private:
-    virtual void checkChildType(DOM::Node_impl<stringT>* child)
+    virtual void checkChildType(DOMNode_impl* child)
     {
-      typename DOM::Node<stringT>::Type type = child->getNodeType();
-      if((type != DOM::Node<stringT>::ELEMENT_NODE) && 
-         (type != DOM::Node<stringT>::TEXT_NODE) && 
-         (type != DOM::Node<stringT>::COMMENT_NODE) && 
-         (type != DOM::Node<stringT>::PROCESSING_INSTRUCTION_NODE) && 
-         (type != DOM::Node<stringT>::CDATA_SECTION_NODE) && 
-         (type != DOM::Node<stringT>::ENTITY_REFERENCE_NODE)) 
+      typename DOM::Node_base::Type type = child->getNodeType();
+      if((type != DOM::Node_base::ELEMENT_NODE) && 
+         (type != DOM::Node_base::TEXT_NODE) && 
+         (type != DOM::Node_base::COMMENT_NODE) && 
+         (type != DOM::Node_base::PROCESSING_INSTRUCTION_NODE) && 
+         (type != DOM::Node_base::CDATA_SECTION_NODE) && 
+         (type != DOM::Node_base::ENTITY_REFERENCE_NODE)) 
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // checkChildType
 
-    AttrMap<stringT, string_adaptorT> attributes_;
+    AttrMapT attributes_;
   protected:
     stringT const* tagName_;
 }; // class ElementImpl

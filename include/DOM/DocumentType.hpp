@@ -16,28 +16,32 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class Document_impl;
-template<class stringT> class DocumentType_impl;
+template<class stringT, class string_adaptorT> class Document_impl;
+template<class stringT, class string_adaptorT> class DocumentType_impl;
 
-template<class stringT>
-class DocumentType : public Node<stringT>
+template<class stringT, class string_adaptorT>
+class DocumentType : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT> NodeT;
+    typedef DocumentType_impl<stringT, string_adaptorT> DocumentType_implT;
   public:
-    DocumentType() : Node<stringT>(0) { }
-    DocumentType(DocumentType_impl<stringT>* impl) : Node<stringT>(impl) { }
-    DocumentType(const DocumentType& rhs) : Node<stringT>(rhs) { }
-    explicit DocumentType(const Node<stringT>& rhs) : Node<stringT>(rhs)  
+    typedef Node<stringT, string_adaptorT> NodeT;
+    typedef NamedNodeMap<stringT, string_adaptorT> NamedNodeMapT;
+    typedef DOMImplementation<stringT, string_adaptorT> DOMImplementationT;
+
+    DocumentType() : NodeT(0) { }
+    DocumentType(DocumentType_implT* impl) : NodeT(impl) { }
+    DocumentType(const DocumentType& rhs) : NodeT(rhs) { }
+    explicit DocumentType(const NodeT& rhs) : NodeT(rhs)  
     {
-      if(rhs.getNodeType() != Node<stringT>::DOCUMENT_TYPE_NODE)
+      if(rhs.getNodeType() != NodeT::DOCUMENT_TYPE_NODE)
         throw std::bad_cast();
     } // DocumentType
 
     const stringT& getName() const { return dtImpl()->getName(); }
 
-    const NamedNodeMap<stringT> getEntities() const { return NamedNodeMap<stringT>(dtImpl()->getEntities()); }
+    const NamedNodeMapT getEntities() const { return NamedNodeMapT(dtImpl()->getEntities()); }
 
-    const NamedNodeMap<stringT> getNotations() const { return NamedNodeMap<stringT>(dtImpl()->getNotations()); }
+    const NamedNodeMapT getNotations() const { return NamedNodeMapT(dtImpl()->getNotations()); }
 
     stringT getPublicId() const { return dtImpl()->getPublicId(); }
 
@@ -46,26 +50,27 @@ class DocumentType : public Node<stringT>
     stringT getInternalSubset() const { return dtImpl()->getInternalSubset(); }
 
   protected:
-    DocumentType_impl<stringT>* dtImpl() const { return dynamic_cast<DocumentType_impl<stringT>*>(*NodeT::impl_); }
+    DocumentType_implT* dtImpl() const { return dynamic_cast<DocumentType_implT*>(*NodeT::impl_); }
 
-    typedef DOMImplementation<stringT> DOMImplementationT;
-    friend class DOMImplementation<stringT>;
+    friend class DOMImplementation<stringT, string_adaptorT>;
 }; // class DocumentType
 
 //////////////////////////////////////////////////////////
-template<class stringT>
-class DocumentType_impl : virtual public Node_impl<stringT>
+template<class stringT, class string_adaptorT>
+class DocumentType_impl : virtual public Node_impl<stringT, string_adaptorT>
 {
   public:
+    typedef NamedNodeMap_impl<stringT, string_adaptorT> NamedNodeMap_implT;
+
     virtual ~DocumentType_impl() { }
 
     /////////////////////////////////////////////
     // DOM::DocumentType methods
     virtual const stringT& getName() const = 0;
 
-    virtual NamedNodeMap_impl<stringT>* getEntities() = 0;
+    virtual NamedNodeMap_implT* getEntities() = 0;
 
-    virtual NamedNodeMap_impl<stringT>* getNotations() = 0;
+    virtual NamedNodeMap_implT* getNotations() = 0;
 
     virtual stringT getPublicId() const = 0;
 

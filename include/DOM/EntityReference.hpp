@@ -13,25 +13,29 @@ namespace Arabica
 {
 namespace DOM
 {
-template<class stringT> class EntityReference_impl;
+template<class stringT, class string_adaptorT> class EntityReference_impl;
 
-template<class stringT>
-class EntityReference : public Node<stringT>
+template<class stringT, class string_adaptorT>
+class EntityReference : public Node<stringT, string_adaptorT>
 {
+    typedef EntityReference_impl<stringT, string_adaptorT> EntityReference_implT;
+
   public:
-    EntityReference() : Node<stringT>() { }
-    explicit EntityReference(EntityReference_impl<stringT>* impl) : Node<stringT>(impl) { }
-    EntityReference(const EntityReference& rhs) : Node<stringT>(rhs) { }
-    explicit EntityReference(const Node<stringT>& rhs) : Node<stringT>(rhs)  
+    typedef Node<stringT, string_adaptorT> NodeT;
+
+    EntityReference() : NodeT() { }
+    explicit EntityReference(EntityReference_implT* impl) : NodeT(impl) { }
+    EntityReference(const EntityReference& rhs) : NodeT(rhs) { }
+    explicit EntityReference(const NodeT& rhs) : NodeT(rhs)  
     {
-      if(dynamic_cast<EntityReference_impl<stringT>*>(rhs.impl()) == 0)
+      if(dynamic_cast<EntityReference_implT*>(rhs.impl()) == 0)
         throw std::bad_cast();
     } // EntityReference
 }; // class EntityReference
 
 ////////////////////////////////////////////////////////////////////
-template<class stringT>
-class EntityReference_impl : virtual public Node_impl<stringT>
+template<class stringT, class string_adaptorT>
+class EntityReference_impl : virtual public Node_impl<stringT, string_adaptorT>
 {
   public:
     virtual ~EntityReference_impl () { }

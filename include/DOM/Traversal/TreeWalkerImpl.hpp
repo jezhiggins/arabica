@@ -16,19 +16,19 @@ namespace DOM
 namespace Traversal
 {
 
-template<class stringT>
-class TreeWalkerImpl : public TreeWalker_impl<stringT>
+template<class stringT, class string_adaptorT>
+class TreeWalkerImpl : public TreeWalker_impl<stringT, string_adaptorT>
 {
 public:
-  typedef DOM::Node<stringT> node_t;
-  typedef DOM::Traversal::NodeFilter<stringT> filter_t;
+  typedef DOM::Node<stringT, string_adaptorT> node_t;
+  typedef NodeFilter<stringT, string_adaptorT> filter_t;
   typedef typename filter_t::Result filter_result_t;
 
   TreeWalkerImpl
   (
     node_t root,
     unsigned long whatToShow,
-    NodeFilter<stringT>* nodeFilter,
+    filter_t* nodeFilter,
     bool expandEntityRef
   ) 
   : root_(root),
@@ -47,7 +47,7 @@ public:
 
   unsigned long getWhatToShow() { return whatToShow_; }
 
-  NodeFilter<stringT>* getFilter() { return nodeFilter_; }
+  filter_t* getFilter() { return nodeFilter_; }
 
   bool getExpandEntityReferences() { return expandEntityRef_; }
 
@@ -290,7 +290,7 @@ private:
   node_t root_;
   node_t currentNode_;
   unsigned long whatToShow_;
-  NodeFilter<stringT>* nodeFilter_;
+  filter_t* nodeFilter_;
   bool expandEntityRef_;
 
 }; // class TreeWalkerImpl

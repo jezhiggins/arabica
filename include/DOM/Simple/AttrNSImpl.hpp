@@ -12,15 +12,16 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT>
 class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 {
-    typedef typename string_adaptorT::size_type size_type;
-    typedef AttrImpl<stringT, string_adaptorT> AttrT;
-	
   public:
+    typedef typename string_adaptorT::size_type size_type;
+    typedef AttrImpl<stringT, string_adaptorT> AttrImplT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT
+	
     AttrNSImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc,
                const stringT& namespaceURI,
                bool hasNamespaceURI,
                const stringT& qualifiedName) : 
-        AttrImpl<stringT, string_adaptorT>(ownerDoc, qualifiedName),
+        AttrImplT(ownerDoc, qualifiedName),
         prefix_(&ownerDoc->empty_string()),
         hasNamespaceURI_(false)
     { 
@@ -30,7 +31,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
       if(index == string_adaptorT::npos()) 
       {	//qualifiedName contains no ':'
-        localName_ = AttrT::ownerDoc_->stringPool(qualifiedName);
+        localName_ = AttrImplT::ownerDoc_->stringPool(qualifiedName);
         if(*localName_ == string_adaptorT::construct_from_utf8("xmlns"))
         {
           hasPrefix = true;
@@ -40,27 +41,27 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
       else 
       {	
         hasPrefix = true;
-        prefix_ = AttrT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, 0, index));
-        localName_ = AttrT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, index+1));
+        prefix_ = AttrImplT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, 0, index));
+        localName_ = AttrImplT::ownerDoc_->stringPool(string_adaptorT::substr(qualifiedName, index+1));
         prefix_for_checking = prefix_;
       } // if(index == string_adaptorT::npos) 
 
       std::pair<bool, stringT> mappedURI = 
-        checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, *prefix_for_checking, hasNamespaceURI, namespaceURI, DOM::Node<stringT>::ATTRIBUTE_NODE);
+        checkPrefixAndNamespace<stringT, string_adaptorT>(hasPrefix, *prefix_for_checking, hasNamespaceURI, namespaceURI, DOM::Node_base::ATTRIBUTE_NODE);
 
       hasNamespaceURI_ = mappedURI.first;
-      namespaceURI_ = AttrT::ownerDoc_->stringPool(mappedURI.second);
+      namespaceURI_ = AttrImplT::ownerDoc_->stringPool(mappedURI.second);
     } // AttrImpl
 
     virtual ~AttrNSImpl() { }
 
     ///////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOMNode_impl* cloneNode(bool deep) const
     {
-      AttrNSImpl* clone = dynamic_cast<AttrNSImpl*>(AttrT::ownerDoc_->createAttributeNS(*namespaceURI_, *AttrT::name_));
-      AttrT::cloneChildren(clone);
-      clone->setSpecified(AttrT::getSpecified());
+      AttrNSImpl* clone = dynamic_cast<AttrNSImpl*>(AttrImplT::ownerDoc_->createAttributeNS(*namespaceURI_, *AttrImplT::name_));
+      AttrImplT::cloneChildren(clone);
+      clone->setSpecified(AttrImplT::getSpecified());
       return clone;
     } // cloneNode
 
@@ -81,19 +82,19 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
       if(string_adaptorT::empty(prefix)) 
       {
-        AttrT::name_ = localName_;
-        prefix_ = &AttrT::ownerDoc_->empty_string();
+        AttrImplT::name_ = localName_;
+        prefix_ = &AttrImplT::ownerDoc_->empty_string();
         return;
       } // empty prefix
 
-      checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, *namespaceURI_, DOM::Node<stringT>::ATTRIBUTE_NODE);
+      checkPrefixAndNamespace<stringT, string_adaptorT>(true, prefix, true, *namespaceURI_, DOM::Node_base::ATTRIBUTE_NODE);
 
       stringT newName = prefix;
       string_adaptorT::append(newName, string_adaptorT::construct_from_utf8(":"));
       string_adaptorT::append(newName, *localName_);
 
-      prefix_ = AttrT::ownerDoc_->stringPool(prefix);
-      AttrT::name_ = AttrT::ownerDoc_->stringPool(newName);
+      prefix_ = AttrImplT::ownerDoc_->stringPool(prefix);
+      AttrImplT::name_ = AttrImplT::ownerDoc_->stringPool(newName);
     } // setPrefix
 
     virtual const stringT& getLocalName() const 
@@ -114,7 +115,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     virtual bool hasPrefix() const 
     { 
-      return !(*prefix_ == AttrT::ownerDoc_->empty_string());
+      return !(*prefix_ == AttrImplT::ownerDoc_->empty_string());
     } // hasPrefix
 
   private:

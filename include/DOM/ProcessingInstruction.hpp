@@ -14,19 +14,19 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class ProcessingInstruction_impl;
+template<class stringT, class string_adaptorT> class ProcessingInstruction_impl;
 
-template<class stringT>
-class ProcessingInstruction : public Node<stringT>
+template<class stringT, class string_adaptorT>
+class ProcessingInstruction : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT> NodeT;
+    typedef Node<stringT, string_adaptorT> NodeT;
   public:
-    ProcessingInstruction() : Node<stringT>(0) { }
-    explicit ProcessingInstruction(ProcessingInstruction_impl<stringT>* impl) : Node<stringT>(dynamic_cast<Node_impl<stringT>*>(impl)) { }
-    ProcessingInstruction(const ProcessingInstruction& rhs) : Node<stringT>(rhs) { }
-    explicit ProcessingInstruction(const Node<stringT>& rhs) : Node<stringT>(rhs)  
+    ProcessingInstruction() : Node<stringT, string_adaptorT>(0) { }
+    explicit ProcessingInstruction(ProcessingInstruction_impl<stringT, string_adaptorT>* impl) : Node<stringT, string_adaptorT>(dynamic_cast<Node_impl<stringT, string_adaptorT>*>(impl)) { }
+    ProcessingInstruction(const ProcessingInstruction& rhs) : Node<stringT, string_adaptorT>(rhs) { }
+    explicit ProcessingInstruction(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)  
     {
-      if(rhs.getNodeType() != Node<stringT>::PROCESSING_INSTRUCTION_NODE)
+      if(rhs.getNodeType() != Node<stringT, string_adaptorT>::PROCESSING_INSTRUCTION_NODE)
         throw std::bad_cast();
     }
 
@@ -36,13 +36,13 @@ class ProcessingInstruction : public Node<stringT>
     void setData(const stringT& data) { piImpl()->setData(data); }
 
   private:
-    ProcessingInstruction_impl<stringT>* piImpl() const { return dynamic_cast<ProcessingInstruction_impl<stringT>*>(*NodeT::impl_); }
+    ProcessingInstruction_impl<stringT, string_adaptorT>* piImpl() const { return dynamic_cast<ProcessingInstruction_impl<stringT, string_adaptorT>*>(*NodeT::impl_); }
 }; // class DocumentFragment
 
 
 //////////////////////////////////////////////////////////
-template<class stringT>
-class ProcessingInstruction_impl : virtual public Node_impl<stringT>
+template<class stringT, class string_adaptorT>
+class ProcessingInstruction_impl : virtual public Node_impl<stringT, string_adaptorT>
 {
   public:
     virtual ~ProcessingInstruction_impl () { }

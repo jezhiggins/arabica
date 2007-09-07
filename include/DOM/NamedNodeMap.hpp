@@ -14,15 +14,17 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class Node;
-template<class stringT> class NamedNodeMap_impl;
+template<class stringT, class string_adaptorT> class Node;
+template<class stringT, class string_adaptorT> class NamedNodeMap_impl;
 
-template<class stringT>
+template<class stringT, class string_adaptorT>
 class NamedNodeMap 
 {
   public:
+    typedef Node<stringT, string_adaptorT> NodeT;
+ 
     NamedNodeMap() : impl_(0) { }
-    explicit NamedNodeMap(NamedNodeMap_impl<stringT>* impl) : impl_(impl) { }
+    explicit NamedNodeMap(NamedNodeMap_impl<stringT, string_adaptorT>* impl) : impl_(impl) { }
     NamedNodeMap(const NamedNodeMap& rhs) : impl_(rhs.impl_) { }
     virtual ~NamedNodeMap() { }
 
@@ -37,40 +39,42 @@ class NamedNodeMap
       return *this;
     } // operator=
 
-    Node<stringT> getNamedItem(const stringT& name) const { return Node<stringT>(impl_->getNamedItem(name)); }
+    NodeT getNamedItem(const stringT& name) const { return NodeT(impl_->getNamedItem(name)); }
 
-    Node<stringT> setNamedItem(const Node<stringT>& arg) { return Node<stringT>(impl_->setNamedItem(arg)); }
+    NodeT setNamedItem(const NodeT& arg) { return NodeT(impl_->setNamedItem(arg)); }
 
-    Node<stringT> removeNamedItem(const stringT& name) const { return Node<stringT>(impl_->removeNamedItem(name)); }
+    NodeT removeNamedItem(const stringT& name) const { return NodeT(impl_->removeNamedItem(name)); }
 
-    Node<stringT> item(unsigned int index) const { return Node<stringT>(impl_->item(index)); }
+    NodeT item(unsigned int index) const { return NodeT(impl_->item(index)); }
 
     unsigned int getLength() const { return impl_->getLength(); }
 
-    Node<stringT> getNamedItemNS(const stringT& namespaceURI, const stringT& localName) const 
+    NodeT getNamedItemNS(const stringT& namespaceURI, const stringT& localName) const 
     { 
-      return Node<stringT>(impl_->getNamedItemNS(namespaceURI, localName)); 
+      return NodeT(impl_->getNamedItemNS(namespaceURI, localName)); 
     } // getNamedItemNS
 
-    Node<stringT> setNamedItemNS(const Node<stringT>& arg) { return Node<stringT>(impl_->setNamedItemNS(arg)); }
+    NodeT setNamedItemNS(const NodeT& arg) { return NodeT(impl_->setNamedItemNS(arg)); }
 
-    Node<stringT> removeNamedItemNS(const stringT& namespaceURI, const stringT& localName) const 
+    NodeT removeNamedItemNS(const stringT& namespaceURI, const stringT& localName) const 
     { 
-      return Node<stringT>(impl_->removeNamedItem(namespaceURI, localName)); 
+      return NodeT(impl_->removeNamedItem(namespaceURI, localName)); 
     } // removeNamedItemNS
 
   private:
-    Proxy<NamedNodeMap_impl<stringT> > impl_;
+    Proxy<NamedNodeMap_impl<stringT, string_adaptorT> > impl_;
 }; // class NamedNodeMap
 
 ////////////////////////////////////////////////////
 // NamedNodeMap_impl
-template<class stringT> class Node_impl;
+template<class stringT, class string_adaptorT> class Node_impl;
 
-template<class stringT>
+template<class stringT, class string_adaptorT>
 class NamedNodeMap_impl 
 {
   public:
+    typedef Node_impl<stringT, string_adaptorT> Node_implT;
+
     virtual ~NamedNodeMap_impl() { }
 
     ///////////////////////////////////////////////////////
@@ -80,17 +84,17 @@ class NamedNodeMap_impl
 
     ///////////////////////////////////////////////////////
     // NamedNodeMap methods
-    virtual Node_impl<stringT>* getNamedItem(const stringT& name) const = 0;
-    virtual Node_impl<stringT>* setNamedItem(Node_impl<stringT>* arg) = 0;
-    virtual Node_impl<stringT>* removeNamedItem(const stringT& name) = 0;
+    virtual Node_implT* getNamedItem(const stringT& name) const = 0;
+    virtual Node_implT* setNamedItem(Node_implT* arg) = 0;
+    virtual Node_implT* removeNamedItem(const stringT& name) = 0;
 
-    virtual Node_impl<stringT>* item(unsigned int index) const = 0;
+    virtual Node_implT* item(unsigned int index) const = 0;
 
     virtual unsigned int getLength() const = 0;
 
-    virtual Node_impl<stringT>* getNamedItemNS(const stringT& namespaceURI, const stringT& localName) const  = 0;
-    virtual Node_impl<stringT>* setNamedItemNS(Node_impl<stringT>* arg) = 0;
-    virtual Node_impl<stringT>* removeNamedItemNS(const stringT& namespaceURI, const stringT& localName) = 0;
+    virtual Node_implT* getNamedItemNS(const stringT& namespaceURI, const stringT& localName) const  = 0;
+    virtual Node_implT* setNamedItemNS(Node_implT* arg) = 0;
+    virtual Node_implT* removeNamedItemNS(const stringT& namespaceURI, const stringT& localName) = 0;
 }; // class NamedNodeMap_impl
 
 } // namespace DOM

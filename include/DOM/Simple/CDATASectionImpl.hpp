@@ -9,13 +9,16 @@ namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT>
-class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
+class CDATASectionImpl : public DOM::CDATASection_impl<stringT, string_adaptorT>,
                          public CharacterDataImpl<stringT, string_adaptorT> 
 {
-    typedef CharacterDataImpl<stringT, string_adaptorT> CharDataT;
   public:
+    typedef CharacterDataImpl<stringT, string_adaptorT> CharacterDataImplT;
+    typedef DOM::Text_impl<stringT, string_adaptorT> DOMText_implT;
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+
     CDATASectionImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, const stringT& data) : 
-        CharacterDataImpl<stringT, string_adaptorT>(ownerDoc, data)
+        CharacterDataImplT(ownerDoc, data)
     { 
     } // CDATASectionImpl
 
@@ -24,15 +27,15 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
     //////////////////////////////////////////////////////////////////
     // DOM::CDATASection methods
     // on a compiler which implemented covariant return types this would return DOM::CDATASection
-    virtual DOM::Text_impl<stringT>* splitText(int offset)
+    virtual DOMText_implT* splitText(int offset)
     {
-      CharDataT::throwIfReadOnly();
+      CharacterDataImplT::throwIfReadOnly();
 
-      stringT second = CharDataT::substringData(offset, CharDataT::getLength() - offset);
-      CharDataT::deleteData(offset, CharDataT::getLength() - offset);
+      stringT second = CharacterDataImplT::substringData(offset, CharacterDataImplT::getLength() - offset);
+      CharacterDataImplT::deleteData(offset, CharacterDataImplT::getLength() - offset);
 
-      CDATASectionImpl* splitNode = new CDATASectionImpl(CharDataT::getOwnerDoc(), second);
-      CharDataT::getParentNode()->insertBefore(splitNode, CharDataT::getNextSibling());
+      CDATASectionImpl* splitNode = new CDATASectionImpl(CharacterDataImplT::getOwnerDoc(), second);
+      CharacterDataImplT::getParentNode()->insertBefore(splitNode, CharacterDataImplT::getNextSibling());
       return splitNode;
     } // splitText
 
@@ -43,9 +46,9 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT>,
       return DOM::Node_base::CDATA_SECTION_NODE;
     } // getNodeType
 
-    virtual DOM::Node_impl<stringT>* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
-      return CharDataT::ownerDoc_->createCDATASection(CharDataT::getData());
+      return CharacterDataImplT::ownerDoc_->createCDATASection(CharacterDataImplT::getData());
     } // cloneNode
 
     virtual const stringT& getNodeName() const 

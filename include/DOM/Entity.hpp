@@ -14,19 +14,19 @@ namespace Arabica
 namespace DOM
 {
 
-template<class stringT> class Entity_impl;
+template<class stringT, class string_adaptorT> class Entity_impl;
 
-template<class stringT>
-class Entity : public Node<stringT>
+template<class stringT, class string_adaptorT>
+class Entity : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT> NodeT;
+    typedef Node<stringT, string_adaptorT> NodeT;
   public:
-    Entity() : Node<stringT>() { }
-    explicit Entity(Entity_impl<stringT>* impl) : Node<stringT>(impl) { }
-    Entity(const Entity& rhs) : Node<stringT>(rhs) { }
-    explicit Entity(const Node<stringT>& rhs) : Node<stringT>(rhs)  
+    Entity() : Node<stringT, string_adaptorT>() { }
+    explicit Entity(Entity_impl<stringT, string_adaptorT>* impl) : Node<stringT>(impl) { }
+    Entity(const Entity& rhs) : Node<stringT, string_adaptorT>(rhs) { }
+    explicit Entity(const Node<stringT, string_adaptorT>& rhs) : Node<stringT>(rhs)  
     {
-      if(rhs.getNodeType() != Node<stringT>::Entity_NODE)
+      if(rhs.getNodeType() != Node<stringT, string_adaptorT>::Entity_NODE)
         throw std::bad_cast();
     }
 
@@ -37,14 +37,14 @@ class Entity : public Node<stringT>
     stringT getNotationName() const { nImpl()->getNotationName(); }
 
   private:
-    Entity_impl<stringT>* nImpl() { return dynamic_cast<Entity_impl<stringT>*>(NodeT::impl()); }
+    Entity_impl<stringT, string_adaptorT>* nImpl() { return dynamic_cast<Entity_impl<stringT>*>(NodeT::impl()); }
 }; // class Entity
 
 //////////////////////////////////////////////////////////
-template<class stringT> class NamedNodeMap_impl;
+template<class stringT, class string_adaptorT> class NamedNodeMap_impl;
 
-template<class stringT>
-class Entity_impl : virtual public Node_impl<stringT>
+template<class stringT, class string_adaptorT>
+class Entity_impl : virtual public Node_impl<stringT, string_adaptorT>
 {
   public:
     virtual ~Entity_impl () { }

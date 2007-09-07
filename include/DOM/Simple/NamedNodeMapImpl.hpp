@@ -58,12 +58,17 @@ class namespaceAndNameIs : public std::unary_function<NodeImpl<stringT, string_a
 }; // class namespaceAndNameIs
 
 template<class stringT, class string_adaptorT>
-class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
+class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT, string_adaptorT>
 {
   public:
-    NamedNodeMapImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc) : 
-        DOM::NamedNodeMap_impl<stringT>(),
-				nodes_(),
+    typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
+    typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
+    typedef NamedNodeMapImpl<stringT, string_adaptorT> NamedNodeMapImplT;
+    typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
+
+    NamedNodeMapImpl(DocumentImplT* ownerDoc) : 
+        DOM::NamedNodeMap_impl<stringT, string_adaptorT>(),
+        nodes_(),
         readOnly_(false),
         ownerDoc_(ownerDoc)
     { 
@@ -87,7 +92,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
       if(ownerDoc_)
         ownerDoc_->releaseRef();
     } // releaseRef
-    virtual void setOwnerDoc(DocumentImpl<stringT, string_adaptorT>* ownerDoc)
+    virtual void setOwnerDoc(DocumentImplT* ownerDoc)
     {
       ownerDoc_ = ownerDoc;
       for(typename NodeListT::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
@@ -96,24 +101,24 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
 
     ///////////////////////////////////////////////////
     // DOM::NamedNodeMap methods
-    virtual DOM::Node_impl<stringT>* getNamedItem(const stringT& name) const
+    virtual DOMNode_implT* getNamedItem(const stringT& name) const
     {
-      return getNode(const_cast<NamedNodeMapImpl<stringT, string_adaptorT>*>(this)->findByName(name));
+      return getNode(const_cast<NamedNodeMapImplT*>(this)->findByName(name));
     } // getNamedItem
 
-    virtual DOM::Node_impl<stringT>* setNamedItem(DOM::Node_impl<stringT>* arg)
+    virtual DOMNode_implT* setNamedItem(DOMNode_implT* arg)
     {
       throwIfReadOnly();
-      return setNode(findByName(arg->getNodeName()), dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(arg));
+      return setNode(findByName(arg->getNodeName()), dynamic_cast<NodeImplT*>(arg));
     } // setNamedItem
 
-    virtual DOM::Node_impl<stringT>* removeNamedItem(const stringT& name)
+    virtual DOMNode_implT* removeNamedItem(const stringT& name)
     {
       throwIfReadOnly();
       return removeNode(findByName(name));
     } // removedNamedItem
 
-    virtual DOM::Node_impl<stringT>* item(unsigned int index) const
+    virtual DOMNode_implT* item(unsigned int index) const
     {
       return do_item(index);
     } // item
@@ -123,18 +128,18 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
       return static_cast<unsigned int>(nodes_.size());
     } // getLength
 
-    virtual DOM::Node_impl<stringT>* getNamedItemNS(const stringT& namespaceURI, const stringT& localName) const
+    virtual DOMNode_implT* getNamedItemNS(const stringT& namespaceURI, const stringT& localName) const
     {
-      return getNode(const_cast<NamedNodeMapImpl<stringT, string_adaptorT>*>(this)->findByNamespaceAndName(namespaceURI, localName));
+      return getNode(const_cast<NamedNodeMapImplT*>(this)->findByNamespaceAndName(namespaceURI, localName));
     } // getNamedItemNS
 
-    virtual DOM::Node_impl<stringT>* setNamedItemNS(DOM::Node_impl<stringT>* arg)
+    virtual DOMNode_implT* setNamedItemNS(DOMNode_implT* arg)
     {
       throwIfReadOnly();
-      return setNode(findByNamespaceAndName(arg->getNamespaceURI(), arg->getLocalName()), dynamic_cast<NodeImpl<stringT, string_adaptorT>*>(arg));
+      return setNode(findByNamespaceAndName(arg->getNamespaceURI(), arg->getLocalName()), dynamic_cast<NodeImplT*>(arg));
     } // setNamedItemNS
 
-    virtual DOM::Node_impl<stringT>* removeNamedItemNS(const stringT& namespaceURI, const stringT& localName)
+    virtual DOMNode_implT* removeNamedItemNS(const stringT& namespaceURI, const stringT& localName)
     {
       throwIfReadOnly();
       return removeNode(findByNamespaceAndName(namespaceURI, localName));
@@ -147,7 +152,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
       readOnly_ = readOnly;
     } // setReadOnly
 
-    NodeImpl<stringT, string_adaptorT>* do_item(unsigned int index) const
+    NodeImplT* do_item(unsigned int index) const
     {
       if(index >= nodes_.size())
         return 0;
@@ -162,16 +167,16 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
         throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR);
     } // throwIfReadOnly
 
-    typedef std::deque<NodeImpl<stringT, string_adaptorT>*> NodeListT;
+    typedef std::deque<NodeImplT*> NodeListT;
 
-    NodeImpl<stringT, string_adaptorT>* getNode(typename NodeListT::const_iterator n) const
+    NodeImplT* getNode(typename NodeListT::const_iterator n) const
     {
       if(n == nodes_.end())
         return 0;
       return *n;
     } // getNode
 
-    NodeImpl<stringT, string_adaptorT>* setNode(typename NodeListT::iterator n, NodeImpl<stringT, string_adaptorT>* arg)
+    NodeImplT* setNode(typename NodeListT::iterator n, NodeImplT* arg)
     {
       if(n == nodes_.end())
       {
@@ -179,17 +184,17 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
         return 0;
       } // if(n == nodes_.end())
 
-      NodeImpl<stringT, string_adaptorT>* removedNode = *n;
+      NodeImplT* removedNode = *n;
       *n = arg;
       ownerDoc_->orphaned(removedNode);
       return removedNode;
     } // setNode
 
-    NodeImpl<stringT, string_adaptorT>* removeNode(typename NodeListT::iterator n)
+    NodeImplT* removeNode(typename NodeListT::iterator n)
     {
       if(n == nodes_.end())
         return 0;
-      NodeImpl<stringT, string_adaptorT>* removedNode = *n;
+      NodeImplT* removedNode = *n;
       nodes_.erase(n);
       ownerDoc_->orphaned(removedNode);
       return removedNode;
@@ -209,7 +214,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT>
     bool readOnly_;
 
   protected:
-    DocumentImpl<stringT, string_adaptorT>* ownerDoc_;
+    DocumentImplT ownerDoc_;
 }; // class NamedNodeMapImpl
 
 } // namespace SAX2DOM
