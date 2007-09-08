@@ -163,7 +163,7 @@ bool nodes_less_than(const DOM::Node<string_type, string_adaptor>& n1,
 
 ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class NodeSet  
 {
 public:
@@ -277,7 +277,7 @@ private:
   bool sorted_;
 }; // NodeSet
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class XPathValue
 {
 protected:
@@ -299,7 +299,7 @@ private:
   XPathValue& operator=(const XPathValue&);
 }; // class XPathValue
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class XPathValuePtr : public boost::shared_ptr<const XPathValue<string_type, string_adaptor> > 
 { 
 public:

@@ -13,8 +13,8 @@ template<class stringT, class string_adaptorT>
 class EntityImpl : public DOM::Entity_impl<stringT, string_adaptorT>,
                    public NodeImplWithChildren<stringT, string_adaptorT>
 {
-    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeImplWithChildrenT;
   public:
+    typedef NodeImplWithChildren<stringT, string_adaptorT> NodeImplWithChildrenT;
     typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
 
     EntityImpl(DocumentImpl<stringT, string_adaptorT>* ownerDoc, 
@@ -51,7 +51,7 @@ class EntityImpl : public DOM::Entity_impl<stringT, string_adaptorT>,
       return name_;
     } // getNodeName
 
-    virtual typename DOMNode_implT* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool deep) const
     {
       EntityImpl* clone = new EntityImpl(NodeImplWithChildrenT::ownerDoc_, name_, publicId_, systemId_, notationName_);
       if(deep)

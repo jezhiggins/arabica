@@ -16,7 +16,7 @@ namespace DOM
 
 template<class stringT, class string_adaptorT> class ProcessingInstruction_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class ProcessingInstruction : public Node<stringT, string_adaptorT>
 {
     typedef Node<stringT, string_adaptorT> NodeT;

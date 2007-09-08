@@ -474,7 +474,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
     const stringT& empty_string() const { return empty_; }
 
   private:
-    void checkChildType(typename DOMNode_implT* child)
+    void checkChildType(DOMNode_implT* child)
     {
       typename DOM::Node_base::Type type = child->getNodeType();
       if((type != DOM::Node_base::ELEMENT_NODE) && 

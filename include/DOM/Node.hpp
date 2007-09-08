@@ -8,6 +8,9 @@
 ////////////////////////////
 #include <DOM/Proxy.hpp>
 #include <DOM/DOMException.hpp>
+#include <Utils/StringAdaptor.hpp>
+
+
 #include <typeinfo>
 #include <algorithm>
 
@@ -47,7 +50,7 @@ class Node_base
 }; // class Node_base
 
 /////////////////////////////////////////////////
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class Node : public Node_base
 {
   public:

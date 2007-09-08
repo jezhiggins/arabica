@@ -42,7 +42,7 @@ template<class stringT, class string_adaptorT> class NodeIterator;
 template<class stringT, class string_adaptorT> class TreeWalker;
 template<class stringT, class string_adaptorT> class DocumentTraversal_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class DocumentTraversal : protected DOM::Proxy<DocumentTraversal_impl<stringT, string_adaptorT> >
 {
   public:

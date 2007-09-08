@@ -20,7 +20,7 @@ template<class stringT, class string_adaptorT> class Attr;
 template<class stringT, class string_adaptorT> class NodeList;
 template<class stringT, class string_adaptorT> class Element_impl;
 
-template<class stringT, class string_adaptorT> 
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> > 
 class Element : public Node<stringT, string_adaptorT>
 {
     typedef Element_impl<stringT, string_adaptorT> Element_implT;

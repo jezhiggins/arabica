@@ -17,17 +17,19 @@ namespace DOM
 
 template<class stringT, class string_adaptorT> class Notation_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class Notation : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT, string_adaptorT> NodeT;
   public:
-    Notation() : Node<stringT, string_adaptorT>() { }
-    explicit Notation(Notation_impl<stringT, string_adaptorT>* impl) : Node<stringT>(dynamic_cast<Node_impl<stringT>*>(impl)) { }
-    Notation(const Notation& rhs) : Node<stringT, string_adaptorT>(rhs) { }
-    explicit Notation(const Node<stringT, string_adaptorT>& rhs) : Node<stringT>(rhs)  
+    typedef Node<stringT, string_adaptorT> NodeT;
+    typedef Notation_impl<stringT, string_adaptorT> Notation_implT;
+
+    Notation() : NodeT() { }
+    explicit Notation(Notation_implT* impl) : NodeT(nImpl()) { }
+    Notation(const Notation& rhs) : NodeT(rhs) { }
+    explicit Notation(const NodeT& rhs) : NodeT(rhs)  
     {
-      if(rhs.getNodeType() != Node<stringT, string_adaptorT>::NOTATION_NODE)
+      if(rhs.getNodeType() != Node_base::NOTATION_NODE)
         throw std::bad_cast();
     }
 
@@ -36,7 +38,7 @@ class Notation : public Node<stringT, string_adaptorT>
     stringT getSystemId() const { nImpl()->getSystemId(); }
 
   private:
-    Notation_impl<stringT, string_adaptorT>* nImpl() { return dynamic_cast<Notation_impl<stringT>*>(NodeT::impl()); }
+    Notation_implT* nImpl() { return dynamic_cast<Notation_implT*>(NodeT::impl()); }
 }; // class Notation
 
 //////////////////////////////////////////////////////////

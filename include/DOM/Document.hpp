@@ -35,7 +35,7 @@ namespace Events {
 
 template<class stringT, class string_adaptorT> class Document_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class Document : public Node<stringT, string_adaptorT>
 {
     typedef Node<stringT, string_adaptorT> NodeT;

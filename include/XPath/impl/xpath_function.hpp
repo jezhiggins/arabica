@@ -14,7 +14,7 @@ namespace Arabica
 namespace XPath
 {
 
-template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type, string_adaptor> >
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class XPathFunction
 {
 protected:

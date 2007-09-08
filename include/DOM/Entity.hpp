@@ -16,11 +16,13 @@ namespace DOM
 
 template<class stringT, class string_adaptorT> class Entity_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class Entity : public Node<stringT, string_adaptorT>
 {
-    typedef Node<stringT, string_adaptorT> NodeT;
   public:
+    typedef Node<stringT, string_adaptorT> NodeT;
+    typedef Entity_impl<stringT, string_adaptorT> Entity_implT;
+
     Entity() : Node<stringT, string_adaptorT>() { }
     explicit Entity(Entity_impl<stringT, string_adaptorT>* impl) : Node<stringT>(impl) { }
     Entity(const Entity& rhs) : Node<stringT, string_adaptorT>(rhs) { }
@@ -37,7 +39,7 @@ class Entity : public Node<stringT, string_adaptorT>
     stringT getNotationName() const { nImpl()->getNotationName(); }
 
   private:
-    Entity_impl<stringT, string_adaptorT>* nImpl() { return dynamic_cast<Entity_impl<stringT>*>(NodeT::impl()); }
+    Entity_implT* nImpl() { return dynamic_cast<Entity_implT*>(NodeT::impl()); }
 }; // class Entity
 
 //////////////////////////////////////////////////////////

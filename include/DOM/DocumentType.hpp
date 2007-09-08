@@ -19,7 +19,7 @@ namespace DOM
 template<class stringT, class string_adaptorT> class Document_impl;
 template<class stringT, class string_adaptorT> class DocumentType_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class DocumentType : public Node<stringT, string_adaptorT>
 {
     typedef DocumentType_impl<stringT, string_adaptorT> DocumentType_implT;

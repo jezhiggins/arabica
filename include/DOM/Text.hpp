@@ -15,7 +15,7 @@ namespace DOM
 {
 template<class stringT, class string_adaptorT> class Text_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class Text : public CharacterData<stringT, string_adaptorT>
 {
     typedef Text_impl<stringT, string_adaptorT> Text_implT;

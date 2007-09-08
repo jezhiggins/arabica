@@ -8,6 +8,7 @@
 ////////////////////////////
 
 #include <DOM/Proxy.hpp>
+#include <Utils/StringAdaptor.hpp>
 
 namespace Arabica
 {
@@ -18,7 +19,7 @@ template<class stringT, class string_adaptorT> class Document;
 template<class stringT, class string_adaptorT> class DocumentType;
 template<class stringT, class string_adaptorT> class DOMImplementation_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class DOMImplementation 
 {
   public:

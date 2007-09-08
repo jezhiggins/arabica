@@ -17,7 +17,7 @@ template<class stringT, class string_adaptorT> class Node;
 namespace Traversal
 {
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class NodeFilter 
 {
   public:

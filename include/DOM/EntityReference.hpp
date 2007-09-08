@@ -15,7 +15,7 @@ namespace DOM
 {
 template<class stringT, class string_adaptorT> class EntityReference_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class EntityReference : public Node<stringT, string_adaptorT>
 {
     typedef EntityReference_impl<stringT, string_adaptorT> EntityReference_implT;

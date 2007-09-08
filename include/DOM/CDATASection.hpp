@@ -15,7 +15,7 @@ namespace DOM
 {
 template<class stringT, class string_adaptorT> class CDATASection_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class CDATASection : public Text<stringT, string_adaptorT>
 {
     typedef Text<stringT, string_adaptorT> TextT;

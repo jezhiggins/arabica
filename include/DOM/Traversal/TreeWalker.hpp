@@ -21,7 +21,7 @@ namespace Traversal
 
 template<class stringT, class string_adaptorT> class TreeWalker_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class TreeWalker : protected DOM::Proxy<TreeWalker_impl<stringT, string_adaptorT> >
 {
   public:  

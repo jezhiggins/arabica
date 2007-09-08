@@ -15,7 +15,7 @@ namespace DOM
 {
 template<class stringT, class string_adaptor> class Comment_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class Comment : public CharacterData<stringT, string_adaptorT>
 {
   public:

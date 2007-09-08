@@ -17,7 +17,7 @@ namespace DOM
 template<class stringT, class string_adaptorT> class Element;
 template<class stringT, class string_adaptorT> class Attr_impl;
 
-template<class stringT, class string_adaptorT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class Attr : public Node<stringT, string_adaptorT>
 {
   public:
