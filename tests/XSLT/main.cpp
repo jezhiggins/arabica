@@ -64,5 +64,5 @@ int main(int argc, const char* argv[])
   
   runner.run(argc, argv);
 
-  return 0;
+  return 77;
 } // test_suite
