@@ -148,7 +148,7 @@ public:
   {
     // entirely simple so far
     StackFrame frame(context);
-    LastFrame last(context, nodes.getLength());
+    LastFrame last(context, (size_t)nodes.getLength());
     for(int i = 0, ie = nodes.getLength(); i != ie; ++i)
     {
       context.setPosition(nodes.item(i), i+1);
