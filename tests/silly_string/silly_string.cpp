@@ -54,8 +54,8 @@ silly_string silly_string_adaptor::construct_from_utf8(const char* str, int leng
 #ifndef ARABICA_NO_WCHAR_T
 silly_string silly_string_adaptor::construct_from_utf16(const wchar_t* str)
 {
-  Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
-                                         char, std::char_traits<char> > narrower;
+  Arabica::io::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+                                    char, std::char_traits<char> > narrower;
   narrower.imbue(std::locale(narrower.getloc(), new Arabica::convert::utf8ucs2codecvt()));
   narrower.str(str ? str : L"");
   silly_string s;
@@ -65,8 +65,8 @@ silly_string silly_string_adaptor::construct_from_utf16(const wchar_t* str)
 
 silly_string silly_string_adaptor::construct_from_utf16(const wchar_t* str, int length)
 {
-  Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
-                                         char, std::char_traits<char> > narrower;
+  Arabica::io::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+                                    char, std::char_traits<char> > narrower;
   narrower.imbue(std::locale(narrower.getloc(), new Arabica::convert::utf8ucs2codecvt()));
   narrower.str(std::wstring(str, length));
   silly_string s;
@@ -130,8 +130,8 @@ std::string silly_string_adaptor::asStdString(const silly_string& str)
 #ifndef ARABICA_NO_WCHAR_T
 std::wstring silly_string_adaptor::asStdWString(const silly_string& str)
 {
-  Arabica::convert::basic_oconvertstream<char, std::char_traits<char>,
-                                         wchar_t, std::char_traits<wchar_t> > widener;
+  Arabica::io::basic_oconvertstream<char, std::char_traits<char>,
+                                    wchar_t, std::char_traits<wchar_t> > widener;
   std::codecvt<char, wchar_t, std::mbstate_t>* cc = new Arabica::convert::ucs2utf8codecvt();
   widener.imbue(std::locale(widener.getloc(), cc));
   widener.str(str.s_);

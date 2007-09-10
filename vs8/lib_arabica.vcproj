@@ -922,7 +922,7 @@
 				</FileConfiguration>
 			</File>
 			<Filter
-				Name="Utils"
+				Name="XML"
 				>
 				<File
 					RelativePath="..\src\XML\XMLCharacterClasses.cpp"

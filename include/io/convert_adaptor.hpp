@@ -26,7 +26,7 @@
 
 namespace Arabica
 {
-namespace convert
+namespace io
 {
 
 template<typename charT, 
@@ -349,6 +349,6 @@ class oconvert_adaptor : private convert_adaptor_buffer<charT, traitsT, toCharT,
     void set_stream(toStreamT& toStream) { bufadaptor_.set_buffer(*toStream.rdbuf()); }
 }; // class oconvert_adaptor
 
-} // namespace convert
+} // namespace io
 } // namespace Arabica
 #endif

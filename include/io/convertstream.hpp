@@ -50,7 +50,7 @@
 
 namespace Arabica
 {
-namespace convert
+namespace io
 {
 
 template<typename charT, typename traitsT>
@@ -297,6 +297,6 @@ typedef basic_iconvertstream<wchar_t> converting_iwstringstream;
 typedef basic_oconvertstream<wchar_t> converting_owstringstream;
 #endif
 
-} // namespace convert
+} // namespace io
 } // namespace Arabica
 #endif

@@ -79,9 +79,9 @@ public:
   static string_type construct_from_utf16(const wchar_t* str, int length);
   static std::wstring asStdWString(const string_type& str);
 
-  typedef Arabica::convert::basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
+  typedef Arabica::io::basic_iconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > widener_t;
-  typedef Arabica::convert::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
+  typedef Arabica::io::basic_oconvertstream<wchar_t, std::char_traits<wchar_t>,
                                char, std::char_traits<char> > narrower_t;
 
 
