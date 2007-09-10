@@ -15,7 +15,7 @@ class Parser : public Arabica::SAX2DOM::Parser<stringT, string_adaptorT, SAX_par
 {
     typedef Arabica::SAX2DOM::Parser<stringT, string_adaptorT, SAX_parser> BaseT;
   public:
-    typedef boost::function2<void, Arabica::DOM::Node<stringT> &, Arabica::DOM::Node<stringT> &> ElementHandlerT;
+    typedef boost::function2<void, Arabica::DOM::Node<stringT, string_adaptorT> &, Arabica::DOM::Node<stringT, string_adaptorT> &> ElementHandlerT;
 
     void setElementEndHandler(ElementHandlerT func)
     {
@@ -29,7 +29,7 @@ class Parser : public Arabica::SAX2DOM::Parser<stringT, string_adaptorT, SAX_par
       if(BaseT::currentNode() == 0)
         return;
 
-      Arabica::DOM::Node<stringT> child(BaseT::currentNode());
+      Arabica::DOM::Node<stringT, string_adaptorT> child(BaseT::currentNode());
 
       BaseT::endElement(namespaceURI, localName, qName);
       
