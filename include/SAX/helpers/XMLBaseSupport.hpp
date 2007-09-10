@@ -20,7 +20,7 @@
 #include <utility>
 #include <sstream>
 #include <XML/UnicodeCharacters.hpp>
-#include <Utils/uri.hpp>
+#include <io/uri.hpp>
 
 namespace Arabica
 {

@@ -835,10 +835,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\include\Utils\uri.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\include\Utils\utf16beucs2codecvt.hpp"
 					>
 				</File>
@@ -876,6 +872,14 @@
 				</File>
 				<File
 					RelativePath="..\include\Xml\XMLCharacterClasses.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="io"
+				>
+				<File
+					RelativePath="..\include\io\uri.hpp"
 					>
 				</File>
 			</Filter>
@@ -926,10 +930,6 @@
 				</File>
 				<File
 					RelativePath="..\src\Utils\ucs2utf8codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\uri.cpp"
 					>
 				</File>
 				<File
@@ -984,6 +984,14 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="io"
+				>
+				<File
+					RelativePath="..\src\io\uri.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

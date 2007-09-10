@@ -1,6 +1,6 @@
 
 #include <algorithm>
-#include <Utils/uri.hpp>
+#include <io/uri.hpp>
 
 using namespace Arabica::io;
 

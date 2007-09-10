@@ -1,7 +1,7 @@
 #ifndef UTILS_URI_TEST_HPP
 #define UTILS_URI_TEST_HPP
 
-#include <Utils/uri.hpp>
+#include <io/uri.hpp>
 
 using namespace Arabica::io;
 

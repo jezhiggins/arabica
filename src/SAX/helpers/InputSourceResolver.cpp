@@ -10,7 +10,7 @@
 #include <istream>
 #include <fstream>
 #include <Utils/socket_stream.hpp>
-#include <Utils/uri.hpp>
+#include <io/uri.hpp>
 #include <cmath>
 
 using namespace Arabica::SAX;
