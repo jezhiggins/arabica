@@ -9,7 +9,7 @@
 #include <SAX/helpers/InputSourceResolver.hpp>
 #include <istream>
 #include <fstream>
-#include <Utils/socket_stream.hpp>
+#include <io/socket_stream.hpp>
 #include <io/uri.hpp>
 #include <cmath>
 
@@ -123,7 +123,7 @@ namespace
 
     Arabica::io::URI url(httpURI);
 
-    Arabica::socketstream* ifs = new Arabica::socketstream(url.host().c_str(), std::atoi(url.port().c_str()));
+    Arabica::io::socketstream* ifs = new Arabica::io::socketstream(url.host().c_str(), std::atoi(url.port().c_str()));
     if(!ifs->is_open())
       return 0;
     *ifs << "GET " << url.path() << " HTTP/1.0" << std::endl;

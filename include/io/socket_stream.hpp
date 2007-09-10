@@ -38,6 +38,8 @@
 
 namespace Arabica
 {
+namespace io
+{
 
 ///////////////////////////////////////////////////////////
 // basic_socketbuf declaration
@@ -429,6 +431,7 @@ typedef basic_socketbuf<wchar_t, std::char_traits<wchar_t> > wsocketbuf;
 typedef basic_socketstream<wchar_t, std::char_traits<wchar_t> > wsocketstream;
 #endif
 
+} // namespace io
 } // namespace Arabica
 
 #endif
