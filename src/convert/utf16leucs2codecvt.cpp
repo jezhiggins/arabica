@@ -20,7 +20,7 @@ std::codecvt_base::result utf16leucs2codecvt::do_out(std::mbstate_t& /* state */
                         char* to_limit,
                         char*& to_next) const
 {
-  return Arabica::Internal::ucs2_2_utf16(false, from, from_end, from_next, to, to_limit, to_next);
+  return impl::ucs2_2_utf16(false, from, from_end, from_next, to, to_limit, to_next);
 } // do_out
 
 std::codecvt_base::result utf16leucs2codecvt::do_in(std::mbstate_t& /* state */,
@@ -31,7 +31,7 @@ std::codecvt_base::result utf16leucs2codecvt::do_in(std::mbstate_t& /* state */,
                        wchar_t* to_limit,
                        wchar_t*& to_next) const
 {
-  return Arabica::Internal::utf16_2_ucs2(false, from, from_end, from_next, to, to_limit, to_next);
+  return impl::utf16_2_ucs2(false, from, from_end, from_next, to, to_limit, to_next);
 } // do_in
 
 std::codecvt_base::result utf16leucs2codecvt::do_unshift(std::mbstate_t& /* state */,
