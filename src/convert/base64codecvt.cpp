@@ -4,7 +4,7 @@
 //
 ///////////////////////////////////////////
 
-#include <Utils/base64codecvt.hpp>
+#include <convert/base64codecvt.hpp>
 
 static const std::string base64_charset("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/");
 static const int NO_MORE = 256;

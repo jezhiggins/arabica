@@ -775,10 +775,6 @@
 				Name="Utils"
 				>
 				<File
-					RelativePath="..\include\Utils\base64codecvt.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\include\Utils\impl\codecvt_specialisations.hpp"
 					>
 				</File>
@@ -795,23 +791,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\iso88591_utf8.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\iso88591utf8codecvt.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\include\Utils\normalize_whitespace.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\rot13codecvt.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\socket_stream.hpp"
 					>
 				</File>
 				<File
@@ -820,38 +800,6 @@
 				</File>
 				<File
 					RelativePath="..\include\Utils\stringadaptortag.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\impl\ucs2_utf16.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\impl\ucs2_utf8.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\ucs2utf8codecvt.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\utf16beucs2codecvt.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\utf16leucs2codecvt.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\utf16utf8codecvt.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\utf8iso88591codecvt.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\utf8ucs2codecvt.hpp"
 					>
 				</File>
 				<File
@@ -879,7 +827,67 @@
 				Name="io"
 				>
 				<File
+					RelativePath="..\include\io\socket_stream.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\io\uri.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="convert"
+				>
+				<File
+					RelativePath="..\include\convert\base64codecvt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\impl\codecvt_specialisations.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\impl\iso88591_utf8.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\iso88591utf8codecvt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\rot13codecvt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\impl\ucs2_utf16.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\impl\ucs2_utf8.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\ucs2utf8codecvt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\utf16beucs2codecvt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\utf16leucs2codecvt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\utf16utf8codecvt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\utf8iso88591codecvt.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\convert\utf8ucs2codecvt.hpp"
 					>
 				</File>
 			</Filter>
@@ -917,61 +925,9 @@
 				Name="Utils"
 				>
 				<File
-					RelativePath="..\src\Utils\base64codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\iso88591utf8codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\rot13codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\ucs2utf8codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\utf16beucs2codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\utf16leucs2codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\utf16utf8codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\utf8iso88591codecvt.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Utils\utf8ucs2codecvt.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\src\XML\XMLCharacterClasses.cpp"
 					>
 				</File>
-				<Filter
-					Name="impl"
-					>
-					<File
-						RelativePath="..\src\Utils\impl\iso88591_utf8.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\src\Utils\impl\ucs2_utf16.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\src\Utils\impl\ucs2_utf8.cpp"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="SAX"
@@ -990,6 +946,58 @@
 				>
 				<File
 					RelativePath="..\src\io\uri.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="convert"
+				>
+				<File
+					RelativePath="..\src\convert\base64codecvt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\impl\iso88591_utf8.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\iso88591utf8codecvt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\rot13codecvt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\impl\ucs2_utf16.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\impl\ucs2_utf8.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\ucs2utf8codecvt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\utf16beucs2codecvt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\utf16leucs2codecvt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\utf16utf8codecvt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\utf8iso88591codecvt.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\convert\utf8ucs2codecvt.cpp"
 					>
 				</File>
 			</Filter>

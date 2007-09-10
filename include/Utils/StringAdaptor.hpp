@@ -7,7 +7,7 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <string>
 #include <Utils/convertstream.hpp>
-#include <Utils/utf8ucs2codecvt.hpp>
+#include <convert/utf8ucs2codecvt.hpp>
 #include <Utils/stringadaptortag.hpp>
 
 namespace Arabica

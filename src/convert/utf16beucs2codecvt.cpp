@@ -1,9 +1,9 @@
 //---------------------------------------------------------------------------
 // $Id$
 //---------------------------------------------------------------------------
-#include <Utils/utf16beucs2codecvt.hpp>
+#include <convert/utf16beucs2codecvt.hpp>
 #ifndef ARABICA_NO_WCHAR_T
-#include <Utils/impl/ucs2_utf16.hpp>
+#include <convert/impl/ucs2_utf16.hpp>
 
 #ifdef ARABICA_VS6_WORKAROUND
 #include <Utils/impl/VS6Workaround.hpp>

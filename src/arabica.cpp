@@ -40,7 +40,7 @@
 #endif
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
-#include "Utils/impl/codecvt_specialisations.cpp"
+#include "convert/impl/codecvt_specialisations.cpp"
 #endif 
 
 #ifdef __GNUWIN32__

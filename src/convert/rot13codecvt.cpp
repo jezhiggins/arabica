@@ -4,7 +4,7 @@
 //
 ///////////////////////////////////////////
 
-#include <Utils/rot13codecvt.hpp>
+#include <convert/rot13codecvt.hpp>
 #ifdef ARABICA_VS6_WORKAROUND
 #include <Utils/impl/VS6Workaround.hpp>
 #endif
