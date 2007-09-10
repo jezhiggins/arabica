@@ -5,7 +5,9 @@
 
 namespace Arabica
 {
-namespace Internal 
+namespace convert
+{
+namespace impl
 {
 
 std::codecvt_base::result ucs2_2_utf8(const wchar_t* from, const wchar_t* from_end, const wchar_t*& from_next,
@@ -14,7 +16,8 @@ std::codecvt_base::result ucs2_2_utf8(const wchar_t* from, const wchar_t* from_e
 std::codecvt_base::result utf8_2_ucs2(const char* from, const char* from_end, const char*& from_next,
                                       wchar_t* to, wchar_t* to_limit, wchar_t*& to_next);
 
-} // namespace Internal
+} // namespace impl
+} // namespace convert
 } // namespace Arabica
 
 #endif

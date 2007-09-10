@@ -5,7 +5,9 @@
 
 namespace Arabica
 {
-namespace Internal 
+namespace convert
+{
+namespace impl
 {
 
 std::codecvt_base::result iso88591_2_utf8(const char* from, const char* from_end, const char*& from_next,
@@ -13,7 +15,9 @@ std::codecvt_base::result iso88591_2_utf8(const char* from, const char* from_end
 
 std::codecvt_base::result utf8_2_iso88591(const char* from, const char* from_end, const char*& from_next,
                                           char* to, char* to_limit, char*& to_next);
-} // namespace Internal
+
+} // namespace impl
+} // namespace convert
 } // namespace Arabica
 
 #endif

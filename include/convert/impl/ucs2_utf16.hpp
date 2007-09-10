@@ -5,7 +5,9 @@
 
 namespace Arabica
 {
-namespace Internal 
+namespace convert
+{
+namespace impl
 {
 
 std::codecvt_base::result ucs2_2_utf16(bool be, 
@@ -15,7 +17,8 @@ std::codecvt_base::result utf16_2_ucs2(bool be,
                                        char const* from, char const* from_end, char const*& from_next,
                                        wchar_t* to, wchar_t* to_limit, wchar_t*& to_next);
 
-} // namepsace Internal
+} // namespace impl
+} // namepsace convert
 } // namespace Arabica
 
 #endif
