@@ -1,7 +1,7 @@
 #ifndef ARABICA_UTILS_NORMALIZE_WHITESPACE_HPP
 #define ARABICA_UTILS_NORMALIZE_WHITESPACE_HPP
 
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 #include <XML/XMLCharacterClasses.hpp>
 #include <text/UnicodeCharacters.hpp>
 

@@ -11,9 +11,9 @@
 #include <SAX/SAXNotRecognizedException.hpp>
 #include <SAX/SAXNotSupportedException.hpp>
 #include <SAX/helpers/PropertyNames.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 #include <iostream>
-#include <Utils/getparam.hpp>
+#include <Arabica/getparam.hpp>
 
 // Include the MSXML definitions.
 #include <msxml2.h>

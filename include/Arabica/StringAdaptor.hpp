@@ -8,7 +8,7 @@
 #include <string>
 #include <io/convertstream.hpp>
 #include <convert/utf8ucs2codecvt.hpp>
-#include <Utils/stringadaptortag.hpp>
+#include <Arabica/stringadaptortag.hpp>
 
 namespace Arabica
 {

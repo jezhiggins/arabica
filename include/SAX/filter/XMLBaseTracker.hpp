@@ -4,7 +4,7 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/helpers/XMLFilterImpl.hpp>
 #include <SAX/helpers/XMLBaseSupport.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

@@ -20,11 +20,11 @@
 #include <SAX/helpers/InputSourceResolver.hpp>
 #include <SAX/helpers/FeatureNames.hpp>
 #include <SAX/helpers/PropertyNames.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 #include <SAX/helpers/AttributeDefaults.hpp>
 #include <typeinfo>
 #include <map>
-#include <Utils/getparam.hpp>
+#include <Arabica/getparam.hpp>
 
 namespace Arabica
 {

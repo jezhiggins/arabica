@@ -8,8 +8,8 @@
 #include <text/UnicodeCharacters.hpp>
 #include <SAX/helpers/PropertyNames.hpp>
 #include <XML/escaper.hpp>
-#include <Utils/StringAdaptor.hpp>
-#include <Utils/getparam.hpp>
+#include <Arabica/StringAdaptor.hpp>
+#include <Arabica/getparam.hpp>
 #include <ostream>
 #include <algorithm>
 #include <typeinfo>

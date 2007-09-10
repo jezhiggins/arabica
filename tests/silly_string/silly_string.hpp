@@ -3,7 +3,7 @@
 
 #include <string>
 #include <functional>
-#include <Utils/stringadaptortag.hpp>
+#include <Arabica/stringadaptortag.hpp>
 #include <SAX/ArabicaConfig.hpp>
 // testing purposes only
 // a string with as minimal interface as possible

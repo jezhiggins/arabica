@@ -13,8 +13,8 @@
 #include <SAX/SAXNotRecognizedException.hpp>
 #include <SAX/helpers/InputSourceResolver.hpp>
 #include <SAX/helpers/AttributesImpl.hpp>
-#include <Utils/StringAdaptor.hpp>
-#include <Utils/getparam.hpp>
+#include <Arabica/StringAdaptor.hpp>
+#include <Arabica/getparam.hpp>
 
 namespace Arabica 
 {

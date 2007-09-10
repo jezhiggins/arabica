@@ -5,7 +5,7 @@
 #include <DOM/Node.hpp>
 #include <boost/lexical_cast.hpp>
 #include <vector>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 #include "xpath_object.hpp"
 #include "xpath_expression.hpp"
 

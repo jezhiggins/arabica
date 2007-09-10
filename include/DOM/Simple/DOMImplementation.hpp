@@ -5,7 +5,7 @@
 #include <DOM/DOMException.hpp>
 #include <DOM/Simple/DocumentImpl.hpp>
 #include <DOM/Simple/DocumentTypeImpl.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

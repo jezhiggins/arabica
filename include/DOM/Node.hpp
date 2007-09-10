@@ -8,7 +8,7 @@
 ////////////////////////////
 #include <DOM/Proxy.hpp>
 #include <DOM/DOMException.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 
 #include <typeinfo>

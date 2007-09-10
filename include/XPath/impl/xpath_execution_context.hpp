@@ -1,7 +1,7 @@
 #ifndef ARABICA_XPATH_EXECUTION_CONTEXT_HPP
 #define ARABICA_XPATH_EXECUTION_CONTEXT_HPP
 
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 #include "xpath_variable_resolver.hpp"
 #include "xpath_resolver_holder.hpp"
 

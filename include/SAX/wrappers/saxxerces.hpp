@@ -52,7 +52,7 @@ std::ostream& operator<<(std::ostream& o, const std::type_info& ti)
 #include <SAX/IStreamHandle.hpp>
 #include <SAX/wrappers/XercesPropertyNames.hpp>
 #include <SAX/wrappers/XercesFeatureNames.hpp>
-#include <Utils/getparam.hpp>
+#include <Arabica/getparam.hpp>
 
 // Xerces Includes
 #include <xercesc/util/PlatformUtils.hpp>

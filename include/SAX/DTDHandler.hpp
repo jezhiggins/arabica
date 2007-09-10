@@ -7,7 +7,7 @@
 #include <string>
 
 #include <SAX/ArabicaConfig.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

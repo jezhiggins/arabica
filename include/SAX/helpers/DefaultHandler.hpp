@@ -16,7 +16,7 @@
 #include <SAX/ext/DeclHandler.hpp>
 #include <SAX/ext/LexicalHandler.hpp>
 
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

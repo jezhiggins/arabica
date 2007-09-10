@@ -8,7 +8,7 @@
 #include <SAX/XMLFilter.hpp>
 #include <SAX/helpers/DefaultHandler.hpp>
 #include <SAX/SAXNotRecognizedException.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

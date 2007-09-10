@@ -5,7 +5,7 @@
 #include "../CppUnit/TestRunner.hpp"
 #include "../CppUnit/framework/Test.h"
 #include "../CppUnit/framework/TestSuite.h"
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 #include "test_WhitespaceStripper.hpp"
 
 ////////////////////////////////////////////////

@@ -25,7 +25,7 @@
 #include <SAX/helpers/AttributeTypes.hpp>
 #include <SAX/helpers/InputSourceResolver.hpp>
 #include <SAX/helpers/AttributesImpl.hpp>
-#include <Utils/getparam.hpp>
+#include <Arabica/getparam.hpp>
 
 namespace Arabica
 {

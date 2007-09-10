@@ -13,11 +13,11 @@
 #include <locale>
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
-#include <Utils/impl/codecvt_specialisations.hpp>
+#include <Arabica/impl/codecvt_specialisations.hpp>
 #endif
 
 #ifdef ARABICA_VS6_WORKAROUND
-#include <Utils/impl/VS6Workaround.hpp>
+#include <Arabica/impl/VS6Workaround.hpp>
 #endif
 
 namespace Arabica

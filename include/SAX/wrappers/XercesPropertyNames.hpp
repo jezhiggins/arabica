@@ -4,7 +4,7 @@
  * $Id$
  */
 
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 #include <SAX/helpers/PropertyNames.hpp>
 
 namespace Arabica

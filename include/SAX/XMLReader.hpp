@@ -18,8 +18,8 @@
 #include <SAX/ext/DeclHandler.hpp>
 #include <SAX/SAXNotSupportedException.hpp>
 
-#include <Utils/StringAdaptor.hpp>
-#include <Utils/getparam.hpp>
+#include <Arabica/StringAdaptor.hpp>
+#include <Arabica/getparam.hpp>
 
 namespace Arabica
 {

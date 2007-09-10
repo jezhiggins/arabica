@@ -772,7 +772,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Utils"
+				Name="Arabica"
 				>
 				<File
 					RelativePath="..\include\Utils\getparam.hpp"

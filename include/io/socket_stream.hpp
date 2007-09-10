@@ -33,7 +33,7 @@
 #endif
 
 #ifdef ARABICA_VS6_WORKAROUND
-#include <Utils/impl/VS6Workaround.hpp>
+#include <Arabica/impl/VS6Workaround.hpp>
 #endif 
 
 namespace Arabica

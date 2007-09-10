@@ -7,7 +7,7 @@
 
 #include <DOM/Simple/DocumentImpl.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

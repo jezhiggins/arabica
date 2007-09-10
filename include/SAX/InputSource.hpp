@@ -9,7 +9,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/IStreamHandle.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

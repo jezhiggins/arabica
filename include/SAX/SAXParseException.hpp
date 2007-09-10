@@ -6,7 +6,7 @@
 
 #include <SAX/SAXException.hpp>
 #include <SAX/Locator.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

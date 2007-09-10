@@ -3,7 +3,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/helpers/XMLFilterImpl.hpp>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {

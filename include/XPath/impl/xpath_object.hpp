@@ -12,7 +12,7 @@
 #include <math>
 #endif
 #include <cmath>
-#include <Utils/StringAdaptor.hpp>
+#include <Arabica/StringAdaptor.hpp>
 #include <text/normalize_whitespace.hpp>
 #include "xpath_axis_enumerator.hpp"
 
