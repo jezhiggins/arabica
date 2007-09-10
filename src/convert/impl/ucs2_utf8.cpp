@@ -27,9 +27,8 @@ namespace {
   };
 } // namespace 
 
-using namespace Arabica::convert::impl;
 
-std::codecvt_base::result ucs2_2_utf8(
+std::codecvt_base::result Arabica::convert::impl::ucs2_2_utf8(
                         const wchar_t* from, const wchar_t* from_end, const wchar_t*& from_next,
                         char* to, char* to_limit, char*& to_next)
 {
@@ -64,7 +63,7 @@ std::codecvt_base::result ucs2_2_utf8(
   return std::codecvt_base::ok;
 } // ucs2_2_utf8
 
-std::codecvt_base::result utf8_2_ucs2(
+std::codecvt_base::result Arabica::convert::impl::utf8_2_ucs2(
                        const char* from, const char* from_end, const char*& from_next,
                        wchar_t* to, wchar_t* to_limit, wchar_t*& to_next)
 {

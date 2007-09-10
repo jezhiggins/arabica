@@ -4,8 +4,8 @@
 #include <boost/shared_ptr.hpp>
 #include <cmath>
 #include <XML/XMLCharacterClasses.hpp>
-#include <XML/UnicodeCharacters.hpp>
-#include <Utils/normalize_whitespace.hpp>
+#include <text/UnicodeCharacters.hpp>
+#include <text/normalize_whitespace.hpp>
 #include "xpath_value.hpp"
 #include "xpath_execution_context.hpp"
 
@@ -408,7 +408,7 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type initial = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
-    string_type value = Arabica::string::normalize_whitespace<string_type, string_adaptor>(initial);
+    string_type value = Arabica::text::normalize_whitespace<string_type, string_adaptor>(initial);
     return new StringValue<string_type, string_adaptor>(value);
   } // evaluate
 }; // class NormalizeSpaceFn

@@ -5,7 +5,6 @@
 #include <DOM/SAX2DOM/SAX2DOM.hpp>
 #include <DOM/Utils/Stream.hpp>
 #include <XSLT/XSLT.hpp>
-#include <Utils/normalize_whitespace.hpp>
 
 #ifdef ARABICA_WINDOWS
 const std::string PATH_PREFIX="../tests/XSLT/testsuite/TESTS/";
@@ -200,7 +199,7 @@ protected:
   {
     std::ostringstream ss;
     ss << node;
-    return Arabica::string::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(ss.str());
+    return Arabica::text::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(ss.str());
   } // docToString
 
   void stripWhitespace(Arabica::DOM::Node<std::string> doc)

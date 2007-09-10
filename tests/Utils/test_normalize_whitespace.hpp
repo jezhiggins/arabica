@@ -5,7 +5,7 @@
 #include "../CppUnit/framework/TestSuite.h"
 #include "../CppUnit/framework/TestCaller.h"
 
-#include <Utils/normalize_whitespace.hpp>
+#include <text/normalize_whitespace.hpp>
 
 template<class string_type, class string_adaptor>
 class NormalizeWhitespaceTest : public TestCase 
@@ -70,7 +70,7 @@ class NormalizeWhitespaceTest : public TestCase
 private:
    string_type normalize(const string_type& s)
    {
-     return Arabica::string::normalize_whitespace<string_type, string_adaptor>(s);
+     return Arabica::text::normalize_whitespace<string_type, string_adaptor>(s);
    } // normalize
 };
 

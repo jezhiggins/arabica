@@ -19,7 +19,7 @@
 #include <stack>
 #include <utility>
 #include <sstream>
-#include <XML/UnicodeCharacters.hpp>
+#include <text/UnicodeCharacters.hpp>
 #include <io/uri.hpp>
 
 namespace Arabica

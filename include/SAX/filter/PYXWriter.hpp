@@ -3,7 +3,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/helpers/XMLFilterImpl.hpp>
-#include <XML/UnicodeCharacters.hpp>
+#include <text/UnicodeCharacters.hpp>
 #include <ostream>
 
 namespace Arabica
@@ -22,7 +22,7 @@ class PYXWriter : public XMLFilterImpl<string_type, T0, T1>
     typedef typename string_type::value_type charT;
     typedef typename string_type::traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
-    typedef Arabica::Unicode<charT> UnicodeT;
+    typedef Arabica::text::Unicode<charT> UnicodeT;
   private:
     using XMLFilterT::getParent;
 

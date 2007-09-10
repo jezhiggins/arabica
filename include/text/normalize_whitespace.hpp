@@ -3,12 +3,11 @@
 
 #include <Utils/StringAdaptor.hpp>
 #include <XML/XMLCharacterClasses.hpp>
-#include <XML/UnicodeCharacters.hpp>
+#include <text/UnicodeCharacters.hpp>
 
 namespace Arabica
 {
-
-namespace string
+namespace text
 {
 
 template<class string_type, class string_adaptor>
@@ -37,7 +36,7 @@ std::string normalize_whitespace<std::string, Arabica::default_string_adaptor<st
     while((i != ie) && (Arabica::XML::is_space(static_cast<char>(*i))))
       ++i;
     if(i != ie)
-      *p++ = Arabica::Unicode<char>::SPACE;
+      *p++ = Arabica::text::Unicode<char>::SPACE;
   } // while ...
   if(p != pe)
     value.erase(p, pe);
@@ -45,8 +44,7 @@ std::string normalize_whitespace<std::string, Arabica::default_string_adaptor<st
   return value;
 } // normalize_whitespace
 
-} // namespace string
-
+} // namespace text
 } // namespace Arabica
 #endif
 

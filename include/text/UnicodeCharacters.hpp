@@ -3,6 +3,8 @@
 
 namespace Arabica
 {
+namespace text
+{
 
 template<typename charT>
 struct Unicode
@@ -283,6 +285,7 @@ const charT Unicode<charT>::LOWERCASE_Z           = 0x7A;
 template<typename charT>
 const charT Unicode<charT>::VERTICAL_BAR          = 0x7C;   // |
 
+} // namespace text
 } // namespace Arabica
 
 #endif

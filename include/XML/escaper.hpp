@@ -2,7 +2,7 @@
 #define ARABICA_UTILS_ESCAPER_HPP
 
 #include <iostream>
-#include <XML/UnicodeCharacters.hpp>
+#include <text/UnicodeCharacters.hpp>
 
 namespace Arabica {
 namespace XML {
@@ -14,7 +14,7 @@ class text_escaper
     typedef char_type charT;
     typedef traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
-    typedef Arabica::Unicode<charT> UnicodeT;
+    typedef Arabica::text::Unicode<charT> UnicodeT;
 
   public:
     text_escaper(ostreamT& stream) : stream_(stream) { }
@@ -60,7 +60,7 @@ class attribute_escaper : private text_escaper<char_type, traits_type>
     typedef char_type charT;
     typedef traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
-    typedef Arabica::Unicode<charT> UnicodeT;
+    typedef Arabica::text::Unicode<charT> UnicodeT;
 
 public:
     attribute_escaper(ostreamT& stream) : text_escaper<char_type, traits_type>(stream) { }

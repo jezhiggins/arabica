@@ -791,10 +791,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\include\Utils\normalize_whitespace.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\include\Utils\StringAdaptor.hpp"
 					>
 				</File>
@@ -812,10 +808,6 @@
 				>
 				<File
 					RelativePath="..\include\Xml\escaper.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Xml\UnicodeCharacters.hpp"
 					>
 				</File>
 				<File
@@ -888,6 +880,18 @@
 				</File>
 				<File
 					RelativePath="..\include\convert\utf8ucs2codecvt.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="text"
+				>
+				<File
+					RelativePath="..\include\text\normalize_whitespace.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\text\UnicodeCharacters.hpp"
 					>
 				</File>
 			</Filter>

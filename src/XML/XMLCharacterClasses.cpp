@@ -1,6 +1,6 @@
 
 #include <XML/XMLCharacterClasses.hpp>
-#include <XML/UnicodeCharacters.hpp>
+#include <text/UnicodeCharacters.hpp>
 #include <SAX/ArabicaConfig.hpp>
 
 const wchar_t base_char_ranges[][2] = 
@@ -77,9 +77,9 @@ const wchar_t base_char_ranges[][2] =
 
 bool Arabica::XML::is_char(wchar_t c)
 {
-  return (c == Unicode<wchar_t>::HORIZONTAL_TABULATION) ||
-         (c == Unicode<wchar_t>::LINE_FEED) ||
-         (c == Unicode<wchar_t>::CARRIAGE_RETURN) ||
+  return (c == text::Unicode<wchar_t>::HORIZONTAL_TABULATION) ||
+         (c == text::Unicode<wchar_t>::LINE_FEED) ||
+         (c == text::Unicode<wchar_t>::CARRIAGE_RETURN) ||
          ((c >= 0x0020) && (c <= 0xD7FF)) ||
          ((c >= 0xE000) && (c <= 0xFFFD)) 
 #ifndef ARABICA_NO_WCHAR_T 
@@ -90,20 +90,20 @@ bool Arabica::XML::is_char(wchar_t c)
 
 bool Arabica::XML::is_space(wchar_t c)
 {
-  return (c == Unicode<wchar_t>::SPACE) ||
-         (c == Unicode<wchar_t>::HORIZONTAL_TABULATION) ||
-         (c == Unicode<wchar_t>::CARRIAGE_RETURN) ||
-         (c == Unicode<wchar_t>::LINE_FEED);
+  return (c == text::Unicode<wchar_t>::SPACE) ||
+         (c == text::Unicode<wchar_t>::HORIZONTAL_TABULATION) ||
+         (c == text::Unicode<wchar_t>::CARRIAGE_RETURN) ||
+         (c == text::Unicode<wchar_t>::LINE_FEED);
 } // is_space
 
 bool Arabica::XML::is_name_char(wchar_t c)
 {
   return is_letter(c) ||
          is_digit(c) ||
-         (c == Unicode<wchar_t>::FULL_STOP) || // .
-         (c == Unicode<wchar_t>::HYPHEN_MINUS) || // -
-         (c == Unicode<wchar_t>::LOW_LINE) || // _
-         (c == Unicode<wchar_t>::COLON) || // :
+         (c == text::Unicode<wchar_t>::FULL_STOP) || // .
+         (c == text::Unicode<wchar_t>::HYPHEN_MINUS) || // -
+         (c == text::Unicode<wchar_t>::LOW_LINE) || // _
+         (c == text::Unicode<wchar_t>::COLON) || // :
          is_combining_char(c) ||
          is_extender(c);
 } // is_identifier

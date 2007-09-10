@@ -3,9 +3,7 @@
 #include <convert/impl/ucs2_utf16.hpp>
 // --------------------------------------------------------------------------
 
-using namespace Arabica::convert::impl;
-
-std::codecvt_base::result utf16_2_ucs2(bool be,
+std::codecvt_base::result Arabica::convert::impl::utf16_2_ucs2(bool be,
                        char const* from, char const* from_end, char const*& from_next,
                        wchar_t* to, wchar_t* to_limit, wchar_t*& to_next)
 {
@@ -23,7 +21,7 @@ std::codecvt_base::result utf16_2_ucs2(bool be,
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial;
 } // utf16_2_ucs2
 
-std::codecvt_base::result ucs2_2_utf16(bool be,
+std::codecvt_base::result Arabica::convert::impl::ucs2_2_utf16(bool be,
                         wchar_t const* from, wchar_t const* from_end, wchar_t const*& from_next,
                         char* to, char* to_limit, char*& to_next)
 {

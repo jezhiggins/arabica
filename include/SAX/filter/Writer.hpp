@@ -5,7 +5,7 @@
 #include <SAX/helpers/XMLFilterImpl.hpp>
 #include <SAX/ext/LexicalHandler.hpp>
 #include <SAX/ext/DeclHandler.hpp>
-#include <XML/UnicodeCharacters.hpp>
+#include <text/UnicodeCharacters.hpp>
 #include <SAX/helpers/PropertyNames.hpp>
 #include <XML/escaper.hpp>
 #include <Utils/StringAdaptor.hpp>
@@ -34,7 +34,7 @@ class Writer : public XMLFilterImpl<string_type, T0, T1>
     typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
     typedef XMLFilterImpl<string_type, T0, T1> XMLFilterT;
     typedef typename XMLFilterImpl<string_type, T0, T1>::AttributesT AttributesT;
-    typedef Arabica::Unicode<charT> UnicodeT;
+    typedef Arabica::text::Unicode<charT> UnicodeT;
     typedef Arabica::XML::text_escaper<charT, traitsT> text_escaperT;
     typedef Arabica::XML::attribute_escaper<charT, traitsT> attribute_escaperT;
   private:

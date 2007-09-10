@@ -3,7 +3,7 @@
 
 #include <SAX/helpers/XMLFilterImpl.hpp>
 
-#include <Utils/normalize_whitespace.hpp>
+#include <text/normalize_whitespace.hpp>
 
 namespace Arabica
 {
@@ -30,7 +30,7 @@ class WhitespaceStripper : public SAX::XMLFilterImpl<string_type, T0, T1>
 
     virtual void characters(const string_type& ch)
     { 
-      XMLFilterT::characters(Arabica::string::normalize_whitespace<string_type, string_adaptor>(ch));
+      XMLFilterT::characters(Arabica::text::normalize_whitespace<string_type, string_adaptor>(ch));
     } // characters
 
     virtual void ignorableWhitespace(const string_type& ch)

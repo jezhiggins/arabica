@@ -26,7 +26,7 @@
 
 #include <iostream>
 #include <algorithm>
-#include <XML/UnicodeCharacters.hpp>
+#include <text/UnicodeCharacters.hpp>
 #include <XML/escaper.hpp>
 
 namespace Arabica
@@ -87,7 +87,7 @@ void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream,
       current[namespaceURI] =  prefix.second = node.getPrefix();
 
     if(!prefix.second.empty())
-      stream << prefix.second << Arabica::Unicode<charT>::COLON;
+      stream << prefix.second << Arabica::text::Unicode<charT>::COLON;
     stream << node.getLocalName();
   }
   else
@@ -97,7 +97,7 @@ void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream,
 template<class stringT, class charT>
 bool isXmlns(const stringT& str)
 {
-  typedef Arabica::Unicode<charT> UnicodeT;
+  typedef Arabica::text::Unicode<charT> UnicodeT;
 
   if(str.size() != 5)
     return false;
@@ -115,7 +115,7 @@ template<class stringT, class string_adaptorT, class charT, class traitsT>
 int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
                    DOM::Node<stringT, string_adaptorT>& node)
 {
-  typedef Arabica::Unicode<charT> UnicodeT;
+  typedef Arabica::text::Unicode<charT> UnicodeT;
 
   static const int index = std::ios_base::xalloc();
   std::vector<std::map<stringT, stringT> >* prefix_stack;
@@ -211,7 +211,7 @@ std::basic_ostream<charT, traitsT>&
 operator<<(std::basic_ostream<charT, traitsT>& stream,
            DOM::Node<stringT, string_adaptorT>& node)
 {
-  typedef Arabica::Unicode<charT> UnicodeT;
+  typedef Arabica::text::Unicode<charT> UnicodeT;
 
   switch(node.getNodeType())
   {

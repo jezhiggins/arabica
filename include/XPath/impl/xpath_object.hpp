@@ -13,7 +13,7 @@
 #endif
 #include <cmath>
 #include <Utils/StringAdaptor.hpp>
-#include <Utils/normalize_whitespace.hpp>
+#include <text/normalize_whitespace.hpp>
 #include "xpath_axis_enumerator.hpp"
 
 namespace Arabica
@@ -344,7 +344,7 @@ template<class string_type, class string_adaptor>
 double stringAsNumber(const string_type& str)
 {
   try {
-    return boost::lexical_cast<double>(Arabica::string::normalize_whitespace<string_type, string_adaptor>(str)); 
+    return boost::lexical_cast<double>(Arabica::text::normalize_whitespace<string_type, string_adaptor>(str)); 
   } // try
   catch(const boost::bad_lexical_cast&) {
     return NaN;
