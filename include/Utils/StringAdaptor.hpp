@@ -6,7 +6,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <string>
-#include <Utils/convertstream.hpp>
+#include <io/convertstream.hpp>
 #include <convert/utf8ucs2codecvt.hpp>
 #include <Utils/stringadaptortag.hpp>
 

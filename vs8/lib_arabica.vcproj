@@ -775,18 +775,6 @@
 				Name="Utils"
 				>
 				<File
-					RelativePath="..\include\Utils\impl\codecvt_specialisations.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\convert_adaptor.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Utils\convertstream.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\include\Utils\getparam.hpp"
 					>
 				</File>
@@ -818,6 +806,14 @@
 			<Filter
 				Name="io"
 				>
+				<File
+					RelativePath="..\include\io\convert_adaptor.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\io\convertstream.hpp"
+					>
+				</File>
 				<File
 					RelativePath="..\include\io\socket_stream.hpp"
 					>
