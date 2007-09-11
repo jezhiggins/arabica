@@ -23,7 +23,9 @@
 std::ifstream inputFile;
 std::ofstream outputFile;
 
+using namespace Arabica::io;
 using namespace Arabica::convert;
+
 iconvert_adaptor<char> iByteConvertor(std::cin);
 oconvert_adaptor<char> oByteConvertor(std::cout);
 bool needWCharIntermediary = false;
