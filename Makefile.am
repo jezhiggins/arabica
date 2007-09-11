@@ -40,7 +40,7 @@ pkgconfigdir = src/pkgconfig
 pkgconfig_DATA = arabica.pc
 
 docs:
-	doxygen doc/arabica.dox
+	cd doc && doxygen arabica.dox
 	@echo "------------------------------------------------------------"
 	@echo "Generated documents to ./doc/html"
 	@echo "------------------------------------------------------------"
