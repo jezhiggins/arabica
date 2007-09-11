@@ -11,16 +11,16 @@ LIBSILLY = ../CppUnit/libsillystring.la
 TESTLIBS = $(LIBARABICA) ../CppUnit/libcppunit.la
 
 test_sources = dom_test_suite.hpp \
-               test_Attribute.h \
+               test_Attribute.hpp \
                test_CDATA.hpp \
                test_CharacterData.hpp \
-               test_DOMImplementation.h \
-               test_Document.h \
-               test_DocumentFragment.h \
-               test_DocumentType.h \
-               test_Element.h \
-               test_ProcessingInstruction.h \
-               test_Siblings.h \
+               test_DOMImplementation.hpp \
+               test_Document.hpp \
+               test_DocumentFragment.hpp \
+               test_DocumentType.hpp \
+               test_Element.hpp \
+               test_ProcessingInstruction.hpp \
+               test_Siblings.hpp \
                test_Text.hpp \
                test_SAX2DOM.hpp \
                test_TreeWalker.hpp

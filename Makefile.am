@@ -30,13 +30,13 @@ EXTRA_DIST=vs7 \
            src/SAX/wrappers/saxexpat.cpp \
            src/SAX/wrappers/saxlibxml2.cpp \
            src/SAX/wrappers/saxxerces.cpp \
-           src/Utils/impl/codecvt_specialisations.cpp 
+           src/convert/impl/codecvt_specialisations.cpp 
 dist-hook:
 	find $(distdir) -print | grep \.svn | xargs rm -rf
 	find $(distdir) -print | grep \~$ | xargs rm -rf
 	rm $(distdir)/include/SAX/ArabicaConfig.hpp
 
-pkgconfigdir = src/pkgconfig
+pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = arabica.pc
 
 docs:
