@@ -34,19 +34,18 @@ namespace Arabica
 namespace DOM
 {
 
-  namespace StreamImpl
+namespace StreamImpl
+{
+template<class stringT, class string_adaptorT, class charT, class traitsT>
+void streamChildren(std::basic_ostream<charT, traitsT>& stream, DOM::Node<stringT, string_adaptorT>& node)
+{
+  DOM::Node<stringT> child = node.getFirstChild();
+  while(child != 0)
   {
-    template<class stringT, class string_adaptorT, class charT, class traitsT>
-    void streamChildren(std::basic_ostream<charT, traitsT>& stream, DOM::Node<stringT, string_adaptorT>& node)
-    {
-      DOM::Node<stringT> child = node.getFirstChild();
-      while(child != 0)
-      {
-        stream << child;
-        child = child.getNextSibling();
-      } // while 
-    } // streamChildren
-  } // namespace StreamImpl
+    stream << child;
+    child = child.getNextSibling();
+  } // while 
+} // streamChildren
 
 template<class stringT>
 void prefix_mapper_callback(std::ios_base::event ev, std::ios_base& stream, int index)
@@ -206,6 +205,8 @@ void prefix_mapper_pop(std::basic_ostream<charT, traitsT>& stream,
   } // if ...
 } // prefix_mapper_pop
 
+} // namespace StreamImpl
+
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 std::basic_ostream<charT, traitsT>&
 operator<<(std::basic_ostream<charT, traitsT>& stream,
@@ -243,11 +244,11 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
   case DOM::Node<stringT>::ELEMENT_NODE:
     {
       stream << UnicodeT::LESS_THAN_SIGN;
-      int index = prefix_mapper(stream, node);
+      int index = StreamImpl::prefix_mapper(stream, node);
       stream << UnicodeT::GREATER_THAN_SIGN;
       StreamImpl::streamChildren(stream, node);
       stream << UnicodeT::LESS_THAN_SIGN << UnicodeT::SLASH;
-      prefix_mapper_pop(stream, node, index);
+      StreamImpl::prefix_mapper_pop(stream, node, index);
       stream << UnicodeT::GREATER_THAN_SIGN;
     }
     break;

@@ -8,7 +8,7 @@
 #include <string>
 #include <DOM/SAX2DOM/SAX2DOM.hpp>
 #include <SAX/helpers/CatchErrorHandler.hpp>
-#include <DOM/Utils/Stream.hpp>
+#include <DOM/io/Stream.hpp>
 
 ////////////////////////////////////////////////
 int main(int argc, char* argv[])

@@ -3,7 +3,7 @@
 
 #include <SAX/InputSource.hpp>
 #include <DOM/SAX2DOM/SAX2DOM.hpp>
-#include <DOM/Utils/Stream.hpp>
+#include <DOM/io/Stream.hpp>
 #include <XSLT/XSLT.hpp>
 
 #ifdef ARABICA_WINDOWS

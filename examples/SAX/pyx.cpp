@@ -4,7 +4,8 @@
 // It's a pretty literal translation of the Sean McGrath's
 // sax2pyx.py code presented in his XML Processing In Python book.
 //
-// For more information on PYX see http://pyxie.sourceforce.net/
+// For more information on PYX see 
+//    http://www.xml.com/pub/a/2000/03/15/feature
 //
 // $Id$
 //
@@ -53,11 +54,6 @@ int main(int argc, char* argv[])
       Arabica::SAX::XMLReader<std::string> myParser;
       myParser.setContentHandler(handler);
       myParser.setErrorHandler(handler);
-      try {
-        myParser.setFeature("prohibit-dtd", false);
-      }
-      catch(...) { 
-      }
 
       Arabica::SAX::InputSource<std::string> is(argv[i]);
       myParser.parse(is);

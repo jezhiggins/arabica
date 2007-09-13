@@ -8,7 +8,7 @@
 #include <string>
 #include <SAX/helpers/CatchErrorHandler.hpp>
 #include <DOM/SAX2DOM/SAX2DOM.hpp>
-#include <DOM/Utils/Stream.hpp>
+#include <DOM/io/Stream.hpp>
 #include <XPath/XPath.hpp>
 
 ////////////////////////////////////////////////
