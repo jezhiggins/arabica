@@ -492,10 +492,10 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="Utils"
+					Name="io"
 					Filter="">
 					<File
-						RelativePath="..\include\Dom\Utils\Stream.hpp">
+						RelativePath="..\include\Dom\io\Stream.hpp">
 					</File>
 				</Filter>
 			</Filter>
@@ -582,73 +582,88 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Utils"
+				Name="Arabica"
 				Filter="">
 				<File
-					RelativePath="..\include\Utils\base64codecvt.hpp">
+					RelativePath="..\include\Arabica\getparam.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\codecvt_specialisations.hpp">
+					RelativePath="..\include\Arabica\StringAdaptor.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\convert_adaptor.hpp">
+					RelativePath="..\include\Arabica\stringadaptortag.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\convertstream.hpp">
+					RelativePath="..\include\Arabica\impl\VS6Workaround.hpp">
+				</File>
+			</Filter>
+			<Filter
+				Name="io"
+				Filter="">
+				<File
+					RelativePath="..\include\io\convert_adaptor.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\getparam.hpp">
+					RelativePath="..\include\io\convertstream.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\iso88591_utf8.hpp">
+					RelativePath="..\include\io\socket_stream.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\iso88591utf8codecvt.hpp">
+					RelativePath="..\include\io\uri.hpp">
+				</File>
+			</Filter>
+			<Filter
+				Name="text"
+				Filter="">
+				<File
+					RelativePath="..\include\text\normalize_whitespace.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\normalize_whitespace.hpp">
+					RelativePath="..\include\text\UnicodeCharacters.hpp">
+				</File>
+			</Filter>
+			<Filter
+				Name="convert"
+				Filter="">
+				<File
+					RelativePath="..\include\convert\base64codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\rot13codecvt.hpp">
+					RelativePath="..\include\convert\impl\codecvt_specialisations.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\socket_stream.hpp">
+					RelativePath="..\include\convert\impl\iso88591_utf8.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\StringAdaptor.hpp">
+					RelativePath="..\include\convert\iso88591utf8codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\stringadaptortag.hpp">
+					RelativePath="..\include\convert\rot13codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\ucs2_utf16.hpp">
+					RelativePath="..\include\convert\impl\ucs2_utf16.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\ucs2_utf8.hpp">
+					RelativePath="..\include\convert\impl\ucs2_utf8.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\ucs2utf8codecvt.hpp">
+					RelativePath="..\include\convert\ucs2utf8codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\uri.hpp">
+					RelativePath="..\include\convert\utf16beucs2codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf16beucs2codecvt.hpp">
+					RelativePath="..\include\convert\utf16leucs2codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf16leucs2codecvt.hpp">
+					RelativePath="..\include\convert\utf16utf8codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf16utf8codecvt.hpp">
+					RelativePath="..\include\convert\utf8iso88591codecvt.hpp">
 				</File>
 				<File
-					RelativePath="..\include\Utils\utf8iso88591codecvt.hpp">
-				</File>
-				<File
-					RelativePath="..\include\Utils\utf8ucs2codecvt.hpp">
-				</File>
-				<File
-					RelativePath="..\include\Utils\impl\VS6Workaround.hpp">
+					RelativePath="..\include\convert\utf8ucs2codecvt.hpp">
 				</File>
 			</Filter>
 			<Filter
@@ -656,9 +671,6 @@
 				Filter="">
 				<File
 					RelativePath="..\include\Xml\escaper.hpp">
-				</File>
-				<File
-					RelativePath="..\include\Xml\UnicodeCharacters.hpp">
 				</File>
 				<File
 					RelativePath="..\include\Xml\XMLCharacterClasses.hpp">
@@ -691,54 +703,62 @@
 				</FileConfiguration>
 			</File>
 			<Filter
-				Name="Utils"
+				Name="convert"
 				Filter="">
 				<File
-					RelativePath="..\src\Utils\base64codecvt.cpp">
+					RelativePath="..\src\convert\base64codecvt.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Utils\iso88591utf8codecvt.cpp">
+					RelativePath="..\src\convert\iso88591utf8codecvt.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Utils\rot13codecvt.cpp">
+					RelativePath="..\src\convert\rot13codecvt.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Utils\ucs2utf8codecvt.cpp">
+					RelativePath="..\src\convert\ucs2utf8codecvt.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Utils\uri.cpp">
+					RelativePath="..\src\convert\utf16beucs2codecvt.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Utils\utf16beucs2codecvt.cpp">
+					RelativePath="..\src\convert\utf16leucs2codecvt.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Utils\utf16leucs2codecvt.cpp">
+					RelativePath="..\src\convert\utf16utf8codecvt.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Utils\utf16utf8codecvt.cpp">
+					RelativePath="..\src\convert\utf8iso88591codecvt.cpp">
 				</File>
 				<File
-					RelativePath="..\src\Utils\utf8iso88591codecvt.cpp">
-				</File>
-				<File
-					RelativePath="..\src\Utils\utf8ucs2codecvt.cpp">
-				</File>
-				<File
-					RelativePath="..\src\XML\XMLCharacterClasses.cpp">
+					RelativePath="..\src\convert\utf8ucs2codecvt.cpp">
 				</File>
 				<Filter
 					Name="impl"
 					Filter="">
 					<File
-						RelativePath="..\src\Utils\impl\iso88591_utf8.cpp">
+						RelativePath="..\src\convert\impl\iso88591_utf8.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Utils\impl\ucs2_utf16.cpp">
+						RelativePath="..\src\convert\impl\ucs2_utf16.cpp">
 					</File>
 					<File
-						RelativePath="..\src\Utils\impl\ucs2_utf8.cpp">
+						RelativePath="..\src\convert\impl\ucs2_utf8.cpp">
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="io"
+				Filter="">
+				<File
+					RelativePath="..\src\io\uri.cpp">
+				</File>
+			</Filter>
+			<Filter
+				Name="XML"
+				Filter="">
+				<File
+					RelativePath="..\src\XML\XMLCharacterClasses.cpp">
+				</File>
 			</Filter>
 			<Filter
 				Name="SAX"

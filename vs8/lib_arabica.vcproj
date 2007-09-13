@@ -655,10 +655,10 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="Utils"
+					Name="io"
 					>
 					<File
-						RelativePath="..\include\Dom\Utils\Stream.hpp"
+						RelativePath="..\include\Dom\io\Stream.hpp"
 						>
 					</File>
 				</Filter>
@@ -775,19 +775,19 @@
 				Name="Arabica"
 				>
 				<File
-					RelativePath="..\include\Utils\getparam.hpp"
+					RelativePath="..\include\Arabica\getparam.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\include\Utils\StringAdaptor.hpp"
+					RelativePath="..\include\Arabica\StringAdaptor.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\include\Utils\stringadaptortag.hpp"
+					RelativePath="..\include\Arabica\stringadaptortag.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\include\Utils\impl\VS6Workaround.hpp"
+					RelativePath="..\include\Arabica\impl\VS6Workaround.hpp"
 					>
 				</File>
 			</Filter>
