@@ -10,7 +10,7 @@
 #include <SAX/ArabicaConfig.hpp>
 
 #ifdef ARABICA_VS6_WORKAROUND
-#include <Arabica/impl/VS6Workaround.hpp>
+#include <convert/impl/VS6Workaround.hpp>
 #endif
 
 namespace Arabica

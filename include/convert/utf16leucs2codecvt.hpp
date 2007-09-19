@@ -13,7 +13,7 @@
 #include <locale>
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
-#include <Arabica/impl/codecvt_specialisations.hpp>
+#include <convert/impl/codecvt_specialisations.hpp>
 #endif
 
 #ifdef ARABICA_VS6_WORKAROUND
