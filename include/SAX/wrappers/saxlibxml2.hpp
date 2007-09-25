@@ -147,12 +147,12 @@ class libxml2_wrapper : public XMLReaderInterface<string_type, T0, T1>,
 
     ////////////////////////////////////////////////
     // Event Handlers
-    virtual void setEntityResolver(EntityResolver<string_type>& resolver) { entityResolver_ = &resolver; }
-    virtual EntityResolver<string_type>* getEntityResolver() const { return entityResolver_; }
-    virtual void setDTDHandler(DTDHandler<string_type>& handler) { dtdHandler_ = &handler; }
-    virtual DTDHandler<string_type>* getDTDHandler() const { return dtdHandler_; }
-    virtual void setContentHandler(ContentHandler<string_type>& handler) { contentHandler_ = &handler; }
-    virtual ContentHandler<string_type>* getContentHandler() const { return contentHandler_; }
+    virtual void setEntityResolver(entityResolverT& resolver) { entityResolver_ = &resolver; }
+    virtual entityResolverT* getEntityResolver() const { return entityResolver_; }
+    virtual void setDTDHandler(dtdHandlerT& handler) { dtdHandler_ = &handler; }
+    virtual dtdHandlerT* getDTDHandler() const { return dtdHandler_; }
+    virtual void setContentHandler(contentHandlerT& handler) { contentHandler_ = &handler; }
+    virtual contentHandlerT* getContentHandler() const { return contentHandler_; }
     virtual void setErrorHandler(errorHandlerT& handler) { errorHandler_ = &handler; }
     virtual errorHandlerT* getErrorHandler() const { return errorHandler_; }
     virtual void setDeclHandler(declHandlerT& handler) { declHandler_ = &handler; }
@@ -162,7 +162,7 @@ class libxml2_wrapper : public XMLReaderInterface<string_type, T0, T1>,
 
     ////////////////////////////////////////////////
     // parsing
-    virtual void parse(InputSource<string_type>& source);
+    virtual void parse(inputSourceT& source);
 
   protected:
     ////////////////////////////////////////////////
@@ -390,7 +390,7 @@ void libxml2_wrapper<string_type, T0, T1>::reportError(const std::string& messag
   if(!errorHandler_)
     return;
   
-  SAXParseException<string_type> e(message, *this);
+  SAXParseExceptionT e(message, *this);
   if(fatal)
     errorHandler_->fatalError(e);
   else
@@ -441,7 +441,7 @@ int libxml2_wrapper<string_type, T0, T1>::getColumnNumber() const
 } // getColumnNumber
 
 template<class string_type, class T0, class T1>
-void libxml2_wrapper<string_type, T0, T1>::parse(InputSource<string_type>& source)
+void libxml2_wrapper<string_type, T0, T1>::parse(inputSourceT& source)
 {
   if(contentHandler_)
     contentHandler_->setDocumentLocator(*this);
@@ -496,21 +496,21 @@ template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXwarning(const std::string& warning)
 {
   if(errorHandler_)
-    errorHandler_->warning(SAXParseException<string_type>(warning, *this));
+    errorHandler_->warning(SAXParseExceptionT(warning, *this));
 } // warning
 
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXerror(const std::string& error)
 {
   if(errorHandler_)
-    errorHandler_->error(SAXParseException<string_type>(error, *this));
+    errorHandler_->error(SAXParseExceptionT(error, *this));
 } // error
 
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXfatalError(const std::string& fatal)
 {
   if(errorHandler_)
-    errorHandler_->fatalError(SAXParseException<string_type>(fatal, *this));
+    errorHandler_->fatalError(SAXParseExceptionT(fatal, *this));
 } // fatal
 
 template<class string_type, class T0, class T1>
