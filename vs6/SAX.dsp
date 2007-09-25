@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /I "..\\" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /FD /c
+# ADD CPP /nologo /W3 /GR /GX /O2 /I "..\src\\" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x809 /d "NDEBUG"
 # ADD RSC /l 0x809 /d "NDEBUG"
@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"..\lib\Arabica.lib"
+# ADD LIB32 /nologo /out:"..\src\lib\Arabica.lib"
 
 !ELSEIF  "$(CFG)" == "ArabicaLib - Win32 Debug"
 
@@ -61,11 +61,11 @@ LIB32=link.exe -lib
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "..\lib"
+# PROP Output_Dir "..\src\lib"
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "..\\" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "..\src\\" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x809 /d "_DEBUG"
 # ADD RSC /l 0x809 /d "_DEBUG"
@@ -74,7 +74,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo /out:"..\lib\Arabica.lib"
+# ADD LIB32 /nologo /out:"..\src\lib\Arabica.lib"
 
 !ENDIF 
 
@@ -87,79 +87,79 @@ LIB32=link.exe -lib
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\AttributeList.h
+SOURCE=..\include\SAX\AttributeList.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Attributes.h
+SOURCE=..\include\SAX\Attributes.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ContentHandler.h
+SOURCE=..\include\SAX\ContentHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\DocumentHandler.h
+SOURCE=..\include\SAX\DocumentHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\DTDHandler.h
+SOURCE=..\include\SAX\DTDHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\EntityResolver.h
+SOURCE=..\include\SAX\EntityResolver.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ErrorHandler.h
+SOURCE=..\include\SAX\ErrorHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\HandlerBase.h
+SOURCE=..\include\SAX\HandlerBase.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\InputSource.h
+SOURCE=..\include\SAX\InputSource.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Locator.h
+SOURCE=..\include\SAX\Locator.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Parser.h
+SOURCE=..\include\SAX\Parser.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ParserConfig.h
+SOURCE=..\include\SAX\ParserConfig.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SAXException.h
+SOURCE=..\include\SAX\SAXException.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\saxfwd.h
+SOURCE=..\include\SAX\saxfwd.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SAXNotRecognizedException.h
+SOURCE=..\include\SAX\SAXNotRecognizedException.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SAXNotSupportedException.h
+SOURCE=..\include\SAX\SAXNotSupportedException.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\SAXParseException.h
+SOURCE=..\include\SAX\SAXParseException.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XMLFilter.h
+SOURCE=..\include\SAX\XMLFilter.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\XMLReader.h
+SOURCE=..\include\SAX\XMLReader.h
 # End Source File
 # End Group
 # Begin Group "Helpers"
@@ -170,7 +170,7 @@ SOURCE=.\XMLReader.h
 # PROP Default_Filter "*.cpp"
 # Begin Source File
 
-SOURCE=.\helpers\InputSourceResolver.cpp
+SOURCE=..\include\SAX\helpers\InputSourceResolver.cpp
 # End Source File
 # End Group
 # Begin Group "Headers"
@@ -178,59 +178,59 @@ SOURCE=.\helpers\InputSourceResolver.cpp
 # PROP Default_Filter "*.h"
 # Begin Source File
 
-SOURCE=.\helpers\AttributeDefaults.h
+SOURCE=..\include\SAX\helpers\AttributeDefaults.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\AttributeListImpl.h
+SOURCE=..\include\SAX\helpers\AttributeListImpl.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\AttributesImpl.h
+SOURCE=..\include\SAX\helpers\AttributesImpl.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\AttributeTypes.h
+SOURCE=..\include\SAX\helpers\AttributeTypes.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\CatchErrorHandler.h
+SOURCE=..\include\SAX\helpers\CatchErrorHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\DefaultHandler.h
+SOURCE=..\include\SAX\helpers\DefaultHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\FeatureNames.h
+SOURCE=..\include\SAX\helpers\FeatureNames.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\InputSourceResolver.h
+SOURCE=..\include\SAX\helpers\InputSourceResolver.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\LocatorImpl.h
+SOURCE=..\include\SAX\helpers\LocatorImpl.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\NamespaceSupport.h
+SOURCE=..\include\SAX\helpers\NamespaceSupport.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\ParserAdaptor.h
+SOURCE=..\include\SAX\helpers\ParserAdaptor.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\PropertyNames.h
+SOURCE=..\include\SAX\helpers\PropertyNames.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\StringAdaptor.h
+SOURCE=..\include\SAX\helpers\StringAdaptor.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\helpers\XMLFilterImpl.h
+SOURCE=..\include\SAX\helpers\XMLFilterImpl.h
 # End Source File
 # End Group
 # End Group
@@ -239,23 +239,23 @@ SOURCE=.\helpers\XMLFilterImpl.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\ext\Attributes2.h
+SOURCE=..\include\SAX\ext\Attributes2.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ext\DeclHandler.h
+SOURCE=..\include\SAX\ext\DeclHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ext\DefaultHandler2.h
+SOURCE=..\include\SAX\ext\DefaultHandler2.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ext\LexicalHandler.h
+SOURCE=..\include\SAX\ext\LexicalHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ext\Locator2.h
+SOURCE=..\include\SAX\ext\Locator2.h
 # End Source File
 # End Group
 # Begin Group "Wrappers"
@@ -263,34 +263,34 @@ SOURCE=.\ext\Locator2.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\wrappers\saxexpat.cpp
+SOURCE=..\include\SAX\wrappers\saxexpat.cpp
 # PROP Exclude_From_Build 1
 # End Source File
 # Begin Source File
 
-SOURCE=.\wrappers\saxexpat.h
+SOURCE=..\include\SAX\wrappers\saxexpat.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\wrappers\saxlibxml2.cpp
+SOURCE=..\include\SAX\wrappers\saxlibxml2.cpp
 # PROP Exclude_From_Build 1
 # End Source File
 # Begin Source File
 
-SOURCE=.\wrappers\saxlibxml2.h
+SOURCE=..\include\SAX\wrappers\saxlibxml2.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\wrappers\saxmsxml2.h
+SOURCE=..\include\SAX\wrappers\saxmsxml2.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\wrappers\saxxerces.cpp
+SOURCE=..\include\SAX\wrappers\saxxerces.cpp
 # PROP Exclude_From_Build 1
 # End Source File
 # Begin Source File
 
-SOURCE=.\wrappers\saxxerces.h
+SOURCE=..\include\SAX\wrappers\saxxerces.h
 # End Source File
 # End Group
 # Begin Group "Filters"
@@ -298,7 +298,7 @@ SOURCE=.\wrappers\saxxerces.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\filter\Writer.h
+SOURCE=..\include\SAX\filter\Writer.h
 # End Source File
 # End Group
 # Begin Group "Parsers"
@@ -306,7 +306,7 @@ SOURCE=.\filter\Writer.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\parsers\saxgarden.h
+SOURCE=..\include\SAX\parsers\saxgarden.h
 # End Source File
 # End Group
 # Begin Group "Utils"
@@ -317,130 +317,130 @@ SOURCE=.\parsers\saxgarden.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\Utils\impl\codecvt_specialisations.h
+SOURCE=..\src\Utils\impl\codecvt_specialisations.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Utils\impl\iso88591_utf8.cpp
+SOURCE=..\src\Utils\impl\iso88591_utf8.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Utils\impl\iso88591_utf8.h
+SOURCE=..\src\Utils\impl\iso88591_utf8.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Utils\impl\ucs2_utf16.cpp
+SOURCE=..\src\Utils\impl\ucs2_utf16.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Utils\impl\ucs2_utf16.h
+SOURCE=..\src\Utils\impl\ucs2_utf16.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\Utils\impl\ucs2_utf8.cpp
+SOURCE=..\src\Utils\impl\ucs2_utf8.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\Utils\impl\ucs2_utf8.h
-# End Source File
-# End Group
-# Begin Source File
-
-SOURCE=..\Utils\base64codecvt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\base64codecvt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\convert_adaptor.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\convertstream.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\iso88591utf8codecvt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\iso88591utf8codecvt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\rot13codecvt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\rot13codecvt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\socket_stream.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\XML\UnicodeCharacters.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf16beucs2codecvt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf16beucs2codecvt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf16leucs2codecvt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf16leucs2codecvt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf16utf8codecvt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf16utf8codecvt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf8iso88591codecvt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf8iso88591codecvt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf8ucs2codecvt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Utils\utf8ucs2codecvt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\XML\XMLCharacterClasses.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\XML\XMLCharacterClasses.h
+SOURCE=..\src\Utils\impl\ucs2_utf8.h
 # End Source File
 # End Group
 # Begin Source File
 
-SOURCE=.\ArabicaConfig.S
+SOURCE=..\src\Utils\base64codecvt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\base64codecvt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\convert_adaptor.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\convertstream.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\iso88591utf8codecvt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\iso88591utf8codecvt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\rot13codecvt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\rot13codecvt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\socket_stream.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\XML\UnicodeCharacters.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf16beucs2codecvt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf16beucs2codecvt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf16leucs2codecvt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf16leucs2codecvt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf16utf8codecvt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf16utf8codecvt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf8iso88591codecvt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf8iso88591codecvt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf8ucs2codecvt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\Utils\utf8ucs2codecvt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\XML\XMLCharacterClasses.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\XML\XMLCharacterClasses.h
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=..\include\SAX\ArabicaConfig.S
 
 !IF  "$(CFG)" == "ArabicaLib - Win32 Release"
 
 # Begin Custom Build
-InputPath=.\ArabicaConfig.S
+InputPath=..\include\SAX\ArabicaConfig.S
 
 "ArabicaConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	cl /TC  /EP ArabicaConfig.S > ArabicaConfig.h
@@ -450,7 +450,7 @@ InputPath=.\ArabicaConfig.S
 !ELSEIF  "$(CFG)" == "ArabicaLib - Win32 Debug"
 
 # Begin Custom Build
-InputPath=.\ArabicaConfig.S
+InputPath=..\include\SAX\ArabicaConfig.S
 
 "ArabicaConfig.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	cl /TC  /EP ArabicaConfig.S > ArabicaConfig.h
@@ -462,12 +462,12 @@ InputPath=.\ArabicaConfig.S
 # End Source File
 # Begin Source File
 
-SOURCE=.\ParserConfig.S
+SOURCE=..\include\SAX\ParserConfig.S
 
 !IF  "$(CFG)" == "ArabicaLib - Win32 Release"
 
 # Begin Custom Build
-InputPath=.\ParserConfig.S
+InputPath=..\include\SAX\ParserConfig.S
 
 BuildCmds= \
 	cl /TC /D USE_MSXML /EP ParserConfig.S > ParserConfig.h \
@@ -485,7 +485,7 @@ BuildCmds= \
 
 # PROP Ignore_Default_Tool 1
 # Begin Custom Build
-InputPath=.\ParserConfig.S
+InputPath=..\include\SAX\ParserConfig.S
 
 BuildCmds= \
 	cl /TC /D USE_MSXML /EP ParserConfig.S > ParserConfig.h \
@@ -504,11 +504,11 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=.\saxlib.cpp
+SOURCE=..\include\SAX\saxlib.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\saxlib.S
+SOURCE=..\include\SAX\saxlib.S
 # End Source File
 # End Target
 # End Project
