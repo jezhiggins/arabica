@@ -92,7 +92,8 @@ public:
 private:
   string_type absolutise(const string_type& baseURI, const string_type& location) const
   {
-    Arabica::io::URI absolute(Arabica::io::URI(baseURI), location);
+    Arabica::io::URI base(string_adaptor::asStdString(baseURI));
+    Arabica::io::URI absolute(base, string_adaptor::asStdString(location));
     return string_adaptor::construct_from_utf8(absolute.as_string().c_str());
   } // absolutise
 

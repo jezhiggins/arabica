@@ -60,7 +60,8 @@ private:
     SAX::CatchErrorHandler<std::string> eh;
     domParser.setErrorHandler(eh);
 
-    Arabica::io::URI absolute(Arabica::io::URI(baseURI_), location);
+    Arabica::io::URI base(baseURI_);
+    Arabica::io::URI absolute(base, location);
 
     SAX::InputSource<std::string> is(absolute.as_string());
     domParser.parse(is);
