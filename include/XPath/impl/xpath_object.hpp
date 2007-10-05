@@ -169,6 +169,7 @@ class NodeSet
 public:
   typedef typename std::vector<DOM::Node<string_type, string_adaptor> >::const_iterator const_iterator;
   typedef typename std::vector<DOM::Node<string_type, string_adaptor> >::iterator iterator;
+  typedef typename std::vector<DOM::Node<string_type, string_adaptor> >::value_type value_type;
 
   NodeSet() : 
     nodes_(), 
