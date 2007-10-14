@@ -364,19 +364,19 @@ public:
 
   std::vector<Arabica::XPath::MatchExpr<string_type, string_adaptor> > matches;
 
-  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> compileMatch(const char* match)
+  Arabica::XPath::MatchExpr<string_type, string_adaptor> compileMatch(const char* match)
   {
     //std::cout << "----\n" << match << std::endl;
     compileMatches(match);
     assertEquals(1, matches.size());
-    return matches[0].match_;
+    return matches[0];
   } // compileMatch
 
   double matchPriority(const char* match)
   {
     compileMatches(match);
     assertEquals(1, matches.size());
-    return matches[0].priority_;
+    return matches[0].priority();
   } // matchPriority
 
   std::vector<Arabica::XPath::MatchExpr<string_type, string_adaptor> >& compileMatches(const char* match)
@@ -388,15 +388,17 @@ public:
   bool applyMatches(const char* match, const Arabica::DOM::Node<string_type, string_adaptor>& node)
   {
     compileMatches(match);
+    Arabica::XPath::ExecutionContext<string_type, string_adaptor> context;
     for(unsigned int i = 0; i < matches.size(); ++i)
-      if(matches[i].match_->evaluateAsBool(node))
+      if(matches[i].evaluate(node, context))
       	return true;
     return false;
   } // applyMatches
 
   bool applyMatch(const char* match, const Arabica::DOM::Node<string_type, string_adaptor>& node)
   {
-    return compileMatch(match)->evaluateAsBool(node);
+    Arabica::XPath::ExecutionContext<string_type, string_adaptor> context;
+    return compileMatch(match).evaluate(node, context);
   } // applyMatch
 
   Arabica::DOM::Document<string_type, string_adaptor> parseXML(const char* match)

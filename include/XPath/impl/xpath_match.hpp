@@ -11,8 +11,9 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-struct MatchExpr
+class MatchExpr
 {
+public:
   MatchExpr(XPathExpression<string_type, string_adaptor>* match, double priority) :
     match_(match), priority_(priority) { } 
   MatchExpr(const MatchExpr& rhs) :
@@ -20,6 +21,16 @@ struct MatchExpr
   MatchExpr& operator=(const MatchExpr& rhs)
   { match_ = rhs.match_; priority_ = rhs.priority_; return *this; }
 
+  double priority() const { return priority_; }
+  bool evaluate(const DOM::Node<string_type, string_adaptor>& context,
+                const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return match_->evaluateAsBool(context, executionContext);
+  } // evaluate
+
+  void override_priority(double p) { priority_ = p; }
+
+private:
   XPathExpressionPtr<string_type, string_adaptor> match_;
   double priority_;
 }; // MatchExpr

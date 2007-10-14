@@ -32,7 +32,7 @@ public:
     {
       float p = boost::lexical_cast<float>(priority);
       for(std::vector<Arabica::XPath::MatchExpr<std::string> >::iterator m = matches_.begin(), me = matches_.end(); m != me; ++m)
-        m->priority_ = p;
+        m->override_priority(p);
     } // if ... 
   } // Template
 

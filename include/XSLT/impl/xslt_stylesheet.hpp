@@ -199,7 +199,7 @@ private:
       {
         const MatchTemplates& templates = mt->second;
 	      for(MatchTemplates::const_iterator t = templates.begin(), te = templates.end(); t != te; ++t)
-	        if(t->match()->evaluateAsBool(node, context.xpathContext()))
+	        if(t->match().evaluate(node, context.xpathContext()))
 	        {
 	          t->action()->execute(node, context);
 	          return;
@@ -252,29 +252,26 @@ private:
   {
   public:
     MatchTemplate(const Arabica::XPath::MatchExpr<std::string>& matchExpr, Template* templat) :
-      match_(matchExpr.match_),
-      priority_(matchExpr.priority_),
+      match_(matchExpr),
       template_(templat) 
     { 
     } // MatchTemplate
     MatchTemplate(const MatchTemplate& rhs) : 
       match_(rhs.match_),
-      priority_(rhs.priority_),
       template_(rhs.template_)
     {
     } // MatchTemplate
 
-    const Arabica::XPath::XPathExpressionPtr<std::string>& match() const { return match_; }
+    const Arabica::XPath::MatchExpr<std::string>& match() const { return match_; }
     Template* action() const { return template_; }
 
     bool operator<(const MatchTemplate& rhs) const
     {
       // high priority first!
-      return priority_ > rhs.priority_;
+      return match_.priority() > rhs.match_.priority();
     } // operator<
   private:
-    Arabica::XPath::XPathExpressionPtr<std::string> match_;
-    double priority_;
+    Arabica::XPath::MatchExpr<std::string> match_;
     Template* template_;
   }; // struct MatchTemplate
 
