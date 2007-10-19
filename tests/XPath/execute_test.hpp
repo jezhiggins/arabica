@@ -65,7 +65,7 @@ public:
   TestFunction(const std::vector<Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> >& args) :
       Arabica::XPath::XPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
-  virtual Arabica::XPath::XPathValue<string_type, string_adaptor>* evaluate(const Arabica::DOM::Node<string_type, string_adaptor>& context, 
+  virtual Arabica::XPath::XPathValue_impl<string_type, string_adaptor>* evaluate(const Arabica::DOM::Node<string_type, string_adaptor>& context, 
                                             const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type name = string_adaptor::construct_from_utf8("test-");
@@ -180,9 +180,9 @@ public:
     xpath = parser.compile(SA::construct_from_utf8("root"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    Arabica::DOM::Node<string_type, string_adaptor> n = result->asNodeSet()[0];
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    Arabica::DOM::Node<string_type, string_adaptor> n = result.asNodeSet()[0];
     assertTrue(root_ == n);
   } // test1
 
@@ -192,9 +192,9 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/child2"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    Arabica::DOM::Node<string_type, string_adaptor> n = result->asNodeSet()[0];
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    Arabica::DOM::Node<string_type, string_adaptor> n = result.asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test2
 
@@ -204,11 +204,11 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(element3_ == result.asNodeSet()[2]);
   } // test4
 
   void test4()
@@ -217,10 +217,10 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*/text()"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(text_ == result->asNodeSet()[0]);
-    assertTrue(text_.getNodeValue() == result->asString());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(text_ == result.asNodeSet()[0]);
+    assertTrue(text_.getNodeValue() == result.asString());
   } // test4
 
   void test5() 
@@ -236,28 +236,28 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("*"));
 
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(root_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(root_ == result.asNodeSet()[0]);
 
     result = xpath->evaluate(root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(element3_ == result.asNodeSet()[2]);
 
     result = xpath->evaluate(element1_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
 
     result = xpath->evaluate(element2_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
 
     result = xpath->evaluate(element3_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
   } // test6
 
   void test7()
@@ -266,14 +266,14 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/root"));
 
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(root_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(root_ == result.asNodeSet()[0]);
 
     result = xpath->evaluate(text_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(root_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(root_ == result.asNodeSet()[0]);
   } // test7
 
   void test8()
@@ -286,12 +286,12 @@ public:
     parser.resetNamespaceContext();
 
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
 
     result = xpath->evaluate(text_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
   } // test8
 
   void test9()
@@ -300,15 +300,15 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("child2"));
 
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
 
     xpath = parser.compile(SA::construct_from_utf8("./child2"));
     result = xpath->evaluate(root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // test9
 
   void test10()
@@ -328,9 +328,9 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8(".."));
 
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(element3_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(root_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(root_ == result.asNodeSet()[0]);
   } // test11
 
   void test12()
@@ -339,9 +339,9 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*[2]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    Arabica::DOM::Node<string_type, string_adaptor> n = result->asNodeSet()[0];
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    Arabica::DOM::Node<string_type, string_adaptor> n = result.asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test12
 
@@ -350,9 +350,9 @@ public:
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[2]/comment()"), document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(comment_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(comment_ == result.asNodeSet()[0]);
   } // test13
 
   void test14()
@@ -360,9 +360,9 @@ public:
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[2]/node()[3]"), document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(comment_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(comment_ == result.asNodeSet()[0]);
   } // test14
 
   void test15()
@@ -370,9 +370,9 @@ public:
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("root/*[spinkle]"), document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // test15
 
   void test16()
@@ -380,16 +380,16 @@ public:
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("root/*[doesnotmatch]"), document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
   } // test16
 
   void test17()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = '1']"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // test17
 
   void test18()
@@ -400,8 +400,8 @@ public:
 
     parser.setVariableResolver(svr);
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = $index]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
 
     parser.resetVariableResolver();
   } // test18
@@ -412,9 +412,9 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*[position() = 2]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    Arabica::DOM::Node<string_type, string_adaptor> n = result->asNodeSet()[0];
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    Arabica::DOM::Node<string_type, string_adaptor> n = result.asNodeSet()[0];
     assertTrue(element2_ == n);
   } // test19
 
@@ -424,9 +424,9 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*[last()]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element3_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element3_ == result.asNodeSet()[0]);
   } // test20
 
   void test21()
@@ -435,10 +435,10 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*[position() != last()]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
   } // test21
 
   void test22()
@@ -447,10 +447,10 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*[position() = 2 or position() = 1]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
   } // test22
 
   void test23()
@@ -459,9 +459,9 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*[position() = 2 and @two = '1']"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // test23
 
   void test24()
@@ -470,9 +470,9 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*[last()][1]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element3_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element3_ == result.asNodeSet()[0]);
   } // test24
 
   void test25()
@@ -481,8 +481,8 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*[last()][2]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
   } // test25
 
   void test26()
@@ -491,10 +491,10 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor::node()[2]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(result->asNodeSet()[0] == root_);
-    assertTrue(result->asNodeSet().forward() == false);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(result.asNodeSet()[0] == root_);
+    assertTrue(result.asNodeSet().forward() == false);
   } // test26
 
   void test27()
@@ -503,10 +503,10 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor-or-self::node()[2]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(result->asNodeSet()[0] == element2_);
-    assertTrue(result->asNodeSet().forward() == false);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(result.asNodeSet()[0] == element2_);
+    assertTrue(result.asNodeSet().forward() == false);
  } // test27
 
   void test28()
@@ -515,128 +515,128 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor-or-self::node()[3]"));
     XPathValuePtr<string_type, string_adaptor> result = xpath->evaluate(document_);
 
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(result->asNodeSet()[0] == root_);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(result.asNodeSet()[0] == root_);
   } // test28
 
   void test29()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/child::root/child::*[attribute::two = '1']"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // test29
 
   void test30()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(document_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(document_ == result.asNodeSet()[0]);
   } // test30
 
   void test31()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/"), element1_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(document_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(document_ == result.asNodeSet()[0]);
   } // test31
 
   void test32()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("//comment()"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(comment_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(comment_ == result.asNodeSet()[0]);
   } // test32
 
   void test33()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("//comment()"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(comment_ == result->asNodeSet()[0]);
-    assertTrue(result->asNodeSet().forward() == true);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(comment_ == result.asNodeSet()[0]);
+    assertTrue(result.asNodeSet().forward() == true);
   } // test33
 
   void test34()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("//*"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(5, result->asNodeSet().size());
-    assertTrue(root_ == result->asNodeSet()[0]);
-    assertTrue(element1_ == result->asNodeSet()[1]);
-    assertTrue(element2_ == result->asNodeSet()[2]);
-    assertTrue(spinkle_ == result->asNodeSet()[3]);
-    assertTrue(element3_ == result->asNodeSet()[4]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(5, result.asNodeSet().size());
+    assertTrue(root_ == result.asNodeSet()[0]);
+    assertTrue(element1_ == result.asNodeSet()[1]);
+    assertTrue(element2_ == result.asNodeSet()[2]);
+    assertTrue(spinkle_ == result.asNodeSet()[3]);
+    assertTrue(element3_ == result.asNodeSet()[4]);
   } // test34
 
   void test35()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("//*"), element2_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(5, result->asNodeSet().size());
-    assertTrue(root_ == result->asNodeSet()[0]);
-    assertTrue(element1_ == result->asNodeSet()[1]);
-    assertTrue(element2_ == result->asNodeSet()[2]);
-    assertTrue(spinkle_ == result->asNodeSet()[3]);
-    assertTrue(element3_ == result->asNodeSet()[4]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(5, result.asNodeSet().size());
+    assertTrue(root_ == result.asNodeSet()[0]);
+    assertTrue(element1_ == result.asNodeSet()[1]);
+    assertTrue(element2_ == result.asNodeSet()[2]);
+    assertTrue(spinkle_ == result.asNodeSet()[3]);
+    assertTrue(element3_ == result.asNodeSet()[4]);
   } // test35
 
   void test36()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("//*/*"), element2_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(4, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(spinkle_ == result->asNodeSet()[2]);
-    assertTrue(element3_ == result->asNodeSet()[3]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(4, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(spinkle_ == result.asNodeSet()[2]);
+    assertTrue(element3_ == result.asNodeSet()[3]);
   } // test36
 
   void test37()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("//*/*/*"), element2_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(spinkle_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(spinkle_ == result.asNodeSet()[0]);
   } // test37
 
   void test38()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("//*/*/*/*"), element2_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
   } // test38
 
   void test39()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/*/*"), element2_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(element3_ == result.asNodeSet()[2]);
   } // test39
 
   void test40()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root//*"), element2_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(4, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(spinkle_ == result->asNodeSet()[2]);
-    assertTrue(element3_ == result->asNodeSet()[3]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(4, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(spinkle_ == result.asNodeSet()[2]);
+    assertTrue(element3_ == result.asNodeSet()[3]);
   } // test40
 
   // see http://jira.codehaus.org/browse/JAXEN-94
@@ -644,8 +644,8 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("2+1-1+1"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(3.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(3.0, result.asNumber(), 0.0);
   } // test41
 
   void test42()
@@ -695,29 +695,29 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@one|data]"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
   } // testUnion1
 
   void testUnion2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[buttle|tuttle]"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
-    assertTrue(result->asNodeSet().forward() == true);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
+    assertTrue(result.asNodeSet().forward() == true);
   } // testUnion2
 
   void testUnion3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[preceding-sibling::child2|@two]"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
-    assertTrue(element3_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
+    assertTrue(element3_ == result.asNodeSet()[1]);
   } // testUnion3
 
   void testUnion4()
@@ -735,65 +735,65 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[preceding-sibling::child2|@two|following-sibling::child2]"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(element3_ == result.asNodeSet()[2]);
   } // testUnion5
 
   void testUnion6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child2|/root/child1"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
   } // testUnion6
 
   void testUnion7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child1|/root/child2"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
   } // testUnion7
 
   void testUnion8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child2/@one|/root/child2|/root/child1"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element2_.getAttributeNode(SA::construct_from_utf8("one")) == result->asNodeSet()[2]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(element2_.getAttributeNode(SA::construct_from_utf8("one")) == result.asNodeSet()[2]);
   } // testUnion8
 
   void testUnion9()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child1/@one|/root/child2/@one|/root/child2|/root/child1"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(4, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element1_.getAttributeNode(SA::construct_from_utf8("one")) == result->asNodeSet()[1]);
-    assertTrue(element2_ == result->asNodeSet()[2]);
-    assertTrue(element2_.getAttributeNode(SA::construct_from_utf8("one")) == result->asNodeSet()[3]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(4, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element1_.getAttributeNode(SA::construct_from_utf8("one")) == result.asNodeSet()[1]);
+    assertTrue(element2_ == result.asNodeSet()[2]);
+    assertTrue(element2_.getAttributeNode(SA::construct_from_utf8("one")) == result.asNodeSet()[3]);
   } // testUnion9
 
   void testUnion10()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("/root/child3|/root/child3/preceding-sibling::*"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(element3_ == result.asNodeSet()[2]);
   } // testUnion10
 
   void testUnion11()
@@ -809,9 +809,9 @@ public:
     parser.setVariableResolver(svr);
 
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit/foo|/root/child3"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(element3_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(element3_ == result.asNodeSet()[0]);
   } // testUnion11
 
   void testUnion12()
@@ -831,10 +831,10 @@ public:
     parser.setVariableResolver(svr);
 
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit/bar|$fruit/foo"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(n1 == result->asNodeSet()[0]);
-    assertTrue(n2 == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(n1 == result.asNodeSet()[0]);
+    assertTrue(n2 == result.asNodeSet()[1]);
   } // testUnion12
 
   void testUnion13()
@@ -847,9 +847,9 @@ public:
     parser.setVariableResolver(svr);
 
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit|/root/child3"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(element3_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(element3_ == result.asNodeSet()[0]);
   } // testUnion13
 
   void testUnion14()
@@ -863,550 +863,550 @@ public:
     parser.setVariableResolver(svr);
 
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit|/root/child3|$fruit"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
-    assertTrue(element3_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(element3_ == result.asNodeSet()[0]);
   } // testUnion14
 
   void testPlus1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[1+1]"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testPlus1
 
   void testPlus2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[1+1+1]"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element3_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element3_ == result.asNodeSet()[0]);
   } // testPlus2
 
   void testNodeSetEquality1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = 1]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNodeSetEquality1
 
   void testNodeSetEquality2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = true()]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNodeSetEquality2
 
   void testNodeSetEquality3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two != false()]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNodeSetEquality3
 
   void testNodeSetEquality4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@* = 1]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
   } // testNodeSetEquality4
 
   void testNodeSetEquality5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@* = '1']"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
   } // testNodeSetEquality5
 
   void testNodeSetEquality6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@* = @one]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
   } // testNodeSetEquality6
 
   void testNodeSetEquality7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@* = @two]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNodeSetEquality7
 
   void testNodeSetEquality8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/child2[-(@two) = -1]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNodeSetEquality8
 
   void testNodeSetEquality9()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/child2[-(@two) - 1 = -2]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNodeSetEquality9
 
   void testCountFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[count(@*) = 4]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testCountFn1
 
   void testCountFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[count(@*) = 1]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
   } // testCountFn2
 
   void testCountFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[count(@*) = 999]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(0, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(0, result.asNodeSet().size());
   } // testCountFn3
 
   void testNotFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two != not(true())]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNotFn1
 
   void testNotFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[@two = not(false())]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNotFn2
 
   void testBooleanFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[boolean(@three)]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testBooleanFn1
 
   void testBooleanFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate(SA::construct_from_utf8("/root/*[boolean(1)]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(element3_ == result.asNodeSet()[2]);
   } // testBooleanFn2
 
   void testNumberFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number(true())"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testNumberFn1
 
   void testNumberFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number(false())"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(0.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(0.0, result.asNumber(), 0.0);
   } // testNumberFn2
 
   void testNumberFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number(1.5)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.5, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.5, result.asNumber(), 0.0);
   } // testNumberFn3
 
   void testNumberFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number('1.5')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.5, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.5, result.asNumber(), 0.0);
   } // testNumberFn4
 
   void testNumberFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number(\"1.5\")"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.5, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.5, result.asNumber(), 0.0);
   } // testNumberFn5
 
   void testNumberFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number(/root/child2/@one)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testNumberFn6
 
   void testNumberFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number('trousers')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertTrue(isNaN(result->asNumber()));
+    assertValuesEqual(NUMBER, result.type());
+    assertTrue(isNaN(result.asNumber()));
   } // testNumberFn7
 
   void testFloorFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor(1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testFloorFn1
 
   void testFloorFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor(1.0)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testFloorFn2
 
   void testFloorFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor('1.0')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testFloorFn3
 
   void testFloorFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor(1.1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testFloorFn4
 
   void testFloorFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor(0)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(0.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(0.0, result.asNumber(), 0.0);
   } // testFloorFn5
 
   void testFloorFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor(-1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.0, result.asNumber(), 0.0);
   } // testFloorFn6
 
   void testFloorFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor(-1.0)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.0, result.asNumber(), 0.0);
   } // testFloorFn7
 
   void testFloorFn8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor(-1.1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-2.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-2.0, result.asNumber(), 0.0);
   } // testFloorFn8
 
   void testFloorFn9()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("floor('NaN')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertTrue(isNaN(result->asNumber()));
+    assertValuesEqual(NUMBER, result.type());
+    assertTrue(isNaN(result.asNumber()));
   } // testFloorFn9
 
   void testCeilingFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testCeilingFn1
 
   void testCeilingFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(1.0)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testCeilingFn2
 
   void testCeilingFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling('1.0')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testCeilingFn3
 
   void testCeilingFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(1.1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(2.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(2.0, result.asNumber(), 0.0);
   } // testCeilingFn4
 
   void testCeilingFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(0)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(0.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(0.0, result.asNumber(), 0.0);
   } // testCeilingFn5
 
   void testCeilingFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(-1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.0, result.asNumber(), 0.0);
   } // testCeilingFn6
 
   void testCeilingFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(-1.0)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.0, result.asNumber(), 0.0);
   } // testCeilingFn7
 
   void testCeilingFn8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling(-1.1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.0, result.asNumber(), 0.0);
   } // testCeilingFn8
 
   void testCeilingFn9()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("ceiling('NaN')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertTrue(isNaN(result->asNumber()));
+    assertValuesEqual(NUMBER, result.type());
+    assertTrue(isNaN(result.asNumber()));
   } // testCeilingFn9
 
   void testStringFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(0)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("0") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("0") == result.asString());
   } // testStringFn1
 
   void testStringFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(true())"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("true") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("true") == result.asString());
   } // testStringFn2
 
   void testStringFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(false())"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("false") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("false") == result.asString());
   } // testStringFn3
 
   void testStringFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(number('poo'))"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("NaN") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("NaN") == result.asString());
   } // testStringFn4
 
   void testStringFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string('NaN')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("NaN") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("NaN") == result.asString());
   } // testStringFn5
 
   void testRoundFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(1.0)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testRoundFn1
 
   void testRoundFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(1.1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testRoundFn2
 
   void testRoundFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(1.5)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(2.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(2.0, result.asNumber(), 0.0);
   } // testRoundFn3
 
   void testRoundFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(1.9)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(2.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(2.0, result.asNumber(), 0.0);
   } // testRoundFn4
 
   void testRoundFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(-1.0)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.0, result.asNumber(), 0.0);
   } // testRoundFn5
 
   void testRoundFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(-1.1)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.0, result.asNumber(), 0.0);
   } // testRoundFn6
 
   void testRoundFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(-1.5)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.0, result.asNumber(), 0.0);
   } // testRoundFn7
 
   void testRoundFn8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(-1.9)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-2.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-2.0, result.asNumber(), 0.0);
   } // testRoundFn8
 
   void testRoundFn9()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round('NaN')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertTrue(isNaN(result->asNumber()));
+    assertValuesEqual(NUMBER, result.type());
+    assertTrue(isNaN(result.asNumber()));
   } // testRoundFn9
 
   void testRoundFn10()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("round(-0.4)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(-0.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-0.0, result.asNumber(), 0.0);
   } // testRoundFn10
 
   void testSumFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("sum(/root)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(0.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(0.0, result.asNumber(), 0.0);
   } // testSumFn1
 
   void testSumFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("sum(/root/child1/@one)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testSumFn2
 
   void testSumFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("sum(/root//@one)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(2.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(2.0, result.asNumber(), 0.0);
   } // testSumFn3
 
   void testSumFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("sum(/root/child2/@*)"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(4.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(4.0, result.asNumber(), 0.0);
   } // testSumFn4
 
   void testConcatFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("concat('a', 'b')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("ab") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("ab") == result.asString());
   } // testConcatFn1
 
   void testConcatFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("concat('a', 'b', 'c')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("abc") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("abc") == result.asString());
   } // testConcatFn2
 
   void testConcatFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("concat('a', 'b', 'c', 'd')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("abcd") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("abcd") == result.asString());
   } // testConcatFn3
 
   void testConcatFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("concat(/root/child2/@one, /root/child2/@two, /root/child2/@three)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("111") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("111") == result.asString());
   } // testConcatFn4
 
   void testConcatFn5()
@@ -1422,432 +1422,432 @@ public:
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello', 'charlie drake')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(false, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(false, result.asBool());
   } // testStartsWithFn1
 
   void testStartsWithFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello', 'hello mother')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(false, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(false, result.asBool());
   } // testStartsWithFn2
 
   void testStartsWithFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello mother', 'hello')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(true, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(true, result.asBool());
   } // testStartsWithFn3
 
   void testStartsWithFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("starts-with('hello mother', 'hello mother')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(true, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(true, result.asBool());
   } // testStartsWithFn4
 
   void testStringLengthFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string-length('')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(0.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(0.0, result.asNumber(), 0.0);
   } // testStringLengthFn1
 
   void testStringLengthFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string-length('ab')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(2.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(2.0, result.asNumber(), 0.0);
   } // testStringLengthFn2
 
   void testStringLengthFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string-length('abcd')"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(4.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(4.0, result.asNumber(), 0.0);
   } // testStringLengthFn3
 
   void testStringLengthFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string-length(concat('ab', 'cd'))"), document_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(4.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(4.0, result.asNumber(), 0.0);
   } // testStringLengthFn4
 
   void testStringLengthFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string-length()"), attr_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(1.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(1.0, result.asNumber(), 0.0);
   } // testStringLengthFn5
 
   void testStringLengthFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string-length()"), element1_);
-    assertValuesEqual(NUMBER, result->type());
-    assertDoublesEqual(0.0, result->asNumber(), 0.0);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(0.0, result.asNumber(), 0.0);
   } // testStringLengthFn6
 
   void testContainsFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello', 'charlie drake')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(false, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(false, result.asBool());
   } // testContainsFn1
 
   void testContainsFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello', 'hello mother')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(false, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(false, result.asBool());
   } // testContainsFn2
 
   void testContainsFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello mother', 'hello')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(true, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(true, result.asBool());
   } // testContainsFn3
 
   void testContainsFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("contains('hello mother', 'hello mother')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(true, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(true, result.asBool());
   } // testContainsFn4
 
   void testContainsFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("contains('she heard a call hello mother somewhere in the distance', 'hello')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(true, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(true, result.asBool());
   } // testContainsFn5
 
   void testContainsFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("contains('my dogs says hello mother', 'hello mother')"), document_);
-    assertValuesEqual(Arabica::XPath::BOOL, result->type());
-    assertValuesEqual(true, result->asBool());
+    assertValuesEqual(Arabica::XPath::BOOL, result.type());
+    assertValuesEqual(true, result.asBool());
   } // testContainsFn6
 
   void testSubstringBeforeFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring-before('1999/04/01', '/')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("1999") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("1999") == result.asString());
   } // testSubstringBeforeFn1
 
   void testSubstringBeforeFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring-before('1999/04/01', 'mogadon')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testSubstringBeforeFn2
 
   void testSubstringBeforeFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring-before('1999/04/01', '/01')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("1999/04") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("1999/04") == result.asString());
   } // testStringBeforeFn3
 
   void testSubstringBeforeFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring-before('1999/04/01', '1')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testStringBeforeFn4
 
   void testSubstringAfterFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring-after('1999/04/01', '/')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("04/01") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("04/01") == result.asString());
   } // testSubstringAfterFn1
 
   void testSubstringAfterFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring-after('1999/04/01', 'mogadon')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testSubstringAfterFn2
 
   void testSubstringAfterFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring-after('1999/04/01', '/01')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testStringAfterFn3
 
   void testSubstringAfterFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring-after('1999/04/01', '19')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("99/04/01") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("99/04/01") == result.asString());
   } // testStringAfterFn4
 
   void testSubstringFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 2, 3)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("234") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("234") == result.asString());
   } // testSubstringFn1
 
   void testSubstringFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 2)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("2345") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("2345") == result.asString());
   } // testSubstringFn2
 
   void testSubstringFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 1.5, 2.6)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("234") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("234") == result.asString());
   } // testSubstringFn3
 
   void testSubstringFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 0, 3)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("12") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("12") == result.asString());
   } // testSubstringFn4
 
   void testSubstringFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 0 div 0, 3)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testSubstringFn5
 
   void testSubstringFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 1, 0 div 0)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testSubstringFn6
 
   void testSubstringFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', -42, 1 div 0)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("12345") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("12345") == result.asString());
   } // testSubstringFn7
 
   void testSubstringFn8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', -1 div 0, 1 div 0)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testSubstringFn8
 
   void testSubstringFn9()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', 1, 'NaN')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testSubstringFn9
 
   void testSubstringFn10()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', NaN)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testSubstringFn10
 
   void testSubstringFn11()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("substring('12345', NaN, NaN)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testSubstringFn11
 
   void testNormalizeSpaceFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('12345')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("12345") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("12345") == result.asString());
   } // testNormalizeSpaceFn1
 
   void testNormalizeSpaceFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('    12345')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("12345") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("12345") == result.asString());
   } // testNormalizeSpaceFn2
 
   void testNormalizeSpaceFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('12345 ')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("12345") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("12345") == result.asString());
   } // testNormalizeSpaceFn3
 
   void testNormalizeSpaceFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('    12345    ')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("12345") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("12345") == result.asString());
   } // testNormalizeSpaceFn4
 
   void testNormalizeSpaceFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('   12   3   45   ')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("12 3 45") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("12 3 45") == result.asString());
   } // testNormalizeSpaceFn5
 
   void testNormalizeSpaceFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('1     2    3   4  5')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result.asString());
   } // testNormalizeSpaceFn6
 
   void testNormalizeSpaceFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('1\t2\r3\n4\r\n5')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result.asString());
   } // testNormalizeSpaceFn7
 
   void testNormalizeSpaceFn8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('\n\n\n\n\n1\n\n\n\n\n2\n\n\n\n\n3\n\n\n\n\n\n4\n\n\n\n\n\n5\n\n\n\n\n')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result.asString());
   } // testNormalizeSpaceFn8
 
   void testNormalizeSpaceFn9()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("normalize-space('\r\n\r\n\r\n\r\n\r\n1\r\n\r\n\r\n\r\n\r\n2\r\n\r\n\r\n\r\n\r\n3\r\n\r\n\r\n\r\n\r\n\r\n4\r\n\r\n\r\n\r\n\r\n\r\n5\r\n\r\n\r\n\r\n\r\n')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("1 2 3 4 5") == result.asString());
   } // testNormalizeSpaceFn9
 
   void testTranslateFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("translate('bar','abc','ABC')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("BAr") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("BAr") == result.asString());
   } // testTranslateFn1
 
   void testTranslateFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("translate('--aaa--','abc-','ABC')"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("AAA") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("AAA") == result.asString());
   } // testTranslateFn2
 
   void testLocalNameFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("root") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("root") == result.asString());
   } // testLocalNameFn1
 
   void testLocalNameFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root/child2/@one)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("one") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("one") == result.asString());
   } // testLocalNameFn2
 
   void testLocalNameFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(//comment())"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testLocalNameFn3
 
   void testLocalNameFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(//processing-instruction())"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("target") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("target") == result.asString());
   } // testLocalNameFn4
 
   void testLocalNameFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name()"), root_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("root") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("root") == result.asString());
   } // testLocalNameFn5
 
   void testLocalNameFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name()"), attr_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("one") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("one") == result.asString());
   } // testLocalNameFn6
 
   void testLocalNameFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(//comment())"), comment_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testLocalNameFn7
 
   void testLocalNameFn8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(//processing-instruction())"), processingInstruction_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("target") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("target") == result.asString());
   } // testLocalNameFn8
 
   void testLocalNameFn9()
@@ -1856,8 +1856,8 @@ public:
     root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
                                                 SA::construct_from_utf8("element4")));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root/*[last()])"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("element4") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("element4") == result.asString());
   } // testLocalNameFn9
 
   void testLocalNameFn10()
@@ -1867,8 +1867,8 @@ public:
                          SA::construct_from_utf8("q:woot"), 
                          SA::construct_from_utf8("hello"));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root/@*)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("woot") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("woot") == result.asString());
   } // testLocalNameFn10
 
   void testLocalNameFn11()
@@ -1877,72 +1877,72 @@ public:
     root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
                                                 SA::construct_from_utf8("q:noob")));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("local-name(/root/*[last()])"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("noob") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("noob") == result.asString());
   } // testLocalNameFn11
 
   void testNamespaceURIFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNamespaceURIFn1
 
   void testNamespaceURIFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root/child2/@one)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNamespaceURIFn2
 
   void testNamespaceURIFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(//comment())"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNamespaceURIFn3
 
   void testNamespaceURIFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(//processing-instruction())"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNamespaceURIFn4
 
   void testNamespaceURIFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri()"), root_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNamespaceURIFn5
 
   void testNamespaceURIFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri()"), attr_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNamespaceURIFn6
 
   void testNamespaceURIFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(//comment())"), comment_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNamespaceURIFn7
 
   void testNamespaceURIFn8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(//processing-instruction())"), processingInstruction_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNamespaceURIFn8
 
   void testNamespaceURIFn9()
@@ -1951,8 +1951,8 @@ public:
     root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
                                                 SA::construct_from_utf8("element4")));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root/*[last()])"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("test-uri") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("test-uri") == result.asString());
   } // testNamespaceURIFn9
 
   void testNamespaceURIFn10()
@@ -1962,8 +1962,8 @@ public:
                          SA::construct_from_utf8("q:woot"), 
                          SA::construct_from_utf8("hello"));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root/@*)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("test-uri") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("test-uri") == result.asString());
   } // testNamespaceURIFn10
 
   void testNamespaceURIFn11()
@@ -1971,72 +1971,72 @@ public:
     using namespace Arabica::XPath;
     root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), SA::construct_from_utf8("q:noob")));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace-uri(/root/*[last()])"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("test-uri") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("test-uri") == result.asString());
   } // testNamespaceURIFn1
   
   void testNameFn1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("root") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("root") == result.asString());
   } // testNameFn1
 
   void testNameFn2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root/child2/@one)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("one") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("one") == result.asString());
   } // testNameFn2
 
   void testNameFn3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(//comment())"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNameFn3
 
   void testNameFn4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(//processing-instruction())"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("target") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("target") == result.asString());
   } // testNameFn4
 
   void testNameFn5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name()"), root_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("root") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("root") == result.asString());
   } // testNameFn5
 
   void testNameFn6()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name()"), attr_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("one") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("one") == result.asString());
   } // testNameFn6
 
   void testNameFn7()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(//comment())"), comment_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("") == result.asString());
   } // testNameFn7
 
   void testNameFn8()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(//processing-instruction())"), processingInstruction_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("target") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("target") == result.asString());
   } // testNameFn8
 
   void testNameFn9()
@@ -2045,8 +2045,8 @@ public:
     root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
                                                 SA::construct_from_utf8("element4")));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root/*[last()])"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("element4") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("element4") == result.asString());
   } // testNameFn9
 
   void testNameFn10()
@@ -2056,8 +2056,8 @@ public:
                          SA::construct_from_utf8("q:woot"), 
                          SA::construct_from_utf8("hello"));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root/@*)"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("q:woot") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("q:woot") == result.asString());
   } // testNameFn10
 
   void testNameFn11()
@@ -2066,48 +2066,48 @@ public:
     root_.appendChild(document_.createElementNS(SA::construct_from_utf8("test-uri"), 
                                                 SA::construct_from_utf8("q:noob")));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("name(/root/*[last()])"), document_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("q:noob") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("q:noob") == result.asString());
   } // testNameFn11
 
   void testDocumentOrder1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/*)"), chapters_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("one") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("one") == result.asString());
   } // testDocumentOrder1
 
   void testDocumentOrder2()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/*[last()])"), chapters_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("five") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("five") == result.asString());
   } // testDocumentOrder2
 
   void testDocumentOrder3()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/chapter[5]/preceding-sibling::*[1])"), chapters_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("four") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("four") == result.asString());
   } // testDocumentOrder3
 
   void testDocumentOrder4()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/chapter[5]/preceding-sibling::*[last()])"), chapters_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("one") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("one") == result.asString());
   } // testDocumentOrder4
 
   void testDocumentOrder5()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("string(/document/chapter[5]/preceding-sibling::*)"), chapters_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("one") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("one") == result.asString());
   } // testDocumentOrder5
 
   void testLessThan1()
@@ -2293,10 +2293,10 @@ public:
 
     parser.setVariableResolver(svr);
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element1_ == result->asNodeSet()[0]);
-    assertTrue(element2_ == result->asNodeSet()[1]);
-    assertTrue(element3_ == result->asNodeSet()[2]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element1_ == result.asNodeSet()[0]);
+    assertTrue(element2_ == result.asNodeSet()[1]);
+    assertTrue(element3_ == result.asNodeSet()[2]);
   } // testNodeSetVars1
 
   void testNodeSetVars2()
@@ -2311,8 +2311,8 @@ public:
 
     parser.setVariableResolver(svr);
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit/spinkle"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(spinkle_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(spinkle_ == result.asNodeSet()[0]);
   } // testNodeSetVars2
 
   void testNodeSetVars3()
@@ -2327,8 +2327,8 @@ public:
 
     parser.setVariableResolver(svr);
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit[2]/*"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(spinkle_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(spinkle_ == result.asNodeSet()[0]);
   } // testNodeSetVars3
 
   void testNodeSetVars4()
@@ -2343,8 +2343,8 @@ public:
 
     parser.setVariableResolver(svr);
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit[true()][2]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNodeSetVars4
 
   void testNodeSetVars5()
@@ -2359,16 +2359,16 @@ public:
 
     parser.setVariableResolver(svr);
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("$fruit[@two]"), document_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertTrue(element2_ == result->asNodeSet()[0]);
+    assertValuesEqual(NODE_SET, result.type());
+    assertTrue(element2_ == result.asNodeSet()[0]);
   } // testNodeSetVars5
 
   void namespaceAxisTest1()
   {
     using namespace Arabica::XPath;
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(1, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(1, result.asNodeSet().size());
   } // namespaceAxisTest1()
 
   void namespaceAxisTest2()
@@ -2378,11 +2378,11 @@ public:
                          SA::construct_from_utf8("xmlns:poop"), 
                          SA::construct_from_utf8("urn:test"));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), root_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(2, result->asNodeSet().size());
-    assertTrue(SA::construct_from_utf8("xml") == result->asNodeSet()[0].getLocalName());
-    assertTrue(SA::construct_from_utf8("poop") == result->asNodeSet()[1].getLocalName());
-    assertTrue(SA::construct_from_utf8("urn:test") == result->asNodeSet()[1].getNodeValue());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(SA::construct_from_utf8("xml") == result.asNodeSet()[0].getLocalName());
+    assertTrue(SA::construct_from_utf8("poop") == result.asNodeSet()[1].getLocalName());
+    assertTrue(SA::construct_from_utf8("urn:test") == result.asNodeSet()[1].getNodeValue());
   } // namespaceAxisTest2
 
   void namespaceAxisTest3()
@@ -2395,8 +2395,8 @@ public:
                              SA::construct_from_utf8("xmlns:test"), 
                              SA::construct_from_utf8("urn:another-test"));
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("namespace::*"), element2_);
-    assertValuesEqual(NODE_SET, result->type());
-    assertValuesEqual(3, result->asNodeSet().size());
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
   } // namespaceAxisTest3
 
   void testFunctionResolver1()
@@ -2415,8 +2415,8 @@ public:
     parser.setFunctionResolver(tfr);
 
     XPathValuePtr<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("test-function()"), root_);
-    assertValuesEqual(STRING, result->type());
-    assertTrue(SA::construct_from_utf8("test-root") == result->asString());
+    assertValuesEqual(STRING, result.type());
+    assertTrue(SA::construct_from_utf8("test-root") == result.asString());
   } // testFunctionResolver2
 
   void testSort1()

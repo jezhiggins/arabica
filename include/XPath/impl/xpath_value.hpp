@@ -15,7 +15,7 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class BoolValue : public XPathValue<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
+class BoolValue : public XPathValue_impl<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   BoolValue(bool value) :
@@ -45,7 +45,7 @@ private:
 }; // class BoolValue
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class NumericValue : public XPathValue<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
+class NumericValue : public XPathValue_impl<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   NumericValue(double value) :
@@ -89,7 +89,7 @@ private:
 }; // class NumberValue
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class StringValue : public XPathValue<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
+class StringValue : public XPathValue_impl<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   StringValue(const char* value) :
@@ -124,7 +124,7 @@ private:
 }; // class StringValue
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class NodeSetValue : public XPathValue<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
+class NodeSetValue : public XPathValue_impl<string_type, string_adaptor>, public XPathExpression<string_type, string_adaptor>
 {
 public:
   NodeSetValue(const NodeSet<string_type, string_adaptor>& set) : set_(set) { }

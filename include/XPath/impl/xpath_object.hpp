@@ -279,13 +279,13 @@ private:
 }; // NodeSet
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class XPathValue
+class XPathValue_impl
 {
 protected:
-  XPathValue() { }
+  XPathValue_impl() { }
 
 public:
-  virtual ~XPathValue() { }
+  virtual ~XPathValue_impl() { }
 
   virtual bool asBool() const = 0;
   virtual double asNumber() const = 0;
@@ -295,25 +295,39 @@ public:
   virtual ValueType type() const = 0;
 
 private:
-  XPathValue(const XPathValue&);
-  bool operator==(const XPathValue&);
-  XPathValue& operator=(const XPathValue&);
-}; // class XPathValue
+  XPathValue_impl(const XPathValue_impl&);
+  bool operator==(const XPathValue_impl&) const;
+  XPathValue_impl& operator=(const XPathValue_impl&);
+}; // class XPathValue_impl
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class XPathValuePtr : public boost::shared_ptr<const XPathValue<string_type, string_adaptor> > 
+class XPathValuePtr
 { 
 public:
-  explicit XPathValuePtr() : boost::shared_ptr<const XPathValue<string_type, string_adaptor> >() { }
-  explicit XPathValuePtr(const XPathValue<string_type, string_adaptor>* v) : boost::shared_ptr<const XPathValue<string_type, string_adaptor> >(v) { }
-  XPathValuePtr(const XPathValuePtr& rhs) : boost::shared_ptr<const XPathValue<string_type, string_adaptor> >(rhs) { }
+  explicit XPathValuePtr() : ptr_() { }
+  explicit XPathValuePtr(const XPathValue_impl<string_type, string_adaptor>* v) : ptr_(v) { }
+  XPathValuePtr(const XPathValuePtr& rhs) : ptr_(rhs.ptr_) { }
   XPathValuePtr& operator=(const XPathValuePtr& rhs) 
   {
-    boost::shared_ptr<const XPathValue<string_type, string_adaptor> >::operator=(rhs);
+    ptr_ = rhs.ptr_;
     return *this;
   } // operator=
-}; // class XPathValuePtr
 
+  const XPathValue_impl<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
+
+  bool asBool() const { return ptr_->asBool(); }
+  double asNumber() const { return ptr_->asNumber(); }
+  string_type asString() const { return ptr_->asString(); }
+  const NodeSet<string_type, string_adaptor>& asNodeSet() const { return ptr_->asNodeSet(); }
+
+  ValueType type() const { return ptr_->type(); }
+
+private:
+  bool operator==(const XPathValuePtr&) const;
+
+  typedef boost::shared_ptr<const XPathValue_impl<string_type, string_adaptor> > ValuePtr;
+  ValuePtr ptr_;
+}; // class XPathValuePtr
 
 
 ////////////////////////////////////////////////////////////////////
