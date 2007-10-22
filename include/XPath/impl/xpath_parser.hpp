@@ -82,7 +82,7 @@ public:
   std::vector<MatchExpr<string_type, string_adaptor> > compile_match(const string_type& xpath) const
   {
     XPathExpressionPtr<string_type, string_adaptor> wrapper = do_compile(xpath, &XPath::parse_xpath_match, match_factory());
-    return (static_cast<impl::MatchExpressionWrapper<string_type, string_adaptor>*>(wrapper.get()))->matches();
+    return (static_cast<const impl::MatchExpressionWrapper<string_type, string_adaptor>*>(wrapper.get()))->matches();
   } // compile_match
 
   XPathValue<string_type, string_adaptor> evaluate(const string_type& xpath, const DOM::Node<string_type, string_adaptor>& context) const

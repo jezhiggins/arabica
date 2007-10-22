@@ -26,13 +26,9 @@ public:
     XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> add(new impl::PlusOperator<string_type, string_adaptor>(p1, p2));
-    assertEquals(1, add.use_count());
 
     add->evaluate(dummy_);
-
     assertEquals(3.0, add->evaluateAsNumber(dummy_), 0.0);
-
-    assertEquals(1, add.use_count());
   } // test1
 
   void test2()

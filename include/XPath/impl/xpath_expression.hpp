@@ -51,20 +51,26 @@ private:
 }; // class XPathExpression
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class XPathExpressionPtr : public boost::shared_ptr<XPathExpression<string_type, string_adaptor> > 
+class XPathExpressionPtr
 { 
 public:
-  XPathExpressionPtr() : 
-    boost::shared_ptr<XPathExpression<string_type, string_adaptor> >() { }
-  explicit XPathExpressionPtr(XPathExpression<string_type, string_adaptor>* xp) : 
-    boost::shared_ptr<XPathExpression<string_type, string_adaptor> >(xp) { }
-  XPathExpressionPtr(const XPathExpressionPtr& rhs) : 
-    boost::shared_ptr<XPathExpression<string_type, string_adaptor> >(rhs) { }
+  XPathExpressionPtr() : ptr_() { }
+  explicit XPathExpressionPtr(XPathExpression<string_type, string_adaptor>* xp) : ptr_(xp) { }
+  XPathExpressionPtr(const XPathExpressionPtr& rhs) : ptr_(rhs.ptr_) { }
   XPathExpressionPtr& operator=(const XPathExpressionPtr& rhs)
   {
-    boost::shared_ptr<XPathExpression<string_type, string_adaptor> >::operator=(rhs);
+    ptr_ = rhs.ptr_;
     return *this;
   } // operator=
+
+  const XPathExpression<string_type, string_adaptor>* get() const { return ptr_.get(); }
+  const XPathExpression<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
+
+  operator bool() const { return ptr_.get(); }
+
+private:
+  typedef boost::shared_ptr<const XPathExpression<string_type, string_adaptor> > ExpressionPtr;
+  ExpressionPtr ptr_;
 }; // class XPathExpressionPtr
 
 namespace impl
