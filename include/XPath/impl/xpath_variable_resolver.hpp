@@ -21,7 +21,7 @@ class VariableResolver
 public:
   virtual ~VariableResolver() { }
 
-  virtual XPathValuePtr<string_type, string_adaptor> resolveVariable(const string_type& namespace_uri_,
+  virtual XPathValue<string_type, string_adaptor> resolveVariable(const string_type& namespace_uri_,
                                                      const string_type& name) const = 0; 
 }; // class VariableResolver
 
@@ -39,7 +39,7 @@ template<class string_type, class string_adaptor>
 class NullVariableResolver : public VariableResolver<string_type, string_adaptor>
 {
 public:
-  virtual XPathValuePtr<string_type, string_adaptor> resolveVariable(const string_type& namespace_uri,
+  virtual XPathValue<string_type, string_adaptor> resolveVariable(const string_type& namespace_uri,
                                                      const string_type& name) const
   {
     string_type error;

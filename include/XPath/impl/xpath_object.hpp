@@ -300,20 +300,20 @@ private:
   XPathValue_impl& operator=(const XPathValue_impl&);
 }; // class XPathValue_impl
 
+template<class string_type, class string_adaptor> class XPathValuePtr;
+
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class XPathValuePtr
+class XPathValue
 { 
 public:
-  explicit XPathValuePtr() : ptr_() { }
-  explicit XPathValuePtr(const XPathValue_impl<string_type, string_adaptor>* v) : ptr_(v) { }
-  XPathValuePtr(const XPathValuePtr& rhs) : ptr_(rhs.ptr_) { }
-  XPathValuePtr& operator=(const XPathValuePtr& rhs) 
+  explicit XPathValue() : ptr_() { }
+  explicit XPathValue(const XPathValue_impl<string_type, string_adaptor>* v) : ptr_(v) { }
+  XPathValue(const XPathValue& rhs) : ptr_(rhs.ptr_) { }
+  XPathValue& operator=(const XPathValue& rhs) 
   {
     ptr_ = rhs.ptr_;
     return *this;
   } // operator=
-
-  const XPathValue_impl<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
 
   bool asBool() const { return ptr_->asBool(); }
   double asNumber() const { return ptr_->asNumber(); }
@@ -325,6 +325,41 @@ public:
   operator bool() const { return ptr_.get(); }
   bool operator==(int dummy) const { return (dummy == 0) && (ptr_.get() == 0); } 
   bool operator!=(int dummy) const { return !(operator==(dummy)); }
+
+private:
+  bool operator==(const XPathValue&) const;
+
+  typedef boost::shared_ptr<const XPathValue_impl<string_type, string_adaptor> > ValuePtr;
+  ValuePtr ptr_;
+
+  explicit XPathValue(ValuePtr ptr) : ptr_(ptr) { }
+
+  friend class XPathValuePtr<string_type, string_adaptor> ;
+}; // class XPathValue
+
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class XPathValuePtr
+{ 
+public:
+  explicit XPathValuePtr() : ptr_() { }
+  explicit XPathValuePtr(const XPathValue_impl<string_type, string_adaptor>* v) : ptr_(v) { }
+  XPathValuePtr(const XPathValue<string_type, string_adaptor>& rhs) : ptr_(rhs.ptr_) { }
+  XPathValuePtr(const XPathValuePtr& rhs) : ptr_(rhs.ptr_) { }
+  XPathValuePtr& operator=(const XPathValue<string_type, string_adaptor>& rhs) 
+  {
+    ptr_ = rhs.ptr_;
+    return *this;
+  } // operator=
+  XPathValuePtr& operator=(const XPathValuePtr& rhs) 
+  {
+    ptr_ = rhs.ptr_;
+    return *this;
+  } // operator=
+
+  const XPathValue_impl<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
+
+  operator bool() const { return ptr_.get(); }
+  operator XPathValue<string_type, string_adaptor>() const { return XPathValue<string_type, string_adaptor>(ptr_); }
 
 private:
   bool operator==(const XPathValuePtr&) const;
@@ -447,10 +482,10 @@ private:
 }; // class compareNodeWith
 
 template<class string_type, class string_adaptor, class predicate1, class predicate2>
-bool nodeSetsCompare(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool nodeSetsCompare(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  const NodeSet<string_type, string_adaptor>& lns = lhs->asNodeSet();
-  const NodeSet<string_type, string_adaptor>& rns = rhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& lns = lhs.asNodeSet();
+  const NodeSet<string_type, string_adaptor>& rns = rhs.asNodeSet();
 
   if((lns.size() == 0) || (rns.size() == 0))
     return false;
@@ -478,7 +513,7 @@ bool nodeSetsCompare(const XPathValuePtr<string_type, string_adaptor>& lhs, cons
 } // nodeSetsEqual
 
 template<class string_type, class string_adaptor>
-bool nodeSetsEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool nodeSetsEqual(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
   return nodeSetsCompare<string_type, string_adaptor, 
                          std::equal_to<string_type>,
@@ -486,7 +521,7 @@ bool nodeSetsEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const 
 }
 
 template<class string_type, class string_adaptor>
-bool nodeSetsNotEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool nodeSetsNotEqual(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
   return nodeSetsCompare<string_type, string_adaptor, 
                          std::not_equal_to<string_type>,
@@ -494,60 +529,60 @@ bool nodeSetsNotEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, con
 }
 
 template<class string_type, class string_adaptor>
-bool nodeSetAndValueEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool nodeSetAndValueEqual(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  const NodeSet<string_type, string_adaptor>& lns = lhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& lns = lhs.asNodeSet();
 
-  switch(rhs->type())
+  switch(rhs.type())
   {
   case BOOL:
     {
       bool l = !lns.empty();
-      bool r = rhs->asBool();
+      bool r = rhs.asBool();
 
       return l == r;
     } // case BOOL
   case STRING:
     return std::find_if(lns.begin(), 
                         lns.end(), 
-                        compareNodeWith<std::equal_to<string_type>, string_type, string_adaptor>(rhs->asString())) != lns.end();
+                        compareNodeWith<std::equal_to<string_type>, string_type, string_adaptor>(rhs.asString())) != lns.end();
 
   case NUMBER:
     return std::find_if(lns.begin(), 
                         lns.end(), 
-                        compareNodeWith<std::equal_to<double>, string_type, string_adaptor>(rhs->asNumber())) != lns.end();
+                        compareNodeWith<std::equal_to<double>, string_type, string_adaptor>(rhs.asNumber())) != lns.end();
 
   default:
-    throw std::runtime_error("Node set == not yet implemented for type " + boost::lexical_cast<std::string>(rhs->type()));
+    throw std::runtime_error("Node set == not yet implemented for type " + boost::lexical_cast<std::string>(rhs.type()));
   } // switch
 } // nodeSetAndValueEqual
 
 template<class string_type, class string_adaptor>
-bool nodeSetAndValueNotEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool nodeSetAndValueNotEqual(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  const NodeSet<string_type, string_adaptor>& lns = lhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& lns = lhs.asNodeSet();
 
-  switch(rhs->type())
+  switch(rhs.type())
   {
   case BOOL:
     {
       bool l = !lns.empty();
-      bool r = rhs->asBool();
+      bool r = rhs.asBool();
 
       return l != r;
     } // case BOOL
   case STRING:
     return std::find_if(lns.begin(), 
                         lns.end(), 
-                        compareNodeWith<std::not_equal_to<string_type>, string_type, string_adaptor>(rhs->asString())) != lns.end();
+                        compareNodeWith<std::not_equal_to<string_type>, string_type, string_adaptor>(rhs.asString())) != lns.end();
 
   case NUMBER:
     return std::find_if(lns.begin(), 
                         lns.end(), 
-                        compareNodeWith<std::not_equal_to<double>, string_type, string_adaptor>(rhs->asNumber())) != lns.end();
+                        compareNodeWith<std::not_equal_to<double>, string_type, string_adaptor>(rhs.asNumber())) != lns.end();
 
   default:
-    throw std::runtime_error("Node set == not yet implemented for type " + boost::lexical_cast<std::string>(rhs->type()));
+    throw std::runtime_error("Node set == not yet implemented for type " + boost::lexical_cast<std::string>(rhs.type()));
   } // switch
 } // nodeSetAndValueNotEqual
 
@@ -582,25 +617,25 @@ double maxValue(const NodeSet<string_type, string_adaptor>& ns)
 } // maxValue
 
 template<class Op, class string_type, class string_adaptor>
-bool compareNodeSets(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool compareNodeSets(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  return Op()(minValue<string_type, string_adaptor>(lhs->asNodeSet()), maxValue<string_type, string_adaptor>(rhs->asNodeSet()));
+  return Op()(minValue<string_type, string_adaptor>(lhs.asNodeSet()), maxValue<string_type, string_adaptor>(rhs.asNodeSet()));
 } // compareNodeSets
 
 template<class Op, class string_type, class string_adaptor>
-bool compareNodeSetWith(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool compareNodeSetWith(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  const NodeSet<string_type, string_adaptor>& lns = lhs->asNodeSet();
+  const NodeSet<string_type, string_adaptor>& lns = lhs.asNodeSet();
   return std::find_if(lns.begin(), 
                       lns.end(), 
-                      compareNodeWith<Op, string_type, string_adaptor>(rhs->asNumber())) != lns.end();
+                      compareNodeWith<Op, string_type, string_adaptor>(rhs.asNumber())) != lns.end();
 } // compareNodeSetAndValue
 
 template<class string_type, class string_adaptor> 
-bool areEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool areEqual(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  ValueType lt = lhs->type();
-  ValueType rt = rhs->type();
+  ValueType lt = lhs.type();
+  ValueType rt = rhs.type();
 
   if((lt == NODE_SET) && (rt == NODE_SET))
     return nodeSetsEqual<string_type, string_adaptor>(lhs, rhs);
@@ -611,22 +646,22 @@ bool areEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPath
     return nodeSetAndValueEqual<string_type, string_adaptor>(rhs, lhs);
 
   if((lt == BOOL) || (rt == BOOL))
-    return lhs->asBool() == rhs->asBool();
+    return lhs.asBool() == rhs.asBool();
 
   if((lt == NUMBER) || (rt == NUMBER))
-    return lhs->asNumber() == rhs->asNumber();
+    return lhs.asNumber() == rhs.asNumber();
 
   if((lt == STRING) || (rt == STRING))
-    return lhs->asString() == rhs->asString();
+    return lhs.asString() == rhs.asString();
 
   return false;
 } // areEqual
 
 template<class string_type, class string_adaptor> 
-bool areNotEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool areNotEqual(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  ValueType lt = lhs->type();
-  ValueType rt = rhs->type();
+  ValueType lt = lhs.type();
+  ValueType rt = rhs.type();
 
   if((lt == NODE_SET) && (rt == NODE_SET))
     return nodeSetsNotEqual<string_type, string_adaptor>(lhs, rhs);
@@ -641,10 +676,10 @@ bool areNotEqual(const XPathValuePtr<string_type, string_adaptor>& lhs, const XP
 } // areNotEqual
 
 template<class string_type, class string_adaptor> 
-bool isLessThan(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool isLessThan(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  ValueType lt = lhs->type();
-  ValueType rt = rhs->type();
+  ValueType lt = lhs.type();
+  ValueType rt = rhs.type();
 
   if((lt == NODE_SET) && (rt == NODE_SET))
     return compareNodeSets<std::less<double>, string_type, string_adaptor>(lhs, rhs);
@@ -655,14 +690,14 @@ bool isLessThan(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPa
   if(rt == NODE_SET)
     return compareNodeSetWith<std::greater<double>, string_type, string_adaptor>(rhs, lhs);
 
-  return lhs->asNumber() < rhs->asNumber();
+  return lhs.asNumber() < rhs.asNumber();
 } // isLessThan
 
 template<class string_type, class string_adaptor> 
-bool isLessThanEquals(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool isLessThanEquals(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
-  ValueType lt = lhs->type();
-  ValueType rt = rhs->type();
+  ValueType lt = lhs.type();
+  ValueType rt = rhs.type();
 
   if((lt == NODE_SET) && (rt == NODE_SET))
     return compareNodeSets<std::less_equal<double>, string_type, string_adaptor>(lhs, rhs);
@@ -673,17 +708,17 @@ bool isLessThanEquals(const XPathValuePtr<string_type, string_adaptor>& lhs, con
   if(rt == NODE_SET)
     return compareNodeSetWith<std::greater_equal<double>, string_type, string_adaptor>(rhs, lhs);
 
-  return lhs->asNumber() <= rhs->asNumber();
+  return lhs.asNumber() <= rhs.asNumber();
 } // isLessThanEquals
 
 template<class string_type, class string_adaptor> 
-bool isGreaterThan(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool isGreaterThan(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
   return isLessThan<string_type, string_adaptor>(rhs, lhs);
 } // isGreaterThan
 
 template<class string_type, class string_adaptor> 
-bool isGreaterThanEquals(const XPathValuePtr<string_type, string_adaptor>& lhs, const XPathValuePtr<string_type, string_adaptor>& rhs)
+bool isGreaterThanEquals(const XPathValue<string_type, string_adaptor>& lhs, const XPathValue<string_type, string_adaptor>& rhs)
 {
   return isLessThanEquals<string_type, string_adaptor>(rhs, lhs);
 } // isGreaterThanEquals

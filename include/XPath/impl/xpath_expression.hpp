@@ -20,28 +20,28 @@ protected:
 public:
   virtual ~XPathExpression() { }
 
-  XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context) const
+  XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
     return evaluate(context, executionContext);
   } // evaluate
 
-  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context)->asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context)->asNumber(); }
-  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context)->asString(); }
-  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context)->asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context).asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context).asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context).asString(); }
+  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context).asNodeSet(); }
 
-  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 
   virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context, 
-															const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext)->asBool(); }
+															const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asBool(); }
   virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
-                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext)->asNumber(); }
+                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asNumber(); }
   virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context, 
-                                       const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext)->asString(); }
+                                       const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asString(); }
   virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context, 
-                                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext)->asNodeSet(); }
+                                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asNodeSet(); }
 
 
 private:

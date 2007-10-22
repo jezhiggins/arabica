@@ -131,7 +131,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathExpressionPtr<string_type, string_adaptor> nt(new NumericValue<string_type, string_adaptor>(1.0));
-    XPathValuePtr<string_type, string_adaptor> ns = nt->evaluate(dummy_);
+    XPathValue<string_type, string_adaptor> ns = nt->evaluate(dummy_);
 
     assertTrue((impl::areEqual<string_type, string_adaptor>(ns, (nt->evaluate(dummy_)))));
   } // test11

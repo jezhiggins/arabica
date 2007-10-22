@@ -22,7 +22,7 @@ public:
   
   virtual const std::string& namespace_uri() const = 0;
   virtual const std::string& name() const = 0;
-  virtual Arabica::XPath::XPathValuePtr<std::string> value() const = 0;
+  virtual Arabica::XPath::XPathValue<std::string> value() const = 0;
 
   virtual void injectGlobalScope(const Scope& scope) const = 0;
 
@@ -98,11 +98,11 @@ public:
     stack_.front() = scope;
   } // injectGlobalScope
 
-  virtual Arabica::XPath::XPathValuePtr<std::string> resolveVariable(const std::string& namespace_uri,
-                                                                     const std::string& name) const
+  virtual Arabica::XPath::XPathValue<std::string> resolveVariable(const std::string& namespace_uri,
+                                                                  const std::string& name) const
   {
     std::string clarkName = "{" + namespace_uri + "}" + name;
-		Arabica::XPath::XPathValuePtr<std::string> val = lookup(stack_.back(), clarkName);
+		Arabica::XPath::XPathValue<std::string> val = lookup(stack_.back(), clarkName);
 		if(val != 0)
 			return val;
 
@@ -121,11 +121,11 @@ private:
     return "{" + var->namespace_uri() + "}" + var->name();
   } // clarkName
 
-	Arabica::XPath::XPathValuePtr<std::string> lookup(const Scope& scope, const std::string& name) const
+	Arabica::XPath::XPathValue<std::string> lookup(const Scope& scope, const std::string& name) const
 	{
 		Scope::const_iterator i = scope.find(name);
 		if(i == scope.end())
-			return Arabica::XPath::XPathValuePtr<std::string>(0);
+			return Arabica::XPath::XPathValue<std::string>(0);
 
 		return i->second->value();
 	} // lookup

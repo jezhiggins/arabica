@@ -30,7 +30,7 @@ Arabica::DOM::Document<std::string> buildDOM(const std::string& filename)
 Arabica::XPath::NodeSet<std::string> selectNodes(const std::string& path, const Arabica::DOM::Node<std::string>& node)
 {
   Arabica::XPath::XPath<std::string> xpath;
-  return xpath.evaluate(path, node)->asNodeSet();
+  return xpath.evaluate(path, node).asNodeSet();
 } // selectNodes
 
 Arabica::DOM::Node<std::string> selectNode(const std::string& path, const Arabica::DOM::Node<std::string>& node)
@@ -41,7 +41,7 @@ Arabica::DOM::Node<std::string> selectNode(const std::string& path, const Arabic
 std::string selectString(const std::string& path, const Arabica::DOM::Node<std::string>& node)
 {
   Arabica::XPath::XPath<std::string> xpath;
-  return xpath.evaluate_expr(path, node)->asString();
+  return xpath.evaluate_expr(path, node).asString();
 } // selectString
 
 std::string make_path(const std::string& path, const std::string& filename)

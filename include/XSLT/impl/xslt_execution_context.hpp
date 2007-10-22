@@ -21,9 +21,9 @@ protected:
 public:
   virtual const std::string& namespace_uri() const = 0;
   virtual const std::string& name() const = 0;
-  virtual Arabica::XPath::XPathValuePtr<std::string> value(const DOM::Node<std::string>& node, 
-                                                           ExecutionContext& context,
-                                                           DOMSink& sink) const = 0;
+  virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
+                                                        ExecutionContext& context,
+                                                        DOMSink& sink) const = 0;
 
 private:
   Variable_declaration(const Variable_declaration&);
@@ -117,7 +117,7 @@ public:
   virtual const std::string& namespace_uri() const { return var_.namespace_uri(); }
   virtual const std::string& name() const { return var_.name(); }
 
-  virtual Arabica::XPath::XPathValuePtr<std::string> value() const 
+  virtual Arabica::XPath::XPathValue<std::string> value() const 
   {
     if(!value_)
       value_ = var_.value(node_, context_, sink_);

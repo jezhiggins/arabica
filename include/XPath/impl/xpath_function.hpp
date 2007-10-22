@@ -35,7 +35,7 @@ public:
 protected:
   size_t argCount() const { return args_.size(); }
 
-  XPathValuePtr<string_type, string_adaptor> arg(size_t index,
+  XPathValue<string_type, string_adaptor> arg(size_t index,
                  const DOM::Node<string_type, string_adaptor>& context,
                  const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
@@ -46,28 +46,28 @@ protected:
                  const DOM::Node<string_type, string_adaptor>& context,
                  const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return args_[index]->evaluate(context, executionContext)->asBool();
+    return args_[index]->evaluate(context, executionContext).asBool();
   } // argAsBool
 
   double argAsNumber(size_t index,
                      const DOM::Node<string_type, string_adaptor>& context,
                      const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return args_[index]->evaluate(context, executionContext)->asNumber();
+    return args_[index]->evaluate(context, executionContext).asNumber();
   } // argAsNumber
 
   string_type argAsString(size_t index, 
                           const DOM::Node<string_type, string_adaptor>& context,
                           const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return args_[index]->evaluate(context, executionContext)->asString();
+    return args_[index]->evaluate(context, executionContext).asString();
   } // argAsString
 
   NodeSet<string_type, string_adaptor> argAsNodeSet(size_t index,
                                     const DOM::Node<string_type, string_adaptor>& context,
                                     const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return args_[index]->evaluate(context, executionContext)->asNodeSet();
+    return args_[index]->evaluate(context, executionContext).asNodeSet();
   } // argAsNodeSet
 
 private:

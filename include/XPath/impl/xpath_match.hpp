@@ -52,7 +52,7 @@ public:
     add_matches(expr);
   } // MatchExpressionWrapper
 
-  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context,
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context,
 					      const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     throw std::runtime_error("MatchExpressionWrapper - you should never see this");

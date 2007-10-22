@@ -20,7 +20,7 @@ public:
                  XPathExpression<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return BoolValue<string_type, string_adaptor>::createValue(areEqual<string_type, string_adaptor>(baseT::lhs()->evaluate(context, executionContext),
@@ -38,7 +38,7 @@ public:
                     XPathExpression<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return BoolValue<string_type, string_adaptor>::createValue(areNotEqual<string_type, string_adaptor>(baseT::lhs()->evaluate(context, executionContext),
@@ -56,7 +56,7 @@ public:
                    XPathExpression<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return BoolValue<string_type, string_adaptor>::createValue(isLessThan<string_type, string_adaptor>(baseT::lhs()->evaluate(context, executionContext),
@@ -74,7 +74,7 @@ public:
                          XPathExpression<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return BoolValue<string_type, string_adaptor>::createValue(isLessThanEquals<string_type, string_adaptor>(baseT::lhs()->evaluate(context, executionContext),
@@ -92,7 +92,7 @@ public:
                       XPathExpression<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return BoolValue<string_type, string_adaptor>::createValue(isGreaterThan<string_type, string_adaptor>(baseT::lhs()->evaluate(context, executionContext),
@@ -110,7 +110,7 @@ public:
                             XPathExpression<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual XPathValuePtr<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return BoolValue<string_type, string_adaptor>::createValue(isGreaterThanEquals<string_type, string_adaptor>(baseT::lhs()->evaluate(context, executionContext),

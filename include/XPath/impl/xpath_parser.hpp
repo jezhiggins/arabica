@@ -85,14 +85,14 @@ public:
     return (static_cast<impl::MatchExpressionWrapper<string_type, string_adaptor>*>(wrapper.get()))->matches();
   } // compile_match
 
-  XPathValuePtr<string_type, string_adaptor> evaluate(const string_type& xpath, const DOM::Node<string_type, string_adaptor>& context) const
+  XPathValue<string_type, string_adaptor> evaluate(const string_type& xpath, const DOM::Node<string_type, string_adaptor>& context) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
     executionContext.setVariableResolver(getVariableResolver());
     return compile(xpath)->evaluate(context, executionContext);
   } // evaluate
 
-  XPathValuePtr<string_type, string_adaptor> evaluate_expr(const string_type& xpath, const DOM::Node<string_type, string_adaptor>& context) const
+  XPathValue<string_type, string_adaptor> evaluate_expr(const string_type& xpath, const DOM::Node<string_type, string_adaptor>& context) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
     executionContext.setVariableResolver(getVariableResolver());
