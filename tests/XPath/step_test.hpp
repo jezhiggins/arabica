@@ -59,7 +59,7 @@ public:
     XPathExpressionPtr<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, string_adaptor>(CHILD, new impl::AnyNodeTest<string_type, string_adaptor>()));
 
     XPathValuePtr<string_type, string_adaptor> value = step->evaluate(root_);
-    const NodeSet<string_type, string_adaptor>& set = value->asNodeSet();
+    const NodeSet<string_type, string_adaptor>& set = value.asNodeSet();
 
     assertEquals(set.size(), 3);
     assertTrue(set[0] == element1_);
@@ -92,7 +92,7 @@ public:
       string_adaptor>(CHILD, new impl::NameNodeTest<string_type, string_adaptor>(SA::construct_from_utf8("child2"))));
 
     XPathValuePtr<string_type, string_adaptor> value = step->evaluate(root_);
-    const NodeSet<string_type, string_adaptor>& set = value->asNodeSet();
+    const NodeSet<string_type, string_adaptor>& set = value.asNodeSet();
 
     assertEquals(1, set.size());
     assertTrue(set[0] == element2_);

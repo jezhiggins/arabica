@@ -322,6 +322,10 @@ public:
 
   ValueType type() const { return ptr_->type(); }
 
+  operator bool() const { return ptr_.get(); }
+  bool operator==(int dummy) const { return (dummy == 0) && (ptr_.get() == 0); } 
+  bool operator!=(int dummy) const { return !(operator==(dummy)); }
+
 private:
   bool operator==(const XPathValuePtr&) const;
 

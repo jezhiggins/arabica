@@ -18,8 +18,8 @@ public:
   CurrentFunction(const std::vector<Arabica::XPath::XPathExpressionPtr<std::string> >& args) :
       Arabica::XPath::XPathFunction<std::string>(0, 0, args) { }
 
-  virtual Arabica::XPath::XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
-                                            const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
+                                                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     Arabica::XPath::NodeSet<std::string> set;
     set.push_back(executionContext.currentNode());
@@ -39,7 +39,7 @@ public:
       baseURI_(currentBase)
   { } 
 
-  virtual Arabica::XPath::XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context,
+  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context,
                                             const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     Arabica::XPath::NodeSet<std::string> nodes;
@@ -84,7 +84,7 @@ public:
   SystemPropertyFunction (const std::vector<Arabica::XPath::XPathExpressionPtr<std::string> >& args) :
       Arabica::XPath::XPathFunction<std::string>(1, 1, args) { }
 
-  virtual Arabica::XPath::XPathValue<std::string>* evaluate(const DOM::Node<std::string>& context, 
+  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
                                             const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     std::string property = baseT::argAsString(0, context, executionContext);
