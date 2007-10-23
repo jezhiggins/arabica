@@ -13,12 +13,12 @@ namespace impl
 
 template<class string_type, class string_adaptor>
 class UnionExpression : private BinaryExpression<string_type, string_adaptor>, 
-                        public XPathExpression<string_type, string_adaptor>
+                        public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  UnionExpression(XPathExpression<string_type, string_adaptor>* lhs, 
-                  XPathExpression<string_type, string_adaptor>* rhs) :
+  UnionExpression(XPathExpression_impl<string_type, string_adaptor>* lhs, 
+                  XPathExpression_impl<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 

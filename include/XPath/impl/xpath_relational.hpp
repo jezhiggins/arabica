@@ -12,12 +12,12 @@ namespace impl
 
 template<class string_type, class string_adaptor>
 class EqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
-                       public XPathExpression<string_type, string_adaptor>
+                       public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  EqualsOperator(XPathExpression<string_type, string_adaptor>* lhs,   
-                 XPathExpression<string_type, string_adaptor>* rhs) :
+  EqualsOperator(XPathExpression_impl<string_type, string_adaptor>* lhs,   
+                 XPathExpression_impl<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -30,12 +30,12 @@ public:
 
 template<class string_type, class string_adaptor>
 class NotEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
-                          public XPathExpression<string_type, string_adaptor>
+                          public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  NotEqualsOperator(XPathExpression<string_type, string_adaptor>* lhs, 
-                    XPathExpression<string_type, string_adaptor>* rhs) :
+  NotEqualsOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, 
+                    XPathExpression_impl<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -48,12 +48,12 @@ public:
 
 template<class string_type, class string_adaptor>
 class LessThanOperator : private BinaryExpression<string_type, string_adaptor>, 
-                         public XPathExpression<string_type, string_adaptor>
+                         public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  LessThanOperator(XPathExpression<string_type, string_adaptor>* lhs, 
-                   XPathExpression<string_type, string_adaptor>* rhs) :
+  LessThanOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, 
+                   XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -66,12 +66,12 @@ public:
 
 template<class string_type, class string_adaptor>
 class LessThanEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
-                               public XPathExpression<string_type, string_adaptor>
+                               public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  LessThanEqualsOperator(XPathExpression<string_type, string_adaptor>* lhs, 
-                         XPathExpression<string_type, string_adaptor>* rhs) :
+  LessThanEqualsOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, 
+                         XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -84,12 +84,12 @@ public:
 
 template<class string_type, class string_adaptor>
 class GreaterThanOperator : private BinaryExpression<string_type, string_adaptor>, 
-                            public XPathExpression<string_type, string_adaptor>
+                            public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  GreaterThanOperator(XPathExpression<string_type, string_adaptor>* lhs, 
-                      XPathExpression<string_type, string_adaptor>* rhs) :
+  GreaterThanOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, 
+                      XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -102,12 +102,12 @@ public:
 
 template<class string_type, class string_adaptor>
 class GreaterThanEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
-                                  public XPathExpression<string_type, string_adaptor>
+                                  public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  GreaterThanEqualsOperator(XPathExpression<string_type, string_adaptor>* lhs, 
-                            XPathExpression<string_type, string_adaptor>* rhs) :
+  GreaterThanEqualsOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, 
+                            XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 

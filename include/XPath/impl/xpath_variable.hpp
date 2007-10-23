@@ -11,7 +11,7 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor>
-class Variable : public XPathExpression<string_type, string_adaptor>
+class Variable : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   Variable(const string_type& namespace_uri,

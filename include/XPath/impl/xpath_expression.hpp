@@ -12,13 +12,13 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor>
-class XPathExpression
+class XPathExpression_impl
 {
 protected:
-  XPathExpression() { }
+  XPathExpression_impl() { }
 
 public:
-  virtual ~XPathExpression() { }
+  virtual ~XPathExpression_impl() { }
 
   XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context) const
   {
@@ -45,17 +45,17 @@ public:
 
 
 private:
-  XPathExpression(const XPathExpression&);
-  bool operator==(const XPathExpression&);
-  XPathExpression& operator=(const XPathExpression&);
-}; // class XPathExpression
+  XPathExpression_impl(const XPathExpression_impl&);
+  bool operator==(const XPathExpression_impl&);
+  XPathExpression_impl& operator=(const XPathExpression_impl&);
+}; // class XPathExpression_impl
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class XPathExpressionPtr
 { 
 public:
   XPathExpressionPtr() : ptr_() { }
-  explicit XPathExpressionPtr(XPathExpression<string_type, string_adaptor>* xp) : ptr_(xp) { }
+  explicit XPathExpressionPtr(XPathExpression_impl<string_type, string_adaptor>* xp) : ptr_(xp) { }
   XPathExpressionPtr(const XPathExpressionPtr& rhs) : ptr_(rhs.ptr_) { }
   XPathExpressionPtr& operator=(const XPathExpressionPtr& rhs)
   {
@@ -63,13 +63,13 @@ public:
     return *this;
   } // operator=
 
-  const XPathExpression<string_type, string_adaptor>* get() const { return ptr_.get(); }
-  const XPathExpression<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
+  const XPathExpression_impl<string_type, string_adaptor>* get() const { return ptr_.get(); }
+  const XPathExpression_impl<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
 
   operator bool() const { return ptr_.get(); }
 
 private:
-  typedef boost::shared_ptr<const XPathExpression<string_type, string_adaptor> > ExpressionPtr;
+  typedef boost::shared_ptr<const XPathExpression_impl<string_type, string_adaptor> > ExpressionPtr;
   ExpressionPtr ptr_;
 }; // class XPathExpressionPtr
 
@@ -79,7 +79,7 @@ template<class string_type, class string_adaptor>
 class UnaryExpression
 {
 public:
-  UnaryExpression(XPathExpression<string_type, string_adaptor>* expr) :
+  UnaryExpression(XPathExpression_impl<string_type, string_adaptor>* expr) :
       expr_(expr) { }
 
 protected:
@@ -88,18 +88,18 @@ protected:
     delete expr_;
   } // ~UnaryExpression
 
-  XPathExpression<string_type, string_adaptor>* expr() const { return expr_; }
+  XPathExpression_impl<string_type, string_adaptor>* expr() const { return expr_; }
 
 private:
-  XPathExpression<string_type, string_adaptor>* expr_;
+  XPathExpression_impl<string_type, string_adaptor>* expr_;
 }; // class UnaryExpression
 
 template<class string_type, class string_adaptor>
 class BinaryExpression
 {
 public:
-  BinaryExpression(XPathExpression<string_type, string_adaptor>* lhs, 
-                   XPathExpression<string_type, string_adaptor>* rhs) :
+  BinaryExpression(XPathExpression_impl<string_type, string_adaptor>* lhs, 
+                   XPathExpression_impl<string_type, string_adaptor>* rhs) :
       lhs_(lhs), 
       rhs_(rhs) 
   { 
@@ -112,12 +112,12 @@ protected:
     delete rhs_;
   } // ~BinaryExpression
 
-  XPathExpression<string_type, string_adaptor>* lhs() const { return lhs_; }
-  XPathExpression<string_type, string_adaptor>* rhs() const { return rhs_; }
+  XPathExpression_impl<string_type, string_adaptor>* lhs() const { return lhs_; }
+  XPathExpression_impl<string_type, string_adaptor>* rhs() const { return rhs_; }
 
 private:
-  XPathExpression<string_type, string_adaptor>* lhs_;
-  XPathExpression<string_type, string_adaptor>* rhs_;
+  XPathExpression_impl<string_type, string_adaptor>* lhs_;
+  XPathExpression_impl<string_type, string_adaptor>* rhs_;
 }; // class BinaryExpression
 
 } // namespace impl

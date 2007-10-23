@@ -20,15 +20,15 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor>
-class StepExpression : public XPathExpression<string_type, string_adaptor>
+class StepExpression : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   StepExpression() { }
-  StepExpression(const std::vector<XPathExpression<string_type, string_adaptor> *>& predicates) : predicates_(predicates) { }
+  StepExpression(const std::vector<XPathExpression_impl<string_type, string_adaptor> *>& predicates) : predicates_(predicates) { }
 
   virtual ~StepExpression()
   { 
-    for(typename std::vector<XPathExpression<string_type, string_adaptor>*>::iterator p = predicates_.begin(), e = predicates_.end(); p != e; ++p)
+    for(typename std::vector<XPathExpression_impl<string_type, string_adaptor>*>::iterator p = predicates_.begin(), e = predicates_.end(); p != e; ++p)
       delete *p;
   } // ~StepExpression
 
@@ -40,7 +40,7 @@ public:
 protected:
   NodeSet<string_type, string_adaptor> applyPredicates(NodeSet<string_type, string_adaptor>& nodes, const ExecutionContext<string_type, string_adaptor>& parentContext) const
   {
-    for(typename std::vector<XPathExpression<string_type, string_adaptor>*>::const_iterator p = predicates_.begin(), e = predicates_.end();
+    for(typename std::vector<XPathExpression_impl<string_type, string_adaptor>*>::const_iterator p = predicates_.begin(), e = predicates_.end();
         (p != e) && (!nodes.empty()); ++p)
       nodes = applyPredicate(nodes, *p, parentContext);
     return nodes;
@@ -48,7 +48,7 @@ protected:
 
 private:
   NodeSet<string_type, string_adaptor> applyPredicate(NodeSet<string_type, string_adaptor>& nodes, 
-                                      XPathExpression<string_type, string_adaptor>* predicate, 
+                                      XPathExpression_impl<string_type, string_adaptor>* predicate, 
                                       const ExecutionContext<string_type, string_adaptor>& parentContext) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext(nodes.size(), parentContext);
@@ -69,7 +69,7 @@ private:
     return results;
   } // applyPredicate
   
-  std::vector<XPathExpression<string_type, string_adaptor>*> predicates_;
+  std::vector<XPathExpression_impl<string_type, string_adaptor>*> predicates_;
 }; // StepExpression
 
 template<class string_type, class string_adaptor>
@@ -85,7 +85,7 @@ public:
   } // TestStepExpression
 
   TestStepExpression(Axis axis, NodeTest<string_type, string_adaptor>* test, 
-                     const std::vector<XPathExpression<string_type, string_adaptor>*>& predicates) :
+                     const std::vector<XPathExpression_impl<string_type, string_adaptor>*>& predicates) :
       StepExpression<string_type, string_adaptor>(predicates),
       axis_(axis),
       test_(test)
@@ -147,8 +147,8 @@ class ExprStepExpression : public StepExpression<string_type, string_adaptor>
 {
   typedef StepExpression<string_type, string_adaptor> baseT;
 public:
-  ExprStepExpression(XPathExpression<string_type, string_adaptor>* expr, 
-                     const std::vector<XPathExpression<string_type, string_adaptor>*>& predicates) :
+  ExprStepExpression(XPathExpression_impl<string_type, string_adaptor>* expr, 
+                     const std::vector<XPathExpression_impl<string_type, string_adaptor>*>& predicates) :
       StepExpression<string_type, string_adaptor>(predicates),
       expr_(expr)
   {
@@ -176,8 +176,8 @@ public:
   } // evaluate
 
 private:
-  XPathExpression<string_type, string_adaptor>* expr_;
-  std::vector<XPathExpression<string_type, string_adaptor>*> predicates_;
+  XPathExpression_impl<string_type, string_adaptor>* expr_;
+  std::vector<XPathExpression_impl<string_type, string_adaptor>*> predicates_;
 }; // class ExprStepExpression
 
 template<class string_type, class string_adaptor>
@@ -201,11 +201,11 @@ public:
                                     bool is_attr = false)
   {
     NodeTest<string_type, string_adaptor>* test = getTest(node, end, !is_attr ? axis : ATTRIBUTE, context.namespaceContext());
-    XPathExpression<string_type, string_adaptor>* thing = 0;
+    XPathExpression_impl<string_type, string_adaptor>* thing = 0;
     if(!test)
       thing = XPath<string_type, string_adaptor>::compile_expression(node++, end, context);
 
-    std::vector<XPathExpression<string_type, string_adaptor>*> preds = 
+    std::vector<XPathExpression_impl<string_type, string_adaptor>*> preds = 
         createPredicates(node, end, context);
 
     if(!test)
@@ -218,9 +218,9 @@ public:
   {
     typename types<string_adaptor>::node_iter_t c = node->children.begin();
     typename types<string_adaptor>::node_iter_t const ce = node->children.end();
-    XPathExpression<string_type, string_adaptor>* step = XPath<string_type, string_adaptor>::compile_expression(c, ce, context);
+    XPathExpression_impl<string_type, string_adaptor>* step = XPath<string_type, string_adaptor>::compile_expression(c, ce, context);
     ++c;
-    std::vector<XPathExpression<string_type, string_adaptor>*> preds = createPredicates(c, ce, context);
+    std::vector<XPathExpression_impl<string_type, string_adaptor>*> preds = createPredicates(c, ce, context);
     return new ExprStepExpression<string_type, string_adaptor>(step, preds);
   } // createFilter
 
@@ -313,11 +313,11 @@ private:
     return CHILD;
   } // getAxis
 
-  static std::vector<XPathExpression<string_type, string_adaptor>*> createPredicates(typename types<string_adaptor>::node_iter_t& node, 
+  static std::vector<XPathExpression_impl<string_type, string_adaptor>*> createPredicates(typename types<string_adaptor>::node_iter_t& node, 
                                     typename types<string_adaptor>::node_iter_t const& end, 
                                     CompilationContext<string_type, string_adaptor>& context)
   {
-    std::vector<XPathExpression<string_type, string_adaptor>*> preds;
+    std::vector<XPathExpression_impl<string_type, string_adaptor>*> preds;
 
     while((node != end) && (getNodeId<string_adaptor>(node) == impl::Predicate_id))
     {
@@ -440,7 +440,7 @@ private:
 }; // class StepFactory
 
 template<class string_type, class string_adaptor>
-class RelativeLocationPath : public XPathExpression<string_type, string_adaptor>
+class RelativeLocationPath : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   RelativeLocationPath(StepExpression<string_type, string_adaptor>* step) : steps_() { steps_.push_back(step); }

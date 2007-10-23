@@ -50,8 +50,8 @@ public:
   void test4()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new StringValue<string_type, string_adaptor>("charlie");
-    XPathExpression<string_type, string_adaptor>* p2 = new StringValue<string_type, string_adaptor>("charlie");
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new StringValue<string_type, string_adaptor>("charlie");
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new StringValue<string_type, string_adaptor>("charlie");
 
     XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(p1, p2));
 
@@ -61,8 +61,8 @@ public:
   void test5()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new StringValue<string_type, string_adaptor>("trousers");
-    XPathExpression<string_type, string_adaptor>* p2 = new StringValue<string_type, string_adaptor>("charlie");
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new StringValue<string_type, string_adaptor>("trousers");
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new StringValue<string_type, string_adaptor>("charlie");
 
     XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(p1, p2));
 

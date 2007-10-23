@@ -22,8 +22,8 @@ public:
   void test1()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(1);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(1);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> add(new impl::PlusOperator<string_type, string_adaptor>(p1, p2));
 
@@ -34,8 +34,8 @@ public:
   void test2()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(1);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(1);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> minus(new impl::MinusOperator<string_type, string_adaptor>(p1, p2));
 
@@ -45,8 +45,8 @@ public:
   void test3()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(3);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(3);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> mult(new impl::MultiplyOperator<string_type, string_adaptor>(p1, p2));
 
@@ -56,7 +56,7 @@ public:
   void test4()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* mult = new impl::MultiplyOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(4), new NumericValue<string_type, string_adaptor>(2));
+    XPathExpression_impl<string_type, string_adaptor>* mult = new impl::MultiplyOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(4), new NumericValue<string_type, string_adaptor>(2));
 
     XPathExpressionPtr<string_type, string_adaptor> minus(new impl::MinusOperator<string_type, string_adaptor>(mult, new NumericValue<string_type, string_adaptor>(2)));
 
@@ -67,8 +67,8 @@ public:
   void test5()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(12);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(12);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> div(new impl::DivideOperator<string_type, string_adaptor>(p1, p2));
 
@@ -78,8 +78,8 @@ public:
   void test6()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(12);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(12);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> mod(new impl::ModOperator<string_type, string_adaptor>(p1, p2));
 
@@ -89,8 +89,8 @@ public:
   void test7()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(11);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(11);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> div(new impl::DivideOperator<string_type, string_adaptor>(p1, p2));
 
@@ -100,8 +100,8 @@ public:
   void test8()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(11);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(4);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(11);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(4);
 
     XPathExpressionPtr<string_type, string_adaptor> mod(new impl::ModOperator<string_type, string_adaptor>(p1, p2));
 
@@ -111,8 +111,8 @@ public:
   void test9()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(5);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(5);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> mod(new impl::ModOperator<string_type, string_adaptor>(p1, p2));
 
@@ -122,8 +122,8 @@ public:
   void test10()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(5);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(-2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(5);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(-2);
 
     XPathExpressionPtr<string_type, string_adaptor> mod(new impl::ModOperator<string_type, string_adaptor>(p1, p2));
 
@@ -133,8 +133,8 @@ public:
   void test11()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(-5);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(-5);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(2);
 
     XPathExpressionPtr<string_type, string_adaptor> mod(new impl::ModOperator<string_type, string_adaptor>(p1, p2));
 
@@ -144,8 +144,8 @@ public:
   void test12()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(-5);
-    XPathExpression<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(-2);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(-5);
+    XPathExpression_impl<string_type, string_adaptor>* p2 = new NumericValue<string_type, string_adaptor>(-2);
 
     XPathExpressionPtr<string_type, string_adaptor> mod(new impl::ModOperator<string_type, string_adaptor>(p1, p2));
 
@@ -155,7 +155,7 @@ public:
   void test13()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(5);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(5);
     XPathExpressionPtr<string_type, string_adaptor> p2(new impl::UnaryNegative<string_type, string_adaptor>(p1));
 
     assertEquals(-5.0, p2->evaluateAsNumber(dummy_), 0.0);
@@ -164,7 +164,7 @@ public:
   void test14()
   {
     using namespace Arabica::XPath;
-    XPathExpression<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(-5);
+    XPathExpression_impl<string_type, string_adaptor>* p1 = new NumericValue<string_type, string_adaptor>(-5);
     XPathExpressionPtr<string_type, string_adaptor> p2(new impl::UnaryNegative<string_type, string_adaptor>(p1));
 
     assertEquals(5.0, p2->evaluateAsNumber(dummy_), 0.0);

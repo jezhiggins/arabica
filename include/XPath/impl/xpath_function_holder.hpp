@@ -16,7 +16,7 @@ template<class function_type, class string_type, class string_adaptor>
 XPathFunction<string_type, string_adaptor>* CreateFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) { return new function_type(argExprs); }
 
 template<class string_type, class string_adaptor>
-class FunctionHolder : public XPathExpression<string_type, string_adaptor>
+class FunctionHolder : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   FunctionHolder(XPathFunction<string_type, string_adaptor>* func) :

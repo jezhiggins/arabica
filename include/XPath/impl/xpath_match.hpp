@@ -14,7 +14,7 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class MatchExpr
 {
 public:
-  MatchExpr(XPathExpression<string_type, string_adaptor>* match, double priority) :
+  MatchExpr(XPathExpression_impl<string_type, string_adaptor>* match, double priority) :
     match_(match), priority_(priority) { } 
   MatchExpr(const MatchExpr& rhs) :
     match_(rhs.match_), priority_(rhs.priority_) { } 
@@ -39,15 +39,15 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor>
-class MatchExpressionWrapper : public XPathExpression<string_type, string_adaptor>
+class MatchExpressionWrapper : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
-  MatchExpressionWrapper(XPathExpression<string_type, string_adaptor>* expr, double priority)
+  MatchExpressionWrapper(XPathExpression_impl<string_type, string_adaptor>* expr, double priority)
   {
     add_match(expr, priority);
   } // MatchExpressionWrapper
 
-  MatchExpressionWrapper(XPathExpression<string_type, string_adaptor>* expr)
+  MatchExpressionWrapper(XPathExpression_impl<string_type, string_adaptor>* expr)
   {
     add_matches(expr);
   } // MatchExpressionWrapper
@@ -63,12 +63,12 @@ public:
     return matches_;
   } // matches
 
-  void add_match(XPathExpression<string_type, string_adaptor>* match, double priority) 
+  void add_match(XPathExpression_impl<string_type, string_adaptor>* match, double priority) 
   {
     matches_.push_back(MatchExpr<string_type, string_adaptor>(match, priority));
   } // add_match
 
-  void add_matches(XPathExpression<string_type, string_adaptor>* wrapper) 
+  void add_matches(XPathExpression_impl<string_type, string_adaptor>* wrapper) 
   {
     const std::vector<MatchExpr<string_type, string_adaptor> >& more = static_cast<impl::MatchExpressionWrapper<string_type, string_adaptor>*>(wrapper)->matches();
     for(typename std::vector<MatchExpr<string_type, string_adaptor> >::const_iterator m = more.begin(), me = more.end(); m != me; ++m)

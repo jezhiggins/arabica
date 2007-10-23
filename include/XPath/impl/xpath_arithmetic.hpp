@@ -12,11 +12,11 @@ namespace impl
 
 template<class string_type, class string_adaptor>
 class PlusOperator : private BinaryExpression<string_type, string_adaptor>, 
-                     public XPathExpression<string_type, string_adaptor>
+                     public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  PlusOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) : 
+  PlusOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -28,11 +28,11 @@ public:
 
 template<class string_type, class string_adaptor>
 class MinusOperator : private BinaryExpression<string_type, string_adaptor>, 
-                      public XPathExpression<string_type, string_adaptor>
+                      public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  MinusOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) : 
+  MinusOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -44,11 +44,11 @@ public:
 
 template<class string_type, class string_adaptor>
 class MultiplyOperator : private BinaryExpression<string_type, string_adaptor>, 
-                         public XPathExpression<string_type, string_adaptor>
+                         public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  MultiplyOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) :
+  MultiplyOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -60,11 +60,11 @@ public:
 
 template<class string_type, class string_adaptor>
 class DivideOperator : private BinaryExpression<string_type, string_adaptor>, 
-                       public XPathExpression<string_type, string_adaptor>
+                       public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  DivideOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) :
+  DivideOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -76,11 +76,11 @@ public:
 
 template<class string_type, class string_adaptor>
 class ModOperator : private BinaryExpression<string_type, string_adaptor>, 
-                    public XPathExpression<string_type, string_adaptor>
+                    public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  ModOperator(XPathExpression<string_type, string_adaptor>* lhs, XPathExpression<string_type, string_adaptor>* rhs) :
+  ModOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
@@ -97,11 +97,11 @@ public:
 
 template<class string_type, class string_adaptor>
 class UnaryNegative : private UnaryExpression<string_type, string_adaptor>, 
-                      public XPathExpression<string_type, string_adaptor>
+                      public XPathExpression_impl<string_type, string_adaptor>
 {
   typedef UnaryExpression<string_type, string_adaptor> baseT;
 public:
-  UnaryNegative(XPathExpression<string_type, string_adaptor>* expr) :
+  UnaryNegative(XPathExpression_impl<string_type, string_adaptor>* expr) :
       UnaryExpression<string_type, string_adaptor>(expr) { }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
