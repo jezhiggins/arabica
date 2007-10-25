@@ -14,7 +14,7 @@ public:
   virtual Arabica::XPath::XPathFunction<string_type, string_adaptor>* resolveFunction(
                                          const string_type& namespace_uri,
                                          const string_type& name,
-                                         const std::vector<Arabica::XPath::XPathExpressionPtr<string_type> >& argExprs) const
+                                         const std::vector<Arabica::XPath::XPathExpression<string_type> >& argExprs) const
   {
     if((namespace_uri == string_adaptor::construct_from_utf8("something")) && 
        (name == string_adaptor::construct_from_utf8("true")))

@@ -199,7 +199,7 @@ private:
   virtual Arabica::XPath::XPathFunction<std::string>* resolveFunction(
                                          const std::string& namespace_uri, 
                                          const std::string& name,
-                                         const std::vector<Arabica::XPath::XPathExpressionPtr<std::string> >& argExprs) const
+                                         const std::vector<Arabica::XPath::XPathExpression<std::string> >& argExprs) const
   {
     if(!namespace_uri.empty())
       return 0;

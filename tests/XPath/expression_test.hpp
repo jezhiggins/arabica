@@ -95,14 +95,14 @@ public:
   void testNode1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> xpath = parser.compile_expr(SA::construct_from_utf8("node()"));
-    XPathValue<string_type, string_adaptor> result = xpath->evaluate(document_);
+    XPathExpression<string_type, string_adaptor> xpath = parser.compile_expr(SA::construct_from_utf8("node()"));
+    XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
 
     assertValuesEqual(NODE_SET, result.type());
     assertValuesEqual(1, result.asNodeSet().size());
     assertTrue(root_ == result.asNodeSet()[0]);
 
-    result = xpath->evaluate(element2_);
+    result = xpath.evaluate(element2_);
     assertValuesEqual(NODE_SET, result.type());
     assertValuesEqual(4, result.asNodeSet().size());
   } // testNode1

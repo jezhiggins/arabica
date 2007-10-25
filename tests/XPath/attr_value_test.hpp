@@ -25,16 +25,16 @@ public:
   void testParse()
   {
     Arabica::DOM::Node<string_type, string_adaptor> dummy;
-    assertTrue(SA::construct_from_utf8("hello") == compileThis("hello")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("") == compileThis("{hello}")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("{hello}") == compileThis("{{hello}}")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("{hello}") == compileThis("{{{'hello'}}}")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("{}") == compileThis("{{{hello}}}")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("{") == compileThis("{{")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("}") == compileThis("}}")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("hello") == compileThis("hello{@there}")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("helloMOTHER{}") == compileThis("hello{@there}MOTHER{{}}")->evaluateAsString(dummy));
-    assertTrue(SA::construct_from_utf8("hello there everyone look a }") == compileThis("hello {string('there')} everyone {string('look a }')}")->evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("hello") == compileThis("hello").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("") == compileThis("{hello}").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("{hello}") == compileThis("{{hello}}").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("{hello}") == compileThis("{{{'hello'}}}").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("{}") == compileThis("{{{hello}}}").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("{") == compileThis("{{").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("}") == compileThis("}}").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("hello") == compileThis("hello{@there}").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("helloMOTHER{}") == compileThis("hello{@there}MOTHER{{}}").evaluateAsString(dummy));
+    assertTrue(SA::construct_from_utf8("hello there everyone look a }") == compileThis("hello {string('there')} everyone {string('look a }')}").evaluateAsString(dummy));
   } // testParse
 
   void testParseFail()
@@ -60,7 +60,7 @@ public:
     return true;
   } // dontCompileThis
 
-  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> compileThis(const char* match)
+  Arabica::XPath::XPathExpression<string_type, string_adaptor> compileThis(const char* match)
   {
     //std::cout << "----\n" << match << std::endl;
     return parser.compile_attribute_value_template(SA::construct_from_utf8(match));

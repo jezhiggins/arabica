@@ -56,9 +56,9 @@ public:
   void test1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, string_adaptor>(CHILD, new impl::AnyNodeTest<string_type, string_adaptor>()));
+    XPathExpression<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, string_adaptor>(CHILD, new impl::AnyNodeTest<string_type, string_adaptor>()));
 
-    XPathValue<string_type, string_adaptor> value = step->evaluate(root_);
+    XPathValue<string_type, string_adaptor> value = step.evaluate(root_);
     const NodeSet<string_type, string_adaptor>& set = value.asNodeSet();
 
     assertEquals(set.size(), 3);
@@ -70,9 +70,9 @@ public:
   void test2()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, string_adaptor>(ATTRIBUTE, new impl::AnyNodeTest<string_type, string_adaptor>()));
+    XPathExpression<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, string_adaptor>(ATTRIBUTE, new impl::AnyNodeTest<string_type, string_adaptor>()));
 
-    NodeSet<string_type, string_adaptor> set = step->evaluateAsNodeSet(element2_);
+    NodeSet<string_type, string_adaptor> set = step.evaluateAsNodeSet(element2_);
 
     assertEquals(4, set.size());
     Arabica::DOM::Attr<string_type, string_adaptor> attr = static_cast<Arabica::DOM::Attr<string_type, string_adaptor> >(set[0]);
@@ -88,10 +88,10 @@ public:
   void test3()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, 
+    XPathExpression<string_type, string_adaptor> step(new impl::TestStepExpression<string_type, 
       string_adaptor>(CHILD, new impl::NameNodeTest<string_type, string_adaptor>(SA::construct_from_utf8("child2"))));
 
-    XPathValue<string_type, string_adaptor> value = step->evaluate(root_);
+    XPathValue<string_type, string_adaptor> value = step.evaluate(root_);
     const NodeSet<string_type, string_adaptor>& set = value.asNodeSet();
 
     assertEquals(1, set.size());

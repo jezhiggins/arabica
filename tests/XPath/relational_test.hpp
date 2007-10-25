@@ -22,29 +22,29 @@ public:
   void test1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1), new NumericValue<string_type, string_adaptor>(1)));
-    XPathExpressionPtr<string_type, string_adaptor> equals2(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1), new NumericValue<string_type, string_adaptor>(1)));
+    XPathExpression<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1), new NumericValue<string_type, string_adaptor>(1)));
+    XPathExpression<string_type, string_adaptor> equals2(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1), new NumericValue<string_type, string_adaptor>(1)));
 
-    assertEquals(true, equals1->evaluateAsBool(dummy_));
-    assertEquals(true, equals2->evaluateAsBool(dummy_));
+    assertEquals(true, equals1.evaluateAsBool(dummy_));
+    assertEquals(true, equals2.evaluateAsBool(dummy_));
   } // test1
 
   void test2()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1), new NumericValue<string_type, string_adaptor>(2)));
-    XPathExpressionPtr<string_type, string_adaptor> equals2(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(2), new NumericValue<string_type, string_adaptor>(1)));
+    XPathExpression<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1), new NumericValue<string_type, string_adaptor>(2)));
+    XPathExpression<string_type, string_adaptor> equals2(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(2), new NumericValue<string_type, string_adaptor>(1)));
 
-    assertEquals(false, equals1->evaluateAsBool(dummy_));
-    assertEquals(false, equals2->evaluateAsBool(dummy_));
+    assertEquals(false, equals1.evaluateAsBool(dummy_));
+    assertEquals(false, equals2.evaluateAsBool(dummy_));
   } // test2
 
   void test3()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1), new NumericValue<string_type, string_adaptor>(1)));
+    XPathExpression<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1), new NumericValue<string_type, string_adaptor>(1)));
 
-    assertEquals(true, equals1->evaluateAsBool(dummy_));
+    assertEquals(true, equals1.evaluateAsBool(dummy_));
   } // test3
 
   void test4()
@@ -53,9 +53,9 @@ public:
     XPathExpression_impl<string_type, string_adaptor>* p1 = new StringValue<string_type, string_adaptor>("charlie");
     XPathExpression_impl<string_type, string_adaptor>* p2 = new StringValue<string_type, string_adaptor>("charlie");
 
-    XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(p1, p2));
+    XPathExpression<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(p1, p2));
 
-    assertEquals(true, equals1->evaluateAsBool(dummy_));
+    assertEquals(true, equals1.evaluateAsBool(dummy_));
   } // test4
 
   void test5()
@@ -64,113 +64,113 @@ public:
     XPathExpression_impl<string_type, string_adaptor>* p1 = new StringValue<string_type, string_adaptor>("trousers");
     XPathExpression_impl<string_type, string_adaptor>* p2 = new StringValue<string_type, string_adaptor>("charlie");
 
-    XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(p1, p2));
+    XPathExpression<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(p1, p2));
 
-    assertEquals(false, equals1->evaluateAsBool(dummy_));
+    assertEquals(false, equals1.evaluateAsBool(dummy_));
   } // test5
 
   void test6()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
-    XPathExpressionPtr<string_type, string_adaptor> equals2(new impl::EqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
+    XPathExpression<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
+    XPathExpression<string_type, string_adaptor> equals2(new impl::EqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
 
-    assertEquals(true, equals1->evaluateAsBool(dummy_));
-    assertEquals(true, equals2->evaluateAsBool(dummy_));
+    assertEquals(true, equals1.evaluateAsBool(dummy_));
+    assertEquals(true, equals2.evaluateAsBool(dummy_));
   } // test6
 
   void test7()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
-    XPathExpressionPtr<string_type, string_adaptor> equals2(new impl::EqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
+    XPathExpression<string_type, string_adaptor> equals1(new impl::EqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
+    XPathExpression<string_type, string_adaptor> equals2(new impl::EqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
 
-    assertEquals(false, equals1->evaluateAsBool(dummy_));
-    assertEquals(false, equals2->evaluateAsBool(dummy_));
+    assertEquals(false, equals1.evaluateAsBool(dummy_));
+    assertEquals(false, equals2.evaluateAsBool(dummy_));
   } // test7
 
   void testLessThan1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> lessThan1(new impl::LessThanOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan2(new impl::LessThanOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan3(new impl::LessThanOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan4(new impl::LessThanOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
+    XPathExpression<string_type, string_adaptor> lessThan1(new impl::LessThanOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
+    XPathExpression<string_type, string_adaptor> lessThan2(new impl::LessThanOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
+    XPathExpression<string_type, string_adaptor> lessThan3(new impl::LessThanOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
+    XPathExpression<string_type, string_adaptor> lessThan4(new impl::LessThanOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
 
-    assertEquals(false, lessThan1->evaluateAsBool(dummy_));
-    assertEquals(false, lessThan2->evaluateAsBool(dummy_));
-    assertEquals(false, lessThan3->evaluateAsBool(dummy_));
-    assertEquals(true, lessThan4->evaluateAsBool(dummy_));
+    assertEquals(false, lessThan1.evaluateAsBool(dummy_));
+    assertEquals(false, lessThan2.evaluateAsBool(dummy_));
+    assertEquals(false, lessThan3.evaluateAsBool(dummy_));
+    assertEquals(true, lessThan4.evaluateAsBool(dummy_));
   } // testLessThan1
 
   void testLessThan2()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> lessThan1(new impl::LessThanOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1.0), new NumericValue<string_type, string_adaptor>(1.0)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan2(new impl::LessThanOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(3.0), new NumericValue<string_type, string_adaptor>(2.0)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan3(new impl::LessThanOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(2.0), new NumericValue<string_type, string_adaptor>(3.0)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan4(new impl::LessThanOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(-1), new NumericValue<string_type, string_adaptor>(1)));
+    XPathExpression<string_type, string_adaptor> lessThan1(new impl::LessThanOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1.0), new NumericValue<string_type, string_adaptor>(1.0)));
+    XPathExpression<string_type, string_adaptor> lessThan2(new impl::LessThanOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(3.0), new NumericValue<string_type, string_adaptor>(2.0)));
+    XPathExpression<string_type, string_adaptor> lessThan3(new impl::LessThanOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(2.0), new NumericValue<string_type, string_adaptor>(3.0)));
+    XPathExpression<string_type, string_adaptor> lessThan4(new impl::LessThanOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(-1), new NumericValue<string_type, string_adaptor>(1)));
 
-    assertEquals(false, lessThan1->evaluateAsBool(dummy_));
-    assertEquals(false, lessThan2->evaluateAsBool(dummy_));
-    assertEquals(true, lessThan3->evaluateAsBool(dummy_));
-    assertEquals(true, lessThan4->evaluateAsBool(dummy_));
+    assertEquals(false, lessThan1.evaluateAsBool(dummy_));
+    assertEquals(false, lessThan2.evaluateAsBool(dummy_));
+    assertEquals(true, lessThan3.evaluateAsBool(dummy_));
+    assertEquals(true, lessThan4.evaluateAsBool(dummy_));
   } // testLessThan2
 
   void testLessThan3()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> lessThan1(new impl::LessThanOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("1.0"), new StringValue<string_type, string_adaptor>("1.0")));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan2(new impl::LessThanOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("3.0"), new StringValue<string_type, string_adaptor>("2.0")));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan3(new impl::LessThanOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("2.0"), new StringValue<string_type, string_adaptor>("3.0")));
-    XPathExpressionPtr<string_type, string_adaptor> lessThan4(new impl::LessThanOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("-1"), new StringValue<string_type, string_adaptor>("1")));
+    XPathExpression<string_type, string_adaptor> lessThan1(new impl::LessThanOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("1.0"), new StringValue<string_type, string_adaptor>("1.0")));
+    XPathExpression<string_type, string_adaptor> lessThan2(new impl::LessThanOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("3.0"), new StringValue<string_type, string_adaptor>("2.0")));
+    XPathExpression<string_type, string_adaptor> lessThan3(new impl::LessThanOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("2.0"), new StringValue<string_type, string_adaptor>("3.0")));
+    XPathExpression<string_type, string_adaptor> lessThan4(new impl::LessThanOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("-1"), new StringValue<string_type, string_adaptor>("1")));
 
-    assertEquals(false, lessThan1->evaluateAsBool(dummy_));
-    assertEquals(false, lessThan2->evaluateAsBool(dummy_));
-    assertEquals(true, lessThan3->evaluateAsBool(dummy_));
-    assertEquals(true, lessThan4->evaluateAsBool(dummy_));
+    assertEquals(false, lessThan1.evaluateAsBool(dummy_));
+    assertEquals(false, lessThan2.evaluateAsBool(dummy_));
+    assertEquals(true, lessThan3.evaluateAsBool(dummy_));
+    assertEquals(true, lessThan4.evaluateAsBool(dummy_));
   } // testLessThan3
 
   void testLessThanEquals1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals1(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals2(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals3(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals4(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
+    XPathExpression<string_type, string_adaptor> lessThanEquals1(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
+    XPathExpression<string_type, string_adaptor> lessThanEquals2(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
+    XPathExpression<string_type, string_adaptor> lessThanEquals3(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
+    XPathExpression<string_type, string_adaptor> lessThanEquals4(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
 
-    assertEquals(true, lessThanEquals1->evaluateAsBool(dummy_));
-    assertEquals(true, lessThanEquals2->evaluateAsBool(dummy_));
-    assertEquals(false, lessThanEquals3->evaluateAsBool(dummy_));
-    assertEquals(true, lessThanEquals4->evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals1.evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals2.evaluateAsBool(dummy_));
+    assertEquals(false, lessThanEquals3.evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals4.evaluateAsBool(dummy_));
   } // testLessThanEquals1
 
   void testLessThanEquals2()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals1(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1.0), new NumericValue<string_type, string_adaptor>(1.0)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals2(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(3.0), new NumericValue<string_type, string_adaptor>(2.0)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals3(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(2.0), new NumericValue<string_type, string_adaptor>(3.0)));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals4(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(-1), new NumericValue<string_type, string_adaptor>(1)));
+    XPathExpression<string_type, string_adaptor> lessThanEquals1(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(1.0), new NumericValue<string_type, string_adaptor>(1.0)));
+    XPathExpression<string_type, string_adaptor> lessThanEquals2(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(3.0), new NumericValue<string_type, string_adaptor>(2.0)));
+    XPathExpression<string_type, string_adaptor> lessThanEquals3(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(2.0), new NumericValue<string_type, string_adaptor>(3.0)));
+    XPathExpression<string_type, string_adaptor> lessThanEquals4(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new NumericValue<string_type, string_adaptor>(-1), new NumericValue<string_type, string_adaptor>(1)));
 
-    assertEquals(true, lessThanEquals1->evaluateAsBool(dummy_));
-    assertEquals(false, lessThanEquals2->evaluateAsBool(dummy_));
-    assertEquals(true, lessThanEquals3->evaluateAsBool(dummy_));
-    assertEquals(true, lessThanEquals4->evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals1.evaluateAsBool(dummy_));
+    assertEquals(false, lessThanEquals2.evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals3.evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals4.evaluateAsBool(dummy_));
   } // testLessThanEquals2
 
   void testLessThanEquals3()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals1(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("1.0"), new StringValue<string_type, string_adaptor>("1.0")));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals2(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("3.0"), new StringValue<string_type, string_adaptor>("2.0")));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals3(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("2.0"), new StringValue<string_type, string_adaptor>("3.0")));
-    XPathExpressionPtr<string_type, string_adaptor> lessThanEquals4(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("-1"), new StringValue<string_type, string_adaptor>("1")));
+    XPathExpression<string_type, string_adaptor> lessThanEquals1(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("1.0"), new StringValue<string_type, string_adaptor>("1.0")));
+    XPathExpression<string_type, string_adaptor> lessThanEquals2(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("3.0"), new StringValue<string_type, string_adaptor>("2.0")));
+    XPathExpression<string_type, string_adaptor> lessThanEquals3(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("2.0"), new StringValue<string_type, string_adaptor>("3.0")));
+    XPathExpression<string_type, string_adaptor> lessThanEquals4(new impl::LessThanEqualsOperator<string_type, string_adaptor>(new StringValue<string_type, string_adaptor>("-1"), new StringValue<string_type, string_adaptor>("1")));
 
-    assertEquals(true, lessThanEquals1->evaluateAsBool(dummy_));
-    assertEquals(false, lessThanEquals2->evaluateAsBool(dummy_));
-    assertEquals(true, lessThanEquals3->evaluateAsBool(dummy_));
-    assertEquals(true, lessThanEquals4->evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals1.evaluateAsBool(dummy_));
+    assertEquals(false, lessThanEquals2.evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals3.evaluateAsBool(dummy_));
+    assertEquals(true, lessThanEquals4.evaluateAsBool(dummy_));
   } // testLessThanEquals3
 
 private:

@@ -25,13 +25,13 @@ public:
   bool evaluate(const DOM::Node<string_type, string_adaptor>& context,
                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return match_->evaluateAsBool(context, executionContext);
+    return match_.evaluateAsBool(context, executionContext);
   } // evaluate
 
   void override_priority(double p) { priority_ = p; }
 
 private:
-  XPathExpressionPtr<string_type, string_adaptor> match_;
+  XPathExpression<string_type, string_adaptor> match_;
   double priority_;
 }; // MatchExpr
 

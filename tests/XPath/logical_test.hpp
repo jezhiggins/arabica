@@ -22,57 +22,57 @@ public:
   void test1()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> orTest(new impl::OrOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
-    assertEquals(false, orTest->evaluateAsBool(dummy_));
+    XPathExpression<string_type, string_adaptor> orTest(new impl::OrOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
+    assertEquals(false, orTest.evaluateAsBool(dummy_));
   } // test1
 
   void test2()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> orTest(new impl::OrOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
-    assertEquals(true, orTest->evaluateAsBool(dummy_));
+    XPathExpression<string_type, string_adaptor> orTest(new impl::OrOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
+    assertEquals(true, orTest.evaluateAsBool(dummy_));
   } // test2
 
   void test3()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> orTest(new impl::OrOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
-    assertEquals(true, orTest->evaluateAsBool(dummy_));
+    XPathExpression<string_type, string_adaptor> orTest(new impl::OrOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
+    assertEquals(true, orTest.evaluateAsBool(dummy_));
   } // test3
 
   void test4()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> orTest(new impl::OrOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
-    assertEquals(true, orTest->evaluateAsBool(dummy_));
+    XPathExpression<string_type, string_adaptor> orTest(new impl::OrOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
+    assertEquals(true, orTest.evaluateAsBool(dummy_));
   } // test4
 
   void test5()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> andTest(new impl::AndOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
-    assertEquals(false, andTest->evaluateAsBool(dummy_));
+    XPathExpression<string_type, string_adaptor> andTest(new impl::AndOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(false)));
+    assertEquals(false, andTest.evaluateAsBool(dummy_));
   } // test5
 
   void test6()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> andTest(new impl::AndOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
-    assertEquals(false, andTest->evaluateAsBool(dummy_));
+    XPathExpression<string_type, string_adaptor> andTest(new impl::AndOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(false), new BoolValue<string_type, string_adaptor>(true)));
+    assertEquals(false, andTest.evaluateAsBool(dummy_));
   } // test6
 
   void test7()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> andTest(new impl::AndOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
-    assertEquals(false, andTest->evaluateAsBool(dummy_));
+    XPathExpression<string_type, string_adaptor> andTest(new impl::AndOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(false)));
+    assertEquals(false, andTest.evaluateAsBool(dummy_));
   } // test7
 
   void test8()
   {
     using namespace Arabica::XPath;
-    XPathExpressionPtr<string_type, string_adaptor> andTest(new impl::AndOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
-    assertEquals(true, andTest->evaluateAsBool(dummy_));
+    XPathExpression<string_type, string_adaptor> andTest(new impl::AndOperator<string_type, string_adaptor>(new BoolValue<string_type, string_adaptor>(true), new BoolValue<string_type, string_adaptor>(true)));
+    assertEquals(true, andTest.evaluateAsBool(dummy_));
   } // test8
 
 private:

@@ -13,7 +13,7 @@ namespace impl
 {
 
 template<class function_type, class string_type, class string_adaptor>
-XPathFunction<string_type, string_adaptor>* CreateFn(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs) { return new function_type(argExprs); }
+XPathFunction<string_type, string_adaptor>* CreateFn(const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs) { return new function_type(argExprs); }
 
 template<class string_type, class string_adaptor>
 class FunctionHolder : public XPathExpression_impl<string_type, string_adaptor>
@@ -37,7 +37,7 @@ public:
 
   static FunctionHolder* createFunction(const string_type& namespace_uri,
                                         const string_type& name, 
-                                        const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs,
+                                        const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs,
                                         const CompilationContext<string_type, string_adaptor>& context)
   {
     if(string_adaptor::empty(namespace_uri))
@@ -66,7 +66,7 @@ public:
 private:
   XPathFunction<string_type, string_adaptor>* func_;
 
-  typedef XPathFunction<string_type, string_adaptor>* (*CreateFnPtr)(const std::vector<XPathExpressionPtr<string_type, string_adaptor> >& argExprs);
+  typedef XPathFunction<string_type, string_adaptor>* (*CreateFnPtr)(const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs);
 
   struct NamedFunction { const char* name; CreateFnPtr creator; };
 

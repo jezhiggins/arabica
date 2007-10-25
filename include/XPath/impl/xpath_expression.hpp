@@ -50,25 +50,117 @@ private:
   XPathExpression_impl& operator=(const XPathExpression_impl&);
 }; // class XPathExpression_impl
 
+template<class string_type, class string_adaptor> class XPathExpressionPtr;
+
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
-class XPathExpressionPtr
+class XPathExpression
 { 
 public:
-  XPathExpressionPtr() : ptr_() { }
-  explicit XPathExpressionPtr(XPathExpression_impl<string_type, string_adaptor>* xp) : ptr_(xp) { }
-  XPathExpressionPtr(const XPathExpressionPtr& rhs) : ptr_(rhs.ptr_) { }
-  XPathExpressionPtr& operator=(const XPathExpressionPtr& rhs)
+  XPathExpression() : ptr_() { }
+  explicit XPathExpression(XPathExpression_impl<string_type, string_adaptor>* xp) : ptr_(xp) { }
+  XPathExpression(const XPathExpression& rhs) : ptr_(rhs.ptr_) { }
+  XPathExpression& operator=(const XPathExpression& rhs)
   {
     ptr_ = rhs.ptr_;
     return *this;
   } // operator=
 
   const XPathExpression_impl<string_type, string_adaptor>* get() const { return ptr_.get(); }
-  const XPathExpression_impl<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
 
   operator bool() const { return ptr_.get(); }
 
+  XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context) const
+  {
+    return ptr_->evaluate(context);
+  } // evaluate
+
+  bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) const
+  {
+    return ptr_->evaluateAsBool(context);
+  } // evaluateAsBool
+
+  double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) const
+  {
+    return ptr_->evaluateAsNumber(context);
+  } // evaluateAsNumber
+
+  string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) const
+  {
+    return ptr_->evaluateAsString(context);
+  } // evaluateAsString
+
+  NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) const
+  { 
+    return ptr_->evaluate(context).asNodeSet(); 
+  } // evaluateAsNodeSet
+
+
+  XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                                   const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return ptr_->evaluate(context, executionContext);
+  } // evaluate
+
+  bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context,
+                      const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return ptr_->evaluateAsBool(context, executionContext);
+  } // evaluateAsBool
+
+  double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
+                          const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return ptr_->evaluateAsNumber(context, executionContext);
+  } // evaluateAsNumber
+
+  string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context, 
+                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return ptr_->evaluateAsString(context, executionContext);
+  } // evaluateAsString
+
+  NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context, 
+                                                         const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  { 
+    return ptr_->evaluate(context, executionContext).asNodeSet(); 
+  } // evaluateAsNodeSet
+
 private:
+  typedef boost::shared_ptr<const XPathExpression_impl<string_type, string_adaptor> > ExpressionPtr;
+  ExpressionPtr ptr_;
+
+  explicit XPathExpression(ExpressionPtr ptr) : ptr_(ptr) { }
+
+  friend class XPathExpressionPtr<string_type, string_adaptor>;
+}; // class XPathExpression
+
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class XPathExpressionPtr
+{
+public:
+  explicit XPathExpressionPtr() : ptr_() { }
+  explicit XPathExpressionPtr(const XPathExpression_impl<string_type, string_adaptor>* v) : ptr_(v) { }
+  XPathExpressionPtr(const XPathExpression<string_type, string_adaptor>& rhs) : ptr_(rhs.ptr_) { }
+  XPathExpressionPtr(const XPathExpressionPtr& rhs) : ptr_(rhs.ptr_) { }
+  XPathExpressionPtr& operator=(const XPathExpression<string_type, string_adaptor>& rhs)
+  {
+    ptr_ = rhs.ptr_;
+    return *this;
+  } // operator=
+  XPathExpressionPtr& operator=(const XPathExpressionPtr& rhs)
+  {
+    ptr_ = rhs.ptr_;
+    return *this;
+  } // operator=
+
+  const XPathExpression_impl<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
+
+  operator bool() const { return ptr_.get(); }
+  operator XPathExpression<string_type, string_adaptor>() const { return XPathExpression<string_type, string_adaptor>(ptr_); }
+
+private:
+  bool operator==(const XPathExpressionPtr&) const;
+
   typedef boost::shared_ptr<const XPathExpression_impl<string_type, string_adaptor> > ExpressionPtr;
   ExpressionPtr ptr_;
 }; // class XPathExpressionPtr

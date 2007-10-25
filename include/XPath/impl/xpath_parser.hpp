@@ -64,24 +64,24 @@ public:
   {
   } // ~XPath
 
-  XPathExpressionPtr<string_type, string_adaptor> compile(const string_type& xpath) const
+  XPathExpression<string_type, string_adaptor> compile(const string_type& xpath) const
   {
     return do_compile(xpath, &XPath::parse_xpath, expression_factory());
   } // compile
 
-  XPathExpressionPtr<string_type, string_adaptor> compile_expr(const string_type& xpath) const
+  XPathExpression<string_type, string_adaptor> compile_expr(const string_type& xpath) const
   {
     return do_compile(xpath, &XPath::parse_xpath_expr, expression_factory());
   } // compile_expr
 
-  XPathExpressionPtr<string_type, string_adaptor> compile_attribute_value_template(const string_type& xpath) const
+  XPathExpression<string_type, string_adaptor> compile_attribute_value_template(const string_type& xpath) const
   {
     return do_compile(xpath, &XPath::parse_xpath_attribute_value_template, attribute_value_factory());
   } // compile_attribute_value_template
 
   std::vector<MatchExpr<string_type, string_adaptor> > compile_match(const string_type& xpath) const
   {
-    XPathExpressionPtr<string_type, string_adaptor> wrapper = do_compile(xpath, &XPath::parse_xpath_match, match_factory());
+    XPathExpression<string_type, string_adaptor> wrapper = do_compile(xpath, &XPath::parse_xpath_match, match_factory());
     return (static_cast<const impl::MatchExpressionWrapper<string_type, string_adaptor>*>(wrapper.get()))->matches();
   } // compile_match
 
@@ -89,14 +89,14 @@ public:
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
     executionContext.setVariableResolver(getVariableResolver());
-    return compile(xpath)->evaluate(context, executionContext);
+    return compile(xpath).evaluate(context, executionContext);
   } // evaluate
 
   XPathValue<string_type, string_adaptor> evaluate_expr(const string_type& xpath, const DOM::Node<string_type, string_adaptor>& context) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
     executionContext.setVariableResolver(getVariableResolver());
-    return compile_expr(xpath)->evaluate(context, executionContext);
+    return compile_expr(xpath).evaluate(context, executionContext);
   } // evaluate_expr
 
   void setNamespaceContext(const NamespaceContext<string_type, string_adaptor>& namespaceContext) { namespaceContext_.set(namespaceContext); }
@@ -120,7 +120,7 @@ private:
                                                                      impl::CompilationContext<string_type, string_adaptor>& context);
   typedef typename impl::types<string_adaptor>::tree_info_t(XPath::*parserFn)(const string_type& str) const;
 
-  XPathExpressionPtr<string_type, string_adaptor> do_compile(const string_type& xpath, 
+  XPathExpression<string_type, string_adaptor> do_compile(const string_type& xpath, 
                                                              parserFn parser,
                                                              const std::map<int, compileFn>& factory) const
   {
@@ -132,7 +132,7 @@ private:
 
       impl::CompilationContext<string_type, string_adaptor> context(*this, getNamespaceContext(), getFunctionResolver());
       //XPath::dump(ast.trees.begin(), 0);
-      return XPathExpressionPtr<string_type, string_adaptor>(compile_with_factory(ast.trees.begin(), 
+      return XPathExpression<string_type, string_adaptor>(compile_with_factory(ast.trees.begin(), 
                                                                                   ast.trees.end(),
                                                                                   context, 
                                                                                   factory));
@@ -573,10 +573,10 @@ XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_ada
   ++c;
   impl::skipWhitespace<string_adaptor>(c);
 
-  std::vector<XPathExpressionPtr<string_type, string_adaptor> > args;
+  std::vector<XPathExpression<string_type, string_adaptor> > args;
   while(impl::getNodeId<string_adaptor>(c) != impl::RightBracket_id)
   {
-    XPathExpressionPtr<string_type, string_adaptor> arg(XPath<string_type, string_adaptor>::compile_expression(c++, i->children.end(), context));
+    XPathExpression<string_type, string_adaptor> arg(XPath<string_type, string_adaptor>::compile_expression(c++, i->children.end(), context));
     args.push_back(arg);
 
     impl::skipWhitespace<string_adaptor>(c);
@@ -962,10 +962,10 @@ impl::StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::
 template<class string_type, class string_adaptor>
 XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createAttributeValue(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
 {
-  std::vector<XPathExpressionPtr<string_type, string_adaptor> > args;
+  std::vector<XPathExpression<string_type, string_adaptor> > args;
   for(typename impl::types<string_adaptor>::node_iter_t a = i->children.begin(), e = i->children.end(); a != e; ++a)
   {
-    XPathExpressionPtr<string_type, string_adaptor> arg(XPath<string_type, string_adaptor>::compile_attribute_value(a, e, context));
+    XPathExpression<string_type, string_adaptor> arg(XPath<string_type, string_adaptor>::compile_attribute_value(a, e, context));
     args.push_back(arg);
   } // while ...
   // maybe trailing whitespace ...
