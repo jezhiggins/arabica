@@ -188,7 +188,7 @@ public:
   {
     typename AttrList::const_iterator a = std::find_if(attributes_.begin(), attributes_.end(), AttributeNamed(uri, localName));
     if(a != attributes_.end())
-      return static_cast<int>(std::distance(a, attributes_.end()));
+      return static_cast<int>(std::distance(attributes_.begin(), a));
     return -1;
   } // getIndex
 
