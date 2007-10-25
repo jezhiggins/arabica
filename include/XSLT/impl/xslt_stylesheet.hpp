@@ -180,6 +180,8 @@ public:
 
   void applyImports(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
+    StackFrame frame(context);
+
     doApplyTemplates(node, context, current_mode_, current_generation_+1);
   } // applyImports
 
