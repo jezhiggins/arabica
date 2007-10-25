@@ -334,7 +334,7 @@ private:
 
   explicit XPathValue(ValuePtr ptr) : ptr_(ptr) { }
 
-  friend class XPathValuePtr<string_type, string_adaptor> ;
+  friend class XPathValuePtr<string_type, string_adaptor>;
 }; // class XPathValue
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
