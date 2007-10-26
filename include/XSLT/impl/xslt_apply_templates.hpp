@@ -24,7 +24,7 @@ public:
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
-    passParams(node, context);
+    ParamPasser passer(*this, node, context);
 
     if(!has_sort() && select_ == 0)
     {

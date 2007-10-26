@@ -22,8 +22,16 @@ public:
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const 
   {
-    context.passParam(node, *this);
+    name_ = context.passParam(node, *this);
   } // declare
+
+  void unpass(ExecutionContext& context) const
+  {
+    context.unpassParam(name_);
+  } // unpass
+
+private:
+  mutable std::string name_;
 }; // WithParam
 
 class WithParamable
@@ -37,22 +45,55 @@ protected:
   {
   } // ~WithParamable
 
-  void passParams(const DOM::Node<std::string>& node, ExecutionContext& context) const
-  {
-    for(boost::ptr_vector<WithParam>::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
-      s->execute(node, context);
-  } // execute
-
 public:
   void add_with_param(WithParam* withparam)
   {
     withparams_.push_back(withparam);
   } // add_WithParam
 
+private:
+  void passParams(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  {
+    for(boost::ptr_vector<WithParam>::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
+      s->execute(node, context);
+  } // execute
+
+  void unpassParams(ExecutionContext& context) const
+  {
+    for(boost::ptr_vector<WithParam>::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
+      s->unpass(context);
+  } // unpassParams
+
   boost::ptr_vector<WithParam> withparams_;
 
-  friend class PassParam;
+  friend class ParamPasser;
 }; // class WithParamable
+
+class ParamPasser
+{
+public:
+  ParamPasser(const WithParamable& paramable,
+              const DOM::Node<std::string>& node, 
+              ExecutionContext& context) :
+    paramable_(paramable),
+    context_(context)
+  {
+    paramable_.passParams(node, context_);
+  } // ParamPasser
+
+  ~ParamPasser()
+  {
+    paramable_.unpassParams(context_);
+  } // ~ParamPasser
+
+private:
+  const WithParamable& paramable_;
+  ExecutionContext& context_;
+
+  ParamPasser(const ParamPasser&);
+  ParamPasser& operator=(const ParamPasser&);
+  bool operator==(const ParamPasser&) const;
+}; // class ParamPasser
 
 } // namespace XSLT
 } // namespace Arabica

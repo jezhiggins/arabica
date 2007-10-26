@@ -20,8 +20,7 @@ public:
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
-    passParams(node, context);
-
+    ParamPasser passer(*this, node, context);
     context.stylesheet().callTemplate(name_, node, context);
   } // execute
 

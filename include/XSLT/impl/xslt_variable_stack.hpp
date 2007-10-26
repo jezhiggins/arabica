@@ -66,10 +66,17 @@ public:
     params_.front()[clarkName(param)] = param;
   } // topLevelParam
 
-  void passParam(Variable_instance_ptr param)
+  std::string passParam(Variable_instance_ptr param)
   {
-    params_.back()[clarkName(param)] = param;
+    std::string clark_name = clarkName(param);
+    params_.back()[clark_name] = param;
+    return clark_name;
   } // passParam
+
+  void unpassParam(const std::string& name)
+  {
+    params_.back().erase(name);
+  } // unpassParam
 
   void declareParam(Variable_instance_ptr param)
   {

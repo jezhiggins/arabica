@@ -70,7 +70,8 @@ public:
   const Arabica::XPath::ExecutionContext<std::string>& xpathContext() const { return xpathContext_; }
 
   void topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration& param);
-  void passParam(const DOM::Node<std::string>& node, const Variable_declaration& param);
+  std::string passParam(const DOM::Node<std::string>& node, const Variable_declaration& param);
+  void unpassParam(const std::string& name);
   void declareParam(const DOM::Node<std::string>& node, const Variable_declaration& param); 
   void declareVariable(const DOM::Node<std::string>& node, const Variable_declaration& variable); 
   void freezeTopLevel();
@@ -156,12 +157,17 @@ private:
 void ExecutionContext::topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration& param)
 {
   stack_.topLevelParam(VariableClosure::create(param, node, *this));
+} // topLevelParam
+
+std::string ExecutionContext::passParam(const DOM::Node<std::string>& node, const Variable_declaration& param)
+{
+  return stack_.passParam(VariableClosure::create(param, node, *this));
 } // passParam
 
-void ExecutionContext::passParam(const DOM::Node<std::string>& node, const Variable_declaration& param)
+void ExecutionContext::unpassParam(const std::string& name)
 {
-  stack_.passParam(VariableClosure::create(param, node, *this));
-} // passParam
+  stack_.unpassParam(name);
+} // unpassParam
 
 void ExecutionContext::declareParam(const DOM::Node<std::string>& node, const Variable_declaration& param) 
 {
