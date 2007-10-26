@@ -357,10 +357,12 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
       RelativePathPattern = StepPattern >> *((base::SlashSlash | base::Slash) >> StepPattern);
 
       // [5] StepPattern ::= ChildOrAttributeAxisSpecifier NodeTest Predicate* 	
-      StepPattern = ChildOrAttributeAxisSpecifier >> base::NodeTest >> *base::Predicate;
+      StepPattern = ChildOrAttributeAxisSpecifier >> (NodeMatchPattern|base::NodeTest) >> *base::Predicate;
 
       // [6] ChildOrAttributeAxisSpecifier ::= AbbreviatedAxisSpecifier | ('child' | 'attribute') '::'
       ChildOrAttributeAxisSpecifier = ((base::Child | base::Attribute) >> discard_node_d[str_p("::")]) | base::AbbreviatedAxisSpecifier;
+
+      NodeMatchPattern = str_p("node()");
     } // definition
 
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Pattern_id> > const&
@@ -375,6 +377,7 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<RelativePathPattern_id> > RelativePathPattern;
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<StepPattern_id> > StepPattern;
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<ChildOrAttributeAxisSpecifier_id> > ChildOrAttributeAxisSpecifier;
+    boost::spirit::rule<ScannerT, boost::spirit::parser_tag<NodeMatchPattern_id> > NodeMatchPattern;
   }; // definition<ScannerT>
 }; // xpath_grammar_match
 

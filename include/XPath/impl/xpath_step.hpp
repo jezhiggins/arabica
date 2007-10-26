@@ -399,16 +399,17 @@ private:
       case impl::SlashSlash_id:
   	  case impl::SelfSelect_id:
       case impl::ParentSelect_id:
+      case impl::Node_id:
         {
           ++node;
           return new AnyNodeTest<string_type, string_adaptor>();
         } // case Node_id
 
-      case impl::Node_id:
+      case impl::NodeMatchPattern_id:
         {
           ++node;
           return new NodeNodeTest<string_type, string_adaptor>();
-        } // case Node_id
+        } // case NodeMatchPattern_id
 
       case impl::Slash_id:
         return new RootNodeTest<string_type, string_adaptor>();

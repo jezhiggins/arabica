@@ -106,6 +106,7 @@ enum
   RelativePathPattern_id,
   StepPattern_id,
   ChildOrAttributeAxisSpecifier_id,
+  NodeMatchPattern_id,
 
   AttributeValueTemplate_id,
   DoubleLeftCurly_id,

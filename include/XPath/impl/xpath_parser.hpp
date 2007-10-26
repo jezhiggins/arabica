@@ -337,8 +337,8 @@ private:
     factory[impl::NameTest_id] = createSingleMatchStep;
     factory[impl::QName_id] = createSingleMatchStep;
     factory[impl::NCName_id] = createSingleMatchStep;
+    factory[impl::NodeMatchPattern_id] = createSingleMatchStep;
     factory[impl::AnyName_id] = createSingleMatchStep;
-    factory[impl::Node_id] = createSingleMatchStep;
     factory[impl::Text_id] = createSingleMatchStep;
     factory[impl::Comment_id] = createSingleMatchStep;
     factory[impl::ProcessingInstruction_id] = createSingleMatchStep;
@@ -465,6 +465,7 @@ private:
     names[impl::RelativePathPattern_id] = SA::construct_from_utf8("RelativePathPattern");
     names[impl::StepPattern_id] = SA::construct_from_utf8("StepPattern");
     names[impl::ChildOrAttributeAxisSpecifier_id] = SA::construct_from_utf8("ChildOrAttributeAxisSpecifier");
+    names[impl::NodeMatchPattern_id] = SA::construct_from_utf8("node()");
 
     names[impl::AttributeValueTemplate_id] = SA::construct_from_utf8("AttributeValueTemplate");
     names[impl::DoubleLeftCurly_id] = SA::construct_from_utf8("{{");
@@ -820,8 +821,8 @@ double XPath<string_type, string_adaptor>::defaultPriority(typename impl::types<
           return 0;
       }
 
+    case impl::NodeMatchPattern_id:
     case impl::AnyName_id:
-    case impl::Node_id:
     case impl::Text_id:
     case impl::Comment_id:
     case impl::ProcessingInstruction_id:
