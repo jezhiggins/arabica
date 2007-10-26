@@ -25,11 +25,12 @@ public:
   {
     if(callTemplate_ == 0)
     {
-      const std::string& name = atts.getValue("name");
-      if(name == "")
-        throw SAX::SAXException("xsl:call-template must have a name attribute.");
-      if(atts.getLength() > 1)
-        throw SAX::SAXException("xsl:call-template may only have a name attribute.");
+      static const ValueRule rules[] = { { "name", true, 0 },
+                                         { 0, false, 0} };
+    
+      std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
+
+      std::pair<std::string, std::string> name = context_.processQName(attrs["name"]);
 
       callTemplate_ = new CallTemplate(name);
       return;

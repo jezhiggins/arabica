@@ -97,7 +97,10 @@ public:
 
     if(named_templates_.find(templat->name()) != named_templates_.end())
     {
-      std::cerr << "Template named '" << templat->name() << "' already defined" << std::endl;
+      std::cerr << "Template named '";
+      if(!templat->name().first.empty())
+        std::cerr << "{" << templat->name().first << "}";
+      std::cerr << templat->name().second << "' already defined" << std::endl;
       return;
     }
      
@@ -164,14 +167,17 @@ public:
     doApplyTemplates(node, context, mode, 0);
   } // applyTemplates
 
-  void callTemplate(const std::string& name, const DOM::Node<std::string>& node, ExecutionContext& context) const
+  void callTemplate(const std::pair<std::string, std::string>& name, const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
     StackFrame frame(context);
 
     NamedTemplates::const_iterator t = named_templates_.find(name);
     if(t == named_templates_.end())
     {
-      std::cerr << "No template named '" << name << "'.  I should be a compile time-error!" << std::endl;
+      std::cerr << "No template named '"; 
+      if(!name.first.empty())
+        std::cerr << "{" << name.first << "}";
+      std::cerr << name.second << "'.  I should be a compile time-error!" << std::endl;
       return;
     }
      
@@ -281,7 +287,7 @@ private:
   typedef std::vector<MatchTemplate> MatchTemplates;
   typedef std::map<std::string, MatchTemplates> ModeTemplates;
   typedef std::vector<ModeTemplates> TemplateStack;
-  typedef std::map<std::string, Template*> NamedTemplates;
+  typedef std::map<std::pair<std::string, std::string>, Template*> NamedTemplates;
 
   TemplateList all_templates_;
   NamedTemplates named_templates_;

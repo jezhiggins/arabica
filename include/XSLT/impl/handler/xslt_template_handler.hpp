@@ -31,15 +31,19 @@ protected:
     if((atts.getValue("mode") != "") && (match == ""))
       throw SAX::SAXException("xsl:template may not have a mode without a match");
 
+    std::pair<std::string, std::string> name;
+    if(atts.getValue("name") != "")
+      name = context().processQName(atts.getValue("name"));
+
     if(match == "")
-      return new Template(atts.getValue("name"),
-			  atts.getValue("mode"),
-			  atts.getValue("priority"));
+      return new Template(name,
+                  			  atts.getValue("mode"),
+			                    atts.getValue("priority"));
 
     return new Template(context().xpath().compile_match(match),
-			atts.getValue("name"),
-			atts.getValue("mode"),
-			atts.getValue("priority"));
+                  			name,
+			                  atts.getValue("mode"),
+			                  atts.getValue("priority"));
   } // createContainer
 
   virtual bool createChild(const std::string& namespaceURI,
