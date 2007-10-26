@@ -77,7 +77,7 @@ public:
 
     // go!
     output_.get().asOutput().start_document(output_settings_);
-    applyTemplates(ns, context, "");
+    applyTemplates(ns, context, std::pair<std::string, std::string>("", ""));
     output_.get().asOutput().end_document();
   } // execute
 
@@ -134,7 +134,7 @@ public:
   } // prepare
 
   ////////////////////////////////////////
-  void applyTemplates(const Arabica::XPath::NodeSet<std::string>& nodes, ExecutionContext& context, const std::string& mode) const 
+  void applyTemplates(const Arabica::XPath::NodeSet<std::string>& nodes, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const 
   {
     // entirely simple so far
     StackFrame frame(context);
@@ -147,7 +147,7 @@ public:
     }
   } // applyTemplates
 
-  void applyTemplates(const DOM::NodeList<std::string>& nodes, ExecutionContext& context, const std::string& mode) const 
+  void applyTemplates(const DOM::NodeList<std::string>& nodes, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const 
   {
     // entirely simple so far
     StackFrame frame(context);
@@ -159,7 +159,7 @@ public:
     }
   } // applyTemplates
 
-  void applyTemplates(const DOM::Node<std::string>& node, ExecutionContext& context, const std::string& mode) const
+  void applyTemplates(const DOM::Node<std::string>& node, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const
   {
     StackFrame frame(context);
     LastFrame last(context, -1);
@@ -193,9 +193,9 @@ public:
 
 private:
   void doApplyTemplates(const DOM::Node<std::string>& node, 
-			ExecutionContext& context, 
-			const std::string& mode, 
-			int generation) const
+                        ExecutionContext& context, 
+                        const std::pair<std::string, std::string>& mode, 
+                        int generation) const
   {
     current_mode_ = mode;
     current_generation_ = generation;
@@ -218,7 +218,9 @@ private:
     defaultAction(node, context, mode);
   } // doApplyTemplates
 
-  void defaultAction(const DOM::Node<std::string>& node, ExecutionContext& context, const std::string& mode) const
+  void defaultAction(const DOM::Node<std::string>& node, 
+                     ExecutionContext& context, 
+                     const std::pair<std::string, std::string>& mode) const
   {
     switch(node.getNodeType())
     {
@@ -285,7 +287,7 @@ private:
 
   typedef boost::ptr_vector<Template> TemplateList;
   typedef std::vector<MatchTemplate> MatchTemplates;
-  typedef std::map<std::string, MatchTemplates> ModeTemplates;
+  typedef std::map<std::pair<std::string, std::string>, MatchTemplates> ModeTemplates;
   typedef std::vector<ModeTemplates> TemplateStack;
   typedef std::map<std::pair<std::string, std::string>, Template*> NamedTemplates;
 
@@ -295,7 +297,7 @@ private:
   boost::ptr_vector<Item> items_;
   boost::ptr_vector<TopLevelParam> params_;
 
-  mutable std::string current_mode_;
+  mutable std::pair<std::string, std::string> current_mode_;
   mutable int current_generation_;
 
   Output::Settings output_settings_;

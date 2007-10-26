@@ -35,14 +35,18 @@ protected:
     if(atts.getValue("name") != "")
       name = context().processQName(atts.getValue("name"));
 
+    std::pair<std::string, std::string> mode;
+    if(atts.getValue("mode") != "")
+      mode = context().processQName(atts.getValue("mode"));
+
     if(match == "")
       return new Template(name,
-                  			  atts.getValue("mode"),
+                  			  mode,
 			                    atts.getValue("priority"));
 
     return new Template(context().xpath().compile_match(match),
                   			name,
-			                  atts.getValue("mode"),
+			                  mode,
 			                  atts.getValue("priority"));
   } // createContainer
 

@@ -12,7 +12,7 @@ class Template : public ItemContainer
 {
 public:
   Template(const std::pair<std::string, std::string>& name,
-	         const std::string& mode,
+	         const std::pair<std::string, std::string>& mode,
 	         const std::string& priority) :
     matches_(),
     name_(name),
@@ -22,7 +22,7 @@ public:
 
   Template(const std::vector<Arabica::XPath::MatchExpr<std::string> >& matches,
            const std::pair<std::string, std::string>& name,
-           const std::string& mode,
+           const std::pair<std::string, std::string>& mode,
            const std::string& priority) :
     matches_(matches),
     name_(name),
@@ -48,12 +48,12 @@ public:
   const std::vector<Arabica::XPath::MatchExpr<std::string> >& compiled_matches() const { return matches_; }
   bool has_name() const { return !name_.second.empty(); }
   const std::pair<std::string, std::string>& name() const { return name_; }
-  const std::string& mode() const { return mode_; }
+  const std::pair<std::string, std::string>& mode() const { return mode_; }
 
 private:
   std::vector<Arabica::XPath::MatchExpr<std::string> > matches_;
   std::pair<std::string, std::string> name_;
-  std::string mode_;
+  std::pair<std::string, std::string> mode_;
 }; // class Template
 
 } // namespace XSLT
