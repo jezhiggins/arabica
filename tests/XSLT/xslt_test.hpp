@@ -180,6 +180,7 @@ protected:
     if(ref == 0)
       assertImplementation(false, "Couldn't read " + output_xml_ + ". Perhaps it isn't well-formed XML?");
     Arabica::DOM::Node<std::string> out = output.node();
+    out.normalize();
 
     std::string refs = docToString(ref.getFirstChild());
     std::string outs = docToString(out.getFirstChild());
@@ -191,7 +192,7 @@ protected:
       std::string refs2 = docToString(ref.getFirstChild());
       std::string outs2 = docToString(out.getFirstChild());
       if(refs2 != outs2)
-        assertImplementation(false, "Expected:\n" + refs + "\nbut got:\n" + outs);
+        assertImplementation(false, "Expected:\n" + refs + "\nbut got:\n" + outs + "\n        :\n" + refs2 + "\nbut 2  :\n" + outs2);
     }
   } // runTest
 
@@ -209,11 +210,12 @@ protected:
     {
       Arabica::DOM::Node<std::string> t = textNodes[i];
       std::string text = t.getNodeValue();
-      size_t index = text.find_first_of(" \n");
+      text = Arabica::text::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(text);
+      size_t index = text.find_first_of(" ");
       while(index != std::string::npos)
       {
         text.replace(index, 1, "");
-        index = text.find_first_of(" \n");
+        index = text.find_first_of(" ");
       }
       t.setNodeValue(text);
     }
