@@ -55,6 +55,12 @@ public:
     params_.push_back(Scope());
 	} // pushScope
 
+  void chainScope()
+  {
+    stack_.push_back(Scope(stack_.back()));
+    params_.push_back(Scope(params_.back()));
+  } // chainsScope
+
 	void popScope()
 	{
     params_.pop_back();

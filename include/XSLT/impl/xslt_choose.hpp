@@ -59,6 +59,7 @@ public:
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
+    ChainStackFrame frame(context);
     for(boost::ptr_vector<When>::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
       if(w->is_met(node, context))
       {

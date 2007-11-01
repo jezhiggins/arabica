@@ -31,6 +31,7 @@ public:
     LastFrame last(context, nodes.size());
     for(size_t n = 0, e = nodes.size(); n != e; ++n)
     {
+      ChainStackFrame frame(context);
       context.setPosition(nodes[n], n+1);
       execute_children(nodes[n], context);
     } // for ...

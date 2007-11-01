@@ -20,6 +20,7 @@ public:
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
+    ChainStackFrame frame(context);
     if(test_->evaluateAsBool(node, context.xpathContext()))
       execute_children(node, context);
   } // execute

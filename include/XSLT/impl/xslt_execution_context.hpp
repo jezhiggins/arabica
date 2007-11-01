@@ -93,6 +93,7 @@ public:
 
 private:
   void pushStackFrame() { stack_.pushScope(); }
+  void chainStackFrame() { stack_.chainScope(); }
   void popStackFrame() { stack_.popScope(); }
 
 private:
@@ -104,6 +105,7 @@ private:
   bool to_msg_;
 
   friend class StackFrame;
+  friend class ChainStackFrame;
 }; // class ExecutionContext
 
 ///////////////////////////
@@ -203,6 +205,20 @@ private:
   StackFrame& operator=(const StackFrame&);
   bool operator==(const StackFrame&) const;
 }; // class StackFrame
+
+class ChainStackFrame
+{
+public:
+  ChainStackFrame(ExecutionContext& context) : context_(context) { context_.chainStackFrame(); }
+  ~ChainStackFrame() { context_.popStackFrame(); }
+
+private:
+  ExecutionContext& context_;
+
+  ChainStackFrame(const ChainStackFrame&);
+  ChainStackFrame& operator=(const ChainStackFrame&);
+  bool operator==(const ChainStackFrame&) const;
+}; // class ChainStackFrame
 
 ///////////////////////////
 class LastFrame
