@@ -35,7 +35,56 @@
   <test-case id="message_message14" compiles="no"/>
   <test-case id="message_message15" compiles="no"/>
   <test-case id="namedtemplate_namedtemplate12" compiles="no"/>
+  <test-case id="output_output01" skip="yes" reason="HTML output"/>
+  <test-case id="output_output02" skip="yes" reason="HTML output"/>
+  <test-case id="output_output03" skip="yes" reason="HTML output"/>
+  <test-case id="output_output04" skip="yes" reason="HTML output"/>
+  <test-case id="output_output05" skip="yes" reason="HTML output"/>
+  <test-case id="output_output06" skip="yes" reason="HTML output"/>
+  <test-case id="output_output08" skip="yes" reason="HTML output"/>
+  <test-case id="output_output09" skip="yes" reason="HTML output"/>
+  <test-case id="output_output10" skip="yes" reason="HTML output"/>
+  <test-case id="output_output16" skip="yes" reason="HTML output"/>
+  <test-case id="output_output17" skip="yes" reason="HTML output"/>
+  <test-case id="output_output18" skip="yes" reason="HTML output"/>
+  <test-case id="output_output20" skip="yes" reason="SHIFT_JIS encoding"/>
+  <test-case id="output_output21" skip="yes" reason="BIG5 encoding"/>
+  <test-case id="output_output22" skip="yes" reason="EBCDIC_CP_IT encoding"/>
+  <test-case id="output_output23" skip="yes" reason="ISO-2022-JP encoding"/>
+  <test-case id="output_output25" skip="yes" reason="Text output"/>
+  <test-case id="output_output26" skip="yes" reason="Text output"/>
+  <test-case id="output_output32" skip="yes" reason="HTML output"/>
+  <test-case id="output_output33" skip="yes" reason="HTML output"/>
+  <test-case id="output_output34" skip="yes" reason="HTML output"/>
+  <test-case id="output_output35" skip="yes" reason="HTML output"/>
+  <test-case id="output_output36" skip="yes" reason="HTML output"/>
+  <test-case id="output_output37" skip="yes" reason="HTML output"/>
+  <test-case id="output_output38" skip="yes" reason="HTML output"/>
+  <test-case id="output_output39" skip="yes" reason="HTML output"/>
+  <test-case id="output_output40" skip="yes" reason="HTML output"/>
+  <test-case id="output_output47" skip="yes" reason="HTML output"/>
+  <test-case id="output_output48" skip="yes" reason="HTML output"/>
+  <test-case id="output_output49" skip="yes" reason="HTML output"/>
+  <test-case id="output_output50" skip="yes" reason="HTML output"/>
+  <test-case id="output_output52" skip="yes" reason="HTML output"/>
+  <test-case id="output_output58" skip="yes" reason="Output has no root element"/>
+  <test-case id="output_output59" skip="yes" reason="HTML output"/>
+  <test-case id="output_output60" skip="yes" reason="HTML output"/>
+  <test-case id="output_output61" skip="yes" reason="Output is not well formed"/>
+  <test-case id="output_output62" skip="yes" reason="HTML output"/>
+  <test-case id="output_output63" skip="yes" reason="HTML output"/>
+  <test-case id="output_output70" skip="yes" reason="HTML output"/>
+  <test-case id="output_output73" skip="yes" reason="HTML output"/>
+  <test-case id="output_output74" skip="yes" reason="HTML output"/>
+  <test-case id="output_output75" skip="yes" reason="Output is not well formed"/>
+  <test-case id="output_output76" skip="yes" reason="Text output"/>
   <test-case id="output_output80" skip="yes" reason="Segfaults at the moment.  Encoding problem, I think"/>
+  <test-case id="output_output86" skip="yes" reason="Text output"/>
+  <test-case id="output_output109" skip="yes" reason="Text output"/>
+  <test-case id="output_output110" skip="yes" reason="Text output"/>
+  <test-case id="output_output111" skip="yes" reason="Text output"/>
+  <test-case id="output_output112" skip="yes" reason="Text output"/>
+  <test-case id="output_output113" skip="yes" reason="Text output"/>
   <test-case id="position_position05" compiles="no"/>
   <test-case id="position_position07" compiles="no"/>
   <test-case id="position_position42" compiles="no"/>
