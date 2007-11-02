@@ -190,7 +190,12 @@ public:
       return;
 
     if(!text_mode_)
-      do_comment(buffer_.str());
+    {
+      std::string comment = escape(buffer_.str(), "--", "- -");
+      if(*(comment.rbegin()) == '-')
+        comment.append(" ");
+      do_comment(comment);
+    } // if ...
   } // end_comment
 
   void start_processing_instruction(const std::string& target)
@@ -209,7 +214,10 @@ public:
       return;
 
     if(!text_mode_)
-      do_processing_instruction(name_, buffer_.str());
+    {
+      std::string data = escape(buffer_.str(), "?>", "? >");
+      do_processing_instruction(name_, data);
+    } // if ...
   } // end_processing_instruction
 
   void disableOutputEscaping(bool disable)
@@ -230,6 +238,17 @@ protected:
   virtual bool want_namespace_declarations() const = 0;
 
 private:
+  std::string escape(std::string str, const std::string& t, const std::string& r) const
+  {
+    std::string::size_type naughty = str.find(t);
+    while(naughty != std::string::npos)
+    {
+      str.replace(naughty, t.length(), r, 0, r.length());
+      naughty = str.find(t, naughty);
+    } // while
+    return str;
+  } // escape
+
   bool push_buffering()
   {
     bool is_buf = is_buffering();
