@@ -53,6 +53,7 @@
   <test-case id="output_output23" skip="yes" reason="ISO-2022-JP encoding"/>
   <test-case id="output_output25" skip="yes" reason="Text output"/>
   <test-case id="output_output26" skip="yes" reason="Text output"/>
+  <test-case id="output_output28" skip="yes" reason="US ASCII encoding"/>
   <test-case id="output_output32" skip="yes" reason="HTML output"/>
   <test-case id="output_output33" skip="yes" reason="HTML output"/>
   <test-case id="output_output34" skip="yes" reason="HTML output"/>
