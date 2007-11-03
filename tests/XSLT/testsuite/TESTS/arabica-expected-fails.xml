@@ -1,23 +1,23 @@
 <test-suite>
-  <test-case id="attribvaltemplate_attribvaltemplate08" skip="yes" reason="HTML output, with an entity."/>
-  <test-case id="axes_axes59" compiles="no"/>
-  <test-case id="axes_axes113" compiles="no"/>
-  <test-case id="boolean_boolean08" compiles="no"/>
-  <test-case id="conflictres_conflictres24" compiles="no"/>
-  <test-case id="copy_copy16" compiles="no"/>
+  <test-case id="attribvaltemplate_attribvaltemplate08" skip="yes" reason="HTML output"/>
+  <test-case id="axes_axes59" compiles="no" reason="Needs xsl:number"/>
+  <test-case id="axes_axes113" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="boolean_boolean08" compiles="no" reason="Needs lang"/>
+  <test-case id="conflictres_conflictres24" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="copy_copy16" compiles="no" reason="Needs id"/>
   <test-case id="copy_copy19" skip="yes" reason="External entity.  ISO-8859-1 output."/>
   <test-case id="copy_copy20" skip="yes" reason="External entity."/>
   <test-case id="copy_copy21" skip="yes" reason="External entity in source."/>
   <test-case id="copy_copy22" skip="yes" reason="External entity in source.  ISO-8859-1 output."/>
-  <test-case id="copy_copy30" compiles="no"/>
+  <test-case id="copy_copy30" compiles="no" reason="Needs xsl:key"/>
   <test-case id="copy_copy38" skip="yes" reason="HTML output"/>
-  <test-case id="copy_copy40" compiles="no"/>
-  <test-case id="expression_expression01" compiles="no"/>
-  <test-case id="expression_expression02" compiles="no"/>
-  <test-case id="expression_expression03" compiles="no"/>
-  <test-case id="expression_expression04" compiles="no"/>
-  <test-case id="expression_expression05" compiles="no"/>
-  <test-case id="expression_expression06" compiles="no"/>
+  <test-case id="copy_copy40" compiles="no" reason="Needs xsl:key"/>
+  <test-case id="expression_expression01" compiles="no" reason="Needs lang"/>
+  <test-case id="expression_expression02" compiles="no" reason="Needs unparsed-entity-uri"/>
+  <test-case id="expression_expression03" compiles="no" reason="Needs lang"/>
+  <test-case id="expression_expression04" compiles="no" reason="Needs lang"/>
+  <test-case id="expression_expression05" compiles="no" reason="Needs lang"/>
+  <test-case id="expression_expression06" compiles="no" reason="Needs lang"/>
   <test-case id="extend_extend01" compiles="no"/>
   <test-case id="extend_extend02" compiles="no"/>
   <test-case id="extend_extend03" compiles="no"/>
@@ -53,8 +53,8 @@
   <test-case id="output_output21" skip="yes" reason="BIG5 encoding"/>
   <test-case id="output_output22" skip="yes" reason="EBCDIC_CP_IT encoding"/>
   <test-case id="output_output23" skip="yes" reason="ISO-2022-JP encoding"/>
-  <test-case id="output_output25" skip="yes" reason="Text output"/>
-  <test-case id="output_output26" skip="yes" reason="Text output"/>
+  <test-case id="output_output25" compare="text" reason="Text output"/>
+  <test-case id="output_output26" skip="yes" reason="ISO-8859-1 encoding"/>
   <test-case id="output_output28" skip="yes" reason="US ASCII encoding"/>
   <test-case id="output_output32" skip="yes" reason="HTML output"/>
   <test-case id="output_output33" skip="yes" reason="HTML output"/>
@@ -70,10 +70,10 @@
   <test-case id="output_output49" skip="yes" reason="HTML output"/>
   <test-case id="output_output50" skip="yes" reason="HTML output"/>
   <test-case id="output_output52" skip="yes" reason="HTML output"/>
-  <test-case id="output_output58" skip="yes" reason="Output has no root element"/>
+  <test-case id="output_output58" compare="text" reason="Output has no root element"/>
   <test-case id="output_output59" skip="yes" reason="HTML output"/>
   <test-case id="output_output60" skip="yes" reason="HTML output"/>
-  <test-case id="output_output61" skip="yes" reason="Output is not well formed"/>
+  <test-case id="output_output61" compare="text" reason="Output is not well formed"/>
   <test-case id="output_output62" skip="yes" reason="HTML output"/>
   <test-case id="output_output63" skip="yes" reason="HTML output"/>
   <test-case id="output_output64" compare="text" reason="Checking DTD in output"/>
@@ -81,16 +81,16 @@
   <test-case id="output_output70" skip="yes" reason="HTML output"/>
   <test-case id="output_output73" skip="yes" reason="HTML output"/>
   <test-case id="output_output74" skip="yes" reason="HTML output"/>
-  <test-case id="output_output75" skip="yes" reason="Output is not well formed"/>
-  <test-case id="output_output76" skip="yes" reason="Text output"/>
+  <test-case id="output_output75" compare="text" reason="Output is not well formed"/>
+  <test-case id="output_output76" compare="text" reason="Text output"/>
   <test-case id="output_output80" skip="yes" reason="Segfaults at the moment.  Encoding problem, I think"/>
 	<test-case id="output_output82" compare="text" reason="Checking DTD in output"/>
-  <test-case id="output_output86" skip="yes" reason="Text output"/>
-  <test-case id="output_output109" skip="yes" reason="Text output"/>
-  <test-case id="output_output110" skip="yes" reason="Text output"/>
-  <test-case id="output_output111" skip="yes" reason="Text output"/>
-  <test-case id="output_output112" skip="yes" reason="Text output"/>
-  <test-case id="output_output113" skip="yes" reason="Text output"/>
+  <test-case id="output_output86" skip="yes" reason="ISO-8859-1 Encoding"/>
+  <test-case id="output_output109" compare="text" reason="Text output"/>
+  <test-case id="output_output110" compare="text" reason="Text output"/>
+  <test-case id="output_output111" compare="text" reason="Text output"/>
+  <test-case id="output_output112" compare="text" reason="Text output"/>
+  <test-case id="output_output113" compare="text" reason="Text output"/>
   <test-case id="position_position05" compiles="no"/>
   <test-case id="position_position07" compiles="no"/>
   <test-case id="position_position42" compiles="no"/>
@@ -109,22 +109,22 @@
   <test-case id="processorinfo_processorinfo03" skip="yes" reason="Expects Xalan URI in result"/>
   <test-case id="reluri_reluri10" runs="no"/>
   <test-case id="reluri_reluri11" runs="no"/>
-  <test-case id="select_select07" skip="yes" reason="Text output"/>
+  <test-case id="select_select07" compare="text" reason="Text output"/>
   <test-case id="select_select54" compiles="no"/>
   <test-case id="select_select55" compiles="no"/>
   <test-case id="select_select59" compiles="no"/>
   <test-case id="select_select64" compiles="no"/>
   <test-case id="select_select74" skip="yes" reason="HTML output"/>
   <test-case id="sort_sort08" skip="yes" reason="Test case is bad.  Xalan sorts % ahead of space.  Others, including comment in test data, disagree."/>
-  <test-case id="sort_sort22" skip="yes" reason="Text output"/>
-  <test-case id="sort_sort23" skip="yes" reason="Text output"/>
-  <test-case id="sort_sort24" skip="yes" reason="Text output"/>
-  <test-case id="sort_sort25" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort22" compare="text" reason="Text output"/>
+  <test-case id="sort_sort23" compare="text" reason="Text output"/>
+  <test-case id="sort_sort24" compare="text" reason="Text output"/>
+  <test-case id="sort_sort25" compare="text" reason="Text output"/>
   <test-case id="sort_sort27" skip="yes" reason="Test case is bad.  Xalan regards leading whitespace as insignificant.  Everyone else disagrees."/>
-  <test-case id="sort_sort30" skip="yes" reason="Text output"/>
-  <test-case id="sort_sort31" skip="yes" reason="Text output"/>
-  <test-case id="sort_sort35" skip="yes" reason="Text output"/>
-  <test-case id="sort_sort37" skip="yes" reason="Text output"/>
+  <test-case id="sort_sort30" compare="text" reason="Text output"/>
+  <test-case id="sort_sort31" compare="text" reason="Text output"/>
+  <test-case id="sort_sort35" compare="text" reason="Text output"/>
+  <test-case id="sort_sort37" compare="text" reason="Text output"/>
   <test-case id="string_string13" compiles="no"/>
   <test-case id="string_string106" compiles="no"/>
   <test-case id="string_string108" compiles="no"/>
