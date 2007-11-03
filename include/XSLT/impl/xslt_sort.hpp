@@ -165,7 +165,7 @@ protected:
     }
 
     sort_->set_context(node, context);
-    std::sort(nodes.begin(), nodes.end(), SortP(*sort_));
+    std::stable_sort(nodes.begin(), nodes.end(), SortP(*sort_));
   } // sort
 
   bool has_sort() const { return sort_ != 0; }
