@@ -13,22 +13,21 @@ void TextTestResult::addError (Test *test, CppUnitException *e)
 {
     TestResult::addError (test, e);
     if(verbose_)
-      cerr << "E" << endl;
-
+      cerr << "E";
 }
 
 void TextTestResult::addFailure (Test *test, CppUnitException *e)
 {
     TestResult::addFailure (test, e);
     if(verbose_)
-      cerr << "F" << endl;
+      cerr << "F";
 }
 
 void TextTestResult::addSkip (Test *test, CppUnitException *e)
 {
   TestResult::addSkip (test, e);
   if(verbose_)
-    cerr << "S" << endl;
+    cerr << "S";
 }
 
 void TextTestResult::startTest (Test *test)
