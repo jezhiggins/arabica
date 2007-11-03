@@ -5,6 +5,7 @@
 #include <DOM/SAX2DOM/SAX2DOM.hpp>
 #include <DOM/io/Stream.hpp>
 #include <XSLT/XSLT.hpp>
+#include <fstream>
 
 #ifdef ARABICA_WINDOWS
 const std::string PATH_PREFIX="../tests/XSLT/testsuite/TESTS/";
@@ -26,6 +27,12 @@ Arabica::DOM::Document<std::string> buildDOM(const std::string& filename)
     d.normalize();
   return d;
 } // buildDOM
+
+std::string readFile(const std::string& filename)
+{
+  std::ifstream in(filename.c_str());
+  return std::string(std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>());
+} // readFile
 
 Arabica::XPath::NodeSet<std::string> selectNodes(const std::string& path, const Arabica::DOM::Node<std::string>& node)
 {
@@ -138,6 +145,101 @@ private:
   std::string input_xslt_;
 }; // RunFailsTest
 
+class CompareAsTextXSLTTest : public TestCase
+{
+public:
+  CompareAsTextXSLTTest(const std::string& name,
+                        const std::string& input_xml,
+                        const std::string& input_xslt,
+                        const std::string& output_xml) :
+    TestCase(name),
+    input_xml_(input_xml),
+    input_xslt_(input_xslt),
+    output_xml_(output_xml)
+  {
+  } // CompareAsTextXSLTTest
+
+protected:
+  virtual void runTest()
+  {
+    Arabica::XSLT::StylesheetCompiler compiler;
+
+    Arabica::SAX::InputSource<std::string> source(input_xslt_);
+    std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
+    if(stylesheet.get() == 0)
+      assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
+
+    std::ostringstream xml_output;
+    Arabica::XSLT::StreamSink output(xml_output);
+    stylesheet->set_output(output);
+
+    std::ostringstream errors;
+    stylesheet->set_error_output(errors);
+
+    Arabica::DOM::Document<std::string> document = buildDOM(input_xml_);
+    try {
+      stylesheet->execute(document);
+    }
+    catch(const std::exception& e) {
+      assertImplementation(false, "Failed to run " + input_xslt_ + " : " + e.what());
+    } // catch
+
+    std::string ref = readFile(output_xml_);
+    std::string out = xml_output.str();
+
+    if(ref == out)
+      return;
+
+    std::string refs = trimXMLDecl(ref);
+    std::string outs = trimXMLDecl(out);
+
+    if(refs == outs)
+      return;
+
+    refs = stripWhitespace(refs);
+    outs = stripWhitespace(outs);
+    
+    if(refs == outs)
+      return;
+
+    assertImplementation(false, "Expected text:\n" + ref + "\nbut got:\n" + out + "\n" + refs + "\nbut got:" + outs + "\n=====");
+  } // runTest
+
+private:
+  std::string stripWhitespace(const std::string& str)
+  {
+    std::string s = Arabica::text::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(str);
+    
+    std::string::size_type i = s.find("> ");
+    while(i != std::string::npos)
+    {
+      s.erase(i+1, 1); 
+      i = s.find("> ");
+    } // while ..
+
+    i = s.find(" <");
+    while(i != std::string::npos)
+    {
+      s.erase(i, 1);
+      i = s.find(" <");
+    } // while ..
+
+    return s;
+  } // stripWhitespace
+  
+  std::string trimXMLDecl(const std::string& str)
+  {
+    if(str.find("<?") != 0)
+      return str;
+
+    return str.substr(str.find("?>") + 2);
+  } // trimXMLDecl
+
+  std::string input_xml_;
+  std::string input_xslt_;
+  std::string output_xml_;
+}; // class CompareAsTextXSLTTest
+
 class StandardXSLTTest : public TestCase
 {
 public:
@@ -153,7 +255,7 @@ public:
   } // StandardXSLTTest
 
 protected:
-  virtual void  runTest()
+  virtual void runTest()
   {
     Arabica::XSLT::StylesheetCompiler compiler;
 
@@ -185,15 +287,18 @@ protected:
     std::string refs = docToString(ref.getFirstChild());
     std::string outs = docToString(out.getFirstChild());
 
-    if(refs != outs)
-    {
-      stripWhitespace(ref);
-      stripWhitespace(out);
-      std::string refs2 = docToString(ref.getFirstChild());
-      std::string outs2 = docToString(out.getFirstChild());
-      if(refs2 != outs2)
-        assertImplementation(false, "Expected:\n" + refs + "\nbut got:\n" + outs + "\n        :\n" + refs2 + "\nbut 2  :\n" + outs2);
-    }
+    if(refs == outs)
+      return;
+
+    stripWhitespace(ref);
+    stripWhitespace(out);
+    std::string refs2 = docToString(ref.getFirstChild());
+    std::string outs2 = docToString(out.getFirstChild());
+
+    if(refs2 == outs2)
+      return;
+
+    assertImplementation(false, "Expected:\n" + refs + "\nbut got:\n" + outs);
   } // runTest
 
   std::string docToString(Arabica::DOM::Node<std::string> node)
@@ -240,6 +345,7 @@ public:
       std::string runs = selectString("@runs", failcases[i]);
       std::string skip = selectString("@skip", failcases[i]);
       std::string reason = selectString("@reason", failcases[i]);
+      std::string compare = selectString("@compare",  failcases[i]);
 
       if(compiles == "no")
         fails[name] = "compile";
@@ -250,6 +356,8 @@ public:
         fails[name] = "skip";
         skips[name] = reason;
       }
+      else if(compare == "text")
+        fails[name] = "text";
     } // for ...
   } 
 
@@ -296,6 +404,11 @@ TestSuite* XSLTTest_suite(const std::string& path)
                                              make_path(path, input_xslt)));
     else if(expected.Fails()[name] == "skip")
       suiteOfTests->addTest(new SkipTest(name, expected.Skips()[name]));
+    else if(expected.Fails()[name] == "text")
+      suiteOfTests->addTest(new CompareAsTextXSLTTest(name, 
+                                                      make_path(path, input_xml),
+                                                      make_path(path, input_xslt),
+                                                      make_path(out_path, output_xml)));
   } // for ...
 
 	return suiteOfTests;
