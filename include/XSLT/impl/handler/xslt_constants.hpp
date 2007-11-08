@@ -8,13 +8,13 @@ namespace XSLT
 
 struct StylesheetConstant
 {
-  static const std::string NamespaceURI()
+  static const std::string& NamespaceURI()
   {
     static std::string namespaceURI = "http://www.w3.org/1999/XSL/Transform";
     return namespaceURI;
   } // XSLTNamespaceURI
 
-  static const std::string Version()
+  static const std::string& Version()
   {
     static std::string version = "1.0";
     return version;
