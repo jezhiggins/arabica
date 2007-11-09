@@ -7,6 +7,11 @@
 #include <XSLT/XSLT.hpp>
 #include <fstream>
 
+#include <elephant/newdelete.h>
+#include <elephant/memorymonitorholder.h>
+#include <elephant/leakdetector.h>
+#include <elephant/leakdisplayfunc.h>
+
 #ifdef ARABICA_WINDOWS
 const std::string PATH_PREFIX="../tests/XSLT/testsuite/TESTS/";
 const std::string SEPERATOR = "/";
@@ -80,9 +85,11 @@ class CompileFailsTest : public TestCase
 {
 public:
   CompileFailsTest(const std::string& name,
-                   const std::string& input_xslt) :
+                   const std::string& input_xslt,
+                   const std::string& reason) :
     TestCase(name),
-    input_xslt_(input_xslt)
+    input_xslt_(input_xslt),
+    reason_(reason)
   {
   } // CompileFailsTest
 
@@ -95,11 +102,12 @@ protected:
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
     if(stylesheet.get() != 0)
       assertImplementation(false, "Expected " + input_xslt_ + " not to compile.  But it did :o");
-    throw SkipException(compiler.error());
+    throw SkipException(reason_ + " : " + compiler.error());
   } // runTest
 
 private:
   std::string input_xslt_;
+  std::string reason_;
 }; // CompileFailsTest
 
 class RunFailsTest : public TestCase
@@ -107,10 +115,12 @@ class RunFailsTest : public TestCase
 public:
   RunFailsTest(const std::string& name,
                const std::string& input_xml,
-               const std::string& input_xslt) :
+               const std::string& input_xslt,
+               const std::string& reason) :
     TestCase(name),
     input_xml_(input_xml),
-    input_xslt_(input_xslt)
+    input_xslt_(input_xslt),
+    reason_(reason)
   {
   } // RunFailsTest
 
@@ -135,7 +145,7 @@ protected:
       stylesheet->execute(document);
     }
     catch(const std::exception& e) {
-      throw SkipException(e.what());
+      throw SkipException(reason_ + " : " + e.what());
     }
     assertImplementation(false, "Expected " + input_xslt_ + " to fail to execute.  But it did :o");
   } // runTest
@@ -143,6 +153,7 @@ protected:
 private:
   std::string input_xml_;
   std::string input_xslt_;
+  std::string reason_;
 }; // RunFailsTest
 
 class CompareAsTextXSLTTest : public TestCase
@@ -352,27 +363,37 @@ public:
       else if(runs == "no")
         fails[name] = "run";
       else if(skip == "yes")
-      {
         fails[name] = "skip";
-        skips[name] = reason;
-      }
       else if(compare == "text")
         fails[name] = "text";
+      reasons[name] = reason;
     } // for ...
   } 
 
   std::map<std::string, std::string>& Fails() { return fails; }
-  std::map<std::string, std::string>& Skips() { return skips; }
+  std::map<std::string, std::string>& Reasons() { return reasons; }
 
 private:
   std::map<std::string, std::string> fails;
-  std::map<std::string, std::string> skips;
+  std::map<std::string, std::string> reasons;
 };
 
 static Expected expected;
 
 TestSuite* XSLTTest_suite(const std::string& path)
 {
+//#define new ELEPHANTNEW
+//  using namespace elephant;
+//  LeakDetector leakDetector;
+//  MemoryMonitorHolder().Instance().AddObserver(&leakDetector);
+//
+//  poo();
+//
+//  MemoryMonitorHolder().Instance().RemoveObserver(&leakDetector);
+//  LeakDisplayFunc leakDisplay(std::cout);
+//  std::for_each(leakDetector.begin(), leakDetector.end(), leakDisplay);
+//#undef new
+
   static Arabica::DOM::Document<std::string> catalog = buildDOM(PATH_PREFIX  + "catalog.xml");
   
   TestSuite *suiteOfTests = new TestSuite;
@@ -397,13 +418,15 @@ TestSuite* XSLTTest_suite(const std::string& path)
                                                  make_path(out_path, output_xml)));
     else if(expected.Fails()[name] == "compile") 
       suiteOfTests->addTest(new CompileFailsTest(name, 
-                                                 make_path(path, input_xslt)));
+                                                 make_path(path, input_xslt),
+                                                 expected.Reasons()[name]));
     else if(expected.Fails()[name] == "run")
       suiteOfTests->addTest(new RunFailsTest(name, 
                                              make_path(path, input_xml), 
-                                             make_path(path, input_xslt)));
+                                             make_path(path, input_xslt),
+                                             expected.Reasons()[name]));
     else if(expected.Fails()[name] == "skip")
-      suiteOfTests->addTest(new SkipTest(name, expected.Skips()[name]));
+      suiteOfTests->addTest(new SkipTest(name, expected.Reasons()[name]));
     else if(expected.Fails()[name] == "text")
       suiteOfTests->addTest(new CompareAsTextXSLTTest(name, 
                                                       make_path(path, input_xml),
