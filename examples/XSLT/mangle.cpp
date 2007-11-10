@@ -14,13 +14,6 @@ Arabica::DOM::Document<std::string> buildDOM(const std::string& xml);
 
 int main(int argc, const char* argv[])
 {
-/*
-	if((argc >= 2) && (std::string("test") == argv[1]))
-	{
-		test_suite(argc, argv);
-		return 0;
-	} // if ...
-*/
 
   if(argc != 3)
   {
