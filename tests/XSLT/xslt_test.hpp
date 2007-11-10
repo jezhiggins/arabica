@@ -7,10 +7,10 @@
 #include <XSLT/XSLT.hpp>
 #include <fstream>
 
-#include <elephant/newdelete.h>
-#include <elephant/memorymonitorholder.h>
-#include <elephant/leakdetector.h>
-#include <elephant/leakdisplayfunc.h>
+//#include <elephant/newdelete.h>
+//#include <elephant/memorymonitorholder.h>
+//#include <elephant/leakdetector.h>
+//#include <elephant/leakdisplayfunc.h>
 
 #ifdef ARABICA_WINDOWS
 const std::string PATH_PREFIX="../tests/XSLT/testsuite/TESTS/";
