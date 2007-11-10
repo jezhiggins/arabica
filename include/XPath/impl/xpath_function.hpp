@@ -149,6 +149,7 @@ public:
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
+        case NAMESPACE_NODE_TYPE:
           return new StringValue<string_type, string_adaptor>(node.hasNamespaceURI() ? node.getLocalName() : node.getNodeName());
         default: // put this in to keep gcc quiet
           ; 
