@@ -239,6 +239,7 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
            << UnicodeT::QUESTION_MARK
            << UnicodeT::GREATER_THAN_SIGN
            << std::endl;
+  case DOM::Node<stringT>::DOCUMENT_FRAGMENT_NODE:
     StreamImpl::streamChildren(stream, node);
     break;
   case DOM::Node<stringT>::ELEMENT_NODE:
