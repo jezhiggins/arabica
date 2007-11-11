@@ -34,6 +34,7 @@
   <test-case id="mdocs_mdocs07" runs="no"/>
   <test-case id="mdocs_mdocs08" runs="no"/>
   <test-case id="mdocs_mdocs18" runs="no"/>
+  <test-case id="message_message01" compare="text"/>
   <test-case id="message_message14" compiles="no"/>
   <test-case id="message_message15" compiles="no"/>
   <test-case id="namedtemplate_namedtemplate12" compiles="no"/>
