@@ -40,7 +40,7 @@ public:
       stylesheet_(stylesheet),
       sink_(output.asOutput()),
       message_sink_(error_output),
-      to_msg_(false)
+      to_msg_(0)
   {
 		xpathContext_.setVariableResolver(stack_);
   } // ExecutionContext
@@ -65,7 +65,8 @@ public:
   { 
     return !to_msg_ ? sink_ : message_sink_.asOutput();
   } // sink
-  void redirectToMessageSink(bool redirect) { to_msg_ = redirect; }
+  void redirectToMessageSink() { ++to_msg_; }
+  void revertFromMessageSink() { --to_msg_; }
 
   const Arabica::XPath::ExecutionContext<std::string>& xpathContext() const { return xpathContext_; }
 
@@ -102,7 +103,7 @@ private:
   Arabica::XPath::ExecutionContext<std::string> xpathContext_;
   Output& sink_;
   StreamSink message_sink_;
-  bool to_msg_;
+  int to_msg_;
 
   friend class StackFrame;
   friend class ChainStackFrame;
