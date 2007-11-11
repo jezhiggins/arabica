@@ -200,7 +200,7 @@ public:
     if(!text_mode_)
     {
       std::string comment = escape(buffer_.str(), "--", "- -");
-      if(*(comment.rbegin()) == '-')
+      if(comment.length() && *(comment.rbegin()) == '-')
         comment.append(" ");
       do_comment(comment);
     } // if ...
