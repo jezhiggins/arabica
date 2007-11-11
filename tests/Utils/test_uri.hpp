@@ -8,13 +8,13 @@ using namespace Arabica::io;
 class URITest : public TestCase
 {
   public:
-  	URITest(std::string name) : 
-			TestCase(name)
-	  {
-	  } // URITest
+    URITest(std::string name) : 
+      TestCase(name)
+    {
+    } // URITest
 
-  	void test1()
-	  {
+    void test1()
+    {
       URI u("woo");
       
       assertEquals("woo", u.path());
@@ -22,10 +22,10 @@ class URITest : public TestCase
       assertEquals("", u.scheme());
       assertEquals("0", u.port());
       assertEquals("woo", u.as_string());
-		} // test1
+    } // test1
 
-  	void test2()
-	  {
+    void test2()
+    {
       URI u("woo.xml");
       
       assertEquals("woo.xml", u.path());
@@ -33,10 +33,10 @@ class URITest : public TestCase
       assertEquals("", u.scheme());
       assertEquals("0", u.port());
       assertEquals("woo.xml", u.as_string());
-		} // test2
+    } // test2
 
-  	void test3()
-	  {
+    void test3()
+    {
       URI u("woo/woo.xml");
       
       assertEquals("woo/woo.xml", u.path());
@@ -44,10 +44,10 @@ class URITest : public TestCase
       assertEquals("", u.scheme());
       assertEquals("0", u.port());
       assertEquals("woo/woo.xml", u.as_string());
-		} // test3
+    } // test3
 
-  	void test4()
-	  {
+    void test4()
+    {
       URI u("/woo/woo.xml");
       
       assertEquals("/woo/woo.xml", u.path());
@@ -55,7 +55,7 @@ class URITest : public TestCase
       assertEquals("", u.scheme());
       assertEquals("0", u.port());
       assertEquals("/woo/woo.xml", u.as_string());
-		} // test4
+    } // test4
 
     void test5()
     {
@@ -257,35 +257,124 @@ class URITest : public TestCase
       assertEquals("80", u.port());
     } // test21
 
+   void test22()
+   {
+     URI e("/one/two/three/four");
+     URI r(e, "five");
+
+     assertEquals("/one/two/three/five", r.path());
+   } // test22
+
+   void test23()
+   {
+     URI e("/one/two/three/four");
+     URI r(e, "../five");
+
+     assertEquals("/one/two/five", r.path());
+   } // test23
+
+   void test24()
+   {
+     URI e("/one/two/three/four");
+     URI r(e, "../../five");
+
+     assertEquals("/one/five", r.path());
+   } // test24
+
+   void test25()
+   {
+     URI e("../one/two/three/four");
+     URI r(e, "../../five");
+
+     assertEquals("../one/five", r.path());
+   } // test25
+
+   void test26()
+   {
+     URI e("../../one/two/three/four");
+     URI r(e, "../../five");
+
+     assertEquals("../../one/five", r.path());
+   } // test26
+
+   void test27()
+   {
+     URI e("../../one/two/three/four");
+     URI r(e, "../five");
+
+     assertEquals("../../one/two/five", r.path());
+   } // test27
+
+   void test28()
+   {
+     URI e("../../one/two/three/four");
+     URI r(e, "five");
+
+     assertEquals("../../one/two/three/five", r.path());
+   } // test28
+
+   void test29()
+   {
+     URI e("../../../one/two/three/four");
+     URI r(e, "../../five");
+
+     assertEquals("../../../one/five", r.path());
+   } // test26
+
+   void test30()
+   {
+     URI e("../../../one/two/three/four");
+     URI r(e, "../five");
+
+     assertEquals("../../../one/two/five", r.path());
+   } // test30
+
+   void test31()
+   {
+     URI e("../../../one/two/three/four");
+     URI r(e, "five");
+
+     assertEquals("../../../one/two/three/five", r.path());
+   } // test31
 }; // class URITest
 
 TestSuite* URITest_suite()
 {
   TestSuite* suiteOfTests = new TestSuite();
 
-	suiteOfTests->addTest(new TestCaller<URITest>("test1", &URITest::test1));
-	suiteOfTests->addTest(new TestCaller<URITest>("test2", &URITest::test2));
-	suiteOfTests->addTest(new TestCaller<URITest>("test3", &URITest::test3));
-	suiteOfTests->addTest(new TestCaller<URITest>("test4", &URITest::test4));
-	suiteOfTests->addTest(new TestCaller<URITest>("test5", &URITest::test5));
-	suiteOfTests->addTest(new TestCaller<URITest>("test6", &URITest::test6));
-	suiteOfTests->addTest(new TestCaller<URITest>("test7", &URITest::test7));
-	suiteOfTests->addTest(new TestCaller<URITest>("test8", &URITest::test8));
-	suiteOfTests->addTest(new TestCaller<URITest>("test9", &URITest::test9));
-	suiteOfTests->addTest(new TestCaller<URITest>("test10", &URITest::test10));
-	suiteOfTests->addTest(new TestCaller<URITest>("test11", &URITest::test11));
-	suiteOfTests->addTest(new TestCaller<URITest>("test12", &URITest::test12));
-	suiteOfTests->addTest(new TestCaller<URITest>("test13", &URITest::test13));
-	suiteOfTests->addTest(new TestCaller<URITest>("test14", &URITest::test14));
-	suiteOfTests->addTest(new TestCaller<URITest>("test15", &URITest::test15));
-	suiteOfTests->addTest(new TestCaller<URITest>("test16", &URITest::test16));
-	suiteOfTests->addTest(new TestCaller<URITest>("test17", &URITest::test17));
-	suiteOfTests->addTest(new TestCaller<URITest>("test18", &URITest::test18));
-	suiteOfTests->addTest(new TestCaller<URITest>("test19", &URITest::test19));
-	suiteOfTests->addTest(new TestCaller<URITest>("test20", &URITest::test20));
-	suiteOfTests->addTest(new TestCaller<URITest>("test21", &URITest::test21));
+  suiteOfTests->addTest(new TestCaller<URITest>("test1", &URITest::test1));
+  suiteOfTests->addTest(new TestCaller<URITest>("test2", &URITest::test2));
+  suiteOfTests->addTest(new TestCaller<URITest>("test3", &URITest::test3));
+  suiteOfTests->addTest(new TestCaller<URITest>("test4", &URITest::test4));
+  suiteOfTests->addTest(new TestCaller<URITest>("test5", &URITest::test5));
+  suiteOfTests->addTest(new TestCaller<URITest>("test6", &URITest::test6));
+  suiteOfTests->addTest(new TestCaller<URITest>("test7", &URITest::test7));
+  suiteOfTests->addTest(new TestCaller<URITest>("test8", &URITest::test8));
+  suiteOfTests->addTest(new TestCaller<URITest>("test9", &URITest::test9));
+  suiteOfTests->addTest(new TestCaller<URITest>("test10", &URITest::test10));
+  suiteOfTests->addTest(new TestCaller<URITest>("test11", &URITest::test11));
+  suiteOfTests->addTest(new TestCaller<URITest>("test12", &URITest::test12));
+  suiteOfTests->addTest(new TestCaller<URITest>("test13", &URITest::test13));
+  suiteOfTests->addTest(new TestCaller<URITest>("test14", &URITest::test14));
+  suiteOfTests->addTest(new TestCaller<URITest>("test15", &URITest::test15));
+  suiteOfTests->addTest(new TestCaller<URITest>("test16", &URITest::test16));
+  suiteOfTests->addTest(new TestCaller<URITest>("test17", &URITest::test17));
+  suiteOfTests->addTest(new TestCaller<URITest>("test18", &URITest::test18));
+  suiteOfTests->addTest(new TestCaller<URITest>("test19", &URITest::test19));
+  suiteOfTests->addTest(new TestCaller<URITest>("test20", &URITest::test20));
+  suiteOfTests->addTest(new TestCaller<URITest>("test21", &URITest::test21));
+  suiteOfTests->addTest(new TestCaller<URITest>("test22", &URITest::test22));
+  suiteOfTests->addTest(new TestCaller<URITest>("test23", &URITest::test23));
+  suiteOfTests->addTest(new TestCaller<URITest>("test24", &URITest::test24));
+  suiteOfTests->addTest(new TestCaller<URITest>("test25", &URITest::test25));
+  suiteOfTests->addTest(new TestCaller<URITest>("test26", &URITest::test26));
+  suiteOfTests->addTest(new TestCaller<URITest>("test27", &URITest::test27));
+  suiteOfTests->addTest(new TestCaller<URITest>("test28", &URITest::test28));
+  suiteOfTests->addTest(new TestCaller<URITest>("test29", &URITest::test29));
+  suiteOfTests->addTest(new TestCaller<URITest>("test30", &URITest::test30));
+  suiteOfTests->addTest(new TestCaller<URITest>("test31", &URITest::test31));
 
-	return suiteOfTests;
+  return suiteOfTests;
 } // URITest_suite
 
 #endif
