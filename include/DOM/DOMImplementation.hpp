@@ -46,14 +46,14 @@ class DOMImplementation
 
     DocumentType<stringT, string_adaptorT> createDocumentType(const stringT& qualifiedName,
                                              const stringT& publicId,
-                                             const stringT& systemId)
+                                             const stringT& systemId) const
     {
       return impl_->createDocumentType(qualifiedName, publicId, systemId);
     } // createDocumentType
 
     Document<stringT, string_adaptorT> createDocument(const stringT& namespaceURI,
                                      const stringT& qualifiedName,
-                                     DocumentType<stringT, string_adaptorT> docType)
+                                     DocumentType<stringT, string_adaptorT> docType) const
     {
       return impl_->createDocument(namespaceURI, qualifiedName, docType.dtImpl());
     } // createDocument
