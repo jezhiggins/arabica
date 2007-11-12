@@ -283,13 +283,19 @@ public:
     assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[position()=1]")));
     assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[(@attr)or(@id)]")));
     assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[$var=1]")));
+    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[contains($a,string($b))]")));
+  }
+
+  void test18a()
+  {
     try {
       parser.compile(SA::construct_from_utf8("one/two/three[string($a,$b)]"));
       assert(false);
     }
-    catch(...) { }
-    assertTrue(parser.compile(SA::construct_from_utf8("one/two/three[contains($a,string($b))]")));
-  }
+    catch(std::exception& e) { 
+      // we expect this to throw
+    }
+  } // test18a
 
   void test19()
   {
@@ -433,6 +439,7 @@ TestSuite* ParseTest_suite()
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test16", &ParseTest<string_type, string_adaptor>::test16));
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test17", &ParseTest<string_type, string_adaptor>::test17));
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test18", &ParseTest<string_type, string_adaptor>::test18));
+  suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test18a", &ParseTest<string_type, string_adaptor>::test18a));
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test19", &ParseTest<string_type, string_adaptor>::test19));
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test20", &ParseTest<string_type, string_adaptor>::test20));
   suiteOfTests->addTest(new TestCaller<ParseTest<string_type, string_adaptor> >("test21", &ParseTest<string_type, string_adaptor>::test21));
