@@ -22,12 +22,13 @@ class Base64Test : public TestCase
       char out[10];
       std::memset(out, '#', 10);
 
-      std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
+      Arabica::convert::base64codecvt cvt;
       std::mbstate_t state = std::mbstate_t();
 
       const char* in_next = in;
       char* out_next = out;
-      std::codecvt_base::result res = cvt->out(state, in, in+3, in_next, out, out+10, out_next);
+      std::codecvt_base::result res = cvt.out(state, in, in+3, in_next, out, out+10, out_next);
+ 
 
       assertEquals(std::codecvt_base::ok, res);
       assertEquals(4, (out_next-out));
@@ -41,12 +42,12 @@ class Base64Test : public TestCase
       char out[10];
       std::memset(out, '#', 10);
 
-      std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
+      Arabica::convert::base64codecvt cvt;
       std::mbstate_t state = std::mbstate_t();
 
       const char* in_next = in;
       char* out_next = out;
-      std::codecvt_base::result res = cvt->out(state, in, in+4, in_next, out, out+10, out_next);
+      std::codecvt_base::result res = cvt.out(state, in, in+4, in_next, out, out+10, out_next);
 
       assertEquals(std::codecvt_base::ok, res);
       assertEquals(8, (out_next-out));
@@ -60,12 +61,12 @@ class Base64Test : public TestCase
       char in[10];
       std::memset(in, '#', 10);
 
-      std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
+      Arabica::convert::base64codecvt cvt;
       std::mbstate_t state = std::mbstate_t();
 
       const char* out_next = out;
       char* in_next = in;
-      std::codecvt_base::result res = cvt->in(state, out, out+4, out_next, in, in+10, in_next);
+      std::codecvt_base::result res = cvt.in(state, out, out+4, out_next, in, in+10, in_next);
 
       assertEquals("ABC", std::string(in, in_next));
       assertEquals(3, (in_next-in));
@@ -79,12 +80,12 @@ class Base64Test : public TestCase
       char in[10];
       std::memset(in, '#', 10);
 
-      std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
+      Arabica::convert::base64codecvt cvt;
       std::mbstate_t state = std::mbstate_t();
 
       const char* out_next = out;
       char* in_next = in;
-      std::codecvt_base::result res = cvt->in(state, out, out+8, out_next, in, in+10, in_next);
+      std::codecvt_base::result res = cvt.in(state, out, out+8, out_next, in, in+10, in_next);
 
       assertEquals(std::codecvt_base::ok, res);
       assertEquals(4, (in_next-in));
@@ -98,12 +99,12 @@ class Base64Test : public TestCase
       char in[10];
       std::memset(in, '#', 10);
 
-      std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
+      Arabica::convert::base64codecvt cvt;
       std::mbstate_t state = std::mbstate_t();
 
       const char* out_next = out;
       char* in_next = in;
-      std::codecvt_base::result res = cvt->in(state, out, out+8, out_next, in, in+2, in_next);
+      std::codecvt_base::result res = cvt.in(state, out, out+8, out_next, in, in+2, in_next);
 
       assertEquals(std::codecvt_base::partial, res);
       assertEquals(2, (in_next-in));
@@ -111,7 +112,7 @@ class Base64Test : public TestCase
       assertEquals("AB", std::string(in, in_next));
 
       in_next = in;
-      res = cvt->in(state, out_next, out+8, out_next, in, in+2, in_next);
+      res = cvt.in(state, out_next, out+8, out_next, in, in+2, in_next);
 
       assertEquals(std::codecvt_base::partial, res);
       assertEquals(2, (in_next-in));
@@ -119,7 +120,7 @@ class Base64Test : public TestCase
       assertEquals("CD", std::string(in, in_next));
 
       in_next = in;
-      res = cvt->in(state, out_next, out+8, out_next, in, in+2, in_next);
+      res = cvt.in(state, out_next, out+8, out_next, in, in+2, in_next);
 
       assertEquals(std::codecvt_base::ok, res);
       assertEquals(0, (in_next-in));
@@ -131,12 +132,12 @@ class Base64Test : public TestCase
       char in[10];
       std::memset(in, '#', 10);
 
-      std::codecvt<char, char, std::mbstate_t>* cvt = new Arabica::convert::base64codecvt();
+      Arabica::convert::base64codecvt cvt;
       std::mbstate_t state = std::mbstate_t();
 
       const char* out_next = out;
       char* in_next = in;
-      std::codecvt_base::result res = cvt->in(state, out, out+8, out_next, in, in+3, in_next);
+      std::codecvt_base::result res = cvt.in(state, out, out+8, out_next, in, in+3, in_next);
 
       assertEquals(std::codecvt_base::partial, res);
       assertEquals(3, (in_next-in));
@@ -145,7 +146,7 @@ class Base64Test : public TestCase
 
       in_next = in;
       std::memset(in, '#', 10);
-      res = cvt->in(state, out_next, out+8, out_next, in, in+3, in_next);
+      res = cvt.in(state, out_next, out+8, out_next, in, in+3, in_next);
 
       assertEquals(std::codecvt_base::ok, res);
       assertEquals(1, (in_next-in));

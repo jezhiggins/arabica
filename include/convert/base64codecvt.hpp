@@ -20,9 +20,10 @@ namespace convert
 
 class base64codecvt : public std::codecvt<char, char, std::mbstate_t>
 {
-protected:
+public:
   virtual ~base64codecvt() { }
 
+protected:
   virtual result do_out(std::mbstate_t& state,
                         const char* from,
                         const char* from_end,
