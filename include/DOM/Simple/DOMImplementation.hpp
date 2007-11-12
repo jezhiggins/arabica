@@ -20,8 +20,8 @@ class DOMImplementation
   public:
     static DOM::DOMImplementation<stringT, string_adaptorT> getDOMImplementation() 
     {
-      static DOM::DOMImplementation<stringT, string_adaptorT> domImpl(new DOMImplementationImpl<stringT, string_adaptorT>());
-      return domImpl;
+      static DOMImplementationImpl<stringT, string_adaptorT> domImpl;
+      return DOM::DOMImplementation<stringT, string_adaptorT>(&domImpl);
     } // getDOMImplementation
 
   private:
@@ -32,8 +32,9 @@ template<class stringT, class string_adaptorT>
 class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT, string_adaptorT>
 {
   public:
-    virtual void addRef() { ++refCount_; }
-    virtual void releaseRef() { --refCount_; }
+    // we don't actually need the ref count in this case
+    virtual void addRef() { }
+    virtual void releaseRef() { }
 
     ////////////////////////////////////////////////
     // DOMImplementation methods
@@ -74,12 +75,9 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT, string
       return doc;
     } // createDocument
 
-  public:
-    DOMImplementationImpl() : refCount_(0) { }
-    virtual ~DOMImplementationImpl() { }
-
   private:
-    unsigned int refCount_;
+    DOMImplementationImpl() { }
+    virtual ~DOMImplementationImpl() { }
 
     DOMImplementationImpl(const DOMImplementationImpl&);
     DOMImplementationImpl& operator=(const DOMImplementationImpl&);
