@@ -28,8 +28,15 @@ protected:
     if((match == "") && (atts.getValue("name") == ""))
       throw SAX::SAXException("xsl:template must have a match and/or a name attribute");
 
-    if((atts.getValue("mode") != "") && (match == ""))
-      throw SAX::SAXException("xsl:template may not have a mode without a match");
+    int index = atts.getIndex("mode");
+    if(index != -1)
+    {
+      const std::string& mode = atts.getValue(index);
+      if(mode == "")
+        throw SAX::SAXException("xsl:template mode cannot be empty");
+      if(match == "")
+        throw SAX::SAXException("xsl:template may not have a mode without a match");
+    } // ...
 
     std::pair<std::string, std::string> name;
     if(atts.getValue("name") != "")
