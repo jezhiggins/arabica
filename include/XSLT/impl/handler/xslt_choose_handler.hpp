@@ -79,6 +79,7 @@ public:
   ChooseHandler(CompilationContext& context) :
       context_(context),
       choose_(0),
+      seenWhere_(false),
       seenOtherwise_(false)
   {
   } // ChooseHandler
@@ -101,6 +102,7 @@ public:
     {
       if(localName == "when")
       {
+        seenWhere_ = true;
         if(seenOtherwise_)
           throw SAX::SAXException("xsl:otherwise must be the last element in an xsl:choose");
 
@@ -115,6 +117,8 @@ public:
 
       if(localName == "otherwise")
       {
+        if(seenOtherwise_)
+          throw SAX::SAXException("xsl:choose may only have one xsl:otherwise element");
         seenOtherwise_ = true;
         context_.push(0,
                       new OtherwiseHandler(choose_, context_), 
@@ -132,6 +136,8 @@ public:
                           const std::string& localName,
                           const std::string& qName)
   {
+    if(!seenWhere_)
+      throw SAX::SAXException("xsl:choose must contain at least one xsl:where element");
     context_.parentContainer().add_item(choose_);
     context_.pop();
   } // endElement
@@ -146,6 +152,7 @@ public:
 private:
   CompilationContext& context_;
   Choose* choose_;
+  bool seenWhere_;
   bool seenOtherwise_;
 }; // class ChooseHandler
 
