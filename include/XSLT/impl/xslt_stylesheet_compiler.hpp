@@ -75,6 +75,8 @@ public:
                       atts);
         return;
       } // if ...
+
+    throw SAX::SAXException("xsl:stylesheet does not allowed " + qName + " here.");
   } // startElement
 
   virtual void endElement(const std::string& namespaceURI,
