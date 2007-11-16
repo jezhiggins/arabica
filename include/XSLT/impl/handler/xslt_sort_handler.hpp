@@ -26,11 +26,14 @@ public:
   {
     if(sort_ == 0)
     {
+      static const char* DataTypes[] = { "text", "number", 0 };
+      static const char* SortOrder[] = { "ascending", "descending", 0 };
+      static const char* CaseOrder[] = { "upper-first", "lower-first", 0 };
       static const ValueRule rules[] = { { "select", false, "." },
                                          { "lang", false, 0 },
-                                         { "data-type", false, "text" },
-                                         { "order", false, "ascending" },
-                                         { "case-order", false, 0 }, 
+                                         { "data-type", false, "text", DataTypes },
+                                         { "order", false, "ascending", SortOrder },
+                                         { "case-order", false, "upper-first", CaseOrder },
                                          { 0, false, 0 } };
 
       std::map<std::string, std::string> attr = gatherAttributes(qName, atts, rules);
