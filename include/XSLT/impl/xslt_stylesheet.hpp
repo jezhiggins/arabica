@@ -177,7 +177,8 @@ public:
       std::cerr << "No template named '"; 
       if(!name.first.empty())
         std::cerr << "{" << name.first << "}";
-      std::cerr << name.second << "'.  I should be a compile time-error!" << std::endl;
+      std::cerr << name.second << "'.  I should be a compile-time error!" << std::endl;
+      throw SAX::SAXException("No template named {" + name.first + "}" + name.second + ".  I should be a compile-time error.  Sorry!");
       return;
     }
      
