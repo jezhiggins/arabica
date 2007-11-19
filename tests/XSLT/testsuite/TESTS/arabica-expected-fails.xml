@@ -150,4 +150,224 @@
   <test-case id="whitespace_whitespace12" compiles="no"/>
   <test-case id="whitespace_whitespace22" compiles="no"/>
   <test-case id="whitespace_whitespace35" compiles="no"/>
+
+  <test-case id="AVTs__77531" compare="fragment" reason="XML Fragment output"/>
+  <test-case id="AVTs__77558" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77564" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77570" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77575" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77576" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77577" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77579" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77580" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77582" compare="fragment" reason="XML Fragment output"/>	
+  <test-case id="AVTs__77599" compare="fragment" reason="XML Fragment output"/>	
+	<test-case id="Attributes__78366" compiles="no" reason="Error case: empty namespace"/>
+	<test-case id="Attributes__78382" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="Attributes__78386" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="Attributes__81430" compare="fragment" reason="XML Fragment output"/>
+	<test-case id="Attributes__81431" compare="fragment" reason="XML Fragment output"/>
+	<test-case id="Attributes__81482" compare="text"/>
+	<test-case id="Attributes__81483" compare="text"/>
+	<test-case id="Attributes__81484" compare="text"/>
+	<test-case id="Attributes__81485" compare="fragment"/>
+	<test-case id="Attributes__81486" compare="fragment"/>
+	<test-case id="Attributes__81487" compare="fragment"/>
+	<test-case id="Attributes__81489" compare="text"/>
+	<test-case id="Attributes__81491" compare="text"/>
+	<test-case id="Attributes__81492" compare="text"/>
+	<test-case id="Attributes__81493" compare="text"/>
+	<test-case id="Attributes__81494" compare="text"/>
+	<test-case id="Attributes__81495" compare="text"/>
+	<test-case id="Attributes__81496" compare="fragment"/>
+	<test-case id="Attributes__81497" compare="fragment"/>
+	<test-case id="Attributes__81499" compare="fragment"/>
+	<test-case id="Attributes__81544" compare="fragment"/>
+	<test-case id="Attributes__81545" compare="text"/>
+	<test-case id="Attributes__81546" compare="text"/>
+	<test-case id="Attributes__81547" compare="text"/>
+	<test-case id="Attributes__81548" compare="fragment"/>
+	<test-case id="Attributes__81550" compare="fragment"/>
+	<test-case id="Attributes__81551" compare="fragment"/>
+	<test-case id="Attributes__83030" compare="fragment"/>
+	<test-case id="Attributes__83822" compare="text"/>
+	<test-case id="Attributes__84169" compare="text"/>
+	<test-case id="Attributes__89433" compare="text"/>
+	<test-case id="Attributes__89434" compare="text"/>
+	<test-case id="Attributes__89435" compare="text"/>
+	<test-case id="Attributes__89436" compare="text"/>
+	<test-case id="Attributes__89437" compare="text"/>
+	<test-case id="Attributes__89438" compare="text"/>
+	<test-case id="Attributes__89439" compare="fragment"/>
+	<test-case id="Attributes__89440" compare="fragment"/>
+	<test-case id="Attributes__89441" compare="fragment"/>
+	<test-case id="Attributes__89442" compare="fragment"/>
+	<test-case id="Attributes__89459" compare="fragment"/>
+	<test-case id="Attributes__89466" compare="fragment"/>
+	<test-case id="Attributes_Attribute_WhitespaceInUseAttributeSets" compiles="no" reason="Haven't implemented attribute-sets"/>
+	<test-case id="Attributes_EmptyStringInUseAttribSets" compiles="no" reason="Haven't implemented attribute-sets"/>
+	<test-case id="BVTs_bvt001" compiles="no" reason="Doesn't understand xml:space properly"/>
+	<test-case id="BVTs_bvt002" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="BVTs_bvt003" compiles="no" reason="Needs attribute sets"/>
+	<test-case id="BVTs_bvt004" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="BVTs_bvt005" compiles="no" reason="Doesn't understand xml:space properly"/>
+	<test-case id="BVTs_bvt007" compare="text"/>
+	<test-case id="BVTs_bvt008" compare="fragment"/>
+	<test-case id="BVTs_bvt013" compare="fragment"/>
+	<test-case id="BVTs_bvt014" compare="text"/>
+	<test-case id="BVTs_bvt017" skip="yes" reason="Needs funky output encoding"/>
+	<test-case id="BVTs_bvt018" skip="yes" reason="Needs funky output encoding"/>
+	<test-case id="BVTs_bvt019" skip="yes" reason="Needs funky output encoding"/>
+	<test-case id="BVTs_bvt020" compiles="no" reason="Needs xsl:fall-back"/>
+	<test-case id="BVTs_bvt021" compare="fragment"/>
+	<test-case id="BVTs_bvt022" compiles="no" reason="Needs xsl:fall-back"/>
+	<test-case id="BVTs_bvt023" compiles="no" reason="Needs xsl:fall-back"/>
+	<test-case id="BVTs_bvt024" compiles="no" reason="Needs format-number"/>
+	<test-case id="BVTs_bvt027" compare="fragment"/>
+	<test-case id="BVTs_bvt033" compiles="no"/>
+	<test-case id="BVTs_bvt034" compiles="no"/>
+	<test-case id="BVTs_bvt035" compare="text"/>
+	<test-case id="BVTs_bvt036" compare="text"/>
+	<test-case id="BVTs_bvt037" compare="fragment"/>
+	<test-case id="BVTs_bvt038" compare="fragment"/>
+	<test-case id="BVTs_bvt040" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="BVTs_bvt044" skip="yes" reason="Segfault!"/>
+	<test-case id="BVTs_bvt045" skip="yes" reason="Bad result data"/>
+	<test-case id="BVTs_bvt047" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="BVTs_bvt052" skip="yes" reason="Uses MSXML specific extension function"/>
+	<test-case id="BVTs_bvt053" compare="text"/>
+	<test-case id="BVTs_bvt054" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="BVTs_bvt055" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="BVTs_bvt056" compare="text"/>
+	<test-case id="BVTs_bvt057" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt060" compiles="no" reason="Needs xsl:number"/>
+  <test-case id="BVTs_bvt061" compiles="no" reason="Needs xsl:number"/>
+	<test-case id="BVTs_bvt062" compare="fragment"/>
+	<test-case id="BVTs_bvt065" compare="fragment"/>
+	<test-case id="BVTs_bvt069" compare="text"/>
+	<test-case id="BVTs_bvt070" compare="text"/>
+	<test-case id="BVTs_bvt072" compare="fragment"/>
+	<test-case id="BVTs_bvt073" compare="fragment"/>
+	<test-case id="BVTs_bvt075" compare="text"/>
+	<test-case id="BVTs_bvt076" compare="text"/>
+	<test-case id="BVTs_bvt078" compare="text"/>
+	<test-case id="BVTs_bvt079" compare="fragment"/>
+	<test-case id="BVTs_bvt080" compare="fragment"/>
+	<test-case id="BVTs_bvt081" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="BVTs_bvt083" compiles="no"/>
+	<test-case id="BVTs_bvt085" skip="yes" reason="Bad result data"/>
+	<test-case id="BVTs_bvt086" compiles="no"/>
+	<test-case id="BVTs_bvt089" compiles="no" reason="Haven't implemented unparsed-entity-uri"/>
+	<test-case id="BVTs_bvt090" compare="fragment"/>
+	<test-case id="BVTs_bvt092" compare="fragment"/>
+	<test-case id="BVTs_bvt094" compare="text"/>
+	<test-case id="BVTs_bvt095" compare="fragment"/>
+	<test-case id="BVTs_bvt096" compare="text"/>
+	<test-case id="BVTs_bvt098" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+	<test-case id="BVTs_bvt099" compare="fragment"/>
+	<test-case id="BVTs_bvt100" compare="fragment"/>
+	<test-case id="Comment_Comment_CDATAWithDoubleHyphen" compare="fragment"/>
+	<test-case id="Comment_Comment_CDATAWithDoubleHyphenEntities" compare="fragment"/>
+	<test-case id="Comment_Comment_CDATAWithSingleHyphen" compare="fragment"/>
+	<test-case id="Comment_Comment_CommentWithCDATAValidText" compare="fragment"/>
+	<test-case id="Comment_Comment_CommentWithForeignCharacters" skip="yes" reason="Only support UTF-8 at the moment"/>
+	<test-case id="Comment_Comment_CommentWithOnlyValidText" compare="fragment"/>
+	<test-case id="Comment_Comment_DoubleHypenEntitywithDelCharacter" skip="yes" reason="Only support UTF-8 at the moment"/>
+	<test-case id="Comment_Comment_DoubleHypenInText" skip="yes" reason="Only support UTF-8 at the moment"/>
+	<test-case id="Comment_Comment_DoubleHyphenONLY" compare="fragment"/>
+	<test-case id="Comment_Comment_EmptyComment" compare="fragment"/>
+	<test-case id="Comment_Comment_HyphenEntityAndHyphen" compare="fragment"/>
+	<test-case id="Comment_Comment_LineOfAllHyphens" compare="fragment"/>
+	<test-case id="Comment_Comment_SingleHyphenOnly" compare="fragment"/>
+	<test-case id="Comment_Comment_Test1" compare="fragment"/>
+	<test-case id="Comment_Comment_Test2" compare="fragment"/>
+	<test-case id="Comment_Comment_Test3" compiles="no" reason="Haven't implemented attribute-sets"/>
+  <test-case id="Completeness__84351" compare="text"/>
+  <test-case id="Completeness__84354" compare="fragment"/>
+  <test-case id="Completeness__84359" compare="text"/>
+  <test-case id="Completeness__84361" compare="fragment"/>
+  <test-case id="ConflictResolution__77619" compare="fragment"/>
+  <test-case id="ConflictResolution__77621" compare="fragment"/>
+  <test-case id="ConflictResolution__77622" compare="fragment"/>
+  <test-case id="ConflictResolution__77746" compare="fragment"/>
+  <test-case id="ConflictResolution__77781" compare="fragment"/>
+  <test-case id="ConflictResolution__77782" compare="fragment"/>
+  <test-case id="ConflictResolution__77783" compare="fragment"/>
+  <test-case id="ConflictResolution__77784" compare="fragment"/>
+  <test-case id="ConflictResolution__77833" compare="fragment"/>
+  <test-case id="ConflictResolution__77847" compare="fragment"/>
+  <test-case id="ConflictResolution__77870" compare="fragment"/>
+  <test-case id="ConflictResolution__77871" compare="fragment"/>
+  <test-case id="ConflictResolution__77872" compare="fragment"/>
+  <test-case id="ConflictResolution__77875" compare="fragment"/>
+  <test-case id="ConflictResolution__77876" compare="fragment"/>
+  <test-case id="ConflictResolution__77877" compare="fragment"/>
+  <test-case id="ConflictResolution__77878" compare="fragment"/>
+  <test-case id="ConflictResolution__77879" compare="fragment"/>
+  <test-case id="ConflictResolution__77881" compare="fragment"/>
+  <test-case id="ConflictResolution__77882" compare="fragment"/>
+  <test-case id="ConflictResolution__77885" compare="fragment"/>
+  <test-case id="ConflictResolution__77886" compare="fragment"/>
+  <test-case id="ConflictResolution__77889" compare="fragment"/>
+  <test-case id="ConflictResolution__77891" compare="fragment"/>
+  <test-case id="ConflictResolution__77893" compare="fragment"/>
+  <test-case id="ConflictResolution__77902" compare="fragment"/>
+  <test-case id="ConflictResolution__77904" compare="fragment"/>
+  <test-case id="ConflictResolution__84476" compare="fragment"/>
+  <test-case id="ConflictResolution__84477" compare="fragment"/>
+  <test-case id="ConflictResolution_ConflictResBetweenStripSpaceAndPreserveSpace" compiles="no"/>
+  <test-case id="Copying__84388" compare="fragment"/>
+  <test-case id="Copying__84389" compare="fragment"/>
+  <test-case id="Copying_UseXmlnsWithEmptyStringAsDefaultNs" skip="yes" reason="Stylesheet encoding in Windows-1251"/>
+	<test-case id="Elements__78364" compiles="no" reason="Haven't implemented embedded stylesheets"/>
+	<test-case id="Elements__83968" compiles="no" reason="Haven't implemented embedded stylesheets"/>
+	<test-case id="Elements__89062" compare="text"/>
+	<test-case id="Elements__89063" compare="text"/>
+	<test-case id="Elements__89065" compare="text"/>
+	<test-case id="Elements__89066" compare="text"/>
+	<test-case id="Elements__89071" compare="fragment"/>
+	<test-case id="Elements__89072" compare="fragment"/>
+	<test-case id="Elements__89104" compare="text"/>
+	<test-case id="Elements__89107" compare="text"/>
+	<test-case id="Elements__89108" compare="text"/>
+	<test-case id="Elements__89112" compare="fragment"/>
+	<test-case id="Elements__89113" compare="fragment"/>
+	<test-case id="Elements__89207" compare="fragment"/>
+	<test-case id="Elements__89278" compare="text"/>
+	<test-case id="Elements__89279" compare="text"/>
+	<test-case id="Elements__89280" compare="text"/>
+	<test-case id="Elements__89281" compare="text"/>
+	<test-case id="Elements__89286" compare="fragment"/>
+	<test-case id="Elements__89287" compare="fragment"/>
+  <test-case id="Elements__89705" compare="fragment"/>
+	<test-case id="Elements__89709" compare="fragment"/>
+	<test-case id="Elements__89710" compare="fragment"/>
+	<test-case id="Elements__89711" compare="fragment"/>
+	<test-case id="Elements__89712" compare="fragment"/>
+	<test-case id="Elements__89713" compare="text"/>
+	<test-case id="Elements__89717" compare="fragment"/>
+	<test-case id="Elements__89718" compare="fragment"/>
+	<test-case id="Elements__89723" compare="fragment"/>
+	<test-case id="Errors_err073" skip="yes" reason="Test throws Mangle into an infinite loop or something"/>
+	<test-case id="Fallback__91817" compiles="no"/>
+	<test-case id="Fallback__91818" compiles="no"/>
+	<test-case id="Fallback__91819" compiles="no"/>
+	<test-case id="Fallback__91820" compiles="no"/>
+	<test-case id="Fallback__91821" compiles="no"/>
+	<test-case id="Fallback__91823" compiles="no"/>
+	<test-case id="Fallback__91824" compiles="no"/>
+	<test-case id="ForEach_ForEach_ForeachWithXPATHEvaluatesToNull" compare="text"/>
+	<test-case id="ForwardComp__91837" compiles="no"/>
+	<test-case id="ForwardComp__91838" compiles="no"/>
+	<test-case id="ForwardComp__91839" compiles="no"/>
+	<test-case id="ForwardComp__91840" compiles="no"/>
+	<test-case id="ForwardComp__91842" compiles="no"/>
+	<test-case id="ForwardComp__91843" compiles="no"/>
+	<test-case id="ForwardComp__91845" compiles="no"/>
+	<test-case id="ForwardComp__91846" compiles="no"/>
+	<test-case id="ForwardComp__91847" compiles="no"/>
+	<test-case id="ForwardComp__91848" compiles="no"/>
+	<test-case id="ForwardComp__91849" compiles="no"/>
+	<test-case id="ForwardComp__91853" compiles="no"/>
+	<test-case id="ForwardComp__91855" compiles="no"/>
 </test-suite>

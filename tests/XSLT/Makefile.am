@@ -11,7 +11,9 @@ LIBSILLY = ../CppUnit/libsillystring.la
 TESTLIBS = $(LIBARABICA) ../CppUnit/libcppunit.la  
 
 test_sources = scope_test.hpp \
-               xslt_test.hpp
+               xslt_test.hpp \
+               xslt_test.cpp
+	
 
 xslt_test_SOURCES = main.cpp \
                     $(test_sources)

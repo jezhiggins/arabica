@@ -7,6 +7,7 @@
 
 #include <SAX/InputSource.hpp>
 #include <DOM/SAX2DOM/SAX2DOM.hpp>
+#include <DOM/io/Stream.hpp>
 #include <XSLT/XSLT.hpp>
 
 void test_suite(int argc, const char* argv[]);
@@ -44,6 +45,16 @@ int main(int argc, const char* argv[])
     } // if ...
     document.normalize();
     stylesheet->execute(document);
+
+    std::cout << "==============" << std::endl;
+
+    Arabica::XSLT::DOMSink output;
+    stylesheet->set_output(output);
+
+    stylesheet->execute(document);
+
+    Arabica::DOM::Node<std::string> node = output.node();
+    std::cout << node << std::endl;
   }
   catch(const std::runtime_error& ex)
   {
