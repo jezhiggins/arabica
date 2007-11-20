@@ -104,6 +104,9 @@ int main(int argc, const char* argv[])
   runner.addTest("XSLTFunctions", XSLTTest_suite("XSLTFunctions"));
 */
 
+  runner.addTest("ArabicaErrors", ArabicaTest_suite("errors"));
+  runner.addTest("ArabicaInclude", ArabicaTest_suite("include"));
+
   runner.run(argc, argv);
 
   return 77;

@@ -565,28 +565,32 @@ private:
 
 static Expected expected;
 
-TestSuite* XSLTTest_suite(const std::string& path)
+Arabica::DOM::Document<std::string> loadCatalog(const std::string& catalog_filename)
 {
-//#define new ELEPHANTNEW
-//  using namespace elephant;
-//  LeakDetector leakDetector;
-//  MemoryMonitorHolder().Instance().AddObserver(&leakDetector);
-//
-//  poo();
-//
-//  MemoryMonitorHolder().Instance().RemoveObserver(&leakDetector);
-//  LeakDisplayFunc leakDisplay(std::cout);
-//  std::for_each(leakDetector.begin(), leakDetector.end(), leakDisplay);
-//#undef new
+  static std::map<std::string, Arabica::DOM::Document<std::string> > catalogs;
+  
+  std::cout << "Loading " << catalog_filename << std::endl;
+  Arabica::DOM::Document<std::string> c = catalogs[catalog_filename];
+  if(c == 0)
+  {
+    c = buildDOM(PATH_PREFIX + catalog_filename);
+    catalogs[catalog_filename] = c;
+    std::cout << "Loaded " << catalog_filename << std::endl;
+  } // if(c == 0)
 
-  static Arabica::DOM::Document<std::string> catalog = buildDOM(PATH_PREFIX  + "catalog.xml");
+  return c;
+} // catalog
+
+TestSuite* suite(const std::string& path,
+                 const std::string& catalog_filename)
+{
+  Arabica::DOM::Document<std::string> catalog = loadCatalog(catalog_filename);
   
   TestSuite *suiteOfTests = new TestSuite;
 
   Arabica::XPath::NodeSet<std::string> tests = 
-//        selectNodes("/test-suite/test-catalog/test-case[scenario/@operation='standard']", catalog);
-//        selectNodes("/test-suite/test-catalog/test-case[@id='boolean_boolean86']", catalog);
         selectNodes("/test-suite/test-catalog/test-case[file-path='" + path + "']", catalog);
+  std::cout << "There are " << tests.size() << " " << path << " tests." << std::endl;
   for(int i = 0; i != tests.size(); ++i)
   {
     std::string operation = selectString("scenario/@operation", tests[i]);
@@ -633,6 +637,16 @@ TestSuite* XSLTTest_suite(const std::string& path)
   } // for ...
 
 	return suiteOfTests;
+} // suite
+
+TestSuite* XSLTTest_suite(const std::string& path)
+{
+  return suite(path, "catalog.xml");
 } // XSLTTest_suite
+
+TestSuite* ArabicaTest_suite(const std::string& path)
+{
+  return suite(path, "arabica-catalog.xml");
+} // ArabicaTest_suite
 
 #endif
