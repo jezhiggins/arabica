@@ -17,9 +17,12 @@ public:
     context_(0),
     compiler_(0),
     pass_through_(0),
-    no_content_(false)
+    no_content_(false),
+    including_(false)
   {
   } // IncludeHandler
+
+  bool active() const { return including_; }
 
   void context(CompilationContext& context, SAX::DefaultHandler<std::string>* compiler)
   {
@@ -163,7 +166,10 @@ private:
  
     include_parser.setContentHandler(*this);
     include_parser.setErrorHandler(errorHandler);
+    
+    including_ = true;
     include_parser.parse(source);
+    including_ = false;
 
     context_->setBase(prev);
 
@@ -177,6 +183,7 @@ private:
   CompilationContext* context_;
   unsigned int pass_through_;
   bool no_content_;
+  bool including_;
   std::vector<std::string> import_stack_;
   std::vector<std::string> current_includes_;
 
