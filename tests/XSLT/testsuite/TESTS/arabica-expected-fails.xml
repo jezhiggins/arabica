@@ -348,7 +348,6 @@
 	<test-case id="Elements__89717" compare="fragment"/>
 	<test-case id="Elements__89718" compare="fragment"/>
 	<test-case id="Elements__89723" compare="fragment"/>
-	<test-case id="Errors_err073" skip="yes" reason="Test throws Mangle into an infinite loop or something"/>
 	<test-case id="Fallback__91817" compiles="no"/>
 	<test-case id="Fallback__91818" compiles="no"/>
 	<test-case id="Fallback__91819" compiles="no"/>
