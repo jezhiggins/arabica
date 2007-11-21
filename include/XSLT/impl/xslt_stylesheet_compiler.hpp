@@ -24,11 +24,16 @@ class StylesheetHandler : public SAX::DefaultHandler<std::string>
 public:
   StylesheetHandler(CompilationContext& context) :
     context_(context),
-    top_(true)
+    top_(false)
   {
     context_.root(*this);
     includer_.context(context_, this);      
   } // StylesheetHandler
+
+  virtual void startDocument()
+  {
+    top_ = true;
+  } // startDocument
 
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
@@ -49,7 +54,7 @@ public:
       top_ = false;
 
       return;
-    } // if(stylesheet_ == 0)
+    } // if(top_)
 
     if(namespaceURI == StylesheetConstant::NamespaceURI())
     {

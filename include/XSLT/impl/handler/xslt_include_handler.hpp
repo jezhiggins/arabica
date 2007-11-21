@@ -16,13 +16,9 @@ public:
   IncludeHandler() :
     context_(0),
     compiler_(0),
-    pass_through_(0),
-    no_content_(false),
-    including_(false)
+    no_content_(false)
   {
   } // IncludeHandler
-
-  bool active() const { return including_; }
 
   void context(CompilationContext& context, SAX::DefaultHandler<std::string>* compiler)
   {
@@ -39,6 +35,11 @@ public:
     startElement(namespaceURI, localName, qName, atts);
   } // start_include
 
+  virtual void startDocument()
+  {
+    context_->parentHandler().startDocument();
+  } // startDocument
+
   virtual void startElement(const std::string& namespaceURI,
                             const std::string& localName,
                             const std::string& qName,
@@ -50,12 +51,6 @@ public:
     bool start_pass_through = false;
     if(namespaceURI == StylesheetConstant::NamespaceURI())
     {
-      if((localName == "template") || 
-         (localName == "param") ||
-         (localName == "variable") ||
-         (localName == "stylesheet") ||
-         (localName == "transform"))
-        start_pass_through = true;
       if(localName == "import")
       {
         std::string href = validate_href(qName, atts);
@@ -70,14 +65,10 @@ public:
       } // if(localName == "include")
     } // if ...
 
-    if(pass_through_ || start_pass_through)
-    {
-      context_->parentHandler().startElement(namespaceURI,
-                                             localName, 
-                                             qName,
-                                             atts); 
-      ++pass_through_;
-    }  
+    context_->parentHandler().startElement(namespaceURI,
+                                           localName, 
+                                           qName,
+                                           atts); 
   } // startElement
 
   virtual void startPrefixMapping(const std::string& prefix, const std::string& uri)
@@ -104,13 +95,9 @@ public:
       return;
     } // if ...
 
-    if(pass_through_)
-    {
-      context_->parentHandler().endElement(namespaceURI,
-                                           localName, 
-                                           qName);
-      --pass_through_;
-    } // if ...
+    context_->parentHandler().endElement(namespaceURI,
+                                         localName, 
+                                         qName);
   } // endElement
 
   virtual void characters(const std::string& ch)
@@ -167,9 +154,7 @@ private:
     include_parser.setContentHandler(*this);
     include_parser.setErrorHandler(errorHandler);
     
-    including_ = true;
     include_parser.parse(source);
-    including_ = false;
 
     context_->setBase(prev);
 
@@ -181,9 +166,7 @@ private:
 
   SAX::DefaultHandler<std::string>* compiler_;
   CompilationContext* context_;
-  unsigned int pass_through_;
   bool no_content_;
-  bool including_;
   std::vector<std::string> import_stack_;
   std::vector<std::string> current_includes_;
 
