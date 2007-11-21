@@ -75,7 +75,11 @@ public:
   std::string passParam(Variable_instance_ptr param)
   {
     std::string clark_name = clarkName(param);
-    params_.back()[clark_name] = param;
+    Scope& params = params_.back();
+
+    if(params.find(clark_name) != params.end())
+      throw std::runtime_error("Duplicate parameter name in xsl:with-param - " + clark_name);
+    params[clark_name] = param;
     return clark_name;
   } // passParam
 
@@ -96,7 +100,12 @@ public:
 
 	void declareVariable(Variable_instance_ptr var)
 	{
-		stack_.back()[clarkName(var)] = var;
+    std::string name = clarkName(var);
+    Scope& stack = stack_.back();
+
+    if(stack.find(name) != stack.end())
+      throw std::runtime_error("Duplicate variable name : " + name);
+		stack[clarkName(var)] = var;
 	} // declareVariable
 
   void freezeTopLevel()
