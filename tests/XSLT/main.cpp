@@ -38,9 +38,7 @@ int main(int argc, const char* argv[])
   runner.addTest("expression", XSLTTest_suite("expression"));
   runner.addTest("extend", XSLTTest_suite("extend"));
   //runner.addTest("idkey", XSLTTest_suite("idkey"));
-*/
   runner.addTest("impincl", XSLTTest_suite("impincl"));
-/*
   runner.addTest("lre", XSLTTest_suite("lre"));
   runner.addTest("match", XSLTTest_suite("match"));
   runner.addTest("math", XSLTTest_suite("math"));
