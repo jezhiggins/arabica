@@ -18,6 +18,21 @@ public:
   {
   } // TemplateHandler
 
+  virtual void characters(const std::string& ch)
+  {
+    if(!done_params_)
+    {
+     for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+      if(!Arabica::XML::is_space(*i))
+      {
+        done_params_ = true;
+        break;
+      } // if ...
+    } // if(!done_params_)
+
+    ItemContainerHandler<Template>::characters(ch);
+  } // characters
+
 protected:
   virtual Template* createContainer(const std::string& namespaceURI,
                                     const std::string& localName,
