@@ -19,6 +19,30 @@
 				<input-file role="principal-stylesheet">error02.xsl</input-file>
 			</scenario>
 		</test-case>
+		<test-case id="error03">
+			<file-path>errors</file-path>
+			<purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
+			<scenario operation="execution-error">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">error03.xsl</input-file>
+			</scenario>
+		</test-case>
+		<test-case id="error04">
+			<file-path>errors</file-path>
+			<purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
+			<scenario operation="execution-error">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">error04.xsl</input-file>
+			</scenario>
+		</test-case>
+		<test-case id="error05">
+			<file-path>errors</file-path>
+			<purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
+			<scenario operation="execution-error">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">error05.xsl</input-file>
+			</scenario>
+		</test-case>
 		<test-case id="include01">
 			<file-path>include</file-path>
 			<scenario operation="standard">
