@@ -27,7 +27,7 @@ public:
                                        { 0, false, 0} };
     std::string test = gatherAttributes(qName, atts, rules)["test"];
 
-    return new When(ItemContainerHandler<When>::context().xpath().compile_expr(test));
+    return new When(ItemContainerHandler<When>::context().xpath_expression(test));
   } // startElement
 
   virtual void endElement(const std::string& namespaceURI, const std::string& localName, const std::string& qName)

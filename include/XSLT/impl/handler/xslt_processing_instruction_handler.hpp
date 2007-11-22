@@ -26,7 +26,7 @@ public:
                                        { 0, false, 0} };
     std::string name = gatherAttributes(qName, atts, rules)["name"];
 
-    return new ProcessingInstruction(ItemContainerHandler<ProcessingInstruction>::context().xpath().compile_attribute_value_template(name));
+    return new ProcessingInstruction(ItemContainerHandler<ProcessingInstruction>::context().xpath_attribute_value_template(name));
   } // createContainer
 }; // class ProcessingInstructionHandler
 

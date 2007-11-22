@@ -30,7 +30,7 @@ public:
                                          { 0, false, 0} };
 
       std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
-      valueOf_ = new ValueOf(context_.xpath().compile_expr(attrs["select"]), 
+      valueOf_ = new ValueOf(context_.xpath_expression(attrs["select"]), 
 			     attrs["disable-output-escaping"] == Yes);
       return;
     } // if(valueOf_ == 0)

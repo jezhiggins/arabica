@@ -30,7 +30,7 @@ protected:
 
     std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
 
-    Arabica::XPath::XPathExpressionPtr<std::string> name = context().xpath().compile_attribute_value_template(attrs["name"]);
+    Arabica::XPath::XPathExpressionPtr<std::string> name = context().xpath_attribute_value_template(attrs["name"]);
 
     if(attrs["use-attribute-sets"] != "")
       throw SAX::SAXException("don't understand use-attribute-sets yet");
@@ -41,7 +41,7 @@ protected:
                          attrs["use-attribute-sets"]);
 
     return new Element(name, 
-                       context().xpath().compile_attribute_value_template(attrs["namespace"]),
+                       context().xpath_attribute_value_template(attrs["namespace"]),
                        attrs["use-attribute-sets"]);
   } // createContainer
 }; // class ElementHandler

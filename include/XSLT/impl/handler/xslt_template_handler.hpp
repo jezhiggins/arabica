@@ -51,7 +51,7 @@ protected:
                   			  mode,
 			                    atts.getValue("priority"));
 
-    return new Template(context().xpath().compile_match(match),
+    return new Template(context().xpath_match(match),
                   			name,
 			                  mode,
 			                  atts.getValue("priority"));

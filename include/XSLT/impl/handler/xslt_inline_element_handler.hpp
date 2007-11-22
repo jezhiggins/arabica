@@ -31,7 +31,7 @@ protected:
       if(!context().isRemapped(atts.getURI(i)))
       	inlineAtts.push_back(InlineAttribute(atts.getQName(i), 
 			                              		     atts.getURI(i),
-					                                   context().xpath().compile_attribute_value_template(atts.getValue(i))));
+					                                   context().xpath_attribute_value_template(atts.getValue(i))));
       else
       {
        	std::pair<std::string, std::string> remap = context().remappedNamespace(atts.getURI(i));
@@ -40,7 +40,7 @@ protected:
 	      std::string name = remap.first + ":" + atts.getLocalName(i);
 	      inlineAtts.push_back(InlineAttribute(name, 
 					                                   remap.second,
-					                                   context().xpath().compile_attribute_value_template(atts.getValue(i))));
+					                                   context().xpath_attribute_value_template(atts.getValue(i))));
       } // if ... 
     } // for ...
 

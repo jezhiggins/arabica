@@ -49,7 +49,7 @@ public:
                                          { 0, false, 0} };
       std::string select = gatherAttributes(qName, atts, rules)["select"];
 
-      copyOf_ = new CopyOf(context_.xpath().compile_expr(select));
+      copyOf_ = new CopyOf(context_.xpath_expression(select));
 
       return;
     } // if(copyOf_ == 0)

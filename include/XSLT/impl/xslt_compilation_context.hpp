@@ -45,7 +45,9 @@ public:
   } // root
 
   StylesheetParser& parser() const { return parser_; }
-  const Arabica::XPath::XPath<std::string>& xpath() const { return xpath_; }
+  Arabica::XPath::XPathExpressionPtr<std::string> xpath_expression(const std::string& expr) const { return xpath_.compile_expr(expr); } 
+  std::vector<Arabica::XPath::MatchExpr<std::string> > xpath_match(const std::string& match) const { return xpath_.compile_match(match); } 
+  Arabica::XPath::XPathExpressionPtr<std::string> xpath_attribute_value_template(const std::string& expr) const { return xpath_.compile_attribute_value_template(expr); } 
   Stylesheet& stylesheet() const { return stylesheet_; }
 
   std::pair<std::string, std::string> processQName(const std::string& qName) const

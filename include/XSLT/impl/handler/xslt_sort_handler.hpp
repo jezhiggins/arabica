@@ -39,9 +39,9 @@ public:
       std::map<std::string, std::string> attr = gatherAttributes(qName, atts, rules);
 
       Arabica::XPath::XPathExpressionPtr<std::string> select, lang, datatype, order, caseorder;
-      select = context_.xpath().compile_expr(attr["select"]);
-      datatype = context_.xpath().compile_attribute_value_template(attr["data-type"]);
-      order = context_.xpath().compile_attribute_value_template(attr["order"]);
+      select = context_.xpath_expression(attr["select"]);
+      datatype = context_.xpath_attribute_value_template(attr["data-type"]);
+      order = context_.xpath_attribute_value_template(attr["order"]);
 
       sort_ = new Sort(select,
                        lang, 

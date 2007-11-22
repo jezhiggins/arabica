@@ -26,7 +26,7 @@ public:
                                        { 0, false, 0} };
     std::string test = gatherAttributes(qName, atts, rules)["test"];
 
-    return new If(ItemContainerHandler<If>::context().xpath().compile_expr(test));
+    return new If(ItemContainerHandler<If>::context().xpath_expression(test));
   } // startElement
 }; // class IfHandler
 

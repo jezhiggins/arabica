@@ -34,7 +34,7 @@ public:
       const std::string& select = attrs["select"];
       Arabica::XPath::XPathExpressionPtr<std::string> xpath;
       if(select != "")
-        xpath = context_.xpath().compile_expr(select);
+        xpath = context_.xpath_expression(select);
 
       std::pair<std::string, std::string> mode;
       if(attrs["mode"] != "")

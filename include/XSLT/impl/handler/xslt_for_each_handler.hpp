@@ -29,7 +29,7 @@ protected:
                                        { 0, false, 0} };
     std::string select = gatherAttributes(qName, atts, rules)["select"];
 
-    return new ForEach(context().xpath().compile_expr(select));
+    return new ForEach(context().xpath_expression(select));
   } // createContainer
 
   virtual bool createChild(const std::string& namespaceURI,

@@ -29,14 +29,14 @@ protected:
 
     std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
 
-    Arabica::XPath::XPathExpressionPtr<std::string> name = context().xpath().compile_attribute_value_template(attrs["name"]);
+    Arabica::XPath::XPathExpressionPtr<std::string> name = context().xpath_attribute_value_template(attrs["name"]);
 
     if(attrs.find("namespace") == attrs.end())
       return new Attribute(name, 
                            context().inScopeNamespaces());
 
     return new Attribute(name, 
-                         context().xpath().compile_attribute_value_template(attrs["namespace"]));
+                         context().xpath_attribute_value_template(attrs["namespace"]));
   } // createContainer
 }; // class AttributeHandler
 

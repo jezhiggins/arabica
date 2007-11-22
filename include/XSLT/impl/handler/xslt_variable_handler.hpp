@@ -35,7 +35,7 @@ protected:
     const std::string& select = atts.getValue("select");
     Arabica::XPath::XPathExpressionPtr<std::string> xpath;
     if(select != "")
-      xpath = this->context().xpath().compile_expr(select);
+      xpath = this->context().xpath_expression(select);
 
     std::pair<std::string, std::string> name = this->context().processQName(attrs["name"]);
     return new VType(name.first, name.second, xpath);
