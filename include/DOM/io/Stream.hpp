@@ -190,12 +190,14 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 void prefix_mapper_pop(std::basic_ostream<charT, traitsT>& stream,
                        DOM::Node<stringT, string_adaptorT> node,
-                       int index)
+                       int index, 
+                       bool output)
 {
   std::vector<std::map<stringT, stringT> >* prefix_stack = 
     static_cast<std::vector<std::map<stringT, stringT> >*>(stream.pword(index));
 
-  check_and_output_node_name(stream, node, prefix_stack);
+  if(output)
+    check_and_output_node_name(stream, node, prefix_stack);
 
   prefix_stack->pop_back();
   if(prefix_stack->empty())
@@ -246,11 +248,20 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
     {
       stream << UnicodeT::LESS_THAN_SIGN;
       int index = StreamImpl::prefix_mapper(stream, node);
-      stream << UnicodeT::GREATER_THAN_SIGN;
-      StreamImpl::streamChildren(stream, node);
-      stream << UnicodeT::LESS_THAN_SIGN << UnicodeT::SLASH;
-      StreamImpl::prefix_mapper_pop(stream, node, index);
-      stream << UnicodeT::GREATER_THAN_SIGN;
+
+      if(node.hasChildNodes())
+      {
+        stream << UnicodeT::GREATER_THAN_SIGN;
+        StreamImpl::streamChildren(stream, node);
+        stream << UnicodeT::LESS_THAN_SIGN << UnicodeT::SLASH;
+        StreamImpl::prefix_mapper_pop(stream, node, index, true);
+        stream << UnicodeT::GREATER_THAN_SIGN;
+      }
+      else
+      {
+        StreamImpl::prefix_mapper_pop(stream, node, index, false);
+        stream << UnicodeT::SLASH << UnicodeT::GREATER_THAN_SIGN;
+      }
     }
     break;
   case DOM::Node<stringT>::TEXT_NODE:
