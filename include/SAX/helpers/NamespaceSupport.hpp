@@ -235,6 +235,11 @@ class NamespaceSupport
         name.URI = getURI(prefix);
         name.localName = string_adaptor::substr(qName, index + 1);
         name.prefix = prefix;
+
+        if((string_adaptor::length(name.prefix) == 0) || 
+           (string_adaptor::length(name.localName) == 0) || 
+           (string_adaptor::find(name.localName, nsc_.colon) != string_adaptor::npos()))
+        throw SAX::SAXException("Bad qname");
       } // if ...
 
       name.rawName = qName;
