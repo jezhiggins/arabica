@@ -25,6 +25,10 @@ public:
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
+    Arabica::XPath::XPathValue<std::string> sel = select_->evaluate(node, context.xpathContext());
+    if(sel.type() != Arabica::XPath::NODE_SET)
+      throw SAX::SAXException("xsl:for-each must select a node set");
+
     Arabica::XPath::NodeSet<std::string> nodes = select_->evaluateAsNodeSet(node, context.xpathContext());
     sort(node, nodes, context);
 
