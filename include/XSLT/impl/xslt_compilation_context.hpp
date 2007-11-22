@@ -7,26 +7,29 @@
 #include <stack>
 
 #include "xslt_stylesheet_parser.hpp"
+#include "xslt_functions.hpp"
 
 namespace Arabica
 {
 namespace XSLT
 {
-
 class Stylesheet;
 class ItemContainer;
 
-class CompilationContext
+class CompilationContext :
+    private Arabica::XPath::FunctionResolver<std::string>,
+    private Arabica::XPath::NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
   CompilationContext(StylesheetParser& parser,
-                     Arabica::XPath::XPath<std::string>& xpathCompiler,
                      Stylesheet& stylesheet) :
     parser_(parser),
-    xpath_(xpathCompiler),
     stylesheet_(stylesheet),
-    autoNs_(1)
+    autoNs_(1),
+    current_allowed_(false)
   {
+    xpath_.setNamespaceContext(*this);
+    xpath_.setFunctionResolver(*this);
   } // CompilationContext
 
   ~CompilationContext()
@@ -46,7 +49,11 @@ public:
 
   StylesheetParser& parser() const { return parser_; }
   Arabica::XPath::XPathExpressionPtr<std::string> xpath_expression(const std::string& expr) const { return xpath_.compile_expr(expr); } 
-  std::vector<Arabica::XPath::MatchExpr<std::string> > xpath_match(const std::string& match) const { return xpath_.compile_match(match); } 
+  std::vector<Arabica::XPath::MatchExpr<std::string> > xpath_match(const std::string& match) const 
+  {
+    DisallowCurrent guard(current_allowed_);
+    return xpath_.compile_match(match); 
+  } // xpath_match
   Arabica::XPath::XPathExpressionPtr<std::string> xpath_attribute_value_template(const std::string& expr) const { return xpath_.compile_attribute_value_template(expr); } 
   Stylesheet& stylesheet() const { return stylesheet_; }
 
@@ -128,10 +135,39 @@ public:
 
 
 private:
+  // FunctionResolver 
+  virtual Arabica::XPath::XPathFunction<std::string>* resolveFunction(
+                                         const std::string& namespace_uri, 
+                                         const std::string& name,
+                                         const std::vector<Arabica::XPath::XPathExpression<std::string> >& argExprs) const
+  {
+    if(!namespace_uri.empty())
+      return 0;
+
+    // document
+    if(name == "document")
+      return new DocumentFunction(parser_.currentBase(), argExprs);
+    // key
+    // format-number
+    if((name == "current") && (current_allowed_))
+      return new CurrentFunction(argExprs);
+    // unparsed-entity-uri
+    // generate-id
+    if(name == "system-property")
+      return new SystemPropertyFunction(argExprs);
+    return 0;
+  } // resolveFunction
+
+  // NamespaceContext 
+  virtual std::string namespaceURI(const std::string& prefix) const
+  {
+    return parser_.namespaceURI(prefix);
+  } // namespaceURI
+
   typedef std::pair<std::string, std::string> Namespace;
 
   StylesheetParser& parser_;
-  const Arabica::XPath::XPath<std::string>& xpath_;
+  Arabica::XPath::XPath<std::string> xpath_;
   Stylesheet& stylesheet_;
   std::stack<SAX::DefaultHandler<std::string>*> handlerStack_;
   std::stack<ItemContainer*> parentStack_;
@@ -139,6 +175,16 @@ private:
 
   CompilationContext(const CompilationContext&);
   mutable int autoNs_;
+  mutable bool current_allowed_;
+
+  class DisallowCurrent
+  { 
+    public:
+      DisallowCurrent(bool& allow) : allow_(allow) { allow_ = false; }
+      ~DisallowCurrent() { allow_ = true; }
+    private:
+      bool& allow_;
+  }; // DisallowCurrent 
 }; // class CompilationContext
 
 } // namespace XSLT

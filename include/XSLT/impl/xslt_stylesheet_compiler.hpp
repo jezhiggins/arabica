@@ -8,7 +8,6 @@
 #include "xslt_stylesheet_parser.hpp"
 #include "xslt_stylesheet.hpp"
 #include "xslt_compilation_context.hpp"
-#include "xslt_functions.hpp"
 #include "handler/xslt_template_handler.hpp"
 #include "handler/xslt_include_handler.hpp"
 #include "handler/xslt_output_handler.hpp"
@@ -133,9 +132,7 @@ const ChildElement StylesheetHandler::allowedChildren[] =
     { 0, 0 }
   }; // StylesheetHandler::allowedChildren
 
-class StylesheetCompiler :
-    private Arabica::XPath::FunctionResolver<std::string>,
-    private Arabica::XPath::NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >
+class StylesheetCompiler 
 {
 public:
   StylesheetCompiler() 
@@ -150,14 +147,9 @@ public:
   {
     error_ = "";
 
-    Arabica::XPath::XPath<std::string> xpathCompiler;
-    xpathCompiler.setNamespaceContext(*this);
-    xpathCompiler.setFunctionResolver(*this);
-
     std::auto_ptr<Stylesheet> stylesheet(new Stylesheet());
 
     CompilationContext context(parser_, 
-                               xpathCompiler,
                                *stylesheet.get());
 
     StylesheetHandler stylesheetHandler(context);
@@ -191,35 +183,6 @@ private:
     std::cerr << "Error: " << exception.what() << std::endl;
     stylesheet_.reset();
   } // fatalError
-
-  // FunctionResolver 
-  virtual Arabica::XPath::XPathFunction<std::string>* resolveFunction(
-                                         const std::string& namespace_uri, 
-                                         const std::string& name,
-                                         const std::vector<Arabica::XPath::XPathExpression<std::string> >& argExprs) const
-  {
-    if(!namespace_uri.empty())
-      return 0;
-
-    // document
-    if(name == "document")
-      return new DocumentFunction(parser_.currentBase(), argExprs);
-    // key
-    // format-number
-    if(name == "current")
-      return new CurrentFunction(argExprs);
-    // unparsed-entity-uri
-    // generate-id
-    if(name == "system-property")
-      return new SystemPropertyFunction(argExprs);
-    return 0;
-  } // resolveFunction
-
-  // NamespaceContext 
-  virtual std::string namespaceURI(const std::string& prefix) const
-  {
-    return parser_.namespaceURI(prefix);
-  } // namespaceURI
 
   StylesheetParser parser_;
   std::auto_ptr<Stylesheet> stylesheet_;
