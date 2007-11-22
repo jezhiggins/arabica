@@ -292,7 +292,7 @@ public:
       parser.compile(SA::construct_from_utf8("one/two/three[string($a,$b)]"));
       assert(false);
     }
-    catch(std::exception& e) { 
+    catch(std::exception&) { 
       // we expect this to throw
     }
   } // test18a
