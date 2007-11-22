@@ -104,6 +104,7 @@ int main(int argc, const char* argv[])
 
   runner.addTest("ArabicaErrors", ArabicaTest_suite("errors"));
   runner.addTest("ArabicaInclude", ArabicaTest_suite("include"));
+  runner.addTest("ArabicaProcessingInstruction", ArabicaTest_suite("processing-instruction"));
 
   runner.run(argc, argv);
 
