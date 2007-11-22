@@ -38,9 +38,9 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
 
   public:
     Parser() :
+        documentType_(0),
         entityResolver_(0),
-        errorHandler_(0),
-        documentType_(0)
+        errorHandler_(0)
     { 
       Arabica::SAX::FeatureNames<stringT, string_adaptorT> fNames;
       features_.insert(std::make_pair(fNames.namespaces, true));
