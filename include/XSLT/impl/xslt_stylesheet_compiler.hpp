@@ -23,7 +23,8 @@ class StylesheetHandler : public SAX::DefaultHandler<std::string>
 public:
   StylesheetHandler(CompilationContext& context) :
     context_(context),
-    top_(false)
+    top_(false),
+    foreign_(0)
   {
     context_.root(*this);
     includer_.context(context_, this);      
@@ -39,6 +40,12 @@ public:
                             const std::string& qName,
                             const SAX::Attributes<std::string>& atts)
   {
+    if(foreign_)
+    {
+      ++foreign_;
+      return;
+    } // if(foreign_)
+
     if(top_)
     {
       if(namespaceURI != StylesheetConstant::NamespaceURI())
@@ -75,6 +82,11 @@ public:
           return;
         } // if ...
     } // if ... 
+    else if(!namespaceURI.empty())
+    {
+      ++foreign_;
+      return;
+    } // if(!namespaceURI.empty())
 
     throw SAX::SAXException("xsl:stylesheet does not allow " + qName + " here.");
   } // startElement
@@ -83,10 +95,15 @@ public:
                           const std::string& localName,
                           const std::string& qName)
   {
+    if(foreign_)
+      --foreign_;
   } // endElement
 
   virtual void characters(const std::string& ch)
   {
+    if(foreign_)
+      return;
+
     for(std::string::const_iterator s = ch.begin(), e = ch.end(); s != e; ++s)
       if(!Arabica::XML::is_space(*s))
         throw SAX::SAXException("stylesheet element can not contain character data :'" + ch +"'");
@@ -111,6 +128,7 @@ private:
   SAX::DefaultHandler<std::string>* child_;
   IncludeHandler includer_;
   bool top_;
+  unsigned int foreign_;
 
   static const ChildElement allowedChildren[];
 }; // class StylesheetHandler

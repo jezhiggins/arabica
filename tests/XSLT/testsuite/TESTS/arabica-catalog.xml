@@ -99,5 +99,32 @@
 				<output-file role="principal" compare="XML">pi01.out</output-file>
 			</scenario>
 		</test-case>
+		<test-case id="stylesheet01">
+			<file-path>stylesheet</file-path>
+			<purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
+			<scenario operation="standard">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">stylesheet01.xsl</input-file>
+				<output-file role="principal">stylesheet01.out</output-file>
+			</scenario>
+		</test-case>
+		<test-case id="stylesheet02">
+			<file-path>stylesheet</file-path>
+			<purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
+			<scenario operation="standard">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">stylesheet02.xsl</input-file>
+				<output-file role="principal">stylesheet02.out</output-file>
+			</scenario>
+		</test-case>
+		<test-case id="stylesheet03">
+			<file-path>stylesheet</file-path>
+			<purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
+			<scenario operation="standard">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">stylesheet03.xsl</input-file>
+				<output-file role="principal">stylesheet03.out</output-file>
+			</scenario>
+		</test-case>
 	</test-catalog>
 </test-suite>

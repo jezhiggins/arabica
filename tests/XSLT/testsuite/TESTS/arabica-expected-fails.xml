@@ -369,4 +369,7 @@
 	<test-case id="ForwardComp__91849" compiles="no"/>
 	<test-case id="ForwardComp__91853" compiles="no"/>
 	<test-case id="ForwardComp__91855" compiles="no"/>
+  <test-case id="stylesheet01" compare="text"/>
+  <test-case id="stylesheet02" compare="text"/>
+  <test-case id="stylesheet03" compare="text"/>
 </test-suite>
