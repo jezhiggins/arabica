@@ -137,7 +137,6 @@ public:
   void applyTemplates(const Arabica::XPath::NodeSet<std::string>& nodes, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const 
   {
     // entirely simple so far
-    StackFrame frame(context);
     LastFrame last(context, nodes.size());
     int p = 1;
     for(Arabica::XPath::NodeSet<std::string>::const_iterator n = nodes.begin(), ne = nodes.end(); n != ne; ++n)
@@ -150,7 +149,6 @@ public:
   void applyTemplates(const DOM::NodeList<std::string>& nodes, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const 
   {
     // entirely simple so far
-    StackFrame frame(context);
     LastFrame last(context, (size_t)nodes.getLength());
     for(int i = 0, ie = nodes.getLength(); i != ie; ++i)
     {
@@ -161,7 +159,6 @@ public:
 
   void applyTemplates(const DOM::Node<std::string>& node, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const
   {
-    StackFrame frame(context);
     LastFrame last(context, -1);
     context.setPosition(node, 1);
     doApplyTemplates(node, context, mode, 0);
@@ -187,8 +184,6 @@ public:
 
   void applyImports(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
-    StackFrame frame(context);
-
     doApplyTemplates(node, context, current_mode_, current_generation_+1);
   } // applyImports
 
@@ -198,6 +193,8 @@ private:
                         const std::pair<std::string, std::string>& mode, 
                         int generation) const
   {
+    StackFrame frame(context);
+
     current_mode_ = mode;
     current_generation_ = generation;
 

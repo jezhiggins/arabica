@@ -51,7 +51,9 @@ int main(int argc, const char* argv[])
   //runner.addTest("numberformat", XSLTTest_suite("numberformat"));
   //runner.addTest("numbering", XSLTTest_suite("numbering"));
   runner.addTest("output", XSLTTest_suite("output"));
+*/
   runner.addTest("position", XSLTTest_suite("position"));
+/*
   runner.addTest("predicate", XSLTTest_suite("predicate"));
   runner.addTest("processorinfo", XSLTTest_suite("processorinfo"));
   runner.addTest("reluri", XSLTTest_suite("reluri"));
@@ -72,9 +74,7 @@ int main(int argc, const char* argv[])
   runner.addTest("ConflictResolution", XSLTTest_suite("ConflictResolution"));
   runner.addTest("Copying", XSLTTest_suite("Copying"));
   runner.addTest("Elements", XSLTTest_suite("Elements"));
-*/
   runner.addTest("Errors", XSLTTest_suite("Errors"));
-/*
   runner.addTest("Fallback", XSLTTest_suite("Fallback"));
   runner.addTest("ForEach", XSLTTest_suite("ForEach"));
   //runner.addTest("FormatNumber", XSLTTest_suite("FormatNumber"));
@@ -100,12 +100,12 @@ int main(int argc, const char* argv[])
   runner.addTest("Variables", XSLTTest_suite("Variables"));
   runner.addTest("Whitespaces", XSLTTest_suite("Whitespaces"));
   runner.addTest("XSLTFunctions", XSLTTest_suite("XSLTFunctions"));
-*/
 
   runner.addTest("ArabicaErrors", ArabicaTest_suite("errors"));
   runner.addTest("ArabicaInclude", ArabicaTest_suite("include"));
   runner.addTest("ArabicaProcessingInstruction", ArabicaTest_suite("processing-instruction"));
   runner.addTest("ArabicaStylesheets", ArabicaTest_suite("stylesheet"));
+*/
 
   runner.run(argc, argv);
 
