@@ -51,9 +51,7 @@ int main(int argc, const char* argv[])
   //runner.addTest("numberformat", XSLTTest_suite("numberformat"));
   //runner.addTest("numbering", XSLTTest_suite("numbering"));
   runner.addTest("output", XSLTTest_suite("output"));
-*/
   runner.addTest("position", XSLTTest_suite("position"));
-/*
   runner.addTest("predicate", XSLTTest_suite("predicate"));
   runner.addTest("processorinfo", XSLTTest_suite("processorinfo"));
   runner.addTest("reluri", XSLTTest_suite("reluri"));
@@ -90,7 +88,9 @@ int main(int argc, const char* argv[])
   runner.addTest("Namespace_XPath", XSLTTest_suite("Namespace_XPath"));
   //runner.addTest("Number", XSLTTest_suite("Number"));
   runner.addTest("Output", XSLTTest_suite("Output"));
+*/
   runner.addTest("ProcessingInstruction", XSLTTest_suite("ProcessingInstruction"));
+/*
   runner.addTest("RTF", XSLTTest_suite("RTF"));
   runner.addTest("Sorting", XSLTTest_suite("Sorting"));
   runner.addTest("Stylesheet", XSLTTest_suite("Stylesheet"));
@@ -110,4 +110,4 @@ int main(int argc, const char* argv[])
   runner.run(argc, argv);
 
   return 77;
-} // test_suite
+}

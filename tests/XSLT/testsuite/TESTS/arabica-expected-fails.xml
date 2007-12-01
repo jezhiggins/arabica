@@ -369,6 +369,27 @@
 	<test-case id="ForwardComp__91849" compiles="no"/>
 	<test-case id="ForwardComp__91853" compiles="no"/>
 	<test-case id="ForwardComp__91855" compiles="no"/>
+	<test-case id="Modes__78323" compare="fragment"/>
+	<test-case id="Modes__78325" compare="text"/>
+	<test-case id="Modes__78327" compare="fragment"/>
+	<test-case id="Modes__78328" compare="text"/>
+	<test-case id="Modes__78333" compare="fragment"/>
+	<test-case id="Modes__78334" compare="fragment"/>
+	<test-case id="Modes__78341" compare="fragment"/>
+	<test-case id="Modes__78342" compare="fragment"/>
+	<test-case id="Modes__78343" compare="fragment"/>
+	<test-case id="Modes__84413" compare="fragment"/>
+	<test-case id="Modes__84414" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78188" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78190" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78196" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78200" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78201" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78202" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78203" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78393" compare="fragment"/>
+	<test-case id="ProcessingInstruction__78394" compare="fragment"/>
+
 	<test-case id="Value-of_ConcatTextNodes" skip="yes" reason="I think my interpretation is valid for mapping DOM to XSLT"/>
 	<test-case id="Value-of_ValueOf-KeyReferenceInSelect" compiles="no"/>
   <test-case id="stylesheet01" compare="text"/>
