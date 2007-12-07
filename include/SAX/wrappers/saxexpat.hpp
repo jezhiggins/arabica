@@ -211,6 +211,7 @@ class expat_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>,
     typedef SAX::EntityResolver<string_type, string_adaptor> entityResolverT;
     typedef SAX::DTDHandler<string_type, string_adaptor> dtdHandlerT;
     typedef SAX::ContentHandler<string_type, string_adaptor> contentHandlerT;
+    typedef SAX::Attributes<string_type, string_adaptor> attributesT;
     typedef SAX::DeclHandler<string_type, string_adaptor> declHandlerT;
     typedef SAX::LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
     typedef SAX::InputSource<string_type, string_adaptor> inputSourceT;
@@ -667,7 +668,7 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
           attributes.addAttribute(emptyString_, 
                                   emptyString_, 
                                   attQName, 
-                                  emptyString_, 
+                                  attributesT::Type::CDATA,
                                   value);
       }
     } // while
@@ -681,7 +682,11 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
       if(SA::find(attQName, nsc_.xmlns) != 0) 
       {
         typename namespaceSupportT::Parts attName = processName(attQName, true);
-        attributes.addAttribute(attName.URI, attName.localName, attName.rawName, emptyString_, value);
+        attributes.addAttribute(attName.URI, 
+                                attName.localName, 
+                                attName.rawName, 
+                                attributesT::Type::CDATA,
+                                value);
       }
     } // while ...
   } // if ...
@@ -703,7 +708,11 @@ void expat_wrapper<string_type, T0, T1>::startElementNoNS(const char* qName, con
       string_type attQName = SA::construct_from_utf8(*atts++);
       string_type value = SA::construct_from_utf8(*atts++);
 
-      attributes.addAttribute(emptyString_, emptyString_, attQName, emptyString_, value);
+      attributes.addAttribute(emptyString_, 
+                              emptyString_, 
+                              attQName, 
+                              attributesT::Type::CDATA,
+                              value);
     } // while ..
   } // if ...
 

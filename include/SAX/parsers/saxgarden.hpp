@@ -350,7 +350,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::attributeValue(iterator_t s, iterator_t e)
 {
   currentAttr_.value_ = str(s, e);
-  currentAttr_.type_ = string_adaptor::construct("CDATA");
+  currentAttr_.type_ = Attributes<string_type, string_adaptor>::Type::CDATA;
   attrs_.addAttribute(currentAttr_);
 } // attributeValue
 

@@ -125,6 +125,7 @@ class libxml2_wrapper : public XMLReaderInterface<string_type, T0, T1>,
     typedef SAX::EntityResolver<string_type, string_adaptor> entityResolverT;
     typedef SAX::DTDHandler<string_type, string_adaptor> dtdHandlerT;
     typedef SAX::ContentHandler<string_type, string_adaptor> contentHandlerT;
+    typedef SAX::Attributes<string_type, string_adaptor> attributesT;
     typedef SAX::DeclHandler<string_type, string_adaptor> declHandlerT;
     typedef SAX::LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
     typedef SAX::InputSource<string_type, string_adaptor> inputSourceT;
@@ -567,7 +568,7 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
           attributes.addAttribute(emptyString_, 
                                   emptyString_, 
                                   attQName, 
-                                  emptyString_, 
+                                  attributesT::Type::CDATA,
                                   value);
       }
     } // while
@@ -581,7 +582,11 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
       if(string_adaptor::find(attQName, nsc_.xmlns) != 0) 
       {
         typename NamespaceSupport<string_type, string_adaptor>::Parts attName = processName(attQName, true);
-        attributes.addAttribute(attName.URI, attName.localName, attName.rawName, emptyString_, value);
+        attributes.addAttribute(attName.URI, 
+                                attName.localName, 
+                                attName.rawName, 
+                                attributesT::Type::CDATA, 
+                                value);
       }
     } // while ...
   } // if ...
@@ -603,7 +608,11 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElementNoNS(const xmlChar* qN
       string_type attQName = string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
       string_type value = string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
 
-      attributes.addAttribute(emptyString_, emptyString_, attQName, emptyString_, value);
+      attributes.addAttribute(emptyString_, 
+                              emptyString_, 
+                              attQName, 
+                              attributesT::Type::CDATA,
+                              value);
     } // while ..
   } // if ...
 

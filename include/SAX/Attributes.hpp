@@ -57,6 +57,20 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class Attributes
 {
 public:
+  class Type 
+  {
+  public:
+    static const string_type CDATA;
+    static const string_type ID;
+    static const string_type IDREF;
+    static const string_type IDREFS;
+    static const string_type NMTOKEN;
+    static const string_type NMTOKENS;
+    static const string_type ENTITY;
+    static const string_type ENTITIES;
+    static const string_type NOTATION;
+  }; // Type
+
   typedef string_type stringT;
 
   virtual ~Attributes() { }
@@ -226,7 +240,28 @@ public:
    */
   virtual stringT getValue(const stringT& qName) const = 0;
 
+private:
+  static Type types_;
 }; // class Attributes
+
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::CDATA = string_adaptor::construct_from_utf8("CDATA");
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::ID = string_adaptor::construct_from_utf8("ID");
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::IDREF = string_adaptor::construct_from_utf8("IDREF");
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::IDREFS = string_adaptor::construct_from_utf8("IDREFS");
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::NMTOKEN = string_adaptor::construct_from_utf8("NMTOKEN");
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::NMTOKENS = string_adaptor::construct_from_utf8("NMTOKENS");
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::ENTITY = string_adaptor::construct_from_utf8("ENTITY");
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::ENTITIES = string_adaptor::construct_from_utf8("ENTITIES");
+template<class string_type, class string_adaptor>
+const string_type Attributes<string_type, string_adaptor>::Type::NOTATION = string_adaptor::construct_from_utf8("NOTATION");
 
 } // namespace SAX
 } // namespace Arabica
