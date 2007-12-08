@@ -23,13 +23,14 @@ using namespace std;
 typedef pair<string, Test *>           mapping;
 typedef vector<pair<string, Test *> >   mappings;
 
-void run(const string& name, Test *test, bool verbose)
+bool run(const string& name, Test *test, bool verbose)
 {
   if(verbose)
     cout << "Running " << name << endl;
   TextTestResult  result(name, verbose);
   test->run (&result);
   cout << result;
+  return result.wasSuccessful();
 } // run
 
 void printBanner ()
@@ -37,8 +38,9 @@ void printBanner ()
   cout << "Usage: driver [-v] [ -wait ] testName, where name is the name of a test case class" << endl;
 } // printBanner
 
-void TestRunner::run(int ac, const char **av)
+bool TestRunner::run(int ac, const char **av)
 {
+  bool ok = true;
   string  testCase;
   int     numberOfTests = 0;
   int opt = 0;
@@ -64,7 +66,7 @@ void TestRunner::run(int ac, const char **av)
     if(testCase == "") 
     {
       printBanner ();
-      return;
+      return ok;
     }
 
     Test *testToRun = NULL;
@@ -76,7 +78,7 @@ void TestRunner::run(int ac, const char **av)
       if((*it).first == testCase) 
       {
         testToRun = (*it).second;
-        ::run((*it).first, testToRun, verbose_);
+        ok &= ::run((*it).first, testToRun, verbose_);
       }
     }
 
@@ -85,7 +87,7 @@ void TestRunner::run(int ac, const char **av)
     if(!testToRun) 
     {
       cout << "Test " << testCase << " not found." << endl;
-      return;
+      return false;
     } 
   } // for ...
 
@@ -94,15 +96,15 @@ void TestRunner::run(int ac, const char **av)
     // run everything
     for(mappings::iterator it = m_mappings.begin(); it != m_mappings.end(); ++it) 
     {
-      ::run((*it).first, (*it).second, verbose_);
+      ok &= ::run((*it).first, (*it).second, verbose_);
     }
-    return;
+    return ok;
   } 
 
   if(numberOfTests == 0) 
   {
       printBanner ();
-      return;        
+      return false;        
   }
 
   if(m_wait) 
@@ -110,6 +112,8 @@ void TestRunner::run(int ac, const char **av)
       cout << "<RETURN> to continue" << endl;
       cin.get ();
   }
+
+  return ok;
 } // run
 
 TestRunner::~TestRunner ()
