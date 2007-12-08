@@ -19,7 +19,7 @@
 #include "attr_value_test.hpp"
 
 template<class string_type, class string_adaptor>
-void XPath_test_suite(int argc, const char** argv)
+bool XPath_test_suite(int argc, const char** argv)
 {
   TestRunner runner;
 
@@ -36,7 +36,7 @@ void XPath_test_suite(int argc, const char** argv)
   runner.addTest("MatchTest", MatchTest_suite<string_type, string_adaptor>());
   runner.addTest("AttributeValueTest", AttributeValueTest_suite<string_type, string_adaptor>());
 
-  runner.run(argc, argv);
+  return runner.run(argc, argv);
 } // XPath_test_suite
 
 #endif

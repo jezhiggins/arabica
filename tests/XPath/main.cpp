@@ -9,6 +9,7 @@
 /////////////////////////////////////////
 int main(int argc, const char** argv)
 {
-  XPath_test_suite<std::string, Arabica::default_string_adaptor<std::string> >(argc, argv);
+  bool ok = XPath_test_suite<std::string, Arabica::default_string_adaptor<std::string> >(argc, argv);
+  return !ok;
 } // main
 

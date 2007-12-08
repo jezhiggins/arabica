@@ -11,13 +11,9 @@
 ////////////////////////////////////////////////
 int main(int argc, const char* argv[])
 {
-#ifndef ARABICA_NO_WCHAR_T
-  DOM_test_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >(argc, argv);
-#else
-	std::cout << "No DOM_wide tests on this platform :)" << std::endl;
-#endif
+  bool ok = DOM_test_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >(argc, argv);
 
-  return 0;
+  return !ok;
 } // main
 
 // end of file

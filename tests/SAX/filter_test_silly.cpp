@@ -15,8 +15,8 @@ int main(int argc, const char* argv[])
 
   runner.addTest("WhitespaceStripperTest", WhitespaceStripper_test_suite<silly_string, silly_string_adaptor>());
 
-  runner.run(argc, argv);
+  bool ok = runner.run(argc, argv);
 
-  return 0;
+  return !ok;
 } // main
 
