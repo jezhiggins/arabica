@@ -76,6 +76,16 @@ void URI::parse(const std::string& uri)
     return;
   } // if ...
 
+  if(d == 1) 
+  {
+    // looks like a windows file path
+    path_ = uri;
+    for(int i = path_.find('\\'); i != -1; i = path_.find('\\', i))
+      path_[i] = '/';
+    scheme_ = "file";
+    return;
+  } // if ...
+
   scheme_ = uri.substr(0, d);
 
   std::string::const_iterator u = uri.begin() + d;
