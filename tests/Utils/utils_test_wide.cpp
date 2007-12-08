@@ -7,9 +7,9 @@
 ////////////////////////////////////////////////
 int main(int argc, const char* argv[])
 {
-  Util_test_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >(argc, argv);
+  bool ok = Util_test_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >(argc, argv);
 
-  return 0;
+  return !ok;
 } // main
 
 // end of file

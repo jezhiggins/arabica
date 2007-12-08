@@ -10,7 +10,7 @@
 #include "test_uri.hpp"
 
 template<class string_type, class string_adaptor>
-void Util_test_suite(int argc, const char** argv)
+bool Util_test_suite(int argc, const char** argv)
 {
   TestRunner runner;
 
@@ -18,7 +18,7 @@ void Util_test_suite(int argc, const char** argv)
 	runner.addTest("Base64Test", Base64Test_suite());
   runner.addTest("URITest", URITest_suite());
   
-  runner.run(argc, argv);
+  return runner.run(argc, argv);
 } // main
 
 #endif

@@ -8,9 +8,9 @@
 ////////////////////////////////////////////////
 int main(int argc, const char* argv[])
 {
-  Util_test_suite<silly_string, silly_string_adaptor>(argc, argv);
+  bool ok = Util_test_suite<silly_string, silly_string_adaptor>(argc, argv);
 
-  return 0;
+  return !ok;
 } // main
 
 // end of file
