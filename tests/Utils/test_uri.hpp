@@ -336,6 +336,20 @@ class URITest : public TestCase
 
      assertEquals("../../../one/two/three/five", r.path());
    } // test31
+
+   
+    void test32()
+    {
+      // windows file path tests
+      URI u("d:\\work\\jezuk\\arabica\\file.xml");
+
+      assertEquals("d:/work/jezuk/arabica/file.xml", u.path());
+      assertEquals("", u.host());
+      assertEquals("file", u.scheme());
+      assertEquals("0", u.port());
+      assertEquals("file://d:/work/jezuk/arabica/file.xml", u.as_string());
+    } // test32
+
 }; // class URITest
 
 TestSuite* URITest_suite()
@@ -373,6 +387,7 @@ TestSuite* URITest_suite()
   suiteOfTests->addTest(new TestCaller<URITest>("test29", &URITest::test29));
   suiteOfTests->addTest(new TestCaller<URITest>("test30", &URITest::test30));
   suiteOfTests->addTest(new TestCaller<URITest>("test31", &URITest::test31));
+  suiteOfTests->addTest(new TestCaller<URITest>("test32", &URITest::test32));
 
   return suiteOfTests;
 } // URITest_suite
