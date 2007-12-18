@@ -19,6 +19,8 @@ public:
   PlusOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
+  virtual ValueType type() const { return NUMBER; }
+
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const 
   {
@@ -34,6 +36,8 @@ class MinusOperator : private BinaryExpression<string_type, string_adaptor>,
 public:
   MinusOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
+
+  virtual ValueType type() const { return NUMBER; }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
@@ -51,6 +55,8 @@ public:
   MultiplyOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
+  virtual ValueType type() const { return NUMBER; }
+
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
@@ -67,6 +73,8 @@ public:
   DivideOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
+  virtual ValueType type() const { return NUMBER; }
+
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
@@ -82,6 +90,8 @@ class ModOperator : private BinaryExpression<string_type, string_adaptor>,
 public:
   ModOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
+
+  virtual ValueType type() const { return NUMBER; }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
@@ -103,6 +113,8 @@ class UnaryNegative : private UnaryExpression<string_type, string_adaptor>,
 public:
   UnaryNegative(XPathExpression_impl<string_type, string_adaptor>* expr) :
       UnaryExpression<string_type, string_adaptor>(expr) { }
+
+  virtual ValueType type() const { return NUMBER; }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const

@@ -32,6 +32,8 @@ public:
       delete *p;
   } // ~StepExpression
 
+  virtual ValueType type() const { return NODE_SET; }
+
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
   virtual XPathValue<string_type, string_adaptor> evaluate(NodeSet<string_type, string_adaptor>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 
@@ -452,6 +454,8 @@ public:
     for(typename StepList<string_type, string_adaptor>::const_iterator i = steps_.begin(); i != steps_.end(); ++i)
       delete *i;
   } // ~RelativeLocationPath
+
+  virtual ValueType type() const { return NODE_SET; }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {

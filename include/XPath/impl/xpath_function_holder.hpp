@@ -29,6 +29,8 @@ public:
     delete func_;
   } // ~FunctionHolder
 
+  virtual ValueType type() const { return func_->type(); }
+
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {

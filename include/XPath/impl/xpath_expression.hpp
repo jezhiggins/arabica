@@ -20,6 +20,8 @@ protected:
 public:
   virtual ~XPathExpression_impl() { }
 
+  virtual ValueType type() const = 0;
+
   XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context) const
   {
     ExecutionContext<string_type, string_adaptor> executionContext;
@@ -64,6 +66,8 @@ public:
     ptr_ = rhs.ptr_;
     return *this;
   } // operator=
+
+  ValueType type() const { return ptr_->type(); }
 
   const XPathExpression_impl<string_type, string_adaptor>* get() const { return ptr_.get(); }
 

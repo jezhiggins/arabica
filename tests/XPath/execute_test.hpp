@@ -65,6 +65,8 @@ public:
   TestFunction(const std::vector<Arabica::XPath::XPathExpression<string_type, string_adaptor> >& args) :
       Arabica::XPath::XPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
+  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
+
   virtual Arabica::XPath::XPathValue_impl<string_type, string_adaptor>* evaluate(const Arabica::DOM::Node<string_type, string_adaptor>& context, 
                                             const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
@@ -178,6 +180,7 @@ public:
     using namespace Arabica::XPath;
     XPathExpression<string_type, string_adaptor> xpath;
     xpath = parser.compile(SA::construct_from_utf8("root"));
+    assertValuesEqual(NODE_SET, xpath.type());
     XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
 
     assertValuesEqual(NODE_SET, result.type());
@@ -190,6 +193,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/child2"));
+    assertValuesEqual(NODE_SET, xpath.type());
     XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
 
     assertValuesEqual(NODE_SET, result.type());
@@ -202,6 +206,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*"));
+    assertValuesEqual(NODE_SET, xpath.type());
     XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
 
     assertValuesEqual(NODE_SET, result.type());
@@ -215,6 +220,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("root/*/text()"));
+    assertValuesEqual(NODE_SET, xpath.type());
     XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
 
     assertValuesEqual(NODE_SET, result.type());
@@ -234,6 +240,7 @@ public:
   {
     using namespace Arabica::XPath;
     XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("*"));
+    assertValuesEqual(NODE_SET, xpath.type());
 
     XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
     assertValuesEqual(NODE_SET, result.type());
@@ -283,6 +290,7 @@ public:
     nsContext.addNamespaceDeclaration(SA::construct_from_utf8("urn:something:or:other"), SA::construct_from_utf8("ns"));
     parser.setNamespaceContext(nsContext);
     XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/ns:root"));
+    assertValuesEqual(NODE_SET, xpath.type());
     parser.resetNamespaceContext();
 
     XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);

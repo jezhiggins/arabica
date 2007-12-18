@@ -21,7 +21,7 @@ public:
   MatchExpr& operator=(const MatchExpr& rhs)
   { match_ = rhs.match_; priority_ = rhs.priority_; return *this; }
 
-  double priority() const { return priority_; }
+    double priority() const { return priority_; }
   bool evaluate(const DOM::Node<string_type, string_adaptor>& context,
                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
@@ -51,6 +51,8 @@ public:
   {
     add_matches(expr);
   } // MatchExpressionWrapper
+
+  virtual ValueType type() const { return BOOL; }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context,
 					      const ExecutionContext<string_type, string_adaptor>& executionContext) const

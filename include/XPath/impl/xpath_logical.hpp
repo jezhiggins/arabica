@@ -20,6 +20,8 @@ public:
              XPathExpression_impl<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
+  virtual ValueType type() const { return BOOL; }
+
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
@@ -43,6 +45,8 @@ public:
   AndOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, 
               XPathExpression_impl<string_type, string_adaptor>* rhs) :
        BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
+
+  virtual ValueType type() const { return BOOL; }
 
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
