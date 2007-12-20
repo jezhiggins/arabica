@@ -505,6 +505,7 @@ private:
 #include "xpath_relational.hpp"
 #include "xpath_logical.hpp"
 #include "xpath_step.hpp"
+#include "xpath_match_rewrite.hpp"
 #include "xpath_compile_context.hpp"
 #include "xpath_variable.hpp"
 #include "xpath_function_holder.hpp"

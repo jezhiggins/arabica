@@ -14,14 +14,13 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class MatchExpr
 {
 public:
-  MatchExpr(XPathExpression_impl<string_type, string_adaptor>* match, double priority) :
-    match_(match), priority_(priority) { } 
+  MatchExpr(XPathExpression_impl<string_type, string_adaptor>* match, double priority);
   MatchExpr(const MatchExpr& rhs) :
     match_(rhs.match_), priority_(rhs.priority_) { } 
   MatchExpr& operator=(const MatchExpr& rhs)
   { match_ = rhs.match_; priority_ = rhs.priority_; return *this; }
 
-    double priority() const { return priority_; }
+  double priority() const { return priority_; }
   bool evaluate(const DOM::Node<string_type, string_adaptor>& context,
                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
@@ -33,6 +32,9 @@ public:
 private:
   XPathExpression<string_type, string_adaptor> match_;
   double priority_;
+
+  MatchExpr();
+  bool operator==(const MatchExpr&) const;
 }; // MatchExpr
 
 namespace impl
@@ -80,6 +82,11 @@ public:
 
 private:
   std::vector<MatchExpr<string_type, string_adaptor> >  matches_;
+
+  MatchExpressionWrapper();
+  MatchExpressionWrapper(const MatchExpressionWrapper&);
+  MatchExpressionWrapper& operator=(const MatchExpressionWrapper&);
+  bool operator==(const MatchExpressionWrapper&) const;
 }; // class MatchExpressionWrapper
 
 } // namespace impl 
