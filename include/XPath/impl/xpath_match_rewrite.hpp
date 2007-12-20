@@ -10,8 +10,10 @@ template<class string_type, class string_adaptor>
 MatchExpr<string_type, string_adaptor>::MatchExpr(XPathExpression_impl<string_type, string_adaptor>* match, double priority) :
   match_(match), priority_(priority) 
 {
-  impl::StepExpression<string_type, string_adaptor>* step = static_cast<impl::StepExpression<string_type, string_adaptor>*>(match);
-  // loop through predicates here
+  // match is a RelativeLocationPath
+  //   foreach step in the steplist
+  //     foreach predicate in the predicatelist
+  //       should rewrite?
 } // MatchExpr
 
 } // namespace XPath

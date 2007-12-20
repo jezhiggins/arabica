@@ -20,6 +20,9 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor>
+class MatchExpr;
+
+template<class string_type, class string_adaptor>
 class StepExpression : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
@@ -38,6 +41,8 @@ public:
   virtual XPathValue<string_type, string_adaptor> evaluate(NodeSet<string_type, string_adaptor>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 
   bool has_predicates() const { return !predicates_.empty(); }
+
+  std::vector<XPathExpression_impl<string_type, string_adaptor>*>& predicates() { return predicates_; }
 
 protected:
   NodeSet<string_type, string_adaptor> applyPredicates(NodeSet<string_type, string_adaptor>& nodes, const ExecutionContext<string_type, string_adaptor>& parentContext) const
