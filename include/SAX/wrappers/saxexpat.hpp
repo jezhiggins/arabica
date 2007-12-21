@@ -212,6 +212,7 @@ class expat_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>,
     typedef SAX::DTDHandler<string_type, string_adaptor> dtdHandlerT;
     typedef SAX::ContentHandler<string_type, string_adaptor> contentHandlerT;
     typedef SAX::Attributes<string_type, string_adaptor> attributesT;
+    typedef SAX::AttributeType<string_type, string_adaptor> attributeTypeT;
     typedef SAX::DeclHandler<string_type, string_adaptor> declHandlerT;
     typedef SAX::LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
     typedef SAX::InputSource<string_type, string_adaptor> inputSourceT;
@@ -668,7 +669,7 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
           attributes.addAttribute(emptyString_, 
                                   emptyString_, 
                                   attQName, 
-                                  attributesT::Type::CDATA,
+                                  attributeTypeT::CDATA,
                                   value);
       }
     } // while
@@ -685,7 +686,7 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
         attributes.addAttribute(attName.URI, 
                                 attName.localName, 
                                 attName.rawName, 
-                                attributesT::Type::CDATA,
+                                attributeTypeT::CDATA,
                                 value);
       }
     } // while ...
@@ -711,7 +712,7 @@ void expat_wrapper<string_type, T0, T1>::startElementNoNS(const char* qName, con
       attributes.addAttribute(emptyString_, 
                               emptyString_, 
                               attQName, 
-                              attributesT::Type::CDATA,
+                              attributeTypeT::CDATA,
                               value);
     } // while ..
   } // if ...

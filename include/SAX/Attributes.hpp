@@ -54,22 +54,24 @@ namespace SAX
  * @see AttributesImpl
  */
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class AttributeType 
+{
+public:
+  static const string_type CDATA;
+  static const string_type ID;
+  static const string_type IDREF;
+  static const string_type IDREFS;
+  static const string_type NMTOKEN;
+  static const string_type NMTOKENS;
+  static const string_type ENTITY;
+  static const string_type ENTITIES;
+  static const string_type NOTATION;
+}; // AttributeType
+
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class Attributes
 {
 public:
-  class Type 
-  {
-  public:
-    static const string_type CDATA;
-    static const string_type ID;
-    static const string_type IDREF;
-    static const string_type IDREFS;
-    static const string_type NMTOKEN;
-    static const string_type NMTOKENS;
-    static const string_type ENTITY;
-    static const string_type ENTITIES;
-    static const string_type NOTATION;
-  }; // Type
 
   typedef string_type stringT;
 
@@ -241,27 +243,27 @@ public:
   virtual stringT getValue(const stringT& qName) const = 0;
 
 private:
-  static Type types_;
+  static AttributeType<string_type, string_adaptor> types_;
 }; // class Attributes
 
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::CDATA = string_adaptor::construct_from_utf8("CDATA");
+const string_type AttributeType<string_type, string_adaptor>::CDATA = string_adaptor::construct_from_utf8("CDATA");
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::ID = string_adaptor::construct_from_utf8("ID");
+const string_type AttributeType<string_type, string_adaptor>::ID = string_adaptor::construct_from_utf8("ID");
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::IDREF = string_adaptor::construct_from_utf8("IDREF");
+const string_type AttributeType<string_type, string_adaptor>::IDREF = string_adaptor::construct_from_utf8("IDREF");
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::IDREFS = string_adaptor::construct_from_utf8("IDREFS");
+const string_type AttributeType<string_type, string_adaptor>::IDREFS = string_adaptor::construct_from_utf8("IDREFS");
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::NMTOKEN = string_adaptor::construct_from_utf8("NMTOKEN");
+const string_type AttributeType<string_type, string_adaptor>::NMTOKEN = string_adaptor::construct_from_utf8("NMTOKEN");
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::NMTOKENS = string_adaptor::construct_from_utf8("NMTOKENS");
+const string_type AttributeType<string_type, string_adaptor>::NMTOKENS = string_adaptor::construct_from_utf8("NMTOKENS");
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::ENTITY = string_adaptor::construct_from_utf8("ENTITY");
+const string_type AttributeType<string_type, string_adaptor>::ENTITY = string_adaptor::construct_from_utf8("ENTITY");
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::ENTITIES = string_adaptor::construct_from_utf8("ENTITIES");
+const string_type AttributeType<string_type, string_adaptor>::ENTITIES = string_adaptor::construct_from_utf8("ENTITIES");
 template<class string_type, class string_adaptor>
-const string_type Attributes<string_type, string_adaptor>::Type::NOTATION = string_adaptor::construct_from_utf8("NOTATION");
+const string_type AttributeType<string_type, string_adaptor>::NOTATION = string_adaptor::construct_from_utf8("NOTATION");
 
 } // namespace SAX
 } // namespace Arabica
