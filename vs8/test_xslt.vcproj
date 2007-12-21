@@ -196,6 +196,10 @@
 				RelativePath="..\tests\Xslt\main.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\tests\XSLT\xslt_test.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
