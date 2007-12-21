@@ -16,17 +16,19 @@ namespace Arabica
 {
 namespace XPath
 {
-namespace impl
-{
 
 template<class string_type, class string_adaptor>
 class MatchExpr;
+
+namespace impl
+{
 
 template<class string_type, class string_adaptor>
 class StepExpression : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   StepExpression() { }
+  StepExpression(XPathExpression_impl<string_type, string_adaptor>* pred) { predicates_.push_back(pred); }
   StepExpression(const std::vector<XPathExpression_impl<string_type, string_adaptor> *>& predicates) : predicates_(predicates) { }
 
   virtual ~StepExpression()
@@ -41,8 +43,6 @@ public:
   virtual XPathValue<string_type, string_adaptor> evaluate(NodeSet<string_type, string_adaptor>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 
   bool has_predicates() const { return !predicates_.empty(); }
-
-  std::vector<XPathExpression_impl<string_type, string_adaptor>*>& predicates() { return predicates_; }
 
 protected:
   NodeSet<string_type, string_adaptor> applyPredicates(NodeSet<string_type, string_adaptor>& nodes, const ExecutionContext<string_type, string_adaptor>& parentContext) const
@@ -77,6 +77,8 @@ private:
   } // applyPredicate
   
   std::vector<XPathExpression_impl<string_type, string_adaptor>*> predicates_;
+
+  friend class MatchExpr<string_type, string_adaptor>;
 }; // StepExpression
 
 template<class string_type, class string_adaptor>
@@ -86,6 +88,14 @@ class TestStepExpression : public StepExpression<string_type, string_adaptor>
 public:
   TestStepExpression(Axis axis, NodeTest<string_type, string_adaptor>* test) :
       StepExpression<string_type, string_adaptor>(),
+      axis_(axis),
+      test_(test)
+  {
+  } // TestStepExpression
+
+  TestStepExpression(Axis axis, NodeTest<string_type, string_adaptor>* test,
+                     XPathExpression_impl<string_type, string_adaptor>* pred) :
+      StepExpression<string_type, string_adaptor>(pred),
       axis_(axis),
       test_(test)
   {
@@ -147,6 +157,8 @@ private:
 
   Axis axis_;
   NodeTest<string_type, string_adaptor>* test_;
+
+  friend class MatchExpr<string_type, string_adaptor>;
 }; // class TestStepExpression
 
 template<class string_type, class string_adaptor>
@@ -480,6 +492,8 @@ public:
 
 private:
   StepList<string_type, string_adaptor> steps_;
+
+  friend class MatchExpr<string_type, string_adaptor>;
 }; // RelativeLocationPath
 
 template<class string_type, class string_adaptor>

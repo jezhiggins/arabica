@@ -19,6 +19,7 @@ protected:
   NodeTest() { }
 public:
   virtual ~NodeTest() { }
+  virtual NodeTest* clone() const = 0;
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const = 0;
 
 private:
@@ -31,6 +32,7 @@ template<class string_type, class string_adaptor>
 class AnyNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
+  virtual NodeTest* clone() const { return new AnyNodeTest(); }
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
     return true;
@@ -41,6 +43,7 @@ template<class string_type, class string_adaptor>
 class NodeNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
+  virtual NodeTest* clone() const { return new NodeNodeTest(); }
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
     int type = node.getNodeType();
@@ -56,6 +59,7 @@ class NameNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
   NameNodeTest(const string_type& name) : name_(name) { }
+  virtual NodeTest* clone() const { return new NameNodeTest(name_); }
 
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
@@ -74,6 +78,7 @@ class AttributeNameNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
   AttributeNameNodeTest(const string_type& name) : name_(name) { }
+  virtual NodeTest* clone() const { return new AttributeNameNodeTest(name_); }
 
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
@@ -92,6 +97,7 @@ class QNameNodeTest : public NodeTest<string_type, string_adaptor>
 public:
   QNameNodeTest(const string_type& namespace_uri, const string_type& name) : 
       uri_(namespace_uri), name_(name) { }
+  virtual NodeTest* clone() const { return new QNameNodeTest(uri_, name_); }
 
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
@@ -112,6 +118,7 @@ class AttributeQNameNodeTest : public NodeTest<string_type, string_adaptor>
 public:
   AttributeQNameNodeTest(const string_type& namespace_uri, const string_type& name) : 
       uri_(namespace_uri), name_(name) { }
+  virtual NodeTest* clone() const { return new AttributeQNameNodeTest(uri_, name_); }
 
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
@@ -129,6 +136,8 @@ template<class string_type, class string_adaptor>
 class StarNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
+  virtual NodeTest* clone() const { return new StarNodeTest(); }
+
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
     int type = node.getNodeType();
@@ -143,6 +152,7 @@ class QStarNodeTest : public StarNodeTest<string_type, string_adaptor>
   typedef StarNodeTest<string_type, string_adaptor> baseT;
 public:
   QStarNodeTest(const string_type& namespace_uri) : baseT(), uri_(namespace_uri) { }
+  virtual NodeTest* clone() const { return new QStarNodeTest(uri_); }
 
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
@@ -158,6 +168,8 @@ template<class string_type, class string_adaptor>
 class TextNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
+  virtual NodeTest* clone() const { return new TextNodeTest(); }
+
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
     return node.getNodeType() == DOM::Node<string_type, string_adaptor>::TEXT_NODE;
@@ -168,6 +180,8 @@ template<class string_type, class string_adaptor>
 class CommentNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
+  virtual NodeTest* clone() const { return new CommentNodeTest(); }
+
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
     return node.getNodeType() == DOM::Node_base::COMMENT_NODE;
@@ -178,6 +192,8 @@ template<class string_type, class string_adaptor>
 class AttributeNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
+  virtual NodeTest* clone() const { return new AttributeNodeTest(); }
+
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
     return node.getNodeType() == DOM::Node_base::ATTRIBUTE_NODE;
@@ -190,6 +206,7 @@ class AttributeQStarNodeTest : public AttributeNodeTest<string_type, string_adap
   typedef AttributeNodeTest<string_type, string_adaptor> baseT;
 public:
   AttributeQStarNodeTest(const string_type& namespace_uri) : baseT(), uri_(namespace_uri) { }
+  virtual NodeTest* clone() const { return new AttributeQStarNodeTest(uri_); }
 
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
@@ -206,6 +223,8 @@ template<class string_type, class string_adaptor>
 class NotAttributeNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
+  virtual NodeTest* clone() const { return new NotAttributeNodeTest(); }
+
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
     return node.getNodeType() != DOM::Node_base::ATTRIBUTE_NODE;
@@ -218,6 +237,7 @@ class ProcessingInstructionNodeTest : public NodeTest<string_type, string_adapto
 public:
   ProcessingInstructionNodeTest() : target_() { }
   ProcessingInstructionNodeTest(const string_type& target) : target_(target) { }
+  virtual NodeTest* clone() const { return new ProcessingInstructionNodeTest(target_); }
 
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
@@ -238,6 +258,8 @@ template<class string_type, class string_adaptor>
 class RootNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
+  virtual NodeTest* clone() const { return new RootNodeTest(); }
+
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
     int type = node.getNodeType();
