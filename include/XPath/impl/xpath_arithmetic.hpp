@@ -11,8 +11,7 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor>
-class PlusOperator : private BinaryExpression<string_type, string_adaptor>, 
-                     public XPathExpression_impl<string_type, string_adaptor>
+class PlusOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -29,8 +28,7 @@ public:
 }; // class PlusOperator
 
 template<class string_type, class string_adaptor>
-class MinusOperator : private BinaryExpression<string_type, string_adaptor>, 
-                      public XPathExpression_impl<string_type, string_adaptor>
+class MinusOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -47,8 +45,7 @@ public:
 }; // class MinusOperator
 
 template<class string_type, class string_adaptor>
-class MultiplyOperator : private BinaryExpression<string_type, string_adaptor>, 
-                         public XPathExpression_impl<string_type, string_adaptor>
+class MultiplyOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -65,8 +62,7 @@ public:
 }; // class MultiplyOperator
 
 template<class string_type, class string_adaptor>
-class DivideOperator : private BinaryExpression<string_type, string_adaptor>, 
-                       public XPathExpression_impl<string_type, string_adaptor>
+class DivideOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -83,8 +79,7 @@ public:
 }; // class DivideOperator
 
 template<class string_type, class string_adaptor>
-class ModOperator : private BinaryExpression<string_type, string_adaptor>, 
-                    public XPathExpression_impl<string_type, string_adaptor>
+class ModOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -106,8 +101,7 @@ public:
 }; // class ModOperator
 
 template<class string_type, class string_adaptor>
-class UnaryNegative : private UnaryExpression<string_type, string_adaptor>, 
-                      public XPathExpression_impl<string_type, string_adaptor>
+class UnaryNegative : public UnaryExpression<string_type, string_adaptor>
 {
   typedef UnaryExpression<string_type, string_adaptor> baseT;
 public:

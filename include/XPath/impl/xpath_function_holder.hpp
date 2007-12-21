@@ -19,8 +19,12 @@ template<class string_type, class string_adaptor>
 class FunctionHolder : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
-  FunctionHolder(XPathFunction<string_type, string_adaptor>* func) :
-    func_(func)
+  FunctionHolder(XPathFunction<string_type, string_adaptor>* func,
+                 const string_type& namespace_uri, 
+                 const string_type& name) :
+    func_(func),
+    namespace_uri_(namespace_uri),
+    name_(name)
   {
   } // FunctionHolder
 
@@ -28,6 +32,9 @@ public:
   {
     delete func_;
   } // ~FunctionHolder
+
+  const string_type& namespace_uri() const { return namespace_uri_; }
+  const string_type& name() const { return name_; }
 
   virtual ValueType type() const { return func_->type(); }
 
@@ -45,7 +52,7 @@ public:
     if(string_adaptor::empty(namespace_uri))
       for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)
         if(name == string_adaptor::construct_from_utf8(fn->name))
-          return new FunctionHolder(fn->creator(argExprs));
+          return new FunctionHolder(fn->creator(argExprs), namespace_uri, name);
 
     XPathFunction<string_type, string_adaptor>* func = 
                       context.functionResolver().resolveFunction(namespace_uri, name, argExprs);
@@ -62,11 +69,13 @@ public:
       throw UndefinedFunctionException(string_adaptor().asStdString(error));
     } // if(func == 0)
     
-    return new FunctionHolder(func);
+    return new FunctionHolder(func, namespace_uri, name);
   } // createFunction
 
 private:
   XPathFunction<string_type, string_adaptor>* func_;
+  string_type namespace_uri_;
+  string_type name_;
 
   typedef XPathFunction<string_type, string_adaptor>* (*CreateFnPtr)(const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs);
 

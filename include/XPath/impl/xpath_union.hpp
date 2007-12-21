@@ -12,8 +12,7 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor>
-class UnionExpression : private BinaryExpression<string_type, string_adaptor>, 
-                        public XPathExpression_impl<string_type, string_adaptor>
+class UnionExpression : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:

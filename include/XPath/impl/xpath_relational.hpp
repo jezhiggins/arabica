@@ -11,8 +11,7 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor>
-class EqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
-                       public XPathExpression_impl<string_type, string_adaptor>
+class EqualsOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -31,8 +30,7 @@ public:
 }; // class EqualsOperator
 
 template<class string_type, class string_adaptor>
-class NotEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
-                          public XPathExpression_impl<string_type, string_adaptor>
+class NotEqualsOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -51,8 +49,7 @@ public:
 }; // class NotEqualsOperator
 
 template<class string_type, class string_adaptor>
-class LessThanOperator : private BinaryExpression<string_type, string_adaptor>, 
-                         public XPathExpression_impl<string_type, string_adaptor>
+class LessThanOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -71,8 +68,7 @@ public:
 }; // class LessThanOperator
 
 template<class string_type, class string_adaptor>
-class LessThanEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
-                               public XPathExpression_impl<string_type, string_adaptor>
+class LessThanEqualsOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -91,8 +87,7 @@ public:
 }; // class LessThanEqualsOperator
 
 template<class string_type, class string_adaptor>
-class GreaterThanOperator : private BinaryExpression<string_type, string_adaptor>, 
-                            public XPathExpression_impl<string_type, string_adaptor>
+class GreaterThanOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -111,8 +106,7 @@ public:
 }; // class GreaterThanOperator
 
 template<class string_type, class string_adaptor>
-class GreaterThanEqualsOperator : private BinaryExpression<string_type, string_adaptor>, 
-                                  public XPathExpression_impl<string_type, string_adaptor>
+class GreaterThanEqualsOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:

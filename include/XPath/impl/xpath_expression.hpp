@@ -12,6 +12,30 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor>
+class XPathExpression_impl;
+
+namespace impl
+{
+
+template<class string_type, class string_adaptor>
+class Expression_scanner
+{
+protected:
+  Expression_scanner() { }
+  Expression_scanner(const Expression_scanner&) { }
+  ~Expression_scanner() { }
+
+public:
+  virtual void scan(const XPathExpression_impl<string_type, string_adaptor>* const expr) = 0;
+
+private:
+  bool operator==(const Expression_scanner&) const;
+  Expression_scanner& operator=(const Expression_scanner&);
+}; // class Expression_scanner
+
+} // namespace impl
+
+template<class string_type, class string_adaptor>
 class XPathExpression_impl
 {
 protected:
@@ -45,6 +69,7 @@ public:
   virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context, 
                                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asNodeSet(); }
 
+  virtual void scan(impl::Expression_scanner<string_type, string_adaptor>& scanner) const { scanner.scan(this); }
 
 private:
   XPathExpression_impl(const XPathExpression_impl&);
@@ -172,11 +197,17 @@ private:
 namespace impl
 {
 template<class string_type, class string_adaptor>
-class UnaryExpression
+class UnaryExpression : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   UnaryExpression(XPathExpression_impl<string_type, string_adaptor>* expr) :
       expr_(expr) { }
+
+  virtual void scan(impl::Expression_scanner<string_type, string_adaptor>& scanner) const
+  {
+    expr_->scan(scanner);
+    scanner.scan(this);
+  } // scan
 
 protected:
   ~UnaryExpression() 
@@ -191,7 +222,7 @@ private:
 }; // class UnaryExpression
 
 template<class string_type, class string_adaptor>
-class BinaryExpression
+class BinaryExpression : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   BinaryExpression(XPathExpression_impl<string_type, string_adaptor>* lhs, 
@@ -200,6 +231,13 @@ public:
       rhs_(rhs) 
   { 
   } // BinaryExpression
+
+  virtual void scan(impl::Expression_scanner<string_type, string_adaptor>& scanner) const
+  {
+    lhs_->scan(scanner);
+    rhs_->scan(scanner);
+    scanner.scan(this);
+  } // scan
 
 protected:
   ~BinaryExpression() 

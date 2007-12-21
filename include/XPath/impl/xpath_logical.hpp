@@ -11,8 +11,7 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor>
-class OrOperator : private BinaryExpression<string_type, string_adaptor>, 
-                   public XPathExpression_impl<string_type, string_adaptor>
+class OrOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
@@ -37,8 +36,7 @@ public:
 }; // class OrOperator
 
 template<class string_type, class string_adaptor>
-class AndOperator : private BinaryExpression<string_type, string_adaptor>, 
-                    public XPathExpression_impl<string_type, string_adaptor>
+class AndOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
