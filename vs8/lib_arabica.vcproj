@@ -723,6 +723,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\XPath\impl\xpath_match_rewrite.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\XPath\impl\xpath_namespace_context.hpp"
 					>
 				</File>
