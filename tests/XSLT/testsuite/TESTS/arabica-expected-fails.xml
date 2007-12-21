@@ -244,7 +244,6 @@
   <test-case id="BVTs_bvt061" compiles="no" reason="Needs xsl:number"/>
 	<test-case id="BVTs_bvt062" compare="fragment"/>
 	<test-case id="BVTs_bvt065" compare="fragment"/>
-	<test-case id="BVTs_bvt069" compare="text"/>
 	<test-case id="BVTs_bvt070" compare="text"/>
 	<test-case id="BVTs_bvt072" compare="fragment"/>
 	<test-case id="BVTs_bvt073" compare="fragment"/>

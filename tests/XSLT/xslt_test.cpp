@@ -1,7 +1,10 @@
 #ifndef XSLT_XSLT_TEST_HPP
 #define XSLT_XSLT_TEST_HPP
 
+#pragma warning(disable: 4250)
+
 #include <SAX/InputSource.hpp>
+#include <SAX/Attributes.hpp>
 #include <DOM/SAX2DOM/SAX2DOM.hpp>
 #include <DOM/io/Stream.hpp>
 #include <XSLT/XSLT.hpp>
@@ -227,7 +230,7 @@ protected:
     try {
       stylesheet->execute(document);
     }
-    catch(const std::exception& e) {
+    catch(const std::exception&) {
       return;
     }
     assertImplementation(false, "Marked in catalog.xml as an execution error, but actually ran.");

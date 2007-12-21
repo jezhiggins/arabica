@@ -26,7 +26,7 @@ int main(int argc, const char* argv[])
 
   // runner.addTest("ScopeTest", ScopeTest_suite<string_type, string_adaptor>());
   // Xalan supplied test cases
-/*
+
   //runner.addTest("attribset", XSLTTest_suite("attribset"));
   runner.addTest("attribvaltemplate", XSLTTest_suite("attribvaltemplate"));
   runner.addTest("axes", XSLTTest_suite("axes"));
@@ -77,35 +77,32 @@ int main(int argc, const char* argv[])
   runner.addTest("ForEach", XSLTTest_suite("ForEach"));
   //runner.addTest("FormatNumber", XSLTTest_suite("FormatNumber"));
   runner.addTest("ForwardComp", XSLTTest_suite("ForwardComp"));
-  runner.addTest("Import", XSLTTest_suite("Import"));
+  //runner.addTest("Import", XSLTTest_suite("Import"));
   //runner.addTest("Keys", XSLTTest_suite("Keys"));
   runner.addTest("Messages", XSLTTest_suite("Messages"));
-  runner.addTest("Miscellaneous", XSLTTest_suite("Miscellaneous"));
+  //runner.addTest("Miscellaneous", XSLTTest_suite("Miscellaneous"));
   runner.addTest("Modes", XSLTTest_suite("Modes"));
-  runner.addTest("NamedTemplates", XSLTTest_suite("NamedTemplates"));
-  runner.addTest("Namespace", XSLTTest_suite("Namespace"));
-  runner.addTest("Namespace-alias", XSLTTest_suite("Namespace-alias"));
-  runner.addTest("Namespace_XPath", XSLTTest_suite("Namespace_XPath"));
+  //runner.addTest("NamedTemplates", XSLTTest_suite("NamedTemplates"));
+  //runner.addTest("Namespace", XSLTTest_suite("Namespace"));
+  //runner.addTest("Namespace-alias", XSLTTest_suite("Namespace-alias"));
+  //runner.addTest("Namespace_XPath", XSLTTest_suite("Namespace_XPath"));
   //runner.addTest("Number", XSLTTest_suite("Number"));
-  runner.addTest("Output", XSLTTest_suite("Output"));
-*/
+  //runner.addTest("Output", XSLTTest_suite("Output"));
   runner.addTest("ProcessingInstruction", XSLTTest_suite("ProcessingInstruction"));
-/*
-  runner.addTest("RTF", XSLTTest_suite("RTF"));
+  //runner.addTest("RTF", XSLTTest_suite("RTF"));
   runner.addTest("Sorting", XSLTTest_suite("Sorting"));
-  runner.addTest("Stylesheet", XSLTTest_suite("Stylesheet"));
-  runner.addTest("Template", XSLTTest_suite("Template"));
-  runner.addTest("Text", XSLTTest_suite("Text"));
+  //runner.addTest("Stylesheet", XSLTTest_suite("Stylesheet"));
+  //runner.addTest("Template", XSLTTest_suite("Template"));
+  //runner.addTest("Text", XSLTTest_suite("Text"));
   runner.addTest("Valueof", XSLTTest_suite("Valueof"));
-  runner.addTest("Variables", XSLTTest_suite("Variables"));
-  runner.addTest("Whitespaces", XSLTTest_suite("Whitespaces"));
-  runner.addTest("XSLTFunctions", XSLTTest_suite("XSLTFunctions"));
+  //runner.addTest("Variables", XSLTTest_suite("Variables"));
+  //runner.addTest("Whitespaces", XSLTTest_suite("Whitespaces"));
+  //runner.addTest("XSLTFunctions", XSLTTest_suite("XSLTFunctions"));
 
   runner.addTest("ArabicaErrors", ArabicaTest_suite("errors"));
   runner.addTest("ArabicaInclude", ArabicaTest_suite("include"));
   runner.addTest("ArabicaProcessingInstruction", ArabicaTest_suite("processing-instruction"));
   runner.addTest("ArabicaStylesheets", ArabicaTest_suite("stylesheet"));
-*/
 
   runner.run(argc, argv);
 
