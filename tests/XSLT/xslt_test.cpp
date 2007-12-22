@@ -531,8 +531,11 @@ protected:
 class Expected 
 {
 public:
-  Expected() 
+  Expected() { }
+
+  void load()
   {
+    std::cout << "Loaded expected fails" << std::endl;
     Arabica::DOM::Document<std::string> fail_doc = buildDOM(PATH_PREFIX + "arabica-expected-fails.xml");
     Arabica::XPath::NodeSet<std::string> failcases = selectNodes("/test-suite/test-case", fail_doc);
     for(int i = 0; i != failcases.size(); ++i)
@@ -579,6 +582,7 @@ Arabica::DOM::Document<std::string> loadCatalog(const std::string& catalog_filen
     c = buildDOM(PATH_PREFIX + catalog_filename);
     catalogs[catalog_filename] = c;
     std::cout << "Loaded " << catalog_filename << std::endl;
+    expected.load();
   } // if(c == 0)
 
   return c;

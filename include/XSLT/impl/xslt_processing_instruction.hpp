@@ -1,6 +1,7 @@
 #ifndef ARABICA_XSLT_PROCESSING_INSTRUCTION_HPP
 #define ARABICA_XSLT_PROCESSING_INSTRUCTION_HPP
 
+#include <XML/strings.hpp>
 #include <text/UnicodeCharacters.hpp>
 #include "xslt_item.hpp"
 
@@ -34,6 +35,9 @@ private:
   {
     if(name.empty())
       throw SAX::SAXException("xsl:processing-instruction : name attribute must evaluate to a valid name");
+
+    if(!Arabica::XML::is_ncname(name))
+      throw SAX::SAXException("xsl:processing-instruction : '" + name + "' is not valid as the name");
 
     if(name.length() != 3)
       return;

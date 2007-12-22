@@ -126,6 +126,7 @@ class libxml2_wrapper : public XMLReaderInterface<string_type, T0, T1>,
     typedef SAX::DTDHandler<string_type, string_adaptor> dtdHandlerT;
     typedef SAX::ContentHandler<string_type, string_adaptor> contentHandlerT;
     typedef SAX::Attributes<string_type, string_adaptor> attributesT;
+    typedef SAX::AttributeType<string_type, string_adaptor> attributeTypeT;
     typedef SAX::DeclHandler<string_type, string_adaptor> declHandlerT;
     typedef SAX::LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
     typedef SAX::InputSource<string_type, string_adaptor> inputSourceT;
@@ -568,7 +569,7 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
           attributes.addAttribute(emptyString_, 
                                   emptyString_, 
                                   attQName, 
-                                  attributesT::Type::CDATA,
+                                  attributeTypeT::CDATA,
                                   value);
       }
     } // while
@@ -585,7 +586,7 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
         attributes.addAttribute(attName.URI, 
                                 attName.localName, 
                                 attName.rawName, 
-                                attributesT::Type::CDATA, 
+                                attributeTypeT::CDATA, 
                                 value);
       }
     } // while ...
@@ -611,7 +612,7 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElementNoNS(const xmlChar* qN
       attributes.addAttribute(emptyString_, 
                               emptyString_, 
                               attQName, 
-                              attributesT::Type::CDATA,
+                              attributeTypeT::CDATA,
                               value);
     } // while ..
   } // if ...

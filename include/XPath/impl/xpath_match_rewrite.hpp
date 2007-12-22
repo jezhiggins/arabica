@@ -51,7 +51,8 @@ namespace impl
 
     virtual void scan(const XPathExpression_impl<string_type, string_adaptor>* const expr)
     {
-      const FunctionHolder<string_type, string_adaptor>* const fn = dynamic_cast<const FunctionHolder<string_type, string_adaptor>* const>(expr);
+      typedef FunctionHolder<string_type, string_adaptor> FH;
+      const FH* const fn = dynamic_cast<const FH* const>(expr);
       if(fn == 0)
         return;
 
@@ -98,7 +99,7 @@ MatchExpr<string_type, string_adaptor>::MatchExpr(XPathExpression_impl<string_ty
   RelativeLocation* path = dynamic_cast<RelativeLocation*>(match);
   //   foreach step in the steplist
   StepList& steps = path->steps_;
-  for(StepList::const_iterator s = steps.begin(), se = steps.end(); s != se; ++s)
+  for(typename StepList::const_iterator s = steps.begin(), se = steps.end(); s != se; ++s)
   {
   //     foreach predicate in the predicatelist
     Step* step = dynamic_cast<Step*>(*s);
@@ -106,7 +107,7 @@ MatchExpr<string_type, string_adaptor>::MatchExpr(XPathExpression_impl<string_ty
       continue;
 
     Predicates& predicates = step->predicates_;
-    for(Predicates::iterator p = predicates.begin(), pe = predicates.end(); p != pe; ++p)
+    for(typename Predicates::iterator p = predicates.begin(), pe = predicates.end(); p != pe; ++p)
     {
   //       should rewrite?
       Expression* pred = *p;
