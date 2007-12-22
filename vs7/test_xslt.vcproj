@@ -130,6 +130,9 @@
 			<File
 				RelativePath="..\tests\Xslt\main.cpp">
 			</File>
+			<File
+				RelativePath="..\tests\Xslt\xslt_test.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
