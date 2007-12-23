@@ -30,12 +30,12 @@ public:
   
   void test4()
   {
-    assertTrue("a:b");
+    assertTrue(is_ncname("a:b"));
   } // test4
 
   void test5()
   {
-    assertFalse(":b");
+    assertFalse(is_ncname(":b"));
   } // test5
 
 }; // class XMLStringTest
