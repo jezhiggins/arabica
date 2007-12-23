@@ -18,7 +18,7 @@ namespace XML
        return false;
 
     ++s;
-    for(std::string::const_iterator se; s != se; ++s)
+    for(std::string::const_iterator se = str.end(); s != se; ++s)
     {
       wchar_t c = static_cast<wchar_t>(*s);
       if(!(is_letter(c) || 
