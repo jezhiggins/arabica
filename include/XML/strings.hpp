@@ -26,7 +26,6 @@ namespace XML
            (c == Unicode<wchar_t>::FULL_STOP) || 
            (c == Unicode<wchar_t>::HYPHEN_MINUS) ||
            (c == Unicode<wchar_t>::LOW_LINE) ||
-           (c == Unicode<wchar_t>::COLON) ||
            is_combining_char(c) ||
            is_extender(c)))
         return false;

@@ -30,13 +30,18 @@ public:
   
   void test4()
   {
-    assertTrue(is_ncname("a:b"));
+    assertTrue(is_ncname("a_b"));
   } // test4
 
   void test5()
   {
-    assertFalse(is_ncname(":b"));
+    assertFalse(is_ncname("a:b"));
   } // test5
+
+  void test6()
+  {
+    assertFalse(is_ncname("xsl:foo"));
+  } // test6
 
 }; // class XMLStringTest
 
@@ -49,6 +54,7 @@ TestSuite* XMLStringTest_suite()
   suiteOfTests->addTest(new TestCaller<XMLStringTest>("test3", &XMLStringTest::test3));
   suiteOfTests->addTest(new TestCaller<XMLStringTest>("test4", &XMLStringTest::test4));
   suiteOfTests->addTest(new TestCaller<XMLStringTest>("test5", &XMLStringTest::test5));
+  suiteOfTests->addTest(new TestCaller<XMLStringTest>("test6", &XMLStringTest::test6));
 
   return suiteOfTests;
 } // XMLStringTest_suite
