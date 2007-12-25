@@ -91,7 +91,7 @@ int main(int argc, const char* argv[])
   runner.addTest("Sorting", XSLTTest_suite("Sorting"));
   //runner.addTest("Stylesheet", XSLTTest_suite("Stylesheet"));
   //runner.addTest("Template", XSLTTest_suite("Template"));
-  //runner.addTest("Text", XSLTTest_suite("Text"));
+  runner.addTest("Text", XSLTTest_suite("Text"));
   runner.addTest("Valueof", XSLTTest_suite("Valueof"));
   //runner.addTest("Variables", XSLTTest_suite("Variables"));
   //runner.addTest("Whitespaces", XSLTTest_suite("Whitespaces"));

@@ -155,6 +155,9 @@ private:
     // generate-id
     if(name == "system-property")
       return new SystemPropertyFunction(argExprs);
+    // element-available
+    // function-available
+    
     return 0;
   } // resolveFunction
 
