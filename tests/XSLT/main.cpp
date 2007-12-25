@@ -86,7 +86,7 @@ int main(int argc, const char* argv[])
   //runner.addTest("Output", XSLTTest_suite("Output"));
   */
   runner.addTest("ProcessingInstruction", XSLTTest_suite("ProcessingInstruction"));
-/*
+
   //runner.addTest("RTF", XSLTTest_suite("RTF"));
   runner.addTest("Sorting", XSLTTest_suite("Sorting"));
   //runner.addTest("Stylesheet", XSLTTest_suite("Stylesheet"));
@@ -95,8 +95,8 @@ int main(int argc, const char* argv[])
   runner.addTest("Valueof", XSLTTest_suite("Valueof"));
   //runner.addTest("Variables", XSLTTest_suite("Variables"));
   //runner.addTest("Whitespaces", XSLTTest_suite("Whitespaces"));
-  //runner.addTest("XSLTFunctions", XSLTTest_suite("XSLTFunctions"));
-  */
+  runner.addTest("XSLTFunctions", XSLTTest_suite("XSLTFunctions"));
+
   runner.addTest("ArabicaErrors", ArabicaTest_suite("errors"));
   runner.addTest("ArabicaInclude", ArabicaTest_suite("include"));
   runner.addTest("ArabicaProcessingInstruction", ArabicaTest_suite("processing-instruction"));

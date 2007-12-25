@@ -388,9 +388,100 @@
 	<test-case id="ProcessingInstruction__78203" compare="fragment"/>
 	<test-case id="ProcessingInstruction__78393" compare="fragment"/>
 	<test-case id="ProcessingInstruction__78394" compare="fragment"/>
+	<test-case id="ProcessingInstruction_InvalidPIName2" runs="no"/>
+  <test-case id="Sorting__77529" compare="text"/>
+  <test-case id="Sorting__77530" compare="text"/>
+  <test-case id="Sorting__77539" compare="fragment"/>
+  <test-case id="Sorting__77560" compare="text"/>
+  <test-case id="Sorting__77561" compare="text"/>
+  <test-case id="Sorting__77567" compare="text"/>
+  <test-case id="Sorting__77568" compare="text"/>  
+	<test-case id="Sorting__77977" compare="fragment"/>
+  <test-case id="Sorting__77979" compare="text"/>
+  <test-case id="Sorting__77980" compare="text"/>
+  <test-case id="Sorting__77981" compare="text"/>
+  <test-case id="Sorting__77982" compare="text"/>
+  <test-case id="Sorting__77985" compare="text"/>
+  <test-case id="Sorting__78286" compare="text"/>
+  <test-case id="Sorting__78291" compare="text"/>
+	<test-case id="Sorting__81710" compare="fragment"/>
+	<test-case id="Sorting__81711" compare="fragment"/>
+	<test-case id="Sorting__81712" compare="fragment"/>
+	<test-case id="Sorting__81717" compare="fragment"/>
+	<test-case id="Sorting__81718" compare="fragment"/>
+	<test-case id="Sorting__81719" compare="fragment"/>
+	<test-case id="Sorting__84471" compare="text"/>
+	<test-case id="Sorting__84472" compare="text"/>
+	<test-case id="Sorting__84479" compare="text"/>
+	<test-case id="Sorting__89749" compare="text"/>
+	<test-case id="Sorting__89751" compare="text"/>
+	<test-case id="Sorting__89758" compare="fragment"/>
+	<test-case id="Sorting__89760" compare="text"/>
+	<test-case id="Sorting__89762" compare="text"/>
+	<test-case id="Sorting__89763" compare="text"/>
+	<test-case id="Sorting__91689" compare="text"/>
+	<test-case id="Sorting__91691" compare="text"/>
+	<test-case id="Sorting__91693" compare="text"/>
+	<test-case id="Sorting__91694" compare="text"/>
+	<test-case id="Sorting__91695" compare="text"/>
+	<test-case id="Sorting__91696" compare="text"/>
+	<test-case id="Sorting__91697" compare="text"/>
+	<test-case id="Sorting__91698" compare="text"/>
+	<test-case id="Sorting__91699" compare="text"/>
+	<test-case id="Sorting__91700" compare="text"/>
+	<test-case id="Sorting__91701" compare="text"/>
+	<test-case id="Sorting__91704" compare="text"/>
+	<test-case id="Sorting__91705" compare="text"/>
+	<test-case id="Sorting__91752" compare="text"/>
+	<test-case id="Sorting__91753" compare="fragment"/>
+  <test-case id="Sorting_SortExprWithCurrentInsideForEach" compare="fragment"/>
+  <test-case id="Sorting_SortExprWithCurrentInsideForEach1" compare="text"/>
+	<test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compare="text"/>
+  <test-case id="Sorting_SortExprWithCurrentInApplyTemplates" compare="fragment"/>
+  <test-case id="Sorting_TurkishISortingTest" compare="fragment"/>
+	<test-case id="XSLTFunctions__84048" skip="yes" reason="MS specific output"/>
+	<test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
+	<test-case id="XSLTFunctions__84050" skip="yes" reason="MS specific output"/>
+	<test-case id="XSLTFunctions__84053" compiles="no"/>
+	<test-case id="XSLTFunctions__84054" compiles="no"/>
+	<test-case id="XSLTFunctions__84056" compiles="no"/>
+	<test-case id="XSLTFunctions__84058" compiles="no"/>
+	<test-case id="XSLTFunctions__84170" compiles="no"/>
+	<test-case id="XSLTFunctions__84171" compiles="no"/>
+	<test-case id="XSLTFunctions__84172" compiles="no"/>
+	<test-case id="XSLTFunctions__84173" compiles="no"/>
+  <test-case id="XSLTFunctions__84175" compare="text"/>
+	<test-case id="XSLTFunctions__84415" compare="fragment"/>
+	<test-case id="XSLTFunctions__84421" compare="fragment"/>
+	<test-case id="XSLTFunctions__defaultPattern" compiles="no"/>
+	<test-case id="XSLTFunctions__emptyParameters" compiles="no"/>
+	<test-case id="XSLTFunctions__EuropeanPattern" compiles="no"/>
+	<test-case id="XSLTFunctions__minimalValue" compiles="no"/>
+	<test-case id="XSLTFunctions__minimumValue" compiles="no"/>
+	<test-case id="XSLTFunctions__Non_DigitPattern" compiles="no"/>
+	<test-case id="XSLTFunctions__Pattern-separator" compiles="no"/>
+	<test-case id="XSLTFunctions__percentPattern" compiles="no"/>
+	<test-case id="XSLTFunctions__sameDecimalFormats" compiles="no"/>
+	<test-case id="XSLTFunctions__sameDecimalFormatsWithImport" compiles="no"/>
+	<test-case id="XSLTFunctions__specialCharInPattern" compiles="no"/>
+	<test-case id="XSLTFunctions__testOn-0.00" compiles="no"/>
+	<test-case id="XSLTFunctions__testWithNumber" compiles="no"/>
+	<test-case id="XSLTFunctions_DocumentFunctionWithAbsoluteArgument" skip="yes" reason="This test probably only worked on one machine somewhere in Microsoft.  Thanks chaps."/>
+	<test-case id="XSLTFunctions_DocumentFunctionWithEntityRef" runs="no"/>
+	<test-case id="XSLTFunctions_DocumentInUnion" compare="text"/>
+	<test-case id="XSLTFunctions_DocumentInUnionWithDuplicateNodes" runs="no"/>
+	<test-case id="XSLTFunctions_ElementAvailFunctionFalseTest" compiles="no"/>
+	<test-case id="XSLTFunctions_ElementAvailFunctionTrueTest" compiles="no"/>
+	<test-case id="XSLTFunctions_GenereateIdAppliedToNamespaceNodesOnDifferentElements" compiles="no"/>
+	<test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset" compiles="no"/>
+	<test-case id="XSLTFunctions_TestIdFuncInComplexStruct" compiles="no"/>
+	<test-case id="XSLTFunctions_TestOfIdFunction" compiles="no"/>
+	<test-case id="XSLTFunctions_Bug76054" compiles="no"/>
+	<test-case id="XSLTFunctions_Bug76984" runs="no"/>
 
-	<test-case id="Value-of_ConcatTextNodes" skip="yes" reason="I think my interpretation is valid for mapping DOM to XSLT"/>
-	<test-case id="Value-of_ValueOf-KeyReferenceInSelect" compiles="no"/>
+	<test-case id="Value-of_ValueOf_ConcatTextNodesIntoSingle" skip="yes" reason="I think my interpretation is valid for mapping DOM to XSLT"/>
+	<test-case id="Value-of_ValueOf_KeyReferenceInSelect" compiles="no"/>
+  
   <test-case id="stylesheet01" compare="text"/>
   <test-case id="stylesheet02" compare="text"/>
   <test-case id="stylesheet03" compare="text"/>
