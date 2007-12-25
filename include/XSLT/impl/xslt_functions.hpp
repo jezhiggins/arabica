@@ -9,26 +9,6 @@ namespace Arabica
 namespace XSLT
 {
 
-// node-set current()
-class CurrentFunction : public Arabica::XPath::XPathFunction<std::string>
-{
-  typedef Arabica::XPath::XPathFunction<std::string> baseT;
-
-public:
-  CurrentFunction(const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
-      Arabica::XPath::XPathFunction<std::string>(0, 0, args) { }
-
-  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::NODE_SET; }
-
-  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
-                                                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
-  {
-    Arabica::XPath::NodeSet<std::string> set;
-    set.push_back(executionContext.currentNode());
-    return new Arabica::XPath::NodeSetValue<std::string>(set);
-  } // evaluate
-}; // CurrentFunction
-
 // node-set document(object, node-set?)
 class DocumentFunction : public Arabica::XPath::XPathFunction<std::string>
 {
@@ -79,6 +59,32 @@ private:
   std::string baseURI_; 
 }; // DocumentFunction
 
+// node-set key(string, object)
+// string format-number(number, string, string?)
+
+// node-set current()
+class CurrentFunction : public Arabica::XPath::XPathFunction<std::string>
+{
+  typedef Arabica::XPath::XPathFunction<std::string> baseT;
+
+public:
+  CurrentFunction(const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
+      Arabica::XPath::XPathFunction<std::string>(0, 0, args) { }
+
+  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::NODE_SET; }
+
+  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
+                                                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  {
+    Arabica::XPath::NodeSet<std::string> set;
+    set.push_back(executionContext.currentNode());
+    return new Arabica::XPath::NodeSetValue<std::string>(set);
+  } // evaluate
+}; // CurrentFunction
+
+// string unparsed-entity-uri(string)
+// string generate-id(node-set?)
+
 // object system-property(string)
 class SystemPropertyFunction : public Arabica::XPath::XPathFunction<std::string>
 {
@@ -105,6 +111,8 @@ public:
   } // evaluate
 }; // SystemPropertyFunction
 
+// boolean element-available(string)
+// boolean function-available(string)
 
 } // namespace XSLT
 } // namespace Arabica
