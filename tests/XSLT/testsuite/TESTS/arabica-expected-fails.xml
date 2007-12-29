@@ -439,6 +439,29 @@
 	<test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compare="text"/>
   <test-case id="Sorting_SortExprWithCurrentInApplyTemplates" compare="fragment"/>
   <test-case id="Sorting_TurkishISortingTest" compare="fragment"/>
+	<test-case id="Text__78230" compare="text"/>
+	<test-case id="Text__78242" compare="text"/>
+	<test-case id="Text__78244" compare="text"/>
+	<test-case id="Text__78245" compare="fragment"/>
+	<test-case id="Text__78246" compare="text"/>
+	<test-case id="Text__78247" compare="text"/>
+	<test-case id="Text__78249" compare="text"/>
+	<test-case id="Text__78272" compare="text"/>
+	<test-case id="Text__78273" compare="text"/>
+	<test-case id="Text__78274" compare="text"/>
+	<test-case id="Text__78275" compare="text"/>
+	<test-case id="Text__78276" compare="text"/>
+	<test-case id="Text__78277" compare="text"/>
+	<test-case id="Text__78278" compare="text"/>
+	<test-case id="Text__78279" compare="text"/>
+	<test-case id="Text__78280" compare="text"/>
+	<test-case id="Text__78281" compare="text"/>
+	<test-case id="Text__78307" compare="text"/>
+	<test-case id="Text__78308" compare="text"/>
+	<test-case id="Text__78309" compare="text"/>
+	<test-case id="Text__78311" compare="text"/>
+	<test-case id="Text__78313" compare="text"/>
+  <test-case id="Text__91137" compare="fragment"/>
 	<test-case id="XSLTFunctions__84048" skip="yes" reason="MS specific output"/>
 	<test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
 	<test-case id="XSLTFunctions__84050" skip="yes" reason="MS specific output"/>
