@@ -87,7 +87,7 @@ int main(int argc, const char* argv[])
   */
   runner.addTest("ProcessingInstruction", XSLTTest_suite("ProcessingInstruction"));
 
-  //runner.addTest("RTF", XSLTTest_suite("RTF"));
+  runner.addTest("RTF", XSLTTest_suite("RTF"));
   runner.addTest("Sorting", XSLTTest_suite("Sorting"));
   //runner.addTest("Stylesheet", XSLTTest_suite("Stylesheet"));
   //runner.addTest("Template", XSLTTest_suite("Template"));

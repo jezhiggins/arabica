@@ -10,7 +10,6 @@
 #include <DOM/io/Stream.hpp>
 #include <XSLT/XSLT.hpp>
 
-void test_suite(int argc, const char* argv[]);
 Arabica::DOM::Document<std::string> buildDOM(const std::string& xml);
 
 int main(int argc, const char* argv[])

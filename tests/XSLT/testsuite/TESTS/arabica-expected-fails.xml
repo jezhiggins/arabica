@@ -389,6 +389,7 @@
 	<test-case id="ProcessingInstruction__78393" compare="fragment"/>
 	<test-case id="ProcessingInstruction__78394" compare="fragment"/>
 	<test-case id="ProcessingInstruction_InvalidPIName2" runs="no"/>
+	<test-case id="RTF_RTF_to_number_in_format_number" compiles="no"/>
   <test-case id="Sorting__77529" compare="text"/>
   <test-case id="Sorting__77530" compare="text"/>
   <test-case id="Sorting__77539" compare="fragment"/>
@@ -446,7 +447,7 @@
 	<test-case id="Text__78246" compare="text"/>
 	<test-case id="Text__78247" compare="text"/>
 	<test-case id="Text__78249" compare="text"/>
-	<test-case id="Text__78272" compare="text"/>
+	<test-case id="Text__78272" skip="yes" reason="Test result is bad."/>
 	<test-case id="Text__78273" compare="text"/>
 	<test-case id="Text__78274" compare="text"/>
 	<test-case id="Text__78275" compare="text"/>
@@ -462,6 +463,10 @@
 	<test-case id="Text__78311" compare="text"/>
 	<test-case id="Text__78313" compare="text"/>
   <test-case id="Text__91137" compare="fragment"/>
+	<test-case id="Text_DoeWithCdataInText" compare="text"/>
+  <test-case id="Text_modified78308" compare="text"/>
+  <test-case id="Text_modified78309" compare="text"/>
+  <test-case id="Text_Modified78311" compare="text"/>
 	<test-case id="XSLTFunctions__84048" skip="yes" reason="MS specific output"/>
 	<test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
 	<test-case id="XSLTFunctions__84050" skip="yes" reason="MS specific output"/>
