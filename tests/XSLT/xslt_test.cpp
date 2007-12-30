@@ -531,10 +531,15 @@ protected:
 class Expected 
 {
 public:
-  Expected() { }
+  Expected() : loaded_(false) { }
+
+  bool loaded() const { return loaded_; }
 
   void load()
   {
+    if(loaded_)
+      return;
+
     std::cout << "Loaded expected fails" << std::endl;
     Arabica::DOM::Document<std::string> fail_doc = buildDOM(PATH_PREFIX + "arabica-expected-fails.xml");
     Arabica::XPath::NodeSet<std::string> failcases = selectNodes("/test-suite/test-case", fail_doc);
@@ -548,42 +553,48 @@ public:
       std::string compare = selectString("@compare",  failcases[i]);
 
       if(compiles == "no")
-        fails[name] = "compile";
+        fails_[name] = "compile";
       else if(runs == "no")
-        fails[name] = "run";
+        fails_[name] = "run";
       else if(skip == "yes")
-        fails[name] = "skip";
+        fails_[name] = "skip";
       else if(compare == "text")
-        fails[name] = "text";
+        fails_[name] = "text";
       else if(compare == "fragment")
-        fails[name] = "fragment";
-      reasons[name] = reason;
+        fails_[name] = "fragment";
+      reasons_[name] = reason;
     } // for ...
-  } 
+    loaded_ = true;
+  } // load
 
-  std::map<std::string, std::string>& Fails() { return fails; }
-  std::map<std::string, std::string>& Reasons() { return reasons; }
+  std::map<std::string, std::string>& Fails() { return fails_; }
+  std::map<std::string, std::string>& Reasons() { return reasons_; }
 
 private:
-  std::map<std::string, std::string> fails;
-  std::map<std::string, std::string> reasons;
-};
+  std::map<std::string, std::string> fails_;
+  std::map<std::string, std::string> reasons_;
+  bool loaded_;
+}; // class Expected
 
-static Expected expected;
+Expected& expected()
+{
+  static Expected expected_fails;
+  if(!expected_fails.loaded())
+    expected_fails.load();
+  return expected_fails;
+} // expected
 
 Arabica::DOM::Document<std::string> loadCatalog(const std::string& catalog_filename)
 {
   static std::map<std::string, Arabica::DOM::Document<std::string> > catalogs;
   
-  std::cout << "Loading " << catalog_filename << std::endl;
   Arabica::DOM::Document<std::string> c = catalogs[catalog_filename];
   if(c == 0)
   {
+    std::cout << "Loading " << catalog_filename << std::endl;
     c = buildDOM(PATH_PREFIX + catalog_filename);
     catalogs[catalog_filename] = c;
-    std::cout << "Loaded " << catalog_filename << std::endl;
-    expected.load();
-  } // if(c == 0)
+   } // if(c == 0)
 
   return c;
 } // catalog
@@ -608,7 +619,7 @@ TestSuite* suite(const std::string& path,
     std::string input_xslt = selectString(".//input-file[@role='principal-stylesheet']", tests[i]);
     std::string output_xml = selectString(".//output-file[@role='principal']", tests[i]);
 
-    if(expected.Fails().find(name) == expected.Fails().end())
+    if(expected().Fails().find(name) == expected().Fails().end())
     {
       if(operation == "execution-error")
         suiteOfTests->addTest(new ExecutionErrorTest(name, 
@@ -620,23 +631,23 @@ TestSuite* suite(const std::string& path,
                                                    make_path(path, input_xslt), 
                                                    make_path(out_path, output_xml)));
     }
-    else if(expected.Fails()[name] == "compile") 
+    else if(expected().Fails()[name] == "compile") 
       suiteOfTests->addTest(new CompileFailsTest(name, 
                                                  make_path(path, input_xslt),
-                                                 expected.Reasons()[name]));
-    else if(expected.Fails()[name] == "run")
+                                                 expected().Reasons()[name]));
+    else if(expected().Fails()[name] == "run")
       suiteOfTests->addTest(new RunFailsTest(name, 
                                              make_path(path, input_xml), 
                                              make_path(path, input_xslt),
-                                             expected.Reasons()[name]));
-    else if(expected.Fails()[name] == "skip")
-      suiteOfTests->addTest(new SkipTest(name, expected.Reasons()[name]));
-    else if(expected.Fails()[name] == "text")
+                                             expected().Reasons()[name]));
+    else if(expected().Fails()[name] == "skip")
+      suiteOfTests->addTest(new SkipTest(name, expected().Reasons()[name]));
+    else if(expected().Fails()[name] == "text")
       suiteOfTests->addTest(new CompareAsTextXSLTTest(name, 
                                                       make_path(path, input_xml),
                                                       make_path(path, input_xslt),
                                                       make_path(out_path, output_xml)));
-    else if(expected.Fails()[name] == "fragment")
+    else if(expected().Fails()[name] == "fragment")
       suiteOfTests->addTest(new CompareAsXMLFragmentXSLTTest(name, 
                                                       make_path(path, input_xml),
                                                       make_path(path, input_xslt),
