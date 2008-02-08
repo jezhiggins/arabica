@@ -239,6 +239,7 @@ libxml2_wrapper<string_type, T0, T1>::libxml2_wrapper() :
   contentHandler_(0),
   errorHandler_(0),
   declHandler_(0),
+  lexicalHandler_(0),
   locator_(0),
   parsing_(false),
   namespaces_(true),
