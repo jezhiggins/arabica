@@ -8,7 +8,7 @@ install-data-local:
 	@echo "Installing include files to $(includedir)"
 	@echo "------------------------------------------------------------"
 	for inc in `cd $(srcdir)/include && find . -type f -print | grep -v \.svn`; \
-	  do $(INSTALL_HEADER) -D "$(srcdir)/include/$$inc" "$(includedir)/$$inc"; \
+	  do mkdir -p "`dirname \"$(includedir)/$$inc\"`"; $(INSTALL_HEADER) "$(srcdir)/include/$$inc" "$(includedir)/$$inc"; \
 	done 
 
 uninstall-local:
