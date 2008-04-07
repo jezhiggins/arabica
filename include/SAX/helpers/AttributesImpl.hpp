@@ -6,6 +6,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <SAX/Attributes.hpp>
+#include <stdexcept>
 #include <deque>
 
 namespace Arabica
@@ -38,7 +39,7 @@ namespace SAX
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 2.0
  */
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class AttributesImpl : public Attributes<string_type, string_adaptor>
 {
 public:
@@ -64,6 +65,14 @@ public:
 
       return *this;
     } // operator=
+    bool operator==(const Attr& rhs) const
+    {
+      return (uri_ == rhs.uri_) && 
+             (localName_ == rhs.localName_) && 
+             (qName_ == rhs.qName_) && 
+             (type_ == rhs.type_) && 
+             (value_ == rhs.value_);
+    } // operator==
 
     string_type uri_;
 	  string_type localName_;
@@ -75,10 +84,20 @@ public:
   ////////////////////////////////////////////////////////////////////
   // Constructors.
   AttributesImpl() { } 
-  AttributesImpl(const AttributesT& atts)
+  AttributesImpl(const AttributesT& rhs)
   {
-  	setAttributes(atts);
+    setAttributes(rhs);
   } // AttributesImpl
+
+  AttributesImpl& operator=(const AttributesT& rhs) 
+  {
+    setAttributes(rhs);
+  } // operator=
+
+  bool operator==(const AttributesImpl& rhs) const
+  {
+    return attributes_ == rhs.attributes_;
+  } // operator==
 
   ////////////////////////////////////////////////////////////////////
   // Implementation of SAX::Attributes.

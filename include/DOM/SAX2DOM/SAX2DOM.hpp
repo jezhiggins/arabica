@@ -20,11 +20,26 @@ namespace Arabica
 namespace SAX2DOM
 {
 
-template<class stringT, 
-         class string_adaptorT = Arabica::default_string_adaptor<stringT>,
-         class SAX_parser = Arabica::SAX::XMLReader<stringT, string_adaptorT> >
-class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
+template<class string_type, class T0, class T1>
+struct ParserTypes
 {
+  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                           Arabica::default_string_adaptor<string_type>, 
+                           T0, 
+                           T1>::type string_adaptor;
+  typedef typename Arabica::get_param<Arabica::SAX::XMLReaderInterface_tag, 
+                                      Arabica::SAX::XMLReader<string_type, string_adaptor>, 
+                                      T1, 
+                                      T0>::type SAX_parser_type;
+};
+
+template<class stringT, 
+         class T0 = Arabica::nil_t,
+         class T1 = Arabica::nil_t>
+class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTypes<stringT, T0, T1>::string_adaptor>
+{
+    typedef typename ParserTypes<stringT, T0, T1>::string_adaptor string_adaptorT;
+    typedef typename ParserTypes<stringT, T0, T1>::SAX_parser_type SAX_parser_type;
     typedef Arabica::SAX::Attributes<stringT, string_adaptorT> AttributesT;
     typedef Arabica::SAX::EntityResolver<stringT, string_adaptorT> EntityResolverT;
     typedef Arabica::SAX::ErrorHandler<stringT, string_adaptorT> ErrorHandlerT;
@@ -88,7 +103,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
       inDTD_ = false;
       inEntity_ = 0;
 
-      SAX_parser parser;
+      SAX_parser_type parser;
 		  parser.setContentHandler(*this);
 		  parser.setErrorHandler(*this);
       if(entityResolver_)
@@ -157,7 +172,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, string_adaptorT>
     Arabica::SAX::AttributeTypes<stringT, string_adaptorT> attributeTypes_;
 
   protected:
-    void setParserFeatures(SAX_parser& parser) const
+    void setParserFeatures(SAX_parser_type& parser) const
     {
       for(typename Features::const_iterator f = features_.begin(), e = features_.end(); f != e; ++f)
         try {

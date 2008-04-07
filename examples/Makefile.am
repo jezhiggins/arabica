@@ -1,4 +1,4 @@
-SUBDIRS = SAX Utils 
+SUBDIRS = SAX Taggle Utils 
 if WANT_DOM 
   SUBDIRS += DOM
 endif

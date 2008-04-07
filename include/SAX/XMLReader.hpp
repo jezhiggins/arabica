@@ -63,8 +63,10 @@ namespace SAX
  * @see helpers.ParserAdapter
  * @see helpers.XMLReaderAdapter 
  */
+class XMLReaderInterface_tag { };
+
 template<class string_type, class T0, class T1>
-class XMLReaderInterface
+class XMLReaderInterface : public XMLReaderInterface_tag 
 {
 public:
   typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 

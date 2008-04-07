@@ -268,4 +268,10 @@ bool Arabica::XML::is_extender(wchar_t c)
          ((c >= 0x30FC) && (c <= 0x30FE));
 } // is_extender
 
+bool Arabica::XML::is_letter_or_digit(wchar_t c)
+{ 
+  return is_letter(c) || is_digit(c); 
+} // is_letter_or_digit
+
+
 // end of file

@@ -37,7 +37,7 @@ namespace DOM
 namespace StreamImpl
 {
 template<class stringT, class string_adaptorT, class charT, class traitsT>
-void streamChildren(std::basic_ostream<charT, traitsT>& stream, DOM::Node<stringT, string_adaptorT>& node)
+void streamChildren(std::basic_ostream<charT, traitsT>& stream, const DOM::Node<stringT, string_adaptorT>& node)
 {
   DOM::Node<stringT> child = node.getFirstChild();
   while(child != 0)
@@ -72,7 +72,7 @@ std::pair<bool, stringT> is_uri_declared(std::vector<std::map<stringT, stringT> 
 
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream, 
-                                DOM::Node<stringT, string_adaptorT>& node, 
+                                const DOM::Node<stringT, string_adaptorT>& node, 
                                 std::vector<std::map<stringT, stringT> >* prefix_stack)
 {
   std::map<stringT, stringT>& current = *(prefix_stack->rbegin());
@@ -112,7 +112,7 @@ bool isXmlns(const stringT& str)
 
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
-                   DOM::Node<stringT, string_adaptorT>& node)
+                  const DOM::Node<stringT, string_adaptorT>& node)
 {
   typedef Arabica::text::Unicode<charT> UnicodeT;
 
@@ -189,7 +189,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
 
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 void prefix_mapper_pop(std::basic_ostream<charT, traitsT>& stream,
-                       DOM::Node<stringT, string_adaptorT> node,
+                       const DOM::Node<stringT, string_adaptorT>& node,
                        int index, 
                        bool output)
 {
@@ -212,7 +212,7 @@ void prefix_mapper_pop(std::basic_ostream<charT, traitsT>& stream,
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 std::basic_ostream<charT, traitsT>&
 operator<<(std::basic_ostream<charT, traitsT>& stream,
-           DOM::Node<stringT, string_adaptorT>& node)
+           const DOM::Node<stringT, string_adaptorT>& node)
 {
   typedef Arabica::text::Unicode<charT> UnicodeT;
 

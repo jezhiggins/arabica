@@ -19,6 +19,7 @@ namespace XML
   bool is_digit(wchar_t c);
   bool is_combining_char(wchar_t c);
   bool is_extender(wchar_t c);
+  bool is_letter_or_digit(wchar_t c);
 } // namespace XML
 
 } // namespace Arabica

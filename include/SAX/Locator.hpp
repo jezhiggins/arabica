@@ -7,6 +7,7 @@
 #include <string>
 
 #include <SAX/ArabicaConfig.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {
@@ -43,7 +44,7 @@ namespace SAX
  * @version 2.0
  * @see ContentHandler#setDocumentLocator 
  */
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class Locator
 {
 public:
