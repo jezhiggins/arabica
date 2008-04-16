@@ -1,18 +1,13 @@
-#ifndef XSLT_XSLT_TEST_HPP
-#define XSLT_XSLT_TEST_HPP
 
 #pragma warning(disable: 4250)
 
-#include <SAX/InputSource.hpp>
-#include <SAX/Attributes.hpp>
-#include <DOM/SAX2DOM/SAX2DOM.hpp>
-#include <DOM/io/Stream.hpp>
-#include <XSLT/XSLT.hpp>
-#include <fstream>
 
 #include "../CppUnit/framework/Test.h"
 #include "../CppUnit/framework/TestCase.h"
 #include "../CppUnit/framework/TestSuite.h"
+
+#include "xslt_test.hpp"
+#include <XSLT/XSLT.hpp>
 
 //#include <elephant/newdelete.h>
 //#include <elephant/memorymonitorholder.h>
@@ -576,38 +571,41 @@ private:
   bool loaded_;
 }; // class Expected
 
-Expected& expected()
-{
-  static Expected expected_fails;
-  if(!expected_fails.loaded())
-    expected_fails.load();
-  return expected_fails;
-} // expected
 
-Arabica::DOM::Document<std::string> loadCatalog(const std::string& catalog_filename)
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+Loader::Loader() :
+  expected_fails_(new Expected())
+{ 
+  expected_fails_->load();
+} // Loader
+
+Loader::~Loader()
 {
-  static std::map<std::string, Arabica::DOM::Document<std::string> > catalogs;
-  
-  Arabica::DOM::Document<std::string> c = catalogs[catalog_filename];
+  delete expected_fails_;
+} // ~Loader
+
+Arabica::DOM::Document<std::string> Loader::loadCatalog(const std::string& catalog_filename)
+{
+  Arabica::DOM::Document<std::string> c = catalogs_[catalog_filename];
   if(c == 0)
   {
     std::cout << "Loading " << catalog_filename << std::endl;
     c = buildDOM(PATH_PREFIX + catalog_filename);
-    catalogs[catalog_filename] = c;
-   } // if(c == 0)
+    catalogs_[catalog_filename] = c;
+  } // if(c == 0)
 
   return c;
 } // catalog
 
-TestSuite* suite(const std::string& path,
-                 const std::string& catalog_filename)
+TestSuite* Loader::suite(const std::string& path, const std::string& catalog_filename)
 {
   Arabica::DOM::Document<std::string> catalog = loadCatalog(catalog_filename);
   
   TestSuite *suiteOfTests = new TestSuite;
 
   Arabica::XPath::NodeSet<std::string> tests = 
-        selectNodes("/test-suite/test-catalog/test-case[file-path='" + path + "']", catalog);
+      selectNodes("/test-suite/test-catalog/test-case[file-path='" + path + "']", catalog);
   std::cout << "There are " << tests.size() << " " << path << " tests." << std::endl;
   for(int i = 0; i != tests.size(); ++i)
   {
@@ -619,7 +617,7 @@ TestSuite* suite(const std::string& path,
     std::string input_xslt = selectString(".//input-file[@role='principal-stylesheet']", tests[i]);
     std::string output_xml = selectString(".//output-file[@role='principal']", tests[i]);
 
-    if(expected().Fails().find(name) == expected().Fails().end())
+    if(expected_fails_->Fails().find(name) == expected_fails_->Fails().end())
     {
       if(operation == "execution-error")
         suiteOfTests->addTest(new ExecutionErrorTest(name, 
@@ -631,40 +629,39 @@ TestSuite* suite(const std::string& path,
                                                    make_path(path, input_xslt), 
                                                    make_path(out_path, output_xml)));
     }
-    else if(expected().Fails()[name] == "compile") 
+    else if(expected_fails_->Fails()[name] == "compile") 
       suiteOfTests->addTest(new CompileFailsTest(name, 
                                                  make_path(path, input_xslt),
-                                                 expected().Reasons()[name]));
-    else if(expected().Fails()[name] == "run")
+                                                 expected_fails_->Reasons()[name]));
+    else if(expected_fails_->Fails()[name] == "run")
       suiteOfTests->addTest(new RunFailsTest(name, 
                                              make_path(path, input_xml), 
                                              make_path(path, input_xslt),
-                                             expected().Reasons()[name]));
-    else if(expected().Fails()[name] == "skip")
-      suiteOfTests->addTest(new SkipTest(name, expected().Reasons()[name]));
-    else if(expected().Fails()[name] == "text")
+                                             expected_fails_->Reasons()[name]));
+    else if(expected_fails_->Fails()[name] == "skip")
+      suiteOfTests->addTest(new SkipTest(name, expected_fails_->Reasons()[name]));
+    else if(expected_fails_->Fails()[name] == "text")
       suiteOfTests->addTest(new CompareAsTextXSLTTest(name, 
                                                       make_path(path, input_xml),
                                                       make_path(path, input_xslt),
                                                       make_path(out_path, output_xml)));
-    else if(expected().Fails()[name] == "fragment")
+    else if(expected_fails_->Fails()[name] == "fragment")
       suiteOfTests->addTest(new CompareAsXMLFragmentXSLTTest(name, 
                                                       make_path(path, input_xml),
                                                       make_path(path, input_xslt),
                                                       make_path(out_path, output_xml)));
   } // for ...
 
-	return suiteOfTests;
+  return suiteOfTests;
 } // suite
 
-TestSuite* XSLTTest_suite(const std::string& path)
+TestSuite* Loader::XSLTTest_suite(const std::string& path)
 {
   return suite(path, "catalog.xml");
 } // XSLTTest_suite
 
-TestSuite* ArabicaTest_suite(const std::string& path)
+TestSuite* Loader::ArabicaTest_suite(const std::string& path)
 {
   return suite(path, "arabica-catalog.xml");
 } // ArabicaTest_suite
 
-#endif
