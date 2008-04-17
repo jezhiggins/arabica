@@ -496,6 +496,19 @@ public:
   void test26()
   {
     using namespace Arabica::XPath;
+    XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor::*"));
+    XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
+
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(2, result.asNodeSet().size());
+    assertTrue(result.asNodeSet()[0] == element2_);
+    assertTrue(result.asNodeSet()[1] == root_);
+    assertTrue(result.asNodeSet().forward() == false);
+  } // test26
+
+  void test26a()
+  {
+    using namespace Arabica::XPath;
     XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor::node()[2]"));
     XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
 
@@ -503,9 +516,23 @@ public:
     assertValuesEqual(1, result.asNodeSet().size());
     assertTrue(result.asNodeSet()[0] == root_);
     assertTrue(result.asNodeSet().forward() == false);
-  } // test26
+  } // test26a
 
   void test27()
+  {
+    using namespace Arabica::XPath;
+    XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor-or-self::*"));
+    XPathValue<string_type, string_adaptor> result = xpath.evaluate(document_);
+
+    assertValuesEqual(NODE_SET, result.type());
+    assertValuesEqual(3, result.asNodeSet().size());
+    assertTrue(result.asNodeSet()[0] == spinkle_);
+    assertTrue(result.asNodeSet()[1] == element2_);
+    assertTrue(result.asNodeSet()[2] == root_);
+    assertTrue(result.asNodeSet().forward() == false);
+  } // test27
+
+  void test27a()
   {
     using namespace Arabica::XPath;
     XPathExpression<string_type, string_adaptor> xpath = parser.compile(SA::construct_from_utf8("/root/child2/spinkle/ancestor-or-self::node()[2]"));
@@ -515,7 +542,7 @@ public:
     assertValuesEqual(1, result.asNodeSet().size());
     assertTrue(result.asNodeSet()[0] == element2_);
     assertTrue(result.asNodeSet().forward() == false);
- } // test27
+ } // test27a
 
   void test28()
   {
@@ -2491,7 +2518,9 @@ TestSuite* ExecuteTest_suite()
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test24", &ExecuteTest<string_type, string_adaptor>::test24));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test25", &ExecuteTest<string_type, string_adaptor>::test25));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test26", &ExecuteTest<string_type, string_adaptor>::test26));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test26a", &ExecuteTest<string_type, string_adaptor>::test26a));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test27", &ExecuteTest<string_type, string_adaptor>::test27));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test27a", &ExecuteTest<string_type, string_adaptor>::test27a));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test28", &ExecuteTest<string_type, string_adaptor>::test28));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test29", &ExecuteTest<string_type, string_adaptor>::test29));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("test30", &ExecuteTest<string_type, string_adaptor>::test30));
