@@ -115,6 +115,14 @@ std::vector<unsigned int> node_position(const DOM::Node<string_type, string_adap
 } // node_position
 
 template<class string_type, class string_adaptor>
+DOM::Node<string_type, string_adaptor> get_owner_document(const DOM::Node<string_type, string_adaptor>& node)
+{
+  if(node.getNodeType() == DOM::Node_base::DOCUMENT_NODE)
+    return node;
+  return node.getOwnerDocument();
+} // get_owner_document
+
+template<class string_type, class string_adaptor>
 int compareNodes(const DOM::Node<string_type, string_adaptor>& lhs, 
                  const DOM::Node<string_type, string_adaptor>& rhs)
 {
@@ -122,7 +130,7 @@ int compareNodes(const DOM::Node<string_type, string_adaptor>& lhs,
     return 0;
 
   // different documents
-  if(lhs.getOwnerDocument() != rhs.getOwnerDocument())
+  if(get_owner_document(lhs) != get_owner_document(rhs))
     return (lhs.getOwnerDocument().unlying_impl() < rhs.getOwnerDocument().unlying_impl()) ? 1 : -1;
 
   // ok, nodes belong to the same document, but do they belong to the document itself, or a document fragment, 
