@@ -11,9 +11,9 @@ class ReplacementExpression : public XPathExpression_impl<string_type, string_ad
 {
 public:
   ReplacementExpression(impl::NodeTest<string_type, string_adaptor>* test, 
-                        XPathExpression_impl<string_type, string_adaptor>* pred) 
+                        const std::vector<XPathExpression_impl<string_type, string_adaptor>*>& preds) 
   {
-    test_ = new impl::TestStepExpression<string_type, string_adaptor>(CHILD, test, pred);
+    test_ = new impl::TestStepExpression<string_type, string_adaptor>(CHILD, test, preds);
   } // ReplacementExpression
 
   ~ReplacementExpression()
@@ -75,7 +75,7 @@ namespace impl
   const string_type PositionFnScanner<string_type, string_adaptor>::FN_LAST = string_adaptor::construct_from_utf8("last");
 
   template<class string_type, class string_adaptor>
-  bool should_rewrite(XPathExpression_impl<string_type, string_adaptor>* expr)
+  bool should_rewrite(XPathExpression_impl<string_type, string_adaptor>* expr) 
   {
     if(expr->type() == NUMBER)
       return true;
@@ -107,17 +107,17 @@ MatchExpr<string_type, string_adaptor>::MatchExpr(XPathExpression_impl<string_ty
       continue;
 
     Predicates& predicates = step->predicates_;
-    for(typename Predicates::iterator p = predicates.begin(), pe = predicates.end(); p != pe; ++p)
+    Predicates::iterator positional = std::find_if(predicates.begin(), predicates.end(), impl::should_rewrite<string_type, string_adaptor>);
+    while(positional != predicates.end())
     {
-  //       should rewrite?
-      Expression* pred = *p;
-      if(impl::should_rewrite<string_type, string_adaptor>(pred))
-      {
-        Expression* replacement_expression = new ReplacementExpression<string_type, string_adaptor>(step->test_->clone(), pred);
-        // replacement_expression now owns pred
-        *p = replacement_expression;
-      } // if ...
-    } // for(Predicates::iterator ...
+      Predicates folding(predicates.begin(), positional+1);
+      Expression* replacement_expression = new ReplacementExpression<string_type, string_adaptor>(step->test_->clone(), folding);
+      // replacement_expression now owns the leading predicates
+      *positional = replacement_expression;
+      // so remove the everyting upto the one we've just replaced
+      predicates.erase(predicates.begin(), positional);
+      positional = std::find_if(predicates.begin(), predicates.end(), impl::should_rewrite<string_type, string_adaptor>);
+    } // while ...
   } // for(StepList::const_iterator ...
 } // MatchExpr
 
