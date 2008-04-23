@@ -107,7 +107,7 @@ MatchExpr<string_type, string_adaptor>::MatchExpr(XPathExpression_impl<string_ty
       continue;
 
     Predicates& predicates = step->predicates_;
-    Predicates::iterator positional = std::find_if(predicates.begin(), predicates.end(), impl::should_rewrite<string_type, string_adaptor>);
+    typename Predicates::iterator positional = std::find_if(predicates.begin(), predicates.end(), impl::should_rewrite<string_type, string_adaptor>);
     while(positional != predicates.end())
     {
       Predicates folding(predicates.begin(), positional+1);
