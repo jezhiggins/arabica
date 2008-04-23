@@ -135,7 +135,7 @@ class Node : public Node_base
     bool hasAttributes() const { return impl_->hasAttributes(); }
 
     // you almost certainly don't need to use this function
-    Node_impl<stringT, string_adaptorT>* unlying_impl() const { return *impl_; }
+    Node_impl<stringT, string_adaptorT>* underlying_impl() const { return *impl_; }
 
   protected:
     Proxy<Node_impl<stringT, string_adaptorT> > impl_;

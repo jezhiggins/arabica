@@ -51,23 +51,30 @@ unsigned int node_attribute_index(const DOM::Attr<string_type, string_adaptor>& 
   for(unsigned int pe = attrs.getLength(); p != pe; ++p)
     if(attrs.item(p) == attr)
       break;
-  return p;
+  return p+1;
 } // node_attribute_index
 
 template<class string_type, class string_adaptor>
 unsigned int node_child_position(const DOM::Node<string_type, string_adaptor>& node)
 {
-  if(node.getNodeType() == DOM::Node_base::ATTRIBUTE_NODE)
-    return node_attribute_index(static_cast<DOM::Attr<string_type, string_adaptor> >(node));
-
-  unsigned int pos = 0;
-  DOM::Node<string_type, string_adaptor> n = node;
-  do
+  switch(node.getNodeType())
   {
-    n = n.getPreviousSibling();
-    pos += 1000;
-  } while(n != 0);
-  return pos;
+    case NAMESPACE_NODE_TYPE:
+      return 0;
+    case DOM::Node_base::ATTRIBUTE_NODE:
+      return node_attribute_index(static_cast<DOM::Attr<string_type, string_adaptor> >(node));
+    default:
+    {
+      unsigned int pos = 0;
+      DOM::Node<string_type, string_adaptor> n = node;
+      do
+      {
+        n = n.getPreviousSibling();
+        pos += 1000;
+      } while(n != 0);
+      return pos;
+    } // default
+  } // switch ...
 } // node_child_position
 
 template<class string_type, class string_adaptor>
@@ -97,7 +104,7 @@ int resolve_different_subtrees(const DOM::Node<string_type, string_adaptor>& lhs
     return 1;
 
   // otherwise, sort the frags
-  return (lp.unlying_impl() < lp.unlying_impl()) ? -1 : 1;
+  return (lp.underlying_impl() < lp.underlying_impl()) ? -1 : 1;
 } // resolve_different_subtrees
 
 template<class string_type, class string_adaptor>
@@ -131,7 +138,7 @@ int compareNodes(const DOM::Node<string_type, string_adaptor>& lhs,
 
   // different documents
   if(get_owner_document(lhs) != get_owner_document(rhs))
-    return (lhs.getOwnerDocument().unlying_impl() < rhs.getOwnerDocument().unlying_impl()) ? 1 : -1;
+    return (lhs.getOwnerDocument().underlying_impl() < rhs.getOwnerDocument().underlying_impl()) ? 1 : -1;
 
   // ok, nodes belong to the same document, but do they belong to the document itself, or a document fragment, 
   // or is it just floating free? if they both belong to a document fragment, is it the same fragment?
