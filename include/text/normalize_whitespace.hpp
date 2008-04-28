@@ -11,7 +11,7 @@ namespace text
 {
 
 template<class string_type, class string_adaptor>
-string_type normalize_whitespace(const string_type& ch)
+inline string_type normalize_whitespace(const string_type& ch)
 {
   std::string value = string_adaptor::asStdString(ch);
   std::string stripped = normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(value);
@@ -19,7 +19,7 @@ string_type normalize_whitespace(const string_type& ch)
 } // normalize_whitespace
 
 template<>
-std::string normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(const std::string& ch)
+inline std::string normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(const std::string& ch)
 {
   std::string value(ch);
   std::string::const_iterator i = value.begin(), ie = value.end();
