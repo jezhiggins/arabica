@@ -5,7 +5,7 @@ TESTS = $(check_PROGRAMS)
 ELEPHANT_INCLUDE = @ELEPHANT_INCLUDES@
 LIBELEPHANT = @ELEPHANT_LIBS@
 
-AM_CPPFLAGS = -I$(top_srcdir)/include @PARSER_HEADERS@ @BOOST_CPPFLAGS@ $(ELEPHANT_INCLUDE)
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @PARSER_HEADERS@ @BOOST_CPPFLAGS@ $(ELEPHANT_INCLUDE)
 LIBARABICA =  $(top_builddir)/src/libarabica.la
 LIBSILLY = ../CppUnit/libsillystring.la
 TESTLIBS = $(LIBARABICA) ../CppUnit/libcppunit.la  

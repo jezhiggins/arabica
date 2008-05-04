@@ -25,7 +25,7 @@ check_LTLIBRARIES = libcppunit.la libsillystring.la
 libcppunit_la_SOURCES= $(cppunit_sources) 
 
 libsillystring_la_SOURCES = $(silly_string_sources)
-libsillystring_la_CPPFLAGS = -I$(top_srcdir)/include
+libsillystring_la_CPPFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include
 
 
 

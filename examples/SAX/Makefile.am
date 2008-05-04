@@ -1,6 +1,6 @@
 noinst_PROGRAMS = pyx simple_handler writer xmlbase
 
-AM_CPPFLAGS = -I$(top_srcdir)/include @PARSER_HEADERS@ $(BOOST_CPPFLAGS)
+AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @PARSER_HEADERS@ $(BOOST_CPPFLAGS)
 LIBARABICA = $(top_builddir)/src/libarabica.la
 
 pyx_SOURCES = pyx.cpp
