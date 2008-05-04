@@ -106,7 +106,7 @@ struct xpath_grammar_definition
 
     // [25], [26], [27]
     AdditiveExpr = MultiplicativeExpr >> *((PlusOperator | MinusOperator) >> MultiplicativeExpr);
-    MultiplicativeExpr = UnaryExpr >> *(token_node_d[(MultiplyOperator | DivOperator | ModOperator)] >> UnaryExpr);
+    MultiplicativeExpr = UnaryExpr >> *((MultiplyOperator | DivOperator | ModOperator) >> UnaryExpr);
     UnaryExpr = discard_node_d[S] >> *(UnaryMinusOperator) >> UnionExpr;
 
     // [28] ExprToken not actually used
