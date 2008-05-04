@@ -219,17 +219,16 @@ public:
                                     Axis axis,
                                     bool is_attr = false)
   {
-    NodeTest<string_type, string_adaptor>* test = getTest(node, end, !is_attr ? axis : ATTRIBUTE, context.namespaceContext());
-    XPathExpression_impl<string_type, string_adaptor>* thing = 0;
-    if(!test)
-      thing = XPath<string_type, string_adaptor>::compile_expression(node++, end, context);
+    std::auto_ptr<NodeTest<string_type, string_adaptor> > test(getTest(node, end, !is_attr ? axis : ATTRIBUTE, context.namespaceContext()));
+    std::auto_ptr<XPathExpression_impl<string_type, string_adaptor> > thing;
+    if(test.get() == 0)
+      thing.reset(XPath<string_type, string_adaptor>::compile_expression(node++, end, context));
 
-    std::vector<XPathExpression_impl<string_type, string_adaptor>*> preds = 
-        createPredicates(node, end, context);
+    std::vector<XPathExpression_impl<string_type, string_adaptor>*> preds = createPredicates(node, end, context);
 
-    if(!test)
-      return new ExprStepExpression<string_type, string_adaptor>(thing, preds);
-    return new TestStepExpression<string_type, string_adaptor>(axis, test, preds);
+    if(test.get() == 0)
+      return new ExprStepExpression<string_type, string_adaptor>(thing.release(), preds);
+    return new TestStepExpression<string_type, string_adaptor>(axis, test.release(), preds);
   } // createStep
 
   static StepExpression<string_type, string_adaptor>* createFilter(const typename types<string_adaptor>::node_iter_t& node,
