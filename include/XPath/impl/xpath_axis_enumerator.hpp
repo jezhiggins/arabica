@@ -408,7 +408,8 @@ public:
     DOM::Node<string_type, string_adaptor> current = context;
     if(current.getNodeType() != DOM::Node_base::ATTRIBUTE_NODE)
       list_.push_back(DOM::Node<string_type, string_adaptor>(
-             new NamespaceNodeImpl<string_type, string_adaptor>(string_adaptor::construct_from_utf8("xml"), 
+             new NamespaceNodeImpl<string_type, string_adaptor>(context,
+                                                                string_adaptor::construct_from_utf8("xml"), 
                                                                 string_adaptor::construct_from_utf8("http://www.w3.org/XML/1998/namespace"))
                                             )
                      );
@@ -419,7 +420,8 @@ public:
         DOM::Node<string_type, string_adaptor> attr = current.getAttributes().item(a);
         if(attr.getPrefix() == xmlns_prefix_)
           list_.push_back(DOM::Node<string_type, string_adaptor>(
-                   new NamespaceNodeImpl<string_type, string_adaptor>(attr.getLocalName(), 
+                   new NamespaceNodeImpl<string_type, string_adaptor>(context,
+                                                                      attr.getLocalName(), 
                                                                       attr.getNodeValue())
                                                   )
                           );
