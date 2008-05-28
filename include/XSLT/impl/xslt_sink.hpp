@@ -288,7 +288,7 @@ private:
   bool pop_buffering()
   {
     --buffering_;
-    return buffering_;
+    return (buffering_ != 0); // oh, Visual Studio how I curse you warning C4800
   } // pop_buffering
 
   void flush_element()

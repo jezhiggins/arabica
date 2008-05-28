@@ -184,7 +184,7 @@ public:
 
   const XPathExpression_impl<string_type, string_adaptor>* operator->() const { return ptr_.get(); }
 
-  operator bool() const { return ptr_.get(); }
+  operator bool() const { return (ptr_.get() != 0); }
   operator XPathExpression<string_type, string_adaptor>() const { return XPathExpression<string_type, string_adaptor>(ptr_); }
 
 private:
