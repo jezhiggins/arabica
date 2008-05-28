@@ -5,6 +5,7 @@
 #include <boost/spirit/tree/ast.hpp>
 #include <string>
 #include <stdexcept>
+#include <algorithm>
 #include <map>
 #include "xpath_object.hpp"
 #include "xpath_expression.hpp"
@@ -728,9 +729,12 @@ impl::StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::
         ++c;
         break;
       case impl::RelativeLocationPath_id:
-        // might get here when handling an absolute path
-        end = c->children.end();
-        c = c->children.begin();
+        {
+          // might get here when handling an absolute path
+          const impl::StepList<string_type, string_adaptor> rel = createStepList(c->children.begin(), c->children.end(), context);
+          std::copy(rel.begin(), rel.end(), std::back_inserter(steps));
+          ++c;
+        }
         break;
       case impl::Step_id:
         {
