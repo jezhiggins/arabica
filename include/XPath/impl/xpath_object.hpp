@@ -138,7 +138,7 @@ int compareNodes(const DOM::Node<string_type, string_adaptor>& lhs,
 
   // different documents
   if(get_owner_document(lhs) != get_owner_document(rhs))
-    return (lhs.getOwnerDocument().underlying_impl() < rhs.getOwnerDocument().underlying_impl()) ? 1 : -1;
+    return (get_owner_document(lhs).underlying_impl() < get_owner_document(rhs).underlying_impl()) ? 1 : -1;
 
   // ok, nodes belong to the same document, but do they belong to the document itself, or a document fragment, 
   // or is it just floating free? if they both belong to a document fragment, is it the same fragment?
