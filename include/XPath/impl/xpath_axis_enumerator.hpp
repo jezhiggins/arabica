@@ -425,6 +425,13 @@ public:
                                                                       attr.getNodeValue())
                                                   )
                           );
+        if(attr.getNodeName() == xmlns_prefix_)
+          list_.push_back(DOM::Node<string_type, string_adaptor>(
+                   new NamespaceNodeImpl<string_type, string_adaptor>(context,
+                                                                      "", 
+                                                                      attr.getNodeValue())
+                                                  )
+                          );
       } // for ...
       current = current.getParentNode();
     } // while
