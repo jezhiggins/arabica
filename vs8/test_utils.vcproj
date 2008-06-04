@@ -215,6 +215,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\tests\Utils\test_xml_strings.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\tests\Utils\util_test_suite.hpp"
 				>
 			</File>

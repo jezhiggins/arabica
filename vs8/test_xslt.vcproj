@@ -284,6 +284,10 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="..\tests\XSLT\testsuite\TESTS\arabica-catalog.xml"
+			>
+		</File>
+		<File
 			RelativePath="..\tests\Xslt\testsuite\Tests\arabica-expected-fails.xml"
 			>
 		</File>
