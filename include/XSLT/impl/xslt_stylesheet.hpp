@@ -63,6 +63,9 @@ public:
 
   void execute(DOM::Node<std::string>& initialNode) const
   {
+    if(initialNode == 0)
+      throw std::runtime_error("Input document is empty");
+
     Arabica::XPath::NodeSet<std::string> ns;
     ns.push_back(initialNode);
 
