@@ -27,7 +27,7 @@ class Writer : public XMLFilterImpl<string_type, T0, T1>
                              Arabica::default_string_adaptor<string_type>, 
                              T0, 
                              T1>::type string_adaptor;
-    typedef Writer<string_type, string_adaptor> WriterT;
+    typedef Writer<string_type, T0, T1> WriterT;
     typedef typename string_type::value_type charT;
     typedef typename string_type::traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;
