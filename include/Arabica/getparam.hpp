@@ -26,10 +26,16 @@ struct get_param
     >::type type;
 }; // get_param
 #else
+template <typename T0, typename DefaultT>
+struct chosen_type { typedef T0 type; };
+
+template <typename DefaultT>
+struct chosen_type<Arabica::nil_t, DefaultT> { typedef DefaultT type; };
+
 template <typename BaseT, typename DefaultT, typename T0, typename T1>
 struct get_param
 {
-  typedef T0 type;
+  typedef typename chosen_type<T0, DefaultT>::type type;
 };
 #endif
 

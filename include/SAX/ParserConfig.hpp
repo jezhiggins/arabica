@@ -69,7 +69,7 @@ namespace SAX
   template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
 #else
 #ifndef USE_MSXML
-  template<class string_type, class T0 = Arabica::default_string_adaptor<string_type>, class T1 = Arabica::nil_t>
+  template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
 #else
   template<class string_type, class T0 = Arabica::default_string_adaptor<string_type>, class T1 = SAX::COMSingleThreadInitializer>
 #endif
