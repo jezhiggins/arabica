@@ -12,3 +12,7 @@ include/SAX/ArabicaConfig.hpp
 include/SAX/ArabicaConfig.hpp.in
 include/SAX/stamp-h1
 tests/XSLT/test_path.hpp
+*.exe
+*.lo
+*.la
+.libs
