@@ -18,6 +18,7 @@
 #include <ostream>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 
 #include <SAX/ArabicaConfig.hpp>
 #ifdef ARABICA_VS6_WORKAROUND

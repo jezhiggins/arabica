@@ -9,6 +9,7 @@
 #ifndef CPPUNIT_TESTCASE_H
 #include "TestCase.h"
 #endif
+#include <memory>
 
 /* 
  * A test caller provides access to a test case method 

@@ -7,6 +7,7 @@
 #pragma warning(disable: 4244)
 #endif
 
+#include <cstring>
 
 class Base64Test : public TestCase
 {

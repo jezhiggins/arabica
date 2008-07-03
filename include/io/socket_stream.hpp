@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <vector>
 #include <cstdlib>
+#include <cstring>
 
 #ifndef INADDR_NONE
 #  define INADDR_NONE             ((in_addr_t) -1)
