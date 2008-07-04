@@ -61,6 +61,8 @@ std::ostream& operator<<(std::ostream& o, const std::type_info& ti)
 #include <xercesc/sax2/ContentHandler.hpp>
 #include <xercesc/sax2/LexicalHandler.hpp>
 #include <xercesc/sax2/DeclHandler.hpp>
+#include <xercesc/sax/Locator.hpp>
+#include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/sax/EntityResolver.hpp>
 #include <xercesc/sax/DTDHandler.hpp>
 #include <xercesc/sax/ErrorHandler.hpp>
