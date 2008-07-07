@@ -50,7 +50,11 @@
 #define DEF_SAX_P expat_wrapper
 #ifdef _MSC_VER
 #pragma message("Including Expat")
+#ifndef XML_STATIC
 #pragma comment(lib, "libexpat.lib")
+#else
+#pragma comment(lib, "libexpatMT.lib")
+#endif
 #endif
 #endif
 
