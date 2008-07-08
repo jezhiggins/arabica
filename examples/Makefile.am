@@ -1,8 +1,8 @@
-SUBDIRS = SAX Utils 
+SUBDIRS = SAX Utils Taggle
 if WANT_DOM 
   SUBDIRS += DOM
 endif
 if WANT_XPATH
-  SUBDIRS += Taggle XPath XSLT
+  SUBDIRS += XPath XSLT
 endif
 

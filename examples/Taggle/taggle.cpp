@@ -4,9 +4,6 @@
 #include <SAX/filter/Writer.hpp>
 #include <SAX/helpers/CatchErrorHandler.hpp>
 #include <Taggle/Taggle.hpp>
-#include <DOM/SAX2DOM/SAX2DOM.hpp>
-#include <DOM/io/Stream.hpp>
-#include <XPath/XPath.hpp>
 
 int main(int argc, const char* argv[])
 {
