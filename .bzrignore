@@ -16,3 +16,4 @@ tests/XSLT/test_path.hpp
 *.lo
 *.la
 .libs
+config.cache
