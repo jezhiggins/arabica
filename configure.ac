@@ -1,4 +1,4 @@
-AC_INIT([Arabica], [2008XX], [jez@jezuk.co.uk])
+AC_INIT([Arabica], [2008-july], [jez@jezuk.co.uk])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar])
  
