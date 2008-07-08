@@ -10,6 +10,7 @@ install-data-local:
 	for inc in `cd $(srcdir)/include && find . -type f -print | grep -v \.svn`; \
 	  do mkdir -p "`dirname \"$(includedir)/$$inc\"`"; $(INSTALL_HEADER) "$(srcdir)/include/$$inc" "$(includedir)/$$inc"; \
 	done 
+	$(INSTALL_HEADER) "$(top_builddir)/include/SAX/ArabicaConfig.hpp" "$(includedir)/SAX"
 
 uninstall-local:
 	@echo "------------------------------------------------------------"
