@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 
   { // narrow
     Arabica::SAX::FeatureNames<std::string> fNames;
-    Arabica::SAX::XMLReader<std::string, int, int> parser;
+    Arabica::SAX::XMLReader<std::string> parser;
     Arabica::SAX::Writer<std::string> writer(std::cout, 4);
     Arabica::SAX::CatchErrorHandler<std::string> eh;
 
