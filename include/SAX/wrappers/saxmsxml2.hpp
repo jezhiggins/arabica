@@ -65,6 +65,10 @@ class msxml2_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>
   public:
     typedef SAX::XMLReaderInterface<string_type, T0, T1> XMLReaderT;
     typedef typename XMLReaderT::string_adaptor string_adaptor;
+    typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                                        Arabica::default_string_adaptor<string_type>, 
+                                        T0, 
+                                        T1>::type string_adaptor;
     typedef typename Arabica::get_param<COMInitializer_tag, 
                                         COMSingleThreadInitializer, 
                                         T1, 

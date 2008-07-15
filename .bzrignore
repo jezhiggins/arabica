@@ -17,3 +17,13 @@ tests/XSLT/test_path.hpp
 *.la
 .libs
 config.cache
+vs9\*.user
+*.ncb
+*.suo
+*/Debug*
+*/Release*
+*.ilk
+*.pdb
+*.exp
+*.lib
+*.bsc
