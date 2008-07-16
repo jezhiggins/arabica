@@ -2,7 +2,6 @@
 #define ARABICA_XML_FILTER_H
 
 // XMLFilter.h
-// $Id$
 
 #include <string>
 #include <SAX/ArabicaConfig.hpp>
@@ -34,15 +33,12 @@ namespace SAX
   * @version 2.0
   * @see XMLFilterImpl
   */
-template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
-class XMLFilter : public XMLReaderInterface<string_type, T0, T1>
+template<class string_type, class string_adaptor_type>
+class XMLFilter : public XMLReaderInterface<string_type, string_adaptor_type>
 {
 public:
-  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
-                             Arabica::default_string_adaptor<string_type>, 
-                             T0, 
-                             T1>::type string_adaptor;
-  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+  typedef XMLReaderInterface<string_type, string_adaptor_type> XMLReaderT;
+  typedef typename XMLReaderT::string_adaptor string_adaptor;
 
   virtual ~XMLFilter() { }
 

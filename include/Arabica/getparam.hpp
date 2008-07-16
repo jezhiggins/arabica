@@ -39,6 +39,15 @@ struct get_param
 };
 #endif
 
+template <typename string_type, typename T0, typename T1>
+struct get_string_adaptor
+{
+  typedef typename get_param<Arabica::string_adaptor_tag, 
+                             Arabica::default_string_adaptor<string_type>, 
+                             T0, 
+                             T1>::type type;
+};
+
 } // namespace Arabica
 
 #endif

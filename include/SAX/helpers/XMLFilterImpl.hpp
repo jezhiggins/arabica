@@ -36,21 +36,17 @@ namespace SAX
  * @see ContentHandler
  * @see ErrorHandler
  */
-template<class string_type, class T0 = Arabica::nil_t, class T1 = Arabica::nil_t>
-class XMLFilterImpl : public XMLFilter<string_type, T0, T1>,
-                            public EntityResolver<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>, 
-                            public DTDHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>,
-                            public ContentHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>, 
-                            public ErrorHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>,
-                            public DeclHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>,
-                            public LexicalHandler<string_type, typename XMLFilter<string_type, T0, T1>::string_adaptor>
+template<class string_type, class string_adaptor>
+class XMLFilterImpl : public XMLFilter<string_type, string_adaptor>,
+                            public EntityResolver<string_type, string_adaptor>, 
+                            public DTDHandler<string_type, string_adaptor>,
+                            public ContentHandler<string_type, string_adaptor>, 
+                            public ErrorHandler<string_type, string_adaptor>,
+                            public DeclHandler<string_type, string_adaptor>,
+                            public LexicalHandler<string_type, string_adaptor>
 {
 public:
-  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
-                             Arabica::default_string_adaptor<string_type>, 
-                             T0, 
-                             T1>::type string_adaptor;
-  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+  typedef XMLReaderInterface<string_type, string_adaptor> XMLReaderT;
   typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
   typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
   typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;

@@ -65,14 +65,11 @@ namespace SAX
  */
 class XMLReaderInterface_tag { };
 
-template<class string_type, class T0, class T1>
+template<class string_type, class string_adaptor_type>
 class XMLReaderInterface : public XMLReaderInterface_tag 
 {
 public:
-  typedef typename Arabica::get_param<Arabica::string_adaptor_tag, 
-                             Arabica::default_string_adaptor<string_type>, 
-                             T0, 
-                             T1>::type string_adaptor;
+  typedef string_adaptor_type string_adaptor;
   typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
   typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
   typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;

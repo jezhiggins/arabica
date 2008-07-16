@@ -60,10 +60,15 @@ class COMMultiThreadInitializer  : public COMInitializer_tag
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class msxml2_wrapper : public SAX::XMLReaderInterface<string_type, T0, T1>
+class msxml2_wrapper : 
+    public SAX::XMLReaderInterface<string_type, 
+                                   typename Arabica::get_string_adaptor<string_type, T0, T1>::type>
 {
   public:
-    typedef SAX::XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+    typedef SAX::XMLReaderInterface<string_type, typename Arabica::get_param<Arabica::string_adaptor_tag, 
+                                     Arabica::default_string_adaptor<string_type>, 
+                                     T0, 
+                                     T1>::type> XMLReaderT;
     typedef typename XMLReaderT::string_adaptor string_adaptor;
     typedef typename Arabica::get_param<COMInitializer_tag, 
                                         COMSingleThreadInitializer, 

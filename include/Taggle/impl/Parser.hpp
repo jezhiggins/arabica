@@ -24,15 +24,14 @@ The Taggle SAX parser class.
 Based on code from John Cowan's super TagSoup package
 **/
 template<class string_type, 
-         class T0 = Arabica::nil_t,
-         class T1 = Arabica::nil_t>
+         class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
 class Taggle  : 
-    public XMLReaderInterface<string_type, T0, T1>,
-    private DefaultHandler<string_type, typename XMLReaderInterface<string_type, T0, T1>::string_adaptor>,
+    public XMLReaderInterface<string_type, string_adaptor_type>,
+    private DefaultHandler<string_type, string_adaptor_type>,
     private ScanHandler
 {
 public:
-  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+  typedef XMLReaderInterface<string_type, string_adaptor_type> XMLReaderT;
   typedef typename XMLReaderT::string_adaptor string_adaptor;
   typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;
   typedef LexicalHandler<string_type, string_adaptor> LexicalHandlerT;
@@ -397,7 +396,7 @@ public:
       CDATAElements = value;
   } // setFeature
 
-  typedef typename XMLReaderInterface<string_type, T0, T1>::PropertyBase PropertyBaseT;
+  typedef typename XMLReaderInterface<string_type, string_adaptor_type>::PropertyBase PropertyBaseT;
   virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& name)
   {
     return std::auto_ptr<PropertyBaseT>(0);
@@ -1306,83 +1305,83 @@ public:
   } // S
 }; // class Taggle
 
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_NAMESPACES = true;
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_IGNORE_BOGONS = false;
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_BOGONS_EMPTY = false;
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_ROOT_BOGONS = true;
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_DEFAULT_ATTRIBUTES = true;
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_TRANSLATE_COLONS = false;
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_RESTART_ELEMENTS = true;
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_IGNORABLE_WHITESPACE = false;
-template<class string_type, class T0, class T1>
-bool Taggle<string_type, T0, T1>::DEFAULT_CDATA_ELEMENTS = true;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_NAMESPACES = true;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_IGNORE_BOGONS = false;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_BOGONS_EMPTY = false;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_ROOT_BOGONS = true;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_DEFAULT_ATTRIBUTES = true;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_TRANSLATE_COLONS = false;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_RESTART_ELEMENTS = true;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_IGNORABLE_WHITESPACE = false;
+template<class string_type, class string_adaptor_type>
+bool Taggle<string_type, string_adaptor_type>::DEFAULT_CDATA_ELEMENTS = true;
 
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::namespacesFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/namespaces");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::namespacePrefixesFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/namespace-prefixes");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::externalGeneralEntitiesFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/external-general-entities");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::externalParameterEntitiesFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/external-parameter-entities");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::isStandaloneFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/is-standalone");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::lexicalHandlerParameterEntitiesFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/lexical-handler/parameter-entities");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::resolveDTDURIsFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/resolve-dtd-uris");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::stringInterningFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/string-interning");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::useAttributes2Feature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/use-attributes2");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::useLocator2Feature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/use-locator2");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::useEntityResolver2Feature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/use-entity-resolver2");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::validationFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/validation");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::unicodeNormalizationCheckingFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/unicode-normalization-checking");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::xmlnsURIsFeature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/xmlns-uris");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::XML11Feature = Taggle<string_type, T0, T1>::S("http://xml.org/sax/features/xml-1.1");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::ignoreBogonsFeature = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/features/ignore-bogons");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::bogonsEmptyFeature = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/features/bogons-empty");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::rootBogonsFeature = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/features/root-bogons");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::defaultAttributesFeature = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/features/default-attributes");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::translateColonsFeature = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/features/translate-colons");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::restartElementsFeature = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/features/restart-elements");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::ignorableWhitespaceFeature = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/features/ignorable-whitespace");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::CDATAElementsFeature = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/features/cdata-elements");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::lexicalHandlerProperty = Taggle<string_type, T0, T1>::S("http://xml.org/sax/properties/lexical-handler");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::scannerProperty = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/properties/scanner");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::schemaProperty = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/properties/schema");
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::autoDetectorProperty = Taggle<string_type, T0, T1>::S("http://www.ccil.org/~cowan/tagsoup/properties/auto-detector");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::namespacesFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/namespaces");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::namespacePrefixesFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/namespace-prefixes");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::externalGeneralEntitiesFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/external-general-entities");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::externalParameterEntitiesFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/external-parameter-entities");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::isStandaloneFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/is-standalone");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::lexicalHandlerParameterEntitiesFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/lexical-handler/parameter-entities");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::resolveDTDURIsFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/resolve-dtd-uris");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::stringInterningFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/string-interning");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::useAttributes2Feature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/use-attributes2");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::useLocator2Feature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/use-locator2");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::useEntityResolver2Feature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/use-entity-resolver2");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::validationFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/validation");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::unicodeNormalizationCheckingFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/unicode-normalization-checking");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::xmlnsURIsFeature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/xmlns-uris");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::XML11Feature = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/features/xml-1.1");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::ignoreBogonsFeature = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/features/ignore-bogons");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::bogonsEmptyFeature = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/features/bogons-empty");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::rootBogonsFeature = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/features/root-bogons");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::defaultAttributesFeature = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/features/default-attributes");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::translateColonsFeature = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/features/translate-colons");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::restartElementsFeature = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/features/restart-elements");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::ignorableWhitespaceFeature = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/features/ignorable-whitespace");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::CDATAElementsFeature = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/features/cdata-elements");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::lexicalHandlerProperty = Taggle<string_type, string_adaptor_type>::S("http://xml.org/sax/properties/lexical-handler");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::scannerProperty = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/properties/scanner");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::schemaProperty = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/properties/schema");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::autoDetectorProperty = Taggle<string_type, string_adaptor_type>::S("http://www.ccil.org/~cowan/tagsoup/properties/auto-detector");
 
-template<class string_type, class T0, class T1>
-const string_type Taggle<string_type, T0, T1>::legal =
-  Taggle<string_type, T0, T1>::S("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'()+,./:=?;!*#@$_%");
+template<class string_type, class string_adaptor_type>
+const string_type Taggle<string_type, string_adaptor_type>::legal =
+  Taggle<string_type, string_adaptor_type>::S("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'()+,./:=?;!*#@$_%");
 
 } // namespace SAX
 
