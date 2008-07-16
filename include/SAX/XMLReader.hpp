@@ -65,11 +65,11 @@ namespace SAX
  */
 class XMLReaderInterface_tag { };
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor_type>
 class XMLReaderInterface : public XMLReaderInterface_tag 
 {
 public:
-  typedef string_adaptor string_adaptor;
+  typedef string_adaptor_type string_adaptor;
   typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
   typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
   typedef ContentHandler<string_type, string_adaptor> ContentHandlerT;

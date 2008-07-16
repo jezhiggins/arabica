@@ -15,7 +15,6 @@ template<class string_type, class string_adaptor = Arabica::default_string_adapt
 class XMLBaseTracker : public XMLFilterImpl<string_type, string_adaptor>
 {
   typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
-  typedef typename string_adaptor string_adaptor;
   typedef XMLBaseSupport<string_type, string_adaptor> XMLBaseSupportT;
 
 public:

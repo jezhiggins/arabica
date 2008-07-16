@@ -33,11 +33,11 @@ namespace SAX
   * @version 2.0
   * @see XMLFilterImpl
   */
-template<class string_type, class string_adaptor>
-class XMLFilter : public XMLReaderInterface<string_type, string_adaptor>
+template<class string_type, class string_adaptor_type>
+class XMLFilter : public XMLReaderInterface<string_type, string_adaptor_type>
 {
 public:
-  typedef XMLReaderInterface<string_type, string_adaptor> XMLReaderT;
+  typedef XMLReaderInterface<string_type, string_adaptor_type> XMLReaderT;
   typedef typename XMLReaderT::string_adaptor string_adaptor;
 
   virtual ~XMLFilter() { }

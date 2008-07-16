@@ -20,8 +20,6 @@ template<class string_type, class string_adaptor=Arabica::default_string_adaptor
 class TextCoalescer : public XMLFilterImpl<string_type, string_adaptor>
 {
   typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
-  typedef typename string_adaptor string_adaptor;
-
 public:
   typedef XMLReaderInterface<string_type, string_adaptor> XMLReaderT;
   typedef Attributes<string_type, string_adaptor> AttributesT;

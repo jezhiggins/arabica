@@ -16,7 +16,6 @@ namespace SAX
 class NamespaceTracker : public XMLFilterImpl<string_type, string_adaptor>
 {
   typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
-  typedef string_adaptor string_adaptor;
   typedef NamespaceSupport<string_type, string_adaptor> NamespaceSupportT;
   typedef typename NamespaceSupportT::stringListT stringListT;
 

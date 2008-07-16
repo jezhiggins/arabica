@@ -18,7 +18,6 @@ class PYXWriter : public XMLFilterImpl<string_type, string_adaptor>
     typedef XMLReaderInterface<string_type, string_adaptor> XMLReaderT;
     typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
     typedef typename XMLFilterT::AttributesT AttributesT;
-    typedef typename XMLFilterT::string_adaptor string_adaptor;
     typedef typename string_type::value_type charT;
     typedef typename string_type::traits_type traitsT;
     typedef std::basic_ostream<charT, traitsT> ostreamT;

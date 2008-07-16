@@ -16,7 +16,6 @@ class WhitespaceStripper : public SAX::XMLFilterImpl<string_type, string_adaptor
   public:
     typedef SAX::XMLReaderInterface<string_type, string_adaptor> XMLReaderT;
     typedef SAX::XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
-    typedef string_adaptor string_adaptor;
 
     WhitespaceStripper() : 
       XMLFilterT() 
