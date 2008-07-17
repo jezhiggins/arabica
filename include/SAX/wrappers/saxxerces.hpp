@@ -124,10 +124,10 @@ namespace XercesImpl
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class xerces_wrapper : public ProgressiveParser<string_type, T0, T1>
+class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::get_string_adaptor<string_type, T0, T1>::type>
 {
   private:
-    typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+    typedef XMLReaderInterface<string_type, typename Arabica::get_string_adaptor<string_type, T0, T1>::type> XMLReaderT;
     typedef typename XMLReaderT::string_adaptor string_adaptor;
 
   public:
@@ -935,14 +935,14 @@ void xerces_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bo
 
 template<class string_type, class T0, class T1>
 #ifndef ARABICA_VS6_WORKAROUND
-std::auto_ptr<typename XMLReaderInterface<string_type, T0, T1>::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
+std::auto_ptr<typename xerces_wrapper<string_type, T0, T1>::XMLReaderT::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
 #else
-std::auto_ptr<XMLReaderInterface<string_type, T0, T1>::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
+  std::auto_ptr<xerces_wrapper<string_type, T0, T1>::XMLReaderT::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
 #endif
 {
   if(name == properties_.lexicalHandler)
   {
-    typedef typename XMLReaderInterface<string_type, T0, T1>::template Property<LexicalHandlerT *> Prop;
+    typedef typename XMLReaderT::template Property<LexicalHandlerT *> Prop;
     Prop *prop = new Prop(lexicalHandlerAdaptor_.getLexicalHandler());
 #ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename XMLReaderT::PropertyBase>(prop);
@@ -952,7 +952,7 @@ std::auto_ptr<XMLReaderInterface<string_type, T0, T1>::PropertyBase> xerces_wrap
   }
   if(name == properties_.declHandler)
   {
-    typedef typename XMLReaderInterface<string_type,T0,T1>::template Property<DeclHandlerT*> Prop;
+    typedef typename XMLReaderT::template Property<DeclHandlerT*> Prop;
     Prop* prop = new Prop(declHandlerAdaptor_.getDeclHandler());
 #ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename XMLReaderT::PropertyBase>(prop);
@@ -962,7 +962,7 @@ std::auto_ptr<XMLReaderInterface<string_type, T0, T1>::PropertyBase> xerces_wrap
   }
   if (name == properties_.externalSchemaLocation)
   {
-    typedef typename XMLReaderInterface<string_type,T0,T1>::template Property<string_type&> StringPropertyType;
+    typedef typename XMLReaderT::template Property<string_type&> StringPropertyType;
 
     XMLCh* xercesExternalSchemaLocation = 
         static_cast<XMLCh*>(xerces_->getProperty(
@@ -985,7 +985,7 @@ std::auto_ptr<XMLReaderInterface<string_type, T0, T1>::PropertyBase> xerces_wrap
   }
   if (name == properties_.externalNoNamespaceSchemaLocation)
   {
-    typedef typename XMLReaderInterface<string_type,T0,T1>::template Property<string_type&> StringPropertyType;
+    typedef typename XMLReaderT::template Property<string_type&> StringPropertyType;
 
     XMLCh* xercesExternalNoNamespaceSchemaLocation = 
         static_cast<XMLCh*>(xerces_->getProperty(
@@ -1010,7 +1010,7 @@ void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name,
 {
   if(name == properties_.lexicalHandler)
   {
-    typedef typename XMLReaderInterface<string_type,T0,T1>::template Property<LexicalHandlerT&> Prop;
+    typedef typename XMLReaderT::template Property<LexicalHandlerT&> Prop;
     Prop* prop = dynamic_cast<Prop*>(value.get());
 
     if(!prop)
@@ -1022,7 +1022,7 @@ void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name,
 
   if(name == properties_.declHandler)
   {
-    typedef typename XMLReaderInterface<string_type,T0,T1>::template Property<DeclHandlerT&> Prop;
+    typedef typename XMLReaderT::template Property<DeclHandlerT&> Prop;
     Prop* prop = dynamic_cast<Prop*>(value.get());
 
     if(!prop)

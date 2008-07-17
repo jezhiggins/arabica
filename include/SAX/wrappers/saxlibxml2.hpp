@@ -2,8 +2,6 @@
 #define ARABICA_SAX_LIBXML2_H 
 ////////////////////////////////////////////////////////////////
 // A SAX2 Wrapper for libxml2
-//
-// $Id$
 ////////////////////////////////////////////////////////////////
 
 #include <SAX/ArabicaConfig.hpp>
@@ -115,12 +113,15 @@ xmlSAXHandler* lwit_SaxHandler();
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class libxml2_wrapper : public XMLReaderInterface<string_type, T0, T1>,
-                        public Locator<string_type, typename XMLReaderInterface<string_type, T0, T1>::string_adaptor>,
-                        protected libxml2_wrapper_impl_tiddle::libxml2_base
+class libxml2_wrapper :
+    public SAX::XMLReaderInterface<string_type, 
+                                   typename Arabica::get_string_adaptor<string_type, T0, T1>::type>,
+    public SAX::Locator<string_type, typename Arabica::get_string_adaptor<string_type, T0, T1>::type>,
+    protected libxml2_wrapper_impl_tiddle::libxml2_base
 {
   public:
-    typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+    typedef SAX::XMLReaderInterface<string_type, 
+                                    typename Arabica::get_string_adaptor<string_type, T0, T1>::type> XMLReaderT;
     typedef typename XMLReaderT::string_adaptor string_adaptor;
     typedef SAX::EntityResolver<string_type, string_adaptor> entityResolverT;
     typedef SAX::DTDHandler<string_type, string_adaptor> dtdHandlerT;
