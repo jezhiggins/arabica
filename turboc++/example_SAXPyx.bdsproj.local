@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2006/09/29 16:53:11.578.cpp,D:\work\JezUK\arabica\arabica\examples\SAX\pyx.cpp=</Transaction>
-    <Transaction>2006/09/29 16:54:41.953.bdsproj,C:\Documents and Settings\jez\My Documents\Borland Studio Projects\Project1.bdsproj=C:\Documents and Settings\jez\My Documents\Borland Studio Projects\example_SAXPyx.bdsproj</Transaction>
-    <Transaction>2006/09/29 16:55:12.062.bdsproj,C:\Documents and Settings\jez\My Documents\Borland Studio Projects\example_SAXPyx.bdsproj=D:\work\JezUK\arabica\arabica\turboc++\example_SAXPyx.bdsproj</Transaction>
-    <Transaction>2006/09/29 16:59:44.484.lib,d:\usr\lib\libexpat.lib=</Transaction>
-  </Transactions>
-</BorlandProject>
