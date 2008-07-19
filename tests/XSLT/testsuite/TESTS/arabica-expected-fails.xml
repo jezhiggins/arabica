@@ -30,13 +30,13 @@
   <test-case id="impincl_impincl17" compiles="no"/>
   <test-case id="lre_lre12" compiles="no" reason="Failing to compile is actually legitimate here.  Saxon and MSXML agree, Xalan chooses to continue."/>
   <test-case id="lre_lre13" compare="text" reason="Text out"/>
-  <test-case id="match_match01" compiles="no"/>
-  <test-case id="mdocs_mdocs02" runs="no"/>
-  <test-case id="mdocs_mdocs04" runs="no"/>
-  <test-case id="mdocs_mdocs05" runs="no"/>
-  <test-case id="mdocs_mdocs06" runs="no"/>
-  <test-case id="mdocs_mdocs07" runs="no"/>
-  <test-case id="mdocs_mdocs08" runs="no"/>
+  <test-case id="match_match01" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="mdocs_mdocs02" runs="no" reason="haven't implemented node-set arg version of document()"/>
+  <test-case id="mdocs_mdocs04" runs="no" reason="haven't implemented node-set arg version of document()"/>
+  <test-case id="mdocs_mdocs05" runs="no" reason="haven't implemented node-set arg version of document()"/>
+  <test-case id="mdocs_mdocs06" runs="no" reason="haven't implemented node-set arg version of document()"/>
+  <test-case id="mdocs_mdocs07" runs="no" reason="haven't implemented node-set arg version of document()"/>
+  <test-case id="mdocs_mdocs08" runs="no" reason="haven't implemented node-set arg version of document()"/>
 	<test-case id="mdocs_mdocs18" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="message_message01" compare="text"/>
   <test-case id="message_message14" compiles="no"/>
