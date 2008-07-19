@@ -75,6 +75,8 @@
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -93,9 +95,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -163,6 +162,8 @@
 				SuppressStartupBanner="true"
 				ProgramDatabaseFile=".\Release_test_DOM/DOM_test_silly.pdb"
 				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -181,9 +182,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"

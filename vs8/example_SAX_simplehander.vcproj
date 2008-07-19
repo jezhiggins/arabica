@@ -16,7 +16,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\..\bin"
-			IntermediateDirectory=".\debug_examples_SAX_simple"
+			IntermediateDirectory=".\Debug_examples_SAX_simple"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -75,6 +75,8 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/SimpleHandler.pdb"
 				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -93,9 +95,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -163,6 +162,8 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -181,9 +182,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"

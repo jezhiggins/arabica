@@ -76,6 +76,8 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/sax_filter_test_ss.pdb"
 				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -94,9 +96,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -162,6 +161,8 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -180,9 +181,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
