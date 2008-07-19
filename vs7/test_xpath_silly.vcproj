@@ -3,19 +3,40 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="test_xpath_silly"
-	ProjectGUID="{B3C75B3A-BB0A-4B23-87F9-FB9CD98FF8CE}"
-	Keyword="Win32Proj">
+	ProjectGUID="{92BC362C-4B23-4444-A9A8-81933D01D283}"
+	Keyword="Win32Proj"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\..\bin"
 			IntermediateDirectory=".\Debug_test_xpath_silly"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm1000 "
@@ -23,101 +44,142 @@
 				InlineFunctionExpansion="0"
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
-				MinimalRebuild="FALSE"
+				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
-				DisableLanguageExtensions="FALSE"
-				TreatWChar_tAsBuiltInType="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
-				RuntimeTypeInfo="TRUE"
+				DisableLanguageExtensions="false"
+				TreatWChar_tAsBuiltInType="true"
+				ForceConformanceInForLoopScope="false"
+				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/xpath_test_ss.exe"
 				LinkIncremental="2"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/xpath_test_ss.pdb"
 				SubSystem="1"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\..\bin"
 			IntermediateDirectory=".\Release_test_xpath_silly"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Zm1000 "
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
-				DisableLanguageExtensions="FALSE"
-				TreatWChar_tAsBuiltInType="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
-				RuntimeTypeInfo="TRUE"
+				DisableLanguageExtensions="false"
+				TreatWChar_tAsBuiltInType="true"
+				ForceConformanceInForLoopScope="true"
+				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/xpath_test_ss.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -126,111 +188,147 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
 			<File
-				RelativePath="..\tests\XPath\main_silly.cpp">
+				RelativePath="..\tests\XPath\main_silly.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\silly_string\silly_string.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files">
-			<File
-				RelativePath="..\tests\XPath\arithmetic_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\attr_value_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\axis_enumerator_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\execute_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\expression_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\logical_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\match_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\node_test_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\parse_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\relational_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\silly_string\silly_string.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\step_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\value_test.hpp">
-			</File>
-			<File
-				RelativePath="..\tests\XPath\xpath_test_suite.hpp">
+				RelativePath="..\tests\silly_string\silly_string.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
-			Name="CppUnit">
+			Name="Header Files"
+			>
 			<File
-				RelativePath="..\tests\CppUnit\framework\CppUnitException.h">
+				RelativePath="..\tests\XPath\arithmetic_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\estring.h">
+				RelativePath="..\tests\XPath\attr_value_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\Guards.h">
+				RelativePath="..\tests\XPath\axis_enumerator_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\Test.h">
+				RelativePath="..\tests\XPath\execute_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestCaller.h">
+				RelativePath="..\tests\XPath\expression_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestCase.cpp">
+				RelativePath="..\tests\XPath\logical_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestCase.h">
+				RelativePath="..\tests\XPath\match_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestFailure.cpp">
+				RelativePath="..\tests\XPath\node_test_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestFailure.h">
+				RelativePath="..\tests\XPath\parse_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestResult.cpp">
+				RelativePath="..\tests\XPath\relational_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestResult.h">
+				RelativePath="..\tests\silly_string\silly_string.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\TestRunner.cpp">
+				RelativePath="..\tests\XPath\step_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\TestRunner.hpp">
+				RelativePath="..\tests\XPath\value_test.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestSuite.cpp">
+				RelativePath="..\tests\XPath\xpath_test_suite.hpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="CppUnit"
+			>
+			<File
+				RelativePath="..\tests\CppUnit\framework\CppUnitException.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestSuite.h">
+				RelativePath="..\tests\CppUnit\framework\estring.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\textui\TextTestResult.cpp">
+				RelativePath="..\tests\CppUnit\framework\Guards.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\textui\TextTestResult.h">
+				RelativePath="..\tests\CppUnit\framework\Test.h"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestCaller.h"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestCase.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestCase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestFailure.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestFailure.h"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestResult.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestResult.h"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\TestRunner.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\TestRunner.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestSuite.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\framework\TestSuite.h"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\TextTestResult.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\TextTestResult.h"
+				>
 			</File>
 		</Filter>
 	</Files>

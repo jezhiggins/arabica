@@ -2,130 +2,189 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="test_SAXFilter_silly"
+	Name="test_SAX_filter_silly"
 	ProjectGUID="{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}"
-	SccProjectName=""
-	SccLocalPath="">
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="..\bin"
 			IntermediateDirectory=".\Debug_test_SAXFilter_silly"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Zm200
-"
+				AdditionalOptions="/Zm200&#x0D;&#x0A;"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				TreatWChar_tAsBuiltInType="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
-				RuntimeTypeInfo="TRUE"
+				TreatWChar_tAsBuiltInType="true"
+				ForceConformanceInForLoopScope="true"
+				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
+				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
-				CompileAs="0"/>
+				CompileAs="0"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="2057"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)/sax_filter_test_ss.exe"
 				LinkIncremental="2"
-				SuppressStartupBanner="TRUE"
-				GenerateDebugInformation="TRUE"
+				SuppressStartupBanner="true"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/sax_filter_test_ss.pdb"
-				SubSystem="1"/>
+				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="2057"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\bin"
 			IntermediateDirectory=".\Release_test_SAXFilter_silly"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\include"
 				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
-				StringPooling="TRUE"
+				StringPooling="true"
 				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="TRUE"
-				TreatWChar_tAsBuiltInType="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
-				RuntimeTypeInfo="TRUE"
+				EnableFunctionLevelLinking="true"
+				TreatWChar_tAsBuiltInType="true"
+				ForceConformanceInForLoopScope="true"
+				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"/>
+				SuppressStartupBanner="true"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="2057"
+				AdditionalIncludeDirectories=""
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)/sax_filter_test_ss.exe"
 				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				SubSystem="1"/>
+				SuppressStartupBanner="true"
+				SubSystem="1"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="2057"
-				AdditionalIncludeDirectories=""/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -133,70 +192,91 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+			>
 			<File
-				RelativePath="..\tests\Sax\filter_test_silly.cpp">
+				RelativePath="..\tests\Sax\filter_test_silly.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
-			Name="CppUnit">
+			Name="CppUnit"
+			>
 			<File
-				RelativePath="..\tests\CppUnit\framework\CppUnitException.h">
+				RelativePath="..\tests\CppUnit\framework\CppUnitException.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\estring.h">
+				RelativePath="..\tests\CppUnit\framework\estring.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\Guards.h">
+				RelativePath="..\tests\CppUnit\framework\Guards.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\Test.h">
+				RelativePath="..\tests\CppUnit\framework\Test.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestCaller.h">
+				RelativePath="..\tests\CppUnit\framework\TestCaller.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestCase.cpp">
+				RelativePath="..\tests\CppUnit\framework\TestCase.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestCase.h">
+				RelativePath="..\tests\CppUnit\framework\TestCase.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestFailure.cpp">
+				RelativePath="..\tests\CppUnit\framework\TestFailure.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestFailure.h">
+				RelativePath="..\tests\CppUnit\framework\TestFailure.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestResult.cpp">
+				RelativePath="..\tests\CppUnit\framework\TestResult.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestResult.h">
+				RelativePath="..\tests\CppUnit\framework\TestResult.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\TestRunner.cpp">
+				RelativePath="..\tests\CppUnit\TestRunner.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\TestRunner.hpp">
+				RelativePath="..\tests\CppUnit\TestRunner.hpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestSuite.cpp">
+				RelativePath="..\tests\CppUnit\framework\TestSuite.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\framework\TestSuite.h">
+				RelativePath="..\tests\CppUnit\framework\TestSuite.h"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\textui\TextTestResult.cpp">
+				RelativePath="..\tests\CppUnit\textui\TextTestResult.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\tests\CppUnit\textui\TextTestResult.h">
+				RelativePath="..\tests\CppUnit\textui\TextTestResult.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="">
+			>
 			<File
-				RelativePath="..\tests\Sax\test_WhitespaceStripper.hpp">
+				RelativePath="..\tests\Sax\test_WhitespaceStripper.hpp"
+				>
 			</File>
 		</Filter>
 	</Files>
