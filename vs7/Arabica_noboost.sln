@@ -42,6 +42,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArabicaLib", "lib_arabica_n
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAX_Taggle", "example_SAX_Taggle.vcproj", "{274EB942-0AA8-4715-8419-4722868A22BA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CA72415-D03A-4447-BE4E-C093A5146CAC} = {4CA72415-D03A-4447-BE4E-C093A5146CAC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -76,6 +81,10 @@ Global
 		{4CA72415-D03A-4447-BE4E-C093A5146CAC}.Debug.Build.0 = Debug|Win32
 		{4CA72415-D03A-4447-BE4E-C093A5146CAC}.Release.ActiveCfg = Release|Win32
 		{4CA72415-D03A-4447-BE4E-C093A5146CAC}.Release.Build.0 = Release|Win32
+		{274EB942-0AA8-4715-8419-4722868A22BA}.Debug.ActiveCfg = Debug|Win32
+		{274EB942-0AA8-4715-8419-4722868A22BA}.Debug.Build.0 = Debug|Win32
+		{274EB942-0AA8-4715-8419-4722868A22BA}.Release.ActiveCfg = Release|Win32
+		{274EB942-0AA8-4715-8419-4722868A22BA}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
