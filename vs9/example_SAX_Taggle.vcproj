@@ -58,6 +58,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica-debug.lib"
 				OutputFile="$(OutDir)\taggle.exe"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -128,6 +129,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="..\lib\arabica.lib"
 				OutputFile="$(OutDir)\taggle.exe"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
