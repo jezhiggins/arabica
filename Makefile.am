@@ -26,6 +26,7 @@ uninstall-local:
 DIST_SUBDIRS= src examples tests
 EXTRA_DIST=vs7 \
            vs8 \
+           vs9 \
            include \
            tests/XSLT/testsuite \
            src/SAX/wrappers/saxexpat.cpp \
