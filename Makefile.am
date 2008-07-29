@@ -27,6 +27,7 @@ DIST_SUBDIRS= src examples tests
 EXTRA_DIST=vs7 \
            vs8 \
            vs9 \
+           doc \
            include \
            tests/XSLT/testsuite \
            src/SAX/wrappers/saxexpat.cpp \
