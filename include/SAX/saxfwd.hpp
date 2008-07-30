@@ -1,8 +1,6 @@
 def ARABICA_SAX_FWD_H
 #define ARABICA_SAX_FWD_H
 
-// $Id$
-
 #include <string>
 
 /** \mainpage Arabica XML Parser Toolkit
@@ -18,13 +16,13 @@ def ARABICA_SAX_FWD_H
  * but can also accommodate custom string types and alternative 
  * encodings. </p>
  * 
- * <p>It provides uniform SAX2 wrappers for the <A href='http://www.libexpat.org/'>expat</a> parser, 
+ * <p>It provides uniform SAX2 wrappers for the <a href='http://www.libexpat.org/'>expat</a> parser, 
  * <a href='http://xml.apache.org/xerces-c/index.html'>Xerces</a>, <a href='http://www.xmlsoft.org'>libxml</a>
  * and for the <a href='http://msdn.microsoft.com/xml'>Microsoft XML parser</a> COM component.</p>
  *
  * \section license License
  * 
- * Copyright (c) 2001-2007 Jez UK Ltd<br>
+ * Copyright (c) 2001-2008 Jez UK Ltd<br>
  * All rights reserved.
  * <p>
  * Redistribution and use in source and binary forms, with or <br>
