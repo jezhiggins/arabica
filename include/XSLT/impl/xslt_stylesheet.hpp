@@ -233,6 +233,8 @@ private:
       case DOM::Node<std::string>::ATTRIBUTE_NODE:
       case DOM::Node<std::string>::TEXT_NODE:
       case DOM::Node<std::string>::CDATA_SECTION_NODE:
+	context.sink().characters(node.getNodeValue());
+	/*
         {
           const std::string& ch = node.getNodeValue();
           for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
@@ -242,6 +244,7 @@ private:
               return;
             } // if ...
         } 
+	*/
         break;
       default:
         ;// nothing!

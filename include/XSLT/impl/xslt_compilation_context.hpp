@@ -3,6 +3,7 @@
 
 #include <SAX/XMLReader.hpp>
 #include <SAX/helpers/DefaultHandler.hpp>
+#include <XML/strings.hpp>
 #include <XPath/XPath.hpp>
 #include <stack>
 
@@ -59,6 +60,8 @@ public:
 
   std::pair<std::string, std::string> processQName(const std::string& qName) const
   {
+    if(!Arabica::XML::is_qname(qName))
+      throw SAX::SAXException("Bad name : " + qName);
     return parser_.processQName(qName);
   } // processQName
 
