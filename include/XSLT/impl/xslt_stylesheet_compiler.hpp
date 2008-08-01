@@ -54,9 +54,11 @@ public:
         throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
 
       static const ValueRule rules[] = { { "version", true, 0 },
+					 { "extension-element-prefixes", false, 0 },
+					 { "exclude-result-prefixes", false, 0 },
                                          { 0, false, 0 } };
-      std::string version = gatherAttributes(qName, atts, rules)["version"];
-      if(atts.getValue("version") != StylesheetConstant::Version())
+      std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
+      if(attributes["version"] != StylesheetConstant::Version())
         throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
 
       top_ = false;
