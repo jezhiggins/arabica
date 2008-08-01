@@ -4,34 +4,65 @@
 #include <XML/XMLCharacterClasses.hpp>
 #include <text/UnicodeCharacters.hpp>
 
+  // QName 
+  //[7]  QName	   ::=   	PrefixedName | UnprefixedName
+  //[8]  PrefixedName	   ::=   	Prefix ':' LocalPart
+  //[9]  UnprefixedName	   ::=   	LocalPart
+  //[10] Prefix	   ::=   	NCName
+  //[11] LocalPart	   ::=   	NCName
+
+  // NCName 
+  // [4] NCName	   ::=   	NCNameStartChar NCNameChar*	//An XML Name, minus the ":"
+  // [5] NCNameChar	   ::=   	NameChar - ':'
+  // [6] NCNameStartChar	   ::=   	Letter | '_' } // namespace XML
+
 namespace Arabica
 {
 namespace XML
 {
+  bool is_ncname(const std::string::const_iterator& b,
+		 const std::string::const_iterator& e);
 
-  bool is_ncname(const std::string& str)
+  inline bool is_ncname(const std::string& str)
+  {
+    return is_ncname(str.begin(), str.end());
+  } // is_ncname
+
+  inline bool is_ncname(const std::string::const_iterator& b,
+			const std::string::const_iterator& e)
   {
     using namespace Arabica::text;
 
-    std::string::const_iterator s = str.begin();
+    if(b == e)
+      return false;  // zero length
+
+    std::string::const_iterator s = b;
     if(!(is_letter(*s) || (*s == Unicode<char>::LOW_LINE)))
        return false;
 
     ++s;
-    for(std::string::const_iterator se = str.end(); s != se; ++s)
+    for( ; s != e; ++s)
     {
       wchar_t c = static_cast<wchar_t>(*s);
-      if(!(is_letter(c) || 
-           is_digit(c) || 
-           (c == Unicode<wchar_t>::FULL_STOP) || 
-           (c == Unicode<wchar_t>::HYPHEN_MINUS) ||
-           (c == Unicode<wchar_t>::LOW_LINE) ||
-           is_combining_char(c) ||
-           is_extender(c)))
+      if(!is_ncname_char(c))
         return false;
     }
     return true;
   } // is_ncname  
+
+  inline bool is_qname(const std::string& str)
+  {
+    using namespace Arabica::text;
+   
+    size_t colon_index = str.find(Unicode<char>::COLON);
+
+    if(colon_index == std::string::npos)
+      return is_ncname(str);
+
+    std::string::const_iterator b = str.begin();
+    return is_ncname(b, b+colon_index) && 
+           is_ncname(b+(colon_index+1), str.end());
+  } // is_qname
 
 } // namespace XML
 } // namespace Arabica
