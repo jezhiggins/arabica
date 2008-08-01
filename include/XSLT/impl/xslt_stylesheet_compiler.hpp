@@ -52,8 +52,10 @@ public:
         throw SAX::SAXException("The source file does not look like a stylesheet.");
       if(localName != "stylesheet" && localName != "transform")
         throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
-      if(atts.getValue("version") == "")
-        throw SAX::SAXException("stylesheet element must have a version attribute.");
+
+      static const ValueRule rules[] = { { "version", true, 0 },
+                                         { 0, false, 0 } };
+      std::string version = gatherAttributes(qName, atts, rules)["version"];
       if(atts.getValue("version") != StylesheetConstant::Version())
         throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
 
