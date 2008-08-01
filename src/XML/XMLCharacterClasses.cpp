@@ -106,7 +106,18 @@ bool Arabica::XML::is_name_char(wchar_t c)
          (c == text::Unicode<wchar_t>::COLON) || // :
          is_combining_char(c) ||
          is_extender(c);
-} // is_identifier
+} // is_name_char
+
+bool Arabica::XML::is_ncname_char(wchar_t c)
+{
+  return is_letter(c) ||
+         is_digit(c) ||
+         (c == text::Unicode<wchar_t>::FULL_STOP) || // .
+         (c == text::Unicode<wchar_t>::HYPHEN_MINUS) || // -
+         (c == text::Unicode<wchar_t>::LOW_LINE) || // _
+         is_combining_char(c) ||
+         is_extender(c);
+} // is_ncname_char
 
 bool Arabica::XML::is_letter(wchar_t c)
 {
