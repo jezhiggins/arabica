@@ -15,7 +15,8 @@ class VariableHandler : public ItemContainerHandler<VType>
 {
 public:
   VariableHandler(CompilationContext& context) :
-      ItemContainerHandler<VType>(context)
+    ItemContainerHandler<VType>(context),
+    has_select_(false)
   {
   } // VariableHandler
 
@@ -35,11 +36,28 @@ protected:
     const std::string& select = atts.getValue("select");
     Arabica::XPath::XPathExpressionPtr<std::string> xpath;
     if(select != "")
+    {
       xpath = this->context().xpath_expression(select);
+      has_select_ = true;
+    } // if ...
 
     std::pair<std::string, std::string> name = this->context().processQName(attrs["name"]);
     return new VType(name.first, name.second, xpath);
   } // createContainer
+
+  virtual void characters(const std::string& ch)
+  {
+    if(has_select_)
+    {
+      for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+	if(!Arabica::XML::is_space(*i))
+	  throw SAX::SAXException("A variable or param can not have both a select attribute and text context");
+    }
+    ItemContainerHandler<VType>::characters(ch);
+  } // characters
+
+private:
+  bool has_select_;
 }; // class VariableHandler
 
 template<class VType>
