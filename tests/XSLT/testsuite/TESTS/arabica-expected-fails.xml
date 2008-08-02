@@ -582,6 +582,58 @@
   <test-case id="Text_modified78308" compare="text"/>
   <test-case id="Text_modified78309" compare="text"/>
   <test-case id="Text_Modified78311" compare="text"/>
+	<test-case id="Value-of_ValueOf_ConcatTextNodesIntoSingle" skip="yes" reason="I think my interpretation is valid for mapping DOM to XSLT"/>
+	<test-case id="Value-of_ValueOf_KeyReferenceInSelect" compiles="no"/>
+	<test-case id="Variables__78097" compare="text"/>
+	<test-case id="Variables__78098" compare="text"/>
+	<test-case id="Variables__78100" compare="text"/>
+	<test-case id="Variables__78101" compare="text"/>
+	<test-case id="Variables__78110" compare="text"/>
+	<test-case id="Variables__78111" compare="text"/>
+	<test-case id="Variables__78112" compare="text"/>
+	<test-case id="Variables__78115" compare="text"/>
+	<test-case id="Variables__78116" compare="text"/>
+	<test-case id="Variables__78118" compiles="no" reason="Bad test case.  This test is essentially a duplicate of Variables__78357, which correctly marked as an expected error."/>
+	<test-case id="Variables__78132" compare="text"/>
+	<test-case id="Variables__78137" compare="text"/>
+	<test-case id="Variables__78153" compare="text"/>
+	<test-case id="Variables__78160" compare="text"/>
+	<test-case id="Variables__78162" compare="text"/>
+	<test-case id="Variables__78163" compare="text"/>
+	<test-case id="Variables__78164" skip="yes" reason="does support xsl:sort lang attribute yet"/>
+	<test-case id="Variables__78305" compare="text"/>
+	<test-case id="Variables__78306" compare="text"/>
+	<test-case id="Variables__78316" compare="text"/>
+	<test-case id="Variables__78317" compare="text"/>
+	<test-case id="Variables__78348" compare="text"/>
+	<test-case id="Variables__78350" compare="text"/>
+	<test-case id="Variables__78352" compare="text"/>
+	<test-case id="Variables__78353" compare="text"/>
+	<test-case id="Variables__78354" compare="text"/>
+	<test-case id="Variables__78355" compare="text"/>
+	<test-case id="Variables__78361" compare="text"/>
+	<test-case id="Variables__78400" compare="text"/>
+	<test-case id="Variables__78401" compare="text"/>
+	<test-case id="Variables__78404" compare="text"/>
+	<test-case id="Variables__84026" compare="text"/>
+	<test-case id="Variables__84034" compare="text"/>
+	<test-case id="Variables__84036" compare="text"/>
+	<test-case id="Variables__84438" skip="yes" reason="does support xsl:sort lang attribute yet"/>
+	<test-case id="Variables__84439" compare="text"/>
+	<test-case id="Variables__84635" skip="yes" reason="html"/>
+	<test-case id="Variables__84636" skip="yes" reason="html"/>
+	<test-case id="Variables__84637" skip="yes" reason="html"/>
+	<test-case id="Variables__84709" skip="yes" reason="html"/>
+	<test-case id="Variables__84712" skip="yes" reason="html"/>
+	<test-case id="Variables_GlobalVarHaveLocalVarDefinedWithin" compare="fragment"/>
+	<test-case id="Variables_PositionAndLastComparisonShouldBeEqual" compare="text"/>	
+	<test-case id="Variables_SelectAttributeAndWhitespaceBetweenElement" compare="fragment"/>
+	<test-case id="Variables_UseDocumentFnToReturnRootNode" compare="text"/>
+	<test-case id="Variables_VariableWithinVariable" compare="text"/>
+	<test-case id="Variables_xslt_variable_qname_test1" compare="fragment"/>
+	<test-case id="Variables_xslt_variable_qname_test2" compare="fragment"/>
+	<test-case id="Variables_VariableScopeWithinLRE" compare="text"/>
+
 	<test-case id="XSLTFunctions__84048" skip="yes" reason="MS specific output"/>
 	<test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
 	<test-case id="XSLTFunctions__84050" skip="yes" reason="MS specific output"/>
@@ -616,14 +668,20 @@
 	<test-case id="XSLTFunctions_ElementAvailFunctionFalseTest" compiles="no"/>
 	<test-case id="XSLTFunctions_ElementAvailFunctionTrueTest" compiles="no"/>
 	<test-case id="XSLTFunctions_GenereateIdAppliedToNamespaceNodesOnDifferentElements" compiles="no"/>
-	<test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset" compiles="no"/>
+	<test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset" compiles="no
+
+
+
+
+
+
+
+"/>
 	<test-case id="XSLTFunctions_TestIdFuncInComplexStruct" compiles="no"/>
 	<test-case id="XSLTFunctions_TestOfIdFunction" compiles="no"/>
 	<test-case id="XSLTFunctions_Bug76054" compiles="no"/>
 	<test-case id="XSLTFunctions_Bug76984" runs="no"/>
 
-	<test-case id="Value-of_ValueOf_ConcatTextNodesIntoSingle" skip="yes" reason="I think my interpretation is valid for mapping DOM to XSLT"/>
-	<test-case id="Value-of_ValueOf_KeyReferenceInSelect" compiles="no"/>
   
   <test-case id="stylesheet01" compare="text"/>
   <test-case id="stylesheet02" compare="text"/>
