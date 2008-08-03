@@ -27,7 +27,7 @@ const char* xalan_tests[] = {"attribvaltemplate", "axes", "boolean", "conditiona
                              "output", "position", "predicate", "processorinfo", "reluri",
                              "select", "sort", "string", "variable", "ver", "whitespace", 0};
 
-const char* msft_tests[] = { "AVTs", /*"AttributeSets",*/ "Attributes", "BVTS", 
+const char* msft_tests[] = { "AVTs", /*"AttributeSets",*/ "Attributes", "BVTs", 
                              "Comment", "Completeness", "ConflictResolution", "Copying", 
                              "Elements", "Errors", "Fallback", "ForEach", /*"FormatNumber",*/
                              "ForwardComp", /*"Import",*/ /*"Keys",*/ "Messages", 
@@ -35,7 +35,7 @@ const char* msft_tests[] = { "AVTs", /*"AttributeSets",*/ "Attributes", "BVTS",
                              /*"Namespace-alias",*/ /*"Namespace_XPath",*/ /*"Number",*/
                              /*"Output",*/ "ProcessingInstruction", "RTF", "Sorting", 
                              /*"Stylesheet", */ /*"Template",*/ /*"Text", */ /*"ValueOf",*/
-                             /*"Variables",*/ /*"Whitespaces",*/ "XSLTFunctions", 0 };
+                             "Variables", "Whitespaces", "XSLTFunctions", 0 };
 
 const char* arabica_tests[] = { "errors", "include", "processing-instruction", "stylesheet", 0 };
 
