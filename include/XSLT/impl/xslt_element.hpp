@@ -55,6 +55,7 @@ public:
 
     if(context.sink().start_element(name, namesp)) 
     {
+      ChainStackFrame frame(context);
       execute_children(node, context);
       context.sink().end_element(name, namesp);
     }

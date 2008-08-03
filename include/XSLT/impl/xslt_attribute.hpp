@@ -50,6 +50,7 @@ public:
     } // if ...
 
     context.sink().start_attribute(name, namesp);
+    ChainStackFrame frame(context);
     execute_children(node, context);
     context.sink().end_attribute();
   } // execute

@@ -70,6 +70,7 @@ public:
       for(std::vector<InlineAttribute>::const_iterator a = attrs_.begin(), ae = attrs_.end(); a != ae; ++a)
         a->execute(node, context);
 
+      ChainStackFrame frame(context);
       execute_children(node, context);
       context.sink().end_element(name_, namespace_);
     }
