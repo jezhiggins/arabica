@@ -394,7 +394,7 @@ protected:
     if(refs2 == outs2)
       return;
 
-    assertImplementation(false, "Expected:\n" + refs + "\nbut got:\n" + outs);
+    assertImplementation(false, "Expected XML frag:\n" + refs + "\nbut got:\n" + outs);
   } // runTest
 
   std::string docToString(Arabica::DOM::Node<std::string> node)
@@ -487,7 +487,7 @@ protected:
     if(refs2 == outs2)
       return;
 
-    assertImplementation(false, "Expected:\n" + refs + "\nbut got:\n" + outs);
+    assertImplementation(false, "Expected XML:\n" + refs + "\nbut got:\n" + outs);
   } // runTest
 
   std::string docToString(Arabica::DOM::Node<std::string> node)

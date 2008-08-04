@@ -633,7 +633,6 @@
 	<test-case id="Variables_VariableWithinVariable" compare="text"/>
 	<test-case id="Variables_xslt_variable_qname_test1" compare="fragment"/>
 	<test-case id="Variables_xslt_variable_qname_test2" compare="fragment"/>
-	<test-case id="Variables_VariableScopeWithinLRE" compare="text"/>
 
 	<test-case id="XSLTFunctions__84048" skip="yes" reason="MS specific output"/>
 	<test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
