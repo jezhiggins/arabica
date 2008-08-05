@@ -160,5 +160,23 @@
         <input-file role="principal-stylesheet">VariableWithinVariable4.xsl</input-file>
       </scenario>
     </test-case>
+		<test-case id="variables05">
+			<file-path>variables</file-path>
+			<purpose>import precedence</purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">foo.xml</input-file>
+        <input-file role="principal-stylesheet">import_precedence.xsl</input-file>
+        <output-file role="principal">import_precedence_result.xml</output-file>
+      </scenario>
+		</test-case>
+		<test-case id="variables06">
+			<file-path>variables</file-path>
+			<purpose>import precedence</purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">foo.xml</input-file>
+        <input-file role="principal-stylesheet">import_precedence2.xsl</input-file>
+        <output-file role="principal">import_precedence2_result.xml</output-file>
+      </scenario>
+		</test-case>
   </test-catalog>
 </test-suite>

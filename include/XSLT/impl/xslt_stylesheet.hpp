@@ -78,11 +78,11 @@ public:
     for(boost::ptr_vector<TopLevelParam>::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       pi->declare(context);
     for(ItemStack::const_iterator isi = items_.begin(), ise = items_.end(); isi != ise; ++isi)
+    {
       for(ItemList::const_iterator ci = isi->begin(), ce = isi->end(); ci != ce; ++ci)
-      {
         (*ci)->execute(initialNode, context);
-        context.pushVariablePrecendence();
-      } // for ...
+      context.pushVariablePrecendence();
+    } // for ...
     context.freezeTopLevel();
 
     // go!
