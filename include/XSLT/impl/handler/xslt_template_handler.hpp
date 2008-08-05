@@ -55,11 +55,11 @@ protected:
 
     std::pair<std::string, std::string> name;
     if(atts.getValue("name") != "")
-      name = context().processQName(atts.getValue("name"));
+      name = context().processInternalQName(atts.getValue("name"));
 
     std::pair<std::string, std::string> mode;
     if(atts.getValue("mode") != "")
-      mode = context().processQName(atts.getValue("mode"));
+      mode = context().processInternalQName(atts.getValue("mode"));
 
     if(match == "")
       return new Template(name,

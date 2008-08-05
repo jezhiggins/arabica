@@ -38,7 +38,7 @@ public:
 
       std::pair<std::string, std::string> mode;
       if(attrs["mode"] != "")
-        mode = context_.processQName(attrs["mode"]);
+        mode = context_.processInternalQName(attrs["mode"]);
       applyTemplates_ = new ApplyTemplates(xpath, mode);
 
       return;

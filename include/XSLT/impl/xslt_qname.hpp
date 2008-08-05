@@ -1,6 +1,8 @@
 #ifndef ARABICA_XSLT_QNAME_HPP
 #define ARABICA_XSLT_QNAME_HPP
 
+#include <XML/strings.hpp>
+
 namespace Arabica
 {
 namespace XSLT
@@ -14,6 +16,9 @@ struct QName
 
   static QName createQName(const std::string& qName) 
   {
+    if(!Arabica::XML::is_qname(qName))
+      throw SAX::SAXException("Bad name : " + qName);
+
     static char COLON = Arabica::text::Unicode<char>::COLON;
     QName qn;
 
@@ -24,11 +29,6 @@ struct QName
     {
       qn.prefix = qName.substr(0, colon);
       qn.localName = qName.substr(colon+1);
-
-      if((qn.prefix.length() == 0) || 
-         (qn.localName.length() == 0) || 
-         (qn.localName.find(COLON) != std::string::npos))
-        throw SAX::SAXException("Bad qname");
     }
 
     return qn;

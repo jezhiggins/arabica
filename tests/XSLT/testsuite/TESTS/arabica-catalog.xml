@@ -178,5 +178,41 @@
         <output-file role="principal">import_precedence2_result.xml</output-file>
       </scenario>
 		</test-case>
+    <test-case id="variables07">
+      <file-path>variables</file-path>
+      <purpose>namespace</purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">foo.xml</input-file>
+        <input-file role="principal-stylesheet">namespace.xsl</input-file>
+        <output-file role="principal">namespace_result.xml</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables08">
+      <file-path>variables</file-path>
+      <purpose>namespace</purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">foo.xml</input-file>
+        <input-file role="principal-stylesheet">namespace2.xsl</input-file>
+        <output-file role="principal">namespace_result.xml</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables09">
+      <file-path>variables</file-path>
+      <purpose>namespace</purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">foo.xml</input-file>
+        <input-file role="principal-stylesheet">namespace3.xsl</input-file>
+        <output-file role="principal">namespace_result.xml</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables10">
+      <file-path>variables</file-path>
+      <purpose>namespace</purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">foo.xml</input-file>
+        <input-file role="principal-stylesheet">namespace4.xsl</input-file>
+        <output-file role="principal">namespace4_result.xml</output-file>
+      </scenario>
+    </test-case>
   </test-catalog>
 </test-suite>

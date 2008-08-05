@@ -34,7 +34,7 @@ public:
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
     std::string name = name_->evaluateAsString(node, context.xpathContext());
-    if(name.empty())
+    if(!Arabica::XML::is_qname(name))
       throw SAX::SAXException("xsl:element name attribute must evaluate to a valid element name");
 
     std::string namesp;
@@ -44,13 +44,10 @@ public:
     else
     { 
       QName qn = QName::createQName(name);
-      if(!qn.prefix.empty())
-      {
-        std::map<std::string, std::string>::const_iterator ns = namespaces_.find(qn.prefix);
-        if(ns == namespaces_.end())
-          throw SAX::SAXException("xsl:element Runtime Error - Undeclared prefix " + qn.prefix);
-        namesp = ns->second;
-      } // if(!qn.prefix.empty())
+      std::map<std::string, std::string>::const_iterator ns = namespaces_.find(qn.prefix);
+      if(ns == namespaces_.end())
+        throw SAX::SAXException("xsl:element Runtime Error - Undeclared prefix " + qn.prefix);
+      namesp = ns->second;
     } // if ...
 
     if(context.sink().start_element(name, namesp)) 

@@ -41,7 +41,7 @@ protected:
       has_select_ = true;
     } // if ...
 
-    std::pair<std::string, std::string> name = this->context().processQName(attrs["name"]);
+    std::pair<std::string, std::string> name = this->context().processInternalQName(attrs["name"]);
     return new VType(name.first, name.second, xpath);
   } // createContainer
 
