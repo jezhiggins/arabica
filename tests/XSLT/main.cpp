@@ -37,7 +37,7 @@ const char* msft_tests[] = { "AVTs", /*"AttributeSets",*/ "Attributes", "BVTs",
                              /*"Stylesheet", */ /*"Template",*/ /*"Text", */ /*"ValueOf",*/
                              "Variables", "Whitespaces", "XSLTFunctions", 0 };
 
-const char* arabica_tests[] = { "errors", "include", "processing-instruction", "stylesheet", 0 };
+const char* arabica_tests[] = { "errors", "include", "processing-instruction", "stylesheet", "variables", 0 };
 
 int main(int argc, const char* argv[])
 {

@@ -126,5 +126,39 @@
 				<output-file role="principal">stylesheet03.out</output-file>
 			</scenario>
 		</test-case>
-	</test-catalog>
+    <test-case id="variables01">
+      <file-path>variables</file-path>
+      <purpose>Use xsl:variable within xsl:variable with a variable of the same name. Also, a global variable exist (with the same name as well). Adapted from MS test case</purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">VariableWithinVariable.xml</input-file>
+        <input-file role="principal-stylesheet">VariableWithinVariable.xsl</input-file>
+        <output-file role="principal">VariableWithinVariable_result.xml</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables02">
+      <file-path>variables</file-path>
+      <purpose>Use xsl:variable within xsl:variable </purpose>
+      <scenario operation="execution-error">
+        <input-file role="principal-data">VariableWithinVariable2.xml</input-file>
+        <input-file role="principal-stylesheet">VariableWithinVariable2.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables03">
+      <file-path>variables</file-path>
+      <purpose>Use xsl:variable within xsl:variable </purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">VariableWithinVariable3.xml</input-file>
+        <input-file role="principal-stylesheet">VariableWithinVariable3.xsl</input-file>
+        <output-file role="principal">VariableWithinVariable3_result.xml</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables04">
+      <file-path>variables</file-path>
+      <purpose>Use xsl:variable within xsl:variable </purpose>
+      <scenario operation="execution-error">
+        <input-file role="principal-data">VariableWithinVariable4.xml</input-file>
+        <input-file role="principal-stylesheet">VariableWithinVariable4.xsl</input-file>
+      </scenario>
+    </test-case>
+  </test-catalog>
 </test-suite>

@@ -630,7 +630,7 @@
 	<test-case id="Variables_PositionAndLastComparisonShouldBeEqual" compare="text"/>	
 	<test-case id="Variables_SelectAttributeAndWhitespaceBetweenElement" compare="fragment"/>
 	<test-case id="Variables_UseDocumentFnToReturnRootNode" compare="text"/>
-	<test-case id="Variables_VariableWithinVariable" compare="text"/>
+	<test-case id="Variables_VariableWithinVariable" skip="yes" reason="XML encoding in Windows-1251.  Similar test in arabica tests."/>
 	<test-case id="Variables_xslt_variable_qname_test1" compare="fragment"/>
 	<test-case id="Variables_xslt_variable_qname_test2" compare="fragment"/>
 

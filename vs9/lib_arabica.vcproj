@@ -912,7 +912,7 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						CommandLine="cl /TC /EP -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp&#x0D;&#x0A;"
+						CommandLine="cl /TC /EP -D USE_EXPAT ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp&#x0D;&#x0A;"
 						Outputs="..\include\SAX\ArabicaConfig.hpp"
 					/>
 				</FileConfiguration>
