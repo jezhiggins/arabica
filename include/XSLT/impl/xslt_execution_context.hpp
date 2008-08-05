@@ -40,6 +40,7 @@ public:
       stylesheet_(stylesheet),
       sink_(output.asOutput()),
       message_sink_(error_output),
+      variable_precendence_(0),
       to_msg_(0)
   {
 		xpathContext_.setVariableResolver(stack_);
@@ -51,6 +52,7 @@ public:
     stack_(rhs.stack_),
     sink_(output.asOutput()),
     message_sink_(rhs.message_sink_),
+    variable_precendence_(rhs.variable_precendence_),
     to_msg_(false)
   {
 		xpathContext_.setVariableResolver(stack_);
@@ -75,6 +77,8 @@ public:
   void unpassParam(const std::string& name);
   void declareParam(const DOM::Node<std::string>& node, const Variable_declaration& param); 
   void declareVariable(const DOM::Node<std::string>& node, const Variable_declaration& variable); 
+  void pushVariablePrecendence() { ++variable_precendence_; }
+  int variablePrecendence() { return variable_precendence_; }
   void freezeTopLevel();
   void injectGlobalScope(const Scope& scope);
 
@@ -100,6 +104,7 @@ private:
 private:
   const Stylesheet& stylesheet_;
   VariableStack stack_;
+  int variable_precendence_;
   Arabica::XPath::ExecutionContext<std::string> xpathContext_;
   Output& sink_;
   StreamSink message_sink_;
@@ -113,13 +118,16 @@ private:
 class VariableClosure : public Variable_instance
 {
 public:
-  static Variable_instance_ptr create(const Variable_declaration& var, const DOM::Node<std::string>& node, ExecutionContext& context)
+  static Variable_instance_ptr create(const Variable_declaration& var, 
+                                      const DOM::Node<std::string>& node,
+                                      ExecutionContext& context)
   {
     return Variable_instance_ptr(new VariableClosure(var, node, context));
   } // create
 
   virtual const std::string& namespace_uri() const { return var_.namespace_uri(); }
   virtual const std::string& name() const { return var_.name(); }
+  virtual int precendence() const { return context_.variablePrecendence(); }
 
   virtual Arabica::XPath::XPathValue<std::string> value() const 
   {
@@ -185,6 +193,7 @@ void ExecutionContext::declareVariable(const DOM::Node<std::string>& node, const
 void ExecutionContext::freezeTopLevel()
 {
   stack_.freezeTopLevel();
+  variable_precendence_ = 0;
 } // freezeTopLevel
 
 void ExecutionContext::injectGlobalScope(const Scope& scope) 

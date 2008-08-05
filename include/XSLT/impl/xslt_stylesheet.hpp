@@ -32,6 +32,9 @@ public:
 
   ~Stylesheet()
   {
+    for(ItemStack::const_iterator isi = items_.begin(), ise = items_.end(); isi != ise; ++isi)
+      for(ItemList::const_iterator ci = isi->begin(), ce = isi->end(); ci != ce; ++ci)
+        delete *ci;
   } // ~Stylesheet
 
   void set_parameter(const std::string& name, bool value)
@@ -74,8 +77,12 @@ public:
     // set up variables and so forth
     for(boost::ptr_vector<TopLevelParam>::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       pi->declare(context);
-    for(boost::ptr_vector<Item>::const_iterator ci = items_.begin(), ce = items_.end(); ci != ce; ++ci)
-      ci->execute(initialNode, context);
+    for(ItemStack::const_iterator isi = items_.begin(), ise = items_.end(); isi != ise; ++isi)
+      for(ItemList::const_iterator ci = isi->begin(), ce = isi->end(); ci != ce; ++ci)
+      {
+        (*ci)->execute(initialNode, context);
+        context.pushVariablePrecendence();
+      } // for ...
     context.freezeTopLevel();
 
     // go!
@@ -113,11 +120,12 @@ public:
   void push_import_precedence()
   {
     templates_.push_back(ModeTemplates());
+    items_.push_back(ItemList());
   } // push_import_precedence
 
   void add_item(Item* item)
   {
-    items_.push_back(item);
+    items_.back().push_back(item);
   } // add_item
 
   void output_settings(const Output::Settings& settings)
@@ -233,7 +241,7 @@ private:
       case DOM::Node<std::string>::ATTRIBUTE_NODE:
       case DOM::Node<std::string>::TEXT_NODE:
       case DOM::Node<std::string>::CDATA_SECTION_NODE:
-	context.sink().characters(node.getNodeValue());
+        context.sink().characters(node.getNodeValue());
 	/*
         {
           const std::string& ch = node.getNodeValue();
@@ -294,12 +302,17 @@ private:
   typedef std::map<std::pair<std::string, std::string>, MatchTemplates> ModeTemplates;
   typedef std::vector<ModeTemplates> TemplateStack;
   typedef std::map<std::pair<std::string, std::string>, Template*> NamedTemplates;
+  
+  typedef std::vector<Item*> ItemList;
+  typedef std::vector<ItemList> ItemStack;
+
+  typedef boost::ptr_vector<TopLevelParam> ParamList;
 
   TemplateList all_templates_;
   NamedTemplates named_templates_;
   TemplateStack templates_;
-  boost::ptr_vector<Item> items_;
-  boost::ptr_vector<TopLevelParam> params_;
+  ItemStack items_;
+  ParamList params_;
 
   mutable std::pair<std::string, std::string> current_mode_;
   mutable int current_generation_;

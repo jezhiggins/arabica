@@ -11,7 +11,7 @@ namespace XSLT
 {
 
 class Variable_instance;
-typedef boost::shared_ptr<const Variable_instance> Variable_instance_ptr;
+typedef boost::shared_ptr<Variable_instance> Variable_instance_ptr;
 typedef std::map<std::string, Variable_instance_ptr> Scope;
 
 class Variable_instance
@@ -22,6 +22,7 @@ public:
   
   virtual const std::string& namespace_uri() const = 0;
   virtual const std::string& name() const = 0;
+  virtual int precendence() const = 0;
   virtual Arabica::XPath::XPathValue<std::string> value() const = 0;
 
   virtual void injectGlobalScope(const Scope& scope) const = 0;
@@ -30,12 +31,14 @@ private:
   Variable_instance(const Variable_instance&);
   Variable_instance& operator=(const Variable_instance&);
   bool operator==(const Variable_instance&) const;
+
+  int precendence_;
 }; // Variable_instance
 
 class VariableStack : public Arabica::XPath::VariableResolver<std::string>
 {
 public:
-  VariableStack() 
+  VariableStack()
   {
     stack_.push_back(Scope());
     
@@ -104,8 +107,15 @@ public:
     Scope& stack = stack_.back();
     
     if(stack.find(name) != stack.end())
-      throw std::runtime_error("Duplicate variable name : " + name);
-    stack[clarkName(var)] = var;
+    {
+      int current_p = stack[name]->precendence();
+      if(var->precendence() == current_p)
+        throw std::runtime_error("Duplicate variable name : " + clarkName(var));
+      if(var->precendence() > current_p)
+        return;
+    } // if ...
+
+    stack[name] = var;
   } // declareVariable
   
   void freezeTopLevel()
