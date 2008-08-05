@@ -50,8 +50,8 @@ protected:
     if(has_select_)
     {
       for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
-	if(!Arabica::XML::is_space(*i))
-	  throw SAX::SAXException("A variable or param can not have both a select attribute and text context");
+	    if(!Arabica::XML::is_space(*i))
+	      throw SAX::SAXException("A variable or param can not have both a select attribute and text context");
     }
     ItemContainerHandler<VType>::characters(ch);
   } // characters
