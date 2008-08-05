@@ -123,6 +123,8 @@ public:
     const Scope& top = stack_.front();
     for(Scope::const_iterator v = top.begin(), ve = top.end(); v != ve; ++v)
       v->second->injectGlobalScope(top);
+    for(Scope::const_iterator v = top.begin(), ve = top.end(); v != ve; ++v)
+      lookup(top, v->first);
   } // freezeTopLevel
   
   void injectGlobalScope(const Scope& scope)
