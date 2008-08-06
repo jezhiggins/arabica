@@ -9,7 +9,7 @@
 //---------------------------------------------------------------------------
 #include <SAX/ArabicaConfig.hpp>
 #ifndef ARABICA_NO_WCHAR_T
-
+#include <Arabica/mbstate.hpp>
 #include <locale>
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS

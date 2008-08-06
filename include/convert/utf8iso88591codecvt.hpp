@@ -2,6 +2,7 @@
 #define ARABICA_UTF8ISO88591_CODECVT_H
 #include <locale>
 #include <SAX/ArabicaConfig.hpp>
+#include <Arabica/mbstate.hpp>
 
 #ifdef ARABICA_VS6_WORKAROUND
 namespace std {

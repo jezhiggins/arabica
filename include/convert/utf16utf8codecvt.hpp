@@ -13,7 +13,7 @@
 // $Id$
 //---------------------------------------------------------------------------
 #include <SAX/ArabicaConfig.hpp>
-
+#include <Arabica/mbstate.hpp>
 #include <locale>
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS

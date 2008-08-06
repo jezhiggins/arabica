@@ -9,12 +9,11 @@
 // The C++ Standard (ISO/IEC 14882 to be pedantic).
 //
 // I got my information about UTF-8 from RFC 2044.
-//
-// $Id$
 //---------------------------------------------------------------------------
 #include <SAX/ArabicaConfig.hpp>
-#ifndef ARABICA_NO_WCHAR_T
 
+#ifndef ARABICA_NO_WCHAR_T
+#include <Arabica/mbstate.hpp>
 #include <locale>
 
 #ifndef ARABICA_NO_CODECVT_SPECIALISATIONS
