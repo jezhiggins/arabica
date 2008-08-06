@@ -63,6 +63,11 @@ std::string URI::as_string() const
   return str;
 } // as_string
 
+void fixSlashes(std::string& path)
+{
+  for(int i = path.find('\\'); i != std::string::npos; i = path.find('\\', i))
+    path[i] = '/';
+} // fixSlashes
 
 void URI::parse(const std::string& uri)
 {
@@ -73,6 +78,7 @@ void URI::parse(const std::string& uri)
   if(d == std::string::npos)
   {
     path_ = uri;
+    fixSlashes(path_);
     return;
   } // if ...
 
@@ -80,8 +86,7 @@ void URI::parse(const std::string& uri)
   {
     // looks like a windows file path
     path_ = uri;
-    for(int i = path_.find('\\'); i != -1; i = path_.find('\\', i))
-      path_[i] = '/';
+    fixSlashes(path_);
     scheme_ = "file";
     return;
   } // if ...
