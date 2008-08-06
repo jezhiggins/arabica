@@ -115,6 +115,9 @@ public:
         return;
     } // if ...
 
+    if(var->precedence() == -1) // we're running, so resolve immediately
+      var->value();
+
     stack[name] = var;
   } // declareVariable
   

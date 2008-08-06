@@ -180,6 +180,7 @@
   <test-case id="string_string124" compiles="no"/>
   <test-case id="string_string129" compiles="no"/>
   <test-case id="string_string130" compiles="no"/>
+  <test-case id="variable_variable62" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="ver_ver01" compiles="no"/>
   <test-case id="ver_ver05" compiles="no"/>
   <test-case id="ver_ver06" compiles="no"/>
@@ -601,7 +602,7 @@
 	<test-case id="Variables__78160" compare="text"/>
 	<test-case id="Variables__78162" compare="text"/>
 	<test-case id="Variables__78163" compare="text"/>
-	<test-case id="Variables__78164" skip="yes" reason="does support xsl:sort lang attribute yet"/>
+	<test-case id="Variables__78164" skip="yes" reason="doesn't support xsl:sort lang attribute yet"/>
 	<test-case id="Variables__78305" compare="text"/>
 	<test-case id="Variables__78306" compare="text"/>
 	<test-case id="Variables__78316" compare="text"/>
@@ -619,7 +620,7 @@
 	<test-case id="Variables__84026" compare="text"/>
 	<test-case id="Variables__84034" compare="text"/>
 	<test-case id="Variables__84036" compare="text"/>
-	<test-case id="Variables__84438" skip="yes" reason="does support xsl:sort lang attribute yet"/>
+	<test-case id="Variables__84438" skip="yes" reason="doesn't support xsl:sort lang attribute yet"/>
 	<test-case id="Variables__84439" compare="text"/>
 	<test-case id="Variables__84635" skip="yes" reason="html"/>
 	<test-case id="Variables__84636" skip="yes" reason="html"/>
@@ -629,7 +630,7 @@
 	<test-case id="Variables_GlobalVarHaveLocalVarDefinedWithin" compare="fragment"/>
 	<test-case id="Variables_PositionAndLastComparisonShouldBeEqual" compare="text"/>	
 	<test-case id="Variables_SelectAttributeAndWhitespaceBetweenElement" compare="fragment"/>
-	<test-case id="Variables_UseDocumentFnToReturnRootNode" compare="text"/>
+	<test-case id="Variables_UseDocumentFnToReturnRootNode" skip="yes" reason="Test case loads a document sitting on some departmental file share inside Microsoft that probably no longer exists."/>
 	<test-case id="Variables_VariableWithinVariable" skip="yes" reason="XML encoding in Windows-1251.  Similar test in arabica tests."/>
 	<test-case id="Variables_xslt_variable_qname_test1" compare="fragment"/>
 	<test-case id="Variables_xslt_variable_qname_test2" compare="fragment"/>

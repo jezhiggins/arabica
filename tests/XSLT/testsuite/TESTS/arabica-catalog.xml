@@ -214,5 +214,46 @@
         <output-file role="principal">namespace4_result.xml</output-file>
       </scenario>
     </test-case>
+    <test-case id="variables11">
+      <file-path>variables</file-path>
+      <purpose>detecting duplicate variable or parameter names</purpose>
+      <scenario operation="execution-error">
+        <input-file role="principal-data">duplicate.xml</input-file>
+        <input-file role="principal-stylesheet">duplicate1.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables12">
+      <file-path>variables</file-path>
+      <purpose>detecting duplicate variable or parameter names</purpose>
+      <scenario operation="execution-error">
+        <input-file role="principal-data">duplicate.xml</input-file>
+        <input-file role="principal-stylesheet">duplicate2.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables13">
+      <file-path>variables</file-path>
+      <purpose>detecting duplicate variable or parameter names</purpose>
+      <scenario operation="execution-error">
+        <input-file role="principal-data">duplicate.xml</input-file>
+        <input-file role="principal-stylesheet">duplicate3.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables14">
+      <file-path>variables</file-path>
+      <purpose>detecting duplicate variable or parameter names</purpose>
+      <scenario operation="execution-error">
+        <input-file role="principal-data">duplicate.xml</input-file>
+        <input-file role="principal-stylesheet">duplicate4.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="variables15">
+      <file-path>variables</file-path>
+      <purpose>ensuring using document() in a variable gives us the root node</purpose>
+      <scenario operation="standard">
+        <input-file role="principal-data">documentfn.xml</input-file>
+        <input-file role="principal-stylesheet">documentfn.xsl</input-file>
+        <output-file role="principal">documentfn_result.xml</output-file>
+      </scenario>
+    </test-case>
   </test-catalog>
 </test-suite>
