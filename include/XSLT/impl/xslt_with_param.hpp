@@ -43,6 +43,8 @@ protected:
 
   ~WithParamable()
   {
+    for(WithParamList::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
+      delete (*s);
   } // ~WithParamable
 
 public:
@@ -54,17 +56,18 @@ public:
 private:
   void passParams(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
-    for(boost::ptr_vector<WithParam>::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
-      s->execute(node, context);
+    for(WithParamList::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
+      (*s)->execute(node, context);
   } // execute
 
   void unpassParams(ExecutionContext& context) const
   {
-    for(boost::ptr_vector<WithParam>::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
-      s->unpass(context);
+    for(WithParamList::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
+      (*s)->unpass(context);
   } // unpassParams
 
-  boost::ptr_vector<WithParam> withparams_;
+  typedef std::vector<WithParam*> WithParamList;
+  WithParamList withparams_;
 
   friend class ParamPasser;
 }; // class WithParamable

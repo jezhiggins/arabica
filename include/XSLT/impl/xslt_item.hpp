@@ -1,8 +1,6 @@
 #ifndef ARABICA_XSLT_ITEM_HPP
 #define ARABICA_XSLT_ITEM_HPP
 
-#include <boost/ptr_container/ptr_vector.hpp>
-
 namespace Arabica
 {
 namespace XSLT
@@ -23,20 +21,17 @@ public:
 class ItemContainer : public Item
 {
 protected:
-  typedef boost::ptr_vector<Item> Children;
-
-  ~ItemContainer() 
+  virtual ~ItemContainer() 
   { 
+    for(Children::const_iterator ci = children_.begin(), ce = children_.end(); ci != ce; ++ci)
+      delete *ci;
   } // ~ItemContainer
 
   void execute_children(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
-    for(Children::const_iterator ci = children_begin(), ce = children_end(); ci != ce; ++ci)
-      ci->execute(node, context);
+    for(Children::const_iterator ci = children_.begin(), ce = children_.end(); ci != ce; ++ci)
+      (*ci)->execute(node, context);
   } // execute
-
-  Children::const_iterator children_begin() const { return children_.begin(); }
-  Children::const_iterator children_end() const { return children_.end(); }
 
 public:
   void add_item(Item* child) 
@@ -45,6 +40,7 @@ public:
   } // add_child
 
 private:
+  typedef std::vector<Item*> Children;
   Children children_;
 }; // ItemContainer
 

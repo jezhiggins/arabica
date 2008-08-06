@@ -2,7 +2,6 @@
 #define ARABICA_XSLT_STYLESHEET_HPP
 
 #include <vector>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <iostream>
 #include <XPath/XPath.hpp>
 
@@ -32,9 +31,14 @@ public:
 
   ~Stylesheet()
   {
+    // let's clean up!
     for(ItemStack::const_iterator isi = items_.begin(), ise = items_.end(); isi != ise; ++isi)
       for(ItemList::const_iterator ci = isi->begin(), ce = isi->end(); ci != ce; ++ci)
         delete *ci;
+    for(ParamList::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
+      delete *pi;
+    for(TemplateList::const_iterator ti = all_templates_.begin(), te = all_templates_.end(); ti != te; ++ti)
+      delete *ti;
   } // ~Stylesheet
 
   void set_parameter(const std::string& name, bool value)
@@ -75,8 +79,8 @@ public:
     ExecutionContext context(*this, output_.get(), *error_output_);
 
     // set up variables and so forth
-    for(boost::ptr_vector<TopLevelParam>::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
-      pi->declare(context);
+    for(ParamList::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
+      (*pi)->declare(context);
     for(ItemStack::const_iterator isi = items_.begin(), ise = items_.end(); isi != ise; ++isi)
     {
       for(ItemList::const_iterator ci = isi->begin(), ce = isi->end(); ci != ce; ++ci)
@@ -297,7 +301,7 @@ private:
     Template* template_;
   }; // struct MatchTemplate
 
-  typedef boost::ptr_vector<Template> TemplateList;
+  typedef std::vector<Template*> TemplateList;
   typedef std::vector<MatchTemplate> MatchTemplates;
   typedef std::map<std::pair<std::string, std::string>, MatchTemplates> ModeTemplates;
   typedef std::vector<ModeTemplates> TemplateStack;
@@ -306,7 +310,7 @@ private:
   typedef std::vector<Item*> ItemList;
   typedef std::vector<ItemList> ItemStack;
 
-  typedef boost::ptr_vector<TopLevelParam> ParamList;
+  typedef std::vector<TopLevelParam*> ParamList;
 
   TemplateList all_templates_;
   NamedTemplates named_templates_;

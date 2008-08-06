@@ -1,7 +1,6 @@
 #ifndef ARABICA_XSLT_CHOOSE_HPP
 #define ARABICA_XSLT_CHOOSE_HPP
 
-#include <boost/ptr_container/ptr_vector.hpp>
 #include "xslt_item.hpp"
 #include "xslt_if.hpp"
 
@@ -54,16 +53,18 @@ public:
 
   virtual ~Choose()
   { 
+    for(WhenList::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
+      delete (*w);
     delete otherwise_;
   } // ~Choose
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
     ChainStackFrame frame(context);
-    for(boost::ptr_vector<When>::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
-      if(w->is_met(node, context))
+    for(WhenList::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
+      if((*w)->is_met(node, context))
       {
-        w->execute(node, context);
+        (*w)->execute(node, context);
         return;
       } // if ...
 
@@ -83,7 +84,8 @@ public:
   } // set_otherwise
 
 private:
-  boost::ptr_vector<When> when_;
+  typedef std::vector<When*> WhenList;
+  WhenList when_;
   Otherwise* otherwise_;
 }; // class Choose
 
