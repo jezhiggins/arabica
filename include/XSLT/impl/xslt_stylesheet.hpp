@@ -85,7 +85,7 @@ public:
     {
       for(ItemList::const_iterator ci = isi->begin(), ce = isi->end(); ci != ce; ++ci)
         (*ci)->execute(initialNode, context);
-      context.pushVariablePrecendence();
+      context.pushVariablePrecedence();
     } // for ...
     context.freezeTopLevel();
 
