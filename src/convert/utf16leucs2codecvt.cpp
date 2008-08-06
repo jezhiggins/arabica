@@ -5,9 +5,6 @@
 #ifndef ARABICA_NO_WCHAR_T
 #include <convert/impl/ucs2_utf16.hpp>
 
-#ifdef ARABICA_VS6_WORKAROUND
-#include <Arabica/impl/VS6Workaround.hpp>
-#endif
 
 using namespace Arabica::convert;
 

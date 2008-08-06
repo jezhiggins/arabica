@@ -333,11 +333,7 @@ void libxml2_wrapper<string_type, T0, T1>::setFeature(const string_type& name, b
 } // setFeature
 
 template<class string_type, class T0, class T1>
-#ifndef ARABICA_VS6_WORKAROUND
 std::auto_ptr<typename libxml2_wrapper<string_type, T0, T1>::PropertyBaseT> libxml2_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-#else
-std::auto_ptr<libxml2_wrapper<string_type, T0, T1>::PropertyBaseT> libxml2_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-#endif
 {
   if(name == properties_.declHandler)
   {

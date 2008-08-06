@@ -18,10 +18,6 @@
 #include <convert/impl/codecvt_specialisations.hpp>
 #endif
 
-#ifdef ARABICA_VS6_WORKAROUND
-#include <Arabica/impl/VS6Workaround.hpp>
-#endif
-
 namespace Arabica
 {
 namespace convert

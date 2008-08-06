@@ -934,31 +934,19 @@ void xerces_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bo
 } // setFeature
 
 template<class string_type, class T0, class T1>
-#ifndef ARABICA_VS6_WORKAROUND
 std::auto_ptr<typename xerces_wrapper<string_type, T0, T1>::XMLReaderT::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-#else
-  std::auto_ptr<xerces_wrapper<string_type, T0, T1>::XMLReaderT::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-#endif
 {
   if(name == properties_.lexicalHandler)
   {
     typedef typename XMLReaderT::template Property<LexicalHandlerT *> Prop;
     Prop *prop = new Prop(lexicalHandlerAdaptor_.getLexicalHandler());
-#ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename XMLReaderT::PropertyBase>(prop);
-#else
-    return std::auto_ptr<XMLReaderT::PropertyBase>(prop);
-#endif
   }
   if(name == properties_.declHandler)
   {
     typedef typename XMLReaderT::template Property<DeclHandlerT*> Prop;
     Prop* prop = new Prop(declHandlerAdaptor_.getDeclHandler());
-#ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename XMLReaderT::PropertyBase>(prop);
-#else
-    return std::auto_ptr<XMLReaderT::PropertyBase>(prop);
-#endif
   }
   if (name == properties_.externalSchemaLocation)
   {
@@ -969,11 +957,7 @@ std::auto_ptr<typename xerces_wrapper<string_type, T0, T1>::XMLReaderT::Property
             XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalSchemaLocation));
 
     externalSchemaLocation_ = XSA::makeStringT(xercesExternalSchemaLocation);
-#ifndef ARABICA_VS6_WORKAROUND
     std::auto_ptr<typename XMLReaderT::PropertyBase> toReturn(new StringPropertyType(externalSchemaLocation_));
-#else
-    std::auto_ptr<XMLReaderT::PropertyBase> toReturn(new StringPropertyType(externalSchemaLocation_));
-#endif
 #ifdef SAXXERCES_DEBUG
     std::cerr << "Returning " << typeid(toReturn)
               << "(*(" << typeid(*toReturn.get()) << ")" 
@@ -992,21 +976,13 @@ std::auto_ptr<typename xerces_wrapper<string_type, T0, T1>::XMLReaderT::Property
             XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalNoNameSpaceSchemaLocation));
 
     externalNoNamespaceSchemaLocation_ = XSA::makeStringT(xercesExternalNoNamespaceSchemaLocation);
-#ifndef ARABICA_VS6_WORKAROUND
     return std::auto_ptr<typename XMLReaderT::PropertyBase>(new StringPropertyType(externalNoNamespaceSchemaLocation_));
-#else
-    return std::auto_ptr<XMLReaderT::PropertyBase>(new StringPropertyType(externalNoNamespaceSchemaLocation_));
-#endif
   }
   throw SAX::SAXNotRecognizedException("Property not recognized ");    
 } // doGetProperty
 
 template<class string_type, class T0, class T1>
-#ifndef ARABICA_VS6_WORKAROUND
 void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<typename XMLReaderT::PropertyBase> value)
-#else
-void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<XMLReaderT::PropertyBase> value)
-#endif
 {
   if(name == properties_.lexicalHandler)
   {

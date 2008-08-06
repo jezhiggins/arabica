@@ -122,13 +122,8 @@ public:
   void str(const fromStringT& str)
   {
     // do conversion
-#ifndef ARABICA_VS6_WORKAROUND
     const std::codecvt<charT, fromCharT, typename traitsT::state_type>& cvt =
       std::use_facet<std::codecvt<charT, fromCharT, typename traitsT::state_type> >(this->getloc());
-#else
-    const std::codecvt<charT, fromCharT, traitsT::state_type>& cvt =
-      std::use_facet(convertstreambuf_initT::buf()->getloc(), (std::codecvt<charT, fromCharT, traitsT::state_type>*)0, true);
-#endif
 
     if(cvt.always_noconv())
     {
@@ -165,14 +160,9 @@ private:
   {
     stringT dest;
 
-#ifndef ARABICA_VS6_WORKAROUND
     std::back_insert_iterator<stringT> id(dest);
     for(typename fromStringT::const_iterator i = str.begin(); i != str.end(); ++i, ++id)
       *id = static_cast<charT>(*i);
-#else
-    for(typename fromStringT::const_iterator i = str.begin(); i != str.end(); ++i)
-      dest += static_cast<charT>(*i);
-#endif
 
     return dest;
   } // no_conversion
@@ -226,13 +216,8 @@ public:
       return out;
 
     // convert it here
-#ifndef ARABICA_VS6_WORKAROUND
     const std::codecvt<charT, toCharT, typename traitsT::state_type>& cvt =
       std::use_facet<std::codecvt<charT, toCharT, typename traitsT::state_type> >(this->getloc());
-#else
-    const std::codecvt<charT, toCharT, traitsT::state_type>& cvt =
-      std::use_facet(getloc(), (std::codecvt<charT, toCharT, traitsT::state_type>*)0, true);
-#endif
 
     if(cvt.always_noconv())
       out.append(no_conversion(newstuff));
@@ -274,14 +259,9 @@ private:
   {
     toStringT dest;
 
-#ifndef ARABICA_VS6_WORKAROUND
-	std::back_insert_iterator<toStringT> id(dest);
+    std::back_insert_iterator<toStringT> id(dest);
     for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i, ++id)
       *id = static_cast<toCharT>(*i);
-#else
-    for(typename stringT::const_iterator i = str.begin(); i != str.end(); ++i)
-      dest += static_cast<toCharT>(*i);
-#endif
 
     return dest;
   } // no_conversion

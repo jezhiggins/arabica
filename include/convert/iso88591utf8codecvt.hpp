@@ -4,12 +4,6 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <Arabica/mbstate.hpp>
 
-#ifdef ARABICA_VS6_WORKAROUND
-namespace std {
-  typedef ::mbstate_t mbstate_t;
-}
-#endif
-
 namespace Arabica
 {
 namespace convert

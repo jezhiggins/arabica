@@ -22,9 +22,6 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <Arabica/mbstate.hpp>
-#ifdef ARABICA_VS6_WORKAROUND
-#include <Arabica/impl/VS6Workaround.hpp>
-#endif
 
 namespace Arabica
 {
@@ -147,11 +144,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
 
   bool ok(true);
   const std::codecvt<charT, externalCharT, state_t>& cvt =
-#ifndef ARABICA_VS6_WORKAROUND
       std::use_facet<std::codecvt<charT, externalCharT, std::mbstate_t> >(this->getloc());
-#else
-      std::use_facet(this->getloc(), (std::codecvt<charT, externalCharT, std::mbstate_t>*)0, true);
-#endif
 
   if(cvt.always_noconv())
     std::copy(&outBuffer_[0], &outBuffer_[0] + length, std::ostreambuf_iterator<externalCharT>(externalbuf_));
@@ -199,11 +192,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
          pbCount*sizeof(charT));
 
   const std::codecvt<charT, externalCharT, state_t>& cvt =
-#ifndef ARABICA_VS6_WORKAROUND
-    std::use_facet<std::codecvt<charT, externalCharT, std::mbstate_t> >(this->getloc());
-#else
-    std::use_facet(this->getloc(), (std::codecvt<charT, externalCharT, std::mbstate_t>*)0, true);
-#endif
+      std::use_facet<std::codecvt<charT, externalCharT, std::mbstate_t> >(this->getloc());
 
   externalCharT from[1024];
 
