@@ -3,7 +3,9 @@ check_PROGRAMS = utils_test utils_test_silly
 if HAS_STD_WSTRING
   check_PROGRAMS += utils_test_wide
 endif
-TESTS = $(check_PROGRAMS)
+if WANT_TESTS
+  TESTS = $(check_PROGRAMS)
+endif
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @PARSER_HEADERS@ $(BOOST_CPPFLAGS)
 LIBARABICA =  $(top_builddir)/src/libarabica.la
