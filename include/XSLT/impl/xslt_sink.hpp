@@ -138,10 +138,7 @@ public:
     if(pending_attribute_ == -1)
       return;
 
-    if(atts_.getURI(pending_attribute_) == StylesheetConstant::NamespaceURI())
-      atts_.removeAttribute(pending_attribute_);
-    else 
-      atts_.setValue(pending_attribute_, buffer_.str());   
+    atts_.setValue(pending_attribute_, buffer_.str());   
 
     pending_attribute_ = -1;
   } // end_attribute
@@ -151,9 +148,6 @@ public:
 		                 const std::string& qName,
 		                 const std::string& value) 
   {
-    if(uri == StylesheetConstant::NamespaceURI())
-      return;
-
     if(!pending_element_)
     {  
       std::cerr << "ERROR: Cannot write attribute, no open element" << std::endl;
@@ -316,9 +310,6 @@ private:
     for(NamespaceStack::Scope::const_iterator n = namespaceStack_.begin(), ne = namespaceStack_.end(); n != ne; ++n)
     {
       if(n->first == "xml")
-        continue;
-
-      if(n->second == StylesheetConstant::NamespaceURI())
         continue;
 
       std::string qName = (n->first.empty()) ? "xmlns" : "xmlns:" + n->first;
