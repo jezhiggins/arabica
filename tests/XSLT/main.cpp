@@ -31,10 +31,10 @@ const char* msft_tests[] = { "AVTs", /*"AttributeSets",*/ "Attributes", "BVTs",
                              "Comment", "Completeness", "ConflictResolution", "Copying", 
                              "Elements", "Errors", "Fallback", "ForEach", /*"FormatNumber",*/
                              "ForwardComp", /*"Import",*/ /*"Keys",*/ "Messages", 
-                             "Miscellaneous", "Modes", "NamedTemplates", /*"Namespace",*/
-                             /*"Namespace-alias",*/ /*"Namespace_XPath",*/ /*"Number",*/
+                             "Miscellaneous", "Modes", "NamedTemplates", "Namespace",
+                             "Namespace-alias", /*"Namespace_XPath",*/ /*"Number",*/
                              /*"Output",*/ "ProcessingInstruction", "RTF", "Sorting", 
-                             /*"Stylesheet", */ /*"Template",*/ /*"Text", */ /*"ValueOf",*/
+                             /*"Stylesheet", */ /*"Template",*/ /*"Text", */ "Valueof",
                              "Variables", "Whitespaces", "XSLTFunctions", 0 };
 
 const char* arabica_tests[] = { "errors", "include", "processing-instruction", "stylesheet", "variables", 0 };

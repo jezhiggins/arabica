@@ -1,9 +1,9 @@
 <test-suite>
   <test-case id="attribvaltemplate_attribvaltemplate08" skip="yes" reason="HTML output"/>
   <test-case id="axes_axes59" compiles="no" reason="Needs xsl:number"/>
-	<test-case id="axes_axes68" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="axes_axes68" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="axes_axes113" compiles="no" reason="Needs xsl:strip-space"/>
-	<test-case id="axes_axes120" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="axes_axes120" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="boolean_boolean08" compiles="no" reason="Needs lang"/>
   <test-case id="conflictres_conflictres24" compiles="no" reason="Needs xsl:strip-space"/>
   <test-case id="copy_copy16" compiles="no" reason="Needs id"/>
@@ -14,8 +14,8 @@
   <test-case id="copy_copy30" compiles="no" reason="Needs xsl:key"/>
   <test-case id="copy_copy38" skip="yes" reason="HTML output"/>
   <test-case id="copy_copy40" compiles="no" reason="Needs xsl:key"/>
-	<test-case id="copy_copy42" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="copy_copy51" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="copy_copy42" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="copy_copy51" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="expression_expression01" compiles="no" reason="Needs lang"/>
   <test-case id="expression_expression02" compiles="no" reason="Needs unparsed-entity-uri"/>
   <test-case id="expression_expression03" compiles="no" reason="Needs lang"/>
@@ -37,7 +37,7 @@
   <test-case id="mdocs_mdocs06" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs07" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs08" runs="no" reason="haven't implemented node-set arg version of document()"/>
-	<test-case id="mdocs_mdocs18" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="mdocs_mdocs18" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="message_message01" compare="text"/>
   <test-case id="message_message14" compiles="no"/>
   <test-case id="message_message15" compiles="no"/>
@@ -100,22 +100,22 @@
   <test-case id="output_output113" compare="text" reason="Text output"/>
   <test-case id="position_position05" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position07" compiles="no" reason="Needs xsl:key"/>
-	<test-case id="position_position10" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="position_position10" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="position_position42" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position43" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position44" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position45" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position46" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position47" compiles="no" reason="Needs xsl:key"/>
-	<test-case id="position_position48" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="position_position48" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="position_position49" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position50" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position51" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position56" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position57" compiles="no" reason="Needs xsl:key"/>
-	<test-case id="position_position69" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="position_position69" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="position_position70" compiles="no" reason="Needs xsl:strip-space" />
-	<test-case id="position_position93" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="position_position93" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="position_position106" compiles="no" reason="Needs generate-id"/>
   <test-case id="processorinfo_processorinfo03" skip="yes" reason="Expects Xalan URI in result"/>
   <test-case id="reluri_reluri10" runs="no"/>
@@ -125,7 +125,7 @@
   <test-case id="select_select55" compiles="no"/>
   <test-case id="select_select59" compiles="no"/>
   <test-case id="select_select64" compiles="no"/>
-	<test-case id="select_select69" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="select_select69" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="select_select74" skip="yes" reason="HTML output"/>
   <test-case id="sort_sort01" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort02" compiles="no" reason="Needs xsl:sort lang attribute"/>
@@ -136,15 +136,15 @@
   <test-case id="sort_sort07" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort08" skip="yes" reason="Test case is bad.  Xalan sorts % ahead of space.  Others, including comment in test data, disagree."/>
   <test-case id="sort_sort09" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort10" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort11" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort10" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort11" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort12" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort13" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort14" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort15" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort16" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort20" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort21" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort16" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort20" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort21" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort22" compare="text" reason="Text output"/>
   <test-case id="sort_sort22" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort23" compare="text" reason="Text output"/>
@@ -155,23 +155,23 @@
   <test-case id="sort_sort25" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort26" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort27" skip="yes" reason="Test case is bad.  Xalan regards leading whitespace as insignificant.  Everyone else disagrees."/>
-	<test-case id="sort_sort28" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort29" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort28" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort29" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort30" compare="text" reason="Text output"/>
   <test-case id="sort_sort30" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort31" compare="text" reason="Text output"/>
   <test-case id="sort_sort31" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort32" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort33" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort34" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort32" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort33" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort34" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort35" compare="text" reason="Text output"/>
   <test-case id="sort_sort35" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort36" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort37" compare="text" reason="Text output"/>
   <test-case id="sort_sort37" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort38" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort39" compiles="no" reason="Needs xsl:sort lang attribute"/>
-	<test-case id="sort_sort40" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort39" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="sort_sort40" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="string_string13" compiles="no"/>
   <test-case id="string_string106" compiles="no"/>
   <test-case id="string_string108" compiles="no"/>
@@ -197,135 +197,135 @@
   <test-case id="whitespace_whitespace35" compiles="no"/>
 
   <test-case id="AVTs__77531" compare="fragment" reason="XML Fragment output"/>
-  <test-case id="AVTs__77558" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77564" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77570" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77575" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77576" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77577" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77579" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77580" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77582" compare="fragment" reason="XML Fragment output"/>	
-  <test-case id="AVTs__77599" compare="fragment" reason="XML Fragment output"/>	
-	<test-case id="Attributes__78366" compiles="no" reason="Error case: empty namespace"/>
-	<test-case id="Attributes__78382" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="Attributes__78386" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="Attributes__81430" compare="fragment" reason="XML Fragment output"/>
-	<test-case id="Attributes__81431" compare="fragment" reason="XML Fragment output"/>
-	<test-case id="Attributes__81482" compare="text"/>
-	<test-case id="Attributes__81483" compare="text"/>
-	<test-case id="Attributes__81484" compare="text"/>
-	<test-case id="Attributes__81485" compare="fragment"/>
-	<test-case id="Attributes__81486" compare="fragment"/>
-	<test-case id="Attributes__81487" compare="fragment"/>
-	<test-case id="Attributes__81489" compare="text"/>
-	<test-case id="Attributes__81491" compare="text"/>
-	<test-case id="Attributes__81492" compare="text"/>
-	<test-case id="Attributes__81493" compare="text"/>
-	<test-case id="Attributes__81494" compare="text"/>
-	<test-case id="Attributes__81495" compare="text"/>
-	<test-case id="Attributes__81496" compare="fragment"/>
-	<test-case id="Attributes__81497" compare="fragment"/>
-	<test-case id="Attributes__81499" compare="fragment"/>
-	<test-case id="Attributes__81544" compare="fragment"/>
-	<test-case id="Attributes__81545" compare="text"/>
-	<test-case id="Attributes__81546" compare="text"/>
-	<test-case id="Attributes__81547" compare="text"/>
-	<test-case id="Attributes__81548" compare="fragment"/>
-	<test-case id="Attributes__81550" compare="fragment"/>
-	<test-case id="Attributes__81551" compare="fragment"/>
-	<test-case id="Attributes__83030" compare="fragment"/>
-	<test-case id="Attributes__83822" compare="text"/>
-	<test-case id="Attributes__84169" compare="text"/>
-	<test-case id="Attributes__89433" compare="text"/>
-	<test-case id="Attributes__89434" compare="text"/>
-	<test-case id="Attributes__89435" compare="text"/>
-	<test-case id="Attributes__89436" compare="text"/>
-	<test-case id="Attributes__89437" compare="text"/>
-	<test-case id="Attributes__89438" compare="text"/>
-	<test-case id="Attributes__89439" compare="fragment"/>
-	<test-case id="Attributes__89440" compare="fragment"/>
-	<test-case id="Attributes__89441" compare="fragment"/>
-	<test-case id="Attributes__89442" compare="fragment"/>
-	<test-case id="Attributes__89459" compare="fragment"/>
-	<test-case id="Attributes__89466" compare="fragment"/>
-	<test-case id="Attributes_Attribute_WhitespaceInUseAttributeSets" compiles="no" reason="Haven't implemented attribute-sets"/>
-	<test-case id="Attributes_EmptyStringInUseAttribSets" compiles="no" reason="Haven't implemented attribute-sets"/>
-	<test-case id="BVTs_bvt001" compiles="no" reason="Doesn't understand xml:space properly"/>
-	<test-case id="BVTs_bvt002" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="BVTs_bvt003" compiles="no" reason="Needs attribute sets"/>
-	<test-case id="BVTs_bvt004" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="BVTs_bvt005" compiles="no" reason="Doesn't understand xml:space properly"/>
-	<test-case id="BVTs_bvt007" compare="text"/>
-	<test-case id="BVTs_bvt008" compare="fragment"/>
-	<test-case id="BVTs_bvt013" compare="fragment"/>
-	<test-case id="BVTs_bvt014" compare="text"/>
-	<test-case id="BVTs_bvt017" skip="yes" reason="Needs funky output encoding"/>
-	<test-case id="BVTs_bvt018" skip="yes" reason="Needs funky output encoding"/>
-	<test-case id="BVTs_bvt019" skip="yes" reason="Needs funky output encoding"/>
-	<test-case id="BVTs_bvt020" compiles="no" reason="Needs xsl:fall-back"/>
-	<test-case id="BVTs_bvt021" compare="fragment"/>
-	<test-case id="BVTs_bvt022" compiles="no" reason="Needs xsl:fall-back"/>
-	<test-case id="BVTs_bvt023" compiles="no" reason="Needs xsl:fall-back"/>
-	<test-case id="BVTs_bvt024" compiles="no" reason="Needs format-number"/>
-	<test-case id="BVTs_bvt027" compare="fragment"/>
-	<test-case id="BVTs_bvt033" compiles="no"/>
-	<test-case id="BVTs_bvt034" compiles="no"/>
-	<test-case id="BVTs_bvt035" compare="text"/>
-	<test-case id="BVTs_bvt036" compare="text"/>
-	<test-case id="BVTs_bvt037" compare="fragment"/>
-	<test-case id="BVTs_bvt038" compare="fragment"/>
-	<test-case id="BVTs_bvt040" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="BVTs_bvt044" skip="yes" reason="Segfault!"/>
-	<test-case id="BVTs_bvt045" skip="yes" reason="Bad result data"/>
-	<test-case id="BVTs_bvt047" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="BVTs_bvt052" skip="yes" reason="Uses MSXML specific extension function"/>
-	<test-case id="BVTs_bvt053" compare="text"/>
-	<test-case id="BVTs_bvt054" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="BVTs_bvt055" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="BVTs_bvt056" compare="text"/>
-	<test-case id="BVTs_bvt057" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="AVTs__77558" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77564" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77570" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77575" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77576" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77577" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77579" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77580" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77582" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="AVTs__77599" compare="fragment" reason="XML Fragment output"/>  
+  <test-case id="Attributes__78366" compiles="no" reason="Error case: empty namespace"/>
+  <test-case id="Attributes__78382" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="Attributes__78386" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="Attributes__81430" compare="fragment" reason="XML Fragment output"/>
+  <test-case id="Attributes__81431" compare="fragment" reason="XML Fragment output"/>
+  <test-case id="Attributes__81482" compare="text"/>
+  <test-case id="Attributes__81483" compare="text"/>
+  <test-case id="Attributes__81484" compare="text"/>
+  <test-case id="Attributes__81485" compare="fragment"/>
+  <test-case id="Attributes__81486" compare="fragment"/>
+  <test-case id="Attributes__81487" compare="fragment"/>
+  <test-case id="Attributes__81489" compare="text"/>
+  <test-case id="Attributes__81491" compare="text"/>
+  <test-case id="Attributes__81492" compare="text"/>
+  <test-case id="Attributes__81493" compare="text"/>
+  <test-case id="Attributes__81494" compare="text"/>
+  <test-case id="Attributes__81495" compare="text"/>
+  <test-case id="Attributes__81496" compare="fragment"/>
+  <test-case id="Attributes__81497" compare="fragment"/>
+  <test-case id="Attributes__81499" compare="fragment"/>
+  <test-case id="Attributes__81544" compare="fragment"/>
+  <test-case id="Attributes__81545" compare="text"/>
+  <test-case id="Attributes__81546" compare="text"/>
+  <test-case id="Attributes__81547" compare="text"/>
+  <test-case id="Attributes__81548" compare="fragment"/>
+  <test-case id="Attributes__81550" compare="fragment"/>
+  <test-case id="Attributes__81551" compare="fragment"/>
+  <test-case id="Attributes__83030" compare="fragment"/>
+  <test-case id="Attributes__83822" compare="text"/>
+  <test-case id="Attributes__84169" compare="text"/>
+  <test-case id="Attributes__89433" compare="text"/>
+  <test-case id="Attributes__89434" compare="text"/>
+  <test-case id="Attributes__89435" compare="text"/>
+  <test-case id="Attributes__89436" compare="text"/>
+  <test-case id="Attributes__89437" compare="text"/>
+  <test-case id="Attributes__89438" compare="text"/>
+  <test-case id="Attributes__89439" compare="fragment"/>
+  <test-case id="Attributes__89440" compare="fragment"/>
+  <test-case id="Attributes__89441" compare="fragment"/>
+  <test-case id="Attributes__89442" compare="fragment"/>
+  <test-case id="Attributes__89459" compare="fragment"/>
+  <test-case id="Attributes__89466" compare="fragment"/>
+  <test-case id="Attributes_Attribute_WhitespaceInUseAttributeSets" compiles="no" reason="Haven't implemented attribute-sets"/>
+  <test-case id="Attributes_EmptyStringInUseAttribSets" compiles="no" reason="Haven't implemented attribute-sets"/>
+  <test-case id="BVTs_bvt001" compiles="no" reason="Doesn't understand xml:space properly"/>
+  <test-case id="BVTs_bvt002" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt003" compiles="no" reason="Needs attribute sets"/>
+  <test-case id="BVTs_bvt004" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt005" compiles="no" reason="Doesn't understand xml:space properly"/>
+  <test-case id="BVTs_bvt007" compare="text"/>
+  <test-case id="BVTs_bvt008" compare="fragment"/>
+  <test-case id="BVTs_bvt013" compare="fragment"/>
+  <test-case id="BVTs_bvt014" compare="text"/>
+  <test-case id="BVTs_bvt017" skip="yes" reason="Needs funky output encoding"/>
+  <test-case id="BVTs_bvt018" skip="yes" reason="Needs funky output encoding"/>
+  <test-case id="BVTs_bvt019" skip="yes" reason="Needs funky output encoding"/>
+  <test-case id="BVTs_bvt020" compiles="no" reason="Needs xsl:fall-back"/>
+  <test-case id="BVTs_bvt021" compare="fragment"/>
+  <test-case id="BVTs_bvt022" compiles="no" reason="Needs xsl:fall-back"/>
+  <test-case id="BVTs_bvt023" compiles="no" reason="Needs xsl:fall-back"/>
+  <test-case id="BVTs_bvt024" compiles="no" reason="Needs format-number"/>
+  <test-case id="BVTs_bvt027" compare="fragment"/>
+  <test-case id="BVTs_bvt033" compiles="no"/>
+  <test-case id="BVTs_bvt034" compiles="no"/>
+  <test-case id="BVTs_bvt035" compare="text"/>
+  <test-case id="BVTs_bvt036" compare="text"/>
+  <test-case id="BVTs_bvt037" compare="fragment"/>
+  <test-case id="BVTs_bvt038" compare="fragment"/>
+  <test-case id="BVTs_bvt040" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt044" skip="yes" reason="Segfault!"/>
+  <test-case id="BVTs_bvt045" skip="yes" reason="Bad result data"/>
+  <test-case id="BVTs_bvt047" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt052" skip="yes" reason="Uses MSXML specific extension function"/>
+  <test-case id="BVTs_bvt053" compare="text"/>
+  <test-case id="BVTs_bvt054" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt055" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt056" compare="text"/>
+  <test-case id="BVTs_bvt057" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt060" compiles="no" reason="Needs xsl:number"/>
   <test-case id="BVTs_bvt061" compiles="no" reason="Needs xsl:number"/>
-	<test-case id="BVTs_bvt062" compare="fragment"/>
-	<test-case id="BVTs_bvt065" compare="fragment"/>
-	<test-case id="BVTs_bvt070" compare="text"/>
-	<test-case id="BVTs_bvt072" compare="fragment"/>
-	<test-case id="BVTs_bvt073" compare="fragment"/>
-	<test-case id="BVTs_bvt075" compare="text"/>
-	<test-case id="BVTs_bvt076" compare="text"/>
-	<test-case id="BVTs_bvt078" compare="text"/>
-	<test-case id="BVTs_bvt079" compare="fragment"/>
-	<test-case id="BVTs_bvt080" compare="fragment"/>
-	<test-case id="BVTs_bvt081" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="BVTs_bvt083" compiles="no"/>
-	<test-case id="BVTs_bvt085" skip="yes" reason="Bad result data"/>
-	<test-case id="BVTs_bvt086" compiles="no"/>
-	<test-case id="BVTs_bvt089" compiles="no" reason="Haven't implemented unparsed-entity-uri"/>
-	<test-case id="BVTs_bvt090" compare="fragment"/>
-	<test-case id="BVTs_bvt092" compare="fragment"/>
-	<test-case id="BVTs_bvt094" compare="text"/>
-	<test-case id="BVTs_bvt095" compare="fragment"/>
-	<test-case id="BVTs_bvt096" compare="text"/>
-	<test-case id="BVTs_bvt098" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-	<test-case id="BVTs_bvt099" compare="fragment"/>
-	<test-case id="BVTs_bvt100" compare="fragment"/>
-	<test-case id="Comment_Comment_CDATAWithDoubleHyphen" compare="fragment"/>
-	<test-case id="Comment_Comment_CDATAWithDoubleHyphenEntities" compare="fragment"/>
-	<test-case id="Comment_Comment_CDATAWithSingleHyphen" compare="fragment"/>
-	<test-case id="Comment_Comment_CommentWithCDATAValidText" compare="fragment"/>
-	<test-case id="Comment_Comment_CommentWithForeignCharacters" skip="yes" reason="Only support UTF-8 at the moment"/>
-	<test-case id="Comment_Comment_CommentWithOnlyValidText" compare="fragment"/>
-	<test-case id="Comment_Comment_DoubleHypenEntitywithDelCharacter" skip="yes" reason="Only support UTF-8 at the moment"/>
-	<test-case id="Comment_Comment_DoubleHypenInText" skip="yes" reason="Only support UTF-8 at the moment"/>
-	<test-case id="Comment_Comment_DoubleHyphenONLY" compare="fragment"/>
-	<test-case id="Comment_Comment_EmptyComment" compare="fragment"/>
-	<test-case id="Comment_Comment_HyphenEntityAndHyphen" compare="fragment"/>
-	<test-case id="Comment_Comment_LineOfAllHyphens" compare="fragment"/>
-	<test-case id="Comment_Comment_SingleHyphenOnly" compare="fragment"/>
-	<test-case id="Comment_Comment_Test1" compare="fragment"/>
-	<test-case id="Comment_Comment_Test2" compare="fragment"/>
-	<test-case id="Comment_Comment_Test3" compiles="no" reason="Haven't implemented attribute-sets"/>
+  <test-case id="BVTs_bvt062" compare="fragment"/>
+  <test-case id="BVTs_bvt065" compare="fragment"/>
+  <test-case id="BVTs_bvt070" compare="text"/>
+  <test-case id="BVTs_bvt072" compare="fragment"/>
+  <test-case id="BVTs_bvt073" compare="fragment"/>
+  <test-case id="BVTs_bvt075" compare="text"/>
+  <test-case id="BVTs_bvt076" compare="text"/>
+  <test-case id="BVTs_bvt078" compare="text"/>
+  <test-case id="BVTs_bvt079" compare="fragment"/>
+  <test-case id="BVTs_bvt080" compare="fragment"/>
+  <test-case id="BVTs_bvt081" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt083" compiles="no"/>
+  <test-case id="BVTs_bvt085" skip="yes" reason="Bad result data"/>
+  <test-case id="BVTs_bvt086" compiles="no"/>
+  <test-case id="BVTs_bvt089" compiles="no" reason="Haven't implemented unparsed-entity-uri"/>
+  <test-case id="BVTs_bvt090" compare="fragment"/>
+  <test-case id="BVTs_bvt092" compare="fragment"/>
+  <test-case id="BVTs_bvt094" compare="text"/>
+  <test-case id="BVTs_bvt095" compare="fragment"/>
+  <test-case id="BVTs_bvt096" compare="text"/>
+  <test-case id="BVTs_bvt098" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt099" compare="fragment"/>
+  <test-case id="BVTs_bvt100" compare="fragment"/>
+  <test-case id="Comment_Comment_CDATAWithDoubleHyphen" compare="fragment"/>
+  <test-case id="Comment_Comment_CDATAWithDoubleHyphenEntities" compare="fragment"/>
+  <test-case id="Comment_Comment_CDATAWithSingleHyphen" compare="fragment"/>
+  <test-case id="Comment_Comment_CommentWithCDATAValidText" compare="fragment"/>
+  <test-case id="Comment_Comment_CommentWithForeignCharacters" skip="yes" reason="Only support UTF-8 at the moment"/>
+  <test-case id="Comment_Comment_CommentWithOnlyValidText" compare="fragment"/>
+  <test-case id="Comment_Comment_DoubleHypenEntitywithDelCharacter" skip="yes" reason="Only support UTF-8 at the moment"/>
+  <test-case id="Comment_Comment_DoubleHypenInText" skip="yes" reason="Only support UTF-8 at the moment"/>
+  <test-case id="Comment_Comment_DoubleHyphenONLY" compare="fragment"/>
+  <test-case id="Comment_Comment_EmptyComment" compare="fragment"/>
+  <test-case id="Comment_Comment_HyphenEntityAndHyphen" compare="fragment"/>
+  <test-case id="Comment_Comment_LineOfAllHyphens" compare="fragment"/>
+  <test-case id="Comment_Comment_SingleHyphenOnly" compare="fragment"/>
+  <test-case id="Comment_Comment_Test1" compare="fragment"/>
+  <test-case id="Comment_Comment_Test2" compare="fragment"/>
+  <test-case id="Comment_Comment_Test3" compiles="no" reason="Haven't implemented attribute-sets"/>
   <test-case id="Completeness__84351" compare="text"/>
   <test-case id="Completeness__84354" compare="fragment"/>
   <test-case id="Completeness__84359" compare="text"/>
@@ -363,56 +363,56 @@
   <test-case id="Copying__84388" compare="fragment"/>
   <test-case id="Copying__84389" compare="fragment"/>
   <test-case id="Copying_UseXmlnsWithEmptyStringAsDefaultNs" skip="yes" reason="Stylesheet encoding in Windows-1251"/>
-	<test-case id="Elements__78364" compiles="no" reason="Haven't implemented embedded stylesheets"/>
-	<test-case id="Elements__83968" compiles="no" reason="Haven't implemented embedded stylesheets"/>
-	<test-case id="Elements__89062" compare="text"/>
-	<test-case id="Elements__89063" compare="text"/>
-	<test-case id="Elements__89065" compare="text"/>
-	<test-case id="Elements__89066" compare="text"/>
-	<test-case id="Elements__89071" compare="fragment"/>
-	<test-case id="Elements__89072" compare="fragment"/>
-	<test-case id="Elements__89104" compare="text"/>
-	<test-case id="Elements__89107" compare="text"/>
-	<test-case id="Elements__89108" compare="text"/>
-	<test-case id="Elements__89112" compare="fragment"/>
-	<test-case id="Elements__89113" compare="fragment"/>
-	<test-case id="Elements__89207" compare="fragment"/>
-	<test-case id="Elements__89278" compare="text"/>
-	<test-case id="Elements__89279" compare="text"/>
-	<test-case id="Elements__89280" compare="text"/>
-	<test-case id="Elements__89281" compare="text"/>
-	<test-case id="Elements__89286" compare="fragment"/>
-	<test-case id="Elements__89287" compare="fragment"/>
+  <test-case id="Elements__78364" compiles="no" reason="Haven't implemented embedded stylesheets"/>
+  <test-case id="Elements__83968" compiles="no" reason="Haven't implemented embedded stylesheets"/>
+  <test-case id="Elements__89062" compare="text"/>
+  <test-case id="Elements__89063" compare="text"/>
+  <test-case id="Elements__89065" compare="text"/>
+  <test-case id="Elements__89066" compare="text"/>
+  <test-case id="Elements__89071" compare="fragment"/>
+  <test-case id="Elements__89072" compare="fragment"/>
+  <test-case id="Elements__89104" compare="text"/>
+  <test-case id="Elements__89107" compare="text"/>
+  <test-case id="Elements__89108" compare="text"/>
+  <test-case id="Elements__89112" compare="fragment"/>
+  <test-case id="Elements__89113" compare="fragment"/>
+  <test-case id="Elements__89207" compare="fragment"/>
+  <test-case id="Elements__89278" compare="text"/>
+  <test-case id="Elements__89279" compare="text"/>
+  <test-case id="Elements__89280" compare="text"/>
+  <test-case id="Elements__89281" compare="text"/>
+  <test-case id="Elements__89286" compare="fragment"/>
+  <test-case id="Elements__89287" compare="fragment"/>
   <test-case id="Elements__89705" compare="fragment"/>
-	<test-case id="Elements__89709" compare="fragment"/>
-	<test-case id="Elements__89710" compare="fragment"/>
-	<test-case id="Elements__89711" compare="fragment"/>
-	<test-case id="Elements__89712" compare="fragment"/>
-	<test-case id="Elements__89713" compare="text"/>
-	<test-case id="Elements__89717" compare="fragment"/>
-	<test-case id="Elements__89718" compare="fragment"/>
-	<test-case id="Elements__89723" compare="fragment"/>
-	<test-case id="Fallback__91817" compiles="no"/>
-	<test-case id="Fallback__91818" compiles="no"/>
-	<test-case id="Fallback__91819" compiles="no"/>
-	<test-case id="Fallback__91820" compiles="no"/>
-	<test-case id="Fallback__91821" compiles="no"/>
-	<test-case id="Fallback__91823" compiles="no"/>
-	<test-case id="Fallback__91824" compiles="no"/>
-	<test-case id="ForEach_ForEach_ForeachWithXPATHEvaluatesToNull" compare="text"/>
-	<test-case id="ForwardComp__91837" compiles="no"/>
-	<test-case id="ForwardComp__91838" compiles="no"/>
-	<test-case id="ForwardComp__91839" compiles="no"/>
-	<test-case id="ForwardComp__91840" compiles="no"/>
-	<test-case id="ForwardComp__91842" compiles="no"/>
-	<test-case id="ForwardComp__91843" compiles="no"/>
-	<test-case id="ForwardComp__91845" compiles="no"/>
-	<test-case id="ForwardComp__91846" compiles="no"/>
-	<test-case id="ForwardComp__91847" compiles="no"/>
-	<test-case id="ForwardComp__91848" compiles="no"/>
-	<test-case id="ForwardComp__91849" compiles="no"/>
-	<test-case id="ForwardComp__91853" compiles="no"/>
-	<test-case id="ForwardComp__91855" compiles="no"/>
+  <test-case id="Elements__89709" compare="fragment"/>
+  <test-case id="Elements__89710" compare="fragment"/>
+  <test-case id="Elements__89711" compare="fragment"/>
+  <test-case id="Elements__89712" compare="fragment"/>
+  <test-case id="Elements__89713" compare="text"/>
+  <test-case id="Elements__89717" compare="fragment"/>
+  <test-case id="Elements__89718" compare="fragment"/>
+  <test-case id="Elements__89723" compare="fragment"/>
+  <test-case id="Fallback__91817" compiles="no"/>
+  <test-case id="Fallback__91818" compiles="no"/>
+  <test-case id="Fallback__91819" compiles="no"/>
+  <test-case id="Fallback__91820" compiles="no"/>
+  <test-case id="Fallback__91821" compiles="no"/>
+  <test-case id="Fallback__91823" compiles="no"/>
+  <test-case id="Fallback__91824" compiles="no"/>
+  <test-case id="ForEach_ForEach_ForeachWithXPATHEvaluatesToNull" compare="text"/>
+  <test-case id="ForwardComp__91837" compiles="no"/>
+  <test-case id="ForwardComp__91838" compiles="no"/>
+  <test-case id="ForwardComp__91839" compiles="no"/>
+  <test-case id="ForwardComp__91840" compiles="no"/>
+  <test-case id="ForwardComp__91842" compiles="no"/>
+  <test-case id="ForwardComp__91843" compiles="no"/>
+  <test-case id="ForwardComp__91845" compiles="no"/>
+  <test-case id="ForwardComp__91846" compiles="no"/>
+  <test-case id="ForwardComp__91847" compiles="no"/>
+  <test-case id="ForwardComp__91848" compiles="no"/>
+  <test-case id="ForwardComp__91849" compiles="no"/>
+  <test-case id="ForwardComp__91853" compiles="no"/>
+  <test-case id="ForwardComp__91855" compiles="no"/>
   <test-case id="Miscellaneous__83996" compare="text"/>
   <test-case id="Miscellaneous__84002" compare="fragment"/>
   <test-case id="Miscellaneous__84111" compiles="no"/>
@@ -433,27 +433,57 @@
   <test-case id="Miscellaneous__84475" compare="fragment"/>
   <test-case id="Miscellaneous__84610" compare="text"/>
   <test-case id="Modes__78323" compare="fragment"/>
-	<test-case id="Modes__78325" compare="text"/>
-	<test-case id="Modes__78327" compare="fragment"/>
-	<test-case id="Modes__78328" compare="text"/>
-	<test-case id="Modes__78333" compare="fragment"/>
-	<test-case id="Modes__78334" compare="fragment"/>
-	<test-case id="Modes__78341" compare="fragment"/>
-	<test-case id="Modes__78342" compare="fragment"/>
-	<test-case id="Modes__78343" compare="fragment"/>
-	<test-case id="Modes__84413" compare="fragment"/>
-	<test-case id="Modes__84414" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78188" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78190" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78196" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78200" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78201" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78202" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78203" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78393" compare="fragment"/>
-	<test-case id="ProcessingInstruction__78394" compare="fragment"/>
-	<test-case id="ProcessingInstruction_InvalidPIName2" runs="no"/>
-	<test-case id="RTF_RTF_to_number_in_format_number" compiles="no"/>
+  <test-case id="Modes__78325" compare="text"/>
+  <test-case id="Modes__78327" compare="fragment"/>
+  <test-case id="Modes__78328" compare="text"/>
+  <test-case id="Modes__78333" compare="fragment"/>
+  <test-case id="Modes__78334" compare="fragment"/>
+  <test-case id="Modes__78341" compare="fragment"/>
+  <test-case id="Modes__78342" compare="fragment"/>
+  <test-case id="Modes__78343" compare="fragment"/>
+  <test-case id="Modes__84413" compare="fragment"/>
+  <test-case id="Modes__84414" compare="fragment"/>
+  <test-case id="Namespace__77655" compare="fragment"/>
+  <test-case id="Namespace__77665" skip="yes" reason="bad test case - it runs identically on everything"/>
+  <test-case id="Namespace__77675" skip="yes" reason="duplicate of Namespace__77655.  Even second time around it's a bad test case."/>
+  <test-case id="Namespace__77669" compare="fragment"/>
+  <test-case id="Namespace__77700" compare="fragment"/>
+  <test-case id="Namespace__77701" compare="fragment"/>
+  <test-case id="Namespace__77702" compare="text"/>
+  <test-case id="Namespace__77703" compare="fragment"/>
+  <test-case id="Namespace__77704" compiles="no" reason="haven't implemented xsl:sort lang attribute yet"/>
+  <test-case id="Namespace__77983" compare="fragment"/>
+  <test-case id="Namespace__78214" compiles="no" reason="haven't implemented forward compatibility"/>
+  <test-case id="Namespace__78215" compiles="no" reason="haven't implemented embedded template yet"/>
+  <test-case id="Namespace__84473" compare="fragment"/>
+  <test-case id="Namespace__84474" compare="fragment"/>
+  <test-case id="Namespace_CheckXmlnsResetOnResultTree" skip="yes" reason="windows-1251 encoding"/>
+  <test-case id="Namespace-alias__91768" compare="text"/>
+  <test-case id="Namespace-alias__91788" compare="fragment"/>
+  <test-case id="Namespace-alias__91789" compare="fragment"/>
+  <test-case id="Namespace-alias__91792" compare="fragment"/>
+  <test-case id="Namespace-alias__91793" compare="fragment"/>
+  <test-case id="Namespace-alias__91794" compare="fragment"/>
+  <test-case id="Namespace-alias__91795" compare="fragment"/>
+  <test-case id="Namespace-alias__91796" compare="fragment"/>
+  <test-case id="Namespace-alias__91797" compare="fragment"/>
+  <test-case id="Namespace-alias__91798" compare="fragment"/>
+  <test-case id="Namespace-alias__91799" compare="fragment"/>
+  <test-case id="Namespace-alias__91800" compare="fragment"/>
+  <test-case id="Namespace-alias__91801" compare="fragment"/>
+  <test-case id="Namespace-alias_NSAlias_In_Import" compare="fragment"/>
+  <test-case id="Namespace-alias_NSAlias_Inside_CallTemplate" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78188" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78190" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78196" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78200" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78201" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78202" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78203" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78393" compare="fragment"/>
+  <test-case id="ProcessingInstruction__78394" compare="fragment"/>
+  <test-case id="ProcessingInstruction_InvalidPIName2" runs="no"/>
+  <test-case id="RTF_RTF_to_number_in_format_number" compiles="no"/>
   <test-case id="Sorting__77516" compiles="no"/>
   <test-case id="Sorting__77517" compiles="no"/>
   <test-case id="Sorting__77526" compiles="no"/>
@@ -461,24 +491,24 @@
   <test-case id="Sorting__77528" compiles="no"/>
   <test-case id="Sorting__77529" compiles="no"/>
   <test-case id="Sorting__77530" compiles="no"/>
-	<test-case id="Sorting__77532" compiles="no"/>
-	<test-case id="Sorting__77534" compiles="no"/>
-	<test-case id="Sorting__77535" compiles="no"/>
+  <test-case id="Sorting__77532" compiles="no"/>
+  <test-case id="Sorting__77534" compiles="no"/>
+  <test-case id="Sorting__77535" compiles="no"/>
   <test-case id="Sorting__77539" compiles="no" compare="fragment"/>
-	<test-case id="Sorting__77541" compiles="no"/>
-	<test-case id="Sorting__77544" compiles="no"/>
-	<test-case id="Sorting__77548" compiles="no"/>
-	<test-case id="Sorting__77557" compiles="no"/>
-	<test-case id="Sorting__77559" compiles="no"/>
+  <test-case id="Sorting__77541" compiles="no"/>
+  <test-case id="Sorting__77544" compiles="no"/>
+  <test-case id="Sorting__77548" compiles="no"/>
+  <test-case id="Sorting__77557" compiles="no"/>
+  <test-case id="Sorting__77559" compiles="no"/>
   <test-case id="Sorting__77560" compiles="no" compare="text"/>
   <test-case id="Sorting__77561" compiles="no" compare="text"/>
-	<test-case id="Sorting__77563" compiles="no"/>
-	<test-case id="Sorting__77565" compiles="no"/>
-	<test-case id="Sorting__77566" compiles="no"/>
+  <test-case id="Sorting__77563" compiles="no"/>
+  <test-case id="Sorting__77565" compiles="no"/>
+  <test-case id="Sorting__77566" compiles="no"/>
   <test-case id="Sorting__77567" compiles="no" compare="text"/>
   <test-case id="Sorting__77568" compiles="no" compare="text"/>  
-	<test-case id="Sorting__77569" compiles="no"/>
-	<test-case id="Sorting__77977" skip="yes" reason="I think the result document is bad - compare what Saxon or Xalan produce with MSXML"/>
+  <test-case id="Sorting__77569" compiles="no"/>
+  <test-case id="Sorting__77977" skip="yes" reason="I think the result document is bad - compare what Saxon or Xalan produce with MSXML"/>
   <test-case id="Sorting__77979" compiles="no" compare="text"/>
   <test-case id="Sorting__77980" compiles="no" compare="text"/>
   <test-case id="Sorting__77981" compiles="no" compare="text"/>
@@ -487,193 +517,241 @@
   <test-case id="Sorting__78191" compiles="no"/>
   <test-case id="Sorting__78286" skip="yes" reason="multiple valid results - Mangle agrees with Saxon, producing a different result to MSXML and Xalan"/>
   <test-case id="Sorting__78291" skip="yes" reason="multiple valid results - Mangle agrees with Saxon, producing a different result to MSXML and Xalan" compare="text"/>
-	<test-case id="Sorting__81684" compiles="no"/>
-	<test-case id="Sorting__81685" compiles="no"/>
-	<test-case id="Sorting__81686" compiles="no"/>
-	<test-case id="Sorting__81691" compiles="no"/>
-	<test-case id="Sorting__81692" compiles="no"/>
-	<test-case id="Sorting__81693" compiles="no"/>
-	<test-case id="Sorting__81710" compiles="no" compare="fragment"/>
-	<test-case id="Sorting__81711" compiles="no" compare="fragment"/>
-	<test-case id="Sorting__81712" compiles="no" compare="fragment"/>
-	<test-case id="Sorting__81713" compiles="no"/>
-	<test-case id="Sorting__81717" compiles="no" compare="fragment"/>
-	<test-case id="Sorting__81718" compiles="no" compare="fragment"/>
-	<test-case id="Sorting__81719" compiles="no" compare="fragment"/>
-	<test-case id="Sorting__83821" compiles="no"/>
-	<test-case id="Sorting__84186" compiles="no"/>
-	<test-case id="Sorting__84465" compiles="no"/>
-	<test-case id="Sorting__84466" compiles="no"/>
-	<test-case id="Sorting__84467" compiles="no"/>
-	<test-case id="Sorting__84468" compiles="no"/>
-	<test-case id="Sorting__84469" compiles="no"/>
-	<test-case id="Sorting__84470" compiles="no"/>
-	<test-case id="Sorting__84471" compiles="no" compare="text"/>
-	<test-case id="Sorting__84472" compiles="no" compare="text"/>
-	<test-case id="Sorting__84479" compiles="no" compare="text"/>
-	<test-case id="Sorting__89749" compiles="no" compare="text"/>
-	<test-case id="Sorting__89751" compiles="no" compare="text"/>
-	<test-case id="Sorting__89758" compiles="no" compare="fragment"/>
-	<test-case id="Sorting__89760" compiles="no" compare="text"/>
-	<test-case id="Sorting__89762" compiles="no" compare="text"/>
-	<test-case id="Sorting__89763" compiles="no" compare="text"/>
-	<test-case id="Sorting__91689" compiles="no" compare="text"/>
-	<test-case id="Sorting__91691" compiles="no" compare="text"/>
-	<test-case id="Sorting__91693" compiles="no" compare="text"/>
-	<test-case id="Sorting__91694" compiles="no" compare="text"/>
-	<test-case id="Sorting__91695" compiles="no" compare="text"/>
-	<test-case id="Sorting__91696" compiles="no" compare="text"/>
-	<test-case id="Sorting__91697" compiles="no" compare="text"/>
-	<test-case id="Sorting__91698" compiles="no" compare="text"/>
-	<test-case id="Sorting__91699" compiles="no" compare="text"/>
-	<test-case id="Sorting__91700" compiles="no" compare="text"/>
-	<test-case id="Sorting__91701" compiles="no" compare="text"/>
-	<test-case id="Sorting__91704" compiles="no" compare="text"/>
-	<test-case id="Sorting__91705" compiles="no" compare="text"/>
-	<test-case id="Sorting__91752" compiles="no" compare="text"/>
-	<test-case id="Sorting__91753" compiles="no" compare="fragment"/>
-	<test-case id="Sorting_Sort_AllTextElementsAreSame" compiles="no"/>
-	<test-case id="Sorting_Sort_CommaDelimitedNumber" compiles="no"/>
-	<test-case id="Sorting_Sort_LongTextWithTrailingNumbers" compiles="no"/>
-	<test-case id="Sorting_Sort_MixedCaseWithUpperSet" compiles="no"/>
-	<test-case id="Sorting_Sort_SortOnNumbersWithAttributeCaseOrder" compiles="no"/>
-	<test-case id="Sorting_Sort_PositiveNumbersHavePlusSign" compiles="no"/>
-	<test-case id="Sorting_Sort_SortEmptyTextNodesWithDataTypeNumber" compiles="no"/>
-	<test-case id="Sorting_Sort_NumbersWithLanguageNotEnglish" compiles="no"/>
-	<test-case id="Sorting_Sort_SortOnDecimalPointWithoutPrefixedZero" compiles="no"/>
-	<test-case id="Sorting_Sort_SortSameNumbers" compiles="no"/>
-	<test-case id="Sorting_Sort_SortTextWithNonTextCharacters" compiles="no"/>
-	<test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextLowerCaseFirst" compiles="no"/>
-	<test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextUpperCaseFirst" compiles="no"/>
-	<test-case id="Sorting_Sort_TextNodesSpanMultipleLines" compiles="no"/>
-	<test-case id="Sorting_Sort_UpperFirstOnTextWithUpper" compiles="no"/>
-	<test-case id="Sorting_Sort_ZeroAndNegativeZero" compiles="no"/>
-	<test-case id="Sorting_Sort_ZeroPrefixedNegativeNumbers" compiles="no"/>
-	<test-case id="Sorting_SortEquivalentValueDiffRepresentationBothDir" compiles="no"/>
-	<test-case id="Sorting_ValidSortThreeNumbers" compiles="no"/>
+  <test-case id="Sorting__81684" compiles="no"/>
+  <test-case id="Sorting__81685" compiles="no"/>
+  <test-case id="Sorting__81686" compiles="no"/>
+  <test-case id="Sorting__81691" compiles="no"/>
+  <test-case id="Sorting__81692" compiles="no"/>
+  <test-case id="Sorting__81693" compiles="no"/>
+  <test-case id="Sorting__81710" compiles="no" compare="fragment"/>
+  <test-case id="Sorting__81711" compiles="no" compare="fragment"/>
+  <test-case id="Sorting__81712" compiles="no" compare="fragment"/>
+  <test-case id="Sorting__81713" compiles="no"/>
+  <test-case id="Sorting__81717" compiles="no" compare="fragment"/>
+  <test-case id="Sorting__81718" compiles="no" compare="fragment"/>
+  <test-case id="Sorting__81719" compiles="no" compare="fragment"/>
+  <test-case id="Sorting__83821" compiles="no"/>
+  <test-case id="Sorting__84186" compiles="no"/>
+  <test-case id="Sorting__84465" compiles="no"/>
+  <test-case id="Sorting__84466" compiles="no"/>
+  <test-case id="Sorting__84467" compiles="no"/>
+  <test-case id="Sorting__84468" compiles="no"/>
+  <test-case id="Sorting__84469" compiles="no"/>
+  <test-case id="Sorting__84470" compiles="no"/>
+  <test-case id="Sorting__84471" compiles="no" compare="text"/>
+  <test-case id="Sorting__84472" compiles="no" compare="text"/>
+  <test-case id="Sorting__84479" compiles="no" compare="text"/>
+  <test-case id="Sorting__89749" compiles="no" compare="text"/>
+  <test-case id="Sorting__89751" compiles="no" compare="text"/>
+  <test-case id="Sorting__89758" compiles="no" compare="fragment"/>
+  <test-case id="Sorting__89760" compiles="no" compare="text"/>
+  <test-case id="Sorting__89762" compiles="no" compare="text"/>
+  <test-case id="Sorting__89763" compiles="no" compare="text"/>
+  <test-case id="Sorting__91689" compiles="no" compare="text"/>
+  <test-case id="Sorting__91691" compiles="no" compare="text"/>
+  <test-case id="Sorting__91693" compiles="no" compare="text"/>
+  <test-case id="Sorting__91694" compiles="no" compare="text"/>
+  <test-case id="Sorting__91695" compiles="no" compare="text"/>
+  <test-case id="Sorting__91696" compiles="no" compare="text"/>
+  <test-case id="Sorting__91697" compiles="no" compare="text"/>
+  <test-case id="Sorting__91698" compiles="no" compare="text"/>
+  <test-case id="Sorting__91699" compiles="no" compare="text"/>
+  <test-case id="Sorting__91700" compiles="no" compare="text"/>
+  <test-case id="Sorting__91701" compiles="no" compare="text"/>
+  <test-case id="Sorting__91704" compiles="no" compare="text"/>
+  <test-case id="Sorting__91705" compiles="no" compare="text"/>
+  <test-case id="Sorting__91752" compiles="no" compare="text"/>
+  <test-case id="Sorting__91753" compiles="no" compare="fragment"/>
+  <test-case id="Sorting_Sort_AllTextElementsAreSame" compiles="no"/>
+  <test-case id="Sorting_Sort_CommaDelimitedNumber" compiles="no"/>
+  <test-case id="Sorting_Sort_LongTextWithTrailingNumbers" compiles="no"/>
+  <test-case id="Sorting_Sort_MixedCaseWithUpperSet" compiles="no"/>
+  <test-case id="Sorting_Sort_SortOnNumbersWithAttributeCaseOrder" compiles="no"/>
+  <test-case id="Sorting_Sort_PositiveNumbersHavePlusSign" compiles="no"/>
+  <test-case id="Sorting_Sort_SortEmptyTextNodesWithDataTypeNumber" compiles="no"/>
+  <test-case id="Sorting_Sort_NumbersWithLanguageNotEnglish" compiles="no"/>
+  <test-case id="Sorting_Sort_SortOnDecimalPointWithoutPrefixedZero" compiles="no"/>
+  <test-case id="Sorting_Sort_SortSameNumbers" compiles="no"/>
+  <test-case id="Sorting_Sort_SortTextWithNonTextCharacters" compiles="no"/>
+  <test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextLowerCaseFirst" compiles="no"/>
+  <test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextUpperCaseFirst" compiles="no"/>
+  <test-case id="Sorting_Sort_TextNodesSpanMultipleLines" compiles="no"/>
+  <test-case id="Sorting_Sort_UpperFirstOnTextWithUpper" compiles="no"/>
+  <test-case id="Sorting_Sort_ZeroAndNegativeZero" compiles="no"/>
+  <test-case id="Sorting_Sort_ZeroPrefixedNegativeNumbers" compiles="no"/>
+  <test-case id="Sorting_SortEquivalentValueDiffRepresentationBothDir" compiles="no"/>
+  <test-case id="Sorting_ValidSortThreeNumbers" compiles="no"/>
   <test-case id="Sorting_SortExprWithCurrentInsideForEach" compiles="no" compare="fragment"/>
   <test-case id="Sorting_SortExprWithCurrentInsideForEach1" compiles="no" compare="text"/>
-	<test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compiles="no" compare="text"/>
+  <test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compiles="no" compare="text"/>
   <test-case id="Sorting_SortExprWithCurrentInApplyTemplates" compiles="no" compare="fragment"/>
   <test-case id="Sorting_TurkishISortingTest" compiles="no" compare="fragment"/>
-	<test-case id="Text__78230" compare="text"/>
-	<test-case id="Text__78242" compare="text"/>
-	<test-case id="Text__78244" compare="text"/>
-	<test-case id="Text__78245" compare="fragment"/>
-	<test-case id="Text__78246" compare="text"/>
-	<test-case id="Text__78247" compare="text"/>
-	<test-case id="Text__78249" compare="text"/>
-	<test-case id="Text__78272" skip="yes" reason="Test result is bad."/>
-	<test-case id="Text__78273" compare="text"/>
-	<test-case id="Text__78274" compare="text"/>
-	<test-case id="Text__78275" compare="text"/>
-	<test-case id="Text__78276" compare="text"/>
-	<test-case id="Text__78277" compare="text"/>
-	<test-case id="Text__78278" compare="text"/>
-	<test-case id="Text__78279" compare="text"/>
-	<test-case id="Text__78280" compare="text"/>
-	<test-case id="Text__78281" compare="text"/>
-	<test-case id="Text__78307" compare="text"/>
-	<test-case id="Text__78308" compare="text"/>
-	<test-case id="Text__78309" compare="text"/>
-	<test-case id="Text__78311" compare="text"/>
-	<test-case id="Text__78313" compare="text"/>
+  <test-case id="Text__78230" compare="text"/>
+  <test-case id="Text__78242" compare="text"/>
+  <test-case id="Text__78244" compare="text"/>
+  <test-case id="Text__78245" compare="fragment"/>
+  <test-case id="Text__78246" compare="text"/>
+  <test-case id="Text__78247" compare="text"/>
+  <test-case id="Text__78249" compare="text"/>
+  <test-case id="Text__78272" skip="yes" reason="Test result is bad."/>
+  <test-case id="Text__78273" compare="text"/>
+  <test-case id="Text__78274" compare="text"/>
+  <test-case id="Text__78275" compare="text"/>
+  <test-case id="Text__78276" compare="text"/>
+  <test-case id="Text__78277" compare="text"/>
+  <test-case id="Text__78278" compare="text"/>
+  <test-case id="Text__78279" compare="text"/>
+  <test-case id="Text__78280" compare="text"/>
+  <test-case id="Text__78281" compare="text"/>
+  <test-case id="Text__78307" compare="text"/>
+  <test-case id="Text__78308" compare="text"/>
+  <test-case id="Text__78309" compare="text"/>
+  <test-case id="Text__78311" compare="text"/>
+  <test-case id="Text__78313" compare="text"/>
   <test-case id="Text__91137" compare="fragment"/>
-	<test-case id="Text_DoeWithCdataInText" compare="text"/>
+  <test-case id="Text_DoeWithCdataInText" compare="text"/>
   <test-case id="Text_modified78308" compare="text"/>
   <test-case id="Text_modified78309" compare="text"/>
   <test-case id="Text_Modified78311" compare="text"/>
 
-	<test-case id="Value-of_ValueOf_ConcatTextNodesIntoSingle" skip="yes" reason="I think my interpretation is valid for mapping DOM to XSLT"/>
-	<test-case id="Value-of_ValueOf_KeyReferenceInSelect" compiles="no"/>
-	<test-case id="Variables__78097" compare="text"/>
-	<test-case id="Variables__78098" compare="text"/>
-	<test-case id="Variables__78100" compare="text"/>
-	<test-case id="Variables__78101" compare="text"/>
-	<test-case id="Variables__78110" compare="text"/>
-	<test-case id="Variables__78111" compare="text"/>
-	<test-case id="Variables__78112" compare="text"/>
-	<test-case id="Variables__78115" compare="text"/>
-	<test-case id="Variables__78116" compare="text"/>
-	<test-case id="Variables__78118" compiles="no" reason="Bad test case.  This test is essentially a duplicate of Variables__78357, which correctly marked as an expected error."/>
-	<test-case id="Variables__78132" compare="text"/>
-	<test-case id="Variables__78137" compare="text"/>
-	<test-case id="Variables__78153" compare="text"/>
-	<test-case id="Variables__78160" compare="text"/>
-	<test-case id="Variables__78162" compare="text"/>
-	<test-case id="Variables__78163" compare="text"/>
-	<test-case id="Variables__78164" skip="yes" reason="doesn't support xsl:sort lang attribute yet"/>
-	<test-case id="Variables__78305" compare="text"/>
-	<test-case id="Variables__78306" compare="text"/>
-	<test-case id="Variables__78316" compare="text"/>
-	<test-case id="Variables__78317" compare="text"/>
-	<test-case id="Variables__78348" compare="text"/>
-	<test-case id="Variables__78350" compare="text"/>
-	<test-case id="Variables__78352" compare="text"/>
-	<test-case id="Variables__78353" compare="text"/>
-	<test-case id="Variables__78354" compare="text"/>
-	<test-case id="Variables__78355" compare="text"/>
-	<test-case id="Variables__78361" compare="text"/>
-	<test-case id="Variables__78400" compare="text"/>
-	<test-case id="Variables__78401" compare="text"/>
-	<test-case id="Variables__78404" compare="text"/>
-	<test-case id="Variables__84026" compare="text"/>
-	<test-case id="Variables__84034" compare="text"/>
-	<test-case id="Variables__84036" compare="text"/>
-	<test-case id="Variables__84438" skip="yes" reason="doesn't support xsl:sort lang attribute yet"/>
-	<test-case id="Variables__84439" compare="text"/>
-	<test-case id="Variables__84635" skip="yes" reason="html"/>
-	<test-case id="Variables__84636" skip="yes" reason="html"/>
-	<test-case id="Variables__84637" skip="yes" reason="html"/>
-	<test-case id="Variables__84709" skip="yes" reason="html"/>
-	<test-case id="Variables__84712" skip="yes" reason="html"/>
-	<test-case id="Variables_GlobalVarHaveLocalVarDefinedWithin" compare="fragment"/>
-	<test-case id="Variables_PositionAndLastComparisonShouldBeEqual" compare="text"/>	
-	<test-case id="Variables_SelectAttributeAndWhitespaceBetweenElement" compare="fragment"/>
-	<test-case id="Variables_UseDocumentFnToReturnRootNode" skip="yes" reason="Test case loads a document sitting on some departmental file share inside Microsoft that probably no longer exists."/>
-	<test-case id="Variables_VariableWithinVariable" skip="yes" reason="XML encoding in Windows-1251.  Similar test in arabica tests."/>
-	<test-case id="Variables_xslt_variable_qname_test1" compare="fragment"/>
-	<test-case id="Variables_xslt_variable_qname_test2" compare="fragment"/>
+  <test-case id="Value-of_ValueOf_ConcatTextNodesIntoSingle" skip="yes" reason="I think my interpretation is valid for mapping DOM to XSLT"/>
+  <test-case id="Value-of_ValueOf_KeyReferenceInSelect" compiles="no"/>
+  <test-case id="Variables__78097" compare="text"/>
+  <test-case id="Variables__78098" compare="text"/>
+  <test-case id="Variables__78100" compare="text"/>
+  <test-case id="Variables__78101" compare="text"/>
+  <test-case id="Variables__78110" compare="text"/>
+  <test-case id="Variables__78111" compare="text"/>
+  <test-case id="Variables__78112" compare="text"/>
+  <test-case id="Variables__78115" compare="text"/>
+  <test-case id="Variables__78116" compare="text"/>
+  <test-case id="Variables__78118" compiles="no" reason="Bad test case.  This test is essentially a duplicate of Variables__78357, which correctly marked as an expected error."/>
+  <test-case id="Variables__78132" compare="text"/>
+  <test-case id="Variables__78137" compare="text"/>
+  <test-case id="Variables__78153" compare="text"/>
+  <test-case id="Variables__78160" compare="text"/>
+  <test-case id="Variables__78162" compare="text"/>
+  <test-case id="Variables__78163" compare="text"/>
+  <test-case id="Variables__78164" compiles="no" reason="doesn't support xsl:sort lang attribute yet"/>
+  <test-case id="Variables__78305" compare="text"/>
+  <test-case id="Variables__78306" compare="text"/>
+  <test-case id="Variables__78316" compare="text"/>
+  <test-case id="Variables__78317" compare="text"/>
+  <test-case id="Variables__78348" compare="text"/>
+  <test-case id="Variables__78350" compare="text"/>
+  <test-case id="Variables__78352" compare="text"/>
+  <test-case id="Variables__78353" compare="text"/>
+  <test-case id="Variables__78354" compare="text"/>
+  <test-case id="Variables__78355" compare="text"/>
+  <test-case id="Variables__78361" compare="text"/>
+  <test-case id="Variables__78400" compare="text"/>
+  <test-case id="Variables__78401" compare="text"/>
+  <test-case id="Variables__78404" compare="text"/>
+  <test-case id="Variables__84026" compare="text"/>
+  <test-case id="Variables__84034" compare="text"/>
+  <test-case id="Variables__84036" compare="text"/>
+  <test-case id="Variables__84438" compiles="no" reason="doesn't support xsl:sort lang attribute yet"/>
+  <test-case id="Variables__84439" compare="text"/>
+  <test-case id="Variables__84635" skip="yes" reason="html"/>
+  <test-case id="Variables__84636" skip="yes" reason="html"/>
+  <test-case id="Variables__84637" skip="yes" reason="html"/>
+  <test-case id="Variables__84709" skip="yes" reason="html"/>
+  <test-case id="Variables__84712" skip="yes" reason="html"/>
+  <test-case id="Variables_GlobalVarHaveLocalVarDefinedWithin" compare="fragment"/>
+  <test-case id="Variables_PositionAndLastComparisonShouldBeEqual" compare="text"/>  
+  <test-case id="Variables_SelectAttributeAndWhitespaceBetweenElement" compare="fragment"/>
+  <test-case id="Variables_UseDocumentFnToReturnRootNode" skip="yes" reason="Test case loads a document sitting on some departmental file share inside Microsoft that probably no longer exists."/>
+  <test-case id="Variables_VariableWithinVariable" skip="yes" reason="XML encoding in Windows-1251.  Similar test in arabica tests."/>
+  <test-case id="Variables_xslt_variable_qname_test1" compare="fragment"/>
+  <test-case id="Variables_xslt_variable_qname_test2" compare="fragment"/>
+  <test-case id="Whitespaces__84599" compare="text"/>
+  <test-case id="Whitespaces__91221" compare="fragment"/>
+  <test-case id="Whitespaces__91222" compare="fragment"/>
+  <test-case id="Whitespaces__91223" compare="fragment"/>
+  <test-case id="Whitespaces__91224" compare="fragment"/>
+  <test-case id="Whitespaces__91225" compare="fragment"/>
+  <test-case id="Whitespaces__91226" compare="fragment"/>
+  <test-case id="Whitespaces__91227" compare="fragment"/>
+  <test-case id="Whitespaces__91228" compare="fragment"/>
+  <test-case id="Whitespaces__91421" compiles="no"/>
+  <test-case id="Whitespaces__91422" compiles="no"/>
+  <test-case id="Whitespaces__91423" compiles="no"/>
+  <test-case id="Whitespaces__91424" compiles="no"/>
+  <test-case id="Whitespaces__91425" compiles="no"/>
+  <test-case id="Whitespaces__91426" compiles="no"/>
+  <test-case id="Whitespaces__91427" compiles="no"/>
+  <test-case id="Whitespaces__91428" compiles="no"/>
+  <test-case id="Whitespaces__91429" compiles="no"/>
+  <test-case id="Whitespaces__91430" compiles="no"/>
+  <test-case id="Whitespaces__91431" compiles="no"/>
+  <test-case id="Whitespaces__91432" compiles="no"/>
+  <test-case id="Whitespaces__91433" compiles="no"/>
+  <test-case id="Whitespaces__91434" compiles="no"/>
+  <test-case id="Whitespaces__91435" compiles="no"/>
+  <test-case id="Whitespaces__91436" compiles="no"/>
+  <test-case id="Whitespaces__91437" compiles="no"/>
+  <test-case id="Whitespaces__91438" compiles="no"/>
+  <test-case id="Whitespaces__91439" compiles="no"/>
+  <test-case id="Whitespaces__91440" compiles="no"/>
+  <test-case id="Whitespaces__91441" compiles="no"/>
+  <test-case id="Whitespaces__91442" compiles="no"/>
+  <test-case id="Whitespaces__91443" compiles="no"/>
+  <test-case id="Whitespaces__91444" compiles="no"/>
+  <test-case id="Whitespaces__91445" compiles="no"/>
+  <test-case id="Whitespaces__91446" compiles="no"/>
+  <test-case id="Whitespaces__91447" compiles="no"/>
+  <test-case id="Whitespaces__91448" compiles="no"/>
+  <test-case id="Whitespaces__91449" compiles="no"/>
+  <test-case id="Whitespaces__91450" compiles="no"/>
+  <test-case id="Whitespaces__91450" compiles="no"/>
+  <test-case id="Whitespaces__91451" compiles="no"/>
+  <test-case id="Whitespaces__91452" compiles="no"/>
+  <test-case id="Whitespaces__91453" compiles="no"/>
+  <test-case id="Whitespaces__91454" compiles="no"/>
+  <test-case id="Whitespaces__91455" compiles="no"/>
+  <test-case id="Whitespaces__91456" compiles="no"/>
+  <test-case id="Whitespaces_WhitespaceStripTest1" compiles="no"/>
+  <test-case id="Whitespaces_XSLT_StripSpace_WhitespaceWithText" compiles="no"/>
 
-	<test-case id="XSLTFunctions__84048" skip="yes" reason="MS specific output"/>
-	<test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
-	<test-case id="XSLTFunctions__84050" skip="yes" reason="MS specific output"/>
-	<test-case id="XSLTFunctions__84053" compiles="no"/>
-	<test-case id="XSLTFunctions__84054" compiles="no"/>
-	<test-case id="XSLTFunctions__84056" compiles="no"/>
-	<test-case id="XSLTFunctions__84058" compiles="no"/>
-	<test-case id="XSLTFunctions__84170" compiles="no"/>
-	<test-case id="XSLTFunctions__84171" compiles="no"/>
-	<test-case id="XSLTFunctions__84172" compiles="no"/>
-	<test-case id="XSLTFunctions__84173" compiles="no"/>
+  <test-case id="XSLTFunctions__84048" skip="yes" reason="MS specific output"/>
+  <test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
+  <test-case id="XSLTFunctions__84050" skip="yes" reason="MS specific output"/>
+  <test-case id="XSLTFunctions__84053" compiles="no"/>
+  <test-case id="XSLTFunctions__84054" compiles="no"/>
+  <test-case id="XSLTFunctions__84056" compiles="no"/>
+  <test-case id="XSLTFunctions__84058" compiles="no"/>
+  <test-case id="XSLTFunctions__84170" compiles="no"/>
+  <test-case id="XSLTFunctions__84171" compiles="no"/>
+  <test-case id="XSLTFunctions__84172" compiles="no"/>
+  <test-case id="XSLTFunctions__84173" compiles="no"/>
   <test-case id="XSLTFunctions__84175" compare="text"/>
-	<test-case id="XSLTFunctions__84415" compare="fragment"/>
-	<test-case id="XSLTFunctions__84421" compare="fragment"/>
-	<test-case id="XSLTFunctions__defaultPattern" compiles="no"/>
-	<test-case id="XSLTFunctions__emptyParameters" compiles="no"/>
-	<test-case id="XSLTFunctions__EuropeanPattern" compiles="no"/>
-	<test-case id="XSLTFunctions__minimalValue" compiles="no"/>
-	<test-case id="XSLTFunctions__minimumValue" compiles="no"/>
-	<test-case id="XSLTFunctions__Non_DigitPattern" compiles="no"/>
-	<test-case id="XSLTFunctions__Pattern-separator" compiles="no"/>
-	<test-case id="XSLTFunctions__percentPattern" compiles="no"/>
-	<test-case id="XSLTFunctions__sameDecimalFormats" compiles="no"/>
-	<test-case id="XSLTFunctions__sameDecimalFormatsWithImport" compiles="no"/>
-	<test-case id="XSLTFunctions__specialCharInPattern" compiles="no"/>
-	<test-case id="XSLTFunctions__testOn-0.00" compiles="no"/>
-	<test-case id="XSLTFunctions__testWithNumber" compiles="no"/>
-	<test-case id="XSLTFunctions_DocumentFunctionWithAbsoluteArgument" skip="yes" reason="This test probably only worked on one machine somewhere in Microsoft.  Thanks chaps."/>
-	<test-case id="XSLTFunctions_DocumentFunctionWithEntityRef" runs="no"/>
-	<test-case id="XSLTFunctions_DocumentInUnion" compare="text"/>
-	<test-case id="XSLTFunctions_DocumentInUnionWithDuplicateNodes" runs="no"/>
-	<test-case id="XSLTFunctions_ElementAvailFunctionFalseTest" compiles="no"/>
-	<test-case id="XSLTFunctions_ElementAvailFunctionTrueTest" compiles="no"/>
-	<test-case id="XSLTFunctions_GenereateIdAppliedToNamespaceNodesOnDifferentElements" compiles="no"/>
-	<test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset" compiles="no"/>
-	<test-case id="XSLTFunctions_TestIdFuncInComplexStruct" compiles="no"/>
-	<test-case id="XSLTFunctions_TestOfIdFunction" compiles="no"/>
-	<test-case id="XSLTFunctions_Bug76054" compiles="no"/>
-	<test-case id="XSLTFunctions_Bug76984" runs="no"/>
+  <test-case id="XSLTFunctions__84415" compare="fragment"/>
+  <test-case id="XSLTFunctions__84421" compare="fragment"/>
+  <test-case id="XSLTFunctions__defaultPattern" compiles="no"/>
+  <test-case id="XSLTFunctions__emptyParameters" compiles="no"/>
+  <test-case id="XSLTFunctions__EuropeanPattern" compiles="no"/>
+  <test-case id="XSLTFunctions__minimalValue" compiles="no"/>
+  <test-case id="XSLTFunctions__minimumValue" compiles="no"/>
+  <test-case id="XSLTFunctions__Non_DigitPattern" compiles="no"/>
+  <test-case id="XSLTFunctions__Pattern-separator" compiles="no"/>
+  <test-case id="XSLTFunctions__percentPattern" compiles="no"/>
+  <test-case id="XSLTFunctions__sameDecimalFormats" compiles="no"/>
+  <test-case id="XSLTFunctions__sameDecimalFormatsWithImport" compiles="no"/>
+  <test-case id="XSLTFunctions__specialCharInPattern" compiles="no"/>
+  <test-case id="XSLTFunctions__testOn-0.00" compiles="no"/>
+  <test-case id="XSLTFunctions__testWithNumber" compiles="no"/>
+  <test-case id="XSLTFunctions_DocumentFunctionWithAbsoluteArgument" skip="yes" reason="This test probably only worked on one machine somewhere in Microsoft.  Thanks chaps."/>
+  <test-case id="XSLTFunctions_DocumentFunctionWithEntityRef" runs="no"/>
+  <test-case id="XSLTFunctions_DocumentInUnion" compare="text"/>
+  <test-case id="XSLTFunctions_DocumentInUnionWithDuplicateNodes" runs="no"/>
+  <test-case id="XSLTFunctions_ElementAvailFunctionFalseTest" compiles="no"/>
+  <test-case id="XSLTFunctions_ElementAvailFunctionTrueTest" compiles="no"/>
+  <test-case id="XSLTFunctions_GenereateIdAppliedToNamespaceNodesOnDifferentElements" compiles="no"/>
+  <test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset" compiles="no"/>
+  <test-case id="XSLTFunctions_TestIdFuncInComplexStruct" compiles="no"/>
+  <test-case id="XSLTFunctions_TestOfIdFunction" compiles="no"/>
+  <test-case id="XSLTFunctions_Bug76054" compiles="no"/>
+  <test-case id="XSLTFunctions_Bug76984" runs="no"/>
 
   
   <test-case id="stylesheet01" compare="text"/>
