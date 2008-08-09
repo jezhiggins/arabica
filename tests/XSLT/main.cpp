@@ -34,7 +34,7 @@ const char* msft_tests[] = { "AVTs", /*"AttributeSets",*/ "Attributes", "BVTs",
                              "Miscellaneous", "Modes", "NamedTemplates", "Namespace",
                              "Namespace-alias", "Namespace_XPath", /*"Number",*/
                              /*"Output",*/ "ProcessingInstruction", "RTF", "Sorting", 
-                             /*"Stylesheet", */ /*"Template",*/ /*"Text", */ "Valueof",
+                             "Stylesheet", /*"Template",*/ /*"Text", */ "Valueof",
                              "Variables", "Whitespaces", "XSLTFunctions", 0 };
 
 const char* arabica_tests[] = { "errors", "include", "processing-instruction", "stylesheet", "variables", 0 };

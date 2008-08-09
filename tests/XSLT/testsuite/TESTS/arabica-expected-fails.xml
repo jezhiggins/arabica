@@ -588,6 +588,11 @@
   <test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compiles="no" compare="text"/>
   <test-case id="Sorting_SortExprWithCurrentInApplyTemplates" compiles="no" compare="fragment"/>
   <test-case id="Sorting_TurkishISortingTest" compiles="no" compare="fragment"/>
+  <test-case id="Stylesheet__91802" compare="text"/>
+  <test-case id="Stylesheet__91803" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
+  <test-case id="Stylesheet__91804" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
+  <test-case id="Stylesheet__91810" compiles="no" reason="Haven't implemented element-available yet"/>
+  <test-case id="Stylesheet__91811" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
   <test-case id="Text__78230" compare="text"/>
   <test-case id="Text__78242" compare="text"/>
   <test-case id="Text__78244" compare="text"/>
