@@ -66,6 +66,8 @@ std::map<std::string, std::string> gatherAttributes(const std::string& parentEle
   {
     if(atts.getLocalName(a) == "") 
       continue; // namespace decl
+    if(atts.getURI(a) == "http://www.w3.org/XML/1998/namespace")
+      continue; // special xml: attributes
     validateAttribute(parentElement, atts.getLocalName(a), atts.getValue(a), rules, results);
   }
 
