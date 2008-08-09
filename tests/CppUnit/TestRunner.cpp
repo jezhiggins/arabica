@@ -1,5 +1,6 @@
 #include "TestRunner.hpp"
 #include "textui/TextTestResult.h"
+#include "textui/TableTestResult.hpp"
 #include <iostream>
 
 //////////////////////////////////////////
@@ -23,20 +24,35 @@ using namespace std;
 typedef pair<string, Test *>           mapping;
 typedef vector<pair<string, Test *> >   mappings;
 
+template<typename result_type>
 bool run(const string& name, Test *test, bool verbose)
 {
   if(verbose)
     cout << "Running " << name << endl;
-  TextTestResult  result(name, verbose);
+  result_type  result(name, verbose);
   test->run (&result);
   cout << result;
   return result.wasSuccessful();
 } // run
 
+bool textrun(const string& name, Test *test, bool verbose)
+{
+  return run<TextTestResult>(name, test, verbose);
+} // textrun
+
+bool tablerun(const string& name, Test *test, bool verbose)
+{
+  return run<TableTestResult>(name, test, verbose);
+} // tablerun
+
+
+
 void printBanner ()
 {
-  cout << "Usage: driver [-v] [ -wait ] testName, where name is the name of a test case class" << endl;
+  cout << "Usage: driver [-v] [-table] [ -wait ] testName, where name is the name of a test case class" << endl;
 } // printBanner
+
+typedef bool (*runFn)(const string& name, Test *test, bool verbose);
 
 bool TestRunner::run(int ac, const char **av)
 {
@@ -44,6 +60,7 @@ bool TestRunner::run(int ac, const char **av)
   string  testCase;
   int     numberOfTests = 0;
   int opt = 0;
+  runFn runner = textrun;
 
   for(int i = 1; i < ac; i++) 
   {
@@ -60,6 +77,14 @@ bool TestRunner::run(int ac, const char **av)
       ++opt;
       continue;
     }
+
+    if(string(av[i]) == "-table")
+    {
+      runner = tablerun;
+      ++opt;
+      continue;
+    }
+
 
     testCase = av[i];
 
@@ -78,7 +103,7 @@ bool TestRunner::run(int ac, const char **av)
       if((*it).first == testCase) 
       {
         testToRun = (*it).second;
-        ok &= ::run((*it).first, testToRun, verbose_);
+        ok &= runner((*it).first, testToRun, verbose_);
       }
     }
 
@@ -96,7 +121,7 @@ bool TestRunner::run(int ac, const char **av)
     // run everything
     for(mappings::iterator it = m_mappings.begin(); it != m_mappings.end(); ++it) 
     {
-      ok &= ::run((*it).first, (*it).second, verbose_);
+      ok &= runner((*it).first, (*it).second, verbose_);
     }
     return ok;
   } 

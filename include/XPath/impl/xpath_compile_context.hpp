@@ -35,7 +35,7 @@ private:
   {
     string_type uri = namespaceContext_.namespaceURI(prefix);
     if(string_adaptor::empty(uri))
-      throw Arabica::XPath::UnboundNamespacePrefixException(prefix); 
+      throw Arabica::XPath::UnboundNamespacePrefixException(string_adaptor::asStdString(prefix)); 
     return uri;
   } // namespaceURI
 

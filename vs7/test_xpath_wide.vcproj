@@ -267,6 +267,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\tests\CppUnit\textui\TableTestResult.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\TableTestResult.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\tests\CppUnit\framework\Test.h"
 				>
 			</File>

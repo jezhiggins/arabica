@@ -20,6 +20,9 @@ public:
     virtual void        printSkips    (std::ostream& stream);
     virtual void        printHeader   (std::ostream& stream);
 
+protected:
+  const std::string& name() const { return name_; }
+
 private:
     std::string name_;
     bool verbose_;

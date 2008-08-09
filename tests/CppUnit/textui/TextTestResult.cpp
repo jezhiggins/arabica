@@ -125,7 +125,7 @@ void TextTestResult::print (ostream& stream)
     if(verbose_)
       printSkips (stream);
     if(verbose_ || !wasSuccessful())
-    cout << endl;
+    stream << endl;
 }
 
 
@@ -135,15 +135,15 @@ void TextTestResult::printHeader (ostream& stream)
     {
       if(verbose_)
       {
-        cout << endl << name_;
+        stream << endl << name_;
         if(testSkips())
-          cout << endl << "OK (" << runTests () << " tests, with " << testSkips() << " skips)" << endl;
+          stream << endl << "OK (" << runTests () << " tests, with " << testSkips() << " skips)" << endl;
       else
-        cout << endl << "OK (" << runTests () << " tests)" << endl;
+        stream << endl << "OK (" << runTests () << " tests)" << endl;
       }
     }
     else
-        cout << endl
+        stream << endl
              << name_ << endl
              << "!!!FAILURES!!!" << endl
              << "Test Results:" << endl

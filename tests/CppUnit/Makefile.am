@@ -15,7 +15,9 @@ cppunit_sources = framework/CppUnitException.h \
                   TestRunner.cpp \
                   TestRunner.hpp \
                   textui/TextTestResult.cpp \
-                  textui/TextTestResult.h
+                  textui/TextTestResult.h \
+                  textui/TableTestResult.cpp \
+                  textui/TableTestResult.h
 
 silly_string_sources = ../silly_string/silly_string.cpp \
                        ../silly_string/silly_string.hpp

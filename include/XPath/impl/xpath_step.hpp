@@ -379,7 +379,7 @@ private:
           ++node;
           if(axis == ATTRIBUTE)
           {
-            if(prefix == string_adaptor::construct("xmlns"))
+            if(prefix == string_adaptor::construct_from_utf8("xmlns"))
               return new FailNodeTest<string_type, string_adaptor>();
             return new AttributeQNameNodeTest<string_type, string_adaptor>(uri, name);
           }
@@ -392,7 +392,7 @@ private:
           ++node;
           if(axis == ATTRIBUTE)
           {
-            if(name == string_adaptor::construct("xmlns"))
+            if(name == string_adaptor::construct_from_utf8("xmlns"))
               return new FailNodeTest<string_type, string_adaptor>();
             return new AttributeNameNodeTest<string_type, string_adaptor>(name);
           }
@@ -456,7 +456,7 @@ private:
           string_type uri = namespaceContext.namespaceURI(prefix);
           if(axis == ATTRIBUTE)
           {
-            if(prefix == string_adaptor::construct("xmlns"))
+            if(prefix == string_adaptor::construct_from_utf8("xmlns"))
               return new FailNodeTest<string_type, string_adaptor>();
             return new AttributeQStarNodeTest<string_type, string_adaptor>(uri);
           }
