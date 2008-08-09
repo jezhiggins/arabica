@@ -473,6 +473,8 @@
   <test-case id="Namespace-alias__91801" compare="fragment"/>
   <test-case id="Namespace-alias_NSAlias_In_Import" compare="fragment"/>
   <test-case id="Namespace-alias_NSAlias_Inside_CallTemplate" compare="fragment"/>
+  <test-case id="Namespace_XPath_CopyNamespaceNodeToOutput" skip="yes" reason="Bad test result.  Also a slightly non-sensicle test in the first place, as you can't force them to appear in the output."/>
+  <test-case id="Namespace_XPath_PredefinedPrefix_XMLNS" compiles="no" reason="Bad test case.  xmlns is unbound - Xalan, Saxon, .Net agree, msxml thinks otherwise."/>
   <test-case id="ProcessingInstruction__78188" compare="fragment"/>
   <test-case id="ProcessingInstruction__78190" compare="fragment"/>
   <test-case id="ProcessingInstruction__78196" compare="fragment"/>
