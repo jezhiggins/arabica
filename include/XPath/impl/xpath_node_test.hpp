@@ -269,6 +269,18 @@ public:
   } // operator()
 }; // RootNodeTest
 
+template<class string_type, class string_adaptor>
+class FailNodeTest : public NodeTest<string_type, string_adaptor>
+{
+public:
+  virtual NodeTest<string_type, string_adaptor>* clone() const { return new FailNodeTest(); }
+
+  virtual bool operator()(const DOM::Node<string_type, string_adaptor>&) const
+  {
+    return false;
+  } // operator()
+}; // class FailNodeTest
+
 } // namespace impl
 } // namespace XPath
 } // namespace Arabica
