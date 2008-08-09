@@ -255,5 +255,13 @@
         <output-file role="principal">documentfn_result.xml</output-file>
       </scenario>
     </test-case>
+    <test-case id="text01">
+      <file-path>text</file-path>
+      <scenario operation="standard">
+        <input-file role="principal-data">text01.xml</input-file>
+        <input-file role="principal-stylesheet">text01.xsl</input-file>
+        <output-file role="principal">text01.txt</output-file>
+      </scenario>
+    </test-case>
   </test-catalog>
 </test-suite>

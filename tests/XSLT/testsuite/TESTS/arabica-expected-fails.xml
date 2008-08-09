@@ -591,8 +591,27 @@
   <test-case id="Stylesheet__91802" compare="text"/>
   <test-case id="Stylesheet__91803" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
   <test-case id="Stylesheet__91804" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
+  <test-case id="Stylesheet__91807" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="Stylesheet__91808" compiles="no" reason="Haven't implemented embedded stylesheets yet.  Duplicates 91807."/>
+  <test-case id="Stylesheet__91809" skip="yes" reason="Haven't implemented extension elements yet."/>
   <test-case id="Stylesheet__91810" compiles="no" reason="Haven't implemented element-available yet"/>
   <test-case id="Stylesheet__91811" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
+  <test-case id="Stylesheet__91812" skip="yes" reason="Haven't implemented extension elements yet."/>
+  <test-case id="Stylesheet__91813" skip="yes" reason="Haven't implemented extension elements yet."/>
+  <test-case id="Stylesheet__91814" skip="yes" reason="Haven't implemented extension elements yet."/>
+  <test-case id="Stylesheet__91815" skip="yes" reason="Haven't implemented extension elements yet."/>
+  <test-case id="Stylesheet__91816" compiles="no" reason="Bad test case.  xsl:extension-element-prefixes is not allowed on xsl:value-of"/>
+  <test-case id="Stylesheet_Stylsheet_ExcludeResultPrefixesOnStylesheet" skip="yes" reason="wacky ref_out encoding"/>
+  <test-case id="Template__84581" compare="text"/>
+  <test-case id="Template_MatchPatternVariation1" compare="fragment"/>
+  <test-case id="Template_MatchPatternVariation2" compare="fragment"/>
+  <test-case id="Template_MatchPatternVariation3" compare="fragment"/>
+  <test-case id="Template_MatchPatternVariation4" compare="fragment"/>
+  <test-case id="Template_MatchPatternVariation5" compare="fragment"/>
+  <test-case id="Template_MatchPatternVariation6" compare="fragment"/>
+  <test-case id="Template_TestParamValueAfterCallTemplate" compare="text"/>
+  <test-case id="Template_Bug85313" compare="text"/>
+  <test-case id="Template_Bug85313_1" compare="text"/>
   <test-case id="Text__78230" compare="text"/>
   <test-case id="Text__78242" compare="text"/>
   <test-case id="Text__78244" compare="text"/>
@@ -612,7 +631,7 @@
   <test-case id="Text__78281" compare="text"/>
   <test-case id="Text__78307" compare="text"/>
   <test-case id="Text__78308" compare="text"/>
-  <test-case id="Text__78309" compare="text"/>
+  <test-case id="Text__78309" skip="yes" reason="Bad test case.  msxml whitespace handling disagrees with everyone else"/>
   <test-case id="Text__78311" compare="text"/>
   <test-case id="Text__78313" compare="text"/>
   <test-case id="Text__91137" compare="fragment"/>
@@ -764,4 +783,6 @@
   <test-case id="stylesheet01" compare="text"/>
   <test-case id="stylesheet02" compare="text"/>
   <test-case id="stylesheet03" compare="text"/>
+
+  <test-case id="text01" compare="text"/>
 </test-suite>
