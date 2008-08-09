@@ -21,7 +21,6 @@ class FunctionResolver
 public:
   virtual ~FunctionResolver() { }
 
-  // TODO: should make this a QName
   virtual XPathFunction<string_type, string_adaptor>* 
       resolveFunction(const string_type& namespace_uri,
                       const string_type& name,
