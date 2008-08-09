@@ -29,7 +29,7 @@ public:
     if(sel.type() != Arabica::XPath::NODE_SET)
       throw SAX::SAXException("xsl:for-each must select a node set");
 
-    Arabica::XPath::NodeSet<std::string> nodes = select_->evaluateAsNodeSet(node, context.xpathContext());
+    Arabica::XPath::NodeSet<std::string> nodes = sel.asNodeSet();
     sort(node, nodes, context);
 
     LastFrame last(context, nodes.size());
