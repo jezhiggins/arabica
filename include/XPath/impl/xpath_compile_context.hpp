@@ -14,7 +14,7 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor>
-class CompilationContext
+class CompilationContext : private NamespaceContext<string_type, string_adaptor>
 {
 public:
   CompilationContext(const XPath<string_type, string_adaptor>& xpathCompiler,
@@ -27,10 +27,19 @@ public:
   } // CompilationContext
 
   const XPath<string_type, string_adaptor>& xpath() const { return xpath_; }
-  const NamespaceContext<string_type, string_adaptor>& namespaceContext() const { return namespaceContext_; }
+  const NamespaceContext<string_type, string_adaptor>& namespaceContext() const { return *this; }
   const FunctionResolver<string_type, string_adaptor>& functionResolver() const { return functionResolver_; }
 
 private:
+  virtual string_type namespaceURI(const string_type& prefix) const
+  {
+    string_type uri = namespaceContext_.namespaceURI(prefix);
+    if(string_adaptor::empty(uri))
+      throw Arabica::XPath::UnboundNamespacePrefixException(prefix); 
+    return uri;
+  } // namespaceURI
+
+
   const XPath<string_type, string_adaptor>& xpath_;
   const NamespaceContext<string_type, string_adaptor>& namespaceContext_;
   const FunctionResolver<string_type, string_adaptor>& functionResolver_;
