@@ -312,6 +312,7 @@ private:
     factory[impl::VariableReference_id] = createVariable;
 
     factory[impl::NodeTest_id] = createSingleStepRelativeLocationPath;
+    factory[impl::NameTest_id] = createSingleStepRelativeLocationPath;
     factory[impl::QName_id] = createSingleStepRelativeLocationPath;
     factory[impl::NCName_id] = createSingleStepRelativeLocationPath;
     factory[impl::AnyName_id] = createSingleStepRelativeLocationPath;

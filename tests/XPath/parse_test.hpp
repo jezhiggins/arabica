@@ -68,6 +68,10 @@ public:
     assertTrue(parser.compile(SA::construct_from_utf8("  a:b")));
     assertTrue(parser.compile(SA::construct_from_utf8("a:b  ")));
     assertTrue(parser.compile(SA::construct_from_utf8("   a:b  ")));
+    assertTrue(parser.compile(SA::construct_from_utf8("a:*")));
+    assertTrue(parser.compile(SA::construct_from_utf8("  a:*")));
+    assertTrue(parser.compile(SA::construct_from_utf8("a:*  ")));
+    assertTrue(parser.compile(SA::construct_from_utf8("   a:*  ")));
     parser.resetNamespaceContext();
   }
 
