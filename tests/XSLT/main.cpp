@@ -32,7 +32,7 @@ const char* msft_tests[] = { "AVTs", /*"AttributeSets",*/ "Attributes", "BVTs",
                              "Elements", "Errors", "Fallback", "ForEach", /*"FormatNumber",*/
                              "ForwardComp", /*"Import",*/ /*"Keys",*/ "Messages", 
                              "Miscellaneous", "Modes", "NamedTemplates", "Namespace",
-                             "Namespace-alias", /*"Namespace_XPath",*/ /*"Number",*/
+                             "Namespace-alias", "Namespace_XPath", /*"Number",*/
                              /*"Output",*/ "ProcessingInstruction", "RTF", "Sorting", 
                              /*"Stylesheet", */ /*"Template",*/ /*"Text", */ "Valueof",
                              "Variables", "Whitespaces", "XSLTFunctions", 0 };
