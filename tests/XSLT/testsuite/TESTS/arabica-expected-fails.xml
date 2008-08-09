@@ -31,6 +31,7 @@
   <test-case id="lre_lre12" compiles="no" reason="Failing to compile is actually legitimate here.  Saxon and MSXML agree, Xalan chooses to continue."/>
   <test-case id="lre_lre13" compare="text" reason="Text out"/>
   <test-case id="match_match01" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="match_match11" compiles="no" reason="haven't implemented id function"/>
   <test-case id="mdocs_mdocs02" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs04" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs05" runs="no" reason="haven't implemented node-set arg version of document()"/>
@@ -443,6 +444,21 @@
   <test-case id="Modes__78343" compare="fragment"/>
   <test-case id="Modes__84413" compare="fragment"/>
   <test-case id="Modes__84414" compare="fragment"/>
+  <test-case id="NamedTemplates__84029" compare="text"/>
+  <test-case id="NamedTemplates__84037" compare="fragment"/>
+  <test-case id="NamedTemplates__84038" compare="fragment"/>
+  <test-case id="NamedTemplates__84043" compare="fragment"/>
+  <test-case id="NamedTemplates__84044" compare="text"/>
+  <test-case id="NamedTemplates__84047" compare="fragment"/>
+  <test-case id="NamedTemplates__84416" compare="fragment"/>
+  <test-case id="NamedTemplates__84417" compare="fragment"/>
+  <test-case id="NamedTemplates__84418" compare="fragment"/>
+  <test-case id="NamedTemplates__84419" compare="fragment"/>
+  <test-case id="NamedTemplates__84436" compare="fragment"/>
+  <test-case id="NamedTemplates__84437" compare="fragment"/>
+  <test-case id="NamedTemplates_NamedTemplate_ImportTemplateThatCallsParentStylesheetNT" compare="fragment"/>
+  <test-case id="NamedTemplates_NamedTemplate_ImportTemplateWithSameName" compare="fragment"/>
+  <test-case id="NamedTemplates_NamedTemplate_NameTemplateWithEscapeCharacterInName" compare="text"/>
   <test-case id="Namespace__77655" compare="fragment"/>
   <test-case id="Namespace__77665" skip="yes" reason="bad test case - it runs identically on everything"/>
   <test-case id="Namespace__77675" skip="yes" reason="duplicate of Namespace__77655.  Even second time around it's a bad test case."/>
