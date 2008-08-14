@@ -350,6 +350,62 @@ class URITest : public TestCase
       assertEquals("file://d:/work/jezuk/arabica/file.xml", u.as_string());
     } // test32
 
+  void test33()
+  {
+    URI u("file:///woot.txt");
+    
+    assertEquals("", u.host());
+    assertEquals("file", u.scheme());
+    assertEquals("/woot.txt", u.path());
+  } // test33
+
+  void test34()
+  {
+    URI u("file:/woot.txt");
+    
+    assertEquals("", u.host());
+    assertEquals("file", u.scheme());
+    assertEquals("/woot.txt", u.path());
+  } // test34
+
+  void test35()
+  {
+    URI u("file:woot.txt");
+    
+    assertEquals("", u.host());
+    assertEquals("file", u.scheme());
+    assertEquals("woot.txt", u.path());
+  } // URI 
+
+  void test36()
+  {
+    URI u("file://localhost/woot.txt");
+    
+    assertEquals("localhost", u.host());
+    assertEquals("file", u.scheme());
+    assertEquals("/woot.txt", u.path());
+  } // test36
+
+  void test37()
+  {
+    URI u("file:///woot/woot/");
+    URI r(u, "woo.txt");
+    
+    assertEquals("", r.host());
+    assertEquals("file", r.scheme());
+    assertEquals("/woot/woot/woo.txt", r.path());    
+  } // test37
+
+  void test38()
+  {
+    URI u("file:///woot/woot/");
+    URI r(u, "file:woo.txt");
+    
+    assertEquals("", r.host());
+    assertEquals("file", r.scheme());
+    assertEquals("/woot/woot/woo.txt", r.path());    
+  } // test38
+
 }; // class URITest
 
 TestSuite* URITest_suite()
@@ -388,6 +444,12 @@ TestSuite* URITest_suite()
   suiteOfTests->addTest(new TestCaller<URITest>("test30", &URITest::test30));
   suiteOfTests->addTest(new TestCaller<URITest>("test31", &URITest::test31));
   suiteOfTests->addTest(new TestCaller<URITest>("test32", &URITest::test32));
+  suiteOfTests->addTest(new TestCaller<URITest>("test33", &URITest::test33));
+  suiteOfTests->addTest(new TestCaller<URITest>("test34", &URITest::test34));
+  suiteOfTests->addTest(new TestCaller<URITest>("test35", &URITest::test35));
+  suiteOfTests->addTest(new TestCaller<URITest>("test36", &URITest::test36));
+  suiteOfTests->addTest(new TestCaller<URITest>("test37", &URITest::test37));
+  suiteOfTests->addTest(new TestCaller<URITest>("test38", &URITest::test38));
 
   return suiteOfTests;
 } // URITest_suite
