@@ -20,7 +20,8 @@ namespace Arabica
         scheme_(rhs.scheme_),
         host_(rhs.host_),
         path_(rhs.path_),
-        port_(rhs.port_)
+        port_(rhs.port_),
+	is_absolute_(rhs.is_absolute_)
         {
         } // URI
 
@@ -36,7 +37,8 @@ namespace Arabica
         return scheme_ == rhs.scheme_ &&
                host_ == rhs.host_ &&
                path_ == rhs.path_ &&
-               port_ == rhs.port_;
+               port_ == rhs.port_ &&
+	       is_absolute_ == rhs.is_absolute_;
       } // operator==
 
       bool operator!=(const URI& rhs) const
@@ -52,17 +54,20 @@ namespace Arabica
         std::swap(host_, rhs.host_);
         std::swap(path_, rhs.path_);
         std::swap(port_, rhs.port_);
+	std::swap(is_absolute_, rhs.is_absolute_);
       } // swap
 
       const std::string& scheme() const { return scheme_; }
       const std::string& host() const { return host_; }
       const std::string& port() const;
       const std::string& path() const { return path_; }
+      const bool& is_absolute() const { return is_absolute_; }
 
       std::string as_string() const;
       
     private:
       void parse(const std::string& URI);
+      void parse_uri(const std::string& URI);
       void parseAuthority(std::string::const_iterator& u, std::string::const_iterator& ue);
       void absolutise(URI& relURI);
       void combinePath(const std::string& path);
@@ -71,6 +76,7 @@ namespace Arabica
       std::string host_;
       std::string path_;
       std::string port_;
+      bool is_absolute_;
     }; // class URI
   } // namespace io
 } // namespace Arabica

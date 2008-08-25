@@ -8,22 +8,30 @@ namespace {
   const std::string ZERO = "0";
   const std::string PORT_EIGHTY = "80";
   const std::string PORT_443 = "443";
+
+  const std::string SCHEME_HTTP = "http";
+  const std::string SCHEME_HTTPS = "https";
+  const std::string SCHEME_FILE = "file";
+
+  const std::string COLON = ":";
+  const char FORWARD_SLASH = '/';
   
   const std::string& wellKnownPort(const std::string& scheme)
   {
     if(scheme.empty())
       return ZERO;
 
-    if(scheme == "http")
+    if(scheme == SCHEME_HTTP)
       return PORT_EIGHTY;
-    if(scheme == "https")
+    if(scheme == SCHEME_HTTPS)
       return PORT_443;
 
     return ZERO;
   } // wellKnownPort
 } // namespace 
 
-URI::URI(const std::string& uri) 
+URI::URI(const std::string& uri) :
+  is_absolute_(false)
 {
   parse(uri);
 } // URI
@@ -32,7 +40,8 @@ URI::URI(const URI& base, const std::string& relativeUrl) :
   scheme_(base.scheme_),
   host_(base.host_),
   path_(base.path_),
-  port_(base.port_)
+  port_(base.port_),
+  is_absolute_(base.is_absolute_)
 {
   if(!relativeUrl.empty())
   {
@@ -52,12 +61,14 @@ std::string URI::as_string() const
 {
   std::string str;
   if(!scheme_.empty())
-    str.append(scheme_).append("://");
+    str.append(scheme_).append(COLON);
+  if(is_absolute_)
+    str.append("//");
   if(!host_.empty())
   {
     str.append(host_);
     if(!port_.empty())
-      str.append(":").append(port_);
+      str.append(COLON).append(port_);
   }
   str.append(path_);
   return str;
@@ -66,15 +77,24 @@ std::string URI::as_string() const
 void fixSlashes(std::string& path)
 {
   for(int i = path.find('\\'); i != std::string::npos; i = path.find('\\', i))
-    path[i] = '/';
+    path[i] = FORWARD_SLASH;
 } // fixSlashes
 
 void URI::parse(const std::string& uri)
 {
+  parse_uri(uri);
+
+  is_absolute_ = (!scheme_.empty() && !host_.empty()) ||
+    (((scheme_ == SCHEME_FILE) && (!path_.empty())) && 
+     ((path_[0] == FORWARD_SLASH) || (path_[1] == ':')));
+} // parse
+
+void URI::parse_uri(const std::string& uri)
+{
   // I'd like to use something a bit stronger - http://code.google.com/p/uri-grammar/
   // but that would put a Boost Spirit dependence right in the core, which I'm not prepared to do at the moment
 
-  int d = uri.find_first_of(":");
+  int d = uri.find_first_of(COLON);
   if(d == std::string::npos)
   {
     path_ = uri;
@@ -87,7 +107,7 @@ void URI::parse(const std::string& uri)
     // looks like a windows file path
     path_ = uri;
     fixSlashes(path_);
-    scheme_ = "file";
+    scheme_ = SCHEME_FILE;
     return;
   } // if ...
 
@@ -97,7 +117,7 @@ void URI::parse(const std::string& uri)
   std::string::const_iterator ue = uri.end();
 
   ++u;
-  if(*u == '/' && *(u+1) == '/')
+  if(*u == FORWARD_SLASH && *(u+1) == FORWARD_SLASH)
   {
     u += 2;
     parseAuthority(u, ue);
@@ -108,7 +128,7 @@ void URI::parse(const std::string& uri)
 
 void URI::parseAuthority(std::string::const_iterator& u, std::string::const_iterator& ue)
 {
-  std::string::const_iterator slash = std::find(u, ue, '/');
+  std::string::const_iterator slash = std::find(u, ue, FORWARD_SLASH);
   if(slash == ue)
     return;
 
@@ -123,13 +143,14 @@ void URI::parseAuthority(std::string::const_iterator& u, std::string::const_iter
 
 void URI::absolutise(URI& relative)
 {
-  if(!relative.scheme().empty())
+  if((relative.is_absolute()) || 
+     ((!relative.scheme().empty()) && (relative.scheme() != scheme_)))
   {
     swap(relative);
     return;
   }
 
-  if(relative.path_[0] == '/')
+  if(relative.path_[0] == FORWARD_SLASH)
     path_ = relative.path_;
   else 
     combinePath(relative.path_);
@@ -137,8 +158,8 @@ void URI::absolutise(URI& relative)
 
 void URI::combinePath(const std::string& relPath)
 {
-  if(*(path_.rbegin()) != '/')
-    path_.erase(path_.rfind('/')+1);
+  if(*(path_.rbegin()) != FORWARD_SLASH)
+    path_.erase(path_.rfind(FORWARD_SLASH)+1);
 
   std::string::size_type from = path_.length() - 1;
   path_.append(relPath);
@@ -146,7 +167,7 @@ void URI::combinePath(const std::string& relPath)
   int dots = path_.find("/../", from);
   while(dots != std::string::npos)
   {
-    int preceding_slash = (dots > 0) ? path_.rfind('/', dots-1) : 0;
+    int preceding_slash = (dots > 0) ? path_.rfind(FORWARD_SLASH, dots-1) : 0;
     path_.erase(preceding_slash, dots+3-preceding_slash);
     dots = path_.find("/../", preceding_slash);
   } // while

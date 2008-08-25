@@ -21,6 +21,7 @@ class URITest : public TestCase
       assertEquals("", u.host());
       assertEquals("", u.scheme());
       assertEquals("0", u.port());
+      assertEquals(false, u.is_absolute());
       assertEquals("woo", u.as_string());
     } // test1
 
@@ -32,6 +33,7 @@ class URITest : public TestCase
       assertEquals("", u.host());
       assertEquals("", u.scheme());
       assertEquals("0", u.port());
+      assertEquals(false, u.is_absolute());
       assertEquals("woo.xml", u.as_string());
     } // test2
 
@@ -43,6 +45,7 @@ class URITest : public TestCase
       assertEquals("", u.host());
       assertEquals("", u.scheme());
       assertEquals("0", u.port());
+      assertEquals(false, u.is_absolute());
       assertEquals("woo/woo.xml", u.as_string());
     } // test3
 
@@ -54,6 +57,7 @@ class URITest : public TestCase
       assertEquals("", u.host());
       assertEquals("", u.scheme());
       assertEquals("0", u.port());
+      assertEquals(false, u.is_absolute());
       assertEquals("/woo/woo.xml", u.as_string());
     } // test4
 
@@ -65,6 +69,7 @@ class URITest : public TestCase
       assertEquals("localhost", u.host());
       assertEquals("http", u.scheme());
       assertEquals("80", u.port());
+      assertEquals(true, u.is_absolute());
       assertEquals("http://localhost/woo/woo.xml", u.as_string());
     }
 
@@ -76,6 +81,7 @@ class URITest : public TestCase
       assertEquals("localhost", u.host());
       assertEquals("http", u.scheme());
       assertEquals("8080", u.port());
+      assertEquals(true, u.is_absolute());
       assertEquals("http://localhost:8080/woo/woo.xml", u.as_string());
     }
 
@@ -87,6 +93,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", u.host());
       assertEquals("http", u.scheme());
       assertEquals("80", u.port());
+      assertEquals(true, u.is_absolute());
       assertEquals("http://www.jezuk.co.uk/arabica/news", u.as_string());
     }
 
@@ -98,6 +105,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", u.host());
       assertEquals("http", u.scheme());
       assertEquals("8000", u.port());
+      assertEquals(true, u.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/arabica/news", u.as_string());
     }
 
@@ -110,6 +118,7 @@ class URITest : public TestCase
       assertEquals("localhost", r.host());
       assertEquals("http", r.scheme());
       assertEquals("80", r.port());
+      assertEquals(true, u.is_absolute());
       assertEquals("http://localhost/nobby", r.as_string());
     } // test9
 
@@ -122,6 +131,7 @@ class URITest : public TestCase
       assertEquals("localhost", r.host());
       assertEquals("http", r.scheme());
       assertEquals("80", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://localhost/", r.as_string());
     } // test10
 
@@ -134,6 +144,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/trouser/press", r.as_string());
     } // test11
 
@@ -146,6 +157,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/arabica/trouser/press", r.as_string());
     } // test12
 
@@ -158,6 +170,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/arabica/trouser/press", r.as_string());
     } // test13
 
@@ -170,6 +183,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/trouser/press", r.as_string());
     } // test14
 
@@ -182,6 +196,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/trouser/press", r.as_string());
     } // test15
 
@@ -194,6 +209,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/arabica/news/trouser/press", r.as_string());
     } // test16
 
@@ -206,6 +222,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/arabica/news/trouser/press", r.as_string());
     } // test17
 
@@ -218,6 +235,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/arabica/trouser/press", r.as_string());
     } // test18
 
@@ -230,6 +248,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, r.is_absolute());
     } // test19
 
     void test20()
@@ -241,6 +260,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", r.host());
       assertEquals("http", r.scheme());
       assertEquals("8000", r.port());
+      assertEquals(true, u.is_absolute());
       assertEquals("http://www.jezuk.co.uk:8000/trouser/press", r.as_string());
     } // test20
 
@@ -255,6 +275,7 @@ class URITest : public TestCase
       assertEquals("www.jezuk.co.uk", u.host());
       assertEquals("http", u.scheme());
       assertEquals("80", u.port());
+      assertEquals(true, u.is_absolute());
     } // test21
 
    void test22()
@@ -348,6 +369,7 @@ class URITest : public TestCase
       assertEquals("file", u.scheme());
       assertEquals("0", u.port());
       assertEquals("file://d:/work/jezuk/arabica/file.xml", u.as_string());
+      assertEquals(true, u.is_absolute());
     } // test32
 
   void test33()
@@ -357,6 +379,8 @@ class URITest : public TestCase
     assertEquals("", u.host());
     assertEquals("file", u.scheme());
     assertEquals("/woot.txt", u.path());
+    assertEquals(true, u.is_absolute());
+    assertEquals("file:///woot.txt", u.as_string());
   } // test33
 
   void test34()
@@ -366,6 +390,8 @@ class URITest : public TestCase
     assertEquals("", u.host());
     assertEquals("file", u.scheme());
     assertEquals("/woot.txt", u.path());
+    assertEquals(true, u.is_absolute());
+    assertEquals("file:///woot.txt", u.as_string());
   } // test34
 
   void test35()
@@ -375,6 +401,8 @@ class URITest : public TestCase
     assertEquals("", u.host());
     assertEquals("file", u.scheme());
     assertEquals("woot.txt", u.path());
+    assertEquals(false, u.is_absolute());
+    assertEquals("file:woot.txt", u.as_string());
   } // URI 
 
   void test36()
@@ -384,6 +412,8 @@ class URITest : public TestCase
     assertEquals("localhost", u.host());
     assertEquals("file", u.scheme());
     assertEquals("/woot.txt", u.path());
+    assertEquals(true, u.is_absolute());
+    assertEquals("file://localhost/woot.txt", u.as_string());
   } // test36
 
   void test37()
@@ -394,6 +424,7 @@ class URITest : public TestCase
     assertEquals("", r.host());
     assertEquals("file", r.scheme());
     assertEquals("/woot/woot/woo.txt", r.path());    
+    assertEquals(true, r.is_absolute());
   } // test37
 
   void test38()
@@ -404,6 +435,7 @@ class URITest : public TestCase
     assertEquals("", r.host());
     assertEquals("file", r.scheme());
     assertEquals("/woot/woot/woo.txt", r.path());    
+    assertEquals(true, r.is_absolute());
   } // test38
 
 }; // class URITest
