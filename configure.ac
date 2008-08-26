@@ -1,6 +1,6 @@
 AC_INIT([Arabica], [2008-august], [jez@jezuk.co.uk])
 
-AM_INIT_AUTOMAKE([1.9 tar-ustar])
+AM_INIT_AUTOMAKE([1.9 tar-ustar dist-bzip2 dist-zip])
  
 AC_PROG_CXX
 AC_PROG_LIBTOOL
