@@ -4,6 +4,7 @@
 #include <SAX/XMLReader.hpp>
 #include <SAX/helpers/DefaultHandler.hpp>
 #include <SAX/helpers/AttributeTypes.hpp>
+#include <SAX/filter/TextCoalescer.hpp>
 #include <DOM/Simple/DOMImplementation.hpp>
 #include <DOM/Simple/NotationImpl.hpp>
 #include <DOM/Simple/EntityImpl.hpp>
@@ -40,6 +41,8 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
 {
     typedef typename ParserTypes<stringT, T0, T1>::string_adaptor string_adaptorT;
     typedef typename ParserTypes<stringT, T0, T1>::SAX_parser_type SAX_parser_type;
+    typedef Arabica::SAX::XMLReaderInterface<stringT, string_adaptorT> XMLReaderInterfaceT;
+    typedef Arabica::SAX::TextCoalescer<stringT, string_adaptorT> TextCoalescerT;
     typedef Arabica::SAX::Attributes<stringT, string_adaptorT> AttributesT;
     typedef Arabica::SAX::EntityResolver<stringT, string_adaptorT> EntityResolverT;
     typedef Arabica::SAX::ErrorHandler<stringT, string_adaptorT> ErrorHandlerT;
@@ -103,7 +106,8 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
       inDTD_ = false;
       inEntity_ = 0;
 
-      SAX_parser_type parser;
+      SAX_parser_type base_parser;
+      TextCoalescerT parser(base_parser);
 		  parser.setContentHandler(*this);
 		  parser.setErrorHandler(*this);
       if(entityResolver_)
@@ -172,7 +176,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
     Arabica::SAX::AttributeTypes<stringT, string_adaptorT> attributeTypes_;
 
   protected:
-    void setParserFeatures(SAX_parser_type& parser) const
+    void setParserFeatures(XMLReaderInterfaceT& parser) const
     {
       for(typename Features::const_iterator f = features_.begin(), e = features_.end(); f != e; ++f)
         try {
