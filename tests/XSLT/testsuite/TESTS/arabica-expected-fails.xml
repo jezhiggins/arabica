@@ -655,8 +655,6 @@
   <test-case id="Text_modified78308" compare="text"/>
   <test-case id="Text_modified78309" compare="text"/>
   <test-case id="Text_Modified78311" compare="text"/>
-
-  <test-case id="Value-of_ValueOf_ConcatTextNodesIntoSingle" skip="yes" reason="I think my interpretation is valid for mapping DOM to XSLT"/>
   <test-case id="Value-of_ValueOf_KeyReferenceInSelect" compiles="no"/>
   <test-case id="Variables__78097" compare="text"/>
   <test-case id="Variables__78098" compare="text"/>
