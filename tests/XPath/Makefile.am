@@ -24,6 +24,7 @@ test_sources = arithmetic_test.hpp \
                parse_test.hpp \
                relational_test.hpp \
                step_test.hpp \
+               text_node_test.hpp \
                value_test.hpp \
                xpath_test_suite.hpp
 
