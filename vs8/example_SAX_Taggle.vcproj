@@ -40,11 +40,16 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\..\include"
-				MinimalRebuild="true"
+				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
+				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
+				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -81,9 +86,6 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -117,8 +119,12 @@
 				AdditionalIncludeDirectories=".\..\include"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				TreatWChar_tAsBuiltInType="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				SuppressStartupBanner="true"
+				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -155,9 +161,6 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
