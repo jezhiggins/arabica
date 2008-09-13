@@ -172,7 +172,7 @@ public:
 
   virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
   {
-    return (node.getNodeType() == DOM::Node<string_type, string_adaptor>::TEXT_NODE) || (node.getNodeType() == DOM::Node<string_type, string_adaptor>::CDATA_SECTION_NODE);
+    return nodeIsText<string_type, string_adaptor>(node);
   } // test
 }; // class TextNodeTest
 

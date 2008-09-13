@@ -421,6 +421,13 @@ double stringAsNumber(const string_type& str)
 } // stringAsNumber
 
 template<class string_type, class string_adaptor>
+bool nodeIsText(const DOM::Node<string_type, string_adaptor>& node)
+{
+  return (node.getNodeType() == DOM::Node_base::TEXT_NODE) ||
+         (node.getNodeType() == DOM::Node_base::CDATA_SECTION_NODE);
+} // nodeIsText
+
+template<class string_type, class string_adaptor>
 string_type nodeStringValue(const DOM::Node<string_type, string_adaptor>& node)
 {
   switch(node.getNodeType())
@@ -433,8 +440,7 @@ string_type nodeStringValue(const DOM::Node<string_type, string_adaptor>& node)
       AxisEnumerator<string_type, string_adaptor> ae(node, DESCENDANT);
       while(*ae != 0)
       {
-        if((ae->getNodeType() == DOM::Node_base::TEXT_NODE) || 
-           (ae->getNodeType() == DOM::Node_base::CDATA_SECTION_NODE))
+        if(nodeIsText<string_type, string_adaptor>(*ae))
           os << ae->getNodeValue();
         ++ae;
       } // while
@@ -444,10 +450,22 @@ string_type nodeStringValue(const DOM::Node<string_type, string_adaptor>& node)
   case DOM::Node_base::ATTRIBUTE_NODE:
   case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
   case DOM::Node_base::COMMENT_NODE:
-  case DOM::Node_base::TEXT_NODE:
-  case DOM::Node_base::CDATA_SECTION_NODE:
   case NAMESPACE_NODE_TYPE:
     return node.getNodeValue();
+
+  case DOM::Node_base::TEXT_NODE:
+  case DOM::Node_base::CDATA_SECTION_NODE:
+    {
+      DOM::Node<string_type, string_adaptor> next = node.getNextSibling();
+      if((next == 0) ||
+	 !nodeIsText<string_type, string_adaptor>(next))
+	return node.getNodeValue();
+
+      std::basic_ostringstream<typename string_adaptor::value_type> os;
+      os << node.getNodeValue() 
+	 << nodeStringValue<string_type, string_adaptor>(next);
+      return string_adaptor::construct(os.str().c_str());
+    } // case
 
   default:
     throw std::runtime_error("Don't know how to calculate string-value of " + 
