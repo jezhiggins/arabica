@@ -5,6 +5,7 @@
 #include <DOM/Document.hpp>
 #include <DOM/NamedNodeMap.hpp>
 #include "xpath_namespace_node.hpp"
+#include "xpath_object.hpp"
 
 namespace Arabica
 {
@@ -120,7 +121,7 @@ protected:
     if(next != 0)
       return next;
 
-    next = context.getNextSibling();
+    next = findNextSibling(context);
     if(next != 0)
       return next;
             
@@ -134,7 +135,24 @@ protected:
     return next;
   } // walkDown
 
+  static DOM::Node<string_type, string_adaptor> findNextSibling(const DOM::Node<string_type, string_adaptor>& node)
+  {
+    if(!nodeIsText(node))
+      return node.getNextSibling();
+
+    DOM::Node<string_type, string_adaptor> next = node.getNextSibling();
+    while((next != 0) && nodeIsText(next))
+      next = next.getNextSibling();
+    return next;
+  } // findNextSibling
+
 private:
+  static bool nodeIsText(const DOM::Node<string_type, string_adaptor>& node)
+  {
+    return (node.getNodeType() == DOM::Node_base::TEXT_NODE) ||
+      (node.getNodeType() == DOM::Node_base::CDATA_SECTION_NODE);
+  } // nodeIsText
+
   DOM::Node<string_type, string_adaptor> current_;
   bool forward_;
 
@@ -260,7 +278,7 @@ public:
   virtual void advance() 
   { 
     if(AxisWalker<string_type, string_adaptor>::get() != 0)
-      AxisWalker<string_type, string_adaptor>::set(AxisWalker<string_type, string_adaptor>::get().getNextSibling());
+      AxisWalker<string_type, string_adaptor>::set(AxisWalker<string_type, string_adaptor>::findNextSibling(AxisWalker<string_type, string_adaptor>::get()));
   } // advance
   virtual AxisWalker<string_type, string_adaptor>* clone() const { return new ChildAxisWalker(*this); } 
 
@@ -291,7 +309,7 @@ private:
   {
     DOM::Node<string_type, string_adaptor> next = AxisWalker<string_type, string_adaptor>::get().getFirstChild();
     if(next == 0)
-      next = AxisWalker<string_type, string_adaptor>::get().getNextSibling();
+      next = AxisWalker<string_type, string_adaptor>::findNextSibling(AxisWalker<string_type, string_adaptor>::get());
     if(next != 0)
       return next;
           

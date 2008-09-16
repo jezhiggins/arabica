@@ -55,17 +55,17 @@ public:
     assertTrue(node == root_);
   } // test1
 
-  void test2()
+  void testTextTest()
   {
     XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/root/text()"), document_);
     assertEquals(1, nodes.asNodeSet().size());
   } // test2
 
-  void test3()
+  void testTextValue()
   {
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root/text()"), document_).asString();
     assertEquals("onetwothree", SA::asStdString(value));
-  } // test3
+  } // testTextValue
 
   void test4()
   {
@@ -79,12 +79,40 @@ public:
     assertEquals("onetwothree", SA::asStdString(value));
   } // test5
 
-  void test6()
+  void testNodeTest()
   {
     XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/root/node()"), document_);
     assertEquals(1, nodes.asNodeSet().size());
-  } // test6
+  } // testNodeTest
 
+  void testDescendantOrSelf()
+  {
+    XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("//text()"), document_);
+    assertEquals(1, nodes.asNodeSet().size());
+  } // testDescendantOrSelf
+
+  void testDescendant()
+  {
+    XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/descendant::text()"), document_);
+    assertEquals(1, nodes.asNodeSet().size());
+  } // testDescendant
+
+  void testFollowingSibling1()
+  {
+    XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/root/text()/following-sibling::node()"), document_);
+    assertEquals(0, nodes.asNodeSet().size());
+  } // testFollowingSibling1
+
+  void testFollowing1()
+  {
+    XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/root/text()/following::node()"), document_);
+    assertEquals(0, nodes.asNodeSet().size());
+  } // testFollowing1
+
+  // FOLLOWING_SIBLING
+  // FOLLOWING
+  // PRECEDING
+  // PRECEDING_SIBLING
 }; // class TextNodeTest
 
 template<class string_type, class string_adaptor>
@@ -93,11 +121,15 @@ TestSuite* TextNodeTest_suite()
   TestSuite* suiteOfTests = new TestSuite;
 
   suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("test1", &TextNodeTest<string_type, string_adaptor>::test1));
-  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("test2", &TextNodeTest<string_type, string_adaptor>::test2));
-  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("test3", &TextNodeTest<string_type, string_adaptor>::test3));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testTextTest", &TextNodeTest<string_type, string_adaptor>::testTextTest));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testTextValue", &TextNodeTest<string_type, string_adaptor>::testTextValue));
   suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("test4", &TextNodeTest<string_type, string_adaptor>::test4));
   suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("test5", &TextNodeTest<string_type, string_adaptor>::test5));
-  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("test6", &TextNodeTest<string_type, string_adaptor>::test6));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testNodeTest", &TextNodeTest<string_type, string_adaptor>::testNodeTest));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testDescendantOrSelf", &TextNodeTest<string_type, string_adaptor>::testDescendantOrSelf));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testDescendant", &TextNodeTest<string_type, string_adaptor>::testDescendant));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testFollowingSibling1", &TextNodeTest<string_type, string_adaptor>::testFollowingSibling1));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testFollowing1", &TextNodeTest<string_type, string_adaptor>::testFollowing1));
 
   return suiteOfTests;
 } // TextNodeTest
