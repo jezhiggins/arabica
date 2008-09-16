@@ -42,7 +42,7 @@ int main(int argc, const char* argv[])
       std::cerr << "Could not parse XML source" << std::endl;
       return 0;
     } // if ...
-    document.normalize();
+    //document.normalize();
     stylesheet->execute(document);
 
 /*
