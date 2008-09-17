@@ -246,6 +246,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\tests\XPath\text_node_test.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\tests\XPath\value_test.hpp"
 				>
 			</File>

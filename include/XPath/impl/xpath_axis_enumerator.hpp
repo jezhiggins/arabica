@@ -376,7 +376,7 @@ private:
       return firstFollowing(owner);
     } // if attribute
 
-    DOM::Node<string_type, string_adaptor> next = context.getNextSibling();
+    DOM::Node<string_type, string_adaptor> next = AxisWalker<string_type, string_adaptor>::findNextSibling(context);
 
     if(next != 0)
       return next;
@@ -401,13 +401,13 @@ public:
   FollowingSiblingAxisWalker(const DOM::Node<string_type, string_adaptor>& context) : AxisWalker<string_type, string_adaptor>(true)
   {
     if(context != 0)
-      AxisWalker<string_type, string_adaptor>::set(context.getNextSibling());
+      AxisWalker<string_type, string_adaptor>::set(AxisWalker<string_type, string_adaptor>::findNextSibling(context));
   } // FollowingSiblingAxisWalker
 
   virtual void advance()
   {
     if(AxisWalker<string_type, string_adaptor>::get() != 0)
-      AxisWalker<string_type, string_adaptor>::set(AxisWalker<string_type, string_adaptor>::get().getNextSibling());
+      AxisWalker<string_type, string_adaptor>::set(AxisWalker<string_type, string_adaptor>::findNextSibling(AxisWalker<string_type, string_adaptor>::get()));
   } // advance
   virtual AxisWalker<string_type, string_adaptor>* clone() const { return new FollowingSiblingAxisWalker(*this); }
 
