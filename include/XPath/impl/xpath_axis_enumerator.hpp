@@ -146,6 +146,23 @@ protected:
     return next;
   } // findNextSibling
 
+  static DOM::Node<string_type, string_adaptor> findPreviousSibling(const DOM::Node<string_type, string_adaptor>& node)
+  {
+    DOM::Node<string_type, string_adaptor> prev = node.getPreviousSibling();
+
+    if((prev == 0) || (!nodeIsText(prev)))
+      return prev;
+
+    DOM::Node<string_type, string_adaptor> prev_again = prev.getPreviousSibling();
+    while((prev_again != 0) && (nodeIsText(prev_again)))
+    {
+      prev = prev_again;
+      prev_again = prev.getPreviousSibling();
+    } // while
+
+    return prev;
+  } // findPreviousSibling
+
 private:
   static bool nodeIsText(const DOM::Node<string_type, string_adaptor>& node)
   {
@@ -525,7 +542,7 @@ private:
 
   DOM::Node<string_type, string_adaptor> previousInDocument(const DOM::Node<string_type, string_adaptor>& context)
   {
-    DOM::Node<string_type, string_adaptor> next = context.getPreviousSibling();
+    DOM::Node<string_type, string_adaptor> next = AxisWalker<string_type, string_adaptor>::findPreviousSibling(context);
     if(next != 0)
       return getLastDescendant(next);
 
@@ -567,13 +584,13 @@ public:
   PrecedingSiblingAxisWalker(const DOM::Node<string_type, string_adaptor>& context) : AxisWalker<string_type, string_adaptor>(false)
   {
     if(context != 0)
-      AxisWalker<string_type, string_adaptor>::set(context.getPreviousSibling());
+      AxisWalker<string_type, string_adaptor>::set(AxisWalker<string_type, string_adaptor>::findPreviousSibling(context));
   } // PrecedingSiblingAxisWalker
 
   virtual void advance()
   {
     if(AxisWalker<string_type, string_adaptor>::get() != 0)
-      AxisWalker<string_type, string_adaptor>::set(AxisWalker<string_type, string_adaptor>::get().getPreviousSibling());
+      AxisWalker<string_type, string_adaptor>::set(AxisWalker<string_type, string_adaptor>::findPreviousSibling(AxisWalker<string_type, string_adaptor>::get()));
   } // advance
   virtual AxisWalker<string_type, string_adaptor>* clone() const { return new PrecedingSiblingAxisWalker(*this); }
 
