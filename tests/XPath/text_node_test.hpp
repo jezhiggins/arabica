@@ -188,8 +188,62 @@ public:
     assertEquals(2, nodes.asNodeSet().size());
   } // testFollowing3
 
-  // FOLLOWING_SIBLING
-  // FOLLOWING
+  void testPreceding1()
+  {
+    extraSetUp();
+    XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding::node()"), document_);
+    assertEquals(4, nodes.asNodeSet().size());
+  } // testPreceding1
+
+  void testPreceding2()
+  {
+    extraSetUp();
+    XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding::text()"), document_);
+    assertEquals(2, nodes.asNodeSet().size());
+  } // testPreceding2
+
+  void testPreceding3()
+  {
+    extraSetUp();
+    XPathValue_t node = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding::text()[1]"), document_);
+    assertEquals("fourfive", node.asString());
+  } // testPreceding3
+
+  void testPreceding4()
+  {
+    extraSetUp();
+    XPathValue_t node = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding::text()[2]"), document_);
+    assertEquals("onetwothree", node.asString());
+  } // testPreceding4
+
+  void testPrecedingSibling1()
+  {
+    extraSetUp();
+    XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding-sibling::node()"), document_);
+    assertEquals(4, nodes.asNodeSet().size());
+  } // testPrecedingSibling1
+
+  void testPrecedingSibling2()
+  {
+    extraSetUp();
+    XPathValue_t nodes = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding-sibling::text()"), document_);
+    assertEquals(2, nodes.asNodeSet().size());
+  } // testPrecedingSibling2
+
+  void testPrecedingSibling3()
+  {
+    extraSetUp();
+    XPathValue_t node = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding-sibling::text()[1]"), document_);
+    assertEquals("fourfive", node.asString());
+  } // testPrecedingSibling3
+
+  void testPrecedingSibling4()
+  {
+    extraSetUp();
+    XPathValue_t node = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding-sibling::text()[2]"), document_);
+    assertEquals("onetwothree", node.asString());
+  } // testPrecedingSibling4
+
   // PRECEDING
   // PRECEDING_SIBLING
 }; // class TextNodeTest
@@ -219,6 +273,14 @@ TestSuite* TextNodeTest_suite()
   suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testFollowing1", &TextNodeTest<string_type, string_adaptor>::testFollowing1));
   suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testFollowing2", &TextNodeTest<string_type, string_adaptor>::testFollowing2));
   suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testFollowing3", &TextNodeTest<string_type, string_adaptor>::testFollowing3));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testPreceding1", &TextNodeTest<string_type, string_adaptor>::testPreceding1));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testPreceding2", &TextNodeTest<string_type, string_adaptor>::testPreceding2));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testPreceding3", &TextNodeTest<string_type, string_adaptor>::testPreceding3));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testPreceding4", &TextNodeTest<string_type, string_adaptor>::testPreceding4));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testPrecedingSibling1", &TextNodeTest<string_type, string_adaptor>::testPrecedingSibling1));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testPrecedingSibling2", &TextNodeTest<string_type, string_adaptor>::testPrecedingSibling2));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testPrecedingSibling3", &TextNodeTest<string_type, string_adaptor>::testPrecedingSibling3));
+  suiteOfTests->addTest(new TestCaller<TextNodeTest<string_type, string_adaptor> >("testPrecedingSibling4", &TextNodeTest<string_type, string_adaptor>::testPrecedingSibling4));
 
   return suiteOfTests;
 } // TextNodeTest
