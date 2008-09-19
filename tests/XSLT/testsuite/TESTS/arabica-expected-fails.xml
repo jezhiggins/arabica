@@ -637,9 +637,9 @@
   <test-case id="Text__78249" compare="text"/>
   <test-case id="Text__78272" skip="yes" reason="Test result is bad."/>
   <test-case id="Text__78273" compare="text"/>
-  <test-case id="Text__78274" compare="text"/>
+  <test-case id="Text__78274" skip="yes" reason="xsl:preserve-space attribute?  Sorry pal, that's bad XSLT and this is a bad test case"/>
   <test-case id="Text__78275" compare="text"/>
-  <test-case id="Text__78276" compare="text"/>
+  <test-case id="Text__78276" skip="yes" reason="the xsl:preserve-space attribute again"/>
   <test-case id="Text__78277" compare="text"/>
   <test-case id="Text__78278" compare="text"/>
   <test-case id="Text__78279" compare="text"/>
@@ -692,10 +692,12 @@
   <test-case id="Variables__84036" compare="text"/>
   <test-case id="Variables__84438" compiles="no" reason="doesn't support xsl:sort lang attribute yet"/>
   <test-case id="Variables__84439" compare="text"/>
+  <test-case id="Variables__84634" skip="yes" reason="This is a badly written test case.  While a shadowed variable is clearly an error, it's not clear if it's a compile-time or run-time error.  Arabica handles it at runtime, but if the code isn't run, the error isn't found.  This test doesn't actually exercise the code, hence Arabica runs without it without issue.  Xalan and Saxon8 agree.  Arabica's own tests cover this case."/>
   <test-case id="Variables__84635" skip="yes" reason="html"/>
   <test-case id="Variables__84636" skip="yes" reason="html"/>
   <test-case id="Variables__84637" skip="yes" reason="html"/>
   <test-case id="Variables__84709" skip="yes" reason="html"/>
+  <test-case id="Variables__84710" skip="yes" reason="Exact duplicate of 84634."/>
   <test-case id="Variables__84712" skip="yes" reason="html"/>
   <test-case id="Variables_GlobalVarHaveLocalVarDefinedWithin" compare="fragment"/>
   <test-case id="Variables_PositionAndLastComparisonShouldBeEqual" compare="text"/>  
