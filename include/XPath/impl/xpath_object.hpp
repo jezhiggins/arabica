@@ -441,7 +441,7 @@ string_type nodeStringValue(const DOM::Node<string_type, string_adaptor>& node)
       while(*ae != 0)
       {
         if(nodeIsText<string_type, string_adaptor>(*ae))
-          os << ae->getNodeValue();
+          os << nodeStringValue(*ae);
         ++ae;
       } // while
       return string_adaptor::construct(os.str().c_str());

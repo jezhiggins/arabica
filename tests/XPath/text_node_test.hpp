@@ -51,10 +51,10 @@ public:
 
   void extraSetUp()
   {
-    root_.appendChild(document_.createElement("foo"));
+    root_.appendChild(document_.createElement(SA::construct_from_utf8("foo")));
     root_.appendChild(document_.createTextNode(SA::construct_from_utf8("four")));
     root_.appendChild(document_.createTextNode(SA::construct_from_utf8("five")));
-    root_.appendChild(document_.createElement("boo"));
+    root_.appendChild(document_.createElement(SA::construct_from_utf8("boo")));
     root_.appendChild(document_.createTextNode(SA::construct_from_utf8("six")));
     root_.appendChild(document_.createTextNode(SA::construct_from_utf8("seven")));
   } // extraSetUp
@@ -81,53 +81,53 @@ public:
   void testTextValue()
   {
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root/text()"), document_).asString();
-    assertEquals("onetwothree", SA::asStdString(value));
+    assertTrue(SA::construct_from_utf8("onetwothree") == value);
   } // testTextValue
 
   void testTextValue2()
   {
     extraSetUp();
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root/text()"), document_).asString();
-    assertEquals("onetwothree", SA::asStdString(value));
+    assertTrue(SA::construct_from_utf8("onetwothree") == value);
   } // testTextValue2
 
   void testTextValue3()
   {
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root/text()[1]"), document_).asString();
-    assertEquals("onetwothree", SA::asStdString(value));
+    assertTrue(SA::construct_from_utf8("onetwothree") == value);
   } // testTextValue3
 
   void testTextValue4()
   {
     extraSetUp();
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root/text()[2]"), document_).asString();
-    assertEquals("fourfive", SA::asStdString(value));
+    assertTrue(SA::construct_from_utf8("fourfive") == value);
   } // testTextValue4
 
   void testTextValue5()
   {
     extraSetUp();
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root/text()[3]"), document_).asString();
-    assertEquals("sixseven", SA::asStdString(value));
+    assertTrue(SA::construct_from_utf8("sixseven") == value);
   } // testTextValue5
 
   void test4()
   {
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root/node()"), document_).asString();
-    assertEquals("onetwothree", SA::asStdString(value));
+    assertTrue(SA::construct_from_utf8("onetwothree") == value);
   } // test4
 
   void test5()
   {
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root"), document_).asString();
-    assertEquals("onetwothree", SA::asStdString(value));
+    assertTrue(SA::construct_from_utf8("onetwothree") == value);
   } // test5
 
   void test5a()
   {
     extraSetUp();
     string_type value = parser_.evaluate(SA::construct_from_utf8("/root"), document_).asString();
-    assertEquals("onetwothreefourfivesixseven", SA::asStdString(value));
+    assertTrue(SA::construct_from_utf8("onetwothreefourfivesixseven") == value);
   } // test5a
 
   void testNodeTest()
@@ -206,14 +206,14 @@ public:
   {
     extraSetUp();
     XPathValue_t node = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding::text()[1]"), document_);
-    assertEquals("fourfive", node.asString());
+    assertTrue(SA::construct_from_utf8("fourfive") == node.asString());
   } // testPreceding3
 
   void testPreceding4()
   {
     extraSetUp();
     XPathValue_t node = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding::text()[2]"), document_);
-    assertEquals("onetwothree", node.asString());
+    assertTrue(SA::construct_from_utf8("onetwothree") == node.asString());
   } // testPreceding4
 
   void testPrecedingSibling1()
@@ -234,14 +234,14 @@ public:
   {
     extraSetUp();
     XPathValue_t node = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding-sibling::text()[1]"), document_);
-    assertEquals("fourfive", node.asString());
+    assertTrue(SA::construct_from_utf8("fourfive") == node.asString());
   } // testPrecedingSibling3
 
   void testPrecedingSibling4()
   {
     extraSetUp();
     XPathValue_t node = parser_.evaluate(SA::construct_from_utf8("/root/node()[last()]/preceding-sibling::text()[2]"), document_);
-    assertEquals("onetwothree", node.asString());
+    assertTrue(SA::construct_from_utf8("onetwothree") == node.asString());
   } // testPrecedingSibling4
 
   // PRECEDING
