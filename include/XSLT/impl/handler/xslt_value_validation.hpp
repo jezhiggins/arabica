@@ -17,6 +17,7 @@ struct ValueRule
 static const char* No = "no";
 static const char* Yes = "yes";
 static const char* AllowedYesNo[] = { No, Yes, 0 };
+static const char* DefaultPreserve[] = { "default", "preserve", 0 };
 
 void validateValues(const std::string& parentElement, const std::string& name,
                     const std::string& value, const char** allowed)
@@ -32,9 +33,20 @@ void validateValues(const std::string& parentElement, const std::string& name,
   throw SAX::SAXException(os.str());
 } // validateValues
 
+void validateXmlAttribute(const std::string& parentElement,
+                          const std::string& name, const std::string& value,
+			  std::map<std::string, std::string>& results)
+{
+  results[name] = value;
+
+  if(name == "space")
+    validateValues(parentElement, name, value, DefaultPreserve);
+} // validateXmlAttribute
+
 void validateAttribute(const std::string& parentElement,
                        const std::string& name, const std::string& value, 
-                       const ValueRule* rules, std::map<std::string, std::string>& results)
+                       const ValueRule* rules, 
+		       std::map<std::string, std::string>& results)
 {
   while((rules->name != 0) && (name != rules->name))
     ++rules;
@@ -67,7 +79,10 @@ std::map<std::string, std::string> gatherAttributes(const std::string& parentEle
     if(atts.getLocalName(a) == "") 
       continue; // namespace decl
     if(atts.getURI(a) == "http://www.w3.org/XML/1998/namespace")
-      continue; // special xml: attributes
+    {
+      validateXmlAttribute(parentElement, atts.getLocalName(a), atts.getValue(a), results); // special xml: attributes
+      continue;
+    }
     validateAttribute(parentElement, atts.getLocalName(a), atts.getValue(a), rules, results);
   }
 
