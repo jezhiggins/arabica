@@ -192,8 +192,8 @@ public:
       int ch = r.get();
 
       // Process control characters
-      if (ch >= 0x80 && ch <= 0x9F) 
-        ch = WinCharMap[ch-0x80];
+      //if (ch >= 0x80 && ch <= 0x9F) 
+        //ch = WinCharMap[ch-0x80];
 
       if (ch == '\r') 
       {
@@ -341,7 +341,7 @@ public:
               outputBuffer_.clear();
               if (ent >= 0x80 && ent <= 0x9F) 
               {
-                ent = WinCharMap[ent-0x80];
+                //ent = WinCharMap[ent-0x80];
               }
               if (ent < 0x20) 
               {
