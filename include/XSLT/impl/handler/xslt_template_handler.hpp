@@ -39,14 +39,21 @@ protected:
                                     const std::string& qName,
                                     const SAX::Attributes<std::string>& atts)
   {
-    const std::string& match = atts.getValue("match");
-    if((match == "") && (atts.getValue("name") == ""))
+    static const ValueRule rules[] = { { "match", false, 0 },
+                                       { "mode", false, 0 },
+                                       { "name", false, 0 }, 
+                                       { "priority", false, 0 },
+				       { 0, false, 0} };
+    std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
+                                       
+    const std::string& match = attributes["match"];
+    if((match == "") && (attributes["name"] == ""))
       throw SAX::SAXException("xsl:template must have a match and/or a name attribute");
 
     int index = atts.getIndex("mode");
     if(index != -1)
     {
-      const std::string& mode = atts.getValue(index);
+      const std::string& mode = attributes["mode"];
       if(mode == "")
         throw SAX::SAXException("xsl:template mode cannot be empty");
       if(match == "")
@@ -54,22 +61,22 @@ protected:
     } // ...
 
     std::pair<std::string, std::string> name;
-    if(atts.getValue("name") != "")
-      name = context().processInternalQName(atts.getValue("name"));
+    if(attributes["name"] != "")
+      name = context().processInternalQName(attributes["name"]);
 
     std::pair<std::string, std::string> mode;
-    if(atts.getValue("mode") != "")
-      mode = context().processInternalQName(atts.getValue("mode"));
+    if(attributes["mode"] != "")
+      mode = context().processInternalQName(attributes["mode"]);
 
     if(match == "")
       return new Template(name,
-                  			  mode,
-			                    atts.getValue("priority"));
+			  mode,
+			  attributes["priority"]);
 
     return new Template(context().xpath_match(match),
-                  			name,
-			                  mode,
-			                  atts.getValue("priority"));
+			name,
+			mode,
+			atts.getValue("priority"));
   } // createContainer
 
   virtual bool createChild(const std::string& namespaceURI,
