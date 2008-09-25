@@ -535,7 +535,7 @@ public:
     if(loaded_)
       return;
 
-    std::cout << "Loaded expected fails" << std::endl;
+    std::cerr << "Loaded expected fails" << std::endl;
     Arabica::DOM::Document<std::string> fail_doc = buildDOM(PATH_PREFIX + "arabica-expected-fails.xml");
     Arabica::XPath::NodeSet<std::string> failcases = selectNodes("/test-suite/test-case", fail_doc);
     for(int i = 0; i != failcases.size(); ++i)
@@ -590,7 +590,7 @@ Arabica::DOM::Document<std::string> Loader::loadCatalog(const std::string& catal
   Arabica::DOM::Document<std::string> c = catalogs_[catalog_filename];
   if(c == 0)
   {
-    std::cout << "Loading " << catalog_filename << std::endl;
+    std::cerr << "Loading " << catalog_filename << std::endl;
     c = buildDOM(PATH_PREFIX + catalog_filename);
     catalogs_[catalog_filename] = c;
   } // if(c == 0)
@@ -606,7 +606,7 @@ TestSuite* Loader::suite(const std::string& path, const std::string& catalog_fil
 
   Arabica::XPath::NodeSet<std::string> tests = 
       selectNodes("/test-suite/test-catalog/test-case[file-path='" + path + "']", catalog);
-  std::cout << "There are " << tests.size() << " " << path << " tests." << std::endl;
+  std::cerr << "There are " << tests.size() << " " << path << " tests." << std::endl;
   for(int i = 0; i != tests.size(); ++i)
   {
     std::string operation = selectString("scenario/@operation", tests[i]);
