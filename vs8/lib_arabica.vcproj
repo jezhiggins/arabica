@@ -895,6 +895,54 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Taggle"
+				>
+				<File
+					RelativePath="..\include\Taggle\impl\Element.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\ElementType.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\html\HTMLModels.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\html\HTMLScanner.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\html\HTMLSchema.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\Parser.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\ScanHandler.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\Scanner.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\Schema.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\impl\SchemaImpl.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Taggle\Taggle.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="src"
