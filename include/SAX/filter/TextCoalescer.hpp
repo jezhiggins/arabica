@@ -82,6 +82,19 @@ public:
     XMLFilterT::comment(text);
   } // comment
 
+  virtual void startEntity(const string_type& name) 
+  { 
+    flush();
+    XMLFilterT::startEntity(name);
+  } // startEntity
+
+  virtual void endEntity(const string_type& name) 
+  { 
+    flush();
+    XMLFilterT::endEntity(name);
+  } // endEntity
+
+
 private:
   void flush()
   {
