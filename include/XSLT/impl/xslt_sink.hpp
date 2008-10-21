@@ -26,7 +26,8 @@ protected:
     buffering_(0),
     pending_element_(false),
     pending_attribute_(-1),
-    text_mode_(false)
+    text_mode_(false),
+    warning_sink_(0)
   {
   } // Output
   ~Output() 
@@ -112,7 +113,7 @@ public:
 
     if(!pending_element_)
     {
-      std::cerr << "ERROR: Cannot write attribute, no open element" << std::endl;
+      warning("WARNING: Cannot write attribute, no open element");
       return;
     } // if ...
 
@@ -150,7 +151,7 @@ public:
   {
     if(!pending_element_)
     {  
-      std::cerr << "ERROR: Cannot write attribute, no open element" << std::endl;
+      warning("WARNING: Cannot write attribute, no open element");
       return;
     } // if ...
 
@@ -228,6 +229,11 @@ public:
       do_disableOutputEscaping(disable);
   } // disableOutputEscaping
 
+  void set_warning_sink(Output& warning_sink)
+  {
+    warning_sink_ = &warning_sink;
+  } // set_warning_sink
+
 protected:
   virtual void do_start_document(const Settings& settings) = 0;
   virtual void do_end_document() = 0;
@@ -267,7 +273,7 @@ private:
   {
     if(!buffering_)
       return false;
-    std::cerr << "ERROR: non-text ignored when creating processing instruction, comment or attribute" << std::endl;
+    warning("WARNING: non-text ignored when creating processing instruction, comment or attribute");
     return true;
   } // is_buffering
 
@@ -321,6 +327,12 @@ private:
     }
   } // addNamespaceDeclarations
 
+  void warning(const std::string& warning_message)
+  {
+    warning_sink_->characters(warning_message);
+    warning_sink_->characters("\n");
+  } // warning
+
   int buffering_;
   bool pending_element_;
   int pending_attribute_;
@@ -330,6 +342,7 @@ private:
   std::stringstream buffer_;
   bool text_mode_;
   NamespaceStack namespaceStack_;
+  Output* warning_sink_;
 }; // class Output
 
 class Sink
@@ -512,7 +525,6 @@ protected:
 
   bool want_namespace_declarations() const { return true; }
 
-
 private:
   void close_element_if_empty()
   {
@@ -667,7 +679,6 @@ protected:
   void do_disableOutputEscaping(bool disable) { }
 
   bool want_namespace_declarations() const { return false; }
-
 
   void do_start_element(const std::string& qName,
                         const std::string& namespaceURI,

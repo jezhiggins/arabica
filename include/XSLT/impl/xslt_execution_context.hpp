@@ -44,6 +44,8 @@ public:
       to_msg_(0)
   {
 		xpathContext_.setVariableResolver(stack_);
+    sink_.set_warning_sink(message_sink_.asOutput());
+    message_sink_.asOutput().set_warning_sink(message_sink_.asOutput());
   } // ExecutionContext
 
   ExecutionContext(Sink& output,
