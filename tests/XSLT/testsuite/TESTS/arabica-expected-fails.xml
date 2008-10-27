@@ -109,7 +109,6 @@
   <test-case id="position_position56" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position57" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position70" compiles="no" reason="Needs xsl:strip-space" />
-  <test-case id="position_position106" compiles="no" reason="Needs generate-id"/>
   <test-case id="processorinfo_processorinfo03" skip="yes" reason="Expects Xalan URI in result"/>
   <test-case id="reluri_reluri10" runs="no"/>
   <test-case id="reluri_reluri11" runs="no"/>
@@ -216,7 +215,7 @@
   <test-case id="Attributes__89466" compare="fragment"/>
   <test-case id="Attributes_Attribute_WhitespaceInUseAttributeSets" compiles="no" reason="Haven't implemented attribute-sets"/>
   <test-case id="Attributes_EmptyStringInUseAttribSets" compiles="no" reason="Haven't implemented attribute-sets"/>
-  <test-case id="BVTs_bvt001" compiles="no" reason="Doesn't understand xml:space properly"/>
+	<test-case id="BVTs_bvt001" compare="fragment"/>
   <test-case id="BVTs_bvt002" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt003" compiles="no" reason="Needs attribute sets"/>
   <test-case id="BVTs_bvt004" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
@@ -253,7 +252,9 @@
   <test-case id="BVTs_bvt060" compiles="no" reason="Needs xsl:number"/>
   <test-case id="BVTs_bvt061" compiles="no" reason="Needs xsl:number"/>
   <test-case id="BVTs_bvt062" compare="fragment"/>
+	<test-case id="BVTs_bvt064" skip="yes" reason="HTML output"/>
   <test-case id="BVTs_bvt065" compare="fragment"/>
+  <test-case id="BVTs_bvt069" compare="text"/>	
   <test-case id="BVTs_bvt070" compare="text"/>
   <test-case id="BVTs_bvt072" compare="fragment"/>
   <test-case id="BVTs_bvt073" compare="fragment"/>
@@ -263,10 +264,10 @@
   <test-case id="BVTs_bvt079" compare="fragment"/>
   <test-case id="BVTs_bvt080" compare="fragment"/>
   <test-case id="BVTs_bvt081" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-  <test-case id="BVTs_bvt083" compiles="no"/>
+  <test-case id="BVTs_bvt083" compare="fragment"/>
   <test-case id="BVTs_bvt085" skip="yes" reason="Bad result data"/>
-  <test-case id="BVTs_bvt086" compiles="no"/>
-  <test-case id="BVTs_bvt089" compiles="no" reason="Haven't implemented unparsed-entity-uri"/>
+  <test-case id="BVTs_bvt086" compare="fragment"/>
+  <test-case id="BVTs_bvt089" compare="fragment"/>
   <test-case id="BVTs_bvt090" compare="fragment"/>
   <test-case id="BVTs_bvt092" compare="fragment"/>
   <test-case id="BVTs_bvt094" compare="text"/>
@@ -751,7 +752,6 @@
   <test-case id="XSLTFunctions_DocumentInUnionWithDuplicateNodes" runs="no"/>
   <test-case id="XSLTFunctions_ElementAvailFunctionFalseTest" compiles="no"/>
   <test-case id="XSLTFunctions_ElementAvailFunctionTrueTest" compiles="no"/>
-  <test-case id="XSLTFunctions_GenereateIdAppliedToNamespaceNodesOnDifferentElements" compiles="no"/>
   <test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset" compiles="no"/>
   <test-case id="XSLTFunctions_TestIdFuncInComplexStruct" compiles="no"/>
   <test-case id="XSLTFunctions_TestOfIdFunction" compiles="no"/>
