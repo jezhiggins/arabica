@@ -43,7 +43,7 @@ public:
       datatype = context_.xpath_attribute_value_template(attr["data-type"]);
       order = context_.xpath_attribute_value_template(attr["order"]);
 
-      if(attr["order"].length() != 0)
+      if(attr["lang"].length() != 0)
         throw SAX::SAXException("Sorry!  Don't support xsl:sort lang attribute yet");
  
       sort_ = new Sort(select,
