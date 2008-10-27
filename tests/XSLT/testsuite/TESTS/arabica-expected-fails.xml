@@ -109,7 +109,6 @@
   <test-case id="position_position56" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position57" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position70" compiles="no" reason="Needs xsl:strip-space" />
-  <test-case id="position_position106" compiles="no" reason="Needs generate-id"/>
   <test-case id="processorinfo_processorinfo03" skip="yes" reason="Expects Xalan URI in result"/>
   <test-case id="reluri_reluri10" runs="no"/>
   <test-case id="reluri_reluri11" runs="no"/>

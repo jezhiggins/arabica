@@ -159,6 +159,8 @@ private:
       return new CurrentFunction(argExprs);
     // unparsed-entity-uri
     // generate-id
+    if(name == "generate-id")
+      return new GenerateIdFunction(argExprs);
     if(name == "system-property")
       return new SystemPropertyFunction(argExprs);
     // element-available
