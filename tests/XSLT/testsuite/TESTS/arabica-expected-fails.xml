@@ -1,9 +1,7 @@
 <test-suite>
   <test-case id="attribvaltemplate_attribvaltemplate08" skip="yes" reason="HTML output"/>
   <test-case id="axes_axes59" compiles="no" reason="Needs xsl:number"/>
-  <test-case id="axes_axes68" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="axes_axes113" compiles="no" reason="Needs xsl:strip-space"/>
-  <test-case id="axes_axes120" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="boolean_boolean08" compiles="no" reason="Needs lang"/>
   <test-case id="conflictres_conflictres24" compiles="no" reason="Needs xsl:strip-space"/>
   <test-case id="copy_copy16" compiles="no" reason="Needs id"/>
@@ -14,8 +12,6 @@
   <test-case id="copy_copy30" compiles="no" reason="Needs xsl:key"/>
   <test-case id="copy_copy38" skip="yes" reason="HTML output"/>
   <test-case id="copy_copy40" compiles="no" reason="Needs xsl:key"/>
-  <test-case id="copy_copy42" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="copy_copy51" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="expression_expression01" compiles="no" reason="Needs lang"/>
   <test-case id="expression_expression02" compiles="no" reason="Needs unparsed-entity-uri"/>
   <test-case id="expression_expression03" compiles="no" reason="Needs lang"/>
@@ -38,7 +34,7 @@
   <test-case id="mdocs_mdocs06" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs07" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs08" runs="no" reason="haven't implemented node-set arg version of document()"/>
-  <test-case id="mdocs_mdocs18" compiles="no" reason="Needs xsl:sort lang attribute"/>
+  <test-case id="mdocs_mdocs18" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="message_message01" compare="text"/>
   <test-case id="message_message14" compiles="no"/>
   <test-case id="message_message15" compiles="no"/>
@@ -101,22 +97,18 @@
   <test-case id="output_output113" compare="text" reason="Text output"/>
   <test-case id="position_position05" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position07" compiles="no" reason="Needs xsl:key"/>
-  <test-case id="position_position10" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="position_position42" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position43" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position44" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position45" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position46" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position47" compiles="no" reason="Needs xsl:key"/>
-  <test-case id="position_position48" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="position_position49" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position50" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position51" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position56" compiles="no" reason="Needs xsl:key"/>
   <test-case id="position_position57" compiles="no" reason="Needs xsl:key"/>
-  <test-case id="position_position69" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="position_position70" compiles="no" reason="Needs xsl:strip-space" />
-  <test-case id="position_position93" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="position_position106" compiles="no" reason="Needs generate-id"/>
   <test-case id="processorinfo_processorinfo03" skip="yes" reason="Expects Xalan URI in result"/>
   <test-case id="reluri_reluri10" runs="no"/>
@@ -126,53 +118,26 @@
   <test-case id="select_select55" compiles="no"/>
   <test-case id="select_select59" compiles="no"/>
   <test-case id="select_select64" compiles="no"/>
-  <test-case id="select_select69" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="select_select74" skip="yes" reason="HTML output"/>
-  <test-case id="sort_sort01" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort02" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort03" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort04" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort05" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort06" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort07" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort08" skip="yes" reason="Test case is bad.  Xalan sorts % ahead of space.  Others, including comment in test data, disagree."/>
-  <test-case id="sort_sort09" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort10" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort11" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort12" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort13" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort14" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort15" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort16" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort20" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort21" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort22" compare="text" reason="Text output"/>
-  <test-case id="sort_sort22" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort23" compare="text" reason="Text output"/>
-  <test-case id="sort_sort23" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort24" compare="text" reason="Text output"/>
-  <test-case id="sort_sort24" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort25" compare="text" reason="Text output"/>
-  <test-case id="sort_sort25" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort26" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort27" skip="yes" reason="Test case is bad.  Xalan regards leading whitespace as insignificant.  Everyone else disagrees."/>
-  <test-case id="sort_sort28" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort29" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort30" compare="text" reason="Text output"/>
-  <test-case id="sort_sort30" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort31" compare="text" reason="Text output"/>
-  <test-case id="sort_sort31" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort32" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort33" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort34" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort35" compare="text" reason="Text output"/>
-  <test-case id="sort_sort35" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort36" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort37" compare="text" reason="Text output"/>
-  <test-case id="sort_sort37" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort38" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort39" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort40" compiles="no" reason="Needs xsl:sort lang attribute"/>
+
   <test-case id="string_string13" compiles="no"/>
   <test-case id="string_string106" compiles="no"/>
   <test-case id="string_string108" compiles="no"/>
@@ -181,7 +146,6 @@
   <test-case id="string_string124" compiles="no"/>
   <test-case id="string_string129" compiles="no"/>
   <test-case id="string_string130" compiles="no"/>
-  <test-case id="variable_variable62" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="ver_ver01" compiles="no"/>
   <test-case id="ver_ver05" compiles="no"/>
   <test-case id="ver_ver06" compiles="no"/>
@@ -467,7 +431,6 @@
   <test-case id="Namespace__77701" compare="fragment"/>
   <test-case id="Namespace__77702" compare="text"/>
   <test-case id="Namespace__77703" compare="fragment"/>
-  <test-case id="Namespace__77704" compiles="no" reason="haven't implemented xsl:sort lang attribute yet"/>
   <test-case id="Namespace__77983" compare="fragment"/>
   <test-case id="Namespace__78214" compiles="no" reason="haven't implemented forward compatibility"/>
   <test-case id="Namespace__78215" compiles="no" reason="haven't implemented embedded template yet"/>
@@ -672,7 +635,7 @@
   <test-case id="Variables__78160" compare="text"/>
   <test-case id="Variables__78162" compare="text"/>
   <test-case id="Variables__78163" compare="text"/>
-  <test-case id="Variables__78164" compiles="no" reason="doesn't support xsl:sort lang attribute yet"/>
+  <test-case id="Variables__78164" compare="text"/>
   <test-case id="Variables__78305" compare="text"/>
   <test-case id="Variables__78306" compare="text"/>
   <test-case id="Variables__78316" compare="text"/>
@@ -690,7 +653,7 @@
   <test-case id="Variables__84026" compare="text"/>
   <test-case id="Variables__84034" compare="text"/>
   <test-case id="Variables__84036" compare="text"/>
-  <test-case id="Variables__84438" compiles="no" reason="doesn't support xsl:sort lang attribute yet"/>
+  <test-case id="Variables__84438" compare="text"/>
   <test-case id="Variables__84439" compare="text"/>
   <test-case id="Variables__84634" skip="yes" reason="This is a badly written test case.  While a shadowed variable is clearly an error, it's not clear if it's a compile-time or run-time error.  Arabica handles it at runtime, but if the code isn't run, the error isn't found.  This test doesn't actually exercise the code, hence Arabica runs without it without issue.  Xalan and Saxon8 agree.  Arabica's own tests cover this case."/>
   <test-case id="Variables__84635" skip="yes" reason="html"/>
