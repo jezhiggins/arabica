@@ -83,6 +83,24 @@ public:
 }; // CurrentFunction
 
 // string unparsed-entity-uri(string)
+class UnparsedEntityUriFunction : public Arabica::XPath::XPathFunction<std::string>
+{
+  typedef Arabica::XPath::XPathFunction<std::string> baseT;
+
+public:
+  UnparsedEntityUriFunction(const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
+    Arabica::XPath::XPathFunction<std::string>(1, 1, args) { }
+
+  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
+
+  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
+                                            const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  {
+    // This is a minimal, but I think conformant, implementation
+    return new Arabica::XPath::StringValue<std::string>("");
+  } // evaluate
+}; // UnparsedEntityUri
+
 // string generate-id(node-set?)
 class GenerateIdFunction : public Arabica::XPath::XPathFunction<std::string>
 {
