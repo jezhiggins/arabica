@@ -466,84 +466,51 @@
   <test-case id="ProcessingInstruction__78394" compare="fragment"/>
   <test-case id="ProcessingInstruction_InvalidPIName2" runs="no"/>
   <test-case id="RTF_RTF_to_number_in_format_number" compiles="no"/>
-  <test-case id="Sorting__77516" compiles="no"/>
-  <test-case id="Sorting__77517" compiles="no"/>
-  <test-case id="Sorting__77526" compiles="no"/>
-  <test-case id="Sorting__77527" compiles="no"/>
-  <test-case id="Sorting__77528" compiles="no"/>
-  <test-case id="Sorting__77529" compiles="no"/>
+  <test-case id="Sorting__77529" compare="text"/>
   <test-case id="Sorting__77530" compiles="no"/>
-  <test-case id="Sorting__77532" compiles="no"/>
-  <test-case id="Sorting__77534" compiles="no"/>
-  <test-case id="Sorting__77535" compiles="no"/>
-  <test-case id="Sorting__77539" compiles="no" compare="fragment"/>
-  <test-case id="Sorting__77541" compiles="no"/>
-  <test-case id="Sorting__77544" compiles="no"/>
-  <test-case id="Sorting__77548" compiles="no"/>
-  <test-case id="Sorting__77557" compiles="no"/>
-  <test-case id="Sorting__77559" compiles="no"/>
-  <test-case id="Sorting__77560" compiles="no" compare="text"/>
-  <test-case id="Sorting__77561" compiles="no" compare="text"/>
-  <test-case id="Sorting__77563" compiles="no"/>
-  <test-case id="Sorting__77565" compiles="no"/>
-  <test-case id="Sorting__77566" compiles="no"/>
-  <test-case id="Sorting__77567" compiles="no" compare="text"/>
-  <test-case id="Sorting__77568" compiles="no" compare="text"/>  
-  <test-case id="Sorting__77569" compiles="no"/>
+  <test-case id="Sorting__77539" compare="fragment"/>
+  <test-case id="Sorting__77560" compare="text"/>
+  <test-case id="Sorting__77561" compare="text"/>
+  <test-case id="Sorting__77567" compare="text"/>
+  <test-case id="Sorting__77568" compare="text"/>  
   <test-case id="Sorting__77977" skip="yes" reason="I think the result document is bad - compare what Saxon or Xalan produce with MSXML"/>
-  <test-case id="Sorting__77979" compiles="no" compare="text"/>
-  <test-case id="Sorting__77980" compiles="no" compare="text"/>
-  <test-case id="Sorting__77981" compiles="no" compare="text"/>
-  <test-case id="Sorting__77982" compiles="no" compare="text"/>
-  <test-case id="Sorting__77985" compiles="no" compare="text"/>
-  <test-case id="Sorting__78191" compiles="no"/>
+  <test-case id="Sorting__77979" compare="text"/>
+  <test-case id="Sorting__77980" compare="text"/>
+  <test-case id="Sorting__77981" compare="text"/>
+  <test-case id="Sorting__77982" compare="text"/>
+  <test-case id="Sorting__77985" compare="text"/>
   <test-case id="Sorting__78286" skip="yes" reason="multiple valid results - Mangle agrees with Saxon, producing a different result to MSXML and Xalan"/>
   <test-case id="Sorting__78291" skip="yes" reason="multiple valid results - Mangle agrees with Saxon, producing a different result to MSXML and Xalan" compare="text"/>
-  <test-case id="Sorting__81684" compiles="no"/>
-  <test-case id="Sorting__81685" compiles="no"/>
-  <test-case id="Sorting__81686" compiles="no"/>
-  <test-case id="Sorting__81691" compiles="no"/>
-  <test-case id="Sorting__81692" compiles="no"/>
-  <test-case id="Sorting__81693" compiles="no"/>
-  <test-case id="Sorting__81710" compiles="no" compare="fragment"/>
-  <test-case id="Sorting__81711" compiles="no" compare="fragment"/>
-  <test-case id="Sorting__81712" compiles="no" compare="fragment"/>
-  <test-case id="Sorting__81713" compiles="no"/>
-  <test-case id="Sorting__81717" compiles="no" compare="fragment"/>
-  <test-case id="Sorting__81718" compiles="no" compare="fragment"/>
-  <test-case id="Sorting__81719" compiles="no" compare="fragment"/>
-  <test-case id="Sorting__83821" compiles="no"/>
-  <test-case id="Sorting__84186" compiles="no"/>
-  <test-case id="Sorting__84465" compiles="no"/>
-  <test-case id="Sorting__84466" compiles="no"/>
-  <test-case id="Sorting__84467" compiles="no"/>
-  <test-case id="Sorting__84468" compiles="no"/>
-  <test-case id="Sorting__84469" compiles="no"/>
-  <test-case id="Sorting__84470" compiles="no"/>
-  <test-case id="Sorting__84471" compiles="no" compare="text"/>
-  <test-case id="Sorting__84472" compiles="no" compare="text"/>
-  <test-case id="Sorting__84479" compiles="no" compare="text"/>
-  <test-case id="Sorting__89749" compiles="no" compare="text"/>
-  <test-case id="Sorting__89751" compiles="no" compare="text"/>
-  <test-case id="Sorting__89758" compiles="no" compare="fragment"/>
-  <test-case id="Sorting__89760" compiles="no" compare="text"/>
-  <test-case id="Sorting__89762" compiles="no" compare="text"/>
-  <test-case id="Sorting__89763" compiles="no" compare="text"/>
-  <test-case id="Sorting__91689" compiles="no" compare="text"/>
-  <test-case id="Sorting__91691" compiles="no" compare="text"/>
-  <test-case id="Sorting__91693" compiles="no" compare="text"/>
-  <test-case id="Sorting__91694" compiles="no" compare="text"/>
-  <test-case id="Sorting__91695" compiles="no" compare="text"/>
-  <test-case id="Sorting__91696" compiles="no" compare="text"/>
-  <test-case id="Sorting__91697" compiles="no" compare="text"/>
-  <test-case id="Sorting__91698" compiles="no" compare="text"/>
-  <test-case id="Sorting__91699" compiles="no" compare="text"/>
-  <test-case id="Sorting__91700" compiles="no" compare="text"/>
-  <test-case id="Sorting__91701" compiles="no" compare="text"/>
-  <test-case id="Sorting__91704" compiles="no" compare="text"/>
-  <test-case id="Sorting__91705" compiles="no" compare="text"/>
-  <test-case id="Sorting__91752" compiles="no" compare="text"/>
-  <test-case id="Sorting__91753" compiles="no" compare="fragment"/>
+  <test-case id="Sorting__81710" compare="fragment"/>
+  <test-case id="Sorting__81711" compare="fragment"/>
+  <test-case id="Sorting__81712" compare="fragment"/>
+  <test-case id="Sorting__81717" compare="fragment"/>
+  <test-case id="Sorting__81718" compare="fragment"/>
+  <test-case id="Sorting__81719" compare="fragment"/>
+  <test-case id="Sorting__84471" compare="text"/>
+  <test-case id="Sorting__84472" compare="text"/>
+  <test-case id="Sorting__84479" compare="text"/>
+  <test-case id="Sorting__89749" compare="text"/>
+  <test-case id="Sorting__89751" compare="text"/>
+  <test-case id="Sorting__89758" compare="fragment"/>
+  <test-case id="Sorting__89760" compare="text"/>
+  <test-case id="Sorting__89762" compare="text"/>
+  <test-case id="Sorting__89763" compare="text"/>
+  <test-case id="Sorting__91689" compare="text"/>
+  <test-case id="Sorting__91691" compare="text"/>
+  <test-case id="Sorting__91693" compare="text"/>
+  <test-case id="Sorting__91694" compare="text"/>
+  <test-case id="Sorting__91695" compare="text"/>
+  <test-case id="Sorting__91696" compare="text"/>
+  <test-case id="Sorting__91697" compare="text"/>
+  <test-case id="Sorting__91698" compare="text"/>
+  <test-case id="Sorting__91699" compare="text"/>
+  <test-case id="Sorting__91700" compare="text"/>
+  <test-case id="Sorting__91701" compare="text"/>
+  <test-case id="Sorting__91704" compare="text"/>
+  <test-case id="Sorting__91705" compare="text"/>
+  <test-case id="Sorting__91752" compare="text"/>
+  <test-case id="Sorting__91753" compare="fragment"/>
   <test-case id="Sorting_Sort_AllTextElementsAreSame" compiles="no"/>
   <test-case id="Sorting_Sort_CommaDelimitedNumber" compiles="no"/>
   <test-case id="Sorting_Sort_LongTextWithTrailingNumbers" compiles="no"/>
