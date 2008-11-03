@@ -477,8 +477,9 @@
   <test-case id="Sorting__77979" compare="text"/>
   <test-case id="Sorting__77980" compare="text"/>
   <test-case id="Sorting__77981" compare="text"/>
-  <test-case id="Sorting__77982" compare="text"/>
+  <test-case id="Sorting__77982" compiles="no" compare="text"/>
   <test-case id="Sorting__77985" compare="text"/>
+	<test-case id="Sorting__78191" compare="fragment"/>
   <test-case id="Sorting__78286" skip="yes" reason="multiple valid results - Mangle agrees with Saxon, producing a different result to MSXML and Xalan"/>
   <test-case id="Sorting__78291" skip="yes" reason="multiple valid results - Mangle agrees with Saxon, producing a different result to MSXML and Xalan" compare="text"/>
   <test-case id="Sorting__81710" compare="fragment"/>
@@ -496,44 +497,34 @@
   <test-case id="Sorting__89760" compare="text"/>
   <test-case id="Sorting__89762" compare="text"/>
   <test-case id="Sorting__89763" compare="text"/>
-  <test-case id="Sorting__91689" compare="text"/>
-  <test-case id="Sorting__91691" compare="text"/>
+  <test-case id="Sorting__91689" compiles="no" compare="text"/>
+  <test-case id="Sorting__91691" compiles="no" compare="text"/>
   <test-case id="Sorting__91693" compare="text"/>
   <test-case id="Sorting__91694" compare="text"/>
-  <test-case id="Sorting__91695" compare="text"/>
-  <test-case id="Sorting__91696" compare="text"/>
-  <test-case id="Sorting__91697" compare="text"/>
-  <test-case id="Sorting__91698" compare="text"/>
-  <test-case id="Sorting__91699" compare="text"/>
-  <test-case id="Sorting__91700" compare="text"/>
-  <test-case id="Sorting__91701" compare="text"/>
+  <test-case id="Sorting__91695" compiles="no" compare="text"/>
+  <test-case id="Sorting__91696" compiles="no" compare="text"/>
+  <test-case id="Sorting__91697" compiles="no" compare="text"/>
+  <test-case id="Sorting__91698" compiles="no" compare="text"/>
+  <test-case id="Sorting__91699" compiles="no" compare="text"/>
+  <test-case id="Sorting__91700" compiles="no" compare="text"/>
+  <test-case id="Sorting__91701" compiles="no" compare="text"/>
   <test-case id="Sorting__91704" compare="text"/>
-  <test-case id="Sorting__91705" compare="text"/>
-  <test-case id="Sorting__91752" compare="text"/>
-  <test-case id="Sorting__91753" compare="fragment"/>
+  <test-case id="Sorting__91705" compiles="no" compare="text"/>
+  <test-case id="Sorting__91752" compiles="no" compare="text"/>
+  <test-case id="Sorting__91753" compiles="no" compare="fragment"/>
   <test-case id="Sorting_Sort_AllTextElementsAreSame" compiles="no"/>
-  <test-case id="Sorting_Sort_CommaDelimitedNumber" compiles="no"/>
   <test-case id="Sorting_Sort_LongTextWithTrailingNumbers" compiles="no"/>
   <test-case id="Sorting_Sort_MixedCaseWithUpperSet" compiles="no"/>
-  <test-case id="Sorting_Sort_SortOnNumbersWithAttributeCaseOrder" compiles="no"/>
-  <test-case id="Sorting_Sort_PositiveNumbersHavePlusSign" compiles="no"/>
-  <test-case id="Sorting_Sort_SortEmptyTextNodesWithDataTypeNumber" compiles="no"/>
   <test-case id="Sorting_Sort_NumbersWithLanguageNotEnglish" compiles="no"/>
-  <test-case id="Sorting_Sort_SortOnDecimalPointWithoutPrefixedZero" compiles="no"/>
-  <test-case id="Sorting_Sort_SortSameNumbers" compiles="no"/>
   <test-case id="Sorting_Sort_SortTextWithNonTextCharacters" compiles="no"/>
   <test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextLowerCaseFirst" compiles="no"/>
   <test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextUpperCaseFirst" compiles="no"/>
   <test-case id="Sorting_Sort_TextNodesSpanMultipleLines" compiles="no"/>
   <test-case id="Sorting_Sort_UpperFirstOnTextWithUpper" compiles="no"/>
-  <test-case id="Sorting_Sort_ZeroAndNegativeZero" compiles="no"/>
-  <test-case id="Sorting_Sort_ZeroPrefixedNegativeNumbers" compiles="no"/>
-  <test-case id="Sorting_SortEquivalentValueDiffRepresentationBothDir" compiles="no"/>
-  <test-case id="Sorting_ValidSortThreeNumbers" compiles="no"/>
-  <test-case id="Sorting_SortExprWithCurrentInsideForEach" compiles="no" compare="fragment"/>
-  <test-case id="Sorting_SortExprWithCurrentInsideForEach1" compiles="no" compare="text"/>
-  <test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compiles="no" compare="text"/>
-  <test-case id="Sorting_SortExprWithCurrentInApplyTemplates" compiles="no" compare="fragment"/>
+  <test-case id="Sorting_SortExprWithCurrentInsideForEach" compare="fragment"/>
+  <test-case id="Sorting_SortExprWithCurrentInsideForEach1" compare="text"/>
+  <test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compare="text"/>
+  <test-case id="Sorting_SortExprWithCurrentInApplyTemplates" compare="fragment"/>
   <test-case id="Sorting_TurkishISortingTest" compiles="no" compare="fragment"/>
   <test-case id="Stylesheet__91802" compare="text"/>
   <test-case id="Stylesheet__91803" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
