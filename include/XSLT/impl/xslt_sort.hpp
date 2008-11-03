@@ -74,8 +74,8 @@ private:
   typedef bool(Sort::*sortFn)(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const;
   bool numberAscending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
   {
-    double v1 = select_->evaluateAsNumber(n1, context_->xpathContext());
-    double v2 = select_->evaluateAsNumber(n2, context_->xpathContext());
+    double v1 = grabAsNumber(n1);
+    double v2 = grabAsNumber(n2);
 
     bool nan1 = Arabica::XPath::isNaN(v1);
     bool nan2 = Arabica::XPath::isNaN(v2);
@@ -92,8 +92,8 @@ private:
   } // numberAscending
   bool numberDescending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
   {
-    double v1 = select_->evaluateAsNumber(n1, context_->xpathContext());
-    double v2 = select_->evaluateAsNumber(n2, context_->xpathContext());
+    double v1 = grabAsNumber(n1);
+    double v2 = grabAsNumber(n2);
 
     bool nan1 = Arabica::XPath::isNaN(v1);
     bool nan2 = Arabica::XPath::isNaN(v2);
@@ -110,8 +110,8 @@ private:
   } // numberDescending
   bool stringAscending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
   {
-    std::string v1 = select_->evaluateAsString(n1, context_->xpathContext());
-    std::string v2 = select_->evaluateAsString(n2, context_->xpathContext());
+    std::string v1 = grabAsString(n1);
+    std::string v2 = grabAsString(n2);
 
     if((v1 == v2) && (sub_sort_))
       return (*sub_sort_)(n1, n2);
@@ -120,14 +120,25 @@ private:
   } // stringAscending
   bool stringDescending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
   {
-    std::string v1 = select_->evaluateAsString(n1, context_->xpathContext());
-    std::string v2 = select_->evaluateAsString(n2, context_->xpathContext());
+    std::string v1 = grabAsString(n1);
+    std::string v2 = grabAsString(n2);
 
     if((v1 == v2) && (sub_sort_))
       return (*sub_sort_)(n1, n2);
 
     return v1 > v2;
   } // stringAscending
+
+  std::string grabAsString(const DOM::Node<std::string>& n) const
+  {
+    context_->setPosition(n, 1);
+    return select_->evaluateAsString(n, context_->xpathContext());
+  } // grabAsString
+  double grabAsNumber(const DOM::Node<std::string>& n) const
+  {
+    context_->setPosition(n, 1);
+    return select_->evaluateAsNumber(n, context_->xpathContext());
+  } // grabAsString
 
   Arabica::XPath::XPathExpressionPtr<std::string> select_;
   Arabica::XPath::XPathExpressionPtr<std::string> lang_;

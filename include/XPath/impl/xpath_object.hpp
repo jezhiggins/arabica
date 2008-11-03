@@ -413,7 +413,14 @@ template<class string_type, class string_adaptor>
 double stringAsNumber(const string_type& str)
 {
   try {
-    return boost::lexical_cast<double>(Arabica::text::normalize_whitespace<string_type, string_adaptor>(str)); 
+    static string_type PLUS = string_adaptor::construct_from_utf8("+");
+
+    string_type n_str = Arabica::text::normalize_whitespace<string_type, string_adaptor>(str);
+    // '+1.5' is not a number according to XPath spec, counter intuitive as that is
+    if(string_adaptor::find(n_str, PLUS) == 0)
+      return NaN;
+    
+    return boost::lexical_cast<double>(n_str);
   } // try
   catch(const boost::bad_lexical_cast&) {
     return NaN;

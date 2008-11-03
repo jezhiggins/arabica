@@ -1116,6 +1116,54 @@ public:
     assertTrue(isNaN(result.asNumber()));
   } // testNumberFn7
 
+  void testNumberFn8()
+  {
+    using namespace Arabica::XPath;
+    XPathValue<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number('-1.5')"), document_);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.5, result.asNumber(), 0.0);
+  } // testNumberFn8
+
+  void testNumberFn9()
+  {
+    using namespace Arabica::XPath;
+    XPathValue<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number('+1.5')"), document_);
+    assertValuesEqual(NUMBER, result.type());
+    assertTrue(isNaN(result.asNumber()));
+  } // testNumberFn9
+
+  void testNumberFn10()
+  {
+    using namespace Arabica::XPath;
+    XPathValue<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number('-1.5                       ')"), document_);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.5, result.asNumber(), 0.0);
+  } // testNumberFn10
+
+  void testNumberFn11()
+  {
+    using namespace Arabica::XPath;
+    XPathValue<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number('+1.5')"), document_);
+    assertValuesEqual(NUMBER, result.type());
+    assertTrue(isNaN(result.asNumber()));
+  } // testNumberFn11
+
+  void testNumberFn12()
+  {
+    using namespace Arabica::XPath;
+    XPathValue<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number('                  -1.5                     ')"), document_);
+    assertValuesEqual(NUMBER, result.type());
+    assertDoublesEqual(-1.5, result.asNumber(), 0.0);
+  } // testNumberFn12
+
+  void testNumberFn13()
+  {
+    using namespace Arabica::XPath;
+    XPathValue<string_type, string_adaptor> result = parser.evaluate_expr(SA::construct_from_utf8("number('               +1.5                        ')"), document_);
+    assertValuesEqual(NUMBER, result.type());
+    assertTrue(isNaN(result.asNumber()));
+  } // testNumberFn13
+
   void testFloorFn1()
   {
     using namespace Arabica::XPath;
@@ -2575,6 +2623,12 @@ TestSuite* ExecuteTest_suite()
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn5", &ExecuteTest<string_type, string_adaptor>::testNumberFn5));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn6", &ExecuteTest<string_type, string_adaptor>::testNumberFn6));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn7", &ExecuteTest<string_type, string_adaptor>::testNumberFn7));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn8", &ExecuteTest<string_type, string_adaptor>::testNumberFn8));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn9", &ExecuteTest<string_type, string_adaptor>::testNumberFn9));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn10", &ExecuteTest<string_type, string_adaptor>::testNumberFn10));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn11", &ExecuteTest<string_type, string_adaptor>::testNumberFn11));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn12", &ExecuteTest<string_type, string_adaptor>::testNumberFn12));
+  suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testNumberFn13", &ExecuteTest<string_type, string_adaptor>::testNumberFn13));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testFloorFn1", &ExecuteTest<string_type, string_adaptor>::testFloorFn1));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testFloorFn2", &ExecuteTest<string_type, string_adaptor>::testFloorFn2));
   suiteOfTests->addTest(new TestCaller<ExecuteTest<string_type, string_adaptor> >("testFloorFn3", &ExecuteTest<string_type, string_adaptor>::testFloorFn3));
