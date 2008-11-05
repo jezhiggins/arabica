@@ -158,8 +158,8 @@ private:
     if((name == "current") && (current_allowed_))
       return new CurrentFunction(argExprs);
     // unparsed-entity-uri
-    if(name == "unparsed-entity-uri")
-      return new UnparsedEntityUriFunction(argExprs);
+    //if(name == "unparsed-entity-uri")
+    //  return new UnparsedEntityUriFunction(argExprs);
     // generate-id
     if(name == "generate-id")
       return new GenerateIdFunction(argExprs);
