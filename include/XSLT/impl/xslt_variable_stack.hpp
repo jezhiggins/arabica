@@ -4,6 +4,7 @@
 #include <XPath/XPath.hpp>
 #include <map>
 #include <vector>
+#include "xslt_precedence.hpp"
 
 namespace Arabica
 {
@@ -22,7 +23,7 @@ public:
   
   virtual const std::string& namespace_uri() const = 0;
   virtual const std::string& name() const = 0;
-  virtual int precedence() const = 0;
+  virtual const Precedence& precedence() const = 0;
   virtual Arabica::XPath::XPathValue<std::string> value() const = 0;
 
   virtual void injectGlobalScope(const Scope& scope) const = 0;
@@ -31,8 +32,6 @@ private:
   Variable_instance(const Variable_instance&);
   Variable_instance& operator=(const Variable_instance&);
   bool operator==(const Variable_instance&) const;
-
-  int precedence_;
 }; // Variable_instance
 
 class VariableStack : public Arabica::XPath::VariableResolver<std::string>
@@ -108,14 +107,14 @@ public:
     
     if(stack.find(name) != stack.end())
     {
-      int current_p = stack[name]->precedence();
+      const Precedence& current_p = stack[name]->precedence();
       if(var->precedence() == current_p)
         throw std::runtime_error("Duplicate variable name : " + clarkName(var));
       if(var->precedence() > current_p)
         return;
     } // if ...
 
-    if(var->precedence() == -1) // we're running, so resolve immediately
+    if(var->precedence() == Precedence::FrozenPrecedence()) // we're running, so resolve immediately
       var->value();
 
     stack[name] = var;
