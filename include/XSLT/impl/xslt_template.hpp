@@ -2,6 +2,7 @@
 #define ARABICA_XSLT_TEMPLATE_HPP
 
 #include "xslt_item.hpp"
+#include "xslt_precedence.hpp"
 
 namespace Arabica
 {
@@ -12,8 +13,8 @@ class Template : public ItemContainer
 {
 public:
   Template(const std::pair<std::string, std::string>& name,
-	         const std::pair<std::string, std::string>& mode,
-	         const std::string& priority) :
+	   const std::pair<std::string, std::string>& mode,
+	   const std::string& priority) :
     matches_(),
     name_(name),
     mode_(mode)
