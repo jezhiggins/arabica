@@ -1,7 +1,7 @@
 #ifndef ARABICA_XSLT_CALL_TEMPLATE_HPP
 #define ARABICA_XSLT_CALL_TEMPLATE_HPP
 
-#include "xslt_stylesheet.hpp"
+#include "xslt_compiled_stylesheet.hpp"
 #include "xslt_with_param.hpp"
 
 namespace Arabica

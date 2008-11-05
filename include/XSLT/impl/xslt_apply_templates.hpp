@@ -1,7 +1,7 @@
 #ifndef ARABICA_XSLT_APPLY_TEMPLATES_HPP
 #define ARABICA_XSLT_APPLY_TEMPLATES_HPP
 
-#include "xslt_stylesheet.hpp"
+#include "xslt_compiled_stylesheet.hpp"
 #include "xslt_sort.hpp"
 #include "xslt_with_param.hpp"
 

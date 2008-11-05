@@ -14,7 +14,7 @@ namespace Arabica
 {
 namespace XSLT
 {
-class Stylesheet;
+class CompiledStylesheet;
 class ItemContainer;
 
 class CompilationContext :
@@ -23,7 +23,7 @@ class CompilationContext :
 {
 public:
   CompilationContext(StylesheetParser& parser,
-                     Stylesheet& stylesheet) :
+                     CompiledStylesheet& stylesheet) :
     parser_(parser),
     stylesheet_(stylesheet),
     autoNs_(1),
@@ -56,7 +56,7 @@ public:
     return xpath_.compile_match(match); 
   } // xpath_match
   Arabica::XPath::XPathExpressionPtr<std::string> xpath_attribute_value_template(const std::string& expr) const { return xpath_.compile_attribute_value_template(expr); } 
-  Stylesheet& stylesheet() const { return stylesheet_; }
+  CompiledStylesheet& stylesheet() const { return stylesheet_; }
 
   std::pair<std::string, std::string> processInternalQName(const std::string& qName) const
   {
@@ -181,7 +181,7 @@ private:
 
   StylesheetParser& parser_;
   Arabica::XPath::XPath<std::string> xpath_;
-  Stylesheet& stylesheet_;
+  CompiledStylesheet& stylesheet_;
   std::stack<SAX::DefaultHandler<std::string>*> handlerStack_;
   std::stack<ItemContainer*> parentStack_;
   std::map<std::string, Namespace> namespaceRemap_;

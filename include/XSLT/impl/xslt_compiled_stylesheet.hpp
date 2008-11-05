@@ -1,5 +1,5 @@
-#ifndef ARABICA_XSLT_STYLESHEET_HPP
-#define ARABICA_XSLT_STYLESHEET_HPP
+#ifndef ARABICA_XSLT_COMPILED_STYLESHEET_HPP
+#define ARABICA_XSLT_COMPILED_STYLESHEET_HPP
 
 #include <vector>
 #include <iostream>
@@ -8,13 +8,14 @@
 #include "xslt_execution_context.hpp"
 #include "xslt_template.hpp"
 #include "xslt_top_level_param.hpp"
+#include "xslt_stylesheet.hpp"
 
 namespace Arabica
 {
 namespace XSLT
 {
 
-class Stylesheet
+class CompiledStylesheet : public Stylesheet
 {
   typedef Arabica::XPath::BoolValue<std::string, Arabica::default_string_adaptor<std::string> > BoolValue;
   typedef Arabica::XPath::NumericValue<std::string, Arabica::default_string_adaptor<std::string> > NumericValue;
@@ -22,14 +23,16 @@ class Stylesheet
   typedef Arabica::XPath::XPathValuePtr<std::string> ValuePtr;
 
 public:
-  Stylesheet() :
+  CompiledStylesheet() :
       output_(new StreamSink(std::cout)),
-      error_output_(&std::cerr)
+      error_output_(&std::cerr),
+      current_import_precedence_(0),
+      total_imports_(0)
   {
     push_import_precedence();
-  } // Stylesheet
+  } // CompiledStylesheet
 
-  ~Stylesheet()
+  virtual ~CompiledStylesheet()
   {
     // let's clean up!
     for(ItemStack::const_iterator isi = items_.begin(), ise = items_.end(); isi != ise; ++isi)
@@ -39,36 +42,36 @@ public:
       delete *pi;
     for(TemplateList::const_iterator ti = all_templates_.begin(), te = all_templates_.end(); ti != te; ++ti)
       delete *ti;
-  } // ~Stylesheet
+  } // ~CompiledStylesheet
 
-  void set_parameter(const std::string& name, bool value)
+  virtual void set_parameter(const std::string& name, bool value)
   {
     set_parameter(name, ValuePtr(new BoolValue(value)));
   } // set_parameter
-  void set_parameter(const std::string& name, double value)
+  virtual void set_parameter(const std::string& name, double value)
   {
     set_parameter(name, ValuePtr(new NumericValue(value)));
   } // set_parameter
-  void set_parameter(const std::string& name, const char* value)
+  virtual void set_parameter(const std::string& name, const char* value)
   {
     set_parameter(name, ValuePtr(new StringValue(value)));
   } // set_parameter
-  void set_parameter(const std::string& name, const std::string& value)
+  virtual void set_parameter(const std::string& name, const std::string& value)
   {
     set_parameter(name, ValuePtr(new StringValue(value)));
   } // set_parameter
 
-  void set_output(Sink& sink)
+  virtual void set_output(Sink& sink)
   {
     output_.reset(sink);
   } // set_output
 
-  void set_error_output(std::ostream& os)
+  virtual void set_error_output(std::ostream& os)
   {
     error_output_ = &os;
   } // set_error_output
 
-  void execute(DOM::Node<std::string>& initialNode) const
+  virtual void execute(const DOM::Node<std::string>& initialNode) const
   {
     if(initialNode == 0)
       throw std::runtime_error("Input document is empty");
@@ -318,16 +321,19 @@ private:
   ItemStack items_;
   ParamList params_;
 
+  std::vector<int> current_import_precedence_;
+  int total_imports_;
+
   mutable std::pair<std::string, std::string> current_mode_;
   mutable int current_generation_;
 
   Output::Settings output_settings_;
   SinkHolder output_;
   mutable std::ostream* error_output_;
-}; // class Stylesheet
+}; // class CompiledStylesheet
 
 } // namespace XSLT
 } // namespace Arabica
 
-#endif // ARABICA_XSLT_STYLESHEET_HPP
+#endif // ARABICA_XSLT_COMPILED_STYLESHEET_HPP
 

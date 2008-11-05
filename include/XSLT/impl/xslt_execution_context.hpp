@@ -10,7 +10,7 @@ namespace Arabica
 namespace XSLT
 {
 
-class Stylesheet;
+class CompiledStylesheet;
 class ExecutionContext;
 
 class Variable_declaration
@@ -34,7 +34,7 @@ private:
 class ExecutionContext
 {
 public:
-  ExecutionContext(const Stylesheet& stylesheet,
+  ExecutionContext(const CompiledStylesheet& stylesheet,
                    Sink& output,
                    std::ostream& error_output) :
       stylesheet_(stylesheet),
@@ -63,7 +63,7 @@ public:
     xpathContext_.setLast(rhs.xpathContext().last());
   } // ExecutionContext
 
-  const Stylesheet& stylesheet() const { return stylesheet_; }
+  const CompiledStylesheet& stylesheet() const { return stylesheet_; }
 
   Output& sink() 
   { 
@@ -104,7 +104,7 @@ private:
   void popStackFrame() { stack_.popScope(); }
 
 private:
-  const Stylesheet& stylesheet_;
+  const CompiledStylesheet& stylesheet_;
   VariableStack stack_;
   int variable_precedence_;
   Arabica::XPath::ExecutionContext<std::string> xpathContext_;

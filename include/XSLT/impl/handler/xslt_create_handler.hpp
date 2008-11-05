@@ -6,7 +6,7 @@
 #include <XPath/XPath.hpp>
 
 #include "../xslt_compilation_context.hpp"
-#include "../xslt_stylesheet.hpp"
+#include "../xslt_compiled_stylesheet.hpp"
 #include "xslt_constants.hpp"
 
 namespace Arabica

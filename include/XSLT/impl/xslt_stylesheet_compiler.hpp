@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "xslt_stylesheet_parser.hpp"
-#include "xslt_stylesheet.hpp"
+#include "xslt_compiled_stylesheet.hpp"
 #include "xslt_compilation_context.hpp"
 #include "handler/xslt_template_handler.hpp"
 #include "handler/xslt_include_handler.hpp"
@@ -169,20 +169,19 @@ public:
   {
     error_ = "";
 
-    std::auto_ptr<Stylesheet> stylesheet(new Stylesheet());
+    std::auto_ptr<CompiledStylesheet> stylesheet(new CompiledStylesheet());
 
-    CompilationContext context(parser_, 
-                               *stylesheet.get());
+    StylesheetParser parser;
+    CompilationContext context(parser, *stylesheet.get());
 
     StylesheetHandler stylesheetHandler(context);
-
-    parser_.setContentHandler(stylesheetHandler);
-    //parser_.setErrorHandler(*this);
+    parser.setContentHandler(stylesheetHandler);
+    //parser.setErrorHandler(*this);
   
     //if(entityResolver_)
-    //  parser_.setEntityResolver(*entityResolver_);
+    //  parser.setEntityResolver(*entityResolver_);
     try {
-      parser_.parse(source);
+      parser.parse(source);
     } // try
     catch(std::exception& ex)
     {
@@ -191,7 +190,7 @@ public:
       stylesheet.reset();
     } // catch
 
-    return stylesheet;
+    return std::auto_ptr<Stylesheet>(stylesheet.release());
   } // compile
 
   const std::string& error() const
@@ -200,14 +199,6 @@ public:
   } // error
 
 private:
-  virtual void fatalError(const SAX::SAXException& exception)
-  {
-    std::cerr << "Error: " << exception.what() << std::endl;
-    stylesheet_.reset();
-  } // fatalError
-
-  StylesheetParser parser_;
-  std::auto_ptr<Stylesheet> stylesheet_;
   std::string error_;
 }; // class StylesheetCompiler
 
