@@ -16,7 +16,15 @@ class VariableHandler : public ItemContainerHandler<VType>
 public:
   VariableHandler(CompilationContext& context) :
     ItemContainerHandler<VType>(context),
-    has_select_(false)
+    has_select_(false),
+    precedence_(Precedence::FrozenPrecedence())
+  {
+  } // VariableHandler
+
+  VariableHandler(CompilationContext& context, const Precedence& precedence) :
+    ItemContainerHandler<VType>(context),
+    has_select_(false),
+    precedence_(precedence)
   {
   } // VariableHandler
 
@@ -42,7 +50,7 @@ protected:
     } // if ...
 
     std::pair<std::string, std::string> name = this->context().processInternalQName(attrs["name"]);
-    return new VType(name.first, name.second, xpath);
+    return new VType(name.first, name.second, xpath, precedence_);
   } // createContainer
 
   virtual void characters(const std::string& ch)
@@ -58,6 +66,7 @@ protected:
 
 private:
   bool has_select_;
+  const Precedence precedence_;
 }; // class VariableHandler
 
 template<class VType>
@@ -65,7 +74,7 @@ class TopLevelVariableHandler : public VariableHandler<VType>
 {
 public:
   TopLevelVariableHandler(CompilationContext& context) :
-      VariableHandler<VType>(context)
+      VariableHandler<VType>(context, context.precedence())
   {
   } // VariableHandler
 
@@ -73,7 +82,7 @@ public:
                           const std::string& localName,
                           const std::string& qName)
   {
-    this->context().stylesheet().add_item(this->container());
+    this->context().stylesheet().add_variable(this->container());
     this->context().pop();
   } // endElement
 

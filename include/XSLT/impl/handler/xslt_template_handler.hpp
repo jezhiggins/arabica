@@ -71,12 +71,14 @@ protected:
     if(match == "")
       return new Template(name,
 			  mode,
-			  attributes["priority"]);
+			  attributes["priority"],
+        context().precedence());
 
     return new Template(context().xpath_match(match),
 			name,
 			mode,
-			atts.getValue("priority"));
+			atts.getValue("priority"),
+      context().precedence());
   } // createContainer
 
   virtual bool createChild(const std::string& namespaceURI,

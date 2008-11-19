@@ -139,6 +139,20 @@ public:
     return ss.str();
   } // autoNamespacePrefix
 
+  void push_import_precedence()
+  {
+    precedenceStack_.push();
+    stylesheet_.push_import_precedence();
+  } // push_import_precedence
+
+  void pop_import_precedence()
+  {
+  } // pop_import_precedence
+
+  const Precedence& precedence() const
+  {
+    return precedenceStack_.top();
+  } // precedence
 
 private:
   // FunctionResolver 
@@ -185,6 +199,7 @@ private:
   std::stack<SAX::DefaultHandler<std::string>*> handlerStack_;
   std::stack<ItemContainer*> parentStack_;
   std::map<std::string, Namespace> namespaceRemap_;
+  PrecedenceStack precedenceStack_;
 
   CompilationContext(const CompilationContext&);
   mutable int autoNs_;

@@ -33,6 +33,7 @@ public:
   {
     return value_;
   } // value
+  virtual const Precedence& precedence() const { return Precedence::InitialPrecedence(); }
 
 private:
   static DOM::Node<std::string> null_node;

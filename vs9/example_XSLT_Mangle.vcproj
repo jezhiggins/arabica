@@ -225,6 +225,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\XSLT\impl\xslt_compiled_stylesheet.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\Xslt\impl\xslt_copy.hpp"
 					>
 				</File>
@@ -266,6 +270,10 @@
 				</File>
 				<File
 					RelativePath="..\include\Xslt\impl\xslt_param.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\XSLT\impl\xslt_precedence.hpp"
 					>
 				</File>
 				<File

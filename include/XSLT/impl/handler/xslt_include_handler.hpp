@@ -113,8 +113,9 @@ public:
     {      
       std::vector<std::string>::iterator import = import_stack_.end()-1;
       size_t index = import_stack_.size() - 1;
-      context_->stylesheet().push_import_precedence();
+      context_->push_import_precedence();
       include_stylesheet(import_stack_.back());
+      context_->pop_import_precedence();
       import_stack_.erase(import_stack_.begin() + index);
     } // while ...
   } // unwind_imports

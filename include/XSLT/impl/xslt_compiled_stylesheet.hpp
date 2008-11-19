@@ -35,9 +35,8 @@ public:
   virtual ~CompiledStylesheet()
   {
     // let's clean up!
-    for(ItemStack::const_iterator isi = items_.begin(), ise = items_.end(); isi != ise; ++isi)
-      for(ItemList::const_iterator ci = isi->begin(), ce = isi->end(); ci != ce; ++ci)
-        delete *ci;
+    for(VariableDeclList::const_iterator ci = topLevelVars_.begin(), ce = topLevelVars_.end(); ci != ce; ++ci)
+      delete *ci;
     for(ParamList::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       delete *pi;
     for(TemplateList::const_iterator ti = all_templates_.begin(), te = all_templates_.end(); ti != te; ++ti)
@@ -84,12 +83,8 @@ public:
     // set up variables and so forth
     for(ParamList::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       (*pi)->declare(context);
-    for(ItemStack::const_iterator isi = items_.begin(), ise = items_.end(); isi != ise; ++isi)
-    {
-      for(ItemList::const_iterator ci = isi->begin(), ce = isi->end(); ci != ce; ++ci)
-        (*ci)->execute(initialNode, context);
-      context.pushVariablePrecedence();
-    } // for ...
+    for(VariableDeclList::const_iterator ci = topLevelVars_.begin(), ce = topLevelVars_.end(); ci != ce; ++ci)
+      (*ci)->execute(initialNode, context);
     context.freezeTopLevel();
 
     // go!
@@ -127,12 +122,11 @@ public:
   void push_import_precedence()
   {
     templates_.push_back(ModeTemplates());
-    items_.push_back(ItemList());
   } // push_import_precedence
 
-  void add_item(Item* item)
+  void add_variable(Item* item)
   {
-    items_.back().push_back(item);
+    topLevelVars_.push_back(item);
   } // add_item
 
   void output_settings(const Output::Settings& settings)
@@ -310,15 +304,14 @@ private:
   typedef std::vector<ModeTemplates> TemplateStack;
   typedef std::map<std::pair<std::string, std::string>, Template*> NamedTemplates;
   
-  typedef std::vector<Item*> ItemList;
-  typedef std::vector<ItemList> ItemStack;
+  typedef std::vector<Item*> VariableDeclList;
 
   typedef std::vector<TopLevelParam*> ParamList;
 
   TemplateList all_templates_;
   NamedTemplates named_templates_;
   TemplateStack templates_;
-  ItemStack items_;
+  VariableDeclList topLevelVars_;
   ParamList params_;
 
   std::vector<int> current_import_precedence_;

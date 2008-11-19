@@ -16,10 +16,12 @@ class Variable_impl : public ItemContainer, public Variable_declaration
 protected:
   Variable_impl(const std::string& namespace_uri, 
                 const std::string& name, 
-                Arabica::XPath::XPathExpressionPtr<std::string> select) :
+                Arabica::XPath::XPathExpressionPtr<std::string> select,
+                const Precedence& precedence) :
       namespace_uri_(namespace_uri),
       name_(name),
-      select_(select)
+      select_(select),
+      precedence_(precedence)
   {
   } // Variable_impl
   
@@ -48,10 +50,13 @@ public:
     return Arabica::XPath::NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(nodeset);
   } // value
 
+  virtual const Precedence& precedence() const { return precedence_; }
+
 private:
   std::string namespace_uri_;
   std::string name_;
   Arabica::XPath::XPathExpressionPtr<std::string> select_;
+  Precedence precedence_;
 }; // Variable_impl
 
 } // namespace XSLT

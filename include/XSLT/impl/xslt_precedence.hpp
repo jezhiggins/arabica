@@ -4,13 +4,13 @@
 class Precedence
 {
 public:
-  static Precedence InitialPrecedence()
+  static const Precedence& InitialPrecedence()
   {
     static Precedence initial_(0);
     return initial_;
   } // Precedence
 
-  static Precedence FrozenPrecedence()
+  static const Precedence& FrozenPrecedence()
   {
     static Precedence frozen_(-1);
     return frozen_;
@@ -74,7 +74,7 @@ public:
   PrecedenceStack() :
     stack_()
   {
-    stack_.push_back(Precedence::InitialPrecedence());
+    stack_.push(Precedence::InitialPrecedence());
   } // PrecedenceStack
 
   PrecedenceStack(const PrecedenceStack& rhs) : 
@@ -82,15 +82,17 @@ public:
   {
   } // PrecedenceStack
 
-  const Precedence& top() const { return stack_[stack_.size()-1]; }
-  void push() { stack_.push_back(top().nextGeneration(stack_.size())); }
+  const Precedence& top() const { return stack_.top(); }
+  void push() { stack_.push(top().nextGeneration(stack_.size())); }
+  void pop() { stack_.pop(); }
   void freeze() 
   { 
-    stack_.clear();
-    stack_.push_back(Precedence::FrozenPrecedence());
+    while(!stack_.empty())
+      stack_.pop();
+    stack_.push(Precedence::FrozenPrecedence());
   } // freeze
 
 private:
-  std::vector<Precedence> stack_;
+  std::stack<Precedence> stack_;
 }; // class PrecedenceStack
 #endif
