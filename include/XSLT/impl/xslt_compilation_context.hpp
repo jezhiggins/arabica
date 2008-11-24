@@ -142,7 +142,6 @@ public:
   void push_import_precedence()
   {
     precedenceStack_.push();
-    stylesheet_.push_import_precedence();
   } // push_import_precedence
 
   void pop_import_precedence()

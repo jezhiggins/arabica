@@ -66,7 +66,14 @@ public:
 private:
   // std::vector<int> precedence_;  
   int precedence_;
+
+  friend bool operator<(const Precedence& lhs, const Precedence& rhs);
 }; // class Precedence
+
+bool operator<(const Precedence& lhs, const Precedence& rhs)
+{
+  return lhs.precedence_ < rhs.precedence_;
+} // PrecedenceCompare
 
 class PrecedenceStack
 {

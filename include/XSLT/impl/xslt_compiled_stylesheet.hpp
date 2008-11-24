@@ -25,11 +25,8 @@ class CompiledStylesheet : public Stylesheet
 public:
   CompiledStylesheet() :
       output_(new StreamSink(std::cout)),
-      error_output_(&std::cerr),
-      current_import_precedence_(0),
-      total_imports_(0)
+      error_output_(&std::cerr)
   {
-    push_import_precedence();
   } // CompiledStylesheet
 
   virtual ~CompiledStylesheet()
@@ -102,7 +99,7 @@ public:
     all_templates_.push_back(templat);
 
     for(MatchIterator e = templat->compiled_matches().begin(), ee = templat->compiled_matches().end(); e != ee; ++e)
-      templates_.back()[templat->mode()].push_back(MatchTemplate(*e, templat));
+      templates_[templat->precedence()][templat->mode()].push_back(MatchTemplate(*e, templat));
 
     if(!templat->has_name())
       return;
@@ -119,11 +116,6 @@ public:
     named_templates_[templat->name()] = templat;
   } // add_template
 
-  void push_import_precedence()
-  {
-    templates_.push_back(ModeTemplates());
-  } // push_import_precedence
-
   void add_variable(Item* item)
   {
     topLevelVars_.push_back(item);
@@ -137,7 +129,7 @@ public:
   void prepare() 
   {
     for(TemplateStack::iterator ts = templates_.begin(), tse = templates_.end(); ts != tse; ++ts)
-      for(ModeTemplates::iterator ms = ts->begin(), mse = ts->end(); ms != mse; ++ms)
+      for(ModeTemplates::iterator ms = ts->second.begin(), mse = ts->second.end(); ms != mse; ++ms)
       {
         MatchTemplates& matches = ms->second;
         std::reverse(matches.begin(), matches.end());
@@ -154,7 +146,7 @@ public:
     for(Arabica::XPath::NodeSet<std::string>::const_iterator n = nodes.begin(), ne = nodes.end(); n != ne; ++n)
     {
       context.setPosition(*n, p++);
-      doApplyTemplates(*n, context, mode, 0);
+      doApplyTemplates(*n, context, mode, Precedence::FrozenPrecedence());
     }
   } // applyTemplates
 
@@ -165,7 +157,7 @@ public:
     for(int i = 0, ie = nodes.getLength(); i != ie; ++i)
     {
       context.setPosition(nodes.item(i), i+1);
-      doApplyTemplates(nodes.item(i), context, mode, 0);
+      doApplyTemplates(nodes.item(i), context, mode, Precedence::FrozenPrecedence());
     }
   } // applyTemplates
 
@@ -173,7 +165,7 @@ public:
   {
     LastFrame last(context, -1);
     context.setPosition(node, 1);
-    doApplyTemplates(node, context, mode, 0);
+    doApplyTemplates(node, context, mode, Precedence::FrozenPrecedence());
   } // applyTemplates
 
   void callTemplate(const std::pair<std::string, std::string>& name, const DOM::Node<std::string>& node, ExecutionContext& context) const
@@ -196,24 +188,31 @@ public:
 
   void applyImports(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
-    doApplyTemplates(node, context, current_mode_, current_generation_+1);
+    doApplyTemplates(node, context, current_mode_, current_generation_);
   } // applyImports
 
 private:
   void doApplyTemplates(const DOM::Node<std::string>& node, 
                         ExecutionContext& context, 
                         const std::pair<std::string, std::string>& mode, 
-                        int generation) const
+                        Precedence generation) const
   {
     StackFrame frame(context);
 
-    current_mode_ = mode;
-    current_generation_ = generation;
+    std::vector<Precedence> higher_precedences;
+    for(TemplateStack::const_iterator ts = templates_.begin(), tse = templates_.end(); ts != tse; ++ts)
+      if(ts->first > generation)
+	higher_precedences.push_back(ts->first);
+    std::sort(higher_precedences.begin(), higher_precedences.end());
 
-    for(TemplateStack::const_iterator ts = templates_.begin()+generation, tse = templates_.end(); ts != tse; ++ts)
-    {      
-      ModeTemplates::const_iterator mt = ts->find(mode);
-      if(mt != ts->end())
+    current_mode_ = mode;
+
+    for(std::vector<Precedence>::const_iterator p = higher_precedences.begin(), pe = higher_precedences.end(); p != pe; ++p)
+    { 
+      current_generation_ = *p;
+      ModeTemplates ts = templates_.find(current_generation_)->second;
+      ModeTemplates::const_iterator mt = ts.find(mode);
+      if(mt != ts.end())
       {
         const MatchTemplates& templates = mt->second;
 	      for(MatchTemplates::const_iterator t = templates.begin(), te = templates.end(); t != te; ++t)
@@ -223,7 +222,6 @@ private:
 	          return;
 	        } // if ...
       } // if ...
-      ++current_generation_;
     } // for ...
     defaultAction(node, context, mode);
   } // doApplyTemplates
@@ -301,11 +299,10 @@ private:
   typedef std::vector<Template*> TemplateList;
   typedef std::vector<MatchTemplate> MatchTemplates;
   typedef std::map<std::pair<std::string, std::string>, MatchTemplates> ModeTemplates;
-  typedef std::vector<ModeTemplates> TemplateStack;
+  typedef std::map<Precedence, ModeTemplates> TemplateStack;
   typedef std::map<std::pair<std::string, std::string>, Template*> NamedTemplates;
   
   typedef std::vector<Item*> VariableDeclList;
-
   typedef std::vector<TopLevelParam*> ParamList;
 
   TemplateList all_templates_;
@@ -314,11 +311,8 @@ private:
   VariableDeclList topLevelVars_;
   ParamList params_;
 
-  std::vector<int> current_import_precedence_;
-  int total_imports_;
-
   mutable std::pair<std::string, std::string> current_mode_;
-  mutable int current_generation_;
+  mutable Precedence current_generation_;
 
   Output::Settings output_settings_;
   SinkHolder output_;
