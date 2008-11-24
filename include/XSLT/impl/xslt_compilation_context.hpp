@@ -146,6 +146,7 @@ public:
 
   void pop_import_precedence()
   {
+    precedenceStack_.pop();
   } // pop_import_precedence
 
   const Precedence& precedence() const

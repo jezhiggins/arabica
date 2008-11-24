@@ -90,7 +90,7 @@ public:
   } // PrecedenceStack
 
   const Precedence& top() const { return stack_.top(); }
-  void push() { stack_.push(top().nextGeneration(stack_.size())); }
+  void push() { stack_.push(top().nextGeneration(count_++)); }
   void pop() { stack_.pop(); }
   void freeze() 
   { 
@@ -101,5 +101,8 @@ public:
 
 private:
   std::stack<Precedence> stack_;
+  static int count_;
 }; // class PrecedenceStack
+
+int PrecedenceStack::count_ = 0;
 #endif
