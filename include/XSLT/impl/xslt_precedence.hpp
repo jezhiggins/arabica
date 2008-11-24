@@ -28,10 +28,15 @@ public:
   } // Precedence
 
 private:
-  //Precedence(const std::vector<int> precedence) : 
-  Precedence(int precedence) : 
+  Precedence(const std::vector<int> precedence) : 
     precedence_(precedence)
   {
+  } // Precedence
+
+  Precedence(int precedence) : 
+    precedence_()
+  {
+    precedence_.push_back(precedence);
   } // Precedence
 
 public:
@@ -49,37 +54,48 @@ public:
 
   Precedence& operator=(const Precedence& rhs) 
   { 
-    //std::vector<int> other(rhs.precedence_);
-    //precedence_.swap(other);
-    precedence_ = rhs.precedence_;
+    std::vector<int> other(rhs.precedence_);
+    precedence_.swap(other);
     return *this;
   } // operator=
 
   Precedence nextGeneration(int p) const
   {
-    Precedence next(p);
-    //Precedence next(precedence_);
-    //next.precedence_.push_back(p);
+    Precedence next(precedence_);
+    next.precedence_.push_back(p);
     return next;
   } // nextGeneration
 
 private:
-  // std::vector<int> precedence_;  
-  int precedence_;
+  std::vector<int> precedence_;  
 
   friend bool operator<(const Precedence& lhs, const Precedence& rhs);
+  friend std::ostream& operator<<(std::ostream& os, const Precedence& prec);
 }; // class Precedence
 
 bool operator<(const Precedence& lhs, const Precedence& rhs)
 {
-  return lhs.precedence_ < rhs.precedence_;
+  return lhs.precedence_.back() < rhs.precedence_.back();
 } // PrecedenceCompare
 
+std::ostream& operator<<(std::ostream& os, const Precedence& prec)
+{
+  os << "(";
+  for(std::vector<int>::const_iterator p = prec.precedence_.begin(), pe = prec.precedence_.end(); p != pe; ++p)
+  {
+    if(p != prec.precedence_.begin())
+      os << ",";
+    os << *p;
+  } // for ..
+  os << ")";
+} // operator<<
+  
 class PrecedenceStack
 {
 public:
   PrecedenceStack() :
-    stack_()
+    stack_(),
+    count_(1)
   {
     stack_.push(Precedence::InitialPrecedence());
   } // PrecedenceStack
@@ -90,7 +106,11 @@ public:
   } // PrecedenceStack
 
   const Precedence& top() const { return stack_.top(); }
-  void push() { stack_.push(top().nextGeneration(count_++)); }
+  void push() 
+  { 
+    stack_.push(top().nextGeneration(count_++)); 
+    std::cout << "Pushed " << top() << std::endl;    
+  }
   void pop() { stack_.pop(); }
   void freeze() 
   { 
@@ -101,8 +121,6 @@ public:
 
 private:
   std::stack<Precedence> stack_;
-  static int count_;
+  int count_;
 }; // class PrecedenceStack
-
-int PrecedenceStack::count_ = 0;
 #endif

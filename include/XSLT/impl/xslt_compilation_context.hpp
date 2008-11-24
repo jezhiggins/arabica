@@ -149,6 +149,10 @@ public:
     precedenceStack_.pop();
   } // pop_import_precedence
 
+  // void set_precedence(const Prcedence& prec)
+
+  // const Precedence& next_precedence()
+
   const Precedence& precedence() const
   {
     return precedenceStack_.top();
