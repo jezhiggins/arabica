@@ -110,7 +110,7 @@ public:
       const Precedence& current_p = stack[name]->precedence();
       if(var->precedence() == current_p)
         throw std::runtime_error("Duplicate variable name : " + clarkName(var));
-      if(var->precedence() > current_p)
+      if(current_p.is_descendant(var->precedence()))
         return;
     } // if ...
 

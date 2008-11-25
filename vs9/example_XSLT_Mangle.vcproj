@@ -201,6 +201,10 @@
 				Name="impl"
 				>
 				<File
+					RelativePath="..\include\XSLT\impl\xslt_apply_imports.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\Xslt\impl\xslt_apply_templates.hpp"
 					>
 				</File>
