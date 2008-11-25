@@ -27,7 +27,8 @@ public:
     parser_(parser),
     stylesheet_(stylesheet),
     autoNs_(1),
-    current_allowed_(false)
+    current_allowed_(false),
+    precedence_(Precedence::InitialPrecedence())
   {
     xpath_.setNamespaceContext(*this);
     xpath_.setFunctionResolver(*this);
@@ -139,23 +140,19 @@ public:
     return ss.str();
   } // autoNamespacePrefix
 
-  void push_import_precedence()
+  void set_precedence(const Precedence& prec)
   {
-    precedenceStack_.push();
-  } // push_import_precedence
+    precedence_ = prec;
+  } // set_precedence
 
-  void pop_import_precedence()
+  Precedence next_precedence()
   {
-    precedenceStack_.pop();
-  } // pop_import_precedence
-
-  // void set_precedence(const Prcedence& prec)
-
-  // const Precedence& next_precedence()
+    return precedence_.next_generation();
+  } // next_precedence
 
   const Precedence& precedence() const
   {
-    return precedenceStack_.top();
+    return precedence_;
   } // precedence
 
 private:
@@ -203,7 +200,7 @@ private:
   std::stack<SAX::DefaultHandler<std::string>*> handlerStack_;
   std::stack<ItemContainer*> parentStack_;
   std::map<std::string, Namespace> namespaceRemap_;
-  PrecedenceStack precedenceStack_;
+  Precedence precedence_;
 
   CompilationContext(const CompilationContext&);
   mutable int autoNs_;

@@ -12,29 +12,33 @@ public:
 
   static const Precedence& FrozenPrecedence()
   {
-    static Precedence frozen_(-1);
+    static Precedence frozen_;
     return frozen_;
   } // Precedence
 
   Precedence() : 
-    precedence_()
+    precedence_(),
+    children_(0)
   { 
     //precedence_.push_back(0);
   } // Precedence
 
   Precedence(const Precedence& rhs) : 
-    precedence_(rhs.precedence_)
+    precedence_(rhs.precedence_),
+    children_(rhs.children_)
   { 
   } // Precedence
 
 private:
   Precedence(const std::vector<int> precedence) : 
-    precedence_(precedence)
+    precedence_(precedence),
+    children_(0)
   {
   } // Precedence
 
   Precedence(int precedence) : 
-    precedence_()
+    precedence_(),
+    children_(0)
   {
     precedence_.push_back(precedence);
   } // Precedence
@@ -47,80 +51,63 @@ public:
     return precedence_ == rhs.precedence_;
   } // operator==
 
-  bool operator>(const Precedence& rhs) const
-  {
-    return precedence_ > rhs.precedence_;
-  } // operator>
-
   Precedence& operator=(const Precedence& rhs) 
   { 
     std::vector<int> other(rhs.precedence_);
     precedence_.swap(other);
+    children_ = rhs.children_;
     return *this;
   } // operator=
 
-  Precedence nextGeneration(int p) const
+  bool is_descendant(const Precedence& other) const
+  {
+    if(other.precedence_.size() <= precedence_.size())
+      return false;
+
+    for(int i = 0, ie = precedence_.size(); i != ie; ++i)
+      if(other.precedence_[i] != precedence_[i])
+        return false;
+
+    return true;
+  } // is_descendant
+
+
+  Precedence next_generation() 
   {
     Precedence next(precedence_);
-    next.precedence_.push_back(p);
+    next.precedence_.push_back(++children_);
     return next;
   } // nextGeneration
 
 private:
   std::vector<int> precedence_;  
+  int children_;
 
   friend bool operator<(const Precedence& lhs, const Precedence& rhs);
-  friend std::ostream& operator<<(std::ostream& os, const Precedence& prec);
 }; // class Precedence
 
 bool operator<(const Precedence& lhs, const Precedence& rhs)
 {
-  return lhs.precedence_.back() < rhs.precedence_.back();
-} // PrecedenceCompare
+  if(lhs.precedence_ == rhs.precedence_)
+    return false;
 
-std::ostream& operator<<(std::ostream& os, const Precedence& prec)
-{
-  os << "(";
-  for(std::vector<int>::const_iterator p = prec.precedence_.begin(), pe = prec.precedence_.end(); p != pe; ++p)
+  int len = std::min(lhs.precedence_.size(), rhs.precedence_.size());
+  for(int c = 0; c < len; ++c)
   {
-    if(p != prec.precedence_.begin())
-      os << ",";
-    os << *p;
-  } // for ..
-  os << ")";
-} // operator<<
-  
-class PrecedenceStack
-{
-public:
-  PrecedenceStack() :
-    stack_(),
-    count_(1)
-  {
-    stack_.push(Precedence::InitialPrecedence());
-  } // PrecedenceStack
-
-  PrecedenceStack(const PrecedenceStack& rhs) : 
-    stack_(rhs.stack_)
-  {
-  } // PrecedenceStack
-
-  const Precedence& top() const { return stack_.top(); }
-  void push() 
-  { 
-    stack_.push(top().nextGeneration(count_++)); 
-    std::cout << "Pushed " << top() << std::endl;    
+    if(lhs.precedence_[c] < rhs.precedence_[c])
+      return true;
+    if(lhs.precedence_[c] > rhs.precedence_[c])
+      return false;
   }
-  void pop() { stack_.pop(); }
-  void freeze() 
-  { 
-    while(!stack_.empty())
-      stack_.pop();
-    stack_.push(Precedence::FrozenPrecedence());
-  } // freeze
+  if(lhs.precedence_.size() < rhs.precedence_.size()) 
+    return false;
 
-private:
-  std::stack<Precedence> stack_;
-  int count_;
-}; // class PrecedenceStack
+  return true;
+} // operator>
+
+bool operator>(const Precedence& lhs, const Precedence& rhs)
+{
+  return !(lhs == rhs) && !(lhs < rhs);
+} // operator>
+ 
 #endif

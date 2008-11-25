@@ -54,8 +54,8 @@ public:
       if(localName == "import")
       {
         std::string href = validate_href(qName, atts);
-        check_for_loops(import_stack_, href);
-        import_stack_.push_back(href);
+        //check_for_loops(import_stack_, href);
+        import_stack_.push_back(std::make_pair(href, context_->next_precedence()));
         return;
       } // if(localName == "import")
       if(localName == "include")
@@ -87,7 +87,7 @@ public:
       no_content_ = false;
       if(localName == "include")
       {
-        include_stylesheet(href_.back());
+        include_stylesheet(href_.back(), context_->precedence());
         href_.pop_back();
       } // if ...
       if(href_.empty())
@@ -111,11 +111,9 @@ public:
   {
     while(!import_stack_.empty())
     {      
-      std::vector<std::string>::iterator import = import_stack_.end()-1;
+      ImportStack::iterator import = import_stack_.end()-1;
       size_t index = import_stack_.size() - 1;
-      context_->push_import_precedence();
-      include_stylesheet(import_stack_.back());
-      context_->pop_import_precedence();
+      include_stylesheet(import_stack_.back().first, import_stack_.back().second);
       import_stack_.erase(import_stack_.begin() + index);
     } // while ...
   } // unwind_imports
@@ -130,9 +128,9 @@ private:
     return context_->makeAbsolute(href);
   } // validate_href
 
-  void check_for_loops(const std::vector<std::string>& stack, const std::string& href)
+/*  void check_for_loops(const ImportStack& stack, const std::string& href)
   {
-    if(std::find(stack.begin(), stack.end(), href) != stack.end())
+    if(std::find(stack.begin(), stack.end(), candidate) != stack.end())
     {
       std::string error = "Stylesheet '" + href + "' includes/imports itself ";
       for(std::vector<std::string>::const_iterator i = stack.begin(), ie = stack.end(); i != ie; ++i)
@@ -140,13 +138,14 @@ private:
       throw std::runtime_error(error);
     } // if ...
   } // check_for_loops
-
-  void include_stylesheet(const std::string& href)
+*/
+  void include_stylesheet(const std::string& href, const Precedence& precedence)
   {
-    check_for_loops(current_includes_, href);
+    //check_for_loops(current_includes_, href);
     current_includes_.push_back(href);
 
     std::string prev = context_->setBase(href);
+    context_->set_precedence(precedence);
 
     SAX::InputSource<std::string> source(href);
     SAX::XMLReader<std::string> include_parser;
@@ -168,7 +167,9 @@ private:
   SAX::DefaultHandler<std::string>* compiler_;
   CompilationContext* context_;
   bool no_content_;
-  std::vector<std::string> import_stack_;
+
+  typedef std::vector<std::pair<std::string, Precedence> > ImportStack;
+  ImportStack import_stack_;
   std::vector<std::string> current_includes_;
 
   std::vector<std::string> href_;

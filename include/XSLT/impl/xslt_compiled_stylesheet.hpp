@@ -195,19 +195,19 @@ private:
   void doApplyTemplates(const DOM::Node<std::string>& node, 
                         ExecutionContext& context, 
                         const std::pair<std::string, std::string>& mode, 
-                        Precedence generation) const
+                        const Precedence& generation) const
   {
     StackFrame frame(context);
 
-    std::vector<Precedence> higher_precedences;
+    std::vector<Precedence> lower_precedences;
     for(TemplateStack::const_iterator ts = templates_.begin(), tse = templates_.end(); ts != tse; ++ts)
-      if(ts->first > generation)
-	higher_precedences.push_back(ts->first);
-    std::sort(higher_precedences.begin(), higher_precedences.end());
+      if(generation.is_descendant(ts->first))
+        lower_precedences.push_back(ts->first);
+    std::sort(lower_precedences.rbegin(), lower_precedences.rend());
 
     current_mode_ = mode;
 
-    for(std::vector<Precedence>::const_iterator p = higher_precedences.begin(), pe = higher_precedences.end(); p != pe; ++p)
+    for(std::vector<Precedence>::const_iterator p = lower_precedences.begin(), pe = lower_precedences.end(); p != pe; ++p)
     { 
       current_generation_ = *p;
       ModeTemplates ts = templates_.find(current_generation_)->second;
