@@ -84,6 +84,7 @@ private:
   int children_;
 
   friend bool operator<(const Precedence& lhs, const Precedence& rhs);
+  friend std::ostream& operator<<(std::ostream& os, const Precedence& prec);
 }; // class Precedence
 
 bool operator<(const Precedence& lhs, const Precedence& rhs)
@@ -92,7 +93,7 @@ bool operator<(const Precedence& lhs, const Precedence& rhs)
     return false;
 
   int len = std::min(lhs.precedence_.size(), rhs.precedence_.size());
-  for(int c = 0; c < len; ++c)
+  for(int c = 0; c != len; ++c)
   {
     if(lhs.precedence_[c] < rhs.precedence_[c])
       return true;
@@ -109,5 +110,14 @@ bool operator>(const Precedence& lhs, const Precedence& rhs)
 {
   return !(lhs == rhs) && !(lhs < rhs);
 } // operator>
+
+std::ostream& operator<<(std::ostream& os, const Precedence& prec)
+{
+  os << '(' << prec.precedence_[0];
+  for(int i = 1; i != prec.precedence_.size(); ++i)
+    os << ',' << prec.precedence_[i];
+  os << ')';
+  return os;
+} // operator<<
  
 #endif
