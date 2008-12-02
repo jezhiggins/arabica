@@ -112,6 +112,8 @@ public:
         throw std::runtime_error("Duplicate variable name : " + clarkName(var));
       if(current_p.is_descendant(var->precedence()))
         return;
+      if(current_p > var->precedence())
+        return;
     } // if ...
 
     if(var->precedence() == Precedence::FrozenPrecedence()) // we're running, so resolve immediately
