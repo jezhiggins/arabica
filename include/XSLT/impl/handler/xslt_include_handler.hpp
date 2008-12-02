@@ -54,8 +54,7 @@ public:
       if(localName == "import")
       {
         std::string href = validate_href(qName, atts);
-        //check_for_loops(import_stack_, href);
-        import_stack_.push_back(std::make_pair(href, context_->next_precedence()));
+        import_stack_.push_back(href, context_->next_precedence());
         return;
       } // if(localName == "import")
       if(localName == "include")
@@ -111,10 +110,8 @@ public:
   {
     while(!import_stack_.empty())
     {      
-      ImportStack::iterator import = import_stack_.end()-1;
-      size_t index = import_stack_.size() - 1;
-      include_stylesheet(import_stack_.back().first, import_stack_.back().second);
-      import_stack_.erase(import_stack_.begin() + index);
+      include_stylesheet(import_stack_.current().first, import_stack_.current().second);
+      import_stack_.pop();
     } // while ...
   } // unwind_imports
 
@@ -128,20 +125,20 @@ private:
     return context_->makeAbsolute(href);
   } // validate_href
 
-/*  void check_for_loops(const ImportStack& stack, const std::string& href)
+  void check_for_loops(const std::string& href)
   {
-    if(std::find(stack.begin(), stack.end(), candidate) != stack.end())
+    if(std::find(current_includes_.begin(), current_includes_.end(), href) != current_includes_.end())
     {
       std::string error = "Stylesheet '" + href + "' includes/imports itself ";
-      for(std::vector<std::string>::const_iterator i = stack.begin(), ie = stack.end(); i != ie; ++i)
+      for(std::vector<std::string>::const_iterator i = current_includes_.begin(), ie = current_includes_.end(); i != ie; ++i)
         error += "\n  " + *i;
       throw std::runtime_error(error);
     } // if ...
   } // check_for_loops
-*/
+
   void include_stylesheet(const std::string& href, const Precedence& precedence)
   {
-    //check_for_loops(current_includes_, href);
+    check_for_loops(href);
     current_includes_.push_back(href);
 
     std::string prev = context_->setBase(href);
@@ -168,7 +165,36 @@ private:
   CompilationContext* context_;
   bool no_content_;
 
-  typedef std::vector<std::pair<std::string, Precedence> > ImportStack;
+  class ImportStack
+  {
+  public:
+    typedef std::pair<std::string, Precedence> ImportHref;
+
+    ImportStack() { }
+
+    void push_back(const std::string href, const Precedence& precedence)
+    {
+      stack_.push_back(std::make_pair<std::string, Precedence>(href, precedence));
+    } // push_back
+
+    bool empty() const { return stack_.empty(); }
+
+    const ImportHref& current() const 
+    {
+      most_recent_ = stack_.size() - 1;
+      return stack_[most_recent_];
+    } // current
+
+    void pop()
+    {
+      stack_.erase(stack_.begin() + most_recent_);
+    } // pop
+
+  private:
+    std::vector<ImportHref> stack_;
+    mutable size_t most_recent_;
+  }; // class ImportStack
+
   ImportStack import_stack_;
   std::vector<std::string> current_includes_;
 

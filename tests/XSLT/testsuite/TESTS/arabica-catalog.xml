@@ -91,6 +91,27 @@
 				<output-file role="principal" compare="XML">include02.out</output-file>
 			</scenario>
 		</test-case>
+		<test-case id="include03">
+			<file-path>include</file-path>
+			<scenario operation="execution-error">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">include03.xsl</input-file>
+			</scenario>
+		</test-case>
+		<test-case id="include04">
+			<file-path>include</file-path>
+			<scenario operation="execution-error">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">include04.xsl</input-file>
+			</scenario>
+		</test-case>
+		<test-case id="include05">
+			<file-path>include</file-path>
+			<scenario operation="execution-error">
+				<input-file role="principal-data">data.xml</input-file>
+				<input-file role="principal-stylesheet">include05.xsl</input-file>
+			</scenario>
+		</test-case>
 		<test-case id="pi01">
 			<file-path>processing-instruction</file-path>
 			<scenario operation="standard">
