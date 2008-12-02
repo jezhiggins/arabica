@@ -145,6 +145,8 @@
   <test-case id="string_string124" compiles="no"/>
   <test-case id="string_string129" compiles="no"/>
   <test-case id="string_string130" compiles="no"/>
+	<test-case id="variable_variable20" runs="no" reason="Possible spec ambiguity.  Mangle agrees with Saxon and MSXML.  Xalan disagrees"/>	
+	<test-case id="variable_variable56" runs="no" reason="Possible spec ambiguity.  Mangle agrees with Saxon and MSXML.  Xalan disagrees"/>
   <test-case id="ver_ver01" compiles="no"/>
   <test-case id="ver_ver05" compiles="no"/>
   <test-case id="ver_ver06" compiles="no"/>
