@@ -1,3 +1,4 @@
+
 #ifndef ARABICA_XSLT_INCLUDE_HANDLER_HPP
 #define ARABICA_XSLT_INCLUDE_HANDLER_HPP
 
@@ -12,6 +13,8 @@ namespace XSLT
 
 class IncludeHandler : public SAX::DefaultHandler<std::string>
 {
+  struct ImportHref;
+
 public:
   IncludeHandler() :
     context_(0),
@@ -54,7 +57,7 @@ public:
       if(localName == "import")
       {
         std::string href = validate_href(qName, atts);
-        import_stack_.push_back(href, context_->next_precedence());
+        import_stack_.push_back(href, context_->next_precedence(), current_includes_);
         return;
       } // if(localName == "import")
       if(localName == "include")
@@ -110,7 +113,7 @@ public:
   {
     while(!import_stack_.empty())
     {      
-      include_stylesheet(import_stack_.current().first, import_stack_.current().second);
+      import_stylesheet(import_stack_.current());
       import_stack_.pop();
     } // while ...
   } // unwind_imports
@@ -122,6 +125,7 @@ private:
                                         { 0, false, 0 } };
     std::string href = gatherAttributes(qName, atts, rules)["href"];
     no_content_ = true;
+    // std::cout << "Base : "  << context_->currentBase() << ", href : " << href << "\n";
     return context_->makeAbsolute(href);
   } // validate_href
 
@@ -130,11 +134,17 @@ private:
     if(std::find(current_includes_.begin(), current_includes_.end(), href) != current_includes_.end())
     {
       std::string error = "Stylesheet '" + href + "' includes/imports itself ";
-      for(std::vector<std::string>::const_iterator i = current_includes_.begin(), ie = current_includes_.end(); i != ie; ++i)
+      for(HrefStack::const_iterator i = current_includes_.begin(), ie = current_includes_.end(); i != ie; ++i)
         error += "\n  " + *i;
       throw std::runtime_error(error);
     } // if ...
   } // check_for_loops
+
+  void import_stylesheet(const ImportHref& import)
+  {
+    current_includes_ = import.includes;
+    include_stylesheet(import.href, import.precedence);
+  } // import_stylesheet
 
   void include_stylesheet(const std::string& href, const Precedence& precedence)
   {
@@ -165,16 +175,40 @@ private:
   CompilationContext* context_;
   bool no_content_;
 
+  typedef std::vector<std::string> HrefStack;
+
+  struct ImportHref
+  {
+    std::string href;
+    Precedence precedence;
+    HrefStack includes;
+    
+    ImportHref() { }
+    
+    ImportHref(const std::string& h, const Precedence& p, const HrefStack& i) :
+      href(h),
+      precedence(p),
+      includes(i)
+    {
+    } // ImportHref
+    
+    ImportHref& operator=(const ImportHref& rhs)
+    {
+      href = rhs.href;
+      precedence = rhs.precedence;
+      includes = rhs.includes;
+      return *this;
+    } // operator=
+  }; // string ImportHref
+
   class ImportStack
   {
   public:
-    typedef std::pair<std::string, Precedence> ImportHref;
-
     ImportStack() { }
 
-    void push_back(const std::string href, const Precedence& precedence)
+    void push_back(const std::string& href, const Precedence& precedence, const HrefStack& includes)
     {
-      stack_.push_back(std::make_pair<std::string, Precedence>(href, precedence));
+      stack_.push_back(ImportHref(href, precedence, includes));
     } // push_back
 
     bool empty() const { return stack_.empty(); }
@@ -196,9 +230,9 @@ private:
   }; // class ImportStack
 
   ImportStack import_stack_;
-  std::vector<std::string> current_includes_;
+  HrefStack current_includes_;
 
-  std::vector<std::string> href_;
+  HrefStack href_;
 }; // class IncludeHandler
 
 } // namespace XSLT
