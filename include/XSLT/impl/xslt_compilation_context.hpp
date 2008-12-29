@@ -79,6 +79,11 @@ public:
     return parser_.setBase(href);
   } // setBase
 
+  std::string currentBase() const
+  {
+    return parser_.currentBase();
+  } // currentBase
+
   void push(ItemContainer* parent,
             SAX::DefaultHandler<std::string>* newHandler,
             const std::string& namespaceURI,
