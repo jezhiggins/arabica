@@ -174,6 +174,7 @@
   <test-case id="AVTs__77582" compare="fragment" reason="XML Fragment output"/>  
   <test-case id="AVTs__77599" compare="fragment" reason="XML Fragment output"/>  
   <test-case id="Attributes__78366" compiles="no" reason="Error case: empty namespace"/>
+  <test-case id="Attributes__78372" skip="yes" reason="Expected output includes newlines and tabs, but inconsistently escaped.  Mangle escapes them all, as do Saxon, .NET, and Xalan (although Xalan uses decimal rather than hex numerical entities)."/>
   <test-case id="Attributes__78382" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="Attributes__78386" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="Attributes__81430" compare="fragment" reason="XML Fragment output"/>
@@ -215,9 +216,11 @@
   <test-case id="Attributes__89442" compare="fragment"/>
   <test-case id="Attributes__89459" compare="fragment"/>
   <test-case id="Attributes__89466" compare="fragment"/>
+  <test-case id="Attributes_Attribute_UseXmlnsAsNamespaceForAttributeImplicitly" skip="yes" reason="Marked as execution error, but error is recovered at runtime.  Mangle issues a diagnostic - other processors agree."/>
+  <test-case id="Attributes_Attribute_UseXmlnsNsAsNamespaceForAttribute" skip="yes" reason="Marked as execution error, but I believe this to be wrong.  The .NET XSLT processor refuses, but everything else processes it without issue."/>
   <test-case id="Attributes_Attribute_WhitespaceInUseAttributeSets" compiles="no" reason="Haven't implemented attribute-sets"/>
   <test-case id="Attributes_EmptyStringInUseAttribSets" compiles="no" reason="Haven't implemented attribute-sets"/>
-	<test-case id="BVTs_bvt001" compare="fragment"/>
+  <test-case id="BVTs_bvt001" compare="fragment"/>
   <test-case id="BVTs_bvt002" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt003" compiles="no" reason="Needs attribute sets"/>
   <test-case id="BVTs_bvt004" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
@@ -718,6 +721,7 @@
   <test-case id="XSLTFunctions_Bug76054" compiles="no"/>
   <test-case id="XSLTFunctions_Bug76984" runs="no"/>
 
+  <test-case id="attributes01" compare="text"/>
   
   <test-case id="stylesheet01" compare="text"/>
   <test-case id="stylesheet02" compare="text"/>

@@ -1,131 +1,140 @@
 <test-suite>
   <test-catalog submitter="Arabica">
-		<creator>JezUK</creator>
-		<major-path>arabica</major-path>
-		<date>2007-11-20</date>
-		<test-case id="error01">
-			<file-path>errors</file-path>
-			<purpose>xsl:stylesheet within xsl:stylesheet should fail</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error01.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="error02">
-			<file-path>errors</file-path>
-			<purpose>xsl:stylesheet within xsl:stylesheet should fail</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error02.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="error03">
-			<file-path>errors</file-path>
-			<purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error03.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="error04">
-			<file-path>errors</file-path>
-			<purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error04.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="error05">
-			<file-path>errors</file-path>
-			<purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error05.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="error06">
-			<file-path>errors</file-path>
-			<purpose>check qnames</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error06.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="error07">
-			<file-path>errors</file-path>
-			<purpose>check qnames</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error07.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="error08">
-			<file-path>errors</file-path>
-			<purpose>check qnames</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error08.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="error09">
-			<file-path>errors</file-path>
-			<purpose>check qnames</purpose>
-			<scenario operation="execution-error">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">error09.xsl</input-file>
-			</scenario>
-		</test-case>
-		<test-case id="include01">
-			<file-path>include</file-path>
-			<scenario operation="standard">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">include01.xsl</input-file>
-				<output-file role="principal" compare="XML">include01.out</output-file>
-			</scenario>
-		</test-case>
-		<test-case id="include02">
-			<file-path>include</file-path>
-			<scenario operation="standard">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">include02.xsl</input-file>
-				<output-file role="principal" compare="XML">include02.out</output-file>
-			</scenario>
-		</test-case>
-		<test-case id="pi01">
-			<file-path>processing-instruction</file-path>
-			<scenario operation="standard">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">pi01.xsl</input-file>
-				<output-file role="principal" compare="XML">pi01.out</output-file>
-			</scenario>
-		</test-case>
-		<test-case id="stylesheet01">
-			<file-path>stylesheet</file-path>
-			<purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
-			<scenario operation="standard">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">stylesheet01.xsl</input-file>
-				<output-file role="principal">stylesheet01.out</output-file>
-			</scenario>
-		</test-case>
-		<test-case id="stylesheet02">
-			<file-path>stylesheet</file-path>
-			<purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
-			<scenario operation="standard">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">stylesheet02.xsl</input-file>
-				<output-file role="principal">stylesheet02.out</output-file>
-			</scenario>
-		</test-case>
-		<test-case id="stylesheet03">
-			<file-path>stylesheet</file-path>
-			<purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
-			<scenario operation="standard">
-				<input-file role="principal-data">data.xml</input-file>
-				<input-file role="principal-stylesheet">stylesheet03.xsl</input-file>
-				<output-file role="principal">stylesheet03.out</output-file>
-			</scenario>
-		</test-case>
+    <creator>JezUK</creator>
+    <major-path>arabica</major-path>
+    <date>2007-11-20</date>
+    <test-case id="attributes01">
+      <file-path>attributes</file-path>
+      <purpose/>
+      <scenario operation="standard">
+	<input-file role="principal-data">attributes01.xml</input-file>
+	<input-file role="principal-stylesheet">attributes01.xsl</input-file>
+	<output-file role="principal" compare="XML">attributes01.out</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="error01">
+      <file-path>errors</file-path>
+      <purpose>xsl:stylesheet within xsl:stylesheet should fail</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error01.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="error02">
+      <file-path>errors</file-path>
+      <purpose>xsl:stylesheet within xsl:stylesheet should fail</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error02.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="error03">
+      <file-path>errors</file-path>
+      <purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error03.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="error04">
+      <file-path>errors</file-path>
+      <purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error04.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="error05">
+      <file-path>errors</file-path>
+      <purpose>xsl:processing-instruction name cannot be 'xml'</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error05.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="error06">
+      <file-path>errors</file-path>
+      <purpose>check qnames</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error06.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="error07">
+      <file-path>errors</file-path>
+      <purpose>check qnames</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error07.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="error08">
+      <file-path>errors</file-path>
+      <purpose>check qnames</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error08.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="error09">
+      <file-path>errors</file-path>
+      <purpose>check qnames</purpose>
+      <scenario operation="execution-error">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">error09.xsl</input-file>
+      </scenario>
+    </test-case>
+    <test-case id="include01">
+      <file-path>include</file-path>
+      <scenario operation="standard">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">include01.xsl</input-file>
+	<output-file role="principal" compare="XML">include01.out</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="include02">
+      <file-path>include</file-path>
+      <scenario operation="standard">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">include02.xsl</input-file>
+	<output-file role="principal" compare="XML">include02.out</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="pi01">
+      <file-path>processing-instruction</file-path>
+      <scenario operation="standard">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">pi01.xsl</input-file>
+	<output-file role="principal" compare="XML">pi01.out</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="stylesheet01">
+      <file-path>stylesheet</file-path>
+      <purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
+      <scenario operation="standard">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">stylesheet01.xsl</input-file>
+	<output-file role="principal">stylesheet01.out</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="stylesheet02">
+      <file-path>stylesheet</file-path>
+      <purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
+      <scenario operation="standard">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">stylesheet02.xsl</input-file>
+	<output-file role="principal">stylesheet02.out</output-file>
+      </scenario>
+    </test-case>
+    <test-case id="stylesheet03">
+      <file-path>stylesheet</file-path>
+      <purpose>2.2 - the xsl:stylesheet element may contain any element not from the XSLT namespace, provided that the expanded-name of the element has a non-null namespace URI</purpose>
+      <scenario operation="standard">
+	<input-file role="principal-data">data.xml</input-file>
+	<input-file role="principal-stylesheet">stylesheet03.xsl</input-file>
+	<output-file role="principal">stylesheet03.out</output-file>
+      </scenario>
+    </test-case>
     <test-case id="variables01">
       <file-path>variables</file-path>
       <purpose>Use xsl:variable within xsl:variable with a variable of the same name. Also, a global variable exist (with the same name as well). Adapted from MS test case</purpose>

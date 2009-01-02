@@ -1,0 +1,1 @@
+<cat auto-ns1:foobar="&#xA;&#x9;&#x9;dog&#xA;&#x9;" xmlns:auto-ns1="http://www.w3.org/2000/xmlns/"/>
