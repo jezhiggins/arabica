@@ -20,8 +20,8 @@ class text_escaper
     text_escaper(ostreamT& stream) : stream_(stream) { }
     void operator()(charT ch)
     {
-	    if(ch == UnicodeT::LESS_THAN_SIGN)
-	    {
+      if(ch == UnicodeT::LESS_THAN_SIGN)
+      {
         stream_ << UnicodeT::AMPERSAND
                 << UnicodeT::LOWERCASE_L
                 << UnicodeT::LOWERCASE_T
@@ -35,9 +35,9 @@ class text_escaper
                 << UnicodeT::LOWERCASE_T
                 << UnicodeT::SEMI_COLON;
         return;
-	    } // if(ch == UnicodeT::GREATER_THAN_SIGN)
+      } // if(ch == UnicodeT::GREATER_THAN_SIGN)
       if(ch == UnicodeT::AMPERSAND)
-	    {
+      {
         stream_ << UnicodeT::AMPERSAND
                 << UnicodeT::LOWERCASE_A
                 << UnicodeT::LOWERCASE_M
@@ -76,6 +76,33 @@ public:
                 << UnicodeT::SEMI_COLON;
         return;
       } // if(ch == UnicodeT::QUOTATION_MARK)
+      if(ch == UnicodeT::HORIZONTAL_TABULATION)
+      {
+	this->stream_ << UnicodeT::AMPERSAND
+		<< UnicodeT::NUMBER_SIGN
+		<< UnicodeT::LOWERCASE_X
+		<< UnicodeT::NUMBER_9
+		<< UnicodeT::SEMI_COLON;
+	return;
+      } // if(ch == UnicodeT::HORIZONTAL_TABULATION)
+      if(ch == UnicodeT::LINE_FEED)
+      {
+	this->stream_ << UnicodeT::AMPERSAND
+		<< UnicodeT::NUMBER_SIGN
+		<< UnicodeT::LOWERCASE_X
+		<< UnicodeT::CAPITAL_A
+		<< UnicodeT::SEMI_COLON;
+	return;
+      } // if(ch == UnicodeT::LINE_FEED)
+      if(ch == UnicodeT::CARRIAGE_RETURN)
+      {
+	this->stream_ << UnicodeT::AMPERSAND
+		<< UnicodeT::NUMBER_SIGN
+		<< UnicodeT::LOWERCASE_X
+		<< UnicodeT::CAPITAL_D
+		<< UnicodeT::SEMI_COLON;
+	return;
+      } // if(ch == UnicodeT::CARRIAGE_RETURN)
 
       text_escaper<char_type, traits_type>::operator()(ch);
     } // operator()
