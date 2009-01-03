@@ -309,6 +309,8 @@
   <test-case id="ConflictResolution__77782" compare="fragment"/>
   <test-case id="ConflictResolution__77783" compare="fragment"/>
   <test-case id="ConflictResolution__77784" compare="fragment"/>
+  <test-case id="ConflictResolution__77897" compiles="no" reason="Haven't implemented embedded stylesheets next."/>
+  <test-case id="ConflictResolution__77898" compiles="no" reason="Haven't implemented embedded stylesheets next."/>
   <test-case id="ConflictResolution__77802" compare="fragment"/>
   <test-case id="ConflictResolution__77833" compare="fragment"/>
   <test-case id="ConflictResolution__77847" compare="fragment"/>
