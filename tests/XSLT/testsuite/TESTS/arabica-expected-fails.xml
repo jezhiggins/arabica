@@ -309,6 +309,7 @@
   <test-case id="ConflictResolution__77782" compare="fragment"/>
   <test-case id="ConflictResolution__77783" compare="fragment"/>
   <test-case id="ConflictResolution__77784" compare="fragment"/>
+  <test-case id="ConflictResolution__77802" compare="fragment"/>
   <test-case id="ConflictResolution__77833" compare="fragment"/>
   <test-case id="ConflictResolution__77847" compare="fragment"/>
   <test-case id="ConflictResolution__77870" compare="fragment"/>

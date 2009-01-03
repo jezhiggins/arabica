@@ -394,7 +394,7 @@ protected:
     if(refs2 == outs2)
       return;
 
-    assertImplementation(false, "Expected XML frag:\n" + refs + "\nbut got:\n" + outs);
+    assertImplementation(false, "Expected XML frag:\n" + refs + "\nbut got:\n" + outs + "\n=====\n" + refs2 + "\nbut:\n" + outs2 + "\n\n====\n\n");
   } // runTest
 
   std::string docToString(Arabica::DOM::Node<std::string> node)
@@ -419,6 +419,8 @@ protected:
         index = text.find_first_of(" ");
       }
       t.setNodeValue(text);
+      if(text.length() == 0)
+	t.getParentNode().removeChild(t);
     }
   } // stripWhitespace
 
