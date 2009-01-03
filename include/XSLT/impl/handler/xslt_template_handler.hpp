@@ -60,6 +60,10 @@ protected:
         throw SAX::SAXException("xsl:template may not have a mode without a match");
     } // ...
 
+    const std::string& priority = attributes["priority"];
+    if((atts.getIndex("priority") != -1) && (priority == ""))
+      throw SAX::SAXException("xsl:template priority cannot be empty");
+
     std::pair<std::string, std::string> name;
     if(attributes["name"] != "")
       name = context().processInternalQName(attributes["name"]);
@@ -71,13 +75,13 @@ protected:
     if(match == "")
       return new Template(name,
 			  mode,
-			  attributes["priority"],
+			  priority,
         context().precedence());
 
     return new Template(context().xpath_match(match),
 			name,
 			mode,
-			atts.getValue("priority"),
+			priority,
       context().precedence());
   } // createContainer
 

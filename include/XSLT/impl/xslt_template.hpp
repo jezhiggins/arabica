@@ -15,7 +15,7 @@ public:
   Template(const std::pair<std::string, std::string>& name,
 	   const std::pair<std::string, std::string>& mode,
 	   const std::string& priority,
-     const Precedence& precedence) :
+	   const Precedence& precedence) :
     matches_(),
     name_(name),
     mode_(mode),
@@ -35,7 +35,7 @@ public:
   {
     if(!priority.empty())
     {
-      float p = boost::lexical_cast<float>(priority);
+      double p = boost::lexical_cast<double>(Arabica::text::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(priority));
       for(std::vector<Arabica::XPath::MatchExpr<std::string> >::iterator m = matches_.begin(), me = matches_.end(); m != me; ++m)
         m->override_priority(p);
     } // if ... 
