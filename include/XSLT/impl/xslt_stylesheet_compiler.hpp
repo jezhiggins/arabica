@@ -12,6 +12,7 @@
 #include "handler/xslt_include_handler.hpp"
 #include "handler/xslt_output_handler.hpp"
 #include "handler/xslt_namespace_alias_handler.hpp"
+#include "handler/xslt_key_handler.hpp"
 
 namespace Arabica
 {
@@ -143,7 +144,7 @@ const ChildElement StylesheetHandler::allowedChildren[] =
     { "decimal-format", CreateHandler<NotImplementedYetHandler>},
     //"import"
     //"include"
-    { "key", CreateHandler<NotImplementedYetHandler>},
+    { "key", CreateHandler<KeyHandler>},
     { "namespace-alias", CreateHandler<NamespaceAliasHandler>},
     { "output", CreateHandler<OutputHandler>},
     { "param", CreateHandler<TopLevelVariableHandler<Param> >},

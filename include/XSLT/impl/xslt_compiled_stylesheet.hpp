@@ -8,6 +8,7 @@
 #include "xslt_execution_context.hpp"
 #include "xslt_template.hpp"
 #include "xslt_top_level_param.hpp"
+#include "xslt_key.hpp"
 #include "xslt_stylesheet.hpp"
 
 namespace Arabica
@@ -120,6 +121,12 @@ public:
   {
     topLevelVars_.push_back(item);
   } // add_item
+
+  void add_key(const std::pair<std::string, std::string>& name,
+	       Key* key)
+  {
+    std::cerr << "Added key " << name.second << std::endl;
+  } // add_key
 
   void output_settings(const Output::Settings& settings)
   {
