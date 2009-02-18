@@ -92,6 +92,8 @@ public:
   } // execute
 
   ////////////////////////////////////////
+  const DeclaredKeys& keys() const { return keys_; }
+
   void add_template(Template* templat)
   {
     typedef std::vector<Arabica::XPath::MatchExpr<std::string> > MatchExprList;
@@ -125,7 +127,7 @@ public:
   void add_key(const std::pair<std::string, std::string>& name,
 	       Key* key)
   {
-    std::cerr << "Added key " << name.second << std::endl;
+    keys_.add(name, key);
   } // add_key
 
   void output_settings(const Output::Settings& settings)
@@ -316,6 +318,7 @@ private:
   NamedTemplates named_templates_;
   TemplateStack templates_;
   VariableDeclList topLevelVars_;
+  DeclaredKeys keys_;
   ParamList params_;
 
   mutable std::pair<std::string, std::string> current_mode_;

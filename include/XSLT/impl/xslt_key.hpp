@@ -19,14 +19,14 @@ public:
   {
   } // Key
 
-  Arabica::DOM::Node<std::string> lookup(const std::string& value) const
+  Arabica::XPath::NodeSet<std::string> lookup(const std::string& value) const
   {
     if(!populated_)
       populate();
 
     NodeMap::const_iterator f = nodes_.find(value);
     if(f == nodes_.end())
-      return DOM::Node<std::string>(0);
+      return Arabica::XPath::NodeSet<std::string>(0);
 
     return f->second;
   } // lookup
@@ -42,9 +42,52 @@ private:
   Arabica::XPath::XPathExpression<std::string> use_;
   mutable bool populated_;
 
-  typedef std::map<std::string, Arabica::DOM::Node<std::string> > NodeMap;
+  typedef std::map<std::string, Arabica::XPath::NodeSet<std::string> > NodeMap;
   NodeMap nodes_;
 }; // class Key
+
+class DeclaredKeys
+{
+public:
+  DeclaredKeys() { }
+  ~DeclaredKeys() 
+  { 
+    for(Keys::const_iterator i = keys_.begin(), ie = keys_.end(); i != ie; ++i)
+      for(KeyList::const_iterator k = i->second.begin(), ke = i->second.end(); k != ke; ++k)
+	delete (*k);
+  } // ~DeclaredKeys
+
+  void add(const std::pair<std::string, std::string>& name, Key* key)
+  {
+    keys_[name].push_back(key);
+  } // add_key
+
+  Arabica::XPath::NodeSet<std::string> lookup(const std::pair<std::string, std::string>& name,
+				   const std::string& id) const
+  {
+    const Keys::const_iterator k = keys_.find(name);
+    if(k == keys_.end())
+      throw SAX::SAXException("No key named '" + name.second + "' has been defined.");
+    
+    //if(k->second.size() == 0)
+      return k->second[0]->lookup(id);
+    
+      //Arabica::XPath::NodeSet<std::string> nodes;
+      //for(KeyList::const_iterator k = i->second.begin(), ke = i->second.end(); k != ke; ++k)    
+      //nodes.a
+      //return k->second.lookup(id);
+  } // lookup
+
+private:
+  typedef std::vector<Key*> KeyList;
+  typedef std::map<std::pair<std::string, std::string>, KeyList> Keys;
+
+  Keys keys_;
+
+  DeclaredKeys(const DeclaredKeys&);
+  DeclaredKeys& operator=(const DeclaredKeys&);
+  bool operator==(const DeclaredKeys&) const;
+}; // class DeclaredKeys
 
 } // namespace XSLT
 } // namespace Arabica

@@ -65,9 +65,13 @@ class KeyFunction : public Arabica::XPath::XPathFunction<std::string>
   typedef Arabica::XPath::XPathFunction<std::string> baseT;
 
 public:
-  KeyFunction(/* the keys, */
+  KeyFunction(const DeclaredKeys& keys,
+	      /* also need to pass current namespace context, so can resolve qnames, */
               const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
-    Arabica::XPath::XPathFunction<std::string>(2, 2, args) { }
+    Arabica::XPath::XPathFunction<std::string>(2, 2, args),
+    keys_(keys)
+  { 
+  } // KeyFunction
 
   virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::NODE_SET; }
 
@@ -83,6 +87,8 @@ public:
     throw Arabica::XPath::UnsupportedException("key(" + keyname + ", " + id + ")");
   } // evaluate
 
+private:
+  const DeclaredKeys& keys_;
 }; // class KeyFunction
 
 // string format-number(number, string, string?)
