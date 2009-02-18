@@ -21,7 +21,7 @@ class CompiledStylesheet : public Stylesheet
   typedef Arabica::XPath::BoolValue<std::string, Arabica::default_string_adaptor<std::string> > BoolValue;
   typedef Arabica::XPath::NumericValue<std::string, Arabica::default_string_adaptor<std::string> > NumericValue;
   typedef Arabica::XPath::StringValue<std::string, Arabica::default_string_adaptor<std::string> > StringValue;
-  typedef Arabica::XPath::XPathValuePtr<std::string> ValuePtr;
+  typedef Arabica::XPath::XPathValue<std::string> Value;
 
 public:
   CompiledStylesheet() :
@@ -43,19 +43,19 @@ public:
 
   virtual void set_parameter(const std::string& name, bool value)
   {
-    set_parameter(name, ValuePtr(new BoolValue(value)));
+    set_parameter(name, Value(new BoolValue(value)));
   } // set_parameter
   virtual void set_parameter(const std::string& name, double value)
   {
-    set_parameter(name, ValuePtr(new NumericValue(value)));
+    set_parameter(name, Value(new NumericValue(value)));
   } // set_parameter
   virtual void set_parameter(const std::string& name, const char* value)
   {
-    set_parameter(name, ValuePtr(new StringValue(value)));
+    set_parameter(name, Value(new StringValue(value)));
   } // set_parameter
   virtual void set_parameter(const std::string& name, const std::string& value)
   {
-    set_parameter(name, ValuePtr(new StringValue(value)));
+    set_parameter(name, Value(new StringValue(value)));
   } // set_parameter
 
   virtual void set_output(Sink& sink)
@@ -265,12 +265,12 @@ private:
     } // switch
   } // defaultAction
 
-  void set_parameter(const std::string& name, ValuePtr value)
+  void set_parameter(const std::string& name, Value value)
   {
     params_.push_back(new TopLevelParam("", name, value));
   } // set_parameter
 
-  void set_parameter(const std::string& namespace_uri, const std::string& name, ValuePtr value)
+  void set_parameter(const std::string& namespace_uri, const std::string& name, Value value)
   {
     params_.push_back(new TopLevelParam(namespace_uri, name, value));
   } // set_parameter

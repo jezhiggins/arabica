@@ -11,7 +11,7 @@ class TopLevelParam : public Variable_declaration
 public:
   TopLevelParam(const std::string& namespace_uri,
                 const std::string& name, 
-                Arabica::XPath::XPathValuePtr<std::string> value) :
+                Arabica::XPath::XPathValue<std::string> value) :
       namespace_uri_(namespace_uri),
       name_(name),
       value_(value)
@@ -39,7 +39,7 @@ private:
   static DOM::Node<std::string> null_node;
   std::string namespace_uri_;
   std::string name_;
-  Arabica::XPath::XPathValuePtr<std::string> value_;
+  Arabica::XPath::XPathValue<std::string> value_;
 }; // class TopLevelParam
 
 DOM::Node<std::string> TopLevelParam::null_node;

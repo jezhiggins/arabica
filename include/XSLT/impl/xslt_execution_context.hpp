@@ -154,7 +154,7 @@ private:
   mutable DOMSink sink_;
   const DOM::Node<std::string> node_;
   mutable ExecutionContext context_;
-  mutable Arabica::XPath::XPathValuePtr<std::string> value_;
+  mutable Arabica::XPath::XPathValue<std::string> value_;
 
   VariableClosure();
   VariableClosure(const VariableClosure&);

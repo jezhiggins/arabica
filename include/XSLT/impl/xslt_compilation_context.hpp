@@ -174,6 +174,8 @@ private:
     if(name == "document")
       return new DocumentFunction(parser_.currentBase(), argExprs);
     // key
+    if(name == "key")
+      return new KeyFunction(argExprs);
     // format-number
     if((name == "current") && (current_allowed_))
       return new CurrentFunction(argExprs);

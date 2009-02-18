@@ -101,14 +101,14 @@ public:
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
-    Arabica::XPath::XPathValuePtr<std::string> value = select_->evaluate(node, context.xpathContext());
-    if(value->type() != Arabica::XPath::NODE_SET)
+    Arabica::XPath::XPathValue<std::string> value = select_->evaluate(node, context.xpathContext());
+    if(value.type() != Arabica::XPath::NODE_SET)
     {
-      context.sink().characters(value->asString());
+      context.sink().characters(value.asString());
       return;
     } 
 
-    Arabica::XPath::NodeSet<std::string> nodes = value->asNodeSet();
+    Arabica::XPath::NodeSet<std::string> nodes = value.asNodeSet();
     for(Arabica::XPath::NodeSet<std::string>::const_iterator n = nodes.begin(), e = nodes.end(); n != e; ++n)
       copy(*n, context);
   } // execute
