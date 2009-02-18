@@ -39,10 +39,10 @@ public:
         nodes.push_back(n);
     else
     {
-      Arabica::XPath::XPathValuePtr<std::string> value = select_->evaluate(node, context.xpathContext());
-      if(value->type() != Arabica::XPath::NODE_SET)
+      Arabica::XPath::XPathValue<std::string> value = select_->evaluate(node, context.xpathContext());
+      if(value.type() != Arabica::XPath::NODE_SET)
         throw std::runtime_error("apply-templates select expression is not a node-set");
-      nodes = value->asNodeSet();
+      nodes = value.asNodeSet();
     }
     sort(node, nodes, context);
     context.stylesheet().applyTemplates(nodes, context, mode_);

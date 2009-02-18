@@ -28,9 +28,9 @@ public:
   {
     Arabica::XPath::NodeSet<std::string> nodes;
      
-    Arabica::XPath::XPathValuePtr<std::string> a1 = arg(0, context, executionContext);
-    if(a1->type() != Arabica::XPath::NODE_SET)
-      load_document(a1->asString(), nodes);
+    Arabica::XPath::XPathValue<std::string> a0 = arg(0, context, executionContext);
+    if(a0.type() != Arabica::XPath::NODE_SET)
+      load_document(a0.asString(), nodes);
     else 
       throw Arabica::XPath::UnsupportedException("node-set arg version of document()");
     return new Arabica::XPath::NodeSetValue<std::string>(nodes);
@@ -60,6 +60,37 @@ private:
 }; // DocumentFunction
 
 // node-set key(string, object)
+class KeyFunction : public Arabica::XPath::XPathFunction<std::string>
+{
+  typedef Arabica::XPath::XPathFunction<std::string> baseT;
+
+public:
+  KeyFunction(const DeclaredKeys& keys,
+	      /* also need to pass current namespace context, so can resolve qnames, */
+              const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
+    Arabica::XPath::XPathFunction<std::string>(2, 2, args),
+    keys_(keys)
+  { 
+  } // KeyFunction
+
+  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::NODE_SET; }
+
+  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context,
+                                                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  {
+    Arabica::XPath::XPathValue<std::string> a1 = baseT::arg(1, context, executionContext);
+    if(a1.type() == Arabica::XPath::NODE_SET)
+      throw Arabica::XPath::UnsupportedException("node-set arg version of document()");
+
+    std::string keyname = argAsString(0, context, executionContext);
+    std::string id = a1.asString();
+    throw Arabica::XPath::UnsupportedException("key(" + keyname + ", " + id + ")");
+  } // evaluate
+
+private:
+  const DeclaredKeys& keys_;
+}; // class KeyFunction
+
 // string format-number(number, string, string?)
 
 // node-set current()
