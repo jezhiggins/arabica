@@ -68,7 +68,7 @@ namespace Arabica
     private:
       void parse(const std::string& URI);
       void parse_uri(const std::string& URI);
-      void parseAuthority(std::string::const_iterator& u, std::string::const_iterator& ue);
+      std::string::const_iterator parseAuthority(const std::string::const_iterator& u, const std::string::const_iterator& ue);
       void absolutise(URI& relURI);
       void combinePath(const std::string& path);
 

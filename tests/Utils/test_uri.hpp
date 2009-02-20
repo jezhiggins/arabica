@@ -450,6 +450,17 @@ class URITest : public TestCase
     assertEquals("http://www.google.com/", u.as_string());
   } // test39
 
+  void test40()
+  {
+    URI u("http://www.google.com");
+
+    assertEquals("www.google.com", u.host());
+    assertEquals("", u.path());
+    assertEquals("http", u.scheme());
+    assertEquals("80", u.port());
+    assertEquals(true, u.is_absolute());
+    assertEquals("http://www.google.com", u.as_string());
+  } // test40
 }; // class URITest
 
 TestSuite* URITest_suite()
@@ -494,7 +505,8 @@ TestSuite* URITest_suite()
   suiteOfTests->addTest(new TestCaller<URITest>("test36", &URITest::test36));
   suiteOfTests->addTest(new TestCaller<URITest>("test37", &URITest::test37));
   suiteOfTests->addTest(new TestCaller<URITest>("test38", &URITest::test38));
-  suiteOfTests->addTest(new TestCaller<URITest>("test39", &URITest::test39));
+  suiteOfTests->addTest(new TestCaller<URITest>("test39", &URITest::test39));  
+  suiteOfTests->addTest(new TestCaller<URITest>("test40", &URITest::test40));
 
   return suiteOfTests;
 } // URITest_suite

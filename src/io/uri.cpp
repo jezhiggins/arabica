@@ -120,17 +120,22 @@ void URI::parse_uri(const std::string& uri)
   if(*u == FORWARD_SLASH && *(u+1) == FORWARD_SLASH)
   {
     u += 2;
-    parseAuthority(u, ue);
+    u = parseAuthority(u, ue);
   } // if ...
 
   path_.append(u, ue);
 } // parse
 
-void URI::parseAuthority(std::string::const_iterator& u, std::string::const_iterator& ue)
+std::string::const_iterator URI::parseAuthority(const std::string::const_iterator& u, 
+						const std::string::const_iterator& ue)
 {
   std::string::const_iterator slash = std::find(u, ue, FORWARD_SLASH);
   if(slash == ue)
-    return;
+  {
+    // ah, this is easy
+    host_.append(u, ue);
+    return ue;
+  } // if(slash == we)
 
   std::string::const_iterator colon = std::find(u, slash, ':');
   host_.append(u, colon);
@@ -138,7 +143,7 @@ void URI::parseAuthority(std::string::const_iterator& u, std::string::const_iter
   if(colon != slash)
     port_.append(colon+1, slash);
 
-  u = slash;
+  return slash;
 } // parseAuthority
 
 void URI::absolutise(URI& relative)
