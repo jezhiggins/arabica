@@ -122,6 +122,17 @@ public:
     } 
   } // testParseBadQName
 
+  void testParseQName()
+  {
+    QN q = QN::parseQName(SA::construct_from_utf8("hello"), false, QNT::uri_mapper);
+    assertTrue(q.localName() == SA::construct_from_utf8("hello"));
+
+    QN q2 = QN::parseQName(SA::construct_from_utf8("h:hello"), false, QNT::uri_mapper);
+    assertTrue(q2.localName() == SA::construct_from_utf8("hello"));    
+    assertTrue(q2.prefix() == SA::construct_from_utf8("h"));
+    assertTrue(q2.namespaceUri() == SA::construct_from_utf8("http://test/"));
+  } // testParseQName
+
 }; // class QualifiedNameTest
 
 template<class string_type, class string_adaptor>
@@ -141,6 +152,7 @@ TestSuite* QualifiedNameTest_suite()
   suiteOfTests->addTest(new TestCaller<QNT>("testClarkName", &QNT::testClarkName));
   suiteOfTests->addTest(new TestCaller<QNT>("testPrefix", &QNT::testPrefix));
   suiteOfTests->addTest(new TestCaller<QNT>("testParseBadQName", &QNT::testParseBadQName));
+  suiteOfTests->addTest(new TestCaller<QNT>("testParseQName", &QNT::testParseQName));
 
   return suiteOfTests;
 } // QualifiedNameTest_suite
