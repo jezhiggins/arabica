@@ -1,8 +1,5 @@
 #ifndef ARABICA_UTILS_STRING_ADAPTOR_H
 #define ARABICA_UTILS_STRING_ADAPTOR_H
-/*
- * $Id$
- */
 
 #include <SAX/ArabicaConfig.hpp>
 #include <string>

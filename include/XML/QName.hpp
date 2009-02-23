@@ -3,6 +3,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <Arabica/StringAdaptor.hpp>
+#include <XML/strings.hpp>
 #include <stdexcept>
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
@@ -21,7 +22,7 @@ public:
    *
    * <p>Note that attribute names are processed differently than
    * element names: an unprefixed element name will received the
-   * default Namespace (if any), while an unprefixed element name
+   * default Namespace (if any), while an unprefixed attribute name
    * will not.</p>
    */
   template<typename UriMapper>
@@ -29,6 +30,9 @@ public:
 				  bool is_attribute,
 				  const UriMapper& mapper)
   {
+    if(!Arabica::XML::is_qname<string_adaptor>(rawname))
+      throw std::runtime_error("Bad qname : " + SA::asStdString(rawname));
+
     static string_type COLON = SA::construct_from_utf8(":");
 
     typename string_adaptor::size_type index = string_adaptor::find(rawname, COLON);
@@ -41,12 +45,6 @@ public:
     // prefix
     string_type prefix = string_adaptor::substr(rawname, 0, index);
     string_type localName = string_adaptor::substr(rawname, index + 1);
-    
-    if((string_adaptor::length(prefix) == 0) || 
-       (string_adaptor::length(localName) == 0) || 
-       (string_adaptor::find(localName, COLON) != string_adaptor::npos()))
-      throw std::runtime_error("Bad qname : " + SA::asStdString(rawname));
-
     string_type uri = mapper(prefix);
 
     return QualifiedName(prefix, localName, uri);

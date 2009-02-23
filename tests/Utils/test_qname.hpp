@@ -2,7 +2,7 @@
 #define UTILS_QNAME_HPP
 
 #include <XML/QName.hpp>
-
+#include <iostream>
 using namespace Arabica::XML;
 
 template<class string_type, class string_adaptor>
@@ -113,8 +113,17 @@ public:
 
   void testParseBadQName()
   {
+    doTestParseBadQName("::::");
+    doTestParseBadQName("foo:");
+    doTestParseBadQName(":oo");
+    doTestParseBadQName("f:ooo:");
+    doTestParseBadQName("???");
+  } // testParseBadQName
+
+  void doTestParseBadQName(const char* q)
+  {
     try {
-      QN::parseQName(SA::construct_from_utf8("::::"), false, QNT::uri_mapper);
+      QN::parseQName(SA::construct_from_utf8(q), false, QNT::uri_mapper);
       assertFalse("oops - should have thrown here");
     }
     catch(std::runtime_error&) {
@@ -124,13 +133,20 @@ public:
 
   void testParseQName()
   {
-    QN q = QN::parseQName(SA::construct_from_utf8("hello"), false, QNT::uri_mapper);
+    QN q = QN::parseQName(SA::construct_from_utf8("hello"), true, QNT::uri_mapper);
     assertTrue(q.localName() == SA::construct_from_utf8("hello"));
+    assertFalse(q.has_prefix());
+    assertTrue(q.namespaceUri() == SA::empty_string());
 
-    QN q2 = QN::parseQName(SA::construct_from_utf8("h:hello"), false, QNT::uri_mapper);
+    QN q2 = QN::parseQName(SA::construct_from_utf8("h:hello"), true, QNT::uri_mapper);
     assertTrue(q2.localName() == SA::construct_from_utf8("hello"));    
     assertTrue(q2.prefix() == SA::construct_from_utf8("h"));
     assertTrue(q2.namespaceUri() == SA::construct_from_utf8("http://test/"));
+
+    QN q3 = QN::parseQName(SA::construct_from_utf8("hello"), false, QNT::uri_mapper);
+    assertTrue(q3.localName() == SA::construct_from_utf8("hello"));
+    assertFalse(q3.has_prefix());
+    assertTrue(q3.namespaceUri() == SA::construct_from_utf8("http://test/"));
   } // testParseQName
 
 }; // class QualifiedNameTest

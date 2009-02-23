@@ -20,48 +20,54 @@ namespace Arabica
 {
 namespace XML
 {
-  bool is_ncname(const std::string::const_iterator& b,
-		 const std::string::const_iterator& e);
-
-  inline bool is_ncname(const std::string& str)
-  {
-    return is_ncname(str.begin(), str.end());
-  } // is_ncname
-
-  inline bool is_ncname(const std::string::const_iterator& b,
-			const std::string::const_iterator& e)
+  template<typename string_adaptor>
+  inline bool is_ncname(const typename string_adaptor::const_iterator& b,
+                        const typename string_adaptor::const_iterator& e)
   {
     using namespace Arabica::text;
+    typedef typename string_adaptor::const_iterator const_iterator;
+    typedef typename string_adaptor::value_type value_type;
 
     if(b == e)
       return false;  // zero length
 
-    std::string::const_iterator s = b;
-    if(!(is_letter(*s) || (*s == Unicode<char>::LOW_LINE)))
+    const_iterator s = b;
+    if(!(is_letter(*s) || (*s == Unicode<value_type>::LOW_LINE)))
        return false;
 
     ++s;
     for( ; s != e; ++s)
     {
-      wchar_t c = static_cast<wchar_t>(*s);
+      value_type c = *s;
       if(!is_ncname_char(c))
         return false;
     }
     return true;
   } // is_ncname  
 
-  inline bool is_qname(const std::string& str)
+  template<typename string_adaptor>
+  inline bool is_ncname(const typename string_adaptor::string_type& str)
+  {
+    return is_ncname<string_adaptor>(string_adaptor::begin(str), 
+                                     string_adaptor::end(str));
+  } // is_ncname
+
+  template<typename string_adaptor>
+  inline bool is_qname(const typename string_adaptor::string_type& str)
   {
     using namespace Arabica::text;
+    typedef typename string_adaptor::const_iterator const_iterator;
+    typedef typename string_adaptor::value_type value_type;
    
-    size_t colon_index = str.find(Unicode<char>::COLON);
+    size_t colon_index = string_adaptor::find(str, Unicode<value_type>::COLON);
 
-    if(colon_index == std::string::npos)
-      return is_ncname(str);
+    if(colon_index == string_adaptor::npos())
+      return is_ncname<string_adaptor>(str);
 
-    std::string::const_iterator b = str.begin();
-    return is_ncname(b, b+colon_index) && 
-           is_ncname(b+(colon_index+1), str.end());
+    const_iterator b = string_adaptor::begin(str);
+    const_iterator e = string_adaptor::end(str);
+    return is_ncname<string_adaptor>(b, b+colon_index) && 
+           is_ncname<string_adaptor>(b+(colon_index+1), e);
   } // is_qname
 
 } // namespace XML
