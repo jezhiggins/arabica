@@ -36,7 +36,7 @@ private:
     if(name.empty())
       throw SAX::SAXException("xsl:processing-instruction : name attribute must evaluate to a valid name");
 
-    if(!Arabica::XML::is_ncname(name))
+    if(!Arabica::XML::is_ncname<Arabica::default_string_adaptor<std::string> >(name))
       throw SAX::SAXException("xsl:processing-instruction : '" + name + "' is not valid as the name");
 
     if(name.length() != 3)

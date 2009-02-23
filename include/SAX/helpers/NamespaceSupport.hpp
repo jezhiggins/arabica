@@ -6,7 +6,6 @@
  */
 
 #include <SAX/ArabicaConfig.hpp>
-#include <string>
 #include <map>
 #include <vector>
 
@@ -205,7 +204,7 @@ class NamespaceSupport
      *
      * <p>Note that attribute names are processed differently than
      * element names: an unprefixed element name will received the
-     * default Namespace (if any), while an unprefixed element name
+     * default Namespace (if any), while an unprefixed attribute name
      * will not.</p>
      *
      * @param qName The raw XML 1.0 name to be processed.
@@ -218,6 +217,8 @@ class NamespaceSupport
      */
     Parts processName(const string_type& qName, bool isAttribute) const
     {
+      
+
       Parts name;
       typename string_adaptor::size_type index = string_adaptor::find(qName, nsc_.colon);
 
