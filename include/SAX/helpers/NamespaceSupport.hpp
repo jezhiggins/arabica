@@ -8,6 +8,8 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <map>
 #include <vector>
+#include <functional>
+#include <XML/qname.hpp>
 
 namespace Arabica
 {
@@ -215,36 +217,35 @@ class NamespaceSupport
      *         1.0 name.
      * @see #declarePrefix
      */
+  private:
+    class URIMapper
+    {
+    public:
+      URIMapper(const NamespaceSupport* ns) : ns_(ns) { }
+      string_type operator()(const string_type& prefix) const { return ns_->getURI(prefix); }
+    private:
+      const NamespaceSupport* const ns_;
+    }; // class URIMapper
+
+  public:
     Parts processName(const string_type& qName, bool isAttribute) const
     {
-      
-
-      Parts name;
-      typename string_adaptor::size_type index = string_adaptor::find(qName, nsc_.colon);
-
-      if(index == string_adaptor::npos())
+      try 
       {
-        // no prefix
-        name.URI = isAttribute ? string_type() : getURI(string_type());
-        name.localName = qName;
-      }
-      else
+        typedef QualifiedName<string_type, string_adaptor> QN;
+        QN q = QN::parseQName(qName, isAttribute, URIMapper(this));
+
+        Parts name;
+        name.prefix = q.prefix();
+        name.localName = q.localName();
+        name.URI = q.namespaceUri();
+        name.rawName = qName;
+        return name;
+      } // try
+      catch(const std::runtime_error& ex)
       {
-        // prefix
-        string_type prefix = string_adaptor::substr(qName, 0, index);
-
-        name.URI = getURI(prefix);
-        name.localName = string_adaptor::substr(qName, index + 1);
-        name.prefix = prefix;
-
-        if((string_adaptor::length(name.prefix) == 0) || 
-           (string_adaptor::length(name.localName) == 0) || 
-           (string_adaptor::find(name.localName, nsc_.colon) != string_adaptor::npos()))
-        throw SAX::SAXException("Bad qname");
-      } // if ...
-
-      name.rawName = qName;
-      return name;
+        throw SAX::SAXException(ex.what());
+      } // catch
     } // processName
 
     /**
