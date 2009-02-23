@@ -54,6 +54,13 @@ public:
       return localName_;
     return "{" + namespaceUri_ + "}" + localName_;
   } // clarkName
+
+  bool has_prefix() const { return !prefix_.empty(); }
+  void set_prefix(const std::string& prefix) { prefix_ = prefix; }
+
+  const std::string& prefix() const { return prefix_; }
+  const std::string& namespaceUri() const { return namespaceUri_; }
+  const std::string& localName() const { return localName_; }
   
 private:
   std::string prefix_;

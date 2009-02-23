@@ -87,9 +87,20 @@ public:
   void testClarkName()
   {
     QualifiedName q("foo", "bar", "http://test/");
-
     assertEquals("{http://test/}bar", q.clarkName());
   } // testClarkName
+
+  void testPrefix()
+  {
+    QualifiedName q("", "bar", "http://test/");
+    assertFalse(q.has_prefix());
+    assertEquals("bar", q.localName());
+    assertEquals("http://test/", q.namespaceUri());
+    
+    q.set_prefix("t");
+    assertTrue(q.has_prefix());
+    assertEquals("t", q.prefix());
+  } // testPrefix
 }; // class QualifiedNameTest
 
 TestSuite* QualifiedNameTest_suite()
@@ -104,6 +115,7 @@ TestSuite* QualifiedNameTest_suite()
   suiteOfTests->addTest(new TestCaller<QualifiedNameTest>("testCopy", &QualifiedNameTest::testCopy));
   suiteOfTests->addTest(new TestCaller<QualifiedNameTest>("testAssignment", &QualifiedNameTest::testAssignment));
   suiteOfTests->addTest(new TestCaller<QualifiedNameTest>("testClarkName", &QualifiedNameTest::testClarkName));
+  suiteOfTests->addTest(new TestCaller<QualifiedNameTest>("testPrefix", &QualifiedNameTest::testPrefix));
 
   return suiteOfTests;
 } // QualifiedNameTest_suite
