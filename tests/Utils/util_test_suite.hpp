@@ -20,7 +20,7 @@ bool Util_test_suite(int argc, const char** argv)
   runner.addTest("Base64Test", Base64Test_suite());
   runner.addTest("URITest", URITest_suite());
   runner.addTest("XMLString", XMLStringTest_suite());
-  runner.addTest("QualifiedName", QualifiedNameTest_suite());
+  runner.addTest("QualifiedName", QualifiedNameTest_suite<string_type, string_adaptor>());
   
   return runner.run(argc, argv);
 } // main
