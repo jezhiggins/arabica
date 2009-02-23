@@ -3,6 +3,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 #include <Arabica/StringAdaptor.hpp>
+#include <stdexcept>
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class QualifiedName
@@ -10,6 +11,47 @@ class QualifiedName
   typedef string_adaptor SA;
 
 public:
+  /**
+   * <p>This function processes a raw XML 1.0 name in the current
+   * context by removing the prefix and looking it up among the
+   * prefixes currently declared.  
+   *
+   * <p>If the raw name has a prefix that has not been declared, 
+   * then the return value will be empty.</p>
+   *
+   * <p>Note that attribute names are processed differently than
+   * element names: an unprefixed element name will received the
+   * default Namespace (if any), while an unprefixed element name
+   * will not.</p>
+   */
+  template<typename UriMapper>
+  static QualifiedName parseQName(const string_type& rawname, 
+				  bool is_attribute,
+				  const UriMapper& mapper)
+  {
+    static string_type COLON = SA::construct_from_utf8(":");
+
+    typename string_adaptor::size_type index = string_adaptor::find(rawname, COLON);
+
+    if(index == string_adaptor::npos())
+      return QualifiedName(SA::empty_string(), 
+			   rawname, 
+			   is_attribute ? SA::empty_string() : mapper(SA::empty_string()));
+
+    // prefix
+    string_type prefix = string_adaptor::substr(rawname, 0, index);
+    string_type localName = string_adaptor::substr(rawname, index + 1);
+    
+    if((string_adaptor::length(prefix) == 0) || 
+       (string_adaptor::length(localName) == 0) || 
+       (string_adaptor::find(localName, COLON) != string_adaptor::npos()))
+      throw std::runtime_error("Bad qname : " + SA::asStdString(rawname));
+
+    string_type uri = mapper(prefix);
+
+    return QualifiedName(prefix, localName, uri);
+  } // parseQName				  
+
   QualifiedName(const string_type& localName) :
     prefix_(),
     localName_(localName),

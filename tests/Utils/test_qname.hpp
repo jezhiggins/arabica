@@ -10,6 +10,7 @@ class QualifiedNameTest : public TestCase
 {
   typedef string_adaptor SA;
   typedef QualifiedName<string_type, string_adaptor> QN;
+  typedef QualifiedNameTest<string_type, string_adaptor> QNT;
 public:
   QualifiedNameTest(const std::string& name) :
     TestCase(name)
@@ -104,6 +105,23 @@ public:
     assertTrue(q.has_prefix());
     assertTrue(SA::construct_from_utf8("t") == q.prefix());
   } // testPrefix
+
+  static string_type uri_mapper(const string_type& prefix)
+  {
+    return SA::construct_from_utf8("http://test/");
+  } // uri_mapper
+
+  void testParseBadQName()
+  {
+    try {
+      QN::parseQName(SA::construct_from_utf8("::::"), false, QNT::uri_mapper);
+      assertFalse("oops - should have thrown here");
+    }
+    catch(std::runtime_error&) {
+      // yay
+    } 
+  } // testParseBadQName
+
 }; // class QualifiedNameTest
 
 template<class string_type, class string_adaptor>
@@ -122,6 +140,7 @@ TestSuite* QualifiedNameTest_suite()
   suiteOfTests->addTest(new TestCaller<QNT>("testAssignment", &QNT::testAssignment));
   suiteOfTests->addTest(new TestCaller<QNT>("testClarkName", &QNT::testClarkName));
   suiteOfTests->addTest(new TestCaller<QNT>("testPrefix", &QNT::testPrefix));
+  suiteOfTests->addTest(new TestCaller<QNT>("testParseBadQName", &QNT::testParseBadQName));
 
   return suiteOfTests;
 } // QualifiedNameTest_suite
