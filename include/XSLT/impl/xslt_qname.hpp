@@ -16,7 +16,7 @@ struct QName
 
   static QName createQName(const std::string& qName) 
   {
-    if(!Arabica::XML::is_qname(qName))
+    if(!Arabica::XML::is_qname<Arabica::default_string_adaptor<std::string> >(qName))
       throw SAX::SAXException("Bad name : " + qName);
 
     static char COLON = Arabica::text::Unicode<char>::COLON;

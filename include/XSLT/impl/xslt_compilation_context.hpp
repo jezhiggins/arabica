@@ -61,7 +61,7 @@ public:
 
   std::pair<std::string, std::string> processInternalQName(const std::string& qName) const
   {
-    if(!Arabica::XML::is_qname(qName))
+    if(!Arabica::XML::is_qname<Arabica::default_string_adaptor<std::string> >(qName))
       throw SAX::SAXException("Bad name : " + qName);
     // 2.4 The default namespace is not used for unprefixed names.
     if(qName.find(':') == std::string::npos)

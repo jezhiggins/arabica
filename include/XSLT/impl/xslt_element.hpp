@@ -34,7 +34,7 @@ public:
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
     std::string name = name_->evaluateAsString(node, context.xpathContext());
-    if(!Arabica::XML::is_qname(name))
+    if(!Arabica::XML::is_qname<Arabica::default_string_adaptor<std::string> >(name))
       throw SAX::SAXException("xsl:element name attribute must evaluate to a valid element name");
 
     std::string namesp;

@@ -5,8 +5,11 @@
 
 using namespace Arabica::XML;
 
+template<class string_type, class string_adaptor>
 class NCNameTest : public TestCase
 {
+  typedef string_adaptor SA;
+
 public:
   NCNameTest(std::string name) : 
     TestCase(name)
@@ -15,51 +18,57 @@ public:
   
   void test1()
   {
-    assertTrue(is_ncname("woo"));
+    assertTrue(is_ncname<SA>(SA::construct_from_utf8("woo")));
   } // test1
   
   void test2()
   {
-    assertTrue(is_ncname("WOO"));
+    assertTrue(is_ncname<SA>(SA::construct_from_utf8("WOO")));
   } // test2
   
   void test3()
   {
-    assertFalse(is_ncname("???"));
+    assertFalse(is_ncname<SA>(SA::construct_from_utf8("???")));
   } // test3
   
   void test4()
   {
-    assertTrue(is_ncname("a_b"));
+    assertTrue(is_ncname<SA>(SA::construct_from_utf8("a_b")));
   } // test4
 
   void test5()
   {
-    assertFalse(is_ncname("a:b"));
+    assertFalse(is_ncname<SA>(SA::construct_from_utf8("a:b")));
   } // test5
 
   void test6()
   {
-    assertFalse(is_ncname("xsl:foo"));
+    assertFalse(is_ncname<SA>(SA::construct_from_utf8("xsl:foo")));
   } // test6
 }; // class NCNameTest
 
+template<class string_type, class string_adaptor>
 TestSuite* NCNameTest_suite()
 {
+  typedef NCNameTest<string_type, string_adaptor> NCNT;
+
   TestSuite* suiteOfTests = new TestSuite();
 
-  suiteOfTests->addTest(new TestCaller<NCNameTest>("test1", &NCNameTest::test1));
-  suiteOfTests->addTest(new TestCaller<NCNameTest>("test2", &NCNameTest::test2));
-  suiteOfTests->addTest(new TestCaller<NCNameTest>("test3", &NCNameTest::test3));
-  suiteOfTests->addTest(new TestCaller<NCNameTest>("test4", &NCNameTest::test4));
-  suiteOfTests->addTest(new TestCaller<NCNameTest>("test5", &NCNameTest::test5));
-  suiteOfTests->addTest(new TestCaller<NCNameTest>("test6", &NCNameTest::test6));
+  suiteOfTests->addTest(new TestCaller<NCNT>("test1", &NCNT::test1));
+  suiteOfTests->addTest(new TestCaller<NCNT>("test2", &NCNT::test2));
+  suiteOfTests->addTest(new TestCaller<NCNT>("test3", &NCNT::test3));
+  suiteOfTests->addTest(new TestCaller<NCNT>("test4", &NCNT::test4));
+  suiteOfTests->addTest(new TestCaller<NCNT>("test5", &NCNT::test5));
+  suiteOfTests->addTest(new TestCaller<NCNT>("test6", &NCNT::test6));
 
   return suiteOfTests;
-} // NCNameTest_suite
+} // NCNT_suite
 
+template<typename string_type, typename string_adaptor>
 class QNameTest : public TestCase
 {
+  typedef string_adaptor SA;
+
 public:
   QNameTest(std::string name) : 
     TestCase(name)
@@ -68,91 +77,95 @@ public:
   
   void test1()
   {
-    assertTrue(is_qname("woo"));
+    assertTrue(is_qname<SA>(SA::construct_from_utf8("woo")));
   } // test1
   
   void test2()
   {
-    assertTrue(is_qname("WOO"));
+    assertTrue(is_qname<SA>(SA::construct_from_utf8("WOO")));
   } // test2
   
   void test3()
   {
-    assertFalse(is_qname("???"));
+    assertFalse(is_qname<SA>(SA::construct_from_utf8("???")));
   } // test3
   
   void test4()
   {
-    assertTrue(is_qname("a_b"));
+    assertTrue(is_qname<SA>(SA::construct_from_utf8("a_b")));
   } // test4
 
   void test5()
   {
-    assertTrue(is_qname("a:b"));
+    assertTrue(is_qname<SA>(SA::construct_from_utf8("a:b")));
   } // test5
 
   void test6()
   {
-    assertTrue(is_qname("xsl:foo"));
+    assertTrue(is_qname<SA>(SA::construct_from_utf8("xsl:foo")));
   } // test6
 
   void test7()
   {
-    assertFalse(is_qname(":foo"));
+    assertFalse(is_qname<SA>(SA::construct_from_utf8(":foo")));
   } // test7
 
   void test8()
   {
-    assertFalse(is_qname("foo:"));
+    assertFalse(is_qname<SA>(SA::construct_from_utf8("foo:")));
   } // test7
 
   void test9()
   {
-    assertFalse(is_qname("xsl::foo"));
+    assertFalse(is_qname<SA>(SA::construct_from_utf8("xsl::foo")));
   } // test7
 
   void test10()
   {
-    assertFalse(is_qname("xsl:foo:"));
+    assertFalse(is_qname<SA>(SA::construct_from_utf8("xsl:foo:")));
   } // test7
 
   void test11()
   {
-    assertFalse(is_qname("$rr"));
+    assertFalse(is_qname<SA>(SA::construct_from_utf8("$rr")));
   } // test11
 
   void test12()
   {
-    assertFalse(is_qname("root/child"));
+    assertFalse(is_qname<SA>(SA::construct_from_utf8("root/child")));
   } // test12
 }; // class QNameTest
 
+template<typename string_type, typename string_adaptor>
 TestSuite* QNameTest_suite()
 {
+  typedef QNameTest<string_type, string_adaptor> QNT;
+
   TestSuite* suiteOfTests = new TestSuite();
 
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test1", &QNameTest::test1));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test2", &QNameTest::test2));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test3", &QNameTest::test3));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test4", &QNameTest::test4));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test5", &QNameTest::test5));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test6", &QNameTest::test6));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test7", &QNameTest::test7));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test8", &QNameTest::test8));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test9", &QNameTest::test9));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test10", &QNameTest::test10));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test11", &QNameTest::test11));
-  suiteOfTests->addTest(new TestCaller<QNameTest>("test12", &QNameTest::test12));
+  suiteOfTests->addTest(new TestCaller<QNT>("test1", &QNT::test1));
+  suiteOfTests->addTest(new TestCaller<QNT>("test2", &QNT::test2));
+  suiteOfTests->addTest(new TestCaller<QNT>("test3", &QNT::test3));
+  suiteOfTests->addTest(new TestCaller<QNT>("test4", &QNT::test4));
+  suiteOfTests->addTest(new TestCaller<QNT>("test5", &QNT::test5));
+  suiteOfTests->addTest(new TestCaller<QNT>("test6", &QNT::test6));
+  suiteOfTests->addTest(new TestCaller<QNT>("test7", &QNT::test7));
+  suiteOfTests->addTest(new TestCaller<QNT>("test8", &QNT::test8));
+  suiteOfTests->addTest(new TestCaller<QNT>("test9", &QNT::test9));
+  suiteOfTests->addTest(new TestCaller<QNT>("test10", &QNT::test10));
+  suiteOfTests->addTest(new TestCaller<QNT>("test11", &QNT::test11));
+  suiteOfTests->addTest(new TestCaller<QNT>("test12", &QNT::test12));
 
   return suiteOfTests;
 } // QNameTest_suite
 
+template<typename string_type, typename string_adaptor>
 TestSuite* XMLStringTest_suite()
 {
   TestSuite* suiteOfTests = new TestSuite();
 
-  suiteOfTests->addTest(NCNameTest_suite());
-  suiteOfTests->addTest(QNameTest_suite());
+  suiteOfTests->addTest(NCNameTest_suite<string_type, string_adaptor>());
+  suiteOfTests->addTest(QNameTest_suite<string_type, string_adaptor>());
 
   return suiteOfTests;
 } // XMLStringTest_suite
