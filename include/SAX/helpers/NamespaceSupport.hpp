@@ -87,14 +87,6 @@ class NamespaceSupport
   public:
     typedef std::vector<string_type> stringListT;
 
-    struct Parts
-    {
-      string_type URI;
-      string_type localName;
-      string_type rawName;
-      string_type prefix;
-    }; // struct Parts
-
     // functions
     NamespaceSupport() 
     { 
@@ -228,19 +220,11 @@ class NamespaceSupport
     }; // class URIMapper
 
   public:
-    Parts processName(const string_type& qName, bool isAttribute) const
+    XML::QualifiedName<string_type, string_adaptor> processName(const string_type& rawName, bool isAttribute) const
     {
       try 
       {
-        typedef QualifiedName<string_type, string_adaptor> QN;
-        QN q = QN::parseQName(qName, isAttribute, URIMapper(this));
-
-        Parts name;
-        name.prefix = q.prefix();
-        name.localName = q.localName();
-        name.URI = q.namespaceUri();
-        name.rawName = qName;
-        return name;
+        return XML::QualifiedName<string_type, string_adaptor>::parseQName(rawName, isAttribute, URIMapper(this));
       } // try
       catch(const std::runtime_error& ex)
       {

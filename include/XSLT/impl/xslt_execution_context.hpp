@@ -19,7 +19,6 @@ protected:
   Variable_declaration() { }
 
 public:
-  virtual const std::string& namespace_uri() const = 0;
   virtual const std::string& name() const = 0;
   virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
                                                         ExecutionContext& context,
@@ -123,7 +122,6 @@ public:
     return Variable_instance_ptr(new VariableClosure(var, node, context));
   } // create
 
-  virtual const std::string& namespace_uri() const { return var_.namespace_uri(); }
   virtual const std::string& name() const { return var_.name(); }
   virtual const Precedence& precedence() const { return var_.precedence(); }
 

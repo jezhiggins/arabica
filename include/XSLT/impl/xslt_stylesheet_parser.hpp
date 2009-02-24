@@ -41,9 +41,14 @@ public:
     return namespace_tracker_.getURI(prefix);
   } // namespaceURI
 
-  std::pair<std::string, std::string> processQName(const std::string& qName) const
+  XML::QualifiedName<std::string> processQName(const std::string& rawName) const
   {
-    return namespace_tracker_.process(qName);
+    return namespace_tracker_.processElementName(rawName);
+  } // processQName
+
+  XML::QualifiedName<std::string> processInternalQName(const std::string& rawName) const
+  {
+    return namespace_tracker_.processName(rawName);
   } // processQName
 
   std::map<std::string, std::string> inScopeNamespaces() const

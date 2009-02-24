@@ -32,7 +32,7 @@ public:
                                        { 0, false, 0 } };
 
     std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
-    name_ = context_.processInternalQName(attrs["name"]);
+    name_ = context_.processInternalQName(attrs["name"]).clarkName();
     Key::MatchExprList matches = context_.xpath_match(attrs["match"]);
     Arabica::XPath::XPathExpression<std::string> use = context_.xpath_expression(attrs["use"]);
 
@@ -56,7 +56,7 @@ public:
 
 private:
   CompilationContext& context_;
-  std::pair<std::string, std::string> name_;
+  std::string name_;
   Key* key_;
 }; // class KeyHandler
 

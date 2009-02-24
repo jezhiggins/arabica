@@ -64,13 +64,13 @@ protected:
     if((atts.getIndex("priority") != -1) && (priority == ""))
       throw SAX::SAXException("xsl:template priority cannot be empty");
 
-    std::pair<std::string, std::string> name;
+    std::string name;
     if(attributes["name"] != "")
-      name = context().processInternalQName(attributes["name"]);
+      name = context().processInternalQName(attributes["name"]).clarkName();
 
-    std::pair<std::string, std::string> mode;
+    std::string mode;
     if(attributes["mode"] != "")
-      mode = context().processInternalQName(attributes["mode"]);
+      mode = context().processInternalQName(attributes["mode"]).clarkName();
 
     if(match == "")
       return new Template(name,

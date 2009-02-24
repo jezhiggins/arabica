@@ -59,14 +59,9 @@ public:
   Arabica::XPath::XPathExpressionPtr<std::string> xpath_attribute_value_template(const std::string& expr) const { return xpath_.compile_attribute_value_template(expr); } 
   CompiledStylesheet& stylesheet() const { return stylesheet_; }
 
-  std::pair<std::string, std::string> processInternalQName(const std::string& qName) const
+  XML::QualifiedName<std::string> processInternalQName(const std::string& qName) const
   {
-    if(!Arabica::XML::is_qname<Arabica::default_string_adaptor<std::string> >(qName))
-      throw SAX::SAXException("Bad name : " + qName);
-    // 2.4 The default namespace is not used for unprefixed names.
-    if(qName.find(':') == std::string::npos)
-      return std::make_pair("", qName);
-    return parser_.processQName(qName);
+    return parser_.processInternalQName(qName);
   } // processInternalQName
 
   std::string makeAbsolute(const std::string& href) const

@@ -87,7 +87,7 @@ public:
 
     // go!
     output_.get().asOutput().start_document(output_settings_);
-    applyTemplates(ns, context, std::pair<std::string, std::string>("", ""));
+    applyTemplates(ns, context, "");
     output_.get().asOutput().end_document();
   } // execute
 
@@ -110,9 +110,7 @@ public:
     if(named_templates_.find(templat->name()) != named_templates_.end())
     {
       std::cerr << "Template named '";
-      if(!templat->name().first.empty())
-        std::cerr << "{" << templat->name().first << "}";
-      std::cerr << templat->name().second << "' already defined" << std::endl;
+      std::cerr << templat->name() << "' already defined" << std::endl;
       return;
     }
      
@@ -124,8 +122,8 @@ public:
     topLevelVars_.push_back(item);
   } // add_item
 
-  void add_key(const std::pair<std::string, std::string>& name,
-	       Key* key)
+  void add_key(const std::string& name,
+	             Key* key)
   {
     keys_.add(name, key);
   } // add_key
@@ -147,7 +145,7 @@ public:
   } // prepare
 
   ////////////////////////////////////////
-  void applyTemplates(const Arabica::XPath::NodeSet<std::string>& nodes, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const 
+  void applyTemplates(const Arabica::XPath::NodeSet<std::string>& nodes, ExecutionContext& context, const std::string& mode) const 
   {
     // entirely simple so far
     LastFrame last(context, nodes.size());
@@ -159,7 +157,7 @@ public:
     }
   } // applyTemplates
 
-  void applyTemplates(const DOM::NodeList<std::string>& nodes, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const 
+  void applyTemplates(const DOM::NodeList<std::string>& nodes, ExecutionContext& context, const std::string& mode) const 
   {
     // entirely simple so far
     LastFrame last(context, (size_t)nodes.getLength());
@@ -170,14 +168,14 @@ public:
     }
   } // applyTemplates
 
-  void applyTemplates(const DOM::Node<std::string>& node, ExecutionContext& context, const std::pair<std::string, std::string>& mode) const
+  void applyTemplates(const DOM::Node<std::string>& node, ExecutionContext& context, const std::string& mode) const
   {
     LastFrame last(context, -1);
     context.setPosition(node, 1);
     doApplyTemplates(node, context, mode, Precedence::FrozenPrecedence());
   } // applyTemplates
 
-  void callTemplate(const std::pair<std::string, std::string>& name, const DOM::Node<std::string>& node, ExecutionContext& context) const
+  void callTemplate(const std::string& name, const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
     StackFrame frame(context);
 
@@ -185,10 +183,8 @@ public:
     if(t == named_templates_.end())
     {
       std::cerr << "No template named '"; 
-      if(!name.first.empty())
-        std::cerr << "{" << name.first << "}";
-      std::cerr << name.second << "'.  I should be a compile-time error!" << std::endl;
-      throw SAX::SAXException("No template named {" + name.first + "}" + name.second + ".  I should be a compile-time error.  Sorry!");
+      std::cerr << name << "'.  I should be a compile-time error!" << std::endl;
+      throw SAX::SAXException("No template named " + name + ".  I should be a compile-time error.  Sorry!");
       return;
     }
      
@@ -203,7 +199,7 @@ public:
 private:
   void doApplyTemplates(const DOM::Node<std::string>& node, 
                         ExecutionContext& context, 
-                        const std::pair<std::string, std::string>& mode, 
+                        const std::string& mode, 
                         const Precedence& generation) const
   {
     StackFrame frame(context);
@@ -237,7 +233,7 @@ private:
 
   void defaultAction(const DOM::Node<std::string>& node, 
                      ExecutionContext& context, 
-                     const std::pair<std::string, std::string>& mode) const
+                     const std::string& mode) const
   {
     switch(node.getNodeType())
     {
@@ -307,9 +303,9 @@ private:
 
   typedef std::vector<Template*> TemplateList;
   typedef std::vector<MatchTemplate> MatchTemplates;
-  typedef std::map<std::pair<std::string, std::string>, MatchTemplates> ModeTemplates;
+  typedef std::map<std::string, MatchTemplates> ModeTemplates;
   typedef std::map<Precedence, ModeTemplates> TemplateStack;
-  typedef std::map<std::pair<std::string, std::string>, Template*> NamedTemplates;
+  typedef std::map<std::string, Template*> NamedTemplates;
   
   typedef std::vector<Item*> VariableDeclList;
   typedef std::vector<TopLevelParam*> ParamList;
@@ -321,7 +317,7 @@ private:
   DeclaredKeys keys_;
   ParamList params_;
 
-  mutable std::pair<std::string, std::string> current_mode_;
+  mutable std::string current_mode_;
   mutable Precedence current_generation_;
 
   Output::Settings output_settings_;

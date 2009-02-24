@@ -30,7 +30,7 @@ public:
     
       std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
 
-      std::pair<std::string, std::string> name = context_.processInternalQName(attrs["name"]);
+      std::string name = context_.processInternalQName(attrs["name"]).clarkName();
 
       callTemplate_ = new CallTemplate(name);
       return;

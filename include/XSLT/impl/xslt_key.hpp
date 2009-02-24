@@ -57,17 +57,17 @@ public:
 	delete (*k);
   } // ~DeclaredKeys
 
-  void add(const std::pair<std::string, std::string>& name, Key* key)
+  void add(const std::string& name, Key* key)
   {
     keys_[name].push_back(key);
   } // add_key
 
-  Arabica::XPath::NodeSet<std::string> lookup(const std::pair<std::string, std::string>& name,
+  Arabica::XPath::NodeSet<std::string> lookup(const std::string& name,
 				   const std::string& id) const
   {
     const Keys::const_iterator k = keys_.find(name);
     if(k == keys_.end())
-      throw SAX::SAXException("No key named '" + name.second + "' has been defined.");
+      throw SAX::SAXException("No key named '" + name + "' has been defined.");
     
     //if(k->second.size() == 0)
       return k->second[0]->lookup(id);
@@ -80,7 +80,7 @@ public:
 
 private:
   typedef std::vector<Key*> KeyList;
-  typedef std::map<std::pair<std::string, std::string>, KeyList> Keys;
+  typedef std::map<std::string, KeyList> Keys;
 
   Keys keys_;
 

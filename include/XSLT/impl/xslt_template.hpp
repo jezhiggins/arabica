@@ -12,10 +12,10 @@ namespace XSLT
 class Template : public ItemContainer
 {
 public:
-  Template(const std::pair<std::string, std::string>& name,
-	   const std::pair<std::string, std::string>& mode,
-	   const std::string& priority,
-	   const Precedence& precedence) :
+  Template(const std::string& name,
+      	   const std::string& mode,
+           const std::string& priority,
+	         const Precedence& precedence) :
     matches_(),
     name_(name),
     mode_(mode),
@@ -24,8 +24,8 @@ public:
   } // Template
 
   Template(const std::vector<Arabica::XPath::MatchExpr<std::string> >& matches,
-           const std::pair<std::string, std::string>& name,
-           const std::pair<std::string, std::string>& mode,
+           const std::string& name,
+           const std::string& mode,
            const std::string& priority,
            const Precedence& precedence) :
     matches_(matches),
@@ -51,15 +51,15 @@ public:
   } // execute
 
   const std::vector<Arabica::XPath::MatchExpr<std::string> >& compiled_matches() const { return matches_; }
-  bool has_name() const { return !name_.second.empty(); }
-  const std::pair<std::string, std::string>& name() const { return name_; }
-  const std::pair<std::string, std::string>& mode() const { return mode_; }
+  bool has_name() const { return !name_.empty(); }
+  const std::string& name() const { return name_; }
+  const std::string& mode() const { return mode_; }
   const Precedence& precedence() const { return precedence_; }
 
 private:
   std::vector<Arabica::XPath::MatchExpr<std::string> > matches_;
-  std::pair<std::string, std::string> name_;
-  std::pair<std::string, std::string> mode_;
+  std::string name_;
+  std::string mode_;
   const Precedence precedence_;
 }; // class Template
 

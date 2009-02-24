@@ -228,6 +228,7 @@ class expat_wrapper :
     typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
     typedef typename XMLReaderT::template Property<declHandlerT*> getDeclHandlerT;
     typedef typename XMLReaderT::template Property<declHandlerT&> setDeclHandlerT;
+    typedef XML::QualifiedName<string_type, string_adaptor> qualifiedNameT;
 
     expat_wrapper();
     virtual ~expat_wrapper();
@@ -272,7 +273,7 @@ class expat_wrapper :
     virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& name);
     virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value);
   private:
-    typename namespaceSupportT::Parts processName(const string_type& qName, bool isAttribute);
+    qualifiedNameT processName(const string_type& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
     void checkNotParsing(const string_type& type, const string_type& name) const;
   
@@ -585,10 +586,10 @@ int expat_wrapper<string_type, T0, T1>::getColumnNumber() const
 } // getColumnNumber
 
 template<class string_type, class T0, class T1>
-typename SAX::NamespaceSupport<string_type, typename expat_wrapper<string_type, T0, T1>::string_adaptor>::Parts expat_wrapper<string_type, T0, T1>::processName(const string_type& qName, bool isAttribute)
+typename XML::QualifiedName<string_type, typename expat_wrapper<string_type, T0, T1>::string_adaptor> expat_wrapper<string_type, T0, T1>::processName(const string_type& qName, bool isAttribute)
 {
-  typename namespaceSupportT::Parts p = nsSupport_.processName(qName, isAttribute);
-  if(SA::empty(p.URI) && !SA::empty(p.prefix))
+  qualifiedNameT p = nsSupport_.processName(qName, isAttribute);
+  if(!p.has_namespaceUri() && p.has_prefix())
     reportError(std::string("Undeclared prefix ") + SA::asStdString(qName));
   return p;
 } // processName
@@ -681,10 +682,10 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
       // declaration?
       if(SA::find(attQName, nsc_.xmlns) != 0) 
       {
-        typename namespaceSupportT::Parts attName = processName(attQName, true);
-        attributes.addAttribute(attName.URI, 
-                                attName.localName, 
-                                attName.rawName, 
+        qualifiedNameT attName = processName(attQName, true);
+        attributes.addAttribute(attName.namespaceUri(), 
+                                attName.localName(), 
+                                attName.rawName(), 
                                 attributeTypeT::CDATA,
                                 value);
       }
@@ -692,8 +693,8 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
   } // if ...
 
   // at last! report the event
-  typename namespaceSupportT::Parts name = processName(SA::construct_from_utf8(qName), false);
-  contentHandler_->startElement(name.URI, name.localName, name.rawName, attributes);
+  qualifiedNameT name = processName(SA::construct_from_utf8(qName), false);
+  contentHandler_->startElement(name.namespaceUri(), name.localName(), name.rawName(), attributes);
 } // startElement
 
 template<class string_type, class T0, class T1>
@@ -731,8 +732,8 @@ void expat_wrapper<string_type, T0, T1>::endElement(const char* qName)
     return;
   } // if(!namespaces_)
 
-  typename namespaceSupportT::Parts name = processName(SA::construct_from_utf8(qName), false);
-  contentHandler_->endElement(name.URI, name.localName, name.rawName);
+  qualifiedNameT name = processName(SA::construct_from_utf8(qName), false);
+  contentHandler_->endElement(name.namespaceUri(), name.localName(), name.rawName());
   typename namespaceSupportT::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
   for(size_t i = 0, end = prefixes.size(); i < end; ++i)
     contentHandler_->endPrefixMapping(prefixes[i]);

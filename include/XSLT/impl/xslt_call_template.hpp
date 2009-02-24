@@ -13,7 +13,7 @@ class CallTemplate : public Item,
                      public WithParamable
 {
 public:
-  CallTemplate(const std::pair<std::string, std::string>& name) :
+  CallTemplate(const std::string& name) :
     name_(name)
   {
   } // CallTemplate
@@ -25,7 +25,7 @@ public:
   } // execute
 
 private:
-  const std::pair<std::string, std::string> name_;
+  const std::string name_;
 }; // class CallTemplate
 
 } // namespace XSLT

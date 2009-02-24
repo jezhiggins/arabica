@@ -21,7 +21,6 @@ public:
   Variable_instance() { }
   virtual ~Variable_instance() { }
   
-  virtual const std::string& namespace_uri() const = 0;
   virtual const std::string& name() const = 0;
   virtual const Precedence& precedence() const = 0;
   virtual Arabica::XPath::XPathValue<std::string> value() const = 0;
@@ -71,18 +70,18 @@ public:
   
   void topLevelParam(Variable_instance_ptr param)
   {
-    params_.front()[clarkName(param)] = param;
+    params_.front()[param->name()] = param;
   } // topLevelParam
 
   std::string passParam(Variable_instance_ptr param)
   {
-    std::string clark_name = clarkName(param);
+    std::string name = param->name();
     Scope& params = params_.back();
 
-    if(params.find(clark_name) != params.end())
-      throw std::runtime_error("Duplicate parameter name in xsl:with-param - " + clark_name);
-    params[clark_name] = param;
-    return clark_name;
+    if(params.find(name) != params.end())
+      throw std::runtime_error("Duplicate parameter name in xsl:with-param - " + name);
+    params[name] = param;
+    return name;
   } // passParam
 
   void unpassParam(const std::string& name)
@@ -93,7 +92,7 @@ public:
   void declareParam(Variable_instance_ptr param)
   {
     ScopeStack::reverse_iterator p = params_.rbegin()+1;    
-    Scope::iterator i = p->find(clarkName(param));
+    Scope::iterator i = p->find(param->name());
     if(i == p->end())
       declareVariable(param);
     else
@@ -102,14 +101,14 @@ public:
 
   void declareVariable(Variable_instance_ptr var)
   {
-    std::string name = clarkName(var);
+    std::string name = var->name();
     Scope& stack = stack_.back();
     
     if(stack.find(name) != stack.end())
     {
       const Precedence& current_p = stack[name]->precedence();
       if(var->precedence() == current_p)
-        throw std::runtime_error("Duplicate variable name : " + clarkName(var));
+        throw std::runtime_error("Duplicate variable name : " + name);
       if(current_p.is_descendant(var->precedence()))
         return;
       if(current_p > var->precedence())
@@ -139,7 +138,7 @@ public:
   virtual Arabica::XPath::XPathValue<std::string> resolveVariable(const std::string& namespace_uri,
                                                                   const std::string& name) const
   {
-    std::string clarkName = "{" + namespace_uri + "}" + name;
+    std::string clarkName = namespace_uri.empty() ? name : "{" + namespace_uri + "}" + name;
     if(std::find(resolutionStack_.begin(), resolutionStack_.end(), clarkName) != resolutionStack_.end())
       throw std::runtime_error("Circular dependency: " + clarkName + " refers to itself directly or indirectly.");
 
@@ -159,11 +158,6 @@ public:
   
 private:
   typedef std::vector<Scope> ScopeStack;
-  
-  std::string clarkName(Variable_instance_ptr var)
-  {
-    return "{" + var->namespace_uri() + "}" + var->name();
-  } // clarkName
   
   Arabica::XPath::XPathValue<std::string> lookup(const Scope& scope, const std::string& name) const
   {

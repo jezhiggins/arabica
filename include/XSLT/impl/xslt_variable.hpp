@@ -11,11 +11,10 @@ namespace XSLT
 class Variable : public Variable_impl
 {
 public:
-  Variable(const std::string& namespace_uri, 
-           const std::string& name, 
+  Variable(const std::string& name, 
            Arabica::XPath::XPathExpressionPtr<std::string> select,
            const Precedence precedence) :
-      Variable_impl(namespace_uri, name, select, precedence)
+      Variable_impl(name, select, precedence)
   {
   } // Variable
 

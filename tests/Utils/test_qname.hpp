@@ -19,8 +19,8 @@ public:
 
   void testNcNameEquality()
   {
-    QN q1(SA::construct_from_utf8("foo"));
-    QN q2(SA::construct_from_utf8("foo"));
+    QN q1(SA::construct_from_utf8("foo"), SA::empty_string());
+    QN q2(SA::construct_from_utf8("foo"), SA::empty_string());
     
     assertTrue(q1 == q2);
     assertTrue(!(q1 != q2));
@@ -28,7 +28,7 @@ public:
 
   void testNcNameCopy()
   {
-    QN q1(SA::construct_from_utf8("foo"));
+    QN q1(SA::construct_from_utf8("foo"), SA::empty_string());
     QN q2(q1);
     
     assertTrue(q1 == q2);
@@ -37,8 +37,8 @@ public:
 
   void testNcNameAssignment()
   {
-    QN q1(SA::construct_from_utf8("foo"));
-    QN q2(SA::construct_from_utf8("bar"));
+    QN q1(SA::construct_from_utf8("foo"), SA::empty_string());
+    QN q2(SA::construct_from_utf8("bar"), SA::empty_string());
     
     assertFalse(q1 == q2);
 
@@ -49,7 +49,7 @@ public:
 
   void testNcClarkName()
   {
-    QN q(SA::construct_from_utf8("bar"));
+    QN q(SA::construct_from_utf8("bar"), SA::empty_string());
 
     assertTrue(SA::construct_from_utf8("bar") == q.clarkName());
   } // testNcClarkName
@@ -137,16 +137,19 @@ public:
     assertTrue(q.localName() == SA::construct_from_utf8("hello"));
     assertFalse(q.has_prefix());
     assertTrue(q.namespaceUri() == SA::empty_string());
+    assertTrue(q.rawName() == SA::construct_from_utf8("hello"));
 
     QN q2 = QN::parseQName(SA::construct_from_utf8("h:hello"), true, QNT::uri_mapper);
     assertTrue(q2.localName() == SA::construct_from_utf8("hello"));    
     assertTrue(q2.prefix() == SA::construct_from_utf8("h"));
     assertTrue(q2.namespaceUri() == SA::construct_from_utf8("http://test/"));
+    assertTrue(q2.rawName() == SA::construct_from_utf8("h:hello"));    
 
     QN q3 = QN::parseQName(SA::construct_from_utf8("hello"), false, QNT::uri_mapper);
     assertTrue(q3.localName() == SA::construct_from_utf8("hello"));
     assertFalse(q3.has_prefix());
     assertTrue(q3.namespaceUri() == SA::construct_from_utf8("http://test/"));
+    assertTrue(q3.rawName() == SA::construct_from_utf8("hello"));
   } // testParseQName
 
 }; // class QualifiedNameTest

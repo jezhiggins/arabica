@@ -16,7 +16,7 @@ class ApplyTemplates : public Item,
 {
 public:
   ApplyTemplates(Arabica::XPath::XPathExpressionPtr<std::string> select,
-                 const std::pair<std::string, std::string>& mode) :
+                 std::string& mode) :
     select_(select),
     mode_(mode)
   {
@@ -50,7 +50,7 @@ public:
 
 private:
   Arabica::XPath::XPathExpressionPtr<std::string> select_;
-  const std::pair<std::string, std::string> mode_;
+  std::string mode_;
 }; // class ApplyTemplates
 
 } // namespace XSLT

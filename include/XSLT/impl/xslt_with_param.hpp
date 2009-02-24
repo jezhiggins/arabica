@@ -11,11 +11,10 @@ namespace XSLT
 class WithParam : public Variable_impl
 {
 public:
-  WithParam(const std::string& namespace_uri,
-            const std::string& name, 
+  WithParam(const std::string& name, 
             Arabica::XPath::XPathExpressionPtr<std::string> select, 
             const Precedence& precedence) :
-      Variable_impl(namespace_uri, name, select, precedence)
+      Variable_impl(name, select, precedence)
   {
   } // WithParam
 

@@ -14,11 +14,9 @@ namespace XSLT
 class Variable_impl : public ItemContainer, public Variable_declaration
 {
 protected:
-  Variable_impl(const std::string& namespace_uri, 
-                const std::string& name, 
+  Variable_impl(const std::string& name, 
                 Arabica::XPath::XPathExpressionPtr<std::string> select,
                 const Precedence& precedence) :
-      namespace_uri_(namespace_uri),
       name_(name),
       select_(select),
       precedence_(precedence)
@@ -28,7 +26,6 @@ protected:
   virtual ~Variable_impl() { }
 
 public:
-  virtual const std::string& namespace_uri() const { return namespace_uri_; } 
   virtual const std::string& name() const { return name_; } 
   
   virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
@@ -53,7 +50,6 @@ public:
   virtual const Precedence& precedence() const { return precedence_; }
 
 private:
-  std::string namespace_uri_;
   std::string name_;
   Arabica::XPath::XPathExpressionPtr<std::string> select_;
   Precedence precedence_;

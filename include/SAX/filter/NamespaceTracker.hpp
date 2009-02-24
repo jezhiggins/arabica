@@ -35,10 +35,14 @@ public:
 
   virtual ~NamespaceTracker() { } 
 
-  std::pair<string_type, string_type> process(const string_type& qName) const
+  XML::QualifiedName<string_type, string_adaptor> processElementName(const string_type& rawName) const
   {
-    typename NamespaceSupportT::Parts parts = namespaces_.processName(qName, false);
-    return std::make_pair(parts.URI, parts.localName);
+    return namespaces_.processName(rawName, false);
+  } // process
+
+  XML::QualifiedName<string_type, string_adaptor> processName(const string_type& rawName) const
+  {
+    return namespaces_.processName(rawName, true);
   } // process
 
   string_type getURI(const string_type& prefix) const

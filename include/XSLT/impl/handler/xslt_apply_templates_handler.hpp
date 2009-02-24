@@ -36,9 +36,9 @@ public:
       if(select != "")
         xpath = context_.xpath_expression(select);
 
-      std::pair<std::string, std::string> mode;
+      std::string mode;
       if(attrs["mode"] != "")
-        mode = context_.processInternalQName(attrs["mode"]);
+        mode = context_.processInternalQName(attrs["mode"]).clarkName();
       applyTemplates_ = new ApplyTemplates(xpath, mode);
 
       return;
