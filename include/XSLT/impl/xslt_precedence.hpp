@@ -1,6 +1,8 @@
 #ifndef ARABICA_XSLT_PRECEDENCE_HPP
 #define ARABICA_XSLT_PRECEDENCE_HPP
 
+#include <algorithm>
+
 class Precedence
 {
 public:
@@ -92,7 +94,7 @@ bool operator<(const Precedence& lhs, const Precedence& rhs)
   if(lhs.precedence_ == rhs.precedence_)
     return false;
 
-  int len = std::min(lhs.precedence_.size(), rhs.precedence_.size());
+  int len = (std::min)(lhs.precedence_.size(), rhs.precedence_.size());
   for(int c = 0; c != len; ++c)
   {
     if(lhs.precedence_[c] < rhs.precedence_[c])
