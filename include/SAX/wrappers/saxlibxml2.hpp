@@ -140,6 +140,8 @@ class libxml2_wrapper :
     typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
     typedef typename XMLReaderT::template Property<declHandlerT*> getDeclHandlerT;
     typedef typename XMLReaderT::template Property<declHandlerT&> setDeclHandlerT;
+    typedef XML::QualifiedName<string_type, string_adaptor> qualifiedNameT;
+
     libxml2_wrapper();
     ~libxml2_wrapper();
 
@@ -203,7 +205,7 @@ class libxml2_wrapper :
     virtual void SAXentityDecl(const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content);
     virtual xmlParserInputPtr SAXresolveEntity(const xmlChar* publicId, const xmlChar* systemId);
     
-    typename NamespaceSupport<string_type, string_adaptor>::Parts processName(const string_type& qName, bool isAttribute);
+    qualifiedNameT processName(const string_type& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
     void checkNotParsing(const string_type& type, const string_type& name) const;
 
@@ -375,11 +377,10 @@ void libxml2_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name
 } // doSetProperty
 
 template<class string_type, class T0, class T1>
-typename SAX::NamespaceSupport<string_type, typename libxml2_wrapper<string_type, T0, T1>::string_adaptor>::Parts libxml2_wrapper<string_type, T0, T1>::processName(const string_type& qName, bool isAttribute)
+typename XML::QualifiedName<string_type, typename libxml2_wrapper<string_type, T0, T1>::string_adaptor> libxml2_wrapper<string_type, T0, T1>::processName(const string_type& qName, bool isAttribute)
 {
-  typename NamespaceSupport<string_type, string_adaptor>::Parts p =
-    nsSupport_.processName(qName, isAttribute);
-  if(string_adaptor::empty(p.URI) && !string_adaptor::empty(p.prefix))
+  qualifiedNameT p = nsSupport_.processName(qName, isAttribute);
+  if(string_adaptor::empty(p.namespaceUri()) && !string_adaptor::empty(p.prefix()))
     reportError(std::string("Undeclared prefix ") + string_adaptor::asStdString(qName));
   return p;
 } // processName
@@ -580,10 +581,10 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
       // declaration?
       if(string_adaptor::find(attQName, nsc_.xmlns) != 0) 
       {
-        typename NamespaceSupport<string_type, string_adaptor>::Parts attName = processName(attQName, true);
-        attributes.addAttribute(attName.URI, 
-                                attName.localName, 
-                                attName.rawName, 
+        qualifiedNameT attName = processName(attQName, true);
+        attributes.addAttribute(attName.namespaceUri(), 
+                                attName.localName(), 
+                                attName.rawName(), 
                                 attributeTypeT::CDATA, 
                                 value);
       }
@@ -591,8 +592,11 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
   } // if ...
 
   // at last! report the event
-  typename NamespaceSupport<string_type, string_adaptor>::Parts name = processName(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
-  contentHandler_->startElement(name.URI, name.localName, name.rawName, attributes);
+  qualifiedNameT name = processName(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
+  contentHandler_->startElement(name.namespaceUri(), 
+				name.localName(), 
+				name.rawName(), 
+				attributes);
 } // SAXstartElement
 
 template<class string_type, class T0, class T1>
@@ -630,8 +634,10 @@ void libxml2_wrapper<string_type, T0, T1>::SAXendElement(const xmlChar* qName)
     return;
   } // if(!namespaces_)
 
-  typename NamespaceSupport<string_type, string_adaptor>::Parts name = processName(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
-  contentHandler_->endElement(name.URI, name.localName, name.rawName);
+  qualifiedNameT name = processName(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
+  contentHandler_->endElement(name.namespaceUri(), 
+			      name.localName(), 
+			      name.rawName());
   typename NamespaceSupport<string_type, string_adaptor>::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
   for(size_t i = 0, end = prefixes.size(); i < end; ++i)
     contentHandler_->endPrefixMapping(prefixes[i]);
