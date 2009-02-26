@@ -87,7 +87,7 @@ public:
     std::string id = a1.asString();
     std::string clarkName = XML::QualifiedName<std::string>::parseQName(keyname, true, UriMapper(namespaces_)).clarkName();
 
-    return new Arabica::XPath::NodeSetValue<std::string>(keys_.lookup(clarkName, id));
+    return new Arabica::XPath::NodeSetValue<std::string>(keys_.lookup(clarkName, id, executionContext));
   } // evaluate
 
 private:

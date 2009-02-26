@@ -1,6 +1,8 @@
 #ifndef ARABICA_XSLT_KEY_HPP
 #define ARABICA_XSLT_KEY_HPP
 
+#include "xslt_execution_context.hpp"
+
 namespace Arabica
 {
 namespace XSLT
@@ -19,10 +21,11 @@ public:
   {
   } // Key
 
-  Arabica::XPath::NodeSet<std::string> lookup(const std::string& value) const
+  Arabica::XPath::NodeSet<std::string> lookup(const std::string& value,
+                                              const Arabica::XPath::ExecutionContext<std::string>& context) const
   {
     if(!populated_)
-      populate();
+      populate(context);
 
     NodeMap::const_iterator f = nodes_.find(value);
     if(f == nodes_.end())
@@ -32,9 +35,24 @@ public:
   } // lookup
 
 private:
-  void populate() const
+  void populate(const Arabica::XPath::ExecutionContext<std::string>& context) const
   {
-    std::cerr << "Populating key map " << std::endl;
+    typedef XPath::AxisEnumerator<std::string> AxisEnum;
+
+    DOM::Node<std::string> current = XPath::impl::get_owner_document(context.currentNode());
+
+    for(AxisEnum ae(current, XPath::DESCENDANT_OR_SELF); *ae != 0; ++ae)
+    {
+      DOM::Node<std::string> node = *ae;
+      for(MatchExprList::const_iterator me = matches_.begin(), mee = matches_.end(); me != mee; ++me)
+        if(me->evaluate(node, context))
+        {
+          std::string id = use_.evaluateAsString(node, context);
+          nodes_[id].push_back(node);
+          break;
+        } // if ...
+    } // for 
+    
     populated_ = true;
   } // populate
 
@@ -43,7 +61,7 @@ private:
   mutable bool populated_;
 
   typedef std::map<std::string, Arabica::XPath::NodeSet<std::string> > NodeMap;
-  NodeMap nodes_;
+  mutable NodeMap nodes_;
 }; // class Key
 
 class DeclaredKeys
@@ -63,18 +81,19 @@ public:
   } // add_key
 
   Arabica::XPath::NodeSet<std::string> lookup(const std::string& name,
-	                                            const std::string& id) const
+	                                            const std::string& id,
+                                              const Arabica::XPath::ExecutionContext<std::string>& context) const
   {
     const Keys::const_iterator k = keys_.find(name);
     if(k == keys_.end())
       throw SAX::SAXException("No key named '" + name + "' has been defined.");
     
     if(k->second.size() == 1)
-      return k->second[0]->lookup(id);
+      return k->second[0]->lookup(id, context);
     
     Arabica::XPath::NodeSet<std::string> nodes;
     for(KeyList::const_iterator key = k->second.begin(), keye = k->second.end(); key != keye; ++key)    
-      nodes.push_back((*key)->lookup(id));
+      nodes.push_back((*key)->lookup(id, context));
     nodes.sort();
     return nodes;
   } // lookup
