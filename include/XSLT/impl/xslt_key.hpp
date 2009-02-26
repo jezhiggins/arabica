@@ -16,26 +16,32 @@ public:
   Key(MatchExprList& matches,
       Arabica::XPath::XPathExpression<std::string>& use) :
     matches_(matches),
-    use_(use),
-    populated_(false)
+    use_(use)
   {
   } // Key
 
   Arabica::XPath::NodeSet<std::string> lookup(const std::string& value,
                                               const Arabica::XPath::ExecutionContext<std::string>& context) const
   {
-    if(!populated_)
-      populate(context);
+    DOM::Node<std::string> doc = XPath::impl::get_owner_document(context.currentNode());
+    DocumentNodeMap::const_iterator nm = nodesPerDocument_.find(doc.underlying_impl());
+    if(nm == nodesPerDocument_.end())
+      populate(nodesPerDocument_[doc.underlying_impl()], context);
 
-    NodeMap::const_iterator f = nodes_.find(value);
-    if(f == nodes_.end())
+    const NodeMap& nodes = nodesPerDocument_[doc.underlying_impl()];
+    NodeMap::const_iterator f = nodes.find(value);
+    if(f == nodes.end())
       return Arabica::XPath::NodeSet<std::string>(0);
 
     return f->second;
   } // lookup
 
 private:
-  void populate(const Arabica::XPath::ExecutionContext<std::string>& context) const
+  typedef std::map<std::string, Arabica::XPath::NodeSet<std::string> > NodeMap;
+  typedef std::map<DOM::Node_impl<std::string, Arabica::default_string_adaptor<std::string> >*, NodeMap> DocumentNodeMap;
+ 
+  void populate(NodeMap& nodes,
+                const Arabica::XPath::ExecutionContext<std::string>& context) const
   {
     typedef XPath::AxisEnumerator<std::string> AxisEnum;
 
@@ -48,20 +54,16 @@ private:
         if(me->evaluate(node, context))
         {
           std::string id = use_.evaluateAsString(node, context);
-          nodes_[id].push_back(node);
+          nodes[id].push_back(node);
           break;
         } // if ...
     } // for 
-    
-    populated_ = true;
   } // populate
 
   MatchExprList matches_;
   Arabica::XPath::XPathExpression<std::string> use_;
-  mutable bool populated_;
+  mutable DocumentNodeMap nodesPerDocument_;
 
-  typedef std::map<std::string, Arabica::XPath::NodeSet<std::string> > NodeMap;
-  mutable NodeMap nodes_;
 }; // class Key
 
 class DeclaredKeys
