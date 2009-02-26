@@ -170,7 +170,7 @@ private:
       return new DocumentFunction(parser_.currentBase(), argExprs);
     // key
     if(name == "key")
-      return new KeyFunction(stylesheet_.keys(), argExprs);
+      return new KeyFunction(stylesheet_.keys(), parser_.inScopeNamespaces(), argExprs);
     // format-number
     if((name == "current") && (current_allowed_))
       return new CurrentFunction(argExprs);

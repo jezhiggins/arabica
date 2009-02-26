@@ -54,7 +54,7 @@ public:
   { 
     for(Keys::const_iterator i = keys_.begin(), ie = keys_.end(); i != ie; ++i)
       for(KeyList::const_iterator k = i->second.begin(), ke = i->second.end(); k != ke; ++k)
-	delete (*k);
+  	delete (*k);
   } // ~DeclaredKeys
 
   void add(const std::string& name, Key* key)
@@ -63,19 +63,20 @@ public:
   } // add_key
 
   Arabica::XPath::NodeSet<std::string> lookup(const std::string& name,
-				   const std::string& id) const
+	                                            const std::string& id) const
   {
     const Keys::const_iterator k = keys_.find(name);
     if(k == keys_.end())
       throw SAX::SAXException("No key named '" + name + "' has been defined.");
     
-    //if(k->second.size() == 0)
+    if(k->second.size() == 1)
       return k->second[0]->lookup(id);
     
-      //Arabica::XPath::NodeSet<std::string> nodes;
-      //for(KeyList::const_iterator k = i->second.begin(), ke = i->second.end(); k != ke; ++k)    
-      //nodes.a
-      //return k->second.lookup(id);
+    Arabica::XPath::NodeSet<std::string> nodes;
+    for(KeyList::const_iterator key = k->second.begin(), keye = k->second.end(); key != keye; ++key)    
+      nodes.push_back((*key)->lookup(id));
+    nodes.sort();
+    return nodes;
   } // lookup
 
 private:

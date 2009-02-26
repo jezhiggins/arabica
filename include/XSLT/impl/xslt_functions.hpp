@@ -66,10 +66,11 @@ class KeyFunction : public Arabica::XPath::XPathFunction<std::string>
 
 public:
   KeyFunction(const DeclaredKeys& keys,
-	      /* also need to pass current namespace context, so can resolve qnames, */
+              const std::map<std::string, std::string>& inscopeNamespaces,	      
               const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
     Arabica::XPath::XPathFunction<std::string>(2, 2, args),
-    keys_(keys)
+    keys_(keys),
+    namespaces_(inscopeNamespaces)
   { 
   } // KeyFunction
 
@@ -80,15 +81,38 @@ public:
   {
     Arabica::XPath::XPathValue<std::string> a1 = baseT::arg(1, context, executionContext);
     if(a1.type() == Arabica::XPath::NODE_SET)
-      throw Arabica::XPath::UnsupportedException("node-set arg version of document()");
+      throw Arabica::XPath::UnsupportedException("node-set arg version of key()");
 
     std::string keyname = argAsString(0, context, executionContext);
     std::string id = a1.asString();
-    throw Arabica::XPath::UnsupportedException("key(" + keyname + ", " + id + ")");
+    std::string clarkName = XML::QualifiedName<std::string>::parseQName(keyname, true, UriMapper(namespaces_)).clarkName();
+
+    return new Arabica::XPath::NodeSetValue<std::string>(keys_.lookup(clarkName, id));
   } // evaluate
 
 private:
   const DeclaredKeys& keys_;
+  std::map<std::string, std::string> namespaces_;
+
+  class UriMapper
+  {
+  public:
+    UriMapper(const std::map<std::string, std::string>& namespaces) : namespaces_(namespaces) { }
+
+    std::string operator()(const std::string& prefix) const
+    {
+      std::map<std::string, std::string>::const_iterator ns = namespaces_.find(prefix);
+      if(ns == namespaces_.end())
+        return "";
+      return ns->second;
+    } //operator()
+
+  private:
+    const std::map<std::string, std::string>& namespaces_;
+
+    UriMapper(const UriMapper&);
+  }; // class UriMapper
+
 }; // class KeyFunction
 
 // string format-number(number, string, string?)
