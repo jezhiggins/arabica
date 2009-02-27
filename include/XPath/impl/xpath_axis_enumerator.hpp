@@ -37,7 +37,7 @@ template<class axis_walker, class string_type, class string_adaptor>
 AxisWalker<string_type, string_adaptor>* CreateAxis(const DOM::Node<string_type, string_adaptor>& context) { return new axis_walker(context); }
 } // namespace impl
 
-template<class string_type, class string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class AxisEnumerator
 {
   typedef impl::AxisWalker<string_type, string_adaptor>* (*CreateAxisPtr)(const DOM::Node<string_type, string_adaptor>& context);

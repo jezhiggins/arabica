@@ -265,6 +265,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\XSLT\impl\xslt_key.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\Xslt\impl\xslt_message.hpp"
 					>
 				</File>
@@ -393,6 +397,10 @@
 					</File>
 					<File
 						RelativePath="..\include\Xslt\impl\handler\xslt_item_container_handler.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\include\XSLT\impl\handler\xslt_key_handler.hpp"
 						>
 					</File>
 					<File

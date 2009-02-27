@@ -243,6 +243,11 @@ public:
     sorted_ = false;
   } // push_back
 
+  void push_back(const NodeSet<string_type, string_adaptor>& nodeSet)
+  {
+    insert(end(), nodeSet.begin(), nodeSet.end());
+  } // push_back
+
   bool forward() const { return sorted_ && forward_; }
   bool reverse() const { return sorted_ && !forward_; }
   void forward(bool forward) 
