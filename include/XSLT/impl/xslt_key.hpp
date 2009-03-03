@@ -96,7 +96,7 @@ public:
     Arabica::XPath::NodeSet<std::string> nodes;
     for(KeyList::const_iterator key = k->second.begin(), keye = k->second.end(); key != keye; ++key)    
       nodes.push_back((*key)->lookup(id, context));
-    nodes.sort();
+    nodes.to_document_order();
     return nodes;
   } // lookup
 
