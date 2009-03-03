@@ -3,6 +3,7 @@
 
 #include "../xslt_inline_element.hpp"
 #include "xslt_item_container_handler.hpp"
+#include "xslt_constants.hpp"
 
 namespace Arabica
 {
@@ -28,19 +29,21 @@ protected:
     {      
       if(atts.getQName(i).find("xmlns:") == 0)
         continue;
+      if(atts.getURI(i) == StylesheetConstant::NamespaceURI())
+	continue;
       if(!context().isRemapped(atts.getURI(i)))
       	inlineAtts.push_back(InlineAttribute(atts.getQName(i), 
-			                              		     atts.getURI(i),
-					                                   context().xpath_attribute_value_template(atts.getValue(i))));
+					     atts.getURI(i),
+					     context().xpath_attribute_value_template(atts.getValue(i))));
       else
       {
        	std::pair<std::string, std::string> remap = context().remappedNamespace(atts.getURI(i));
       	if(remap.first.empty() && !remap.second.empty())
-	        remap.first = context().autoNamespacePrefix();
-	      std::string name = remap.first + ":" + atts.getLocalName(i);
-	      inlineAtts.push_back(InlineAttribute(name, 
-					                                   remap.second,
-					                                   context().xpath_attribute_value_template(atts.getValue(i))));
+	  remap.first = context().autoNamespacePrefix();
+	std::string name = remap.first + ":" + atts.getLocalName(i);
+	inlineAtts.push_back(InlineAttribute(name, 
+					     remap.second,
+					     context().xpath_attribute_value_template(atts.getValue(i))));
       } // if ... 
     } // for ...
 
