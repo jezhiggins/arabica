@@ -97,10 +97,6 @@
   <test-case id="reluri_reluri10" runs="no"/>
   <test-case id="reluri_reluri11" runs="no"/>
   <test-case id="select_select07" compare="text" reason="Text output"/>
-  <test-case id="select_select54" compiles="no"/>
-  <test-case id="select_select55" compiles="no"/>
-  <test-case id="select_select59" compiles="no"/>
-  <test-case id="select_select64" compiles="no"/>
   <test-case id="select_select74" skip="yes" reason="HTML output"/>
   <test-case id="sort_sort08" skip="yes" reason="Test case is bad.  Xalan sorts % ahead of space.  Others, including comment in test data, disagree."/>
   <test-case id="sort_sort14" compiles="no" reason="Needs xsl:sort lang attribute"/>
