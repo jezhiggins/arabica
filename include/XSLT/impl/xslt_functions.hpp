@@ -79,16 +79,29 @@ public:
   virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context,
                                                                  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
+    std::string keyname = argAsString(0, context, executionContext);
+    std::string keyClarkName = XML::QualifiedName<std::string>::parseQName(keyname, true, UriMapper(namespaces_)).clarkName();
+
     Arabica::XPath::XPathValue<std::string> a1 = baseT::arg(1, context, executionContext);
     if(a1.type() == Arabica::XPath::NODE_SET)
-      throw Arabica::XPath::UnsupportedException("node-set arg version of key()");
+      return nodeSetUnion(keyClarkName, a1.asNodeSet(), executionContext);
 
-    std::string keyname = argAsString(0, context, executionContext);
-    std::string id = a1.asString();
-    std::string clarkName = XML::QualifiedName<std::string>::parseQName(keyname, true, UriMapper(namespaces_)).clarkName();
-
-    return new Arabica::XPath::NodeSetValue<std::string>(keys_.lookup(clarkName, id, executionContext));
+    return new Arabica::XPath::NodeSetValue<std::string>(keys_.lookup(keyClarkName, a1.asString(), executionContext));
   } // evaluate
+
+  Arabica::XPath::XPathValue_impl<std::string>* nodeSetUnion(const std::string& keyClarkName, 
+							     const Arabica::XPath::NodeSet<std::string> nodes,
+							     const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  {
+    Arabica::XPath::NodeSet<std::string> results;
+    for(Arabica::XPath::NodeSet<std::string>::const_iterator n = nodes.begin(), ne = nodes.end(); n != ne; ++n)
+    {
+      std::string id = Arabica::XPath::impl::nodeStringValue<std::string, Arabica::default_string_adaptor<std::string> >(*n);
+      results.push_back(keys_.lookup(keyClarkName, id, executionContext));
+    } // for ...
+    results.to_document_order();
+    return new Arabica::XPath::NodeSetValue<std::string>(results);
+  } // nodeSetUnion
 
 private:
   const DeclaredKeys& keys_;
