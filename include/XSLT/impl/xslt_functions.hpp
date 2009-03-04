@@ -111,6 +111,7 @@ private:
   {
   public:
     UriMapper(const std::map<std::string, std::string>& namespaces) : namespaces_(namespaces) { }
+    UriMapper(const UriMapper& rhs) : namespaces_(rhs.namespaces_) { }
 
     std::string operator()(const std::string& prefix) const
     {
@@ -123,9 +124,9 @@ private:
   private:
     const std::map<std::string, std::string>& namespaces_;
 
-    UriMapper(const UriMapper&);
+    bool operator==(const UriMapper&) const;
+    UriMapper& operator=(const UriMapper&);
   }; // class UriMapper
-
 }; // class KeyFunction
 
 // string format-number(number, string, string?)
