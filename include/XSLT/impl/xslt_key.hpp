@@ -53,8 +53,12 @@ private:
       for(MatchExprList::const_iterator me = matches_.begin(), mee = matches_.end(); me != mee; ++me)
         if(me->evaluate(node, context))
         {
-          std::string id = use_.evaluateAsString(node, context);
-          nodes[id].push_back(node);
+	  Arabica::XPath::NodeSet<std::string> ids = use_.evaluateAsNodeSet(node, context);
+	  for(Arabica::XPath::NodeSet<std::string>::const_iterator i = ids.begin(), ie = ids.end(); i != ie; ++i)
+	  {
+	    std::string id = Arabica::XPath::impl::nodeStringValue<std::string, Arabica::default_string_adaptor<std::string> >(*i);
+	    nodes[id].push_back(node);
+	  } // for ...
           break;
         } // if ...
     } // for 
@@ -96,7 +100,7 @@ public:
     Arabica::XPath::NodeSet<std::string> nodes;
     for(KeyList::const_iterator key = k->second.begin(), keye = k->second.end(); key != keye; ++key)    
       nodes.push_back((*key)->lookup(id, context));
-    nodes.sort();
+    nodes.to_document_order();
     return nodes;
   } // lookup
 

@@ -403,7 +403,7 @@ class URITest : public TestCase
     assertEquals("woot.txt", u.path());
     assertEquals(false, u.is_absolute());
     assertEquals("file:woot.txt", u.as_string());
-  } // URI 
+  } // test35
 
   void test36()
   {
@@ -461,7 +461,30 @@ class URITest : public TestCase
     assertEquals(true, u.is_absolute());
     assertEquals("http://www.google.com", u.as_string());
   } // test40
-}; // class URITest
+ 
+  void test41()
+  {
+    URI u("file:fragtastic/woot.txt");
+    
+    assertEquals("", u.host());
+    assertEquals("file", u.scheme());
+    assertEquals("fragtastic/woot.txt", u.path());
+    assertEquals(false, u.is_absolute());
+    assertEquals("file:fragtastic/woot.txt", u.as_string());
+  } // test41
+
+  void test42()
+  {
+    URI b("wooo/main.txt");
+    URI u(b, "file:fragtastic/woot.txt");
+    
+    assertEquals("", u.host());
+    assertEquals("file", u.scheme());
+    assertEquals("wooo/fragtastic/woot.txt", u.path());
+    assertEquals(false, u.is_absolute());
+    assertEquals("file:wooo/fragtastic/woot.txt", u.as_string());
+  } // test42
+ }; // class URITest
 
 TestSuite* URITest_suite()
 {
@@ -506,7 +529,9 @@ TestSuite* URITest_suite()
   suiteOfTests->addTest(new TestCaller<URITest>("test37", &URITest::test37));
   suiteOfTests->addTest(new TestCaller<URITest>("test38", &URITest::test38));
   suiteOfTests->addTest(new TestCaller<URITest>("test39", &URITest::test39));  
-  suiteOfTests->addTest(new TestCaller<URITest>("test40", &URITest::test40));
+  suiteOfTests->addTest(new TestCaller<URITest>("test40", &URITest::test40));  
+  suiteOfTests->addTest(new TestCaller<URITest>("test41", &URITest::test41));
+  suiteOfTests->addTest(new TestCaller<URITest>("test42", &URITest::test42));
 
   return suiteOfTests;
 } // URITest_suite

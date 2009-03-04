@@ -16,12 +16,11 @@
   <test-case id="expression_expression04" compiles="no" reason="Needs lang"/>
   <test-case id="expression_expression05" compiles="no" reason="Needs lang"/>
   <test-case id="expression_expression06" compiles="no" reason="Needs lang"/>
-  <test-case id="extend_extend01" compiles="no"/>
-  <test-case id="extend_extend02" compiles="no"/>
-  <test-case id="extend_extend03" compiles="no"/>
-  <test-case id="extend_extend04" compiles="no"/>
-  <test-case id="impincl_impincl09" compiles="no"/>
-  <test-case id="impincl_impincl17" compiles="no"/>
+  <test-case id="extend_extend01" compiles="no" reason="Needs fallback, extension elements"/>
+  <test-case id="extend_extend02" compiles="no" reason="Needs fallback, extension elements"/>
+  <test-case id="extend_extend03" compiles="no" reason="Needs function-available, element-available"/>
+  <test-case id="extend_extend04" compiles="no" reason="Needs fallback, extension elements"/>
+  <test-case id="impincl_impincl09" compiles="no" reasons="Needs attribute sets"/>
   <test-case id="lre_lre12" compiles="no" reason="Failing to compile is actually legitimate here.  Saxon and MSXML agree, Xalan chooses to continue."/>
   <test-case id="lre_lre13" compare="text" reason="Text out"/>
   <test-case id="match_match01" compiles="no" reason="Needs xsl:strip-space"/>
@@ -34,9 +33,9 @@
   <test-case id="mdocs_mdocs08" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs18" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="message_message01" compare="text"/>
-  <test-case id="message_message14" compiles="no"/>
-  <test-case id="message_message15" compiles="no"/>
-  <test-case id="namedtemplate_namedtemplate12" compiles="no"/>
+  <test-case id="message_message14" compiles="no" reason="Needs xsl:number"/>
+  <test-case id="message_message15" compiles="no" reason="Needs xsl:fallback"/>
+  <test-case id="namedtemplate_namedtemplate12" compiles="no" reason="Needs xsl:number"/>
   <test-case id="output_output01" skip="yes" reason="HTML output"/>
   <test-case id="output_output02" skip="yes" reason="HTML output"/>
   <test-case id="output_output03" skip="yes" reason="HTML output"/>
@@ -98,10 +97,6 @@
   <test-case id="reluri_reluri10" runs="no"/>
   <test-case id="reluri_reluri11" runs="no"/>
   <test-case id="select_select07" compare="text" reason="Text output"/>
-  <test-case id="select_select54" compiles="no"/>
-  <test-case id="select_select55" compiles="no"/>
-  <test-case id="select_select59" compiles="no"/>
-  <test-case id="select_select64" compiles="no"/>
   <test-case id="select_select74" skip="yes" reason="HTML output"/>
   <test-case id="sort_sort08" skip="yes" reason="Test case is bad.  Xalan sorts % ahead of space.  Others, including comment in test data, disagree."/>
   <test-case id="sort_sort14" compiles="no" reason="Needs xsl:sort lang attribute"/>
@@ -122,30 +117,30 @@
   <test-case id="sort_sort37" compare="text" reason="Text output"/>
   <test-case id="sort_sort39" compiles="no" reason="Needs xsl:sort lang attribute"/>
 
-  <test-case id="string_string13" compiles="no"/>
-  <test-case id="string_string106" compiles="no"/>
-  <test-case id="string_string108" compiles="no"/>
-  <test-case id="string_string109" compiles="no"/>
-  <test-case id="string_string110" compiles="no"/>
-  <test-case id="string_string124" compiles="no"/>
-  <test-case id="string_string129" compiles="no"/>
-  <test-case id="string_string130" compiles="no"/>
-	<test-case id="variable_variable20" runs="no" reason="Possible spec ambiguity.  Mangle agrees with Saxon and MSXML.  Xalan disagrees"/>	
-	<test-case id="variable_variable56" runs="no" reason="Possible spec ambiguity.  Mangle agrees with Saxon and MSXML.  Xalan disagrees"/>
-  <test-case id="ver_ver01" compiles="no"/>
-  <test-case id="ver_ver05" compiles="no"/>
-  <test-case id="ver_ver06" compiles="no"/>
-  <test-case id="ver_ver07" compiles="no"/>
-  <test-case id="whitespace_whitespace01" compiles="no"/>
-  <test-case id="whitespace_whitespace02" compiles="no"/>
-  <test-case id="whitespace_whitespace03" compiles="no"/>
-  <test-case id="whitespace_whitespace04" compiles="no"/>
-  <test-case id="whitespace_whitespace05" compiles="no"/>
-  <test-case id="whitespace_whitespace06" compiles="no"/>
-  <test-case id="whitespace_whitespace07" compiles="no"/>
-  <test-case id="whitespace_whitespace12" compiles="no"/>
-  <test-case id="whitespace_whitespace22" compiles="no"/>
-  <test-case id="whitespace_whitespace35" compiles="no"/>
+  <test-case id="string_string13" compiles="no" reason="Needs format-number"/>
+  <test-case id="string_string106" compiles="no" reason="Needs format-number"/>
+  <test-case id="string_string108" compiles="no" reason="Needs format-number"/>
+  <test-case id="string_string109" compiles="no" reason="Needs format-number"/>
+  <test-case id="string_string110" compiles="no" reason="Needs format-number"/>
+  <test-case id="string_string124" compiles="no" reason="Needs strip-space"/>
+  <test-case id="string_string129" compiles="no" reason="Needs strip-space"/>
+  <test-case id="string_string130" compiles="no" reason="Needs strip-space"/>
+  <test-case id="variable_variable20" runs="no" reason="Possible spec ambiguity.  Mangle agrees with Saxon and MSXML.  Xalan disagrees"/>	
+  <test-case id="variable_variable56" runs="no" reason="Possible spec ambiguity.  Mangle agrees with Saxon and MSXML.  Xalan disagrees"/>
+  <test-case id="ver_ver01" compiles="no" reason="Forward compatibility"/>
+  <test-case id="ver_ver05" compiles="no" reason="Forward compatibility"/>
+  <test-case id="ver_ver06" compiles="no" reason="Forward compatibility"/>
+  <test-case id="ver_ver07" compiles="no" reason="Forward compatibility"/>
+  <test-case id="whitespace_whitespace01" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="whitespace_whitespace02" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="whitespace_whitespace03" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="whitespace_whitespace04" compiles="no" reason="Needs xsl:strip-space and xsl:preserve-space"/>
+  <test-case id="whitespace_whitespace05" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="whitespace_whitespace06" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="whitespace_whitespace07" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="whitespace_whitespace12" compiles="no" reason="Needs xsl:strip-space"/>
+  <test-case id="whitespace_whitespace22" compiles="no" reason="Needs xsl:strip-space and xsl:preserve-space"/>
+  <test-case id="whitespace_whitespace35" compiles="no" reason="Needs xsl:strip-space"//>
 
   <test-case id="AVTs__77531" compare="fragment" reason="XML Fragment output"/>
   <test-case id="AVTs__77558" compare="fragment" reason="XML Fragment output"/>  
