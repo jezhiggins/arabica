@@ -146,10 +146,20 @@ std::string::const_iterator URI::parseAuthority(const std::string::const_iterato
   return slash;
 } // parseAuthority
 
+bool compatible_schemes(const std::string& scheme,
+			const std::string& relative)
+{
+  if(scheme.empty() && (relative == "file"))
+    return true;
+  if(relative.empty())
+    return true;
+  return (scheme == relative);
+} // compatible_schemes
+
 void URI::absolutise(URI& relative)
 {
   if((relative.is_absolute()) || 
-     ((!relative.scheme().empty()) && (relative.scheme() != scheme_)))
+     !compatible_schemes(scheme_, relative.scheme()))
   {
     swap(relative);
     return;
