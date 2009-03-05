@@ -140,7 +140,7 @@
   <test-case id="whitespace_whitespace07" compiles="no" reason="Needs xsl:strip-space"/>
   <test-case id="whitespace_whitespace12" compiles="no" reason="Needs xsl:strip-space"/>
   <test-case id="whitespace_whitespace22" compiles="no" reason="Needs xsl:strip-space and xsl:preserve-space"/>
-  <test-case id="whitespace_whitespace35" compiles="no" reason="Needs xsl:strip-space"//>
+  <test-case id="whitespace_whitespace35" compiles="no" reason="Needs xsl:strip-space"/>
 
   <test-case id="AVTs__77531" compare="fragment" reason="XML Fragment output"/>
   <test-case id="AVTs__77558" compare="fragment" reason="XML Fragment output"/>  
