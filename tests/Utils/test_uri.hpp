@@ -479,11 +479,23 @@ class URITest : public TestCase
     URI u(b, "file:fragtastic/woot.txt");
     
     assertEquals("", u.host());
+    assertEquals("", u.scheme());
+    assertEquals("wooo/fragtastic/woot.txt", u.path());
+    assertEquals(false, u.is_absolute());
+    assertEquals("wooo/fragtastic/woot.txt", u.as_string());
+  } // test42
+
+  void test43()
+  {
+    URI b("file:wooo/main.txt");
+    URI u(b, "file:fragtastic/woot.txt");
+    
+    assertEquals("", u.host());
     assertEquals("file", u.scheme());
     assertEquals("wooo/fragtastic/woot.txt", u.path());
     assertEquals(false, u.is_absolute());
     assertEquals("file:wooo/fragtastic/woot.txt", u.as_string());
-  } // test42
+  } // test43
  }; // class URITest
 
 TestSuite* URITest_suite()
@@ -532,6 +544,7 @@ TestSuite* URITest_suite()
   suiteOfTests->addTest(new TestCaller<URITest>("test40", &URITest::test40));  
   suiteOfTests->addTest(new TestCaller<URITest>("test41", &URITest::test41));
   suiteOfTests->addTest(new TestCaller<URITest>("test42", &URITest::test42));
+  suiteOfTests->addTest(new TestCaller<URITest>("test43", &URITest::test43));
 
   return suiteOfTests;
 } // URITest_suite

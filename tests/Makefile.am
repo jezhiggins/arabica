@@ -1,4 +1,4 @@
-SUBDIRS = CppUnit Utils SAX
+SUBDIRS = CppUnit Utils SAX Taggle
 if WANT_DOM
   SUBDIRS += DOM 
 endif
