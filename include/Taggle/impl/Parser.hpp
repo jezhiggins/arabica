@@ -778,7 +778,7 @@ private:
       name = stack_.name();
     }
 
-    Element sp;
+    Element sp = Element::Null;
     bool inNoforce = false;
     for (sp = stack_; sp != Element::Null; sp = sp.next()) 
     {
@@ -1194,7 +1194,7 @@ private:
   // so that the argument can be safely pushed
   void rectify(Element e) 
   {
-    Element sp;
+    Element sp = Element::Null;
     while (true) 
     {
       for (sp = stack_; sp != Element::Null; sp = sp.next()) 
