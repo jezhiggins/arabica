@@ -16,8 +16,8 @@ test_sources = util_test_suite.hpp \
                test_normalize_whitespace.hpp \
                test_xml_strings.hpp \
                test_base64.hpp \
-               test_uri.hpp 
-
+               test_uri.hpp \ 
+               test_qname.hpp
 
 utils_test_SOURCES = utils_test.cpp \
                      $(test_sources)
