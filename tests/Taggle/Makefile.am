@@ -9,7 +9,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @PARSER_HEADERS@
 LIBARABICA =  $(top_builddir)/src/libarabica.la
 TESTLIBS = $(LIBARABICA) ../CppUnit/libcppunit.la
 
-test_sources = test_taggle.hpp 
+test_sources = test_Taggle.hpp 
 
 taggle_test_SOURCES = taggle_test.cpp \
                       $(test_sources) 

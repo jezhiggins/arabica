@@ -1,15 +1,11 @@
 #ifndef ARABICA_NAMESPACE_SUPPORT_H
 #define ARABICA_NAMESPACE_SUPPORT_H
 
-/*
- * $Id$
- */
-
 #include <SAX/ArabicaConfig.hpp>
 #include <map>
 #include <vector>
 #include <functional>
-#include <XML/qname.hpp>
+#include <XML/QName.hpp>
 
 namespace Arabica
 {
