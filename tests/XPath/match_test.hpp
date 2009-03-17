@@ -9,11 +9,66 @@
 #include <DOM/SAX2DOM/SAX2DOM.hpp>
 #include <SAX/helpers/CatchErrorHandler.hpp>
 
+template<class string_type, class string_adaptor>
+class TestIdFunction : public Arabica::XPath::XPathFunction<string_type, string_adaptor>
+{
+public:
+  TestIdFunction(const std::vector<Arabica::XPath::XPathExpression<string_type, string_adaptor> >& args) :
+      Arabica::XPath::XPathFunction<string_type, string_adaptor>(1, 1, args) { }
+
+  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
+
+  virtual Arabica::XPath::XPathValue_impl<string_type, string_adaptor>* evaluate(const Arabica::DOM::Node<string_type, string_adaptor>& context, 
+                                            const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    string_type name = string_adaptor::construct_from_utf8("test-");
+    string_adaptor::append(name, context.getLocalName());
+    return new Arabica::XPath::StringValue<string_type, string_adaptor>(name);
+  } // evaluate
+}; // TestIdFunction
+
+template<class string_type, class string_adaptor>
+class TestKeyFunction : public Arabica::XPath::XPathFunction<string_type, string_adaptor>
+{
+public:
+  TestKeyFunction(const std::vector<Arabica::XPath::XPathExpression<string_type, string_adaptor> >& args) :
+      Arabica::XPath::XPathFunction<string_type, string_adaptor>(2, 2, args) { }
+
+  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
+
+  virtual Arabica::XPath::XPathValue_impl<string_type, string_adaptor>* evaluate(const Arabica::DOM::Node<string_type, string_adaptor>& context, 
+                                            const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    string_type name = string_adaptor::construct_from_utf8("test-");
+    string_adaptor::append(name, context.getLocalName());
+    return new Arabica::XPath::StringValue<string_type, string_adaptor>(name);
+  } // evaluate
+}; // TestKeyFunction
+
+template<class string_type, class string_adaptor>
+class TestIdKeyFunctionResolver : public Arabica::XPath::FunctionResolver<string_type, string_adaptor>
+{
+  //typedef string_adaptorstring_adaptor;
+public:
+  virtual Arabica::XPath::XPathFunction<string_type, string_adaptor>* resolveFunction(
+                                         const string_type& namespace_uri,
+                                         const string_type& name,
+                                         const std::vector<Arabica::XPath::XPathExpression<string_type, string_adaptor> >& argExprs) const
+  {
+    if(name == string_adaptor::construct_from_utf8("id"))
+      return new TestIdFunction<string_type, string_adaptor>(argExprs);
+    if(name == string_adaptor::construct_from_utf8("key"))
+      return new TestKeyFunction<string_type, string_adaptor>(argExprs);
+    return 0;
+  } // resolveFunction
+}; // class TestFunctionResolver
+
 
 template<class string_type, class string_adaptor>
 class MatchTest : public TestCase
 {
   Arabica::XPath::XPath<string_type, string_adaptor> parser;
+  TestIdKeyFunctionResolver<string_type, string_adaptor> tfr;
   typedef string_adaptor SA;
 
 public:
@@ -23,6 +78,7 @@ public:
 
   void setUp()
   {
+    parser.setFunctionResolver(tfr);
   } // setUp
 
   void testParse()
@@ -337,6 +393,19 @@ public:
     assertEquals(0, matchPriority("foo"), 0);
   } // testPriority4
 
+  void testIdKey()
+  {
+    assertTrue(compileThis("id('nob')"));
+    assertTrue(compileThis("id(    'nob'   )"));
+    assertFalse(compileThis("id(nob)"));
+  } // testIdKey
+
+  void testIdKey2()
+  {
+    assertTrue(compileThis("key('a', 'b')"));
+    assertFalse(compileThis("key(a, b)"));
+  } // testIdKey2
+
   bool dontCompileThis(const char* path)
   {
     try {
@@ -437,6 +506,8 @@ TestSuite* MatchTest_suite()
   suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testPriority2", &MatchTest<string_type, string_adaptor>::testPriority2));
   suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testPriority3", &MatchTest<string_type, string_adaptor>::testPriority3));
   suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testPriority4", &MatchTest<string_type, string_adaptor>::testPriority4));
+  suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testIdKey", &MatchTest<string_type, string_adaptor>::testIdKey));
+  suiteOfTests->addTest(new TestCaller<MatchTest<string_type, string_adaptor> >("testIdKey2", &MatchTest<string_type, string_adaptor>::testIdKey2));
  
   return suiteOfTests;
 } // MatchTest_suite

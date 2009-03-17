@@ -248,6 +248,7 @@ private:
   static XPathExpression_impl<string_type, string_adaptor>* createSingleMatchStep(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression_impl<string_type, string_adaptor>* createRelativePathPattern(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context);
   static XPathExpression_impl<string_type, string_adaptor>* createAlternatePattern(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context);
+  static XPathExpression_impl<string_type, string_adaptor>* createIdKeyPattern(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context);
   static double defaultPriority(typename impl::types<string_adaptor>::node_iter_t const& i,
                                 typename impl::types<string_adaptor>::node_iter_t const& ie);
 
@@ -349,6 +350,7 @@ private:
     factory[impl::LocationPathPattern_id] = createRelativePathPattern;
     factory[impl::RelativePathPattern_id] = createRelativePathPattern;
     factory[impl::Pattern_id] = createAlternatePattern;
+    factory[impl::IdKeyPattern_id] = createIdKeyPattern;
 
     return factory;
   } // init_matchCreateFunctions
@@ -791,6 +793,13 @@ XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_ada
 
   return matches;
 } // createAlternatePattern
+
+template<class string_type, class string_adaptor>
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createIdKeyPattern(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+{
+  XPathExpression_impl<string_type, string_adaptor>* fn = createFunction(i, ie, context);
+  return new impl::MatchExpressionWrapper<string_type, string_adaptor>(fn, defaultPriority(i, ie));
+} // createIdKeyPattern
 
 template<class string_type, class string_adaptor>
 double XPath<string_type, string_adaptor>::defaultPriority(typename impl::types<string_adaptor>::node_iter_t const& node,

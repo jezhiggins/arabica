@@ -342,14 +342,14 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
       // [2] LocationPathPattern ::= '/' RelativePathPattern? 	
 		  //                       | IdKeyPattern (('/' | '//') RelativePathPattern)? 	
 		  //                       | '//'? RelativePathPattern 	
-      LocationPathPattern = !base::SlashSlash >> RelativePathPattern | 
-                            base::Slash >> !RelativePathPattern |
-                            IdKeyPattern >> !((base::SlashSlash | base::Slash) >> RelativePathPattern);
+      LocationPathPattern = IdKeyPattern >> !((base::SlashSlash | base::Slash) >> RelativePathPattern) |
+                            !base::SlashSlash >> RelativePathPattern |
+                            base::Slash >> !RelativePathPattern;
                             
 
       // [3] IdKeyPattern ::= 'id' '(' Literal ')' | 'key' '(' Literal ',' Literal ')' 	
-      IdKeyPattern = str_p("id") >> base::LeftBracket >> base::Literal >> base::RightBracket |
-                     str_p("key") >> base::LeftBracket >> base::Literal >> ',' >> base::Literal >> base::RightBracket;
+      IdKeyPattern = (str_p("id") >> base::LeftBracket >> base::Literal >> base::RightBracket) |
+                     (str_p("key") >> base::LeftBracket >> base::Literal >> ',' >> base::Literal >> base::RightBracket);
 
       // [4] RelativePathPattern ::= StepPattern 	
 	    //                            | RelativePathPattern '/' StepPattern 	

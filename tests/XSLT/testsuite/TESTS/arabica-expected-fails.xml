@@ -367,6 +367,42 @@
   <test-case id="ForwardComp__91849" compiles="no"/>
   <test-case id="ForwardComp__91853" compiles="no"/>
   <test-case id="ForwardComp__91855" compiles="no"/>
+	<test-case id="Import__10000" compare="text"/>
+	<test-case id="Import__10001" compare="text"/>
+	<test-case id="Import__84611" compare="text"/>
+	<test-case id="Import__84612" compare="text"/>
+	<test-case id="Import__84613" compare="text"/>
+	<test-case id="Import__84614" compare="fragment"/>
+	<test-case id="Import__84615" compare="fragment"/>
+	<test-case id="Import__91032" compare="fragment"/>
+	<test-case id="Import__91033" compare="text"/>
+	<test-case id="Import__91048" compare="fragment"/>
+	<test-case id="Import__91116" compare="fragment"/>
+	<test-case id="Import__91117" compare="fragment"/>
+	<test-case id="Import__91118" compare="fragment"/>
+	<test-case id="Import__91134" compare="fragment"/>
+	<test-case id="Import__91136" compare="fragment"/>
+	<test-case id="Import__91148" compare="fragment"/>
+	<test-case id="Import__91150" compiles="no" reason="references internal MS web server"/>
+	<test-case id="Import__91151" compare="fragment"/>
+	<test-case id="Import__91156" compiles="no" reason="references internal MS file server"/>
+	<test-case id="Import__91157" compiles="no" reason="references internal MS file server"/>
+	<test-case id="Import__91158" compiles="no" reason="references internal MS web server"/>
+	<test-case id="Import__91164" compare="fragment"/>
+	<test-case id="Import__91165" compiles="no" reason="references internal MS web server"/>
+	<test-case id="Import__91173" compare="fragment"/>
+  <test-case id="Keys__10050" compare="text"/>
+  <test-case id="Keys__10051" compare="text"/>
+  <test-case id="Keys__91727" compare="fragment"/>
+  <test-case id="Keys__91730" compare="fragment"/>
+  <test-case id="Keys__91832" skip="yes" reason="uses generate-id() in output"/>
+  <test-case id="Keys__91833" skip="yes" reason="uses generate-id() in output"/>
+  <test-case id="Keys__91834" compare="text"/>
+  <test-case id="Keys__91835" compare="text"/>
+  <test-case id="Keys__91858" compare="text"/>
+  <test-case id="Keys_Bug76935" compare="fragment"/>
+  <test-case id="Keys_PerfRepro2" compiles="no" reason="needs xsl:attribute-set"/>
+  <test-case id="Keys_PerfRepro3" skip="yes" reason="Runs really slowly.  Come back to this later"/>
   <test-case id="Miscellaneous__83996" compare="text"/>
   <test-case id="Miscellaneous__84002" compare="fragment"/>
   <test-case id="Miscellaneous__84111" compiles="no"/>

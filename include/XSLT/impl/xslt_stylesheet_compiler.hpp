@@ -57,6 +57,7 @@ public:
       static const ValueRule rules[] = { { "version", true, 0 },
 					 { "extension-element-prefixes", false, 0 },
 					 { "exclude-result-prefixes", false, 0 },
+					 { "id", false, 0 },
                                          { 0, false, 0 } };
       std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
       if(attributes["version"] != StylesheetConstant::Version())
