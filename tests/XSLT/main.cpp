@@ -30,7 +30,7 @@ const char* xalan_tests[] = {"attribvaltemplate", "axes", "boolean", "conditiona
 const char* msft_tests[] = { "AVTs", /*"AttributeSets",*/ "Attributes", "BVTs", 
                              "Comment", "Completeness", "ConflictResolution", "Copying", 
                              "Elements", "Errors", "Fallback", "ForEach", /*"FormatNumber",*/
-                             "ForwardComp", /*"Import",*/ /*"Keys",*/ "Messages", 
+                             "ForwardComp", /*"Import",*/ "Keys", "Messages", 
                              "Miscellaneous", "Modes", "NamedTemplates", "Namespace",
                              "Namespace-alias", "Namespace_XPath", /*"Number",*/
                              /*"Output",*/ "ProcessingInstruction", "RTF", "Sorting", 

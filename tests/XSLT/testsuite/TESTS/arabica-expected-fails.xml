@@ -367,6 +367,11 @@
   <test-case id="ForwardComp__91849" compiles="no"/>
   <test-case id="ForwardComp__91853" compiles="no"/>
   <test-case id="ForwardComp__91855" compiles="no"/>
+  <test-case id="Keys__10050" compare="text"/>
+  <test-case id="Keys__10051" compare="text"/>
+  <test-case id="Keys__91836" compare="text"/>
+  <test-case id="Keys_PerfRepro2" compiles="no" reason="needs xsl:attribute-set"/>
+  <test-case id="Keys_PerfRepro3" skip="yes" reason="Runs really slowly.  Come back to this later"/>
   <test-case id="Miscellaneous__83996" compare="text"/>
   <test-case id="Miscellaneous__84002" compare="fragment"/>
   <test-case id="Miscellaneous__84111" compiles="no"/>
