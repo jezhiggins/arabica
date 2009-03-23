@@ -489,6 +489,15 @@ public:
                                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     NodeSet<string_type, string_adaptor> ns;
+
+    NodeSet<string_type, string_adaptor> nodes = expr_->evaluate(context, executionContext).asNodeSet();
+    for(typename NodeSet<string_type, string_adaptor>::const_iterator n = nodes.begin(), ne = nodes.end(); n != ne; ++n)
+      if(context == *n)
+      {
+        ns.push_back(context);
+        break;
+      } // if ...
+
     return XPathValue<string_type, string_adaptor>(new NodeSetValue<string_type, string_adaptor>(ns));
   } // evaluate
 

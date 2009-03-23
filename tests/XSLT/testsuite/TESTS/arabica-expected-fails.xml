@@ -399,7 +399,10 @@
   <test-case id="Keys__91833" skip="yes" reason="uses generate-id() in output"/>
   <test-case id="Keys__91834" compare="text"/>
   <test-case id="Keys__91835" compare="text"/>
+  <test-case id="Keys__91836" skip="yes" reason="uses entities"/>
   <test-case id="Keys__91858" compare="text"/>
+  <test-case id="Keys__91859" skip="yes" reason="uses entities"/>
+  <test-case id="Keys__91860" compare="text"/>
   <test-case id="Keys_Bug76935" compare="fragment"/>
   <test-case id="Keys_PerfRepro2" compiles="no" reason="needs xsl:attribute-set"/>
   <test-case id="Keys_PerfRepro3" skip="yes" reason="Runs really slowly.  Come back to this later"/>
