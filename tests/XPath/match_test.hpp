@@ -397,13 +397,20 @@ public:
   {
     assertTrue(compileThis("id('nob')"));
     assertTrue(compileThis("id(    'nob'   )"));
-    assertFalse(compileThis("id(nob)"));
+    assertTrue(dontCompileThis("id()"));
+    assertTrue(dontCompileThis("id(nob)"));
+    assertTrue(dontCompileThis("id('nob','c')"));
   } // testIdKey
 
   void testIdKey2()
   {
+    assertTrue(compileThis("key('a','b')"));
     assertTrue(compileThis("key('a', 'b')"));
-    assertFalse(compileThis("key(a, b)"));
+//    assertTrue(compileThis("key('a','b')/woot"));
+    assertTrue(dontCompileThis("key()"));
+    assertTrue(dontCompileThis("key(a)"));
+    assertTrue(dontCompileThis("key('a', 'b', 'c')"));
+    assertTrue(dontCompileThis("key(a, 'b')"));
   } // testIdKey2
 
   bool dontCompileThis(const char* path)

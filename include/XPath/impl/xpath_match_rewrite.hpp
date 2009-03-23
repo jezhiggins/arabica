@@ -103,7 +103,7 @@ MatchExpr<string_type, string_adaptor>::MatchExpr(XPathExpression_impl<string_ty
   {
   //     foreach predicate in the predicatelist
     Step* step = dynamic_cast<Step*>(*s);
-    if(step->has_predicates() == false)
+    if(!step || step->has_predicates() == false)
       continue;
 
     Predicates& predicates = step->predicates_;
