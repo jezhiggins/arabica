@@ -471,6 +471,47 @@ private:
 }; // class StepFactory
 
 template<class string_type, class string_adaptor>
+class IdKeyStepExpression : public StepExpression<string_type, string_adaptor>
+{
+  typedef StepExpression<string_type, string_adaptor> baseT;
+public:
+  IdKeyStepExpression(XPathExpression_impl<string_type, string_adaptor>* expr) :
+      expr_(expr)
+  {
+  } // IdKeyStepExpression
+
+  virtual ~IdKeyStepExpression()
+  {
+    delete expr_;
+  } // ~IdKeyStepExpression
+
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+                                                           const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    NodeSet<string_type, string_adaptor> ns;
+
+    NodeSet<string_type, string_adaptor> nodes = expr_->evaluate(context, executionContext).asNodeSet();
+    for(typename NodeSet<string_type, string_adaptor>::const_iterator n = nodes.begin(), ne = nodes.end(); n != ne; ++n)
+      if(context == *n)
+      {
+        ns.push_back(context);
+        break;
+      } // if ...
+
+    return XPathValue<string_type, string_adaptor>(new NodeSetValue<string_type, string_adaptor>(ns));
+  } // evaluate
+
+  virtual XPathValue<string_type, string_adaptor> evaluate(NodeSet<string_type, string_adaptor>& context, const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    DOM::Node<string_type, string_adaptor> c = context.top();
+    return evaluate(c, executionContext);
+  } // evaluate
+
+private:
+  XPathExpression_impl<string_type, string_adaptor>* expr_;
+}; // class IdKeyStepExpression
+
+template<class string_type, class string_adaptor>
 class RelativeLocationPath : public XPathExpression_impl<string_type, string_adaptor>
 {
 public:

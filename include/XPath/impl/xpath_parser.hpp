@@ -798,7 +798,11 @@ template<class string_type, class string_adaptor>
 XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createIdKeyPattern(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   XPathExpression_impl<string_type, string_adaptor>* fn = createFunction(i, ie, context);
-  return new impl::MatchExpressionWrapper<string_type, string_adaptor>(fn, defaultPriority(i, ie));
+
+  impl::StepList<string_type, string_adaptor> steps;
+  steps.push_back(new impl::IdKeyStepExpression<string_type, string_adaptor>(fn));
+
+  return new impl::MatchExpressionWrapper<string_type, string_adaptor>(new impl::RelativeLocationPath<string_type, string_adaptor>(steps), defaultPriority(i, ie));
 } // createIdKeyPattern
 
 template<class string_type, class string_adaptor>

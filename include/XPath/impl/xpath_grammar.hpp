@@ -348,8 +348,8 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
                             
 
       // [3] IdKeyPattern ::= 'id' '(' Literal ')' | 'key' '(' Literal ',' Literal ')' 	
-      IdKeyPattern = (str_p("id") >> base::LeftBracket >> base::Literal >> base::RightBracket) |
-                     (str_p("key") >> base::LeftBracket >> base::Literal >> ',' >> base::Literal >> base::RightBracket);
+      IdKeyPattern = (str_p("id") >> base::LeftBracket >> discard_node_d[base::S] >> base::Literal >> discard_node_d[base::S] >> base::RightBracket) |
+                     (str_p("key") >> base::LeftBracket >> discard_node_d[base::S] >> base::Literal >> discard_node_d[base::S] >> discard_node_d[ch_p(',')] >>discard_node_d[base::S] >>  base::Literal >> discard_node_d[base::S] >> base::RightBracket);
 
       // [4] RelativePathPattern ::= StepPattern 	
 	    //                            | RelativePathPattern '/' StepPattern 	
