@@ -94,6 +94,8 @@
   <test-case id="output_output113" compare="text" reason="Text output"/>
   <test-case id="position_position70" compiles="no" reason="Needs xsl:strip-space" />
   <test-case id="processorinfo_processorinfo03" skip="yes" reason="Expects Xalan URI in result"/>
+  <test-case id="reluri_reluri09" runs="no"/>
+  <test-case id="reluri_reluri10" runs="no"/>
   <test-case id="reluri_reluri10" runs="no"/>
   <test-case id="reluri_reluri11" runs="no"/>
   <test-case id="select_select07" compare="text" reason="Text output"/>
