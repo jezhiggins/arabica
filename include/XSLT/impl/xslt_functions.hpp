@@ -29,10 +29,12 @@ public:
     Arabica::XPath::NodeSet<std::string> nodes;
      
     Arabica::XPath::XPathValue<std::string> a0 = arg(0, context, executionContext);
-    if(a0.type() != Arabica::XPath::NODE_SET)
-      load_document(a0.asString(), nodes);
-    else 
+    if(argCount() != 1)
+      throw Arabica::XPath::UnsupportedException("two arg version of document()");
+    if(a0.type() != Arabica::XPath::STRING)
       throw Arabica::XPath::UnsupportedException("node-set arg version of document()");
+
+    load_document(a0.asString(), nodes);
     return new Arabica::XPath::NodeSetValue<std::string>(nodes);
   } // evaluate
 

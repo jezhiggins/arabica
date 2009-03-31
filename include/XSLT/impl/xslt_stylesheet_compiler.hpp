@@ -62,6 +62,8 @@ public:
       std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
       if(attributes["version"] != StylesheetConstant::Version())
         throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
+      if(!attributes["extension-element-prefixes"].empty())
+	throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
 
       top_ = false;
 
