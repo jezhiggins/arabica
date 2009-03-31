@@ -13,38 +13,45 @@ struct QName
   std::string prefix;
   std::string localName;
   std::string namespaceURI;
+  std::string qname;
 
-  static QName createQName(const std::string& qName) 
+  QName(const std::string& p,
+              const std::string& lN,
+              const std::string& uri) :
+    prefix(p),
+    localName(lN),
+    namespaceURI(uri),
+    qname(p.empty() ? lN : (p + ":" + lN))
+  {
+  } // QName
+
+  static QName create(const std::string& qName)
+  {
+    return create(qName, "");
+  } // create
+
+  static QName create(const std::string& qName, const std::string& namespaceURI)
   {
     if(!Arabica::XML::is_qname<Arabica::default_string_adaptor<std::string> >(qName))
       throw SAX::SAXException("Bad name : " + qName);
 
     static char COLON = Arabica::text::Unicode<char>::COLON;
-    QName qn;
+
+    std::string prefix;
+    std::string localName;
 
     size_t colon = qName.find(COLON);
+     
     if(colon == std::string::npos) 
-      qn.localName = qName;
+      localName = qName;
     else
     {
-      qn.prefix = qName.substr(0, colon);
-      qn.localName = qName.substr(colon+1);
+      prefix = qName.substr(0, colon);
+     localName = qName.substr(colon+1);
     }
-
-    return qn;
-  } // createQName
-
-  static QName createQName(const std::string& qName, const std::string namespaceURI) 
-  {
-    QName qn(createQName(qName));
-    qn.namespaceURI = namespaceURI;
-  
-    if(!qn.prefix.empty() && qn.namespaceURI.empty())
-      throw SAX::SAXException("Undeclared prefix " + qn.prefix);
-    return qn;
-  } // createQName
-}; // QName
-
+    return QName(prefix, localName, namespaceURI);
+  } // create
+}; // struct QName
 
 } // namespace XSLT
 } // namespace Arabica

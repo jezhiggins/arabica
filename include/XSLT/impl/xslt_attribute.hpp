@@ -39,7 +39,7 @@ public:
       namesp = namespace_->evaluateAsString(node, context.xpathContext());
     else
     { 
-      QName qn = QName::createQName(name);
+      QName qn = QName::create(name);
       if(!qn.prefix.empty())
       {
         std::map<std::string, std::string>::const_iterator ns = namespaces_.find(qn.prefix);

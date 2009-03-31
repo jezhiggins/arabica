@@ -52,8 +52,8 @@ public:
 
   bool start_element(const std::string& qName, const std::string& namespaceURI)
   {
-    QName qn = QName::createQName(qName, namespaceURI);
-    return start_element(qn.prefix, qn.localName, qn.namespaceURI);
+    QName en = QName::create(qName, namespaceURI);
+    return start_element(en.prefix, en.localName, en.namespaceURI);
   } // start_element
 
   bool start_element(const std::string& prefix, const std::string& localName, const std::string& namespaceURI)
@@ -68,8 +68,8 @@ public:
       namespaceStack_.declareNamespace(prefix, namespaceURI);
 
     std::string mapped_prefix = namespaceStack_.findPrefix(namespaceURI);
-    name_ = (!mapped_prefix.empty()) ? mapped_prefix + ':' + localName : localName;
-    namespaceURI_ = namespaceURI;
+
+    element_stack_.push(QName(mapped_prefix, localName, namespaceURI));
 
     atts_.clear();
     pending_element_ = true;
@@ -80,8 +80,8 @@ public:
 
   void end_element(const std::string& qName, const std::string& namespaceURI)
   {
-    QName qn = QName::createQName(qName, namespaceURI);
-    end_element(qn.prefix, qn.localName, qn.namespaceURI);
+    QName en = QName::create(qName, namespaceURI);
+    end_element(en.prefix, en.localName, en.namespaceURI);
   } // end_element
 
   void end_element(const std::string& prefix, const std::string& localName, const std::string& namespaceURI)
@@ -95,6 +95,7 @@ public:
     {
       std::string mapped_prefix = namespaceStack_.findPrefix(namespaceURI);
       do_end_element((!mapped_prefix.empty()) ? mapped_prefix + ':' + localName : localName, namespaceURI);
+      element_stack_.pop();
     } // end_element
 
     namespaceStack_.popScope();
@@ -102,7 +103,7 @@ public:
 
   void start_attribute(const std::string& qName, const std::string& namespaceURI)
   {
-    QName qn = QName::createQName(qName, namespaceURI);
+    QName qn = QName::create(qName, namespaceURI);
     start_attribute(qn.prefix, qn.localName, qn.namespaceURI);
   } // start_attribute
 
@@ -208,7 +209,7 @@ public:
 
     flush_element();
 
-    name_ = target;
+    target_ = target;
   } // start_processing_instruction
 
   void end_processing_instruction() 
@@ -219,7 +220,7 @@ public:
     if(!text_mode_)
     {
       std::string data = escape(buffer_.str(), "?>", "? >");
-      do_processing_instruction(name_, data);
+      do_processing_instruction(target_, data);
     } // if ...
   } // end_processing_instruction
 
@@ -306,8 +307,7 @@ private:
     if(want_decs)
       addNamespaceDeclarations();
 
-    do_start_element(name_, namespaceURI_, atts_);
-
+    do_start_element(element_stack_.top().qname, element_stack_.top().namespaceURI, atts_);
     pending_element_ = false;
   } // flush_element
 
@@ -336,8 +336,8 @@ private:
   int buffering_;
   bool pending_element_;
   int pending_attribute_;
-  std::string name_;
-  std::string namespaceURI_;
+  std::stack<QName> element_stack_;
+  std::string target_;
   SAX::AttributesImpl<std::string, Arabica::default_string_adaptor<std::string> > atts_;
   std::stringstream buffer_;
   bool text_mode_;
