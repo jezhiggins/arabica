@@ -26,11 +26,13 @@
   <test-case id="match_match01" compiles="no" reason="Needs xsl:strip-space"/>
   <test-case id="match_match11" compiles="no" reason="haven't implemented id function"/>
   <test-case id="mdocs_mdocs02" runs="no" reason="haven't implemented node-set arg version of document()"/>
+  <test-case id="mdocs_mdocs03" runs="no" reason="haven't implemented two arg version of document()"/>
   <test-case id="mdocs_mdocs04" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs05" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs06" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs07" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="mdocs_mdocs08" runs="no" reason="haven't implemented node-set arg version of document()"/>
+  <test-case id="mdocs_mdocs15" runs="no" reason="haven't implemented two arg version of document()"/>
   <test-case id="mdocs_mdocs18" runs="no" reason="haven't implemented node-set arg version of document()"/>
   <test-case id="message_message01" compare="text"/>
   <test-case id="message_message14" compiles="no" reason="Needs xsl:number"/>
@@ -157,6 +159,7 @@
   <test-case id="AVTs__77599" compare="fragment" reason="XML Fragment output"/>  
   <test-case id="Attributes__78366" compiles="no" reason="Error case: empty namespace"/>
   <test-case id="Attributes__78372" skip="yes" reason="Expected output includes newlines and tabs, but inconsistently escaped.  Mangle escapes them all, as do Saxon, .NET, and Xalan (although Xalan uses decimal rather than hex numerical entities)."/>
+  <test-case id="Attributes__78374" skip="yes" reason="Error is recoverable.  Mangle, Saxon, Xalan all run.  MSXML and .NET do not."/>
   <test-case id="Attributes__78382" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="Attributes__78386" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="Attributes__81430" compare="fragment" reason="XML Fragment output"/>
@@ -227,6 +230,8 @@
   <test-case id="BVTs_bvt037" compare="fragment"/>
   <test-case id="BVTs_bvt038" compare="fragment"/>
   <test-case id="BVTs_bvt040" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt042" compare="fragment"/>
+  <test-case id="BVTs_bvt043" compare="fragment"/>
   <test-case id="BVTs_bvt044" skip="yes" reason="Segfault!"/>
   <test-case id="BVTs_bvt045" skip="yes" reason="Bad result data"/>
   <test-case id="BVTs_bvt047" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
@@ -248,14 +253,14 @@
   <test-case id="BVTs_bvt075" compare="text"/>
   <test-case id="BVTs_bvt076" compare="text"/>
   <test-case id="BVTs_bvt078" compare="text"/>
-  <test-case id="BVTs_bvt079" compare="fragment"/>
+  <test-case id="BVTs_bvt079" compare="text"/>
   <test-case id="BVTs_bvt080" compare="fragment"/>
   <test-case id="BVTs_bvt081" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt083" compare="fragment"/>
   <test-case id="BVTs_bvt085" skip="yes" reason="Bad result data"/>
-  <test-case id="BVTs_bvt086" compare="fragment"/>
+  <test-case id="BVTs_bvt086" compare="text"/>
   <test-case id="BVTs_bvt089" compare="fragment"/>
-  <test-case id="BVTs_bvt090" compare="fragment"/>
+  <test-case id="BVTs_bvt090" compare="text"/>
   <test-case id="BVTs_bvt092" compare="fragment"/>
   <test-case id="BVTs_bvt094" compare="text"/>
   <test-case id="BVTs_bvt095" compare="fragment"/>
@@ -348,6 +353,7 @@
   <test-case id="Elements__89717" compare="fragment"/>
   <test-case id="Elements__89718" compare="fragment"/>
   <test-case id="Elements__89723" compare="fragment"/>
+  <test-case id="Elements_Element_UseXslElementWithNameSpaceAttrEqualToXmlnsUri" skip="yes" reason="Error is recoverable.  Mangle, Saxon, Saxon8, Xalan all run.  MSXML and .NET do not."/>
   <test-case id="Fallback__91817" compiles="no"/>
   <test-case id="Fallback__91818" compiles="no"/>
   <test-case id="Fallback__91819" compiles="no"/>
@@ -408,6 +414,7 @@
   <test-case id="Keys_Bug76935" compare="fragment"/>
   <test-case id="Keys_PerfRepro2" compiles="no" reason="needs xsl:attribute-set"/>
   <test-case id="Keys_PerfRepro3" skip="yes" reason="Runs really slowly.  Come back to this later"/>
+  <test-case id="Messages__91765_1" compare="fragment"/>
   <test-case id="Miscellaneous__83996" compare="text"/>
   <test-case id="Miscellaneous__84002" compare="fragment"/>
   <test-case id="Miscellaneous__84111" compiles="no"/>
