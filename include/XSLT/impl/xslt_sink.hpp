@@ -170,6 +170,18 @@ protected:
       stream_ << ch;
   } // characters
 
+  void do_start_CDATA()
+  {
+    close_element_if_empty();
+
+    stream_ << "<![CDATA[";
+  } // do_start_CDATA
+
+  void do_end_CDATA()
+  {
+    stream_ << "]]>";
+  } // do_end_CDATA
+
   void do_comment(const std::string& ch)
   {
     close_element_if_empty();
@@ -334,6 +346,17 @@ protected:
     else
       lc.setNodeValue(lc.getNodeValue() + ch);
   } // do_characters
+
+  void do_start_CDATA()
+  {
+  } // do_start_CDATA
+
+  void do_end_CDATA()
+  {
+    DOM::Node<std::string> lc = current().getLastChild();
+    if(lc.getNodeType() == DOM::Node_base::TEXT_NODE)
+      current().replaceChild(document().createCDATASection(lc.getNodeValue()), lc);
+  } // do_end_CDATA
 
   void do_comment(const std::string& ch)
   {
