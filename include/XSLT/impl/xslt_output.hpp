@@ -16,11 +16,13 @@ class Output
 {
 public:
   typedef std::map<std::string, std::string> Settings;
+  typedef std::set<QName> CDATAElements;
 
 protected:
   Output() :
     buffering_(0),
     pending_element_(false),
+    pending_text_(false),
     pending_attribute_(-1),
     text_mode_(false),
     warning_sink_(0)
@@ -57,7 +59,7 @@ public:
     if(is_buffering())
       return false;
 
-    flush_element();
+    flush_current();
 
     namespaceStack_.pushScope();
     if(!namespaceURI.empty())
@@ -85,7 +87,7 @@ public:
     if(pop_if_buffering())
       return;
 
-    flush_element();
+    flush_current();
 
     if(!text_mode_)
     {
@@ -172,8 +174,16 @@ public:
       return;
     } // if ...
 
-    if(!buffering_)
-      do_characters(ch);
+    if(buffering_)
+      return;
+
+    if(!pending_text_)
+    {
+      pending_text_ = true;
+      if(isCDATA())
+        do_start_CDATA();
+    } // if ...
+    do_characters(ch);
   } // characters
 
   void start_comment()
@@ -181,7 +191,7 @@ public:
     if(push_buffering())
       return;
 
-    flush_element();
+    flush_current();
   } // start_comment
   
   void end_comment()
@@ -203,7 +213,7 @@ public:
     if(push_buffering())
       return;
 
-    flush_element();
+    flush_current();
 
     target_ = target;
   } // start_processing_instruction
@@ -237,6 +247,8 @@ protected:
   virtual void do_start_element(const std::string& qName, const std::string& namespaceURI, const SAX::Attributes<std::string>& atts) = 0;
   virtual void do_end_element(const std::string& qName, const std::string& namespaceURI) = 0;
   virtual void do_characters(const std::string& ch) = 0;
+  virtual void do_start_CDATA() = 0;
+  virtual void do_end_CDATA() = 0;
   virtual void do_comment(const std::string& ch) = 0;
   virtual void do_processing_instruction(const std::string& target, const std::string& data) = 0;
   virtual void do_disableOutputEscaping(bool disable) = 0;
@@ -288,6 +300,18 @@ private:
     return (buffering_ != 0); // oh, Visual Studio how I curse you warning C4800
   } // pop_buffering
 
+  void flush_current()
+  {
+    if(pending_text_)
+    {
+      if(isCDATA())
+        do_end_CDATA();
+      pending_text_ = false;
+    } // if ...
+
+    flush_element();
+  } // flush_current
+
   void flush_element()
   {
     if((!pending_element_) || (pending_attribute_ != -1))
@@ -306,6 +330,12 @@ private:
     do_start_element(element_stack_.top().qname, element_stack_.top().namespaceURI, atts_);
     pending_element_ = false;
   } // flush_element
+
+  bool isCDATA()
+  {
+    QName currentElement = element_stack_.top();
+    return cdataElements_.find(currentElement) != cdataElements_.end();
+  } // isCDATA
 
   void addNamespaceDeclarations()
   {
@@ -332,6 +362,8 @@ private:
   int buffering_;
   bool pending_element_;
   int pending_attribute_;
+  bool pending_text_;
+  CDATAElements cdataElements_;
   std::stack<QName> element_stack_;
   std::string target_;
   SAX::AttributesImpl<std::string, Arabica::default_string_adaptor<std::string> > atts_;

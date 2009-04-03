@@ -51,7 +51,22 @@ struct QName
     }
     return QName(prefix, localName, namespaceURI);
   } // create
+
+  bool operator==(const QName& rhs) const
+  {
+    return (namespaceURI == rhs.namespaceURI) &&
+           (localName == rhs.localName);
+  } // operator==
+
+  bool operator<(const QName& rhs) const
+  {
+    if(namespaceURI == rhs.namespaceURI)
+      return localName < rhs.localName;
+    return namespaceURI < rhs.namespaceURI;
+  } // operator<
 }; // struct QName
+
+
 
 } // namespace XSLT
 } // namespace Arabica

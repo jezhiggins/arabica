@@ -277,6 +277,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\XSLT\impl\xslt_output.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\Xslt\impl\xslt_param.hpp"
 					>
 				</File>
