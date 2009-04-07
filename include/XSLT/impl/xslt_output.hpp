@@ -33,13 +33,14 @@ protected:
   } // ~Output
 
 public:
-  void start_document(const Settings& settings)
+  void start_document(const Settings& settings, const CDATAElements& cdataElements)
   {
     Settings::const_iterator method = settings.find("method");
     text_mode_ = (method != settings.end() && method->second == "text");
     if(text_mode_)
       do_disableOutputEscaping(true);
 
+    cdataElements_ = cdataElements;
     do_start_document(settings);
   } // start_document
 
