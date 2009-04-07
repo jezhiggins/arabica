@@ -334,6 +334,8 @@ private:
 
   bool isCDATA()
   {
+    if(element_stack_.empty())
+      return false;
     QName currentElement = element_stack_.top();
     return cdataElements_.find(currentElement) != cdataElements_.end();
   } // isCDATA

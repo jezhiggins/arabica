@@ -131,7 +131,7 @@ public:
   void output_settings(const Output::Settings& settings, const Output::CDATAElements& cdata_elements)
   {
     output_settings_ = settings;
-    output_cdata_elements_ = cdata_elements;
+    output_cdata_elements_.insert(cdata_elements.begin(), cdata_elements.end());
   } // output_settings
 
   void prepare() 

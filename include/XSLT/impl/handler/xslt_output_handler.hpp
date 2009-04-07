@@ -64,13 +64,16 @@ private:
   {
     Output::CDATAElements elements;
 
+    if(cdata_section_elements.empty())
+      return elements;
+
     std::istringstream is(cdata_section_elements);
     while(!is.eof())
     {
       std::string e;
       is >> e;
 
-      XML::QualifiedName<std::string> qualifiedName = context_.processInternalQName(e);
+      XML::QualifiedName<std::string> qualifiedName = context_.processElementQName(e);
       elements.insert(QName::create(qualifiedName));
     } // while
 

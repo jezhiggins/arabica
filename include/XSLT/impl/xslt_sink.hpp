@@ -83,6 +83,7 @@ public:
   StreamSink(std::ostream& stream) :
     stream_(stream),
     disable_output_escaping_(false),
+    in_cdata_(false),
     seen_root_(true),
     out_again_(false),
     indent_(-1),
@@ -164,7 +165,7 @@ protected:
   { 
     close_element_if_empty();
 
-    if(!disable_output_escaping_)
+    if(!disable_output_escaping_ && !in_cdata_)
       std::for_each(ch.begin(), ch.end(), Arabica::XML::text_escaper<char>(stream_));
     else
       stream_ << ch;
@@ -174,11 +175,13 @@ protected:
   {
     close_element_if_empty();
 
+    in_cdata_ = true;
     stream_ << "<![CDATA[";
   } // do_start_CDATA
 
   void do_end_CDATA()
   {
+    in_cdata_ = false;
     stream_ << "]]>";
   } // do_end_CDATA
 
@@ -299,6 +302,7 @@ private:
 
   std::ostream& stream_;
   bool disable_output_escaping_;
+  bool in_cdata_;
   bool empty_;
   bool seen_root_;
   Settings settings_;

@@ -59,6 +59,11 @@ public:
   Arabica::XPath::XPathExpressionPtr<std::string> xpath_attribute_value_template(const std::string& expr) const { return xpath_.compile_attribute_value_template(expr); } 
   CompiledStylesheet& stylesheet() const { return stylesheet_; }
 
+  XML::QualifiedName<std::string> processElementQName(const std::string& qName) const
+  {
+    return parser_.processElementQName(qName);
+  } // processElementQName
+
   XML::QualifiedName<std::string> processInternalQName(const std::string& qName) const
   {
     return parser_.processInternalQName(qName);

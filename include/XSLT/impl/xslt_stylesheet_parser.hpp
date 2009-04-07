@@ -41,6 +41,11 @@ public:
     return namespace_tracker_.getURI(prefix);
   } // namespaceURI
 
+  XML::QualifiedName<std::string> processElementQName(const std::string& rawName) const
+  {
+    return namespace_tracker_.processElementName(rawName);
+  } // processElementQName
+
   XML::QualifiedName<std::string> processInternalQName(const std::string& rawName) const
   {
     return namespace_tracker_.processName(rawName);
