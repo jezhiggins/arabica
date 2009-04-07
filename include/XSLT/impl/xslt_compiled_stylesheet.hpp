@@ -86,7 +86,7 @@ public:
     context.freezeTopLevel();
 
     // go!
-    output_.get().asOutput().start_document(output_settings_);
+    output_.get().asOutput().start_document(output_settings_, output_cdata_elements_);
     applyTemplates(ns, context, "");
     output_.get().asOutput().end_document();
   } // execute
@@ -128,9 +128,10 @@ public:
     keys_.add(name, key);
   } // add_key
 
-  void output_settings(const Output::Settings& settings)
+  void output_settings(const Output::Settings& settings, const Output::CDATAElements& cdata_elements)
   {
     output_settings_ = settings;
+    output_cdata_elements_.insert(cdata_elements.begin(), cdata_elements.end());
   } // output_settings
 
   void prepare() 
@@ -321,6 +322,7 @@ private:
   mutable Precedence current_generation_;
 
   Output::Settings output_settings_;
+  Output::CDATAElements output_cdata_elements_;
   SinkHolder output_;
   mutable std::ostream* error_output_;
 }; // class CompiledStylesheet

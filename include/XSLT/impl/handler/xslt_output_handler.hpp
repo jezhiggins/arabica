@@ -36,6 +36,7 @@ public:
                                          { "media-type", false, "" },
                                          { 0, false, 0 } };
       settings_ = gatherAttributes(qName, atts, rules);
+      cdataElements_ = extractCDATAElements(settings_["cdata-section-elements"]);
 
       return;
     } // if(settings_ == 0)
@@ -47,7 +48,7 @@ public:
                           const std::string& localName,
                           const std::string& qName)
   {
-    context_.stylesheet().output_settings(settings_);
+    context_.stylesheet().output_settings(settings_, cdataElements_);
     context_.pop();
   } // endElement
 
@@ -55,12 +56,33 @@ public:
   {
     for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
       if(!Arabica::XML::is_space(*i))
-        throw SAX::SAXException("xsl:value-of element must be empty");
+        throw SAX::SAXException("xsl:output element must be empty");
   } // characters
  
 private:
+  Output::CDATAElements extractCDATAElements(const std::string& cdata_section_elements) const
+  {
+    Output::CDATAElements elements;
+
+    if(cdata_section_elements.empty())
+      return elements;
+
+    std::istringstream is(cdata_section_elements);
+    while(!is.eof())
+    {
+      std::string e;
+      is >> e;
+
+      XML::QualifiedName<std::string> qualifiedName = context_.processElementQName(e);
+      elements.insert(QName::create(qualifiedName));
+    } // while
+
+    return elements;
+  } // extractCDATAElements
+
   CompilationContext& context_;
   Output::Settings settings_;
+  Output::CDATAElements cdataElements_;
 }; // class OutputHandler
 
 } // namespace XSLT

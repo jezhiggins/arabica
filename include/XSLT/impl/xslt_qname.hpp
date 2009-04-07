@@ -25,6 +25,13 @@ struct QName
   {
   } // QName
 
+  static QName create(const XML::QualifiedName<std::string>& qName)
+  {
+    if(qName.prefix().length() && qName.namespaceUri().empty())
+      throw SAX::SAXException("Prefix " + qName.prefix() + " is not declared.");
+    return QName(qName.prefix(), qName.localName(), qName.namespaceUri());
+  } // create
+
   static QName create(const std::string& qName)
   {
     return create(qName, "");
