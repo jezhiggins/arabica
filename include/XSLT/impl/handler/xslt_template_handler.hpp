@@ -98,8 +98,8 @@ protected:
         context().push(container(),
                        new VariableHandler<Param>(context()),
                        namespaceURI, 
-                       qName, 
                        localName, 
+                       qName, 
                        atts);
         return true;
       }

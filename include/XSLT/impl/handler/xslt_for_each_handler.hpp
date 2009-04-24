@@ -44,14 +44,13 @@ protected:
         context().push(0,
                        new SortHandler(context(), *container()),
                        namespaceURI, 
-                       qName, 
                        localName, 
+                       qName, 
                        atts);
         return true;
       }
       else
         throw SAX::SAXException("xsl:sort must immediately follow xsl:for-each");
-
     done_sort_ = true;
     return ItemContainerHandler<ForEach>::createChild(namespaceURI, localName, qName, atts);
   } // createChild

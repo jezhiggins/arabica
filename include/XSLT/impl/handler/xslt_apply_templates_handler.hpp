@@ -52,8 +52,8 @@ public:
         context_.push(0,
                       new SortHandler(context_, *applyTemplates_),
                       namespaceURI, 
-                      qName, 
                       localName, 
+                      qName, 
                       atts);
         return;
       } // if(localName == "sort")
@@ -63,8 +63,8 @@ public:
         context_.push(0,
                       new WithParamHandler(context_, *applyTemplates_),
                       namespaceURI, 
-                      qName, 
                       localName, 
+                      qName, 
                       atts);
         return;
       } // if(localName == "sort")

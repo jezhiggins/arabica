@@ -13,6 +13,7 @@
 #include "handler/xslt_output_handler.hpp"
 #include "handler/xslt_namespace_alias_handler.hpp"
 #include "handler/xslt_key_handler.hpp"
+#include "handler/xslt_foreign_element_handler.hpp"
 
 namespace Arabica
 {
@@ -41,12 +42,6 @@ public:
                             const std::string& qName,
                             const SAX::Attributes<std::string>& atts)
   {
-    if(foreign_)
-    {
-      ++foreign_;
-      return;
-    } // if(foreign_)
-
     if(top_)
     {
       startStylesheet(namespaceURI, localName, qName, atts);
@@ -56,7 +51,7 @@ public:
     if(namespaceURI == StylesheetConstant::NamespaceURI())
       startXSLTElement(namespaceURI, localName, qName, atts);
     else if(!namespaceURI.empty())
-      ++foreign_;
+      startForeignElement(namespaceURI, localName, qName, atts);
     else
       oops(qName);
   } // startElement
@@ -127,14 +122,27 @@ private:
         context_.push(0,
                       c->createHandler(context_),
                       namespaceURI, 
-                      qName, 
                       localName, 
+                      qName, 
                       atts);
         return;
       } // if ...
 
     oops(qName);
   } // startXSLTElement
+
+  void startForeignElement(const std::string& namespaceURI,
+                           const std::string& localName,
+                           const std::string& qName,
+                           const SAX::Attributes<std::string>& atts)
+  {
+    context_.push(0,
+                  new ForeignElementHandler(context_),
+                  namespaceURI,
+                  localName,
+                  qName,
+                  atts);
+  } // startForeignElement
 
   void include_stylesheet(const std::string& namespaceURI,
                           const std::string& localName,

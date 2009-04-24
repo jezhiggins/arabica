@@ -81,8 +81,8 @@ protected:
           context_.push(container_,
                         c->createHandler(context_),
                         namespaceURI, 
-                        qName, 
                         localName, 
+                        qName, 
                         atts);
           return true;
         } // if ...
@@ -92,8 +92,8 @@ protected:
     context_.push(container_,
                   createInlineElementHandler(context_),
                   namespaceURI, 
-                  qName, 
                   localName, 
+                  qName, 
                   atts);
     return true;
   } // createChild
