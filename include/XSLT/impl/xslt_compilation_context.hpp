@@ -94,7 +94,7 @@ public:
     parentStack_.push(parent);
     handlerStack_.push(newHandler);
     parser_.setContentHandler(*newHandler);
-    newHandler->startElement(namespaceURI, qName, localName, atts);
+    newHandler->startElement(namespaceURI, localName, qName, atts);
   } // push
 
   void pop()

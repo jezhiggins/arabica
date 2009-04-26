@@ -13,6 +13,7 @@
 #include "handler/xslt_output_handler.hpp"
 #include "handler/xslt_namespace_alias_handler.hpp"
 #include "handler/xslt_key_handler.hpp"
+#include "handler/xslt_foreign_element_handler.hpp"
 
 namespace Arabica
 {
@@ -41,62 +42,18 @@ public:
                             const std::string& qName,
                             const SAX::Attributes<std::string>& atts)
   {
-    if(foreign_)
-    {
-      ++foreign_;
-      return;
-    } // if(foreign_)
-
     if(top_)
     {
-      if(namespaceURI != StylesheetConstant::NamespaceURI())
-        throw SAX::SAXException("The source file does not look like a stylesheet.");
-      if(localName != "stylesheet" && localName != "transform")
-        throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
-
-      static const ValueRule rules[] = { { "version", true, 0 },
-					 { "extension-element-prefixes", false, 0 },
-					 { "exclude-result-prefixes", false, 0 },
-					 { "id", false, 0 },
-                                         { 0, false, 0 } };
-      std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
-      if(attributes["version"] != StylesheetConstant::Version())
-        throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
-      if(!attributes["extension-element-prefixes"].empty())
-	throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
-
-      top_ = false;
-
+      startStylesheet(namespaceURI, localName, qName, atts);
       return;
     } // if(top_)
 
     if(namespaceURI == StylesheetConstant::NamespaceURI())
-    {
-      if((localName == "import") || (localName == "include"))
-      {
-        include_stylesheet(namespaceURI, localName, qName, atts);
-        return;
-      } // if ...
-
-      for(const ChildElement* c = allowedChildren; c->name != 0; ++c)
-        if(c->name == localName)
-        {
-          context_.push(0,
-                        c->createHandler(context_),
-                        namespaceURI, 
-                        qName, 
-                        localName, 
-                        atts);
-          return;
-        } // if ...
-    } // if ... 
+      startXSLTElement(namespaceURI, localName, qName, atts);
     else if(!namespaceURI.empty())
-    {
-      ++foreign_;
-      return;
-    } // if(!namespaceURI.empty())
-
-    throw SAX::SAXException("xsl:stylesheet does not allow " + qName + " here.");
+      startForeignElement(namespaceURI, localName, qName, atts);
+    else
+      oops(qName);
   } // startElement
 
   virtual void endElement(const std::string& namespaceURI,
@@ -124,6 +81,69 @@ public:
   } // endDocument
 
 private:
+  void startStylesheet(const std::string& namespaceURI,
+                       const std::string& localName,
+                       const std::string& qName,
+                       const SAX::Attributes<std::string>& atts)
+  {
+    if(namespaceURI != StylesheetConstant::NamespaceURI())
+      throw SAX::SAXException("The source file does not look like a stylesheet.");
+    if(localName != "stylesheet" && localName != "transform")
+      throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
+    
+    static const ValueRule rules[] = { { "version", true, 0 },
+                                       { "extension-element-prefixes", false, 0 },
+                                       { "exclude-result-prefixes", false, 0 },
+                                       { "id", false, 0 },
+                                       { 0, false, 0 } };
+    std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
+    if(attributes["version"] != StylesheetConstant::Version())
+      throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
+    if(!attributes["extension-element-prefixes"].empty())
+      throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
+
+    top_ = false;
+  } // startStylesheet
+
+  void startXSLTElement(const std::string& namespaceURI,
+                        const std::string& localName,
+                        const std::string& qName,
+                        const SAX::Attributes<std::string>& atts)
+  {
+    if((localName == "import") || (localName == "include"))
+    {
+      include_stylesheet(namespaceURI, localName, qName, atts);
+      return;
+    } // if ...
+    
+    for(const ChildElement* c = allowedChildren; c->name != 0; ++c)
+      if(c->name == localName)
+      {
+        context_.push(0,
+                      c->createHandler(context_),
+                      namespaceURI, 
+                      localName, 
+                      qName, 
+                      atts);
+        return;
+      } // if ...
+
+    oops(qName);
+  } // startXSLTElement
+
+  void startForeignElement(const std::string& namespaceURI,
+                           const std::string& localName,
+                           const std::string& qName,
+                           const SAX::Attributes<std::string>& atts)
+  {
+    context_.push(0,
+                  new ForeignElementHandler(context_),
+                  namespaceURI,
+                  localName,
+                  qName,
+                  atts);
+  } // startForeignElement
+
   void include_stylesheet(const std::string& namespaceURI,
                           const std::string& localName,
                           const std::string& qName,
@@ -132,6 +152,11 @@ private:
     includer_.start_include(namespaceURI, localName, qName, atts);
   } // include_stylesheet
 
+  void oops(const std::string& qName) const
+  {
+    throw SAX::SAXException("xsl:stylesheet does not allow " + qName + " here.");  
+  } // oops
+  
   CompilationContext& context_;
   SAX::DefaultHandler<std::string>* child_;
   IncludeHandler includer_;

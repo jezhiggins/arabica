@@ -109,8 +109,8 @@ public:
         context_.push(0,
                       new WhenHandler(choose_, context_), 
                       namespaceURI,
-                      qName, 
                       localName,
+                      qName, 
                       atts);
         return;
       } // if(localName == "when")
@@ -123,8 +123,8 @@ public:
         context_.push(0,
                       new OtherwiseHandler(choose_, context_), 
                       namespaceURI,
-                      qName, 
                       localName,
+                      qName, 
                       atts);
         return;
       } // if(localName == "otherwise")
