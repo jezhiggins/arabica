@@ -160,8 +160,6 @@
   <test-case id="Attributes__78366" compiles="no" reason="Error case: empty namespace"/>
   <test-case id="Attributes__78372" skip="yes" reason="Expected output includes newlines and tabs, but inconsistently escaped.  Mangle escapes them all, as do Saxon, .NET, and Xalan (although Xalan uses decimal rather than hex numerical entities)."/>
   <test-case id="Attributes__78374" skip="yes" reason="Error is recoverable.  Mangle, Saxon, Xalan all run.  MSXML and .NET do not."/>
-  <test-case id="Attributes__78382" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-  <test-case id="Attributes__78386" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="Attributes__81430" compare="fragment" reason="XML Fragment output"/>
   <test-case id="Attributes__81431" compare="fragment" reason="XML Fragment output"/>
   <test-case id="Attributes__81482" compare="text"/>
@@ -206,9 +204,7 @@
   <test-case id="Attributes_Attribute_WhitespaceInUseAttributeSets" compiles="no" reason="Haven't implemented attribute-sets"/>
   <test-case id="Attributes_EmptyStringInUseAttribSets" compiles="no" reason="Haven't implemented attribute-sets"/>
   <test-case id="BVTs_bvt001" compare="fragment"/>
-  <test-case id="BVTs_bvt002" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt003" compiles="no" reason="Needs attribute sets"/>
-  <test-case id="BVTs_bvt004" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt005" compiles="no" reason="Doesn't understand xml:space properly"/>
   <test-case id="BVTs_bvt007" compare="text"/>
   <test-case id="BVTs_bvt008" compare="fragment"/>
@@ -229,18 +225,14 @@
   <test-case id="BVTs_bvt036" compare="text"/>
   <test-case id="BVTs_bvt037" compare="fragment"/>
   <test-case id="BVTs_bvt038" compare="fragment"/>
-  <test-case id="BVTs_bvt040" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt042" compare="fragment"/>
   <test-case id="BVTs_bvt043" compare="fragment"/>
   <test-case id="BVTs_bvt044" skip="yes" reason="Segfault!"/>
   <test-case id="BVTs_bvt045" skip="yes" reason="Bad result data"/>
-  <test-case id="BVTs_bvt047" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
+  <test-case id="BVTs_bvt047" skip="yes" reason="HTML"/>
   <test-case id="BVTs_bvt052" skip="yes" reason="Uses MSXML specific extension function"/>
   <test-case id="BVTs_bvt053" compare="text"/>
-  <test-case id="BVTs_bvt054" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-  <test-case id="BVTs_bvt055" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt056" compare="text"/>
-  <test-case id="BVTs_bvt057" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt060" compiles="no" reason="Needs xsl:number"/>
   <test-case id="BVTs_bvt061" compiles="no" reason="Needs xsl:number"/>
   <test-case id="BVTs_bvt062" compare="fragment"/>
@@ -255,7 +247,6 @@
   <test-case id="BVTs_bvt078" compare="text"/>
   <test-case id="BVTs_bvt079" compare="text"/>
   <test-case id="BVTs_bvt080" compare="fragment"/>
-  <test-case id="BVTs_bvt081" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt083" compare="fragment"/>
   <test-case id="BVTs_bvt085" skip="yes" reason="Bad result data"/>
   <test-case id="BVTs_bvt086" compare="text"/>
@@ -265,7 +256,6 @@
   <test-case id="BVTs_bvt094" compare="text"/>
   <test-case id="BVTs_bvt095" compare="fragment"/>
   <test-case id="BVTs_bvt096" compare="text"/>
-  <test-case id="BVTs_bvt098" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
   <test-case id="BVTs_bvt099" compare="fragment"/>
   <test-case id="BVTs_bvt100" compare="fragment"/>
   <test-case id="Comment_Comment_CDATAWithDoubleHyphen" compare="fragment"/>
@@ -296,8 +286,6 @@
   <test-case id="ConflictResolution__77782" compare="fragment"/>
   <test-case id="ConflictResolution__77783" compare="fragment"/>
   <test-case id="ConflictResolution__77784" compare="fragment"/>
-  <test-case id="ConflictResolution__77897" compiles="no" reason="Haven't implemented embedded stylesheets next."/>
-  <test-case id="ConflictResolution__77898" compiles="no" reason="Haven't implemented embedded stylesheets next."/>
   <test-case id="ConflictResolution__77802" compare="fragment"/>
   <test-case id="ConflictResolution__77833" compare="fragment"/>
   <test-case id="ConflictResolution__77847" compare="fragment"/>
@@ -324,8 +312,6 @@
   <test-case id="Copying__84388" compare="fragment"/>
   <test-case id="Copying__84389" compare="fragment"/>
   <test-case id="Copying_UseXmlnsWithEmptyStringAsDefaultNs" skip="yes" reason="Stylesheet encoding in Windows-1251"/>
-  <test-case id="Elements__78364" compiles="no" reason="Haven't implemented embedded stylesheets"/>
-  <test-case id="Elements__83968" compiles="no" reason="Haven't implemented embedded stylesheets"/>
   <test-case id="Elements__89062" compare="text"/>
   <test-case id="Elements__89063" compare="text"/>
   <test-case id="Elements__89065" compare="text"/>
@@ -470,7 +456,6 @@
   <test-case id="Namespace__77703" compare="fragment"/>
   <test-case id="Namespace__77983" compare="fragment"/>
   <test-case id="Namespace__78214" compiles="no" reason="haven't implemented forward compatibility"/>
-  <test-case id="Namespace__78215" compiles="no" reason="haven't implemented embedded template yet"/>
   <test-case id="Namespace__84473" compare="fragment"/>
   <test-case id="Namespace__84474" compare="fragment"/>
   <test-case id="Namespace_CheckXmlnsResetOnResultTree" skip="yes" reason="windows-1251 encoding"/>
@@ -565,8 +550,6 @@
   <test-case id="Stylesheet__91802" compare="text"/>
   <test-case id="Stylesheet__91803" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
   <test-case id="Stylesheet__91804" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
-  <test-case id="Stylesheet__91807" compiles="no" reason="Haven't implemented embedded stylesheets yet"/>
-  <test-case id="Stylesheet__91808" compiles="no" reason="Haven't implemented embedded stylesheets yet.  Duplicates 91807."/>
   <test-case id="Stylesheet__91809" skip="yes" reason="Haven't implemented extension elements yet."/>
   <test-case id="Stylesheet__91810" compiles="no" reason="Haven't implemented element-available yet"/>
   <test-case id="Stylesheet__91811" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
