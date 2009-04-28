@@ -45,9 +45,9 @@ public:
     {
       top_ = false;
       if(namespaceURI == StylesheetConstant::NamespaceURI())
-	startStylesheet(namespaceURI, localName, qName, atts);
+        startStylesheet(namespaceURI, localName, qName, atts);
       else
-	startLREAsStylesheet(namespaceURI, localName, qName, atts);
+        startLREAsStylesheet(namespaceURI, localName, qName, atts);
       return;
     } // if(top_)
 
@@ -100,23 +100,31 @@ private:
   } // startStylesheet
 
   void startLREAsStylesheet(const std::string& namespaceURI,
-			    const std::string& localName,
-			    const std::string& qName,
-			    const SAX::Attributes<std::string>& atts)
+                            const std::string& localName,
+                            const std::string& qName,
+                            const SAX::Attributes<std::string>& atts)
   {
     std::string version;
     for(int a = 0; a != atts.getLength(); ++a)
       if((StylesheetConstant::NamespaceURI() == atts.getURI(a)) &&
-	 ("version" == atts.getLocalName(a)))
+         ("version" == atts.getLocalName(a)))
       {
-	version = atts.getValue(a);
-	break;
+        version = atts.getValue(a);
+        break;
       }
 
     if(version.empty())
       throw SAX::SAXException("The source file does not look like a stylesheet.");
     if(version != StylesheetConstant::Version())
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
+
+    Template* lreStylesheet = new Template(context_.xpath_match("/"), "", "", "", context_.precedence());
+    context_.push(lreStylesheet,
+                  new LREStylesheetHandler(context_, lreStylesheet),
+                  namespaceURI, 
+                  localName, 
+                  qName, 
+                  atts);
   } // startLREAsStylesheet
 
   void startXSLTElement(const std::string& namespaceURI,

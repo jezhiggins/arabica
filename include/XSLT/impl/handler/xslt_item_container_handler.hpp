@@ -23,6 +23,12 @@ protected:
   {
   } // ItemContainerHandler
 
+  ItemContainerHandler(CompilationContext& context, container_type* container) :
+         context_(context),
+         container_(container)
+  {
+  } // ItemContainerHandler
+
   virtual container_type* createContainer(const std::string& namespaceURI,
                                          const std::string& localName,
                                          const std::string& qName,
