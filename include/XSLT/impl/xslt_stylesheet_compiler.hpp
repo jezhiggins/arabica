@@ -25,8 +25,7 @@ class StylesheetHandler : public SAX::DefaultHandler<std::string>
 public:
   StylesheetHandler(CompilationContext& context) :
     context_(context),
-    top_(false),
-    foreign_(0)
+    top_(false)
   {
     context_.root(*this);
     includer_.context(context_, this);      
@@ -44,7 +43,11 @@ public:
   {
     if(top_)
     {
-      startStylesheet(namespaceURI, localName, qName, atts);
+      top_ = false;
+      if(namespaceURI == StylesheetConstant::NamespaceURI())
+        startStylesheet(namespaceURI, localName, qName, atts);
+      else
+        startLREAsStylesheet(namespaceURI, localName, qName, atts);
       return;
     } // if(top_)
 
@@ -60,15 +63,10 @@ public:
                           const std::string& localName,
                           const std::string& qName)
   {
-    if(foreign_)
-      --foreign_;
   } // endElement
 
   virtual void characters(const std::string& ch)
   {
-    if(foreign_)
-      return;
-
     for(std::string::const_iterator s = ch.begin(), e = ch.end(); s != e; ++s)
       if(!Arabica::XML::is_space(*s))
         throw SAX::SAXException("stylesheet element can not contain character data :'" + ch +"'");
@@ -86,8 +84,6 @@ private:
                        const std::string& qName,
                        const SAX::Attributes<std::string>& atts)
   {
-    if(namespaceURI != StylesheetConstant::NamespaceURI())
-      throw SAX::SAXException("The source file does not look like a stylesheet.");
     if(localName != "stylesheet" && localName != "transform")
       throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
     
@@ -101,9 +97,35 @@ private:
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
     if(!attributes["extension-element-prefixes"].empty())
       throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
-
-    top_ = false;
   } // startStylesheet
+
+  void startLREAsStylesheet(const std::string& namespaceURI,
+                            const std::string& localName,
+                            const std::string& qName,
+                            const SAX::Attributes<std::string>& atts)
+  {
+    std::string version;
+    for(int a = 0; a != atts.getLength(); ++a)
+      if((StylesheetConstant::NamespaceURI() == atts.getURI(a)) &&
+         ("version" == atts.getLocalName(a)))
+      {
+        version = atts.getValue(a);
+        break;
+      }
+
+    if(version.empty())
+      throw SAX::SAXException("The source file does not look like a stylesheet.");
+    if(version != StylesheetConstant::Version())
+      throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
+
+    Template* lreStylesheet = new Template(context_.xpath_match("/"), "", "", "", context_.precedence());
+    context_.push(lreStylesheet,
+                  new LREStylesheetHandler(context_, lreStylesheet),
+                  namespaceURI, 
+                  localName, 
+                  qName, 
+                  atts);
+  } // startLREAsStylesheet
 
   void startXSLTElement(const std::string& namespaceURI,
                         const std::string& localName,
@@ -161,7 +183,6 @@ private:
   SAX::DefaultHandler<std::string>* child_;
   IncludeHandler includer_;
   bool top_;
-  unsigned int foreign_;
 
   static const ChildElement allowedChildren[];
 }; // class StylesheetHandler
