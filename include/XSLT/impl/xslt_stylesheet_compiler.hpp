@@ -44,7 +44,11 @@ public:
   {
     if(top_)
     {
-      startStylesheet(namespaceURI, localName, qName, atts);
+      top_ = false;
+      if(namespaceURI == StylesheetConstant::NamespaceURI())
+	startStylesheet(namespaceURI, localName, qName, atts);
+      else
+	startLREAsStylesheet(namespaceURI, localName, qName, atts);
       return;
     } // if(top_)
 
@@ -86,8 +90,6 @@ private:
                        const std::string& qName,
                        const SAX::Attributes<std::string>& atts)
   {
-    if(namespaceURI != StylesheetConstant::NamespaceURI())
-      throw SAX::SAXException("The source file does not look like a stylesheet.");
     if(localName != "stylesheet" && localName != "transform")
       throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
     
@@ -101,9 +103,27 @@ private:
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
     if(!attributes["extension-element-prefixes"].empty())
       throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
-
-    top_ = false;
   } // startStylesheet
+
+  void startLREAsStylesheet(const std::string& namespaceURI,
+			    const std::string& localName,
+			    const std::string& qName,
+			    const SAX::Attributes<std::string>& atts)
+  {
+    std::string version;
+    for(int a = 0; a != atts.getLength(); ++a)
+      if((StylesheetConstant::NamespaceURI() == atts.getURI(a)) &&
+	 ("version" == atts.getLocalName(a)))
+      {
+	version = atts.getValue(a);
+	break;
+      }
+
+    if(version.empty())
+      throw SAX::SAXException("The source file does not look like a stylesheet.");
+    if(version != StylesheetConstant::Version())
+      throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
+  } // startLREAsStylesheet
 
   void startXSLTElement(const std::string& namespaceURI,
                         const std::string& localName,
