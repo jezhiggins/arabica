@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XSLT Mandelbrot - written by Joel Yliluoma 2007, http://iki.fi/bisqwit/ -->
+<?xml-stylesheet type='text/xsl' href='mandelbrot.xsl'?>
+<fractal>
+ <scale>100</scale>
+ <y><min>-120</min> <max>120</max> <step>3.9</step></y>
+ <x><min>-203</min> <max>100</max> <step>1.4</step></x>
+ <maxiter>28</maxiter>
+ 
+ <background>#500</background>
+ 
+ <magnitude value="0"><symbol>.</symbol><color>#115</color></magnitude>
+ <magnitude value="1"><symbol>.</symbol><color>#228</color></magnitude>
+ <magnitude value="2"><symbol>.</symbol><color>#22B</color></magnitude>
+ <magnitude value="3"><symbol>.</symbol><color>#33D</color></magnitude>
+ <magnitude value="4"><symbol>.</symbol><color>#44F</color></magnitude>
+ <magnitude value="5"><symbol>+</symbol><color>#55C</color></magnitude>
+ <magnitude value="6"><symbol>+</symbol><color>#55D</color></magnitude>
+ <magnitude value="7"><symbol>+</symbol><color>#55E</color></magnitude>
+ <magnitude value="8"><symbol>*</symbol><color>#55F</color></magnitude>
+ <magnitude value="9"><symbol>*</symbol><color>#66F</color></magnitude>
+ <magnitude value="10"><symbol>*</symbol><color>#77F</color></magnitude>
+ <magnitude value="11"><symbol>*</symbol><color>#88F</color></magnitude>
+ <magnitude value="12"><symbol>#</symbol><color>#88F</color></magnitude>
+ <magnitude value="13"><symbol>*</symbol><color>#99F</color></magnitude>
+ <magnitude value="14"><symbol>#</symbol><color>#99F</color></magnitude>
+ <magnitude value="15"><symbol>*</symbol><color>#AAF</color></magnitude>
+ <magnitude value="16"><symbol>#</symbol><color>#AAF</color></magnitude>
+ <magnitude value="17"><symbol>*</symbol><color>#BBF</color></magnitude>
+ <magnitude value="18"><symbol>#</symbol><color>#BBF</color></magnitude>
+ <magnitude value="19"><symbol>*</symbol><color>#CCF</color></magnitude>
+ <magnitude value="20"><symbol>#</symbol><color>#CCF</color></magnitude>
+ <magnitude value="21"><symbol>*</symbol><color>#DDF</color></magnitude>
+ <magnitude value="22"><symbol>#</symbol><color>#DDF</color></magnitude>
+ <magnitude value="23"><symbol>*</symbol><color>#EEF</color></magnitude>
+ <magnitude value="24"><symbol>#</symbol><color>#EEF</color></magnitude>
+ <magnitude value="25"><symbol>*</symbol><color>#FFF</color></magnitude>
+ <magnitude value="26"><symbol>#</symbol><color>#FFF</color></magnitude>
+ <magnitude value="27"><symbol>.</symbol><color>#000</color></magnitude>
+</fractal>
