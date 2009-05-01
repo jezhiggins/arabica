@@ -1,0 +1,21 @@
+Elements test suite
+Errors test suite
+
+apply:import within for-each is not allowed
+xsl:number
+format-number
+xsl:strip-space and xsl:preserve-space
+lang()
+unparsed-entity-uri()
+xsl:fallback
+attribute sets
+two arg version of document()
+node-set version of document()
+xsl:sort/@lang
+forward compatibility
+element-available
+function-available
+output combining (partially done for cdata-section-elements)
+
+
+Performance
