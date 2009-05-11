@@ -1,6 +1,7 @@
 #ifndef ARABICA_XPATHIC_XPATH_ARITHMETIC_HPP
 #define ARABICA_XPATHIC_XPATH_ARITHMETIC_HPP
 
+#include <functional>
 #include "xpath_value.hpp"
 
 namespace Arabica
@@ -10,12 +11,12 @@ namespace XPath
 namespace impl
 {
 
-template<class string_type, class string_adaptor>
-class PlusOperator : public BinaryExpression<string_type, string_adaptor>
+template<class string_type, class string_adaptor, class Op>
+class ArithmeticOperator : public BinaryExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
-  PlusOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
+  ArithmeticOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
   virtual ValueType type() const { return NUMBER; }
@@ -23,81 +24,67 @@ public:
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const 
   {
-    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) + baseT::rhs()->evaluateAsNumber(context, executionContext));
+    return NumericValue<string_type, string_adaptor>::createValue(evaluateAsNumber(context, executionContext));
   } // evaluate
+
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
+                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  {
+    return Op()(baseT::lhs()->evaluateAsNumber(context, executionContext),
+                baseT::rhs()->evaluateAsNumber(context, executionContext));
+  } // evaluateAsNumber
+}; // class ArithmeticOperator
+
+template<class string_type, class string_adaptor>
+class PlusOperator : public ArithmeticOperator<string_type, string_adaptor, std::plus<double> >
+{
+public:
+  PlusOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
+      ArithmeticOperator<string_type, string_adaptor, std::plus<double> >(lhs, rhs) { }
 }; // class PlusOperator
 
 template<class string_type, class string_adaptor>
-class MinusOperator : public BinaryExpression<string_type, string_adaptor>
+class MinusOperator : public ArithmeticOperator<string_type, string_adaptor, std::minus<double> >
 {
-  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
   MinusOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
-      BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
-
-  virtual ValueType type() const { return NUMBER; }
-
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
-  {
-    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) - baseT::rhs()->evaluateAsNumber(context, executionContext));
-  } // evaluate
+      ArithmeticOperator<string_type, string_adaptor, std::minus<double> >(lhs, rhs) { }
 }; // class MinusOperator
 
 template<class string_type, class string_adaptor>
-class MultiplyOperator : public BinaryExpression<string_type, string_adaptor>
+class MultiplyOperator : public ArithmeticOperator<string_type, string_adaptor, std::multiplies<double> >
 {
-  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
   MultiplyOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
-      BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
-
-  virtual ValueType type() const { return NUMBER; }
-
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
-  {
-    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) * baseT::rhs()->evaluateAsNumber(context, executionContext));
-  } // evaluate
+      ArithmeticOperator<string_type, string_adaptor, std::multiplies<double> >(lhs, rhs) { }
 }; // class MultiplyOperator
 
 template<class string_type, class string_adaptor>
-class DivideOperator : public BinaryExpression<string_type, string_adaptor>
+class DivideOperator : public ArithmeticOperator<string_type, string_adaptor, std::divides<double> >
 {
-  typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
   DivideOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
-      BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
-
-  virtual ValueType type() const { return NUMBER; }
-
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
-  {
-    return NumericValue<string_type, string_adaptor>::createValue(baseT::lhs()->evaluateAsNumber(context, executionContext) / baseT::rhs()->evaluateAsNumber(context, executionContext));
-  } // evaluate
+      ArithmeticOperator<string_type, string_adaptor, std::divides<double> >(lhs, rhs) { }
 }; // class DivideOperator
 
+
+struct NaN_aware_modulus
+{	
+  double operator()(const double& lhs, const double& rhs) const
+	{	// apply operator% to operands 
+    if(isNaN(lhs) || isNaN(rhs)) 
+      return NaN; 
+    return (static_cast<long>(lhs) % static_cast<long>(rhs)); 
+	}
+}; // NaN_aware_modulus
+
 template<class string_type, class string_adaptor>
-class ModOperator : public BinaryExpression<string_type, string_adaptor>
+class ModOperator : public ArithmeticOperator<string_type, string_adaptor, NaN_aware_modulus>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
   ModOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) :
-      BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
-
-  virtual ValueType type() const { return NUMBER; }
-
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
-  {
-    double l = baseT::lhs()->evaluateAsNumber(context, executionContext);
-    double r = baseT::rhs()->evaluateAsNumber(context, executionContext);
-
-    if(isNaN(l) || isNaN(r))
-      return NumericValue<string_type, string_adaptor>::createValue(NaN);
-    return NumericValue<string_type, string_adaptor>::createValue(static_cast<long>(l) % static_cast<long>(r));
-  } // evaluate
+      ArithmeticOperator<string_type, string_adaptor, NaN_aware_modulus>(lhs, rhs) { }
 }; // class ModOperator
 
 template<class string_type, class string_adaptor>
@@ -113,8 +100,13 @@ public:
   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return NumericValue<string_type, string_adaptor>::createValue(-baseT::expr()->evaluate(context, executionContext).asNumber());
+    return NumericValue<string_type, string_adaptor>::createValue(evaluateAsNumber(context, executionContext));
   } // evaluate
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
+                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  {
+    return -baseT::expr()->evaluateAsNumber(context, executionContext);
+  } // evaluateAsNumber
 }; // class UnaryNegative
 
 } // namespace impl
