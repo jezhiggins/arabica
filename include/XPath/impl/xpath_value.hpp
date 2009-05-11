@@ -17,6 +17,12 @@ namespace XPath
 template<class string_type, class string_adaptor>
 class Value_base : public XPathValue_impl<string_type, string_adaptor>, public XPathExpression_impl<string_type, string_adaptor>
 {
+  typedef XPathValue_impl<string_type, string_adaptor> XPathValue_implT;
+  using XPathValue_implT::asBool;
+  using XPathValue_implT::asNumber;
+  using XPathValue_implT::asString;
+  using XPathValue_implT::asNodeSet;
+
 protected:
   Value_base() { }
   ~Value_base() { }
