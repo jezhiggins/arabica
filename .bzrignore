@@ -34,3 +34,4 @@ vs9/mangle.sln
 *.stackdump
 *.lnk
 spec
+gmon.out

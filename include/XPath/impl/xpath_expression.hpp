@@ -48,30 +48,58 @@ public:
 
   XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context) const
   {
-    ExecutionContext<string_type, string_adaptor> executionContext;
-    return evaluate(context, executionContext);
+    return evaluate(context, StaticExecutionContext());
   } // evaluate
+  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) const 
+  { 
+    return evaluateAsBool(context, StaticExecutionContext()); 
+  }
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) const 
+  { 
+    return evaluateAsNumber(context, StaticExecutionContext()); 
+  }
+  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) const 
+  { 
+    return evaluateAsString(context, StaticExecutionContext()); 
+  }
+  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) const 
+  { 
+    return evaluateAsNodeSet(context, StaticExecutionContext()); 
+  }
 
-  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context).asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context).asNumber(); }
-  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context).asString(); }
-  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) const { return evaluate(context).asNodeSet(); }
-
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 
   virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context, 
-															const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asBool(); }
+															const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  { 
+    return evaluate(context, executionContext).asBool(); 
+  }
   virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
-                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asNumber(); }
+                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  { 
+    return evaluate(context, executionContext).asNumber(); 
+  }
   virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context, 
-                                       const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asString(); }
+                                       const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  { 
+    return evaluate(context, executionContext).asString(); 
+  }
   virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context, 
-                                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const { return evaluate(context, executionContext).asNodeSet(); }
+                                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  {
+    return evaluate(context, executionContext).asNodeSet(); 
+  }
 
   virtual void scan(impl::Expression_scanner<string_type, string_adaptor>& scanner) const { scanner.scan(this); }
 
 private:
+  static const ExecutionContext<string_type, string_adaptor>& StaticExecutionContext() 
+  {
+    static ExecutionContext<string_type, string_adaptor> executionContext;
+    return executionContext;
+  } // StaticExecutionContext
+
   XPathExpression_impl(const XPathExpression_impl&);
   bool operator==(const XPathExpression_impl&);
   XPathExpression_impl& operator=(const XPathExpression_impl&);

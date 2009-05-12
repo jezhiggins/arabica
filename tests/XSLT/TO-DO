@@ -19,3 +19,10 @@ output combining (partially done for cdata-section-elements)
 
 
 Performance
+  variable pool
+  string pool?
+  use underlying_impl in XPath axis walker
+  use underlying_impl in XPath functions
+  short circuit evaluation in functions
+  only convert to full NodeSet at boundary
+  use a proxy to return propagate values out of functions
