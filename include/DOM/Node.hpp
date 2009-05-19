@@ -136,6 +136,7 @@ class Node : public Node_base
 
     // you almost certainly don't need to use this function
     Node_impl<stringT, string_adaptorT>* underlying_impl() const { return *impl_; }
+    void set_underlying_impl(Node_impl<stringT, string_adaptorT>* new_impl) { impl_ = new_impl; }
 
   protected:
     Proxy<Node_impl<stringT, string_adaptorT> > impl_;

@@ -40,6 +40,17 @@ class NamespaceNodeImpl : public DOM::Node_impl<stringT, string_adaptorT>
     { 
     } // NamespaceNodeImpl
 
+    NamespaceNodeImpl(NodeImplT* parentNode,
+                      const stringT& localname,
+                      const stringT& value) : 
+        NodeImplT(),
+        parentNode_(parentNode),
+        localname_(localname),
+        value_(value),
+        ref_(0)
+    { 
+    } // NamespaceNodeImpl
+
     virtual ~NamespaceNodeImpl() { }
 
     ////////////////////////////////////////////////////////
@@ -106,17 +117,6 @@ class NamespaceNodeImpl : public DOM::Node_impl<stringT, string_adaptorT>
 
   private:
     void oopsReadOnly() const { throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR); }
-
-    NamespaceNodeImpl(NodeImplT* parentNode,
-                      const stringT& localname,
-                      const stringT& value) : 
-        NodeImplT(),
-        parentNode_(parentNode),
-        localname_(localname),
-        value_(value),
-        ref_(0)
-    { 
-    } // NamespaceNodeImpl
 
     NodeImplT* parentNode_;
     stringT localname_;
