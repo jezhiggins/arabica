@@ -119,6 +119,26 @@ protected:
                             const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 }; // class NumericFunction
 
+template<class string_type, class string_adaptor>
+class StringFunction : public XPathFunction<string_type, string_adaptor>
+{
+public:
+  StringFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
+      XPathFunction(minArgs, maxArgs, args) { }
+
+  virtual ValueType type() const { return STRING; }
+
+  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return new StringValue<string_type, string_adaptor>(doEvaluate(context, executionContext));
+  } // evaluate
+
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
+}; // class StringFunction
+
 ////////////////////////////////
 // node-set functions
 // number last()
@@ -169,16 +189,16 @@ public:
 // node-set id(object)
 // string local-name(node-set?)
 template<class string_type, class string_adaptor>
-class LocalNameFn : public XPathFunction<string_type, string_adaptor>
+class LocalNameFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  LocalNameFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
+  LocalNameFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     DOM::Node<string_type, string_adaptor> node;
     if(baseT::argCount() == 0)
@@ -197,26 +217,26 @@ public:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
         case NAMESPACE_NODE_TYPE:
-          return new StringValue<string_type, string_adaptor>(node.hasNamespaceURI() ? node.getLocalName() : node.getNodeName());
+          return node.hasNamespaceURI() ? node.getLocalName() : node.getNodeName();
         default: // put this in to keep gcc quiet
           ; 
       } // switch ...
-    return new StringValue<string_type, string_adaptor>("");
+    return string_adaptor::empty_string();
   } // evaluate
 }; // class LocalNameFn
 
 // string namespace-uri(node-set?)
 template<class string_type, class string_adaptor>
-class NamespaceURIFn : public XPathFunction<string_type, string_adaptor>
+class NamespaceURIFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  NamespaceURIFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
+  NamespaceURIFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     DOM::Node<string_type, string_adaptor> node;
     if(baseT::argCount() == 0)
@@ -233,26 +253,27 @@ public:
       {
         case DOM::Node_base::ATTRIBUTE_NODE:
         case DOM::Node_base::ELEMENT_NODE:
-          return new StringValue<string_type, string_adaptor>(node.getNamespaceURI());
+          return node.getNamespaceURI();
         default: // put this in to keep gcc quiet
           ; 
       } // switch ...
-    return new StringValue<string_type, string_adaptor>("");
+    return string_adaptor::empty_string();
   } // evaluate
 }; // class NamespaceURIFn
 
 // string name(node-set?) 
 template<class string_type, class string_adaptor>
-class NameFn : public XPathFunction<string_type, string_adaptor>
+class NameFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  NameFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
+  NameFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual ValueType type() const { return STRING; }
 
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     DOM::Node<string_type, string_adaptor> node;
     if(baseT::argCount() == 0)
@@ -271,11 +292,11 @@ public:
         case DOM::Node_base::ELEMENT_NODE:
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
         case NAMESPACE_NODE_TYPE:
-          return new StringValue<string_type, string_adaptor>(node.getNodeName());
+          return node.getNodeName();
         default: // stop gcc generating a warning about unhandled enum values
           ;
       } // switch ...
-    return new StringValue<string_type, string_adaptor>("");
+    return string_adaptor::empty_string();
   } // evaluate
 }; // class NameFn
 
@@ -284,38 +305,39 @@ public:
 
 // string string(object?)
 template<class string_type, class string_adaptor>
-class StringFn : public XPathFunction<string_type, string_adaptor>
+class StringFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  StringFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
+  StringFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return new StringValue<string_type, string_adaptor>((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
-  } // evaluate
+    return (baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : 
+                                     nodeStringValue<string_type, string_adaptor>(context);
+  } // doEvaluate
 }; // class StringFn
 
 // string concat(string, string, string*)
 template<class string_type, class string_adaptor>
-class ConcatFn : public XPathFunction<string_type, string_adaptor>
+class ConcatFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  ConcatFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, -1, args) { }
+  ConcatFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(2, -1, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type s;
     for(size_t a = 0, ae = baseT::argCount(); a < ae; ++a)
       string_adaptor::append(s, baseT::argAsString(a, context, executionContext));
-    return new StringValue<string_type, string_adaptor>(s);
+    return s;
   } // evaluate
 }; // ConcatFn
 
@@ -367,80 +389,80 @@ protected:
 
 // string substring-before(string, string)
 template<class string_type, class string_adaptor>
-class SubstringBeforeFn : public XPathFunction<string_type, string_adaptor>
+class SubstringBeforeFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  SubstringBeforeFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, 2, args) { }
+  SubstringBeforeFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(2, 2, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type value = baseT::argAsString(0, context, executionContext);
     size_t splitAt = string_adaptor::find(value, baseT::argAsString(1, context, executionContext));
 
     if(splitAt == string_adaptor::npos())
-      return new StringValue<string_type, string_adaptor>("");
+      return string_adaptor::empty_string();
 
-    return new StringValue<string_type, string_adaptor>(string_adaptor::substr(value, 0, splitAt));
+    return string_adaptor::substr(value, 0, splitAt);
   } // evaluate
 }; // class SubstringBeforeFn
 
 // string substring-after(string, string)
 template<class string_type, class string_adaptor>
-class SubstringAfterFn : public XPathFunction<string_type, string_adaptor>
+class SubstringAfterFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  SubstringAfterFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, 2, args) { }
+  SubstringAfterFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(2, 2, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type value = baseT::argAsString(0, context, executionContext);
     string_type split = baseT::argAsString(1, context, executionContext);
     size_t splitAt = string_adaptor::find(value, split);
 
     if((splitAt == string_adaptor::npos()) || ((splitAt + string_adaptor::length(split)) >= string_adaptor::length(value)))
-      return new StringValue<string_type, string_adaptor>("");
+      return string_adaptor::empty_string();
 
-    return new StringValue<string_type, string_adaptor>(string_adaptor::substr(value, splitAt + string_adaptor::length(split)));
+    return string_adaptor::substr(value, splitAt + string_adaptor::length(split));
   } // evaluate
 }; // class SubstringAfterFn
 
 // string substring(string, number, number?)
 template<class string_type, class string_adaptor>
-class SubstringFn : public XPathFunction<string_type, string_adaptor>
+class SubstringFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  SubstringFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(2, 3, args) { }
+  SubstringFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(2, 3, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type value = baseT::argAsString(0, context, executionContext);
     if(string_adaptor::empty(value))
-      return new StringValue<string_type, string_adaptor>(value);
+      return string_adaptor::empty_string();
 
     double startAt = roundNumber(baseT::argAsNumber(1, context, executionContext)) - 1;
     double endAt = roundNumber((baseT::argCount() == 3 ? baseT::argAsNumber(2, context, executionContext) : Infinity)) + startAt;
 
     if((endAt < 0) || (endAt < startAt) || (isNaN(endAt)))
-      return new StringValue<string_type, string_adaptor>("");
+      return string_adaptor::empty_string();
 
     if(startAt < 0)
       startAt = 0;
     if((isInfinite(endAt)) || (endAt > string_adaptor::length(value)))
       endAt = string_adaptor::length(value);
 
-    return new StringValue<string_type, string_adaptor>(string_adaptor::substr(value, static_cast<int>(startAt), static_cast<int>(endAt - startAt)));
+    return string_adaptor::substr(value, static_cast<int>(startAt), static_cast<int>(endAt - startAt));
   } // evaluate
 }; // SubstringFn
 
@@ -462,35 +484,35 @@ public:
 
 // string normalize-space(string?)
 template<class string_type, class string_adaptor>
-class NormalizeSpaceFn : public XPathFunction<string_type, string_adaptor>
+class NormalizeSpaceFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  NormalizeSpaceFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(0, 1, args) { }
+  NormalizeSpaceFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(0, 1, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type initial = ((baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context));
     string_type value = Arabica::text::normalize_whitespace<string_type, string_adaptor>(initial);
-    return new StringValue<string_type, string_adaptor>(value);
+    return value;
   } // evaluate
 }; // class NormalizeSpaceFn
 
 // string translate(string, string, string) 
 template<class string_type, class string_adaptor>
-class TranslateFn : public XPathFunction<string_type, string_adaptor>
+class TranslateFn : public StringFunction<string_type, string_adaptor>
 {
-  typedef XPathFunction<string_type, string_adaptor> baseT;
+  typedef StringFunction<string_type, string_adaptor> baseT;
 public:
-  TranslateFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : XPathFunction<string_type, string_adaptor>(3, 3, args) { }
+  TranslateFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
+      StringFunction<string_type, string_adaptor>(3, 3, args) { }
 
-  virtual ValueType type() const { return STRING; }
-
-  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+protected:
+  virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type str = baseT::argAsString(0, context, executionContext);
     string_type from = baseT::argAsString(1, context, executionContext);
@@ -508,7 +530,7 @@ public:
     if(p != string_adaptor::end(str))
       *p = 0;
 
-		return new StringValue<string_type, string_adaptor>(string_adaptor::construct(string_adaptor::begin(str), p));
+		return string_adaptor::construct(string_adaptor::begin(str), p);
   } // evaluate
 }; // class TranslateFn
 
