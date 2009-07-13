@@ -154,37 +154,32 @@ public:
 }; // CurrentFunction
 
 // string unparsed-entity-uri(string)
-class UnparsedEntityUriFunction : public Arabica::XPath::XPathFunction<std::string>
+class UnparsedEntityUriFunction : public Arabica::XPath::StringXPathFunction<std::string>
 {
-  typedef Arabica::XPath::XPathFunction<std::string> baseT;
-
 public:
   UnparsedEntityUriFunction(const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
-    Arabica::XPath::XPathFunction<std::string>(1, 1, args) { }
+    Arabica::XPath::StringXPathFunction<std::string>(1, 1, args) { }
 
-  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
-
-  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
-                                            const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+protected:
+  virtual std::string doEvaluate(const DOM::Node<std::string>& context, 
+                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     // This is a minimal, but I think conformant, implementation
-    return new Arabica::XPath::StringValue<std::string>("");
+    return "";
   } // evaluate
 }; // UnparsedEntityUri
 
 // string generate-id(node-set?)
-class GenerateIdFunction : public Arabica::XPath::XPathFunction<std::string>
+class GenerateIdFunction : public Arabica::XPath::StringXPathFunction<std::string>
 {
-  typedef Arabica::XPath::XPathFunction<std::string> baseT;
-
+  typedef Arabica::XPath::StringXPathFunction<std::string> baseT;
 public:
   GenerateIdFunction(const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
-    Arabica::XPath::XPathFunction<std::string>(0, 1, args) { }
+    Arabica::XPath::StringXPathFunction<std::string>(0, 1, args) { }
 
-  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
-
-  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
-                                            const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+protected:
+  virtual std::string doEvaluate(const DOM::Node<std::string>& context, 
+                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     DOM::Node<std::string> node;
     if(baseT::argCount() == 0)
@@ -193,39 +188,37 @@ public:
     {
       Arabica::XPath::NodeSet<std::string> ns = baseT::argAsNodeSet(0, context, executionContext);
       if(ns.size() == 0)
-        return new Arabica::XPath::StringValue<std::string>("");
+        return "";
       node = ns.top();
     } // if ...
 
     std::ostringstream os;
     os << node.underlying_impl();
-    return new Arabica::XPath::StringValue<std::string>(os.str());
-  } //evaluate
+    return os.str();
+  } // doEvaluate
 }; // class GenerateIdFunction
 
 // object system-property(string)
-class SystemPropertyFunction : public Arabica::XPath::XPathFunction<std::string>
+class SystemPropertyFunction : public Arabica::XPath::StringXPathFunction<std::string>
 {
-  typedef Arabica::XPath::XPathFunction<std::string> baseT;
-
+  typedef Arabica::XPath::StringXPathFunction<std::string> baseT;
 public:
   SystemPropertyFunction (const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
-      Arabica::XPath::XPathFunction<std::string>(1, 1, args) { }
+      Arabica::XPath::StringXPathFunction<std::string>(1, 1, args) { }
 
-  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
-
-  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
-                                            const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+protected:
+  virtual std::string doEvaluate(const DOM::Node<std::string>& context, 
+                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     std::string property = baseT::argAsString(0, context, executionContext);
     std::string result;
     if(property == "xsl:version")
-      result = "1.0";
-    else if(property == "xsl:vendor")
-      result = "Jez Higgins, Jez UK Ltd";
+      return "1.0";
+    if(property == "xsl:vendor")
+      return "Jez Higgins, Jez UK Ltd";
     else if(property == "xsl:vendor-url")
-      result = "http://www.jezuk.co.uk/arabica";
-    return new Arabica::XPath::StringValue<std::string>(result);
+      return "http://www.jezuk.co.uk/arabica";
+    return "";
   } // evaluate
 }; // SystemPropertyFunction
 
