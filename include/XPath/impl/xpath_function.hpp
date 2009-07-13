@@ -76,14 +76,11 @@ private:
   const std::vector<XPathExpression<string_type, string_adaptor> > args_;
 }; // class XPathFunction
 
-namespace impl 
-{
-
-template<class string_type, class string_adaptor>
-class BooleanFunction : public XPathFunction<string_type, string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class BooleanXPathFunction : public XPathFunction<string_type, string_adaptor>
 {
 public:
-  BooleanFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
+  BooleanXPathFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
       XPathFunction(minArgs, maxArgs, args) { }
 
   virtual ValueType type() const { return BOOL; }
@@ -97,13 +94,13 @@ public:
 protected:
   virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
                           const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
-}; // class BooleanFunction
+}; // class BooleanXPathFunction
 
-template<class string_type, class string_adaptor>
-class NumericFunction : public XPathFunction<string_type, string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class NumericXPathFunction : public XPathFunction<string_type, string_adaptor>
 {
 public:
-  NumericFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
+  NumericXPathFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
       XPathFunction(minArgs, maxArgs, args) { }
 
   virtual ValueType type() const { return NUMBER; }
@@ -117,13 +114,13 @@ public:
 protected:
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
                             const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
-}; // class NumericFunction
+}; // class NumericXPathFunction
 
-template<class string_type, class string_adaptor>
-class StringFunction : public XPathFunction<string_type, string_adaptor>
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class StringXPathFunction : public XPathFunction<string_type, string_adaptor>
 {
 public:
-  StringFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
+  StringXPathFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
       XPathFunction(minArgs, maxArgs, args) { }
 
   virtual ValueType type() const { return STRING; }
@@ -137,16 +134,19 @@ public:
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
-}; // class StringFunction
+}; // class StringXPathFunction
+
+namespace impl 
+{
 
 ////////////////////////////////
 // node-set functions
 // number last()
 template<class string_type, class string_adaptor>
-class LastFn : public NumericFunction<string_type, string_adaptor>
+class LastFn : public NumericXPathFunction<string_type, string_adaptor>
 {
 public:
-  LastFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(0, 0, args) { }
+  LastFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
 protected:
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -158,10 +158,10 @@ protected:
 
 // number position()
 template<class string_type, class string_adaptor>
-class PositionFn : public NumericFunction<string_type, string_adaptor>
+class PositionFn : public NumericXPathFunction<string_type, string_adaptor>
 {
 public:
-  PositionFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(0, 0, args) { }
+  PositionFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
 protected:
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -173,11 +173,11 @@ protected:
 
 // number count(node-set)
 template<class string_type, class string_adaptor>
-class CountFn : public NumericFunction<string_type, string_adaptor>
+class CountFn : public NumericXPathFunction<string_type, string_adaptor>
 {
-  typedef NumericFunction<string_type, string_adaptor> baseT;
+  typedef NumericXPathFunction<string_type, string_adaptor> baseT;
 public:
-  CountFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(1, 1, args) { }
+  CountFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(1, 1, args) { }
 
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
@@ -189,12 +189,12 @@ public:
 // node-set id(object)
 // string local-name(node-set?)
 template<class string_type, class string_adaptor>
-class LocalNameFn : public StringFunction<string_type, string_adaptor>
+class LocalNameFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   LocalNameFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(0, 1, args) { }
+      StringXPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -227,12 +227,12 @@ protected:
 
 // string namespace-uri(node-set?)
 template<class string_type, class string_adaptor>
-class NamespaceURIFn : public StringFunction<string_type, string_adaptor>
+class NamespaceURIFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   NamespaceURIFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(0, 1, args) { }
+      StringXPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
 protected:
    virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -263,12 +263,12 @@ protected:
 
 // string name(node-set?) 
 template<class string_type, class string_adaptor>
-class NameFn : public StringFunction<string_type, string_adaptor>
+class NameFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   NameFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(0, 1, args) { }
+      StringXPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
 
 protected:
@@ -305,12 +305,12 @@ protected:
 
 // string string(object?)
 template<class string_type, class string_adaptor>
-class StringFn : public StringFunction<string_type, string_adaptor>
+class StringFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   StringFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(0, 1, args) { }
+      StringXPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -323,12 +323,12 @@ protected:
 
 // string concat(string, string, string*)
 template<class string_type, class string_adaptor>
-class ConcatFn : public StringFunction<string_type, string_adaptor>
+class ConcatFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   ConcatFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(2, -1, args) { }
+      StringXPathFunction<string_type, string_adaptor>(2, -1, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -343,11 +343,11 @@ protected:
 
 // boolean starts-with(string, string)
 template<class string_type, class string_adaptor>
-class StartsWithFn : public BooleanFunction<string_type, string_adaptor>
+class StartsWithFn : public BooleanXPathFunction<string_type, string_adaptor>
 {
-  typedef BooleanFunction<string_type, string_adaptor> baseT;
+  typedef BooleanXPathFunction<string_type, string_adaptor> baseT;
 public:
-  StartsWithFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanFunction<string_type, string_adaptor>(2, 2, args) { }
+  StartsWithFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanXPathFunction<string_type, string_adaptor>(2, 2, args) { }
 
 protected:
   virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -372,11 +372,11 @@ protected:
 
 // boolean contains(string, string)
 template<class string_type, class string_adaptor>
-class ContainsFn : public BooleanFunction<string_type, string_adaptor>
+class ContainsFn : public BooleanXPathFunction<string_type, string_adaptor>
 {
-  typedef BooleanFunction<string_type, string_adaptor> baseT;
+  typedef BooleanXPathFunction<string_type, string_adaptor> baseT;
 public:
-  ContainsFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanFunction<string_type, string_adaptor>(2, 2, args) { }
+  ContainsFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanXPathFunction<string_type, string_adaptor>(2, 2, args) { }
 
 protected:
   virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -389,12 +389,12 @@ protected:
 
 // string substring-before(string, string)
 template<class string_type, class string_adaptor>
-class SubstringBeforeFn : public StringFunction<string_type, string_adaptor>
+class SubstringBeforeFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   SubstringBeforeFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(2, 2, args) { }
+      StringXPathFunction<string_type, string_adaptor>(2, 2, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -412,12 +412,12 @@ protected:
 
 // string substring-after(string, string)
 template<class string_type, class string_adaptor>
-class SubstringAfterFn : public StringFunction<string_type, string_adaptor>
+class SubstringAfterFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   SubstringAfterFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(2, 2, args) { }
+      StringXPathFunction<string_type, string_adaptor>(2, 2, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -436,12 +436,12 @@ protected:
 
 // string substring(string, number, number?)
 template<class string_type, class string_adaptor>
-class SubstringFn : public StringFunction<string_type, string_adaptor>
+class SubstringFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   SubstringFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(2, 3, args) { }
+      StringXPathFunction<string_type, string_adaptor>(2, 3, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -468,11 +468,11 @@ protected:
 
 // number string-length(string?)
 template<class string_type, class string_adaptor>
-class StringLengthFn : public NumericFunction<string_type, string_adaptor>
+class StringLengthFn : public NumericXPathFunction<string_type, string_adaptor>
 {
-  typedef NumericFunction<string_type, string_adaptor> baseT;
+  typedef NumericXPathFunction<string_type, string_adaptor> baseT;
 public:
-  StringLengthFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(0, 1, args) { }
+  StringLengthFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
@@ -484,12 +484,12 @@ public:
 
 // string normalize-space(string?)
 template<class string_type, class string_adaptor>
-class NormalizeSpaceFn : public StringFunction<string_type, string_adaptor>
+class NormalizeSpaceFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   NormalizeSpaceFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(0, 1, args) { }
+      StringXPathFunction<string_type, string_adaptor>(0, 1, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -503,12 +503,12 @@ protected:
 
 // string translate(string, string, string) 
 template<class string_type, class string_adaptor>
-class TranslateFn : public StringFunction<string_type, string_adaptor>
+class TranslateFn : public StringXPathFunction<string_type, string_adaptor>
 {
-  typedef StringFunction<string_type, string_adaptor> baseT;
+  typedef StringXPathFunction<string_type, string_adaptor> baseT;
 public:
   TranslateFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : 
-      StringFunction<string_type, string_adaptor>(3, 3, args) { }
+      StringXPathFunction<string_type, string_adaptor>(3, 3, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -539,11 +539,11 @@ protected:
 
 // boolean boolean(object)
 template<class string_type, class string_adaptor>
-class BooleanFn : public BooleanFunction<string_type, string_adaptor>
+class BooleanFn : public BooleanXPathFunction<string_type, string_adaptor>
 {
-  typedef BooleanFunction<string_type, string_adaptor> baseT;
+  typedef BooleanXPathFunction<string_type, string_adaptor> baseT;
 public:
-  BooleanFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanFunction<string_type, string_adaptor>(1, 1, args) { }
+  BooleanFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanXPathFunction<string_type, string_adaptor>(1, 1, args) { }
 
 protected:
   virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -555,11 +555,11 @@ protected:
 
 // boolean not(boolean)
 template<class string_type, class string_adaptor>
-class NotFn : public BooleanFunction<string_type, string_adaptor>
+class NotFn : public BooleanXPathFunction<string_type, string_adaptor>
 {
-  typedef BooleanFunction<string_type, string_adaptor> baseT;
+  typedef BooleanXPathFunction<string_type, string_adaptor> baseT;
 public:
-  NotFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanFunction<string_type, string_adaptor>(1, 1, args) { }
+  NotFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanXPathFunction<string_type, string_adaptor>(1, 1, args) { }
 
 protected:
   virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -571,10 +571,10 @@ protected:
 
 // boolean true()
 template<class string_type, class string_adaptor>
-class TrueFn : public BooleanFunction<string_type, string_adaptor>
+class TrueFn : public BooleanXPathFunction<string_type, string_adaptor>
 {
 public:
-  TrueFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanFunction<string_type, string_adaptor>(0, 0, args) { }
+  TrueFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanXPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
 protected:
   virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -586,10 +586,10 @@ protected:
 
 // boolean false()
 template<class string_type, class string_adaptor>
-class FalseFn : public BooleanFunction<string_type, string_adaptor>
+class FalseFn : public BooleanXPathFunction<string_type, string_adaptor>
 {
 public:
-  FalseFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanFunction<string_type, string_adaptor>(0, 0, args) { }
+  FalseFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanXPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
 protected:
   virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -606,11 +606,11 @@ protected:
 
 // number number(object?)
 template<class string_type, class string_adaptor>
-class NumberFn : public NumericFunction<string_type, string_adaptor>
+class NumberFn : public NumericXPathFunction<string_type, string_adaptor>
 {
-  typedef NumericFunction<string_type, string_adaptor> baseT;
+  typedef NumericXPathFunction<string_type, string_adaptor> baseT;
 public:
-  NumberFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(0, 1, args) { }
+  NumberFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(0, 1, args) { }
   
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
@@ -623,11 +623,11 @@ public:
 
 // number sum(node-set)
 template<class string_type, class string_adaptor>
-class SumFn : public NumericFunction<string_type, string_adaptor>
+class SumFn : public NumericXPathFunction<string_type, string_adaptor>
 {
-  typedef NumericFunction<string_type, string_adaptor> baseT;
+  typedef NumericXPathFunction<string_type, string_adaptor> baseT;
 public:
-  SumFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(1, 1, args) { }
+  SumFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(1, 1, args) { }
 
 protected:
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -643,11 +643,11 @@ protected:
 
 // number floor(number)
 template<class string_type, class string_adaptor>
-class FloorFn : public NumericFunction<string_type, string_adaptor>
+class FloorFn : public NumericXPathFunction<string_type, string_adaptor>
 {
-  typedef NumericFunction<string_type, string_adaptor> baseT;
+  typedef NumericXPathFunction<string_type, string_adaptor> baseT;
 public:
-  FloorFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(1, 1, args) { }
+  FloorFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(1, 1, args) { }
   
 protected:
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -659,11 +659,11 @@ protected:
 
 // number ceiling(number)
 template<class string_type, class string_adaptor>
-class CeilingFn : public NumericFunction<string_type, string_adaptor>
+class CeilingFn : public NumericXPathFunction<string_type, string_adaptor>
 {
-  typedef NumericFunction<string_type, string_adaptor> baseT;
+  typedef NumericXPathFunction<string_type, string_adaptor> baseT;
 public:
-  CeilingFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(1, 1, args) { }
+  CeilingFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(1, 1, args) { }
 
 protected:
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
@@ -675,11 +675,11 @@ protected:
 
 // number round(number) 
 template<class string_type, class string_adaptor>
-class RoundFn : public NumericFunction<string_type, string_adaptor>
+class RoundFn : public NumericXPathFunction<string_type, string_adaptor>
 {
-  typedef NumericFunction<string_type, string_adaptor> baseT;
+  typedef NumericXPathFunction<string_type, string_adaptor> baseT;
 public:
-  RoundFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericFunction<string_type, string_adaptor>(1, 1, args) { }
+  RoundFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(1, 1, args) { }
 
 protected:
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
