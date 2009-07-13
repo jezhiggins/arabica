@@ -10,21 +10,20 @@ namespace XSLT
 {
 
 // node-set document(object, node-set?)
-class DocumentFunction : public Arabica::XPath::XPathFunction<std::string>
+class DocumentFunction : public Arabica::XPath::NodeSetXPathFunction<std::string>
 {
-  typedef Arabica::XPath::XPathFunction<std::string> baseT;
+  typedef Arabica::XPath::NodeSetXPathFunction<std::string> baseT;
 
 public:
   DocumentFunction(const std::string& currentBase, 
                    const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
-      Arabica::XPath::XPathFunction<std::string>(1, 2, args),
+      Arabica::XPath::NodeSetXPathFunction<std::string>(1, 2, args),
       baseURI_(currentBase)
   { } 
 
-  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::NODE_SET; }
-
-  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                            const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+protected:
+  virtual Arabica::XPath::NodeSet<std::string> doEvaluate(const DOM::Node<std::string>& context,
+                                                          const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     Arabica::XPath::NodeSet<std::string> nodes;
      
@@ -35,8 +34,8 @@ public:
       throw Arabica::XPath::UnsupportedException("node-set arg version of document()");
 
     load_document(a0.asString(), nodes);
-    return new Arabica::XPath::NodeSetValue<std::string>(nodes);
-  } // evaluate
+    return nodes;
+  } // doEvaluate
 
 private:
   void load_document(const std::string& location,
@@ -62,24 +61,22 @@ private:
 }; // DocumentFunction
 
 // node-set key(string, object)
-class KeyFunction : public Arabica::XPath::XPathFunction<std::string>
+class KeyFunction : public Arabica::XPath::NodeSetXPathFunction<std::string>
 {
-  typedef Arabica::XPath::XPathFunction<std::string> baseT;
-
+  typedef Arabica::XPath::NodeSetXPathFunction<std::string> baseT;
 public:
   KeyFunction(const DeclaredKeys& keys,
               const std::map<std::string, std::string>& inscopeNamespaces,	      
               const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
-    Arabica::XPath::XPathFunction<std::string>(2, 2, args),
+    Arabica::XPath::NodeSetXPathFunction<std::string>(2, 2, args),
     keys_(keys),
     namespaces_(inscopeNamespaces)
   { 
   } // KeyFunction
 
-  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::NODE_SET; }
-
-  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context,
-                                                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+protected:
+  virtual Arabica::XPath::NodeSet<std::string> doEvaluate(const DOM::Node<std::string>& context,
+                                                          const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     std::string keyname = argAsString(0, context, executionContext);
     std::string keyClarkName = XML::QualifiedName<std::string>::parseQName(keyname, true, UriMapper(namespaces_)).clarkName();
@@ -88,10 +85,10 @@ public:
     if(a1.type() == Arabica::XPath::NODE_SET)
       return nodeSetUnion(keyClarkName, a1.asNodeSet(), executionContext);
 
-    return new Arabica::XPath::NodeSetValue<std::string>(keys_.lookup(keyClarkName, a1.asString(), executionContext));
-  } // evaluate
+    return keys_.lookup(keyClarkName, a1.asString(), executionContext);
+  } // doEvaluate
 
-  Arabica::XPath::XPathValue_impl<std::string>* nodeSetUnion(const std::string& keyClarkName, 
+  Arabica::XPath::NodeSet<std::string> nodeSetUnion(const std::string& keyClarkName, 
 							     const Arabica::XPath::NodeSet<std::string> nodes,
 							     const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
@@ -102,7 +99,7 @@ public:
       results.push_back(keys_.lookup(keyClarkName, id, executionContext));
     } // for ...
     results.to_document_order();
-    return new Arabica::XPath::NodeSetValue<std::string>(results);
+    return results;
   } // nodeSetUnion
 
 private:
@@ -134,23 +131,21 @@ private:
 // string format-number(number, string, string?)
 
 // node-set current()
-class CurrentFunction : public Arabica::XPath::XPathFunction<std::string>
+class CurrentFunction : public Arabica::XPath::NodeSetXPathFunction<std::string>
 {
-  typedef Arabica::XPath::XPathFunction<std::string> baseT;
-
+  typedef Arabica::XPath::NodeSetXPathFunction<std::string> baseT;
 public:
   CurrentFunction(const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
-      Arabica::XPath::XPathFunction<std::string>(0, 0, args) { }
+      Arabica::XPath::NodeSetXPathFunction<std::string>(0, 0, args) { }
 
-  virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::NODE_SET; }
-
-  virtual Arabica::XPath::XPathValue_impl<std::string>* evaluate(const DOM::Node<std::string>& context, 
+protected:
+  virtual Arabica::XPath::NodeSet<std::string> doEvaluate(const DOM::Node<std::string>& context, 
                                                                  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     Arabica::XPath::NodeSet<std::string> set;
     set.push_back(executionContext.currentNode());
-    return new Arabica::XPath::NodeSetValue<std::string>(set);
-  } // evaluate
+    return set;
+  } // doEvaluate
 }; // CurrentFunction
 
 // string unparsed-entity-uri(string)
