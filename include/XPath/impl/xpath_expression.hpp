@@ -67,7 +67,7 @@ public:
     return evaluateAsNodeSet(context, StaticExecutionContext()); 
   }
 
-   virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 
   virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context, 
@@ -225,7 +225,7 @@ private:
 namespace impl
 {
 template<class string_type, class string_adaptor>
-class UnaryExpression : public XPathExpression_impl<string_type, string_adaptor>
+class UnaryExpression : virtual public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   UnaryExpression(XPathExpression_impl<string_type, string_adaptor>* expr) :
@@ -250,7 +250,7 @@ private:
 }; // class UnaryExpression
 
 template<class string_type, class string_adaptor>
-class BinaryExpression : public XPathExpression_impl<string_type, string_adaptor>
+class BinaryExpression : virtual public XPathExpression_impl<string_type, string_adaptor>
 {
 public:
   BinaryExpression(XPathExpression_impl<string_type, string_adaptor>* lhs, 
@@ -281,6 +281,33 @@ private:
   XPathExpression_impl<string_type, string_adaptor>* lhs_;
   XPathExpression_impl<string_type, string_adaptor>* rhs_;
 }; // class BinaryExpression
+
+template<class string_type, class string_adaptor>
+class NumericExpression : virtual public XPathExpression_impl<string_type, string_adaptor>
+{
+public:
+  NumericExpression() { } 
+
+  virtual ValueType type() const { return NUMBER; }
+
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return NumericValue<string_type, string_adaptor>::createValue(doEvaluateAsNumber(context, executionContext));
+  } // evaluate
+
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
+                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  { 
+    return doEvaluateAsNumber(context, executionContext); 
+  }
+protected:
+  virtual double doEvaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
+                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
+
+
+  ~NumericExpression() { }  
+}; // class UnaryExpression
 
 } // namespace impl
 } // namespace XPath

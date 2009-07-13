@@ -12,22 +12,15 @@ namespace impl
 {
 
 template<class string_type, class string_adaptor, class Op>
-class ArithmeticOperator : public BinaryExpression<string_type, string_adaptor>
+class ArithmeticOperator : public BinaryExpression<string_type, string_adaptor>,
+                           public NumericExpression<string_type, string_adaptor>
 {
   typedef BinaryExpression<string_type, string_adaptor> baseT;
 public:
   ArithmeticOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 
-  virtual ValueType type() const { return NUMBER; }
-
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const 
-  {
-    return NumericValue<string_type, string_adaptor>::createValue(evaluateAsNumber(context, executionContext));
-  } // evaluate
-
-  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual double doEvaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
                                   const ExecutionContext<string_type, string_adaptor>& executionContext) const 
   {
     return Op()(baseT::lhs()->evaluateAsNumber(context, executionContext),
