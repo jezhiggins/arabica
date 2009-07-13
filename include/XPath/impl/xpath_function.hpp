@@ -136,6 +136,26 @@ protected:
                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
 }; // class StringXPathFunction
 
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class NodeSetXPathFunction : public XPathFunction<string_type, string_adaptor>
+{
+public:
+  NodeSetXPathFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
+      XPathFunction(minArgs, maxArgs, args) { }
+
+  virtual ValueType type() const { return NODE_SET; }
+
+  virtual XPathValue_impl<string_type, string_adaptor>* evaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  {
+    return new NodeSetValue<string_type, string_adaptor>(doEvaluate(context, executionContext));
+  } // evaluate
+
+protected:
+  virtual NodeSet<string_type, string_adaptor> doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+                                                          const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
+}; // class NodeSetXPathFunction
+
 namespace impl 
 {
 
