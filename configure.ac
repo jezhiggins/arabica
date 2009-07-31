@@ -1,7 +1,9 @@
-AC_INIT([Arabica], [2009-march], [jez@jezuk.co.uk])
+AC_INIT([Arabica], [2009-summer], [jez@jezuk.co.uk])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-bzip2 dist-zip])
  
+AC_CONFIG_MACRO_DIR([m4])
+
 AC_PROG_CXX
 AC_PROG_LIBTOOL
 
