@@ -7,7 +7,6 @@
 #include <vector>
 #include <Arabica/StringAdaptor.hpp>
 #include "xpath_object.hpp"
-#include "xpath_expression.hpp"
 
 namespace Arabica
 {
@@ -15,7 +14,9 @@ namespace XPath
 {
 
 template<class string_type, class string_adaptor>
-class Value_base : public XPathValue_impl<string_type, string_adaptor>, public XPathExpression_impl<string_type, string_adaptor>
+class Value_base : 
+    public XPathExpression_impl<string_type, string_adaptor>,
+    public XPathValue_impl<string_type, string_adaptor>
 {
   typedef XPathValue_impl<string_type, string_adaptor> XPathValue_implT;
   using XPathValue_implT::asBool;
@@ -34,7 +35,7 @@ public:
   virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) { return asNodeSet(); }
 
   virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context, 
-															const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+			      const ExecutionContext<string_type, string_adaptor>& executionContext) const 
   { 
     return asBool(); 
   }

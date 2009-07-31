@@ -81,7 +81,7 @@ class BooleanXPathFunction : public XPathFunction<string_type, string_adaptor>
 {
 public:
   BooleanXPathFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
-      XPathFunction(minArgs, maxArgs, args) { }
+    XPathFunction<string_type, string_adaptor>(minArgs, maxArgs, args) { }
 
   virtual ValueType type() const { return BOOL; }
 
@@ -101,7 +101,7 @@ class NumericXPathFunction : public XPathFunction<string_type, string_adaptor>
 {
 public:
   NumericXPathFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
-      XPathFunction(minArgs, maxArgs, args) { }
+      XPathFunction<string_type, string_adaptor>(minArgs, maxArgs, args) { }
 
   virtual ValueType type() const { return NUMBER; }
 
@@ -121,7 +121,7 @@ class StringXPathFunction : public XPathFunction<string_type, string_adaptor>
 {
 public:
   StringXPathFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
-      XPathFunction(minArgs, maxArgs, args) { }
+      XPathFunction<string_type, string_adaptor>(minArgs, maxArgs, args) { }
 
   virtual ValueType type() const { return STRING; }
 
@@ -141,7 +141,7 @@ class NodeSetXPathFunction : public XPathFunction<string_type, string_adaptor>
 {
 public:
   NodeSetXPathFunction(int minArgs, int maxArgs, const std::vector<XPathExpression<string_type, string_adaptor> >& args) :
-      XPathFunction(minArgs, maxArgs, args) { }
+      XPathFunction<string_type, string_adaptor>(minArgs, maxArgs, args) { }
 
   virtual ValueType type() const { return NODE_SET; }
 

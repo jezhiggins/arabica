@@ -282,33 +282,6 @@ private:
   XPathExpression_impl<string_type, string_adaptor>* rhs_;
 }; // class BinaryExpression
 
-template<class string_type, class string_adaptor>
-class NumericExpression : virtual public XPathExpression_impl<string_type, string_adaptor>
-{
-public:
-  NumericExpression() { } 
-
-  virtual ValueType type() const { return NUMBER; }
-
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
-  {
-    return NumericValue<string_type, string_adaptor>::createValue(doEvaluateAsNumber(context, executionContext));
-  } // evaluate
-
-  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
-                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const 
-  { 
-    return doEvaluateAsNumber(context, executionContext); 
-  }
-protected:
-  virtual double doEvaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
-                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const = 0;
-
-
-  ~NumericExpression() { }  
-}; // class UnaryExpression
-
 } // namespace impl
 } // namespace XPath
 } // namespace Arabica

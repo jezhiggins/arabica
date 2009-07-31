@@ -2,7 +2,7 @@
 #define ARABICA_XPATH_FUNCTION_HOLDER_HPP
 
 #include <boost/shared_ptr.hpp>
-#include "xpath_value.hpp"
+#include "xpath_expression.hpp"
 #include "xpath_function.hpp"
 
 namespace Arabica

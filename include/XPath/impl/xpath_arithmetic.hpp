@@ -3,6 +3,7 @@
 
 #include <functional>
 #include "xpath_value.hpp"
+#include "xpath_expression_impl.hpp"
 
 namespace Arabica
 {
