@@ -17,14 +17,14 @@ Based on code from John Cowan's super TagSoup package
 class Schema
 {
 public:
-	static const int M_ANY = 0xFFFFFFFF;
-	static const int M_EMPTY = 0;
-	static const int M_PCDATA = 1 << 30;
-	static const int M_ROOT = 1 << 31;
+	static const int M_ANY;
+	static const int M_EMPTY;
+	static const int M_PCDATA;
+	static const int M_ROOT;
 
-	static const int F_RESTART = 1;
-	static const int F_CDATA = 2;
-	static const int F_NOFORCE = 4;
+	static const int F_RESTART;
+	static const int F_CDATA;
+	static const int F_NOFORCE;
 
 	virtual void elementType(const std::string& name, int model, int memberOf, int flags) = 0;
 	virtual ElementType& rootElementType() = 0; 

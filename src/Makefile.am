@@ -14,7 +14,8 @@ cc_sources = arabica.cpp \
 	convert/utf8iso88591codecvt.cpp \
 	convert/utf8ucs2codecvt.cpp \
         io/uri.cpp \
-	XML/XMLCharacterClasses.cpp
+	XML/XMLCharacterClasses.cpp \
+        taggle/Schema.cpp
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @PARSER_HEADERS@ $(BOOST_CPPFLAGS)
 
