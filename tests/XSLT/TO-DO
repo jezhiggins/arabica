@@ -21,8 +21,12 @@ output combining (partially done for cdata-section-elements)
 Performance
   variable pool
   string pool?
-  use underlying_impl in XPath axis walker
-  use underlying_impl in XPath functions
+  use underlying_impl in XPath axis walker - DONE
+  use underlying_impl in XPath functions - DONE
   short circuit evaluation in functions
-  only convert to full NodeSet at boundary
+  only convert to full NodeSet at boundary - DONE
   use a proxy to return propagate values out of functions
+  params - avoid creating closure for xsl:param if the param has been passed - DONE
+         - if running, resolve variable immediately, don't bother to create closure
+         - when declaring variable, don't create closure/resolve if higher-precedence variable already exists
+         - bin variable_instance_pointer, think I can pass by value
