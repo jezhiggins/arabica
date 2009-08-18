@@ -12,7 +12,7 @@ class WithParam : public Variable_impl
 {
 public:
   WithParam(const std::string& name, 
-            Arabica::XPath::XPathExpressionPtr<std::string> select, 
+            const Arabica::XPath::XPathExpressionPtr<std::string>& select, 
             const Precedence& precedence) :
       Variable_impl(name, select, precedence)
   {

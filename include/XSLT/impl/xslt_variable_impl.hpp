@@ -15,7 +15,7 @@ class Variable_impl : public ItemContainer, public Variable_declaration
 {
 protected:
   Variable_impl(const std::string& name, 
-                Arabica::XPath::XPathExpressionPtr<std::string> select,
+                const Arabica::XPath::XPathExpressionPtr<std::string>& select,
                 const Precedence& precedence) :
       name_(name),
       select_(select),

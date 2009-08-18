@@ -12,7 +12,7 @@ class Variable : public Variable_impl
 {
 public:
   Variable(const std::string& name, 
-           Arabica::XPath::XPathExpressionPtr<std::string> select,
+           const Arabica::XPath::XPathExpressionPtr<std::string>& select,
            const Precedence precedence) :
       Variable_impl(name, select, precedence)
   {
