@@ -89,14 +89,19 @@ public:
     params_.back().erase(name);
   } // unpassParam
 
-  void declareParam(Variable_instance_ptr param)
+  bool findPassedParam(const std::string& name)
   {
     ScopeStack::reverse_iterator p = params_.rbegin()+1;    
-    Scope::iterator i = p->find(param->name());
+    Scope::iterator i = p->find(name);
     if(i == p->end())
-      declareVariable(param);
-    else
-      declareVariable(i->second);
+      return false;
+    declareVariable(i->second);
+    return true;
+  } // findPassedParam
+
+  void declareParam(Variable_instance_ptr param)
+  {
+    declareVariable(param);
   } // declareParam
 
   void declareVariable(Variable_instance_ptr var)

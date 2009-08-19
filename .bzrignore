@@ -28,8 +28,9 @@ vs9\*.user
 *.lib
 *.bsc
 lib
-arabica-2008-july
-arabica-2008-july.*
+*.tar.gz
+*.tar.bz2
+*.zip
 vs9/mangle.sln
 *.stackdump
 *.lnk

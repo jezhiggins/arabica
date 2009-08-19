@@ -178,7 +178,8 @@ void ExecutionContext::unpassParam(const std::string& name)
 
 void ExecutionContext::declareParam(const DOM::Node<std::string>& node, const Variable_declaration& param) 
 {
-  stack_.declareParam(VariableClosure::create(param, node, *this)); 
+  if(!stack_.findPassedParam(param.name()))
+    stack_.declareParam(VariableClosure::create(param, node, *this)); 
 } // declareParam
 
 void ExecutionContext::declareVariable(const DOM::Node<std::string>& node, const Variable_declaration& variable) 

@@ -454,6 +454,10 @@
 				</Filter>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath="..\tests\XSLT\TO-DO"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
