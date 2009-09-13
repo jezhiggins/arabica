@@ -55,19 +55,23 @@ int main(int argc, char* argv[])
  //     doc.normalize();
       Arabica::XPath::XPathValuePtr<std::string> result;
       result = xpath->evaluate(doc);
-      if(result->asBool())
+
+      std::cout << file << std::endl;
+      switch(result->type())
       {
-        std::cout << file << std::endl;
-        if(result->type() == Arabica::XPath::NODE_SET)
-        {
-          const Arabica::XPath::NodeSet<std::string>& ns = result->asNodeSet();
-          for(unsigned int i = 0; i < ns.size(); ++i)
+        case Arabica::XPath::NODE_SET:
           {
-            Arabica::DOM::Node<std::string> n = ns[i];
-            std::cout << n << std::endl;
-          }
-        } // if ..
-      } // if ...
+            const Arabica::XPath::NodeSet<std::string>& ns = result->asNodeSet();
+            for(unsigned int i = 0; i < ns.size(); ++i)
+            {
+              Arabica::DOM::Node<std::string> n = ns[i];
+              std::cout << n << std::endl;
+            }
+          } 
+          break;
+        default:
+          std::cout << result->asString() << std::endl;
+      } // switch
     }
     else
     {
