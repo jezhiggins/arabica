@@ -120,9 +120,6 @@ public:
         return;
     } // if ...
 
-    if(var->precedence() == Precedence::FrozenPrecedence()) // we're running, so resolve immediately
-      var->value();
-
     stack[name] = var;
   } // declareVariable
   
