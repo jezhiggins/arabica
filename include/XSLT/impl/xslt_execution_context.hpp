@@ -112,6 +112,37 @@ private:
 }; // class ExecutionContext
 
 ///////////////////////////
+class ResolvedVariable : public Variable_instance
+{
+public:
+  ResolvedVariable(const Variable_declaration& var, 
+                   const DOM::Node<std::string>& node,
+                   ExecutionContext& context) :
+    var_(var)
+  {
+    DOMSink sink;
+    value_ = var_.value(node, context, sink);
+  } // ResolvedVariable
+
+  virtual const std::string& name() const { return var_.name(); }
+  virtual const Precedence& precedence() const { return var_.precedence(); }
+  virtual Arabica::XPath::XPathValue<std::string> value() const { return value_; }
+
+  virtual void injectGlobalScope(const Scope& scope) const
+  {
+    ;
+  } // globalScope
+
+private:
+  const Variable_declaration& var_;
+  mutable Arabica::XPath::XPathValue<std::string> value_;
+
+  ResolvedVariable();
+  ResolvedVariable(const ResolvedVariable&);
+  ResolvedVariable& operator=(const ResolvedVariable&);
+  const ResolvedVariable& operator==(const ResolvedVariable&) const;
+}; // class ResolvedVariable
+
 class VariableClosure : public Variable_instance
 {
 public:
@@ -119,6 +150,9 @@ public:
                                       const DOM::Node<std::string>& node,
                                       ExecutionContext& context)
   {
+    if(var.precedence() == Precedence::FrozenPrecedence()) // we're running, so resolve immediately
+      return Variable_instance_ptr(new ResolvedVariable(var, node, context));
+
     return Variable_instance_ptr(new VariableClosure(var, node, context));
   } // create
 

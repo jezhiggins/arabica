@@ -30,3 +30,7 @@ Performance
          - if running, resolve variable immediately, don't bother to create closure
          - when declaring variable, don't create closure/resolve if higher-precedence variable already exists
          - bin variable_instance_pointer, think I can pass by value
+         - actually, I think we avoid the whole closure creation business by getting the variables to pass in themselves, 
+           or a simple wrapper around themselves.  Top-level variables can hang on to a pointer to the toplevel injected context.  
+           Top level variables are the only ones that need to worry about precedence.  Immediate variable can just look up by name,
+           then get on with it.
