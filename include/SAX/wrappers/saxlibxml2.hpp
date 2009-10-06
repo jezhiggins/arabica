@@ -1,5 +1,5 @@
-#ifndef ARABICA_SAX_LIBXML2_H 
-#define ARABICA_SAX_LIBXML2_H 
+#ifndef ARABICA_SAX_LIBXML2_H
+#define ARABICA_SAX_LIBXML2_H
 ////////////////////////////////////////////////////////////////
 // A SAX2 Wrapper for libxml2
 ////////////////////////////////////////////////////////////////
@@ -29,13 +29,13 @@ namespace Arabica
 {
 namespace SAX
 {
-  
+
 ////////////////////////////////////////////////////////////////////////////
 // the callback functions for libxml
 namespace libxml2_wrapper_impl_tiddle
 {
 
-extern "C" 
+extern "C"
 {
 
 class libxml2_base
@@ -110,17 +110,17 @@ xmlSAXHandler* lwit_SaxHandler();
 
 } // namespace libxml2_wrapper_impl_tiddle
 
-template<class string_type, 
+template<class string_type,
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
 class libxml2_wrapper :
-    public SAX::XMLReaderInterface<string_type, 
+    public SAX::XMLReaderInterface<string_type,
                                    typename Arabica::get_string_adaptor<string_type, T0, T1>::type>,
     public SAX::Locator<string_type, typename Arabica::get_string_adaptor<string_type, T0, T1>::type>,
     protected libxml2_wrapper_impl_tiddle::libxml2_base
 {
   public:
-    typedef SAX::XMLReaderInterface<string_type, 
+    typedef SAX::XMLReaderInterface<string_type,
                                     typename Arabica::get_string_adaptor<string_type, T0, T1>::type> XMLReaderT;
     typedef typename XMLReaderT::string_adaptor string_adaptor;
     typedef SAX::EntityResolver<string_type, string_adaptor> entityResolverT;
@@ -180,7 +180,7 @@ class libxml2_wrapper :
     virtual string_type getSystemId() const;
     virtual int getLineNumber() const;
     virtual int getColumnNumber() const;
-  
+
   private:
     virtual void SAXstartDocument();
     virtual void SAXendDocument();
@@ -204,7 +204,7 @@ class libxml2_wrapper :
     string_type stringAttrEnum(xmlEnumerationPtr tree, bool leadingSpace) const;
     virtual void SAXentityDecl(const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content);
     virtual xmlParserInputPtr SAXresolveEntity(const xmlChar* publicId, const xmlChar* systemId);
-    
+
     qualifiedNameT processName(const string_type& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
     void checkNotParsing(const string_type& type, const string_type& name) const;
@@ -248,13 +248,13 @@ libxml2_wrapper<string_type, T0, T1>::libxml2_wrapper() :
   namespaces_(true),
   prefixes_(true)
 {
-  context_ = xmlCreatePushParserCtxt(libxml2_wrapper_impl_tiddle::lwit_SaxHandler(), 
-                                     reinterpret_cast<void*>(static_cast<libxml2_wrapper_impl_tiddle::libxml2_base*>(this)), 
-                                     0, 
-                                     0, 
+  context_ = xmlCreatePushParserCtxt(libxml2_wrapper_impl_tiddle::lwit_SaxHandler(),
+                                     reinterpret_cast<void*>(static_cast<libxml2_wrapper_impl_tiddle::libxml2_base*>(this)),
+                                     0,
+                                     0,
                                      0);
   xmlCtxtUseOptions(context_, XML_PARSE_DTDLOAD + XML_PARSE_DTDVALID + XML_PARSE_NOBLANKS);
-} // libxml2_wrapper 
+} // libxml2_wrapper
 
 template<class string_type, class T0, class T1>
 libxml2_wrapper<string_type, T0, T1>::~libxml2_wrapper()
@@ -273,7 +273,7 @@ bool libxml2_wrapper<string_type, T0, T1>::getFeature(const string_type& name) c
 
   if(name == features_.validation)
     return libxml2_wrapper_impl_tiddle::lwit_getFeature(context_, "validate");
-  
+
   if(name == features_.external_general)
     return libxml2_wrapper_impl_tiddle::lwit_getFeature(context_, "fetch external entities");
 
@@ -312,23 +312,23 @@ void libxml2_wrapper<string_type, T0, T1>::setFeature(const string_type& name, b
   {
     libxml2_wrapper_impl_tiddle::lwit_setFeature(context_, "validate", value);
     return;
-  } // if ... 
-  
+  } // if ...
+
   if(name == features_.external_general)
   {
     libxml2_wrapper_impl_tiddle::lwit_setFeature(context_, "fetch external entities", value);
     return;
-  } // if ... 
+  } // if ...
 
   if(name == features_.external_parameter)
   {
-    std::ostringstream os; 
+    std::ostringstream os;
     os << "Feature not supported " << string_adaptor::asStdString(name);
     throw SAX::SAXNotSupportedException(os.str());
   }
   else
   {
-    std::ostringstream os; 
+    std::ostringstream os;
     os << "Feature not recognized " << string_adaptor::asStdString(name);
     throw SAX::SAXNotRecognizedException(os.str());
   }
@@ -348,7 +348,7 @@ std::auto_ptr<typename libxml2_wrapper<string_type, T0, T1>::PropertyBaseT> libx
     return std::auto_ptr<PropertyBaseT>(prop);
   }
 
-  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptor::asStdString(name));    
+  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptor::asStdString(name));
 } // doGetProperty
 
 template<class string_type, class T0, class T1>
@@ -373,7 +373,7 @@ void libxml2_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name
     lexicalHandler_ = &(prop->get());
   }
 
-  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptor::asStdString(name));    
+  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptor::asStdString(name));
 } // doSetProperty
 
 template<class string_type, class T0, class T1>
@@ -390,7 +390,7 @@ void libxml2_wrapper<string_type, T0, T1>::reportError(const std::string& messag
 {
   if(!errorHandler_)
     return;
-  
+
   SAXParseExceptionT e(message, *this);
   if(fatal)
     errorHandler_->fatalError(e);
@@ -456,8 +456,8 @@ void libxml2_wrapper<string_type, T0, T1>::parse(inputSourceT& source)
 	while(!is.resolve()->eof())
  	{
 		char buffer[4096];
-    is.resolve()->read(buffer, sizeof(buffer));
-		xmlParseChunk(context_, buffer, is.resolve()->gcount(), is.resolve()->eof());
+		is.resolve()->read(buffer, sizeof(buffer));
+		xmlParseChunk(context_, buffer, (int)is.resolve()->gcount(), is.resolve()->eof());
 	} // while(!in.eof())
 
   xmlCtxtResetPush(context_, 0, 0, 0, 0);
@@ -555,19 +555,19 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
       string_type value = string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(*a1++));
 
       // declaration?
-      if(string_adaptor::find(attQName, nsc_.xmlns) == 0) 
+      if(string_adaptor::find(attQName, nsc_.xmlns) == 0)
       {
         string_type prefix;
         typename string_adaptor::size_type n = string_adaptor::find(attQName, nsc_.colon);
         if(n != string_adaptor::npos())
           prefix = string_adaptor::construct(string_adaptor::begin(attQName) + n + 1, string_adaptor::end(attQName));
-        if(!nsSupport_.declarePrefix(prefix, value)) 
+        if(!nsSupport_.declarePrefix(prefix, value))
           reportError(std::string("Illegal Namespace prefix ") + string_adaptor::asStdString(prefix));
         contentHandler_->startPrefixMapping(prefix, value);
         if(prefixes_)
-          attributes.addAttribute(emptyString_, 
-                                  emptyString_, 
-                                  attQName, 
+          attributes.addAttribute(emptyString_,
+                                  emptyString_,
+                                  attQName,
                                   attributeTypeT::CDATA,
                                   value);
       }
@@ -579,13 +579,13 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
       string_type value = string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
 
       // declaration?
-      if(string_adaptor::find(attQName, nsc_.xmlns) != 0) 
+      if(string_adaptor::find(attQName, nsc_.xmlns) != 0)
       {
         qualifiedNameT attName = processName(attQName, true);
-        attributes.addAttribute(attName.namespaceUri(), 
-                                attName.localName(), 
-                                attName.rawName(), 
-                                attributeTypeT::CDATA, 
+        attributes.addAttribute(attName.namespaceUri(),
+                                attName.localName(),
+                                attName.rawName(),
+                                attributeTypeT::CDATA,
                                 value);
       }
     } // while ...
@@ -593,9 +593,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName,
 
   // at last! report the event
   qualifiedNameT name = processName(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
-  contentHandler_->startElement(name.namespaceUri(), 
-				name.localName(), 
-				name.rawName(), 
+  contentHandler_->startElement(name.namespaceUri(),
+				name.localName(),
+				name.rawName(),
 				attributes);
 } // SAXstartElement
 
@@ -611,9 +611,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElementNoNS(const xmlChar* qN
       string_type attQName = string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
       string_type value = string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(*atts++));
 
-      attributes.addAttribute(emptyString_, 
-                              emptyString_, 
-                              attQName, 
+      attributes.addAttribute(emptyString_,
+                              emptyString_,
+                              attQName,
                               attributeTypeT::CDATA,
                               value);
     } // while ..
@@ -635,8 +635,8 @@ void libxml2_wrapper<string_type, T0, T1>::SAXendElement(const xmlChar* qName)
   } // if(!namespaces_)
 
   qualifiedNameT name = processName(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(qName)), false);
-  contentHandler_->endElement(name.namespaceUri(), 
-			      name.localName(), 
+  contentHandler_->endElement(name.namespaceUri(),
+			      name.localName(),
 			      name.rawName());
   typename NamespaceSupport<string_type, string_adaptor>::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
   for(size_t i = 0, end = prefixes.size(); i < end; ++i)
@@ -655,8 +655,8 @@ template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXnotationDecl(const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId)
 {
   if(dtdHandler_)
-    dtdHandler_->notationDecl(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(name)), 
-                              string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(publicId)), 
+    dtdHandler_->notationDecl(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(name)),
+                              string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(publicId)),
                               string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(systemId)));
 } // SAXnotationDecl
 
@@ -664,8 +664,8 @@ template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXunparsedEntityDecl(const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId, const xmlChar *notationName)
 {
   if(dtdHandler_)
-    dtdHandler_->unparsedEntityDecl(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(name)), 
-                                    string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(publicId)), 
+    dtdHandler_->unparsedEntityDecl(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(name)),
+                                    string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(publicId)),
                                     string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(systemId)),
                                     string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(notationName)));
 } // SAXunparsedEntityDecl
@@ -727,7 +727,7 @@ void libxml2_wrapper<string_type, T0, T1>::convertXML_Content(std::ostream& os, 
   if(model->c1 != 0)
   {
     if(!isChild)
-      os << '(';  
+      os << '(';
     convertXML_Content(os, XML_ELEMENT_TYPE_ELEMENT, model->c1, true);
     if(model->c2 != 0)
     {
@@ -736,7 +736,7 @@ void libxml2_wrapper<string_type, T0, T1>::convertXML_Content(std::ostream& os, 
     } // if ...
     if(!isChild)
       os << ')';
-  } // if ... 
+  } // if ...
 
   switch(model->ocur)
   {
@@ -800,10 +800,10 @@ void libxml2_wrapper<string_type, T0, T1>::SAXattributeDecl(const xmlChar *elem,
       break;
   } // switch(type)
 
-  declHandler_->attributeDecl(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(elem)), 
-                              string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(fullname)), 
-                              typeStr, 
-                              *defType, 
+  declHandler_->attributeDecl(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(elem)),
+                              string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(fullname)),
+                              typeStr,
+                              *defType,
                               string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(defaultValue)));
 } // SAXattributeDecl
 
@@ -850,8 +850,8 @@ template<class string_type, class T0, class T1>
 xmlParserInputPtr libxml2_wrapper<string_type, T0, T1>::SAXresolveEntity(const xmlChar* publicId, const xmlChar* systemId)
 {
   if(!entityResolver_)
-    return xmlLoadExternalEntity(reinterpret_cast<const char*>(systemId), 
-                                 reinterpret_cast<const char*>(publicId), 
+    return xmlLoadExternalEntity(reinterpret_cast<const char*>(systemId),
+                                 reinterpret_cast<const char*>(publicId),
                                  context_);
   return 0;
 } // SAXresolveEntity
