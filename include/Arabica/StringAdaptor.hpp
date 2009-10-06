@@ -23,13 +23,15 @@ public:
   typedef typename string_type::value_type value_type;
   typedef typename string_type::size_type size_type;
 
+  virtual ~default_string_adaptor_base() {}
+
   static size_type npos()
   {
     return static_cast<size_type>(-1);
   }
 
   //todo: is this safe?
-  template<class InputIterator> 
+  template<class InputIterator>
   static inline string_type construct(InputIterator from, InputIterator to)
   {
     return string_type(from, to);
@@ -60,7 +62,7 @@ public:
   static void append(string_type& str, const string_type& a) { str.append(a); }
   static void insert(string_type& str, size_type offset, const string_type& a) { str.insert(offset, a); }
   static void replace(string_type& str, size_type offset, size_type count, const string_type& a) { str.replace(offset, count, a); }
-  
+
   static const_iterator begin(const string_type& str) { return str.begin(); }
   static const_iterator end(const string_type& str) { return str.end(); }
 
@@ -94,7 +96,7 @@ public:
 
 // specialize for std::string and std::wstring
 template<>
-class default_string_adaptor<std::string> : 
+class default_string_adaptor<std::string> :
   public string_adaptor_tag,
   public default_string_adaptor_base<std::string>
 {
@@ -127,7 +129,7 @@ public:
     return n.str();
   }
 
-  static std::string construct_from_utf16(const wchar_t* str, int length) 
+  static std::string construct_from_utf16(const wchar_t* str, int length)
   {
     narrower_t n;
     n.imbue(utf8ucs2_locale());
@@ -137,7 +139,7 @@ public:
     return n.str();
   } // construct_from_utf16
 
-  static std::wstring asStdWString(const std::string& str) 
+  static std::wstring asStdWString(const std::string& str)
   {
     widener_t w;
     w.imbue(utf8ucs2_locale());
@@ -152,7 +154,7 @@ public:
 #ifndef ARABICA_NO_WCHAR_T
 
 template<>
-class default_string_adaptor<std::wstring> : 
+class default_string_adaptor<std::wstring> :
   public string_adaptor_tag,
   public default_string_adaptor_base<std::wstring>
 {
@@ -188,7 +190,7 @@ public:
   {
     return std::wstring(str, length);
   }
-  
+
   static std::string asStdString(const std::wstring& str)
   {
     narrower_t n;

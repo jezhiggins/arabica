@@ -4,7 +4,9 @@
 namespace Arabica
 {
 
-struct string_adaptor_tag { };
+struct string_adaptor_tag {
+  virtual ~string_adaptor_tag() {}
+};
 
 } // namespace Arabica
 
