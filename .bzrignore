@@ -36,3 +36,15 @@ vs9/mangle.sln
 *.lnk
 spec
 gmon.out
+examples/DOM/dom2pyx
+examples/DOM/domwriter
+examples/SAX/pyx
+examples/SAX/simple_handler
+examples/SAX/writer
+examples/SAX/xmlbase
+examples/Taggle/taggle
+examples/Utils/transcode
+examples/XPath/xgrep
+examples/XSLT/mangle
+m4/lt~obsolete.m4@
+

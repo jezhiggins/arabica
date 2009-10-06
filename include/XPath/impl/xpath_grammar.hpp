@@ -5,9 +5,18 @@
 #define BOOST_SPIRIT_THREADSAFE
 #endif
 
+#include <boost/version.hpp>
+
+#if BOOST_VERSION >= 103800
+#define BOOST_SPIRIT_USE_OLD_NAMESPACE 1
+#include <boost/spirit/include/classic_core.hpp>
+#include <boost/spirit/include/classic_chset.hpp>
+#include <boost/spirit/include/classic_symbols.hpp>
+#else
 #include <boost/spirit/core.hpp>
 #include <boost/spirit/symbols/symbols.hpp>
 #include <boost/spirit/utility/chset.hpp>
+#endif
 
 #include "xpath_ast_ids.hpp"
 
@@ -25,7 +34,7 @@ struct xpath_grammar_definition
   {
     using namespace boost::spirit;
 
-    // [1]  
+    // [1]
     LocationPath = AbsoluteLocationPath | RelativeLocationPath;
     // [2]
     AbsoluteLocationPath = AbbreviatedAbsoluteLocationPath
@@ -71,12 +80,12 @@ struct xpath_grammar_definition
 
     // [14], [15]
     Expr = OrExpr;
-    PrimaryExpr = discard_node_d[S] >> 
+    PrimaryExpr = discard_node_d[S] >>
                   (VariableReference
                     | Number
                     | FunctionCall
                     | discard_node_d[LeftBracket] >> S >> Expr >> S >> discard_node_d[RightBracket]
-                    | Literal) >> 
+                    | Literal) >>
                   discard_node_d[S];
 
     // [16], [17]
@@ -87,15 +96,15 @@ struct xpath_grammar_definition
     // UnionExpr ::= PathExpr	| UnionExpr '|' PathExpr
     UnionExpr = PathExpr >> *(UnionOperator >> PathExpr);
     /*
-      LocationPath	
-		| FilterExpr	
-		| FilterExpr '/' RelativeLocationPath	
+      LocationPath
+		| FilterExpr
+		| FilterExpr '/' RelativeLocationPath
 		| FilterExpr '//' RelativeLocationPath	*/
-    PathExpr = discard_node_d[S] >> 
-                (FilterExpr >> !((SlashSlash | Slash) >> RelativeLocationPath) 
-                | LocationPath) >> 
+    PathExpr = discard_node_d[S] >>
+                (FilterExpr >> !((SlashSlash | Slash) >> RelativeLocationPath)
+                | LocationPath) >>
                 discard_node_d[S];
-    // FilterExpr ::=  PrimaryExpr | FilterExpr Predicate 
+    // FilterExpr ::=  PrimaryExpr | FilterExpr Predicate
     FilterExpr = PrimaryExpr >> *Predicate;
 
     // [21], [22], [23], [24]
@@ -111,9 +120,9 @@ struct xpath_grammar_definition
 
     // [28] ExprToken not actually used
 
-    //[29], [30], [31], 
-    Literal	= discard_node_d[ch_p('\"')] >> token_node_d[*~ch_p('\"')] >> discard_node_d[ch_p('\"')] 
-            | discard_node_d[ch_p('\'')] >> token_node_d[*~ch_p('\'')] >> discard_node_d[ch_p('\'')];	
+    //[29], [30], [31],
+    Literal	= discard_node_d[ch_p('\"')] >> token_node_d[*~ch_p('\"')] >> discard_node_d[ch_p('\"')]
+            | discard_node_d[ch_p('\'')] >> token_node_d[*~ch_p('\'')] >> discard_node_d[ch_p('\'')];
     Number = token_node_d[ch_p('.') >> Digits | Digits >> !('.' >> *Digits)];
     Digits = token_node_d[+digit_p];
     // [32] Operator not actually used
@@ -123,7 +132,7 @@ struct xpath_grammar_definition
     FunctionName = QName - NodeType;
     VariableReference	=	ch_p('$') >> QName;
     NameTest = AnyName
-			        | NCName >> discard_node_d[ch_p(':')] >> AnyName	
+			        | NCName >> discard_node_d[ch_p(':')] >> AnyName
 			        | QName;
     NodeType = Comment
 			          | Text
@@ -161,7 +170,7 @@ struct xpath_grammar_definition
     ProcessingInstruction = str_p("processing-instruction");
     Node = str_p("node");
     AnyName = ch_p('*');
-    
+
     SelfSelect = ch_p('.');
     ParentSelect = str_p("..");
 
@@ -197,7 +206,7 @@ struct xpath_grammar_definition
   boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AxisName_id> > AxisName;
 	boost::spirit::rule<ScannerT, boost::spirit::parser_tag<NodeType_id> > NodeType;
 
-  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LocationPath_id> > LocationPath; 
+  boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LocationPath_id> > LocationPath;
   boost::spirit::rule<ScannerT, boost::spirit::parser_tag<AbsoluteLocationPath_id> > AbsoluteLocationPath;
   boost::spirit::rule<ScannerT, boost::spirit::parser_tag<RelativeLocationPath_id> > RelativeLocationPath;
 
@@ -305,7 +314,7 @@ struct xpath_grammar : public boost::spirit::grammar<xpath_grammar>
     start() const
     {
       return xpath_grammar_definition<ScannerT>::LocationPath;
-    } // start 
+    } // start
   }; // definition<ScannerT>
 }; // xpath_grammar
 
@@ -322,7 +331,7 @@ struct xpath_grammar_expr : public boost::spirit::grammar<xpath_grammar_expr>
     start() const
     {
       return xpath_grammar_definition<ScannerT>::Expr;
-    } // start 
+    } // start
   }; // definition<ScannerT>
 }; // xpath_grammar_expr
 
@@ -336,27 +345,27 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
       using namespace boost::spirit;
       typedef xpath_grammar_definition<ScannerT> base;
 
-      // [1] Pattern ::= LocationPathPattern | Pattern '|' LocationPathPattern 	
+      // [1] Pattern ::= LocationPathPattern | Pattern '|' LocationPathPattern
       Pattern = discard_node_d[base::S] >> LocationPathPattern >> discard_node_d[base::S] >> *(base::UnionOperator >> discard_node_d[base::S] >> LocationPathPattern >> discard_node_d[base::S]);
 
-      // [2] LocationPathPattern ::= '/' RelativePathPattern? 	
-		  //                       | IdKeyPattern (('/' | '//') RelativePathPattern)? 	
-		  //                       | '//'? RelativePathPattern 	
+      // [2] LocationPathPattern ::= '/' RelativePathPattern?
+		  //                       | IdKeyPattern (('/' | '//') RelativePathPattern)?
+		  //                       | '//'? RelativePathPattern
       LocationPathPattern = IdKeyPattern >> !((base::SlashSlash | base::Slash) >> RelativePathPattern) |
                             !base::SlashSlash >> RelativePathPattern |
                             base::Slash >> !RelativePathPattern;
-                            
 
-      // [3] IdKeyPattern ::= 'id' '(' Literal ')' | 'key' '(' Literal ',' Literal ')' 	
+
+      // [3] IdKeyPattern ::= 'id' '(' Literal ')' | 'key' '(' Literal ',' Literal ')'
       IdKeyPattern = (str_p("id") >> base::LeftBracket >> discard_node_d[base::S] >> base::Literal >> discard_node_d[base::S] >> base::RightBracket) |
                      (str_p("key") >> base::LeftBracket >> discard_node_d[base::S] >> base::Literal >> discard_node_d[base::S] >> discard_node_d[ch_p(',')] >>discard_node_d[base::S] >>  base::Literal >> discard_node_d[base::S] >> base::RightBracket);
 
-      // [4] RelativePathPattern ::= StepPattern 	
-	    //                            | RelativePathPattern '/' StepPattern 	
+      // [4] RelativePathPattern ::= StepPattern
+	    //                            | RelativePathPattern '/' StepPattern
 	    //                            | RelativePathPattern '//' StepPattern
       RelativePathPattern = StepPattern >> *((base::SlashSlash | base::Slash) >> StepPattern);
 
-      // [5] StepPattern ::= ChildOrAttributeAxisSpecifier NodeTest Predicate* 	
+      // [5] StepPattern ::= ChildOrAttributeAxisSpecifier NodeTest Predicate*
       StepPattern = ChildOrAttributeAxisSpecifier >> (NodeMatchPattern|base::NodeTest) >> *base::Predicate;
 
       // [6] ChildOrAttributeAxisSpecifier ::= AbbreviatedAxisSpecifier | ('child' | 'attribute') '::'
@@ -369,8 +378,8 @@ struct xpath_grammar_match : public boost::spirit::grammar<xpath_grammar_match>
     start() const
     {
       return Pattern;
-    } // start 
-  
+    } // start
+
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<Pattern_id> > Pattern;
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<LocationPathPattern_id> > LocationPathPattern;
     boost::spirit::rule<ScannerT, boost::spirit::parser_tag<IdKeyPattern_id> > IdKeyPattern;
@@ -391,14 +400,14 @@ struct xpath_grammar_attribute_value : public boost::spirit::grammar<xpath_gramm
       using namespace boost::spirit;
       typedef xpath_grammar_definition<ScannerT> base;
 
-      AttributeValueTemplate = (DoubleLeftCurly | DoubleRightCurly | EmbeddedExpr | AttrLiteral) >> 
+      AttributeValueTemplate = (DoubleLeftCurly | DoubleRightCurly | EmbeddedExpr | AttrLiteral) >>
                                *(DoubleLeftCurly | DoubleRightCurly | EmbeddedExpr | AttrLiteral);
       DoubleLeftCurly = str_p("{{");
       DoubleRightCurly = str_p("}}");
       LeftCurly = ch_p('{');
       RightCurly = ch_p('}');
       EmbeddedExpr = LeftCurly >> base::Expr >> RightCurly;
-      chset<> brackets("{}"); 
+      chset<> brackets("{}");
       AttrLiteral = token_node_d[~brackets >> *~brackets];
     } // definition
 

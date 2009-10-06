@@ -1,8 +1,17 @@
 #ifndef ARABICA_XPATHIC_XPATH_AST_HPP
 #define ARABICA_XPATHIC_XPATH_AST_HPP
 
+
+#include <boost/version.hpp>
+
+#if BOOST_VERSION >= 103800
+#define BOOST_SPIRIT_USE_OLD_NAMESPACE 1
+#include <boost/spirit/include/classic_core.hpp>
+#include <boost/spirit/include/classic_ast.hpp>
+#else
 #include <boost/spirit/core.hpp>
 #include <boost/spirit/tree/ast.hpp>
+#endif
 
 #include "xpath_ast_ids.hpp"
 
