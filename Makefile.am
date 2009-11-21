@@ -5,22 +5,22 @@ SUBDIRS= src examples tests
 
 install-data-local:
 	@echo "------------------------------------------------------------"
-	@echo "Installing include files to $(includedir)"
+	@echo "Installing include files to $(pkgincludedir)"
 	@echo "------------------------------------------------------------"
 	for inc in `cd $(srcdir)/include && find . -type f -print | grep -v \.svn`; \
-	  do mkdir -p "`dirname \"$(includedir)/$$inc\"`"; $(INSTALL_HEADER) "$(srcdir)/include/$$inc" "$(includedir)/$$inc"; \
+	  do mkdir -p "`dirname \"$(pkgincludedir)/$$inc\"`"; $(INSTALL_HEADER) "$(srcdir)/include/$$inc" "$(pkgincludedir)/$$inc"; \
 	done 
-	$(INSTALL_HEADER) "$(top_builddir)/include/SAX/ArabicaConfig.hpp" "$(includedir)/SAX"
+	$(INSTALL_HEADER) "$(top_builddir)/include/SAX/ArabicaConfig.hpp" "$(pkgincludedir)/SAX"
 
 uninstall-local:
 	@echo "------------------------------------------------------------"
-	@echo "Removing include files from $(includedir)"
+	@echo "Removing include files from $(pkgincludedir)"
 	@echo "------------------------------------------------------------"
 	for inc in `cd $(srcdir)/include && find . -type f -print | grep -v \.svn`; \
-	  do rm -rf "$(includedir)/$$inc"; \
+	  do rm -rf "$(pkgincludedir)/$$inc"; \
 	done 
 	for dir in `cd $(srcdir)/include && find . -type d -print | grep -v \.svn`; \
-	  do rm -rf "$(includedir)/$$dir"; \
+	  do rm -rf "$(pkgincludedir)/$$dir"; \
 	done 
 
 DIST_SUBDIRS= src examples tests
