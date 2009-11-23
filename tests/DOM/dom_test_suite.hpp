@@ -18,6 +18,7 @@
 #include "test_CharacterData.hpp"
 #include "test_SAX2DOM.hpp"
 #include "test_TreeWalker.hpp"
+#include "test_NamedNodeMap.hpp"
 
 template<class string_type, class string_adaptor>
 bool DOM_test_suite(int argc, const char** argv)
@@ -36,6 +37,7 @@ bool DOM_test_suite(int argc, const char** argv)
   runner.addTest("CharacterDataText", CharacterDataTest_suite<string_type, string_adaptor >());
   runner.addTest("DocumentFragmentTest", DocumentFragmentTest_suite<string_type, string_adaptor >());
   runner.addTest("SAX2DOMTest", SAX2DOMTest_suite<string_type, string_adaptor>());
+  runner.addTest("NamedNodeMapTest", NamedNodeMapTest_suite<string_type, string_adaptor>());
   runner.addTest("TreeWalkerTest", TreeWalkerTest_suite<string_type, string_adaptor>());
   
   return runner.run(argc, argv);

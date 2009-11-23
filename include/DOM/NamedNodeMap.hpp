@@ -58,7 +58,7 @@ class NamedNodeMap
 
     NodeT removeNamedItemNS(const stringT& namespaceURI, const stringT& localName) const 
     { 
-      return NodeT(impl_->removeNamedItem(namespaceURI, localName)); 
+      return NodeT(impl_->removeNamedItemNS(namespaceURI, localName)); 
     } // removeNamedItemNS
 
   private:
