@@ -12,7 +12,7 @@ namespace XSLT
 {
 
 class Variable_instance;
-typedef boost::shared_ptr<Variable_instance> Variable_instance_ptr;
+typedef Variable_instance* Variable_instance_ptr;
 typedef std::map<std::string, Variable_instance_ptr> Scope;
 
 class Variable_instance

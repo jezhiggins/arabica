@@ -1,3 +1,12 @@
+Introduce GlobalVariable and GlobalParam.
+Rename Variable_instance to DeclaredVariable.
+Get rid of Variable_declaration.  Variables should implement Variable_instance.  
+Normal variables don't bother with injectGlobalScope,  GlobalVariables do.
+Variables become their own closures.  Forget all the ref counting nonsense, it is not necessary.
+Normal variables resolve immediately and push themselves on the stack.
+GlobalVariables resolve on demand. 
+
+====================================================
 Elements test suite
 Errors test suite
 
