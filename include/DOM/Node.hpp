@@ -143,6 +143,7 @@ class Node : public Node_base
 
     typedef class Document<stringT, string_adaptorT> DocumentT;
     friend class Document<stringT, string_adaptorT>;
+    friend class NamedNodeMap<stringT, string_adaptorT>;
     typedef class Events::EventTarget<stringT, string_adaptorT> EventTargetT;
     friend class Events::EventTarget<stringT, string_adaptorT>;
 }; // class Node

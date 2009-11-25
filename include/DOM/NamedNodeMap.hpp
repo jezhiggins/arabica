@@ -41,7 +41,7 @@ class NamedNodeMap
 
     NodeT getNamedItem(const stringT& name) const { return NodeT(impl_->getNamedItem(name)); }
 
-    NodeT setNamedItem(const NodeT& arg) { return NodeT(impl_->setNamedItem(arg)); }
+    NodeT setNamedItem(const NodeT& arg) { return NodeT(impl_->setNamedItem(*arg.impl_)); }
 
     NodeT removeNamedItem(const stringT& name) const { return NodeT(impl_->removeNamedItem(name)); }
 
@@ -54,7 +54,7 @@ class NamedNodeMap
       return NodeT(impl_->getNamedItemNS(namespaceURI, localName)); 
     } // getNamedItemNS
 
-    NodeT setNamedItemNS(const NodeT& arg) { return NodeT(impl_->setNamedItemNS(arg)); }
+    NodeT setNamedItemNS(const NodeT& arg) { return NodeT(impl_->setNamedItemNS(*arg.impl_)); }
 
     NodeT removeNamedItemNS(const stringT& namespaceURI, const stringT& localName) const 
     { 
