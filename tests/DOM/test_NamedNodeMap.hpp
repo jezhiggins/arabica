@@ -14,6 +14,7 @@ class NamedNodeMapTest : public TestCase
   typedef string_adaptor SA;
 
   typedef Arabica::DOM::Element<string_type, string_adaptor> Element;
+  typedef Arabica::DOM::Node<string_type, string_adaptor> Node;
   typedef Arabica::DOM::NamedNodeMap<string_type, string_adaptor> NamedNodeMap;
 
   public: 
@@ -80,8 +81,10 @@ class NamedNodeMapTest : public TestCase
       Element d = parse("<root a='one'/>").getDocumentElement();
       NamedNodeMap nm = d.getAttributes();
       assertEquals(1, nm.getLength());
-      nm.removeNamedItem(s("a"));
+      Node a = nm.removeNamedItem(s("a"));
       assertEquals(0, nm.getLength());
+      nm.setNamedItem(a);
+      assertEquals(1, nm.getLength());
     } // test4
 
     void test5()
@@ -89,8 +92,10 @@ class NamedNodeMapTest : public TestCase
       Element d = parse("<root xmlns:a='urn:a' a:a='one'/>").getDocumentElement();
       NamedNodeMap nm = d.getAttributes();
       assertEquals(2, nm.getLength());
-      nm.removeNamedItemNS(s("urn:a"), s("a"));
+      Node a = nm.removeNamedItemNS(s("urn:a"), s("a"));
       assertEquals(1, nm.getLength());
+      nm.setNamedItemNS(a);
+      assertEquals(2, nm.getLength());
     } // test5
 
 };
