@@ -1338,6 +1338,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="taggle"
+				>
+				<File
+					RelativePath="..\src\taggle\Schema.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
