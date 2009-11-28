@@ -29,7 +29,7 @@ class CommentImpl : public DOM::Comment_impl<stringT, string_adaptorT>,
       return DOM::Node_base::COMMENT_NODE;
     } // getNodeType
 
-    virtual DOM::Node_impl<stringT, string_adaptorT>* cloneNode(bool deep) const
+    virtual DOM::Node_impl<stringT, string_adaptorT>* cloneNode(bool /*deep*/) const
     {
       return CharDataT::ownerDoc_->createComment(CharDataT::getData());
     } // cloneNode

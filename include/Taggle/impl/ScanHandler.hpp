@@ -17,6 +17,8 @@ namespace SAX
 class ScanHandler
 {
 public:
+  virtual ~ScanHandler() {}
+
 	/**
 	Reports an attribute name without a value.
 	**/

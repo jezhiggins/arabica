@@ -61,7 +61,7 @@ class ProcessingInstructionImpl : public DOM::ProcessingInstruction_impl<stringT
       data_ = nodeValue;
     } // setNodeValue
 
-    virtual DOMNode_implT* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool /*deep*/) const
     {
       return NodeT::ownerDoc_->createProcessingInstruction(target_, data_);
     } // cloneNode

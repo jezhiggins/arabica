@@ -905,10 +905,10 @@ void expat_wrapper<string_type, T0, T1>::attListDeclaration(const XML_Char* elna
 
 template<class string_type, class T0, class T1>
 void expat_wrapper<string_type, T0, T1>::entityDeclaration(const XML_Char* entityName,
-                           int is_parameter_entity,
+                           int /*is_parameter_entity*/,
                            const XML_Char* value,
                            int value_length,
-                           const XML_Char* base,
+                           const XML_Char* /*base*/,
                            const XML_Char* systemId,
                            const XML_Char* publicId,
                            const XML_Char* notationName)
@@ -951,7 +951,7 @@ void expat_wrapper<string_type, T0, T1>::entityDeclaration(const XML_Char* entit
 
 template<class string_type, class T0, class T1>
 void expat_wrapper<string_type, T0, T1>::notationDeclaration(const XML_Char* notationName,
-                             const XML_Char* base,
+                             const XML_Char* /*base*/,
                              const XML_Char* systemId,
                              const XML_Char* publicId)
 {  
@@ -966,7 +966,7 @@ template<class string_type, class T0, class T1>
 void expat_wrapper<string_type, T0, T1>::startDoctypeDecl(const XML_Char *doctypeName,
                           const XML_Char *systemId,
                           const XML_Char *publicId,
-                          int has_internal_subset)
+                          int /*has_internal_subset*/)
 {
   if(!lexicalHandler_)
     return;
@@ -1012,7 +1012,7 @@ void expat_wrapper<string_type, T0, T1>::commentHandler(const XML_Char *data)
 template<class string_type, class T0, class T1>
 int expat_wrapper<string_type, T0, T1>::externalEntityRefHandler(XML_Parser parser, 
                                                                       const XML_Char* context,
-                                                                      const XML_Char* base,
+                                                                      const XML_Char* /*base*/,
                                                                       const XML_Char* systemId,
                                                                       const XML_Char* publicId)
 {

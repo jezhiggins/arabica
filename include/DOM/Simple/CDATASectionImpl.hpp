@@ -46,7 +46,7 @@ class CDATASectionImpl : public DOM::CDATASection_impl<stringT, string_adaptorT>
       return DOM::Node_base::CDATA_SECTION_NODE;
     } // getNodeType
 
-    virtual DOMNode_implT* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool /*deep*/) const
     {
       return CharacterDataImplT::ownerDoc_->createCDATASection(CharacterDataImplT::getData());
     } // cloneNode

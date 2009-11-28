@@ -48,7 +48,7 @@ class NotationImpl : public DOM::Notation_impl<stringT, string_adaptorT>,
       return name_;
     } // getNodeName
 
-    virtual DOMNode_implT* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool /*deep*/) const
     {
       NotationImpl* clone = new NotationImpl(NodeWithChildrenT::ownerDoc_, name_, publicId_, systemId_);
       NodeWithChildrenT::ownerDoc_->orphaned(clone);
@@ -59,7 +59,7 @@ class NotationImpl : public DOM::Notation_impl<stringT, string_adaptorT>,
 
   protected:
     ///////////////////////////////////////////////
-    virtual void checkChildType(DOMNode_implT* child)
+    virtual void checkChildType(DOMNode_implT* /*child*/)
     {
       throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR);
     } // checkChildType

@@ -104,7 +104,7 @@ class DocumentTypeImpl : public DOM::DocumentType_impl<stringT, string_adaptorT>
       return qualifiedName_;
     } // getNodeName
 
-    DOMNode_implT* cloneNode(bool deep) const 
+    DOMNode_implT* cloneNode(bool /*deep*/) const
     { 
       DocumentTypeImpl* clone = new DocumentTypeImpl(qualifiedName_, publicId_, systemId_);
       return clone;

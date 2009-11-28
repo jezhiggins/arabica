@@ -19,6 +19,8 @@ class ScanHandler;
 class Scanner 
 {
 public:
+  virtual ~Scanner() {}
+
 	/**
   Invoke a scanner.
 	@param r A source of characters to scan

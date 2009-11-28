@@ -75,7 +75,7 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
     virtual DOMNode_implT* getPreviousSibling() const { return 0; }
     virtual DOMNode_implT* getNextSibling() const { return 0; }
 
-    virtual DOMNode_implT* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool /*deep*/) const
     {
       AttrImpl* a = dynamic_cast<AttrImpl*>(NodeT::ownerDoc_->createAttribute(*name_));
       cloneChildren(a);

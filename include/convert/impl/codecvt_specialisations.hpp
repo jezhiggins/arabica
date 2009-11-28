@@ -96,7 +96,7 @@ protected:
 
   virtual codecvt_base::result do_unshift(std::mbstate_t&,
                                           wchar_t* to,
-                                          wchar_t* to_limit,
+                                          wchar_t* /*to_limit*/,
                                           wchar_t*& to_next) const
   {
     to_next = to;
