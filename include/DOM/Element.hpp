@@ -55,7 +55,7 @@ class Element : public Node<stringT, string_adaptorT>
     void removeAttributeNS(const stringT& namespaceURI, const stringT& localName) { return eImpl()->removeAttributeNS(namespaceURI, localName); }
 
     AttrT getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const { return AttrT(eImpl()->getAttributeNodeNS(namespaceURI, localName)); }
-    AttrT setAttributeNodeNS(const AttrT& newAttr) { return AttrT(eImpl()->getAttributeNodeNS(newAttr)); } 
+    AttrT setAttributeNodeNS(const AttrT& newAttr) { return AttrT(eImpl()->setAttributeNodeNS(newAttr.attrImpl())); } 
 
     NodeListT getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const { return NodeListT(eImpl()->getElementsByTagNameNS(namespaceURI, localName)); }
 
