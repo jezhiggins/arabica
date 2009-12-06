@@ -47,7 +47,7 @@ class TextImpl : public DOM::Text_impl<stringT, string_adaptorT>,
       return DOM::Node_base::TEXT_NODE;
     } // getNodeType
 
-    virtual DOMNode_implT* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool /*deep*/) const
     {
       return CharacterDataT::ownerDoc_->createTextNode(CharacterDataT::getData());
     } // cloneNode

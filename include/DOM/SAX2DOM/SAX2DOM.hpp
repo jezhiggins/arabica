@@ -192,7 +192,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
       currentNode_ = 0;
     } // endDocument
 
-    virtual void startElement(const stringT& namespaceURI, const stringT& localName,
+    virtual void startElement(const stringT& namespaceURI, const stringT& /*localName*/,
                               const stringT& qName, const AttributesT& atts)
     {
       if(currentNode_ == 0)
@@ -226,8 +226,8 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
       } // catch
     } // startElement
 
-    virtual void endElement(const stringT& namespaceURI, const stringT& localName,
-                            const stringT& qName)
+    virtual void endElement(const stringT& /*namespaceURI*/, const stringT& /*localName*/,
+                            const stringT& /*qName*/)
     {
       if(currentNode_ == 0)
         return;
@@ -341,7 +341,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
 
     //////////////////////////////////////////////////////////////////////
     // DeclHandler
-    virtual void elementDecl(const stringT& name, const stringT& model)
+    virtual void elementDecl(const stringT& name, const stringT& /*model*/)
     {
       if(!documentType_)
         return;
@@ -351,7 +351,7 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
     virtual void attributeDecl(const stringT& elementName,
                                const stringT& attributeName,
                                const stringT& type,
-                               const stringT& valueDefault,
+                               const stringT& /*valueDefault*/,
                                const stringT& value)
     {
       if(!documentType_)

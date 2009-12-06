@@ -37,12 +37,12 @@ class EntityReferenceImpl : public DOM::EntityReference_impl<stringT, string_ada
       return name_;
     } // getNodeName
 
-    virtual void setNodeValue(const stringT& x)
+    virtual void setNodeValue(const stringT& /*x*/)
     {
       throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR);
     } // setNodeValue
 
-    virtual DOMNode_implT* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool /*deep*/) const
     {
       return NodeT::ownerDoc_->createEntityReference(name_);
     } // cloneNode

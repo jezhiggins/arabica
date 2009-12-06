@@ -66,13 +66,13 @@ private:
 	*/
 	ElementType(const std::string& name, int model, int memberOf, int flags, Schema& schema) :
     name_(name),
+    namespace_(),
+    localName_(),
     model_(model),
     memberOf_(memberOf),
     flags_(flags),
-    schema_(&schema),
-    namespace_(),
-    localName_(),
-    parent_(0)
+    parent_(0),
+    schema_(&schema)
   {
     namespace_ = namespaceName(name, false);
     localName_ = localName(name);
@@ -80,13 +80,13 @@ private:
 
 	ElementType(const ElementType& rhs) :
     name_(rhs.name_),
+    namespace_(rhs.namespace_),
+    localName_(rhs.localName_),
     model_(rhs.model_),
     memberOf_(rhs.memberOf_),
     flags_(rhs.flags_),
-    schema_(rhs.schema_),
-    namespace_(rhs.namespace_),
-    localName_(rhs.localName_),
-    parent_(rhs.parent_)
+    parent_(rhs.parent_),
+    schema_(rhs.schema_)
   {
   } // ElementType
 

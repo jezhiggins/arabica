@@ -411,9 +411,9 @@ public:
    * @see #endDTD
    * @see #startEntity
    */
-  virtual void startDTD(const string_type& name,
-                        const string_type& publicId,
-                        const string_type& systemId) { } 
+  virtual void startDTD(const string_type& /*name*/,
+                        const string_type& /*publicId*/,
+                        const string_type& /*systemId*/) { } 
 
   /**
    * Report the end of DTD declarations.
@@ -474,14 +474,14 @@ public:
    * @see DeclHandler#internalEntityDecl
    * @see DeclHandler#externalEntityDecl 
    */
-  virtual void startEntity(const string_type& name) { }
+  virtual void startEntity(const string_type& /*name*/) { }
   /**
    * Report the end of an entity.
    *
    * @param name The name of the entity that is ending.
    * @see #startEntity
    */
-  virtual void endEntity(const string_type& name) { }
+  virtual void endEntity(const string_type& /*name*/) { }
 
   /**
    * Report the start of a CDATA section.
@@ -512,7 +512,7 @@ public:
    *
    * @param text A string holding the comment.
    */
-  virtual void comment(const string_type& text) { }
+  virtual void comment(const string_type& /*text*/) { }
 
   ////////////////////////////////////////////////////////////
   // DeclHandler
@@ -531,7 +531,7 @@ public:
    * @param name The element type name.
    * @param model The content model as a normalized string.
    */
-  virtual void elementDecl(const string_type& name, const string_type& model) { }
+  virtual void elementDecl(const string_type& /*name*/, const string_type& /*model*/) { }
   /**
    * Report an attribute type declaration.
    *
@@ -555,11 +555,11 @@ public:
    * @param value A string representing the attribute's default value,
    *        or empty string if there is none.
    */
-  virtual void attributeDecl(const string_type& elementName,
-                             const string_type& attributeName,
-                             const string_type& type,
-                             const string_type& valueDefault,
-                             const string_type& value) { }
+  virtual void attributeDecl(const string_type& /*elementName*/,
+                             const string_type& /*attributeName*/,
+                             const string_type& /*type*/,
+                             const string_type& /*valueDefault*/,
+                             const string_type& /*value*/) { }
   /**
    * Report an internal entity declaration.
    *
@@ -573,7 +573,7 @@ public:
    * @see #externalEntityDecl
    * @see DTDHandler#unparsedEntityDecl
    */
-  virtual void internalEntityDecl(const string_type& name, const string_type& value) { }
+  virtual void internalEntityDecl(const string_type& /*name*/, const string_type& /*value*/) { }
   /**
    * Report a parsed external entity declaration.
    *
@@ -588,9 +588,9 @@ public:
    * @see #internalEntityDecl
    * @see DTDHandler#unparsedEntityDecl
    */
-  virtual void externalEntityDecl(const string_type& name, 
-                                  const string_type& publicId,
-                                  const string_type& systemId) { }
+  virtual void externalEntityDecl(const string_type& /*name*/,
+                                  const string_type& /*publicId*/,
+                                  const string_type& /*systemId*/) { }
 private:
   DefaultHandler(const DefaultHandler&);
   DefaultHandler& operator=(const DefaultHandler&);

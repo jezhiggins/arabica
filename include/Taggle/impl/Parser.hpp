@@ -281,20 +281,11 @@ public:
     dtdHandler_(0),
     errorHandler_(0),
     entityResolver_(0),
-    features_(initialFeatures()),
     schema_(0),
     ownSchema_(false),
     scanner_(0),
     ownScanner_(false),
-    namespaces(DEFAULT_NAMESPACES),
-    ignoreBogons(DEFAULT_IGNORE_BOGONS),
-    bogonsEmpty(DEFAULT_BOGONS_EMPTY),
-    rootBogons(DEFAULT_ROOT_BOGONS),
-    defaultAttributes(DEFAULT_DEFAULT_ATTRIBUTES),
-    translateColons(DEFAULT_TRANSLATE_COLONS),
-    restartElements(DEFAULT_RESTART_ELEMENTS),
-    ignorableWhitespace(DEFAULT_IGNORABLE_WHITESPACE),
-    CDATAElements(DEFAULT_CDATA_ELEMENTS),
+    features_(initialFeatures()),
     newElement_(Element::Null),
     attributeName_(),
     doctypeIsPresent_(false),
@@ -306,6 +297,15 @@ public:
     saved_(Element::Null),
     pcdata_(Element::Null),
     entity_(0),
+    namespaces(DEFAULT_NAMESPACES),
+    ignoreBogons(DEFAULT_IGNORE_BOGONS),
+    bogonsEmpty(DEFAULT_BOGONS_EMPTY),
+    rootBogons(DEFAULT_ROOT_BOGONS),
+    defaultAttributes(DEFAULT_DEFAULT_ATTRIBUTES),
+    translateColons(DEFAULT_TRANSLATE_COLONS),
+    restartElements(DEFAULT_RESTART_ELEMENTS),
+    ignorableWhitespace(DEFAULT_IGNORABLE_WHITESPACE),
+    CDATAElements(DEFAULT_CDATA_ELEMENTS),
     virginStack(true)
   {
     contentHandler_ = this;
@@ -397,12 +397,12 @@ public:
   } // setFeature
 
   typedef typename XMLReaderInterface<string_type, string_adaptor_type>::PropertyBase PropertyBaseT;
-  virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& name)
+  virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& /*name*/)
   {
     return std::auto_ptr<PropertyBaseT>(0);
   } // doGetProperty
 
-  virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value)
+  virtual void doSetProperty(const string_type& /*name*/, std::auto_ptr<PropertyBaseT> /*value*/)
   {
   } // doSetProperty
 
@@ -519,7 +519,7 @@ public:
     return (errorHandler_ == this) ? 0 : errorHandler_;
   } // getErrorHandler
 
-  virtual void setDeclHandler(DeclHandlerT& handler)
+  virtual void setDeclHandler(DeclHandlerT& /*handler*/)
   {
   } // setDeclHandler
 
@@ -601,7 +601,7 @@ private:
 
   ///////////////////////////////////////////////////////
   // ScanHandler implementation
-  virtual void adup(const std::string& buff) 
+  virtual void adup(const std::string& /*buff*/)
   {
     // std::cerr << "adup(\"" << buff.substr(offset, length) << "\", " << offset << ", " << length << ")" << std::endl;
     if(newElement_ == Element::Null || attributeName_ == "") 
@@ -641,7 +641,7 @@ private:
     {
       char ch = *i;
       dst.push_back(ch);
-      if(ch == '&' && refStart == -1) 
+      if(ch == '&' && refStart == std::string::npos)
       {
         // start of a ref excluding &
         refStart = dst.length();
@@ -705,7 +705,7 @@ private:
     return schema_->getEntity(buff);
   } // lookupEntity
 
-  virtual void eof(const std::string& buff) 
+  virtual void eof(const std::string& /*buff*/) 
   {
     if(virginStack) 
       rectify(pcdata_);
@@ -1032,8 +1032,7 @@ private:
       {
         if(Arabica::XML::is_space(c)) 
         {
-          if(s >= 0) 
-            splits.push_back(v.substr(s, e));
+          splits.push_back(v.substr(s, e));
 				  s = std::string::npos;
 				}
         else if(s == std::string::npos && c != ' ') 

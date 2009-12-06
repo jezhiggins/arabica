@@ -422,7 +422,7 @@ public:
 			              const string_type& type, 
                     const string_type& value)
   {
-	  if(index >= 0 && index < attributes_.size()) 
+	  if(index < attributes_.size()) 
     {
       Attr& a = attributes_[index];
 	    a.uri_ = uri;
@@ -445,7 +445,7 @@ public:
    */
   void removeAttribute(unsigned int index)
   {
-	  if(index >= 0 && index < attributes_.size()) 
+	  if(index < attributes_.size()) 
       attributes_.erase(attributes_.begin() + index);
     else 
 	    badIndex(index);

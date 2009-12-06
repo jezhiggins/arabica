@@ -67,7 +67,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
     virtual const stringT& getNodeName() const = 0;
 
     virtual const stringT& getNodeValue() const { return ownerDoc_->empty_string(); }
-    virtual void setNodeValue(const stringT& nodeValue) { throwIfReadOnly(); }
+    virtual void setNodeValue(const stringT& /*nodeValue*/) { throwIfReadOnly(); }
 
     virtual DOM::Node_base::Type getNodeType() const = 0;
     
@@ -129,14 +129,14 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
           attrs->item(i)->normalize();
     } // normalize
 
-    virtual bool isSupported(const stringT& feature, const stringT& version) const
+    virtual bool isSupported(const stringT& /*feature*/, const stringT& /*version*/) const
     {
       return false;
     } // isSupported
 
     virtual const stringT& getNamespaceURI() const { return ownerDoc_->empty_string(); }
     virtual const stringT& getPrefix() const { return ownerDoc_->empty_string(); }
-    virtual void setPrefix(const stringT& prefix) { }
+    virtual void setPrefix(const stringT& /*prefix*/) { }
     virtual const stringT& getLocalName() const { return ownerDoc_->empty_string(); }
 
     // additional methods - since C++ std::string (and by implication
@@ -188,8 +188,9 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
 
     bool getReadOnly() const { return readOnly_; }
 
-    virtual void setReadOnly(bool readOnly)
+    virtual void setReadOnly(bool /*readOnly*/)
     {
+      // Should be readOnly_ = readOnly; ?
       readOnly_ = true;
       for(NodeImplT*child = getFirst(); child != 0; child = child->getNext())
         child->setReadOnly(readOnly_);
@@ -229,27 +230,27 @@ class ChildlessNodeImpl : public NodeImpl<stringT, string_adaptorT>
     virtual DOMNode_implT* getFirstChild() const { return 0; }
     virtual DOMNode_implT* getLastChild() const { return 0; }
 
-    virtual DOMNode_implT* insertBefore(DOMNode_implT*newChild, DOMNode_implT*refChild)
+    virtual DOMNode_implT* insertBefore(DOMNode_implT* /*newChild*/, DOMNode_implT* /*refChild*/)
     {
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // insertBefore
 
-    virtual DOMNode_implT* replaceChild(DOMNode_implT*newChild, DOMNode_implT*oldChild)
+    virtual DOMNode_implT* replaceChild(DOMNode_implT* /*newChild*/, DOMNode_implT* /*oldChild*/)
     {
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // insertBefore
 
-    virtual DOMNode_implT* removeChild(DOMNode_implT*oldChild)
+    virtual DOMNode_implT* removeChild(DOMNode_implT* /*oldChild*/)
     {
       throw DOM::DOMException(DOM::DOMException::NOT_FOUND_ERR);
     } // removeChild
 
-    virtual DOMNode_implT* appendChild(DOMNode_implT*newChild)
+    virtual DOMNode_implT* appendChild(DOMNode_implT* /*newChild*/)
     {
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // appendChild
 
-    virtual void purgeChild(DOMNode_implT* oldChild)
+    virtual void purgeChild(DOMNode_implT* /*oldChild*/)
     {
       throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // purgeChild

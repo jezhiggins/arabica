@@ -57,7 +57,7 @@ class AttrNSImpl : public AttrImpl<stringT, string_adaptorT>
 
     ///////////////////////////////////////////////////////
     // DOM::Node methods
-    virtual DOMNode_implT* cloneNode(bool deep) const
+    virtual DOMNode_implT* cloneNode(bool /*deep*/) const
     {
       AttrNSImpl* clone = dynamic_cast<AttrNSImpl*>(AttrImplT::ownerDoc_->createAttributeNS(*namespaceURI_, *AttrImplT::name_));
       AttrImplT::cloneChildren(clone);

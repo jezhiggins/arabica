@@ -16,6 +16,9 @@ namespace SAX
 */
 class ScanHandler
 {
+protected:
+  ~ScanHandler() {}
+
 public:
 	/**
 	Reports an attribute name without a value.
