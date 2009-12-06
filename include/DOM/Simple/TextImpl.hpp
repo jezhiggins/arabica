@@ -36,7 +36,9 @@ class TextImpl : public DOM::Text_impl<stringT, string_adaptorT>,
       CharacterDataT::deleteData(offset, CharacterDataT::getLength() - offset);
 
       TextImpl* splitNode = new TextImpl(CharacterDataT::getOwnerDoc(), second);
-      CharacterDataT::getParentNode()->insertBefore(splitNode, CharacterDataT::getNextSibling());
+      DOMNode_implT *parent = CharacterDataT::getParentNode();
+      if(parent)
+        parent->insertBefore(splitNode, CharacterDataT::getNextSibling());
       return splitNode;
     } // splitText
 

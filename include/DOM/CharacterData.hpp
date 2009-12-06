@@ -33,7 +33,7 @@ class CharacterData : public Node<stringT, string_adaptorT>
     } // CharacterData
 
   protected:
-    CharacterData(const NodeT& rhs, int dummy) : NodeT(rhs) { }
+    CharacterData(const NodeT& rhs, int /*dummy*/) : NodeT(rhs) { }
 
   public:
     const stringT& getData() const { return cdImpl()->getData(); }
@@ -60,7 +60,7 @@ class CharacterData : public Node<stringT, string_adaptorT>
     } // deleteData
     void replaceData(int offset, int count, const stringT& arg) 
     { 
-      cdImpl()->replaceData(offset, count); 
+      cdImpl()->replaceData(offset, count, arg); 
     } // replaceData
 
   private:

@@ -34,16 +34,14 @@ class Text : public CharacterData<stringT, string_adaptorT>
         throw std::bad_cast();
     } // Text
 
-  protected:
-    Text(const NodeT& rhs, int dummy) : CharacterDataT(rhs, 0) { }
-
     Text splitText(int offset) 
     { 
-      return tImpl()->splitText(offset); 
+      return Text(tImpl()->splitText(offset)); 
     } // splitText
 
   protected:
-    Text_implT* tImpl() const { return dynamic_cast<Text_implT*>(CharacterDataT::impl()); }
+    Text(const NodeT& rhs, int dummy) : CharacterDataT(rhs, dummy) { }
+    Text_implT* tImpl() const { return dynamic_cast<Text_implT*>(*NodeT::impl_); }
 }; // class Text
 
 ////////////////////////////////////////////////////////////////////

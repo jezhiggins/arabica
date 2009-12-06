@@ -80,6 +80,33 @@ class TextTest : public TestCase
       }
     } // testConverstion
 
+    void testSplit()
+    {
+      Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8("doc"), 0);
+      Arabica::DOM::Text<string_type, string_adaptor> t = d.createTextNode(SA::construct_from_utf8("some data"));
+
+      assert(t.getData() == SA::construct_from_utf8("some data"));
+
+      Arabica::DOM::Text<string_type, string_adaptor> s = t.splitText(5);
+      assert(t.getData() == SA::construct_from_utf8("some "));
+      assert(s.getData() == SA::construct_from_utf8("data"));
+
+      t.setData(SA::construct_from_utf8("some data"));
+      d.getDocumentElement().appendChild(t);
+
+      assert(t.getData() == SA::construct_from_utf8("some data"));
+      assert(t.getPreviousSibling() == 0);
+      assert(t.getNextSibling() == 0);
+
+      s = t.splitText(5);
+      assert(t.getData() == SA::construct_from_utf8("some "));
+      assert(s.getData() == SA::construct_from_utf8("data"));
+      assert(t.getPreviousSibling() == 0);
+      assert(t.getNextSibling() == s);
+      assert(s.getPreviousSibling() == t);
+      assert(s.getNextSibling() == 0);
+    } // testSplit
+
     void testEverythingElse()
     {
       Arabica::DOM::Document<string_type, string_adaptor> d = factory.createDocument(SA::construct_from_utf8(""),SA::construct_from_utf8(""), 0);
@@ -113,6 +140,7 @@ TestSuite* TextTest_suite()
     suiteOfTests->addTest(new TestCaller<TextTest<string_type, string_adaptor> >("testNull", &TextTest<string_type, string_adaptor>::testNull));
     suiteOfTests->addTest(new TestCaller<TextTest<string_type, string_adaptor> >("testCreate", &TextTest<string_type, string_adaptor>::testCreate));
     suiteOfTests->addTest(new TestCaller<TextTest<string_type, string_adaptor> >("testConversion", &TextTest<string_type, string_adaptor>::testConversion));
+    suiteOfTests->addTest(new TestCaller<TextTest<string_type, string_adaptor> >("testSplit", &TextTest<string_type, string_adaptor>::testSplit));
     suiteOfTests->addTest(new TestCaller<TextTest<string_type, string_adaptor> >("testEverythingElse", &TextTest<string_type, string_adaptor>::testEverythingElse));
     return suiteOfTests;
 } // TextTest_suite
