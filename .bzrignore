@@ -49,3 +49,10 @@ examples/XSLT/mangle
 m4/lt~obsolete.m4@
 
 fractal*.html
+tests/SAX/filter_test*
+tests/DOM/dom_test*
+tests/XPath/xpath_test*
+tests/Taggle/taggle_test
+tests/Utils/utils_test*
+tests/XSLT/xslt_test
+
