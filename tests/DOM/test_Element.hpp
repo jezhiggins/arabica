@@ -76,7 +76,7 @@ class ElementTest : public TestCase
       assert(elem.getAttributeNode(SA::construct_from_utf8("attr")) == attr);
       assert(elem.removeAttributeNode(attr) == attr);
 
-      Arabica::DOM::Attr<string_type,= d.createAttributeNS(SA::construct_from_utf8("ns"), SA::construct_from_utf8("attr"));
+      Arabica::DOM::Attr<string_type, string_adaptor> attrNS = d.createAttributeNS(SA::construct_from_utf8("ns"), SA::construct_from_utf8("attr"));
       elem.setAttributeNodeNS(attrNS);
       assert(elem.getAttributeNodeNS(SA::construct_from_utf8("ns"), SA::construct_from_utf8("attr")) == attrNS);
       assert(elem.removeAttributeNode(attrNS) == attrNS);
