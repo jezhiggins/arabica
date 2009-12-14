@@ -328,14 +328,6 @@ public:
 
   virtual Output& asOutput() { return *this; }
   DOM::Node<std::string> node() const { return documentFrag_; }
-  void reset() 
-  {
-    current_ = DOM::Node<std::string>();
-    documentFrag_ = DOM::DocumentFragment<std::string>();
-    document_ = DOM::Document<std::string>();
-    indent_ = -1;
-    out_again_ = false;
-  } // reset
 
 protected:
   void do_start_document(const Settings& settings)

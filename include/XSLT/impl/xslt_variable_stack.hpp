@@ -12,7 +12,7 @@ namespace XSLT
 {
 
 class Variable_instance;
-typedef Variable_instance* Variable_instance_ptr;
+typedef boost::shared_ptr<Variable_instance> Variable_instance_ptr;
 typedef std::map<std::string, Variable_instance_ptr> Scope;
 
 class Variable_instance
@@ -119,6 +119,9 @@ public:
       if(current_p > var->precedence())
         return;
     } // if ...
+
+    if(var->precedence() == Precedence::FrozenPrecedence()) // we're running so resolve immediately
+      var->value();
 
     stack[name] = var;
   } // declareVariable

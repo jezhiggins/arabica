@@ -21,7 +21,8 @@ protected:
 public:
   virtual const std::string& name() const = 0;
   virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
-                                                        ExecutionContext& context) const = 0;
+                                                        ExecutionContext& context,
+                                                        DOMSink& sink) const = 0;
   virtual const Precedence& precedence() const = 0;
 
 private:
@@ -37,19 +38,20 @@ public:
                    Sink& output,
                    std::ostream& error_output) :
       stylesheet_(stylesheet),
-      sink_(&output.asOutput()),
+      sink_(output.asOutput()),
       message_sink_(error_output),
       to_msg_(0)
   {
 		xpathContext_.setVariableResolver(stack_);
-    sink_->set_warning_sink(message_sink_.asOutput());
+    sink_.set_warning_sink(message_sink_.asOutput());
     message_sink_.asOutput().set_warning_sink(message_sink_.asOutput());
   } // ExecutionContext
 
-  ExecutionContext(ExecutionContext& rhs) :
+  ExecutionContext(Sink& output, 
+                   ExecutionContext& rhs) :
     stylesheet_(rhs.stylesheet_),
     stack_(rhs.stack_),
-    sink_(rhs.sink_),
+    sink_(output.asOutput()),
     message_sink_(rhs.message_sink_),
     to_msg_(false)
   {
@@ -63,16 +65,10 @@ public:
 
   Output& sink() 
   { 
-    return !to_msg_ ? *sink_ : message_sink_.asOutput();
+    return !to_msg_ ? sink_ : message_sink_.asOutput();
   } // sink
   void redirectToMessageSink() { ++to_msg_; }
   void revertFromMessageSink() { --to_msg_; }
-  Output& redirectToSink(Output& newoutput)
-  {
-    Output& current = *sink_;
-    sink_ = &newoutput;
-    return current;
-  } // redirectToSink
 
   const Arabica::XPath::ExecutionContext<std::string>& xpathContext() const { return xpathContext_; }
 
@@ -107,7 +103,7 @@ private:
   const CompiledStylesheet& stylesheet_;
   VariableStack stack_;
   Arabica::XPath::ExecutionContext<std::string> xpathContext_;
-  Output* sink_;
+  Output& sink_;
   StreamSink message_sink_;
   int to_msg_;
 
@@ -115,54 +111,7 @@ private:
   friend class ChainStackFrame;
 }; // class ExecutionContext
 
-class RedirectOutputFrame
-{
-public:
-  RedirectOutputFrame(ExecutionContext& context, Sink& output) : 
-    context_(context),
-    previous_(context.redirectToSink(output.asOutput())) { }
-  ~RedirectOutputFrame() { context_.redirectToSink(previous_); }
-
-private:
-  ExecutionContext& context_;
-  Output& previous_;
-
-  RedirectOutputFrame();
-  RedirectOutputFrame(const RedirectOutputFrame&);
-  bool operator=(const RedirectOutputFrame&);
-}; // RedirectOutputFrame
-
 ///////////////////////////
-class ResolvedVariable : public Variable_instance
-{
-public:
-  ResolvedVariable(const Variable_declaration& var, 
-                   const DOM::Node<std::string>& node,
-                   ExecutionContext& context) :
-    var_(var)
-  {
-    value_ = var_.value(node, context);
-  } // ResolvedVariable
-
-  virtual const std::string& name() const { return var_.name(); }
-  virtual const Precedence& precedence() const { return var_.precedence(); }
-  virtual Arabica::XPath::XPathValue<std::string> value() const { return value_; }
-
-  virtual void injectGlobalScope(const Scope& scope) const
-  {
-    ;
-  } // globalScope
-
-private:
-  const Variable_declaration& var_;
-  mutable Arabica::XPath::XPathValue<std::string> value_;
-
-  ResolvedVariable();
-  ResolvedVariable(const ResolvedVariable&);
-  ResolvedVariable& operator=(const ResolvedVariable&);
-  const ResolvedVariable& operator==(const ResolvedVariable&) const;
-}; // class ResolvedVariable
-
 class VariableClosure : public Variable_instance
 {
 public:
@@ -170,9 +119,6 @@ public:
                                       const DOM::Node<std::string>& node,
                                       ExecutionContext& context)
   {
-    if(var.precedence() == Precedence::FrozenPrecedence()) // we're running, so resolve immediately
-      return Variable_instance_ptr(new ResolvedVariable(var, node, context));
-
     return Variable_instance_ptr(new VariableClosure(var, node, context));
   } // create
 
@@ -182,7 +128,7 @@ public:
   virtual Arabica::XPath::XPathValue<std::string> value() const 
   {
     if(!value_)
-      value_ = var_.value(node_, context_);
+      value_ = var_.value(node_, context_, sink_);
     return value_;
   } // value
 
@@ -196,12 +142,14 @@ private:
                   const DOM::Node<std::string>& node, 
                   ExecutionContext& context) :
       var_(var),
+      sink_(),
       node_(node),
-      context_(context)
+      context_(sink_, context)
   {
   } // VariableClosure
 
   const Variable_declaration& var_;
+  mutable DOMSink sink_;
   const DOM::Node<std::string> node_;
   mutable ExecutionContext context_;
   mutable Arabica::XPath::XPathValue<std::string> value_;

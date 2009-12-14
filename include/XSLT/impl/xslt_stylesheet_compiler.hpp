@@ -196,11 +196,11 @@ const ChildElement StylesheetHandler::allowedChildren[] =
     { "key", CreateHandler<KeyHandler>},
     { "namespace-alias", CreateHandler<NamespaceAliasHandler>},
     { "output", CreateHandler<OutputHandler>},
-    { "param", CreateHandler<TopLevelVariableHandler<GlobalParam> >},
+    { "param", CreateHandler<TopLevelVariableHandler<Param> >},
     { "preserve-space", CreateHandler<NotImplementedYetHandler>},
     { "strip-space", CreateHandler<NotImplementedYetHandler>},
     { "template", CreateHandler<TemplateHandler> },
-    { "variable", CreateHandler<TopLevelVariableHandler<GlobalVariable> > },
+    { "variable", CreateHandler<TopLevelVariableHandler<Variable> > },
     { 0, 0 }
   }; // StylesheetHandler::allowedChildren
 
