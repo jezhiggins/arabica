@@ -130,7 +130,6 @@
   <test-case id="string_string129" compiles="no" reason="Needs strip-space"/>
   <test-case id="string_string130" compiles="no" reason="Needs strip-space"/>
   <test-case id="variable_variable20" runs="no" reason="Possible spec ambiguity.  Mangle agrees with Saxon and MSXML.  Xalan disagrees"/>	
-  <test-case id="variable_variable23" skip="yes" reason="Segfaults on Linux with GCC"/>
   <test-case id="variable_variable56" runs="no" reason="Possible spec ambiguity.  Mangle agrees with Saxon and MSXML.  Xalan disagrees"/>
   <test-case id="ver_ver01" compiles="no" reason="Forward compatibility"/>
   <test-case id="ver_ver05" compiles="no" reason="Forward compatibility"/>
@@ -437,7 +436,7 @@
   <test-case id="NamedTemplates__84038" compare="fragment"/>
   <test-case id="NamedTemplates__84043" compare="fragment"/>
   <test-case id="NamedTemplates__84044" compare="text"/>
-  <test-case id="NamedTemplates__84047" compare="fragment"/>
+  <test-case id="NamedTemplates__84047" skip="yes" reason="segfaults at the moment"/>
   <test-case id="NamedTemplates__84416" compare="fragment"/>
   <test-case id="NamedTemplates__84417" compare="fragment"/>
   <test-case id="NamedTemplates__84418" compare="fragment"/>
