@@ -37,6 +37,7 @@ public:
     DOMSink sink;
     {
       RedirectOutputFrame redirect(context, sink);
+      StackFrame frame(context);
       execute_children(node, context);
     } // 
 
