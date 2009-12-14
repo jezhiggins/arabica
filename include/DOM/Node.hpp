@@ -3,8 +3,6 @@
 
 ////////////////////////////
 // C++ DOM definition
-//
-// $Id$
 ////////////////////////////
 #include <DOM/Proxy.hpp>
 #include <DOM/DOMException.hpp>
@@ -30,23 +28,22 @@ template<class stringT, class string_adaptorT> class Node_impl;
 
 class Node_base
 {
-  public:
-    enum Type 
-    {
-      ELEMENT_NODE = 1,
-      ATTRIBUTE_NODE,
-      TEXT_NODE,
-      CDATA_SECTION_NODE,
-      ENTITY_REFERENCE_NODE,
-      ENTITY_NODE,
-      PROCESSING_INSTRUCTION_NODE,
-      COMMENT_NODE,
-      DOCUMENT_NODE,
-      DOCUMENT_TYPE_NODE,
-      DOCUMENT_FRAGMENT_NODE,
-      NOTATION_NODE,
-      MAX_TYPE
-    }; // Type
+public:
+  typedef int Type;
+
+  static const int ELEMENT_NODE = 1;
+  static const int ATTRIBUTE_NODE = 2;
+  static const int TEXT_NODE = 3;
+  static const int CDATA_SECTION_NODE = 4;
+  static const int ENTITY_REFERENCE_NODE = 5;
+  static const int ENTITY_NODE = 6;
+  static const int PROCESSING_INSTRUCTION_NODE = 7;
+  static const int COMMENT_NODE = 8;
+  static const int DOCUMENT_NODE = 9;
+  static const int DOCUMENT_TYPE_NODE = 10;
+  static const int DOCUMENT_FRAGMENT_NODE = 11;
+  static const int NOTATION_NODE = 12;
+  static const int MAX_TYPE = 13;
 }; // class Node_base
 
 /////////////////////////////////////////////////
