@@ -20,7 +20,7 @@ public:
 
   virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
   {
-    RedirectionFrame toMessageSink(context);
+    MessageRedirectionFrame toMessageSink(context);
     execute_children(node, context);
 
     if(terminate_)
@@ -30,22 +30,19 @@ public:
 private:
   bool terminate_;
 
-  class RedirectionFrame
+  class MessageRedirectionFrame
   {
   public:
-    RedirectionFrame(ExecutionContext& context) : context_(context) { context_.redirectToMessageSink(); }
-    ~RedirectionFrame() { context_.revertFromMessageSink(); }
+    MessageRedirectionFrame(ExecutionContext& context) : context_(context) { context_.redirectToMessageSink(); }
+    ~MessageRedirectionFrame() { context_.revertFromMessageSink(); }
 
   private:
     ExecutionContext& context_;
 
-    RedirectionFrame();
-    RedirectionFrame(const RedirectionFrame&);
-    bool operator=(const RedirectionFrame&);
-  }; // class RedirectionFrame
-    
-
-
+    MessageRedirectionFrame();
+    MessageRedirectionFrame(const MessageRedirectionFrame&);
+    bool operator=(const MessageRedirectionFrame&);
+  }; // class MessageRedirectionFrame
 }; // class Message
 
 } // namespace XSLT

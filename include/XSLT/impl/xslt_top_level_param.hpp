@@ -28,8 +28,7 @@ public:
   virtual const std::string& namespace_uri() const { return namespace_uri_; }
   virtual const std::string& name() const { return name_; }
   virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
-                                                        ExecutionContext& context,
-                                                        DOMSink& sink) const 
+                                                        ExecutionContext& context) const 
   {
     return value_;
   } // value

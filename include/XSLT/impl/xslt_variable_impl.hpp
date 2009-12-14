@@ -29,13 +29,16 @@ public:
   virtual const std::string& name() const { return name_; } 
   
   virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
-                                                        ExecutionContext& context,
-                                                        DOMSink& sink) const
+                                                        ExecutionContext& context) const
   {
     if(select_)
       return select_->evaluate(node, context.xpathContext());
 
-    execute_children(node, context);
+    DOMSink sink;
+    {
+      RedirectOutputFrame redirect(context, sink);
+      execute_children(node, context);
+    } // 
 
     if(sink.node() == 0)
       return Arabica::XPath::StringValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue("");
