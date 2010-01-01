@@ -107,8 +107,8 @@ TestSuite* NamedNodeMapTest_suite()
   suiteOfTests->addTest(new TestCaller<NamedNodeMapTest<string_type, string_adaptor> >("test1", &NamedNodeMapTest<string_type, string_adaptor>::test1));
   suiteOfTests->addTest(new TestCaller<NamedNodeMapTest<string_type, string_adaptor> >("test2", &NamedNodeMapTest<string_type, string_adaptor>::test2));
   suiteOfTests->addTest(new TestCaller<NamedNodeMapTest<string_type, string_adaptor> >("test3", &NamedNodeMapTest<string_type, string_adaptor>::test3));
-//  suiteOfTests->addTest(new TestCaller<NamedNodeMapTest<string_type, string_adaptor> >("test4", &NamedNodeMapTest<string_type, string_adaptor>::test4));
-  //suiteOfTests->addTest(new TestCaller<NamedNodeMapTest<string_type, string_adaptor> >("test5", &NamedNodeMapTest<string_type, string_adaptor>::test5));
+  suiteOfTests->addTest(new TestCaller<NamedNodeMapTest<string_type, string_adaptor> >("test4", &NamedNodeMapTest<string_type, string_adaptor>::test4));
+  suiteOfTests->addTest(new TestCaller<NamedNodeMapTest<string_type, string_adaptor> >("test5", &NamedNodeMapTest<string_type, string_adaptor>::test5));
   return suiteOfTests;
 } // NamedNodeMapTest_suite
 
