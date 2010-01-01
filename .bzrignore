@@ -56,3 +56,4 @@ tests/Taggle/taggle_test
 tests/Utils/utils_test*
 tests/XSLT/xslt_test
 
+doc/html
