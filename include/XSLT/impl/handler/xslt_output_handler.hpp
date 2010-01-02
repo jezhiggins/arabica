@@ -67,7 +67,7 @@ private:
     if(cdata_section_elements.empty())
       return elements;
 
-    std::istringstream is(cdata_section_elements);
+    std::istringstream is(text::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(cdata_section_elements));
     while(!is.eof())
     {
       std::string e;
