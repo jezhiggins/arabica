@@ -256,6 +256,7 @@
   <test-case id="BVTs_bvt094" compare="text"/>
   <test-case id="BVTs_bvt095" compare="fragment"/>
   <test-case id="BVTs_bvt096" compare="text"/>
+  <test-case id="BVTs_bvt098" skip="yes" reason="Bad result data.  There's no way this test can pass as written."/>
   <test-case id="BVTs_bvt099" compare="fragment"/>
   <test-case id="BVTs_bvt100" compare="fragment"/>
   <test-case id="Comment_Comment_CDATAWithDoubleHyphen" compare="fragment"/>
