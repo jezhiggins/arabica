@@ -38,7 +38,7 @@ public:
 				  const UriMapper& mapper)
   {
     if(!Arabica::XML::is_qname<string_adaptor>(rawname))
-      throw std::runtime_error("Bad qname : " + SA::asStdString(rawname));
+      throw std::runtime_error("Bad qname : '" + SA::asStdString(rawname) +"'");
 
     static string_type COLON = SA::construct_from_utf8(":");
 
