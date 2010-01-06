@@ -178,7 +178,8 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT, string_adaptorT>
 
     NodeImplT* setNode(typename NodeListT::iterator n, NodeImplT* arg)
     {
-      ownerDoc_->adopted(arg);
+      if(ownerDoc_)
+        ownerDoc_->adopted(arg);
       if(n == nodes_.end())
       {
         nodes_.push_back(arg);
