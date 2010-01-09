@@ -40,7 +40,7 @@ public:
 
   ////////////////////////////////////////////////////
   // ContentHandler
-  virtual void setDocumentLocator(const LocatorT& locator) { }
+  virtual void setDocumentLocator(const LocatorT& /* locator */) { }
   virtual void startDocument();
   virtual void endDocument();
   virtual void startPrefixMapping(const std::string& prefix, const std::string& uri);

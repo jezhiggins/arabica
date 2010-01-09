@@ -7,7 +7,7 @@
 
 //////////////////////////////////////////////
 // EntityResolver
-Arabica::SAX::InputSource<std::string> SimpleHandler::resolveEntity(const std::string& publicId, const std::string& systemId)
+Arabica::SAX::InputSource<std::string> SimpleHandler::resolveEntity(const std::string& /* publicId */, const std::string& /* systemId */)
 {
   return Arabica::SAX::InputSource<std::string>();
 } // resolveEntity
@@ -56,8 +56,10 @@ void SimpleHandler::endPrefixMapping(const std::string& prefix)
   std::cout << "endPrefixMapping " << prefix << std::endl;
 } // startPrefixMapping 
 
-void SimpleHandler::startElement(const std::string& namespaceURI, const std::string& localName,
-                                 const std::string& qName, const Arabica::SAX::Attributes<std::string>& atts)
+void SimpleHandler::startElement(const std::string& namespaceURI, 
+                                 const std::string& localName,
+                                 const std::string& qName, 
+                                 const Arabica::SAX::Attributes<std::string>& /* atts */)
 {
   if(localName.length())
 	  std::cout << "Start Element: " << namespaceURI << ":" << localName << std::endl;
@@ -65,8 +67,9 @@ void SimpleHandler::startElement(const std::string& namespaceURI, const std::str
 	  std::cout << "Start Element: " << qName << std::endl;
 } // startElement
 
-void SimpleHandler::endElement(const std::string& namespaceURI, const std::string& localName,
-                               const std::string& qName)
+void SimpleHandler::endElement(const std::string& namespaceURI, 
+                               const std::string& localName,
+                               const std::string& /* qName */)
 {
 	std::cout << "endElement: " << namespaceURI << ":" << localName << std::endl;
 } // endElement
