@@ -516,10 +516,10 @@ public:
    */
   void setType(unsigned int index, const string_type& type)
   {
-	  if(index >= 0 && index < attributes_.size()) 
+    if(index >= 0 && index < attributes_.size()) 
       attributes_[index].type_ = type;
-	  else 
-	    badIndex(index);
+    else 
+      badIndex(index);
   } // setType
 
   /**
@@ -533,10 +533,10 @@ public:
    */
   void setValue(unsigned int index, const string_type& value)
   {
-	  if(index >= 0 && index < attributes_.size()) 
+    if(index < attributes_.size()) 
       attributes_[index].value_ = value;
-	  else 
-	    badIndex(index);
+    else 
+      badIndex(index);
   } // setURI
 
 private:
