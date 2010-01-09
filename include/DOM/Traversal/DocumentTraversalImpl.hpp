@@ -3,8 +3,6 @@
 
 /////////////////////////////////////////
 // C++ DOM Traversal Implementation
-//
-// $Id: TreeWalker.h 2 2002-06-21 11:16:28Z jez_higgins $
 /////////////////////////////////////////
 
 #include <DOM/Traversal/TreeWalkerImpl.hpp>
@@ -29,18 +27,20 @@ class DocumentTraversalImpl : public DocumentTraversal_impl<stringT, string_adap
 
     DocumentTraversalImpl() {}
 
-    virtual NodeIterator_implT* createNodeIterator(NodeT root,
-                                                   unsigned long whatToShow,
-                                                   NodeFilterT* filter,
-                                                   bool entityRefExpansion) 
+    virtual NodeIterator_implT* 
+                createNodeIterator(NodeT /* root */,
+                                   unsigned long /* whatToShow */,
+                                   NodeFilterT* /* filter */,
+                                   bool /* entityRefExpansion */) 
     {
       return 0;
     }
 
-    virtual TreeWalker_implT* createTreeWalker(NodeT root,
-                                               unsigned long whatToShow,
-                                               NodeFilterT* filter,
-                                               bool entityRefExpansion)
+    virtual TreeWalker_implT* 
+                createTreeWalker(NodeT root,
+                                 unsigned long whatToShow,
+                                 NodeFilterT* filter,
+                                 bool entityRefExpansion)
     {
       return new TreeWalkerImplT(root, whatToShow, filter, entityRefExpansion);
     }
