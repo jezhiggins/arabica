@@ -23,7 +23,7 @@ public:
 
   virtual ValueType type() const { return ANY; }
 
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& /* context */, 
                                               const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return executionContext.variableResolver().resolveVariable(namespace_uri_, name_);
