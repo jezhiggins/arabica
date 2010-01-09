@@ -26,7 +26,7 @@ std::codecvt_base::result rot13codecvt::rot13(const char* from,
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial; 
 } // rot13
 
-std::codecvt_base::result rot13codecvt::do_unshift(std::mbstate_t& state,
+std::codecvt_base::result rot13codecvt::do_unshift(std::mbstate_t& /* state */,
                             char* to,
                             char* /* to_limit */,
                             char*& to_next) const

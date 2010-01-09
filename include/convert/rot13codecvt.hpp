@@ -20,7 +20,7 @@ class rot13codecvt : public std::codecvt<char, char, std::mbstate_t>
 protected:
   virtual ~rot13codecvt() { }
 
-  virtual result do_out(std::mbstate_t& state,
+  virtual result do_out(std::mbstate_t& /* state */,
                         const char* from,
                         const char* from_end,
                         const char*& from_next,
@@ -29,7 +29,7 @@ protected:
                         char*& to_next) const 
       { return rot13(from, from_end, from_next, to, to_limit, to_next); }
 
-  virtual result do_in(std::mbstate_t& state,
+  virtual result do_in(std::mbstate_t& /* state */,
                        const char* from,
                        const char* from_end,
                        const char*& from_next,
@@ -38,7 +38,7 @@ protected:
                        char*& to_next) const
       { return rot13(from, from_end, from_next, to, to_limit, to_next); }
 
-  virtual result do_unshift(std::mbstate_t&  state,
+  virtual result do_unshift(std::mbstate_t& state,
                        char* to,
                        char* to_limit,
                        char*& to_next) const;
