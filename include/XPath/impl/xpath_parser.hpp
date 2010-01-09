@@ -668,21 +668,21 @@ XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_ada
 } // createBinaryExpression
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createLiteral(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createLiteral(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& /* context */)
 {
   string_type str = string_adaptor::construct(i->value.begin(), i->value.end());
   return new StringValue<string_type, string_adaptor>(str);
 } // createLiteral
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createNumber(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createNumber(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& /* context */)
 {
   string_type str = string_adaptor::construct(i->value.begin(), i->value.end());
   return new NumericValue<string_type, string_adaptor>(boost::lexical_cast<double>(str));
 } // createNumber
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createVariable(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createVariable(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   typename impl::types<string_adaptor>::node_iter_t n = i->children.begin();
   ++n; // skip $
@@ -707,7 +707,7 @@ XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_ada
 } // createSingleStepAbsoluteLocationPath
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createUnaryExpression(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createUnaryExpression(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   return XPath<string_type, string_adaptor>::compile_expression(i->children.begin(), i->children.end(), context);
 } // createUnaryExpression
@@ -787,7 +787,7 @@ XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_ada
 } // createRelativePathPattern
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createAlternatePattern(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createAlternatePattern(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   // child sequence is test union_op test ...
   typename impl::types<string_adaptor>::node_iter_t n = i->children.begin(), e = i->children.end();
@@ -989,7 +989,7 @@ impl::StepList<string_type, string_adaptor> XPath<string_type, string_adaptor>::
 
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createAttributeValue(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createAttributeValue(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   std::vector<XPathExpression<string_type, string_adaptor> > args;
   for(typename impl::types<string_adaptor>::node_iter_t a = i->children.begin(), e = i->children.end(); a != e; ++a)
@@ -1006,19 +1006,19 @@ XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_ada
 } // createAttributeValue
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createEmbeddedExpr(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createEmbeddedExpr(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& context)
 {
   return compile_expression(i->children.begin() + 1, i->children.end(), context);
 } // createEmbeddedExpr
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createDoubleLeftCurly(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createDoubleLeftCurly(typename impl::types<string_adaptor>::node_iter_t const& /* i */, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& /* context */)
 {
   return new StringValue<string_type, string_adaptor>("{");
 } // createDoubleLeftCurly
 
 template<class string_type, class string_adaptor>
-XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createDoubleRightCurly(typename impl::types<string_adaptor>::node_iter_t const& i, typename impl::types<string_adaptor>::node_iter_t const& ie, impl::CompilationContext<string_type, string_adaptor>& context)
+XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_adaptor>::createDoubleRightCurly(typename impl::types<string_adaptor>::node_iter_t const& /* i */, typename impl::types<string_adaptor>::node_iter_t const& /* ie */, impl::CompilationContext<string_type, string_adaptor>& /* context */)
 {
   return new StringValue<string_type, string_adaptor>("}");
 } // createDoubleRightCurly
