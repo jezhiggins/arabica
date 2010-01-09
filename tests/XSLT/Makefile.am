@@ -1,7 +1,7 @@
 
 check_PROGRAMS = xslt_test 
 if WANT_TESTS
-  TESTS = $(check_PROGRAMS)
+  TESTS = xslt_test_and_check.sh
 endif
 
 ELEPHANT_INCLUDE = @ELEPHANT_INCLUDES@

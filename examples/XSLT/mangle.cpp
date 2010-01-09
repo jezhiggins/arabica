@@ -45,8 +45,8 @@ int main(int argc, const char* argv[])
     //document.normalize();
     stylesheet->execute(document);
 
-/*
-    std::cout << "==============" << std::endl;
+
+    std::cout << "\n==============" << std::endl;
 
     Arabica::XSLT::DOMSink output;
     stylesheet->set_output(output);
@@ -55,7 +55,7 @@ int main(int argc, const char* argv[])
 
     Arabica::DOM::Node<std::string> node = output.node();
     std::cout << node << std::endl;
-*/
+
   }
   catch(const std::runtime_error& ex)
   {
