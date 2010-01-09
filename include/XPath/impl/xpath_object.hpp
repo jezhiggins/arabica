@@ -407,10 +407,12 @@ namespace impl
 inline double roundNumber(double value) 
 { 
   if(!(isNaN(value) || isInfinite(value) || (std::fabs(value) == 0)))
+  {
     if((value < 0.0) && (value > -0.5))
       value = -0.0;
     else
       value = std::floor(value + 0.5);
+  } // if ...
   return value;
 } // roundNumber
 
