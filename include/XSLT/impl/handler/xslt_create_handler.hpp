@@ -23,12 +23,12 @@ SAX::DefaultHandler<std::string>* CreateHandler(CompilationContext& context)
 class NotImplementedYetHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  NotImplementedYetHandler(CompilationContext& context) { }
+  NotImplementedYetHandler(CompilationContext& /* context */) { }
 
-    virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
+  virtual void startElement(const std::string& /* namespaceURI */,
+                            const std::string& /* localName */,
                             const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+                            const SAX::Attributes<std::string>& /* atts */)
   {
     throw SAX::SAXException("Haven't implemented " + qName + " yet");
   } // startElement

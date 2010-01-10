@@ -21,9 +21,9 @@ public:
   {
   } // ~ApplyImportsHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-			    const std::string& localName,
-			    const std::string& qName,
+  virtual void startElement(const std::string& /* namespaceURI */,
+			    const std::string& /* localName */,
+			    const std::string& /* qName */,
 			    const SAX::Attributes<std::string>& atts)
   {
     if(applyImports_ == 0)
@@ -37,9 +37,9 @@ public:
     throw SAX::SAXException("xsl:apply-imports element must be empty");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-			  const std::string& localName,
-			  const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+			  const std::string& /* localName */,
+			  const std::string& /* qName */)
   {
     context_.parentContainer().add_item(applyImports_);
     context_.pop();

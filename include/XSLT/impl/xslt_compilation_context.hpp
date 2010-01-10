@@ -202,16 +202,16 @@ private:
   typedef std::pair<std::string, std::string> Namespace;
 
   StylesheetParser& parser_;
-  Arabica::XPath::XPath<std::string> xpath_;
   CompiledStylesheet& stylesheet_;
+  mutable int autoNs_;
+  mutable bool current_allowed_;
+  Precedence precedence_;
+  Arabica::XPath::XPath<std::string> xpath_;
   std::stack<SAX::DefaultHandler<std::string>*> handlerStack_;
   std::stack<ItemContainer*> parentStack_;
   std::map<std::string, Namespace> namespaceRemap_;
-  Precedence precedence_;
 
   CompilationContext(const CompilationContext&);
-  mutable int autoNs_;
-  mutable bool current_allowed_;
 
   class DisallowCurrent
   { 

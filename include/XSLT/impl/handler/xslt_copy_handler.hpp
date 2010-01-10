@@ -16,13 +16,13 @@ public:
   {
   } // CopyHandler
 
-  virtual Copy* createContainer(const std::string& namespaceURI,
-                                const std::string& localName,
+  virtual Copy* createContainer(const std::string& /* namespaceURI */,
+                                const std::string& /* localName */,
                                 const std::string& qName,
                                 const SAX::Attributes<std::string>& atts)
   {
-    static const ValueRule rules[] = { { "use-attribute-sets", false, 0 },
-                                       { 0, false, 0} };
+    static const ValueRule rules[] = { { "use-attribute-sets", false, 0, 0 },
+                                       { 0, false, 0, 0 } };
     std::string sets = gatherAttributes(qName, atts, rules)["use-attribute-sets"];
 
     return new Copy(sets);
@@ -38,15 +38,15 @@ public:
   {
   } // CopyOfHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
+  virtual void startElement(const std::string& /* namespaceURI */,
+                            const std::string& /* localName */,
                             const std::string& qName,
                             const SAX::Attributes<std::string>& atts)
   {
     if(copyOf_ == 0)
     {
-      static const ValueRule rules[] = { { "select", true, 0 },
-                                         { 0, false, 0} };
+      static const ValueRule rules[] = { { "select", true, 0, 0 },
+                                         { 0, false, 0, 0 } };
       std::string select = gatherAttributes(qName, atts, rules)["select"];
 
       copyOf_ = new CopyOf(context_.xpath_expression(select));
@@ -57,9 +57,9 @@ public:
     throw SAX::SAXException(qName + " can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     context_.parentContainer().add_item(copyOf_);
     context_.pop();

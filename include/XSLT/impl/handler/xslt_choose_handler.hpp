@@ -18,19 +18,21 @@ public:
   {
   } // WhenHandler
 
-  virtual When* createContainer(const std::string& namespaceURI,
-                                         const std::string& localName,
-                                         const std::string& qName,
-                                         const SAX::Attributes<std::string>& atts)
+  virtual When* createContainer(const std::string& /* namespaceURI */,
+				const std::string& /* localName */,
+				const std::string& qName,
+				const SAX::Attributes<std::string>& atts)
   {
-    static const ValueRule rules[] = { { "test", true, 0 },
-                                       { 0, false, 0} };
+    static const ValueRule rules[] = { { "test", true, 0. 0 },
+                                       { 0, false, 0, 0 } };
     std::string test = gatherAttributes(qName, atts, rules)["test"];
 
     return new When(ItemContainerHandler<When>::context().xpath_expression(test));
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI, const std::string& localName, const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */, 
+			  const std::string& /* localName */, 
+			  const std::string& /* qName */)
   {
     choose_->add_when(ItemContainerHandler<When>::container());
     context().pop();
@@ -50,9 +52,9 @@ public:
   {
   } // OtherwiseHandler
 
-  virtual Otherwise* createContainer(const std::string& namespaceURI,
-                                     const std::string& localName,
-                                     const std::string& qName,
+  virtual Otherwise* createContainer(const std::string& /* namespaceURI */,
+                                     const std::string& /* localName */,
+                                     const std::string& /* qName */,
                                      const SAX::Attributes<std::string>& atts)
   {
     if(atts.getLength())
@@ -61,9 +63,9 @@ public:
     return new Otherwise();
   } // createContainer
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     choose_->set_otherwise(container());
     context().pop();
@@ -132,9 +134,9 @@ public:
     throw SAX::SAXException("xsl:choose can not contain " + qName + ".  Only xsl:when and xsl:otherwise are allowed");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     if(!seenWhere_)
       throw SAX::SAXException("xsl:choose must contain at least one xsl:where element");

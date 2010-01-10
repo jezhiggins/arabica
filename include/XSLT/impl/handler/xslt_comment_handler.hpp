@@ -17,9 +17,9 @@ public:
   {
   } // CommentHandler
 
-  virtual Comment* createContainer(const std::string& namespaceURI,
-                                   const std::string& localName,
-                                   const std::string& qName,
+  virtual Comment* createContainer(const std::string& /* namespaceURI */,
+                                   const std::string& /* localName */,
+                                   const std::string& /* qName */,
                                    const SAX::Attributes<std::string>& atts)
   {
     if(atts.getLength() != 0)

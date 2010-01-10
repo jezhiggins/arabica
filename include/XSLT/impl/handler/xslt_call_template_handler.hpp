@@ -25,8 +25,8 @@ public:
   {
     if(callTemplate_ == 0)
     {
-      static const ValueRule rules[] = { { "name", true, 0 },
-                                         { 0, false, 0} };
+      static const ValueRule rules[] = { { "name", true, 0, 0 },
+                                         { 0, false, 0, 0 } };
     
       std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
 
@@ -50,15 +50,15 @@ public:
     throw SAX::SAXException("xsl:apply-templates can only contain xsl:sort and xsl:with-param elements.");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     context_.parentContainer().add_item(callTemplate_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const std::string& /* ch */)
   {
   } // characters
 
