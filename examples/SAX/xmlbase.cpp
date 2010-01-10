@@ -64,8 +64,10 @@ int main(int argc, char* argv[])
 } // main
 
 
-void hrefPrinter::startElement(const std::string&, const std::string& localName,
-                               const std::string&, const Arabica::SAX::Attributes<std::string>& atts)
+void hrefPrinter::startElement(const std::string& /* namespaceURI */, 
+			       const std::string& /* localName */,
+                               const std::string& /* qName */, 
+			       const Arabica::SAX::Attributes<std::string>& atts)
 {
   xmlbaseTracker_.startElement(atts);
 
@@ -76,8 +78,9 @@ void hrefPrinter::startElement(const std::string&, const std::string& localName,
   std::cout << "href '" << href << "' resolves to the URI '" << xmlbaseTracker_.makeAbsolute(href) << "'" << std::endl;
 } // startElement
 
-void hrefPrinter::endElement(const std::string&, const std::string& localName,
-                             const std::string&)
+void hrefPrinter::endElement(const std::string& /* namespaceURI */, 
+			     const std::string& /* localName */,
+                             const std::string& /* qName */)
 {
   xmlbaseTracker_.endElement();
 } // endElement
