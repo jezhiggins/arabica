@@ -19,7 +19,7 @@ public:
   virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
 
   virtual Arabica::XPath::XPathValue_impl<string_type, string_adaptor>* evaluate(const Arabica::DOM::Node<string_type, string_adaptor>& context, 
-                                            const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& executionContext) const
+                                            const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& /* executionContext */) const
   {
     string_type name = string_adaptor::construct_from_utf8("test-");
     string_adaptor::append(name, context.getLocalName());
@@ -37,7 +37,7 @@ public:
   virtual Arabica::XPath::ValueType type() const { return Arabica::XPath::STRING; }
 
   virtual Arabica::XPath::XPathValue_impl<string_type, string_adaptor>* evaluate(const Arabica::DOM::Node<string_type, string_adaptor>& context, 
-                                            const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& executionContext) const
+                                            const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& /* executionContext */) const
   {
     string_type name = string_adaptor::construct_from_utf8("test-");
     string_adaptor::append(name, context.getLocalName());
@@ -51,7 +51,7 @@ class TestIdKeyFunctionResolver : public Arabica::XPath::FunctionResolver<string
   //typedef string_adaptorstring_adaptor;
 public:
   virtual Arabica::XPath::XPathFunction<string_type, string_adaptor>* resolveFunction(
-                                         const string_type& namespace_uri,
+                                         const string_type& /* namespace_uri */,
                                          const string_type& name,
                                          const std::vector<Arabica::XPath::XPathExpression<string_type, string_adaptor> >& argExprs) const
   {

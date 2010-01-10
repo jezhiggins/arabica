@@ -15,7 +15,7 @@
 
 using namespace Arabica::SAX;
 
-void InputSourceResolver::open(const std::string& publicId, 
+void InputSourceResolver::open(const std::string& /* publicId */, 
             const std::string& systemId,
             std::istream* byteStream)
 {

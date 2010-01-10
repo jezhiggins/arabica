@@ -121,12 +121,12 @@ inline void TestResult::addSkip (Test *test, CppUnitException *e)
 { ExclusiveZone zone (m_syncObject); m_skips.push_back (new TestFailure (test, e)); }
 
 // Informs the result that a test will be started.
-inline void TestResult::startTest (Test *test)
+inline void TestResult::startTest (Test * /* test */ )
 { ExclusiveZone zone (m_syncObject); m_runTests++; }
 
   
 // Informs the result that a test was completed.
-inline void TestResult::endTest (Test *test)
+inline void TestResult::endTest (Test * /*test */)
 { ExclusiveZone zone (m_syncObject); }
 
 

@@ -7,17 +7,17 @@
 class TestRunner
 {
 protected:
+  bool m_wait;
   bool verbose_;
-	bool m_wait;
-	std::vector<std::pair<std::string,Test *> > m_mappings;
+  std::vector<std::pair<std::string,Test *> > m_mappings;
 
 public:
-	TestRunner() : m_wait(false), verbose_(false) {}
-	~TestRunner();
+  TestRunner() : m_wait(false), verbose_(false) {}
+  ~TestRunner();
 
-	bool run(int ac, const char **av);
-	void addTest(std::string name, Test *test)
-	{ m_mappings.push_back(std::make_pair(name, test)); }
+  bool run(int ac, const char **av);
+  void addTest(std::string name, Test *test)
+  { m_mappings.push_back(std::make_pair(name, test)); }
 }; // TestRunner;
 
 #endif
