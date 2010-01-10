@@ -91,19 +91,19 @@ class NamespaceNodeImpl : public DOM::Node_impl<stringT, string_adaptorT>
 
     virtual DocumentImplT* getOwnerDocument() const { return parentNode_->getOwnerDocument(); }
 
-    virtual NodeImplT* insertBefore(NodeImplT* newChild, NodeImplT* refChild) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
-    virtual NodeImplT* replaceChild(NodeImplT*  newChild, NodeImplT* oldChild) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
-    virtual NodeImplT* removeChild(NodeImplT*  oldChild) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
-    virtual NodeImplT* appendChild(NodeImplT*  newChild) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
-    virtual void purgeChild(NodeImplT* oldChild) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
+    virtual NodeImplT* insertBefore(NodeImplT* /* newChild */, NodeImplT* /* refChild */) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
+    virtual NodeImplT* replaceChild(NodeImplT* /* newChild */, NodeImplT* /* oldChild */) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
+    virtual NodeImplT* removeChild(NodeImplT*  /* oldChild */) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
+    virtual NodeImplT* appendChild(NodeImplT*  /* newChild */) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
+    virtual void purgeChild(NodeImplT* /* oldChild */) { throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR); }
 
     virtual bool hasChildNodes() const { return false; }
 
-    virtual NodeImplT* cloneNode(bool deep) const { return new NamespaceNodeImpl<stringT, string_adaptorT>(parentNode_, localname_, value_); } 
+    virtual NodeImplT* cloneNode(bool /* deep */) const { return new NamespaceNodeImpl<stringT, string_adaptorT>(parentNode_, localname_, value_); } 
 
     virtual void normalize() { }
 
-    virtual bool isSupported(const stringT& feature, const stringT& version) const { return false; }
+    virtual bool isSupported(const stringT& /* feature */, const stringT& /* version */) const { return false; }
 
     virtual const stringT& getNamespaceURI() const { return empty_; }
     virtual const stringT& getPrefix() const { return empty_; }

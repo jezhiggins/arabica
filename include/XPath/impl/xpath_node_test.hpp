@@ -33,7 +33,7 @@ class AnyNodeTest : public NodeTest<string_type, string_adaptor>
 {
 public:
   virtual NodeTest<string_type, string_adaptor>* clone() const { return new AnyNodeTest(); }
-  virtual bool operator()(const DOM::Node<string_type, string_adaptor>& node) const
+  virtual bool operator()(const DOM::Node<string_type, string_adaptor>& /* node */) const
   {
     return true;
   } // matches
