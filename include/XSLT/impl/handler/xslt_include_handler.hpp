@@ -51,7 +51,6 @@ public:
     if(no_content_)
       throw SAX::SAXException("xsl:include must be empty");
 
-    bool start_pass_through = false;
     if(namespaceURI == StylesheetConstant::NamespaceURI())
     {
       if(localName == "import")
@@ -121,8 +120,8 @@ public:
 private:
   std::string validate_href(const std::string& qName, const SAX::Attributes<std::string>& atts)
   {
-    static const ValueRule rules[] = { { "href", true, 0 },
-                                        { 0, false, 0 } };
+    static const ValueRule rules[] = { { "href", true, 0, 0 },
+				       { 0, false, 0, 0 } };
     std::string href = gatherAttributes(qName, atts, rules)["href"];
     no_content_ = true;
     // std::cout << "Base : "  << context_->currentBase() << ", href : " << href << "\n";
@@ -171,8 +170,8 @@ private:
     current_includes_.pop_back();
   } // include_stylesheet
 
-  SAX::DefaultHandler<std::string>* compiler_;
   CompilationContext* context_;
+  SAX::DefaultHandler<std::string>* compiler_;
   bool no_content_;
 
   typedef std::vector<std::string> HrefStack;

@@ -25,7 +25,7 @@ protected:
                                          const SAX::Attributes<std::string>& atts)
   {
     std::vector<InlineAttribute> inlineAtts;
-    for(unsigned int i = 0; i != atts.getLength(); ++i)
+    for(int i = 0; i != atts.getLength(); ++i)
     {      
       if(atts.getQName(i).find("xmlns:") == 0)
         continue;

@@ -17,13 +17,13 @@ public:
   {
   } // ProcessingInstructionHandler
 
-  virtual ProcessingInstruction* createContainer(const std::string& namespaceURI,
-                                                 const std::string& localName,
+  virtual ProcessingInstruction* createContainer(const std::string& /* namespaceURI */,
+                                                 const std::string& /* localName */,
                                                  const std::string& qName,
                                                  const SAX::Attributes<std::string>& atts)
   {
-    static const ValueRule rules[] = { { "name", true, 0 },
-                                       { 0, false, 0} };
+    static const ValueRule rules[] = { { "name", true, 0, 0 },
+                                       { 0, false, 0, 0} };
     std::string name = gatherAttributes(qName, atts, rules)["name"];
 
     return new ProcessingInstruction(ItemContainerHandler<ProcessingInstruction>::context().xpath_attribute_value_template(name));

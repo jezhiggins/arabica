@@ -23,7 +23,7 @@ public:
 				const std::string& qName,
 				const SAX::Attributes<std::string>& atts)
   {
-    static const ValueRule rules[] = { { "test", true, 0. 0 },
+    static const ValueRule rules[] = { { "test", true, 0, 0 },
                                        { 0, false, 0, 0 } };
     std::string test = gatherAttributes(qName, atts, rules)["test"];
 

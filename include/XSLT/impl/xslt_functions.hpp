@@ -139,8 +139,8 @@ public:
       Arabica::XPath::NodeSetXPathFunction<std::string>(0, 0, args) { }
 
 protected:
-  virtual Arabica::XPath::NodeSet<std::string> doEvaluate(const DOM::Node<std::string>& context, 
-                                                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  virtual Arabica::XPath::NodeSet<std::string> doEvaluate(const DOM::Node<std::string>& /* context */, 
+							  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     Arabica::XPath::NodeSet<std::string> set;
     set.push_back(executionContext.currentNode());
@@ -156,8 +156,8 @@ public:
     Arabica::XPath::StringXPathFunction<std::string>(1, 1, args) { }
 
 protected:
-  virtual std::string doEvaluate(const DOM::Node<std::string>& context, 
-                                 const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  virtual std::string doEvaluate(const DOM::Node<std::string>& /* context */, 
+                                 const Arabica::XPath::ExecutionContext<std::string>& /* executionContext */) const
   {
     // This is a minimal, but I think conformant, implementation
     return "";

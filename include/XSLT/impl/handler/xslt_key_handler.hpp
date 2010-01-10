@@ -18,18 +18,18 @@ public:
   {
   } // KeyHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-			    const std::string& localName,
+  virtual void startElement(const std::string& /* namespaceURI */,
+			    const std::string& /* localName */,
 			    const std::string& qName,
 			    const SAX::Attributes<std::string>& atts)
   {
     if(key_ != 0)
       throw SAX::SAXException(qName + " can not contain elements");
 
-    static const ValueRule rules[] = { { "name", true, 0 },
-                                       { "match", true, 0 }, 
-                                       { "use", true, 0 },
-                                       { 0, false, 0 } };
+    static const ValueRule rules[] = { { "name", true, 0, 0 },
+                                       { "match", true, 0, 0 }, 
+                                       { "use", true, 0, 0 },
+                                       { 0, false, 0, 0 } };
 
     std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
     name_ = context_.processInternalQName(attrs["name"]).clarkName();
@@ -39,9 +39,9 @@ public:
     key_ = new Key(matches, use);
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-			  const std::string& localName,
-			  const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+			  const std::string& /* localName */,
+			  const std::string& /* qName */)
   {
     context_.stylesheet().add_key(name_, key_);
     context_.pop();

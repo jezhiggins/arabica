@@ -55,9 +55,9 @@ public:
     throw SAX::SAXException(qName + " <- Sorry, don't know about that yet :)");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     context_.parentContainer().add_item(container_);
     context_.pop();

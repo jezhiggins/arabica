@@ -16,8 +16,8 @@ public:
   {
   } // OutputHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
+  virtual void startElement(const std::string& /* namespaceURI */,
+                            const std::string& /* localName */,
                             const std::string& qName,
                             const SAX::Attributes<std::string>& atts)
   {
@@ -25,16 +25,16 @@ public:
     {
       static const char* AllowedMethods[] = { "xml", "html", "text", 0 };
       static const ValueRule rules[] = { { "method", false, "xml", AllowedMethods },
-                                         { "version", false, "1.0" },
-                                         { "encoding", false, "UTF-8" },
+                                         { "version", false, "1.0", 0 },
+                                         { "encoding", false, "UTF-8", 0 },
                                          { "omit-xml-declaration", false, No, AllowedYesNo },
                                          { "standalone", false, "", AllowedYesNo },
-                                         { "doctype-public", false, ""},
-                                         { "doctype-system", false, ""},
-                                         { "cdata-section-elements", false, ""},
+                                         { "doctype-public", false, "", 0},
+                                         { "doctype-system", false, "", 0},
+                                         { "cdata-section-elements", false, "", 0},
                                          { "indent", false, No, AllowedYesNo },
-                                         { "media-type", false, "" },
-                                         { 0, false, 0 } };
+                                         { "media-type", false, "", 0 },
+                                         { 0, false, 0, 0 } };
       settings_ = gatherAttributes(qName, atts, rules);
       cdataElements_ = extractCDATAElements(settings_["cdata-section-elements"]);
 
@@ -44,9 +44,9 @@ public:
     throw SAX::SAXException(qName + " can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     context_.stylesheet().output_settings(settings_, cdataElements_);
     context_.pop();

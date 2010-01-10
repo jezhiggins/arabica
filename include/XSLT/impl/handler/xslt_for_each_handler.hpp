@@ -20,13 +20,13 @@ public:
   } // ForEachHandler
 
 protected:
-  virtual ForEach* createContainer(const std::string& namespaceURI,
-                                   const std::string& localName,
+  virtual ForEach* createContainer(const std::string& /* namespaceURI */,
+                                   const std::string& /* localName */,
                                    const std::string& qName,
                                    const SAX::Attributes<std::string>& atts)
   {
-    static const ValueRule rules[] = { { "select", true, 0 },
-                                       { 0, false, 0} };
+    static const ValueRule rules[] = { { "select", true, 0, 0 },
+                                       { 0, false, 0, 0 } };
     std::string select = gatherAttributes(qName, atts, rules)["select"];
 
     return new ForEach(context().xpath_expression(select));
@@ -39,6 +39,7 @@ protected:
   {
     if((namespaceURI == StylesheetConstant::NamespaceURI()) &&
        (localName == "sort"))
+    {
       if(!done_sort_)
       {
         context().push(0,
@@ -51,6 +52,7 @@ protected:
       }
       else
         throw SAX::SAXException("xsl:sort must immediately follow xsl:for-each");
+    } // if ...
     done_sort_ = true;
     return ItemContainerHandler<ForEach>::createChild(namespaceURI, localName, qName, atts);
   } // createChild

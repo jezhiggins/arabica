@@ -116,7 +116,7 @@ bool operator>(const Precedence& lhs, const Precedence& rhs)
 std::ostream& operator<<(std::ostream& os, const Precedence& prec)
 {
   os << '(' << prec.precedence_[0];
-  for(int i = 1; i != prec.precedence_.size(); ++i)
+  for(size_t i = 1; i != prec.precedence_.size(); ++i)
     os << ',' << prec.precedence_[i];
   os << ')';
   return os;

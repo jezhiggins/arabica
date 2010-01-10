@@ -15,17 +15,17 @@ public:
   {
   } // ForeignElementHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const std::string& /* namespaceURI */,
+                            const std::string& /* localName */,
+                            const std::string& /* qName */,
+                            const SAX::Attributes<std::string>& /* atts */)
   {
     ++depth_;
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     if(--depth_ == 0)
       context_.pop();

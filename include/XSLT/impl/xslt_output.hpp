@@ -364,16 +364,16 @@ private:
 
   int buffering_;
   bool pending_element_;
-  int pending_attribute_;
   bool pending_text_;
+  int pending_attribute_;
+  bool text_mode_;
+  Output* warning_sink_;
   CDATAElements cdataElements_;
   std::stack<QName> element_stack_;
   std::string target_;
   SAX::AttributesImpl<std::string, Arabica::default_string_adaptor<std::string> > atts_;
   std::stringstream buffer_;
-  bool text_mode_;
   NamespaceStack namespaceStack_;
-  Output* warning_sink_;
 }; // class Output
 
 } // namespace XSLT
