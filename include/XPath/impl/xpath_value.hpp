@@ -29,28 +29,28 @@ protected:
   ~Value_base() { }
 
 public:
-  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context) { return asBool(); }
-  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context) { return asNumber(); }
-  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context) { return asString(); }
-  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context) { return asNodeSet(); }
+  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& /* context */) { return asBool(); }
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& /* context */) { return asNumber(); }
+  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& /* context */) { return asString(); }
+  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& /* context */) { return asNodeSet(); }
 
-  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& context, 
-			      const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  virtual bool evaluateAsBool(const DOM::Node<string_type, string_adaptor>& /* context */, 
+			      const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const 
   { 
     return asBool(); 
   }
-  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& context, 
-                                  const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  virtual double evaluateAsNumber(const DOM::Node<string_type, string_adaptor>& /* context */, 
+                                  const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const 
   { 
     return asNumber(); 
   }
-  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& context, 
-                                       const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  virtual string_type evaluateAsString(const DOM::Node<string_type, string_adaptor>& /* context */, 
+                                       const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const 
   { 
     return asString(); 
   }
-  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& context, 
-                                                 const ExecutionContext<string_type, string_adaptor>& executionContext) const 
+  virtual NodeSet<string_type, string_adaptor> evaluateAsNodeSet(const DOM::Node<string_type, string_adaptor>& /* context */, 
+								 const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const 
   {
     return asNodeSet(); 
   }
@@ -65,8 +65,8 @@ public:
 
   static XPathValue<string_type, string_adaptor> createValue(bool value) { return XPathValue<string_type, string_adaptor>(new BoolValue(value)); }
 
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& /* context */, 
+							   const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const
   {
     return XPathValue<string_type, string_adaptor>(new BoolValue(value_));
   } // evaluate
@@ -91,8 +91,8 @@ public:
   
   static XPathValue<string_type, string_adaptor> createValue(double value) { return XPathValue<string_type, string_adaptor>(new NumericValue(value)); }
 
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& /* context */, 
+							   const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const
   {
     return createValue(value_);
   } // evaluate
@@ -133,8 +133,8 @@ public:
 
   static XPathValue<string_type, string_adaptor> createValue(const string_type& value) { return XPathValue<string_type, string_adaptor>(new StringValue(value)); }
 
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& /* context */, 
+							   const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const
   {
     return XPathValue<string_type, string_adaptor>(new StringValue(value_));
   } // evaluate
@@ -164,8 +164,8 @@ public:
     return XPathValue<string_type, string_adaptor>(new NodeSetValue(set)); 
   } // createValue
 
-  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context, 
-                                              const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  virtual XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& /* context */, 
+							   const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const
   {
     return XPathValue<string_type, string_adaptor>(this);
   } // evaluate
