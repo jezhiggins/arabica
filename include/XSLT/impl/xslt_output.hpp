@@ -83,7 +83,7 @@ public:
     end_element(en.prefix, en.localName, en.namespaceURI);
   } // end_element
 
-  void end_element(const std::string& prefix, const std::string& localName, const std::string& namespaceURI)
+  void end_element(const std::string& /* prefix */, const std::string& localName, const std::string& namespaceURI)
   {
     if(pop_if_buffering())
       return;
