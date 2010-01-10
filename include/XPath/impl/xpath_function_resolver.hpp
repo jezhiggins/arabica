@@ -44,7 +44,7 @@ public:
   virtual XPathFunction<string_type, string_adaptor>* 
       resolveFunction(const string_type& namespace_uri,
                       const string_type& name,
-                      const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs) const 
+                      const std::vector<XPathExpression<string_type, string_adaptor> >& /* argExprs */) const 
   {
     string_type error;
     if(!string_adaptor::empty(namespace_uri))

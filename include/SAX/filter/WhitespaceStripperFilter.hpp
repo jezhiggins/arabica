@@ -32,7 +32,7 @@ class WhitespaceStripper : public SAX::XMLFilterImpl<string_type, string_adaptor
       XMLFilterT::characters(Arabica::text::normalize_whitespace<string_type, string_adaptor>(ch));
     } // characters
 
-    virtual void ignorableWhitespace(const string_type& ch)
+    virtual void ignorableWhitespace(const string_type& /* ch */)
     {
     } // ignorableWhitespace
 }; // class WhitespaceStripper

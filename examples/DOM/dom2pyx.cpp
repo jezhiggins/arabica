@@ -43,7 +43,7 @@ void generate_pyx(Arabica::DOM::Element<std::string> element)
   if(element.hasAttributes())
   {
     Arabica::DOM::NamedNodeMap<std::string> attrs = element.getAttributes();
-    for(int a = 0; a != attrs.getLength(); ++a)
+    for(size_t a = 0; a != attrs.getLength(); ++a)
     {
       Arabica::DOM::Node<std::string> attr = attrs.item(a);
       std::cout << 'A' << attr.getNodeName() 

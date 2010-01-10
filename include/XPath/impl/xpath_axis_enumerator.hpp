@@ -86,7 +86,7 @@ public:
   bool forward() const { return walker_->forward(); }
   bool reverse() const { return !walker_->forward(); }
   const DOM::Node<string_type, string_adaptor>& operator*() const { return node_; }
-  const DOM::Node<string_type, string_adaptor>* const operator->() const { return &node_; }
+  const DOM::Node<string_type, string_adaptor>* operator->() const { return &node_; }
   AxisEnumerator& operator++() { advance(); return *this; }
   AxisEnumerator operator++(int) { AxisEnumerator copy(*this); advance(); return copy; }
 
@@ -117,7 +117,7 @@ class AxisWalker
 {
 public:
   virtual ~AxisWalker() { }
-  DOM::Node_impl<string_type, string_adaptor>* const get() const { return current_; }
+  DOM::Node_impl<string_type, string_adaptor>* get() const { return current_; }
   virtual void advance() = 0;
   bool forward() { return forward_; }
   virtual AxisWalker<string_type, string_adaptor>* clone() const = 0;
@@ -362,7 +362,7 @@ public:
   virtual AxisWalker<string_type, string_adaptor>* clone() const { return new DescendantAxisWalker(*this); }
 
 private:
-  const RawNodeT nextDescendant()
+  RawNodeT nextDescendant()
   {
     RawNodeT next = BaseT::get()->getFirstChild();
     if(next == 0)

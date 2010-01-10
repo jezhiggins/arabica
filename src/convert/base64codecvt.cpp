@@ -116,7 +116,7 @@ std::codecvt_base::result base64codecvt::do_in(std::mbstate_t& state,
   return (from_next == from_end) ? std::codecvt_base::ok : std::codecvt_base::partial; 
 } // do_in
 
-std::codecvt_base::result base64codecvt::do_unshift(std::mbstate_t& state,
+std::codecvt_base::result base64codecvt::do_unshift(std::mbstate_t& /* state */,
                             char* to,
                             char* to_limit,
                             char*& to_next) const

@@ -462,7 +462,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
         idNodes_.erase(n);
     } // removeElementId
 
-    stringT const* const stringPool(const stringT& str) const
+    stringT const* stringPool(const stringT& str) const
     {
       typename std::list<stringT>::const_iterator i = std::find(stringPool_.begin(), stringPool_.end(), str);
       if(i != stringPool_.end())

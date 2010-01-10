@@ -169,7 +169,7 @@ public:
   LastFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
 protected:
-  virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+  virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& /* context */,
                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return executionContext.last();
@@ -184,7 +184,7 @@ public:
   PositionFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : NumericXPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
 protected:
-  virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
+  virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& /* context */,
                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     return executionContext.position();
@@ -597,8 +597,8 @@ public:
   TrueFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanXPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
 protected:
-  virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
-                                            const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& /* context */,
+			  const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const
   {
     return true;
   } // doEvaluate
@@ -612,8 +612,8 @@ public:
   FalseFn(const std::vector<XPathExpression<string_type, string_adaptor> >& args) : BooleanXPathFunction<string_type, string_adaptor>(0, 0, args) { }
 
 protected:
-  virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
-                          const ExecutionContext<string_type, string_adaptor>& executionContext) const
+  virtual bool doEvaluate(const DOM::Node<string_type, string_adaptor>& /* context */,
+                          const ExecutionContext<string_type, string_adaptor>& /* executionContext */) const
   {
     return false;
   } // evaluate
