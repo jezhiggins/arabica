@@ -76,7 +76,7 @@ std::string URI::as_string() const
 
 void fixSlashes(std::string& path)
 {
-  for(int i = path.find('\\'); i != std::string::npos; i = path.find('\\', i))
+  for(size_t i = path.find('\\'); i != std::string::npos; i = path.find('\\', i))
     path[i] = FORWARD_SLASH;
 } // fixSlashes
 
@@ -94,7 +94,7 @@ void URI::parse_uri(const std::string& uri)
   // I'd like to use something a bit stronger - http://code.google.com/p/uri-grammar/
   // but that would put a Boost Spirit dependence right in the core, which I'm not prepared to do at the moment
 
-  int d = uri.find_first_of(COLON);
+  size_t d = uri.find_first_of(COLON);
   if(d == std::string::npos)
   {
     path_ = uri;
@@ -179,7 +179,7 @@ void URI::combinePath(const std::string& relPath)
   std::string::size_type from = path_.length() - 1;
   path_.append(relPath);
 
-  int dots = path_.find("/../", from);
+  size_t dots = path_.find("/../", from);
   while(dots != std::string::npos)
   {
     int preceding_slash = (dots > 0) ? path_.rfind(FORWARD_SLASH, dots-1) : 0;
@@ -187,7 +187,7 @@ void URI::combinePath(const std::string& relPath)
     dots = path_.find("/../", preceding_slash);
   } // while
 
-  int dot = path_.find("/./");
+  size_t dot = path_.find("/./");
   while(dot != std::string::npos)
   {
     path_.erase(dot, 2);
