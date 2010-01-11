@@ -1,5 +1,3 @@
-
-
 #include "TableTestResult.hpp"
 
 void TableTestResult::print(std::ostream& stream)

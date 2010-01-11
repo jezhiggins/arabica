@@ -1,6 +1,7 @@
 #include "TestRunner.hpp"
 #include "textui/TextTestResult.h"
 #include "textui/TableTestResult.hpp"
+#include "textui/XmlTestResult.hpp"
 #include <iostream>
 
 //////////////////////////////////////////
@@ -45,6 +46,11 @@ bool tablerun(const string& name, Test *test, bool verbose)
   return run<TableTestResult>(name, test, verbose);
 } // tablerun
 
+bool xmlrun(const string& name, Test *test, bool verbose)
+{
+  return run<XmlTestResult>(name, test, verbose);
+} // xmlrun
+
 
 
 void printBanner ()
@@ -84,6 +90,13 @@ bool TestRunner::run(int ac, const char **av)
       ++opt;
       continue;
     }
+
+    if(string(av[i]) == "-xml")
+    {
+      runner = xmlrun;
+      ++opt;
+      continue;
+    } 
 
 
     testCase = av[i];
