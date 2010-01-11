@@ -145,8 +145,8 @@ private:
   Arabica::XPath::XPathExpressionPtr<std::string> datatype_;
   Arabica::XPath::XPathExpressionPtr<std::string> order_;
   Arabica::XPath::XPathExpressionPtr<std::string> caseorder_;
-  ExecutionContext* context_;
   Sort* sub_sort_;
+  ExecutionContext* context_;
   sortFn sort_fn_;
 
   Sort& operator=(const Sort&);

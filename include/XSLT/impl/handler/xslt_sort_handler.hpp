@@ -19,8 +19,8 @@ public:
   {
   } // SortHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
+  virtual void startElement(const std::string& /* namespaceURI */,
+                            const std::string& /* localName */,
                             const std::string& qName,
                             const SAX::Attributes<std::string>& atts)
   {
@@ -29,12 +29,12 @@ public:
       static const char* DataTypes[] = { "text", "number", 0 };
       static const char* SortOrder[] = { "ascending", "descending", 0 };
       static const char* CaseOrder[] = { "upper-first", "lower-first", 0 };
-      static const ValueRule rules[] = { { "select", false, "." },
-                                         { "lang", false, 0 },
+      static const ValueRule rules[] = { { "select", false, ".", 0 },
+                                         { "lang", false, 0, 0 },
                                          { "data-type", false, "text", DataTypes },
                                          { "order", false, "ascending", SortOrder },
                                          { "case-order", false, "upper-first", CaseOrder },
-                                         { 0, false, 0 } };
+                                         { 0, false, 0, 0 } };
 
       std::map<std::string, std::string> attr = gatherAttributes(qName, atts, rules);
 
@@ -57,9 +57,9 @@ public:
     throw SAX::SAXException("xsl:sort can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     sortee_.add_sort(sort_);
     context_.pop();

@@ -24,7 +24,8 @@ public:
 
   void set(const std::string& text) { text_ = text; }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<std::string>& /* node */, 
+		       ExecutionContext& context) const
   {
     if(disable_)
       context.sink().disableOutputEscaping(true);

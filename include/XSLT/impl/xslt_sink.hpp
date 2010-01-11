@@ -84,21 +84,22 @@ public:
     stream_(stream),
     disable_output_escaping_(false),
     in_cdata_(false),
+    empty_(false),
     seen_root_(true),
-    out_again_(false),
     indent_(-1),
-    empty_(false)
+    out_again_(false)
   { 
   } // StreamSink
 
   StreamSink(const StreamSink& rhs) :
     stream_(rhs.stream_),
     disable_output_escaping_(rhs.disable_output_escaping_),
-    seen_root_(rhs.seen_root_),
-    settings_(rhs.settings_),
-    indent_(rhs.indent_),
+    in_cdata_(rhs.in_cdata_),
     empty_(false),
-    out_again_(rhs.out_again_)
+    seen_root_(rhs.seen_root_),
+    indent_(rhs.indent_),
+    out_again_(rhs.out_again_),
+    settings_(rhs.settings_)
   {
   } // StreamSink
 
@@ -123,7 +124,7 @@ protected:
   } // do_end_document
 
   void do_start_element(const std::string& qName, 
-                        const std::string& namespaceURI,
+                        const std::string& /* namespaceURI */,
                         const SAX::Attributes<std::string>& atts)
   {
     if(!seen_root_)
@@ -144,7 +145,8 @@ protected:
     empty_ = true;
   } // do_start_element
 
-  void do_end_element(const std::string& qName, const std::string& namespaceURI)
+  void do_end_element(const std::string& qName, 
+		      const std::string& /* namespaceURI */)
   { 
     if(!seen_root_)
       do_decl("");
@@ -305,9 +307,9 @@ private:
   bool in_cdata_;
   bool empty_;
   bool seen_root_;
-  Settings settings_;
   int indent_;
   bool out_again_;
+  Settings settings_;
 
   bool operator==(const StreamSink&) const;
   StreamSink& operator=(const StreamSink&);

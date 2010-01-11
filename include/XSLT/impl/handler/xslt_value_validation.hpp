@@ -87,7 +87,7 @@ std::map<std::string, std::string> gatherAttributes(const std::string& parentEle
   }
 
   return results;
-}; // validateAttributes
+} // validateAttributes
 
 } // namespace XSLT
 } // namespace Arabica

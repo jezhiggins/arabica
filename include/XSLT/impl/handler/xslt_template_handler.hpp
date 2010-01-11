@@ -34,16 +34,16 @@ public:
   } // characters
 
 protected:
-  virtual Template* createContainer(const std::string& namespaceURI,
-                                    const std::string& localName,
+  virtual Template* createContainer(const std::string& /* namespaceURI */,
+                                    const std::string& /* localName */,
                                     const std::string& qName,
                                     const SAX::Attributes<std::string>& atts)
   {
-    static const ValueRule rules[] = { { "match", false, 0 },
-                                       { "mode", false, 0 },
-                                       { "name", false, 0 }, 
-                                       { "priority", false, 0 },
-				       { 0, false, 0} };
+    static const ValueRule rules[] = { { "match", false, 0, 0 },
+                                       { "mode", false, 0, 0 },
+                                       { "name", false, 0, 0 }, 
+                                       { "priority", false, 0, 0 },
+				       { 0, false, 0, 0 } };
     std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
                                        
     const std::string& match = attributes["match"];
@@ -112,9 +112,9 @@ protected:
   } // createChild
 
 public:
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     context().stylesheet().add_template(container());
     context().pop();

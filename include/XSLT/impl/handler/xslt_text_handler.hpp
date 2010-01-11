@@ -17,15 +17,15 @@ public:
   {
   } // TextHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
+  virtual void startElement(const std::string& /* namespaceURI */,
+                            const std::string& /* localName */,
                             const std::string& qName,
                             const SAX::Attributes<std::string>& atts)
   {
     if(text_ == 0)
     {
       static const ValueRule rules[] = { { "disable-output-escaping", false, No, AllowedYesNo },
-                                         { 0, false, 0} };
+                                         { 0, false, 0, 0 } };
       text_ = new Text(gatherAttributes(qName, atts, rules)["disable-output-escaping"] == Yes);
       return;
     } // if(text_ == 0)
@@ -33,9 +33,9 @@ public:
     throw SAX::SAXException(qName + " can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     text_->set(buffer_);
     context_.parentContainer().add_item(text_);

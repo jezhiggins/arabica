@@ -59,9 +59,9 @@ public:
       oops(qName);
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
   } // endElement
 
@@ -79,7 +79,7 @@ public:
   } // endDocument
 
 private:
-  void startStylesheet(const std::string& namespaceURI,
+  void startStylesheet(const std::string& /* namespaceURI */,
                        const std::string& localName,
                        const std::string& qName,
                        const SAX::Attributes<std::string>& atts)
@@ -87,11 +87,11 @@ private:
     if(localName != "stylesheet" && localName != "transform")
       throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
     
-    static const ValueRule rules[] = { { "version", true, 0 },
-                                       { "extension-element-prefixes", false, 0 },
-                                       { "exclude-result-prefixes", false, 0 },
-                                       { "id", false, 0 },
-                                       { 0, false, 0 } };
+    static const ValueRule rules[] = { { "version", true, 0, 0 },
+                                       { "extension-element-prefixes", false, 0, 0 },
+                                       { "exclude-result-prefixes", false, 0, 0 },
+                                       { "id", false, 0, 0 },
+                                       { 0, false, 0, 0 } };
     std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
     if(attributes["version"] != StylesheetConstant::Version())
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");

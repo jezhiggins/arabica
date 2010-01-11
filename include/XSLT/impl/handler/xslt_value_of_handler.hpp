@@ -18,16 +18,16 @@ public:
   {
   } // ValueOfHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
+  virtual void startElement(const std::string& /* namespaceURI */,
+                            const std::string& /* localName */,
                             const std::string& qName,
                             const SAX::Attributes<std::string>& atts)
   {
     if(valueOf_ == 0)
     {
-      static const ValueRule rules[] = { { "select", true, 0 },
+      static const ValueRule rules[] = { { "select", true, 0, 0 },
                                          { "disable-output-escaping", false, No, AllowedYesNo },
-                                         { 0, false, 0} };
+                                         { 0, false, 0, 0 } };
 
       std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
       valueOf_ = new ValueOf(context_.xpath_expression(attrs["select"]), 
@@ -38,9 +38,9 @@ public:
     throw SAX::SAXException(qName + " can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     context_.parentContainer().add_item(valueOf_);
     context_.pop();

@@ -19,9 +19,9 @@ public:
   {
   } // WithParamHandler
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const std::string& /* namespaceURI */,
+                          const std::string& /* localName */,
+                          const std::string& /* qName */)
   {
     paramee_.add_with_param(container());
     context().pop();

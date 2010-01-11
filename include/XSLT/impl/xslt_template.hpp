@@ -14,8 +14,8 @@ class Template : public ItemContainer
 public:
   Template(const std::string& name,
       	   const std::string& mode,
-           const std::string& priority,
-	         const Precedence& precedence) :
+           const std::string& /* priority */,
+	   const Precedence& precedence) :
     matches_(),
     name_(name),
     mode_(mode),
