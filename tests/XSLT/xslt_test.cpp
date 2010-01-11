@@ -1,5 +1,6 @@
-
+#ifdef _MSC_VER
 #pragma warning(disable: 4250)
+#endif
 
 
 #include "../CppUnit/framework/Test.h"
@@ -407,7 +408,7 @@ protected:
   void stripWhitespace(Arabica::DOM::Node<std::string> doc)
   {
     Arabica::XPath::NodeSet<std::string> textNodes = selectNodes("//text()", doc);
-    for(int i = 0; i != textNodes.size(); ++i)
+    for(size_t i = 0; i != textNodes.size(); ++i)
     {
       Arabica::DOM::Node<std::string> t = textNodes[i];
       std::string text = t.getNodeValue();
@@ -505,7 +506,7 @@ protected:
   void stripWhitespace(Arabica::DOM::Node<std::string> doc)
   {
     Arabica::XPath::NodeSet<std::string> textNodes = selectNodes("//text()", doc);
-    for(int i = 0; i != textNodes.size(); ++i)
+    for(size_t i = 0; i != textNodes.size(); ++i)
     {
       Arabica::DOM::Node<std::string> t = textNodes[i];
       std::string text = t.getNodeValue();
@@ -540,7 +541,7 @@ public:
     std::cerr << "Loaded expected fails" << std::endl;
     Arabica::DOM::Document<std::string> fail_doc = buildDOM(PATH_PREFIX + "arabica-expected-fails.xml");
     Arabica::XPath::NodeSet<std::string> failcases = selectNodes("/test-suite/test-case", fail_doc);
-    for(int i = 0; i != failcases.size(); ++i)
+    for(size_t i = 0; i != failcases.size(); ++i)
     {
       std::string name = selectString("@id", failcases[i]);
       std::string compiles = selectString("@compiles", failcases[i]);
@@ -609,7 +610,7 @@ TestSuite* Loader::suite(const std::string& path, const std::string& catalog_fil
   Arabica::XPath::NodeSet<std::string> tests = 
       selectNodes("/test-suite/test-catalog/test-case[file-path='" + path + "']", catalog);
   std::cerr << "There are " << tests.size() << " " << path << " tests." << std::endl;
-  for(int i = 0; i != tests.size(); ++i)
+  for(size_t i = 0; i != tests.size(); ++i)
   {
     std::string operation = selectString("scenario/@operation", tests[i]);
     std::string name = selectString("@id", tests[i]);

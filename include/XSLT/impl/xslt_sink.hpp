@@ -375,7 +375,7 @@ protected:
     current().appendChild(document().createProcessingInstruction(target, data));
   } // do_processing_instruction
 
-  void do_disableOutputEscaping(bool disable) { }
+  void do_disableOutputEscaping(bool /* disable */) { }
 
   bool want_namespace_declarations() const { return false; }
 
@@ -394,8 +394,8 @@ protected:
     current_ = elem;
   } // do_start_element
 
-  void do_end_element(const std::string& qName, 
-                      const std::string& namespaceURI)
+  void do_end_element(const std::string& /* qName */, 
+                      const std::string& /* namespaceURI */)
   {
     outdent();
     current_ = current_.getParentNode();

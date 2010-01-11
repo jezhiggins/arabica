@@ -106,7 +106,7 @@ public:
     assertTrue(SA::construct_from_utf8("t") == q.prefix());
   } // testPrefix
 
-  static string_type uri_mapper(const string_type& prefix)
+  static string_type uri_mapper(const string_type& /* prefix */)
   {
     return SA::construct_from_utf8("http://test/");
   } // uri_mapper
