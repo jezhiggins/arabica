@@ -21,6 +21,7 @@ public:
 
     virtual void           run (TestResult *result)    = 0;
     virtual int            countTestCases ()           = 0;
+    virtual std::string    name()                      = 0;
     virtual std::string    toString ()                 = 0;
 
 
@@ -40,6 +41,9 @@ inline void Test::run (TestResult * /* result */)
 inline int Test::countTestCases ()
 { return 0; }
 
+
+inline std::string Test::name() 
+{ return "unknown"; }
 
 // Returns the name of the test instance. 
 inline std::string Test::toString ()

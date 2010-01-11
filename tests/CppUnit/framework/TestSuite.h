@@ -41,6 +41,7 @@ public:
     void                run             (TestResult *result);
     int                 countTestCases  ();
     void                addTest         (Test *test);
+    std::string         name            ();
     std::string         toString        ();
 
     virtual void        deleteContents  ();
@@ -68,6 +69,9 @@ inline TestSuite::~TestSuite ()
 inline void TestSuite::addTest (Test *test)
 { m_tests.push_back (test); }
 
+
+inline std::string TestSuite::name()
+{ return toString(); }
 
 // Returns a string representation of the test suite.
 inline std::string TestSuite::toString ()

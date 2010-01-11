@@ -12,7 +12,7 @@
 #include <exception>
 #include <string>
 
-#define CPPUNIT_UNKNOWNFILENAME        "<unknown>"
+#define CPPUNIT_UNKNOWNFILENAME        "[unknown]"
 #define CPPUNIT_UNKNOWNLINENUMBER      (-1)
 
 class CppUnitException : public std::exception
