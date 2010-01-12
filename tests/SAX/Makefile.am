@@ -4,7 +4,7 @@ if HAS_STD_WSTRING
   check_PROGRAMS += filter_test_wide
 endif
 if WANT_TESTS
-  TESTS = $(check_PROGRAMS)
+  TESTS = test_and_log.sh $(check_PROGRAMS)
 endif
 
 
