@@ -65,6 +65,6 @@ void XmlTestResult::print(std::ostream& stream)
     stream << "</testcase>\n";
   } 
          
-  stream << "</testsuite>";
+  stream << "</testsuite>" << std::endl;
 
 } // print
