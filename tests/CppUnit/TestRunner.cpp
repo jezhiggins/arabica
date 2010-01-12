@@ -76,6 +76,12 @@ bool TestRunner::run(int ac, const char **av)
   int opt = 0;
   runFn runner = textrun;
 
+  std::string executable = av[0];
+  size_t slash = executable.find_last_of("/\\");
+  if(slash != -1)
+    executable.erase(0, slash+1);
+  executable += "-";
+
   for(int i = 1; i < ac; i++) 
   {
     if(string(av[i]) == "-wait") 
@@ -109,6 +115,8 @@ bool TestRunner::run(int ac, const char **av)
     if(string(av[i]) == "-log")
     {
       logprefix_ = av[++i];
+      logprefix_ += executable;
+      cout << "logprefix=" << logprefix_ << std::endl;
       opt += 2;
       continue;
     } 
@@ -131,7 +139,7 @@ bool TestRunner::run(int ac, const char **av)
       if((*it).first == testCase) 
       {
         testToRun = (*it).second;
-        ok &= runner((*it).first, testToRun, verbose_, logprefix_);
+        ok &= runner(executable + (*it).first, testToRun, verbose_, logprefix_);
       }
     }
 
@@ -149,7 +157,7 @@ bool TestRunner::run(int ac, const char **av)
     // run everything
     for(mappings::iterator it = m_mappings.begin(); it != m_mappings.end(); ++it) 
     {
-      ok &= runner((*it).first, (*it).second, verbose_, logprefix_);
+      ok &= runner(executable + (*it).first, (*it).second, verbose_, logprefix_);
     }
     return ok;
   } 
