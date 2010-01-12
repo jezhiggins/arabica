@@ -66,6 +66,12 @@ std::set<std::string> parse_tests_to_run(int argc, const char* argv[])
   for(int a = 1; a != argc; ++a)
     if(argv[a][0] != '-')
       tests.insert(argv[a]);
+    else
+    {
+      if(std::string(argv[a]) == "-log")
+	++a; // skip next
+    } // if ...
+     
   return tests;
 } // tests_to_run
 
