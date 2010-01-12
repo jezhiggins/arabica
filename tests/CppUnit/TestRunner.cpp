@@ -3,6 +3,7 @@
 #include "textui/TableTestResult.hpp"
 #include "textui/XmlTestResult.hpp"
 #include <iostream>
+#include <fstream>
 
 //////////////////////////////////////////
 /*
@@ -26,29 +27,36 @@ typedef pair<string, Test *>           mapping;
 typedef vector<pair<string, Test *> >   mappings;
 
 template<typename result_type>
-bool run(const string& name, Test *test, bool verbose)
+bool run(const string& name, Test *test, bool verbose, const string& logpath)
 {
   if(verbose)
     cout << "Running " << name << endl;
   result_type  result(name, verbose);
   test->run (&result);
   cout << result;
+  if(!logpath.empty())
+  {
+    std::string filename = logpath + "/" + name + ".log";
+    std::ofstream of(filename.c_str());
+    of << result;
+    of.close();
+  } // if ...
   return result.wasSuccessful();
 } // run
 
-bool textrun(const string& name, Test *test, bool verbose)
+bool textrun(const string& name, Test *test, bool verbose, const string& logpath)
 {
-  return run<TextTestResult>(name, test, verbose);
+  return run<TextTestResult>(name, test, verbose, logpath);
 } // textrun
 
-bool tablerun(const string& name, Test *test, bool verbose)
+bool tablerun(const string& name, Test *test, bool verbose, const string& logpath)
 {
-  return run<TableTestResult>(name, test, verbose);
+  return run<TableTestResult>(name, test, verbose, logpath);
 } // tablerun
 
-bool xmlrun(const string& name, Test *test, bool verbose)
+bool xmlrun(const string& name, Test *test, bool verbose, const string& logpath)
 {
-  return run<XmlTestResult>(name, test, verbose);
+  return run<XmlTestResult>(name, test, verbose, logpath);
 } // xmlrun
 
 
@@ -58,7 +66,7 @@ void printBanner ()
   cout << "Usage: driver [-v] [-table] [ -wait ] testName, where name is the name of a test case class" << endl;
 } // printBanner
 
-typedef bool (*runFn)(const string& name, Test *test, bool verbose);
+typedef bool (*runFn)(const string& name, Test *test, bool verbose, const string& logpath);
 
 bool TestRunner::run(int ac, const char **av)
 {
@@ -98,6 +106,14 @@ bool TestRunner::run(int ac, const char **av)
       continue;
     } 
 
+    if(string(av[i]) == "-log")
+    {
+      logpath_ = av[++i];
+      cout << "logpath=" <<logpath_ << std::endl;
+      opt += 2;
+      continue;
+    } 
+
 
     testCase = av[i];
 
@@ -116,7 +132,7 @@ bool TestRunner::run(int ac, const char **av)
       if((*it).first == testCase) 
       {
         testToRun = (*it).second;
-        ok &= runner((*it).first, testToRun, verbose_);
+        ok &= runner((*it).first, testToRun, verbose_, logpath_);
       }
     }
 
@@ -134,7 +150,7 @@ bool TestRunner::run(int ac, const char **av)
     // run everything
     for(mappings::iterator it = m_mappings.begin(); it != m_mappings.end(); ++it) 
     {
-      ok &= runner((*it).first, (*it).second, verbose_);
+      ok &= runner((*it).first, (*it).second, verbose_, logpath_);
     }
     return ok;
   } 

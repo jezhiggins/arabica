@@ -10,6 +10,7 @@ protected:
   bool m_wait;
   bool verbose_;
   std::vector<std::pair<std::string,Test *> > m_mappings;
+  std::string logpath_;
 
 public:
   TestRunner() : m_wait(false), verbose_(false) {}
