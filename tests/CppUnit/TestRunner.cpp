@@ -36,14 +36,18 @@ bool run(const string& name, Test *test, bool verbose, const string& logprefix)
     cout << "Running " << name << endl;
   result_type  result(name, verbose);
   test->run (&result);
-  cout << result;
   if(!logprefix.empty())
   {
     string filename = logprefix + name + ".log";
     ofstream of(filename.c_str());
     of << result;
     of.close();
+
+    if(verbose)
+      cout << result;
   } // if ...
+  else 
+    cout << result;
   return result.wasSuccessful();
 } // run
 
