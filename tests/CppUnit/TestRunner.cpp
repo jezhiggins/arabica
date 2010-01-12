@@ -3,7 +3,10 @@
 #include "textui/TableTestResult.hpp"
 #include "textui/XmlTestResult.hpp"
 #include <iostream>
+#include <sstream>
 #include <fstream>
+#include <vector>
+#include <cstdlib>
 
 //////////////////////////////////////////
 /*
@@ -36,8 +39,8 @@ bool run(const string& name, Test *test, bool verbose, const string& logprefix)
   cout << result;
   if(!logprefix.empty())
   {
-    std::string filename = logprefix + name + ".log";
-    std::ofstream of(filename.c_str());
+    string filename = logprefix + name + ".log";
+    ofstream of(filename.c_str());
     of << result;
     of.close();
   } // if ...
@@ -76,53 +79,70 @@ bool TestRunner::run(int ac, const char **av)
   int opt = 0;
   runFn runner = textrun;
 
-  std::string executable = av[0];
+  string executable = av[0];
   size_t slash = executable.find_last_of("/\\");
   if(slash != -1)
     executable.erase(0, slash+1);
   executable += "-";
 
-  for(int i = 1; i < ac; i++) 
+  vector<string> args;
+
   {
-    if(string(av[i]) == "-wait") 
+    // this is a mighty horrible hack, but 
+    // it makes it easier to hook into the 
+    // CI server
+    stringstream env;
+    env << getenv("JEZUK_CPP_UNIT");
+    string e;
+    while(env >> e)
+      args.push_back(e);
+  } // 
+
+  for(int i = 1; i < ac; ++i)
+    args.push_back(av[i]);
+
+  for(vector<string>::const_iterator a = args.begin(), ae = args.end(); a != ae; ++a)
+  {
+    if(*a == "-wait") 
     {
       m_wait = true;
       ++opt;
       continue;
     }
 
-    if(string(av[i]) == "-v")
+    if(*a == "-v")
     {
       verbose_ = true;
       ++opt;
       continue;
     }
 
-    if(string(av[i]) == "-table")
+    if(*a == "-table")
     {
       runner = tablerun;
       ++opt;
       continue;
     }
 
-    if(string(av[i]) == "-xml")
+    if(*a == "-xml")
     {
       runner = xmlrun;
       ++opt;
       continue;
     } 
 
-    if(string(av[i]) == "-log")
+    if(*a == "-log")
     {
-      logprefix_ = av[++i];
+      ++a;
+      logprefix_ = *a;
       logprefix_ += executable;
-      cout << "logprefix=" << logprefix_ << std::endl;
+      cout << "logprefix=" << logprefix_ << endl;
       opt += 2;
       continue;
     } 
 
 
-    testCase = av[i];
+    testCase = *a;
 
     if(testCase == "") 
     {
@@ -152,7 +172,7 @@ bool TestRunner::run(int ac, const char **av)
     } 
   } // for ...
 
-  if((ac-opt) == 1)
+  if((args.size()-opt) == 0)
   {
     // run everything
     for(mappings::iterator it = m_mappings.begin(); it != m_mappings.end(); ++it) 

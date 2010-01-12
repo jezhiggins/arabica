@@ -1,10 +1,9 @@
-
 check_PROGRAMS = filter_test filter_test_silly
 if HAS_STD_WSTRING
   check_PROGRAMS += filter_test_wide
 endif
 if WANT_TESTS
-  TESTS = test_and_log.sh $(check_PROGRAMS)
+  TESTS = $(check_PROGRAMS)
 endif
 
 
