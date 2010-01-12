@@ -27,16 +27,16 @@ typedef pair<string, Test *>           mapping;
 typedef vector<pair<string, Test *> >   mappings;
 
 template<typename result_type>
-bool run(const string& name, Test *test, bool verbose, const string& logpath)
+bool run(const string& name, Test *test, bool verbose, const string& logprefix)
 {
   if(verbose)
     cout << "Running " << name << endl;
   result_type  result(name, verbose);
   test->run (&result);
   cout << result;
-  if(!logpath.empty())
+  if(!logprefix.empty())
   {
-    std::string filename = logpath + "/" + name + ".log";
+    std::string filename = logprefix + name + ".log";
     std::ofstream of(filename.c_str());
     of << result;
     of.close();
@@ -44,19 +44,19 @@ bool run(const string& name, Test *test, bool verbose, const string& logpath)
   return result.wasSuccessful();
 } // run
 
-bool textrun(const string& name, Test *test, bool verbose, const string& logpath)
+bool textrun(const string& name, Test *test, bool verbose, const string& logprefix)
 {
-  return run<TextTestResult>(name, test, verbose, logpath);
+  return run<TextTestResult>(name, test, verbose, logprefix);
 } // textrun
 
-bool tablerun(const string& name, Test *test, bool verbose, const string& logpath)
+bool tablerun(const string& name, Test *test, bool verbose, const string& logprefix)
 {
-  return run<TableTestResult>(name, test, verbose, logpath);
+  return run<TableTestResult>(name, test, verbose, logprefix);
 } // tablerun
 
-bool xmlrun(const string& name, Test *test, bool verbose, const string& logpath)
+bool xmlrun(const string& name, Test *test, bool verbose, const string& logprefix)
 {
-  return run<XmlTestResult>(name, test, verbose, logpath);
+  return run<XmlTestResult>(name, test, verbose, logprefix);
 } // xmlrun
 
 
@@ -66,7 +66,7 @@ void printBanner ()
   cout << "Usage: driver [-v] [-table] [ -wait ] testName, where name is the name of a test case class" << endl;
 } // printBanner
 
-typedef bool (*runFn)(const string& name, Test *test, bool verbose, const string& logpath);
+typedef bool (*runFn)(const string& name, Test *test, bool verbose, const string& logprefix);
 
 bool TestRunner::run(int ac, const char **av)
 {
@@ -108,8 +108,7 @@ bool TestRunner::run(int ac, const char **av)
 
     if(string(av[i]) == "-log")
     {
-      logpath_ = av[++i];
-      cout << "logpath=" <<logpath_ << std::endl;
+      logprefix_ = av[++i];
       opt += 2;
       continue;
     } 
@@ -132,7 +131,7 @@ bool TestRunner::run(int ac, const char **av)
       if((*it).first == testCase) 
       {
         testToRun = (*it).second;
-        ok &= runner((*it).first, testToRun, verbose_, logpath_);
+        ok &= runner((*it).first, testToRun, verbose_, logprefix_);
       }
     }
 
@@ -150,7 +149,7 @@ bool TestRunner::run(int ac, const char **av)
     // run everything
     for(mappings::iterator it = m_mappings.begin(); it != m_mappings.end(); ++it) 
     {
-      ok &= runner((*it).first, (*it).second, verbose_, logpath_);
+      ok &= runner((*it).first, (*it).second, verbose_, logprefix_);
     }
     return ok;
   } 
