@@ -140,7 +140,6 @@ bool TestRunner::run(int ac, const char **av)
       ++a;
       logprefix_ = *a;
       logprefix_ += executable;
-      cout << "logprefix=" << logprefix_ << endl;
       opt += 2;
       continue;
     } 
