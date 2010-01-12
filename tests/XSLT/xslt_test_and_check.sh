@@ -9,5 +9,5 @@ then
 fi
 
 echo "TEST OUTPUT HAS CHANGED"
-diff test-run.csv test.csv
+diff test.csv test-run.csv
 exit 1
