@@ -38,10 +38,17 @@ void printException(std::ostream& stream,
 		    const std::string& tag,
 		    CppUnitException *e)
 {
-  stream << "<" << tag << " message='" << e->what() << "'>" 
+  std::string msg = e->what();
+  size_t cut = msg.find_first_of("<>'");
+  if(cut != -1)
+  {
+    msg.erase(cut);
+    msg += "...";
+  } // if ...
+  stream << "<" << tag << " message='" << msg << "'><![CDATA[" 
 	 << "line: " << e->lineNumber() << " "
 	 << e->fileName() << " "
-	 << "'" << e->what() << "'</" << tag << ">";
+	 << "'" << e->what() << "']]></" << tag << ">";
 } // exception
 
 void XmlTestResult::print(std::ostream& stream)
