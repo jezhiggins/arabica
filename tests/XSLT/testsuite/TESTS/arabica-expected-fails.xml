@@ -2,7 +2,7 @@
   <test-case id="attribvaltemplate_attribvaltemplate08" skip="yes" reason="HTML output"/>
   <test-case id="axes_axes59" compiles="no" reason="Needs xsl:number"/>
   <test-case id="axes_axes113" compiles="no" reason="Needs xsl:strip-space"/>
-  <test-case id="boolean_boolean08" compiles="no" reason="Needs lang"/>
+  <test-case id="boolean_boolean08" compiles="no" reason="Needs lang function"/>
   <test-case id="conflictres_conflictres24" compiles="no" reason="Needs xsl:strip-space"/>
   <test-case id="copy_copy16" compiles="no" reason="Needs id"/>
   <test-case id="copy_copy19" skip="yes" reason="External entity.  ISO-8859-1 output."/>
@@ -10,12 +10,12 @@
   <test-case id="copy_copy21" skip="yes" reason="External entity in source."/>
   <test-case id="copy_copy22" skip="yes" reason="External entity in source.  ISO-8859-1 output."/>
   <test-case id="copy_copy38" skip="yes" reason="HTML output"/>
-  <test-case id="expression_expression01" compiles="no" reason="Needs lang"/>
+  <test-case id="expression_expression01" compiles="no" reason="Needs lang function"/>
   <test-case id="expression_expression02" compiles="no" reason="Needs unparsed-entity-uri"/>
-  <test-case id="expression_expression03" compiles="no" reason="Needs lang"/>
-  <test-case id="expression_expression04" compiles="no" reason="Needs lang"/>
-  <test-case id="expression_expression05" compiles="no" reason="Needs lang"/>
-  <test-case id="expression_expression06" compiles="no" reason="Needs lang"/>
+  <test-case id="expression_expression03" compiles="no" reason="Needs lang function"/>
+  <test-case id="expression_expression04" compiles="no" reason="Needs lang function"/>
+  <test-case id="expression_expression05" compiles="no" reason="Needs lang function "/>
+  <test-case id="expression_expression06" compiles="no" reason="Needs lang function"/>
   <test-case id="extend_extend01" compiles="no" reason="Needs fallback, extension elements"/>
   <test-case id="extend_extend02" compiles="no" reason="Needs fallback, extension elements"/>
   <test-case id="extend_extend03" compiles="no" reason="Needs function-available, element-available"/>
@@ -103,10 +103,6 @@
   <test-case id="select_select07" compare="text" reason="Text output"/>
   <test-case id="select_select74" skip="yes" reason="HTML output"/>
   <test-case id="sort_sort08" skip="yes" reason="Test case is bad.  Xalan sorts % ahead of space.  Others, including comment in test data, disagree."/>
-  <test-case id="sort_sort14" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort15" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort16" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort20" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort22" compare="text" reason="Text output"/>
   <test-case id="sort_sort23" compare="text" reason="Text output"/>
   <test-case id="sort_sort24" compare="text" reason="Text output"/>
@@ -114,13 +110,8 @@
   <test-case id="sort_sort27" skip="yes" reason="Test case is bad.  Xalan regards leading whitespace as insignificant.  Everyone else disagrees."/>
   <test-case id="sort_sort30" compare="text" reason="Text output"/>
   <test-case id="sort_sort31" compare="text" reason="Text output"/>
-  <test-case id="sort_sort32" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort33" compiles="no" reason="Needs xsl:sort lang attribute"/>
-  <test-case id="sort_sort34" compiles="no" reason="Needs xsl:sort lang attribute"/>
   <test-case id="sort_sort35" compare="text" reason="Text output"/>
   <test-case id="sort_sort37" compare="text" reason="Text output"/>
-  <test-case id="sort_sort39" compiles="no" reason="Needs xsl:sort lang attribute"/>
-
   <test-case id="string_string13" compiles="no" reason="Needs format-number"/>
   <test-case id="string_string106" compiles="no" reason="Needs format-number"/>
   <test-case id="string_string108" compiles="no" reason="Needs format-number"/>
@@ -501,7 +492,7 @@
   <test-case id="Sorting__77981" compare="text"/>
   <test-case id="Sorting__77982" compiles="no" compare="text"/>
   <test-case id="Sorting__77985" compare="text"/>
-	<test-case id="Sorting__78191" compare="fragment"/>
+  <test-case id="Sorting__78191" compare="fragment"/>
   <test-case id="Sorting__78286" skip="yes" reason="multiple valid results - Mangle agrees with Saxon, producing a different result to MSXML and Xalan"/>
   <test-case id="Sorting__78291" skip="yes" reason="multiple valid results - Mangle agrees with Saxon, producing a different result to MSXML and Xalan" compare="text"/>
   <test-case id="Sorting__81710" compare="fragment"/>
@@ -519,35 +510,26 @@
   <test-case id="Sorting__89760" compare="text"/>
   <test-case id="Sorting__89762" compare="text"/>
   <test-case id="Sorting__89763" compare="text"/>
-  <test-case id="Sorting__91689" compiles="no" compare="text"/>
-  <test-case id="Sorting__91691" compiles="no" compare="text"/>
+  <test-case id="Sorting__91689" compare="text"/>
+  <test-case id="Sorting__91691" compare="text"/>
   <test-case id="Sorting__91693" compare="text"/>
   <test-case id="Sorting__91694" compare="text"/>
-  <test-case id="Sorting__91695" compiles="no" compare="text"/>
-  <test-case id="Sorting__91696" compiles="no" compare="text"/>
-  <test-case id="Sorting__91697" compiles="no" compare="text"/>
-  <test-case id="Sorting__91698" compiles="no" compare="text"/>
-  <test-case id="Sorting__91699" compiles="no" compare="text"/>
-  <test-case id="Sorting__91700" compiles="no" compare="text"/>
-  <test-case id="Sorting__91701" compiles="no" compare="text"/>
+  <test-case id="Sorting__91695" compare="text"/>
+  <test-case id="Sorting__91696" compare="text"/>
+  <test-case id="Sorting__91697" compare="text"/>
+  <test-case id="Sorting__91698" compare="text"/>
+  <test-case id="Sorting__91699" compare="text"/>
+  <test-case id="Sorting__91700" compare="text"/>
+  <test-case id="Sorting__91701" compare="text"/>
   <test-case id="Sorting__91704" compare="text"/>
-  <test-case id="Sorting__91705" compiles="no" compare="text"/>
-  <test-case id="Sorting__91752" compiles="no" compare="text"/>
-  <test-case id="Sorting__91753" compiles="no" compare="fragment"/>
-  <test-case id="Sorting_Sort_AllTextElementsAreSame" compiles="no"/>
-  <test-case id="Sorting_Sort_LongTextWithTrailingNumbers" compiles="no"/>
-  <test-case id="Sorting_Sort_MixedCaseWithUpperSet" compiles="no"/>
-  <test-case id="Sorting_Sort_NumbersWithLanguageNotEnglish" compiles="no"/>
-  <test-case id="Sorting_Sort_SortTextWithNonTextCharacters" compiles="no"/>
-  <test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextLowerCaseFirst" compiles="no"/>
-  <test-case id="Sorting_Sort_SortWithUpperCharactersInMiddleOfTextUpperCaseFirst" compiles="no"/>
-  <test-case id="Sorting_Sort_TextNodesSpanMultipleLines" compiles="no"/>
-  <test-case id="Sorting_Sort_UpperFirstOnTextWithUpper" compiles="no"/>
+  <test-case id="Sorting__91705" compare="text"/>
+  <test-case id="Sorting__91752" compare="text"/>
+  <test-case id="Sorting__91753" compare="fragment"/>
   <test-case id="Sorting_SortExprWithCurrentInsideForEach" compare="fragment"/>
   <test-case id="Sorting_SortExprWithCurrentInsideForEach1" compare="text"/>
   <test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compare="text"/>
   <test-case id="Sorting_SortExprWithCurrentInApplyTemplates" compare="fragment"/>
-  <test-case id="Sorting_TurkishISortingTest" compiles="no" compare="fragment"/>
+  <test-case id="Sorting_TurkishISortingTest" compare="fragment"/>
   <test-case id="Stylesheet__91802" compare="text"/>
   <test-case id="Stylesheet__91803" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
   <test-case id="Stylesheet__91804" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
