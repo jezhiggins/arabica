@@ -44,7 +44,7 @@ public:
       order = context_.xpath_attribute_value_template(attr["order"]);
 
       if(attr["lang"].length() != 0)
-        throw SAX::SAXException("Sorry!  Don't support xsl:sort lang attribute yet");
+	std::cerr << "Sorry!  Don't support xsl:sort lang attribute yet" << std::endl;
  
       sort_ = new Sort(select,
                        lang, 
