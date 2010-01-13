@@ -64,7 +64,7 @@ void printException(std::ostream& stream,
 
 void XmlTestResult::print(std::ostream& stream)
 {
-  stream << "<testsuite name='" << name() << "' tests='" << runTests() << "' skips='" << testSkips() << "' " << " failures='" << testFailures() << "' errors='" << testErrors() << "'>\n";
+  stream << "<testsuite name='" << name() << "' tests='" << runTests() << "' skipped='" << testSkips() << "' " << " failures='" << testFailures() << "' errors='" << testErrors() << "'>\n";
   for(std::vector<RunTest>::const_iterator r = run_.begin(), re = run_.end(); r != re; ++r)
   {
     stream << "  <testcase classname='" << name() << "' name='" << r->test_->name() << "'>";
@@ -78,6 +78,7 @@ void XmlTestResult::print(std::ostream& stream)
 	break;
       case SKIP:
 	printException(stream, "skip", r->e_);
+	printException(stream, "did_not_run", r->e_);
 	break;               
     } 
     stream << "</testcase>\n";
