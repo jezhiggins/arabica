@@ -77,7 +77,8 @@ void XmlTestResult::print(std::ostream& stream)
 	printException(stream, "failure", r->e_);
 	break;
       case SKIP:
-	printException(stream, "skipped", r->e_);
+	stream << "<skipped/>";
+	printException(stream, "message", r->e_);
 	break;               
     } 
     stream << "</testcase>\n";
