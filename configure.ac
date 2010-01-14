@@ -28,6 +28,7 @@ HAS_LIB_ELEPHANT
 AC_CONFIG_HEADERS([include/SAX/ArabicaConfig.hpp])
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([arabica.pc])
+AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([examples/Makefile])
 AC_CONFIG_FILES([examples/Utils/Makefile])

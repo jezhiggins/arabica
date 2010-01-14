@@ -46,8 +46,6 @@ examples/Taggle/taggle
 examples/Utils/transcode
 examples/XPath/xgrep
 examples/XSLT/mangle
-m4/lt~obsolete.m4@
-
 fractal*.html
 tests/SAX/filter_test*
 tests/DOM/dom_test*

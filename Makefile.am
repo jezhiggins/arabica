@@ -1,13 +1,11 @@
-
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS= src examples tests
+SUBDIRS=include src examples tests
 
-DIST_SUBDIRS=src examples tests 
+DIST_SUBDIRS=include src examples tests 
 EXTRA_DIST=vs7 \
            vs8 \
            vs9 \
-           include \
            doc \
            tests/XSLT/testsuite \
            src/SAX/wrappers/saxexpat.cpp \
@@ -30,5 +28,3 @@ docs:
 	@echo "Generated documents to ./doc/html"
 	@echo "------------------------------------------------------------"
 
-clean-local:
-	cd doc && rm -rf html
