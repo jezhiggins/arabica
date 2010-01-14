@@ -246,5 +246,12 @@ xslt_headers = 	XSLT/XSLT.hpp \
 	XSLT/impl/xslt_text.hpp \
 	XSLT/impl/xslt_apply_templates.hpp 
 
-nobase_include_HEADERS = SAX/ArabicaConfig.hpp $(sax_headers) $(taggle_headers) $(dom_headers) $(arabica_headers) $(xpath_headers) $(xslt_headers)
+arabicadir = $(includedir)/arabica
+nobase_arabica_HEADERS = SAX/ArabicaConfig.hpp $(arabica_headers) $(sax_headers) $(taggle_headers) 
+if WANT_DOM
+  nobase_arabica_HEADERS += $(dom_headers)
+endif
+if WANT_XPATH
+  nobase_arabica_HEADERS += $(xpath_headers) $(xslt_headers)
+endif
 
