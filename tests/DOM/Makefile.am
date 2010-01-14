@@ -22,6 +22,7 @@ test_sources = dom_test_suite.hpp \
                test_DocumentFragment.hpp \
                test_DocumentType.hpp \
                test_Element.hpp \
+               test_NamedNodeMap.hpp \
                test_ProcessingInstruction.hpp \
                test_Siblings.hpp \
                test_Text.hpp \
