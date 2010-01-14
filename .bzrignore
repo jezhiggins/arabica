@@ -55,3 +55,4 @@ tests/Utils/utils_test*
 tests/XSLT/xslt_test
 
 doc/html
+m4/lt~obsolete.m4
