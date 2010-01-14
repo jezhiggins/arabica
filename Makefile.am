@@ -16,7 +16,6 @@ EXTRA_DIST=vs7 \
 dist-hook:
 	find $(distdir) -print | grep \.bzr | xargs rm -rf
 	find $(distdir) -print | grep \.svn | xargs rm -rf
-	find $(distdir) -print | grep \~$ | xargs rm -rf
 	rm -f $(distdir)/include/SAX/ArabicaConfig.hpp
 
 pkgconfigdir = $(libdir)/pkgconfig
