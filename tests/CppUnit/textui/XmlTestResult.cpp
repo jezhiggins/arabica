@@ -44,7 +44,7 @@ void printException(std::ostream& stream,
       *w = '?';
   std::string what = msg;
   size_t cut = msg.find_first_of("<>'");
-  if(cut != -1)
+  if(cut != std::string::npos)
   {
     msg.erase(cut);
     msg += "...";

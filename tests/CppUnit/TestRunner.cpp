@@ -85,7 +85,7 @@ bool TestRunner::run(int ac, const char **av)
 
   string executable = av[0];
   size_t slash = executable.find_last_of("/\\");
-  if(slash != -1)
+  if(slash != string::npos)
     executable.erase(0, slash+1);
   executable += "-";
 
