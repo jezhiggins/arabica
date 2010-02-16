@@ -110,15 +110,14 @@ private:
   } // numberSort
   bool stringAscending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
   {
-    std::string v1 = grabAsString(n1);
-    std::string v2 = grabAsString(n2);
-
-    if((v1 == v2) && (sub_sort_))
-      return (*sub_sort_)(n1, n2);
-
-    return v1 < v2;
+    return stringSort(n1, n2, std::less<std::string>());
   } // stringAscending
   bool stringDescending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
+  {
+    return stringSort(n1, n2, std::greater<std::string>());
+  } // stringAscending
+  template<class StringCompare>
+  bool stringSort(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2, StringCompare compare) const
   {
     std::string v1 = grabAsString(n1);
     std::string v2 = grabAsString(n2);
@@ -126,8 +125,8 @@ private:
     if((v1 == v2) && (sub_sort_))
       return (*sub_sort_)(n1, n2);
 
-    return v1 > v2;
-  } // stringAscending
+    return compare(v1, v2);
+  } // stringSort
 
   std::string grabAsString(const DOM::Node<std::string>& n) const
   {
