@@ -74,23 +74,25 @@ private:
   typedef bool(Sort::*sortFn)(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const;
   bool numberAscending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
   {
-    double v1 = grabAsNumber(n1);
-    double v2 = grabAsNumber(n2);
-
-    bool nan1 = Arabica::XPath::isNaN(v1);
-    bool nan2 = Arabica::XPath::isNaN(v2);
-
-    if(((nan1 && nan2) || (v1 == v2)) && (sub_sort_))
-      return (*sub_sort_)(n1, n2);
-
-    if(nan2)
-      return false;
-    if(nan1)
-      return true;
-
-    return v1 < v2;
+    return numberSort(n1, n2, nanAscending, std::less<double>());
   } // numberAscending
   bool numberDescending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
+  {
+    return numberSort(n1, n2, nanDescending, std::greater<double>());
+  } // numberDescending
+  static bool nanAscending(bool nan1, bool nan2) 
+  {
+    return !nan2;
+  } // nanAscending
+  static bool nanDescending(bool nan1, bool nan2)
+  {
+    return !nan1;
+  } // nanDescending
+  template<class NanCompare, class NumberCompare>
+  bool numberSort(const DOM::Node<std::string>& n1, 
+                  const DOM::Node<std::string>& n2, 
+                  NanCompare nanCompare, 
+                  NumberCompare compare) const
   {
     double v1 = grabAsNumber(n1);
     double v2 = grabAsNumber(n2);
@@ -101,13 +103,11 @@ private:
     if(((nan1 && nan2) || (v1 == v2)) && (sub_sort_))
       return (*sub_sort_)(n1, n2);
 
-    if(nan1)
-      return false;
-    if(nan2)
-      return true;
+    if(nan1 || nan2)
+      return nanCompare(nan1, nan2);
 
-    return v1 > v2;
-  } // numberDescending
+    return compare(v1, v2);
+  } // numberSort
   bool stringAscending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
   {
     std::string v1 = grabAsString(n1);
