@@ -95,11 +95,15 @@ bool TestRunner::run(int ac, const char **av)
     // this is a mighty horrible hack, but 
     // it makes it easier to hook into the 
     // CI server
-    stringstream env;
-    env << getenv("JEZUK_CPP_UNIT");
-    string e;
-    while(env >> e)
-      args.push_back(e);
+    const char* jcu = getenv("JEZUK_CPP_UNIT");
+    if(jcu)
+    {
+      stringstream env;
+      env << jcu;
+      string e;
+      while(env >> e)
+        args.push_back(e);
+    } // if ...
   } // 
 
   for(int i = 1; i < ac; ++i)
