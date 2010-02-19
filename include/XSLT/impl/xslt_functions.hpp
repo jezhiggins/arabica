@@ -219,6 +219,30 @@ protected:
 
 // boolean element-available(string)
 // boolean function-available(string)
+class FunctionAvailableFunction : public Arabica::XPath::BooleanXPathFunction<std::string>
+{
+  typedef Arabica::XPath::BooleanXPathFunction<std::string> baseT;
+public:
+  FunctionAvailableFunction(const std::vector<Arabica::XPath::XPathExpression<std::string> >& args,
+			    const Arabica::XPath::XPath<std::string>& xpath) :
+    Arabica::XPath::BooleanXPathFunction<std::string>(1, 1, args),
+    xpath_(xpath)
+  { 
+  } // FunctionAvailableFunction
+
+protected:
+  virtual bool doEvaluate(const DOM::Node<std::string>& context,
+			  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  {
+    const std::string functionName = baseT::argAsString(0, context, executionContext);
+    const std::vector<Arabica::XPath::XPathExpression<std::string> > dummyArgs;
+
+    return false;
+  } // doEvaluate
+
+private:
+  const Arabica::XPath::XPath<std::string>& xpath_;
+}; // class FunctionAvailableFunction
 
 } // namespace XSLT
 } // namespace Arabica

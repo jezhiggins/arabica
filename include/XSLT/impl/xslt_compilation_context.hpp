@@ -189,6 +189,8 @@ private:
       return new SystemPropertyFunction(argExprs);
     // element-available
     // function-available
+    if(name == "function-available")
+      return new FunctionAvailableFunction(argExprs, xpath_);
     
     return 0;
   } // resolveFunction

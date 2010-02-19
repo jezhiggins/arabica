@@ -682,10 +682,10 @@
   <test-case id="XSLTFunctions__84048" skip="yes" reason="MS specific output"/>
   <test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
   <test-case id="XSLTFunctions__84050" skip="yes" reason="MS specific output"/>
-  <test-case id="XSLTFunctions__84053" compiles="no"/>
-  <test-case id="XSLTFunctions__84054" compiles="no"/>
-  <test-case id="XSLTFunctions__84056" compiles="no"/>
-  <test-case id="XSLTFunctions__84058" compiles="no"/>
+  <test-case id="XSLTFunctions__84053" compare="text"/>
+  <test-case id="XSLTFunctions__84054" compare="text"/>
+  <test-case id="XSLTFunctions__84056" compare="text"/>
+  <test-case id="XSLTFunctions__84058" compare="text"/>
   <test-case id="XSLTFunctions__84170" compiles="no"/>
   <test-case id="XSLTFunctions__84171" compiles="no"/>
   <test-case id="XSLTFunctions__84172" compiles="no"/>
