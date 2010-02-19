@@ -200,6 +200,10 @@
 				Name="impl"
 				>
 				<File
+					RelativePath="..\include\XSLT\impl\xslt_apply_imports.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\Xslt\impl\xslt_apply_templates.hpp"
 					>
 				</File>
@@ -221,6 +225,10 @@
 				</File>
 				<File
 					RelativePath="..\include\Xslt\impl\xslt_compilation_context.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\XSLT\impl\xslt_compiled_stylesheet.hpp"
 					>
 				</File>
 				<File
@@ -256,6 +264,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\XSLT\impl\xslt_key.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\Xslt\impl\xslt_message.hpp"
 					>
 				</File>
@@ -264,7 +276,15 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\XSLT\impl\xslt_output.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\include\Xslt\impl\xslt_param.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\include\XSLT\impl\xslt_precedence.hpp"
 					>
 				</File>
 				<File
@@ -383,6 +403,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\include\XSLT\impl\handler\xslt_key_handler.hpp"
+						>
+					</File>
+					<File
 						RelativePath="..\include\Xslt\impl\handler\xslt_message_handler.hpp"
 						>
 					</File>
@@ -429,6 +453,10 @@
 				</Filter>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath="..\tests\XSLT\TO-DO"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -241,6 +241,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\tests\DOM\test_NamedNodeMap.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\..\tests\DOM\test_ProcessingInstruction.hpp"
 				>
 			</File>
@@ -254,6 +258,10 @@
 			</File>
 			<File
 				RelativePath=".\..\tests\DOM\test_Text.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\DOM\test_TreeWalker.hpp"
 				>
 			</File>
 		</Filter>
