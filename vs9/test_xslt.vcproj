@@ -289,6 +289,14 @@
 				RelativePath="..\tests\CppUnit\textui\TextTestResult.h"
 				>
 			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\XmlTestResult.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\XmlTestResult.hpp"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\tests\XSLT\testsuite\TESTS\arabica-catalog.xml"

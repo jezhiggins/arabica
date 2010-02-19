@@ -337,6 +337,14 @@
 				RelativePath="..\tests\CppUnit\textui\TextTestResult.h"
 				>
 			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\XmlTestResult.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\CppUnit\textui\XmlTestResult.hpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
