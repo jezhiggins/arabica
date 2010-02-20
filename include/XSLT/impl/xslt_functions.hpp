@@ -253,8 +253,8 @@ public:
   } // UndefinedFunction
 
 protected:
-  virtual bool doEvaluate(const DOM::Node<std::string>& context,
-			  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  virtual bool doEvaluate(const DOM::Node<std::string>&,
+			  const Arabica::XPath::ExecutionContext<std::string>&) const
   {
     throw Arabica::XPath::UndefinedFunctionException(error_);
   } // doEvaluate
