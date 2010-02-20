@@ -395,7 +395,7 @@
   <test-case id="Messages__91765_1" compare="fragment"/>
   <test-case id="Miscellaneous__83996" compare="text"/>
   <test-case id="Miscellaneous__84002" compare="fragment"/>
-  <test-case id="Miscellaneous__84111" compiles="no"/>
+  <test-case id="Miscellaneous__84111" compare="text"/>
   <test-case id="Miscellaneous__84039" compare="fragment"/>
   <test-case id="Miscellaneous__84362" compare="fragment"/>
   <test-case id="Miscellaneous__84406" compare="fragment"/>
