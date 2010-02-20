@@ -195,8 +195,8 @@ private:
     return 0;
   } // resolveFunction
 
-  virtual bool hasFunction(const std::string& namespace_uri, 
-			   const std::string& name) const 
+  virtual bool hasFunction(const std::string& /* namespace_uri */, 
+			   const std::string& /* name */) const 
   {
     return false;
   } // hasFunction
