@@ -80,11 +80,11 @@ private:
   {
     return numberSort(n1, n2, nanDescending, std::greater<double>());
   } // numberDescending
-  static bool nanAscending(bool nan1, bool nan2) 
+  static bool nanAscending(bool, bool nan2) 
   {
     return !nan2;
   } // nanAscending
-  static bool nanDescending(bool nan1, bool nan2)
+  static bool nanDescending(bool nan1, bool)
   {
     return !nan1;
   } // nanDescending
