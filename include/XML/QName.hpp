@@ -4,6 +4,7 @@
 #include <SAX/ArabicaConfig.hpp>
 #include <Arabica/StringAdaptor.hpp>
 #include <XML/strings.hpp>
+#include <map>
 #include <stdexcept>
 
 template<class string_type, class string_adaptor> class QualifiedNameTest;
@@ -12,6 +13,34 @@ namespace Arabica
 {
 namespace XML
 {
+namespace impl 
+{
+
+template<class string_type, class string_adaptor>
+class MapMapper
+{
+  typedef typename std::map<string_type, string_type> string_map;
+  typedef typename std::map<string_type, string_type>::const_iterator string_map_iterator;
+public:
+  MapMapper(const std::map<string_type, string_type>& namespaces) : namespaces_(namespaces) { }
+  MapMapper(const MapMapper& rhs) : namespaces_(rhs.namespaces_) { }
+  
+  string_type operator()(const string_type& prefix) const
+  {
+    string_map_iterator ns = namespaces_.find(prefix);
+    if(ns == namespaces_.end())
+      return string_adaptor::empty_string();
+    return ns->second;
+  } //operator()
+  
+private:
+  const string_map& namespaces_;
+  
+  bool operator==(const MapMapper&) const;
+  MapMapper& operator=(const MapMapper&);
+}; // class MapMapper
+
+} // namespace impl
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class QualifiedName
@@ -56,6 +85,14 @@ public:
     return QualifiedName(prefix, localName, uri, rawname);
   } // parseQName				  
 
+  static QualifiedName parseQName(const string_type& rawname, 
+				  bool is_attribute,
+				  const std::map<string_type, string_type>& namespaces)
+  {
+    return parseQName(rawname, is_attribute, impl::MapMapper<string_type, string_adaptor>(namespaces));
+  } // parseQName
+
+public:
   QualifiedName(const QualifiedName& rhs) :
     prefix_(rhs.prefix_),
     localName_(rhs.localName_),
