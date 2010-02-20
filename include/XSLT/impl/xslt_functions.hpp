@@ -79,7 +79,7 @@ protected:
                                                           const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     std::string keyname = argAsString(0, context, executionContext);
-    std::string keyClarkName = XML::QualifiedName<std::string>::parseQName(keyname, true, UriMapper(namespaces_)).clarkName();
+    std::string keyClarkName = XML::QualifiedName<std::string>::parseQName(keyname, true, namespaces_).clarkName();
 
     Arabica::XPath::XPathValue<std::string> a1 = baseT::arg(1, context, executionContext);
     if(a1.type() == Arabica::XPath::NODE_SET)
@@ -106,26 +106,6 @@ private:
   const DeclaredKeys& keys_;
   std::map<std::string, std::string> namespaces_;
 
-  class UriMapper
-  {
-  public:
-    UriMapper(const std::map<std::string, std::string>& namespaces) : namespaces_(namespaces) { }
-    UriMapper(const UriMapper& rhs) : namespaces_(rhs.namespaces_) { }
-
-    std::string operator()(const std::string& prefix) const
-    {
-      std::map<std::string, std::string>::const_iterator ns = namespaces_.find(prefix);
-      if(ns == namespaces_.end())
-        return "";
-      return ns->second;
-    } //operator()
-
-  private:
-    const std::map<std::string, std::string>& namespaces_;
-
-    bool operator==(const UriMapper&) const;
-    UriMapper& operator=(const UriMapper&);
-  }; // class UriMapper
 }; // class KeyFunction
 
 // string format-number(number, string, string?)
@@ -230,6 +210,9 @@ public:
     functionNames_(names),
     namespaces_(inscopeNamespaces)
   { 
+    Arabica::XPath::StandardXPathFunctionResolver<std::string> standardResolver;
+    const std::vector<std::pair<std::string, std::string> > standardNames = standardResolver.validNames();
+    functionNames_.insert(functionNames_.begin(), standardNames.begin(), standardNames.end());
   } // FunctionAvailableFunction
 
 protected:
@@ -237,16 +220,47 @@ protected:
 			  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     const std::string functionName = baseT::argAsString(0, context, executionContext);
+    const XML::QualifiedName<std::string> expandedName = XML::QualifiedName<std::string>::parseQName(functionName, true, namespaces_);
 
-    return false;
+    const std::pair<std::string, std::string> name_to_check = std::make_pair(expandedName.namespaceUri(), expandedName.localName());
+
+    return (std::find(functionNames_.begin(), functionNames_.end(), name_to_check) != functionNames_.end());
   } // doEvaluate
 
 private:
-  const std::vector<std::pair<std::string, std::string> > functionNames_;
+  std::vector<std::pair<std::string, std::string> > functionNames_;
   const std::map<std::string, std::string> namespaces_;
 
   static Arabica::XPath::StandardXPathFunctionResolver<std::string> xpathStandardFunctionResolver;
 }; // class FunctionAvailableFunction
+
+class UndefinedFunction : public Arabica::XPath::BooleanXPathFunction<std::string>
+{
+public:
+  UndefinedFunction(const std::string namespace_uri,
+		    const std::string name,
+		    const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
+    Arabica::XPath::BooleanXPathFunction<std::string>(-1, -1, args)
+  {
+    if(!namespace_uri.empty())
+    {
+      error_ += "{";
+      error_ += namespace_uri;
+      error_ += "}";
+    } // if .. 
+
+    error_ += name;
+  } // UndefinedFunction
+
+protected:
+  virtual bool doEvaluate(const DOM::Node<std::string>& context,
+			  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  {
+    throw Arabica::XPath::UndefinedFunctionException(error_);
+  } // doEvaluate
+
+  std::string error_;
+}; // class UndefinedFunction
 
 } // namespace XSLT
 } // namespace Arabica

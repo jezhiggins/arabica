@@ -168,7 +168,7 @@ private:
                                          const std::vector<Arabica::XPath::XPathExpression<std::string> >& argExprs) const
   {
     if(!namespace_uri.empty())
-      return 0;
+      return new UndefinedFunction(namespace_uri, name, argExprs);
 
     // document
     if(name == "document")
