@@ -26,7 +26,7 @@ public:
                       const string_type& name,
                       const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs) const = 0; 
 
-  virtual bool hasFunction(const string_type& namespace_uri, const string_type& name) const = 0;
+  virtual std::vector<std::pair<string_type, string_type> > validNames() const = 0;
 }; // class FunctionResolver
 
 template<class string_type, class string_adaptor>
@@ -59,10 +59,11 @@ public:
     throw UndefinedFunctionException(string_adaptor().asStdString(error));
   } // resolveVariable
 
-  virtual bool hasFunction(const string_type&, const string_type&) const 
+  virtual std::vector<std::pair<string_type, string_type> > validNames() const
   {
-    return false;
-  } // hasFunction
+    const std::vector<std::pair<string_type, string_type> > none;
+    return none;
+  } // validNames
 }; // NullFunctionResolver
 
 } // namespace XPath

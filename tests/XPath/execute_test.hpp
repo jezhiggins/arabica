@@ -77,7 +77,7 @@ public:
 }; // TestFunction
 
 template<class string_type, class string_adaptor>
-class TestFunctionResolver : public Arabica::XPath::FunctionResolver<string_type, string_adaptor>
+class TestFunctionResolver : public Arabica::XPath::NullFunctionResolver<string_type, string_adaptor>
 {
   //typedef string_adaptorstring_adaptor;
 public:
@@ -90,8 +90,6 @@ public:
       return new TestFunction<string_type, string_adaptor>(argExprs);
     return 0;
   } // resolveFunction
-
-  virtual bool hasFunction(const string_type&, const string_type&) const { return false; }
 }; // class TestFunctionResolver
 
 template<class string_type, class string_adaptor>

@@ -223,10 +223,12 @@ class FunctionAvailableFunction : public Arabica::XPath::BooleanXPathFunction<st
 {
   typedef Arabica::XPath::BooleanXPathFunction<std::string> baseT;
 public:
-  FunctionAvailableFunction(const std::vector<Arabica::XPath::XPathExpression<std::string> >& args,
-			    const Arabica::XPath::XPath<std::string>& xpath) :
+  FunctionAvailableFunction(const std::vector<std::pair<std::string, std::string> >& names, 
+			    const std::map<std::string, std::string>& inscopeNamespaces,
+			    const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
     Arabica::XPath::BooleanXPathFunction<std::string>(1, 1, args),
-    xpath_(xpath)
+    functionNames_(names),
+    namespaces_(inscopeNamespaces)
   { 
   } // FunctionAvailableFunction
 
@@ -235,13 +237,15 @@ protected:
 			  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
     const std::string functionName = baseT::argAsString(0, context, executionContext);
-    const std::vector<Arabica::XPath::XPathExpression<std::string> > dummyArgs;
 
     return false;
   } // doEvaluate
 
 private:
-  const Arabica::XPath::XPath<std::string>& xpath_;
+  const std::vector<std::pair<std::string, std::string> > functionNames_;
+  const std::map<std::string, std::string> namespaces_;
+
+  static Arabica::XPath::StandardXPathFunctionResolver<std::string> xpathStandardFunctionResolver;
 }; // class FunctionAvailableFunction
 
 } // namespace XSLT

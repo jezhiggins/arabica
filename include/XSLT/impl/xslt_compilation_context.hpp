@@ -177,6 +177,7 @@ private:
     if(name == "key")
       return new KeyFunction(stylesheet_.keys(), parser_.inScopeNamespaces(), argExprs);
     // format-number
+    // current
     if((name == "current") && (current_allowed_))
       return new CurrentFunction(argExprs);
     // unparsed-entity-uri
@@ -190,16 +191,24 @@ private:
     // element-available
     // function-available
     if(name == "function-available")
-      return new FunctionAvailableFunction(argExprs, xpath_);
-    
+      return new FunctionAvailableFunction(validNames(), parser_.inScopeNamespaces(), argExprs);
+
     return 0;
   } // resolveFunction
 
-  virtual bool hasFunction(const std::string& /* namespace_uri */, 
-			   const std::string& /* name */) const 
+  virtual std::vector<std::pair<std::string, std::string> > validNames() const 
   {
-    return false;
-  } // hasFunction
+    static const char* functionNames[] = { "document", "key", /* format-number, */ "current",
+					   /* unparsed-entity-uri, */ "generate-id", "system-property", 
+					   /* element-available, */ "function-available", 0 };
+
+    std::vector<std::pair<std::string,std::string> > names;
+
+    for(int i = 0; functionNames[i] != 0; ++i)
+      names.push_back(std::make_pair("", functionNames[i]));
+
+    return names;
+  } // validNames
 
   // NamespaceContext 
   virtual std::string namespaceURI(const std::string& prefix) const

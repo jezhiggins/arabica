@@ -7,7 +7,7 @@
 #include <XPath/XPath.hpp>
 
 template<class string_type, class string_adaptor>
-class TrueFunctionResolver : public Arabica::XPath::FunctionResolver<string_type, string_adaptor>
+class TrueFunctionResolver : public Arabica::XPath::NullFunctionResolver<string_type, string_adaptor>
 {
   //typedef string_adaptorstring_adaptor;
 public:
@@ -21,8 +21,6 @@ public:
        return new Arabica::XPath::impl::TrueFn<string_type, string_adaptor>(argExprs);
     return 0;
   } // resolveFunction
-
-  virtual bool hasFunction(const string_type&, const string_type&) const { return false; }
 }; // class TrueFunctionResolver
 
 template<class string_type, class string_adaptor>
