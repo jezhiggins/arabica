@@ -61,6 +61,8 @@ public:
       return new TestKeyFunction<string_type, string_adaptor>(argExprs);
     return 0;
   } // resolveFunction
+
+  virtual bool hasFunction(const string_type&, const string_type& name) const { return false; }
 }; // class TestFunctionResolver
 
 

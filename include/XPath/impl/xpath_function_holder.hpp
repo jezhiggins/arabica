@@ -26,29 +26,43 @@ public:
 		      const string_type& name, 
 		      const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs) const
   {
-    if(!string_adaptor::empty(namespace_uri))
-      return 0;
-    return standardFunction(name, argExprs);
+    return standardFunction(namespace_uri, name, argExprs);
   } // resolveFuncton
 
+  virtual bool hasFunction(const string_type& namespace_uri,
+			   const string_type& name) const
+  {
+    return findFunction(namespace_uri, name);
+  } // hasFunction    
+
   static XPathFunction<string_type, string_adaptor>*
-      standardFunction(const string_type& name,
+      standardFunction(const string_type& namespace_uri,
+		       const string_type& name,
 		       const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs)
   {
-    for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)
-      if(name == string_adaptor::construct_from_utf8(fn->name))
-	return fn->creator(argExprs);
-
-    return 0;
+    const NamedFunction* fn = findFunction(namespace_uri, name);
+    return (fn != 0) ? fn->creator(argExprs) : 0;
   } // standardFunction
 
 private:
-
   typedef XPathFunction<string_type, string_adaptor>* (*CreateFnPtr)(const std::vector<XPathExpression<string_type, string_adaptor> >& argExprs);
 
   struct NamedFunction { const char* name; CreateFnPtr creator; };
 
   static const NamedFunction FunctionLookupTable[];
+
+  static const NamedFunction* findFunction(const string_type& namespace_uri,
+					   const string_type& name) 
+  {
+    if(!string_adaptor::empty(namespace_uri))
+      return 0;
+
+    for(const NamedFunction* fn = FunctionLookupTable; fn->name != 0; ++fn)
+      if(name == string_adaptor::construct_from_utf8(fn->name))
+	return fn;
+
+    return 0;
+  } // findFunction
 }; // class StandardXPathFunctionResolver
 
 template<class string_type, class string_adaptor>
@@ -123,7 +137,7 @@ public:
     XPathFunction<string_type, string_adaptor>* func = 0;
 
     if(string_adaptor::empty(namespace_uri))
-      func = StandardXPathFunctionResolver<string_type, string_adaptor>::standardFunction(name, argExprs);
+      func = StandardXPathFunctionResolver<string_type, string_adaptor>::standardFunction(namespace_uri, name, argExprs);
     if(func == 0)
       func = context.functionResolver().resolveFunction(namespace_uri, name, argExprs);
 
