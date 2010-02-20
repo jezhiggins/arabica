@@ -152,6 +152,31 @@ public:
     assertTrue(q3.rawName() == SA::construct_from_utf8("hello"));
   } // testParseQName
 
+  void testParseQName2()
+  {
+    std::map<string_type, string_type> namespaces;
+    namespaces[SA::empty_string()] = SA::construct_from_utf8("http://test/");
+    namespaces[SA::construct_from_utf8("h")] = SA::construct_from_utf8("http://test/");
+
+    QN q = QN::parseQName(SA::construct_from_utf8("hello"), true, namespaces);
+    assertTrue(q.localName() == SA::construct_from_utf8("hello"));
+    assertFalse(q.has_prefix());
+    assertTrue(q.namespaceUri() == SA::empty_string());
+    assertTrue(q.rawName() == SA::construct_from_utf8("hello"));
+
+    QN q2 = QN::parseQName(SA::construct_from_utf8("h:hello"), true, namespaces);
+    assertTrue(q2.localName() == SA::construct_from_utf8("hello"));    
+    assertTrue(q2.prefix() == SA::construct_from_utf8("h"));
+    assertTrue(q2.namespaceUri() == SA::construct_from_utf8("http://test/"));
+    assertTrue(q2.rawName() == SA::construct_from_utf8("h:hello"));    
+
+    QN q3 = QN::parseQName(SA::construct_from_utf8("hello"), false, namespaces);
+    assertTrue(q3.localName() == SA::construct_from_utf8("hello"));
+    assertFalse(q3.has_prefix());
+    assertTrue(q3.namespaceUri() == SA::construct_from_utf8("http://test/"));
+    assertTrue(q3.rawName() == SA::construct_from_utf8("hello"));
+  } // testParseQName2
+
 }; // class QualifiedNameTest
 
 template<class string_type, class string_adaptor>
@@ -172,6 +197,7 @@ TestSuite* QualifiedNameTest_suite()
   suiteOfTests->addTest(new TestCaller<QNT>("testPrefix", &QNT::testPrefix));
   suiteOfTests->addTest(new TestCaller<QNT>("testParseBadQName", &QNT::testParseBadQName));
   suiteOfTests->addTest(new TestCaller<QNT>("testParseQName", &QNT::testParseQName));
+  suiteOfTests->addTest(new TestCaller<QNT>("testParseQName", &QNT::testParseQName2));
 
   return suiteOfTests;
 } // QualifiedNameTest_suite
