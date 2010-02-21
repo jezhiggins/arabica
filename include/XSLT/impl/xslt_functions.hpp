@@ -198,6 +198,31 @@ protected:
 }; // SystemPropertyFunction
 
 // boolean element-available(string)
+class ElementAvailableFunction : public Arabica::XPath::BooleanXPathFunction<std::string>
+{
+  typedef Arabica::XPath::BooleanXPathFunction<std::string> baseT;
+public:
+  ElementAvailableFunction(const std::vector<std::pair<std::string, std::string> >& names,
+			   const std::map<std::string, std::string>& inscopeNamespaces,
+			   const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
+    Arabica::XPath::BooleanXPathFunction<std::string>(1, 1, args),
+    namespaces_(inscopeNamespaces),
+    elementNames_(names)
+  {
+  } // ElementAvailableFunction
+
+protected:
+  virtual bool doEvaluate(const DOM::Node<std::string>& context,
+			  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
+  {
+    return false;
+  } // doEvaluate
+
+private:
+  std::vector<std::pair<std::string, std::string> > elementNames_;
+  const std::map<std::string, std::string> namespaces_;
+}; // class ElementAvailableFunction
+
 // boolean function-available(string)
 class FunctionAvailableFunction : public Arabica::XPath::BooleanXPathFunction<std::string>
 {
@@ -207,8 +232,8 @@ public:
 			    const std::map<std::string, std::string>& inscopeNamespaces,
 			    const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
     Arabica::XPath::BooleanXPathFunction<std::string>(1, 1, args),
-    functionNames_(names),
-    namespaces_(inscopeNamespaces)
+    namespaces_(inscopeNamespaces),
+    functionNames_(names)
   { 
     Arabica::XPath::StandardXPathFunctionResolver<std::string> standardResolver;
     const std::vector<std::pair<std::string, std::string> > standardNames = standardResolver.validNames();
@@ -230,8 +255,6 @@ protected:
 private:
   std::vector<std::pair<std::string, std::string> > functionNames_;
   const std::map<std::string, std::string> namespaces_;
-
-  static Arabica::XPath::StandardXPathFunctionResolver<std::string> xpathStandardFunctionResolver;
 }; // class FunctionAvailableFunction
 
 class UndefinedFunction : public Arabica::XPath::BooleanXPathFunction<std::string>

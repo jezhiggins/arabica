@@ -189,6 +189,11 @@ private:
     if(name == "system-property")
       return new SystemPropertyFunction(argExprs);
     // element-available
+    if(name == "element-available")
+    {
+      std::vector<std::pair<std::string, std::string> > dummy;
+      return new ElementAvailableFunction(dummy, parser_.inScopeNamespaces(), argExprs);
+    } 
     // function-available
     if(name == "function-available")
       return new FunctionAvailableFunction(validNames(), parser_.inScopeNamespaces(), argExprs);

@@ -686,10 +686,10 @@
   <test-case id="XSLTFunctions__84054" compare="text"/>
   <test-case id="XSLTFunctions__84056" compare="text"/>
   <test-case id="XSLTFunctions__84058" compare="text"/>
-  <test-case id="XSLTFunctions__84170" compiles="no"/>
-  <test-case id="XSLTFunctions__84171" compiles="no"/>
-  <test-case id="XSLTFunctions__84172" compiles="no"/>
-  <test-case id="XSLTFunctions__84173" compiles="no"/>
+  <test-case id="XSLTFunctions__84170" compare="text"/>
+  <test-case id="XSLTFunctions__84171" compare="text"/>
+  <test-case id="XSLTFunctions__84172" compare="text"/>
+  <test-case id="XSLTFunctions__84173" compare="text"/> 
   <test-case id="XSLTFunctions__84175" compare="text"/>
   <test-case id="XSLTFunctions__84415" compare="fragment"/>
   <test-case id="XSLTFunctions__84421" compare="fragment"/>
@@ -710,8 +710,6 @@
   <test-case id="XSLTFunctions_DocumentFunctionWithEntityRef" runs="no"/>
   <test-case id="XSLTFunctions_DocumentInUnion" compare="text"/>
   <test-case id="XSLTFunctions_DocumentInUnionWithDuplicateNodes" runs="no"/>
-  <test-case id="XSLTFunctions_ElementAvailFunctionFalseTest" compiles="no"/>
-  <test-case id="XSLTFunctions_ElementAvailFunctionTrueTest" compiles="no"/>
   <test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset" compiles="no"/>
   <test-case id="XSLTFunctions_TestIdFuncInComplexStruct" compiles="no"/>
   <test-case id="XSLTFunctions_TestOfIdFunction" compiles="no"/>
