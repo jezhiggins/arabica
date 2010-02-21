@@ -235,8 +235,8 @@ protected:
   } // doEvaluate
 
 private:
-  std::vector<std::pair<std::string, std::string> > elementNames_;
   const std::map<std::string, std::string> namespaces_;
+  std::vector<std::pair<std::string, std::string> > elementNames_;
 }; // class ElementAvailableFunction
 
 // boolean function-available(string)
@@ -269,8 +269,8 @@ protected:
   } // doEvaluate
 
 private:
-  std::vector<std::pair<std::string, std::string> > functionNames_;
   const std::map<std::string, std::string> namespaces_;
+  std::vector<std::pair<std::string, std::string> > functionNames_;
 }; // class FunctionAvailableFunction
 
 class UndefinedFunction : public Arabica::XPath::BooleanXPathFunction<std::string>
