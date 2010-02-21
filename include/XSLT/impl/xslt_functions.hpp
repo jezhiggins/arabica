@@ -215,6 +215,22 @@ protected:
   virtual bool doEvaluate(const DOM::Node<std::string>& context,
 			  const Arabica::XPath::ExecutionContext<std::string>& executionContext) const
   {
+    const std::string functionName = baseT::argAsString(0, context, executionContext);
+    const XML::QualifiedName<std::string> expandedName = XML::QualifiedName<std::string>::parseQName(functionName, true, namespaces_);
+
+    if(expandedName.namespaceUri() != StylesheetConstant::NamespaceURI())
+      return false;
+
+    static const char* XSLTNames[] = { "apply-imports", "apply-templates", "attributes", 
+				       "call-template", "choose", "comment", "copy", 
+				       "copy-of", "element", "fallback", "for-each", 
+				       "if", "message", "number", "processing-instruction",
+				       "text", "value-of", "variable", 0 };
+
+    for(int i = 0; XSLTNames[i] != 0; ++i)
+      if(expandedName.localName() == XSLTNames[i])
+	return true;
+    
     return false;
   } // doEvaluate
 
