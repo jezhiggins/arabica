@@ -18,7 +18,6 @@
   <test-case id="expression_expression06" compiles="no" reason="Needs lang function"/>
   <test-case id="extend_extend01" compiles="no" reason="Needs fallback, extension elements"/>
   <test-case id="extend_extend02" compiles="no" reason="Needs fallback, extension elements"/>
-  <test-case id="extend_extend03" compiles="no" reason="Needs function-available, element-available"/>
   <test-case id="extend_extend04" compiles="no" reason="Needs fallback, extension elements"/>
   <test-case id="impincl_impincl09" compiles="no" reasons="Needs attribute sets"/>
   <test-case id="lre_lre12" compiles="no" reason="Failing to compile is actually legitimate here.  Saxon and MSXML agree, Xalan chooses to continue."/>
