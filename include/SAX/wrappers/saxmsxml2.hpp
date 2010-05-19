@@ -825,7 +825,7 @@ class msxml2_wrapper :
         virtual HRESULT __stdcall Read(void* pv, ULONG cb, ULONG* pcbRead)
         {
           source_.getByteStream()->read(reinterpret_cast<char*>(pv), cb);
-          *pcbRead = source_.getByteStream()->gcount();
+          *pcbRead = static_cast<ULONG>(source_.getByteStream()->gcount());
           return S_OK;
         } // Read
 
