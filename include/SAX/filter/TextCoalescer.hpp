@@ -104,6 +104,7 @@ private:
     XMLFilterT::characters(buffer_);
     buffer_ = string_adaptor::empty_string();
   } // flush
+
   string_type buffer_;
 }; // class TextCoalescer
 
