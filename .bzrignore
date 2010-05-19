@@ -56,3 +56,5 @@ tests/XSLT/xslt_test
 
 doc/html
 m4/lt~obsolete.m4
+*.vcxproj.filters
+*.vcxproj.user
