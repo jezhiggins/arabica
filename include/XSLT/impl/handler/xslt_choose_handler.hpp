@@ -146,9 +146,7 @@ public:
 
   virtual void characters(const std::string& ch)
   {
-    for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
-      if(!Arabica::XML::is_space(*i))
-        throw SAX::SAXException("xsl:choose element may not contain text.  Only xsl:when and xsl:otherwise are allowed");
+    verifyNoCharacterData(ch, "xsl:choose");
   } // characters
 
 private:

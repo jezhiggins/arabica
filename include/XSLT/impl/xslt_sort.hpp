@@ -2,7 +2,6 @@
 #define ARABICA_XSLT_SORT_HPP
 
 #include <algorithm>
-#include "handler/xslt_value_validation.hpp"
 
 namespace Arabica
 {

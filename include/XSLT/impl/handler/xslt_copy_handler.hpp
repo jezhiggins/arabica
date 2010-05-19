@@ -67,9 +67,7 @@ public:
 
   virtual void characters(const std::string& ch)
   {
-    for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
-      if(!Arabica::XML::is_space(*i))
-        throw SAX::SAXException("xsl:copy-of element must be empty");
+    verifyNoCharacterData(ch, "xsl:copy-of");
   } // characters
 
 private:

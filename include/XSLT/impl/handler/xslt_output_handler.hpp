@@ -1,8 +1,6 @@
 #ifndef ARABICA_XSLT_OUTPUT_HANDLER_HPP
 #define ARABICA_XSLT_OUTPUT_HANDLER_HPP
 
-#include "xslt_value_validation.hpp"
-
 namespace Arabica
 {
 namespace XSLT
@@ -54,9 +52,7 @@ public:
 
   virtual void characters(const std::string& ch)
   {
-    for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
-      if(!Arabica::XML::is_space(*i))
-        throw SAX::SAXException("xsl:output element must be empty");
+    verifyNoCharacterData(ch, "xsl:output");
   } // characters
  
 private:

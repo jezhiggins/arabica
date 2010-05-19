@@ -3,7 +3,6 @@
 
 #include "xslt_create_handler.hpp"
 #include "../xslt_text.hpp"
-#include "xslt_value_validation.hpp"
 
 namespace Arabica
 {

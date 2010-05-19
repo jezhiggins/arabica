@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include "xslt_constants.hpp"
-#include "xslt_value_validation.hpp"
 
 namespace Arabica
 {
@@ -104,7 +103,7 @@ public:
   virtual void characters(const std::string& ch)
   {
     if(no_content_)
-      throw SAX::SAXException("xsl:include/xsl:import must be empty");
+      verifyNoCharacterData(ch, "xsl:include/xsl:import");
     context_->parentHandler().characters(ch);
   } // characters
 

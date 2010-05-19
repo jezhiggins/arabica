@@ -83,9 +83,7 @@ public:
 
   virtual void characters(const std::string& ch)
   {
-    for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
-      if(!Arabica::XML::is_space(*i))
-	throw SAX::SAXException("xsl:apply-templates element can only contain xsl:sort and xsl:with-param elements.");
+    verifyNoCharacterData(ch, "xsl:apply-templates");
   } // characters
 
 private:

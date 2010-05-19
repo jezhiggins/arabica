@@ -47,7 +47,7 @@ public:
        return;
     } // if(localName == "with-param")
   
-    throw SAX::SAXException("xsl:apply-templates can only contain xsl:sort and xsl:with-param elements.");
+    throw SAX::SAXException("xsl:call-template can only contain xsl:sort and xsl:with-param elements.");
   } // startElement
 
   virtual void endElement(const std::string& /* namespaceURI */,

@@ -8,6 +8,7 @@
 #include "xslt_stylesheet_parser.hpp"
 #include "xslt_compiled_stylesheet.hpp"
 #include "xslt_compilation_context.hpp"
+#include "handler/xslt_value_validation.hpp"
 #include "handler/xslt_template_handler.hpp"
 #include "handler/xslt_include_handler.hpp"
 #include "handler/xslt_output_handler.hpp"
@@ -67,9 +68,7 @@ public:
 
   virtual void characters(const std::string& ch)
   {
-    for(std::string::const_iterator s = ch.begin(), e = ch.end(); s != e; ++s)
-      if(!Arabica::XML::is_space(*s))
-        throw SAX::SAXException("stylesheet element can not contain character data :'" + ch +"'");
+    verifyNoCharacterData(ch, "xsl:stylesheet/xsl:transform");
   } // characters
 
   virtual void endDocument()
