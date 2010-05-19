@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>ArabicaLib</ProjectName>
+    <ProjectGuid>{4CA72415-D03A-4447-BE4E-C093A5146CAC}</ProjectGuid>
+    <RootNamespace>ArabicaLib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug_Arabica\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release_Arabica\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Arabica-debug</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>.\..\lib\Arabica-debug.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <PrecompiledHeaderOutputFile>.\Release/SAX.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>.\..\lib\Arabica.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Sax\AttributeList.hpp" />
+    <ClInclude Include="..\include\Sax\Attributes.hpp" />
+    <ClInclude Include="..\include\Sax\ContentHandler.hpp" />
+    <ClInclude Include="..\include\Sax\DocumentHandler.hpp" />
+    <ClInclude Include="..\include\Sax\DTDHandler.hpp" />
+    <ClInclude Include="..\include\Sax\EntityResolver.hpp" />
+    <ClInclude Include="..\include\Sax\ErrorHandler.hpp" />
+    <ClInclude Include="..\include\Sax\HandlerBase.hpp" />
+    <ClInclude Include="..\include\Sax\InputSource.hpp" />
+    <ClInclude Include="..\include\Sax\IStreamHandle.hpp" />
+    <ClInclude Include="..\include\Sax\Locator.hpp" />
+    <ClInclude Include="..\include\Sax\Parser.hpp" />
+    <ClInclude Include="..\include\Sax\ParserConfig.hpp" />
+    <ClInclude Include="..\include\Sax\SAXException.hpp" />
+    <ClInclude Include="..\include\Sax\saxfwd.hpp" />
+    <ClInclude Include="..\include\Sax\SAXNotRecognizedException.hpp" />
+    <ClInclude Include="..\include\Sax\SAXNotSupportedException.hpp" />
+    <ClInclude Include="..\include\Sax\SAXParseException.hpp" />
+    <ClInclude Include="..\include\Sax\XMLFilter.hpp" />
+    <ClInclude Include="..\include\Sax\XMLReader.hpp" />
+    <ClInclude Include="..\include\Sax\ext\Attributes2.hpp" />
+    <ClInclude Include="..\include\Sax\ext\DeclHandler.hpp" />
+    <ClInclude Include="..\include\Sax\ext\DefaultHandler2.hpp" />
+    <ClInclude Include="..\include\Sax\ext\LexicalHandler.hpp" />
+    <ClInclude Include="..\include\Sax\ext\Locator2.hpp" />
+    <ClInclude Include="..\include\Sax\ext\ProgressiveParser.hpp" />
+    <ClInclude Include="..\include\Sax\filter\NamespaceTracker.hpp" />
+    <ClInclude Include="..\include\Sax\filter\TextCoalescer.hpp" />
+    <ClInclude Include="..\include\Sax\filter\TextOnly.hpp" />
+    <ClInclude Include="..\include\Sax\filter\Writer.hpp" />
+    <ClInclude Include="..\include\Sax\filter\XMLBaseTracker.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\AttributeDefaults.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\AttributeListImpl.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\AttributesImpl.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\AttributeTypes.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\CatchErrorHandler.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\DefaultHandler.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\FeatureNames.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\InputSourceResolver.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\LocatorImpl.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\NamespaceSupport.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\ParserAdaptor.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\PropertyNames.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\XMLBaseSupport.hpp" />
+    <ClInclude Include="..\include\Sax\helpers\XMLFilterImpl.hpp" />
+    <ClInclude Include="..\include\Sax\parsers\saxgarden.hpp" />
+    <ClInclude Include="..\include\Sax\wrappers\saxexpat.hpp" />
+    <ClInclude Include="..\include\Sax\wrappers\saxlibxml2.hpp" />
+    <ClInclude Include="..\include\Sax\wrappers\saxmsxml2.hpp" />
+    <ClInclude Include="..\include\Sax\wrappers\saxxerces.hpp" />
+    <ClInclude Include="..\include\Sax\wrappers\XercesFeatureNames.hpp" />
+    <ClInclude Include="..\include\Sax\wrappers\XercesPropertyNames.hpp" />
+    <ClInclude Include="..\include\Dom\Attr.hpp" />
+    <ClInclude Include="..\include\Dom\CDATASection.hpp" />
+    <ClInclude Include="..\include\Dom\CharacterData.hpp" />
+    <ClInclude Include="..\include\Dom\Comment.hpp" />
+    <ClInclude Include="..\include\Dom\Document.hpp" />
+    <ClInclude Include="..\include\Dom\DocumentFragment.hpp" />
+    <ClInclude Include="..\include\Dom\DocumentType.hpp" />
+    <ClInclude Include="..\include\Dom\DOMException.hpp" />
+    <ClInclude Include="..\include\Dom\DOMImplementation.hpp" />
+    <ClInclude Include="..\include\Dom\Element.hpp" />
+    <ClInclude Include="..\include\Dom\Entity.hpp" />
+    <ClInclude Include="..\include\Dom\EntityReference.hpp" />
+    <ClInclude Include="..\include\Dom\NamedNodeMap.hpp" />
+    <ClInclude Include="..\include\Dom\Node.hpp" />
+    <ClInclude Include="..\include\Dom\NodeList.hpp" />
+    <ClInclude Include="..\include\Dom\Notation.hpp" />
+    <ClInclude Include="..\include\Dom\ProcessingInstruction.hpp" />
+    <ClInclude Include="..\include\Dom\Proxy.hpp" />
+    <ClInclude Include="..\include\Dom\Text.hpp" />
+    <ClInclude Include="..\include\Dom\DualMode\DualMode.hpp" />
+    <ClInclude Include="..\include\Dom\Events\DocumentEvent.hpp" />
+    <ClInclude Include="..\include\Dom\Events\Event.hpp" />
+    <ClInclude Include="..\include\Dom\Events\EventException.hpp" />
+    <ClInclude Include="..\include\Dom\Events\EventListener.hpp" />
+    <ClInclude Include="..\include\Dom\Events\EventTarget.hpp" />
+    <ClInclude Include="..\include\Dom\Events\MutationEvent.hpp" />
+    <ClInclude Include="..\include\Dom\Sax2dom\DocumentTypeImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Sax2dom\SAX2DOM.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\AttrImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\AttrMap.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\AttrNSImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\CDATASectionImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\CharacterDataImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\CommentImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\DocumentFragmentImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\DocumentImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\DocumentTypeImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\DOMImplementation.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\ElementByTagImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\ElementImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\ElementNSImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\EntityImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\EntityReferenceImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\Helpers.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\NamedNodeMapImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\NodeImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\NotationImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\ProcessingInstructionImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Simple\TextImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Traversal\DocumentTraversal.hpp" />
+    <ClInclude Include="..\include\Dom\Traversal\DocumentTraversalImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Traversal\NodeFilter.hpp" />
+    <ClInclude Include="..\include\Dom\Traversal\NodeIterator.hpp" />
+    <ClInclude Include="..\include\Dom\Traversal\TraversalImpl.hpp" />
+    <ClInclude Include="..\include\Dom\Traversal\TreeWalker.hpp" />
+    <ClInclude Include="..\include\Dom\Traversal\TreeWalkerImpl.hpp" />
+    <ClInclude Include="..\include\Dom\io\Stream.hpp" />
+    <ClInclude Include="..\include\XPath\XPath.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_arithmetic.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_ast.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_ast_ids.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_axis_enumerator.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_compile_context.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_execution_context.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_expression.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_expression_impl.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_function.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_function_holder.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_function_resolver.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_grammar.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_logical.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_match.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_match_rewrite.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_namespace_context.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_namespace_node.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_node_test.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_object.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_parser.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_relational.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_resolver_holder.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_step.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_union.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_value.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_variable.hpp" />
+    <ClInclude Include="..\include\XPath\impl\xpath_variable_resolver.hpp" />
+    <ClInclude Include="..\include\Arabica\getparam.hpp" />
+    <ClInclude Include="..\include\Arabica\StringAdaptor.hpp" />
+    <ClInclude Include="..\include\Arabica\stringadaptortag.hpp" />
+    <ClInclude Include="..\include\Arabica\impl\VS6Workaround.hpp" />
+    <ClInclude Include="..\include\Xml\escaper.hpp" />
+    <ClInclude Include="..\include\XML\QName.hpp" />
+    <ClInclude Include="..\include\XML\strings.hpp" />
+    <ClInclude Include="..\include\Xml\XMLCharacterClasses.hpp" />
+    <ClInclude Include="..\include\io\convert_adaptor.hpp" />
+    <ClInclude Include="..\include\io\convertstream.hpp" />
+    <ClInclude Include="..\include\io\socket_stream.hpp" />
+    <ClInclude Include="..\include\io\uri.hpp" />
+    <ClInclude Include="..\include\convert\base64codecvt.hpp" />
+    <ClInclude Include="..\include\convert\impl\codecvt_specialisations.hpp" />
+    <ClInclude Include="..\include\convert\impl\iso88591_utf8.hpp" />
+    <ClInclude Include="..\include\convert\iso88591utf8codecvt.hpp" />
+    <ClInclude Include="..\include\convert\rot13codecvt.hpp" />
+    <ClInclude Include="..\include\convert\impl\ucs2_utf16.hpp" />
+    <ClInclude Include="..\include\convert\impl\ucs2_utf8.hpp" />
+    <ClInclude Include="..\include\convert\ucs2utf8codecvt.hpp" />
+    <ClInclude Include="..\include\convert\utf16beucs2codecvt.hpp" />
+    <ClInclude Include="..\include\convert\utf16leucs2codecvt.hpp" />
+    <ClInclude Include="..\include\convert\utf16utf8codecvt.hpp" />
+    <ClInclude Include="..\include\convert\utf8iso88591codecvt.hpp" />
+    <ClInclude Include="..\include\convert\utf8ucs2codecvt.hpp" />
+    <ClInclude Include="..\include\text\normalize_whitespace.hpp" />
+    <ClInclude Include="..\include\text\UnicodeCharacters.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\Element.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\ElementType.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\html\HTMLModels.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\html\HTMLScanner.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\html\HTMLSchema.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\Parser.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\ScanHandler.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\Scanner.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\Schema.hpp" />
+    <ClInclude Include="..\include\Taggle\impl\SchemaImpl.hpp" />
+    <ClInclude Include="..\include\Taggle\Taggle.hpp" />
+    <ClInclude Include="..\include\XSLT\XSLT.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_apply_imports.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_apply_templates.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_attribute.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_call_template.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_choose.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_comment.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_compilation_context.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_compiled_stylesheet.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_copy.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_element.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_execution_context.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_for_each.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_functions.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_if.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_inline_element.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_item.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_key.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_message.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_namespace_stack.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_output.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_param.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_precedence.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_processing_instruction.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_qname.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_sink.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_sort.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_stylesheet.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_stylesheet_compiler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_stylesheet_parser.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_template.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_text.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_top_level_param.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_value_of.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_variable.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_variable_impl.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_variable_stack.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_with_param.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_apply_imports_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_apply_templates_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_attribute_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_call_template_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_choose_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_comment_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_constants.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_copy_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_create_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_element_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_for_each_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_if_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_include_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_inline_element_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_item_container_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_key_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_message_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_namespace_alias_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_output_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_processing_instruction_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_sort_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_strip_space_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_template_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_text_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_value_of_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_value_validation.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_variable_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_with_param_handler.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\arabica.cpp" />
+    <ClCompile Include="..\src\XML\XMLCharacterClasses.cpp" />
+    <ClCompile Include="..\src\SAX\helpers\InputSourceResolver.cpp" />
+    <ClCompile Include="..\src\io\uri.cpp" />
+    <ClCompile Include="..\src\convert\base64codecvt.cpp" />
+    <ClCompile Include="..\src\convert\impl\iso88591_utf8.cpp" />
+    <ClCompile Include="..\src\convert\iso88591utf8codecvt.cpp" />
+    <ClCompile Include="..\src\convert\rot13codecvt.cpp" />
+    <ClCompile Include="..\src\convert\impl\ucs2_utf16.cpp" />
+    <ClCompile Include="..\src\convert\impl\ucs2_utf8.cpp" />
+    <ClCompile Include="..\src\convert\ucs2utf8codecvt.cpp" />
+    <ClCompile Include="..\src\convert\utf16beucs2codecvt.cpp" />
+    <ClCompile Include="..\src\convert\utf16leucs2codecvt.cpp" />
+    <ClCompile Include="..\src\convert\utf16utf8codecvt.cpp" />
+    <ClCompile Include="..\src\convert\utf8iso88591codecvt.cpp" />
+    <ClCompile Include="..\src\convert\utf8ucs2codecvt.cpp" />
+    <ClCompile Include="..\src\taggle\Schema.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\vs7\ArabicaConfig.S">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /TC /EP -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\include\SAX\ArabicaConfig.hpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cl /TC /EP -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\include\SAX\ArabicaConfig.hpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
