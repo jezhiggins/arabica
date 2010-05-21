@@ -268,33 +268,156 @@ class msxml2_wrapper :
         dtdHandlerT* dtdHandler_;
     }; // class DTDHandlerAdaptor
 
+    class ErrorHandlerAdaptor : public ISAXErrorHandler 
+    {
+      public:
+        ErrorHandlerAdaptor() : errorHandler_(0), 
+                                bWarning_(false), bError_(false), bFatal_(false),
+                                eWarning_("none"), eError_("none"), eFatal_("none")
+                                { }
+        virtual ~ErrorHandlerAdaptor() { }
+
+        void setErrorHandler(errorHandlerT& handler) { errorHandler_ = &handler; }
+        errorHandlerT* getErrorHandler() const { return errorHandler_; }
+
+        void setSupplementaryMessage(const std::exception& supplementary) 
+        { 
+          supplementary_ = supplementary.what(); 
+        } // setSupplementaryMessage
+
+        virtual HRESULT STDMETHODCALLTYPE error( 
+            /* [in] */ ISAXLocator *pLocator,
+            /* [in] */ const wchar_t *pwchErrorMessage,
+			/* [in] */ HRESULT hrErrorCode)
+        {
+          bError_ = true;
+          eError_ = SAXParseExceptionT(formatError(pwchErrorMessage), LocatorAdaptor(pLocator));
+          return S_OK;
+        } // error
+
+        virtual HRESULT STDMETHODCALLTYPE fatalError( 
+            /* [in] */ ISAXLocator *pLocator,
+            /* [in] */ const wchar_t *pwchErrorMessage,
+            /* [in] */ HRESULT hrErrorCode)
+        {
+          bFatal_ = true;
+          eFatal_ = SAXParseExceptionT(formatError(pwchErrorMessage), LocatorAdaptor(pLocator));
+          return S_FALSE;
+        } // fatalError
+
+        virtual HRESULT STDMETHODCALLTYPE ignorableWarning( 
+            /* [in] */ ISAXLocator *pLocator,
+            /* [in] */ const wchar_t *pwchErrorMessage,
+            /* [in] */ HRESULT hrErrorCode)
+        {
+          bWarning_ = true;
+          eWarning_ = SAXParseExceptionT(formatError(pwchErrorMessage), LocatorAdaptor(pLocator));
+          return S_OK;
+        } // ignorableWarning
+
+        void report()
+        {
+          if(!errorHandler_)
+            return;
+
+          bool bWarning = bWarning_;
+          bool bError = bError_;
+          bool bFatal = bFatal_;
+
+          bWarning_ = bError_ = bFatal_ = false;
+
+          if(bFatal)
+            errorHandler_->fatalError(eFatal_);
+          if(bError)
+            errorHandler_->error(eError_);
+          if(bWarning)
+            errorHandler_->warning(eWarning_);
+        } // report
+
+        // satisfy COM interface even if we're not a COM object
+        long __stdcall QueryInterface(const struct _GUID &riid,void **ppvObject) { return 0; }
+        unsigned long __stdcall AddRef() { return 0; }
+        unsigned long __stdcall Release() { return 0; }
+
+	  private:
+        std::string formatError(const wchar_t *pwchErrorMessage) const
+        {
+          std::string errorMsg = string_adaptor::asStdString((string_adaptor::construct_from_utf16(pwchErrorMessage)));
+          if(!supplementary_.empty())
+            errorMsg += ": " + supplementary_;
+          return errorMsg;
+        } // formatError
+
+        ErrorHandlerAdaptor(const ErrorHandlerAdaptor&);
+
+        typedef SAX::SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
+        bool bWarning_;
+        bool bError_;
+        bool bFatal_;
+        SAXParseExceptionT eWarning_;
+        SAXParseExceptionT eError_;
+        SAXParseExceptionT eFatal_;
+        std::string supplementary_;
+
+        errorHandlerT* errorHandler_;
+    }; // class ErrorHandlerAdaptor
+
     class ContentHandlerAdaptor : public ISAXContentHandler 
     {
       public:
-        ContentHandlerAdaptor() : contentHandler_(0) { } 
+        ContentHandlerAdaptor(ErrorHandlerAdaptor& eh) : contentHandler_(0), eh_(eh) { } 
         ~ContentHandlerAdaptor() { }
 
         void setContentHandler(contentHandlerT& handler) { contentHandler_ = &handler; }
         contentHandlerT* getContentHandler() const { return contentHandler_; }
 
-
         virtual HRESULT STDMETHODCALLTYPE putDocumentLocator( 
                                /* [in] */ ISAXLocator *pLocator)
         {
           locator_.setLocator(pLocator);
-          if(contentHandler_) contentHandler_->setDocumentLocator(locator_);
+          if(contentHandler_) 
+            try {
+              contentHandler_->setDocumentLocator(locator_);
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // putDocumentLocation
         
         virtual HRESULT STDMETHODCALLTYPE startDocument( void)
         {
-          if(contentHandler_) contentHandler_->startDocument();
+          if(contentHandler_) 
+            try {
+              contentHandler_->startDocument();
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // startDocument
         
         virtual HRESULT STDMETHODCALLTYPE endDocument( void)
         {
-          if(contentHandler_) contentHandler_->endDocument();
+          if(contentHandler_) 
+            try {
+              contentHandler_->endDocument();
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // endDocument
         
@@ -304,10 +427,19 @@ class msxml2_wrapper :
                                 /* [in] */ const wchar_t *pwchUri,
                                 /* [in] */ int cchUri)
 
-		{
+        {
           if(contentHandler_)
-            contentHandler_->startPrefixMapping(string_adaptor::construct_from_utf16(pwchPrefix, cchPrefix),
+            try {
+              contentHandler_->startPrefixMapping(string_adaptor::construct_from_utf16(pwchPrefix, cchPrefix),
                                                 string_adaptor::construct_from_utf16(pwchUri, cchUri));
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // startPrefixMapping
        
@@ -315,7 +447,17 @@ class msxml2_wrapper :
                                 /* [in] */ const wchar_t *pwchPrefix,
                                 /* [in] */ int cchPrefix)
         {
-          if(contentHandler_) contentHandler_->endPrefixMapping(string_adaptor::construct_from_utf16(pwchPrefix, cchPrefix));
+          if(contentHandler_) 
+            try {
+              contentHandler_->endPrefixMapping(string_adaptor::construct_from_utf16(pwchPrefix, cchPrefix));
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // endPrefixMapping
         
@@ -330,11 +472,20 @@ class msxml2_wrapper :
         {
           if(contentHandler_)
           {
-            AttributesAdaptor attrs(pAttributes);
-			contentHandler_->startElement(string_adaptor::construct_from_utf16(pwchNamespaceUri, cchNamespaceUri),
-                                          string_adaptor::construct_from_utf16(pwchLocalName, cchLocalName), 
-                                          string_adaptor::construct_from_utf16(pwchQName, cchQName), 
-                                          attrs);
+            try {
+              AttributesAdaptor attrs(pAttributes);
+              contentHandler_->startElement(string_adaptor::construct_from_utf16(pwchNamespaceUri, cchNamespaceUri),
+                                            string_adaptor::construct_from_utf16(pwchLocalName, cchLocalName), 
+                                            string_adaptor::construct_from_utf16(pwchQName, cchQName), 
+                                            attrs);
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           } // if ...
           return S_OK;
         } // startElement
@@ -348,9 +499,18 @@ class msxml2_wrapper :
                                 /* [in] */ int cchQName)
         {
           if(contentHandler_)
-            contentHandler_->endElement(string_adaptor::construct_from_utf16(pwchNamespaceUri, cchNamespaceUri), 
-                                        string_adaptor::construct_from_utf16(pwchLocalName, cchLocalName), 
-                                        string_adaptor::construct_from_utf16(pwchQName, cchQName));
+            try {
+              contentHandler_->endElement(string_adaptor::construct_from_utf16(pwchNamespaceUri, cchNamespaceUri), 
+                                          string_adaptor::construct_from_utf16(pwchLocalName, cchLocalName), 
+                                          string_adaptor::construct_from_utf16(pwchQName, cchQName));
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // endElement
         
@@ -358,7 +518,17 @@ class msxml2_wrapper :
             /* [in] */ const wchar_t *pwchChars,
             /* [in] */ int cchChars)
         {
-		  if(contentHandler_) contentHandler_->characters(string_adaptor::construct_from_utf16(pwchChars, cchChars));
+	        if(contentHandler_) 
+            try {
+              contentHandler_->characters(string_adaptor::construct_from_utf16(pwchChars, cchChars));
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // characters
         
@@ -367,7 +537,16 @@ class msxml2_wrapper :
             /* [in] */ int cchChars)
         {
           if(contentHandler_)
-            contentHandler_->ignorableWhitespace(string_adaptor::construct_from_utf16(pwchChars, cchChars));
+            try {
+               contentHandler_->ignorableWhitespace(string_adaptor::construct_from_utf16(pwchChars, cchChars));
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // ignorableWhitespace
         
@@ -378,17 +557,35 @@ class msxml2_wrapper :
             /* [in] */ int cchData)
         {
           if(contentHandler_)
-            contentHandler_->processingInstruction(string_adaptor::construct_from_utf16(pwchTarget, cchTarget),
-                                                   string_adaptor::construct_from_utf16(pwchData, cchData));
+            try {
+              contentHandler_->processingInstruction(string_adaptor::construct_from_utf16(pwchTarget, cchTarget),
+                                                     string_adaptor::construct_from_utf16(pwchData, cchData));
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // processingInstruction
         
         virtual HRESULT STDMETHODCALLTYPE skippedEntity( 
             /* [in] */ const wchar_t *pwchName,
-			/* [in] */ int cchName)
+			      /* [in] */ int cchName)
         {
           if(contentHandler_)
-            contentHandler_->skippedEntity(string_adaptor::construct_from_utf16(pwchName, cchName));
+            try {
+              contentHandler_->skippedEntity(string_adaptor::construct_from_utf16(pwchName, cchName));
+            }
+            catch(const std::exception& e) {
+              eh_.setSupplementaryMessage(e);
+              throw;
+            } // catch
+            catch(...) {
+              throw;
+            }
           return S_OK;
         } // skippedEntity
 
@@ -401,6 +598,7 @@ class msxml2_wrapper :
         ////////////////////////////////////////////////
         // member varaibles
         contentHandlerT* contentHandler_;
+        ErrorHandlerAdaptor& eh_;
         LocatorAdaptor locator_;
 
         //////////////////////////////////////////////////////
@@ -558,87 +756,6 @@ class msxml2_wrapper :
             AttributesAdaptor();
         }; // class AttributesAdaptor
     }; // class ContentHandlerAdaptor
-
-    class ErrorHandlerAdaptor : public ISAXErrorHandler 
-    {
-      public:
-        ErrorHandlerAdaptor() : errorHandler_(0), 
-                                bWarning_(false), bError_(false), bFatal_(false),
-                                eWarning_("none"), eError_("none"), eFatal_("none")
-                                { }
-        virtual ~ErrorHandlerAdaptor() { }
-
-        void setErrorHandler(errorHandlerT& handler) { errorHandler_ = &handler; }
-        errorHandlerT* getErrorHandler() const { return errorHandler_; }
-
-        virtual HRESULT STDMETHODCALLTYPE error( 
-            /* [in] */ ISAXLocator *pLocator,
-            /* [in] */ const wchar_t *pwchErrorMessage,
-			/* [in] */ HRESULT hrErrorCode)
-        {
-          bError_ = true;
-          string_type errorMsg(string_adaptor::construct_from_utf16(pwchErrorMessage));
-          eError_ = SAXParseExceptionT(string_adaptor::asStdString(errorMsg), LocatorAdaptor(pLocator));
-          return S_OK;
-        } // error
-
-        virtual HRESULT STDMETHODCALLTYPE fatalError( 
-            /* [in] */ ISAXLocator *pLocator,
-            /* [in] */ const wchar_t *pwchErrorMessage,
-            /* [in] */ HRESULT hrErrorCode)
-        {
-          bFatal_ = true;
-          string_type errorMsg(string_adaptor::construct_from_utf16(pwchErrorMessage));
-          eFatal_ = SAXParseExceptionT(string_adaptor::asStdString(errorMsg), LocatorAdaptor(pLocator));
-          return S_FALSE;
-        } // fatalError
-
-        virtual HRESULT STDMETHODCALLTYPE ignorableWarning( 
-            /* [in] */ ISAXLocator *pLocator,
-            /* [in] */ const wchar_t *pwchErrorMessage,
-            /* [in] */ HRESULT hrErrorCode)
-        {
-          bWarning_ = true;
-          string_type errorMsg(string_adaptor::construct_from_utf16(pwchErrorMessage));
-          eWarning_ = SAXParseExceptionT(string_adaptor::asStdString(errorMsg), LocatorAdaptor(pLocator));
-		  return S_OK;
-        } // ignorableWarning
-
-        void report()
-        {
-          if(!errorHandler_)
-            return;
-
-          bool bWarning = bWarning_;
-          bool bError = bError_;
-          bool bFatal = bFatal_;
-
-          bWarning_ = bError_ = bFatal_ = false;
-
-          if(bFatal)
-            errorHandler_->fatalError(eFatal_);
-          if(bError)
-            errorHandler_->error(eError_);
-          if(bWarning)
-            errorHandler_->warning(eWarning_);
-        } // report
-
-        // satisfy COM interface even if we're not a COM object
-        long __stdcall QueryInterface(const struct _GUID &riid,void **ppvObject) { return 0; }
-        unsigned long __stdcall AddRef() { return 0; }
-        unsigned long __stdcall Release() { return 0; }
-
-	  private:
-        typedef SAX::SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
-        bool bWarning_;
-        bool bError_;
-        bool bFatal_;
-        SAXParseExceptionT eWarning_;
-        SAXParseExceptionT eError_;
-        SAXParseExceptionT eFatal_;
-
-        errorHandlerT* errorHandler_;
-    }; // class ErrorHandlerAdaptor
 
     class LexicalHandlerAdaptor : public ISAXLexicalHandler 
     {
@@ -859,8 +976,8 @@ class msxml2_wrapper :
     // member variables
     COMInitializer_type init;
     DTDHandlerAdaptor dtdHandler_;
-    ContentHandlerAdaptor contentHandler_;
     ErrorHandlerAdaptor errorHandler_;
+    ContentHandlerAdaptor contentHandler_;
     LexicalHandlerAdaptor lexicalHandler_;
     DeclHandlerAdaptor declHandler_;
 
@@ -869,7 +986,15 @@ class msxml2_wrapper :
 }; // class msxml
 
 template<class string_type, class T0, class T1>
-msxml2_wrapper<string_type, T0, T1>::msxml2_wrapper()
+msxml2_wrapper<string_type, T0, T1>::msxml2_wrapper() :
+    init(),
+    dtdHandler_(),
+    errorHandler_(),
+    contentHandler_(errorHandler_),
+    lexicalHandler_(),
+    declHandler_(),
+    reader_(),
+    properties_()
 {
   reader_.CreateInstance("Msxml2.SAXXMLReader.6.0");
   if(reader_.GetInterfacePtr() == 0)

@@ -92,12 +92,9 @@ std::map<std::string, std::string> gatherAttributes(const std::string& parentEle
 void verifyNoCharacterData(const std::string& ch,
                            const std::string& name)
 {
-  bool ok = true;
-  for(std::string::const_iterator i = ch.begin(), e = ch.end(); ok && i != e; ++i)
-    ok = Arabica::XML::is_space(*i);
-
-  if(!ok)
-    throw SAX::SAXException(name + " element can not contain character data.");
+  for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+    if(!Arabica::XML::is_space(*i))
+      throw SAX::SAXException(name + " element can not contain character data.");
 } // verifyNoCharacterContent
 
 } // namespace XSLT
