@@ -4,6 +4,7 @@
 	Version="9.00"
 	Name="test_SAX_filter"
 	ProjectGUID="{A21EA5E3-7353-4856-8C8F-8129FEBEA7E2}"
+	RootNamespace="test_SAX_filter"
 	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
@@ -71,7 +72,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="..\lib\arabica-debug.lib"
+				AdditionalDependencies="..\lib\arabica-debug.lib ..\lib\CppUnit-debug.lib"
 				OutputFile="$(OutDir)/sax_filter_test.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -199,86 +200,6 @@
 			>
 			<File
 				RelativePath="..\tests\Sax\filter_test.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="CppUnit"
-			>
-			<File
-				RelativePath="..\tests\CppUnit\framework\CppUnitException.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\estring.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\Guards.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\textui\TableTestResult.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\textui\TableTestResult.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\Test.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestCaller.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestCase.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestCase.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestFailure.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestFailure.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestResult.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestResult.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\TestRunner.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\TestRunner.hpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestSuite.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\framework\TestSuite.h"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\textui\TextTestResult.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\tests\CppUnit\textui\TextTestResult.h"
 				>
 			</File>
 		</Filter>
