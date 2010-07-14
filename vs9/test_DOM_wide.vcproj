@@ -254,7 +254,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\tests\DOM\test_Stream.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\tests\Dom\test_Text.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\tests\DOM\test_TreeWalker.hpp"
 				>
 			</File>
 		</Filter>
