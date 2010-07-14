@@ -27,7 +27,8 @@ test_sources = dom_test_suite.hpp \
                test_Siblings.hpp \
                test_Text.hpp \
                test_SAX2DOM.hpp \
-               test_TreeWalker.hpp
+               test_TreeWalker.hpp \
+               test_Stream.hpp
 
 dom_test_SOURCES = main.cpp \
                    $(test_sources)

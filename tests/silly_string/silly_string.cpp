@@ -28,6 +28,11 @@ silly_string& silly_string::operator=(const silly_string& rhs)
   return *this;
 } // operator=
 
+int operator<(const silly_string& lhs, const silly_string& rhs)
+{
+  return lhs.s_ < rhs.s_;
+} // operator<
+
 ////////////////////////////////////////
 ////////////////////////////////////////
 char silly_string_adaptor::convert_from_utf8(char c)

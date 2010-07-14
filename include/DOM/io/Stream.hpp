@@ -26,6 +26,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <map>
 #include <text/UnicodeCharacters.hpp>
 #include <XML/escaper.hpp>
 
@@ -39,7 +40,7 @@ namespace StreamImpl
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 void streamChildren(std::basic_ostream<charT, traitsT>& stream, const DOM::Node<stringT, string_adaptorT>& node)
 {
-  DOM::Node<stringT> child = node.getFirstChild();
+  DOM::Node<stringT, string_adaptorT> child = node.getFirstChild();
   while(child != 0)
   {
     stream << child;
@@ -78,14 +79,14 @@ void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream,
   std::map<stringT, stringT>& current = *(prefix_stack->rbegin());
 
   stringT namespaceURI = node.getNamespaceURI();
-  if(!namespaceURI.empty())
+  if(!string_adaptorT::empty(namespaceURI))
   {
     std::pair<bool, stringT> prefix = is_uri_declared(prefix_stack, namespaceURI);
     
     if(!prefix.first)
       current[namespaceURI] =  prefix.second = node.getPrefix();
 
-    if(!prefix.second.empty())
+    if(!string_adaptorT::empty(prefix.second))
       stream << prefix.second << Arabica::text::Unicode<charT>::COLON;
     stream << node.getLocalName();
   }
@@ -93,19 +94,21 @@ void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream,
     stream << node.getNodeName();
 } // check_and_output_node_name
 
-template<class stringT, class charT>
+template<class stringT, class string_adaptorT, class charT>
 bool isXmlns(const stringT& str)
 {
   typedef Arabica::text::Unicode<charT> UnicodeT;
 
-  if(str.size() != 5)
+  if(string_adaptorT::length(str) != 5)
     return false;
 
-  if((str[0] == UnicodeT::LOWERCASE_X) &&
-     (str[1] == UnicodeT::LOWERCASE_M) &&
-     (str[2] == UnicodeT::LOWERCASE_L) &&
-     (str[3] == UnicodeT::LOWERCASE_N) &&
-     (str[4] == UnicodeT::LOWERCASE_S))
+  typename string_adaptorT::const_iterator ci = string_adaptorT::begin(str);
+
+  if((*ci == UnicodeT::LOWERCASE_X) &&
+     (*(ci+1) == UnicodeT::LOWERCASE_M) &&
+     (*(ci+2) == UnicodeT::LOWERCASE_L) &&
+     (*(ci+3) == UnicodeT::LOWERCASE_N) &&
+     (*(ci+4) == UnicodeT::LOWERCASE_S))
     return true;
   return false;
 } // isXmlns
@@ -130,9 +133,11 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
     stream.pword(index) = prefix_stack;
 
     std::map<stringT, stringT> prefixes;
-    for(DOM::Node<stringT> p = node.getParentNode(); p.getNodeType() == DOM::Node_base::ELEMENT_NODE; p = p.getParentNode())
+    for(DOM::Node<stringT, string_adaptorT> p = node.getParentNode(); 
+        p.getNodeType() == DOM::Node_base::ELEMENT_NODE; 
+        p = p.getParentNode())
     {
-      if(p.getNamespaceURI().empty())
+      if(string_adaptorT::empty(p.getNamespaceURI()))
         continue;
       if(prefixes.find(p.getNamespaceURI()) == prefixes.end())
         prefixes[p.getNamespaceURI()] = p.getPrefix();
@@ -146,7 +151,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
   // is element namespace URI declared?
   check_and_output_node_name(stream, node, prefix_stack);
   
-  DOM::NamedNodeMap<stringT> attrs = node.getAttributes();
+  DOM::NamedNodeMap<stringT, string_adaptorT> attrs = node.getAttributes();
   std::vector<stringT> names;
   for(unsigned int a = 0; a < attrs.getLength(); ++a)
     names.push_back(attrs.item(a).getNodeName());
@@ -154,16 +159,18 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
 
   for(typename std::vector<stringT>::const_iterator a = names.begin(), ae = names.end(); a != ae; ++a)
   {
-    DOM::Node<stringT> attr = attrs.getNamedItem(*a);
-    if(isXmlns<stringT, charT>(attr.getNodeName()) || 
-       isXmlns<stringT, charT>(attr.getPrefix()))
+    DOM::Node<stringT, string_adaptorT> attr = attrs.getNamedItem(*a);
+    if(isXmlns<stringT, string_adaptorT, charT>(attr.getNodeName()) || 
+       isXmlns<stringT, string_adaptorT, charT>(attr.getPrefix()))
       continue;
     stream << UnicodeT::SPACE;
     check_and_output_node_name(stream, attr, prefix_stack);
     stream  << UnicodeT::EQUALS_SIGN
             << UnicodeT::QUOTATION_MARK;
     stringT value = attr.getNodeValue();
-    std::for_each(value.begin(), value.end(), Arabica::XML::attribute_escaper<charT, traitsT>(stream));
+    std::for_each(string_adaptorT::begin(value), 
+                  string_adaptorT::end(value), 
+                  Arabica::XML::attribute_escaper<charT, traitsT>(stream));
     stream << UnicodeT::QUOTATION_MARK;
   }
 
@@ -177,10 +184,12 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
            << UnicodeT::LOWERCASE_L
            << UnicodeT::LOWERCASE_N
            << UnicodeT::LOWERCASE_S;
-    if(!(i->second.empty()))
+    if(!(string_adaptorT::empty(i->second)))
       stream << UnicodeT::COLON << i->second;
     stream << UnicodeT::EQUALS_SIGN << UnicodeT::QUOTATION_MARK;
-    std::for_each(i->first.begin(), i->first.end(), Arabica::XML::attribute_escaper<charT, traitsT>(stream));
+    std::for_each(string_adaptorT::begin(i->first), 
+                  string_adaptorT::end(i->first), 
+                  Arabica::XML::attribute_escaper<charT, traitsT>(stream));
     stream << UnicodeT::QUOTATION_MARK;
   } // for ...
 
@@ -218,7 +227,7 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
 
   switch(node.getNodeType())
   {
-  case DOM::Node<stringT>::DOCUMENT_NODE:
+  case DOM::Node_base::DOCUMENT_NODE:
     stream << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::QUESTION_MARK
            << UnicodeT::LOWERCASE_X
@@ -241,10 +250,10 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
            << UnicodeT::QUESTION_MARK
            << UnicodeT::GREATER_THAN_SIGN
            << std::endl;
-  case DOM::Node<stringT>::DOCUMENT_FRAGMENT_NODE:
+  case DOM::Node_base::DOCUMENT_FRAGMENT_NODE:
     StreamImpl::streamChildren(stream, node);
     break;
-  case DOM::Node<stringT>::ELEMENT_NODE:
+  case DOM::Node_base::ELEMENT_NODE:
     {
       stream << UnicodeT::LESS_THAN_SIGN;
       int index = StreamImpl::prefix_mapper(stream, node);
@@ -264,18 +273,20 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
       }
     }
     break;
-  case DOM::Node<stringT>::TEXT_NODE:
+  case DOM::Node_base::TEXT_NODE:
     {
       stringT value = node.getNodeValue();
-      std::for_each(value.begin(), value.end(), Arabica::XML::text_escaper<charT, traitsT>(stream));
+      std::for_each(string_adaptorT::begin(value), 
+                    string_adaptorT::end(value), 
+                    Arabica::XML::text_escaper<charT, traitsT>(stream));
     }
     break;
-  case DOM::Node<stringT>::ENTITY_REFERENCE_NODE:
+  case DOM::Node_base::ENTITY_REFERENCE_NODE:
     stream << UnicodeT::AMPERSAND
            << node.getNodeName()
            << UnicodeT::SEMI_COLON;
     break;
-  case DOM::Node<stringT>::CDATA_SECTION_NODE:
+  case DOM::Node_base::CDATA_SECTION_NODE:
     stream << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::EXCLAMATION_MARK
            << UnicodeT::LEFT_SQUARE_BRACKET
@@ -290,7 +301,7 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
            << UnicodeT::RIGHT_SQUARE_BRACKET
            << UnicodeT::GREATER_THAN_SIGN;
     break;
-  case DOM::Node<stringT>::PROCESSING_INSTRUCTION_NODE:
+  case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
     stream << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::QUESTION_MARK
            << node.getNodeName()
@@ -299,7 +310,7 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
            << UnicodeT::QUESTION_MARK
            << UnicodeT::GREATER_THAN_SIGN;
     break;
-  case DOM::Node<stringT>::COMMENT_NODE:
+  case DOM::Node_base::COMMENT_NODE:
     stream << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::EXCLAMATION_MARK
            << UnicodeT::HYPHEN_MINUS
