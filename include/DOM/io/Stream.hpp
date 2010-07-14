@@ -69,12 +69,14 @@ std::pair<bool, stringT> is_uri_declared(std::vector<std::map<stringT, stringT> 
   } // for ...
 
   return std::make_pair(false, stringT());
-} // prefix_is_declared
+} // is_uri_declared
 
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream, 
                                 const DOM::Node<stringT, string_adaptorT>& node, 
-                                std::vector<std::map<stringT, stringT> >* prefix_stack)
+                                std::vector<std::map<stringT, stringT> >* prefix_stack,
+				const bool is_attribute,
+				const long index)
 {
   std::map<stringT, stringT>& current = *(prefix_stack->rbegin());
 
@@ -84,7 +86,15 @@ void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream,
     std::pair<bool, stringT> prefix = is_uri_declared(prefix_stack, namespaceURI);
     
     if(!prefix.first)
-      current[namespaceURI] =  prefix.second = node.getPrefix();
+    {
+      current[namespaceURI] = prefix.second = node.getPrefix();
+      if(is_attribute && string_adaptorT::empty(prefix.second))
+      {
+	std::ostringstream os;
+	os << 'a' << stream.iword(index)++;
+	current[namespaceURI] = prefix.second = os.str();
+      } // if ...
+    } // if ...
 
     if(!string_adaptorT::empty(prefix.second))
       stream << prefix.second << Arabica::text::Unicode<charT>::COLON;
@@ -131,6 +141,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
   {
     prefix_stack = new std::vector<std::map<stringT, stringT> >;
     stream.pword(index) = prefix_stack;
+    stream.iword(index) = 0;
 
     std::map<stringT, stringT> prefixes;
     for(DOM::Node<stringT, string_adaptorT> p = node.getParentNode(); 
@@ -149,7 +160,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
   std::map<stringT, stringT>& current = *(prefix_stack->rbegin());
 
   // is element namespace URI declared?
-  check_and_output_node_name(stream, node, prefix_stack);
+  check_and_output_node_name(stream, node, prefix_stack, false, index);
   
   DOM::NamedNodeMap<stringT, string_adaptorT> attrs = node.getAttributes();
   std::vector<stringT> names;
@@ -164,7 +175,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
        isXmlns<stringT, string_adaptorT, charT>(attr.getPrefix()))
       continue;
     stream << UnicodeT::SPACE;
-    check_and_output_node_name(stream, attr, prefix_stack);
+    check_and_output_node_name(stream, attr, prefix_stack, true, index);
     stream  << UnicodeT::EQUALS_SIGN
             << UnicodeT::QUOTATION_MARK;
     stringT value = attr.getNodeValue();
@@ -206,7 +217,7 @@ void prefix_mapper_pop(std::basic_ostream<charT, traitsT>& stream,
     static_cast<std::vector<std::map<stringT, stringT> >*>(stream.pword(index));
 
   if(output)
-    check_and_output_node_name(stream, node, prefix_stack);
+    check_and_output_node_name(stream, node, prefix_stack, false, index);
 
   prefix_stack->pop_back();
   if(prefix_stack->empty())
