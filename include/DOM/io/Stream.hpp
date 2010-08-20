@@ -92,7 +92,7 @@ void check_and_output_node_name(std::basic_ostream<charT, traitsT>& stream,
       {
 	std::ostringstream os;
 	os << 'a' << stream.iword(index)++;
-	current[namespaceURI] = prefix.second = os.str();
+	current[namespaceURI] = prefix.second = string_adaptorT::construct_from_utf8(os.str().c_str());
       } // if ...
     } // if ...
 
