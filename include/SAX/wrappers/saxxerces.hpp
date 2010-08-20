@@ -791,7 +791,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
 
         virtual ~IStreamAdaptor() { }
 
-        virtual unsigned int curPos() const
+        virtual XMLFilePos curPos() const
         {
           return curPos_;
         } // curPos
@@ -804,9 +804,11 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
           return istream_.get()->gcount();
         } // readBytes
 
+        virtual const XMLCh* getContentType() const { return 0; }
+
       private:
         IStreamHandle istream_;
-        unsigned int curPos_;
+        XMLFilePos curPos_;
     }; // IStreamAdaptor
 
     class InputSourceAdaptor : public XERCES_CPP_NAMESPACE::InputSource
