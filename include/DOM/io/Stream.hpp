@@ -21,8 +21,6 @@
 //  std::wcout << doc;  
 //
 ///////////////////////////////////////////////////////////////////////
-// $Id$
-///////////////////////////////////////////////////////////////////////
 
 #include <iostream>
 #include <algorithm>
@@ -123,6 +121,18 @@ bool isXmlns(const stringT& str)
   return false;
 } // isXmlns
 
+template<class stringT, class string_adaptorT>
+bool compare_nodes_by_name(const DOM::Node<stringT, string_adaptorT>& lhs, 
+			   const DOM::Node<stringT, string_adaptorT>& rhs)
+{
+  const stringT& lhsURI = lhs.getNamespaceURI();
+  const stringT& rhsURI = rhs.getNamespaceURI();
+  
+  if(lhsURI == rhsURI)
+    return lhs.getLocalName() < rhs.getLocalName();
+  return lhsURI < rhsURI;
+} // class compare_nodes_by_name
+
 template<class stringT, class string_adaptorT, class charT, class traitsT>
 int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
                   const DOM::Node<stringT, string_adaptorT>& node)
@@ -162,15 +172,17 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
   // is element namespace URI declared?
   check_and_output_node_name(stream, node, prefix_stack, false, index);
   
-  DOM::NamedNodeMap<stringT, string_adaptorT> attrs = node.getAttributes();
-  std::vector<stringT> names;
+  const DOM::NamedNodeMap<stringT, string_adaptorT> attrs = node.getAttributes();
+  std::vector<DOM::Node<stringT, string_adaptorT> > attrNodes;
   for(unsigned int a = 0; a < attrs.getLength(); ++a)
-    names.push_back(attrs.item(a).getNodeName());
-  std::sort(names.begin(), names.end());
+    attrNodes.push_back(attrs.item(a));
+  std::sort(attrNodes.begin(), attrNodes.end(), 
+  	    compare_nodes_by_name<stringT, string_adaptorT>);
 
-  for(typename std::vector<stringT>::const_iterator a = names.begin(), ae = names.end(); a != ae; ++a)
+  for(unsigned int a = 0; a < attrNodes.size(); ++a)
   {
-    DOM::Node<stringT, string_adaptorT> attr = attrs.getNamedItem(*a);
+    //DOM::Node<stringT, string_adaptorT> attr = attrs.getNamedItem(*a);
+    const DOM::Node<stringT, string_adaptorT> attr = attrNodes[a];
     if(isXmlns<stringT, string_adaptorT, charT>(attr.getNodeName()) || 
        isXmlns<stringT, string_adaptorT, charT>(attr.getPrefix()))
       continue;
