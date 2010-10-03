@@ -28,7 +28,7 @@ silly_string& silly_string::operator=(const silly_string& rhs)
   return *this;
 } // operator=
 
-int operator<(const silly_string& lhs, const silly_string& rhs)
+bool operator<(const silly_string& lhs, const silly_string& rhs)
 {
   return lhs.s_ < rhs.s_;
 } // operator<

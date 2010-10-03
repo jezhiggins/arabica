@@ -24,11 +24,11 @@ private:
   std::string s_;
 
   friend class silly_string_adaptor;
-  friend int operator<(const silly_string& lhs, 
-                       const silly_string& rhs);
+  friend bool operator<(const silly_string& lhs, 
+                        const silly_string& rhs);
 }; // class silly_string
 
-int operator<(const silly_string& lhs, const silly_string& rhs);
+bool operator<(const silly_string& lhs, const silly_string& rhs);
 
 class silly_string_adaptor : public Arabica::string_adaptor_tag
 {
