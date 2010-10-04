@@ -555,12 +555,12 @@
   <test-case id="Text__78230" compare="text"/>
   <test-case id="Text__78242" compare="text"/>
   <test-case id="Text__78244" compare="text"/>
-  <test-case id="Text__78245" compare="fragment"/>
+  <test-case id="Text__78245" skip="yes" reason="XML namespace bound to wrong prefix"/>
   <test-case id="Text__78246" compare="text"/>
   <test-case id="Text__78247" compare="text"/>
   <test-case id="Text__78249" compare="text"/>
   <test-case id="Text__78272" skip="yes" reason="Test result is bad."/>
-  <test-case id="Text__78273" compare="text"/>
+  <test-case id="Text__78273" skip="yes" reason="XML namespace bound to wrong prefix"/>
   <test-case id="Text__78274" skip="yes" reason="xsl:preserve-space attribute?  Sorry pal, that's bad XSLT and this is a bad test case"/>
   <test-case id="Text__78275" compare="text"/>
   <test-case id="Text__78276" skip="yes" reason="the xsl:preserve-space attribute again"/>
@@ -568,7 +568,7 @@
   <test-case id="Text__78278" compare="text"/>
   <test-case id="Text__78279" compare="text"/>
   <test-case id="Text__78280" compare="text"/>
-  <test-case id="Text__78281" compare="text"/>
+  <test-case id="Text__78281" skip="yes" reason="XML namespace bound to wrong prefix"/>
   <test-case id="Text__78307" compare="text"/>
   <test-case id="Text__78308" compare="text"/>
   <test-case id="Text__78309" skip="yes" reason="Bad test case.  msxml whitespace handling disagrees with everyone else"/>
