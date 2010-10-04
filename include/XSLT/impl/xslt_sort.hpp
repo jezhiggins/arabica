@@ -33,13 +33,16 @@ public:
   void set_context(const DOM::Node<std::string>& node, ExecutionContext& context)
   {
     context_ = &context;
-    std::string datatype = datatype_->evaluateAsString(node, context_->xpathContext());
-    std::string order = order_->evaluateAsString(node, context_->xpathContext());
+    const std::string datatype = datatype_->evaluateAsString(node, context_->xpathContext());
+    const std::string order = order_->evaluateAsString(node, context_->xpathContext());
+    const std::string caseorder = caseorder_->evaluateAsString(node, context_->xpathContext());
 
     static const char* allowed_datatypes[] = { "text", "number", 0 };
     static const char* allowed_orders[] = { "ascending", "descending", 0 };
+    static const char* allowed_case_orders[] = { "upper-first", "lower-first", 0 };
     validateValues("xsl:sort", "data-type", datatype, allowed_datatypes);
     validateValues("xsl:sort", "order", order, allowed_orders);
+    validateValues("xsl:sort", "case-order", caseorder, allowed_case_orders);
 
     if(datatype == "number")
       if(order == "ascending")

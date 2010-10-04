@@ -26,14 +26,11 @@ public:
   {
     if(sort_ == 0)
     {
-      static const char* DataTypes[] = { "text", "number", 0 };
-      static const char* SortOrder[] = { "ascending", "descending", 0 };
-      static const char* CaseOrder[] = { "upper-first", "lower-first", 0 };
       static const ValueRule rules[] = { { "select", false, ".", 0 },
                                          { "lang", false, 0, 0 },
-                                         { "data-type", false, "text", DataTypes },
-                                         { "order", false, "ascending", SortOrder },
-                                         { "case-order", false, "upper-first", CaseOrder },
+                                         { "data-type", false, "text", 0 },
+                                         { "order", false, "ascending", 0 },
+                                         { "case-order", false, "upper-first", 0 },
                                          { 0, false, 0, 0 } };
 
       std::map<std::string, std::string> attr = gatherAttributes(qName, atts, rules);
@@ -42,6 +39,7 @@ public:
       select = context_.xpath_expression(attr["select"]);
       datatype = context_.xpath_attribute_value_template(attr["data-type"]);
       order = context_.xpath_attribute_value_template(attr["order"]);
+      caseorder = context_.xpath_attribute_value_template(attr["case-order"]);
 
       if(attr["lang"].length() != 0)
 	std::cerr << "Sorry!  Don't support xsl:sort lang attribute yet" << std::endl;
