@@ -342,7 +342,7 @@ public:
 
   ValueType type() const { return ptr_->type(); }
 
-  operator bool() const { return ptr_.get(); }
+  operator bool() const { return ptr_.get() != 0; }
   bool operator==(int dummy) const { return (dummy == 0) && (ptr_.get() == 0); } 
   bool operator!=(int dummy) const { return !(operator==(dummy)); }
 
