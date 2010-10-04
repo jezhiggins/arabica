@@ -124,7 +124,7 @@ public:
 
   const XPathExpression_impl<string_type, string_adaptor>* get() const { return ptr_.get(); }
 
-  operator bool() const { return ptr_.get(); }
+  operator bool() const { return ptr_.get() != 0; }
 
   XPathValue<string_type, string_adaptor> evaluate(const DOM::Node<string_type, string_adaptor>& context) const
   {
