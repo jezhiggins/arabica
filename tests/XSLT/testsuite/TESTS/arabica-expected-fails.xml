@@ -37,6 +37,10 @@
   <test-case id="message_message14" compiles="no" reason="Needs xsl:number"/>
   <test-case id="message_message15" compiles="no" reason="Needs xsl:fallback"/>
   <test-case id="namedtemplate_namedtemplate12" compiles="no" reason="Needs xsl:number"/>
+  <test-case id="namespace_namespace40" compiles="no" reason="Mangle, like everything other than Xalan, fails when creating an element with an undeclared namespace prefix"/>
+  <test-case id="namespace_namespace60" compiles="no" reason="Mangle, like everything other than Xalan, fails when creating an element with an undeclared namespace prefix.  Duplicates namespace_namespace40"/>
+  <test-case id="namespace_namespace73" compiles="no" reason="Mangle, like everything other than Xalan, fails when creating an element with an undeclared namespace prefix"/>
+  <test-case id="namespace_namespace79" compiles="no" reason="Mangle, like everything other than Xalan, fails when creating an element with an undeclared namespace prefix"/>  
   <test-case id="output_output01" skip="yes" reason="HTML output"/>
   <test-case id="output_output02" skip="yes" reason="HTML output"/>
   <test-case id="output_output03" skip="yes" reason="HTML output"/>
