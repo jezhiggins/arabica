@@ -83,7 +83,8 @@ std::map<std::string, std::string> gatherAttributes(const std::string& parentEle
       validateXmlAttribute(parentElement, atts.getLocalName(a), atts.getValue(a), results); // special xml: attributes
       continue;
     }
-    validateAttribute(parentElement, atts.getLocalName(a), atts.getValue(a), rules, results);
+    if(atts.getURI(a) == "")
+      validateAttribute(parentElement, atts.getLocalName(a), atts.getValue(a), rules, results);
   }
 
   return results;
