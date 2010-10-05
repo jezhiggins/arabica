@@ -24,14 +24,14 @@ protected:
                                      const SAX::Attributes<std::string>& atts)
   {
     static const ValueRule rules[] = { { "name", true, 0, 0 },
-                                       { "namespace", false, 0, 0 },
+                                       { "namespace", false, "", 0 },
                                        { 0, false, 0, 0 } };
 
     std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
 
     Arabica::XPath::XPathExpressionPtr<std::string> name = context().xpath_attribute_value_template(attrs["name"]);
 
-    if(attrs.find("namespace") == attrs.end())
+    if(attrs["namespace"] == "")
       return new Attribute(name, 
                            context().inScopeNamespaces());
 

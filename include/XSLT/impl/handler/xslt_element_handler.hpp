@@ -24,7 +24,7 @@ protected:
                                    const SAX::Attributes<std::string>& atts)
   {
     static const ValueRule rules[] = { { "name", true, 0, 0 },
-                                       { "namespace", false, 0, 0 },
+                                       { "namespace", false, "", 0 },
                                        { "use-attribute-sets", false, 0, 0 },
                                        { 0, false, 0, 0 } };
 
@@ -35,7 +35,7 @@ protected:
     if(attrs["use-attribute-sets"] != "")
       throw SAX::SAXException("don't understand use-attribute-sets yet");
     
-    if(attrs.find("namespace") == attrs.end())
+    if(attrs["namespace"] == "")
       return new Element(name, 
                          context().inScopeNamespaces(),
                          attrs["use-attribute-sets"]);
