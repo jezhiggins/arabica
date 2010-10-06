@@ -43,12 +43,16 @@ public:
 
   XML::QualifiedName<std::string> processElementQName(const std::string& rawName) const
   {
-    return namespace_tracker_.processElementName(rawName);
+    XML::QualifiedName<std::string> qName = namespace_tracker_.processElementName(rawName);
+    verifyQName(qName);
+    return qName;
   } // processElementQName
 
   XML::QualifiedName<std::string> processInternalQName(const std::string& rawName) const
   {
-    return namespace_tracker_.processName(rawName);
+    XML::QualifiedName<std::string> qName = namespace_tracker_.processName(rawName);
+    verifyQName(qName);
+    return qName;
   } // processQName
 
   std::map<std::string, std::string> inScopeNamespaces() const
@@ -74,6 +78,12 @@ public:
   } // makeAbsolute
 
 private:
+  void verifyQName(const XML::QualifiedName<std::string>& qName) const
+  {
+    if(qName.has_prefix() && !qName.has_namespaceUri())
+      throw SAX::SAXException("Namespace prefix '" + qName.prefix() + "' is not bound");
+  } // verifyQName
+  
   SAX::TextCoalescer<std::string> text_coalescer_;
   SAX::XMLBaseTracker<std::string> xmlbase_tracker_;
   SAX::NamespaceTracker<std::string> namespace_tracker_;
