@@ -73,7 +73,6 @@ public:
     return true;
   } // is_descendant
 
-
   Precedence next_generation() 
   {
     Precedence next(precedence_);

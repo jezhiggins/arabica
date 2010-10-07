@@ -107,12 +107,19 @@ public:
     if(!templat->has_name())
       return;
 
-    if(named_templates_.find(templat->name()) != named_templates_.end())
+    NamedTemplates::const_iterator named_template = named_templates_.find(templat->name());
+    if(named_template != named_templates_.end())
     {
-      std::cerr << "Template named '";
-      std::cerr << templat->name() << "' already defined" << std::endl;
-      return;
-    }
+      const Precedence& existing_precedence = named_template->second->precedence();
+
+      if(existing_precedence > templat->precedence())
+	return;
+
+      if(existing_precedence == templat->precedence())
+	throw SAX::SAXException("Template named '" +
+                                templat->name() + 
+				"' already defined");
+    } // if ...
      
     named_templates_[templat->name()] = templat;
   } // add_template
