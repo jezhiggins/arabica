@@ -712,7 +712,7 @@
   <test-case id="XSLTFunctions__testWithNumber" compiles="no"/>
   <test-case id="XSLTFunctions_DocumentFunctionWithAbsoluteArgument" skip="yes" reason="This test probably only worked on one machine somewhere in Microsoft.  Thanks chaps."/>
   <test-case id="XSLTFunctions_DocumentFunctionWithEntityRef" runs="no"/>
-  <test-case id="XSLTFunctions_DocumentInUnion" compare="text"/>
+  <test-case id="XSLTFunctions_DocumentInUnion" skip="yes" reason="Order of nodes from different documents is not defined (or in mangle's case, necessarily consistent"/>
   <test-case id="XSLTFunctions_DocumentInUnionWithDuplicateNodes" runs="no"/>
   <test-case id="XSLTFunctions_KeyFuncTestDescendantsNodeset" compiles="no"/>
   <test-case id="XSLTFunctions_TestIdFuncInComplexStruct" compiles="no"/>
