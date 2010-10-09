@@ -121,7 +121,7 @@ public:
   const VariableResolver<string_type, string_adaptor>& getVariableResolver() const { return variableResolver_.get(); }
   void resetVariableResolver() { variableResolver_.set(VariableResolverPtr<string_type, string_adaptor>(new NullVariableResolver<string_type, string_adaptor>())); }
 
-  void setVariableCompileTimeResolver(const VariableResolver<string_type, string_adaptor>& ctVariableResolver) { ctVariableResolver_.set(ctVariableResolver); }
+  void setVariableCompileTimeResolver(const VariableCompileTimeResolver<string_type, string_adaptor>& ctVariableResolver) { ctVariableResolver_.set(ctVariableResolver); }
   void setVariableCompileTimeResolver(VariableCompileTimeResolverPtr<string_type, string_adaptor> ctVariableResolver) { ctVariableResolver_.set(ctVariableResolver); }
   const VariableCompileTimeResolver<string_type, string_adaptor>& getVariableCompileTimeResolver() const { return ctVariableResolver_.get(); }
   void resetVariableCompileTimeResolver() { ctVariableResolver_.set(VariableCompileTimeResolverPtr<string_type, string_adaptor>(new DefaultVariableCompileTimeResolver<string_type, string_adaptor>())); }

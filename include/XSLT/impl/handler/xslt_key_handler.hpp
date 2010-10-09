@@ -33,10 +33,17 @@ public:
 
     std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
     name_ = context_.processInternalQName(attrs["name"]).clarkName();
-    Key::MatchExprList matches = context_.xpath_match(attrs["match"]);
-    Arabica::XPath::XPathExpression<std::string> use = context_.xpath_expression(attrs["use"]);
+    try 
+    {
+      Key::MatchExprList matches = context_.xpath_match_no_variables(attrs["match"]);
+      Arabica::XPath::XPathExpression<std::string> use = context_.xpath_expression_no_variables(attrs["use"]);
 
-    key_ = new Key(matches, use);
+      key_ = new Key(matches, use);
+    } // try
+    catch(const Arabica::XPath::UnboundVariableException& uve)
+    {
+      throw SAX::SAXException("Variable references are not allowed in xsl:key match and use expressions");
+    } // catch
   } // startElement
 
   virtual void endElement(const std::string& /* namespaceURI */,

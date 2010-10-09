@@ -18,9 +18,13 @@ class CompiledStylesheet;
 class ItemContainer;
 
 class CompilationContext :
-    private Arabica::XPath::FunctionResolver<std::string>,
-    private Arabica::XPath::NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >
+    private Arabica::XPath::FunctionResolver<std::string, Arabica::default_string_adaptor<std::string> >,
+    private Arabica::XPath::NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >,
+    private Arabica::XPath::DefaultVariableCompileTimeResolver<std::string, Arabica::default_string_adaptor<std::string> >
 {
+private:
+  typedef Arabica::XPath::DefaultVariableCompileTimeResolver<std::string, Arabica::default_string_adaptor<std::string> > CTVariableResolverT;
+
 public:
   CompilationContext(StylesheetParser& parser,
                      CompiledStylesheet& stylesheet) :
@@ -28,10 +32,12 @@ public:
     stylesheet_(stylesheet),
     autoNs_(1),
     current_allowed_(false),
+    variables_allowed_(true),    
     precedence_(Precedence::InitialPrecedence())
   {
     xpath_.setNamespaceContext(*this);
     xpath_.setFunctionResolver(*this);
+    xpath_.setVariableCompileTimeResolver(*this);
   } // CompilationContext
 
   ~CompilationContext()
@@ -51,11 +57,22 @@ public:
 
   StylesheetParser& parser() const { return parser_; }
   Arabica::XPath::XPathExpressionPtr<std::string> xpath_expression(const std::string& expr) const { return xpath_.compile_expr(expr); } 
+  Arabica::XPath::XPathExpressionPtr<std::string> xpath_expression_no_variables(const std::string& expr) const
+  {
+    Disallow variables(variables_allowed_);
+    return xpath_expression(expr);
+  } // xpath_expression_no_variables
   std::vector<Arabica::XPath::MatchExpr<std::string> > xpath_match(const std::string& match) const 
   {
-    DisallowCurrent guard(current_allowed_);
+    Disallow current(current_allowed_);
     return xpath_.compile_match(match); 
   } // xpath_match
+  std::vector<Arabica::XPath::MatchExpr<std::string> > xpath_match_no_variables(const std::string& match) const
+  {
+    Disallow variables(variables_allowed_);
+    return xpath_match(match);
+  } // xpath_match_no_variables
+
   Arabica::XPath::XPathExpressionPtr<std::string> xpath_attribute_value_template(const std::string& expr) const { return xpath_.compile_attribute_value_template(expr); } 
   CompiledStylesheet& stylesheet() const { return stylesheet_; }
 
@@ -161,6 +178,14 @@ public:
   } // precedence
 
 private:
+  virtual Arabica::XPath::XPathExpression_impl<std::string, Arabica::default_string_adaptor<std::string> >* 
+    compileVariable(const std::string& namespace_uri, const std::string& name) const 
+  {
+    if(!variables_allowed_)
+      return 0;
+    return CTVariableResolverT::compileVariable(namespace_uri, name);
+  } // compileVariable
+
   // FunctionResolver 
   virtual Arabica::XPath::XPathFunction<std::string>* resolveFunction(
                                          const std::string& namespace_uri, 
@@ -227,6 +252,7 @@ private:
   CompiledStylesheet& stylesheet_;
   mutable int autoNs_;
   mutable bool current_allowed_;
+  mutable bool variables_allowed_;
   Precedence precedence_;
   Arabica::XPath::XPath<std::string> xpath_;
   std::stack<SAX::DefaultHandler<std::string>*> handlerStack_;
@@ -235,11 +261,11 @@ private:
 
   CompilationContext(const CompilationContext&);
 
-  class DisallowCurrent
+  class Disallow
   { 
     public:
-      DisallowCurrent(bool& allow) : allow_(allow) { allow_ = false; }
-      ~DisallowCurrent() { allow_ = true; }
+      Disallow(bool& allow) : allow_(allow) { allow_ = false; }
+      ~Disallow() { allow_ = true; }
     private:
       bool& allow_;
   }; // DisallowCurrent 
