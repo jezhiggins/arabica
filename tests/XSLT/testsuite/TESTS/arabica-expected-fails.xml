@@ -335,6 +335,7 @@
   <test-case id="Elements__89718" compare="fragment"/>
   <test-case id="Elements__89723" compare="fragment"/>
   <test-case id="Elements_Element_UseXslElementWithNameSpaceAttrEqualToXmlnsUri" skip="yes" reason="Error is recoverable.  Mangle, Saxon, Saxon8, Xalan all run.  MSXML and .NET do not."/>
+  <test-case id="Errors_err093" skip="yes" reason="bad sort/@lang value is recoverable. "/>
   <test-case id="Fallback__91817" compiles="no"/>
   <test-case id="Fallback__91818" compiles="no"/>
   <test-case id="Fallback__91819" compiles="no"/>
