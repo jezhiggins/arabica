@@ -177,7 +177,8 @@ xpath_headers =	XPath/XPath.hpp \
 	XPath/impl/xpath_ast.hpp \
 	XPath/impl/xpath_namespace_context.hpp \
 	XPath/impl/xpath_parser.hpp \
-	XPath/impl/xpath_execution_context.hpp 
+	XPath/impl/xpath_execution_context.hpp \
+	XPath/impl/xpath_variable_compile_time_resolver.hpp
 
 xslt_headers = 	XSLT/XSLT.hpp \
 	XSLT/impl/xslt_choose.hpp \
