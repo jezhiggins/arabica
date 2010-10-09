@@ -22,7 +22,7 @@ public:
   virtual ~VariableResolver() { }
 
   virtual XPathValue<string_type, string_adaptor> resolveVariable(const string_type& namespace_uri_,
-                                                     const string_type& name) const = 0; 
+                                                                  const string_type& name) const = 0; 
 }; // class VariableResolver
 
 template<class string_type, class string_adaptor>

@@ -25,6 +25,7 @@
 #include "xpath_variable_resolver.hpp"
 #include "xpath_resolver_holder.hpp"
 #include "xpath_match.hpp"
+#include "xpath_variable_compile_time_resolver.hpp"
 
 namespace Arabica
 {
@@ -68,6 +69,7 @@ public:
     resetNamespaceContext();
     resetVariableResolver();
     resetFunctionResolver();
+    resetVariableCompileTimeResolver();
   } // XPath
 
   ~XPath()
@@ -119,6 +121,11 @@ public:
   const VariableResolver<string_type, string_adaptor>& getVariableResolver() const { return variableResolver_.get(); }
   void resetVariableResolver() { variableResolver_.set(VariableResolverPtr<string_type, string_adaptor>(new NullVariableResolver<string_type, string_adaptor>())); }
 
+  void setVariableCompileTimeResolver(const VariableResolver<string_type, string_adaptor>& ctVariableResolver) { ctVariableResolver_.set(ctVariableResolver); }
+  void setVariableCompileTimeResolver(VariableCompileTimeResolverPtr<string_type, string_adaptor> ctVariableResolver) { ctVariableResolver_.set(ctVariableResolver); }
+  const VariableCompileTimeResolver<string_type, string_adaptor>& getVariableCompileTimeResolver() const { return ctVariableResolver_.get(); }
+  void resetVariableCompileTimeResolver() { ctVariableResolver_.set(VariableCompileTimeResolverPtr<string_type, string_adaptor>(new DefaultVariableCompileTimeResolver<string_type, string_adaptor>())); }
+
   void setFunctionResolver(const FunctionResolver<string_type, string_adaptor>& functionResolver) { functionResolver_.set(functionResolver); }
   void setFunctionResolver(FunctionResolverPtr<string_type, string_adaptor> functionResolver) { functionResolver_.set(functionResolver); }
   const FunctionResolver<string_type, string_adaptor>& getFunctionResolver() const { return functionResolver_.get(); }
@@ -140,7 +147,11 @@ private:
       if(!ast.full)
         throw SyntaxException(string_adaptor::asStdString(xpath));
 
-      impl::CompilationContext<string_type, string_adaptor> context(*this, getNamespaceContext(), getFunctionResolver());
+      impl::CompilationContext<string_type, string_adaptor> context(*this, 
+								    getNamespaceContext(), 
+								    getFunctionResolver(),
+								    getVariableCompileTimeResolver());
+
       //XPath::dump(ast.trees.begin(), 0);
       return XPathExpression<string_type, string_adaptor>(compile_with_factory(ast.trees.begin(),
                                                                                   ast.trees.end(),
@@ -188,6 +199,7 @@ private:
 
   impl::ResolverHolder<const NamespaceContext<string_type, string_adaptor> > namespaceContext_;
   impl::ResolverHolder<const VariableResolver<string_type, string_adaptor> > variableResolver_;
+  impl::ResolverHolder<const VariableCompileTimeResolver<string_type, string_adaptor> > ctVariableResolver_;
   impl::ResolverHolder<const FunctionResolver<string_type, string_adaptor> > functionResolver_;
 
   /////////////////////////////////////////////////////////////////////////////////
@@ -696,7 +708,10 @@ XPathExpression_impl<string_type, string_adaptor>* XPath<string_type, string_ada
   } // if ...
 
   string_type name = string_adaptor::construct(n->value.begin(), n->value.end());
-  return new Variable<string_type, string_adaptor>(namespace_uri, name);
+  XPathExpression_impl<string_type, string_adaptor>* v = context.ctVariableResolver().compileVariable(namespace_uri, name);
+  if(v == 0)
+    throw UnboundVariableException(string_adaptor::asStdString(name));
+  return v;
 } // createVariable
 
 template<class string_type, class string_adaptor>

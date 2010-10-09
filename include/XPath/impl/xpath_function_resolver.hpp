@@ -57,7 +57,7 @@ public:
     } // if ...
     string_adaptor::append(error, name);
     throw UndefinedFunctionException(string_adaptor().asStdString(error));
-  } // resolveVariable
+  } // resolveFunction
 
   virtual std::vector<std::pair<string_type, string_type> > validNames() const
   {
