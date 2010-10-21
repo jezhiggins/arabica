@@ -1,4 +1,4 @@
-AC_INIT([Arabica], [2010-nightly], [jez@jezuk.co.uk])
+AC_INIT([Arabica], [2010-November], [jez@jezuk.co.uk])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-bzip2 dist-zip])
  
