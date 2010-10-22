@@ -3,7 +3,9 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS=include src examples tests
 
 DIST_SUBDIRS=include src examples tests 
-EXTRA_DIST=vs9 \
+EXTRA_DIST=vs7 \
+           vs8 \
+           vs9 \
            vs10 \
            doc \
            tests/XSLT/testsuite \
