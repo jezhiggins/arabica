@@ -40,7 +40,7 @@ public:
 
       key_ = new Key(matches, use);
     } // try
-    catch(const Arabica::XPath::UnboundVariableException& uve)
+    catch(const Arabica::XPath::UnboundVariableException&)
     {
       throw SAX::SAXException("Variable references are not allowed in xsl:key match and use expressions");
     } // catch
