@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArabicaLib", "lib_arabica.vcxproj", "{4CA72415-D03A-4447-BE4E-C093A5146CAC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_DOM", "test_DOM.vcxproj", "{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
@@ -15,6 +15,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xpath_wide", "test_xpath_wide.vcxproj", "{EA2AB1BF-D09C-4DCB-87C9-A6DB41BCC1FA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_utils", "test_utils.vcxproj", "{FA1A13A0-07D3-4FC9-A2D2-9F5FA8C3C3A4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{894C6ACE-97EE-497B-BC2C-310E6AC82EFC} = {894C6ACE-97EE-497B-BC2C-310E6AC82EFC}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xslt", "test_xslt.vcxproj", "{44BA3424-C58E-4A49-ADDD-6180C61E5E34}"
 EndProject
@@ -23,6 +26,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAX_filter_silly", "test_SAX_filter_silly.vcxproj", "{2E63A3DC-7A79-49F4-B0F9-78438DCA876A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_SAX_filter_wide", "test_SAX_filter_wide.vcxproj", "{FB5B88E9-DAB3-401C-B413-77403C562C49}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppUnitLib", "CppUnitLib.vcxproj", "{894C6ACE-97EE-497B-BC2C-310E6AC82EFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +83,10 @@ Global
 		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Debug|Win32.Build.0 = Debug|Win32
 		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Release|Win32.ActiveCfg = Release|Win32
 		{FB5B88E9-DAB3-401C-B413-77403C562C49}.Release|Win32.Build.0 = Release|Win32
+		{894C6ACE-97EE-497B-BC2C-310E6AC82EFC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{894C6ACE-97EE-497B-BC2C-310E6AC82EFC}.Debug|Win32.Build.0 = Debug|Win32
+		{894C6ACE-97EE-497B-BC2C-310E6AC82EFC}.Release|Win32.ActiveCfg = Release|Win32
+		{894C6ACE-97EE-497B-BC2C-310E6AC82EFC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
