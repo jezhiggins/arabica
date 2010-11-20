@@ -2,9 +2,8 @@
 #define ARABICA_CONVERT_ADAPTOR_H
 //////////////////////////////////////////////////////
 //
-// $Id$
 // Written by Jez Higgins <jez@jezuk.co.uk>
-// Copyright 1999-2003 Jez UK Ltd, http://www.jezuk.co.uk/
+// Copyright 1999-2010 Jez UK Ltd, http://www.jezuk.co.uk/
 //
 // convert_adaptor is a stream that wraps around another stream.  This
 // may not seem like a big deal, but convert_adaptor applies codecvt
@@ -83,7 +82,7 @@ typename convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::int
     return traitsT::not_eof(c);
 
   growOutBuffer();
-  sputc(traitsT::to_char_type(c));
+  streambufT::sputc(traitsT::to_char_type(c));
 
   return traitsT::not_eof(c);
 } // overflow
@@ -124,7 +123,7 @@ void convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::growOut
   size_t oldsize = outBuffer_.capacity();
   size_t newsize = (oldsize ? oldsize*2 : bufferSize_);
   outBuffer_.resize(newsize);
-  setp(&outBuffer_[0] + oldsize, &outBuffer_[0] + outBuffer_.capacity());
+  streambufT::setp(&outBuffer_[0] + oldsize, &outBuffer_[0] + outBuffer_.capacity());
 } // growOutBuffer
 
 template<class charT, class traitsT, class externalCharT, class externalTraitsT>
@@ -175,7 +174,7 @@ bool convert_bufadaptor<charT, traitsT, externalCharT, externalTraitsT>::flushOu
   } // if(cvt.always_noconv())
  
   if(ok)
-    setp(&outBuffer_[0], &outBuffer_[0] + outBuffer_.capacity());
+    streambufT::setp(&outBuffer_[0], &outBuffer_[0] + outBuffer_.capacity());
 
   return ok;
 } // flushOut
@@ -259,7 +258,7 @@ std::streamsize convert_bufadaptor<charT, traitsT, externalCharT, externalTraits
     } // if(r == std::codecvt_base::error)
   }
 
-  setg(&(inBuffer_[0]) + (pbSize_-pbCount), &(inBuffer_[0])+pbSize_, &(inBuffer_[0])+pbSize_+converted);
+  streambufT::setg(&(inBuffer_[0]) + (pbSize_-pbCount), &(inBuffer_[0])+pbSize_, &(inBuffer_[0])+pbSize_+converted);
 
   return static_cast<int_type>(res);
 } // readIn
