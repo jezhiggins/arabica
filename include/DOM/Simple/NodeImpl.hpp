@@ -416,8 +416,8 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       } // if ...
 
       checkCanAdd(newChild);
-      typename std::deque<NodeImplT*>::iterator result = findChild(oldChild);
       removeIfRequired(newChild);
+      typename std::deque<NodeImplT*>::iterator result = findChild(oldChild);
       *result = newChild;
       newChild->setParentNode(this);
 

@@ -34,6 +34,8 @@ class Element : public Node<stringT, string_adaptorT>
     Element(const Element& rhs) : NodeT(rhs) { }
     explicit Element(const NodeT& rhs) : NodeT(rhs)  
     {
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
       if(rhs.getNodeType() != NodeT::ELEMENT_NODE)
         throw std::bad_cast();
     } // Element

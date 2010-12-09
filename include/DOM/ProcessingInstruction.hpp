@@ -26,6 +26,8 @@ class ProcessingInstruction : public Node<stringT, string_adaptorT>
     ProcessingInstruction(const ProcessingInstruction& rhs) : Node<stringT, string_adaptorT>(rhs) { }
     explicit ProcessingInstruction(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)  
     {
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
       if(rhs.getNodeType() != Node<stringT, string_adaptorT>::PROCESSING_INSTRUCTION_NODE)
         throw std::bad_cast();
     }

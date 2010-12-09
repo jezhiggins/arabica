@@ -45,6 +45,8 @@ class Document : public Node<stringT, string_adaptorT>
     Document(const Document& rhs) : Node<stringT, string_adaptorT>(rhs) { }
     explicit Document(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)  
     {
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
       if(rhs.getNodeType() != Node<stringT, string_adaptorT>::DOCUMENT_NODE)
         throw std::bad_cast();
     } // Document

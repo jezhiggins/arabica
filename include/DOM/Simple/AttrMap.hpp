@@ -61,9 +61,15 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     DOMAttr_implT* setAttributeNode(DOMAttr_implT* newAttr)
     {
+      return dynamic_cast<DOMAttr_implT*>(setNamedItem(newAttr));
+    } // setAttributeNode
+    virtual DOMNode_implT* setNamedItem(DOMNode_implT* newAttr)
+    {
+      throwIfReadOnly();
+	    checkNotInUse(newAttr);
       dynamic_cast<AttrImplT*>(newAttr)->setOwnerElement(ownerElement_);
       return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItem(newAttr));
-    } // setAttributeNode
+    } // setNamedItem
 
     DOMAttr_implT* removeAttributeNode(DOMAttr_implT* oldAttr)    
     {
@@ -103,9 +109,15 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     DOMAttr_implT* setAttributeNodeNS(DOMAttr_implT* newAttr)    
     {
+      return dynamic_cast<DOMAttr_implT*>(setNamedItemNS(newAttr));
+    } // setAttributeNodeNS
+    virtual DOMNode_implT* setNamedItemNS(DOMNode_implT* newAttr)
+    {
+      throwIfReadOnly();
+	    checkNotInUse(newAttr);
       dynamic_cast<AttrImplT*>(newAttr)->setOwnerElement(ownerElement_);
       return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItemNS(newAttr));
-    } // setAttributeNodeNS
+    } // setNamedItem
 
     bool hasAttribute(const stringT& name) const    
     {
@@ -180,6 +192,13 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
       }
       return 0;
     } // getDefaultAttrs
+
+	  void checkNotInUse(DOMNode_implT* newAttr)
+	  { 
+      AttrImplT* attr = dynamic_cast<AttrImplT*>(newAttr);
+	    if(!attr->isOrphaned())
+        throw DOM::DOMException(DOM::DOMException::INUSE_ATTRIBUTE_ERR);
+	  } // checkNotInUse
 
     ElementImplT* ownerElement_;
 }; // class AttrMap

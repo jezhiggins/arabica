@@ -29,16 +29,18 @@ class Notation : public Node<stringT, string_adaptorT>
     Notation(const Notation& rhs) : NodeT(rhs) { }
     explicit Notation(const NodeT& rhs) : NodeT(rhs)  
     {
+      if(NodeT::impl_ == 0) // null nodes can always be cast
+        return;
       if(rhs.getNodeType() != Node_base::NOTATION_NODE)
         throw std::bad_cast();
     }
 
-    stringT getPublicId() const { nImpl()->getPublicId(); }
+    stringT getPublicId() const { return nImpl()->getPublicId(); }
 
-    stringT getSystemId() const { nImpl()->getSystemId(); }
+    stringT getSystemId() const { return nImpl()->getSystemId(); }
 
   private:
-    Notation_implT* nImpl() { return dynamic_cast<Notation_implT*>(NodeT::impl()); }
+    Notation_implT* nImpl() const { return dynamic_cast<Notation_implT*>(*NodeT::impl_); }
 }; // class Notation
 
 //////////////////////////////////////////////////////////

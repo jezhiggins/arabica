@@ -27,6 +27,8 @@ class CharacterData : public Node<stringT, string_adaptorT>
     CharacterData(const CharacterData& rhs) : NodeT(rhs) { }
     explicit CharacterData(const NodeT& rhs) : NodeT(rhs)  
     {
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
       typename NodeT::Type type = rhs.getNodeType();
       if((type != NodeT::TEXT_NODE) && (type != NodeT::CDATA_SECTION_NODE))
         throw std::runtime_error("bad_cast: Cannot cast Node to Character Data");

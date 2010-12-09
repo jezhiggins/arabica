@@ -28,7 +28,9 @@ class EntityReference : public Node<stringT, string_adaptorT>
     EntityReference(const EntityReference& rhs) : NodeT(rhs) { }
     explicit EntityReference(const NodeT& rhs) : NodeT(rhs)  
     {
-      if(dynamic_cast<EntityReference_implT*>(rhs.impl()) == 0)
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
+      if(rhs.getNodeType() != Node_base::ENTITY_REFERENCE_NODE)
         throw std::bad_cast();
     } // EntityReference
 }; // class EntityReference

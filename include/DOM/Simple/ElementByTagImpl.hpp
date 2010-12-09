@@ -94,10 +94,10 @@ class ElementByTagList : public DOM::NodeList_impl<stringT, string_adaptorT>
   private:
     void populate() const
     {
-			NodeListT dummy;
+      NodeListT dummy;
       nodes_.swap(dummy);
 
-      checkNode(rootNode_);
+      checkChildren(rootNode_);
 
       changes_ = ownerDoc_->changes();
     } // populate
@@ -116,11 +116,15 @@ class ElementByTagList : public DOM::NodeList_impl<stringT, string_adaptorT>
         if((tagName_ == node->getNodeName()) || (allNames_ && node->getNodeType() == DOM::Node<stringT, string_adaptorT>::ELEMENT_NODE))
           nodes_.push_back(node);
 
+	  checkChildren(node);
+    } // checkNode
+    
+	void checkChildren(DOM::Node_impl<stringT, string_adaptorT>* node) const
+	{
       for(DOM::Node_impl<stringT, string_adaptorT>* child = node->getFirstChild(); child != 0; child = child->getNextSibling())
         if(child->getNodeType() == DOM::Node<stringT, string_adaptorT>::ELEMENT_NODE)
           checkNode(child);
-    } // checkNode
-    
+	} // checkChildren
 
     typedef std::deque<DOM::Node_impl<stringT, string_adaptorT>*> NodeListT;
     mutable NodeListT nodes_;

@@ -39,7 +39,12 @@ class NodeList
 
     Node<stringT, string_adaptorT> item(unsigned int index) const { return impl_->item(index); }
 
-    unsigned int getLength() const { return impl_->getLength(); }
+    unsigned int getLength() const 
+	{ 
+      if(impl_ == 0)
+		return 0;
+	  return impl_->getLength(); 
+	} // getLength
 
   private:
     Proxy<NodeList_impl<stringT, string_adaptorT> > impl_;

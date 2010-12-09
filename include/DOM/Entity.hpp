@@ -24,22 +24,24 @@ class Entity : public Node<stringT, string_adaptorT>
     typedef Entity_impl<stringT, string_adaptorT> Entity_implT;
 
     Entity() : Node<stringT, string_adaptorT>() { }
-    explicit Entity(Entity_impl<stringT, string_adaptorT>* impl) : Node<stringT>(impl) { }
+    explicit Entity(Entity_impl<stringT, string_adaptorT>* impl) : Node<stringT, string_adaptorT>(impl) { }
     Entity(const Entity& rhs) : Node<stringT, string_adaptorT>(rhs) { }
-    explicit Entity(const Node<stringT, string_adaptorT>& rhs) : Node<stringT>(rhs)  
+    explicit Entity(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)  
     {
-      if(rhs.getNodeType() != Node<stringT, string_adaptorT>::Entity_NODE)
+	    if(NodeT::impl_ == 0) // null nodes can always be cast
+        return;
+      if(rhs.getNodeType() != Node_base::ENTITY_NODE)
         throw std::bad_cast();
     }
 
-    stringT getPublicId() const { nImpl()->getPublicId(); }
+    stringT getPublicId() const { return nImpl()->getPublicId(); }
 
-    stringT getSystemId() const { nImpl()->getSystemId(); }
+    stringT getSystemId() const { return nImpl()->getSystemId(); }
 
-    stringT getNotationName() const { nImpl()->getNotationName(); }
+    stringT getNotationName() const { return nImpl()->getNotationName(); }
 
   private:
-    Entity_implT* nImpl() { return dynamic_cast<Entity_implT*>(NodeT::impl()); }
+    Entity_implT* nImpl() const { return dynamic_cast<Entity_implT*>(*NodeT::impl_); }
 }; // class Entity
 
 //////////////////////////////////////////////////////////

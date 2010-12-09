@@ -160,13 +160,14 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT, string_adaptorT>
       return nodes_[index];
     } // item
 
-  private:
+  protected:
     void throwIfReadOnly() const
     {
       if(readOnly_)
         throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR);
     } // throwIfReadOnly
 
+  private:
     typedef std::deque<NodeImplT*> NodeListT;
 
     NodeImplT* getNode(typename NodeListT::const_iterator n) const

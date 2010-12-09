@@ -24,7 +24,9 @@ class Comment : public CharacterData<stringT, string_adaptorT>
     Comment(const Comment& rhs) : CharacterData<stringT, string_adaptorT>(rhs) { }
     explicit Comment(const Node<stringT, string_adaptorT>& rhs) : CharacterData<stringT, string_adaptorT>(rhs)  
     {
-      if(dynamic_cast<Comment_impl<stringT, string_adaptorT>*>(rhs.impl()) == 0)
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
+      if(rhs.getNodeType() != Node<stringT, string_adaptorT>::COMMENT_NODE)
         throw std::bad_cast();
     } // Comment
 }; // class Comment

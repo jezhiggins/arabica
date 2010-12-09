@@ -26,6 +26,8 @@ class DocumentFragment : public Node<stringT, string_adaptorT>
     DocumentFragment(const DocumentFragment& rhs) : Node<stringT, string_adaptorT>(rhs) { }
     explicit DocumentFragment(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)  
     {
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
       if(rhs.getNodeType() != Node<stringT, string_adaptorT>::DOCUMENT_FRAGMENT_NODE)
         throw std::bad_cast();
     }

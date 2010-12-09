@@ -33,6 +33,8 @@ class DocumentType : public Node<stringT, string_adaptorT>
     DocumentType(const DocumentType& rhs) : NodeT(rhs) { }
     explicit DocumentType(const NodeT& rhs) : NodeT(rhs)  
     {
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
       if(rhs.getNodeType() != NodeT::DOCUMENT_TYPE_NODE)
         throw std::bad_cast();
     } // DocumentType

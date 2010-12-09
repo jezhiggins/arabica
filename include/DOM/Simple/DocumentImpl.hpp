@@ -437,6 +437,11 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
       orphans_.insert(node); 
     } // orphaned
 
+	bool isOrphaned(NodeImplT* node) const
+	{
+	  return orphans_.find(node) != orphans_.end();
+	} // isOrphaned
+
     void purge(NodeImplT* node) 
     {      
       orphans_.erase(node);

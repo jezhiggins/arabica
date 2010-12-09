@@ -134,6 +134,14 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
 
     void setSpecified(bool specified) { specified_ = specified; }
 
+	bool isOrphaned()
+	{
+		if(!ownerElement_)
+			return true;
+
+		return NodeT::ownerDoc_->isOrphaned(this);
+	} // isOrphaned
+
   protected:
     void cloneChildren(AttrImpl* clone) const
     {

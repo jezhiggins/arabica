@@ -25,6 +25,8 @@ class CDATASection : public Text<stringT, string_adaptorT>
     CDATASection(const CDATASection& rhs) : Text<stringT, string_adaptorT>(rhs) { }
     explicit CDATASection(const Node<stringT, string_adaptorT>& rhs) : Text<stringT, string_adaptorT>(rhs, 0)  
     {
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
       if(rhs.getNodeType() != Node_base::CDATA_SECTION_NODE)
         //throw std::runtime_error("bad_cast: Cannot convert Node to CDATA section");
         throw std::bad_cast();

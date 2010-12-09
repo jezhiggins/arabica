@@ -31,6 +31,8 @@ class Attr : public Node<stringT, string_adaptorT>
     Attr(const Attr& rhs) : NodeT(rhs) { }
     explicit Attr(const NodeT& rhs) : NodeT(rhs)  
     {
+	  if(NodeT::impl_ == 0) // null nodes can always be cast
+		return;
       if(rhs.getNodeType() != NodeT::ATTRIBUTE_NODE)
         throw std::bad_cast();
     } // Attr
