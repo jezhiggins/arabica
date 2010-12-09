@@ -82,7 +82,7 @@ class elementreplaceattributewithself : public DOMTestCase<string_type, string_a
       testEmployee = (Element) elementList.item(2);
       streetAttr = testEmployee.getAttributeNode(SA::construct_from_utf8("street"));
       replacedAttr = testEmployee.setAttributeNode(streetAttr);
-      baseT::assertSame(streetAttr, replacedAttr);
+      baseT::assertSame(streetAttr, replacedAttr, __LINE__, __FILE__);
 
    }
   

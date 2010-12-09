@@ -82,11 +82,11 @@ class documentcreateelement : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("staff", true);
       newElement = doc.createElement(SA::construct_from_utf8("address"));
       newElementName = newElement.getNodeName();
-      baseT::assertEquals("address", newElementName);
+      baseT::assertEquals("address", newElementName, __LINE__, __FILE__);
   newElementType = (int) newElement.getNodeType();
-      baseT::assertEquals(1, newElementType);
+      baseT::assertEquals(1, newElementType, __LINE__, __FILE__);
   newElementValue = newElement.getNodeValue();
-      baseT::assertNull(newElementValue);
+      baseT::assertNull(newElementValue, __LINE__, __FILE__);
       
    }
   

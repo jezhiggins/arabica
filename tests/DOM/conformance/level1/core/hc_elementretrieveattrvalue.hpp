@@ -80,7 +80,7 @@ class hc_elementretrieveattrvalue : public DOMTestCase<string_type, string_adapt
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("acronym"));
       testAddress = (Element) elementList.item(2);
       attrValue = testAddress.getAttribute(SA::construct_from_utf8("class"));
-      baseT::assertEquals("No", attrValue);
+      baseT::assertEquals("No", attrValue, __LINE__, __FILE__);
   
    }
   

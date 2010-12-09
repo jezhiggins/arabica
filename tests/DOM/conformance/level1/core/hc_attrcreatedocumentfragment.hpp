@@ -98,7 +98,7 @@ class hc_attrcreatedocumentfragment : public DOMTestCase<string_type, string_ada
           langAttrCount += 1;
       }
       }
-      baseT::assertEquals(1, langAttrCount);
+      baseT::assertEquals(1, langAttrCount, __LINE__, __FILE__);
   
    }
   

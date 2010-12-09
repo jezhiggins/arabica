@@ -83,6 +83,7 @@ class processinginstructionsetdatanomodificationallowederrEE : public DOMTestCas
       NodeList genderList;
       Node gender;
       Node entRef;
+      Node n;
       ProcessingInstruction piNode;
       Node appendedChild;
       doc = (Document) baseT::load("staff", true);
@@ -91,9 +92,11 @@ class processinginstructionsetdatanomodificationallowederrEE : public DOMTestCas
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
       appendedChild = gender.appendChild(entRef);
       entRef = gender.getLastChild();
-      baseT::assertNotNull(entRef);
-      piNode = (ProcessingInstruction) entRef.getLastChild();
-      baseT::assertNotNull(piNode);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
+      n = entRef.getLastChild();
+      baseT::skipIfNot<ProcessingInstruction>(n);
+     piNode = (ProcessingInstruction) entRef.getLastChild();
+      baseT::assertNotNull(piNode, __LINE__, __FILE__);
       
       {
          boolean success = false;

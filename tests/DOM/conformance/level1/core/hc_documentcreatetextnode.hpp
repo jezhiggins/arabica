@@ -80,11 +80,11 @@ class hc_documentcreatetextnode : public DOMTestCase<string_type, string_adaptor
       doc = (Document) baseT::load("hc_staff", true);
       newTextNode = doc.createTextNode(SA::construct_from_utf8("This is a new Text node"));
       newTextValue = newTextNode.getNodeValue();
-      baseT::assertEquals("This is a new Text node", newTextValue);
+      baseT::assertEquals("This is a new Text node", newTextValue, __LINE__, __FILE__);
   newTextName = newTextNode.getNodeName();
-      baseT::assertEquals("#text", newTextName);
+      baseT::assertEquals("#text", newTextName, __LINE__, __FILE__);
   newTextType = (int) newTextNode.getNodeType();
-      baseT::assertEquals(3, newTextType);
+      baseT::assertEquals(3, newTextType, __LINE__, __FILE__);
   
    }
   

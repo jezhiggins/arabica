@@ -90,12 +90,12 @@ class hc_attrnormalize : public DOMTestCase<string_type, string_adaptor>
       retval = titleAttr.appendChild(textNode);
       ((Element) /*Node */testNode).normalize();
       value = titleAttr.getNodeValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   firstChild = titleAttr.getFirstChild();
       value = firstChild.getNodeValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   secondChild = firstChild.getNextSibling();
-      baseT::assertNull(secondChild);
+      baseT::assertNull(secondChild, __LINE__, __FILE__);
       
    }
   

@@ -98,7 +98,7 @@ class nodecloneattributescopied : public DOMTestCase<string_type, string_adaptor
     attributeName = attributeNode.getNodeName();
       result.push_back(attributeName);
         }
-      baseT::assertEquals(expectedResult, result);
+      baseT::assertEquals(expectedResult, result, __LINE__, __FILE__);
   
    }
   

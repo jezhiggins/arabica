@@ -102,10 +102,10 @@ class hc_nodeinsertbeforedocfragment : public DOMTestCase<string_type, string_ad
       insertedNode = employeeNode.insertBefore(newdocFragment, refChild);
       child = childList.item(3);
       childName = child.getNodeName();
-      baseT::assertEquals("br", childName);
+      baseT::assertEquals("br", childName, __LINE__, __FILE__);
   child = childList.item(4);
       childName = child.getNodeName();
-      baseT::assertEquals("b", childName);
+      baseT::assertEquals("b", childName, __LINE__, __FILE__);
   
    }
   

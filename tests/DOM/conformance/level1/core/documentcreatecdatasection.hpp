@@ -82,11 +82,11 @@ class documentcreatecdatasection : public DOMTestCase<string_type, string_adapto
       doc = (Document) baseT::load("staff", true);
       newCDATASectionNode = doc.createCDATASection(SA::construct_from_utf8("This is a new CDATASection node"));
       newCDATASectionValue = newCDATASectionNode.getNodeValue();
-      baseT::assertEquals("This is a new CDATASection node", newCDATASectionValue);
+      baseT::assertEquals("This is a new CDATASection node", newCDATASectionValue, __LINE__, __FILE__);
   newCDATASectionName = newCDATASectionNode.getNodeName();
-      baseT::assertEquals("#cdata-section", newCDATASectionName);
+      baseT::assertEquals("#cdata-section", newCDATASectionName, __LINE__, __FILE__);
   newCDATASectionType = (int) newCDATASectionNode.getNodeType();
-      baseT::assertEquals(4, newCDATASectionType);
+      baseT::assertEquals(4, newCDATASectionType, __LINE__, __FILE__);
   
    }
   

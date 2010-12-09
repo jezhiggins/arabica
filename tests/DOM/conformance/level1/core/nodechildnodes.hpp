@@ -98,7 +98,7 @@ class nodechildnodes : public DOMTestCase<string_type, string_adaptor>
       elementNames.push_back(childName);
       }
       }
-      baseT::assertEquals(expectedElementNames, elementNames);
+      baseT::assertEquals(expectedElementNames, elementNames, __LINE__, __FILE__);
   
    }
   

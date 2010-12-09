@@ -86,7 +86,7 @@ class hc_nodelistindexgetlengthofemptylist : public DOMTestCase<string_type, str
       textNode = emNode.getFirstChild();
       textList = textNode.getChildNodes();
       length = (int) textList.getLength();
-      baseT::assertEquals(0, length);
+      baseT::assertEquals(0, length, __LINE__, __FILE__);
   
    }
   

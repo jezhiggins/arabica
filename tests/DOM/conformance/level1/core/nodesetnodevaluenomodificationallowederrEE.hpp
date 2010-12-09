@@ -77,9 +77,9 @@ class nodesetnodevaluenomodificationallowederrEE : public DOMTestCase<string_typ
       CharacterData entText;
       doc = (Document) baseT::load("staff", true);
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent3"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       entText = (CharacterData) entRef.getFirstChild();
-      baseT::assertNotNull(entText);
+      baseT::assertNotNull(entText, __LINE__, __FILE__);
       
       {
          boolean success = false;

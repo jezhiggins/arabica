@@ -175,9 +175,9 @@ class hc_documentgetelementsbytagnametotallength : public DOMTestCase<string_typ
         }
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals(svgExpectedNames, actualNames);
+          baseT::assertEquals(svgExpectedNames, actualNames, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(expectedNames, actualNames);
+          baseT::assertEquals(expectedNames, actualNames, __LINE__, __FILE__);
   }
         
     

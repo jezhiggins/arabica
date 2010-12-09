@@ -84,7 +84,7 @@ class nodeclonetruecopytext : public DOMTestCase<string_type, string_adaptor>
       clonedNode = childNode.cloneNode(true);
       lastChildNode = clonedNode.getLastChild();
       childValue = lastChildNode.getNodeValue();
-      baseT::assertEquals("35,000", childValue);
+      baseT::assertEquals("35,000", childValue, __LINE__, __FILE__);
   
    }
   

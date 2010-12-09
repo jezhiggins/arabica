@@ -75,7 +75,7 @@ class documentgetdoctypenodtd : public DOMTestCase<string_type, string_adaptor>
       DocumentType docType;
       doc = (Document) baseT::load("hc_nodtdstaff", false);
       docType = doc.getDoctype();
-      baseT::assertNull(docType);
+      baseT::assertNull(docType, __LINE__, __FILE__);
       
    }
   

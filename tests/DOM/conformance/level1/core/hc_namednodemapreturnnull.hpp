@@ -87,7 +87,7 @@ class hc_namednodemapreturnnull : public DOMTestCase<string_type, string_adaptor
       testEmployee = elementList.item(1);
       attributes = testEmployee.getAttributes();
       districtNode = (Attr) attributes.getNamedItem(SA::construct_from_utf8("lang"));
-      baseT::assertNull(districtNode);
+      baseT::assertNull(districtNode, __LINE__, __FILE__);
       
    }
   

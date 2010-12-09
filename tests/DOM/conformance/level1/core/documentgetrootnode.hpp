@@ -81,9 +81,9 @@ class documentgetrootnode : public DOMTestCase<string_type, string_adaptor>
       rootName = root.getNodeName();
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals("svg", rootName);
+          baseT::assertEquals("svg", rootName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("staff", rootName);
+          baseT::assertEquals("staff", rootName, __LINE__, __FILE__);
   }
         
     

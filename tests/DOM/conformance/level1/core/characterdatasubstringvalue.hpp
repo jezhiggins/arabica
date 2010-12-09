@@ -86,7 +86,7 @@ class characterdatasubstringvalue : public DOMTestCase<string_type, string_adapt
       nameNode = elementList.item(0);
       child = (CharacterData) nameNode.getFirstChild();
       substring = child.substringData(0, 8);
-      baseT::assertEquals("Margaret", substring);
+      baseT::assertEquals("Margaret", substring, __LINE__, __FILE__);
   
    }
   

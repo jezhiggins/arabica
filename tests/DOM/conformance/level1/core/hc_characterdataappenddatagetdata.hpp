@@ -88,7 +88,7 @@ class hc_characterdataappenddatagetdata : public DOMTestCase<string_type, string
       child = (CharacterData) nameNode.getFirstChild();
       child.appendData(SA::construct_from_utf8(", Esquire"));
       childData = child.getData();
-      baseT::assertEquals("Margaret Martin, Esquire", childData);
+      baseT::assertEquals("Margaret Martin, Esquire", childData, __LINE__, __FILE__);
   
    }
   

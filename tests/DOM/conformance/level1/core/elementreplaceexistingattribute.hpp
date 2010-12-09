@@ -90,7 +90,7 @@ class elementreplaceexistingattribute : public DOMTestCase<string_type, string_a
       newAttribute = doc.createAttribute(SA::construct_from_utf8("street"));
       setAttr = testEmployee.setAttributeNode(newAttribute);
       name = testEmployee.getAttribute(SA::construct_from_utf8("street"));
-      baseT::assertEquals("", name);
+      baseT::assertEquals("", name, __LINE__, __FILE__);
   
    }
   

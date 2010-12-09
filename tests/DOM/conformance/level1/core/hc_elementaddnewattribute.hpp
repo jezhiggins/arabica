@@ -84,7 +84,7 @@ class hc_elementaddnewattribute : public DOMTestCase<string_type, string_adaptor
       testEmployee = (Element) elementList.item(4);
       testEmployee.setAttribute(SA::construct_from_utf8("lang"), SA::construct_from_utf8("EN-us"));
       attrValue = testEmployee.getAttribute(SA::construct_from_utf8("lang"));
-      baseT::assertEquals("EN-us", attrValue);
+      baseT::assertEquals("EN-us", attrValue, __LINE__, __FILE__);
   
    }
   

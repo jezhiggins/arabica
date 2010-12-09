@@ -86,7 +86,7 @@ class hc_characterdatadeletedatabegining : public DOMTestCase<string_type, strin
       child = (CharacterData) nameNode.getFirstChild();
       child.deleteData(0, 16);
       childData = child.getData();
-      baseT::assertEquals("Dallas, Texas 98551", childData);
+      baseT::assertEquals("Dallas, Texas 98551", childData, __LINE__, __FILE__);
   
    }
   

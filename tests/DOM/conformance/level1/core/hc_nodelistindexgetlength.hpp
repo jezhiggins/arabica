@@ -85,9 +85,9 @@ class hc_nodelistindexgetlength : public DOMTestCase<string_type, string_adaptor
       length = (int) employeeList.getLength();
       
       if (baseT::equals(6, length)) {
-          baseT::assertEquals(6, length);
+          baseT::assertEquals(6, length, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(13, length);
+          baseT::assertEquals(13, length, __LINE__, __FILE__);
   }
         
     

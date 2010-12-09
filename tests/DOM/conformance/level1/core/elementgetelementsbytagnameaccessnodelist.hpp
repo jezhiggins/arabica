@@ -86,10 +86,10 @@ class elementgetelementsbytagnameaccessnodelist : public DOMTestCase<string_type
           child = child.getNextSibling();
       }
     childName = child.getNodeName();
-      baseT::assertEquals("employeeId", childName);
+      baseT::assertEquals("employeeId", childName, __LINE__, __FILE__);
   child = child.getFirstChild();
       childValue = child.getNodeValue();
-      baseT::assertEquals("EMP0004", childValue);
+      baseT::assertEquals("EMP0004", childValue, __LINE__, __FILE__);
   
    }
   

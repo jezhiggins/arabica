@@ -82,14 +82,17 @@ class processinginstructionsetdatanomodificationallowederr : public DOMTestCase<
       NodeList genderList;
       Node gender;
       Node entRef;
+      Node n;
       ProcessingInstruction piNode;
       doc = (Document) baseT::load("staff", true);
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
       entRef = gender.getFirstChild();
-      baseT::assertNotNull(entRef);
-      piNode = (ProcessingInstruction) entRef.getLastChild();
-      baseT::assertNotNull(piNode);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
+      n = entRef.getLastChild();
+      baseT::skipIfNot<ProcessingInstruction>(n);
+     piNode = (ProcessingInstruction) entRef.getLastChild();
+      baseT::assertNotNull(piNode, __LINE__, __FILE__);
       
       {
          boolean success = false;

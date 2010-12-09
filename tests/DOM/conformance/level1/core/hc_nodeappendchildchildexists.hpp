@@ -107,7 +107,7 @@ class hc_nodeappendchildchildexists : public DOMTestCase<string_type, string_ada
     memberName = memberNode.getNodeName();
       actual.push_back(memberName);
         }
-      baseT::assertEquals(expected, actual);
+      baseT::assertEquals(expected, actual, __LINE__, __FILE__);
   childList = childNode.getChildNodes();
       for (int indexN65692 = 0; indexN65692 != childList.getLength(); indexN65692++) {
           memberNode = (Node) childList.item(indexN65692);
@@ -118,7 +118,7 @@ class hc_nodeappendchildchildexists : public DOMTestCase<string_type, string_ada
       refreshedActual.push_back(memberName);
       }
       }
-      baseT::assertEquals(expected, refreshedActual);
+      baseT::assertEquals(expected, refreshedActual, __LINE__, __FILE__);
   
    }
   

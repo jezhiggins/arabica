@@ -77,7 +77,7 @@ class nodedocumentnodevalue : public DOMTestCase<string_type, string_adaptor>
       String documentValue;
       doc = (Document) baseT::load("staff", false);
       documentValue = doc.getNodeValue();
-      baseT::assertNull(documentValue);
+      baseT::assertNull(documentValue, __LINE__, __FILE__);
       
    }
   

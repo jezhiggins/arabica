@@ -90,7 +90,7 @@ class attrcreatedocumentfragment : public DOMTestCase<string_type, string_adapto
       domesticAttr = domesticNode.getAttributes();
       attrs = (Attr) domesticAttr.item(0);
       attrName = attrs.getName();
-      baseT::assertEquals("newdomestic", attrName);
+      baseT::assertEquals("newdomestic", attrName, __LINE__, __FILE__);
   
    }
   

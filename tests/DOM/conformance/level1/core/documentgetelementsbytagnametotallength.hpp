@@ -75,9 +75,9 @@ class documentgetelementsbytagnametotallength : public DOMTestCase<string_type, 
       nameList = doc.getElementsByTagName(SA::construct_from_utf8("*"));
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertSize(39, nameList);
+          baseT::assertSize(39, nameList, __LINE__, __FILE__);
       } else {
-          baseT::assertSize(37, nameList);
+          baseT::assertSize(37, nameList, __LINE__, __FILE__);
       }
         
     

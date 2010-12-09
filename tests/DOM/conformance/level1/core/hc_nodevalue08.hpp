@@ -80,16 +80,16 @@ class hc_nodevalue08 : public DOMTestCase<string_type, string_adaptor>
       if (
     !(("text/html" == baseT::getContentType()))
 ) {
-          baseT::assertNotNull(docType);
+          baseT::assertNotNull(docType, __LINE__, __FILE__);
       nodeMap = docType.getNotations();
-      baseT::assertNotNull(nodeMap);
+      baseT::assertNotNull(nodeMap, __LINE__, __FILE__);
       newNode = nodeMap.getNamedItem(SA::construct_from_utf8("notation1"));
-      baseT::assertNotNull(newNode);
+      baseT::assertNotNull(newNode, __LINE__, __FILE__);
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       newNode.setNodeValue(SA::construct_from_utf8("This should have no effect"));
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       }
     
    }

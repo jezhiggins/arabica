@@ -87,11 +87,11 @@ class elementcreatenewattribute : public DOMTestCase<string_type, string_adaptor
       testAddress = (Element) elementList.item(0);
       newAttribute = doc.createAttribute(SA::construct_from_utf8("district"));
       oldAttr = testAddress.setAttributeNode(newAttribute);
-      baseT::assertNull(oldAttr);
+      baseT::assertNull(oldAttr, __LINE__, __FILE__);
       districtAttr = testAddress.getAttributeNode(SA::construct_from_utf8("district"));
-      baseT::assertNotNull(districtAttr);
+      baseT::assertNotNull(districtAttr, __LINE__, __FILE__);
       attrVal = testAddress.getAttribute(SA::construct_from_utf8("district"));
-      baseT::assertEquals("", attrVal);
+      baseT::assertEquals("", attrVal, __LINE__, __FILE__);
   
    }
   

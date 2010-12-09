@@ -85,7 +85,7 @@ class processinginstructiongetdata : public DOMTestCase<string_type, string_adap
       childNodes = doc.getChildNodes();
       piNode = (ProcessingInstruction) childNodes.item(0);
       data = piNode.getData();
-      baseT::assertEquals("PIDATA", data);
+      baseT::assertEquals("PIDATA", data, __LINE__, __FILE__);
   
    }
   

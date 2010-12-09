@@ -74,9 +74,9 @@ class nodedocumenttypenodetype : public DOMTestCase<string_type, string_adaptor>
       int nodeType;
       doc = (Document) baseT::load("staff", false);
       documentTypeNode = doc.getDoctype();
-      baseT::assertNotNull(documentTypeNode);
+      baseT::assertNotNull(documentTypeNode, __LINE__, __FILE__);
       nodeType = (int) documentTypeNode.getNodeType();
-      baseT::assertEquals(10, nodeType);
+      baseT::assertEquals(10, nodeType, __LINE__, __FILE__);
   
    }
   

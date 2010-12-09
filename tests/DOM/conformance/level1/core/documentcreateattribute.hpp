@@ -83,11 +83,11 @@ class documentcreateattribute : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("staff", true);
       newAttrNode = doc.createAttribute(SA::construct_from_utf8("district"));
       attrValue = newAttrNode.getNodeValue();
-      baseT::assertEquals("", attrValue);
+      baseT::assertEquals("", attrValue, __LINE__, __FILE__);
   attrName = newAttrNode.getNodeName();
-      baseT::assertEquals("district", attrName);
+      baseT::assertEquals("district", attrName, __LINE__, __FILE__);
   attrType = (int) newAttrNode.getNodeType();
-      baseT::assertEquals(2, attrType);
+      baseT::assertEquals(2, attrType, __LINE__, __FILE__);
   
    }
   

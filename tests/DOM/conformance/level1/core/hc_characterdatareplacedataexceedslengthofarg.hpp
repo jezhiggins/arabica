@@ -89,7 +89,7 @@ class hc_characterdatareplacedataexceedslengthofarg : public DOMTestCase<string_
       child = (CharacterData) nameNode.getFirstChild();
       child.replaceData(0, 4, SA::construct_from_utf8("260030"));
       childData = child.getData();
-      baseT::assertEquals("260030 North Ave. Dallas, Texas 98551", childData);
+      baseT::assertEquals("260030 North Ave. Dallas, Texas 98551", childData, __LINE__, __FILE__);
   
    }
   

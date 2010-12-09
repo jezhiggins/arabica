@@ -88,17 +88,17 @@ class characterdatareplacedatanomodificationallowederr : public DOMTestCase<stri
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       genderNode = genderList.item(2);
       entReference = genderNode.getFirstChild();
-      baseT::assertNotNull(entReference);
+      baseT::assertNotNull(entReference, __LINE__, __FILE__);
       nodeType = (int) entReference.getNodeType();
       
       if (baseT::equals(1, nodeType)) {
           entReference = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entReference);
+      baseT::assertNotNull(entReference, __LINE__, __FILE__);
       }
     entElement = entReference.getFirstChild();
-      baseT::assertNotNull(entElement);
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       entElementContent = entElement.getFirstChild();
-      baseT::assertNotNull(entElementContent);
+      baseT::assertNotNull(entElementContent, __LINE__, __FILE__);
       
       {
          boolean success = false;

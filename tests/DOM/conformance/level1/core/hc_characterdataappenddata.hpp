@@ -89,7 +89,7 @@ class hc_characterdataappenddata : public DOMTestCase<string_type, string_adapto
       child.appendData(SA::construct_from_utf8(", Esquire"));
       childValue = child.getData();
       childLength = SA::length(childValue);
-      baseT::assertEquals(24, childLength);
+      baseT::assertEquals(24, childLength, __LINE__, __FILE__);
   
    }
   

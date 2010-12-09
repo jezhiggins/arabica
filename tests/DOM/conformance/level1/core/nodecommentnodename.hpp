@@ -87,7 +87,7 @@ class nodecommentnodename : public DOMTestCase<string_type, string_adaptor>
       
       if (baseT::equals(8, nodeType)) {
           commentNodeName = commentNode.getNodeName();
-      baseT::assertEquals("#comment", commentNodeName);
+      baseT::assertEquals("#comment", commentNodeName, __LINE__, __FILE__);
   }
       }
       

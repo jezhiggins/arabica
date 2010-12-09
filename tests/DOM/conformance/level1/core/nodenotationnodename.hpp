@@ -80,13 +80,13 @@ class nodenotationnodename : public DOMTestCase<string_type, string_adaptor>
       String notationName;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       notations = docType.getNotations();
-      baseT::assertNotNull(notations);
+      baseT::assertNotNull(notations, __LINE__, __FILE__);
       notationNode = notations.getNamedItem(SA::construct_from_utf8("notation1"));
-      baseT::assertNotNull(notationNode);
+      baseT::assertNotNull(notationNode, __LINE__, __FILE__);
       notationName = notationNode.getNodeName();
-      baseT::assertEquals("notation1", notationName);
+      baseT::assertEquals("notation1", notationName, __LINE__, __FILE__);
   
    }
   

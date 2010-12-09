@@ -95,7 +95,7 @@ class nodereplacechildnomodificationallowederr : public DOMTestCase<string_type,
       
       if (baseT::equals(1, nodeType)) {
           entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       }
     entElement = entRef.getFirstChild();
       createdNode = doc.createElement(SA::construct_from_utf8("newChild"));

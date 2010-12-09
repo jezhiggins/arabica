@@ -98,10 +98,10 @@ class hc_elementgetelementsbytagnameaccessnodelist : public DOMTestCase<string_t
       
     }
 childName = firstC.getNodeName();
-      baseT::assertEquals("em", childName);
+      baseT::assertEquals("em", childName, __LINE__, __FILE__);
   employeeIDNode = (CharacterData) firstC.getFirstChild();
       employeeID = employeeIDNode.getNodeValue();
-      baseT::assertEquals("EMP0004", employeeID);
+      baseT::assertEquals("EMP0004", employeeID, __LINE__, __FILE__);
   
    }
   

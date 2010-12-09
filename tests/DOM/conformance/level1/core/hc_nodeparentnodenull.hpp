@@ -79,7 +79,7 @@ class hc_nodeparentnodenull : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("hc_staff", false);
       createdNode = doc.createElement(SA::construct_from_utf8("br"));
       parentNode = createdNode.getParentNode();
-      baseT::assertNull(parentNode);
+      baseT::assertNull(parentNode, __LINE__, __FILE__);
       
    }
   

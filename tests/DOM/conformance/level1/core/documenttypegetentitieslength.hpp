@@ -77,14 +77,14 @@ class documenttypegetentitieslength : public DOMTestCase<string_type, string_ada
       NamedNodeMap entityList;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       entityList = docType.getEntities();
-      baseT::assertNotNull(entityList);
+      baseT::assertNotNull(entityList, __LINE__, __FILE__);
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertSize(7, entityList);
+          baseT::assertSize(7, entityList, __LINE__, __FILE__);
       } else {
-          baseT::assertSize(5, entityList);
+          baseT::assertSize(5, entityList, __LINE__, __FILE__);
       }
         
     

@@ -80,7 +80,7 @@ class nodeprocessinginstructionnodeattributes : public DOMTestCase<string_type, 
       testList = doc.getChildNodes();
       piNode = testList.item(0);
       attrList = piNode.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       
    }
   

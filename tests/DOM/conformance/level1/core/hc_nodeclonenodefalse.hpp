@@ -87,10 +87,10 @@ class hc_nodeclonenodefalse : public DOMTestCase<string_type, string_adaptor>
       employeeNode = elementList.item(1);
       clonedNode = employeeNode.cloneNode(false);
       cloneName = clonedNode.getNodeName();
-      baseT::assertEquals("p", cloneName);
+      baseT::assertEquals("p", cloneName, __LINE__, __FILE__);
   cloneChildren = clonedNode.getChildNodes();
       length = (int) cloneChildren.getLength();
-      baseT::assertEquals(0, length);
+      baseT::assertEquals(0, length, __LINE__, __FILE__);
   
    }
   

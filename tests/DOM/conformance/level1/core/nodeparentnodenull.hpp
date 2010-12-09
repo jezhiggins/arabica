@@ -79,7 +79,7 @@ class nodeparentnodenull : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("staff", false);
       createdNode = doc.createElement(SA::construct_from_utf8("employee"));
       parentNode = createdNode.getParentNode();
-      baseT::assertNull(parentNode);
+      baseT::assertNull(parentNode, __LINE__, __FILE__);
       
    }
   

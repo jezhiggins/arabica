@@ -102,7 +102,7 @@ class hc_noderemovechildnode : public DOMTestCase<string_type, string_adaptor>
       oldChild = emList.item(0);
       removedChild = employeeNode.removeChild(oldChild);
       removedName = removedChild.getNodeName();
-      baseT::assertEquals("em", removedName);
+      baseT::assertEquals("em", removedName, __LINE__, __FILE__);
   for (int indexN65684 = 0; indexN65684 != childList.getLength(); indexN65684++) {
           child = (Node) childList.item(indexN65684);
     nodeType = (int) child.getNodeType();
@@ -111,12 +111,12 @@ class hc_noderemovechildnode : public DOMTestCase<string_type, string_adaptor>
       if (baseT::equals(1, nodeType)) {
           actual.push_back(childName);
       } else {
-          baseT::assertEquals(3, nodeType);
-  baseT::assertEquals("#text", childName);
+          baseT::assertEquals(3, nodeType, __LINE__, __FILE__);
+  baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   }
         
       }
-      baseT::assertEquals(expected, actual);
+      baseT::assertEquals(expected, actual, __LINE__, __FILE__);
   
    }
   

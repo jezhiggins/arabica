@@ -84,7 +84,7 @@ class elementgetattributenode : public DOMTestCase<string_type, string_adaptor>
       testEmployee = (Element) elementList.item(0);
       domesticAttr = testEmployee.getAttributeNode(SA::construct_from_utf8("domestic"));
       name = domesticAttr.getNodeName();
-      baseT::assertEquals("domestic", name);
+      baseT::assertEquals("domestic", name, __LINE__, __FILE__);
   
    }
   

@@ -75,10 +75,10 @@ class hc_nodevalue01 : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("hc_staff", true);
       newNode = doc.createElement(SA::construct_from_utf8("acronym"));
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       newNode.setNodeValue(SA::construct_from_utf8("This should have no effect"));
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       
    }
   

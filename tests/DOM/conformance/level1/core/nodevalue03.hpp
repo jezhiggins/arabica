@@ -74,12 +74,12 @@ class nodevalue03 : public DOMTestCase<string_type, string_adaptor>
       String newValue;
       doc = (Document) baseT::load("staff", true);
       newNode = doc.createEntityReference(SA::construct_from_utf8("ent1"));
-      baseT::assertNotNull(newNode);
+      baseT::assertNotNull(newNode, __LINE__, __FILE__);
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       newNode.setNodeValue(SA::construct_from_utf8("This should have no effect"));
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       
    }
   

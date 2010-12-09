@@ -86,8 +86,8 @@ class hc_attrname : public DOMTestCase<string_type, string_adaptor>
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("class"));
       strong1 = streetAttr.getNodeName();
       strong2 = streetAttr.getName();
-      baseT::assertEquals("class", strong1);
-  baseT::assertEquals("class", strong2);
+      baseT::assertEquals("class", strong1, __LINE__, __FILE__);
+  baseT::assertEquals("class", strong2, __LINE__, __FILE__);
   
    }
   

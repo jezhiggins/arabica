@@ -91,9 +91,9 @@ class namednodemapreturnattrnode : public DOMTestCase<string_type, string_adapto
       streetAttr = attributes.getNamedItem(SA::construct_from_utf8("street"));
       static_cast<Attr>(streetAttr);  // this will throw if the type is wrong
 attrName = streetAttr.getNodeName();
-      baseT::assertEquals("street", attrName);
+      baseT::assertEquals("street", attrName, __LINE__, __FILE__);
   attrName = ((Attr) /*Node */streetAttr).getName();
-      baseT::assertEquals("street", attrName);
+      baseT::assertEquals("street", attrName, __LINE__, __FILE__);
   
    }
   

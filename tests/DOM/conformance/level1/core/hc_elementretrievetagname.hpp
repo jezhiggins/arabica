@@ -81,9 +81,9 @@ class hc_elementretrievetagname : public DOMTestCase<string_type, string_adaptor
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("code"));
       testEmployee = elementList.item(1);
       strong = testEmployee.getNodeName();
-      baseT::assertEquals("code", strong);
+      baseT::assertEquals("code", strong, __LINE__, __FILE__);
   strong = ((Element) /*Node */testEmployee).getTagName();
-      baseT::assertEquals("code", strong);
+      baseT::assertEquals("code", strong, __LINE__, __FILE__);
   
    }
   

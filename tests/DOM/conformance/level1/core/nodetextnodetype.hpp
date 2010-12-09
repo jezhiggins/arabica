@@ -83,7 +83,7 @@ class nodetextnodetype : public DOMTestCase<string_type, string_adaptor>
       testAddr = (Element) elementList.item(0);
       textNode = testAddr.getFirstChild();
       nodeType = (int) textNode.getNodeType();
-      baseT::assertEquals(3, nodeType);
+      baseT::assertEquals(3, nodeType, __LINE__, __FILE__);
   
    }
   

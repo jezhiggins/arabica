@@ -94,16 +94,16 @@ class elementremoveattributenodenomodificationallowederr : public DOMTestCase<st
       gender = genderList.item(2);
       genList = gender.getChildNodes();
       gen = genList.item(0);
-      baseT::assertNotNull(gen);
+      baseT::assertNotNull(gen, __LINE__, __FILE__);
       nodeType = (int) gen.getNodeType();
       
       if (baseT::equals(1, nodeType)) {
           gen = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(gen);
+      baseT::assertNotNull(gen, __LINE__, __FILE__);
       }
     gList = gen.getChildNodes();
       genElement = (Element) gList.item(0);
-      baseT::assertNotNull(genElement);
+      baseT::assertNotNull(genElement, __LINE__, __FILE__);
       attrList = genElement.getAttributes();
       attrNode = (Attr) attrList.getNamedItem(SA::construct_from_utf8("domestic"));
       

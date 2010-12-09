@@ -76,7 +76,7 @@ class hc_nodedocumentnodeattribute : public DOMTestCase<string_type, string_adap
       NamedNodeMap attrList;
       doc = (Document) baseT::load("hc_staff", false);
       attrList = doc.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       
    }
   

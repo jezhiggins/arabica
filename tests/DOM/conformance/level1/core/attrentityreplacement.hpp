@@ -89,7 +89,7 @@ class attrentityreplacement : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("street"));
       value = streetAttr.getValue();
-      baseT::assertEquals("Yes", value);
+      baseT::assertEquals("Yes", value, __LINE__, __FILE__);
   
    }
   

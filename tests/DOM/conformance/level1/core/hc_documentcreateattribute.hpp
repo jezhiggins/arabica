@@ -82,11 +82,11 @@ class hc_documentcreateattribute : public DOMTestCase<string_type, string_adapto
       doc = (Document) baseT::load("hc_staff", true);
       newAttrNode = doc.createAttribute(SA::construct_from_utf8("title"));
       attrValue = newAttrNode.getNodeValue();
-      baseT::assertEquals("", attrValue);
+      baseT::assertEquals("", attrValue, __LINE__, __FILE__);
   attrName = newAttrNode.getNodeName();
-      baseT::assertEquals("title", attrName);
+      baseT::assertEquals("title", attrName, __LINE__, __FILE__);
   attrType = (int) newAttrNode.getNodeType();
-      baseT::assertEquals(2, attrType);
+      baseT::assertEquals(2, attrType, __LINE__, __FILE__);
   
    }
   

@@ -88,12 +88,12 @@ class hc_nodecommentnodeattributes : public DOMTestCase<string_type, string_adap
       
       if (baseT::equals(8, nodeType)) {
           attrList = commentNode.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       }
       }
       commentNode = doc.createComment(SA::construct_from_utf8("This is a comment"));
       attrList = commentNode.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       
    }
   

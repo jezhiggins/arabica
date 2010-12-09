@@ -73,9 +73,9 @@ class nodedocumenttypenodevalue : public DOMTestCase<string_type, string_adaptor
       NamedNodeMap attrList;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       attrList = docType.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       
    }
   

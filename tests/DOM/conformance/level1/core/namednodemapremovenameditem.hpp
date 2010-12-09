@@ -89,10 +89,10 @@ class namednodemapremovenameditem : public DOMTestCase<string_type, string_adapt
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("address"));
       testAddress = elementList.item(2);
       attributes = testAddress.getAttributes();
-      baseT::assertNotNull(attributes);
+      baseT::assertNotNull(attributes, __LINE__, __FILE__);
       removedNode = attributes.removeNamedItem(SA::construct_from_utf8("street"));
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("street"));
-      baseT::assertNotNull(streetAttr);
+      baseT::assertNotNull(streetAttr, __LINE__, __FILE__);
       specified = streetAttr.getSpecified();
       assertFalse(specified);
 

@@ -84,9 +84,9 @@ class nodedocumentfragmentnodevalue : public DOMTestCase<string_type, string_ada
       doc = (Document) baseT::load("staff", true);
       docFragment = doc.createDocumentFragment();
       attrList = docFragment.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       value = docFragment.getNodeValue();
-      baseT::assertNull(value);
+      baseT::assertNull(value, __LINE__, __FILE__);
       
    }
   

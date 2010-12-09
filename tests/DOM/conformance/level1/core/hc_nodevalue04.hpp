@@ -79,12 +79,12 @@ class hc_nodevalue04 : public DOMTestCase<string_type, string_adaptor>
 );
       
       if ((baseT::notNull(newNode))) {
-          baseT::assertNotNull(newNode);
+          baseT::assertNotNull(newNode, __LINE__, __FILE__);
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       newNode.setNodeValue(SA::construct_from_utf8("This should have no effect"));
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       }
     
    }

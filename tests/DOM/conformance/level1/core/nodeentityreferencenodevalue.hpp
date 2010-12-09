@@ -88,10 +88,10 @@ class nodeentityreferencenodevalue : public DOMTestCase<string_type, string_adap
       
       if (baseT::equals(3, nodeType)) {
           entRefNode = doc.createEntityReference(SA::construct_from_utf8("ent2"));
-      baseT::assertNotNull(entRefNode);
+      baseT::assertNotNull(entRefNode, __LINE__, __FILE__);
       }
     entRefValue = entRefNode.getNodeValue();
-      baseT::assertNull(entRefValue);
+      baseT::assertNull(entRefValue, __LINE__, __FILE__);
       
    }
   

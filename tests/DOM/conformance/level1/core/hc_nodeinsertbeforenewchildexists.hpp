@@ -112,7 +112,7 @@ class hc_nodeinsertbeforenewchildexists : public DOMTestCase<string_type, string
       result.push_back(childName);
       }
       }
-      baseT::assertEquals(expected, result);
+      baseT::assertEquals(expected, result, __LINE__, __FILE__);
   
    }
   

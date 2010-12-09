@@ -87,7 +87,7 @@ class noderemovechild : public DOMTestCase<string_type, string_adaptor>
       childToRemove = childList.item(1);
       removedChild = rootNode.removeChild(childToRemove);
       parentNode = removedChild.getParentNode();
-      baseT::assertNull(parentNode);
+      baseT::assertNull(parentNode, __LINE__, __FILE__);
       
    }
   

@@ -82,9 +82,9 @@ class elementretrievetagname : public DOMTestCase<string_type, string_adaptor>
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("position"));
       testEmployee = elementList.item(1);
       name = testEmployee.getNodeName();
-      baseT::assertEquals("position", name);
+      baseT::assertEquals("position", name, __LINE__, __FILE__);
   name = ((Element) /*Node */testEmployee).getTagName();
-      baseT::assertEquals("position", name);
+      baseT::assertEquals("position", name, __LINE__, __FILE__);
   
    }
   

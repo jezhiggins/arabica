@@ -85,11 +85,11 @@ class nodelistreturnlastitem : public DOMTestCase<string_type, string_adaptor>
       if (baseT::equals(6, length)) {
           child = employeeList.item(5);
       childName = child.getNodeName();
-      baseT::assertEquals("address", childName);
+      baseT::assertEquals("address", childName, __LINE__, __FILE__);
   } else {
           child = employeeList.item(12);
       childName = child.getNodeName();
-      baseT::assertEquals("#text", childName);
+      baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   }
         
     

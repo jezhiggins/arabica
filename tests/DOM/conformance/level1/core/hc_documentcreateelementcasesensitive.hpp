@@ -91,12 +91,12 @@ class hc_documentcreateelementcasesensitive : public DOMTestCase<string_type, st
       newElement2.setAttribute(SA::construct_from_utf8("title"), SA::construct_from_utf8("Dallas"));
       attribute1 = newElement1.getAttribute(SA::construct_from_utf8("lang"));
       attribute2 = newElement2.getAttribute(SA::construct_from_utf8("title"));
-      baseT::assertEquals("EN", attribute1);
-  baseT::assertEquals("Dallas", attribute2);
+      baseT::assertEquals("EN", attribute1, __LINE__, __FILE__);
+  baseT::assertEquals("Dallas", attribute2, __LINE__, __FILE__);
   nodeName1 = newElement1.getNodeName();
       nodeName2 = newElement2.getNodeName();
-      baseT::assertEquals("ACRONYM", nodeName1);
-  baseT::assertEquals("acronym", nodeName2);
+      baseT::assertEquals("ACRONYM", nodeName1, __LINE__, __FILE__);
+  baseT::assertEquals("acronym", nodeName2, __LINE__, __FILE__);
   
    }
   

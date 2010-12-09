@@ -79,7 +79,7 @@ class elementgetelementsbytagname : public DOMTestCase<string_type, string_adapt
       NodeList elementList;
       doc = (Document) baseT::load("staff", false);
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("employee"));
-      baseT::assertSize(5, elementList);
+      baseT::assertSize(5, elementList, __LINE__, __FILE__);
       
    }
   

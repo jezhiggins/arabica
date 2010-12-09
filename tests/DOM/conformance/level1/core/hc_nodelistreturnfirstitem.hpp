@@ -85,9 +85,9 @@ class hc_nodelistreturnfirstitem : public DOMTestCase<string_type, string_adapto
       childName = child.getNodeName();
       
       if (baseT::equals("#text", childName)) {
-          baseT::assertEquals("#text", childName);
+          baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("em", childName);
+          baseT::assertEquals("em", childName, __LINE__, __FILE__);
   }
         
     

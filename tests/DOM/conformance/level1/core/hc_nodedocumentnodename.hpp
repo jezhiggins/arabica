@@ -76,7 +76,7 @@ class hc_nodedocumentnodename : public DOMTestCase<string_type, string_adaptor>
       String documentName;
       doc = (Document) baseT::load("hc_staff", false);
       documentName = doc.getNodeName();
-      baseT::assertEquals("#document", documentName);
+      baseT::assertEquals("#document", documentName, __LINE__, __FILE__);
   
    }
   

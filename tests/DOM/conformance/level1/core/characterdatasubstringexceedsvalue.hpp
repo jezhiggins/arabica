@@ -87,7 +87,7 @@ class characterdatasubstringexceedsvalue : public DOMTestCase<string_type, strin
       nameNode = elementList.item(0);
       child = (CharacterData) nameNode.getFirstChild();
       substring = child.substringData(9, 10);
-      baseT::assertEquals("Martin", substring);
+      baseT::assertEquals("Martin", substring, __LINE__, __FILE__);
   
    }
   

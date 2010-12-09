@@ -82,7 +82,7 @@ class nodeprocessinginstructionnodevalue : public DOMTestCase<string_type, strin
       testList = doc.getChildNodes();
       piNode = testList.item(0);
       piValue = piNode.getNodeValue();
-      baseT::assertEquals("PIDATA", piValue);
+      baseT::assertEquals("PIDATA", piValue, __LINE__, __FILE__);
   
    }
   

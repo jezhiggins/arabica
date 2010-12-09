@@ -86,7 +86,7 @@ class documentgetelementsbytagnamevalue : public DOMTestCase<string_type, string
       nameNode = nameList.item(3);
       firstChild = nameNode.getFirstChild();
       childValue = firstChild.getNodeValue();
-      baseT::assertEquals("Jeny Oconnor", childValue);
+      baseT::assertEquals("Jeny Oconnor", childValue, __LINE__, __FILE__);
   
    }
   

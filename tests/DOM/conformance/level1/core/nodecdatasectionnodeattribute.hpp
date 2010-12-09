@@ -90,7 +90,7 @@ class nodecdatasectionnodeattribute : public DOMTestCase<string_type, string_ada
           cdataNode = doc.createCDATASection(SA::construct_from_utf8(""));
       }
     attrList = cdataNode.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       
    }
   

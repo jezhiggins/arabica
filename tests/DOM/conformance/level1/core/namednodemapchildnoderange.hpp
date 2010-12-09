@@ -86,7 +86,7 @@ class namednodemapchildnoderange : public DOMTestCase<string_type, string_adapto
       testEmployee = elementList.item(2);
       attributes = testEmployee.getAttributes();
       length = (int) attributes.getLength();
-      baseT::assertEquals(2, length);
+      baseT::assertEquals(2, length, __LINE__, __FILE__);
   child = attributes.item(0);
       child = attributes.item(1);
       

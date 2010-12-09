@@ -83,13 +83,13 @@ class documentcreatedocumentfragment : public DOMTestCase<string_type, string_ad
       newDocFragment = doc.createDocumentFragment();
       children = newDocFragment.getChildNodes();
       length = (int) children.getLength();
-      baseT::assertEquals(0, length);
+      baseT::assertEquals(0, length, __LINE__, __FILE__);
   newDocFragmentName = newDocFragment.getNodeName();
-      baseT::assertEquals("#document-fragment", newDocFragmentName);
+      baseT::assertEquals("#document-fragment", newDocFragmentName, __LINE__, __FILE__);
   newDocFragmentType = (int) newDocFragment.getNodeType();
-      baseT::assertEquals(11, newDocFragmentType);
+      baseT::assertEquals(11, newDocFragmentType, __LINE__, __FILE__);
   newDocFragmentValue = newDocFragment.getNodeValue();
-      baseT::assertNull(newDocFragmentValue);
+      baseT::assertNull(newDocFragmentValue, __LINE__, __FILE__);
       
    }
   

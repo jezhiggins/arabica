@@ -87,12 +87,12 @@ class hc_nodecommentnodevalue : public DOMTestCase<string_type, string_adaptor>
       
       if (baseT::equals("#comment", commentName)) {
           commentValue = commentNode.getNodeValue();
-      baseT::assertEquals(" This is comment number 1.", commentValue);
+      baseT::assertEquals(" This is comment number 1.", commentValue, __LINE__, __FILE__);
   }
       }
       commentNode = doc.createComment(SA::construct_from_utf8(" This is a comment"));
       commentValue = commentNode.getNodeValue();
-      baseT::assertEquals(" This is a comment", commentValue);
+      baseT::assertEquals(" This is a comment", commentValue, __LINE__, __FILE__);
   
    }
   

@@ -86,7 +86,7 @@ class nodechildnodesappendchild : public DOMTestCase<string_type, string_adaptor
       createdNode = doc.createElement(SA::construct_from_utf8("text3"));
       employeeNode = employeeNode.appendChild(createdNode);
       length = (int) childList.getLength();
-      baseT::assertEquals(expectedLength, length);
+      baseT::assertEquals(expectedLength, length, __LINE__, __FILE__);
   
    }
   

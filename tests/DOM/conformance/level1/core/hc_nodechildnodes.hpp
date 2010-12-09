@@ -103,11 +103,11 @@ class hc_nodechildnodes : public DOMTestCase<string_type, string_adaptor>
       if (baseT::equals(1, nodeType)) {
           actual.push_back(childName);
       } else {
-          baseT::assertEquals(3, nodeType);
+          baseT::assertEquals(3, nodeType, __LINE__, __FILE__);
   }
         
       }
-      baseT::assertEquals(expected, actual);
+      baseT::assertEquals(expected, actual, __LINE__, __FILE__);
   
    }
   

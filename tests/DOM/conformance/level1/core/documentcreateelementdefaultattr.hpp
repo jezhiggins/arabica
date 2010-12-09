@@ -88,12 +88,12 @@ class documentcreateelementdefaultattr : public DOMTestCase<string_type, string_
       newElement = doc.createElement(SA::construct_from_utf8("address"));
       defaultAttr = newElement.getAttributes();
       child = defaultAttr.item(0);
-      baseT::assertNotNull(child);
+      baseT::assertNotNull(child, __LINE__, __FILE__);
       name = child.getNodeName();
-      baseT::assertEquals("street", name);
+      baseT::assertEquals("street", name, __LINE__, __FILE__);
   value = child.getNodeValue();
-      baseT::assertEquals("Yes", value);
-  baseT::assertSize(1, defaultAttr);
+      baseT::assertEquals("Yes", value, __LINE__, __FILE__);
+  baseT::assertSize(1, defaultAttr, __LINE__, __FILE__);
       
    }
   

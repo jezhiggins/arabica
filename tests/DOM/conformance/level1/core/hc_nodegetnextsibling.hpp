@@ -82,7 +82,7 @@ class hc_nodegetnextsibling : public DOMTestCase<string_type, string_adaptor>
       emNode = elementList.item(1);
       nsNode = emNode.getNextSibling();
       nsName = nsNode.getNodeName();
-      baseT::assertEquals("#text", nsName);
+      baseT::assertEquals("#text", nsName, __LINE__, __FILE__);
   
    }
   

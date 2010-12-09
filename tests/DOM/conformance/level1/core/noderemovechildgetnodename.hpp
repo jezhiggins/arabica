@@ -90,9 +90,9 @@ class noderemovechildgetnodename : public DOMTestCase<string_type, string_adapto
       childName = removedChild.getNodeName();
       
       if (baseT::equals(6, length)) {
-          baseT::assertEquals("employeeId", childName);
+          baseT::assertEquals("employeeId", childName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("#text", childName);
+          baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   }
         
     

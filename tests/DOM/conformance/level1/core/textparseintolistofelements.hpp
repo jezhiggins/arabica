@@ -105,7 +105,7 @@ class textparseintolistofelements : public DOMTestCase<string_type, string_adapt
       
       if ((baseT::isNull(value))) {
           grandChild = child.getFirstChild();
-      baseT::assertNotNull(grandChild);
+      baseT::assertNotNull(grandChild, __LINE__, __FILE__);
       value = grandChild.getNodeValue();
       result.push_back(value);
       } else {
@@ -115,9 +115,9 @@ class textparseintolistofelements : public DOMTestCase<string_type, string_adapt
       }
       
       if (baseT::equals(4, length)) {
-          baseT::assertEquals(expectedNormal, result);
+          baseT::assertEquals(expectedNormal, result, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(expectedExpanded, result);
+          baseT::assertEquals(expectedExpanded, result, __LINE__, __FILE__);
   }
         
     

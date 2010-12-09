@@ -102,12 +102,12 @@ class hc_nodelisttraverselist : public DOMTestCase<string_type, string_adaptor>
       if (baseT::equals(1, nodeType)) {
           result.push_back(childName);
       } else {
-          baseT::assertEquals(3, nodeType);
-  baseT::assertEquals("#text", childName);
+          baseT::assertEquals(3, nodeType, __LINE__, __FILE__);
+  baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   }
         
       }
-      baseT::assertEquals(expected, result);
+      baseT::assertEquals(expected, result, __LINE__, __FILE__);
   
    }
   

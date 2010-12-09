@@ -77,7 +77,7 @@ class elementgetelementsbytagnamenomatch : public DOMTestCase<string_type, strin
       NodeList elementList;
       doc = (Document) baseT::load("staff", false);
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("noMatch"));
-      baseT::assertSize(0, elementList);
+      baseT::assertSize(0, elementList, __LINE__, __FILE__);
       
    }
   

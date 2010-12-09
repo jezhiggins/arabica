@@ -96,7 +96,7 @@ class hc_namednodemapsetnameditem : public DOMTestCase<string_type, string_adapt
       setNode = attributes.setNamedItem(newAttribute);
       districtNode = (Attr) attributes.getNamedItem(SA::construct_from_utf8("lang"));
       attrName = districtNode.getNodeName();
-      baseT::assertEquals("lang", attrName);
+      baseT::assertEquals("lang", attrName, __LINE__, __FILE__);
   
    }
   

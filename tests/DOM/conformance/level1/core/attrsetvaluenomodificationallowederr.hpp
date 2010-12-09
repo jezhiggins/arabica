@@ -90,17 +90,17 @@ class attrsetvaluenomodificationallowederr : public DOMTestCase<string_type, str
       doc = (Document) baseT::load("staff", true);
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
-      baseT::assertNotNull(gender);
+      baseT::assertNotNull(gender, __LINE__, __FILE__);
       genList = gender.getChildNodes();
       gen = genList.item(0);
-      baseT::assertNotNull(gen);
+      baseT::assertNotNull(gen, __LINE__, __FILE__);
       gList = gen.getChildNodes();
       g = gList.item(0);
-      baseT::assertNotNull(g);
+      baseT::assertNotNull(g, __LINE__, __FILE__);
       attrList = g.getAttributes();
-      baseT::assertNotNull(attrList);
+      baseT::assertNotNull(attrList, __LINE__, __FILE__);
       attrNode = (Attr) attrList.getNamedItem(SA::construct_from_utf8("domestic"));
-      baseT::assertNotNull(attrNode);
+      baseT::assertNotNull(attrNode, __LINE__, __FILE__);
       
       {
          boolean success = false;

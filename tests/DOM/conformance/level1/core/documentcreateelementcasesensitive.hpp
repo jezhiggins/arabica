@@ -87,8 +87,8 @@ class documentcreateelementcasesensitive : public DOMTestCase<string_type, strin
       newElement2.setAttribute(SA::construct_from_utf8("county"), SA::construct_from_utf8("Dallas"));
       attribute1 = newElement1.getAttribute(SA::construct_from_utf8("district"));
       attribute2 = newElement2.getAttribute(SA::construct_from_utf8("county"));
-      baseT::assertEquals("Fort Worth", attribute1);
-  baseT::assertEquals("Dallas", attribute2);
+      baseT::assertEquals("Fort Worth", attribute1, __LINE__, __FILE__);
+  baseT::assertEquals("Dallas", attribute2, __LINE__, __FILE__);
   
    }
   

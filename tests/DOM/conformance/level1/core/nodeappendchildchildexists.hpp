@@ -97,11 +97,11 @@ class nodeappendchildchildexists : public DOMTestCase<string_type, string_adapto
       lchildName = lchild.getNodeName();
       
       if (baseT::equals("employeeId", initialName)) {
-          baseT::assertEquals("name", fchildName);
-  baseT::assertEquals("employeeId", lchildName);
+          baseT::assertEquals("name", fchildName, __LINE__, __FILE__);
+  baseT::assertEquals("employeeId", lchildName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("employeeId", fchildName);
-  baseT::assertEquals("#text", lchildName);
+          baseT::assertEquals("employeeId", fchildName, __LINE__, __FILE__);
+  baseT::assertEquals("#text", lchildName, __LINE__, __FILE__);
   }
         
     

@@ -76,13 +76,13 @@ class nodeentitynodetype : public DOMTestCase<string_type, string_adaptor>
       int nodeType;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       entities = docType.getEntities();
-      baseT::assertNotNull(entities);
+      baseT::assertNotNull(entities, __LINE__, __FILE__);
       entityNode = entities.getNamedItem(SA::construct_from_utf8("ent1"));
-      baseT::assertNotNull(entityNode);
+      baseT::assertNotNull(entityNode, __LINE__, __FILE__);
       nodeType = (int) entityNode.getNodeType();
-      baseT::assertEquals(6, nodeType);
+      baseT::assertEquals(6, nodeType, __LINE__, __FILE__);
   
    }
   

@@ -98,7 +98,7 @@ class hc_nodereplacechildnewchildexists : public DOMTestCase<string_type, string
       newChild = childList.item(0);
       oldChild = childList.item(5);
       replacedChild = employeeNode.replaceChild(newChild, oldChild);
-      baseT::assertSame(oldChild, replacedChild);
+      baseT::assertSame(oldChild, replacedChild, __LINE__, __FILE__);
 for (int indexN65684 = 0; indexN65684 != childList.getLength(); indexN65684++) {
           childNode = (Node) childList.item(indexN65684);
     childName = childNode.getNodeName();
@@ -107,12 +107,12 @@ for (int indexN65684 = 0; indexN65684 != childList.getLength(); indexN65684++) {
       if (baseT::equals(1, nodeType)) {
           actual.push_back(childName);
       } else {
-          baseT::assertEquals(3, nodeType);
-  baseT::assertEquals("#text", childName);
+          baseT::assertEquals(3, nodeType, __LINE__, __FILE__);
+  baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   }
         
       }
-      baseT::assertEquals(expected, actual);
+      baseT::assertEquals(expected, actual, __LINE__, __FILE__);
   
    }
   

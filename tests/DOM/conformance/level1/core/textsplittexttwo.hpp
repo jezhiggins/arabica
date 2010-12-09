@@ -89,7 +89,7 @@ class textsplittexttwo : public DOMTestCase<string_type, string_adaptor>
       textNode = (Text) nameNode.getFirstChild();
       splitNode = textNode.splitText(5);
       value = textNode.getNodeValue();
-      baseT::assertEquals("Roger", value);
+      baseT::assertEquals("Roger", value, __LINE__, __FILE__);
   
    }
   

@@ -90,9 +90,9 @@ class hc_noderemovechildgetnodename : public DOMTestCase<string_type, string_ada
       oldChild = childList.item(0);
       oldName = oldChild.getNodeName();
       removedChild = employeeNode.removeChild(oldChild);
-      baseT::assertNotNull(removedChild);
+      baseT::assertNotNull(removedChild, __LINE__, __FILE__);
       childName = removedChild.getNodeName();
-      baseT::assertEquals(oldName, childName);
+      baseT::assertEquals(oldName, childName, __LINE__, __FILE__);
   
    }
   

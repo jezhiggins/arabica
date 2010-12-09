@@ -82,18 +82,18 @@ class hc_attrsetvalue1 : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       titleAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("title"));
       firstChild = titleAttr.getFirstChild();
-      baseT::assertNotNull(firstChild);
+      baseT::assertNotNull(firstChild, __LINE__, __FILE__);
       titleAttr.setValue(SA::construct_from_utf8("Tomorrow"));
       firstChild.setNodeValue(SA::construct_from_utf8("impl reused node"));
       value = titleAttr.getValue();
-      baseT::assertEquals("Tomorrow", value);
+      baseT::assertEquals("Tomorrow", value, __LINE__, __FILE__);
   value = titleAttr.getNodeValue();
-      baseT::assertEquals("Tomorrow", value);
+      baseT::assertEquals("Tomorrow", value, __LINE__, __FILE__);
   firstChild = titleAttr.getLastChild();
       value = firstChild.getNodeValue();
-      baseT::assertEquals("Tomorrow", value);
+      baseT::assertEquals("Tomorrow", value, __LINE__, __FILE__);
   otherChild = firstChild.getNextSibling();
-      baseT::assertNull(otherChild);
+      baseT::assertNull(otherChild, __LINE__, __FILE__);
       
    }
   

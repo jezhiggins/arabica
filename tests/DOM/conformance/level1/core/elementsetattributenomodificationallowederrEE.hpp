@@ -90,7 +90,7 @@ class elementsetattributenomodificationallowederrEE : public DOMTestCase<string_
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
       appendedChild = gender.appendChild(entRef);
       entElement = (Element) entRef.getFirstChild();
-      baseT::assertNotNull(entElement);
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       
       {
          boolean success = false;

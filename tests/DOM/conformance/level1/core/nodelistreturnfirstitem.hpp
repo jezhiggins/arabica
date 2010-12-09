@@ -85,9 +85,9 @@ class nodelistreturnfirstitem : public DOMTestCase<string_type, string_adaptor>
       length = (int) employeeList.getLength();
       
       if (baseT::equals(6, length)) {
-          baseT::assertEquals("employeeId", childName);
+          baseT::assertEquals("employeeId", childName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("#text", childName);
+          baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   }
         
     

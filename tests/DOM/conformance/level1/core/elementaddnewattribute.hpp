@@ -84,7 +84,7 @@ class elementaddnewattribute : public DOMTestCase<string_type, string_adaptor>
       testEmployee = (Element) elementList.item(4);
       testEmployee.setAttribute(SA::construct_from_utf8("district"), SA::construct_from_utf8("dallas"));
       attrValue = testEmployee.getAttribute(SA::construct_from_utf8("district"));
-      baseT::assertEquals("dallas", attrValue);
+      baseT::assertEquals("dallas", attrValue, __LINE__, __FILE__);
   
    }
   

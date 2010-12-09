@@ -89,13 +89,13 @@ class commentgetcomment : public DOMTestCase<string_type, string_adaptor>
       
       if (baseT::equals(8, childType)) {
           childName = child.getNodeName();
-      baseT::assertEquals("#comment", childName);
+      baseT::assertEquals("#comment", childName, __LINE__, __FILE__);
   childValue = child.getNodeValue();
-      baseT::assertEquals(" This is comment number 1.", childValue);
+      baseT::assertEquals(" This is comment number 1.", childValue, __LINE__, __FILE__);
   commentCount = commentCount + 1;
       }
       }
-      baseT::assertEquals(1, commentCount);
+      baseT::assertEquals(1, commentCount, __LINE__, __FILE__);
   
    }
   

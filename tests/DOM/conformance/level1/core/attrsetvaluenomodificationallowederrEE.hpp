@@ -81,6 +81,7 @@ class attrsetvaluenomodificationallowederrEE : public DOMTestCase<string_type, s
       Document doc;
       EntityReference entRef;
       Element entElement;
+      Node entNode;
       NamedNodeMap attrList;
       Node attrNode;
       Node gender;
@@ -89,12 +90,14 @@ class attrsetvaluenomodificationallowederrEE : public DOMTestCase<string_type, s
       doc = (Document) baseT::load("staff", true);
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
-      baseT::assertNotNull(gender);
+      baseT::assertNotNull(gender, __LINE__, __FILE__);
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       appendedChild = gender.appendChild(entRef);
-      entElement = (Element) entRef.getFirstChild();
-      baseT::assertNotNull(entElement);
+      entNode = entRef.getFirstChild();
+      baseT::skipIfNot<EntityReference>(entNode);
+     entElement = (Element) entRef.getFirstChild();
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       attrList = entElement.getAttributes();
       attrNode = attrList.getNamedItem(SA::construct_from_utf8("domestic"));
       

@@ -83,16 +83,16 @@ class hc_attrremovechild1 : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       titleAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("title"));
       textNode = (Text) titleAttr.getFirstChild();
-      baseT::assertNotNull(textNode);
+      baseT::assertNotNull(textNode, __LINE__, __FILE__);
       retval = titleAttr.removeChild(textNode);
       value = titleAttr.getValue();
-      baseT::assertEquals("", value);
+      baseT::assertEquals("", value, __LINE__, __FILE__);
   value = titleAttr.getNodeValue();
-      baseT::assertEquals("", value);
+      baseT::assertEquals("", value, __LINE__, __FILE__);
   value = retval.getNodeValue();
-      baseT::assertEquals("Yes", value);
+      baseT::assertEquals("Yes", value, __LINE__, __FILE__);
   firstChild = titleAttr.getFirstChild();
-      baseT::assertNull(firstChild);
+      baseT::assertNull(firstChild, __LINE__, __FILE__);
       
    }
   

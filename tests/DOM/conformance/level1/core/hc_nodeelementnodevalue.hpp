@@ -74,7 +74,7 @@ class hc_nodeelementnodevalue : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("hc_staff", false);
       elementNode = doc.getDocumentElement();
       elementValue = elementNode.getNodeValue();
-      baseT::assertNull(elementValue);
+      baseT::assertNull(elementValue, __LINE__, __FILE__);
       
    }
   

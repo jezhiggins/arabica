@@ -82,7 +82,7 @@ class hc_nodegetlastchild : public DOMTestCase<string_type, string_adaptor>
       employeeNode = elementList.item(1);
       lchildNode = employeeNode.getLastChild();
       childName = lchildNode.getNodeName();
-      baseT::assertEquals("#text", childName);
+      baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   
    }
   

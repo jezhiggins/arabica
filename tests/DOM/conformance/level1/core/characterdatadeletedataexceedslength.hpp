@@ -91,7 +91,7 @@ class characterdatadeletedataexceedslength : public DOMTestCase<string_type, str
       child = (CharacterData) nameNode.getFirstChild();
       child.deleteData(4, 50);
       childData = child.getData();
-      baseT::assertEquals("1230", childData);
+      baseT::assertEquals("1230", childData, __LINE__, __FILE__);
   
    }
   

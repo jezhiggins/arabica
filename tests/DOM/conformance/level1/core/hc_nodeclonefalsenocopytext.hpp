@@ -87,7 +87,7 @@ class hc_nodeclonefalsenocopytext : public DOMTestCase<string_type, string_adapt
       childNode = childList.item(3);
       clonedNode = childNode.cloneNode(false);
       lastChildNode = clonedNode.getLastChild();
-      baseT::assertNull(lastChildNode);
+      baseT::assertNull(lastChildNode, __LINE__, __FILE__);
       
    }
   

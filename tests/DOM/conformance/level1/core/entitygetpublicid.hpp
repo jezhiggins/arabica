@@ -85,17 +85,17 @@ class entitygetpublicid : public DOMTestCase<string_type, string_adaptor>
       String notation;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       entityList = docType.getEntities();
-      baseT::assertNotNull(entityList);
+      baseT::assertNotNull(entityList, __LINE__, __FILE__);
       entityNode = (Entity) entityList.getNamedItem(SA::construct_from_utf8("ent5"));
       baseT::skipIfNull(entityNode);
      publicId = entityNode.getPublicId();
-      baseT::assertEquals("entityURI", publicId);
+      baseT::assertEquals("entityURI", publicId, __LINE__, __FILE__);
   systemId = entityNode.getSystemId();
       baseT::assertURIEquals("systemId", "", "", "", "entityFile", "", "", "", false, systemId);
 notation = entityNode.getNotationName();
-      baseT::assertEquals("notation1", notation);
+      baseT::assertEquals("notation1", notation, __LINE__, __FILE__);
   
    }
   

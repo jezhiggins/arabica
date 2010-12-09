@@ -88,7 +88,7 @@ class namednodemapgetnameditem : public DOMTestCase<string_type, string_adaptor>
       attributes = testEmployee.getAttributes();
       domesticAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("domestic"));
       attrName = domesticAttr.getNodeName();
-      baseT::assertEquals("domestic", attrName);
+      baseT::assertEquals("domestic", attrName, __LINE__, __FILE__);
   
    }
   

@@ -73,7 +73,7 @@ class nodegetownerdocumentnull : public DOMTestCase<string_type, string_adaptor>
       Document ownerDocument;
       doc = (Document) baseT::load("staff", false);
       ownerDocument = doc.getOwnerDocument();
-      baseT::assertNull(ownerDocument);
+      baseT::assertNull(ownerDocument, __LINE__, __FILE__);
       
    }
   

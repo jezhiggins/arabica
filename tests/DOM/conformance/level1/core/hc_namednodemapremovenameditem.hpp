@@ -89,7 +89,7 @@ class hc_namednodemapremovenameditem : public DOMTestCase<string_type, string_ad
       attributes = testAddress.getAttributes();
       removedNode = attributes.removeNamedItem(SA::construct_from_utf8("class"));
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("class"));
-      baseT::assertNull(streetAttr);
+      baseT::assertNull(streetAttr, __LINE__, __FILE__);
       
    }
   

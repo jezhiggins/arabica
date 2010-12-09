@@ -82,7 +82,7 @@ class hc_nodeparentnode : public DOMTestCase<string_type, string_adaptor>
       employeeNode = elementList.item(1);
       parentNode = employeeNode.getParentNode();
       parentName = parentNode.getNodeName();
-      baseT::assertEquals("body", parentName);
+      baseT::assertEquals("body", parentName, __LINE__, __FILE__);
   
    }
   

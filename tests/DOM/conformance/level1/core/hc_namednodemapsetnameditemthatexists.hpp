@@ -99,7 +99,7 @@ class hc_namednodemapsetnameditemthatexists : public DOMTestCase<string_type, st
       setNode = attributes.setNamedItem(newAttribute);
       districtNode = (Attr) attributes.getNamedItem(SA::construct_from_utf8("class"));
       attrValue = districtNode.getNodeValue();
-      baseT::assertEquals("", attrValue);
+      baseT::assertEquals("", attrValue, __LINE__, __FILE__);
   
    }
   

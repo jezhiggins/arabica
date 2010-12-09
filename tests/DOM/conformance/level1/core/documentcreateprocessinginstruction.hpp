@@ -87,13 +87,13 @@ class documentcreateprocessinginstruction : public DOMTestCase<string_type, stri
       int piType;
       doc = (Document) baseT::load("staff", true);
       newPINode = doc.createProcessingInstruction(SA::construct_from_utf8("TESTPI"), SA::construct_from_utf8("This is a new PI node"));
-      baseT::assertNotNull(newPINode);
+      baseT::assertNotNull(newPINode, __LINE__, __FILE__);
       piName = newPINode.getNodeName();
-      baseT::assertEquals("TESTPI", piName);
+      baseT::assertEquals("TESTPI", piName, __LINE__, __FILE__);
   piValue = newPINode.getNodeValue();
-      baseT::assertEquals("This is a new PI node", piValue);
+      baseT::assertEquals("This is a new PI node", piValue, __LINE__, __FILE__);
   piType = (int) newPINode.getNodeType();
-      baseT::assertEquals(7, piType);
+      baseT::assertEquals(7, piType, __LINE__, __FILE__);
   
    }
   

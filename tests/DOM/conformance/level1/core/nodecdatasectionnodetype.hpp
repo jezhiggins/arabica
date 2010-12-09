@@ -89,7 +89,7 @@ class nodecdatasectionnodetype : public DOMTestCase<string_type, string_adaptor>
           cdataNode = doc.createCDATASection(SA::construct_from_utf8(""));
       nodeType = (int) cdataNode.getNodeType();
       }
-    baseT::assertEquals(4, nodeType);
+    baseT::assertEquals(4, nodeType, __LINE__, __FILE__);
   
    }
   

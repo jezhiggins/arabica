@@ -89,9 +89,9 @@ class hc_nodelistindexnotzero : public DOMTestCase<string_type, string_adaptor>
       childName = child.getNodeName();
       
       if (baseT::equals("#text", childName)) {
-          baseT::assertEquals("#text", childName);
+          baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("strong", childName);
+          baseT::assertEquals("strong", childName, __LINE__, __FILE__);
   }
         
     

@@ -78,7 +78,7 @@ class hc_nodetextnodename : public DOMTestCase<string_type, string_adaptor>
       testAddr = (Element) elementList.item(0);
       textNode = testAddr.getFirstChild();
       textName = textNode.getNodeName();
-      baseT::assertEquals("#text", textName);
+      baseT::assertEquals("#text", textName, __LINE__, __FILE__);
   
    }
   

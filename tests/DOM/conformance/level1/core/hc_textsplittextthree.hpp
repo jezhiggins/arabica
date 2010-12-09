@@ -89,7 +89,7 @@ class hc_textsplittextthree : public DOMTestCase<string_type, string_adaptor>
       textNode = (Text) nameNode.getFirstChild();
       splitNode = textNode.splitText(6);
       value = splitNode.getNodeValue();
-      baseT::assertEquals(" Jones", value);
+      baseT::assertEquals(" Jones", value, __LINE__, __FILE__);
   
    }
   

@@ -88,7 +88,7 @@ class elementreplaceexistingattributegevalue : public DOMTestCase<string_type, s
       newAttribute = doc.createAttribute(SA::construct_from_utf8("street"));
       streetAttr = testEmployee.setAttributeNode(newAttribute);
       value = streetAttr.getValue();
-      baseT::assertEquals("No", value);
+      baseT::assertEquals("No", value, __LINE__, __FILE__);
   
    }
   

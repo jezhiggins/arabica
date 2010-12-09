@@ -83,7 +83,7 @@ class elementgetattributenodenull : public DOMTestCase<string_type, string_adapt
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("address"));
       testEmployee = (Element) elementList.item(0);
       domesticAttr = testEmployee.getAttributeNode(SA::construct_from_utf8("invalidAttribute"));
-      baseT::assertNull(domesticAttr);
+      baseT::assertNull(domesticAttr, __LINE__, __FILE__);
       
    }
   

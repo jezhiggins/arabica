@@ -85,7 +85,7 @@ class nodeattributenodeattribute : public DOMTestCase<string_type, string_adapto
       addrAttr = testAddr.getAttributes();
       attrNode = addrAttr.item(0);
       attrList = attrNode.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       
    }
   

@@ -87,19 +87,19 @@ class hc_namednodemapchildnoderange : public DOMTestCase<string_type, string_ada
       length = (int) attributes.getLength();
       
       if (("text/html" == baseT::getContentType())) {
-          baseT::assertEquals(2, length);
+          baseT::assertEquals(2, length, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(3, length);
+          baseT::assertEquals(3, length, __LINE__, __FILE__);
   child = attributes.item(2);
-      baseT::assertNotNull(child);
+      baseT::assertNotNull(child, __LINE__, __FILE__);
       }
         
     child = attributes.item(0);
-      baseT::assertNotNull(child);
+      baseT::assertNotNull(child, __LINE__, __FILE__);
       child = attributes.item(1);
-      baseT::assertNotNull(child);
+      baseT::assertNotNull(child, __LINE__, __FILE__);
       child = attributes.item(3);
-      baseT::assertNull(child);
+      baseT::assertNull(child, __LINE__, __FILE__);
       
    }
   

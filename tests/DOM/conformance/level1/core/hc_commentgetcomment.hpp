@@ -91,11 +91,11 @@ class hc_commentgetcomment : public DOMTestCase<string_type, string_adaptor>
       
       if (baseT::equals(8, childType)) {
           childName = child.getNodeName();
-      baseT::assertEquals("#comment", childName);
+      baseT::assertEquals("#comment", childName, __LINE__, __FILE__);
   childValue = child.getNodeValue();
-      baseT::assertEquals(" This is comment number 1.", childValue);
+      baseT::assertEquals(" This is comment number 1.", childValue, __LINE__, __FILE__);
   attributes = child.getAttributes();
-      baseT::assertNull(attributes);
+      baseT::assertNull(attributes, __LINE__, __FILE__);
       commentCount += 1;
       }
       }

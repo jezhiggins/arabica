@@ -133,7 +133,7 @@ class nodeinsertbefore : public DOMTestCase<string_type, string_adaptor>
     childName = child.getNodeName();
       actual.push_back(childName);
         }
-      baseT::assertEquals(expected, actual);
+      baseT::assertEquals(expected, actual, __LINE__, __FILE__);
   
    }
   

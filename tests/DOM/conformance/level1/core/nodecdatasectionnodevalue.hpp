@@ -92,7 +92,7 @@ class nodecdatasectionnodevalue : public DOMTestCase<string_type, string_adaptor
           child = doc.createCDATASection(SA::construct_from_utf8("This is a CDATASection with EntityReference number 2 &ent2;"));
       }
     cdataNodeValue = child.getNodeValue();
-      baseT::assertEquals("This is a CDATASection with EntityReference number 2 &ent2;", cdataNodeValue);
+      baseT::assertEquals("This is a CDATASection with EntityReference number 2 &ent2;", cdataNodeValue, __LINE__, __FILE__);
   
    }
   

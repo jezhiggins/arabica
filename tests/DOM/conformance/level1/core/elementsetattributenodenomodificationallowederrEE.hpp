@@ -90,10 +90,10 @@ class elementsetattributenodenomodificationallowederrEE : public DOMTestCase<str
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       appendedChild = gender.appendChild(entRef);
       entElement = (Element) entRef.getFirstChild();
-      baseT::assertNotNull(entElement);
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       newAttr = doc.createAttribute(SA::construct_from_utf8("newAttr"));
       
       {

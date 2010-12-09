@@ -83,7 +83,7 @@ class nodegetnextsiblingnull : public DOMTestCase<string_type, string_adaptor>
       employeeNode = elementList.item(1);
       lcNode = employeeNode.getLastChild();
       nsNode = lcNode.getNextSibling();
-      baseT::assertNull(nsNode);
+      baseT::assertNull(nsNode, __LINE__, __FILE__);
       
    }
   

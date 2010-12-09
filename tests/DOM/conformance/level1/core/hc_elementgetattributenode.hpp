@@ -80,7 +80,7 @@ class hc_elementgetattributenode : public DOMTestCase<string_type, string_adapto
       testEmployee = (Element) elementList.item(0);
       domesticAttr = testEmployee.getAttributeNode(SA::construct_from_utf8("title"));
       nodeName = domesticAttr.getNodeName();
-      baseT::assertEquals("title", nodeName);
+      baseT::assertEquals("title", nodeName, __LINE__, __FILE__);
   
    }
   

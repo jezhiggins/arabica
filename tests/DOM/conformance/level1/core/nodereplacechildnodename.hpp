@@ -93,9 +93,9 @@ class nodereplacechildnodename : public DOMTestCase<string_type, string_adaptor>
       childName = replacedNode.getNodeName();
       
       if (baseT::equals(6, length)) {
-          baseT::assertEquals("name", childName);
+          baseT::assertEquals("name", childName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("employeeId", childName);
+          baseT::assertEquals("employeeId", childName, __LINE__, __FILE__);
   }
         
     

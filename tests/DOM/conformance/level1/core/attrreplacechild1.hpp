@@ -78,12 +78,12 @@ class attrreplacechild1 : public DOMTestCase<string_type, string_adaptor>
       Node newChild;
       doc = (Document) baseT::load("staff", true);
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       entElement = (Element) entRef.getFirstChild();
-      baseT::assertNotNull(entElement);
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       attrNode = entElement.getAttributeNode(SA::construct_from_utf8("domestic"));
       textNode = (Text) attrNode.getFirstChild();
-      baseT::assertNotNull(textNode);
+      baseT::assertNotNull(textNode, __LINE__, __FILE__);
       newChild = doc.createTextNode(SA::construct_from_utf8("Yesterday"));
       
       {

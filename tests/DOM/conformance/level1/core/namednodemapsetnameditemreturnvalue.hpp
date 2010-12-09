@@ -97,7 +97,7 @@ class namednodemapsetnameditemreturnvalue : public DOMTestCase<string_type, stri
       attributes = testAddress.getAttributes();
       newNode = attributes.setNamedItem(newAttribute);
       attrValue = newNode.getNodeValue();
-      baseT::assertEquals("No", attrValue);
+      baseT::assertEquals("No", attrValue, __LINE__, __FILE__);
   
    }
   

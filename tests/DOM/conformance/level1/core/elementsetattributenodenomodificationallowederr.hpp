@@ -90,15 +90,15 @@ class elementsetattributenodenomodificationallowederr : public DOMTestCase<strin
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
       entRef = gender.getFirstChild();
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       nodeType = (int) entRef.getNodeType();
       
       if (baseT::equals(1, nodeType)) {
           entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       }
     entElement = (Element) entRef.getFirstChild();
-      baseT::assertNotNull(entElement);
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       newAttr = doc.createAttribute(SA::construct_from_utf8("newAttr"));
       
       {

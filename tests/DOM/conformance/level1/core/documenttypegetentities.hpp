@@ -99,9 +99,9 @@ class documenttypegetentities : public DOMTestCase<string_type, string_adaptor>
       Node entity;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       entityList = docType.getEntities();
-      baseT::assertNotNull(entityList);
+      baseT::assertNotNull(entityList, __LINE__, __FILE__);
       for (int indexN65659 = 0; indexN65659 != entityList.getLength(); indexN65659++) {
           entity = (Node) entityList.item(indexN65659);
     name = entity.getNodeName();
@@ -109,9 +109,9 @@ class documenttypegetentities : public DOMTestCase<string_type, string_adaptor>
         }
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals(expectedResultSVG, nameList);
+          baseT::assertEquals(expectedResultSVG, nameList, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(expectedResult, nameList);
+          baseT::assertEquals(expectedResult, nameList, __LINE__, __FILE__);
   }
         
     

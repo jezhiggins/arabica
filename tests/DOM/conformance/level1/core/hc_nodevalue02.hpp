@@ -75,10 +75,10 @@ class hc_nodevalue02 : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("hc_staff", true);
       newNode = doc.createComment(SA::construct_from_utf8("This is a new Comment node"));
       newValue = newNode.getNodeValue();
-      baseT::assertEquals("This is a new Comment node", newValue);
+      baseT::assertEquals("This is a new Comment node", newValue, __LINE__, __FILE__);
   newNode.setNodeValue(SA::construct_from_utf8("This should have an effect"));
       newValue = newNode.getNodeValue();
-      baseT::assertEquals("This should have an effect", newValue);
+      baseT::assertEquals("This should have an effect", newValue, __LINE__, __FILE__);
   
    }
   

@@ -104,7 +104,7 @@ class hc_textparseintolistofelements : public DOMTestCase<string_type, string_ad
       
       if ((baseT::isNull(value))) {
           grandChild = child.getFirstChild();
-      baseT::assertNotNull(grandChild);
+      baseT::assertNotNull(grandChild, __LINE__, __FILE__);
       value = grandChild.getNodeValue();
       result.push_back(value);
       } else {
@@ -114,9 +114,9 @@ class hc_textparseintolistofelements : public DOMTestCase<string_type, string_ad
       }
       
       if (baseT::equals(1, length)) {
-          baseT::assertEquals(expectedExpanded, result);
+          baseT::assertEquals(expectedExpanded, result, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(expectedNormal, result);
+          baseT::assertEquals(expectedNormal, result, __LINE__, __FILE__);
   }
         
     

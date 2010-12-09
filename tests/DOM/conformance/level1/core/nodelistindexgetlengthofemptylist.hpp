@@ -88,7 +88,7 @@ class nodelistindexgetlengthofemptylist : public DOMTestCase<string_type, string
       childNode = employeeList.item(1);
       textNode = childNode.getFirstChild();
       textList = textNode.getChildNodes();
-      baseT::assertSize(0, textList);
+      baseT::assertSize(0, textList, __LINE__, __FILE__);
       
    }
   

@@ -78,7 +78,7 @@ class hc_elementgetelementsbytagname : public DOMTestCase<string_type, string_ad
       NodeList elementList;
       doc = (Document) baseT::load("hc_staff", false);
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("p"));
-      baseT::assertSize(5, elementList);
+      baseT::assertSize(5, elementList, __LINE__, __FILE__);
       
    }
   

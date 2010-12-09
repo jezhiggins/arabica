@@ -102,9 +102,9 @@ class hc_nodecloneattributescopied : public DOMTestCase<string_type, string_adap
         }
       
       if (("text/html" == baseT::getContentType())) {
-          baseT::assertEquals(htmlExpected, result);
+          baseT::assertEquals(htmlExpected, result, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(expected, result);
+          baseT::assertEquals(expected, result, __LINE__, __FILE__);
   }
         
     

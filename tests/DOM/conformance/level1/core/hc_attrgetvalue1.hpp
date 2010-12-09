@@ -82,7 +82,7 @@ class hc_attrgetvalue1 : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       titleAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("class"));
       value = titleAttr.getValue();
-      baseT::assertEquals("Yα", value);
+      baseT::assertEquals("Yα", value, __LINE__, __FILE__);
   
    }
   

@@ -89,7 +89,7 @@ class hc_elementreplaceexistingattribute : public DOMTestCase<string_type, strin
       newAttribute = doc.createAttribute(SA::construct_from_utf8("class"));
       setAttr = testEmployee.setAttributeNode(newAttribute);
       strong = testEmployee.getAttribute(SA::construct_from_utf8("class"));
-      baseT::assertEquals("", strong);
+      baseT::assertEquals("", strong, __LINE__, __FILE__);
   
    }
   

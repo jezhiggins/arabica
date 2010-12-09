@@ -87,7 +87,7 @@ class elementremoveattributerestoredefaultvalue : public DOMTestCase<string_type
       streetAttr = testEmployee.getAttributeNode(SA::construct_from_utf8("street"));
       removedAttr = testEmployee.removeAttributeNode(streetAttr);
       attribute = testEmployee.getAttribute(SA::construct_from_utf8("street"));
-      baseT::assertEquals("Yes", attribute);
+      baseT::assertEquals("Yes", attribute, __LINE__, __FILE__);
   
    }
   

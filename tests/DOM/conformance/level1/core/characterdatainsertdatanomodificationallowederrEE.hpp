@@ -80,9 +80,9 @@ class characterdatainsertdatanomodificationallowederrEE : public DOMTestCase<str
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       genderNode = genderList.item(2);
       entReference = doc.createEntityReference(SA::construct_from_utf8("ent3"));
-      baseT::assertNotNull(entReference);
+      baseT::assertNotNull(entReference, __LINE__, __FILE__);
       entText = (CharacterData) entReference.getFirstChild();
-      baseT::assertNotNull(entText);
+      baseT::assertNotNull(entText, __LINE__, __FILE__);
       
       {
          boolean success = false;

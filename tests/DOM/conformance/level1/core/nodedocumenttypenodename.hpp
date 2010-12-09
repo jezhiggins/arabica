@@ -75,13 +75,13 @@ class nodedocumenttypenodename : public DOMTestCase<string_type, string_adaptor>
       String documentTypeName;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       documentTypeName = docType.getNodeName();
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals("svg", documentTypeName);
+          baseT::assertEquals("svg", documentTypeName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("staff", documentTypeName);
+          baseT::assertEquals("staff", documentTypeName, __LINE__, __FILE__);
   }
         
     

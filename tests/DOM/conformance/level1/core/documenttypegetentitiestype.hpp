@@ -81,13 +81,13 @@ class documenttypegetentitiestype : public DOMTestCase<string_type, string_adapt
       int entityType;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       entityList = docType.getEntities();
-      baseT::assertNotNull(entityList);
+      baseT::assertNotNull(entityList, __LINE__, __FILE__);
       for (int indexN65609 = 0; indexN65609 != entityList.getLength(); indexN65609++) {
           entity = (Node) entityList.item(indexN65609);
     entityType = (int) entity.getNodeType();
-      baseT::assertEquals(6, entityType);
+      baseT::assertEquals(6, entityType, __LINE__, __FILE__);
     }
       
    }

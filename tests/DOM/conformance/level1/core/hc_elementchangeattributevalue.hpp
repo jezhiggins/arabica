@@ -86,7 +86,7 @@ class hc_elementchangeattributevalue : public DOMTestCase<string_type, string_ad
       testEmployee = (Element) elementList.item(3);
       testEmployee.setAttribute(SA::construct_from_utf8("class"), SA::construct_from_utf8("Neither"));
       attrValue = testEmployee.getAttribute(SA::construct_from_utf8("class"));
-      baseT::assertEquals("Neither", attrValue);
+      baseT::assertEquals("Neither", attrValue, __LINE__, __FILE__);
   
    }
   

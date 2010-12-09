@@ -93,12 +93,12 @@ class noderemovechildnode : public DOMTestCase<string_type, string_adaptor>
       length = (int) childList.getLength();
       
       if (baseT::equals(5, length)) {
-          baseT::assertEquals("employeeId", removedName);
-  baseT::assertEquals("name", childName);
+          baseT::assertEquals("employeeId", removedName, __LINE__, __FILE__);
+  baseT::assertEquals("name", childName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("#text", removedName);
-  baseT::assertEquals("employeeId", childName);
-  baseT::assertEquals(12, length);
+          baseT::assertEquals("#text", removedName, __LINE__, __FILE__);
+  baseT::assertEquals("employeeId", childName, __LINE__, __FILE__);
+  baseT::assertEquals(12, length, __LINE__, __FILE__);
   }
         
     

@@ -82,14 +82,14 @@ class hc_attrappendchild6 : public DOMTestCase<string_type, string_adaptor>
       textNode = doc.createTextNode(SA::construct_from_utf8("Yesterday"));
       retval = titleAttr.appendChild(textNode);
       value = titleAttr.getValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   value = titleAttr.getNodeValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   value = retval.getNodeValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   lastChild = titleAttr.getLastChild();
       value = lastChild.getNodeValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   
    }
   

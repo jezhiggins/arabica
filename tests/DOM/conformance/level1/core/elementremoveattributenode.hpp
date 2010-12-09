@@ -85,7 +85,7 @@ class elementremoveattributenode : public DOMTestCase<string_type, string_adapto
       streetAttr = testEmployee.getAttributeNode(SA::construct_from_utf8("street"));
       removedAttr = testEmployee.removeAttributeNode(streetAttr);
       removedValue = removedAttr.getValue();
-      baseT::assertEquals("No", removedValue);
+      baseT::assertEquals("No", removedValue, __LINE__, __FILE__);
   
    }
   

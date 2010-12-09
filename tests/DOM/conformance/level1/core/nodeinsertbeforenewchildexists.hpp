@@ -135,7 +135,7 @@ class nodeinsertbeforenewchildexists : public DOMTestCase<string_type, string_ad
     childName = child.getNodeName();
       result.push_back(childName);
         }
-      baseT::assertEquals(expected, result);
+      baseT::assertEquals(expected, result, __LINE__, __FILE__);
   
    }
   

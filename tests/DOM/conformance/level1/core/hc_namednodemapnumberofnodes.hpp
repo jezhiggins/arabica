@@ -81,9 +81,9 @@ class hc_namednodemapnumberofnodes : public DOMTestCase<string_type, string_adap
       length = (int) attributes.getLength();
       
       if (("text/html" == baseT::getContentType())) {
-          baseT::assertEquals(2, length);
+          baseT::assertEquals(2, length, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(3, length);
+          baseT::assertEquals(3, length, __LINE__, __FILE__);
   }
         
     

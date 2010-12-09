@@ -82,9 +82,9 @@ class noderemovechildnomodificationallowederrEE : public DOMTestCase<string_type
       Node removedNode;
       doc = (Document) baseT::load("staff", true);
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       entText = entRef.getFirstChild();
-      baseT::assertNotNull(entText);
+      baseT::assertNotNull(entText, __LINE__, __FILE__);
       
       {
          boolean success = false;

@@ -98,7 +98,7 @@ class namednodemapsetnameditem : public DOMTestCase<string_type, string_adaptor>
       setNode = attributes.setNamedItem(newAttribute);
       districtNode = (Attr) attributes.getNamedItem(SA::construct_from_utf8("district"));
       attrName = districtNode.getNodeName();
-      baseT::assertEquals("district", attrName);
+      baseT::assertEquals("district", attrName, __LINE__, __FILE__);
   
    }
   

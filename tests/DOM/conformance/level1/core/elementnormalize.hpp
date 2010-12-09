@@ -88,7 +88,7 @@ class elementnormalize : public DOMTestCase<string_type, string_adaptor>
       testName = (Element) elementList.item(2);
       firstChild = testName.getFirstChild();
       childValue = firstChild.getNodeValue();
-      baseT::assertEquals("Roger\n Jones", childValue);
+      baseT::assertEquals("Roger\n Jones", childValue, __LINE__, __FILE__);
   
    }
   

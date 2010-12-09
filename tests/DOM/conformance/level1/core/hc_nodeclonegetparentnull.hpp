@@ -83,7 +83,7 @@ class hc_nodeclonegetparentnull : public DOMTestCase<string_type, string_adaptor
       employeeNode = elementList.item(1);
       clonedNode = employeeNode.cloneNode(false);
       parentNode = clonedNode.getParentNode();
-      baseT::assertNull(parentNode);
+      baseT::assertNull(parentNode, __LINE__, __FILE__);
       
    }
   

@@ -88,10 +88,10 @@ class hc_nodelistreturnlastitem : public DOMTestCase<string_type, string_adaptor
       childName = child.getNodeName();
       
       if (baseT::equals(12, index)) {
-          baseT::assertEquals("#text", childName);
+          baseT::assertEquals("#text", childName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("acronym", childName);
-  baseT::assertEquals(5, index);
+          baseT::assertEquals("acronym", childName, __LINE__, __FILE__);
+  baseT::assertEquals(5, index, __LINE__, __FILE__);
   }
         
     

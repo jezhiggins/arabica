@@ -89,17 +89,17 @@ class hc_attrinsertbefore2 : public DOMTestCase<string_type, string_adaptor>
       refChild = titleAttr.getFirstChild();
       retval = titleAttr.insertBefore(textNode, refChild);
       value = titleAttr.getValue();
-      baseT::assertEquals("terdayYes", value);
+      baseT::assertEquals("terdayYes", value, __LINE__, __FILE__);
   value = titleAttr.getNodeValue();
-      baseT::assertEquals("terdayYes", value);
+      baseT::assertEquals("terdayYes", value, __LINE__, __FILE__);
   value = retval.getNodeValue();
-      baseT::assertEquals("terday", value);
+      baseT::assertEquals("terday", value, __LINE__, __FILE__);
   firstChild = titleAttr.getFirstChild();
       value = firstChild.getNodeValue();
-      baseT::assertEquals("terday", value);
+      baseT::assertEquals("terday", value, __LINE__, __FILE__);
   lastChild = titleAttr.getLastChild();
       value = lastChild.getNodeValue();
-      baseT::assertEquals("Yes", value);
+      baseT::assertEquals("Yes", value, __LINE__, __FILE__);
   
    }
   

@@ -84,7 +84,7 @@ class nodelistindexequalzero : public DOMTestCase<string_type, string_adaptor>
       childName = child.getNodeName();
       
       if (!baseT::equals("#text", childName)) {
-          baseT::assertEquals("employeeId", childName);
+          baseT::assertEquals("employeeId", childName, __LINE__, __FILE__);
   }
     
    }

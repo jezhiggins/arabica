@@ -88,7 +88,7 @@ class nodeappendchildgetnodename : public DOMTestCase<string_type, string_adapto
       newChild = doc.createElement(SA::construct_from_utf8("newChild"));
       appendNode = employeeNode.appendChild(newChild);
       childName = appendNode.getNodeName();
-      baseT::assertEquals("newChild", childName);
+      baseT::assertEquals("newChild", childName, __LINE__, __FILE__);
   
    }
   

@@ -83,9 +83,9 @@ class characterdatasetnodevalue : public DOMTestCase<string_type, string_adaptor
       child = (CharacterData) nameNode.getFirstChild();
       child.setNodeValue(SA::construct_from_utf8("Marilyn Martin"));
       childData = child.getData();
-      baseT::assertEquals("Marilyn Martin", childData);
+      baseT::assertEquals("Marilyn Martin", childData, __LINE__, __FILE__);
   childValue = child.getNodeValue();
-      baseT::assertEquals("Marilyn Martin", childValue);
+      baseT::assertEquals("Marilyn Martin", childValue, __LINE__, __FILE__);
   
    }
   

@@ -82,9 +82,9 @@ class hc_nodegetownerdocument : public DOMTestCase<string_type, string_adaptor>
       elementName = docElement.getNodeName();
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals("svg", elementName);
+          baseT::assertEquals("svg", elementName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("html", elementName);
+          baseT::assertEquals("html", elementName, __LINE__, __FILE__);
   }
         
     

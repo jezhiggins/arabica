@@ -99,7 +99,7 @@ class elementgetelementsbytagnamespecialvalue : public DOMTestCase<string_type, 
     childName = child.getNodeName();
       result.push_back(childName);
         }
-      baseT::assertEquals(expectedResult, result);
+      baseT::assertEquals(expectedResult, result, __LINE__, __FILE__);
   
    }
   

@@ -89,9 +89,9 @@ class attrcreatetextnode : public DOMTestCase<string_type, string_adaptor>
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("street"));
       streetAttr.setValue(SA::construct_from_utf8("Y&ent1;"));
       value = streetAttr.getValue();
-      baseT::assertEquals("Y&ent1;", value);
+      baseT::assertEquals("Y&ent1;", value, __LINE__, __FILE__);
   value = streetAttr.getNodeValue();
-      baseT::assertEquals("Y&ent1;", value);
+      baseT::assertEquals("Y&ent1;", value, __LINE__, __FILE__);
   
    }
   

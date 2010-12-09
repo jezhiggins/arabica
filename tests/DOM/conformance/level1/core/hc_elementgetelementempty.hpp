@@ -90,7 +90,7 @@ class hc_elementgetelementempty : public DOMTestCase<string_type, string_adaptor
       testEmployee = (Element) elementList.item(3);
       domesticAttr = testEmployee.setAttributeNode(newAttribute);
       attrValue = testEmployee.getAttribute(SA::construct_from_utf8("lang"));
-      baseT::assertEquals("", attrValue);
+      baseT::assertEquals("", attrValue, __LINE__, __FILE__);
   
    }
   

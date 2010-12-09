@@ -80,7 +80,7 @@ class hc_elementremoveattribute : public DOMTestCase<string_type, string_adaptor
       testEmployee = (Element) elementList.item(3);
       testEmployee.removeAttribute(SA::construct_from_utf8("class"));
       attrValue = testEmployee.getAttribute(SA::construct_from_utf8("class"));
-      baseT::assertEquals("", attrValue);
+      baseT::assertEquals("", attrValue, __LINE__, __FILE__);
   
    }
   

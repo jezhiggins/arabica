@@ -83,12 +83,12 @@ class hc_attrchildnodes1 : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       titleAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("title"));
       childNodes = titleAttr.getChildNodes();
-      baseT::assertSize(1, childNodes);
+      baseT::assertSize(1, childNodes, __LINE__, __FILE__);
       textNode = (Text) childNodes.item(0);
       value = textNode.getNodeValue();
-      baseT::assertEquals("Yes", value);
+      baseT::assertEquals("Yes", value, __LINE__, __FILE__);
   textNode = (Text) childNodes.item(1);
-      baseT::assertNull(textNode);
+      baseT::assertNull(textNode, __LINE__, __FILE__);
       
    }
   

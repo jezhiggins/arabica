@@ -83,7 +83,7 @@ class hc_attreffectivevalue : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       domesticAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("title"));
       value = domesticAttr.getNodeValue();
-      baseT::assertEquals("Yes", value);
+      baseT::assertEquals("Yes", value, __LINE__, __FILE__);
   
    }
   

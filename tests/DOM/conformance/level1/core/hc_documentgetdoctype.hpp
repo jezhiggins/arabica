@@ -79,22 +79,22 @@ class hc_documentgetdoctype : public DOMTestCase<string_type, string_adaptor>
       if (
     !(("text/html" == baseT::getContentType()))
 ) {
-          baseT::assertNotNull(docType);
+          baseT::assertNotNull(docType, __LINE__, __FILE__);
       }
     
       if ((baseT::notNull(docType))) {
           docTypeName = docType.getName();
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals("svg", docTypeName);
+          baseT::assertEquals("svg", docTypeName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("html", docTypeName);
+          baseT::assertEquals("html", docTypeName, __LINE__, __FILE__);
   }
         
     nodeValue = docType.getNodeValue();
-      baseT::assertNull(nodeValue);
+      baseT::assertNull(nodeValue, __LINE__, __FILE__);
       attributes = docType.getAttributes();
-      baseT::assertNull(attributes);
+      baseT::assertNull(attributes, __LINE__, __FILE__);
       }
     
    }

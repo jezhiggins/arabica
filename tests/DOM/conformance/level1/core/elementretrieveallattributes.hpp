@@ -85,7 +85,7 @@ class elementretrieveallattributes : public DOMTestCase<string_type, string_adap
       addressList = doc.getElementsByTagName(SA::construct_from_utf8("address"));
       testAddress = addressList.item(0);
       attributes = testAddress.getAttributes();
-      baseT::assertSize(2, attributes);
+      baseT::assertSize(2, attributes, __LINE__, __FILE__);
       
    }
   

@@ -87,7 +87,7 @@ class elementchangeattributevalue : public DOMTestCase<string_type, string_adapt
       testEmployee = (Element) elementList.item(3);
       testEmployee.setAttribute(SA::construct_from_utf8("street"), SA::construct_from_utf8("Neither"));
       attrValue = testEmployee.getAttribute(SA::construct_from_utf8("street"));
-      baseT::assertEquals("Neither", attrValue);
+      baseT::assertEquals("Neither", attrValue, __LINE__, __FILE__);
   
    }
   

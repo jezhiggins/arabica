@@ -88,7 +88,7 @@ class characterdatareplacedataexceedslengthofdata : public DOMTestCase<string_ty
       child = (CharacterData) nameNode.getFirstChild();
       child.replaceData(0, 50, SA::construct_from_utf8("2600"));
       childData = child.getData();
-      baseT::assertEquals("2600", childData);
+      baseT::assertEquals("2600", childData, __LINE__, __FILE__);
   
    }
   

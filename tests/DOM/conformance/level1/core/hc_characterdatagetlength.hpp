@@ -84,7 +84,7 @@ class hc_characterdatagetlength : public DOMTestCase<string_type, string_adaptor
       child = (CharacterData) nameNode.getFirstChild();
       childValue = child.getData();
       childLength = SA::length(childValue);
-      baseT::assertEquals(15, childLength);
+      baseT::assertEquals(15, childLength, __LINE__, __FILE__);
   
    }
   

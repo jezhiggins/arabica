@@ -77,7 +77,7 @@ class hc_nodeelementnodetype : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("hc_staff", false);
       rootNode = doc.getDocumentElement();
       nodeType = (int) rootNode.getNodeType();
-      baseT::assertEquals(1, nodeType);
+      baseT::assertEquals(1, nodeType, __LINE__, __FILE__);
   
    }
   

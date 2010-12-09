@@ -91,7 +91,7 @@ class nodeinsertbeforenodename : public DOMTestCase<string_type, string_adaptor>
       newChild = doc.createElement(SA::construct_from_utf8("newChild"));
       insertedNode = employeeNode.insertBefore(newChild, refChild);
       childName = insertedNode.getNodeName();
-      baseT::assertEquals("newChild", childName);
+      baseT::assertEquals("newChild", childName, __LINE__, __FILE__);
   
    }
   

@@ -75,10 +75,10 @@ class nodevalue09 : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("staff", true);
       newNode = doc.createProcessingInstruction(SA::construct_from_utf8("TARGET"), SA::construct_from_utf8("DATA"));
       newValue = newNode.getNodeValue();
-      baseT::assertEquals("DATA", newValue);
+      baseT::assertEquals("DATA", newValue, __LINE__, __FILE__);
   newNode.setNodeValue(SA::construct_from_utf8("This should have an effect"));
       newValue = newNode.getNodeValue();
-      baseT::assertEquals("This should have an effect", newValue);
+      baseT::assertEquals("This should have an effect", newValue, __LINE__, __FILE__);
   
    }
   

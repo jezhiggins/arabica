@@ -75,7 +75,7 @@ class hc_nodegetownerdocumentnull : public DOMTestCase<string_type, string_adapt
       Document ownerDocument;
       doc = (Document) baseT::load("hc_staff", false);
       ownerDocument = doc.getOwnerDocument();
-      baseT::assertNull(ownerDocument);
+      baseT::assertNull(ownerDocument, __LINE__, __FILE__);
       
    }
   

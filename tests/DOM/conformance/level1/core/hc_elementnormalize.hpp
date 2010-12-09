@@ -90,7 +90,7 @@ class hc_elementnormalize : public DOMTestCase<string_type, string_adaptor>
       testName = (Element) elementList.item(0);
       firstChild = testName.getFirstChild();
       childValue = firstChild.getNodeValue();
-      baseT::assertEquals("56,000,000", childValue);
+      baseT::assertEquals("56,000,000", childValue, __LINE__, __FILE__);
   
    }
   

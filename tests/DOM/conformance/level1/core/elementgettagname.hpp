@@ -81,9 +81,9 @@ class elementgettagname : public DOMTestCase<string_type, string_adaptor>
       tagname = root.getTagName();
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals("svg", tagname);
+          baseT::assertEquals("svg", tagname, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("staff", tagname);
+          baseT::assertEquals("staff", tagname, __LINE__, __FILE__);
   }
         
     

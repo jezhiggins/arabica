@@ -82,7 +82,7 @@ class hc_characterdatagetdata : public DOMTestCase<string_type, string_adaptor>
       nameNode = elementList.item(0);
       child = (CharacterData) nameNode.getFirstChild();
       childData = child.getData();
-      baseT::assertEquals("Margaret Martin", childData);
+      baseT::assertEquals("Margaret Martin", childData, __LINE__, __FILE__);
   
    }
   

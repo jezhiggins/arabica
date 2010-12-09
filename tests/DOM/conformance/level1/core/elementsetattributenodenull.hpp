@@ -87,7 +87,7 @@ class elementsetattributenodenull : public DOMTestCase<string_type, string_adapt
       testEmployee = (Element) elementList.item(2);
       newAttribute = doc.createAttribute(SA::construct_from_utf8("district"));
       districtAttr = testEmployee.setAttributeNode(newAttribute);
-      baseT::assertNull(districtAttr);
+      baseT::assertNull(districtAttr, __LINE__, __FILE__);
       
    }
   

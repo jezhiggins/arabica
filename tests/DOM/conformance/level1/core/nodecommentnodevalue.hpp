@@ -87,7 +87,7 @@ class nodecommentnodevalue : public DOMTestCase<string_type, string_adaptor>
       
       if (baseT::equals("#comment", commentName)) {
           commentValue = commentNode.getNodeValue();
-      baseT::assertEquals(" This is comment number 1.", commentValue);
+      baseT::assertEquals(" This is comment number 1.", commentValue, __LINE__, __FILE__);
   }
       }
       

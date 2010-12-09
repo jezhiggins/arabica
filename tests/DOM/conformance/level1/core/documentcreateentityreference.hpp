@@ -84,13 +84,13 @@ class documentcreateentityreference : public DOMTestCase<string_type, string_ada
       int entRefType;
       doc = (Document) baseT::load("staff", true);
       newEntRefNode = doc.createEntityReference(SA::construct_from_utf8("ent1"));
-      baseT::assertNotNull(newEntRefNode);
+      baseT::assertNotNull(newEntRefNode, __LINE__, __FILE__);
       entRefValue = newEntRefNode.getNodeValue();
-      baseT::assertNull(entRefValue);
+      baseT::assertNull(entRefValue, __LINE__, __FILE__);
       entRefName = newEntRefNode.getNodeName();
-      baseT::assertEquals("ent1", entRefName);
+      baseT::assertEquals("ent1", entRefName, __LINE__, __FILE__);
   entRefType = (int) newEntRefNode.getNodeType();
-      baseT::assertEquals(5, entRefType);
+      baseT::assertEquals(5, entRefType, __LINE__, __FILE__);
   
    }
   

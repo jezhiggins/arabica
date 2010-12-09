@@ -88,7 +88,7 @@ class textwithnomarkup : public DOMTestCase<string_type, string_adaptor>
       nameNode = elementList.item(2);
       nodeV = nameNode.getFirstChild();
       value = nodeV.getNodeValue();
-      baseT::assertEquals("Roger\n Jones", value);
+      baseT::assertEquals("Roger\n Jones", value, __LINE__, __FILE__);
   
    }
   

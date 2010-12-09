@@ -84,7 +84,7 @@ class nodegetnextsibling : public DOMTestCase<string_type, string_adaptor>
           nsNode = nsNode.getNextSibling();
       nsName = nsNode.getNodeName();
       }
-    baseT::assertEquals("name", nsName);
+    baseT::assertEquals("name", nsName, __LINE__, __FILE__);
   
    }
   

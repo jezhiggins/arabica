@@ -98,9 +98,9 @@ class hc_nodeelementnodeattributes : public DOMTestCase<string_type, string_adap
         }
       
       if (("text/html" == baseT::getContentType())) {
-          baseT::assertEquals(htmlExpected, attrList);
+          baseT::assertEquals(htmlExpected, attrList, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(expected, attrList);
+          baseT::assertEquals(expected, attrList, __LINE__, __FILE__);
   }
         
     

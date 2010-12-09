@@ -81,7 +81,7 @@ class hc_nodegetlastchildnull : public DOMTestCase<string_type, string_adaptor>
       emNode = emList.item(0);
       emText = (CharacterData) emNode.getFirstChild();
       nullChild = emText.getLastChild();
-      baseT::assertNull(nullChild);
+      baseT::assertNull(nullChild, __LINE__, __FILE__);
       
    }
   

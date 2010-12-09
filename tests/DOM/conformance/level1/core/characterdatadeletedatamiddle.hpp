@@ -89,7 +89,7 @@ class characterdatadeletedatamiddle : public DOMTestCase<string_type, string_ada
       child = (CharacterData) nameNode.getFirstChild();
       child.deleteData(16, 8);
       childData = child.getData();
-      baseT::assertEquals("1230 North Ave. Texas 98551", childData);
+      baseT::assertEquals("1230 North Ave. Texas 98551", childData, __LINE__, __FILE__);
   
    }
   

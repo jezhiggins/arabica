@@ -87,7 +87,7 @@ class nodegetfirstchildnull : public DOMTestCase<string_type, string_adaptor>
       secondChildNode = employeeList.item(1);
       textNode = secondChildNode.getFirstChild();
       noChildNode = textNode.getFirstChild();
-      baseT::assertNull(noChildNode);
+      baseT::assertNull(noChildNode, __LINE__, __FILE__);
       
    }
   

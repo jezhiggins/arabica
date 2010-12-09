@@ -81,11 +81,11 @@ class hc_documentcreateelement : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("hc_staff", true);
       newElement = doc.createElement(SA::construct_from_utf8("acronym"));
       newElementName = newElement.getNodeName();
-      baseT::assertEquals("acronym", newElementName);
+      baseT::assertEquals("acronym", newElementName, __LINE__, __FILE__);
   newElementType = (int) newElement.getNodeType();
-      baseT::assertEquals(1, newElementType);
+      baseT::assertEquals(1, newElementType, __LINE__, __FILE__);
   newElementValue = newElement.getNodeValue();
-      baseT::assertNull(newElementValue);
+      baseT::assertNull(newElementValue, __LINE__, __FILE__);
       
    }
   

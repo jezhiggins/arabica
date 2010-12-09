@@ -87,9 +87,9 @@ class elementsetattributenomodificationallowederr : public DOMTestCase<string_ty
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
       entRef = (EntityReference) gender.getFirstChild();
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       entElement = (Element) entRef.getFirstChild();
-      baseT::assertNotNull(entElement);
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       
       {
          boolean success = false;

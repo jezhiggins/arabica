@@ -88,7 +88,7 @@ class nodechildnodesempty : public DOMTestCase<string_type, string_adaptor>
       secondCNode = childList.item(1);
       textNode = secondCNode.getFirstChild();
       childNodesList = textNode.getChildNodes();
-      baseT::assertSize(0, childNodesList);
+      baseT::assertSize(0, childNodesList, __LINE__, __FILE__);
       
    }
   

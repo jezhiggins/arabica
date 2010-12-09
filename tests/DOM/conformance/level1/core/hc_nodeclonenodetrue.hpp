@@ -106,7 +106,7 @@ class hc_nodeclonenodetrue : public DOMTestCase<string_type, string_adaptor>
     clonedChildName = clonedChild.getNodeName();
       result.push_back(clonedChildName);
         }
-      baseT::assertEquals(expected, result);
+      baseT::assertEquals(expected, result, __LINE__, __FILE__);
   
    }
   

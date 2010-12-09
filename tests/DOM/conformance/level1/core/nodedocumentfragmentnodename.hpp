@@ -80,7 +80,7 @@ class nodedocumentfragmentnodename : public DOMTestCase<string_type, string_adap
       doc = (Document) baseT::load("staff", true);
       docFragment = doc.createDocumentFragment();
       documentFragmentName = docFragment.getNodeName();
-      baseT::assertEquals("#document-fragment", documentFragmentName);
+      baseT::assertEquals("#document-fragment", documentFragmentName, __LINE__, __FILE__);
   
    }
   

@@ -84,7 +84,7 @@ class nodegetprevioussibling : public DOMTestCase<string_type, string_adaptor>
           psNode = psNode.getPreviousSibling();
       psName = psNode.getNodeName();
       }
-    baseT::assertEquals("employeeId", psName);
+    baseT::assertEquals("employeeId", psName, __LINE__, __FILE__);
   
    }
   

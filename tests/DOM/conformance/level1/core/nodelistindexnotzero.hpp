@@ -93,7 +93,7 @@ class nodelistindexnotzero : public DOMTestCase<string_type, string_adaptor>
       }
         
     childName = child.getNodeName();
-      baseT::assertEquals("name", childName);
+      baseT::assertEquals("name", childName, __LINE__, __FILE__);
   
    }
   

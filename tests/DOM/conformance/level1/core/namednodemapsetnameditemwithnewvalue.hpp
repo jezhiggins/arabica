@@ -92,7 +92,7 @@ class namednodemapsetnameditemwithnewvalue : public DOMTestCase<string_type, str
       newAttribute = doc.createAttribute(SA::construct_from_utf8("district"));
       attributes = testAddress.getAttributes();
       newNode = attributes.setNamedItem(newAttribute);
-      baseT::assertNull(newNode);
+      baseT::assertNull(newNode, __LINE__, __FILE__);
       
    }
   

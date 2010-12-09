@@ -86,9 +86,9 @@ class nodeparentnode : public DOMTestCase<string_type, string_adaptor>
       parentName = parentNode.getNodeName();
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals("svg", parentName);
+          baseT::assertEquals("svg", parentName, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("staff", parentName);
+          baseT::assertEquals("staff", parentName, __LINE__, __FILE__);
   }
         
     

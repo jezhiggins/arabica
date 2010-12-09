@@ -81,7 +81,7 @@ class nodeprocessinginstructionnodename : public DOMTestCase<string_type, string
       testList = doc.getChildNodes();
       piNode = testList.item(0);
       piName = piNode.getNodeName();
-      baseT::assertEquals("TEST-STYLE", piName);
+      baseT::assertEquals("TEST-STYLE", piName, __LINE__, __FILE__);
   
    }
   

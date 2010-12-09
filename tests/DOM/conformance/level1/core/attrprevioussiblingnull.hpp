@@ -84,7 +84,7 @@ class attrprevioussiblingnull : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       domesticAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("domestic"));
       s = domesticAttr.getPreviousSibling();
-      baseT::assertNull(s);
+      baseT::assertNull(s, __LINE__, __FILE__);
       
    }
   

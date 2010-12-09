@@ -78,13 +78,13 @@ class notationgetsystemidnull : public DOMTestCase<string_type, string_adaptor>
       String systemId;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       notations = docType.getNotations();
-      baseT::assertNotNull(notations);
+      baseT::assertNotNull(notations, __LINE__, __FILE__);
       notationNode = (Notation) notations.getNamedItem(SA::construct_from_utf8("notation1"));
       baseT::skipIfNull(notationNode);
      systemId = notationNode.getSystemId();
-      baseT::assertNull(systemId);
+      baseT::assertNull(systemId, __LINE__, __FILE__);
       
    }
   

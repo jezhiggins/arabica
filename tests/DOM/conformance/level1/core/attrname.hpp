@@ -85,9 +85,9 @@ class attrname : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("street"));
       name = streetAttr.getNodeName();
-      baseT::assertEquals("street", name);
+      baseT::assertEquals("street", name, __LINE__, __FILE__);
   name = streetAttr.getName();
-      baseT::assertEquals("street", name);
+      baseT::assertEquals("street", name, __LINE__, __FILE__);
   
    }
   

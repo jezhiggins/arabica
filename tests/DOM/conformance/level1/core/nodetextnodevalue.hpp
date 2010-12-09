@@ -84,7 +84,7 @@ class nodetextnodevalue : public DOMTestCase<string_type, string_adaptor>
       testAddr = (Element) elementList.item(0);
       textNode = testAddr.getFirstChild();
       textValue = textNode.getNodeValue();
-      baseT::assertEquals("1230 North Ave. Dallas, Texas 98551", textValue);
+      baseT::assertEquals("1230 North Ave. Dallas, Texas 98551", textValue, __LINE__, __FILE__);
   
    }
   

@@ -78,9 +78,9 @@ class hc_notationsremovenameditem1 : public DOMTestCase<string_type, string_adap
       if (
     !(("text/html" == baseT::getContentType()))
 ) {
-          baseT::assertNotNull(docType);
+          baseT::assertNotNull(docType, __LINE__, __FILE__);
       notations = docType.getNotations();
-      baseT::assertNotNull(notations);
+      baseT::assertNotNull(notations, __LINE__, __FILE__);
       
       {
          boolean success = false;

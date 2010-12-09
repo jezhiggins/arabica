@@ -99,7 +99,7 @@ class hc_attrgetvalue2 : public DOMTestCase<string_type, string_adaptor>
       firstChild = titleAttr.getFirstChild();
       retval = titleAttr.insertBefore(alphaRef, firstChild);
       value = titleAttr.getValue();
-      baseT::assertEquals("αYα", value);
+      baseT::assertEquals("αYα", value, __LINE__, __FILE__);
   }
         
     

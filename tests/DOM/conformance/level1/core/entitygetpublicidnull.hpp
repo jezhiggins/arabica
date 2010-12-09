@@ -82,12 +82,12 @@ class entitygetpublicidnull : public DOMTestCase<string_type, string_adaptor>
       String publicId;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       entityList = docType.getEntities();
-      baseT::assertNotNull(entityList);
+      baseT::assertNotNull(entityList, __LINE__, __FILE__);
       entityNode = (Entity) entityList.getNamedItem(SA::construct_from_utf8("ent1"));
       publicId = entityNode.getPublicId();
-      baseT::assertNull(publicId);
+      baseT::assertNull(publicId, __LINE__, __FILE__);
       
    }
   

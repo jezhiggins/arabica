@@ -90,17 +90,17 @@ class nodesetnodevaluenomodificationallowederr : public DOMTestCase<string_type,
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       genderNode = genderList.item(2);
       entRef = (EntityReference) genderNode.getFirstChild();
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       nodeType = (int) entRef.getNodeType();
       
       if (baseT::equals(1, nodeType)) {
           entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       }
     entElement = (Element) entRef.getFirstChild();
-      baseT::assertNotNull(entElement);
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       entElementText = (CharacterData) entElement.getFirstChild();
-      baseT::assertNotNull(entElementText);
+      baseT::assertNotNull(entElementText, __LINE__, __FILE__);
       
       {
          boolean success = false;

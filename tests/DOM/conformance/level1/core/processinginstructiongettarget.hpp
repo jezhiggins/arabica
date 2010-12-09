@@ -84,7 +84,7 @@ class processinginstructiongettarget : public DOMTestCase<string_type, string_ad
       childNodes = doc.getChildNodes();
       piNode = (ProcessingInstruction) childNodes.item(0);
       target = piNode.getTarget();
-      baseT::assertEquals("TEST-STYLE", target);
+      baseT::assertEquals("TEST-STYLE", target, __LINE__, __FILE__);
   
    }
   

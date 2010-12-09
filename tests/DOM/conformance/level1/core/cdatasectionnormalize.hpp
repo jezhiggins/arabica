@@ -85,13 +85,13 @@ class cdatasectionnormalize : public DOMTestCase<string_type, string_adaptor>
       lChild.normalize();
       childNodes = lChild.getChildNodes();
       cdataN = (CDATASection) childNodes.item(1);
-      baseT::assertNotNull(cdataN);
+      baseT::assertNotNull(cdataN, __LINE__, __FILE__);
       data = cdataN.getData();
-      baseT::assertEquals("This is a CDATASection with EntityReference number 2 &ent2;", data);
+      baseT::assertEquals("This is a CDATASection with EntityReference number 2 &ent2;", data, __LINE__, __FILE__);
   cdataN = (CDATASection) childNodes.item(3);
-      baseT::assertNotNull(cdataN);
+      baseT::assertNotNull(cdataN, __LINE__, __FILE__);
       data = cdataN.getData();
-      baseT::assertEquals("This is an adjacent CDATASection with a reference to a tab &tab;", data);
+      baseT::assertEquals("This is an adjacent CDATASection with a reference to a tab &tab;", data, __LINE__, __FILE__);
   
    }
   

@@ -94,7 +94,7 @@ class nodeinsertbeforerefchildnull : public DOMTestCase<string_type, string_adap
       insertedNode = employeeNode.insertBefore(newChild, refChild);
       child = employeeNode.getLastChild();
       childName = child.getNodeName();
-      baseT::assertEquals("newChild", childName);
+      baseT::assertEquals("newChild", childName, __LINE__, __FILE__);
   
    }
   

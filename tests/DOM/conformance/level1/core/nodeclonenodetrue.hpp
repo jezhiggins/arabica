@@ -124,9 +124,9 @@ class nodeclonenodetrue : public DOMTestCase<string_type, string_adaptor>
         }
       
       if (baseT::equals(6, length)) {
-          baseT::assertEquals(expectedNoWhitespace, result);
+          baseT::assertEquals(expectedNoWhitespace, result, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(expectedWhitespace, result);
+          baseT::assertEquals(expectedWhitespace, result, __LINE__, __FILE__);
   }
         
     

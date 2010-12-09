@@ -85,7 +85,7 @@ class namednodemapnumberofnodes : public DOMTestCase<string_type, string_adaptor
       testEmployee = elementList.item(2);
       attributes = testEmployee.getAttributes();
       length = (int) attributes.getLength();
-      baseT::assertEquals(2, length);
+      baseT::assertEquals(2, length, __LINE__, __FILE__);
   
    }
   

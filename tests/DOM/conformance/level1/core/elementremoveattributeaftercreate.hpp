@@ -90,7 +90,7 @@ class elementremoveattributeaftercreate : public DOMTestCase<string_type, string
       districtAttr = testEmployee.removeAttributeNode(newAttribute);
       attributes = testEmployee.getAttributes();
       districtAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("district"));
-      baseT::assertNull(districtAttr);
+      baseT::assertNull(districtAttr, __LINE__, __FILE__);
       
    }
   

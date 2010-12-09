@@ -95,9 +95,9 @@ class hc_namednodemapsetnameditemreturnvalue : public DOMTestCase<string_type, s
       newAttribute = doc.createAttribute(SA::construct_from_utf8("class"));
       attributes = testAddress.getAttributes();
       newNode = attributes.setNamedItem(newAttribute);
-      baseT::assertNotNull(newNode);
+      baseT::assertNotNull(newNode, __LINE__, __FILE__);
       attrValue = newNode.getNodeValue();
-      baseT::assertEquals("No", attrValue);
+      baseT::assertEquals("No", attrValue, __LINE__, __FILE__);
   
    }
   

@@ -98,7 +98,7 @@ class hc_elementgetelementsbytagnamespecialvalue : public DOMTestCase<string_typ
     childName = child.getNodeName();
       result.push_back(childName);
         }
-      baseT::assertEquals(expectedResult, result);
+      baseT::assertEquals(expectedResult, result, __LINE__, __FILE__);
   
    }
   

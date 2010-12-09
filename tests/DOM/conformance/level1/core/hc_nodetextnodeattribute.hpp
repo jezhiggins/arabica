@@ -82,7 +82,7 @@ class hc_nodetextnodeattribute : public DOMTestCase<string_type, string_adaptor>
       testAddr = elementList.item(0);
       textNode = testAddr.getFirstChild();
       attrList = textNode.getAttributes();
-      baseT::assertNull(attrList);
+      baseT::assertNull(attrList, __LINE__, __FILE__);
       
    }
   

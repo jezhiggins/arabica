@@ -90,17 +90,17 @@ class textsplittextnomodificationallowederr : public DOMTestCase<string_type, st
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
       entRef = gender.getFirstChild();
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       nodeType = (int) entRef.getNodeType();
       
       if (baseT::equals(1, nodeType)) {
           entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       }
     entElement = entRef.getFirstChild();
-      baseT::assertNotNull(entElement);
+      baseT::assertNotNull(entElement, __LINE__, __FILE__);
       entElementText = entElement.getFirstChild();
-      baseT::assertNotNull(entElementText);
+      baseT::assertNotNull(entElementText, __LINE__, __FILE__);
       
       {
          boolean success = false;

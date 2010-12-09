@@ -88,12 +88,12 @@ class hc_attrclonenode1 : public DOMTestCase<string_type, string_adaptor>
       clonedTitle = (Attr) titleAttr.cloneNode(false);
       textNode.setNodeValue(SA::construct_from_utf8("text_node_not_cloned"));
       value = clonedTitle.getValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   value = clonedTitle.getNodeValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   lastChild = clonedTitle.getLastChild();
       value = lastChild.getNodeValue();
-      baseT::assertEquals("terday", value);
+      baseT::assertEquals("terday", value, __LINE__, __FILE__);
   
    }
   

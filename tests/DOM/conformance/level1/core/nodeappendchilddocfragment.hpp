@@ -114,7 +114,7 @@ class nodeappendchilddocfragment : public DOMTestCase<string_type, string_adapto
       result.push_back(childName);
       }
       }
-      baseT::assertEquals(expected, result);
+      baseT::assertEquals(expected, result, __LINE__, __FILE__);
   
    }
   

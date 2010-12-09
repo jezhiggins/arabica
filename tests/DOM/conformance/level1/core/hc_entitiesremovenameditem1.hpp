@@ -78,9 +78,9 @@ class hc_entitiesremovenameditem1 : public DOMTestCase<string_type, string_adapt
       if (
     !(("text/html" == baseT::getContentType()))
 ) {
-          baseT::assertNotNull(docType);
+          baseT::assertNotNull(docType, __LINE__, __FILE__);
       entities = docType.getEntities();
-      baseT::assertNotNull(entities);
+      baseT::assertNotNull(entities, __LINE__, __FILE__);
       
       {
          boolean success = false;

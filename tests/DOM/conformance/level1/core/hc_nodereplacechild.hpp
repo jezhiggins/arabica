@@ -92,7 +92,7 @@ class hc_nodereplacechild : public DOMTestCase<string_type, string_adaptor>
       replacedNode = employeeNode.replaceChild(newChild, oldChild);
       child = childList.item(0);
       childName = child.getNodeName();
-      baseT::assertEquals("br", childName);
+      baseT::assertEquals("br", childName, __LINE__, __FILE__);
   
    }
   

@@ -83,9 +83,9 @@ class hc_elementremoveattributenode : public DOMTestCase<string_type, string_ada
       testEmployee = (Element) elementList.item(2);
       streetAttr = testEmployee.getAttributeNode(SA::construct_from_utf8("class"));
       removedAttr = testEmployee.removeAttributeNode(streetAttr);
-      baseT::assertNotNull(removedAttr);
+      baseT::assertNotNull(removedAttr, __LINE__, __FILE__);
       removedValue = removedAttr.getValue();
-      baseT::assertEquals("No", removedValue);
+      baseT::assertEquals("No", removedValue, __LINE__, __FILE__);
   
    }
   

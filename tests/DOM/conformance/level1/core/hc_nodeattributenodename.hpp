@@ -81,7 +81,7 @@ class hc_nodeattributenodename : public DOMTestCase<string_type, string_adaptor>
       testAddr = (Element) elementList.item(0);
       addrAttr = testAddr.getAttributeNode(SA::construct_from_utf8("title"));
       attrName = addrAttr.getNodeName();
-      baseT::assertEquals("title", attrName);
+      baseT::assertEquals("title", attrName, __LINE__, __FILE__);
   
    }
   

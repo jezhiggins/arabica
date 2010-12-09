@@ -87,7 +87,7 @@ class hc_elementsetattributenodenull : public DOMTestCase<string_type, string_ad
       testEmployee = (Element) elementList.item(2);
       newAttribute = doc.createAttribute(SA::construct_from_utf8("lang"));
       districtAttr = testEmployee.setAttributeNode(newAttribute);
-      baseT::assertNull(districtAttr);
+      baseT::assertNull(districtAttr, __LINE__, __FILE__);
       
    }
   

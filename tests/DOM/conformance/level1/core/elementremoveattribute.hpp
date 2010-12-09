@@ -87,7 +87,7 @@ class elementremoveattribute : public DOMTestCase<string_type, string_adaptor>
       testEmployee = (Element) elementList.item(3);
       testEmployee.removeAttribute(SA::construct_from_utf8("street"));
       attrValue = testEmployee.getAttribute(SA::construct_from_utf8("street"));
-      baseT::assertEquals("Yes", attrValue);
+      baseT::assertEquals("Yes", attrValue, __LINE__, __FILE__);
   
    }
   

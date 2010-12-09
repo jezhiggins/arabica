@@ -76,16 +76,16 @@ class nodevalue07 : public DOMTestCase<string_type, string_adaptor>
       DocumentType docType;
       doc = (Document) baseT::load("staff", true);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       nodeMap = docType.getEntities();
-      baseT::assertNotNull(nodeMap);
+      baseT::assertNotNull(nodeMap, __LINE__, __FILE__);
       newNode = nodeMap.getNamedItem(SA::construct_from_utf8("ent1"));
-      baseT::assertNotNull(newNode);
+      baseT::assertNotNull(newNode, __LINE__, __FILE__);
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       newNode.setNodeValue(SA::construct_from_utf8("This should have no effect"));
       newValue = newNode.getNodeValue();
-      baseT::assertNull(newValue);
+      baseT::assertNull(newValue, __LINE__, __FILE__);
       
    }
   

@@ -87,12 +87,12 @@ class hc_nodecommentnodetype : public DOMTestCase<string_type, string_adaptor>
       
       if (baseT::equals("#comment", commentNodeName)) {
           nodeType = (int) commentNode.getNodeType();
-      baseT::assertEquals(8, nodeType);
+      baseT::assertEquals(8, nodeType, __LINE__, __FILE__);
   }
       }
       commentNode = doc.createComment(SA::construct_from_utf8("This is a comment"));
       nodeType = (int) commentNode.getNodeType();
-      baseT::assertEquals(8, nodeType);
+      baseT::assertEquals(8, nodeType, __LINE__, __FILE__);
   
    }
   

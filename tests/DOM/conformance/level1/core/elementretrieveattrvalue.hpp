@@ -81,7 +81,7 @@ class elementretrieveattrvalue : public DOMTestCase<string_type, string_adaptor>
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("address"));
       testAddress = (Element) elementList.item(2);
       attrValue = testAddress.getAttribute(SA::construct_from_utf8("street"));
-      baseT::assertEquals("No", attrValue);
+      baseT::assertEquals("No", attrValue, __LINE__, __FILE__);
   
    }
   

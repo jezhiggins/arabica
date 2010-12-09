@@ -85,17 +85,17 @@ class hc_attrreplacechild1 : public DOMTestCase<string_type, string_adaptor>
       titleAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("title"));
       textNode = doc.createTextNode(SA::construct_from_utf8("terday"));
       firstChild = titleAttr.getFirstChild();
-      baseT::assertNotNull(firstChild);
+      baseT::assertNotNull(firstChild, __LINE__, __FILE__);
       retval = titleAttr.replaceChild(textNode, firstChild);
       value = titleAttr.getValue();
-      baseT::assertEquals("terday", value);
+      baseT::assertEquals("terday", value, __LINE__, __FILE__);
   value = titleAttr.getNodeValue();
-      baseT::assertEquals("terday", value);
+      baseT::assertEquals("terday", value, __LINE__, __FILE__);
   value = retval.getNodeValue();
-      baseT::assertEquals("Yes", value);
+      baseT::assertEquals("Yes", value, __LINE__, __FILE__);
   firstChild = titleAttr.getFirstChild();
       value = firstChild.getNodeValue();
-      baseT::assertEquals("terday", value);
+      baseT::assertEquals("terday", value, __LINE__, __FILE__);
   
    }
   

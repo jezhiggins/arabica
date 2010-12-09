@@ -88,7 +88,7 @@ class hc_characterdatainsertdatamiddle : public DOMTestCase<string_type, string_
       child = (CharacterData) nameNode.getFirstChild();
       child.insertData(9, SA::construct_from_utf8("Ann "));
       childData = child.getData();
-      baseT::assertEquals("Margaret Ann Martin", childData);
+      baseT::assertEquals("Margaret Ann Martin", childData, __LINE__, __FILE__);
   
    }
   

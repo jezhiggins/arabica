@@ -83,7 +83,7 @@ class nodeattributenodetype : public DOMTestCase<string_type, string_adaptor>
       testAddr = (Element) elementList.item(0);
       addrAttr = testAddr.getAttributeNode(SA::construct_from_utf8("domestic"));
       nodeType = (int) addrAttr.getNodeType();
-      baseT::assertEquals(2, nodeType);
+      baseT::assertEquals(2, nodeType, __LINE__, __FILE__);
   
    }
   

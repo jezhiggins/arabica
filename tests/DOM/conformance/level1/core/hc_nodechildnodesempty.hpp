@@ -86,7 +86,7 @@ class hc_nodechildnodesempty : public DOMTestCase<string_type, string_adaptor>
       textNode = employeeNode.getFirstChild();
       childList = textNode.getChildNodes();
       length = (int) childList.getLength();
-      baseT::assertEquals(0, length);
+      baseT::assertEquals(0, length, __LINE__, __FILE__);
   
    }
   

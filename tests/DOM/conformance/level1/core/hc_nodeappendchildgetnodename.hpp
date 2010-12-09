@@ -88,7 +88,7 @@ class hc_nodeappendchildgetnodename : public DOMTestCase<string_type, string_ada
       newChild = doc.createElement(SA::construct_from_utf8("br"));
       appendNode = employeeNode.appendChild(newChild);
       childName = appendNode.getNodeName();
-      baseT::assertEquals("br", childName);
+      baseT::assertEquals("br", childName, __LINE__, __FILE__);
   
    }
   

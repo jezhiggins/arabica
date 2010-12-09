@@ -91,17 +91,17 @@ class hc_attrreplacechild2 : public DOMTestCase<string_type, string_adaptor>
       retval = docFrag.appendChild(terNode);
       retval = docFrag.appendChild(dayNode);
       firstChild = titleAttr.getFirstChild();
-      baseT::assertNotNull(firstChild);
+      baseT::assertNotNull(firstChild, __LINE__, __FILE__);
       retval = titleAttr.replaceChild(docFrag, firstChild);
       value = titleAttr.getValue();
-      baseT::assertEquals("terday", value);
+      baseT::assertEquals("terday", value, __LINE__, __FILE__);
   value = titleAttr.getNodeValue();
-      baseT::assertEquals("terday", value);
+      baseT::assertEquals("terday", value, __LINE__, __FILE__);
   value = retval.getNodeValue();
-      baseT::assertEquals("Yes", value);
+      baseT::assertEquals("Yes", value, __LINE__, __FILE__);
   firstChild = titleAttr.getFirstChild();
       value = firstChild.getNodeValue();
-      baseT::assertEquals("ter", value);
+      baseT::assertEquals("ter", value, __LINE__, __FILE__);
   
    }
   

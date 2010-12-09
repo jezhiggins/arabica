@@ -91,7 +91,7 @@ class nodecdatasectionnodename : public DOMTestCase<string_type, string_adaptor>
           cdataNode = doc.createCDATASection(SA::construct_from_utf8(""));
       }
     cdataNodeName = cdataNode.getNodeName();
-      baseT::assertEquals("#cdata-section", cdataNodeName);
+      baseT::assertEquals("#cdata-section", cdataNodeName, __LINE__, __FILE__);
   
    }
   

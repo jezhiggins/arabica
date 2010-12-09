@@ -84,7 +84,7 @@ class nodegetfirstchild : public DOMTestCase<string_type, string_adaptor>
           fchildNode = fchildNode.getNextSibling();
       childName = fchildNode.getNodeName();
       }
-    baseT::assertEquals("employeeId", childName);
+    baseT::assertEquals("employeeId", childName, __LINE__, __FILE__);
   
    }
   

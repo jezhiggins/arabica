@@ -92,14 +92,14 @@ class hc_attrappendchild3 : public DOMTestCase<string_type, string_adaptor>
       retval = docFrag.appendChild(dayNode);
       retval = titleAttr.appendChild(docFrag);
       value = titleAttr.getValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   value = titleAttr.getNodeValue();
-      baseT::assertEquals("Yesterday", value);
+      baseT::assertEquals("Yesterday", value, __LINE__, __FILE__);
   value = retval.getNodeValue();
-      baseT::assertNull(value);
+      baseT::assertNull(value, __LINE__, __FILE__);
       lastChild = titleAttr.getLastChild();
       value = lastChild.getNodeValue();
-      baseT::assertEquals("day", value);
+      baseT::assertEquals("day", value, __LINE__, __FILE__);
   
    }
   

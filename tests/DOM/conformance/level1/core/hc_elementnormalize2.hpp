@@ -90,9 +90,9 @@ class hc_elementnormalize2 : public DOMTestCase<string_type, string_adaptor>
       attrNode = element.getAttributeNode(SA::construct_from_utf8("title"));
       firstChild = attrNode.getFirstChild();
       childValue = firstChild.getNodeValue();
-      baseT::assertEquals("Yes", childValue);
+      baseT::assertEquals("Yes", childValue, __LINE__, __FILE__);
   secondChild = firstChild.getNextSibling();
-      baseT::assertNull(secondChild);
+      baseT::assertNull(secondChild, __LINE__, __FILE__);
       
    }
   

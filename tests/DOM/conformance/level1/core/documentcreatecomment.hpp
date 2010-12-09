@@ -81,11 +81,11 @@ class documentcreatecomment : public DOMTestCase<string_type, string_adaptor>
       doc = (Document) baseT::load("staff", true);
       newCommentNode = doc.createComment(SA::construct_from_utf8("This is a new Comment node"));
       newCommentValue = newCommentNode.getNodeValue();
-      baseT::assertEquals("This is a new Comment node", newCommentValue);
+      baseT::assertEquals("This is a new Comment node", newCommentValue, __LINE__, __FILE__);
   newCommentName = newCommentNode.getNodeName();
-      baseT::assertEquals("#comment", newCommentName);
+      baseT::assertEquals("#comment", newCommentName, __LINE__, __FILE__);
   newCommentType = (int) newCommentNode.getNodeType();
-      baseT::assertEquals(8, newCommentType);
+      baseT::assertEquals(8, newCommentType, __LINE__, __FILE__);
   
    }
   

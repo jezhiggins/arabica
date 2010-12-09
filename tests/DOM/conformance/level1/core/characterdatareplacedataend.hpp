@@ -89,7 +89,7 @@ class characterdatareplacedataend : public DOMTestCase<string_type, string_adapt
       child = (CharacterData) nameNode.getFirstChild();
       child.replaceData(30, 5, SA::construct_from_utf8("98665"));
       childData = child.getData();
-      baseT::assertEquals("1230 North Ave. Dallas, Texas 98665", childData);
+      baseT::assertEquals("1230 North Ave. Dallas, Texas 98665", childData, __LINE__, __FILE__);
   
    }
   

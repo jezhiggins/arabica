@@ -89,7 +89,7 @@ class namednodemapremovenameditemreturnnodevalue : public DOMTestCase<string_typ
       attributes = testAddress.getAttributes();
       removedNode = attributes.removeNamedItem(SA::construct_from_utf8("street"));
       value = removedNode.getNodeValue();
-      baseT::assertEquals("No", value);
+      baseT::assertEquals("No", value, __LINE__, __FILE__);
   
    }
   

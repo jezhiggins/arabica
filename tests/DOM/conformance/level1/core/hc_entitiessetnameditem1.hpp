@@ -80,14 +80,14 @@ class hc_entitiessetnameditem1 : public DOMTestCase<string_type, string_adaptor>
       if (
     !(("text/html" == baseT::getContentType()))
 ) {
-          baseT::assertNotNull(docType);
+          baseT::assertNotNull(docType, __LINE__, __FILE__);
       entities = docType.getEntities();
-      baseT::assertNotNull(entities);
+      baseT::assertNotNull(entities, __LINE__, __FILE__);
       elem = doc.createElement(SA::construct_from_utf8("br"));
       
       try {
       retval = entities.setNamedItem(elem);
-      baseT::fail("throw_HIER_OR_NO_MOD_ERR");
+      baseT::fail("throw_HIER_OR_NO_MOD_ERR", __LINE__, __FILE__);
      
       } catch (DOMException ex) {
            switch (ex.code()) {

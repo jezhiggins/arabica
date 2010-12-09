@@ -91,7 +91,7 @@ class nodeappendchild : public DOMTestCase<string_type, string_adaptor>
       appendedChild = employeeNode.appendChild(createdNode);
       lchild = employeeNode.getLastChild();
       childName = lchild.getNodeName();
-      baseT::assertEquals("newChild", childName);
+      baseT::assertEquals("newChild", childName, __LINE__, __FILE__);
   
    }
   

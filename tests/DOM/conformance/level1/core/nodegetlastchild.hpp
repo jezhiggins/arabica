@@ -84,7 +84,7 @@ class nodegetlastchild : public DOMTestCase<string_type, string_adaptor>
           lchildNode = lchildNode.getPreviousSibling();
       childName = lchildNode.getNodeName();
       }
-    baseT::assertEquals("address", childName);
+    baseT::assertEquals("address", childName, __LINE__, __FILE__);
   
    }
   

@@ -77,9 +77,9 @@ class hc_elementgettagname : public DOMTestCase<string_type, string_adaptor>
       tagname = root.getTagName();
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals("svg", tagname);
+          baseT::assertEquals("svg", tagname, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("html", tagname);
+          baseT::assertEquals("html", tagname, __LINE__, __FILE__);
   }
         
     

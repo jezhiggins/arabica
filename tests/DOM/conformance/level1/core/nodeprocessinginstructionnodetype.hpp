@@ -81,7 +81,7 @@ class nodeprocessinginstructionnodetype : public DOMTestCase<string_type, string
       testList = doc.getChildNodes();
       piNode = testList.item(0);
       nodeType = (int) piNode.getNodeType();
-      baseT::assertEquals(7, nodeType);
+      baseT::assertEquals(7, nodeType, __LINE__, __FILE__);
   
    }
   

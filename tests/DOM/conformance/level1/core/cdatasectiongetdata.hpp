@@ -84,9 +84,9 @@ class cdatasectiongetdata : public DOMTestCase<string_type, string_adaptor>
       child = nameList.item(1);
       lastChild = child.getLastChild();
       nodeType = (int) lastChild.getNodeType();
-      baseT::assertEquals(4, nodeType);
+      baseT::assertEquals(4, nodeType, __LINE__, __FILE__);
   data = ((CharacterData) /*Node */lastChild).getData();
-      baseT::assertEquals("This is an adjacent CDATASection with a reference to a tab &tab;", data);
+      baseT::assertEquals("This is an adjacent CDATASection with a reference to a tab &tab;", data, __LINE__, __FILE__);
   
    }
   

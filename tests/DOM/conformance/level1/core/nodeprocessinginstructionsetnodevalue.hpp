@@ -80,9 +80,9 @@ class nodeprocessinginstructionsetnodevalue : public DOMTestCase<string_type, st
       piNode = testList.item(0);
       piNode.setNodeValue(SA::construct_from_utf8("Something different"));
       piValue = piNode.getNodeValue();
-      baseT::assertEquals("Something different", piValue);
+      baseT::assertEquals("Something different", piValue, __LINE__, __FILE__);
   piValue = ((ProcessingInstruction) /*Node */piNode).getData();
-      baseT::assertEquals("Something different", piValue);
+      baseT::assertEquals("Something different", piValue, __LINE__, __FILE__);
   
    }
   

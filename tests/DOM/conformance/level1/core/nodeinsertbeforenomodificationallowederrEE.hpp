@@ -83,7 +83,7 @@ class nodeinsertbeforenomodificationallowederrEE : public DOMTestCase<string_typ
       Node refChild;
       doc = (Document) baseT::load("staff", true);
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
-      baseT::assertNotNull(entRef);
+      baseT::assertNotNull(entRef, __LINE__, __FILE__);
       createdNode = doc.createElement(SA::construct_from_utf8("text3"));
       
       {

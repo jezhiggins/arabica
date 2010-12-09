@@ -78,13 +78,13 @@ class documenttypegetdoctype : public DOMTestCase<string_type, string_adaptor>
       String name;
       doc = (Document) baseT::load("staff", false);
       docType = doc.getDoctype();
-      baseT::assertNotNull(docType);
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
       name = docType.getName();
       
       if (("image/svg+xml" == baseT::getContentType())) {
-          baseT::assertEquals("svg", name);
+          baseT::assertEquals("svg", name, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals("staff", name);
+          baseT::assertEquals("staff", name, __LINE__, __FILE__);
   }
         
     

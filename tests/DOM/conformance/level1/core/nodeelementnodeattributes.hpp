@@ -96,7 +96,7 @@ class nodeelementnodeattributes : public DOMTestCase<string_type, string_adaptor
     attrName = attrNode.getNodeName();
       attrList.push_back(attrName);
         }
-      baseT::assertEquals(expected, attrList);
+      baseT::assertEquals(expected, attrList, __LINE__, __FILE__);
   
    }
   

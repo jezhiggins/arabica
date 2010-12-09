@@ -86,9 +86,9 @@ class hc_elementreplaceexistingattributegevalue : public DOMTestCase<string_type
       testEmployee = (Element) elementList.item(2);
       newAttribute = doc.createAttribute(SA::construct_from_utf8("class"));
       streetAttr = testEmployee.setAttributeNode(newAttribute);
-      baseT::assertNotNull(streetAttr);
+      baseT::assertNotNull(streetAttr, __LINE__, __FILE__);
       value = streetAttr.getValue();
-      baseT::assertEquals("No", value);
+      baseT::assertEquals("No", value, __LINE__, __FILE__);
   
    }
   

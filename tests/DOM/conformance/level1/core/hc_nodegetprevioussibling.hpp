@@ -82,7 +82,7 @@ class hc_nodegetprevioussibling : public DOMTestCase<string_type, string_adaptor
       nameNode = elementList.item(1);
       psNode = nameNode.getPreviousSibling();
       psName = psNode.getNodeName();
-      baseT::assertEquals("#text", psName);
+      baseT::assertEquals("#text", psName, __LINE__, __FILE__);
   
    }
   

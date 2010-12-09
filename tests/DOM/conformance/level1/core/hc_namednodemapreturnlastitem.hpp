@@ -105,9 +105,9 @@ class hc_namednodemapreturnlastitem : public DOMTestCase<string_type, string_ada
         }
       
       if (("text/html" == baseT::getContentType())) {
-          baseT::assertEquals(htmlExpected, actual);
+          baseT::assertEquals(htmlExpected, actual, __LINE__, __FILE__);
   } else {
-          baseT::assertEquals(expected, actual);
+          baseT::assertEquals(expected, actual, __LINE__, __FILE__);
   }
         
     
