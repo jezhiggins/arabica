@@ -14,6 +14,7 @@ LIBSILLY = ../CppUnit/libsillystring.la
 TESTLIBS = $(LIBARABICA) ../CppUnit/libcppunit.la
 
 test_sources = dom_test_suite.hpp \
+               dom_conf_test.hpp \
                test_Attribute.hpp \
                test_CDATA.hpp \
                test_CharacterData.hpp \
@@ -31,7 +32,7 @@ test_sources = dom_test_suite.hpp \
                test_Stream.hpp
 
 dom_test_SOURCES = main.cpp \
-                   $(test_sources)
+                   $(test_sources) 
 dom_test_LDADD =  $(TESTLIBS)
 dom_test_DEPENDENCIES = $(TESTLIBS)
 

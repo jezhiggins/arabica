@@ -8,6 +8,7 @@ EXTRA_DIST=vs7 \
            vs9 \
            vs10 \
            doc \
+           tests/DOM/conformance \
            tests/XSLT/testsuite \
            src/SAX/wrappers/saxexpat.cpp \
            src/SAX/wrappers/saxlibxml2.cpp \
