@@ -94,7 +94,7 @@ class processinginstructionsetdatanomodificationallowederrEE : public DOMTestCas
       entRef = gender.getLastChild();
       baseT::assertNotNull(entRef, __LINE__, __FILE__);
       n = entRef.getLastChild();
-      baseT::skipIfNot<ProcessingInstruction>(n);
+      baseT::template skipIfNot<ProcessingInstruction>(n);
      piNode = (ProcessingInstruction) entRef.getLastChild();
       baseT::assertNotNull(piNode, __LINE__, __FILE__);
       

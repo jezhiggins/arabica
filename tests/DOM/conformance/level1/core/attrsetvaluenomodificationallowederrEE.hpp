@@ -95,7 +95,7 @@ class attrsetvaluenomodificationallowederrEE : public DOMTestCase<string_type, s
       baseT::assertNotNull(entRef, __LINE__, __FILE__);
       appendedChild = gender.appendChild(entRef);
       entNode = entRef.getFirstChild();
-      baseT::skipIfNot<EntityReference>(entNode);
+      baseT::template skipIfNot<EntityReference>(entNode);
      entElement = (Element) entRef.getFirstChild();
       baseT::assertNotNull(entElement, __LINE__, __FILE__);
       attrList = entElement.getAttributes();
