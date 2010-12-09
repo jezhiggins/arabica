@@ -39,7 +39,7 @@ protected:
     return "";
   } // getContentType
   
-  void preload(const std::string& contentType, const std::string& docURI, bool willBeModified) const
+  void preload(const std::string& /*contentType*/, const std::string& /*docURI*/, bool /*willBeModified*/) const
   {
   } // preload
 
