@@ -44,7 +44,7 @@ bool DOM_test_suite(int argc, const char** argv)
   runner.addTest("TreeWalkerTest", TreeWalkerTest_suite<string_type, string_adaptor>());
   runner.addTest("StreamTest", StreamTest_suite<string_type, string_adaptor>());
 
-  runner.addTest("level1/core", DOM_Level_1_Core_Test_Suite<string_type, string_adaptor>());
+  runner.addTest("level1-core", DOM_Level_1_Core_Test_Suite<string_type, string_adaptor>());
 
   return runner.run(argc, argv);
 } // main
