@@ -133,18 +133,6 @@
       <Project>{74a66132-475a-4da1-8ef7-9cb0ef71e3d8}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="test_DOM_silly.vcxproj">
-      <Project>{7d957e35-93d3-4c9e-a5ef-4b0620ce758c}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="test_DOM_wide.vcxproj">
-      <Project>{de6fd811-12bd-4914-ba29-cd987c4b0d48}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="test_utils.vcxproj">
-      <Project>{fa1a13a0-07d3-4fc9-a2d2-9f5fa8c3c3a4}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

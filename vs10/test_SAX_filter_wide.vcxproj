@@ -125,10 +125,6 @@
       <Project>{4ca72415-d03a-4447-be4e-c093a5146cac}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="test_SAX_filter_silly.vcxproj">
-      <Project>{2e63a3dc-7a79-49f4-b0f9-78438dca876a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

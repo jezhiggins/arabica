@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -371,7 +371,7 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\vs7\ArabicaConfig.S">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /TC /EP -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /TC /EP -D USE_EXPAT ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\include\SAX\ArabicaConfig.hpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cl /TC /EP -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
