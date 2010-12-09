@@ -103,7 +103,7 @@ class hc_nodeinsertbefore : public DOMTestCase<string_type, string_adaptor>
       childList = employeeNode.getChildNodes();
       newChild = doc.createElement(SA::construct_from_utf8("br"));
       insertedNode = employeeNode.insertBefore(newChild, refChild);
-      for (int indexN65681 = 0; indexN65681 != childList.getLength(); indexN65681++) {
+      for (unsigned int indexN65681 = 0; indexN65681 != childList.getLength(); indexN65681++) {
           child = (Node) childList.item(indexN65681);
     nodeType = (int) child.getNodeType();
       

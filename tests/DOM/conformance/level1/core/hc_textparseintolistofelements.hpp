@@ -98,7 +98,7 @@ class hc_textparseintolistofelements : public DOMTestCase<string_type, string_ad
       addressNode = elementList.item(1);
       childList = addressNode.getChildNodes();
       length = (int) childList.getLength();
-      for (int indexN65660 = 0; indexN65660 != childList.getLength(); indexN65660++) {
+      for (unsigned int indexN65660 = 0; indexN65660 != childList.getLength(); indexN65660++) {
           child = (Node) childList.item(indexN65660);
     value = child.getNodeValue();
       

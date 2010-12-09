@@ -83,7 +83,7 @@ class documenttypegetnotationstype : public DOMTestCase<string_type, string_adap
       baseT::assertNotNull(docType, __LINE__, __FILE__);
       notationList = docType.getNotations();
       baseT::assertNotNull(notationList, __LINE__, __FILE__);
-      for (int indexN65609 = 0; indexN65609 != notationList.getLength(); indexN65609++) {
+      for (unsigned int indexN65609 = 0; indexN65609 != notationList.getLength(); indexN65609++) {
           notation = (Node) notationList.item(indexN65609);
     notationType = (int) notation.getNodeType();
       baseT::assertEquals(12, notationType, __LINE__, __FILE__);

@@ -95,7 +95,7 @@ class hc_nodecloneattributescopied : public DOMTestCase<string_type, string_adap
       addressNode = elementList.item(1);
       clonedNode = addressNode.cloneNode(false);
       attributes = clonedNode.getAttributes();
-      for (int indexN65654 = 0; indexN65654 != attributes.getLength(); indexN65654++) {
+      for (unsigned int indexN65654 = 0; indexN65654 != attributes.getLength(); indexN65654++) {
           attributeNode = (Node) attributes.item(indexN65654);
     attributeName = attributeNode.getNodeName();
       result.push_back(attributeName);

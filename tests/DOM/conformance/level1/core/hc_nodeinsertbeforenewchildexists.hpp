@@ -103,7 +103,7 @@ class hc_nodeinsertbeforenewchildexists : public DOMTestCase<string_type, string
       refChild = childList.item(5);
       newChild = childList.item(0);
       insertedNode = employeeNode.insertBefore(newChild, refChild);
-      for (int indexN65676 = 0; indexN65676 != childList.getLength(); indexN65676++) {
+      for (unsigned int indexN65676 = 0; indexN65676 != childList.getLength(); indexN65676++) {
           child = (Node) childList.item(indexN65676);
     nodeType = (int) child.getNodeType();
       

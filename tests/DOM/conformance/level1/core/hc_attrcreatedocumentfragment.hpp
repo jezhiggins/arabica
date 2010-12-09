@@ -90,7 +90,7 @@ class hc_attrcreatedocumentfragment : public DOMTestCase<string_type, string_ada
       appendedChild = docFragment.appendChild(newOne);
       domesticNode = docFragment.getFirstChild();
       attributes = domesticNode.getAttributes();
-      for (int indexN65656 = 0; indexN65656 != attributes.getLength(); indexN65656++) {
+      for (unsigned int indexN65656 = 0; indexN65656 != attributes.getLength(); indexN65656++) {
           attribute = (Attr) attributes.item(indexN65656);
     attrName = attribute.getNodeName();
       

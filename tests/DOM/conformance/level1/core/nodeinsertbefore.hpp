@@ -128,7 +128,7 @@ class nodeinsertbefore : public DOMTestCase<string_type, string_adaptor>
         
     newChild = doc.createElement(SA::construct_from_utf8("newChild"));
       insertedNode = employeeNode.insertBefore(newChild, refChild);
-      for (int indexN65756 = 0; indexN65756 != childList.getLength(); indexN65756++) {
+      for (unsigned int indexN65756 = 0; indexN65756 != childList.getLength(); indexN65756++) {
           child = (Node) childList.item(indexN65756);
     childName = child.getNodeName();
       actual.push_back(childName);

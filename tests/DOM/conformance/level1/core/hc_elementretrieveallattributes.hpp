@@ -90,7 +90,7 @@ class hc_elementretrieveallattributes : public DOMTestCase<string_type, string_a
       addressList = doc.getElementsByTagName(SA::construct_from_utf8("acronym"));
       testAddress = addressList.item(0);
       attributes = testAddress.getAttributes();
-      for (int indexN65643 = 0; indexN65643 != attributes.getLength(); indexN65643++) {
+      for (unsigned int indexN65643 = 0; indexN65643 != attributes.getLength(); indexN65643++) {
           attribute = (Attr) attributes.item(indexN65643);
     attributeName = attribute.getNodeName();
       actual.push_back(attributeName);

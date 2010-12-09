@@ -109,7 +109,7 @@ class hc_nodeappendchilddocfragment : public DOMTestCase<string_type, string_ada
       appendedChild = newdocFragment.appendChild(newChild1);
       appendedChild = newdocFragment.appendChild(newChild2);
       appendedChild = employeeNode.appendChild(newdocFragment);
-      for (int indexN65698 = 0; indexN65698 != childList.getLength(); indexN65698++) {
+      for (unsigned int indexN65698 = 0; indexN65698 != childList.getLength(); indexN65698++) {
           child = (Node) childList.item(indexN65698);
     nodeType = (int) child.getNodeType();
       

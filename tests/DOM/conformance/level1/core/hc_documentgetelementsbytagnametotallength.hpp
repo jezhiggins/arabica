@@ -168,7 +168,7 @@ class hc_documentgetelementsbytagnametotallength : public DOMTestCase<string_typ
       String thisTag;
       doc = (Document) baseT::load("hc_staff", false);
       nameList = doc.getElementsByTagName(SA::construct_from_utf8("*"));
-      for (int indexN65864 = 0; indexN65864 != nameList.getLength(); indexN65864++) {
+      for (unsigned int indexN65864 = 0; indexN65864 != nameList.getLength(); indexN65864++) {
           thisElement = (Element) nameList.item(indexN65864);
     thisTag = thisElement.getTagName();
       actualNames.push_back(thisTag);

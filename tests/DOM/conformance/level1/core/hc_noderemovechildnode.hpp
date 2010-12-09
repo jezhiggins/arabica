@@ -103,7 +103,7 @@ class hc_noderemovechildnode : public DOMTestCase<string_type, string_adaptor>
       removedChild = employeeNode.removeChild(oldChild);
       removedName = removedChild.getNodeName();
       baseT::assertEquals("em", removedName, __LINE__, __FILE__);
-  for (int indexN65684 = 0; indexN65684 != childList.getLength(); indexN65684++) {
+  for (unsigned int indexN65684 = 0; indexN65684 != childList.getLength(); indexN65684++) {
           child = (Node) childList.item(indexN65684);
     nodeType = (int) child.getNodeType();
       childName = child.getNodeName();

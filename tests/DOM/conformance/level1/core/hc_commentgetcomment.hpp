@@ -85,7 +85,7 @@ class hc_commentgetcomment : public DOMTestCase<string_type, string_adaptor>
       NamedNodeMap attributes;
       doc = (Document) baseT::load("hc_staff", false);
       elementList = doc.getChildNodes();
-      for (int indexN65630 = 0; indexN65630 != elementList.getLength(); indexN65630++) {
+      for (unsigned int indexN65630 = 0; indexN65630 != elementList.getLength(); indexN65630++) {
           child = (Node) elementList.item(indexN65630);
     childType = (int) child.getNodeType();
       

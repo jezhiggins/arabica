@@ -91,7 +91,7 @@ class hc_nodeelementnodeattributes : public DOMTestCase<string_type, string_adap
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("acronym"));
       testAddr = (Element) elementList.item(2);
       addrAttr = testAddr.getAttributes();
-      for (int indexN65648 = 0; indexN65648 != addrAttr.getLength(); indexN65648++) {
+      for (unsigned int indexN65648 = 0; indexN65648 != addrAttr.getLength(); indexN65648++) {
           attrNode = (Node) addrAttr.item(indexN65648);
     attrName = attrNode.getNodeName();
       attrList.push_back(attrName);

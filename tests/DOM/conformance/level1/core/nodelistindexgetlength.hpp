@@ -74,7 +74,6 @@ class nodelistindexgetlength : public DOMTestCase<string_type, string_adaptor>
       Node employeeNode;
       NodeList employeeList;
       int length;
-      int expectedCount = 0;
       doc = (Document) baseT::load("staff", false);
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("employee"));
       employeeNode = elementList.item(2);

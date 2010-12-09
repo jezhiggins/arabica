@@ -81,7 +81,7 @@ class nodecommentnodevalue : public DOMTestCase<string_type, string_adaptor>
       String commentValue;
       doc = (Document) baseT::load("staff", false);
       elementList = doc.getChildNodes();
-      for (int indexN65600 = 0; indexN65600 != elementList.getLength(); indexN65600++) {
+      for (unsigned int indexN65600 = 0; indexN65600 != elementList.getLength(); indexN65600++) {
           commentNode = (Node) elementList.item(indexN65600);
     commentName = commentNode.getNodeName();
       

@@ -91,7 +91,7 @@ class nodeelementnodeattributes : public DOMTestCase<string_type, string_adaptor
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("address"));
       testAddr = (Element) elementList.item(2);
       addrAttr = testAddr.getAttributes();
-      for (int indexN65628 = 0; indexN65628 != addrAttr.getLength(); indexN65628++) {
+      for (unsigned int indexN65628 = 0; indexN65628 != addrAttr.getLength(); indexN65628++) {
           attrNode = (Node) addrAttr.item(indexN65628);
     attrName = attrNode.getNodeName();
       attrList.push_back(attrName);

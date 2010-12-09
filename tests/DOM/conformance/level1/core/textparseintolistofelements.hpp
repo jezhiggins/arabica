@@ -99,7 +99,7 @@ class textparseintolistofelements : public DOMTestCase<string_type, string_adapt
       addressNode = elementList.item(1);
       childList = addressNode.getChildNodes();
       length = (int) childList.getLength();
-      for (int indexN65663 = 0; indexN65663 != childList.getLength(); indexN65663++) {
+      for (unsigned int indexN65663 = 0; indexN65663 != childList.getLength(); indexN65663++) {
           child = (Node) childList.item(indexN65663);
     value = child.getNodeValue();
       

@@ -94,7 +94,7 @@ class hc_nodelisttraverselist : public DOMTestCase<string_type, string_adaptor>
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("p"));
       employeeNode = elementList.item(2);
       employeeList = employeeNode.getChildNodes();
-      for (int indexN65651 = 0; indexN65651 != employeeList.getLength(); indexN65651++) {
+      for (unsigned int indexN65651 = 0; indexN65651 != employeeList.getLength(); indexN65651++) {
           child = (Node) employeeList.item(indexN65651);
     nodeType = (int) child.getNodeType();
       childName = child.getNodeName();

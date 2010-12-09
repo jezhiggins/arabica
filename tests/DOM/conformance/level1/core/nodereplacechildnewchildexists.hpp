@@ -125,7 +125,7 @@ class nodereplacechildnewchildexists : public DOMTestCase<string_type, string_ad
         
     replacedChild = employeeNode.replaceChild(newChild, oldChild);
       baseT::assertSame(oldChild, replacedChild, __LINE__, __FILE__);
-for (int indexN65758 = 0; indexN65758 != childList.getLength(); indexN65758++) {
+for (unsigned int indexN65758 = 0; indexN65758 != childList.getLength(); indexN65758++) {
           childNode = (Node) childList.item(indexN65758);
     childName = childNode.getNodeName();
       actual.push_back(childName);

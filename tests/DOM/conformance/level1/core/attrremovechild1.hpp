@@ -72,13 +72,16 @@ class attrremovechild1 : public DOMTestCase<string_type, string_adaptor>
       Document doc;
       EntityReference entRef;
       Element entElement;
+      Node entNode;
       Node attrNode;
       Text textNode;
       Node removedNode;
       doc = (Document) baseT::load("staff", true);
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
       baseT::assertNotNull(entRef, __LINE__, __FILE__);
-      entElement = (Element) entRef.getFirstChild();
+      entNode = entRef.getFirstChild();
+      baseT::template skipIfNot<Element>(entNode);
+     entElement = (Element) entRef.getFirstChild();
       baseT::assertNotNull(entElement, __LINE__, __FILE__);
       attrNode = entElement.getAttributeNode(SA::construct_from_utf8("domestic"));
       textNode = (Text) attrNode.getFirstChild();

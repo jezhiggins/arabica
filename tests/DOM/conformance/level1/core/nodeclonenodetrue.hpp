@@ -117,7 +117,7 @@ class nodeclonenodetrue : public DOMTestCase<string_type, string_adaptor>
       length = (int) childList.getLength();
       clonedNode = employeeNode.cloneNode(true);
       clonedList = clonedNode.getChildNodes();
-      for (int indexN65710 = 0; indexN65710 != clonedList.getLength(); indexN65710++) {
+      for (unsigned int indexN65710 = 0; indexN65710 != clonedList.getLength(); indexN65710++) {
           clonedChild = (Node) clonedList.item(indexN65710);
     clonedChildName = clonedChild.getNodeName();
       result.push_back(clonedChildName);

@@ -94,14 +94,14 @@ class hc_nodeclonenodetrue : public DOMTestCase<string_type, string_adaptor>
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("p"));
       employeeNode = elementList.item(1);
       origList = employeeNode.getChildNodes();
-      for (int indexN65637 = 0; indexN65637 != origList.getLength(); indexN65637++) {
+      for (unsigned int indexN65637 = 0; indexN65637 != origList.getLength(); indexN65637++) {
           origChild = (Node) origList.item(indexN65637);
     origChildName = origChild.getNodeName();
       expected.push_back(origChildName);
         }
       clonedNode = employeeNode.cloneNode(true);
       clonedList = clonedNode.getChildNodes();
-      for (int indexN65659 = 0; indexN65659 != clonedList.getLength(); indexN65659++) {
+      for (unsigned int indexN65659 = 0; indexN65659 != clonedList.getLength(); indexN65659++) {
           clonedChild = (Node) clonedList.item(indexN65659);
     clonedChildName = clonedChild.getNodeName();
       result.push_back(clonedChildName);

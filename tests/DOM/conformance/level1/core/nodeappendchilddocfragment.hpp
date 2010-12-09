@@ -105,7 +105,7 @@ class nodeappendchilddocfragment : public DOMTestCase<string_type, string_adapto
       appendedChild = newdocFragment.appendChild(newChild1);
       appendedChild = newdocFragment.appendChild(newChild2);
       appendedChild = employeeNode.appendChild(newdocFragment);
-      for (int indexN65695 = 0; indexN65695 != childList.getLength(); indexN65695++) {
+      for (unsigned int indexN65695 = 0; indexN65695 != childList.getLength(); indexN65695++) {
           child = (Node) childList.item(indexN65695);
     nodeType = (int) child.getNodeType();
       

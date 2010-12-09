@@ -86,6 +86,7 @@ class elementremoveattributenodenomodificationallowederr : public DOMTestCase<st
       int nodeType;
       NodeList gList;
       Element genElement;
+      Node genNode;
       NamedNodeMap attrList;
       Attr attrNode;
       Attr removedAttr;
@@ -102,7 +103,9 @@ class elementremoveattributenodenomodificationallowederr : public DOMTestCase<st
       baseT::assertNotNull(gen, __LINE__, __FILE__);
       }
     gList = gen.getChildNodes();
-      genElement = (Element) gList.item(0);
+      genNode = gList.item(0);
+      baseT::template skipIfNot<Element>(genNode);
+     genElement = (Element) gList.item(0);
       baseT::assertNotNull(genElement, __LINE__, __FILE__);
       attrList = genElement.getAttributes();
       attrNode = (Attr) attrList.getNamedItem(SA::construct_from_utf8("domestic"));

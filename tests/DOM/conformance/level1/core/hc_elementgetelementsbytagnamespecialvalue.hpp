@@ -93,7 +93,7 @@ class hc_elementgetelementsbytagnamespecialvalue : public DOMTestCase<string_typ
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("p"));
       lastEmployee = (Element) elementList.item(4);
       lastempList = lastEmployee.getElementsByTagName(SA::construct_from_utf8("*"));
-      for (int indexN65639 = 0; indexN65639 != lastempList.getLength(); indexN65639++) {
+      for (unsigned int indexN65639 = 0; indexN65639 != lastempList.getLength(); indexN65639++) {
           child = (Node) lastempList.item(indexN65639);
     childName = child.getNodeName();
       result.push_back(childName);

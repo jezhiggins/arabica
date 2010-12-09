@@ -102,14 +102,14 @@ class hc_nodeappendchildchildexists : public DOMTestCase<string_type, string_ada
       childList = ((Element) /*Node */childNode).getElementsByTagName(SA::construct_from_utf8("*"));
       newChild = childList.item(0);
       appendedChild = childNode.appendChild(newChild);
-      for (int indexN65669 = 0; indexN65669 != childList.getLength(); indexN65669++) {
+      for (unsigned int indexN65669 = 0; indexN65669 != childList.getLength(); indexN65669++) {
           memberNode = (Node) childList.item(indexN65669);
     memberName = memberNode.getNodeName();
       actual.push_back(memberName);
         }
       baseT::assertEquals(expected, actual, __LINE__, __FILE__);
   childList = childNode.getChildNodes();
-      for (int indexN65692 = 0; indexN65692 != childList.getLength(); indexN65692++) {
+      for (unsigned int indexN65692 = 0; indexN65692 != childList.getLength(); indexN65692++) {
           memberNode = (Node) childList.item(indexN65692);
     nodeType = (int) memberNode.getNodeType();
       

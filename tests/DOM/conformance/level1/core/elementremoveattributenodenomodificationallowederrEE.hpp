@@ -83,6 +83,7 @@ class elementremoveattributenodenomodificationallowederrEE : public DOMTestCase<
       Node gender;
       EntityReference entRef;
       Element entElement;
+      Node entNode;
       NamedNodeMap attrList;
       Attr attrNode;
       Attr removedAttr;
@@ -93,7 +94,9 @@ class elementremoveattributenodenomodificationallowederrEE : public DOMTestCase<
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
       baseT::assertNotNull(entRef, __LINE__, __FILE__);
       appendedChild = gender.appendChild(entRef);
-      entElement = (Element) entRef.getFirstChild();
+      entNode = entRef.getFirstChild();
+      baseT::template skipIfNot<Element>(entNode);
+     entElement = (Element) entRef.getFirstChild();
       baseT::assertNotNull(entElement, __LINE__, __FILE__);
       attrList = entElement.getAttributes();
       attrNode = (Attr) attrList.getNamedItem(SA::construct_from_utf8("domestic"));

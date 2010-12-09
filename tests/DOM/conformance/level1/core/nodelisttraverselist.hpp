@@ -110,7 +110,7 @@ class nodelisttraverselist : public DOMTestCase<string_type, string_adaptor>
       employeeNode = elementList.item(2);
       employeeList = employeeNode.getChildNodes();
       length = (int) employeeList.getLength();
-      for (int indexN65700 = 0; indexN65700 != employeeList.getLength(); indexN65700++) {
+      for (unsigned int indexN65700 = 0; indexN65700 != employeeList.getLength(); indexN65700++) {
           child = (Node) employeeList.item(indexN65700);
     childName = child.getNodeName();
       result.push_back(childName);

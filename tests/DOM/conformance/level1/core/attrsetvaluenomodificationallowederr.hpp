@@ -96,7 +96,8 @@ class attrsetvaluenomodificationallowederr : public DOMTestCase<string_type, str
       baseT::assertNotNull(gen, __LINE__, __FILE__);
       gList = gen.getChildNodes();
       g = gList.item(0);
-      baseT::assertNotNull(g, __LINE__, __FILE__);
+      baseT::template skipIfNot<EntityReference>(g);
+     baseT::assertNotNull(g, __LINE__, __FILE__);
       attrList = g.getAttributes();
       baseT::assertNotNull(attrList, __LINE__, __FILE__);
       attrNode = (Attr) attrList.getNamedItem(SA::construct_from_utf8("domestic"));

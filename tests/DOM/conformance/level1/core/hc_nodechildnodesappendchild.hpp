@@ -105,7 +105,7 @@ class hc_nodechildnodesappendchild : public DOMTestCase<string_type, string_adap
       childList = employeeNode.getChildNodes();
       createdNode = doc.createElement(SA::construct_from_utf8("br"));
       employeeNode = employeeNode.appendChild(createdNode);
-      for (int indexN65671 = 0; indexN65671 != childList.getLength(); indexN65671++) {
+      for (unsigned int indexN65671 = 0; indexN65671 != childList.getLength(); indexN65671++) {
           childNode = (Node) childList.item(indexN65671);
     childName = childNode.getNodeName();
       childType = (int) childNode.getNodeType();

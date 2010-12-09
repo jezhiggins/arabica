@@ -89,7 +89,7 @@ class nodechildnodes : public DOMTestCase<string_type, string_adaptor>
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("employee"));
       employeeNode = elementList.item(1);
       childNodes = employeeNode.getChildNodes();
-      for (int indexN65644 = 0; indexN65644 != childNodes.getLength(); indexN65644++) {
+      for (unsigned int indexN65644 = 0; indexN65644 != childNodes.getLength(); indexN65644++) {
           childNode = (Node) childNodes.item(indexN65644);
     childType = (int) childNode.getNodeType();
       

@@ -96,7 +96,7 @@ class hc_namednodemapreturnfirstitem : public DOMTestCase<string_type, string_ad
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("acronym"));
       testAddress = elementList.item(1);
       attributes = testAddress.getAttributes();
-      for (int indexN65648 = 0; indexN65648 != attributes.getLength(); indexN65648++) {
+      for (unsigned int indexN65648 = 0; indexN65648 != attributes.getLength(); indexN65648++) {
           child = (Node) attributes.item(indexN65648);
     nodeName = child.getNodeName();
       actual.push_back(nodeName);

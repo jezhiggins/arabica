@@ -102,7 +102,7 @@ class documenttypegetentities : public DOMTestCase<string_type, string_adaptor>
       baseT::assertNotNull(docType, __LINE__, __FILE__);
       entityList = docType.getEntities();
       baseT::assertNotNull(entityList, __LINE__, __FILE__);
-      for (int indexN65659 = 0; indexN65659 != entityList.getLength(); indexN65659++) {
+      for (unsigned int indexN65659 = 0; indexN65659 != entityList.getLength(); indexN65659++) {
           entity = (Node) entityList.item(indexN65659);
     name = entity.getNodeName();
       nameList.push_back(name);

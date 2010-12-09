@@ -81,7 +81,7 @@ class hc_nodecommentnodetype : public DOMTestCase<string_type, string_adaptor>
       int nodeType;
       doc = (Document) baseT::load("hc_staff", false);
       testList = doc.getChildNodes();
-      for (int indexN65600 = 0; indexN65600 != testList.getLength(); indexN65600++) {
+      for (unsigned int indexN65600 = 0; indexN65600 != testList.getLength(); indexN65600++) {
           commentNode = (Node) testList.item(indexN65600);
     commentNodeName = commentNode.getNodeName();
       

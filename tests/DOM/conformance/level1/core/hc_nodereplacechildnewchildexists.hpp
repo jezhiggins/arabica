@@ -99,7 +99,7 @@ class hc_nodereplacechildnewchildexists : public DOMTestCase<string_type, string
       oldChild = childList.item(5);
       replacedChild = employeeNode.replaceChild(newChild, oldChild);
       baseT::assertSame(oldChild, replacedChild, __LINE__, __FILE__);
-for (int indexN65684 = 0; indexN65684 != childList.getLength(); indexN65684++) {
+for (unsigned int indexN65684 = 0; indexN65684 != childList.getLength(); indexN65684++) {
           childNode = (Node) childList.item(indexN65684);
     childName = childNode.getNodeName();
       nodeType = (int) childNode.getNodeType();

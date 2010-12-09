@@ -83,7 +83,7 @@ class commentgetcomment : public DOMTestCase<string_type, string_adaptor>
       int childType;
       doc = (Document) baseT::load("staff", false);
       elementList = doc.getChildNodes();
-      for (int indexN65623 = 0; indexN65623 != elementList.getLength(); indexN65623++) {
+      for (unsigned int indexN65623 = 0; indexN65623 != elementList.getLength(); indexN65623++) {
           child = (Node) elementList.item(indexN65623);
     childType = (int) child.getNodeType();
       

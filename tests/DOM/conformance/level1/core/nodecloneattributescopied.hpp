@@ -93,7 +93,7 @@ class nodecloneattributescopied : public DOMTestCase<string_type, string_adaptor
       addressNode = elementList.item(1);
       clonedNode = addressNode.cloneNode(false);
       attributes = clonedNode.getAttributes();
-      for (int indexN65637 = 0; indexN65637 != attributes.getLength(); indexN65637++) {
+      for (unsigned int indexN65637 = 0; indexN65637 != attributes.getLength(); indexN65637++) {
           attributeNode = (Node) attributes.item(indexN65637);
     attributeName = attributeNode.getNodeName();
       result.push_back(attributeName);
