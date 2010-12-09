@@ -1,6 +1,6 @@
 
 #ifdef _MSC_VER
-#pragma warning(disable: 4786 4250 4503)
+#pragma warning(disable: 4786 4250 4503 4244)
 #endif
 
 #include "dom_test_suite.hpp"

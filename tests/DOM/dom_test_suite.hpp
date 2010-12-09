@@ -21,6 +21,8 @@
 #include "test_NamedNodeMap.hpp"
 #include "test_Stream.hpp"
 
+#include "conformance/level1/core/alltests.hpp"
+
 template<class string_type, class string_adaptor>
 bool DOM_test_suite(int argc, const char** argv)
 {
@@ -41,7 +43,9 @@ bool DOM_test_suite(int argc, const char** argv)
   runner.addTest("NamedNodeMapTest", NamedNodeMapTest_suite<string_type, string_adaptor>());
   runner.addTest("TreeWalkerTest", TreeWalkerTest_suite<string_type, string_adaptor>());
   runner.addTest("StreamTest", StreamTest_suite<string_type, string_adaptor>());
-  
+
+  runner.addTest("level1/core", DOM_Level_1_Core_Test_Suite<string_type, string_adaptor>());
+
   return runner.run(argc, argv);
 } // main
 

@@ -1,5 +1,5 @@
 #ifdef _MSC_VER
-#pragma warning(disable: 4786 4250 4503)
+#pragma warning(disable: 4786 4250 4503 4244)
 #endif
 
 #ifndef ARABICA_NO_WCHAR_T
