@@ -65,8 +65,8 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     } // setAttributeNode
     virtual DOMNode_implT* setNamedItem(DOMNode_implT* newAttr)
     {
-      throwIfReadOnly();
-	    checkNotInUse(newAttr);
+      NamedNodeMapImplT::throwIfReadOnly();
+      checkNotInUse(newAttr);
       dynamic_cast<AttrImplT*>(newAttr)->setOwnerElement(ownerElement_);
       return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItem(newAttr));
     } // setNamedItem
@@ -113,8 +113,8 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     } // setAttributeNodeNS
     virtual DOMNode_implT* setNamedItemNS(DOMNode_implT* newAttr)
     {
-      throwIfReadOnly();
-	    checkNotInUse(newAttr);
+      NamedNodeMapImplT::throwIfReadOnly();
+      checkNotInUse(newAttr);
       dynamic_cast<AttrImplT*>(newAttr)->setOwnerElement(ownerElement_);
       return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItemNS(newAttr));
     } // setNamedItem
@@ -193,12 +193,12 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
       return 0;
     } // getDefaultAttrs
 
-	  void checkNotInUse(DOMNode_implT* newAttr)
-	  { 
+    void checkNotInUse(DOMNode_implT* newAttr)
+    { 
       AttrImplT* attr = dynamic_cast<AttrImplT*>(newAttr);
-	    if(!attr->isOrphaned())
+      if(!attr->isOrphaned())
         throw DOM::DOMException(DOM::DOMException::INUSE_ATTRIBUTE_ERR);
-	  } // checkNotInUse
+    } // checkNotInUse
 
     ElementImplT* ownerElement_;
 }; // class AttrMap

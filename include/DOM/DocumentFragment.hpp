@@ -21,14 +21,16 @@ template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<
 class DocumentFragment : public Node<stringT, string_adaptorT>
 {
   public:
+    typedef Node<stringT, string_adaptorT> NodeT;
+
     DocumentFragment() : Node<stringT, string_adaptorT>() { }
     explicit DocumentFragment(DocumentFragment_impl<stringT, string_adaptorT>* impl) : Node<stringT, string_adaptorT>(impl) { }
     DocumentFragment(const DocumentFragment& rhs) : Node<stringT, string_adaptorT>(rhs) { }
     explicit DocumentFragment(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)  
     {
-	  if(NodeT::impl_ == 0) // null nodes can always be cast
-		return;
-      if(rhs.getNodeType() != Node<stringT, string_adaptorT>::DOCUMENT_FRAGMENT_NODE)
+      if(NodeT::impl_ == 0) // null nodes can always be cast
+	return;
+      if(rhs.getNodeType() != Node_base::DOCUMENT_FRAGMENT_NODE)
         throw std::bad_cast();
     }
 }; // class DocumentFragment

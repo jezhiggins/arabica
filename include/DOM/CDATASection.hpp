@@ -20,13 +20,15 @@ class CDATASection : public Text<stringT, string_adaptorT>
 {
     typedef Text<stringT, string_adaptorT> TextT;
   public:
+    typedef Node<stringT, string_adaptorT> NodeT;
+
     CDATASection() : Text<stringT, string_adaptorT>() { }
     explicit CDATASection(CDATASection_impl<stringT, string_adaptorT>* impl) : Text<stringT, string_adaptorT>(impl) { }
     CDATASection(const CDATASection& rhs) : Text<stringT, string_adaptorT>(rhs) { }
     explicit CDATASection(const Node<stringT, string_adaptorT>& rhs) : Text<stringT, string_adaptorT>(rhs, 0)  
     {
-	  if(NodeT::impl_ == 0) // null nodes can always be cast
-		return;
+      if(NodeT::impl_ == 0) // null nodes can always be cast
+	return;
       if(rhs.getNodeType() != Node_base::CDATA_SECTION_NODE)
         //throw std::runtime_error("bad_cast: Cannot convert Node to CDATA section");
         throw std::bad_cast();

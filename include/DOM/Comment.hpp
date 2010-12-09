@@ -19,14 +19,16 @@ template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<
 class Comment : public CharacterData<stringT, string_adaptorT>
 {
   public:
+    typedef Node<stringT, string_adaptorT> NodeT;
+  
     Comment() : CharacterData<stringT, string_adaptorT>() { }
     explicit Comment(Comment_impl<stringT, string_adaptorT>* impl) : CharacterData<stringT, string_adaptorT>(dynamic_cast<Comment_impl<stringT, string_adaptorT>*>(impl)) { }
     Comment(const Comment& rhs) : CharacterData<stringT, string_adaptorT>(rhs) { }
     explicit Comment(const Node<stringT, string_adaptorT>& rhs) : CharacterData<stringT, string_adaptorT>(rhs)  
     {
-	  if(NodeT::impl_ == 0) // null nodes can always be cast
-		return;
-      if(rhs.getNodeType() != Node<stringT, string_adaptorT>::COMMENT_NODE)
+      if(NodeT::impl_ == 0) // null nodes can always be cast
+	return;
+      if(rhs.getNodeType() != Node_base::COMMENT_NODE)
         throw std::bad_cast();
     } // Comment
 }; // class Comment
