@@ -27,6 +27,10 @@ public:
   {
   } // DOMBadCase
 
+  virtual ~DOMBadCast() throw()
+  {
+  } // DOMBadCast
+
   virtual const char* what() const throw()
   {
     return message_.c_str();
@@ -72,6 +76,10 @@ public:
     code_(rhs.code_)
   {
   } // DOMException
+
+  virtual ~DOMException() throw()
+  {
+  } // DOMBadCast
 
   CODE code() const { return code_; }
 
