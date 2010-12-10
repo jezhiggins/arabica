@@ -34,7 +34,7 @@ class Attr : public Node<stringT, string_adaptorT>
 	  if(NodeT::impl_ == 0) // null nodes can always be cast
 		return;
       if(rhs.getNodeType() != NodeT::ATTRIBUTE_NODE)
-        throw std::bad_cast();
+        throw DOMBadCast("Attr");
     } // Attr
 
     const stringT& getName() const { return attrImpl()->getName(); }

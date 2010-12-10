@@ -14,6 +14,31 @@ namespace Arabica
 namespace DOM
 {
 
+class DOMBadCast : public std::bad_cast
+{
+public:
+  DOMBadCast(const char* expectedType) :
+      message_(std::string("Cannot cast to ") + expectedType)
+  {
+  } // DOMBadCast
+
+  DOMBadCast(const DOMBadCast& rhs) :
+      message_(rhs.message_)
+  {
+  } // DOMBadCase
+
+  virtual const char* what() const throw()
+  {
+    return message_.c_str();
+  } // what
+
+private:
+  const std::string message_;
+
+  DOMBadCast& operator=(const DOMBadCast&);
+  bool operator==(const DOMBadCast&) const;
+}; // DOMBadCast
+      
 class DOMException : public std::runtime_error
 {
 public:
@@ -36,7 +61,17 @@ public:
     INVALID_ACCESS_ERR
   }; // enum CODE
 
-  DOMException(CODE code) : std::runtime_error("DOMException"), code_(code) { }
+  DOMException(CODE code) : 
+    std::runtime_error("DOMException"), 
+    code_(code) 
+  { 
+  } // DOMException
+
+  DOMException(const DOMException& rhs) :
+    std::runtime_error(rhs),
+    code_(rhs.code_)
+  {
+  } // DOMException
 
   CODE code() const { return code_; }
 
@@ -80,6 +115,9 @@ public:
   } // what
 
 private:
+  DOMBadCast& operator=(const DOMBadCast&);
+  bool operator==(const DOMBadCast&) const;
+
   CODE code_;
 }; // class DOMException
 

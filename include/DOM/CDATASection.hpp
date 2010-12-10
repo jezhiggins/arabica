@@ -30,8 +30,7 @@ class CDATASection : public Text<stringT, string_adaptorT>
       if(NodeT::impl_ == 0) // null nodes can always be cast
 	return;
       if(rhs.getNodeType() != Node_base::CDATA_SECTION_NODE)
-        //throw std::runtime_error("bad_cast: Cannot convert Node to CDATA section");
-        throw std::bad_cast();
+        throw DOMBadCast("CDATASection");
     } // CDATASection
 
     CDATASection<stringT, string_adaptorT> splitText(int offset) 

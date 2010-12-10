@@ -31,9 +31,8 @@ class Text : public CharacterData<stringT, string_adaptorT>
 	  if(NodeT::impl_ == 0) // null nodes can always be cast
 		return;
       typename Text::Type type = rhs.getNodeType();
-      if((type != Text::TEXT_NODE) && (type != Text::CDATA_SECTION_NODE))
-        //throw std::runtime_error("bad_cast: Cannot cast Node to Text");
-        throw std::bad_cast();
+      if((type != Node_base::TEXT_NODE) && (type != Node_base::CDATA_SECTION_NODE))
+        throw DOMBadCast("Text");
     } // Text
 
     Text splitText(int offset) 

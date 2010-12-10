@@ -36,8 +36,8 @@ class Element : public Node<stringT, string_adaptorT>
     {
 	  if(NodeT::impl_ == 0) // null nodes can always be cast
 		return;
-      if(rhs.getNodeType() != NodeT::ELEMENT_NODE)
-        throw std::bad_cast();
+      if(rhs.getNodeType() != Node_base::ELEMENT_NODE)
+        throw DOMBadCast("Element");
     } // Element
 
     const stringT& getTagName() const { return eImpl()->getTagName(); }

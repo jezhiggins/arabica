@@ -23,7 +23,7 @@ class MutationEvent : public Event<stringT>
     explicit MutationEvent(const Event<stringT>& rhs) : Event<stringT>(rhs)  
     {
       if(dynamic_cast<MutationEvent_impl<stringT>*>(rhs.Impl()) == 0)
-        throw std::runtime_error("bad_cast: Cannot cast Node to Element");
+        throw sDOMBadCast("Element");
     } // Element
     virtual ~MutationEvent() { }
     bool operator==(const MutationEvent& rhs) const { return Proxy::operator==(rhs); } 

@@ -31,7 +31,7 @@ class CharacterData : public Node<stringT, string_adaptorT>
 		return;
       typename NodeT::Type type = rhs.getNodeType();
       if((type != NodeT::TEXT_NODE) && (type != NodeT::CDATA_SECTION_NODE))
-        throw std::runtime_error("bad_cast: Cannot cast Node to Character Data");
+        throw DOMBadCast("CharacterData");
     } // CharacterData
 
   protected:

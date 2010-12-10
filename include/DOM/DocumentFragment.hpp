@@ -31,7 +31,7 @@ class DocumentFragment : public Node<stringT, string_adaptorT>
       if(NodeT::impl_ == 0) // null nodes can always be cast
 	return;
       if(rhs.getNodeType() != Node_base::DOCUMENT_FRAGMENT_NODE)
-        throw std::bad_cast();
+        throw DOMBadCast("DocumentFragment");
     }
 }; // class DocumentFragment
 
