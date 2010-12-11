@@ -83,13 +83,16 @@ class nodesetnodevaluenomodificationallowederr : public DOMTestCase<string_type,
       NodeList genderList;
       Node genderNode;
       EntityReference entRef;
+      Node entNode;
       Element entElement;
       CharacterData entElementText;
       int nodeType;
       doc = (Document) baseT::load("staff", true);
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       genderNode = genderList.item(2);
-      entRef = (EntityReference) genderNode.getFirstChild();
+      entNode = genderNode.getFirstChild();
+      baseT::template skipIfNot<EntityReference>(entNode);
+     entRef = (EntityReference) genderNode.getFirstChild();
       baseT::assertNotNull(entRef, __LINE__, __FILE__);
       nodeType = (int) entRef.getNodeType();
       

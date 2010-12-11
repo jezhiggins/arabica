@@ -92,7 +92,7 @@ class attrspecifiedvalueremove : public DOMTestCase<string_type, string_adaptor>
       ((Element) /*Node */testNode).removeAttribute(SA::construct_from_utf8("street"));
       attributes = testNode.getAttributes();
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("street"));
-      baseT::assertNotNull(streetAttr, __LINE__, __FILE__);
+      baseT::skipIfNull(streetAttr);
       state = streetAttr.getSpecified();
       assertFalse(state);
 

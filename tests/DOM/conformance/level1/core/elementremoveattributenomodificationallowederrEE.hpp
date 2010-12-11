@@ -82,6 +82,7 @@ class elementremoveattributenomodificationallowederrEE : public DOMTestCase<stri
       Node gender;
       EntityReference entRef;
       Element entElement;
+      Node entNode;
       Node appendedChild;
       doc = (Document) baseT::load("staff", true);
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
@@ -89,7 +90,9 @@ class elementremoveattributenomodificationallowederrEE : public DOMTestCase<stri
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
       baseT::assertNotNull(entRef, __LINE__, __FILE__);
       appendedChild = gender.appendChild(entRef);
-      entElement = (Element) entRef.getFirstChild();
+      entNode = entRef.getFirstChild();
+      baseT::template skipIfNot<Element>(entNode);
+     entElement = (Element) entRef.getFirstChild();
       baseT::assertNotNull(entElement, __LINE__, __FILE__);
       
       {

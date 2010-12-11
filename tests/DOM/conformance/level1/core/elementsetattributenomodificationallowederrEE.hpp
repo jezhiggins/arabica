@@ -83,13 +83,16 @@ class elementsetattributenomodificationallowederrEE : public DOMTestCase<string_
       Node gender;
       EntityReference entRef;
       Element entElement;
+      Node entNode;
       Node appendedChild;
       doc = (Document) baseT::load("staff", true);
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
       appendedChild = gender.appendChild(entRef);
-      entElement = (Element) entRef.getFirstChild();
+      entNode = entRef.getFirstChild();
+      baseT::template skipIfNot<Element>(entNode);
+     entElement = (Element) entRef.getFirstChild();
       baseT::assertNotNull(entElement, __LINE__, __FILE__);
       
       {

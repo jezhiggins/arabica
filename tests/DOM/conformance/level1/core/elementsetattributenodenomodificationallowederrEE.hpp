@@ -83,6 +83,7 @@ class elementsetattributenodenomodificationallowederrEE : public DOMTestCase<str
       Node gender;
       EntityReference entRef;
       Element entElement;
+      Node entNode;
       Attr newAttr;
       Attr badAttr;
       Node appendedChild;
@@ -92,7 +93,9 @@ class elementsetattributenodenomodificationallowederrEE : public DOMTestCase<str
       entRef = doc.createEntityReference(SA::construct_from_utf8("ent4"));
       baseT::assertNotNull(entRef, __LINE__, __FILE__);
       appendedChild = gender.appendChild(entRef);
-      entElement = (Element) entRef.getFirstChild();
+      entNode = entRef.getFirstChild();
+      baseT::template skipIfNot<Element>(entNode);
+     entElement = (Element) entRef.getFirstChild();
       baseT::assertNotNull(entElement, __LINE__, __FILE__);
       newAttr = doc.createAttribute(SA::construct_from_utf8("newAttr"));
       

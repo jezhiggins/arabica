@@ -86,6 +86,7 @@ class elementremoveattributenomodificationallowederr : public DOMTestCase<string
       NodeList gList;
       int nodeType;
       Element genElement;
+      Node genNode;
       doc = (Document) baseT::load("staff", true);
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       gender = genderList.item(2);
@@ -99,7 +100,9 @@ class elementremoveattributenomodificationallowederr : public DOMTestCase<string
       baseT::assertNotNull(gen, __LINE__, __FILE__);
       }
     gList = gen.getChildNodes();
-      genElement = (Element) gList.item(0);
+      genNode = gList.item(0);
+      baseT::template skipIfNot<Element>(genNode);
+     genElement = (Element) gList.item(0);
       baseT::assertNotNull(genElement, __LINE__, __FILE__);
       
       {
