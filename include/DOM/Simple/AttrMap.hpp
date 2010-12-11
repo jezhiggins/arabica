@@ -65,10 +65,13 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     } // setAttributeNode
     virtual DOMNode_implT* setNamedItem(DOMNode_implT* newAttr)
     {
+      AttrImplT* attr = dynamic_cast<AttrImplT*>(newAttr);
+      if(alreadyHere(attr))
+        return attr;
       NamedNodeMapImplT::throwIfReadOnly();
-      checkNotInUse(newAttr);
-      dynamic_cast<AttrImplT*>(newAttr)->setOwnerElement(ownerElement_);
-      return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItem(newAttr));
+      checkNotInUse(attr);
+      attr->setOwnerElement(ownerElement_);
+      return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItem(attr));
     } // setNamedItem
 
     DOMAttr_implT* removeAttributeNode(DOMAttr_implT* oldAttr)    
@@ -113,9 +116,12 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     } // setAttributeNodeNS
     virtual DOMNode_implT* setNamedItemNS(DOMNode_implT* newAttr)
     {
+      AttrImplT* attr = dynamic_cast<AttrImplT*>(newAttr);
+      if(alreadyHere(attr))
+        return attr;
       NamedNodeMapImplT::throwIfReadOnly();
-      checkNotInUse(newAttr);
-      dynamic_cast<AttrImplT*>(newAttr)->setOwnerElement(ownerElement_);
+      checkNotInUse(attr);
+      attr->setOwnerElement(ownerElement_);
       return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItemNS(newAttr));
     } // setNamedItem
 
@@ -193,10 +199,14 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
       return 0;
     } // getDefaultAttrs
 
-    void checkNotInUse(DOMNode_implT* newAttr)
+    bool alreadyHere(AttrImplT* attr)
+    {
+      return ((!attr->isOrphaned()) && (attr->getOwnerElement() == ownerElement_));
+    } // alreadyHere
+
+    void checkNotInUse(AttrImplT* attr)
     { 
-      AttrImplT* attr = dynamic_cast<AttrImplT*>(newAttr);
-      if(!attr->isOrphaned())
+      if((!attr->isOrphaned()) && (attr->getOwnerElement() != ownerElement_))
         throw DOM::DOMException(DOM::DOMException::INUSE_ATTRIBUTE_ERR);
     } // checkNotInUse
 
