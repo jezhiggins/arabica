@@ -67,7 +67,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
     virtual const stringT& getNodeName() const = 0;
 
     virtual const stringT& getNodeValue() const { return ownerDoc_->empty_string(); }
-    virtual void setNodeValue(const stringT& /*nodeValue*/) { throwIfReadOnly(); }
+    virtual void setNodeValue(const stringT& /*nodeValue*/) { }
 
     virtual DOM::Node_base::Type getNodeType() const = 0;
     
