@@ -15,6 +15,8 @@ template<class string_type, class string_adaptor>
 class LogicalOperator : public BinaryExpression<string_type, string_adaptor>
 {
 public:
+  using BinaryExpression<string_type, string_adaptor>::evaluateAsBool;
+
   LogicalOperator(XPathExpression_impl<string_type, string_adaptor>* lhs, XPathExpression_impl<string_type, string_adaptor>* rhs) : 
       BinaryExpression<string_type, string_adaptor>(lhs, rhs) { }
 

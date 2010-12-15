@@ -54,6 +54,7 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
     using std::basic_streambuf<charT, traitsT>::egptr;
     using std::basic_streambuf<charT, traitsT>::eback;
     using std::basic_streambuf<charT, traitsT>::pptr;
+    using std::basic_streambuf<charT, traitsT>::sputc;
 
     basic_socketbuf();
     virtual ~basic_socketbuf();
