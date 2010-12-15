@@ -11,7 +11,8 @@
 #ifdef ARABICA_WINDOWS
 const std::string PATH_PREFIX="../tests/DOM/conformance/files/";
 #else
-const std::string PATH_PREFIX="./conformance/files/";
+#include "test_path.hpp"
+const std::string PATH_PREFIX=test_path;
 #endif
 
 template<class string_type, class string_adaptor>

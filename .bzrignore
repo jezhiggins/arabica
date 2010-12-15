@@ -61,3 +61,4 @@ m4/lt~obsolete.m4
 *.vcxproj.user
 *.sdf
 ipch
+test_path.hpp

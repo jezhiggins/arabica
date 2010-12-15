@@ -1,4 +1,4 @@
-AC_INIT([Arabica], [2010-November], [jez@jezuk.co.uk])
+AC_INIT([Arabica], [2011-Sometime], [jez@jezuk.co.uk])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-bzip2 dist-zip])
  
@@ -43,6 +43,7 @@ AC_CONFIG_FILES([tests/Utils/Makefile])
 AC_CONFIG_FILES([tests/Taggle/Makefile])
 AC_CONFIG_FILES([tests/SAX/Makefile])
 AC_CONFIG_FILES([tests/DOM/Makefile])
+AC_CONFIG_FILES([tests/DOM/test_path.hpp])
 AC_CONFIG_FILES([tests/XPath/Makefile])
 AC_CONFIG_FILES([tests/XSLT/Makefile])
 AC_CONFIG_FILES([tests/XSLT/test_path.hpp])
