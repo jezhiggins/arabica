@@ -59,7 +59,7 @@ protected:
     if(d == 0)
       assertImplementation(false, "Could not load", -1, filename);
     
-    d.normalize();
+    //d.normalize();
     return d;
   } // load
   
