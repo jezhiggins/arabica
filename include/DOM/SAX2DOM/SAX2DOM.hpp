@@ -366,11 +366,45 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
     {
       if(!documentType_)
         return;
+
+      static const stringT LEFT_ANGLE_BRACKET = string_adaptorT::construct_from_utf8("<");
+
       EntityT* entity = new EntityT(0, name, string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""));
       declaredEntities_.insert(std::make_pair(name, entity));
       documentType_->addEntity(entity);
       DOM::Node<stringT, string_adaptorT> n = entity;
-      n.appendChild(document_.createTextNode(value));
+
+      if(string_adaptorT::find(value, LEFT_ANGLE_BRACKET) == string_adaptorT::npos())
+      {
+        n.appendChild(document_.createTextNode(value));
+        return;
+      } // if ...
+
+      // parse the value into a Document
+      // this may not quite do the right thing for some custom strug types,
+      // but at the time I've writing this, the code has been missing this 
+      // stuff for something like 8 years and nobody's noticed so it's not
+      // massively used.
+      // I only noticed myself when I started running the DOM conformance tests
+      std::stringstream ss;
+      ss << "<wrapper>" << string_adaptorT::asStdString(value) << "</wrapper>";
+
+      Arabica::SAX::InputSource<stringT, string_adaptorT> is(ss);
+      Arabica::SAX2DOM::Parser<stringT, string_adaptorT> parser;
+      parser.parse(is);       
+
+      DOM::Document<stringT, string_adaptorT> entityDoc = parser.getDocument();
+      DOM::Element<stringT, string_adaptorT> entityElem = entityDoc.getDocumentElement();
+      DOM::Node<stringT, string_adaptorT> child = entityElem.getFirstChild();
+      while(child != 0)
+      {
+        // import the contents thereof 
+        DOM::Node<stringT, string_adaptorT> imported = document_.importNode(child, true);
+        // append to entity
+        n.appendChild(imported);
+
+        child = child.getNextSibling();
+      } // while
     } // internalEntityDecl
 
     virtual void externalEntityDecl(const stringT& name, const stringT& publicId, const stringT& systemId)
