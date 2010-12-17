@@ -102,13 +102,11 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
       {
         DOMNode_implT*next = child->getNextSibling();
 
-        if((child->getNodeType() == DOM::Node_base::TEXT_NODE) ||
-           (child->getNodeType() == DOM::Node_base::CDATA_SECTION_NODE))
+        if(child->getNodeType() == DOM::Node_base::TEXT_NODE)
         {
           DOMText_implT* textNode = dynamic_cast<DOMText_implT*>(child);
           while((next != 0) && 
-                ((next->getNodeType() == DOM::Node_base::TEXT_NODE) ||
-                 (next->getNodeType() == DOM::Node_base::CDATA_SECTION_NODE)))
+                (next->getNodeType() == DOM::Node_base::TEXT_NODE))
           {
             textNode->appendData(next->getNodeValue());
             removeChild(next);
