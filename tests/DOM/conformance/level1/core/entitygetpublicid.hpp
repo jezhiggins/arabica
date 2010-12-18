@@ -90,7 +90,7 @@ class entitygetpublicid : public DOMTestCase<string_type, string_adaptor>
       baseT::assertNotNull(entityList, __LINE__, __FILE__);
       entityNode = (Entity) entityList.getNamedItem(SA::construct_from_utf8("ent5"));
       baseT::skipIfNull(entityNode);
-     publicId = entityNode.getPublicId();
+      publicId = entityNode.getPublicId();
       baseT::assertEquals("entityURI", publicId, __LINE__, __FILE__);
   systemId = entityNode.getSystemId();
       baseT::assertURIEquals("systemId", "", "", "", "entityFile", "", "", "", false, systemId);
