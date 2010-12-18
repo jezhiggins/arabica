@@ -88,7 +88,7 @@ class attrnotspecifiedvalue : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("street"));
       baseT::skipIfNull(streetAttr);
-     state = streetAttr.getSpecified();
+      state = streetAttr.getSpecified();
       assertFalse(state);
 
    }
