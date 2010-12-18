@@ -81,8 +81,8 @@ class characterdatadeletedatanomodificationallowederr : public DOMTestCase<strin
       Node genderNode;
       Node entElement;
       Node entElementContent;
-      int nodeType;
       Node entReference;
+      int nodeType;
       doc = (Document) baseT::load("staff", true);
       genderList = doc.getElementsByTagName(SA::construct_from_utf8("gender"));
       genderNode = genderList.item(2);
@@ -90,7 +90,7 @@ class characterdatadeletedatanomodificationallowederr : public DOMTestCase<strin
       baseT::assertNotNull(entReference, __LINE__, __FILE__);
       nodeType = (int) entReference.getNodeType();
       
-      if (baseT::equals(3, nodeType)) {
+      if (baseT::equals(1, nodeType)) {
           entReference = doc.createEntityReference(SA::construct_from_utf8("ent4"));
       baseT::assertNotNull(entReference, __LINE__, __FILE__);
       }
