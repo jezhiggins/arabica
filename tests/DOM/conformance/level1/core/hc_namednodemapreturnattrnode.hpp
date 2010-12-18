@@ -86,7 +86,8 @@ class hc_namednodemapreturnattrnode : public DOMTestCase<string_type, string_ada
       testEmployee = elementList.item(1);
       attributes = testEmployee.getAttributes();
       streetAttr = attributes.getNamedItem(SA::construct_from_utf8("class"));
-      static_cast<Attr>(streetAttr);  // this will throw if the type is wrong
+      assertTrue(static_cast<Attr>(streetAttr));  // this will throw if the type is wrong
+// wrap it in an assert to prevent compiler warnings about unused values
 attrName = streetAttr.getNodeName();
       baseT::assertEquals("class", attrName, __LINE__, __FILE__);
   attrName = ((Attr) /*Node */streetAttr).getName();
