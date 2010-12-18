@@ -91,7 +91,7 @@ class attrdefaultvalue : public DOMTestCase<string_type, string_adaptor>
       attributes = testNode.getAttributes();
       streetAttr = (Attr) attributes.getNamedItem(SA::construct_from_utf8("street"));
       baseT::skipIfNull(streetAttr);
-     value = streetAttr.getNodeValue();
+      value = streetAttr.getNodeValue();
       baseT::assertEquals("Yes", value, __LINE__, __FILE__);
   
    }
