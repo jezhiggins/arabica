@@ -87,7 +87,7 @@ class notationgetpublicidnull : public DOMTestCase<string_type, string_adaptor>
       baseT::assertNotNull(notations, __LINE__, __FILE__);
       notationNode = (Notation) notations.getNamedItem(SA::construct_from_utf8("notation2"));
       baseT::skipIfNull(notationNode);
-     publicId = notationNode.getPublicId();
+      publicId = notationNode.getPublicId();
       baseT::assertNull(publicId, __LINE__, __FILE__);
       
    }
