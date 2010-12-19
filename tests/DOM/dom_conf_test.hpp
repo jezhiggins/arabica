@@ -53,11 +53,13 @@ protected:
     
     Arabica::SAX::InputSource<string_type, string_adaptor> is(SA::construct_from_utf8(filename.c_str()));
     Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
+    Arabica::SAX::CatchErrorHandler<std::string> eh;
+    parser.setErrorHandler(eh);
     parser.parse(is);       
     
     Document d = parser.getDocument();
     if(d == 0)
-      assertImplementation(false, "Could not load", -1, filename);
+      assertImplementation(false, "Could not load : " + eh.errors(), -1, filename);
     
     //d.normalize();
     return d;
