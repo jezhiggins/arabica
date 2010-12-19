@@ -190,8 +190,12 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
     {
       // Should be readOnly_ = readOnly; ?
       readOnly_ = true;
-      for(NodeImplT*child = getFirst(); child != 0; child = child->getNext())
+      for(NodeImplT* child = getFirst(); child != 0; child = child->getNext())
         child->setReadOnly(readOnly_);
+      DOMNamedNodeMap_implT* attrs = getAttributes();
+      if(attrs)
+        for(unsigned int i = 0; i < attrs->getLength(); ++i)
+          (dynamic_cast<NodeImplT*>(attrs->item(i)))->setReadOnly(readOnly_);
     } // setReadOnly
 
     void throwIfReadOnly() const

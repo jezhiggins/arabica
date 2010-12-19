@@ -74,6 +74,7 @@ void ewim_endDoctypeDecl(void* userData);
 void ewim_startCdataSection(void* userData);
 void ewim_endCdataSection(void* userData);
 void ewim_commentHandler(void* userData, const XML_Char* data);
+void ewim_skippedEntityHandler(void* userData, const XML_Char* entityName, int is_parameter_entity);
 int ewim_externalEntityRefHandler(XML_Parser parser, 
                                   const XML_Char* context,
                                   const XML_Char* base,
@@ -119,6 +120,7 @@ private:
   virtual void startCdataSection() = 0;
   virtual void endCdataSection() = 0;
   virtual void commentHandler(const XML_Char* data) = 0;
+  virtual void skippedEntity(const XML_Char* entityName) = 0;
   virtual int externalEntityRefHandler(XML_Parser parser, 
                                        const XML_Char* context,
                                        const XML_Char* base,
@@ -139,6 +141,7 @@ private:
   friend void ewim_startCdataSection(void*);
   friend void ewim_endCdataSection(void*);
   friend void ewim_commentHandler(void*, const XML_Char*);
+  friend void ewim_skippedEntityHandler(void*, const XML_Char*, int);
   friend int ewim_externalEntityRefHandler(XML_Parser, const XML_Char*, const XML_Char*, const XML_Char*, const XML_Char*);
 
 }; // class expat2base
@@ -309,6 +312,7 @@ class expat_wrapper :
     virtual void startCdataSection();
     virtual void endCdataSection();
     virtual void commentHandler(const XML_Char* data);
+    virtual void skippedEntity(const XML_Char* entityName);
     virtual int externalEntityRefHandler(XML_Parser parser, 
                                          const XML_Char* context,
                                          const XML_Char* base,
@@ -387,6 +391,7 @@ void expat_wrapper<string_type, T0, T1>::setCallbacks()
   XML_SetDoctypeDeclHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_startDoctypeDecl, expat_wrapper_impl_mumbojumbo::ewim_endDoctypeDecl);
   XML_SetCdataSectionHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_startCdataSection, expat_wrapper_impl_mumbojumbo::ewim_endCdataSection);
   XML_SetCommentHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_commentHandler);
+  XML_SetSkippedEntityHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_skippedEntityHandler);
   XML_SetExternalEntityRefHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_externalEntityRefHandler);
   XML_SetProcessingInstructionHandler(parser_, expat_wrapper_impl_mumbojumbo::ewim_processingInstruction);
 } // setCallbacks
@@ -1008,6 +1013,13 @@ void expat_wrapper<string_type, T0, T1>::commentHandler(const XML_Char *data)
   if(lexicalHandler_)
     lexicalHandler_->comment(SA::construct_from_utf8(data));
 } // commentHandler
+
+template<class string_type, class T0, class T1>
+void expat_wrapper<string_type, T0, T1>::skippedEntity(const XML_Char *entityName)
+{
+  if(contentHandler_)
+    contentHandler_->skippedEntity(SA::construct_from_utf8(entityName));
+} // skippedEntity
 
 template<class string_type, class T0, class T1>
 int expat_wrapper<string_type, T0, T1>::externalEntityRefHandler(XML_Parser parser, 

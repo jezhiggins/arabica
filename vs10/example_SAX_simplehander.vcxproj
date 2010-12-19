@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -45,7 +45,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release_examples_SAX_simple\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-		<TargetName>simplehandler</TargetName>
+    <TargetName>simplehandler</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -124,6 +124,10 @@
     <ClInclude Include="..\examples\Sax\SimpleHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="example_Utils_transcode.vcxproj">
+      <Project>{436b423b-bf20-4b2e-a187-604af391fbe2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="lib_arabica.vcxproj">
       <Project>{4ca72415-d03a-4447-be4e-c093a5146cac}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
