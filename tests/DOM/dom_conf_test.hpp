@@ -53,7 +53,7 @@ protected:
     
     Arabica::SAX::InputSource<string_type, string_adaptor> is(SA::construct_from_utf8(filename.c_str()));
     Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
-    Arabica::SAX::CatchErrorHandler<std::string> eh;
+    Arabica::SAX::CatchErrorHandler<string_type, string_adaptor> eh;
     parser.setErrorHandler(eh);
     parser.parse(is);       
     
