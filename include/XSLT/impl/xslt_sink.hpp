@@ -169,6 +169,27 @@ protected:
 
     if(!disable_output_escaping_ && !in_cdata_)
       std::for_each(ch.begin(), ch.end(), Arabica::XML::text_escaper<char>(stream_));
+    else if(in_cdata_) 
+    {
+      size_t breakAt = ch.find("]]>");
+      if(breakAt == std::string::npos)
+      {
+        stream_ << ch;
+        return;
+      }
+      size_t start = 0;
+      do
+      {
+        breakAt += 2;
+        stream_ << ch.substr(start, breakAt);
+        do_end_CDATA();
+        start = breakAt;
+        do_start_CDATA();
+        breakAt = ch.find("]]>", breakAt);
+      }
+      while(breakAt != std::string::npos);
+      stream_ << ch.substr(start);
+    }
     else
       stream_ << ch;
   } // characters
