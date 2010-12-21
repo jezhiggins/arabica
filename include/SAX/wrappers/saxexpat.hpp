@@ -508,7 +508,7 @@ bool expat_wrapper<string_type, T0, T1>::do_parse(inputSourceT& source, XML_Pars
     } // if ...
 
     is.resolve()->read(buffer, BUFF_SIZE);
-    if(XML_ParseBuffer(parser, is.resolve()->gcount(), is.resolve()->eof()) == 0)
+    if(XML_ParseBuffer(parser, static_cast<int>(is.resolve()->gcount()), is.resolve()->eof()) == 0)
     {
       // error
       reportError(XML_ErrorString(XML_GetErrorCode(parser_)), true);
