@@ -35,16 +35,6 @@ namespace DOM
 
 namespace StreamImpl
 {
-template<class stringT, class string_adaptorT, class charT, class traitsT>
-void streamChildren(std::basic_ostream<charT, traitsT>& stream, const DOM::Node<stringT, string_adaptorT>& node)
-{
-  DOM::Node<stringT, string_adaptorT> child = node.getFirstChild();
-  while(child != 0)
-  {
-    stream << child;
-    child = child.getNextSibling();
-  } // while 
-} // streamChildren
 
 template<class stringT>
 void prefix_mapper_callback(std::ios_base::event ev, std::ios_base& stream, int index)
@@ -239,6 +229,100 @@ void prefix_mapper_pop(std::basic_ostream<charT, traitsT>& stream,
   } // if ...
 } // prefix_mapper_pop
 
+//////////////////////////////////////
+//////////////////////////////////////
+template<class stringT, class string_adaptorT, class charT, class traitsT>
+void streamChildren(std::basic_ostream<charT, traitsT>& stream, const DOM::Node<stringT, string_adaptorT>& node)
+{
+  DOM::Node<stringT, string_adaptorT> child = node.getFirstChild();
+  while(child != 0)
+  {
+    stream << child;
+    child = child.getNextSibling();
+  } // while 
+} // streamChildren
+
+template<class stringT, class string_adaptorT, class charT, class traitsT>
+void streamElement(std::basic_ostream<charT, traitsT>& stream, const DOM::Node<stringT, string_adaptorT>& node)
+{
+  typedef Arabica::text::Unicode<charT> UnicodeT;
+
+  stream << UnicodeT::LESS_THAN_SIGN;
+  int index = StreamImpl::prefix_mapper(stream, node);
+
+  if(node.hasChildNodes())
+  {
+    stream << UnicodeT::GREATER_THAN_SIGN;
+    StreamImpl::streamChildren(stream, node);
+    stream << UnicodeT::LESS_THAN_SIGN << UnicodeT::SLASH;
+    StreamImpl::prefix_mapper_pop(stream, node, index, true);
+    stream << UnicodeT::GREATER_THAN_SIGN;
+  }
+  else
+  {
+    StreamImpl::prefix_mapper_pop(stream, node, index, false);
+    stream << UnicodeT::SLASH << UnicodeT::GREATER_THAN_SIGN;
+  }
+} // streamElement
+
+template<class charT, class traitsT>
+void startCDATA(std::basic_ostream<charT, traitsT>& stream)
+{
+  typedef Arabica::text::Unicode<charT> UnicodeT;
+
+  stream << UnicodeT::LESS_THAN_SIGN
+	 << UnicodeT::EXCLAMATION_MARK
+	 << UnicodeT::LEFT_SQUARE_BRACKET
+	 << UnicodeT::CAPITAL_C
+	 << UnicodeT::CAPITAL_D
+	 << UnicodeT::CAPITAL_A
+	 << UnicodeT::CAPITAL_T
+	 << UnicodeT::CAPITAL_A
+	 << UnicodeT::LEFT_SQUARE_BRACKET;
+} // startCDATA
+
+template<class charT, class traitsT>
+void endCDATA(std::basic_ostream<charT, traitsT>& stream)
+{
+  typedef Arabica::text::Unicode<charT> UnicodeT;
+
+  stream << UnicodeT::RIGHT_SQUARE_BRACKET
+	 << UnicodeT::RIGHT_SQUARE_BRACKET
+	 << UnicodeT::GREATER_THAN_SIGN;
+} // endCDATA
+
+template<class stringT, class string_adaptorT, class charT, class traitsT>
+void streamCDATA(std::basic_ostream<charT, traitsT>& stream, const DOM::Node<stringT, string_adaptorT>& node)
+{
+  typedef typename string_adaptorT::size_type size_type;
+  static stringT endMarker = string_adaptorT::construct_from_utf8("]]>");
+
+  StreamImpl::startCDATA(stream);
+
+  const stringT value = node.getNodeValue();
+  size_type breakAt = string_adaptorT::find(value, endMarker);
+
+  if(breakAt == string_adaptorT::npos())
+    stream << value;
+  else
+  {
+    size_type start = 0;
+    do
+    {
+      breakAt += 2;
+      stream << string_adaptorT::substr(value, start, breakAt);
+      StreamImpl::endCDATA(stream);
+      start = breakAt;
+      StreamImpl::startCDATA(stream);
+      breakAt = string_adaptorT::find(value, endMarker, breakAt);
+    } 
+    while(breakAt != string_adaptorT::npos());
+    stream << string_adaptorT::substr(value, start);
+  } // if ...
+
+  StreamImpl::endCDATA(stream);
+} // streamCDATA
+
 } // namespace StreamImpl
 
 template<class stringT, class string_adaptorT, class charT, class traitsT>
@@ -277,24 +361,7 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
     StreamImpl::streamChildren(stream, node);
     break;
   case DOM::Node_base::ELEMENT_NODE:
-    {
-      stream << UnicodeT::LESS_THAN_SIGN;
-      int index = StreamImpl::prefix_mapper(stream, node);
-
-      if(node.hasChildNodes())
-      {
-        stream << UnicodeT::GREATER_THAN_SIGN;
-        StreamImpl::streamChildren(stream, node);
-        stream << UnicodeT::LESS_THAN_SIGN << UnicodeT::SLASH;
-        StreamImpl::prefix_mapper_pop(stream, node, index, true);
-        stream << UnicodeT::GREATER_THAN_SIGN;
-      }
-      else
-      {
-        StreamImpl::prefix_mapper_pop(stream, node, index, false);
-        stream << UnicodeT::SLASH << UnicodeT::GREATER_THAN_SIGN;
-      }
-    }
+    StreamImpl::streamElement(stream, node);
     break;
   case DOM::Node_base::TEXT_NODE:
     {
@@ -310,19 +377,7 @@ operator<<(std::basic_ostream<charT, traitsT>& stream,
            << UnicodeT::SEMI_COLON;
     break;
   case DOM::Node_base::CDATA_SECTION_NODE:
-    stream << UnicodeT::LESS_THAN_SIGN
-           << UnicodeT::EXCLAMATION_MARK
-           << UnicodeT::LEFT_SQUARE_BRACKET
-           << UnicodeT::CAPITAL_C
-           << UnicodeT::CAPITAL_D
-           << UnicodeT::CAPITAL_A
-           << UnicodeT::CAPITAL_T
-           << UnicodeT::CAPITAL_A
-           << UnicodeT::LEFT_SQUARE_BRACKET
-           << node.getNodeValue()
-           << UnicodeT::RIGHT_SQUARE_BRACKET
-           << UnicodeT::RIGHT_SQUARE_BRACKET
-           << UnicodeT::GREATER_THAN_SIGN;
+    StreamImpl::streamCDATA(stream, node);
     break;
   case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
     stream << UnicodeT::LESS_THAN_SIGN
