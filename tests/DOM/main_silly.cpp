@@ -9,9 +9,7 @@
 ////////////////////////////////////////////////
 int main(int argc, const char* argv[])
 {
-  bool ok = DOM_test_suite<silly_string, silly_string_adaptor>(argc, argv);
-
-  //return !ok;
+  DOM_test_suite<silly_string, silly_string_adaptor>(argc, argv);
   return 77;
 } // main
 

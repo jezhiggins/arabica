@@ -119,7 +119,7 @@ void ewim_commentHandler(void* userData, const XML_Char* data)
   p->commentHandler(data);
 } // commentHandler
 
-void ewim_skippedEntityHandler(void* userData, const XML_Char* entityName, int is_parameter_entity)
+void ewim_skippedEntityHandler(void* userData, const XML_Char* entityName, int /* is_parameter_entity */)
 {
   expat2base* p = reinterpret_cast<expat2base*>(userData);
   p->skippedEntity(entityName);
