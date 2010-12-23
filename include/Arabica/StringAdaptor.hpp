@@ -57,6 +57,8 @@ public:
   static bool empty(const string_type& str) { return str.empty(); }
   static size_type find(const string_type& str, value_type what) { return str.find(what); }
   static size_type find(const string_type& str, const string_type& what) { return str.find(what); }
+  static size_type find(const string_type& str, value_type what, size_type from) { return str.find(what, from); }
+  static size_type find(const string_type& str, const string_type& what, size_type from) { return str.find(what, from); }
   static string_type substr(const string_type& str, const size_type& offset) { return str.substr(offset); }
   static string_type substr(const string_type& str, const size_type& offset, const size_type& count) { return str.substr(offset, count); }
   static void append(string_type& str, const string_type& a) { str.append(a); }

@@ -95,6 +95,16 @@ silly_string_adaptor::size_type silly_string_adaptor::find(const silly_string& s
   return str.s_.find(c);
 } // find
 
+silly_string_adaptor::size_type silly_string_adaptor::find(const silly_string& str, const silly_string& what, silly_string_adaptor::size_type from)
+{
+  return str.s_.find(what.s_, from);
+} // find
+
+silly_string_adaptor::size_type silly_string_adaptor::find(const silly_string& str, value_type c, silly_string_adaptor::size_type from)
+{
+  return str.s_.find(c, from);
+} // find
+
 silly_string silly_string_adaptor::substr(const silly_string& str, const size_type& offset)
 {
   return silly_string_adaptor::construct_from_utf8(str.s_.substr(offset).c_str());

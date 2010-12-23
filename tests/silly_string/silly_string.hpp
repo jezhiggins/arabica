@@ -72,6 +72,8 @@ public:
   static bool empty(const silly_string& s);
   static size_type find(const silly_string& str, const silly_string& what);
   static size_type find(const silly_string& str, value_type c);
+  static size_type find(const silly_string& str, const silly_string& what, size_type from);
+  static size_type find(const silly_string& str, value_type c, size_type from);
   static silly_string substr(const silly_string& str, const size_type& offset);
   static silly_string substr(const silly_string& str, const size_type& offset, const size_type& count);
   static size_type length(const silly_string& str);
@@ -101,12 +103,15 @@ namespace std {
 
 template<>
 struct less<silly_string> : public binary_function<silly_string, silly_string, bool>
-{	// functor for operator<
-	bool operator()(const silly_string& lhs, const silly_string& rhs) const
-	{	// apply operator< to operands
+{	
+  // functor for operator<
+  bool operator()(const silly_string& lhs, const silly_string& rhs) const
+  {	
+    // apply operator< to operands
     return (silly_string_adaptor::asStdString(lhs) < silly_string_adaptor::asStdString(rhs));
-	}
+  } // operator()
 };
+
 } // namespace std
 
 #endif
