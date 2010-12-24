@@ -3,8 +3,6 @@
 
 ////////////////////////////
 // C++ DOM definition
-//
-// $Id$
 ////////////////////////////
 
 #include <DOM/Node.hpp>
@@ -45,8 +43,8 @@ class Document : public Node<stringT, string_adaptorT>
     Document(const Document& rhs) : Node<stringT, string_adaptorT>(rhs) { }
     explicit Document(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)  
     {
-	  if(NodeT::impl_ == 0) // null nodes can always be cast
-		return;
+      if(NodeT::impl_ == 0) // null nodes can always be cast
+	return;
       if(rhs.getNodeType() != Node<stringT, string_adaptorT>::DOCUMENT_NODE)
         throw DOMBadCast("Document");
     } // Document
@@ -102,14 +100,13 @@ class Document : public Node<stringT, string_adaptorT>
       return NodeList<stringT, string_adaptorT>(dImpl()->getElementsByTagNameNS(namespaceURI, localName));
     } // getElementsByTagNameNS
 
-    Element<stringT, string_adaptorT> getElementById(const stringT& elementId) const { return Element<stringT, string_adaptorT>(dImpl()->getElementById(elementId)); }
-
+    Element<stringT, string_adaptorT> getElementById(const stringT& elementId) const { return Element<stringT, string_adaptorT>(dImpl()->getElementById(elementId)); } // getElementById
 
     Traversal::DocumentTraversal<stringT, string_adaptorT> createDocumentTraversal()
     {
       Traversal::DocumentTraversal<stringT, string_adaptorT> docTraversal(new Traversal::DocumentTraversalImpl<stringT, string_adaptorT>());
       return docTraversal;
-    }
+    } // createDocumentTraversal
 
   private:
     Document_impl<stringT, string_adaptorT>* dImpl() const { return dynamic_cast<Document_impl<stringT, string_adaptorT>*>(*NodeT::impl_); }
