@@ -3,12 +3,11 @@
 
 ////////////////////////////
 // C++ DOM definition
-//
-// $Id$
 ////////////////////////////
 
 #include <DOM/Node.hpp>
 #include <DOM/DOMException.hpp>
+#include <XML/XMLCharacterClasses.hpp>
 #include <deque>
 #include <algorithm>
 
@@ -205,6 +204,28 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
     } // throwIfReadOnly
 
   protected:
+    void checkName(const stringT& str) const
+    {
+      if(string_adaptorT::length(str) == 0)
+	throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
+      typedef typename string_adaptorT::const_iterator const_iterator;
+      const_iterator i = string_adaptorT::begin(str);
+      const_iterator ie = string_adaptorT::end(str);
+      for( ; i != ie; ++i)
+	if(!XML::is_name_char(*i))
+	  throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
+    } // checkName
+
+    void checkChars(const stringT& str) const
+    {
+      typedef typename string_adaptorT::const_iterator const_iterator;
+      const_iterator i = string_adaptorT::begin(str);
+      const_iterator ie = string_adaptorT::end(str);
+      for( ; i != ie; ++i)
+	if(!XML::is_char(*i))
+	  throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
+    } // checkChars
+
     NodeImplT* parentNode_;
     DocumentImplT* ownerDoc_;
     NodeImplT* prevSibling_;

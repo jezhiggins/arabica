@@ -15,7 +15,6 @@
 #include <DOM/Simple/NotationImpl.hpp>
 #include <DOM/Simple/ElementByTagImpl.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
-#include <XML/XMLCharacterClasses.hpp>
 
 #include <set>
 #include <list>
@@ -526,28 +525,6 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
          (type != DOM::Node_base::DOCUMENT_TYPE_NODE)) 
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // checkChildType
-
-    void checkName(const stringT& str) const
-    {
-      if(string_adaptorT::length(str) == 0)
-	throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
-      typedef typename string_adaptorT::const_iterator const_iterator;
-      const_iterator i = string_adaptorT::begin(str);
-      const_iterator ie = string_adaptorT::end(str);
-      for( ; i != ie; ++i)
-	if(!XML::is_name_char(*i))
-	  throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
-    } // checkName
-
-    void checkChars(const stringT& str) const
-    {
-      typedef typename string_adaptorT::const_iterator const_iterator;
-      const_iterator i = string_adaptorT::begin(str);
-      const_iterator ie = string_adaptorT::end(str);
-      for( ; i != ie; ++i)
-	if(!XML::is_char(*i))
-	  throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
-    } // checkChars
 
   private:
     DOMElement_implT* documentElement_;

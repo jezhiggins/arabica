@@ -51,6 +51,7 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
 
     virtual void setAttribute(const stringT& name, const stringT& value)    
     {
+      checkName(name);
       attributes_.setAttribute(name, value);
     } // setAttribute
 
@@ -88,6 +89,7 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
 
     virtual void setAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName, const stringT& value)    
     {
+      checkName(qualifiedName);
       attributes_.setAttributeNS(namespaceURI, qualifiedName, value);
     } // setAttributeNS
 
