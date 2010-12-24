@@ -192,8 +192,10 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
       currentNode_ = 0;
     } // endDocument
 
-    virtual void startElement(const stringT& namespaceURI, const stringT& /*localName*/,
-                              const stringT& qName, const AttributesT& atts)
+    virtual void startElement(const stringT& namespaceURI, 
+			      const stringT& /*localName*/,
+                              const stringT& qName, 
+			      const AttributesT& atts)
     {
       if(currentNode_ == 0)
         return;
@@ -226,7 +228,8 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
       } // catch
     } // startElement
 
-    virtual void endElement(const stringT& /*namespaceURI*/, const stringT& /*localName*/,
+    virtual void endElement(const stringT& /*namespaceURI*/, 
+			    const stringT& /*localName*/,
                             const stringT& /*qName*/)
     {
       if(currentNode_ == 0)
@@ -286,7 +289,9 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
 
     /////////////////////////////////////////////////////
     // LexicalHandler
-    virtual void startDTD(const stringT& name, const stringT& publicId, const stringT& systemId)
+    virtual void startDTD(const stringT& name, 
+			  const stringT& publicId, 
+			  const stringT& systemId)
     {
       documentType_ = new DocumentType<stringT, string_adaptorT >(name, publicId, systemId);
       document_.insertBefore(documentType_, 0);
