@@ -83,7 +83,7 @@ class nodenotationnodeattributes : public DOMTestCase<string_type, string_adapto
       notations = docType.getNotations();
       baseT::assertNotNull(notations, __LINE__, __FILE__);
       notationNode = notations.getNamedItem(SA::construct_from_utf8("notation1"));
-      baseT::assertNotNull(notationNode, __LINE__, __FILE__);
+      baseT::skipIfNull(notationNode);
       attrList = notationNode.getAttributes();
       baseT::assertNull(attrList, __LINE__, __FILE__);
       
