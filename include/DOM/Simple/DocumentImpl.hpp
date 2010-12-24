@@ -15,6 +15,7 @@
 #include <DOM/Simple/NotationImpl.hpp>
 #include <DOM/Simple/ElementByTagImpl.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
+#include <XML/XMLCharacterClasses.hpp>
 
 #include <set>
 #include <list>
@@ -59,7 +60,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
         NodeWithChildrenT(0),
         documentElement_(0),
         documentType_(0),
-				domImplementation_(),
+	domImplementation_(),
         namespaceURI_(),
         qualifiedName_(),
         changesCount_(0),
@@ -142,11 +143,17 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOMElement_implT* createElement(const stringT& tagName) const
     {
+      checkName(tagName);
+      return createElement_nocheck(tagName);
+    } // createElement
+
+    DOMElement_implT* createElement_nocheck(const stringT& tagName) const
+    {
       ElementImplT* n = 
         new ElementImplT(const_cast<DocumentImpl*>(this), tagName);
       orphaned(n);
       return n;
-    } // createElement
+    } // createElement_nocheck
 
     virtual DOM::DocumentFragment_impl<stringT, string_adaptorT>* createDocumentFragment() const
     {
@@ -178,19 +185,38 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOM::ProcessingInstruction_impl<stringT, string_adaptorT>* createProcessingInstruction(const stringT& target, const stringT& data) const
     {
+      checkName(target);
+      checkChars(data);
+      return createProcessingInstruction_nocheck(target, data);
+    } // createProcessingInstruction
+
+    DOM::ProcessingInstruction_impl<stringT, string_adaptorT>* createProcessingInstruction_nocheck(const stringT& target, const stringT& data) const
+    {  
       ProcessingInstructionImpl<stringT, string_adaptorT>* n = new ProcessingInstructionImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), target, data);
       orphaned(n);
       return n;
-    } // createProcessingInstruction
+    } // createProcessingInstruction_nocheck
 
     virtual DOMAttr_implT* createAttribute(const stringT& name) const
+    {
+      checkName(name);
+      return createAttribute_nocheck(name);
+    } // createAttribute
+
+    DOMAttr_implT* createAttribute_nocheck(const stringT& name) const
     {
       AttrImpl<stringT, string_adaptorT>* n = new AttrImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), name);
       orphaned(n);
       return n;
-    } // createAttribute
+    } // createAttribute_nocheck
 
     virtual DOM::EntityReference_impl<stringT, string_adaptorT>* createEntityReference(const stringT& name) const
+    {
+      checkName(name);
+      return createEntityReference_nocheck(name);
+    } // createEntityRef
+
+    DOM::EntityReference_impl<stringT, string_adaptorT>* createEntityReference_nocheck(const stringT& name) const
     {
       EntityReferenceImpl<stringT, string_adaptorT>* n = new EntityReferenceImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), name);
       if((documentType_ != 0) && (documentType_->getEntities()->getNamedItem(name) != 0))
@@ -219,7 +245,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
       {
         case DOM::Node_base::ATTRIBUTE_NODE:
           if(string_adaptorT::empty(importedNode->getLocalName()))
-            newNode = createAttribute(importedNode->getNodeName());
+            newNode = createAttribute_nocheck(importedNode->getNodeName());
           else
             newNode = createAttributeNS(importedNode->getNamespaceURI(), importedNode->getNodeName());
           deep = true;
@@ -235,7 +261,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
           {
             DOMElement_implT* elem;
             if(string_adaptorT::empty(importedNode->getLocalName()))
-              elem = createElement(importedNode->getNodeName());
+              elem = createElement_nocheck(importedNode->getNodeName());
             else
               elem = createElementNS(importedNode->getNamespaceURI(), importedNode->getNodeName());
 
@@ -267,7 +293,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
           } 
           break;
         case DOM::Node_base::ENTITY_REFERENCE_NODE:
-          newNode = createEntityReference(importedNode->getNodeName());
+          newNode = createEntityReference_nocheck(importedNode->getNodeName());
           deep = false;
           break;
         case DOM::Node_base::NOTATION_NODE:
@@ -280,7 +306,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
           } 
           break;
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
-          newNode = createProcessingInstruction(importedNode->getNodeName(), importedNode->getNodeValue());
+          newNode = createProcessingInstruction_nocheck(importedNode->getNodeName(), importedNode->getNodeValue());
           break;
         case DOM::Node_base::TEXT_NODE:
           newNode = createTextNode(importedNode->getNodeValue());
@@ -321,7 +347,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
       AttrNSImpl<stringT, string_adaptorT>* n = new AttrNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
       orphaned(n);
       return n;
-    } // createAttrNS
+    } // createAttributeNS
 
     virtual DOM::NodeList_impl<stringT, string_adaptorT>* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const
     {
@@ -437,10 +463,10 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
       orphans_.insert(node); 
     } // orphaned
 
-	bool isOrphaned(NodeImplT* node) const
-	{
-	  return orphans_.find(node) != orphans_.end();
-	} // isOrphaned
+    bool isOrphaned(NodeImplT* node) const
+    {
+      return orphans_.find(node) != orphans_.end();
+    } // isOrphaned
 
     void purge(NodeImplT* node) 
     {      
@@ -488,6 +514,28 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
          (type != DOM::Node_base::DOCUMENT_TYPE_NODE)) 
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // checkChildType
+
+    void checkName(const stringT& str) const
+    {
+      if(string_adaptorT::length(str) == 0)
+	throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
+      typedef typename string_adaptorT::const_iterator const_iterator;
+      const_iterator i = string_adaptorT::begin(str);
+      const_iterator ie = string_adaptorT::end(str);
+      for( ; i != ie; ++i)
+	if(!XML::is_name_char(*i))
+	  throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
+    } // checkName
+
+    void checkChars(const stringT& str) const
+    {
+      typedef typename string_adaptorT::const_iterator const_iterator;
+      const_iterator i = string_adaptorT::begin(str);
+      const_iterator ie = string_adaptorT::end(str);
+      for( ; i != ie; ++i)
+	if(!XML::is_char(*i))
+	  throw DOM::DOMException(DOM::DOMException::INVALID_CHARACTER_ERR);
+    } // checkChars
 
   private:
     DOMElement_implT* documentElement_;
