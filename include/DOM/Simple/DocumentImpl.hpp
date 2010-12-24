@@ -247,7 +247,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
           if(string_adaptorT::empty(importedNode->getLocalName()))
             newNode = createAttribute_nocheck(importedNode->getNodeName());
           else
-            newNode = createAttributeNS(importedNode->getNamespaceURI(), importedNode->getNodeName());
+            newNode = createAttributeNS_nocheck(importedNode->getNamespaceURI(), importedNode->getNodeName());
           deep = true;
           break;
         case DOM::Node_base::DOCUMENT_FRAGMENT_NODE:
@@ -263,7 +263,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
             if(string_adaptorT::empty(importedNode->getLocalName()))
               elem = createElement_nocheck(importedNode->getNodeName());
             else
-              elem = createElementNS(importedNode->getNamespaceURI(), importedNode->getNodeName());
+              elem = createElementNS_nocheck(importedNode->getNamespaceURI(), importedNode->getNodeName());
 
             const DOM::NamedNodeMap_impl<stringT, string_adaptorT>* attrs = importedNode->getAttributes();
             if(attrs)
@@ -336,6 +336,12 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOMElement_implT* createElementNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
+      checkName(qualifiedName);
+      return createElementNS_nocheck(namespaceURI, qualifiedName);
+    } // createElementNS
+
+    DOMElement_implT* createElementNS_nocheck(const stringT& namespaceURI, const stringT& qualifiedName) const
+    {
       ElementNSImpl<stringT, string_adaptorT>* n = 
         new ElementNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
       orphaned(n);
@@ -344,10 +350,16 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOMAttr_implT* createAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
+      checkName(qualifiedName);
+      return createAttributeNS_nocheck(namespaceURI, qualifiedName);
+    } // createAttributeNS
+
+    virtual DOMAttr_implT* createAttributeNS_nocheck(const stringT& namespaceURI, const stringT& qualifiedName) const
+    {
       AttrNSImpl<stringT, string_adaptorT>* n = new AttrNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
       orphaned(n);
       return n;
-    } // createAttributeNS
+    } // createAttributeNS_nocheck
 
     virtual DOM::NodeList_impl<stringT, string_adaptorT>* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const
     {
