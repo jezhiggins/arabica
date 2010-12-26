@@ -531,6 +531,10 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       if(NodeImplT::getOwnerDocument() && childDoc != NodeImplT::getOwnerDocument())
         throw DOM::DOMException(DOM::DOMException::WRONG_DOCUMENT_ERR);
 
+      for(DOMNode_implT* n = this; n != 0; n = n->getParentNode())
+	if(n == child)
+	  throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
+
       checkChildType(child);
     } // checkCanAdd
 
