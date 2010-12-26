@@ -81,11 +81,14 @@ class elementremoveattribute : public DOMTestCase<string_type, string_adaptor>
       Document doc;
       NodeList elementList;
       Element testEmployee;
+      Node attrNode;
       String attrValue;
       doc = (Document) baseT::load("staff", true);
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("address"));
       testEmployee = (Element) elementList.item(3);
       testEmployee.removeAttribute(SA::construct_from_utf8("street"));
+      attrNode = testEmployee.getAttributeNode(SA::construct_from_utf8("street"));
+      baseT::skipIfNull(attrNode);
       attrValue = testEmployee.getAttribute(SA::construct_from_utf8("street"));
       baseT::assertEquals("Yes", attrValue, __LINE__, __FILE__);
   
