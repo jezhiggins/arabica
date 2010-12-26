@@ -109,6 +109,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT, string_adaptorT>
     virtual DOMNode_implT* setNamedItem(DOMNode_implT* arg)
     {
       throwIfReadOnly();
+      checkOwnerDocument(arg);
       return setNode(findByName(arg->getNodeName()), dynamic_cast<NodeImplT*>(arg));
     } // setNamedItem
 
@@ -136,6 +137,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT, string_adaptorT>
     virtual DOMNode_implT* setNamedItemNS(DOMNode_implT* arg)
     {
       throwIfReadOnly();
+      checkOwnerDocument(arg);
       return setNode(findByNamespaceAndName(arg->getNamespaceURI(), arg->getLocalName()), dynamic_cast<NodeImplT*>(arg));
     } // setNamedItemNS
 
@@ -166,6 +168,14 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT, string_adaptorT>
       if(readOnly_)
         throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR);
     } // throwIfReadOnly
+
+    void checkOwnerDocument(const DOMNode_implT* arg)
+    { 
+      if(!ownerDoc_)
+	return;
+      if(arg->getOwnerDocument() != ownerDoc_)
+	throw DOM::DOMException(DOM::DOMException::WRONG_DOCUMENT_ERR);
+    } // checkOwnerDocument
 
   private:
     typedef std::deque<NodeImplT*> NodeListT;
