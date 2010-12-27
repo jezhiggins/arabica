@@ -35,6 +35,33 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     } // ~AttrMap
 
     /////////////////////////////////////////////////////
+    virtual DOMNode_implT* setNamedItem(DOMNode_implT* newAttr)
+    {
+      AttrImplT* attr = dynamic_cast<AttrImplT*>(newAttr);
+      if(alreadyHere(attr))
+        return attr;
+      NamedNodeMapImplT::throwIfReadOnly();
+      checkNotInUse(attr);
+      attr->setOwnerElement(ownerElement_);
+      return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItem(attr));
+    } // setNamedItem
+
+    virtual DOMNode_implT* removeNamedItem(const stringT& name)
+    {
+      DOMNode_implT* n = NamedNodeMapImplT::removeNamedItem(name);
+      createDefault(name);
+      return n;
+    } // removeNamedItem
+
+    virtual DOMNode_implT* removeNamedItemNS(const stringT& namespaceURI, const stringT& localName)
+    {
+      DOMNode_implT* n = NamedNodeMapImplT::removeNamedItemNS(namespaceURI, localName);
+      createDefault(namespaceURI, localName);
+      return n;
+    } // removedNamedItemNS   
+      
+
+    /////////////////////////////////////////////////////
     const stringT& getAttribute(const stringT& name) const
     {
       DOMNode_implT* attr = NamedNodeMapImplT::getNamedItem(name);
@@ -50,8 +77,7 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     void removeAttribute(const stringT& name)    
     {
-      NamedNodeMapImplT::removeNamedItem(name);
-      createDefault(name);
+      removeNamedItem(name);
     } // removeAttribute
 
     DOMAttr_implT* getAttributeNode(const stringT& name) const    
@@ -63,22 +89,11 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     {
       return dynamic_cast<DOMAttr_implT*>(setNamedItem(newAttr));
     } // setAttributeNode
-    virtual DOMNode_implT* setNamedItem(DOMNode_implT* newAttr)
-    {
-      AttrImplT* attr = dynamic_cast<AttrImplT*>(newAttr);
-      if(alreadyHere(attr))
-        return attr;
-      NamedNodeMapImplT::throwIfReadOnly();
-      checkNotInUse(attr);
-      attr->setOwnerElement(ownerElement_);
-      return dynamic_cast<DOMAttr_implT*>(NamedNodeMapImplT::setNamedItem(attr));
-    } // setNamedItem
 
     DOMAttr_implT* removeAttributeNode(DOMAttr_implT* oldAttr)    
     {
-      if(NamedNodeMapImplT::removeNamedItem(oldAttr->getNodeName()) == 0)
+      if(removeNamedItem(oldAttr->getNodeName()) == 0)
         throw DOM::DOMException(DOM::DOMException::NOT_FOUND_ERR);
-      createDefault(oldAttr->getNodeName());
       return oldAttr;
     } // removeAttributeNode
 
@@ -101,8 +116,7 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     void removeAttributeNS(const stringT& namespaceURI, const stringT& localName)    
     {
-      NamedNodeMapImplT::removeNamedItemNS(namespaceURI, localName);
-      createDefault(namespaceURI, localName);
+      removeNamedItemNS(namespaceURI, localName);
     } // removeAttributeNS
 
     DOMAttr_implT* getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const
@@ -114,6 +128,7 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
     {
       return dynamic_cast<DOMAttr_implT*>(setNamedItemNS(newAttr));
     } // setAttributeNodeNS
+
     virtual DOMNode_implT* setNamedItemNS(DOMNode_implT* newAttr)
     {
       AttrImplT* attr = dynamic_cast<AttrImplT*>(newAttr);
