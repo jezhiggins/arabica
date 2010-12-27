@@ -90,8 +90,10 @@ class documenttypegetnotations : public DOMTestCase<string_type, string_adaptor>
       baseT::assertNotNull(docType, __LINE__, __FILE__);
       notationList = docType.getNotations();
       baseT::assertNotNull(notationList, __LINE__, __FILE__);
-      for (unsigned int indexN65627 = 0; indexN65627 != notationList.getLength(); indexN65627++) {
-          notation = (Node) notationList.item(indexN65627);
+      notation = notationList.getNamedItem(SA::construct_from_utf8("notation1"));
+      baseT::skipIfNull(notation);
+      for (unsigned int indexN65635 = 0; indexN65635 != notationList.getLength(); indexN65635++) {
+          notation = (Node) notationList.item(indexN65635);
     notationName = notation.getNodeName();
       actual.push_back(notationName);
         }
