@@ -92,9 +92,7 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
     {
       if(!valueCalculated_)
       {
-        value_ = string_adaptorT::construct_from_utf8("");
-        for(DOMNode_implT* c = NodeT::getFirstChild(); c != 0; c = c->getNextSibling())
-          string_adaptorT::append(value_, c->getNodeValue());
+        value_ = concatNodes(NodeT::getFirstChild());
         valueCalculated_ = true;
       }
       return value_;
@@ -150,6 +148,17 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
     } // cloneChildren
 
   private:
+    stringT concatNodes(DOMNode_implT* firstChild) const
+    {
+      stringT value;
+      for(DOMNode_implT* c = firstChild; c != 0; c = c->getNextSibling())
+	if(c->getNodeType() == Node_base::ENTITY_REFERENCE_NODE)
+	  string_adaptorT::append(value, concatNodes(c->getFirstChild()));
+        else
+  	  string_adaptorT::append(value, c->getNodeValue());
+      return value;
+    } // concatNodes
+
     virtual void checkChildType(DOMNode_implT* child)
     {
       typename DOM::Node_base::Type type = child->getNodeType();
