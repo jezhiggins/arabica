@@ -206,7 +206,7 @@ class NamedNodeMapImpl : public DOM::NamedNodeMap_impl<stringT, string_adaptorT>
     NodeImplT* removeNode(typename NodeListT::iterator n)
     {
       if(n == nodes_.end())
-        return 0;
+        throw DOM::DOMException(DOM::DOMException::NOT_FOUND_ERR);
       NodeImplT* removedNode = *n;
       nodes_.erase(n);
       ownerDoc_->orphaned(removedNode);
