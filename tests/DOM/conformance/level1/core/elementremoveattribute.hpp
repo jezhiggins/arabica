@@ -81,8 +81,8 @@ class elementremoveattribute : public DOMTestCase<string_type, string_adaptor>
       Document doc;
       NodeList elementList;
       Element testEmployee;
-      Node attrNode;
       String attrValue;
+      Node attrNode;
       doc = (Document) baseT::load("staff", true);
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("address"));
       testEmployee = (Element) elementList.item(3);
