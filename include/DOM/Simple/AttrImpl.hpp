@@ -152,7 +152,7 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
     {
       stringT value;
       for(DOMNode_implT* c = firstChild; c != 0; c = c->getNextSibling())
-	if(c->getNodeType() == Node_base::ENTITY_REFERENCE_NODE)
+	if(c->getNodeType() == DOM::Node_base::ENTITY_REFERENCE_NODE)
 	  string_adaptorT::append(value, concatNodes(c->getFirstChild()));
         else
   	  string_adaptorT::append(value, c->getNodeValue());
