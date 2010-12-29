@@ -11,8 +11,9 @@
 ////////////////////////////////////////////////
 int main(int argc, const char* argv[])
 {
-  DOM_test_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >(argc, argv);
-  return 77;  // the make check magic ignore this result marker
+  bool ok = DOM_test_suite<std::wstring, Arabica::default_string_adaptor<std::wstring> >(argc, argv);
+  return !ok;
+  // return 77;  // the make check magic ignore this result marker
 } // main
 
 // end of file

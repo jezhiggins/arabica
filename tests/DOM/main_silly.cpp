@@ -9,8 +9,9 @@
 ////////////////////////////////////////////////
 int main(int argc, const char* argv[])
 {
-  DOM_test_suite<silly_string, silly_string_adaptor>(argc, argv);
-  return 77;
+  bool ok = DOM_test_suite<silly_string, silly_string_adaptor>(argc, argv);
+  return !ok;
+  // return 77;
 } // main
 
 // end of file
