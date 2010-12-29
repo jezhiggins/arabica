@@ -334,13 +334,13 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       return 0;
     } // getLastChild
 
-    virtual DOMNode_implT* insertBefore(DOMNode_implT*newChild, DOMNode_implT*refChild)
+    virtual DOMNode_implT* insertBefore(DOMNode_implT* newChild, DOMNode_implT* refChild)
     {
       return do_insertBefore(dynamic_cast<NodeImplT*>(newChild), 
                              dynamic_cast<NodeImplT*>(refChild));
     } // insertBefore
 
-    virtual DOMNode_implT* replaceChild(DOMNode_implT*newChild, DOMNode_implT*oldChild)
+    virtual DOMNode_implT* replaceChild(DOMNode_implT* newChild, DOMNode_implT* oldChild)
     {
       return do_replaceChild(dynamic_cast<NodeImplT*>(newChild), 
                              dynamic_cast<NodeImplT*>(oldChild));
@@ -435,7 +435,7 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
         DOMNode_implT* lc = newChild->getLastChild();
         replaceChild(newChild->removeChild(lc), oldChild);
         insertBefore(newChild, lc);
-        return newChild;
+        return oldChild;
       } // if ...
 
       checkCanAdd(newChild);
