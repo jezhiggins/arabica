@@ -92,8 +92,9 @@ class AttrMap : public NamedNodeMapImpl<stringT, string_adaptorT>
 
     DOMAttr_implT* removeAttributeNode(DOMAttr_implT* oldAttr)    
     {
-      if(removeNamedItem(oldAttr->getNodeName()) == 0)
+      if(oldAttr->getOwnerElement() != ownerElement_)
         throw DOM::DOMException(DOM::DOMException::NOT_FOUND_ERR);
+      removeNamedItem(oldAttr->getNodeName());
       return oldAttr;
     } // removeAttributeNode
 
