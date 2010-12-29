@@ -81,7 +81,17 @@ class elementretrieveallattributes : public DOMTestCase<string_type, string_adap
       NodeList addressList;
       Node testAddress;
       NamedNodeMap attributes;
+      DocumentType docType;
+      NamedNodeMap notations;
+      Notation notationNode;
+      String notationName;
       doc = (Document) baseT::load("staff", false);
+      docType = doc.getDoctype();
+      baseT::assertNotNull(docType, __LINE__, __FILE__);
+      notations = docType.getNotations();
+      baseT::assertNotNull(notations, __LINE__, __FILE__);
+      notationNode = (Notation) notations.getNamedItem(SA::construct_from_utf8("notation1"));
+      baseT::skipIfNull(notationNode);
       addressList = doc.getElementsByTagName(SA::construct_from_utf8("address"));
       testAddress = addressList.item(0);
       attributes = testAddress.getAttributes();
