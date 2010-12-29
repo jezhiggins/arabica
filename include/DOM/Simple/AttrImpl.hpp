@@ -75,6 +75,36 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
     virtual DOMNode_implT* getPreviousSibling() const { return 0; }
     virtual DOMNode_implT* getNextSibling() const { return 0; }
 
+    virtual DOMNode_implT* insertBefore(DOMNode_implT* newChild, DOMNode_implT* refChild)
+    {
+      valueCalculated_ = false;
+      return NodeT::insertBefore(newChild, refChild);
+    } // insertBefore
+
+    virtual DOMNode_implT* replaceChild(DOMNode_implT* newChild, DOMNode_implT* oldChild)
+    { 
+      valueCalculated_ = false;
+      return NodeT::replaceChild(newChild, oldChild);
+    } // replaceChild
+
+    virtual DOMNode_implT* removeChild(DOMNode_implT* oldChild)
+    {
+      valueCalculated_ = false;
+      return NodeT::removeChild(oldChild);
+    } // removeChild
+
+    virtual DOMNode_implT* appendChild(DOMNode_implT* newChild)
+    {
+      valueCalculated_ = false;
+      return NodeT::appendChild(newChild);
+    } // appendChild
+
+    virtual void purgeChild(DOMNode_implT* oldChild)
+    {
+      valueCalculated_ = false;
+      NodeT::purgeChild(oldChild);
+    } // purgeChild
+
     virtual DOMNode_implT* cloneNode(bool /*deep*/) const
     {
       AttrImpl* a = dynamic_cast<AttrImpl*>(NodeT::ownerDoc_->createAttribute(*name_));
@@ -107,7 +137,7 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
         NodeT::removeChild(c);
 
       // add a new text node
-      NodeT::appendChild(new TextImpl<stringT, string_adaptorT>(0, data));
+      NodeT::appendChild(NodeT::ownerDoc_->createTextNode(data));
 
       valueCalculated_ = false;
       specified_ = true;
@@ -132,14 +162,14 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
 
     void setSpecified(bool specified) { specified_ = specified; }
 
-	bool isOrphaned()
-	{
-		if(!ownerElement_)
-			return true;
+    bool isOrphaned()
+    {
+      if(!ownerElement_)
+	return true;
 
-		return NodeT::ownerDoc_->isOrphaned(this);
-	} // isOrphaned
-
+      return NodeT::ownerDoc_->isOrphaned(this);
+    } // isOrphaned
+  
   protected:
     void cloneChildren(AttrImpl* clone) const
     {
@@ -173,7 +203,7 @@ class AttrImpl : public DOM::Attr_impl<stringT, string_adaptorT>,
     bool specified_;
     mutable bool valueCalculated_;
     mutable stringT value_;
-}; // class CDATAImpl
+}; // class AttrImpl
 
 } // namespace SimpleDOM
 } // namespace Arabica
