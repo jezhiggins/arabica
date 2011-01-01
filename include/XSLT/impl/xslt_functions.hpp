@@ -218,7 +218,8 @@ protected:
     const std::string functionName = baseT::argAsString(0, context, executionContext);
     const XML::QualifiedName<std::string> expandedName = XML::QualifiedName<std::string>::parseQName(functionName, true, namespaces_);
 
-    if(expandedName.namespaceUri() != StylesheetConstant::NamespaceURI())
+    if((expandedName.namespaceUri() != StylesheetConstant::NamespaceURI()) &&
+       (!expandedName.namespaceUri().empty()))
       return false;
 
     static const char* XSLTNames[] = { "apply-imports", "apply-templates", "attributes", 
