@@ -2,6 +2,8 @@
 #define ARABICA_SAX_WRITER_H
 
 #include <SAX/ArabicaConfig.hpp>
+#include <SAX/helpers/AttributesImpl.hpp>
+#include <SAX/helpers/NamespaceSupport.hpp>
 #include <SAX/helpers/XMLFilterImpl.hpp>
 #include <SAX/ext/LexicalHandler.hpp>
 #include <SAX/ext/DeclHandler.hpp>
@@ -34,6 +36,9 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
     typedef Arabica::XML::text_escaper<charT, traitsT> text_escaperT;
     typedef Arabica::XML::attribute_escaper<charT, traitsT> attribute_escaperT;
   private:
+    typedef NamespaceConstants<string_type, string_adaptor> NamespaceConstantsT;
+    typedef AttributeType<string_type, string_adaptor> AttributeTypeT;
+    typedef AttributesImpl<string_type, string_adaptor> AttributesImplT;
     typedef LexicalHandler<string_type, string_adaptor> LexicalHandlerT;
     typedef DeclHandler<string_type, string_adaptor> DeclHandlerT;
     typedef typename XMLReaderT::InputSourceT InputSourceT;
@@ -42,6 +47,7 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
 
   public:
     Writer(ostreamT& stream, unsigned int indent = 2) :
+      inStartTag_(false),
       inCDATA_(false),
       inDTD_(false),
       internalSubset_(true),
@@ -55,6 +61,7 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
 
     Writer(ostreamT& stream, XMLReaderT& parent, unsigned int indent = 2) :
       XMLFilterT(parent),
+      inStartTag_(false),
       inCDATA_(false),
       inDTD_(false),
       internalSubset_(true),
@@ -67,6 +74,7 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
     } // Writer
 
     Writer(ostreamT& stream, const string_type& encoding, unsigned int indent = 2) :
+      inStartTag_(false),
       inCDATA_(false),
       inDTD_(false),
       internalSubset_(true),
@@ -80,6 +88,7 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
 
     Writer(ostreamT& stream, XMLReaderT& parent, const string_type& encoding, unsigned int indent = 2) :
       XMLFilterT(parent),
+      inStartTag_(false),
       inCDATA_(false),
       inDTD_(false),
       internalSubset_(true),
@@ -103,6 +112,8 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
     // ContentHandler
     virtual void startDocument();
     virtual void endDocument();
+    virtual void startPrefixMapping(const string_type& prefix, const string_type& uri);
+    virtual void endPrefixMapping(const string_type& prefix);
     virtual void startElement(const string_type& namespaceURI, const string_type& localName,
                               const string_type& qName, const AttributesT& atts);
     virtual void endElement(const string_type& namespaceURI, const string_type& localName,
@@ -139,7 +150,15 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
     void doIndent();
     bool isDtd(const string_type& name);
 
+    virtual void startElementOpen(const string_type& namespaceURI, const string_type& localName,
+                                  const string_type& qName, const AttributesT& atts);
+    virtual void writeAttributes(const AttributesT& atts);
+    virtual void startElementClose();
+
   private:
+    const NamespaceConstantsT nsc_;
+    AttributesImplT prefixMappings_;
+    bool inStartTag_;
     bool inCDATA_;
     bool inDTD_;
     bool internalSubset_;
@@ -155,6 +174,7 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::startDocument()
 {
+  startElementClose();
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::QUESTION_MARK
            << UnicodeT::LOWERCASE_X
@@ -205,12 +225,40 @@ void Writer<string_type, string_adaptor>::startDocument()
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::endDocument()
 {
+  startElementClose();
   XMLFilterT::endDocument();
   lastTag_ = endTag;
 } // endDocument
 
 template<class string_type, class string_adaptor>
-void Writer<string_type, string_adaptor>::startElement(
+void Writer<string_type, string_adaptor>::startPrefixMapping(const string_type& prefix, const string_type& uri)
+{
+  if ( prefix.empty() )
+  {
+    prefixMappings_.addAttribute(
+      string_type(), nsc_.xmlns,
+      nsc_.xmlns,
+      AttributeTypeT::CDATA, uri );
+  }
+  else
+  {
+    prefixMappings_.addAttribute(
+      nsc_.xmlns11_uri, prefix,
+      nsc_.xmlns + nsc_.colon + prefix,
+      AttributeTypeT::CDATA, uri );
+  }
+
+  XMLFilterT::startPrefixMapping(prefix, uri);
+} // startPrefixMapping
+
+template<class string_type, class string_adaptor>
+void Writer<string_type, string_adaptor>::endPrefixMapping(const string_type& prefix)
+{
+  XMLFilterT::endPrefixMapping(prefix);
+} // endPrefixMapping
+
+template<class string_type, class string_adaptor>
+void Writer<string_type, string_adaptor>::startElementOpen(
                               const string_type& namespaceURI, const string_type& localName,
                               const string_type& qName, const AttributesT& atts)
 { 
@@ -218,7 +266,21 @@ void Writer<string_type, string_adaptor>::startElement(
     *stream_ << UnicodeT::LINE_FEED;
   doIndent();
   *stream_ << UnicodeT::LESS_THAN_SIGN << (!qName.empty() ? qName : localName);
-  
+
+  writeAttributes(prefixMappings_);
+  prefixMappings_.clear();
+  writeAttributes(atts);
+
+  inStartTag_ = true;
+  depth_ += indent_;
+  lastTag_ = startTag;
+
+  XMLFilterT::startElement(namespaceURI, localName, qName, atts);
+} // startElementOpen
+
+template<class string_type, class string_adaptor>
+void Writer<string_type, string_adaptor>::writeAttributes(const AttributesT& atts)
+{
   for(int i = 0; i < atts.getLength(); ++i)
   {
     *stream_ << UnicodeT::SPACE 
@@ -229,12 +291,25 @@ void Writer<string_type, string_adaptor>::startElement(
     std::for_each(value.begin(), value.end(), attribute_escaperT(*stream_));
     *stream_ << UnicodeT::QUOTATION_MARK;
   }
+} // writeAttributes
 
-  *stream_ << UnicodeT::GREATER_THAN_SIGN;
-  depth_ += indent_;
-  lastTag_ = startTag;
+template<class string_type, class string_adaptor>
+void Writer<string_type, string_adaptor>::startElementClose()
+{
+  if ( inStartTag_ )
+  {
+    *stream_ << UnicodeT::GREATER_THAN_SIGN;
+    inStartTag_ = false;
+  }
+} // startElementClose
 
-  XMLFilterT::startElement(namespaceURI, localName, qName, atts);
+template<class string_type, class string_adaptor>
+void Writer<string_type, string_adaptor>::startElement(
+                              const string_type& namespaceURI, const string_type& localName,
+                              const string_type& qName, const AttributesT& atts)
+{ 
+  startElementClose();
+  startElementOpen(namespaceURI, localName, qName, atts);
 } // startElement
 
 template<class string_type, class string_adaptor>
@@ -243,14 +318,25 @@ void Writer<string_type, string_adaptor>::endElement(
                             const string_type& qName)
 {
   depth_ -= indent_;
-  if(lastTag_ == endTag)
-    doIndent();
-  *stream_ << UnicodeT::LESS_THAN_SIGN
-           << UnicodeT::SLASH
-           << (!qName.empty() ? qName : localName)
-           << UnicodeT::GREATER_THAN_SIGN;
-  if(indent_ != 0)
-    *stream_ << UnicodeT::LINE_FEED;
+  if ( inStartTag_ )
+  {
+    *stream_ << UnicodeT::SLASH
+             << UnicodeT::GREATER_THAN_SIGN;
+    if(indent_ != 0)
+      *stream_ << UnicodeT::LINE_FEED;
+    inStartTag_ = false;
+  }
+  else
+  {
+    if(lastTag_ == endTag)
+      doIndent();
+    *stream_ << UnicodeT::LESS_THAN_SIGN
+             << UnicodeT::SLASH
+             << (!qName.empty() ? qName : localName)
+             << UnicodeT::GREATER_THAN_SIGN;
+    if(indent_ != 0)
+      *stream_ << UnicodeT::LINE_FEED;
+  }
   lastTag_ = endTag;
 
   XMLFilterT::endElement(namespaceURI, localName, qName);
@@ -259,6 +345,7 @@ void Writer<string_type, string_adaptor>::endElement(
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::characters(const string_type& ch)
 {
+  startElementClose();
   if(!inCDATA_)
     std::for_each(ch.begin(), ch.end(), text_escaperT(*stream_));
   else
@@ -270,6 +357,7 @@ void Writer<string_type, string_adaptor>::characters(const string_type& ch)
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::ignorableWhitespace(const string_type& ch)
 {
+  startElementClose();
   *stream_ << ch;
 
   XMLFilterT::ignorableWhitespace(ch);
@@ -278,6 +366,7 @@ void Writer<string_type, string_adaptor>::ignorableWhitespace(const string_type&
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::processingInstruction(const string_type& target, const string_type& data)
 {
+  startElementClose();
   if((!inDTD_) || (inDTD_ && internalSubset_))
   {
     *stream_ << UnicodeT::LESS_THAN_SIGN
@@ -297,6 +386,7 @@ void Writer<string_type, string_adaptor>::processingInstruction(const string_typ
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::skippedEntity(const string_type& name)
 {
+  startElementClose();
   if(!isDtd(name))
     *stream_ << UnicodeT::AMPERSAND << name << UnicodeT::SEMI_COLON;
 
@@ -324,6 +414,7 @@ bool Writer<string_type, string_adaptor>::isDtd(const string_type& name)
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::startDTD(const string_type& name, const string_type& publicId, const string_type& systemId)
 {
+  startElementClose();
   inDTD_ = true;
   depth_ += indent_;
 
@@ -351,6 +442,7 @@ void Writer<string_type, string_adaptor>::startDTD(const string_type& name, cons
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::endDTD()
 {
+  startElementClose();
   *stream_ << UnicodeT::RIGHT_SQUARE_BRACKET
            << UnicodeT::GREATER_THAN_SIGN
            << std::endl;
@@ -364,6 +456,7 @@ void Writer<string_type, string_adaptor>::endDTD()
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::startEntity(const string_type& name)
 {
+  startElementClose();
   if(isDtd(name))
     internalSubset_ = false;
 
@@ -373,6 +466,7 @@ void Writer<string_type, string_adaptor>::startEntity(const string_type& name)
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::endEntity(const string_type& name)
 {
+  startElementClose();
   if(isDtd(name))
     internalSubset_ = true;
 
@@ -382,6 +476,7 @@ void Writer<string_type, string_adaptor>::endEntity(const string_type& name)
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::startCDATA()
 {
+  startElementClose();
   inCDATA_ = true;
 
   *stream_ << UnicodeT::LESS_THAN_SIGN
@@ -400,6 +495,7 @@ void Writer<string_type, string_adaptor>::startCDATA()
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::endCDATA()
 {
+  startElementClose();
   *stream_ << UnicodeT::RIGHT_SQUARE_BRACKET
            << UnicodeT::RIGHT_SQUARE_BRACKET
            << UnicodeT::GREATER_THAN_SIGN;
@@ -412,6 +508,7 @@ void Writer<string_type, string_adaptor>::endCDATA()
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::comment(const string_type& text)
 {
+  startElementClose();
   if((!inDTD_) || (inDTD_ && internalSubset_))
     *stream_ << UnicodeT::LESS_THAN_SIGN
             << UnicodeT::EXCLAMATION_MARK
@@ -428,6 +525,7 @@ void Writer<string_type, string_adaptor>::comment(const string_type& text)
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::notationDecl(const string_type& name, const string_type& publicId, const string_type& systemId)
 {
+  startElementClose();
   if(inDTD_ && internalSubset_)
   {
     doIndent();
@@ -457,6 +555,7 @@ void Writer<string_type, string_adaptor>::notationDecl(const string_type& name, 
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::unparsedEntityDecl(const string_type& name, const string_type& publicId, const string_type& systemId, const string_type& notationName)
 {
+  startElementClose();
   if(inDTD_ && internalSubset_)
   {
     doIndent();
@@ -482,6 +581,7 @@ void Writer<string_type, string_adaptor>::unparsedEntityDecl(const string_type& 
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::elementDecl(const string_type& name, const string_type& model)
 {
+  startElementClose();
   if(inDTD_ && internalSubset_)
   {
     doIndent();
@@ -511,6 +611,7 @@ template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::attributeDecl(const string_type& elementName, const string_type& attributeName,
                                const string_type& type, const string_type& valueDefault, const string_type& value)
 {
+  startElementClose();
   if(inDTD_ && internalSubset_)
   {
     doIndent();
@@ -551,6 +652,7 @@ void Writer<string_type, string_adaptor>::attributeDecl(const string_type& eleme
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::internalEntityDecl(const string_type& name, const string_type& value)
 {
+  startElementClose();
   if(inDTD_ && internalSubset_)
   {
     doIndent();
@@ -569,6 +671,7 @@ void Writer<string_type, string_adaptor>::internalEntityDecl(const string_type& 
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::externalEntityDecl(const string_type& name, const string_type& publicId, const string_type& systemId)
 {
+  startElementClose();
   if(inDTD_ && internalSubset_)
   {
     doIndent();
@@ -584,6 +687,7 @@ void Writer<string_type, string_adaptor>::externalEntityDecl(const string_type& 
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::startEntityDecl(const string_type& name)
 {
+  startElementClose();
   *stream_ << UnicodeT::LESS_THAN_SIGN
            << UnicodeT::EXCLAMATION_MARK
            << UnicodeT::CAPITAL_E
@@ -599,6 +703,7 @@ void Writer<string_type, string_adaptor>::startEntityDecl(const string_type& nam
 template<class string_type, class string_adaptor>
 void Writer<string_type, string_adaptor>::publicAndSystem(const string_type& publicId, const string_type& systemId)
 {
+  startElementClose();
   *stream_ << UnicodeT::SPACE;
 
   if(!publicId.empty())

@@ -6,6 +6,7 @@
 #include <vector>
 #include <functional>
 #include <XML/QName.hpp>
+#include <SAX/SAXException.hpp>
 
 namespace Arabica
 {
