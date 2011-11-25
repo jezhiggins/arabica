@@ -12,6 +12,7 @@ AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @PARSER_HEADERS@
 LIBARABICA =  $(top_builddir)/src/libarabica.la
 LIBSILLY = ../CppUnit/libsillystring.la
 TESTLIBS = $(LIBARABICA) ../CppUnit/libcppunit.la
+SYSLIBS = @PARSER_LIBS@
 
 test_sources = arithmetic_test.hpp \
                attr_value_test.hpp \
@@ -30,16 +31,16 @@ test_sources = arithmetic_test.hpp \
 
 xpath_test_SOURCES = main.cpp \
                      $(test_sources)
-xpath_test_LDADD = $(TESTLIBS)
+xpath_test_LDADD = $(TESTLIBS) $(SYSLIBS)
 xpath_test_DEPENDENCIES = $(TESTLIBS)
 
 xpath_test_silly_SOURCES = main_silly.cpp \
                            $(test_sources) 
-xpath_test_silly_LDADD = $(TESTLIBS) $(LIBSILLY)
+xpath_test_silly_LDADD = $(TESTLIBS) $(LIBSILLY) $(SYSLIBS)
 xpath_test_silly_DEPENDENCIES = $(TESTLIBS) $(LIBSILLY)
 
 xpath_test_wide_SOURCES = main_wide.cpp \
                           $(test_sources) 
-xpath_test_wide_LDADD = $(TESTLIBS)
+xpath_test_wide_LDADD = $(TESTLIBS) $(SYSLIBS)
 xpath_test_wide_DEPENDENCIES = $(TESTLIBS)
 
