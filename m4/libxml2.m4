@@ -16,7 +16,7 @@ AC_DEFUN([ARABICA_HAS_LIBXML2],
     libxml2_found=no
     for libxml2_path_tmp in $libxml2_possible_path ; do
       CXXFLAGS="$CXXFLAGS -I$libxml2_path_tmp/include/libxml2"
-      AC_COMPILE_IFELSE([@%:@include <libxml/parser.h>],
+      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <libxml/parser.h>]],[[]])],
                         [ LIBXML2_CFLAGS="-I$libxml2_path_tmp/include/libxml2"
                           LIBXML2_LIBS="-L$libxml2_path_tmp/lib"
                           libxml2_found=yes],

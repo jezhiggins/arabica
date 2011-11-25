@@ -18,7 +18,7 @@ AC_DEFUN([ARABICA_HAS_EXPAT],
     expat_found=no
     for expat_path_tmp in $expat_possible_path ; do
       CXXFLAGS="$CXXFLAGS -I$expat_path_tmp/include"
-      AC_COMPILE_IFELSE([@%:@include <expat.h>],
+      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <expat.h>]],[[]])],
                         [EXPAT_CFLAGS="-I$expat_path_tmp/include"
                          EXPAT_LIBS="-L$expat_path_tmp/lib"
                          expat_found=yes],

@@ -17,7 +17,7 @@ AC_DEFUN([ARABICA_HAS_XERCES],
     xerces_found=no
     for xerces_path_tmp in $xerces_possible_path ; do
       CXXFLAGS="$CXXFLAGS -I$xerces_path_tmp/include"
-      AC_COMPILE_IFELSE([@%:@include <xercesc/sax2/SAX2XMLReader.hpp>],
+      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/sax2/SAX2XMLReader.hpp>]],[[]])],
                         [XERCES_CFLAGS="-I$xerces_path_tmp/include"
                          XERCES_LIBS="-L$xerces_path_tmp/lib"
                          xerces_found=yes]

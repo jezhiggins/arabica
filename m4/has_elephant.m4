@@ -17,7 +17,7 @@ AC_DEFUN([HAS_LIB_ELEPHANT],
     elephant_found=no
     for elephant_path_tmp in $elephant_possible_path ; do
       CXXFLAGS="$CXXFLAGS -I$elephant_path_tmp/include"
-      AC_COMPILE_IFELSE([@%:@include <elephant/memorymonitor.h>],
+      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <elephant/memorymonitor.h>]],[[]])],        
                         [ELEPHANT_CFLAGS="-I$elephant_path_tmp/include"
                          ELEPHANT_LIBS="-L$elephant_path_tmp/lib"
                          elephant_found=yes]
