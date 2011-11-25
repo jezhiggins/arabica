@@ -31,7 +31,7 @@ class TaggleTest : public TestCase
       Arabica::SAX::Writer<std::string> writer(sink, parser);
 
       writer.parse(*source("<html><body>woo!<br></body></html>"));
-      assertEquals("<?xml version=\"1.0\"?>\n<html>\n  <body>woo!\n    <br clear=\"none\"></br>\n  </body>\n</html>\n", sink.str());
+      assertEquals("<?xml version=\"1.0\"?>\n<html xmlns:html=\"http://www.w3.org/1999/xhtml\">\n  <body>woo!\n    <br clear=\"none\"/>\n  </body>\n</html>\n", sink.str());
     } // senseTest
 
   private:
