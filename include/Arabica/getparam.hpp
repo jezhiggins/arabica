@@ -1,7 +1,7 @@
 #ifndef ARABICA_UTILS_GET_PARAM_HPP
 #define ARABICA_UTILS_GET_PARAM_HPP
 
-#ifdef HAVE_BOOST
+#ifdef ARABICA_HAVE_BOOST
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
 #endif
@@ -11,7 +11,7 @@ namespace Arabica
 
 struct nil_t { };
 
-#ifdef HAVE_BOOST
+#ifdef ARABICA_HAVE_BOOST
 template <typename BaseT, typename DefaultT, typename T0, typename T1>
 struct get_param
 {

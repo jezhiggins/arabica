@@ -50,3 +50,5 @@ AC_CONFIG_FILES([tests/XSLT/test_path.hpp])
 
 AC_OUTPUT
 
+ARABICA_PREFIX_CONFIG_H([ARABICA],
+                        [include/SAX/ArabicaConfig.hpp])

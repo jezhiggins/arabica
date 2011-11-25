@@ -1,8 +1,8 @@
 #ifndef JEZUK_SimpleDOM_DOMIMPLEMENTATIONIMPL_H
 #define JEZUK_SimpleDOM_DOMIMPLEMENTATIONIMPL_H
 
-#include <DOM/DOMImplementation.hpp>
 #include <DOM/DOMException.hpp>
+#include <DOM/DOMImplementation.hpp>
 #include <DOM/Simple/DocumentImpl.hpp>
 #include <DOM/Simple/DocumentTypeImpl.hpp>
 #include <Arabica/StringAdaptor.hpp>

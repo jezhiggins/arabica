@@ -8,7 +8,7 @@ AC_DEFUN([ARABICA_CHECK_CODECVT_SPECIALISATIONS],
                     [codecvt_available=no])
     AC_MSG_RESULT([$codecvt_available])
     if test $codecvt_available = yes; then
-      AC_DEFINE([ARABICA_NO_CODECVT_SPECIALISATIONS], [], [defined if we don't need extra codecvt template specialisations])
+      AC_DEFINE([NO_CODECVT_SPECIALISATIONS], [], [defined if we don't need extra codecvt template specialisations])
     fi
   fi
 ])

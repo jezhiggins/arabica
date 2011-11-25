@@ -6,34 +6,34 @@
 
 #include <SAX/ArabicaConfig.hpp>
 
-#ifdef USE_EXPAT
+#ifdef ARABICA_USE_EXPAT
 #include "SAX/wrappers/saxexpat.cpp"
 #ifdef _MSC_VER
 #pragma message("Pulling in Expat wrappers")
 #endif
 #endif
 
-#ifdef USE_LIBXML2
+#ifdef ARABICA_USE_LIBXML2
 #include "SAX/wrappers/saxlibxml2.cpp"
 #ifdef _MSC_VER
 #pragma message("Pulling in libxml2 wrappers")
 #endif
 #endif
 
-#ifdef USE_XERCES
+#ifdef ARABICA_USE_XERCES
 #include "SAX/wrappers/saxxerces.cpp"
 #ifdef _MSC_VER
 #pragma message("Pulling in Xerces wrappers")
 #endif
 #endif
 
-#ifdef USE_MSXML
+#ifdef ARABICA_USE_MSXML
 #ifdef _MSC_VER
 #pragma message("Using MSXML")
 #endif
 #endif
 
-#ifdef USE_GARDEN
+#ifdef ARABICA_USE_GARDEN
 #ifdef _MSC_VER
 #pragma message("Using Garden")
 #endif
