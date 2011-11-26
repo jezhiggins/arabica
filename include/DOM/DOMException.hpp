@@ -6,6 +6,7 @@
 ////////////////////////////
 
 #include <stdexcept>
+#include <typeinfo>
 
 namespace Arabica
 {
