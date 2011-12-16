@@ -1,4 +1,4 @@
-/*
+/*@
  * $Id$
  */
 
@@ -27,6 +27,8 @@ std::string formatErrorMsg(const char* fmt, va_list arg)
 void lwit_startDocument(void* user_data)
 {
   libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
+  p->parserContext()->myDoc = xmlNewDoc(p->parserContext()->version);
+  p->parserContext()->myDoc->intSubset = xmlNewDtd(p->parserContext()->myDoc, BAD_CAST "fake", NULL, NULL);
   p->SAXstartDocument();
 } // lwit_startDocument
 
@@ -34,6 +36,8 @@ void lwit_endDocument(void* user_data)
 {
   libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
   p->SAXendDocument();
+  xmlFreeDoc(p->parserContext()->myDoc);
+  p->parserContext()->myDoc = 0;
 } // lwit_endDocument
 
 void lwit_startElement(void *user_data, const xmlChar* name, const xmlChar** attrs)
@@ -141,6 +145,7 @@ void lwit_entityDecl(void* user_data, const xmlChar *name, int type, const xmlCh
 {
   libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
   p->SAXentityDecl(name, type, publicId, systemId, content);
+  xmlSAX2EntityDecl(p->parserContext(), name, type, publicId, systemId, content);
 } // lwit_entityDecl
 
 xmlParserInputPtr lwit_resolveEntity(void* user_data, const xmlChar* publicId, const xmlChar* systemId)
@@ -148,6 +153,13 @@ xmlParserInputPtr lwit_resolveEntity(void* user_data, const xmlChar* publicId, c
   libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
   return p->SAXresolveEntity(publicId, systemId);
 } // lwit_resolveEntity
+
+xmlEntityPtr lwit_getEntity(void* user_data, const xmlChar* name)
+{
+  libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
+  xmlEntityPtr ent = xmlSAX2GetEntity(p->parserContext(), name);
+  return ent;
+} // lwit_getEntity
 
 class libxmlInitialiser 
 {
@@ -161,7 +173,7 @@ static xmlSAXHandler saxHandler = {
 		0,		// hasInternalSubsetSAXFunc hasInternalSubset;
 		0,		// hasExternalSubsetSAXFunc hasExternalSubset;
 		lwit_resolveEntity,		// resolveEntitySAXFunc resolveEntity;
-		0,		// getEntitySAXFunc getEntity;
+		lwit_getEntity,		// getEntitySAXFunc getEntity;
 		lwit_entityDecl,   	// entityDeclSAXFunc entityDecl;
 		lwit_notationDecl,		// notationDeclSAXFunc notationDecl;
 		lwit_attributeDecl,		// attributeDeclSAXFunc attributeDecl;
@@ -188,7 +200,7 @@ static xmlSAXHandler saxHandler = {
     0,    // _private
     0,    // startElementNs
     0,    // endElementNs;
-    0    // serror;
+    0     // serror;
     };
 
 xmlSAXHandler* lwit_SaxHandler() 

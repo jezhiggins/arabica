@@ -62,6 +62,8 @@ class libxml2_base
     virtual void SAXattributeDecl(const xmlChar *elem, const xmlChar *fullname, int type, int def, const xmlChar *defaultValue, xmlEnumerationPtr tree) = 0;
     virtual void SAXentityDecl(const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content) = 0;
     virtual xmlParserInputPtr SAXresolveEntity(const xmlChar* publicId, const xmlChar* systemId) = 0;
+    virtual xmlParserCtxtPtr parserContext() = 0;
+
 
     friend void lwit_startDocument(void* user_data);
     friend void lwit_endDocument(void* user_data);
@@ -80,6 +82,7 @@ class libxml2_base
     friend void lwit_elementDecl(void* user_data, const xmlChar *name, int type, xmlElementContentPtr content);
     friend void lwit_attributeDecl(void* user_data, const xmlChar *elem, const xmlChar *fullname, int type, int def, const xmlChar *defaultValue, xmlEnumerationPtr tree);
     friend void lwit_entityDecl(void* user_data, const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content);
+    friend xmlEntityPtr lwit_getEntity(void* user_data, const xmlChar* name);
     friend xmlParserInputPtr lwit_resolveEntity(void* user_data, const xmlChar* publicId, const xmlChar* systemId);
 }; // class libxml2_base
 
@@ -104,6 +107,7 @@ void lwit_attributeDecl(void *user_data, const xmlChar *elem, const xmlChar *ful
 void lwit_entityDecl(void* user_data, const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content);
 void lwit_setFeature(xmlParserCtxtPtr context, const char* name, bool value);
 bool lwit_getFeature(xmlParserCtxtPtr context, const char* name);
+xmlEntityPtr lwit_getEntity(void* user_data, const xmlChar* name);
 xmlParserInputPtr lwit_resolveEntity(void* user_data, const xmlChar* publicId, const xmlChar* systemId);
 xmlSAXHandler* lwit_SaxHandler();
 } // extern "C"
@@ -204,6 +208,8 @@ class libxml2_wrapper :
     string_type stringAttrEnum(xmlEnumerationPtr tree, bool leadingSpace) const;
     virtual void SAXentityDecl(const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content);
     virtual xmlParserInputPtr SAXresolveEntity(const xmlChar* publicId, const xmlChar* systemId);
+    virtual xmlParserCtxtPtr parserContext() { return context_; }
+
 
     qualifiedNameT processName(const string_type& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
