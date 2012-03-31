@@ -259,7 +259,10 @@ libxml2_wrapper<string_type, T0, T1>::libxml2_wrapper() :
                                      0,
                                      0,
                                      0);
-  xmlCtxtUseOptions(context_, XML_PARSE_DTDLOAD + XML_PARSE_DTDVALID + XML_PARSE_NOBLANKS);
+  xmlCtxtUseOptions(context_, XML_PARSE_DTDLOAD + 
+		              XML_PARSE_DTDVALID + 
+		              XML_PARSE_NOENT +
+		              XML_PARSE_NOBLANKS);
 } // libxml2_wrapper
 
 template<class string_type, class T0, class T1>
