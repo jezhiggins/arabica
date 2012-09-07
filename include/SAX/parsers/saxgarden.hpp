@@ -2,7 +2,15 @@
 #define ARABICA_GARDEN_H
 
 #include <SAX/ArabicaConfig.hpp>
-#include <boost/spirit.hpp>
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 103800
+#define BOOST_SPIRIT_USE_OLD_NAMESPACE 1
+#include <boost/spirit/include/classic_core.hpp>
+#include <boost/spirit/include/classic_chset.hpp>
+#else
+#include <boost/spirit/core.hpp>
+#include <boost/spirit/utility/chset.hpp>
+#endif
 #include <boost/bind.hpp>
 #include <vector>
 #include <string>
@@ -24,10 +32,13 @@ namespace SAX
 template<class string_type, 
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
-class Garden : public XMLReaderInterface<string_type, T0, T1>
+class Garden : 
+    public SAX::XMLReaderInterface<string_type, 
+				   typename Arabica::get_string_adaptor<string_type, T0, T1>::type>
 {
 public:
-  typedef XMLReaderInterface<string_type, T0, T1> XMLReaderT;
+  typedef SAX::XMLReaderInterface<string_type, 
+				  typename Arabica::get_string_adaptor<string_type, T0, T1>::type> XMLReaderT;
   typedef typename XMLReaderT::string_adaptor string_adaptor;
   typedef EntityResolver<string_type, string_adaptor> EntityResolverT;
   typedef DTDHandler<string_type, string_adaptor> DTDHandlerT;
@@ -37,7 +48,7 @@ public:
   typedef ErrorHandler<string_type, string_adaptor> ErrorHandlerT;
   typedef DeclHandler<string_type, string_adaptor> declHandlerT;
   typedef LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
-  typedef typename XMLReaderT::PropertyBase PropertyBase;
+  typedef typename XMLReaderT::PropertyBase PropertyBaseT;
 
   Garden();
 
@@ -59,8 +70,8 @@ public:
 
   virtual void parse(InputSourceT& input);
 
-  virtual std::auto_ptr<PropertyBase> doGetProperty(const string_type& name);
-  virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBase> value);
+  virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& name);
+  virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value);
 
 private:
   void reportError(const std::string& message, bool fatal = false);
@@ -248,13 +259,13 @@ void Garden<string_type, T0, T1>::setFeature(const string_type& name, bool value
 ///////////////////////////////////////
 // properties
 template<class string_type, class T0, class T1>
-std::auto_ptr<typename Garden<string_type, T0, T1>::PropertyBase> Garden<string_type, T0, T1>::doGetProperty(const string_type& name)
+std::auto_ptr<typename Garden<string_type, T0, T1>::PropertyBaseT> Garden<string_type, T0, T1>::doGetProperty(const string_type& name)
 {
   throw SAXNotRecognizedException(string_adaptor::asStdString(name));
 } // doGetProperty
 
 template<class string_type, class T0, class T1>
-void Garden<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<typename XMLReaderInterface<string_type, T0, T1>::PropertyBase> value)
+void Garden<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value)
 {
   throw SAXNotRecognizedException(string_adaptor::asStdString(name));
 } // doSetProperty
@@ -350,7 +361,7 @@ template<class string_type, class T0, class T1>
 void Garden<string_type, T0, T1>::attributeValue(iterator_t s, iterator_t e)
 {
   currentAttr_.value_ = str(s, e);
-  currentAttr_.type_ = Attributes<string_type, string_adaptor>::Type::CDATA;
+  currentAttr_.type_ = AttributeType<string_type, string_adaptor>::CDATA;
   attrs_.addAttribute(currentAttr_);
 } // attributeValue
 
