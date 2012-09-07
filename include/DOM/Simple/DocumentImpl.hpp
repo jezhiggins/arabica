@@ -142,7 +142,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOMElement_implT* createElement(const stringT& tagName) const
     {
-      checkName(tagName);
+      this->checkName(tagName);
       return createElement_nocheck(tagName);
     } // createElement
 
@@ -184,8 +184,8 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOM::ProcessingInstruction_impl<stringT, string_adaptorT>* createProcessingInstruction(const stringT& target, const stringT& data) const
     {
-      checkName(target);
-      checkChars(data);
+      this->checkName(target);
+      this->checkChars(data);
       return createProcessingInstruction_nocheck(target, data);
     } // createProcessingInstruction
 
@@ -198,7 +198,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOMAttr_implT* createAttribute(const stringT& name) const
     {
-      checkName(name);
+      this->checkName(name);
       return createAttribute_nocheck(name);
     } // createAttribute
 
@@ -211,7 +211,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOM::EntityReference_impl<stringT, string_adaptorT>* createEntityReference(const stringT& name) const
     {
-      checkName(name);
+      this->checkName(name);
       return createEntityReference_nocheck(name);
     } // createEntityRef
 
@@ -335,7 +335,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOMElement_implT* createElementNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
-      checkName(qualifiedName);
+      this->checkName(qualifiedName);
       return createElementNS_nocheck(namespaceURI, qualifiedName);
     } // createElementNS
 
@@ -349,7 +349,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOMAttr_implT* createAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
-      checkName(qualifiedName);
+      this->checkName(qualifiedName);
       return createAttributeNS_nocheck(namespaceURI, qualifiedName);
     } // createAttributeNS
 
