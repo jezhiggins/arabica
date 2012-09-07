@@ -2,8 +2,6 @@
 #define ARABICA_SAX_XERCES_H
 //---------------------------------------------------------------------------
 // A SAX2 wrapper class for Xerces.
-//
-// $Id$
 //---------------------------------------------------------------------------
 
 // Debugging code for the doSetProperty and doGetProperty methods.
@@ -503,13 +501,13 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
                                         XSA::makeStringT(rawName));
         } // endElement
         
-        virtual void characters(const XMLCh* const chars, const unsigned int length)
+        virtual void characters(const XMLCh* const chars, const XMLSize_t length)
         {
           if(contentHandler_) 
             contentHandler_->characters(XSA::makeStringT(chars, length));
         } // characters
         
-        virtual void ignorableWhitespace(const XMLCh* const chars, const unsigned int length)
+        virtual void ignorableWhitespace(const XMLCh* const chars, const XMLSize_t length)
         {
           if(contentHandler_)
             contentHandler_->ignorableWhitespace(XSA::makeStringT(chars, length));
@@ -796,8 +794,8 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
           return curPos_;
         } // curPos
 
-        virtual unsigned int readBytes(XMLByte* const toFill,
-                                       const unsigned int maxToRead)
+        virtual XMLSize_t readBytes(XMLByte* const toFill,
+				    const XMLSize_t maxToRead)
         {
           istream_.get()->read(reinterpret_cast<char*>(toFill), maxToRead);
           curPos_ += istream_.get()->gcount();
