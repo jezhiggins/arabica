@@ -94,12 +94,12 @@ namespace XercesImpl
     * // Construct two xerces_wrappers.
     *     XMLPlatformUtils::Initialize()
     *     XMLPlatformUtils::Initialize()
-    *     
+    *
     * // do stuff
     *
     * // Get rid of one of the xerces_wrappers
     *     XERCES_CPP_NAMESPACE::XMLPlatformUtils::Terminate()
-    *     
+    *
     * // do more stuff -- this is _after_ a call to Terminate()...
     *
     *     XMLPlatformUtils::Terminate()
@@ -119,7 +119,7 @@ namespace XercesImpl
   }; // class xerces_initializer
 } // namespace XercesImpl
 
-template<class string_type, 
+template<class string_type,
          class T0 = Arabica::nil_t,
          class T1 = Arabica::nil_t>
 class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::get_string_adaptor<string_type, T0, T1>::type>
@@ -149,7 +149,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
     // Configuration
     virtual bool getFeature(const string_type& name) const;
     virtual void setFeature(const string_type& name, bool value);
-  
+
     /////////////////////////////////////////////////
     // Event Handlers
     virtual void setEntityResolver(EntityResolverT& resolver) { entityResolverAdaptor_.setEntityResolver(resolver); }
@@ -229,12 +229,12 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         typedef string_adaptor base;
 
 #ifndef ARABICA_NO_WCHAR_T
-        static string_type makeStringT(const XMLCh* str) 
+        static string_type makeStringT(const XMLCh* str)
         {
           return makeStringT(str, XERCES_CPP_NAMESPACE::XMLString::stringLen(str));
         } // makeStringT
 
-        static string_type makeStringT(const XMLCh* str, int length) 
+        static string_type makeStringT(const XMLCh* str, int length)
         {
           if(str && length)
           {
@@ -248,7 +248,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         } // makeStringT
 #else
         // alternative version for the wchar_t impaired
-        static string_type makeStringT(const XMLCh* str, unsigned int inputLength) 
+        static string_type makeStringT(const XMLCh* str, unsigned int inputLength)
         {
           static XMLByte outBuff[4096];
 
@@ -259,10 +259,10 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
 
           while(inputLength)
           {
-              outputLength = transcoder_->transcodeTo(str+offset, 
-                                                      inputLength, 
-                                                      outBuff, 1024, 
-                                                      eaten, 
+              outputLength = transcoder_->transcodeTo(str+offset,
+                                                      inputLength,
+                                                      outBuff, 1024,
+                                                      eaten,
                                                       XERCES_CPP_NAMESPACE::XMLTranscoder::UnRep_RepChar);
               base::append(out, construct_from_XMLByte(outBuff, outputLength));
               offset += eaten;
@@ -272,12 +272,12 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
           return out;
         } // makeStringT
 
-        static string_type makeStringT(const XMLCh* str) 
+        static string_type makeStringT(const XMLCh* str)
         {
           return makeStringT(str, XERCES_CPP_NAMESPACE::XMLString::stringLen(str));
         } // makeStringT
 
-        static string_type construct_from_XMLByte(const XMLByte* bytes, int length) 
+        static string_type construct_from_XMLByte(const XMLByte* bytes, int length)
         {
           return base::construct_from_utf8(reinterpret_cast<const char*>(bytes), length);
         } // construct_from_XMLByte
@@ -293,7 +293,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
           transcoder_.reset(0);
         } // shutdown
 #endif
-        static XMLCh* asXMLChString(const string_type& s) 
+        static XMLCh* asXMLChString(const string_type& s)
         {
           std::string str = base::asStdString(s);
           return XERCES_CPP_NAMESPACE::XMLString::transcode(str.c_str());
@@ -309,17 +309,17 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
     {
       public:
         LocatorAdaptor() : locator_(0) { }
-        LocatorAdaptor(const XERCES_CPP_NAMESPACE::Locator* const locator) : locator_(locator) { } 
+        LocatorAdaptor(const XERCES_CPP_NAMESPACE::Locator* const locator) : locator_(locator) { }
         ~LocatorAdaptor() { }
 
         string_type getPublicId() const
         {
-          if(!locator_) 
+          if(!locator_)
             return string_type();
 
           return xerces_string_adaptor::makeStringT(locator_->getPublicId());
         } // getPublicId
-    
+
         string_type getSystemId() const
         {
           if(!locator_)
@@ -327,7 +327,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
 
           return XSA::makeStringT(locator_->getSystemId());
         } // getSystemId
-    
+
         int getLineNumber() const
         {
           if(!locator_)
@@ -335,7 +335,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
 
           return locator_->getLineNumber();
         } // getLineNumber
-    
+
         int getColumnNumber() const
         {
           if(!locator_)
@@ -343,7 +343,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
 
           return locator_->getColumnNumber();
         } // getColumnNumber
-    
+
         void setLocator(const XERCES_CPP_NAMESPACE::Locator* const locator)
         {
           locator_ = locator;
@@ -359,9 +359,9 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         EntityResolverAdaptor() : entityResolverHandler_(0) { }
         ~EntityResolverAdaptor() { }
 
-        void setEntityResolver(EntityResolverT& handler) 
+        void setEntityResolver(EntityResolverT& handler)
               {
-                entityResolverHandler_ = &handler; 
+                entityResolverHandler_ = &handler;
               }
         EntityResolverT* getEntityResolver() const
         {
@@ -397,7 +397,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         EntityResolverT* entityResolverHandler_;
     }; // class EntityResolverAdaptor
 
-    class DTDHandlerAdaptor : public XERCES_CPP_NAMESPACE::DTDHandler 
+    class DTDHandlerAdaptor : public XERCES_CPP_NAMESPACE::DTDHandler
     {
       public:
         DTDHandlerAdaptor() : dtdHandler_(0) { }
@@ -407,7 +407,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         DTDHandlerT* getDTDHandler() const { return dtdHandler_; }
 
         virtual void notationDecl(const XMLCh* const name,
-                                  const XMLCh* const publicId, 
+                                  const XMLCh* const publicId,
                                   const XMLCh* const systemId)
         {
           if(dtdHandler_)
@@ -416,7 +416,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
                                       XSA::makeStringT(systemId));
         } // notationDecl
         virtual void unparsedEntityDecl(const XMLCh* const name,
-                                        const XMLCh* const publicId, 
+                                        const XMLCh* const publicId,
                                         const XMLCh* const systemId,
                                         const XMLCh* const notationName)
         {
@@ -427,7 +427,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
                                             XSA::makeStringT(notationName));
         } // unparsedEntityDecl
 
-        virtual void resetDocType() 
+        virtual void resetDocType()
         {
           // no op
         } // resetDocType
@@ -436,10 +436,10 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         DTDHandlerT* dtdHandler_;
     }; // class DTDHandlerAdaptor
 
-    class ContentHandlerAdaptor : public XERCES_CPP_NAMESPACE::ContentHandler 
+    class ContentHandlerAdaptor : public XERCES_CPP_NAMESPACE::ContentHandler
     {
       public:
-        ContentHandlerAdaptor() : contentHandler_(0) { } 
+        ContentHandlerAdaptor() : contentHandler_(0) { }
         ~ContentHandlerAdaptor() { }
 
         void setContentHandler(ContentHandlerT& handler) { contentHandler_ = &handler; }
@@ -448,34 +448,34 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         virtual void setDocumentLocator(const XERCES_CPP_NAMESPACE::Locator* const locator)
         {
           locator_.setLocator(locator);
-          if(contentHandler_) 
+          if(contentHandler_)
             contentHandler_->setDocumentLocator(locator_);
         } // putDocumentLocation
-        
+
         virtual void startDocument()
         {
-          if(contentHandler_) 
+          if(contentHandler_)
             contentHandler_->startDocument();
         } // startDocument
-        
+
         virtual void endDocument()
         {
-          if(contentHandler_) 
+          if(contentHandler_)
             contentHandler_->endDocument();
         } // endDocument
-        
+
         virtual void startPrefixMapping(const XMLCh* const prefix, const XMLCh* const uri)
         {
           if(contentHandler_)
             contentHandler_->startPrefixMapping(XSA::makeStringT(prefix), XSA::makeStringT(uri));
         } // startPrefixMapping
-       
+
         virtual void endPrefixMapping(const XMLCh* const prefix)
         {
           if(contentHandler_)
             contentHandler_->endPrefixMapping(XSA::makeStringT(prefix));
         } // endPrefixMapping
-        
+
         virtual void startElement(const XMLCh* const namespaceUri,
                                   const XMLCh* const localName,
                                   const XMLCh* const rawName,
@@ -490,7 +490,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
                                           attrAdaptor);
           } // if ...
         } // startElement
-        
+
         virtual void endElement(const XMLCh* const namespaceUri,
                                 const XMLCh* const localName,
                                 const XMLCh* const rawName)
@@ -500,19 +500,19 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
                                         XSA::makeStringT(localName),
                                         XSA::makeStringT(rawName));
         } // endElement
-        
+
         virtual void characters(const XMLCh* const chars, const XMLSize_t length)
         {
-          if(contentHandler_) 
+          if(contentHandler_)
             contentHandler_->characters(XSA::makeStringT(chars, length));
         } // characters
-        
+
         virtual void ignorableWhitespace(const XMLCh* const chars, const XMLSize_t length)
         {
           if(contentHandler_)
             contentHandler_->ignorableWhitespace(XSA::makeStringT(chars, length));
         } // ignorableWhitespace
-        
+
         virtual void processingInstruction(const XMLCh* const target,
                                            const XMLCh* const data)
         {
@@ -520,7 +520,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
             contentHandler_->processingInstruction(XSA::makeStringT(target),
                                                    XSA::makeStringT(data));
         } // processingInstruction
-        
+
         virtual void skippedEntity(const XMLCh* const name)
         {
           if(contentHandler_)
@@ -611,7 +611,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         }; // class AttributesAdaptor
     }; // class ContentHandlerAdaptor
 
-    class ErrorHandlerAdaptor : public XERCES_CPP_NAMESPACE::ErrorHandler 
+    class ErrorHandlerAdaptor : public XERCES_CPP_NAMESPACE::ErrorHandler
     {
       public:
         ErrorHandlerAdaptor() :   errorHandler_(0) { }
@@ -635,9 +635,9 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
           handleError(exception, &ErrorHandlerT::fatalError);
         } // fatalError
 
-        virtual void resetErrors() 
-        { 
-          // no op 
+        virtual void resetErrors()
+        {
+          // no op
         } // resetErrors
 
       private:
@@ -662,7 +662,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         ErrorHandlerT* errorHandler_;
     }; // class ErrorHandlerAdaptor
 
-    class LexicalHandlerAdaptor : public XERCES_CPP_NAMESPACE::LexicalHandler 
+    class LexicalHandlerAdaptor : public XERCES_CPP_NAMESPACE::LexicalHandler
     {
       public:
         LexicalHandlerAdaptor() : lexicalHandler_(0) { }
@@ -711,7 +711,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
             lexicalHandler_->endCDATA();
         } // endCDATA
 
-        virtual void comment(const XMLCh* const chars, const unsigned int length)
+        virtual void comment(const XMLCh* const chars, const XMLSize_t length)
         {
           if(lexicalHandler_)
             lexicalHandler_->comment(XSA::makeStringT(chars, length));
@@ -721,7 +721,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         LexicalHandlerT* lexicalHandler_;
     }; // class LexicalHandlerAdaptor
 
-    class DeclHandlerAdaptor : public XERCES_CPP_NAMESPACE::DeclHandler 
+    class DeclHandlerAdaptor : public XERCES_CPP_NAMESPACE::DeclHandler
     {
       public:
         DeclHandlerAdaptor() : declHandler_(0) { }
@@ -812,9 +812,9 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
     class InputSourceAdaptor : public XERCES_CPP_NAMESPACE::InputSource
     {
       public:
-        InputSourceAdaptor(const InputSourceT& source) 
-        :   inputSource_(source) 
-        { 
+        InputSourceAdaptor(const InputSourceT& source)
+        :   inputSource_(source)
+        {
             xerces_string_janitor<XMLCh> wSystemId(XSA::asXMLChString(source.getSystemId()));
             xerces_string_janitor<XMLCh> wPublicId(XSA::asXMLChString(source.getPublicId()));
             setSystemId(wSystemId.get());
@@ -826,7 +826,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         {
           return new IStreamAdaptor(inputSource_.getByteStreamHandle());
         } // makeStream
-     
+
       private:
         // This is a local copy, so we do not rely on someone else keeping
         // their InputSourceT around for us.
@@ -900,16 +900,16 @@ xerces_wrapper<string_type, T0, T1>::~xerces_wrapper()
 template<class string_type, class T0, class T1>
 bool xerces_wrapper<string_type, T0, T1>::getFeature(const string_type& name) const
 {
-  try 
+  try
   {
     xerces_string_janitor<XMLCh> wName(XSA::asXMLChString(name));
     return xerces_->getFeature(wName.get());
   } // try
-  catch(XERCES_CPP_NAMESPACE::SAXNotSupportedException& e) 
+  catch(XERCES_CPP_NAMESPACE::SAXNotSupportedException& e)
   {
     throw SAX::SAXNotSupportedException(XSA::asStdString(XSA::makeStringT(e.getMessage())));
   } // catch(SAXNotSupportedException& e)
-  catch(XERCES_CPP_NAMESPACE::SAXNotRecognizedException& e) 
+  catch(XERCES_CPP_NAMESPACE::SAXNotRecognizedException& e)
   {
     throw SAX::SAXNotRecognizedException(XSA::asStdString(XSA::makeStringT(e.getMessage())));
   } // catch(SAXNotRecognizedException& e)
@@ -918,16 +918,16 @@ bool xerces_wrapper<string_type, T0, T1>::getFeature(const string_type& name) co
 template<class string_type, class T0, class T1>
 void xerces_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bool value)
 {
-  try 
+  try
   {
     xerces_string_janitor<XMLCh> wName(XSA::asXMLChString(name));
     xerces_->setFeature(wName.get(), value);
   } // try
-  catch(XERCES_CPP_NAMESPACE::SAXNotSupportedException& e) 
+  catch(XERCES_CPP_NAMESPACE::SAXNotSupportedException& e)
   {
     throw SAX::SAXNotSupportedException(XSA::asStdString(XSA::makeStringT(e.getMessage())));
   } // catch(SAXNotSupportedException& e)
-  catch(XERCES_CPP_NAMESPACE::SAXNotRecognizedException& e) 
+  catch(XERCES_CPP_NAMESPACE::SAXNotRecognizedException& e)
   {
     throw SAX::SAXNotRecognizedException(XSA::asStdString(XSA::makeStringT(e.getMessage())));
   } // catch(SAXNotRecognizedException& e)
@@ -952,7 +952,7 @@ std::auto_ptr<typename xerces_wrapper<string_type, T0, T1>::XMLReaderT::Property
   {
     typedef typename XMLReaderT::template Property<string_type&> StringPropertyType;
 
-    XMLCh* xercesExternalSchemaLocation = 
+    XMLCh* xercesExternalSchemaLocation =
         static_cast<XMLCh*>(xerces_->getProperty(
             XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalSchemaLocation));
 
@@ -960,8 +960,8 @@ std::auto_ptr<typename xerces_wrapper<string_type, T0, T1>::XMLReaderT::Property
     std::auto_ptr<typename XMLReaderT::PropertyBase> toReturn(new StringPropertyType(externalSchemaLocation_));
 #ifdef SAXXERCES_DEBUG
     std::cerr << "Returning " << typeid(toReturn)
-              << "(*(" << typeid(*toReturn.get()) << ")" 
-              <<  toReturn.get() << ")" 
+              << "(*(" << typeid(*toReturn.get()) << ")"
+              <<  toReturn.get() << ")"
               << " containing value [" << externalSchemaLocation_ << "]"
               <<  std::endl;
 #endif
@@ -971,14 +971,14 @@ std::auto_ptr<typename xerces_wrapper<string_type, T0, T1>::XMLReaderT::Property
   {
     typedef typename XMLReaderT::template Property<string_type&> StringPropertyType;
 
-    XMLCh* xercesExternalNoNamespaceSchemaLocation = 
+    XMLCh* xercesExternalNoNamespaceSchemaLocation =
         static_cast<XMLCh*>(xerces_->getProperty(
             XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalNoNameSpaceSchemaLocation));
 
     externalNoNamespaceSchemaLocation_ = XSA::makeStringT(xercesExternalNoNamespaceSchemaLocation);
     return std::auto_ptr<typename XMLReaderT::PropertyBase>(new StringPropertyType(externalNoNamespaceSchemaLocation_));
   }
-  throw SAX::SAXNotRecognizedException("Property not recognized ");    
+  throw SAX::SAXNotRecognizedException("Property not recognized ");
 } // doGetProperty
 
 template<class string_type, class T0, class T1>
@@ -1066,7 +1066,7 @@ void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name,
     return;
   }
 
-  throw SAX::SAXNotRecognizedException("Property not recognized ");    
+  throw SAX::SAXNotRecognizedException("Property not recognized ");
 }
 
 
@@ -1075,7 +1075,7 @@ void xerces_wrapper<string_type, T0, T1>::parse(InputSourceT& source)
 {
   // if no stream is open, let Xerces deal with it
   if(source.getByteStream() == 0)
-    xerces_->parse(XSA::asStdString(source.getSystemId()).c_str()); 
+    xerces_->parse(XSA::asStdString(source.getSystemId()).c_str());
   else
   {
     // we have to wrap everything up in a Xerces friendly way
@@ -1085,7 +1085,7 @@ void xerces_wrapper<string_type, T0, T1>::parse(InputSourceT& source)
 } // parse
 
 template<class string_type, class T0, class T1>
-bool xerces_wrapper<string_type, 
+bool xerces_wrapper<string_type,
                     T0, T1>::parseFirst(InputSourceT& input,
                                         XMLPScanToken& toFill)
 {
@@ -1121,7 +1121,7 @@ template<class string_type, class T0, class T1>
 bool xerces_wrapper<string_type, T0, T1>::parseNext(XMLPScanToken& token)
 {
   // Extract the XercesXMLPScanToken from within token.
-  XercesXMLPScanToken* xercesToken = 
+  XercesXMLPScanToken* xercesToken =
           dynamic_cast<XercesXMLPScanToken*>(token.parserImpl());
   if (xercesToken == 0)
   {
@@ -1140,7 +1140,7 @@ template<class string_type, class T0, class T1>
 void xerces_wrapper<string_type, T0, T1>::parseReset(XMLPScanToken& token)
 {
   // Extract the XercesXMLPScanToken from within token.
-  XercesXMLPScanToken* xercesToken = 
+  XercesXMLPScanToken* xercesToken =
         dynamic_cast<XercesXMLPScanToken*>(token.parserImpl());
   // If it failed to cast, we can simply ignore it, because this call clearly
   // isn't following a successful parseFirst().
