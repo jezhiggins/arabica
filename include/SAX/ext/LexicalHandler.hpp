@@ -185,6 +185,14 @@ public:
    * @param text A string holding the comment.
    */
   virtual void comment(const string_type& text) = 0;
+
+  const string_type dtd_pseudo_entity;
+
+  protected:
+	  LexicalHandler() :
+		   dtd_pseudo_entity(string_adaptor::construct_from_utf8("[dtd]")) 
+      { 
+	  }
 }; // class LexicalHandler
 
 } // namespace SAX

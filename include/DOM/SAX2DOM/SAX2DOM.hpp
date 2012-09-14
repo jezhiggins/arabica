@@ -108,8 +108,8 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
 
       SAX_parser_type base_parser;
       TextCoalescerT parser(base_parser);
-		  parser.setContentHandler(*this);
-		  parser.setErrorHandler(*this);
+      parser.setContentHandler(*this);
+      parser.setErrorHandler(*this);
       if(entityResolver_)
         parser.setEntityResolver(*entityResolver_);
 
@@ -322,6 +322,9 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
     {
       if(--inEntity_ == 0)
         currentNode_ = cachedCurrent_;
+
+	  if(dtd_pseudo_entity == name)
+		  return;
 
       currentNode_.appendChild(document_.createEntityReference(name));
     } // endEntity
