@@ -323,8 +323,8 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
       if(--inEntity_ == 0)
         currentNode_ = cachedCurrent_;
 
-	  if(dtd_pseudo_entity == name)
-		  return;
+      if(this->dtd_pseudo_entity == name)
+        return;
 
       currentNode_.appendChild(document_.createEntityReference(name));
     } // endEntity
