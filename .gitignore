@@ -1,3 +1,4 @@
+*.o
 *~
 libtool
 config.log
