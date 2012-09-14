@@ -40,22 +40,22 @@ define ARABICA_DEBUG
 
 #ifdef USE_LIBXML2
 #undef USE_LIBXML2
-define USE_LIBXML2
+define ARABICA_USE_LIBXML2
 #endif
 
 #ifdef USE_EXPAT
 #undef USE_EXPAT
-define USE_EXPAT
+define ARABICA_USE_EXPAT
 #endif
 
 #ifdef USE_XERCES
 #undef USE_XERCES
-define USE_XERCES
+define ARABICA_USE_XERCES
 #endif
 
 #ifdef USE_GARDEN
 #undef USE_GARDEN
-define USE_GARDEN
+define ARABICA_USE_GARDEN
 define ARABICA_NO_WCHAR_T
 #endif
 
