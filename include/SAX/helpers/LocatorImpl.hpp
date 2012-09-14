@@ -107,7 +107,7 @@ public:
    * @see Locator#getLineNumber
    * @see #setLineNumber
    */
-  virtual int getLineNumber() const { return lineNumber_; }
+  virtual size_t getLineNumber() const { return lineNumber_; }
   /**
    * Return the saved column number (1-based).
    *
@@ -115,7 +115,7 @@ public:
    * @see Locator#getColumnNumber
    * @see #setColumnNumber
    */
-  virtual int getColumnNumber() const { return columnNumber_; }
+  virtual size_t getColumnNumber() const { return columnNumber_; }
 
   //////////////////////////////////////////////////////////////////////
   // Setters for the properties (not in Locator)
@@ -141,22 +141,22 @@ public:
    * @param lineNumber The line number, or -1 if none is available.
    * @see #getLineNumber
    */
-  void setLineNumber(int lineNumber) { lineNumber_ = lineNumber; }
+  void setLineNumber(size_t lineNumber) { lineNumber_ = lineNumber; }
   /**
    * Set the column number for this locator (1-based).
    *
    * @param columnNumber The column number, or -1 if none is available.
    * @see #getColumnNumber
    */
-  void setColumnNumber(int columnNumber) { columnNumber_ =  columnNumber; }
+  void setColumnNumber(size_t columnNumber) { columnNumber_ =  columnNumber; }
 
 private:
   //////////////////////////////////////////////////////////////////////
   // Internal state.
   string_type publicId_;
   string_type systemId_;
-  int lineNumber_;
-  int columnNumber_;
+  size_t lineNumber_;
+  size_t columnNumber_;
 
   bool operator==(const LocatorT& rhs) const;
 }; // class LocatorImpl

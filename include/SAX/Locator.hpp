@@ -2,7 +2,6 @@
 #define ARABICA_LOCATOR_H
 
 // Locator.h
-// $Id$
 
 #include <string>
 
@@ -98,7 +97,7 @@ public:
    * @return The line number, or -1 if none is available.
    * @see #getColumnNumber
    */
-  virtual int getLineNumber() const = 0;
+  virtual size_t getLineNumber() const = 0;
   /**
    * Return the column number where the current document event ends.
    *
@@ -122,7 +121,7 @@ public:
    * @return The column number, or -1 if none is available.
    * @see #getLineNumber
    */
-  virtual int getColumnNumber() const = 0;
+  virtual size_t getColumnNumber() const = 0;
 }; // class Locator
 
 } // namespace SAX

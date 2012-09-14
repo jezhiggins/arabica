@@ -186,7 +186,7 @@ class msxml2_wrapper :
           return systemId;
         } // getSystemId
     
-        int getLineNumber() const
+        size_t getLineNumber() const
         {
           if(!locator_)
             return -1;
@@ -196,7 +196,7 @@ class msxml2_wrapper :
           return lineNumber;
         } // getLineNumber
     
-		int getColumnNumber() const
+		size_t getColumnNumber() const
         {
           if(!locator_)
             return -1;

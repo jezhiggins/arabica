@@ -267,8 +267,8 @@ class expat_wrapper :
     // Locator
     virtual string_type getPublicId() const;
     virtual string_type getSystemId() const;
-    virtual int getLineNumber() const;
-    virtual int getColumnNumber() const;
+    virtual size_t getLineNumber() const;
+    virtual size_t getColumnNumber() const;
 
     ///////////////////////////////////////////////////
     // properties
@@ -579,13 +579,13 @@ string_type expat_wrapper<string_type, T0, T1>::getSystemId() const
 } // getSystemId
 
 template<class string_type, class T0, class T1>
-int expat_wrapper<string_type, T0, T1>::getLineNumber() const
+size_t expat_wrapper<string_type, T0, T1>::getLineNumber() const
 {
   return XML_GetCurrentLineNumber(parser_);
 } // getLineNumber
 
 template<class string_type, class T0, class T1>
-int expat_wrapper<string_type, T0, T1>::getColumnNumber() const
+size_t expat_wrapper<string_type, T0, T1>::getColumnNumber() const
 {
   return XML_GetCurrentColumnNumber(parser_);
 } // getColumnNumber

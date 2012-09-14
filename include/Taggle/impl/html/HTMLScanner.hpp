@@ -100,10 +100,10 @@ private:
 
   std::string publicId_;      // Locator state
   std::string systemId_;
-  int lastLine_;
-  int lastColumn_;
-  int currentLine_;
-  int currentColumn_;
+  size_t lastLine_;
+  size_t lastColumn_;
+  size_t currentLine_;
+  size_t currentColumn_;
 
   int state_;          // Current state
   int nextState_;        // Next state
@@ -131,12 +131,12 @@ public:
   } // HTMLScanner
 
   // Locator implementation
-  int getLineNumber() const
+  size_t getLineNumber() const
   {
     return lastLine_;
   } // getLineNumber
 
-  int getColumnNumber() const
+  size_t getColumnNumber() const
   {
     return lastColumn_;
   } // getColumnNumber

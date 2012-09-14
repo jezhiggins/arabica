@@ -65,8 +65,8 @@ public:
   SAXParseException(const std::string& message,
 	                        const string_type& publicId, 
                           const string_type& systemId,
-                          int lineNumber, 
-                          int columnNumber) :
+                          size_t lineNumber, 
+                          size_t columnNumber) :
     SAXException(message),
     publicId_(publicId), 
     systemId_(systemId),
@@ -127,7 +127,7 @@ public:
    *         if none is available.
    * @see Locator#getLineNumber
    */
-  int getLineNumber() const { return lineNumber_; }
+  size_t getLineNumber() const { return lineNumber_; }
   /**
    * The column number of the end of the text where the exception occurred.
    *
@@ -137,7 +137,7 @@ public:
    *         if none is available.
    * @see Locator#getColumnNumber
    */
-  int getColumnNumber() const { return columnNumber_; }
+  size_t getColumnNumber() const { return columnNumber_; }
 
   virtual const char* what() const throw()
   {
@@ -157,8 +157,8 @@ private:
 
   string_type publicId_;
   string_type systemId_;
-  int lineNumber_;
-  int columnNumber_;
+  size_t lineNumber_;
+  size_t columnNumber_;
 
   SAXParseException();
 }; // class SAXParseException

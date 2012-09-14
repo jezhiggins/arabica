@@ -328,20 +328,20 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
           return XSA::makeStringT(locator_->getSystemId());
         } // getSystemId
 
-        int getLineNumber() const
+        size_t getLineNumber() const
         {
           if(!locator_)
             return -1;
 
-          return locator_->getLineNumber();
+          return static_cast<size_t>(locator_->getLineNumber());
         } // getLineNumber
 
-        int getColumnNumber() const
+        size_t getColumnNumber() const
         {
           if(!locator_)
             return -1;
 
-          return locator_->getColumnNumber();
+          return static_cast<size_t>(locator_->getColumnNumber());
         } // getColumnNumber
 
         void setLocator(const XERCES_CPP_NAMESPACE::Locator* const locator)
@@ -654,8 +654,8 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
           SAXParseExceptionT sp(XSA::asStdString(errorMsg),
                                                publicId,
                                                systemId,
-                                               exception.getLineNumber(),
-                                               exception.getColumnNumber());
+                                               static_cast<size_t>(exception.getLineNumber()),
+                                               static_cast<size_t>(exception.getColumnNumber()));
           (errorHandler_->*fn)(sp);
         } // handleError
 
@@ -799,7 +799,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
         {
           istream_.get()->read(reinterpret_cast<char*>(toFill), maxToRead);
           curPos_ += istream_.get()->gcount();
-          return istream_.get()->gcount();
+          return static_cast<XMLSize_t>(istream_.get()->gcount());
         } // readBytes
 
         virtual const XMLCh* getContentType() const { return 0; }

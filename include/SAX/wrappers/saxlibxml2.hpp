@@ -182,8 +182,8 @@ class libxml2_wrapper :
   public:
     virtual string_type getPublicId() const;
     virtual string_type getSystemId() const;
-    virtual int getLineNumber() const;
-    virtual int getColumnNumber() const;
+    virtual size_t getLineNumber() const;
+    virtual size_t getColumnNumber() const;
 
   private:
     virtual void SAXstartDocument();
@@ -435,7 +435,7 @@ string_type libxml2_wrapper<string_type, T0, T1>::getSystemId() const
 } // getSystemId
 
 template<class string_type, class T0, class T1>
-int libxml2_wrapper<string_type, T0, T1>::getLineNumber() const
+size_t libxml2_wrapper<string_type, T0, T1>::getLineNumber() const
 {
   if(locator_)
     return locator_->getLineNumber(context_);
@@ -443,7 +443,7 @@ int libxml2_wrapper<string_type, T0, T1>::getLineNumber() const
 } // getLineNumber
 
 template<class string_type, class T0, class T1>
-int libxml2_wrapper<string_type, T0, T1>::getColumnNumber() const
+size_t libxml2_wrapper<string_type, T0, T1>::getColumnNumber() const
 {
   if(locator_)
     return locator_->getColumnNumber(context_);
