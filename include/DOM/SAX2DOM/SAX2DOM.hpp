@@ -325,8 +325,17 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
 
       if(this->dtd_pseudo_entity == name)
         return;
-
-      currentNode_.appendChild(document_.createEntityReference(name));
+	  
+	  const EntityT* declared = declaredEntities_[name];
+	  if(declared != 0 && declared->getLength() != 0)
+	  {
+		for(DOM::Node<stringT, string_adaptorT> child = declared->getFirstChild();
+            child != 0;
+		    child = child.getNextSibling())
+		  currentNode_.appendChild(child.cloneNode(true));
+	  }
+	  else
+        currentNode_.appendChild(document_.createEntityReference(name));
     } // endEntity
 
     virtual void startCDATA()
