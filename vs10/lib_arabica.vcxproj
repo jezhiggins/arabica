@@ -373,7 +373,7 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\vs7\ArabicaConfig.S">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /TC /EP -D USE_EXPAT ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl /TC /EP -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
 </Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\include\SAX\ArabicaConfig.hpp;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cl /TC /EP -D USE_MSXML ..\vs7\ArabicaConfig.S &gt; ..\include\SAX\ArabicaConfig.hpp
