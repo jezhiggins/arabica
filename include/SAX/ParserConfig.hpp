@@ -26,11 +26,11 @@
 #undef DEF_SAX_P
 #define DEF_SAX_P xerces_wrapper
 #ifdef _MSC_VER
-#pragma message("Including Xerces")
+#pragma message("Including Xerces v3")
 #ifdef _DEBUG
-#pragma comment(lib, "xerces-c_2D.lib")
+#pragma comment(lib, "xerces-c_3D.lib")
 #else
-#pragma comment(lib, "xerces-c_2.lib")
+#pragma comment(lib, "xerces-c_3.lib")
 #endif
 #endif
 #endif
