@@ -61,7 +61,7 @@ define ARABICA_NO_WCHAR_T
 
 #ifdef USE_MSXML
 #undef USE_MSXML
-define USE_MSXML
+define ARABICA_USE_MSXML
 #endif			
 				
 endif

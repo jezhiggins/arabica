@@ -44,6 +44,8 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release_examples_DOM_writer\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <TargetName>DOMWriter</TargetName>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\work\usr\include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\work\usr\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,26 +111,6 @@
     <ClCompile Include="..\examples\Dom\DOMWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="example_SAX_pyx.vcxproj">
-      <Project>{5214a867-2768-4cd0-9e29-6eed20718556}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="example_SAX_simplehander.vcxproj">
-      <Project>{4d861155-0183-4637-8f01-4f8fdb43c344}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="example_SAX_writer.vcxproj">
-      <Project>{c57ba030-a81f-4ea2-9cb6-d1be2404b787}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="example_SAX_xmlbase.vcxproj">
-      <Project>{1e3cec10-26eb-40c0-ac9a-72020bd5a40a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="example_Utils_transcode.vcxproj">
-      <Project>{436b423b-bf20-4b2e-a187-604af391fbe2}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="lib_arabica.vcxproj">
       <Project>{4ca72415-d03a-4447-be4e-c093a5146cac}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

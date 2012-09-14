@@ -64,3 +64,4 @@ m4/lt~obsolete.m4
 *.sdf
 ipch
 test_path.hpp
+*.opensdf
