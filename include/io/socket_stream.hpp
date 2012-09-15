@@ -33,6 +33,10 @@
 #  define INADDR_NONE             ((in_addr_t) -1)
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4250)
+// See http://connect.microsoft.com/VisualStudio/feedback/details/733720/inheriting-from-std-fstream-produces-c4250-warning
+#endif
 namespace Arabica
 {
 namespace io
