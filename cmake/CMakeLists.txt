@@ -410,7 +410,7 @@ endif()
 if(CMAKE_COMPILER_IS_GNUCC)
   #
   # Preprocess configuration file for Linux/GCC
-  add_custom_command(OUTPUT include/SAX/ArabicaConfig.hpp
+  add_custom_command(OUTPUT ../include/SAX/ArabicaConfig.hpp
     COMMAND ${CMAKE_CXX_COMPILER} -E  -D ${ARABICA_XML_BACKEND} ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} > ../include/SAX/ArabicaConfig.hpp
     )
 endif()

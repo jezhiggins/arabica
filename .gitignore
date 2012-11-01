@@ -65,3 +65,7 @@ m4/lt~obsolete.m4
 ipch
 test_path.hpp
 *.opensdf
+CMakeCache.txt
+CMakeFiles
+CMakeFiles/*
+cmake_install.cmake
