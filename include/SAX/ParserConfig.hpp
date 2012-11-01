@@ -25,12 +25,14 @@
 #include <SAX/wrappers/saxxerces.hpp>
 #undef DEF_SAX_P
 #define DEF_SAX_P xerces_wrapper
+#ifndef ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
 #ifdef _MSC_VER
 #pragma message("Including Xerces v3")
 #ifdef _DEBUG
 #pragma comment(lib, "xerces-c_3D.lib")
 #else
 #pragma comment(lib, "xerces-c_3.lib")
+#endif
 #endif
 #endif
 #endif
@@ -49,6 +51,7 @@
 #undef DEF_SAX_P
 #define DEF_SAX_P expat_wrapper
 #ifdef _MSC_VER
+#ifndef ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
 #pragma message("Including Expat")
 #ifndef XML_STATIC
 #pragma comment(lib, "libexpat.lib")
@@ -57,9 +60,12 @@
 #endif
 #endif
 #endif
+#endif
 
 #ifdef _MSC_VER
+#ifndef ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
 #pragma comment(lib, "wsock32.lib")
+#endif
 #endif
 
 

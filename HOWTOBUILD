@@ -1,0 +1,20 @@
+Using autotools
+---------------
+If you've pulled the source from GitHub, you'll need to start with autoreconf, otherwise go directly to ...
+    ./configure
+    make
+    Optionally make check to run the tests
+    Optionally make install
+
+The ./configure checks for installed parsers, Boost, and so on and so forth. If you want to choose on parser over another, having things installed in unusual locations, or whatever, you might need to give it a hand. Running ./configure --help will give the many and varied options you can feed it.
+
+
+Using CMake
+-----------
+Please see CMake.README
+
+
+Using Visual Studio
+-------------------
+See http://www.jezuk.co.uk/arabica/howtobuild
+
