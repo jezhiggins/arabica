@@ -8,17 +8,19 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class ValueOf : public Item
 {
 public:
-  ValueOf(Arabica::XPath::XPathExpressionPtr<std::string> expr,
+  ValueOf(Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> expr,
           bool disable_output_escaping) :
     expr_(expr),
     disable_(disable_output_escaping)
   {
   } // ValueOf
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+                       ExecutionContext& context) const
   {
     if(disable_)
       context.sink().disableOutputEscaping(true);
@@ -30,8 +32,8 @@ public:
   } // execute
 
 private:
-  Arabica::XPath::XPathExpressionPtr<std::string> expr_;
-  bool disable_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> expr_;
+  const bool disable_;
 }; // class ValueOf
 
 } // namespace XSLT

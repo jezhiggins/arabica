@@ -15,8 +15,6 @@ template<class string_type, class string_adaptor>
 class StylesheetParser
 {
 public:
-  typedef string_type string_type;
-  typedef string_adaptor string_adaptor;
 	typedef SAX::ContentHandler<string_type, string_adaptor> ContentHandlerT;
 	typedef SAX::InputSource<string_type, string_adaptor> InputSourceT;
   typedef SAX::XMLReader<string_type, string_adaptor> XMLReaderT;

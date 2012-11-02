@@ -9,19 +9,20 @@ namespace Arabica
 namespace XSLT
 {
 
-class ValueOfHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class ValueOfHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  ValueOfHandler(CompilationContext<std::string>& context) : 
+  ValueOfHandler(CompilationContext<string_type, string_adaptor>& context) : 
     context_(context),
     valueOf_(0)
   {
   } // ValueOfHandler
 
-  virtual void startElement(const std::string& /* namespaceURI */,
-                            const std::string& /* localName */,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& /* namespaceURI */,
+                            const string_type& /* localName */,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(valueOf_ == 0)
     {
@@ -29,31 +30,31 @@ public:
                                          { "disable-output-escaping", false, No, AllowedYesNo },
                                          { 0, false, 0, 0 } };
 
-      std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
-      valueOf_ = new ValueOf(context_.xpath_expression(attrs["select"]), 
-			     attrs["disable-output-escaping"] == Yes);
+      std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
+      valueOf_ = new ValueOf<string_type, string_adaptor>(context_.xpath_expression(attrs["select"]), 
+			                                               attrs["disable-output-escaping"] == Yes);
       return;
     } // if(valueOf_ == 0)
 
     throw SAX::SAXException(qName + " can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
     context_.parentContainer().add_item(valueOf_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     verifyNoCharacterData(ch, "xsl:value-of");
   } // characters
 
 private:
-  CompilationContext<std::string>& context_;
-  ValueOf* valueOf_;
+  CompilationContext<string_type, string_adaptor>& context_;
+  ValueOf<string_type, string_adaptor>* valueOf_;
 }; // class ValueOfHandler
 
 } //namespace XSLT

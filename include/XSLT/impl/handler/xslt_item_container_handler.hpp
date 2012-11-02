@@ -154,7 +154,7 @@ const ChildElement* AllowedChildren()
     { "number", CreateHandler<NotImplementedYetHandler>},
     { "processing-instruction", CreateHandler<ProcessingInstructionHandler> },
     { "text", CreateHandler<TextHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "value-of", CreateHandler<ValueOfHandler> },
+    { "value-of", CreateHandler<ValueOfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "variable", CreateHandler<VariableHandler<Variable> > },
     { 0, 0 }
   };
