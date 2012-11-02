@@ -11,10 +11,12 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class WhenHandler : public ItemContainerHandler<When<string_type, string_adaptor> >
 {
+  typedef ItemContainerHandler<When<string_type, string_adaptor> > baseT;
+
 public:
   WhenHandler(Choose<string_type, string_adaptor>* choose,
               CompilationContext<string_type, string_adaptor>& context) :
-      ItemContainerHandler<When<string_type, string_adaptor> >(context),
+      baseT(context),
       choose_(choose)
   {
   } // WhenHandler
@@ -36,7 +38,7 @@ public:
 			  const string_type& /* qName */)
   {
     choose_->add_when(ItemContainerHandler<When<string_type, string_adaptor> >::container());
-    context().pop();
+    baseT::context().pop();
   } // endElement
 
 private:

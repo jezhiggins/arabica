@@ -30,7 +30,7 @@ protected:
 
     std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
 
-    Arabica::XPath::XPathExpressionPtr<string_type> name = context().xpath_attribute_value_template(attrs["name"]);
+    Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> name = context().xpath_attribute_value_template(attrs["name"]);
 
     if(attrs["namespace"] == "")
       return new Attribute<string_type, string_adaptor>(name, context().inScopeNamespaces());
