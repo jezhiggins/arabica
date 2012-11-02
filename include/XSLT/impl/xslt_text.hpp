@@ -8,6 +8,7 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class Text : public Item
 {
 public:
@@ -16,16 +17,16 @@ public:
   { 
   } // Text
 
-  Text(const std::string& text) :
+  Text(const string_type& text) :
       text_(text),
       disable_(false)
   {
   } // Text
 
-  void set(const std::string& text) { text_ = text; }
+  void set(const string_type& text) { text_ = text; }
 
-  virtual void execute(const DOM::Node<std::string>& /* node */, 
-		       ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& /* node */, 
+		                   ExecutionContext& context) const
   {
     if(disable_)
       context.sink().disableOutputEscaping(true);
@@ -37,8 +38,8 @@ public:
   } // execute
 
 private:
-  std::string text_;
-  bool disable_;
+  string_type text_;
+  const bool disable_;
 }; // class Text
 
 } // namespace XSLT

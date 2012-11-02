@@ -67,7 +67,7 @@ public:
     for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
       if(!Arabica::XML::is_space(*i))
       {
-        container_->add_item(new Text(ch));
+        container_->add_item(new Text<std::string, Arabica::default_string_adaptor<std::string> >(ch));
         return;
       } // if ...
   } // characters
@@ -153,7 +153,7 @@ const ChildElement* AllowedChildren()
     { "message", CreateHandler<MessageHandler>},
     { "number", CreateHandler<NotImplementedYetHandler>},
     { "processing-instruction", CreateHandler<ProcessingInstructionHandler> },
-    { "text", CreateHandler<TextHandler> },
+    { "text", CreateHandler<TextHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "value-of", CreateHandler<ValueOfHandler> },
     { "variable", CreateHandler<VariableHandler<Variable> > },
     { 0, 0 }
