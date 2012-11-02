@@ -8,17 +8,19 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class If : public ItemContainer
 {
 public:
-  If(Arabica::XPath::XPathExpressionPtr<std::string> test) :
+  If(Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> test) :
     test_(test)
   { 
   } // If
 
   virtual ~If() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+                       ExecutionContext& context) const
   {
     ChainStackFrame frame(context);
     if(test_->evaluateAsBool(node, context.xpathContext()))
@@ -26,7 +28,7 @@ public:
   } // execute
 
 private:
-  Arabica::XPath::XPathExpressionPtr<std::string> test_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> test_;
 }; // class If
 
 } // namespace XSLT

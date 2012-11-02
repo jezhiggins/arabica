@@ -9,24 +9,25 @@ namespace Arabica
 namespace XSLT
 {
 
-class IfHandler : public ItemContainerHandler<If>
+template<class string_type, class string_adaptor>
+class IfHandler : public ItemContainerHandler<If<string_type, string_adaptor> >
 {
 public:
-  IfHandler(CompilationContext<std::string>& context) :
-      ItemContainerHandler<If>(context)
+  IfHandler(CompilationContext<string_type, string_adaptor>& context) :
+      ItemContainerHandler<If<string_type, string_adaptor> >(context)
   {
   } // IfHandler
 
-  virtual If* createContainer(const std::string& /* namespaceURI */,
-                              const std::string& /* localName */,
-                              const std::string& qName,
-                              const SAX::Attributes<std::string>& atts)
+  virtual If<string_type, string_adaptor>* createContainer(const string_type& /* namespaceURI */,
+                              const string_type& /* localName */,
+                              const string_type& qName,
+                              const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     static const ValueRule rules[] = { { "test", true, 0, 0 },
                                        { 0, false, 0, 0 } };
     std::string test = gatherAttributes(qName, atts, rules)["test"];
 
-    return new If(ItemContainerHandler<If>::context().xpath_expression(test));
+    return new If<string_type, string_adaptor>(ItemContainerHandler<If<string_type, string_adaptor> >::context().xpath_expression(test));
   } // startElement
 }; // class IfHandler
 

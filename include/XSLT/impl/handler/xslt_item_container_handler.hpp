@@ -149,7 +149,7 @@ const ChildElement* AllowedChildren()
     { "element", CreateHandler<ElementHandler> },
     { "fallback", CreateHandler<NotImplementedYetHandler>},
     { "for-each", CreateHandler<ForEachHandler> },
-    { "if", CreateHandler<IfHandler> },
+    { "if", CreateHandler<IfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "message", CreateHandler<MessageHandler>},
     { "number", CreateHandler<NotImplementedYetHandler>},
     { "processing-instruction", CreateHandler<ProcessingInstructionHandler> },
