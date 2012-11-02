@@ -44,7 +44,7 @@ public:
       QName qn = QName::create(name);
       if(!qn.prefix.empty())
       {
-        std::map<string_type, string_type>::const_iterator ns = namespaces_.find(qn.prefix);
+        typename std::map<string_type, string_type>::const_iterator ns = namespaces_.find(qn.prefix);
         if(ns == namespaces_.end())
           throw SAX::SAXException("xsl:attribute Runtime Error - Undeclared prefix " + qn.prefix);
         namesp = ns->second;
@@ -60,6 +60,7 @@ public:
 private:
   Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> name_;
   Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> namespace_;
+
   std::map<string_type, string_type> namespaces_;
 }; // class Attribute
 

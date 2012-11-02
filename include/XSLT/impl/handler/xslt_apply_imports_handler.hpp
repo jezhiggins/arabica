@@ -8,10 +8,11 @@ namespace Arabica
 namespace XSLT
 {
 
-class ApplyImportsHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class ApplyImportsHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  ApplyImportsHandler(CompilationContext<std::string>& context):
+  ApplyImportsHandler(CompilationContext<string_type, string_adaptor>& context):
     context_(context),
     applyImports_(0)
   {
@@ -21,38 +22,38 @@ public:
   {
   } // ~ApplyImportsHandler
 
-  virtual void startElement(const std::string& /* namespaceURI */,
-			    const std::string& /* localName */,
-			    const std::string& /* qName */,
-			    const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& /* namespaceURI */,
+			    const string_type& /* localName */,
+			    const string_type& /* qName */,
+			    const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(applyImports_ == 0)
     {
       if(atts.getLength() != 0)
-	throw SAX::SAXException("xsl:apply-imports element does not have any attributes");
-      applyImports_ = new ApplyImports();
+	      throw SAX::SAXException("xsl:apply-imports element does not have any attributes");
+      applyImports_ = new ApplyImports<string_type, string_adaptor>();
       return;
     } // if(applyImports_ == 0)
 
     throw SAX::SAXException("xsl:apply-imports element must be empty");
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-			  const std::string& /* localName */,
-			  const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+			  const string_type& /* localName */,
+			  const string_type& /* qName */)
   {
     context_.parentContainer().add_item(applyImports_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     verifyNoCharacterData(ch, "xsl:apply-imports");
   } // characters
 
 private:
-  CompilationContext<std::string>& context_;
-  ApplyImports* applyImports_;
+  CompilationContext<string_type, string_adaptor>& context_;
+  ApplyImports<string_type, string_adaptor>* applyImports_;
 }; // class ApplyImportsHandler
 
 } // namespace XSLT

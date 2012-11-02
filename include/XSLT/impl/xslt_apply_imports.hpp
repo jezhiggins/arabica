@@ -6,10 +6,12 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class ApplyImports : public Item
 {
 public:
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+                       ExecutionContext& context) const
   {
     context.stylesheet().applyImports(node, context);
   } // execute

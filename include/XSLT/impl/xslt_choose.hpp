@@ -59,7 +59,7 @@ public:
 
   virtual ~Choose()
   { 
-    for(WhenList::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
+    for(typename WhenList::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
       delete (*w);
     delete otherwise_;
   } // ~Choose
@@ -68,7 +68,7 @@ public:
                        ExecutionContext& context) const
   {
     ChainStackFrame frame(context);
-    for(WhenList::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
+    for(typename WhenList::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
       if((*w)->is_met(node, context))
       {
         (*w)->execute(node, context);
