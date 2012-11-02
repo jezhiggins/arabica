@@ -9,23 +9,24 @@ namespace Arabica
 namespace XSLT
 {
 
-class CommentHandler : public ItemContainerHandler<Comment>
+template<class string_type, class string_adaptor>
+class CommentHandler : public ItemContainerHandler<Comment<string_type, string_adaptor> >
 {
 public:
-  CommentHandler(CompilationContext<std::string>& context) :
-      ItemContainerHandler<Comment>(context)
+  CommentHandler(CompilationContext<string_type, string_adaptor>& context) :
+      ItemContainerHandler<Comment<string_type, string_adaptor> >(context)
   {
   } // CommentHandler
 
-  virtual Comment* createContainer(const std::string& /* namespaceURI */,
-                                   const std::string& /* localName */,
-                                   const std::string& /* qName */,
-                                   const SAX::Attributes<std::string>& atts)
+  virtual Comment<string_type, string_adaptor>* createContainer(const string_type& /* namespaceURI */,
+                                   const string_type& /* localName */,
+                                   const string_type& /* qName */,
+                                   const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(atts.getLength() != 0)
       throw SAX::SAXException("xsl:comment can not have attributes");
 
-    return new Comment();
+    return new Comment<string_type, string_adaptor>();
   } // createContainer
 }; // class CommentHandler
 

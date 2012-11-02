@@ -8,13 +8,14 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class Comment : public ItemContainer
 {
 public:
   Comment() { }
   virtual ~Comment() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
     context.sink().start_comment();
 
