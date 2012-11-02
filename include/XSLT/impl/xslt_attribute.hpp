@@ -8,18 +8,19 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class Attribute : public ItemContainer
 {
 public:
-  Attribute(const Arabica::XPath::XPathExpressionPtr<std::string>& name,
-            const Arabica::XPath::XPathExpressionPtr<std::string>& name_space) :
+  Attribute(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& name,
+            const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& name_space) :
     name_(name),
     namespace_(name_space)
   {
   } // Attribute
 
-  Attribute(const Arabica::XPath::XPathExpressionPtr<std::string>& name,
-            const std::map<std::string, std::string>& namespaces) :
+  Attribute(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& name,
+            const std::map<string_type, string_type>& namespaces) :
     name_(name),
     namespaces_(namespaces)
   {
@@ -27,13 +28,14 @@ public:
 
   virtual ~Attribute() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+                       ExecutionContext& context) const
   {
-    std::string name = name_->evaluateAsString(node, context.xpathContext());
+    string_type name = name_->evaluateAsString(node, context.xpathContext());
     if(name.empty())
       throw SAX::SAXException("xsl:attribute name attribute must evaluate to a valid element name");
 
-    std::string namesp;
+    string_type namesp;
 
     if(namespace_ != 0)
       namesp = namespace_->evaluateAsString(node, context.xpathContext());
@@ -42,7 +44,7 @@ public:
       QName qn = QName::create(name);
       if(!qn.prefix.empty())
       {
-        std::map<std::string, std::string>::const_iterator ns = namespaces_.find(qn.prefix);
+        std::map<string_type, string_type>::const_iterator ns = namespaces_.find(qn.prefix);
         if(ns == namespaces_.end())
           throw SAX::SAXException("xsl:attribute Runtime Error - Undeclared prefix " + qn.prefix);
         namesp = ns->second;
@@ -56,9 +58,9 @@ public:
   } // execute
 
 private:
-  Arabica::XPath::XPathExpressionPtr<std::string> name_;
-  Arabica::XPath::XPathExpressionPtr<std::string> namespace_;
-  std::map<std::string, std::string> namespaces_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> name_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> namespace_;
+  std::map<string_type, string_type> namespaces_;
 }; // class Attribute
 
 } // namespace XSLT

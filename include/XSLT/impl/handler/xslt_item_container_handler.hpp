@@ -140,8 +140,8 @@ const ChildElement* AllowedChildren()
   {
     { "apply-imports", CreateHandler<ApplyImportsHandler> },
     { "apply-templates", CreateHandler<ApplyTemplatesHandler> },
-    { "attribute", CreateHandler<AttributeHandler> },
-    { "call-template", CreateHandler<CallTemplateHandler> },
+    { "attribute", CreateHandler<AttributeHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
+    { "call-template", CreateHandler<CallTemplateHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "choose", CreateHandler<ChooseHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "comment", CreateHandler<CommentHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "copy", CreateHandler<CopyHandler> },

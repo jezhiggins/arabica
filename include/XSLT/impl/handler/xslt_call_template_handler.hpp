@@ -9,30 +9,31 @@ namespace Arabica
 namespace XSLT
 {
 
-class CallTemplateHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class CallTemplateHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  CallTemplateHandler(CompilationContext<std::string>& context) :
+  CallTemplateHandler(CompilationContext<string_type, string_adaptor>& context) :
     context_(context),
     callTemplate_(0)
   {
   } // CallTemplateHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& namespaceURI,
+                            const string_type& localName,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(callTemplate_ == 0)
     {
       static const ValueRule rules[] = { { "name", true, 0, 0 },
                                          { 0, false, 0, 0 } };
     
-      std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
+      std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
 
-      std::string name = context_.processInternalQName(attrs["name"]).clarkName();
+      string_type name = context_.processInternalQName(attrs["name"]).clarkName();
 
-      callTemplate_ = new CallTemplate(name);
+      callTemplate_ = new CallTemplate<string_type, string_adaptor>(name);
       return;
     } // if(callTemplate_ == 0)
 
@@ -50,21 +51,21 @@ public:
     throw SAX::SAXException("xsl:call-template can only contain xsl:sort and xsl:with-param elements.");
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
     context_.parentContainer().add_item(callTemplate_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& /* ch */)
+  virtual void characters(const string_type& /* ch */)
   {
   } // characters
 
 private:
-  CompilationContext<std::string>& context_;
-  CallTemplate* callTemplate_;
+  CompilationContext<string_type, string_adaptor>& context_;
+  CallTemplate<string_type, string_adaptor>* callTemplate_;
 }; // class CallTemplateHandler
 
 } // namespace XSLT

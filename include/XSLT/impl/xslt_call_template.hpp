@@ -9,23 +9,25 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class CallTemplate : public Item,
                      public WithParamable
 {
 public:
-  CallTemplate(const std::string& name) :
+  CallTemplate(const string_type& name) :
     name_(name)
   {
   } // CallTemplate
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+                       ExecutionContext& context) const
   {
     ParamPasser passer(*this, node, context);
     context.stylesheet().callTemplate(name_, node, context);
   } // execute
 
 private:
-  const std::string name_;
+  const string_type name_;
 }; // class CallTemplate
 
 } // namespace XSLT
