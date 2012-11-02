@@ -11,7 +11,7 @@ namespace XSLT
 class ApplyImportsHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  ApplyImportsHandler(CompilationContext& context):
+  ApplyImportsHandler(CompilationContext<std::string>& context):
     context_(context),
     applyImports_(0)
   {
@@ -51,7 +51,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   ApplyImports* applyImports_;
 }; // class ApplyImportsHandler
 

@@ -13,7 +13,7 @@ namespace XSLT
 class ApplyTemplatesHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  ApplyTemplatesHandler(CompilationContext& context) :
+  ApplyTemplatesHandler(CompilationContext<std::string>& context) :
     context_(context),
     applyTemplates_(0)
   {
@@ -87,7 +87,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   ApplyTemplates* applyTemplates_;
 }; // class ApplyTemplatesHandler
 

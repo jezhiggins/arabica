@@ -11,24 +11,35 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class StylesheetParser
 {
 public:
+  typedef string_type string_type;
+  typedef string_adaptor string_adaptor;
+	typedef SAX::ContentHandler<string_type, string_adaptor> ContentHandlerT;
+	typedef SAX::InputSource<string_type, string_adaptor> InputSourceT;
+  typedef SAX::XMLReader<string_type, string_adaptor> XMLReaderT;
+  typedef SAX::TextCoalescer<string_type, string_adaptor> TextCoalescerT;
+  typedef SAX::XMLBaseTracker<string_type, string_adaptor> XMLBaseTrackerT;
+  typedef SAX::NamespaceTracker<string_type, string_adaptor> NamespaceTrackerT;
+  typedef XML::QualifiedName<string_type, string_adaptor> QualifiedNameT;
+
   StylesheetParser() { }
 
-  void setContentHandler(SAX::ContentHandler<std::string>& handler)
+  void setContentHandler(ContentHandlerT& handler)
   {
     namespace_tracker_.setContentHandler(handler);
   } // setContentHandler
 
-  SAX::ContentHandler<std::string>& contentHandler() 
+  ContentHandlerT& contentHandler() 
   {
     return text_coalescer_;
   } // contentHandler
  
-  void parse(SAX::InputSource<std::string>& source)
+  void parse(InputSourceT& source)
   {
-    SAX::XMLReader<std::string> base_parser;
+    XMLReaderT base_parser;
     text_coalescer_.setParent(base_parser);
     xmlbase_tracker_.setParent(text_coalescer_);
     namespace_tracker_.setParent(xmlbase_tracker_);
@@ -36,57 +47,57 @@ public:
     namespace_tracker_.parse(source);
   } // parse
 
-  std::string namespaceURI(const std::string& prefix) const
+  string_type namespaceURI(const string_type& prefix) const
   {
     return namespace_tracker_.getURI(prefix);
   } // namespaceURI
 
-  XML::QualifiedName<std::string> processElementQName(const std::string& rawName) const
+  QualifiedNameT processElementQName(const string_type& rawName) const
   {
-    XML::QualifiedName<std::string> qName = namespace_tracker_.processElementName(rawName);
+    QualifiedNameT qName = namespace_tracker_.processElementName(rawName);
     verifyQName(qName);
     return qName;
   } // processElementQName
 
-  XML::QualifiedName<std::string> processInternalQName(const std::string& rawName) const
+  QualifiedNameT processInternalQName(const string_type& rawName) const
   {
-    XML::QualifiedName<std::string> qName = namespace_tracker_.processName(rawName);
+    QualifiedNameT qName = namespace_tracker_.processName(rawName);
     verifyQName(qName);
     return qName;
   } // processQName
 
-  std::map<std::string, std::string> inScopeNamespaces() const
+  std::map<string_type, string_type> inScopeNamespaces() const
   {
     return namespace_tracker_.inScopeNamespaces();
   } // inScopeNamespaces
 
-  std::string setBase(const std::string& loc)
+  string_type setBase(const string_type& loc)
   {
-    std::string current = currentBase();
+    string_type current = currentBase();
     xmlbase_tracker_.setDocumentLocation(loc);
     return current;
   } // setBase
   
-  std::string currentBase() const
+  string_type currentBase() const
   {
     return xmlbase_tracker_.currentBase();
   } // currentBase
 
-  std::string makeAbsolute(const std::string& href) 
+  string_type makeAbsolute(const string_type& href) 
   {
     return xmlbase_tracker_.makeAbsolute(href);
   } // makeAbsolute
 
 private:
-  void verifyQName(const XML::QualifiedName<std::string>& qName) const
+  void verifyQName(const QualifiedNameT& qName) const
   {
     if(qName.has_prefix() && !qName.has_namespaceUri())
       throw SAX::SAXException("Namespace prefix '" + qName.prefix() + "' is not bound");
   } // verifyQName
   
-  SAX::TextCoalescer<std::string> text_coalescer_;
-  SAX::XMLBaseTracker<std::string> xmlbase_tracker_;
-  SAX::NamespaceTracker<std::string> namespace_tracker_;
+  TextCoalescerT text_coalescer_;
+  XMLBaseTrackerT xmlbase_tracker_;
+  NamespaceTrackerT namespace_tracker_;
 
   StylesheetParser(const StylesheetParser&);
   StylesheetParser operator=(const StylesheetParser&);

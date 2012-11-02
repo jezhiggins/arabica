@@ -12,7 +12,7 @@ namespace XSLT
 class IfHandler : public ItemContainerHandler<If>
 {
 public:
-  IfHandler(CompilationContext& context) :
+  IfHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<If>(context)
   {
   } // IfHandler

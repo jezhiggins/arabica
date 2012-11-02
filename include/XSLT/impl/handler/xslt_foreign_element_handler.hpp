@@ -9,7 +9,7 @@ namespace XSLT
 class ForeignElementHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  ForeignElementHandler(CompilationContext& context) :
+  ForeignElementHandler(CompilationContext<std::string>& context) :
          context_(context),
          depth_(0)
   {
@@ -32,7 +32,7 @@ public:
   } // endElement
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   unsigned int depth_;
 }; // class ForeignElementHandler
 

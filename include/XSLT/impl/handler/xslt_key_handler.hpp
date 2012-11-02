@@ -12,7 +12,7 @@ namespace XSLT
 class KeyHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  KeyHandler(CompilationContext& context) :
+  KeyHandler(CompilationContext<std::string>& context) :
     context_(context),
     key_(0)
   {
@@ -60,7 +60,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   std::string name_;
   Key* key_;
 }; // class KeyHandler

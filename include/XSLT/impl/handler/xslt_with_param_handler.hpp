@@ -12,7 +12,7 @@ namespace XSLT
 class WithParamHandler : public VariableHandler<WithParam>
 {
 public:
-  WithParamHandler(CompilationContext& context,
+  WithParamHandler(CompilationContext<std::string>& context,
                    WithParamable& paramee) :
     VariableHandler<WithParam>(context),
     paramee_(paramee)

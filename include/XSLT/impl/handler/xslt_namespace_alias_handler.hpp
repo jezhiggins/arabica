@@ -11,7 +11,7 @@ namespace XSLT
 class NamespaceAliasHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  NamespaceAliasHandler(CompilationContext& context) : 
+  NamespaceAliasHandler(CompilationContext<std::string>& context) : 
     context_(context),
     done_(false)
   {
@@ -65,7 +65,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   bool done_;
 }; // class NamespaceAliasHandler
 

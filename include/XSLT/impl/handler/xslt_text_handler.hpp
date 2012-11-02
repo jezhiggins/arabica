@@ -11,7 +11,7 @@ namespace XSLT
 class TextHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  TextHandler(CompilationContext& context) :
+  TextHandler(CompilationContext<std::string>& context) :
     context_(context),
     text_(0)
   {
@@ -48,7 +48,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   Text* text_;
   std::string buffer_;
 }; // class TextHandler

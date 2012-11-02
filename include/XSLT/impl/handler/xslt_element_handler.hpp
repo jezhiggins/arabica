@@ -12,7 +12,7 @@ namespace XSLT
 class ElementHandler : public ItemContainerHandler<Element>
 {
 public:
-  ElementHandler(CompilationContext& context) :
+  ElementHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<Element>(context)
   {
   } // ElementHandler

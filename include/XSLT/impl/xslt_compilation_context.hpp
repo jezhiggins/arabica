@@ -17,16 +17,26 @@ namespace XSLT
 class CompiledStylesheet;
 class ItemContainer;
 
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class CompilationContext :
-    private Arabica::XPath::FunctionResolver<std::string, Arabica::default_string_adaptor<std::string> >,
-    private Arabica::XPath::NamespaceContext<std::string, Arabica::default_string_adaptor<std::string> >,
-    private Arabica::XPath::DefaultVariableCompileTimeResolver<std::string, Arabica::default_string_adaptor<std::string> >
+    private Arabica::XPath::FunctionResolver<string_type, string_adaptor>,
+    private Arabica::XPath::NamespaceContext<string_type, string_adaptor>,
+    private Arabica::XPath::DefaultVariableCompileTimeResolver<string_type, string_adaptor>
 {
 private:
-  typedef Arabica::XPath::DefaultVariableCompileTimeResolver<std::string, Arabica::default_string_adaptor<std::string> > CTVariableResolverT;
+  typedef Arabica::XPath::DefaultVariableCompileTimeResolver<string_type, string_adaptor> CTVariableResolverT;
 
 public:
-  CompilationContext(StylesheetParser& parser,
+  typedef StylesheetParser<string_type, string_adaptor> StylesheetParserT;
+  typedef SAX::DefaultHandler<string_type, string_adaptor> DefaultHandlerT;
+  typedef SAX::ContentHandler<string_type, string_adaptor> ContentHandlerT;
+  typedef SAX::Attributes<string_type, string_adaptor> AttributesT;
+  typedef Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> XPathExpressionPtrT;
+  typedef Arabica::XPath::MatchExpr<string_type, string_adaptor> MatchExprT;
+  typedef XML::QualifiedName<string_type, string_adaptor> QualifiedNameT;
+
+
+  CompilationContext(StylesheetParserT& parser,
                      CompiledStylesheet& stylesheet) :
     parser_(parser),
     stylesheet_(stylesheet),
@@ -50,63 +60,63 @@ public:
     } // while ...
   } // ~CompilationContext
 
-  void root(SAX::DefaultHandler<std::string>& root)
+  void root(DefaultHandlerT& root)
   {
     handlerStack_.push(&root);
   } // root
 
-  StylesheetParser& parser() const { return parser_; }
-  Arabica::XPath::XPathExpressionPtr<std::string> xpath_expression(const std::string& expr) const { return xpath_.compile_expr(expr); } 
-  Arabica::XPath::XPathExpressionPtr<std::string> xpath_expression_no_variables(const std::string& expr) const
+  StylesheetParserT& parser() const { return parser_; }
+  XPathExpressionPtrT xpath_expression(const string_type& expr) const { return xpath_.compile_expr(expr); } 
+  XPathExpressionPtrT xpath_expression_no_variables(const string_type& expr) const
   {
     Disallow variables(variables_allowed_);
     return xpath_expression(expr);
   } // xpath_expression_no_variables
-  std::vector<Arabica::XPath::MatchExpr<std::string> > xpath_match(const std::string& match) const 
+  std::vector<MatchExprT> xpath_match(const string_type& match) const 
   {
     Disallow current(current_allowed_);
     return xpath_.compile_match(match); 
   } // xpath_match
-  std::vector<Arabica::XPath::MatchExpr<std::string> > xpath_match_no_variables(const std::string& match) const
+  std::vector<Arabica::XPath::MatchExpr<string_type> > xpath_match_no_variables(const string_type& match) const
   {
     Disallow variables(variables_allowed_);
     return xpath_match(match);
   } // xpath_match_no_variables
 
-  Arabica::XPath::XPathExpressionPtr<std::string> xpath_attribute_value_template(const std::string& expr) const { return xpath_.compile_attribute_value_template(expr); } 
+  XPathExpressionPtrT xpath_attribute_value_template(const string_type& expr) const { return xpath_.compile_attribute_value_template(expr); } 
   CompiledStylesheet& stylesheet() const { return stylesheet_; }
 
-  XML::QualifiedName<std::string> processElementQName(const std::string& qName) const
+  QualifiedNameT processElementQName(const string_type& qName) const
   {
     return parser_.processElementQName(qName);
   } // processElementQName
 
-  XML::QualifiedName<std::string> processInternalQName(const std::string& qName) const
+  QualifiedNameT processInternalQName(const string_type& qName) const
   {
     return parser_.processInternalQName(qName);
   } // processInternalQName
 
-  std::string makeAbsolute(const std::string& href) const
+  string_type makeAbsolute(const string_type& href) const
   {
     return parser_.makeAbsolute(href);
   } // makeAbsolute
 
-  std::string setBase(const std::string& href) const
+  string_type setBase(const string_type& href) const
   {
     return parser_.setBase(href);
   } // setBase
 
-  std::string currentBase() const
+  string_type currentBase() const
   {
     return parser_.currentBase();
   } // currentBase
 
   void push(ItemContainer* parent,
-            SAX::DefaultHandler<std::string>* newHandler,
-            const std::string& namespaceURI,
-            const std::string& localName,
-            const std::string& qName,
-            const SAX::Attributes<std::string>& atts)
+            DefaultHandlerT* newHandler,
+            const string_type& namespaceURI,
+            const string_type& localName,
+            const string_type& qName,
+            const AttributesT& atts)
   {
     parentStack_.push(parent);
     handlerStack_.push(newHandler);
@@ -127,35 +137,35 @@ public:
     return *parentStack_.top();
   } // parentContainer
 
-  SAX::ContentHandler<std::string>& parentHandler() const
+  ContentHandlerT& parentHandler() const
   {
     parser_.setContentHandler(*handlerStack_.top());
     return parser_.contentHandler();
   } // parentHandler
 
-  std::map<std::string, std::string> inScopeNamespaces() const
+  std::map<string_type, string_type> inScopeNamespaces() const
   {
     return parser_.inScopeNamespaces();
   } // inScopeNamespaces
 
-  void addNamespaceAlias(const std::string& stylesheet_namespace,
-			 const std::string& result_prefix,
-			 const std::string& result_namespace)
+  void addNamespaceAlias(const string_type& stylesheet_namespace,
+			 const string_type& result_prefix,
+			 const string_type& result_namespace)
   { 
     namespaceRemap_[stylesheet_namespace] = std::make_pair(result_prefix, result_namespace);
   } // addNamespaceAlias
 
-  bool isRemapped(const std::string& namespaceURI) const
+  bool isRemapped(const string_type& namespaceURI) const
   {
     return namespaceRemap_.find(namespaceURI) != namespaceRemap_.end();
   } // isRemapped
 
-  const std::pair<std::string, std::string>& remappedNamespace(const std::string& namespaceURI) 
+  const std::pair<string_type, string_type>& remappedNamespace(const string_type& namespaceURI) 
   {
     return namespaceRemap_[namespaceURI];
   } // remappedNamespace
   
-  std::string autoNamespacePrefix() const
+  string_type autoNamespacePrefix() const
   {
     std::ostringstream ss;
     ss << "auto-ns" << autoNs_++;
@@ -178,8 +188,8 @@ public:
   } // precedence
 
 private:
-  virtual Arabica::XPath::XPathExpression_impl<std::string, Arabica::default_string_adaptor<std::string> >* 
-    compileVariable(const std::string& namespace_uri, const std::string& name) const 
+  virtual Arabica::XPath::XPathExpression_impl<string_type, Arabica::default_string_adaptor<string_type> >* 
+    compileVariable(const string_type& namespace_uri, const string_type& name) const 
   {
     if(!variables_allowed_)
       return 0;
@@ -187,10 +197,10 @@ private:
   } // compileVariable
 
   // FunctionResolver 
-  virtual Arabica::XPath::XPathFunction<std::string>* resolveFunction(
-                                         const std::string& namespace_uri, 
-                                         const std::string& name,
-                                         const std::vector<Arabica::XPath::XPathExpression<std::string> >& argExprs) const
+  virtual Arabica::XPath::XPathFunction<string_type>* resolveFunction(
+                                         const string_type& namespace_uri, 
+                                         const string_type& name,
+                                         const std::vector<Arabica::XPath::XPathExpression<string_type> >& argExprs) const
   {
     if(!namespace_uri.empty())
       return new UndefinedFunction(namespace_uri, name, argExprs);
@@ -216,7 +226,7 @@ private:
     // element-available
     if(name == "element-available")
     {
-      std::vector<std::pair<std::string, std::string> > dummy;
+      std::vector<std::pair<string_type, string_type> > dummy;
       return new ElementAvailableFunction(dummy, parser_.inScopeNamespaces(), argExprs);
     } 
     // function-available
@@ -226,13 +236,13 @@ private:
     return 0;
   } // resolveFunction
 
-  virtual std::vector<std::pair<std::string, std::string> > validNames() const 
+  virtual std::vector<std::pair<string_type, string_type> > validNames() const 
   {
     static const char* functionNames[] = { "document", "key", /* format-number, */ "current",
 					   /* unparsed-entity-uri, */ "generate-id", "system-property", 
 					   /* element-available, */ "function-available", 0 };
 
-    std::vector<std::pair<std::string,std::string> > names;
+    std::vector<std::pair<string_type,string_type> > names;
 
     for(int i = 0; functionNames[i] != 0; ++i)
       names.push_back(std::make_pair("", functionNames[i]));
@@ -241,23 +251,23 @@ private:
   } // validNames
 
   // NamespaceContext 
-  virtual std::string namespaceURI(const std::string& prefix) const
+  virtual string_type namespaceURI(const string_type& prefix) const
   {
     return parser_.namespaceURI(prefix);
   } // namespaceURI
 
-  typedef std::pair<std::string, std::string> Namespace;
+  typedef std::pair<string_type, string_type> Namespace;
 
-  StylesheetParser& parser_;
+  StylesheetParser<string_type, string_adaptor>& parser_;
   CompiledStylesheet& stylesheet_;
   mutable int autoNs_;
   mutable bool current_allowed_;
   mutable bool variables_allowed_;
   Precedence precedence_;
-  Arabica::XPath::XPath<std::string> xpath_;
-  std::stack<SAX::DefaultHandler<std::string>*> handlerStack_;
+  Arabica::XPath::XPath<string_type> xpath_;
+  std::stack<SAX::DefaultHandler<string_type>*> handlerStack_;
   std::stack<ItemContainer*> parentStack_;
-  std::map<std::string, Namespace> namespaceRemap_;
+  std::map<string_type, Namespace> namespaceRemap_;
 
   CompilationContext(const CompilationContext&);
 

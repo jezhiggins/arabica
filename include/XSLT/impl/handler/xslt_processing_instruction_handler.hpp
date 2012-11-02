@@ -12,7 +12,7 @@ namespace XSLT
 class ProcessingInstructionHandler : public ItemContainerHandler<ProcessingInstruction>
 {
 public:
-  ProcessingInstructionHandler(CompilationContext& context) :
+  ProcessingInstructionHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<ProcessingInstruction>(context)
   {
   } // ProcessingInstructionHandler

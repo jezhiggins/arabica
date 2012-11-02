@@ -21,10 +21,17 @@ namespace Arabica
 namespace XSLT
 {
 
-class StylesheetHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class StylesheetHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  StylesheetHandler(CompilationContext& context) :
+  typedef string_type stringT;
+  typedef string_adaptor string_adaptorT;
+  typedef SAX::Attributes<string_type, string_adaptor> AttributesT;
+  typedef SAX::DefaultHandler<string_type, string_adaptor> DefaultHandlerT;
+  typedef CompilationContext<string_type, string_adaptor> CompilationContextT;
+
+  StylesheetHandler(CompilationContextT& context) :
     context_(context),
     top_(false)
   {
@@ -37,10 +44,10 @@ public:
     top_ = true;
   } // startDocument
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& namespaceURI,
+                            const string_type& localName,
+                            const string_type& qName,
+                            const AttributesT& atts)
   {
     if(top_)
     {
@@ -60,13 +67,13 @@ public:
       oops(qName);
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     verifyNoCharacterData(ch, "xsl:stylesheet/xsl:transform");
   } // characters
@@ -78,10 +85,10 @@ public:
   } // endDocument
 
 private:
-  void startStylesheet(const std::string& /* namespaceURI */,
-                       const std::string& localName,
-                       const std::string& qName,
-                       const SAX::Attributes<std::string>& atts)
+  void startStylesheet(const string_type& /* namespaceURI */,
+                       const string_type& localName,
+                       const string_type& qName,
+                       const AttributesT& atts)
   {
     if(localName != "stylesheet" && localName != "transform")
       throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
@@ -91,19 +98,19 @@ private:
                                        { "exclude-result-prefixes", false, 0, 0 },
                                        { "id", false, 0, 0 },
                                        { 0, false, 0, 0 } };
-    std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
+    std::map<string_type, string_type> attributes = gatherAttributes(qName, atts, rules);
     if(attributes["version"] != StylesheetConstant::Version())
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
     if(!attributes["extension-element-prefixes"].empty())
       throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
   } // startStylesheet
 
-  void startLREAsStylesheet(const std::string& namespaceURI,
-                            const std::string& localName,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  void startLREAsStylesheet(const string_type& namespaceURI,
+                            const string_type& localName,
+                            const string_type& qName,
+                            const AttributesT& atts)
   {
-    std::string version;
+    string_type version;
     for(int a = 0; a != atts.getLength(); ++a)
       if((StylesheetConstant::NamespaceURI() == atts.getURI(a)) &&
          ("version" == atts.getLocalName(a)))
@@ -126,10 +133,10 @@ private:
                   atts);
   } // startLREAsStylesheet
 
-  void startXSLTElement(const std::string& namespaceURI,
-                        const std::string& localName,
-                        const std::string& qName,
-                        const SAX::Attributes<std::string>& atts)
+  void startXSLTElement(const string_type& namespaceURI,
+                        const string_type& localName,
+                        const string_type& qName,
+                        const AttributesT& atts)
   {
     if((localName == "import") || (localName == "include"))
     {
@@ -152,10 +159,10 @@ private:
     oops(qName);
   } // startXSLTElement
 
-  void startForeignElement(const std::string& namespaceURI,
-                           const std::string& localName,
-                           const std::string& qName,
-                           const SAX::Attributes<std::string>& atts)
+  void startForeignElement(const string_type& namespaceURI,
+                           const string_type& localName,
+                           const string_type& qName,
+                           const AttributesT& atts)
   {
     context_.push(0,
                   new ForeignElementHandler(context_),
@@ -165,28 +172,29 @@ private:
                   atts);
   } // startForeignElement
 
-  void include_stylesheet(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName,
-                          const SAX::Attributes<std::string>& atts)
+  void include_stylesheet(const string_type& namespaceURI,
+                          const string_type& localName,
+                          const string_type& qName,
+                          const AttributesT& atts)
   {
     includer_.start_include(namespaceURI, localName, qName, atts);
   } // include_stylesheet
 
-  void oops(const std::string& qName) const
+  void oops(const string_type& qName) const
   {
     throw SAX::SAXException("xsl:stylesheet does not allow " + qName + " here.");  
   } // oops
   
-  CompilationContext& context_;
-  SAX::DefaultHandler<std::string>* child_;
+  CompilationContextT& context_;
+  DefaultHandlerT* child_;
   IncludeHandler includer_;
   bool top_;
 
   static const ChildElement allowedChildren[];
 }; // class StylesheetHandler
 
-const ChildElement StylesheetHandler::allowedChildren[] =
+template<class string_type, class string_adaptor>
+const ChildElement StylesheetHandler<string_type, string_adaptor>::allowedChildren[] =
   {
     { "attribute-set", CreateHandler<NotImplementedYetHandler>},
     { "decimal-format", CreateHandler<NotImplementedYetHandler>},
@@ -203,9 +211,14 @@ const ChildElement StylesheetHandler::allowedChildren[] =
     { 0, 0 }
   }; // StylesheetHandler::allowedChildren
 
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class StylesheetCompiler 
 {
 public:
+  typedef string_type string_typeT;
+  typedef string_adaptor string_adaptorT;
+  typedef SAX::InputSource<string_type, string_adaptor> InputSourceT;
+
   StylesheetCompiler() 
   {
   } // StylesheetCompiler
@@ -214,16 +227,16 @@ public:
   {
   } // ~StylesheetCompiler
 
-  std::auto_ptr<Stylesheet> compile(SAX::InputSource<std::string>& source)
+  std::auto_ptr<Stylesheet> compile(InputSourceT& source)
   {
     error_ = "";
 
     std::auto_ptr<CompiledStylesheet> stylesheet(new CompiledStylesheet());
 
-    StylesheetParser parser;
-    CompilationContext context(parser, *stylesheet.get());
+    StylesheetParser<string_type, string_adaptor> parser;
+    CompilationContext<string_type, string_adaptor> context(parser, *stylesheet.get());
 
-    StylesheetHandler stylesheetHandler(context);
+    StylesheetHandler<string_type, string_adaptor> stylesheetHandler(context);
     parser.setContentHandler(stylesheetHandler);
     //parser.setErrorHandler(*this);
   

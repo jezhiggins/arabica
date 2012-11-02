@@ -12,7 +12,7 @@ namespace XSLT
 class TemplateHandler : public ItemContainerHandler<Template>
 {
 public:
-  TemplateHandler(CompilationContext& context) :
+  TemplateHandler(CompilationContext<std::string>& context) :
     ItemContainerHandler<Template>(context),
     done_params_(false)
   {

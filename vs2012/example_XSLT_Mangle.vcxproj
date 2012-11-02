@@ -178,10 +178,6 @@
     <None Include="..\tests\XSLT\TO-DO" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="example_XPath_xgrep.vcxproj">
-      <Project>{5f7b038e-5148-4ef4-ab43-5035f666d00d}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="lib_arabica.vcxproj">
       <Project>{4ca72415-d03a-4447-be4e-c093a5146cac}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

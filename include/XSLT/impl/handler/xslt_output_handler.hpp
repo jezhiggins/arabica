@@ -9,7 +9,7 @@ namespace XSLT
 class OutputHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  OutputHandler(CompilationContext& context) :
+  OutputHandler(CompilationContext<std::string>& context) :
     context_(context)
   {
   } // OutputHandler
@@ -76,7 +76,7 @@ private:
     return elements;
   } // extractCDATAElements
 
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   Output::Settings settings_;
   Output::CDATAElements cdataElements_;
 }; // class OutputHandler

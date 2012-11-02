@@ -22,7 +22,7 @@ public:
   {
   } // IncludeHandler
 
-  void context(CompilationContext& context, SAX::DefaultHandler<std::string>* compiler)
+  void context(CompilationContext<std::string>& context, SAX::DefaultHandler<std::string>* compiler)
   {
     context_ = &context;
     compiler_ = compiler;
@@ -169,7 +169,7 @@ private:
     current_includes_.pop_back();
   } // include_stylesheet
 
-  CompilationContext* context_;
+  CompilationContext<std::string>* context_;
   SAX::DefaultHandler<std::string>* compiler_;
   bool no_content_;
 

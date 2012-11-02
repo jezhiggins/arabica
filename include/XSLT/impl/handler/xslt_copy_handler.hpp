@@ -11,7 +11,7 @@ namespace XSLT
 class CopyHandler : public ItemContainerHandler<Copy>
 {
 public:
-  CopyHandler(CompilationContext& context) :
+  CopyHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<Copy>(context)
   {
   } // CopyHandler
@@ -32,7 +32,7 @@ public:
 class CopyOfHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  CopyOfHandler(CompilationContext& context) : 
+  CopyOfHandler(CompilationContext<std::string>& context) : 
     context_(context),
     copyOf_(0)
   {
@@ -71,7 +71,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   CopyOf* copyOf_;
 }; // class CopyOfHandler
 

@@ -12,7 +12,7 @@ namespace XSLT
 class ValueOfHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  ValueOfHandler(CompilationContext& context) : 
+  ValueOfHandler(CompilationContext<std::string>& context) : 
     context_(context),
     valueOf_(0)
   {
@@ -52,7 +52,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   ValueOf* valueOf_;
 }; // class ValueOfHandler
 

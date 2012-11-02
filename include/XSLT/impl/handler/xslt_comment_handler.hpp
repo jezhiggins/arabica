@@ -12,7 +12,7 @@ namespace XSLT
 class CommentHandler : public ItemContainerHandler<Comment>
 {
 public:
-  CommentHandler(CompilationContext& context) :
+  CommentHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<Comment>(context)
   {
   } // CommentHandler

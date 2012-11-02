@@ -15,7 +15,7 @@ namespace XSLT
 {
 
 template<class Handler>
-SAX::DefaultHandler<std::string>* CreateHandler(CompilationContext& context)
+SAX::DefaultHandler<std::string>* CreateHandler(CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
 {
   return new Handler(context);
 } // create
@@ -23,7 +23,7 @@ SAX::DefaultHandler<std::string>* CreateHandler(CompilationContext& context)
 class NotImplementedYetHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  NotImplementedYetHandler(CompilationContext& /* context */) { }
+  NotImplementedYetHandler(CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& /* context */) { }
 
   virtual void startElement(const std::string& /* namespaceURI */,
                             const std::string& /* localName */,
@@ -34,7 +34,7 @@ public:
   } // startElement
 }; // NotImplementedYetHandler
 
-typedef SAX::DefaultHandler<std::string>* (*CreateHandlerPtr)(CompilationContext&);
+typedef SAX::DefaultHandler<std::string>* (*CreateHandlerPtr)(CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >&);
 
 struct ChildElement
 {

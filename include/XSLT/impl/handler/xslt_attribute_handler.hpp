@@ -12,7 +12,7 @@ namespace XSLT
 class AttributeHandler : public ItemContainerHandler<Attribute>
 {
 public:
-  AttributeHandler(CompilationContext& context) :
+  AttributeHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<Attribute>(context)
   {
   } // AttributeHandler

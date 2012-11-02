@@ -13,7 +13,7 @@ namespace XSLT
 class ForEachHandler : public ItemContainerHandler<ForEach>
 {
 public:
-  ForEachHandler(CompilationContext& context) :
+  ForEachHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<ForEach>(context),
       done_sort_(false)
   {

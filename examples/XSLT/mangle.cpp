@@ -23,7 +23,7 @@ int main(int argc, const char* argv[])
     return 0;
   } // if ...
 
-  Arabica::XSLT::StylesheetCompiler compiler;
+  Arabica::XSLT::StylesheetCompiler<std::string> compiler;
   std::ostringstream errors;
   try 
   {

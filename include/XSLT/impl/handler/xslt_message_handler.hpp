@@ -12,7 +12,7 @@ namespace XSLT
 class MessageHandler : public ItemContainerHandler<Message>
 {
 public:
-  MessageHandler(CompilationContext& context) :
+  MessageHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<Message>(context)
   {
   } // MessageHandler

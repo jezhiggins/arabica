@@ -13,7 +13,7 @@ namespace XSLT
 class InlineElementHandler : public ItemContainerHandler<InlineElement>
 {
 public:
-  InlineElementHandler(CompilationContext& context) :
+  InlineElementHandler(CompilationContext<std::string>& context) :
       ItemContainerHandler<InlineElement>(context)
   {
   } // InlineElementHandler
@@ -59,7 +59,7 @@ protected:
 class LREStylesheetHandler : public InlineElementHandler
 {
 public:
-  LREStylesheetHandler(CompilationContext& context, Template* lreStylesheet) :
+  LREStylesheetHandler(CompilationContext<std::string>& context, Template* lreStylesheet) :
     InlineElementHandler(context),
     lreStylesheet_(lreStylesheet)                                                         
   {

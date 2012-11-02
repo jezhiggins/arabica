@@ -10,19 +10,19 @@ namespace XSLT
 {
 
 const ChildElement* AllowedChildren();
-SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext& context);
+SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext<std::string>& context);
 
 template<class container_type>
 class ItemContainerHandler : public SAX::DefaultHandler<std::string>
 {
 protected:
-  ItemContainerHandler(CompilationContext& context) :
+  ItemContainerHandler(CompilationContext<std::string>& context) :
          context_(context),
          container_(0)
   {
   } // ItemContainerHandler
 
-  ItemContainerHandler(CompilationContext& context, container_type* container) :
+  ItemContainerHandler(CompilationContext<std::string>& context, container_type* container) :
          context_(context),
          container_(container)
   {
@@ -33,7 +33,7 @@ protected:
                                          const std::string& qName,
                                          const SAX::Attributes<std::string>& atts) = 0;
 
-  CompilationContext& context() const { return context_; }
+  CompilationContext<std::string>& context() const { return context_; }
   container_type* container() const { return container_; }
 
 public:
@@ -104,7 +104,7 @@ protected:
   } // createChild
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   container_type* container_;
 }; // class ItemContainerHandler
 
@@ -161,7 +161,7 @@ const ChildElement* AllowedChildren()
   return allowedChildren;
 } // AllowedChildren
 
-SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext& context)
+SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext<std::string>& context)
 {
   return new InlineElementHandler(context);
 } // InlineElementHandler

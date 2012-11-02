@@ -11,7 +11,7 @@ namespace XSLT
 class SortHandler : public SAX::DefaultHandler<std::string>
 { 
 public:
-  SortHandler(CompilationContext& context,
+  SortHandler(CompilationContext<std::string>& context,
               Sortable& sortee) : 
     context_(context),
     sortee_(sortee),
@@ -69,7 +69,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   Sortable& sortee_;
   Sort* sort_;
 }; // SortHandler

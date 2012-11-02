@@ -12,7 +12,7 @@ namespace XSLT
 class CallTemplateHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  CallTemplateHandler(CompilationContext& context) :
+  CallTemplateHandler(CompilationContext<std::string>& context) :
     context_(context),
     callTemplate_(0)
   {
@@ -63,7 +63,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   CallTemplate* callTemplate_;
 }; // class CallTemplateHandler
 

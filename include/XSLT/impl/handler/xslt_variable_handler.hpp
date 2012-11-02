@@ -14,14 +14,14 @@ template<class VType>
 class VariableHandler : public ItemContainerHandler<VType>
 {
 public:
-  VariableHandler(CompilationContext& context) :
+  VariableHandler(CompilationContext<std::string>& context) :
     ItemContainerHandler<VType>(context),
     has_select_(false),
     precedence_(Precedence::FrozenPrecedence())
   {
   } // VariableHandler
 
-  VariableHandler(CompilationContext& context, const Precedence& precedence) :
+  VariableHandler(CompilationContext<std::string>& context, const Precedence& precedence) :
     ItemContainerHandler<VType>(context),
     has_select_(false),
     precedence_(precedence)
@@ -73,7 +73,7 @@ template<class VType>
 class TopLevelVariableHandler : public VariableHandler<VType>
 {
 public:
-  TopLevelVariableHandler(CompilationContext& context) :
+  TopLevelVariableHandler(CompilationContext<std::string>& context) :
       VariableHandler<VType>(context, context.precedence())
   {
   } // VariableHandler

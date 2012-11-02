@@ -12,7 +12,7 @@ class WhenHandler : public ItemContainerHandler<When>
 {
 public:
   WhenHandler(Choose* choose,
-              CompilationContext& context) :
+              CompilationContext<std::string>& context) :
       ItemContainerHandler<When>(context),
       choose_(choose)
   {
@@ -46,7 +46,7 @@ class OtherwiseHandler : public ItemContainerHandler<Otherwise>
 {
 public:
   OtherwiseHandler(Choose* choose,
-                   CompilationContext& context) :
+                   CompilationContext<std::string>& context) :
       ItemContainerHandler<Otherwise>(context),
       choose_(choose)
   {
@@ -78,7 +78,7 @@ private:
 class ChooseHandler : public SAX::DefaultHandler<std::string>
 {
 public:
-  ChooseHandler(CompilationContext& context) :
+  ChooseHandler(CompilationContext<std::string>& context) :
       context_(context),
       choose_(0),
       seenWhere_(false),
@@ -150,7 +150,7 @@ public:
   } // characters
 
 private:
-  CompilationContext& context_;
+  CompilationContext<std::string>& context_;
   Choose* choose_;
   bool seenWhere_;
   bool seenOtherwise_;
