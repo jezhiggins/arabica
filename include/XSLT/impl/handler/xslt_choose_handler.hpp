@@ -30,14 +30,14 @@ public:
                                        { 0, false, 0, 0 } };
     string_type test = gatherAttributes(qName, atts, rules)["test"];
 
-    return new When<string_type, string_adaptor>(ItemContainerHandler<When<string_type, string_adaptor> >::context().xpath_expression(test));
+    return new When<string_type, string_adaptor>(baseT::context().xpath_expression(test));
   } // startElement
 
   virtual void endElement(const string_type& /* namespaceURI */, 
 			  const string_type& /* localName */, 
 			  const string_type& /* qName */)
   {
-    choose_->add_when(ItemContainerHandler<When<string_type, string_adaptor> >::container());
+    choose_->add_when(baseT::container());
     baseT::context().pop();
   } // endElement
 
@@ -48,10 +48,12 @@ private:
 template<class string_type, class string_adaptor>
 class OtherwiseHandler : public ItemContainerHandler<Otherwise<string_type, string_adaptor> >
 {
+  typedef ItemContainerHandler<Otherwise<string_type, string_adaptor> > baseT;
+
 public:
   OtherwiseHandler(Choose<string_type, string_adaptor>* choose,
                    CompilationContext<string_type, string_adaptor>& context) :
-      ItemContainerHandler<Otherwise<string_type, string_adaptor> >(context),
+      baseT(context),
       choose_(choose)
   {
   } // OtherwiseHandler
@@ -71,8 +73,8 @@ public:
                           const string_type& /* localName */,
                           const string_type& /* qName */)
   {
-    choose_->set_otherwise(container());
-    context().pop();
+    choose_->set_otherwise(baseT::container());
+    baseT::context().pop();
   } // endElement
 
 private:

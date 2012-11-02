@@ -12,9 +12,10 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class AttributeHandler : public ItemContainerHandler<Attribute<string_type, string_adaptor> >
 {
+  typedef ItemContainerHandler<Attribute<string_type, string_adaptor> > baseT;
 public:
   AttributeHandler(CompilationContext<string_type, string_adaptor>& context) :
-      ItemContainerHandler<Attribute<string_type, string_adaptor> >(context)
+      baseT(context)
   {
   } // AttributeHandler
 
@@ -30,12 +31,12 @@ protected:
 
     std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
 
-    Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> name = context().xpath_attribute_value_template(attrs["name"]);
+    Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> name = baseT::context().xpath_attribute_value_template(attrs["name"]);
 
     if(attrs["namespace"] == "")
-      return new Attribute<string_type, string_adaptor>(name, context().inScopeNamespaces());
+      return new Attribute<string_type, string_adaptor>(name, baseT::context().inScopeNamespaces());
 
-    return new Attribute<string_type, string_adaptor>(name, context().xpath_attribute_value_template(attrs["namespace"]));
+    return new Attribute<string_type, string_adaptor>(name, baseT::context().xpath_attribute_value_template(attrs["namespace"]));
   } // createContainer
 }; // class AttributeHandler
 
