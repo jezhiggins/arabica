@@ -10,19 +10,21 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class ApplyTemplates : public Item,
                        public Sortable,
                        public WithParamable
 {
 public:
-  ApplyTemplates(Arabica::XPath::XPathExpressionPtr<std::string> select,
-                 std::string& mode) :
+  ApplyTemplates(Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> select,
+                 string_type& mode) :
     select_(select),
     mode_(mode)
   {
   } // ApplyTemplates
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+                       ExecutionContext& context) const
   {
     ParamPasser passer(*this, node, context);
 
@@ -33,13 +35,13 @@ public:
       return;
     }
 
-    Arabica::XPath::NodeSet<std::string> nodes;
+    Arabica::XPath::NodeSet<string_type, string_adaptor> nodes;
     if(select_ == 0)
-      for(DOM::Node<std::string> n = node.getFirstChild(); n != 0; n = n.getNextSibling())
+      for(DOM::Node<string_type, string_adaptor> n = node.getFirstChild(); n != 0; n = n.getNextSibling())
         nodes.push_back(n);
     else
     {
-      Arabica::XPath::XPathValue<std::string> value = select_->evaluate(node, context.xpathContext());
+      Arabica::XPath::XPathValue<string_type, string_adaptor> value = select_->evaluate(node, context.xpathContext());
       if(value.type() != Arabica::XPath::NODE_SET)
         throw std::runtime_error("apply-templates select expression is not a node-set");
       nodes = value.asNodeSet();
@@ -49,8 +51,8 @@ public:
   } // execute
 
 private:
-  Arabica::XPath::XPathExpressionPtr<std::string> select_;
-  std::string mode_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> select_;
+  string_type mode_;
 }; // class ApplyTemplates
 
 } // namespace XSLT

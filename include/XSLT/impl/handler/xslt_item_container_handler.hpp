@@ -139,7 +139,7 @@ const ChildElement* AllowedChildren()
   static const ChildElement allowedChildren[] = 
   {
     { "apply-imports", CreateHandler<ApplyImportsHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "apply-templates", CreateHandler<ApplyTemplatesHandler> },
+    { "apply-templates", CreateHandler<ApplyTemplatesHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "attribute", CreateHandler<AttributeHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "call-template", CreateHandler<CallTemplateHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "choose", CreateHandler<ChooseHandler<std::string, Arabica::default_string_adaptor<std::string> > > },

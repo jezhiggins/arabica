@@ -10,36 +10,37 @@ namespace Arabica
 namespace XSLT
 {
 
-class ApplyTemplatesHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class ApplyTemplatesHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  ApplyTemplatesHandler(CompilationContext<std::string>& context) :
+  ApplyTemplatesHandler(CompilationContext<string_type, string_adaptor>& context) :
     context_(context),
     applyTemplates_(0)
   {
   } // ApplyTemplatesHandler
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& namespaceURI,
+                            const string_type& localName,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(applyTemplates_ == 0)
     {
       static const ValueRule rules[] = { { "select", false, 0, 0 },
                                          { "mode", false, 0, 0 },
                                          { 0, false, 0, 0} };
-      std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
+      std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
     
-      const std::string& select = attrs["select"];
-      Arabica::XPath::XPathExpressionPtr<std::string> xpath;
+      const string_type& select = attrs["select"];
+      Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> xpath;
       if(select != "")
         xpath = context_.xpath_expression(select);
 
-      std::string mode;
+      string_type mode;
       if(attrs["mode"] != "")
         mode = context_.processInternalQName(attrs["mode"]).clarkName();
-      applyTemplates_ = new ApplyTemplates(xpath, mode);
+      applyTemplates_ = new ApplyTemplates<string_type, string_adaptor>(xpath, mode);
 
       return;
     } // if(applyTemplates_ == 0)
@@ -73,22 +74,22 @@ public:
     throw SAX::SAXException("xsl:apply-templates can only contain xsl:sort and xsl:with-param elements.");
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
     context_.parentContainer().add_item(applyTemplates_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     verifyNoCharacterData(ch, "xsl:apply-templates");
   } // characters
 
 private:
-  CompilationContext<std::string>& context_;
-  ApplyTemplates* applyTemplates_;
+  CompilationContext<string_type, string_adaptor>& context_;
+  ApplyTemplates<string_type, string_adaptor>* applyTemplates_;
 }; // class ApplyTemplatesHandler
 
 } // namespace XSLT
