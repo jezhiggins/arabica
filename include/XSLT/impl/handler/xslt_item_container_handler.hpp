@@ -148,7 +148,7 @@ const ChildElement* AllowedChildren()
     { "copy-of", CreateHandler<CopyOfHandler> },
     { "element", CreateHandler<ElementHandler> },
     { "fallback", CreateHandler<NotImplementedYetHandler>},
-    { "for-each", CreateHandler<ForEachHandler> },
+    { "for-each", CreateHandler<ForEachHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "if", CreateHandler<IfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "message", CreateHandler<MessageHandler>},
     { "number", CreateHandler<NotImplementedYetHandler>},

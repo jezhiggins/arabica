@@ -9,11 +9,12 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class ForEach : public ItemContainer,
                 public Sortable
 {
 public:
-  ForEach(const Arabica::XPath::XPathExpressionPtr<std::string>& select) : 
+  ForEach(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select) : 
     Sortable(),
     select_(select)
   {
@@ -23,13 +24,14 @@ public:
   {
   } // ForEach
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+                       ExecutionContext& context) const
   {
-    Arabica::XPath::XPathValue<std::string> sel = select_->evaluate(node, context.xpathContext());
+    Arabica::XPath::XPathValue<string_type, string_adaptor> sel = select_->evaluate(node, context.xpathContext());
     if(sel.type() != Arabica::XPath::NODE_SET)
       throw SAX::SAXException("xsl:for-each must select a node set");
 
-    Arabica::XPath::NodeSet<std::string> nodes = sel.asNodeSet();
+    Arabica::XPath::NodeSet<string_type, string_adaptor> nodes = sel.asNodeSet();
     sort(node, nodes, context);
 
     LastFrame last(context, nodes.size());
@@ -42,7 +44,7 @@ public:
   } // execute
 
 private:
-  Arabica::XPath::XPathExpressionPtr<std::string> select_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> select_;
 }; // class ForEach
 
 } // namespace XSLT

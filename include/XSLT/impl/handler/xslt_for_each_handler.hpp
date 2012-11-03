@@ -10,32 +10,35 @@ namespace Arabica
 namespace XSLT
 {
 
-class ForEachHandler : public ItemContainerHandler<ForEach>
+template<class string_type, class string_adaptor>
+class ForEachHandler : public ItemContainerHandler<ForEach<string_type, string_adaptor> >
 {
+  typedef ItemContainerHandler<ForEach<string_type, string_adaptor> > baseT;
+
 public:
-  ForEachHandler(CompilationContext<std::string>& context) :
-      ItemContainerHandler<ForEach>(context),
+  ForEachHandler(CompilationContext<string_type, string_adaptor>& context) :
+      baseT(context),
       done_sort_(false)
   {
   } // ForEachHandler
 
 protected:
-  virtual ForEach* createContainer(const std::string& /* namespaceURI */,
-                                   const std::string& /* localName */,
-                                   const std::string& qName,
-                                   const SAX::Attributes<std::string>& atts)
+  virtual ForEach<string_type, string_adaptor>* createContainer(const string_type& /* namespaceURI */,
+                                   const string_type& /* localName */,
+                                   const string_type& qName,
+                                   const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     static const ValueRule rules[] = { { "select", true, 0, 0 },
                                        { 0, false, 0, 0 } };
-    std::string select = gatherAttributes(qName, atts, rules)["select"];
+    string_type select = gatherAttributes(qName, atts, rules)["select"];
 
-    return new ForEach(context().xpath_expression(select));
+    return new ForEach<string_type, string_adaptor>(baseT::context().xpath_expression(select));
   } // createContainer
 
-  virtual bool createChild(const std::string& namespaceURI,
-                           const std::string& localName,
-                           const std::string& qName,
-                           const SAX::Attributes<std::string>& atts)
+  virtual bool createChild(const string_type& namespaceURI,
+                           const string_type& localName,
+                           const string_type& qName,
+                           const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if((namespaceURI == StylesheetConstant::NamespaceURI()) &&
        (localName == "sort"))
@@ -54,7 +57,7 @@ protected:
         throw SAX::SAXException("xsl:sort must immediately follow xsl:for-each");
     } // if ...
     done_sort_ = true;
-    return ItemContainerHandler<ForEach>::createChild(namespaceURI, localName, qName, atts);
+    return baseT::createChild(namespaceURI, localName, qName, atts);
   } // createChild
 
 private:
