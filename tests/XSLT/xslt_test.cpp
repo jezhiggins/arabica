@@ -134,7 +134,7 @@ public:
 protected:
   virtual void runTest()
   {
-    Arabica::XSLT::StylesheetCompiler compiler;
+    Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
@@ -165,7 +165,7 @@ public:
 protected:
   virtual void runTest()
   {
-    Arabica::XSLT::StylesheetCompiler compiler;
+    Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
@@ -209,7 +209,7 @@ public:
 protected:
   virtual void runTest()
   {
-    Arabica::XSLT::StylesheetCompiler compiler;
+    Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
@@ -254,7 +254,7 @@ public:
 protected:
   virtual void runTest()
   {
-    Arabica::XSLT::StylesheetCompiler compiler;
+    Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
@@ -349,7 +349,7 @@ public:
 protected:
   virtual void runTest()
   {
-    Arabica::XSLT::StylesheetCompiler compiler;
+    Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
@@ -447,7 +447,7 @@ public:
 protected:
   virtual void runTest()
   {
-    Arabica::XSLT::StylesheetCompiler compiler;
+    Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
     std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
