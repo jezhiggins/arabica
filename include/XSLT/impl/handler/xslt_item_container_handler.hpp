@@ -163,7 +163,7 @@ const ChildElement* AllowedChildren()
 
 SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext<std::string>& context)
 {
-  return new InlineElementHandler(context);
+  return new InlineElementHandler<std::string, Arabica::default_string_adaptor<std::string> >(context);
 } // InlineElementHandler
 
 

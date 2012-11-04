@@ -10,21 +10,22 @@ namespace Arabica
 namespace XSLT
 {
 
-class InlineElementHandler : public ItemContainerHandler<InlineElement>
+template<class string_type, class string_adaptor>
+class InlineElementHandler : public ItemContainerHandler<InlineElement<string_type, string_adaptor> >
 {
 public:
-  InlineElementHandler(CompilationContext<std::string>& context) :
-      ItemContainerHandler<InlineElement>(context)
+  InlineElementHandler(CompilationContext<string_type, string_adaptor>& context) :
+      ItemContainerHandler<InlineElement<string_type, string_adaptor> >(context)
   {
   } // InlineElementHandler
 
 protected:
-  virtual InlineElement* createContainer(const std::string& namespaceURI,
-                                         const std::string& localName,
-                                         const std::string& qName,
-                                         const SAX::Attributes<std::string>& atts)
+  virtual InlineElement<string_type, string_adaptor>* createContainer(const string_type& namespaceURI,
+                                         const string_type& localName,
+                                         const string_type& qName,
+                                         const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    std::vector<InlineAttribute> inlineAtts;
+    std::vector<InlineAttribute<string_type, string_adaptor> > inlineAtts;
     for(int i = 0; i != atts.getLength(); ++i)
     {      
       if(atts.getQName(i).find("xmlns:") == 0)
@@ -32,45 +33,48 @@ protected:
       if(atts.getURI(i) == StylesheetConstant::NamespaceURI())
         continue;
       if(!context().isRemapped(atts.getURI(i)))
-        inlineAtts.push_back(InlineAttribute(atts.getQName(i), 
+        inlineAtts.push_back(InlineAttribute<string_type, string_adaptor>(atts.getQName(i), 
                                              atts.getURI(i),
                                              context().xpath_attribute_value_template(atts.getValue(i))));
       else
       {
-        std::pair<std::string, std::string> remap = context().remappedNamespace(atts.getURI(i));
+        std::pair<string_type, string_type> remap = context().remappedNamespace(atts.getURI(i));
         if(remap.first.empty() && !remap.second.empty())
            remap.first = context().autoNamespacePrefix();
-        std::string name = remap.first + ":" + atts.getLocalName(i);
-        inlineAtts.push_back(InlineAttribute(name, 
+        string_type name = remap.first + ":" + atts.getLocalName(i);
+        inlineAtts.push_back(InlineAttribute<string_type, string_adaptor>(name, 
                                              remap.second,
                                              context().xpath_attribute_value_template(atts.getValue(i))));
       } // if ... 
     } // for ...
 
     if(!context().isRemapped(namespaceURI))
-      return new InlineElement(qName, namespaceURI, inlineAtts);
+      return new InlineElement<string_type, string_adaptor>(qName, namespaceURI, inlineAtts);
 
-    const std::pair<std::string, std::string>& remap = context().remappedNamespace(namespaceURI);
-    std::string name = remap.first + ":" + localName;
-    return new InlineElement(name, remap.second, inlineAtts);
+    const std::pair<string_type, string_type>& remap = context().remappedNamespace(namespaceURI);
+    string_type name = remap.first + ":" + localName;
+    return new InlineElement<string_type, string_adaptor>(name, remap.second, inlineAtts);
   } // createContainer
 }; // class InlineElementHandler
 
-class LREStylesheetHandler : public InlineElementHandler
+
+template<class string_type, class string_adaptor>
+class LREStylesheetHandler : public InlineElementHandler<string_type, string_adaptor>
 {
+  typedef InlineElementHandler<string_type, string_adaptor> baseT;
 public:
-  LREStylesheetHandler(CompilationContext<std::string>& context, Template* lreStylesheet) :
-    InlineElementHandler(context),
+  LREStylesheetHandler(CompilationContext<string_type, string_adaptor>& context, Template* lreStylesheet) :
+    baseT(context),
     lreStylesheet_(lreStylesheet)                                                         
   {
   } // LREStylesheetHandler
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const string_type& namespaceURI,
+                          const string_type& localName,
+                          const string_type& qName)
   {
-    context().stylesheet().add_template(lreStylesheet_);
-    InlineElementHandler::endElement(namespaceURI, localName, qName);
+    baseT::context().stylesheet().add_template(lreStylesheet_);
+    baseT::endElement(namespaceURI, localName, qName);
   } // endElement
 
 private:

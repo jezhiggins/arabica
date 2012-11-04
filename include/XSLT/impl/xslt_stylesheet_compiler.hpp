@@ -126,7 +126,7 @@ private:
 
     Template* lreStylesheet = new Template(context_.xpath_match("/"), "", "", "", context_.precedence());
     context_.push(lreStylesheet,
-                  new LREStylesheetHandler(context_, lreStylesheet),
+                  new LREStylesheetHandler<string_type, string_adaptor>(context_, lreStylesheet),
                   namespaceURI, 
                   localName, 
                   qName, 

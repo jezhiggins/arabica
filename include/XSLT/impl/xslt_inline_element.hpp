@@ -9,12 +9,13 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class InlineAttribute
 {
 public:
-  InlineAttribute(const std::string& name,
-                  const std::string& name_space,
-                  Arabica::XPath::XPathExpressionPtr<std::string> value) :
+  InlineAttribute(const string_type& name,
+                  const string_type& name_space,
+                  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> value) :
     name_(name),
     namespace_(name_space),
     value_(value)
@@ -36,7 +37,7 @@ public:
     return *this;
   } // operator==
 
-  void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
     context.sink().start_attribute(name_, namespace_);
     context.sink().characters(value_->evaluateAsString(node, context.xpathContext()));
@@ -44,17 +45,18 @@ public:
   } // execute
 
 private:
-  std::string name_;
-  std::string namespace_;
-  Arabica::XPath::XPathExpressionPtr<std::string> value_;
+  string_type name_;
+  string_type namespace_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> value_;
 }; // class InlineAttribute
 
+template<class string_type, class string_adaptor>
 class InlineElement : public ItemContainer
 {
 public:
-  InlineElement(const std::string& name,
-                const std::string& name_space,
-                const std::vector<InlineAttribute>& attrs) :
+  InlineElement(const string_type& name,
+                const string_type& name_space,
+                const std::vector<InlineAttribute<string_type, string_adaptor> >& attrs) :
     name_(name),
     namespace_(name_space),
     attrs_(attrs)
@@ -63,11 +65,11 @@ public:
 
   virtual ~InlineElement() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
     if(context.sink().start_element(name_, namespace_))
     {
-      for(std::vector<InlineAttribute>::const_iterator a = attrs_.begin(), ae = attrs_.end(); a != ae; ++a)
+      for(typename std::vector<InlineAttribute<string_type, string_adaptor> >::const_iterator a = attrs_.begin(), ae = attrs_.end(); a != ae; ++a)
         a->execute(node, context);
 
       ChainStackFrame frame(context);
@@ -77,9 +79,9 @@ public:
   } // execute
 
 private:
-  std::string name_;
-  std::string namespace_;
-  std::vector<InlineAttribute> attrs_;
+  string_type name_;
+  string_type namespace_;
+  std::vector<InlineAttribute<string_type, string_adaptor> > attrs_;
 }; // class InlineElement
 
 } // namespace XSLT
