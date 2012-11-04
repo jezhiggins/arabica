@@ -18,32 +18,36 @@ SAX::DefaultHandler<string_type, string_adaptor>* createInlineElementHandler(Com
 template<class container_type>
 class ItemContainerHandler : public SAX::DefaultHandler<typename container_type::string_type, typename container_type::string_adaptor>
 {
+public:
+  typedef typename container_type::string_type string_type;
+  typedef typename container_type::string_adaptor string_adaptor;
+
 protected:
-  ItemContainerHandler(CompilationContext<std::string>& context) :
+  ItemContainerHandler(CompilationContext<string_type, string_adaptor>& context) :
          context_(context),
          container_(0)
   {
   } // ItemContainerHandler
 
-  ItemContainerHandler(CompilationContext<std::string>& context, container_type* container) :
+  ItemContainerHandler(CompilationContext<string_type, string_adaptor>& context, container_type* container) :
          context_(context),
          container_(container)
   {
   } // ItemContainerHandler
 
-  virtual container_type* createContainer(const std::string& namespaceURI,
-                                         const std::string& localName,
-                                         const std::string& qName,
-                                         const SAX::Attributes<std::string>& atts) = 0;
+  virtual container_type* createContainer(const string_type& namespaceURI,
+                                         const string_type& localName,
+                                         const string_type& qName,
+                                         const SAX::Attributes<string_type, string_adaptor>& atts) = 0;
 
-  CompilationContext<std::string>& context() const { return context_; }
+  CompilationContext<string_type, string_adaptor>& context() const { return context_; }
   container_type* container() const { return container_; }
 
 public:
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& namespaceURI,
+                            const string_type& localName,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(container_ == 0)
     {
@@ -57,33 +61,33 @@ public:
     throw SAX::SAXException(qName + " <- Sorry, don't know about that yet :)");
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
     context_.parentContainer().add_item(container_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
-    for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+    for(typename string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
       if(!Arabica::XML::is_space(*i))
       {
-        container_->add_item(new Text<std::string, Arabica::default_string_adaptor<std::string> >(ch));
+        container_->add_item(new Text<string_type, string_adaptor>(ch));
         return;
       } // if ...
   } // characters
 
 protected:
-  virtual bool createChild(const std::string& namespaceURI,
-                           const std::string& localName,
-                           const std::string& qName,
-                           const SAX::Attributes<std::string>& atts)
+  virtual bool createChild(const string_type& namespaceURI,
+                           const string_type& localName,
+                           const string_type& qName,
+                           const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(namespaceURI == StylesheetConstant::NamespaceURI())
     {
-      for(const ChildElement<std::string, Arabica::default_string_adaptor<std::string> >* c = AllowedChildren<std::string, Arabica::default_string_adaptor<std::string> >(); c->name != 0; ++c)
+      for(const ChildElement<string_type, string_adaptor>* c = AllowedChildren<string_type, string_adaptor>(); c->name != 0; ++c)
         if(c->name == localName)
         {
           context_.push(container_,
@@ -107,7 +111,7 @@ protected:
   } // createChild
 
 private:
-  CompilationContext<std::string>& context_;
+  CompilationContext<string_type, string_adaptor>& context_;
   container_type* container_;
 }; // class ItemContainerHandler
 
