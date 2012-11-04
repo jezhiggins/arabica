@@ -13,9 +13,10 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class InlineElementHandler : public ItemContainerHandler<InlineElement<string_type, string_adaptor> >
 {
+  typedef ItemContainerHandler<InlineElement<string_type, string_adaptor> > baseT;
 public:
   InlineElementHandler(CompilationContext<string_type, string_adaptor>& context) :
-      ItemContainerHandler<InlineElement<string_type, string_adaptor> >(context)
+      baseT(context)
   {
   } // InlineElementHandler
 
@@ -32,26 +33,26 @@ protected:
         continue;
       if(atts.getURI(i) == StylesheetConstant::NamespaceURI())
         continue;
-      if(!context().isRemapped(atts.getURI(i)))
+      if(!baseT::context().isRemapped(atts.getURI(i)))
         inlineAtts.push_back(InlineAttribute<string_type, string_adaptor>(atts.getQName(i), 
                                              atts.getURI(i),
-                                             context().xpath_attribute_value_template(atts.getValue(i))));
+                                             baseT::context().xpath_attribute_value_template(atts.getValue(i))));
       else
       {
-        std::pair<string_type, string_type> remap = context().remappedNamespace(atts.getURI(i));
+        std::pair<string_type, string_type> remap = baseT::context().remappedNamespace(atts.getURI(i));
         if(remap.first.empty() && !remap.second.empty())
-           remap.first = context().autoNamespacePrefix();
+           remap.first = baseT::context().autoNamespacePrefix();
         string_type name = remap.first + ":" + atts.getLocalName(i);
         inlineAtts.push_back(InlineAttribute<string_type, string_adaptor>(name, 
                                              remap.second,
-                                             context().xpath_attribute_value_template(atts.getValue(i))));
+                                             baseT::context().xpath_attribute_value_template(atts.getValue(i))));
       } // if ... 
     } // for ...
 
-    if(!context().isRemapped(namespaceURI))
+    if(!baseT::context().isRemapped(namespaceURI))
       return new InlineElement<string_type, string_adaptor>(qName, namespaceURI, inlineAtts);
 
-    const std::pair<string_type, string_type>& remap = context().remappedNamespace(namespaceURI);
+    const std::pair<string_type, string_type>& remap = baseT::context().remappedNamespace(namespaceURI);
     string_type name = remap.first + ":" + localName;
     return new InlineElement<string_type, string_adaptor>(name, remap.second, inlineAtts);
   } // createContainer
