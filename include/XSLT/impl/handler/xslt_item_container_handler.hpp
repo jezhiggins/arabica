@@ -150,7 +150,7 @@ const ChildElement* AllowedChildren()
     { "fallback", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
     { "for-each", CreateHandler<ForEachHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "if", CreateHandler<IfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "message", CreateHandler<MessageHandler>},
+    { "message", CreateHandler<MessageHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
     { "number", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
     { "processing-instruction", CreateHandler<ProcessingInstructionHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "text", CreateHandler<TextHandler<std::string, Arabica::default_string_adaptor<std::string> > > },

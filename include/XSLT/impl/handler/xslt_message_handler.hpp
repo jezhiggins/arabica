@@ -9,23 +9,25 @@ namespace Arabica
 namespace XSLT
 {
 
-class MessageHandler : public ItemContainerHandler<Message>
+template<class string_type, class string_adaptor>
+class MessageHandler : public ItemContainerHandler<Message<string_type, string_adaptor> >
 {
+  typedef ItemContainerHandler<Message<string_type, string_adaptor> > baseT;
 public:
-  MessageHandler(CompilationContext<std::string>& context) :
-      ItemContainerHandler<Message>(context)
+  MessageHandler(CompilationContext<string_type, string_adaptor>& context) :
+      baseT(context)
   {
   } // MessageHandler
 
 protected:
-  virtual Message* createContainer(const std::string& /* namespaceURI */,
-                                   const std::string& /* localName */,
-                                   const std::string& qName,
-                                   const SAX::Attributes<std::string>& atts)
+  virtual Message<string_type, string_adaptor>* createContainer(const string_type& /* namespaceURI */,
+                                   const string_type& /* localName */,
+                                   const string_type& qName,
+                                   const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     static const ValueRule rules[] = { { "terminate", false, No, AllowedYesNo },
                                        { 0, false, 0, 0 } };
-    return new Message(gatherAttributes(qName, atts, rules)["terminate"] == Yes);
+    return new Message<string_type, string_adaptor>(gatherAttributes(qName, atts, rules)["terminate"] == Yes);
   } // createContainer
 }; // class MessageHandler
 

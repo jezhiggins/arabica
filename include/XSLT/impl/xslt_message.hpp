@@ -8,6 +8,7 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class Message : public ItemContainer
 {
 public:
@@ -18,7 +19,7 @@ public:
 
   virtual ~Message() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
     RedirectionFrame toMessageSink(context);
     execute_children(node, context);
@@ -28,7 +29,7 @@ public:
   } // execute
 
 private:
-  bool terminate_;
+  const bool terminate_;
 
   class RedirectionFrame
   {
