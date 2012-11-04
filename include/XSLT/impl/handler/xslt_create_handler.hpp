@@ -20,15 +20,16 @@ SAX::DefaultHandler<std::string>* CreateHandler(CompilationContext<std::string, 
   return new Handler(context);
 } // create
 
-class NotImplementedYetHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class NotImplementedYetHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  NotImplementedYetHandler(CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& /* context */) { }
+  NotImplementedYetHandler(CompilationContext<string_type, string_adaptor>& /* context */) { }
 
-  virtual void startElement(const std::string& /* namespaceURI */,
-                            const std::string& /* localName */,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& /* atts */)
+  virtual void startElement(const string_type& /* namespaceURI */,
+                            const string_type& /* localName */,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& /* atts */)
   {
     throw SAX::SAXException("Haven't implemented " + qName + " yet");
   } // startElement

@@ -196,16 +196,16 @@ private:
 template<class string_type, class string_adaptor>
 const ChildElement StylesheetHandler<string_type, string_adaptor>::allowedChildren[] =
   {
-    { "attribute-set", CreateHandler<NotImplementedYetHandler>},
-    { "decimal-format", CreateHandler<NotImplementedYetHandler>},
+    { "attribute-set", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
+    { "decimal-format", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
     //"import"
     //"include"
     { "key", CreateHandler<KeyHandler>},
     { "namespace-alias", CreateHandler<NamespaceAliasHandler>},
     { "output", CreateHandler<OutputHandler>},
     { "param", CreateHandler<TopLevelVariableHandler<Param> >},
-    { "preserve-space", CreateHandler<NotImplementedYetHandler>},
-    { "strip-space", CreateHandler<NotImplementedYetHandler>},
+    { "preserve-space", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
+    { "strip-space", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
     { "template", CreateHandler<TemplateHandler> },
     { "variable", CreateHandler<TopLevelVariableHandler<Variable> > },
     { 0, 0 }
