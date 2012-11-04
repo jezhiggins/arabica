@@ -10,19 +10,20 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class ProcessingInstruction : public ItemContainer
 {
 public:
-  ProcessingInstruction(const Arabica::XPath::XPathExpressionPtr<std::string>& name) :
+  ProcessingInstruction(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& name) :
     name_(name)
   { 
   } // ProcessingInstruction
 
   virtual ~ProcessingInstruction() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
-    std::string name = name_->evaluateAsString(node, context.xpathContext());
+    string_type name = name_->evaluateAsString(node, context.xpathContext());
     validate_name(name);
 
     context.sink().start_processing_instruction(name);
@@ -31,12 +32,12 @@ public:
   } // execute
 
 private:
-  void validate_name(const std::string& name) const
+  void validate_name(const string_type& name) const
   {
     if(name.empty())
       throw SAX::SAXException("xsl:processing-instruction : name attribute must evaluate to a valid name");
 
-    if(!Arabica::XML::is_ncname<Arabica::default_string_adaptor<std::string> >(name))
+    if(!Arabica::XML::is_ncname<string_adaptor>(name))
       throw SAX::SAXException("xsl:processing-instruction : '" + name + "' is not valid as the name");
 
     if(name.length() != 3)
@@ -57,7 +58,7 @@ private:
     throw SAX::SAXException("xsl:processing-instruction name can not be 'xml'");
   } // validate_name
 
-  Arabica::XPath::XPathExpressionPtr<std::string> name_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> name_;
 }; // class ProcessingInstruction
 
 } // namespace XSLT

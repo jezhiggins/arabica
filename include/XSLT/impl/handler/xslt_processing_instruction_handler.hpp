@@ -9,24 +9,27 @@ namespace Arabica
 namespace XSLT
 {
 
-class ProcessingInstructionHandler : public ItemContainerHandler<ProcessingInstruction>
+template<class string_type, class string_adaptor>
+class ProcessingInstructionHandler : public ItemContainerHandler<ProcessingInstruction<string_type, string_adaptor> >
 {
+  typedef ItemContainerHandler<ProcessingInstruction<string_type, string_adaptor> > baseT;
+
 public:
-  ProcessingInstructionHandler(CompilationContext<std::string>& context) :
-      ItemContainerHandler<ProcessingInstruction>(context)
+  ProcessingInstructionHandler(CompilationContext<string_type, string_adaptor>& context) :
+      ItemContainerHandler<ProcessingInstruction<string_type, string_adaptor> >(context)
   {
   } // ProcessingInstructionHandler
 
-  virtual ProcessingInstruction* createContainer(const std::string& /* namespaceURI */,
-                                                 const std::string& /* localName */,
-                                                 const std::string& qName,
-                                                 const SAX::Attributes<std::string>& atts)
+  virtual ProcessingInstruction<string_type, string_adaptor>* createContainer(const string_type& /* namespaceURI */,
+                                                 const string_type& /* localName */,
+                                                 const string_type& qName,
+                                                 const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     static const ValueRule rules[] = { { "name", true, 0, 0 },
                                        { 0, false, 0, 0} };
-    std::string name = gatherAttributes(qName, atts, rules)["name"];
+    string_type name = gatherAttributes(qName, atts, rules)["name"];
 
-    return new ProcessingInstruction(ItemContainerHandler<ProcessingInstruction>::context().xpath_attribute_value_template(name));
+    return new ProcessingInstruction<string_type, string_adaptor>(baseT::context().xpath_attribute_value_template(name));
   } // createContainer
 }; // class ProcessingInstructionHandler
 

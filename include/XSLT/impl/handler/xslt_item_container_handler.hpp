@@ -152,7 +152,7 @@ const ChildElement* AllowedChildren()
     { "if", CreateHandler<IfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "message", CreateHandler<MessageHandler>},
     { "number", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
-    { "processing-instruction", CreateHandler<ProcessingInstructionHandler> },
+    { "processing-instruction", CreateHandler<ProcessingInstructionHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "text", CreateHandler<TextHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "value-of", CreateHandler<ValueOfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "variable", CreateHandler<VariableHandler<Variable> > },
