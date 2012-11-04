@@ -14,8 +14,8 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class Handler>
-SAX::DefaultHandler<std::string>* CreateHandler(CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >& context)
+template<class Handler, class string_type, class string_adaptor>
+SAX::DefaultHandler<string_type, string_adaptor>* CreateHandler(CompilationContext<string_type, string_adaptor>& context)
 {
   return new Handler(context);
 } // create
@@ -35,10 +35,11 @@ public:
   } // startElement
 }; // NotImplementedYetHandler
 
-typedef SAX::DefaultHandler<std::string>* (*CreateHandlerPtr)(CompilationContext<std::string, Arabica::default_string_adaptor<std::string> >&);
-
+template<class string_type, class string_adaptor> 
 struct ChildElement
 {
+  typedef SAX::DefaultHandler<string_type, string_adaptor>* (*CreateHandlerPtr)(CompilationContext<string_type, string_adaptor>&);
+
   const char* const name;
   CreateHandlerPtr createHandler;
 }; // struct ChildElement

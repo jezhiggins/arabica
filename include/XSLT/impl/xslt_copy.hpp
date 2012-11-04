@@ -65,10 +65,13 @@ private:
   Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> namespace_select_;
 }; // class Copy_base
 
-template<class string_type, class string_adaptor>
-class Copy : public Copy_base<string_type, string_adaptor>
+template<class stringT, class adaptorT>
+class Copy : public Copy_base<stringT, adaptorT>
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor; 
+
   Copy(const string_type& attributes_sets) :
       attributes_sets_(attributes_sets)
   {
@@ -91,10 +94,13 @@ private:
   string_type attributes_sets_;
 }; // class Copy
 
-template<class string_type, class string_adaptor>
-class CopyOf : public Copy_base<string_type, string_adaptor>
+template<class stringT, class adaptorT>
+class CopyOf : public Copy_base<stringT, adaptorT>
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor; 
+
   CopyOf(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select) :
       select_(select)
   {

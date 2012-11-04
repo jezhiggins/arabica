@@ -10,10 +10,13 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class string_type, class string_adaptor>
+template<class stringT, class adaptorT>
 class ProcessingInstruction : public ItemContainer
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
+
   ProcessingInstruction(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& name) :
     name_(name)
   { 

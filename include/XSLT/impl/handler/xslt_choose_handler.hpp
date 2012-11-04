@@ -8,9 +8,14 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class string_type, class string_adaptor>
-class WhenHandler : public ItemContainerHandler<When<string_type, string_adaptor> >
+template<class stringT, class adaptorT>
+class WhenHandler : public ItemContainerHandler<When<stringT, adaptorT> >
 {
+public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
+
+private:
   typedef ItemContainerHandler<When<string_type, string_adaptor> > baseT;
 
 public:

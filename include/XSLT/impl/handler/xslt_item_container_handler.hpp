@@ -9,11 +9,14 @@ namespace Arabica
 namespace XSLT
 {
 
-const ChildElement* AllowedChildren();
-SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext<std::string>& context);
+template<class string_type, class string_adaptor>
+const ChildElement<string_type, string_adaptor>* AllowedChildren();
+
+template<class string_type, class string_adaptor>
+SAX::DefaultHandler<string_type, string_adaptor>* createInlineElementHandler(CompilationContext<string_type, string_adaptor>& context);
 
 template<class container_type>
-class ItemContainerHandler : public SAX::DefaultHandler<std::string>
+class ItemContainerHandler : public SAX::DefaultHandler<typename container_type::string_type, typename container_type::string_adaptor>
 {
 protected:
   ItemContainerHandler(CompilationContext<std::string>& context) :
@@ -80,7 +83,7 @@ protected:
   {
     if(namespaceURI == StylesheetConstant::NamespaceURI())
     {
-      for(const ChildElement* c = AllowedChildren(); c->name != 0; ++c)
+      for(const ChildElement<std::string, Arabica::default_string_adaptor<std::string> >* c = AllowedChildren<std::string, Arabica::default_string_adaptor<std::string> >(); c->name != 0; ++c)
         if(c->name == localName)
         {
           context_.push(container_,
@@ -134,36 +137,38 @@ namespace Arabica
 namespace XSLT
 {
 
-const ChildElement* AllowedChildren()
+template<class string_type, class string_adaptor>
+const ChildElement<string_type, string_adaptor>* AllowedChildren()
 {
-  static const ChildElement allowedChildren[] = 
+  static const ChildElement<string_type, string_adaptor> allowedChildren[] = 
   {
-    { "apply-imports", CreateHandler<ApplyImportsHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "apply-templates", CreateHandler<ApplyTemplatesHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "attribute", CreateHandler<AttributeHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "call-template", CreateHandler<CallTemplateHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "choose", CreateHandler<ChooseHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "comment", CreateHandler<CommentHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "copy", CreateHandler<CopyHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "copy-of", CreateHandler<CopyOfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "element", CreateHandler<ElementHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "fallback", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
-    { "for-each", CreateHandler<ForEachHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "if", CreateHandler<IfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "message", CreateHandler<MessageHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
-    { "number", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
-    { "processing-instruction", CreateHandler<ProcessingInstructionHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "text", CreateHandler<TextHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "value-of", CreateHandler<ValueOfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
-    { "variable", CreateHandler<VariableHandler<Variable> > },
+    { "apply-imports", CreateHandler<ApplyImportsHandler<string_type, string_adaptor> > },
+    { "apply-templates", CreateHandler<ApplyTemplatesHandler<string_type, string_adaptor> > },
+    { "attribute", CreateHandler<AttributeHandler<string_type, string_adaptor> > },
+    { "call-template", CreateHandler<CallTemplateHandler<string_type, string_adaptor> > },
+    { "choose", CreateHandler<ChooseHandler<string_type, string_adaptor> > },
+    { "comment", CreateHandler<CommentHandler<string_type, string_adaptor> > },
+    { "copy", CreateHandler<CopyHandler<string_type, string_adaptor> > },
+    { "copy-of", CreateHandler<CopyOfHandler<string_type, string_adaptor> > },
+    { "element", CreateHandler<ElementHandler<string_type, string_adaptor> > },
+    { "fallback", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { "for-each", CreateHandler<ForEachHandler<string_type, string_adaptor> > },
+    { "if", CreateHandler<IfHandler<string_type, string_adaptor> > },
+    { "message", CreateHandler<MessageHandler<string_type, string_adaptor> >},
+    { "number", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { "processing-instruction", CreateHandler<ProcessingInstructionHandler<string_type, string_adaptor> > },
+    { "text", CreateHandler<TextHandler<string_type, string_adaptor> > },
+    { "value-of", CreateHandler<ValueOfHandler<string_type, string_adaptor> > },
+    { "variable", CreateHandler<VariableHandler<Variable<string_type, string_adaptor> > > },
     { 0, 0 }
   };
   return allowedChildren;
 } // AllowedChildren
 
-SAX::DefaultHandler<std::string>* createInlineElementHandler(CompilationContext<std::string>& context)
+template<class string_type, class string_adaptor>
+SAX::DefaultHandler<string_type, string_adaptor>* createInlineElementHandler(CompilationContext<string_type, string_adaptor>& context)
 {
-  return new InlineElementHandler<std::string, Arabica::default_string_adaptor<std::string> >(context);
+  return new InlineElementHandler<string_type, string_adaptor>(context);
 } // InlineElementHandler
 
 

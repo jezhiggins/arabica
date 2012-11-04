@@ -8,10 +8,13 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class string_type, class string_adaptor>
+template<class stringT, class adaptorT>
 class If : public ItemContainer
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor; 
+
   If(Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> test) :
     test_(test)
   { 

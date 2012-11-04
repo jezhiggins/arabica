@@ -50,10 +50,13 @@ private:
   Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> value_;
 }; // class InlineAttribute
 
-template<class string_type, class string_adaptor>
+template<class stringT, class adaptorT>
 class InlineElement : public ItemContainer
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
+
   InlineElement(const string_type& name,
                 const string_type& name_space,
                 const std::vector<InlineAttribute<string_type, string_adaptor> >& attrs) :

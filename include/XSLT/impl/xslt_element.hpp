@@ -8,10 +8,13 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class string_type, class string_adaptor>
+template<class stringT, class adaptorT>
 class Element : public ItemContainer
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor; 
+
   Element(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& name,
           const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& name_space,
           const string_type& use_attribute_sets) :

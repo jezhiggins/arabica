@@ -9,10 +9,13 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class string_type, class string_adaptor>
+template<class stringT, class adaptorT>
 class When : public ItemContainer
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
+
   When(Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> test) :
     test_(test)
   { 
@@ -36,10 +39,13 @@ private:
   Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> test_;
 }; // class When
 
-template<class string_type, class string_adaptor>
+template<class stringT, class adaptorT>
 class Otherwise : public ItemContainer
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
+
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
                        ExecutionContext& context) const
   {
@@ -47,10 +53,13 @@ public:
   } // execute
 }; // class Otherwise
 
-template<class string_type, class string_adaptor>
+template<class stringT, class adaptorT>
 class Choose : public Item
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
+
   Choose()  :
     when_(),
     otherwise_(0)

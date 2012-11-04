@@ -9,11 +9,14 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class string_type, class string_adaptor>
+template<class stringT, class adaptorT>
 class ForEach : public ItemContainer,
                 public Sortable
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor; 
+
   ForEach(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select) : 
     Sortable(),
     select_(select)

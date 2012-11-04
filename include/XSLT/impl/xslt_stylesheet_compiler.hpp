@@ -144,7 +144,7 @@ private:
       return;
     } // if ...
     
-    for(const ChildElement* c = allowedChildren; c->name != 0; ++c)
+    for(const ChildElement<string_type, string_adaptor>* c = allowedChildren; c->name != 0; ++c)
       if(c->name == localName)
       {
         context_.push(0,
@@ -190,24 +190,24 @@ private:
   IncludeHandler includer_;
   bool top_;
 
-  static const ChildElement allowedChildren[];
+  static const ChildElement<string_type, string_adaptor> allowedChildren[];
 }; // class StylesheetHandler
 
 template<class string_type, class string_adaptor>
-const ChildElement StylesheetHandler<string_type, string_adaptor>::allowedChildren[] =
+const ChildElement<string_type, string_adaptor> StylesheetHandler<string_type, string_adaptor>::allowedChildren[] =
   {
-    { "attribute-set", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
-    { "decimal-format", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
+    { "attribute-set", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { "decimal-format", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
     //"import"
     //"include"
     { "key", CreateHandler<KeyHandler>},
     { "namespace-alias", CreateHandler<NamespaceAliasHandler>},
     { "output", CreateHandler<OutputHandler>},
     { "param", CreateHandler<TopLevelVariableHandler<Param> >},
-    { "preserve-space", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
-    { "strip-space", CreateHandler<NotImplementedYetHandler<std::string, Arabica::default_string_adaptor<std::string> > >},
+    { "preserve-space", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { "strip-space", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
     { "template", CreateHandler<TemplateHandler> },
-    { "variable", CreateHandler<TopLevelVariableHandler<Variable> > },
+    { "variable", CreateHandler<TopLevelVariableHandler<Variable<string_type, string_adaptor> > > },
     { 0, 0 }
   }; // StylesheetHandler::allowedChildren
 

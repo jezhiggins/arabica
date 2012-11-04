@@ -9,10 +9,13 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class string_type, class string_adaptor>
-class CallTemplateHandler : public SAX::DefaultHandler<string_type, string_adaptor>
+template<class stringT, class adaptorT>
+class CallTemplateHandler : public SAX::DefaultHandler<stringT, adaptorT>
 {
 public:
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
+
   CallTemplateHandler(CompilationContext<string_type, string_adaptor>& context) :
     context_(context),
     callTemplate_(0)

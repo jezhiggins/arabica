@@ -8,11 +8,15 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class stringT, class adaptorT>
 class Variable : public Variable_impl
 {
 public:
-  Variable(const std::string& name, 
-           const Arabica::XPath::XPathExpressionPtr<std::string>& select,
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
+
+  Variable(const string_type& name, 
+           const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select,
            const Precedence precedence) :
       Variable_impl(name, select, precedence)
   {
@@ -20,7 +24,7 @@ public:
 
   virtual ~Variable() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const 
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const 
   {
     context.declareVariable(node, *this);
   } // declare

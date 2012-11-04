@@ -11,6 +11,9 @@ namespace XSLT
 class Param : public Variable_impl
 {
 public:
+  typedef std::string string_type;
+  typedef Arabica::default_string_adaptor<std::string> string_adaptor;
+
   Param(const std::string& name, 
         const Arabica::XPath::XPathExpressionPtr<std::string>& select,
         const Precedence& precedence) :

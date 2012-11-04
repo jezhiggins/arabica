@@ -12,6 +12,9 @@ namespace XSLT
 class Template : public ItemContainer
 {
 public:
+  typedef std::string string_type;
+  typedef Arabica::default_string_adaptor<std::string> string_adaptor;
+
   Template(const std::string& name,
       	   const std::string& mode,
            const std::string& /* priority */,
