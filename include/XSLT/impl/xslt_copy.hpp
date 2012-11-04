@@ -112,7 +112,7 @@ public:
     } 
 
     Arabica::XPath::NodeSet<string_type, string_adaptor> nodes = value.asNodeSet();
-    for(Arabica::XPath::NodeSet<string_type, string_adaptor>::const_iterator n = nodes.begin(), e = nodes.end(); n != e; ++n)
+    for(typename Arabica::XPath::NodeSet<string_type, string_adaptor>::const_iterator n = nodes.begin(), e = nodes.end(); n != e; ++n)
       copy(*n, context);
   } // execute
 
