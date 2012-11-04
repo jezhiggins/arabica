@@ -8,48 +8,50 @@ namespace Arabica
 namespace XSLT
 {
 
-class CopyHandler : public ItemContainerHandler<Copy>
+template<class string_type, class string_adaptor>
+class CopyHandler : public ItemContainerHandler<Copy<string_type, string_adaptor> >
 {
 public:
-  CopyHandler(CompilationContext<std::string>& context) :
-      ItemContainerHandler<Copy>(context)
+  CopyHandler(CompilationContext<string_type, string_adaptor>& context) :
+      ItemContainerHandler<Copy<string_type, string_adaptor> >(context)
   {
   } // CopyHandler
 
-  virtual Copy* createContainer(const std::string& /* namespaceURI */,
-                                const std::string& /* localName */,
-                                const std::string& qName,
-                                const SAX::Attributes<std::string>& atts)
+  virtual Copy<string_type, string_adaptor>* createContainer(const string_type& /* namespaceURI */,
+                                const string_type& /* localName */,
+                                const string_type& qName,
+                                const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     static const ValueRule rules[] = { { "use-attribute-sets", false, 0, 0 },
                                        { 0, false, 0, 0 } };
-    std::string sets = gatherAttributes(qName, atts, rules)["use-attribute-sets"];
+    string_type sets = gatherAttributes(qName, atts, rules)["use-attribute-sets"];
 
-    return new Copy(sets);
+    return new Copy<string_type, string_adaptor>(sets);
   } // createContainer
 }; // class WhenHandler
 
-class CopyOfHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class CopyOfHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  CopyOfHandler(CompilationContext<std::string>& context) : 
+  CopyOfHandler(CompilationContext<string_type, string_adaptor>& context) : 
     context_(context),
     copyOf_(0)
   {
   } // CopyOfHandler
 
-  virtual void startElement(const std::string& /* namespaceURI */,
-                            const std::string& /* localName */,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& /* namespaceURI */,
+                            const string_type& /* localName */,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(copyOf_ == 0)
     {
       static const ValueRule rules[] = { { "select", true, 0, 0 },
                                          { 0, false, 0, 0 } };
-      std::string select = gatherAttributes(qName, atts, rules)["select"];
+      string_type select = gatherAttributes(qName, atts, rules)["select"];
 
-      copyOf_ = new CopyOf(context_.xpath_expression(select));
+      copyOf_ = new CopyOf<string_type, string_adaptor>(context_.xpath_expression(select));
 
       return;
     } // if(copyOf_ == 0)
@@ -57,22 +59,22 @@ public:
     throw SAX::SAXException(qName + " can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
     context_.parentContainer().add_item(copyOf_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     verifyNoCharacterData(ch, "xsl:copy-of");
   } // characters
 
 private:
-  CompilationContext<std::string>& context_;
-  CopyOf* copyOf_;
+  CompilationContext<string_type, string_adaptor>& context_;
+  CopyOf<string_type, string_adaptor>* copyOf_;
 }; // class CopyOfHandler
 
 } // namespace XSLT

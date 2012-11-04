@@ -8,19 +8,20 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class Copy_base : public ItemContainer
 {
 protected:
   Copy_base()
   {
-    Arabica::XPath::XPath<std::string> compiler;
+    Arabica::XPath::XPath<string_type, string_adaptor> compiler;
     namespace_select_ = compiler.compile("namespace::node()");
   } // Copy_base
 
   virtual ~Copy_base() { }
 
 protected:
-  void copy(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  void copy(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
     switch(node.getNodeType())
     {
@@ -58,77 +59,79 @@ protected:
     } // switch
   } // execute
 
-  virtual void process_content(const DOM::Node<std::string>& node, ExecutionContext& context) const = 0;
+  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const = 0;
 
 private:
-  Arabica::XPath::XPathExpressionPtr<std::string> namespace_select_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> namespace_select_;
 }; // class Copy_base
 
-class Copy : public Copy_base
+template<class string_type, class string_adaptor>
+class Copy : public Copy_base<string_type, string_adaptor>
 {
 public:
-  Copy(const std::string& attributes_sets) :
+  Copy(const string_type& attributes_sets) :
       attributes_sets_(attributes_sets)
   {
   } // Copy
 
   virtual ~Copy() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
     copy(node, context);
   } // execute
 
 protected:
-  virtual void process_content(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
     execute_children(node, context);
   } // process_content
 
 private:
-  std::string attributes_sets_;
+  string_type attributes_sets_;
 }; // class Copy
 
-class CopyOf : public Copy_base
+template<class string_type, class string_adaptor>
+class CopyOf : public Copy_base<string_type, string_adaptor>
 {
 public:
-  CopyOf(const Arabica::XPath::XPathExpressionPtr<std::string>& select) :
+  CopyOf(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select) :
       select_(select)
   {
   } // CopyOf
 
   virtual ~CopyOf() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
-    Arabica::XPath::XPathValue<std::string> value = select_->evaluate(node, context.xpathContext());
+    Arabica::XPath::XPathValue<string_type, string_adaptor> value = select_->evaluate(node, context.xpathContext());
     if(value.type() != Arabica::XPath::NODE_SET)
     {
       context.sink().characters(value.asString());
       return;
     } 
 
-    Arabica::XPath::NodeSet<std::string> nodes = value.asNodeSet();
-    for(Arabica::XPath::NodeSet<std::string>::const_iterator n = nodes.begin(), e = nodes.end(); n != e; ++n)
+    Arabica::XPath::NodeSet<string_type, string_adaptor> nodes = value.asNodeSet();
+    for(Arabica::XPath::NodeSet<string_type, string_adaptor>::const_iterator n = nodes.begin(), e = nodes.end(); n != e; ++n)
       copy(*n, context);
   } // execute
 
 protected:
-  virtual void process_content(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
     if(node.hasAttributes())
     {
-      const DOM::NamedNodeMap<std::string>& attrs = node.getAttributes();
+      const DOM::NamedNodeMap<string_type, string_adaptor>& attrs = node.getAttributes();
       for(unsigned int a = 0; a < attrs.getLength(); ++a)
         copy(attrs.item(a), context);
     } // if ...
 
-    for(DOM::Node<std::string> n = node.getFirstChild(); n != 0; n = n.getNextSibling())
+    for(DOM::Node<string_type, string_adaptor> n = node.getFirstChild(); n != 0; n = n.getNextSibling())
       copy(n, context);
   } // process_content
 
 private:
-  Arabica::XPath::XPathExpressionPtr<std::string> select_;
+  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> select_;
 }; // class CopyOf
 
 } // namespace XSLT
