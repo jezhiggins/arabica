@@ -146,7 +146,7 @@ const ChildElement* AllowedChildren()
     { "comment", CreateHandler<CommentHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "copy", CreateHandler<CopyHandler> },
     { "copy-of", CreateHandler<CopyOfHandler> },
-    { "element", CreateHandler<ElementHandler> },
+    { "element", CreateHandler<ElementHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "fallback", CreateHandler<NotImplementedYetHandler>},
     { "for-each", CreateHandler<ForEachHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
     { "if", CreateHandler<IfHandler<std::string, Arabica::default_string_adaptor<std::string> > > },
