@@ -45,7 +45,7 @@ public:
     else
     { 
       QName qn = QName::create(name);
-      std::map<string_type, string_type>::const_iterator ns = namespaces_.find(qn.prefix);
+      typename std::map<string_type, string_type>::const_iterator ns = namespaces_.find(qn.prefix);
       if(ns == namespaces_.end())
         throw SAX::SAXException("xsl:element Runtime Error - Undeclared prefix " + qn.prefix);
       namesp = ns->second;
