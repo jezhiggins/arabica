@@ -8,14 +8,18 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class Sort
 {
 public:
-  Sort(const Arabica::XPath::XPathExpressionPtr<std::string>& select,
-       const Arabica::XPath::XPathExpressionPtr<std::string>& lang, //="language-code"
-       const Arabica::XPath::XPathExpressionPtr<std::string>& datatype, //="text|number|qname"
-       const Arabica::XPath::XPathExpressionPtr<std::string>& order, //="ascending|descending"
-       const Arabica::XPath::XPathExpressionPtr<std::string>& caseorder) : //="upper-first|lower-first 
+  typedef Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> XPathExpressionPtr;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+
+  Sort(const XPathExpressionPtr& select,
+       const XPathExpressionPtr& lang, //="language-code"
+       const XPathExpressionPtr& datatype, //="text|number|qname"
+       const XPathExpressionPtr& order, //="ascending|descending"
+       const XPathExpressionPtr& caseorder) : //="upper-first|lower-first 
     select_(select),
     lang_(lang),
     datatype_(datatype),
@@ -30,12 +34,12 @@ public:
     delete sub_sort_;
   } // ~Sort
 
-  void set_context(const DOM::Node<std::string>& node, ExecutionContext& context)
+  void set_context(const DOMNode& node, ExecutionContext& context)
   {
     context_ = &context;
-    const std::string datatype = datatype_->evaluateAsString(node, context_->xpathContext());
-    const std::string order = order_->evaluateAsString(node, context_->xpathContext());
-    const std::string caseorder = caseorder_->evaluateAsString(node, context_->xpathContext());
+    const string_type datatype = datatype_->evaluateAsString(node, context_->xpathContext());
+    const string_type order = order_->evaluateAsString(node, context_->xpathContext());
+    const string_type caseorder = caseorder_->evaluateAsString(node, context_->xpathContext());
 
     static const char* allowed_datatypes[] = { "text", "number", 0 };
     static const char* allowed_orders[] = { "ascending", "descending", 0 };
@@ -59,7 +63,7 @@ public:
       sub_sort_->set_context(node, context);
   } // set_context
 
-  bool operator()(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
+  bool operator()(const DOMNode& n1, const DOMNode& n2) const
   {
     return (this->*sort_fn_)(n1, n2);
   } // operator()
@@ -73,12 +77,12 @@ public:
   } // add_sub_sort
 
 private:
-  typedef bool(Sort::*sortFn)(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const;
-  bool numberAscending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
+  typedef bool(Sort::*sortFn)(const DOMNode& n1, const DOMNode& n2) const;
+  bool numberAscending(const DOMNode& n1, const DOMNode& n2) const
   {
     return numberSort(n1, n2, nanAscending, std::less<double>());
   } // numberAscending
-  bool numberDescending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
+  bool numberDescending(const DOMNode& n1, const DOMNode& n2) const
   {
     return numberSort(n1, n2, nanDescending, std::greater<double>());
   } // numberDescending
@@ -91,8 +95,8 @@ private:
     return !nan1;
   } // nanDescending
   template<class NanCompare, class NumberCompare>
-  bool numberSort(const DOM::Node<std::string>& n1, 
-                  const DOM::Node<std::string>& n2, 
+  bool numberSort(const DOMNode& n1, 
+                  const DOMNode& n2, 
                   NanCompare nanCompare, 
                   NumberCompare compare) const
   {
@@ -110,19 +114,21 @@ private:
 
     return compare(v1, v2);
   } // numberSort
-  bool stringAscending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
+  bool stringAscending(const DOMNode& n1, const DOMNode& n2) const
   {
-    return stringSort(n1, n2, std::less<std::string>());
+    return stringSort(n1, n2, std::less<string_type>());
   } // stringAscending
-  bool stringDescending(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2) const
+  bool stringDescending(const DOMNode& n1, const DOMNode& n2) const
   {
-    return stringSort(n1, n2, std::greater<std::string>());
+    return stringSort(n1, n2, std::greater<string_type>());
   } // stringAscending
   template<class StringCompare>
-  bool stringSort(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2, StringCompare compare) const
+  bool stringSort(const DOMNode& n1, 
+                  const DOMNode& n2, 
+                  StringCompare compare) const
   {
-    std::string v1 = grabAsString(n1);
-    std::string v2 = grabAsString(n2);
+    string_type v1 = grabAsString(n1);
+    string_type v2 = grabAsString(n2);
 
     if((v1 == v2) && (sub_sort_))
       return (*sub_sort_)(n1, n2);
@@ -130,22 +136,22 @@ private:
     return compare(v1, v2);
   } // stringSort
 
-  std::string grabAsString(const DOM::Node<std::string>& n) const
+  string_type grabAsString(const DOMNode& n) const
   {
     context_->setPosition(n, 1);
     return select_->evaluateAsString(n, context_->xpathContext());
   } // grabAsString
-  double grabAsNumber(const DOM::Node<std::string>& n) const
+  double grabAsNumber(const DOMNode& n) const
   {
     context_->setPosition(n, 1);
     return select_->evaluateAsNumber(n, context_->xpathContext());
   } // grabAsString
 
-  Arabica::XPath::XPathExpressionPtr<std::string> select_;
-  Arabica::XPath::XPathExpressionPtr<std::string> lang_;
-  Arabica::XPath::XPathExpressionPtr<std::string> datatype_;
-  Arabica::XPath::XPathExpressionPtr<std::string> order_;
-  Arabica::XPath::XPathExpressionPtr<std::string> caseorder_;
+  XPathExpressionPtr select_;
+  XPathExpressionPtr lang_;
+  XPathExpressionPtr datatype_;
+  XPathExpressionPtr order_;
+  XPathExpressionPtr caseorder_;
   Sort* sub_sort_;
   ExecutionContext* context_;
   sortFn sort_fn_;
@@ -154,8 +160,14 @@ private:
   bool operator==(const Sort&) const;
 }; // class Sort
 
+template<class string_type, class string_adaptor>
 class Sortable
 {
+public:
+  typedef Sort<string_type, string_adaptor> SortT;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+  typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
+
 protected:
   Sortable() :
     sort_(0)
@@ -167,7 +179,9 @@ protected:
     delete sort_;
   } // ~Sortable
 
-  void sort(const DOM::Node<std::string>& node, Arabica::XPath::NodeSet<std::string>& nodes, ExecutionContext& context) const
+  void sort(const DOMNode& node, 
+            NodeSet& nodes, 
+            ExecutionContext& context) const
   {
     if(!sort_)
     {
@@ -183,7 +197,7 @@ protected:
   bool has_sort() const { return sort_ != 0; }
 
 public:
-  void add_sort(Sort* sort)
+  void add_sort(SortT* sort)
   {
     if(!sort_)
       sort_ = sort;
@@ -192,18 +206,18 @@ public:
   } // add_sort
 
 private:
-  Sort* sort_;
+  SortT* sort_;
 
   struct SortP
   {
-    SortP(Sort& sort) : sort_(sort) { }
-    bool operator()(const DOM::Node<std::string>& n1, const DOM::Node<std::string>& n2)
+    SortP(SortT& sort) : sort_(sort) { }
+    bool operator()(const DOMNode& n1, const DOMNode& n2)
     {
       return sort_(n1, n2);
     } // operator()
 
   private:
-    Sort& sort_;
+    SortT& sort_;
   }; // struct SortP
 }; // class Sortable
 

@@ -54,7 +54,7 @@ public:
       {
 
         context_.push(0,
-                      new SortHandler(context_, *applyTemplates_),
+                      new SortHandler<string_type, string_adaptor>(context_, *applyTemplates_),
                       namespaceURI, 
                       localName, 
                       qName, 

@@ -11,7 +11,7 @@ namespace XSLT
 
 template<class stringT, class adaptorT>
 class ForEach : public ItemContainer,
-                public Sortable
+                public Sortable<stringT, adaptorT>
 {
 public:
   typedef stringT string_type;

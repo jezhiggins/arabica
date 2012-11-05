@@ -46,7 +46,7 @@ protected:
       if(!done_sort_)
       {
         baseT::context().push(0,
-                       new SortHandler(baseT::context(), *baseT::container()),
+                       new SortHandler<string_type, string_adaptor>(baseT::context(), *baseT::container()),
                        namespaceURI, 
                        localName, 
                        qName, 

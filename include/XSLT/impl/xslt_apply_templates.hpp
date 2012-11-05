@@ -12,7 +12,7 @@ namespace XSLT
 
 template<class string_type, class string_adaptor>
 class ApplyTemplates : public Item,
-                       public Sortable,
+                       public Sortable<string_type, string_adaptor>,
                        public WithParamable
 {
 public:
