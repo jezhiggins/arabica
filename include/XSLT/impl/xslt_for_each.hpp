@@ -18,7 +18,7 @@ public:
   typedef adaptorT string_adaptor; 
 
   ForEach(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select) : 
-    Sortable(),
+    Sortable<stringT, adaptorT>(),
     select_(select)
   {
   } // ForEach

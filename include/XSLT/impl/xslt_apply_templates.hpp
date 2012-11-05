@@ -15,6 +15,8 @@ class ApplyTemplates : public Item,
                        public Sortable<string_type, string_adaptor>,
                        public WithParamable
 {
+  typedef Sortable<string_type, string_adaptor> SortableT;
+
 public:
   ApplyTemplates(Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> select,
                  string_type& mode) :
@@ -28,7 +30,7 @@ public:
   {
     ParamPasser passer(*this, node, context);
 
-    if(!has_sort() && select_ == 0)
+    if(!SortableT::has_sort() && select_ == 0)
     {
       if(node.hasChildNodes())
         context.stylesheet().applyTemplates(node.getChildNodes(), context, mode_);
