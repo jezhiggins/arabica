@@ -9,26 +9,28 @@ namespace Arabica
 namespace XSLT
 {
 
-class WithParamHandler : public VariableHandler<WithParam>
+template<class string_type, class string_adaptor>
+class WithParamHandler : public VariableHandler<WithParam<string_type, string_adaptor> >
 {
+  typedef VariableHandler<WithParam<string_type, string_adaptor> > baseT;
 public:
-  WithParamHandler(CompilationContext<std::string>& context,
-                   WithParamable& paramee) :
-    VariableHandler<WithParam>(context),
+  WithParamHandler(CompilationContext<string_type, string_adaptor>& context,
+                   WithParamable<string_type, string_adaptor>& paramee) :
+    baseT(context),
     paramee_(paramee)
   {
   } // WithParamHandler
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
-    paramee_.add_with_param(container());
-    context().pop();
+    paramee_.add_with_param(baseT::container());
+    baseT::context().pop();
   } // endElement
 
 private:
-  WithParamable& paramee_;
+  WithParamable<string_type, string_adaptor>& paramee_;
 }; // WithParamHandler
 
 } // namespace XSLT

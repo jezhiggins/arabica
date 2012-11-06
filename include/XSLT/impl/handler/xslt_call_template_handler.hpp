@@ -43,7 +43,7 @@ public:
     if((namespaceURI == StylesheetConstant::NamespaceURI()) && (localName == "with-param"))
     {
       context_.push(0,
-                    new WithParamHandler(context_, *callTemplate_),
+                    new WithParamHandler<string_type, string_adaptor>(context_, *callTemplate_),
                     namespaceURI, 
                     localName, 
                     qName, 

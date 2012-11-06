@@ -13,7 +13,7 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class ApplyTemplates : public Item,
                        public Sortable<string_type, string_adaptor>,
-                       public WithParamable
+                       public WithParamable<string_type, string_adaptor>
 {
   typedef Sortable<string_type, string_adaptor> SortableT;
 
@@ -28,7 +28,7 @@ public:
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
                        ExecutionContext& context) const
   {
-    ParamPasser passer(*this, node, context);
+    ParamPasser<string_type, string_adaptor> passer(*this, node, context);
 
     if(!SortableT::has_sort() && select_ == 0)
     {

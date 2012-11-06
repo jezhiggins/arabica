@@ -11,7 +11,7 @@ namespace XSLT
 
 template<class string_type, class string_adaptor>
 class CallTemplate : public Item,
-                     public WithParamable
+                     public WithParamable<string_type, string_adaptor>
 {
 public:
   CallTemplate(const string_type& name) :
@@ -22,7 +22,7 @@ public:
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
                        ExecutionContext& context) const
   {
-    ParamPasser passer(*this, node, context);
+    ParamPasser<string_type, string_adaptor> passer(*this, node, context);
     context.stylesheet().callTemplate(name_, node, context);
   } // execute
 

@@ -65,7 +65,7 @@ public:
       if(localName == "with-param")
       {
         context_.push(0,
-                      new WithParamHandler(context_, *applyTemplates_),
+                      new WithParamHandler<string_type, string_adaptor>(context_, *applyTemplates_),
                       namespaceURI, 
                       localName, 
                       qName, 

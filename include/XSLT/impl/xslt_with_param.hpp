@@ -8,14 +8,15 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class stringT, class adaptorT>
 class WithParam : public Variable_impl
 {
 public:
-  typedef std::string string_type;
-  typedef Arabica::default_string_adaptor<std::string> string_adaptor;
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
 
-  WithParam(const std::string& name, 
-            const Arabica::XPath::XPathExpressionPtr<std::string>& select, 
+  WithParam(const string_type& name, 
+            const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select, 
             const Precedence& precedence) :
       Variable_impl(name, select, precedence)
   {
@@ -23,7 +24,8 @@ public:
 
   virtual ~WithParam() { }
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const 
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+                       ExecutionContext& context) const 
   {
     name_ = context.passParam(node, *this);
   } // declare
@@ -34,9 +36,10 @@ public:
   } // unpass
 
 private:
-  mutable std::string name_;
+  mutable string_type name_;
 }; // WithParam
 
+template<class string_type, class string_adaptor>
 class WithParamable
 {
 protected:
@@ -46,40 +49,43 @@ protected:
 
   ~WithParamable()
   {
-    for(WithParamList::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
+    for(WithParamListIterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
       delete (*s);
   } // ~WithParamable
 
 public:
-  void add_with_param(WithParam* withparam)
+  void add_with_param(WithParam<string_type, string_adaptor>* withparam)
   {
     withparams_.push_back(withparam);
   } // add_WithParam
 
 private:
-  void passParams(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  void passParams(const DOM::Node<string_type, string_adaptor>& node, 
+                  ExecutionContext& context) const
   {
-    for(WithParamList::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
+    for(WithParamListIterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
       (*s)->execute(node, context);
   } // execute
 
   void unpassParams(ExecutionContext& context) const
   {
-    for(WithParamList::const_iterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
+    for(WithParamListIterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
       (*s)->unpass(context);
   } // unpassParams
 
-  typedef std::vector<WithParam*> WithParamList;
+  typedef std::vector<WithParam<string_type, string_adaptor>*> WithParamList;
+  typedef typename WithParamList::const_iterator WithParamListIterator;
   WithParamList withparams_;
 
-  friend class ParamPasser;
+  template<class string_type, class string_adaptor> friend class ParamPasser;
 }; // class WithParamable
 
+template<class string_type, class string_adaptor>
 class ParamPasser
 {
 public:
-  ParamPasser(const WithParamable& paramable,
-              const DOM::Node<std::string>& node, 
+  ParamPasser(const WithParamable<string_type, string_adaptor>& paramable,
+              const DOM::Node<string_type, string_adaptor>& node, 
               ExecutionContext& context) :
     paramable_(paramable),
     context_(context)
@@ -93,7 +99,7 @@ public:
   } // ~ParamPasser
 
 private:
-  const WithParamable& paramable_;
+  const WithParamable<string_type, string_adaptor>& paramable_;
   ExecutionContext& context_;
 
   ParamPasser(const ParamPasser&);
