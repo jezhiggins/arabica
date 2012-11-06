@@ -113,13 +113,14 @@ private:
 }; // class ExecutionContext
 
 ///////////////////////////
+template<class string_type, class string_adaptor>
 class VariableClosure : public Variable_instance<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
-  typedef ScopeType<std::string, Arabica::default_string_adaptor<std::string> >::Variable_instance_ptr Variable_instance_ptr;
+  typedef typename ScopeType<string_type, string_adaptor>::Variable_instance_ptr Variable_instance_ptr;
 
-  static Variable_instance_ptr create(const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& var, 
-                                      const DOM::Node<std::string>& node,
+  static Variable_instance_ptr create(const Variable_declaration<string_type, string_adaptor>& var, 
+                                      const DOM::Node<string_type, string_adaptor>& node,
                                       ExecutionContext& context)
   {
     return Variable_instance_ptr(new VariableClosure(var, node, context));
@@ -128,7 +129,7 @@ public:
   virtual const std::string& name() const { return var_.name(); }
   virtual const Precedence& precedence() const { return var_.precedence(); }
 
-  virtual Arabica::XPath::XPathValue<std::string> value() const 
+  virtual Arabica::XPath::XPathValue<string_type, string_adaptor> value() const 
   {
     if(!value_)
       value_ = var_.value(node_, context_, sink_);
@@ -141,8 +142,8 @@ public:
   } // globalScope
 
 private:
-  VariableClosure(const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& var, 
-                  const DOM::Node<std::string>& node, 
+  VariableClosure(const Variable_declaration<string_type, string_adaptor>& var, 
+                  const DOM::Node<string_type, string_adaptor>& node, 
                   ExecutionContext& context) :
       var_(var),
       sink_(),
@@ -151,11 +152,11 @@ private:
   {
   } // VariableClosure
 
-  const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& var_;
-  mutable DOMSink<std::string> sink_;
-  const DOM::Node<std::string> node_;
+  const Variable_declaration<string_type, string_adaptor>& var_;
+  mutable DOMSink<string_type, string_adaptor> sink_;
+  const DOM::Node<string_type, string_adaptor> node_;
   mutable ExecutionContext context_;
-  mutable Arabica::XPath::XPathValue<std::string> value_;
+  mutable Arabica::XPath::XPathValue<string_type, string_adaptor> value_;
 
   VariableClosure();
   VariableClosure(const VariableClosure&);
@@ -166,12 +167,12 @@ private:
 ///////////////////////////
 void ExecutionContext::topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param)
 {
-  stack_.topLevelParam(VariableClosure::create(param, node, *this));
+  stack_.topLevelParam(VariableClosure<std::string, Arabica::default_string_adaptor<std::string> >::create(param, node, *this));
 } // topLevelParam
 
 std::string ExecutionContext::passParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param)
 {
-  return stack_.passParam(VariableClosure::create(param, node, *this));
+  return stack_.passParam(VariableClosure<std::string, Arabica::default_string_adaptor<std::string> >::create(param, node, *this));
 } // passParam
 
 void ExecutionContext::unpassParam(const std::string& name)
@@ -182,12 +183,12 @@ void ExecutionContext::unpassParam(const std::string& name)
 void ExecutionContext::declareParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param) 
 {
   if(!stack_.findPassedParam(param.name()))
-    stack_.declareParam(VariableClosure::create(param, node, *this)); 
+    stack_.declareParam(VariableClosure<std::string, Arabica::default_string_adaptor<std::string> >::create(param, node, *this)); 
 } // declareParam
 
 void ExecutionContext::declareVariable(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& variable) 
 { 
-  stack_.declareVariable(VariableClosure::create(variable, node, *this)); 
+  stack_.declareVariable(VariableClosure<std::string, Arabica::default_string_adaptor<std::string> >::create(variable, node, *this)); 
 } // declareVariable
 
 void ExecutionContext::freezeTopLevel()
