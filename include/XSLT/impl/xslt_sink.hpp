@@ -322,7 +322,7 @@ private:
 
   string_type setting(const string_type& name)
   {
-    Settings::const_iterator i = settings_.find(name);
+    typename Settings::const_iterator i = settings_.find(name);
     if(i == settings_.end())
       return "";
     return i->second;

@@ -36,7 +36,7 @@ protected:
 public:
   void start_document(const Settings& settings, const CDATAElements& cdataElements)
   {
-    Settings::const_iterator method = settings.find("method");
+    typename Settings::const_iterator method = settings.find("method");
     text_mode_ = (method != settings.end() && method->second == "text");
     if(text_mode_)
       do_disableOutputEscaping(true);
@@ -259,7 +259,7 @@ protected:
 private:
   string_type escape(string_type str, const string_type& t, const string_type& r) const
   {
-    string_type::size_type naughty = str.find(t);
+    typename string_type::size_type naughty = str.find(t);
     while(naughty != string_type::npos)
     {
       str.replace(naughty, t.length(), r, 0, r.length());
