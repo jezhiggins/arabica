@@ -98,7 +98,7 @@ protected:
       if(!done_params_)
       {
         baseT::context().push(baseT::container(),
-                       new VariableHandler<Param>(baseT::context()),
+                       new VariableHandler<Param<string_type, string_adaptor> >(baseT::context()),
                        namespaceURI, 
                        localName, 
                        qName, 
