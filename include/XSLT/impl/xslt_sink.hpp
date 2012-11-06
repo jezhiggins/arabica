@@ -355,7 +355,7 @@ public:
   {
   } // ~DOMSink
 
-  virtual Output& asOutput() { return *this; }
+  virtual Output<string_type, string_adaptor>& asOutput() { return *this; }
   DOM::Node<string_type, string_adaptor> node() const { return documentFrag_; }
 
 protected:
@@ -363,7 +363,7 @@ protected:
 
   void do_start_document(const Settings& settings)
   {
-    Settings::const_iterator i = settings.find("indent");
+    typename Settings::const_iterator i = settings.find("indent");
     if((i != settings.end()) &&
        (i->second == "yes"))
       indent_ = 0;
