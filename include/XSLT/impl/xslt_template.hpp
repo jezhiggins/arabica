@@ -43,7 +43,7 @@ public:
     if(!priority.empty())
     {
       double p = boost::lexical_cast<double>(Arabica::text::normalize_whitespace<string_type, string_adaptor>(priority));
-      for(MatchExprList::iterator m = matches_.begin(), me = matches_.end(); m != me; ++m)
+      for(typename MatchExprList::iterator m = matches_.begin(), me = matches_.end(); m != me; ++m)
         m->override_priority(p);
     } // if ... 
   } // Template

@@ -24,7 +24,7 @@ public:
   {
     if(!done_params_)
     {
-     for(string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+     for(typename string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
       if(!Arabica::XML::is_space(*i))
       {
         done_params_ = true;
@@ -97,7 +97,7 @@ protected:
     {
       if(!done_params_)
       {
-        baseT::context().push(container(),
+        baseT::context().push(baseT::container(),
                        new VariableHandler<Param>(baseT::context()),
                        namespaceURI, 
                        localName, 
@@ -118,7 +118,7 @@ public:
                           const string_type& /* localName */,
                           const string_type& /* qName */)
   {
-    baseT::context().stylesheet().add_template(container());
+    baseT::context().stylesheet().add_template(baseT::container());
     baseT::context().pop();
   } // endElement
 
