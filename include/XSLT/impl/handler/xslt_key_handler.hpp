@@ -9,19 +9,21 @@ namespace Arabica
 namespace XSLT
 {
 
-class KeyHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class KeyHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
+  typedef typename Key<string_type, string_adaptor>::MatchExprList MatchExprList;
 public:
-  KeyHandler(CompilationContext<std::string>& context) :
+  KeyHandler(CompilationContext<string_type, string_adaptor>& context) :
     context_(context),
     key_(0)
   {
   } // KeyHandler
 
-  virtual void startElement(const std::string& /* namespaceURI */,
-			    const std::string& /* localName */,
-			    const std::string& qName,
-			    const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& /* namespaceURI */,
+			    const string_type& /* localName */,
+			    const string_type& qName,
+			    const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(key_ != 0)
       throw SAX::SAXException(qName + " can not contain elements");
@@ -31,14 +33,14 @@ public:
                                        { "use", true, 0, 0 },
                                        { 0, false, 0, 0 } };
 
-    std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
+    std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
     name_ = context_.processInternalQName(attrs["name"]).clarkName();
     try 
     {
-      Key<std::string, Arabica::default_string_adaptor<std::string> >::MatchExprList matches = context_.xpath_match_no_variables(attrs["match"]);
-      Arabica::XPath::XPathExpression<std::string> use = context_.xpath_expression_no_variables(attrs["use"]);
+      MatchExprList matches = context_.xpath_match_no_variables(attrs["match"]);
+      Arabica::XPath::XPathExpression<string_type, string_adaptor> use = context_.xpath_expression_no_variables(attrs["use"]);
 
-      key_ = new Key<std::string, Arabica::default_string_adaptor<std::string> >(matches, use);
+      key_ = new Key<string_type, string_adaptor>(matches, use);
     } // try
     catch(const Arabica::XPath::UnboundVariableException&)
     {
@@ -46,23 +48,23 @@ public:
     } // catch
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-			  const std::string& /* localName */,
-			  const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+			  const string_type& /* localName */,
+			  const string_type& /* qName */)
   {
     context_.stylesheet().add_key(name_, key_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     verifyNoCharacterData(ch, "xsl:key");
   } // characters
 
 private:
-  CompilationContext<std::string>& context_;
-  std::string name_;
-  Key<std::string, Arabica::default_string_adaptor<std::string> >* key_;
+  CompilationContext<string_type, string_adaptor>& context_;
+  string_type name_;
+  Key<string_type, string_adaptor>* key_;
 }; // class KeyHandler
 
 } // namespace XSLT

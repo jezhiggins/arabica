@@ -200,7 +200,7 @@ const ChildElement<string_type, string_adaptor> StylesheetHandler<string_type, s
     { "decimal-format", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
     //"import"
     //"include"
-    { "key", CreateHandler<KeyHandler>},
+    { "key", CreateHandler<KeyHandler<string_type, string_adaptor> >},
     { "namespace-alias", CreateHandler<NamespaceAliasHandler>},
     { "output", CreateHandler<OutputHandler>},
     { "param", CreateHandler<TopLevelVariableHandler<Param<string_type, string_adaptor> > >},
