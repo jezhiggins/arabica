@@ -13,16 +13,17 @@ namespace XSLT
 template<class string_type, class string_adaptor> class CompiledStylesheet;
 class ExecutionContext;
 
+template<class string_type, class string_adaptor>
 class Variable_declaration
 {
 protected:
   Variable_declaration() { }
 
 public:
-  virtual const std::string& name() const = 0;
-  virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
+  virtual const string_type& name() const = 0;
+  virtual Arabica::XPath::XPathValue<string_type> value(const DOM::Node<string_type, string_adaptor>& node, 
                                                         ExecutionContext& context,
-                                                        DOMSink<std::string>& sink) const = 0;
+                                                        DOMSink<string_type, string_adaptor>& sink) const = 0;
   virtual const Precedence& precedence() const = 0;
 
 private:
@@ -72,11 +73,11 @@ public:
 
   const Arabica::XPath::ExecutionContext<std::string>& xpathContext() const { return xpathContext_; }
 
-  void topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration& param);
-  std::string passParam(const DOM::Node<std::string>& node, const Variable_declaration& param);
+  void topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param);
+  std::string passParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param);
   void unpassParam(const std::string& name);
-  void declareParam(const DOM::Node<std::string>& node, const Variable_declaration& param); 
-  void declareVariable(const DOM::Node<std::string>& node, const Variable_declaration& variable); 
+  void declareParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param); 
+  void declareVariable(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& variable); 
   void freezeTopLevel();
   void injectGlobalScope(const Scope& scope);
 
@@ -115,7 +116,7 @@ private:
 class VariableClosure : public Variable_instance
 {
 public:
-  static Variable_instance_ptr create(const Variable_declaration& var, 
+  static Variable_instance_ptr create(const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& var, 
                                       const DOM::Node<std::string>& node,
                                       ExecutionContext& context)
   {
@@ -138,7 +139,7 @@ public:
   } // globalScope
 
 private:
-  VariableClosure(const Variable_declaration& var, 
+  VariableClosure(const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& var, 
                   const DOM::Node<std::string>& node, 
                   ExecutionContext& context) :
       var_(var),
@@ -148,7 +149,7 @@ private:
   {
   } // VariableClosure
 
-  const Variable_declaration& var_;
+  const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& var_;
   mutable DOMSink<std::string> sink_;
   const DOM::Node<std::string> node_;
   mutable ExecutionContext context_;
@@ -161,12 +162,12 @@ private:
 }; // class VariableClosure
 
 ///////////////////////////
-void ExecutionContext::topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration& param)
+void ExecutionContext::topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param)
 {
   stack_.topLevelParam(VariableClosure::create(param, node, *this));
 } // topLevelParam
 
-std::string ExecutionContext::passParam(const DOM::Node<std::string>& node, const Variable_declaration& param)
+std::string ExecutionContext::passParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param)
 {
   return stack_.passParam(VariableClosure::create(param, node, *this));
 } // passParam
@@ -176,13 +177,13 @@ void ExecutionContext::unpassParam(const std::string& name)
   stack_.unpassParam(name);
 } // unpassParam
 
-void ExecutionContext::declareParam(const DOM::Node<std::string>& node, const Variable_declaration& param) 
+void ExecutionContext::declareParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param) 
 {
   if(!stack_.findPassedParam(param.name()))
     stack_.declareParam(VariableClosure::create(param, node, *this)); 
 } // declareParam
 
-void ExecutionContext::declareVariable(const DOM::Node<std::string>& node, const Variable_declaration& variable) 
+void ExecutionContext::declareVariable(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& variable) 
 { 
   stack_.declareVariable(VariableClosure::create(variable, node, *this)); 
 } // declareVariable

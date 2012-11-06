@@ -7,7 +7,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-class TopLevelParam : public Variable_declaration
+class TopLevelParam : public Variable_declaration<string_type, string_adaptor>
 {
 public:
   TopLevelParam(const string_type& namespace_uri,
