@@ -18,7 +18,7 @@ public:
   Param(const string_type& name, 
         const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select,
         const Precedence& precedence) :
-      Variable_impl(name, select, precedence)
+      Variable_impl<string_type, string_adaptor>(name, select, precedence)
   {
   } // Param
 
