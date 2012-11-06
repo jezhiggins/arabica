@@ -14,7 +14,7 @@ namespace Arabica
 {
 namespace XSLT
 {
-class CompiledStylesheet;
+template<class string_type, class string_adaptor> class CompiledStylesheet;
 class ItemContainer;
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
@@ -28,6 +28,7 @@ private:
 
 public:
   typedef StylesheetParser<string_type, string_adaptor> StylesheetParserT;
+  typedef CompiledStylesheet<string_type, string_adaptor> CompiledStylesheetT;
   typedef SAX::DefaultHandler<string_type, string_adaptor> DefaultHandlerT;
   typedef SAX::ContentHandler<string_type, string_adaptor> ContentHandlerT;
   typedef SAX::Attributes<string_type, string_adaptor> AttributesT;
@@ -37,7 +38,7 @@ public:
 
 
   CompilationContext(StylesheetParserT& parser,
-                     CompiledStylesheet& stylesheet) :
+                     CompiledStylesheetT& stylesheet) :
     parser_(parser),
     stylesheet_(stylesheet),
     autoNs_(1),
@@ -84,7 +85,7 @@ public:
   } // xpath_match_no_variables
 
   XPathExpressionPtrT xpath_attribute_value_template(const string_type& expr) const { return xpath_.compile_attribute_value_template(expr); } 
-  CompiledStylesheet& stylesheet() const { return stylesheet_; }
+  CompiledStylesheetT& stylesheet() const { return stylesheet_; }
 
   QualifiedNameT processElementQName(const string_type& qName) const
   {
@@ -259,7 +260,7 @@ private:
   typedef std::pair<string_type, string_type> Namespace;
 
   StylesheetParser<string_type, string_adaptor>& parser_;
-  CompiledStylesheet& stylesheet_;
+  CompiledStylesheetT& stylesheet_;
   mutable int autoNs_;
   mutable bool current_allowed_;
   mutable bool variables_allowed_;

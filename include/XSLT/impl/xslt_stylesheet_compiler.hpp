@@ -227,11 +227,11 @@ public:
   {
   } // ~StylesheetCompiler
 
-  std::auto_ptr<Stylesheet> compile(InputSourceT& source)
+  std::auto_ptr<Stylesheet<string_type, string_adaptor> > compile(InputSourceT& source)
   {
     error_ = "";
 
-    std::auto_ptr<CompiledStylesheet> stylesheet(new CompiledStylesheet());
+    std::auto_ptr<CompiledStylesheet<string_type, string_adaptor> > stylesheet(new CompiledStylesheet<string_type, string_adaptor>());
 
     StylesheetParser<string_type, string_adaptor> parser;
     CompilationContext<string_type, string_adaptor> context(parser, *stylesheet.get());
@@ -252,7 +252,7 @@ public:
       stylesheet.reset();
     } // catch
 
-    return std::auto_ptr<Stylesheet>(stylesheet.release());
+    return std::auto_ptr<Stylesheet<string_type, string_adaptor> >(stylesheet.release());
   } // compile
 
   const std::string& error() const

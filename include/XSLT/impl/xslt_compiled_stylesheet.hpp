@@ -16,16 +16,20 @@ namespace Arabica
 namespace XSLT
 {
 
-class CompiledStylesheet : public Stylesheet
+template<class string_type, class string_adaptor>
+class CompiledStylesheet : public Stylesheet<string_type, string_adaptor>
 {
-  typedef Arabica::XPath::BoolValue<std::string, Arabica::default_string_adaptor<std::string> > BoolValue;
-  typedef Arabica::XPath::NumericValue<std::string, Arabica::default_string_adaptor<std::string> > NumericValue;
-  typedef Arabica::XPath::StringValue<std::string, Arabica::default_string_adaptor<std::string> > StringValue;
-  typedef Arabica::XPath::XPathValue<std::string> Value;
+  typedef Arabica::XPath::BoolValue<string_type, string_adaptor> BoolValue;
+  typedef Arabica::XPath::NumericValue<string_type, string_adaptor> NumericValue;
+  typedef Arabica::XPath::StringValue<string_type, string_adaptor> StringValue;
+  typedef Arabica::XPath::XPathValue<string_type, string_adaptor> Value;
+  typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+  typedef DOM::NodeList<string_type, string_adaptor> DOMNodeList;
 
 public:
   CompiledStylesheet() :
-      output_(new StreamSink<std::string>(std::cout)),
+      output_(new StreamSink<string_type, string_adaptor>(std::cout)),
       error_output_(&std::cerr)
   {
   } // CompiledStylesheet
@@ -41,24 +45,24 @@ public:
       delete *ti;
   } // ~CompiledStylesheet
 
-  virtual void set_parameter(const std::string& name, bool value)
+  virtual void set_parameter(const string_type& name, bool value)
   {
     set_parameter(name, Value(new BoolValue(value)));
   } // set_parameter
-  virtual void set_parameter(const std::string& name, double value)
+  virtual void set_parameter(const string_type& name, double value)
   {
     set_parameter(name, Value(new NumericValue(value)));
   } // set_parameter
-  virtual void set_parameter(const std::string& name, const char* value)
+  virtual void set_parameter(const string_type& name, const char* value)
   {
     set_parameter(name, Value(new StringValue(value)));
   } // set_parameter
-  virtual void set_parameter(const std::string& name, const std::string& value)
+  virtual void set_parameter(const string_type& name, const string_type& value)
   {
     set_parameter(name, Value(new StringValue(value)));
   } // set_parameter
 
-  virtual void set_output(Sink<std::string>& sink)
+  virtual void set_output(Sink<string_type, string_adaptor>& sink)
   {
     output_.reset(sink);
   } // set_output
@@ -68,12 +72,12 @@ public:
     error_output_ = &os;
   } // set_error_output
 
-  virtual void execute(const DOM::Node<std::string>& initialNode) const
+  virtual void execute(const DOMNode& initialNode) const
   {
     if(initialNode == 0)
       throw std::runtime_error("Input document is empty");
 
-    Arabica::XPath::NodeSet<std::string> ns;
+    NodeSet ns;
     ns.push_back(initialNode);
 
     ExecutionContext context(*this, output_.get(), *error_output_);
@@ -92,12 +96,12 @@ public:
   } // execute
 
   ////////////////////////////////////////
-  const DeclaredKeys<std::string, Arabica::default_string_adaptor<std::string> >& keys() const { return keys_; }
+  const DeclaredKeys<string_type, string_adaptor>& keys() const { return keys_; }
 
-  void add_template(Template<std::string, Arabica::default_string_adaptor<std::string> >* templat)
+  void add_template(Template<string_type, string_adaptor>* templat)
   {
-    typedef std::vector<Arabica::XPath::MatchExpr<std::string> > MatchExprList;
-    typedef MatchExprList::const_iterator MatchIterator;
+    typedef typename Template<string_type, string_adaptor>::MatchExprList MatchExprList;
+    typedef typename MatchExprList::const_iterator MatchIterator;
 
     all_templates_.push_back(templat);
 
@@ -107,18 +111,18 @@ public:
     if(!templat->has_name())
       return;
 
-    NamedTemplates::const_iterator named_template = named_templates_.find(templat->name());
+    NamedTemplatesIterator named_template = named_templates_.find(templat->name());
     if(named_template != named_templates_.end())
     {
       const Precedence& existing_precedence = named_template->second->precedence();
 
       if(existing_precedence > templat->precedence())
-	return;
+	      return;
 
       if(existing_precedence == templat->precedence())
-	throw SAX::SAXException("Template named '" +
-                                templat->name() + 
-				"' already defined");
+        	throw SAX::SAXException("Template named '" +
+                                  templat->name() + 
+				                          "' already defined");
     } // if ...
      
     named_templates_[templat->name()] = templat;
@@ -129,23 +133,23 @@ public:
     topLevelVars_.push_back(item);
   } // add_item
 
-  void add_key(const std::string& name,
-	             Key<std::string, Arabica::default_string_adaptor<std::string> >* key)
+  void add_key(const string_type& name,
+	             Key<string_type, string_adaptor>* key)
   {
     keys_.add(name, key);
   } // add_key
 
-  void output_settings(const Output<std::string, Arabica::default_string_adaptor<std::string> >::Settings& settings, 
-                       const Output<std::string, Arabica::default_string_adaptor<std::string> >::CDATAElements& cdata_elements)
+  void output_settings(const typename Output<string_type, string_adaptor>::Settings& settings, 
+                       const typename Output<string_type, string_adaptor>::CDATAElements& cdata_elements)
   {
     output_settings_ = settings;
     output_cdata_elements_.insert(cdata_elements.begin(), cdata_elements.end());
-  } // output_settings
+  } // output_settingsp
 
   void prepare() 
   {
-    for(TemplateStack::iterator ts = templates_.begin(), tse = templates_.end(); ts != tse; ++ts)
-      for(ModeTemplates::iterator ms = ts->second.begin(), mse = ts->second.end(); ms != mse; ++ms)
+    for(typename TemplateStack::iterator ts = templates_.begin(), tse = templates_.end(); ts != tse; ++ts)
+      for(typename ModeTemplates::iterator ms = ts->second.begin(), mse = ts->second.end(); ms != mse; ++ms)
       {
         MatchTemplates& matches = ms->second;
         std::reverse(matches.begin(), matches.end());
@@ -154,19 +158,19 @@ public:
   } // prepare
 
   ////////////////////////////////////////
-  void applyTemplates(const Arabica::XPath::NodeSet<std::string>& nodes, ExecutionContext& context, const std::string& mode) const 
+  void applyTemplates(const NodeSet& nodes, ExecutionContext& context, const string_type& mode) const 
   {
     // entirely simple so far
     LastFrame last(context, nodes.size());
     int p = 1;
-    for(Arabica::XPath::NodeSet<std::string>::const_iterator n = nodes.begin(), ne = nodes.end(); n != ne; ++n)
+    for(typename NodeSet::const_iterator n = nodes.begin(), ne = nodes.end(); n != ne; ++n)
     {
       context.setPosition(*n, p++);
       doApplyTemplates(*n, context, mode, Precedence::FrozenPrecedence());
     }
   } // applyTemplates
 
-  void applyTemplates(const DOM::NodeList<std::string>& nodes, ExecutionContext& context, const std::string& mode) const 
+  void applyTemplates(const DOMNodeList& nodes, ExecutionContext& context, const string_type& mode) const 
   {
     // entirely simple so far
     LastFrame last(context, (size_t)nodes.getLength());
@@ -177,18 +181,18 @@ public:
     }
   } // applyTemplates
 
-  void applyTemplates(const DOM::Node<std::string>& node, ExecutionContext& context, const std::string& mode) const
+  void applyTemplates(const DOMNode& node, ExecutionContext& context, const string_type& mode) const
   {
     LastFrame last(context, -1);
     context.setPosition(node, 1);
     doApplyTemplates(node, context, mode, Precedence::FrozenPrecedence());
   } // applyTemplates
 
-  void callTemplate(const std::string& name, const DOM::Node<std::string>& node, ExecutionContext& context) const
+  void callTemplate(const string_type& name, const DOMNode& node, ExecutionContext& context) const
   {
     StackFrame frame(context);
 
-    NamedTemplates::const_iterator t = named_templates_.find(name);
+    NamedTemplatesIterator t = named_templates_.find(name);
     if(t == named_templates_.end())
     {
       std::cerr << "No template named '"; 
@@ -200,21 +204,21 @@ public:
     t->second->execute(node, context);
   } // callTemplate
 
-  void applyImports(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  void applyImports(const DOMNode& node, ExecutionContext& context) const
   {
     doApplyTemplates(node, context, current_mode_, current_generation_);
   } // applyImports
 
 private:
-  void doApplyTemplates(const DOM::Node<std::string>& node, 
+  void doApplyTemplates(const DOMNode& node, 
                         ExecutionContext& context, 
-                        const std::string& mode, 
+                        const string_type& mode, 
                         const Precedence& generation) const
   {
     StackFrame frame(context);
 
     std::vector<Precedence> lower_precedences;
-    for(TemplateStack::const_iterator ts = templates_.begin(), tse = templates_.end(); ts != tse; ++ts)
+    for(TemplateStackIterator ts = templates_.begin(), tse = templates_.end(); ts != tse; ++ts)
       if(generation.is_descendant(ts->first))
         lower_precedences.push_back(ts->first);
     std::sort(lower_precedences.rbegin(), lower_precedences.rend());
@@ -225,11 +229,11 @@ private:
     { 
       current_generation_ = *p;
       ModeTemplates ts = templates_.find(current_generation_)->second;
-      ModeTemplates::const_iterator mt = ts.find(mode);
+      ModeTemplatesIterator mt = ts.find(mode);
       if(mt != ts.end())
       {
         const MatchTemplates& templates = mt->second;
-	      for(MatchTemplates::const_iterator t = templates.begin(), te = templates.end(); t != te; ++t)
+	      for(MatchTemplatesIterator t = templates.begin(), te = templates.end(); t != te; ++t)
 	        if(t->match().evaluate(node, context.xpathContext()))
 	        {
 	          t->action()->execute(node, context);
@@ -240,25 +244,25 @@ private:
     defaultAction(node, context, mode);
   } // doApplyTemplates
 
-  void defaultAction(const DOM::Node<std::string>& node, 
+  void defaultAction(const DOMNode& node, 
                      ExecutionContext& context, 
-                     const std::string& mode) const
+                     const string_type& mode) const
   {
     switch(node.getNodeType())
     {
-      case DOM::Node<std::string>::DOCUMENT_NODE:
-      case DOM::Node<std::string>::DOCUMENT_FRAGMENT_NODE:
-      case DOM::Node<std::string>::ELEMENT_NODE:
+      case DOM::Node_base::DOCUMENT_NODE:
+      case DOM::Node_base::DOCUMENT_FRAGMENT_NODE:
+      case DOM::Node_base::ELEMENT_NODE:
         applyTemplates(node.getChildNodes(), context, mode);
         break;
-      case DOM::Node<std::string>::ATTRIBUTE_NODE:
-      case DOM::Node<std::string>::TEXT_NODE:
-      case DOM::Node<std::string>::CDATA_SECTION_NODE:
+      case DOM::Node_base::ATTRIBUTE_NODE:
+      case DOM::Node_base::TEXT_NODE:
+      case DOM::Node_base::CDATA_SECTION_NODE:
         context.sink().characters(node.getNodeValue());
 	/*
         {
-          const std::string& ch = node.getNodeValue();
-          for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+          const string_type& ch = node.getNodeValue();
+          for(string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
             if(!Arabica::XML::is_space(*i))
             {
               context.sink().characters(ch);
@@ -272,21 +276,21 @@ private:
     } // switch
   } // defaultAction
 
-  void set_parameter(const std::string& name, Value value)
+  void set_parameter(const string_type& name, Value value)
   {
-    params_.push_back(new TopLevelParam<std::string, Arabica::default_string_adaptor<std::string> >("", name, value));
+    params_.push_back(new TopLevelParam<string_type, string_adaptor>("", name, value));
   } // set_parameter
 
-  void set_parameter(const std::string& namespace_uri, const std::string& name, Value value)
+  void set_parameter(const string_type& namespace_uri, const string_type& name, Value value)
   {
-    params_.push_back(new TopLevelParam<std::string, Arabica::default_string_adaptor<std::string> >(namespace_uri, name, value));
+    params_.push_back(new TopLevelParam<string_type, string_adaptor>(namespace_uri, name, value));
   } // set_parameter
 
 private:
   class MatchTemplate
   {
   public:
-    MatchTemplate(const Arabica::XPath::MatchExpr<std::string>& matchExpr, Template<std::string, Arabica::default_string_adaptor<std::string> >* templat) :
+    MatchTemplate(const Arabica::XPath::MatchExpr<string_type, string_adaptor>& matchExpr, Template<string_type, string_adaptor>* templat) :
       match_(matchExpr),
       template_(templat) 
     { 
@@ -297,8 +301,8 @@ private:
     {
     } // MatchTemplate
 
-    const Arabica::XPath::MatchExpr<std::string>& match() const { return match_; }
-    Template<std::string, Arabica::default_string_adaptor<std::string> >* action() const { return template_; }
+    const Arabica::XPath::MatchExpr<string_type, string_adaptor>& match() const { return match_; }
+    Template<string_type, string_adaptor>* action() const { return template_; }
 
     bool operator<(const MatchTemplate& rhs) const
     {
@@ -306,32 +310,36 @@ private:
       return match_.priority() > rhs.match_.priority();
     } // operator<
   private:
-    Arabica::XPath::MatchExpr<std::string> match_;
-    Template<std::string, Arabica::default_string_adaptor<std::string> >* template_;
+    Arabica::XPath::MatchExpr<string_type, string_adaptor> match_;
+    Template<string_type, string_adaptor>* template_;
   }; // struct MatchTemplate
 
-  typedef std::vector<Template<std::string, Arabica::default_string_adaptor<std::string> >*> TemplateList;
+  typedef std::vector<Template<string_type, string_adaptor>*> TemplateList;
   typedef std::vector<MatchTemplate> MatchTemplates;
-  typedef std::map<std::string, MatchTemplates> ModeTemplates;
+  typedef typename MatchTemplates::const_iterator MatchTemplatesIterator;
+  typedef std::map<string_type, MatchTemplates> ModeTemplates;
+  typedef typename ModeTemplates::const_iterator ModeTemplatesIterator;
   typedef std::map<Precedence, ModeTemplates> TemplateStack;
-  typedef std::map<std::string, Template<std::string, Arabica::default_string_adaptor<std::string> >*> NamedTemplates;
+  typedef typename TemplateStack::const_iterator TemplateStackIterator;
+  typedef std::map<string_type, Template<string_type, string_adaptor>*> NamedTemplates;
+  typedef typename NamedTemplates::const_iterator NamedTemplatesIterator;
   
   typedef std::vector<Item*> VariableDeclList;
-  typedef std::vector<TopLevelParam<std::string, Arabica::default_string_adaptor<std::string> >*> ParamList;
+  typedef std::vector<TopLevelParam<string_type, string_adaptor>*> ParamList;
 
   TemplateList all_templates_;
   NamedTemplates named_templates_;
   TemplateStack templates_;
   VariableDeclList topLevelVars_;
-  DeclaredKeys<std::string, Arabica::default_string_adaptor<std::string> > keys_;
+  DeclaredKeys<string_type, string_adaptor> keys_;
   ParamList params_;
 
-  mutable std::string current_mode_;
+  mutable string_type current_mode_;
   mutable Precedence current_generation_;
 
-  Output<std::string, Arabica::default_string_adaptor<std::string> >::Settings output_settings_;
-  Output<std::string, Arabica::default_string_adaptor<std::string> >::CDATAElements output_cdata_elements_;
-  SinkHolder<std::string, Arabica::default_string_adaptor<std::string> > output_;
+  typename Output<string_type, string_adaptor>::Settings output_settings_;
+  typename Output<string_type, string_adaptor>::CDATAElements output_cdata_elements_;
+  SinkHolder<string_type, string_adaptor> output_;
   mutable std::ostream* error_output_;
 }; // class CompiledStylesheet
 
