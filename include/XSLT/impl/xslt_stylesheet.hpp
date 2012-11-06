@@ -9,7 +9,7 @@ namespace XSLT
 #include <string>
 #include <iostream>
 #include <DOM/Node.hpp>
-class Sink;
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> > class Sink;
 
 class Stylesheet
 {
@@ -21,7 +21,7 @@ public:
   virtual void set_parameter(const std::string& name, const char* value) = 0;
   virtual void set_parameter(const std::string& name, const std::string& value) = 0;
 
-  virtual void set_output(Sink& sink) = 0;
+  virtual void set_output(Sink<std::string>& sink) = 0;
 
   virtual void set_error_output(std::ostream& os) = 0;
 

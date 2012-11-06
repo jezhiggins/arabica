@@ -57,9 +57,12 @@ public:
   } // characters
  
 private:
-  Output::CDATAElements extractCDATAElements(const string_type& cdata_section_elements) const
+  typedef typename Output<string_type, string_adaptor>::CDATAElements CDATAElements;
+  typedef typename Output<string_type, string_adaptor>::Settings Settings;
+
+  CDATAElements extractCDATAElements(const string_type& cdata_section_elements) const
   {
-    Output::CDATAElements elements;
+    CDATAElements elements;
 
     if(cdata_section_elements.empty())
       return elements;
@@ -78,8 +81,8 @@ private:
   } // extractCDATAElements
 
   CompilationContext<string_type, string_adaptor>& context_;
-  Output::Settings settings_;
-  Output::CDATAElements cdataElements_;
+  Settings settings_;
+  CDATAElements cdataElements_;
 }; // class OutputHandler
 
 } // namespace XSLT

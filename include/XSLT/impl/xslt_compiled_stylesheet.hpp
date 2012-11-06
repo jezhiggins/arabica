@@ -25,7 +25,7 @@ class CompiledStylesheet : public Stylesheet
 
 public:
   CompiledStylesheet() :
-      output_(new StreamSink(std::cout)),
+      output_(new StreamSink<std::string>(std::cout)),
       error_output_(&std::cerr)
   {
   } // CompiledStylesheet
@@ -58,7 +58,7 @@ public:
     set_parameter(name, Value(new StringValue(value)));
   } // set_parameter
 
-  virtual void set_output(Sink& sink)
+  virtual void set_output(Sink<std::string>& sink)
   {
     output_.reset(sink);
   } // set_output
@@ -135,7 +135,8 @@ public:
     keys_.add(name, key);
   } // add_key
 
-  void output_settings(const Output::Settings& settings, const Output::CDATAElements& cdata_elements)
+  void output_settings(const Output<std::string, Arabica::default_string_adaptor<std::string> >::Settings& settings, 
+                       const Output<std::string, Arabica::default_string_adaptor<std::string> >::CDATAElements& cdata_elements)
   {
     output_settings_ = settings;
     output_cdata_elements_.insert(cdata_elements.begin(), cdata_elements.end());
@@ -328,9 +329,9 @@ private:
   mutable std::string current_mode_;
   mutable Precedence current_generation_;
 
-  Output::Settings output_settings_;
-  Output::CDATAElements output_cdata_elements_;
-  SinkHolder output_;
+  Output<std::string, Arabica::default_string_adaptor<std::string> >::Settings output_settings_;
+  Output<std::string, Arabica::default_string_adaptor<std::string> >::CDATAElements output_cdata_elements_;
+  SinkHolder<std::string, Arabica::default_string_adaptor<std::string> > output_;
   mutable std::ostream* error_output_;
 }; // class CompiledStylesheet
 

@@ -30,7 +30,7 @@ public:
   virtual const string_type& name() const { return name_; }
   virtual Arabica::XPath::XPathValue<string_type, string_adaptor> value(const DOM::Node<string_type, string_adaptor>& /* node */, 
                                                         ExecutionContext& /* context */,
-                                                        DOMSink& /* sink */) const 
+                                                        DOMSink<string_type, string_adaptor>& /* sink */) const 
   {
     return value_;
   } // value

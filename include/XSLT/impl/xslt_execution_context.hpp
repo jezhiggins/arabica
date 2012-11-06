@@ -22,7 +22,7 @@ public:
   virtual const std::string& name() const = 0;
   virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
                                                         ExecutionContext& context,
-                                                        DOMSink& sink) const = 0;
+                                                        DOMSink<std::string>& sink) const = 0;
   virtual const Precedence& precedence() const = 0;
 
 private:
@@ -35,7 +35,7 @@ class ExecutionContext
 {
 public:
   ExecutionContext(const CompiledStylesheet& stylesheet,
-                   Sink& output,
+                   Sink<std::string>& output,
                    std::ostream& error_output) :
       stylesheet_(stylesheet),
       sink_(output.asOutput()),
@@ -47,7 +47,7 @@ public:
     message_sink_.asOutput().set_warning_sink(message_sink_.asOutput());
   } // ExecutionContext
 
-  ExecutionContext(Sink& output, 
+  ExecutionContext(Sink<std::string>& output, 
                    ExecutionContext& rhs) :
     stylesheet_(rhs.stylesheet_),
     stack_(rhs.stack_),
@@ -63,7 +63,7 @@ public:
 
   const CompiledStylesheet& stylesheet() const { return stylesheet_; }
 
-  Output& sink() 
+  Output<std::string, Arabica::default_string_adaptor<std::string> >& sink() 
   { 
     return !to_msg_ ? sink_ : message_sink_.asOutput();
   } // sink
@@ -103,8 +103,8 @@ private:
   const CompiledStylesheet& stylesheet_;
   VariableStack stack_;
   Arabica::XPath::ExecutionContext<std::string> xpathContext_;
-  Output& sink_;
-  StreamSink message_sink_;
+  Output<std::string, Arabica::default_string_adaptor<std::string> >& sink_;
+  StreamSink<std::string> message_sink_;
   int to_msg_;
 
   friend class StackFrame;
@@ -149,7 +149,7 @@ private:
   } // VariableClosure
 
   const Variable_declaration& var_;
-  mutable DOMSink sink_;
+  mutable DOMSink<std::string> sink_;
   const DOM::Node<std::string> node_;
   mutable ExecutionContext context_;
   mutable Arabica::XPath::XPathValue<std::string> value_;

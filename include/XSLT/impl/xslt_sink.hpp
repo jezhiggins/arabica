@@ -15,24 +15,26 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class Sink
 {
 public:
   virtual ~Sink() { }
 
-  virtual Output& asOutput() = 0;
+  virtual Output<string_type, string_adaptor>& asOutput() = 0;
 }; // class Sink
 
+template<class string_type, class string_adaptor>
 class SinkHolder
 {
 public:
-  SinkHolder(Sink* sink) :
+  SinkHolder(Sink<string_type, string_adaptor>* sink) :
     sink_(sink),
     owned_(true) 
   {
   } // SinkHolder
 
-  SinkHolder(Sink& sink) :
+  SinkHolder(Sink<string_type, string_adaptor>& sink) :
     sink_(&sink),
     owned_(false)
   {
@@ -43,21 +45,21 @@ public:
     clear();
   } // ~SinkHolder
 
-  void reset(Sink* sink) 
+  void reset(Sink<string_type, string_adaptor>* sink) 
   { 
     clear();
     sink_ = sink;
     owned_ = true;
   } // assign
 
-  void reset(Sink& sink)
+  void reset(Sink<string_type, string_adaptor>& sink)
   {
     clear();
     sink_ = &sink;
     owned_ = false;
   } // reset
 
-  Sink& get() const
+  Sink<string_type, string_adaptor>& get() const
   {
     return *sink_;
   } // get
@@ -69,7 +71,7 @@ private:
       delete sink_;
   } // clear
   
-  Sink* sink_;
+  Sink<string_type, string_adaptor>* sink_;
   bool owned_;
 
   SinkHolder(const SinkHolder&);
@@ -77,7 +79,8 @@ private:
   SinkHolder& operator=(const SinkHolder&);
 }; // class SinkHolder
 
-class StreamSink : public Sink, private Output
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class StreamSink : public Sink<string_type, string_adaptor>, private Output<string_type, string_adaptor>
 {
 public:
   StreamSink(std::ostream& stream) :
@@ -108,7 +111,7 @@ public:
     stream_.flush();
   } // ~StreamSink
 
-  virtual Output& asOutput() { return *this; }
+  virtual Output<string_type, string_adaptor>& asOutput() { return *this; }
 
 protected:
   void do_start_document(const Settings& settings)
@@ -123,9 +126,9 @@ protected:
   {
   } // do_end_document
 
-  void do_start_element(const std::string& qName, 
-                        const std::string& /* namespaceURI */,
-                        const SAX::Attributes<std::string>& atts)
+  void do_start_element(const string_type& qName, 
+                        const string_type& /* namespaceURI */,
+                        const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(!seen_root_)
       do_decl(qName);
@@ -138,15 +141,15 @@ protected:
     for(int a = 0; a < atts.getLength(); ++a)
     {
       stream_ << ' ' << atts.getQName(a) << '=' << '\"';
-      std::string ch = atts.getValue(a);
+      string_type ch = atts.getValue(a);
       std::for_each(ch.begin(), ch.end(), Arabica::XML::attribute_escaper<char>(stream_));
       stream_ << '\"';
     }
     empty_ = true;
   } // do_start_element
 
-  void do_end_element(const std::string& qName, 
-		      const std::string& /* namespaceURI */)
+  void do_end_element(const string_type& qName, 
+		      const string_type& /* namespaceURI */)
   { 
     if(!seen_root_)
       do_decl("");
@@ -163,7 +166,7 @@ protected:
     empty_ = false;
   } // do_end_element
 
-  void do_characters(const std::string& ch)
+  void do_characters(const string_type& ch)
   { 
     close_element_if_empty();
 
@@ -172,7 +175,7 @@ protected:
     else if(in_cdata_) 
     {
       size_t breakAt = ch.find("]]>");
-      if(breakAt == std::string::npos)
+      if(breakAt == string_type::npos)
       {
         stream_ << ch;
         return;
@@ -187,7 +190,7 @@ protected:
         do_start_CDATA();
         breakAt = ch.find("]]>", breakAt);
       }
-      while(breakAt != std::string::npos);
+      while(breakAt != string_type::npos);
       stream_ << ch.substr(start);
     }
     else
@@ -208,7 +211,7 @@ protected:
     stream_ << "]]>";
   } // do_end_CDATA
 
-  void do_comment(const std::string& ch)
+  void do_comment(const string_type& ch)
   {
     close_element_if_empty();
 
@@ -217,8 +220,8 @@ protected:
 	    << "-->";
   } // do_comment
 
-  void do_processing_instruction(const std::string& target,
-				 const std::string& data)
+  void do_processing_instruction(const string_type& target,
+				 const string_type& data)
   {
     close_element_if_empty();
 
@@ -280,19 +283,19 @@ private:
     out_again_ = true;
   } // outdent
  
-  void do_decl(const std::string& qName)
+  void do_decl(const string_type& qName)
   {
     if((setting("method") == "text") || (setting("omit-xml-declaration") == "yes"))
       return;
 
     {
-      std::string version = setting("version");
+      string_type version = setting("version");
       if(version.empty())
         version = "1.0";
       stream_ << "<?xml version=\"" << version << "\""; 
     }
     {
-      std::string s = setting("standalone");
+      string_type s = setting("standalone");
       if(!s.empty())
         stream_ << " standalone=\"" << s << "\"";
     }
@@ -300,8 +303,8 @@ private:
 
     if(!qName.empty())
     {
-      std::string pub = setting("doctype-public");
-      std::string sys = setting("doctype-system");
+      string_type pub = setting("doctype-public");
+      string_type sys = setting("doctype-system");
 
       if(!sys.empty())
       {
@@ -315,7 +318,7 @@ private:
     seen_root_ = true;
   } // do_decl 
 
-  std::string setting(const std::string& name)
+  string_type setting(const string_type& name)
   {
     Settings::const_iterator i = settings_.find(name);
     if(i == settings_.end())
@@ -336,7 +339,8 @@ private:
   StreamSink& operator=(const StreamSink&);
 }; // class StreamSink
 
-class DOMSink : public Sink, private Output
+template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
+class DOMSink : public Sink<string_type, string_adaptor>, private Output<string_type, string_adaptor>
 {
 public:
   DOMSink() :
@@ -350,7 +354,7 @@ public:
   } // ~DOMSink
 
   virtual Output& asOutput() { return *this; }
-  DOM::Node<std::string> node() const { return documentFrag_; }
+  DOM::Node<string_type, string_adaptor> node() const { return documentFrag_; }
 
 protected:
   void do_start_document(const Settings& settings)
@@ -365,9 +369,9 @@ protected:
   {
   } // do_end_document
 
-  void do_characters(const std::string& ch)
+  void do_characters(const string_type& ch)
   {
-    DOM::Node<std::string> lc = current().getLastChild();
+    DOM::Node<string_type> lc = current().getLastChild();
     if(lc == 0 || lc.getNodeType() != DOM::Node_base::TEXT_NODE)
       current().appendChild(document().createTextNode(ch));
     else
@@ -380,18 +384,18 @@ protected:
 
   void do_end_CDATA()
   {
-    DOM::Node<std::string> lc = current().getLastChild();
+    DOM::Node<string_type> lc = current().getLastChild();
     if(lc.getNodeType() == DOM::Node_base::TEXT_NODE)
       current().replaceChild(document().createCDATASection(lc.getNodeValue()), lc);
   } // do_end_CDATA
 
-  void do_comment(const std::string& ch)
+  void do_comment(const string_type& ch)
   {
     current().appendChild(document().createComment(ch));
   } // do_comment
 
-  void do_processing_instruction(const std::string& target,
-                                 const std::string& data)
+  void do_processing_instruction(const string_type& target,
+                                 const string_type& data)
   {
     current().appendChild(document().createProcessingInstruction(target, data));
   } // do_processing_instruction
@@ -400,12 +404,12 @@ protected:
 
   bool want_namespace_declarations() const { return false; }
 
-  void do_start_element(const std::string& qName,
-                        const std::string& namespaceURI,
-                        const SAX::Attributes<std::string>& atts)
+  void do_start_element(const string_type& qName,
+                        const string_type& namespaceURI,
+                        const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     indent();
-    DOM::Element<std::string> elem = document().createElementNS(namespaceURI, qName);
+    DOM::Element<string_type, string_adaptor> elem = document().createElementNS(namespaceURI, qName);
     current().appendChild(elem);
 
     // attributes here
@@ -415,25 +419,25 @@ protected:
     current_ = elem;
   } // do_start_element
 
-  void do_end_element(const std::string& /* qName */, 
-                      const std::string& /* namespaceURI */)
+  void do_end_element(const string_type& /* qName */, 
+                      const string_type& /* namespaceURI */)
   {
     outdent();
     current_ = current_.getParentNode();
   } // do_end_element
 
 private:
-  DOM::Document<std::string>& document()
+  DOM::Document<string_type>& document()
   {
     if(document_ != 0)
       return document_;
 
-    DOM::DOMImplementation<std::string> di = SimpleDOM::DOMImplementation<std::string>::getDOMImplementation();
+    DOM::DOMImplementation<string_type, string_adaptor> di = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
     document_ = di.createDocument("", "", 0);
     return document_;
   } // document
 
-  DOM::Node<std::string>& current()
+  DOM::Node<string_type>& current()
   {
     if(current_ != 0)
       return current_;
@@ -448,11 +452,11 @@ private:
     if(indent_ == -1)
       return;
 
-    std::string sps;
+    string_type sps;
     if(indent_ != 0)
     {
       sps += '\n';
-      std::fill_n(std::back_inserter<std::string>(sps), indent_, ' ');
+      std::fill_n(std::back_inserter<string_type>(sps), indent_, ' ');
       do_characters(sps);
     } // if ...
 
@@ -473,9 +477,9 @@ private:
     out_again_ = true;
   } // outdent
 
-  DOM::Document<std::string> document_;
-  DOM::DocumentFragment<std::string> documentFrag_;
-  DOM::Node<std::string> current_;
+  DOM::Document<string_type, string_adaptor> document_;
+  DOM::DocumentFragment<string_type, string_adaptor> documentFrag_;
+  DOM::Node<string_type, string_adaptor> current_;
 
   int indent_;
   bool out_again_;

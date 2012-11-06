@@ -30,7 +30,7 @@ public:
   
   virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
                                                         ExecutionContext& context,
-	                                                DOMSink& sink) const
+	                                                      DOMSink<std::string>& sink) const
   {
     if(select_)
       return select_->evaluate(node, context.xpathContext());
