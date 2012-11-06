@@ -92,7 +92,7 @@ public:
   } // execute
 
   ////////////////////////////////////////
-  const DeclaredKeys& keys() const { return keys_; }
+  const DeclaredKeys<std::string, Arabica::default_string_adaptor<std::string> >& keys() const { return keys_; }
 
   void add_template(Template<std::string, Arabica::default_string_adaptor<std::string> >* templat)
   {
@@ -130,7 +130,7 @@ public:
   } // add_item
 
   void add_key(const std::string& name,
-	             Key* key)
+	             Key<std::string, Arabica::default_string_adaptor<std::string> >* key)
   {
     keys_.add(name, key);
   } // add_key
@@ -322,7 +322,7 @@ private:
   NamedTemplates named_templates_;
   TemplateStack templates_;
   VariableDeclList topLevelVars_;
-  DeclaredKeys keys_;
+  DeclaredKeys<std::string, Arabica::default_string_adaptor<std::string> > keys_;
   ParamList params_;
 
   mutable std::string current_mode_;

@@ -65,7 +65,7 @@ class KeyFunction : public Arabica::XPath::NodeSetXPathFunction<std::string>
 {
   typedef Arabica::XPath::NodeSetXPathFunction<std::string> baseT;
 public:
-  KeyFunction(const DeclaredKeys& keys,
+  KeyFunction(const DeclaredKeys<std::string, Arabica::default_string_adaptor<std::string> >& keys,
               const std::map<std::string, std::string>& inscopeNamespaces,	      
               const std::vector<Arabica::XPath::XPathExpression<std::string> >& args) :
     Arabica::XPath::NodeSetXPathFunction<std::string>(2, 2, args),
@@ -103,7 +103,7 @@ protected:
   } // nodeSetUnion
 
 private:
-  const DeclaredKeys& keys_;
+  const DeclaredKeys<std::string, Arabica::default_string_adaptor<std::string> >& keys_;
   std::map<std::string, std::string> namespaces_;
 
 }; // class KeyFunction

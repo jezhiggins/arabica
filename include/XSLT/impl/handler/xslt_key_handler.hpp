@@ -35,10 +35,10 @@ public:
     name_ = context_.processInternalQName(attrs["name"]).clarkName();
     try 
     {
-      Key::MatchExprList matches = context_.xpath_match_no_variables(attrs["match"]);
+      Key<std::string, Arabica::default_string_adaptor<std::string> >::MatchExprList matches = context_.xpath_match_no_variables(attrs["match"]);
       Arabica::XPath::XPathExpression<std::string> use = context_.xpath_expression_no_variables(attrs["use"]);
 
-      key_ = new Key(matches, use);
+      key_ = new Key<std::string, Arabica::default_string_adaptor<std::string> >(matches, use);
     } // try
     catch(const Arabica::XPath::UnboundVariableException&)
     {
@@ -62,7 +62,7 @@ public:
 private:
   CompilationContext<std::string>& context_;
   std::string name_;
-  Key* key_;
+  Key<std::string, Arabica::default_string_adaptor<std::string> >* key_;
 }; // class KeyHandler
 
 } // namespace XSLT
