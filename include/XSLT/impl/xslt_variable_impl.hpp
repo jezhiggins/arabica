@@ -11,11 +11,19 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class Variable_impl : public ItemContainer, public Variable_declaration
 {
 protected:
-  Variable_impl(const std::string& name, 
-                const Arabica::XPath::XPathExpressionPtr<std::string>& select,
+  typedef Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> XPathExpressionPtr;
+  typedef Arabica::XPath::XPathValue<string_type, string_adaptor> XPathValue;
+  typedef Arabica::XPath::StringValue<string_type, string_adaptor> StringValue;
+  typedef Arabica::XPath::NodeSetValue<string_type, string_adaptor> NodeSetValue;
+  typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+
+  Variable_impl(const string_type& name, 
+                const XPathExpressionPtr& select,
                 const Precedence& precedence) :
       name_(name),
       select_(select),
@@ -26,11 +34,11 @@ protected:
   virtual ~Variable_impl() { }
 
 public:
-  virtual const std::string& name() const { return name_; } 
+  virtual const string_type& name() const { return name_; } 
   
-  virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& node, 
-                                                        ExecutionContext& context,
-	                                                      DOMSink<std::string>& sink) const
+  virtual XPathValue value(const DOMNode& node, 
+                           ExecutionContext& context,
+	                         DOMSink<string_type, string_adaptor>& sink) const
   {
     if(select_)
       return select_->evaluate(node, context.xpathContext());
@@ -38,20 +46,20 @@ public:
     execute_children(node, context);
 
     if(sink.node() == 0)
-      return Arabica::XPath::StringValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue("");
+      return StringValue::createValue("");
 
-    Arabica::XPath::NodeSet<std::string> nodeset;
-    for(DOM::Node<std::string> n = sink.node().getFirstChild(); n != 0; n = n.getNextSibling())
+    NodeSet nodeset;
+    for(DOMNode n = sink.node().getFirstChild(); n != 0; n = n.getNextSibling())
       nodeset.push_back(n);
 
-    return Arabica::XPath::NodeSetValue<std::string, Arabica::default_string_adaptor<std::string> >::createValue(nodeset);
+    return NodeSetValue::createValue(nodeset);
   } // value
 
   virtual const Precedence& precedence() const { return precedence_; }
 
 private:
-  std::string name_;
-  Arabica::XPath::XPathExpressionPtr<std::string> select_;
+  string_type name_;
+  XPathExpressionPtr select_;
   Precedence precedence_;
 }; // Variable_impl
 

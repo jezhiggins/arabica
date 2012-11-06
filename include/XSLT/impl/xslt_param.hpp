@@ -9,7 +9,7 @@ namespace XSLT
 {
 
 template<class stringT, class adaptorT>
-class Param : public Variable_impl
+class Param : public Variable_impl<stringT, adaptorT>
 {
 public:
   typedef stringT string_type;
