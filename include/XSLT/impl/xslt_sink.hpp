@@ -359,6 +359,8 @@ public:
   DOM::Node<string_type, string_adaptor> node() const { return documentFrag_; }
 
 protected:
+  typedef typename Output<string_type, string_adaptor>::Settings Settings;
+
   void do_start_document(const Settings& settings)
   {
     Settings::const_iterator i = settings.find("indent");
