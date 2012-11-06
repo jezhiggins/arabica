@@ -41,7 +41,7 @@ public:
       delete *ci;
     for(ParamListIterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       delete *pi;
-    for(TemplateList::const_iterator ti = all_templates_.begin(), te = all_templates_.end(); ti != te; ++ti)
+    for(TemplateListIterator ti = all_templates_.begin(), te = all_templates_.end(); ti != te; ++ti)
       delete *ti;
   } // ~CompiledStylesheet
 
@@ -315,6 +315,7 @@ private:
   }; // struct MatchTemplate
 
   typedef std::vector<Template<string_type, string_adaptor>*> TemplateList;
+  typedef typename TemplateList::const_iterator TemplateListIterator;
   typedef std::vector<MatchTemplate> MatchTemplates;
   typedef typename MatchTemplates::const_iterator MatchTemplatesIterator;
   typedef std::map<string_type, MatchTemplates> ModeTemplates;
