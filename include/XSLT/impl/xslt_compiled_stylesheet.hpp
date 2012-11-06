@@ -39,7 +39,7 @@ public:
     // let's clean up!
     for(VariableDeclList::const_iterator ci = topLevelVars_.begin(), ce = topLevelVars_.end(); ci != ce; ++ci)
       delete *ci;
-    for(ParamList::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
+    for(ParamListIterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       delete *pi;
     for(TemplateList::const_iterator ti = all_templates_.begin(), te = all_templates_.end(); ti != te; ++ti)
       delete *ti;
@@ -83,7 +83,7 @@ public:
     ExecutionContext context(*this, output_.get(), *error_output_);
 
     // set up variables and so forth
-    for(ParamList::const_iterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
+    for(ParamListIterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       (*pi)->declare(context);
     for(VariableDeclList::const_iterator ci = topLevelVars_.begin(), ce = topLevelVars_.end(); ci != ce; ++ci)
       (*ci)->execute(initialNode, context);
@@ -326,6 +326,7 @@ private:
   
   typedef std::vector<Item*> VariableDeclList;
   typedef std::vector<TopLevelParam<string_type, string_adaptor>*> ParamList;
+  typedef typename ParamList::const_iterator ParamListIterator;
 
   TemplateList all_templates_;
   NamedTemplates named_templates_;
