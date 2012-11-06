@@ -114,6 +114,8 @@ public:
   virtual Output<string_type, string_adaptor>& asOutput() { return *this; }
 
 protected:
+  typedef typename Output<string_type, string_adaptor>::Settings Settings;
+
   void do_start_document(const Settings& settings)
   {
     seen_root_ = false;
