@@ -39,6 +39,8 @@ private:
   mutable string_type name_;
 }; // WithParam
 
+template<class string_type, class string_adaptor> class ParamPasser;
+
 template<class string_type, class string_adaptor>
 class WithParamable
 {
@@ -77,7 +79,7 @@ private:
   typedef typename WithParamList::const_iterator WithParamListIterator;
   WithParamList withparams_;
 
-  template<class string_type, class string_adaptor> friend class ParamPasser;
+  friend class ParamPasser<string_type, string_adaptor>;
 }; // class WithParamable
 
 template<class string_type, class string_adaptor>
