@@ -8,16 +8,17 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 struct QName
 {
-  std::string prefix;
-  std::string localName;
-  std::string namespaceURI;
-  std::string qname;
+  string_type prefix;
+  string_type localName;
+  string_type namespaceURI;
+  string_type qname;
 
-  QName(const std::string& p,
-              const std::string& lN,
-              const std::string& uri) :
+  QName(const string_type& p,
+              const string_type& lN,
+              const string_type& uri) :
     prefix(p),
     localName(lN),
     namespaceURI(uri),
@@ -25,31 +26,31 @@ struct QName
   {
   } // QName
 
-  static QName create(const XML::QualifiedName<std::string>& qName)
+  static QName create(const XML::QualifiedName<string_type>& qName)
   {
     if(qName.prefix().length() && qName.namespaceUri().empty())
       throw SAX::SAXException("Prefix " + qName.prefix() + " is not declared.");
     return QName(qName.prefix(), qName.localName(), qName.namespaceUri());
   } // create
 
-  static QName create(const std::string& qName)
+  static QName create(const string_type& qName)
   {
     return create(qName, "");
   } // create
 
-  static QName create(const std::string& qName, const std::string& namespaceURI)
+  static QName create(const string_type& qName, const string_type& namespaceURI)
   {
-    if(!Arabica::XML::is_qname<Arabica::default_string_adaptor<std::string> >(qName))
+    if(!Arabica::XML::is_qname<string_adaptor>(qName))
       throw SAX::SAXException("Bad name : '" + qName + "'");
 
     static char COLON = Arabica::text::Unicode<char>::COLON;
 
-    std::string prefix;
-    std::string localName;
+    string_type prefix;
+    string_type localName;
 
     size_t colon = qName.find(COLON);
      
-    if(colon == std::string::npos) 
+    if(colon == string_type::npos) 
       localName = qName;
     else
     {

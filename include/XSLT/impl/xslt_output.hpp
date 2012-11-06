@@ -17,7 +17,7 @@ class Output
 {
 public:
   typedef std::map<string_type, string_type> Settings;
-  typedef std::set<QName> CDATAElements;
+  typedef std::set<QName<string_type, string_adaptor> > CDATAElements;
 
 protected:
   Output() :
@@ -52,7 +52,7 @@ public:
 
   bool start_element(const string_type& qName, const string_type& namespaceURI)
   {
-    QName en = QName::create(qName, namespaceURI);
+    QName<string_type, string_adaptor> en = QName<string_type, string_adaptor>::create(qName, namespaceURI);
     return start_element(en.prefix, en.localName, en.namespaceURI);
   } // start_element
 
@@ -69,7 +69,7 @@ public:
 
     string_type mapped_prefix = namespaceStack_.findPrefix(namespaceURI);
 
-    element_stack_.push(QName(mapped_prefix, localName, namespaceURI));
+    element_stack_.push(QName<string_type, string_adaptor>(mapped_prefix, localName, namespaceURI));
 
     atts_.clear();
     pending_element_ = true;
@@ -80,7 +80,7 @@ public:
 
   void end_element(const string_type& qName, const string_type& namespaceURI)
   {
-    QName en = QName::create(qName, namespaceURI);
+    QName<string_type, string_adaptor> en = QName<string_type, string_adaptor>::create(qName, namespaceURI);
     end_element(en.prefix, en.localName, en.namespaceURI);
   } // end_element
 
@@ -103,7 +103,7 @@ public:
 
   void start_attribute(const string_type& qName, const string_type& namespaceURI)
   {
-    QName qn = QName::create(qName, namespaceURI);
+    QName<string_type, string_adaptor> qn = QName<string_type, string_adaptor>::create(qName, namespaceURI);
     start_attribute(qn.prefix, qn.localName, qn.namespaceURI);
   } // start_attribute
 
@@ -337,7 +337,7 @@ private:
   {
     if(element_stack_.empty())
       return false;
-    QName currentElement = element_stack_.top();
+    QName<string_type, string_adaptor> currentElement = element_stack_.top();
     return cdataElements_.find(currentElement) != cdataElements_.end();
   } // isCDATA
 
@@ -370,7 +370,7 @@ private:
   bool text_mode_;
   Output* warning_sink_;
   CDATAElements cdataElements_;
-  std::stack<QName> element_stack_;
+  std::stack<QName<string_type, string_adaptor> > element_stack_;
   string_type target_;
   SAX::AttributesImpl<string_type, string_adaptor> atts_;
   std::stringstream buffer_;

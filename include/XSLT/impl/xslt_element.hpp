@@ -47,7 +47,7 @@ public:
       namesp = namespace_->evaluateAsString(node, context.xpathContext());
     else
     { 
-      QName qn = QName::create(name);
+      QName<string_type, string_adaptor> qn = QName<string_type, string_adaptor>::create(name);
       typename std::map<string_type, string_type>::const_iterator ns = namespaces_.find(qn.prefix);
       if(ns == namespaces_.end())
         throw SAX::SAXException("xsl:element Runtime Error - Undeclared prefix " + qn.prefix);

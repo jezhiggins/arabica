@@ -74,7 +74,7 @@ private:
       is >> e;
 
       XML::QualifiedName<string_type, string_adaptor> qualifiedName = context_.processElementQName(e);
-      elements.insert(QName::create(qualifiedName));
+      elements.insert(QName<string_type, string_adaptor>::create(qualifiedName));
     } // while
 
     return elements;
