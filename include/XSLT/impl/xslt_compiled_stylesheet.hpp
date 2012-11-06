@@ -273,12 +273,12 @@ private:
 
   void set_parameter(const std::string& name, Value value)
   {
-    params_.push_back(new TopLevelParam("", name, value));
+    params_.push_back(new TopLevelParam<std::string, Arabica::default_string_adaptor<std::string> >("", name, value));
   } // set_parameter
 
   void set_parameter(const std::string& namespace_uri, const std::string& name, Value value)
   {
-    params_.push_back(new TopLevelParam(namespace_uri, name, value));
+    params_.push_back(new TopLevelParam<std::string, Arabica::default_string_adaptor<std::string> >(namespace_uri, name, value));
   } // set_parameter
 
 private:
@@ -316,7 +316,7 @@ private:
   typedef std::map<std::string, Template<std::string, Arabica::default_string_adaptor<std::string> >*> NamedTemplates;
   
   typedef std::vector<Item*> VariableDeclList;
-  typedef std::vector<TopLevelParam*> ParamList;
+  typedef std::vector<TopLevelParam<std::string, Arabica::default_string_adaptor<std::string> >*> ParamList;
 
   TemplateList all_templates_;
   NamedTemplates named_templates_;

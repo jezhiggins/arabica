@@ -6,12 +6,13 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor>
 class TopLevelParam : public Variable_declaration
 {
 public:
-  TopLevelParam(const std::string& namespace_uri,
-                const std::string& name, 
-                Arabica::XPath::XPathValue<std::string> value) :
+  TopLevelParam(const string_type& namespace_uri,
+                const string_type& name, 
+                Arabica::XPath::XPathValue<string_type, string_adaptor> value) :
       namespace_uri_(namespace_uri),
       name_(name),
       value_(value)
@@ -25,9 +26,9 @@ public:
     context.topLevelParam(null_node, *this);
   } // declare
 
-  virtual const std::string& namespace_uri() const { return namespace_uri_; }
-  virtual const std::string& name() const { return name_; }
-  virtual Arabica::XPath::XPathValue<std::string> value(const DOM::Node<std::string>& /* node */, 
+  virtual const string_type& namespace_uri() const { return namespace_uri_; }
+  virtual const string_type& name() const { return name_; }
+  virtual Arabica::XPath::XPathValue<string_type, string_adaptor> value(const DOM::Node<string_type, string_adaptor>& /* node */, 
                                                         ExecutionContext& /* context */,
                                                         DOMSink& /* sink */) const 
   {
@@ -36,13 +37,14 @@ public:
   virtual const Precedence& precedence() const { return Precedence::InitialPrecedence(); }
 
 private:
-  static DOM::Node<std::string> null_node;
-  std::string namespace_uri_;
-  std::string name_;
-  Arabica::XPath::XPathValue<std::string> value_;
+  static DOM::Node<string_type, string_adaptor> null_node;
+  string_type namespace_uri_;
+  string_type name_;
+  Arabica::XPath::XPathValue<string_type, string_adaptor> value_;
 }; // class TopLevelParam
 
-DOM::Node<std::string> TopLevelParam::null_node;
+template<class string_type, class string_adaptor>
+DOM::Node<string_type, string_adaptor> TopLevelParam<string_type, string_adaptor>::null_node;
 
 } // namespace XSLT
 } // namespace Arabica
