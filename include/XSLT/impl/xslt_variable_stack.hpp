@@ -11,19 +11,26 @@ namespace Arabica
 namespace XSLT
 {
 
-class Variable_instance;
-typedef boost::shared_ptr<Variable_instance> Variable_instance_ptr;
-typedef std::map<std::string, Variable_instance_ptr> Scope;
+template<class string_type, class string_adaptor> class Variable_instance;
 
+template<class string_type, class string_adaptor>
+struct ScopeType
+{
+  typedef boost::shared_ptr<Variable_instance<string_type, string_adaptor> > Variable_instance_ptr;
+  typedef std::map<string_type, Variable_instance_ptr> Scope;
+}; // class Scope
+
+template<class string_type, class string_adaptor>
 class Variable_instance
 {
 public:
+  typedef typename ScopeType<string_type, string_adaptor>::Scope Scope;
   Variable_instance() { }
   virtual ~Variable_instance() { }
   
-  virtual const std::string& name() const = 0;
+  virtual const string_type& name() const = 0;
   virtual const Precedence& precedence() const = 0;
-  virtual Arabica::XPath::XPathValue<std::string> value() const = 0;
+  virtual Arabica::XPath::XPathValue<string_type, string_adaptor> value() const = 0;
 
   virtual void injectGlobalScope(const Scope& scope) const = 0;
 
@@ -33,9 +40,16 @@ private:
   bool operator==(const Variable_instance&) const;
 }; // Variable_instance
 
-class VariableStack : public Arabica::XPath::VariableResolver<std::string>
+template<class string_type, class string_adaptor>
+class VariableStack : public Arabica::XPath::VariableResolver<string_type, string_adaptor>
 {
+  typedef typename ScopeType<string_type, string_adaptor>::Scope Scope;
+  typedef std::vector<Scope> ScopeStack;
+  
 public:
+  typedef typename ScopeType<string_type, string_adaptor>::Variable_instance_ptr Variable_instance_ptr;
+  typedef Arabica::XPath::XPathValue<string_type, string_adaptor> XPathValue;
+
   VariableStack()
   {
     stack_.push_back(Scope());
@@ -73,9 +87,9 @@ public:
     params_.front()[param->name()] = param;
   } // topLevelParam
 
-  std::string passParam(Variable_instance_ptr param)
+  string_type passParam(Variable_instance_ptr param)
   {
-    std::string name = param->name();
+    string_type name = param->name();
     Scope& params = params_.back();
 
     if(params.find(name) != params.end())
@@ -84,15 +98,15 @@ public:
     return name;
   } // passParam
 
-  void unpassParam(const std::string& name)
+  void unpassParam(const string_type& name)
   {
     params_.back().erase(name);
   } // unpassParam
 
-  bool findPassedParam(const std::string& name)
+  bool findPassedParam(const string_type& name)
   {
-    ScopeStack::reverse_iterator p = params_.rbegin()+1;    
-    Scope::iterator i = p->find(name);
+    typename ScopeStack::reverse_iterator p = params_.rbegin()+1;    
+    typename Scope::iterator i = p->find(name);
     if(i == p->end())
       return false;
     declareVariable(i->second);
@@ -106,7 +120,7 @@ public:
 
   void declareVariable(Variable_instance_ptr var)
   {
-    std::string name = var->name();
+    string_type name = var->name();
     Scope& stack = stack_.back();
     
     if(stack.find(name) != stack.end())
@@ -129,9 +143,9 @@ public:
   void freezeTopLevel()
   {
     const Scope& top = stack_.front();
-    for(Scope::const_iterator v = top.begin(), ve = top.end(); v != ve; ++v)
+    for(typename Scope::const_iterator v = top.begin(), ve = top.end(); v != ve; ++v)
       v->second->injectGlobalScope(top);
-    for(Scope::const_iterator v = top.begin(), ve = top.end(); v != ve; ++v)
+    for(typename Scope::const_iterator v = top.begin(), ve = top.end(); v != ve; ++v)
       lookup(top, v->first);
   } // freezeTopLevel
   
@@ -140,15 +154,15 @@ public:
     stack_.front() = scope;
   } // injectGlobalScope
   
-  virtual Arabica::XPath::XPathValue<std::string> resolveVariable(const std::string& namespace_uri,
-                                                                  const std::string& name) const
+  virtual XPathValue resolveVariable(const string_type& namespace_uri,
+                                     const string_type& name) const
   {
-    std::string clarkName = namespace_uri.empty() ? name : "{" + namespace_uri + "}" + name;
+    string_type clarkName = namespace_uri.empty() ? name : "{" + namespace_uri + "}" + name;
     if(std::find(resolutionStack_.begin(), resolutionStack_.end(), clarkName) != resolutionStack_.end())
       throw std::runtime_error("Circular dependency: " + clarkName + " refers to itself directly or indirectly.");
 
     resolutionStack_.push_back(clarkName);
-    Arabica::XPath::XPathValue<std::string> val = lookup(stack_.back(), clarkName);
+    XPathValue val = lookup(stack_.back(), clarkName);
     resolutionStack_.pop_back();
     
     if(val != 0)
@@ -162,20 +176,18 @@ public:
   } // resolveVariable
   
 private:
-  typedef std::vector<Scope> ScopeStack;
-  
-  Arabica::XPath::XPathValue<std::string> lookup(const Scope& scope, const std::string& name) const
+  XPathValue lookup(const Scope& scope, const string_type& name) const
   {
-    Scope::const_iterator i = scope.find(name);
+    typename Scope::const_iterator i = scope.find(name);
     if(i == scope.end())
-      return Arabica::XPath::XPathValue<std::string>(0);
+      return XPathValue(0);
     
     return i->second->value();
   } // lookup
   
   ScopeStack stack_;
   ScopeStack params_;
-  mutable std::vector<std::string> resolutionStack_;
+  mutable std::vector<string_type> resolutionStack_;
 }; // class VariableStack
 
 } // namespace XSLT

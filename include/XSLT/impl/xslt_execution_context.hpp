@@ -79,7 +79,7 @@ public:
   void declareParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param); 
   void declareVariable(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& variable); 
   void freezeTopLevel();
-  void injectGlobalScope(const Scope& scope);
+  void injectGlobalScope(const ScopeType<std::string, Arabica::default_string_adaptor<std::string> >::Scope& scope);
 
   void setPosition(const DOM::Node<std::string>& current, size_t pos) { setPosition(current, static_cast<int>(pos)); }
   void setPosition(const DOM::Node<std::string>& current, int pos) 
@@ -102,7 +102,7 @@ private:
 
 private:
   const CompiledStylesheet<std::string, Arabica::default_string_adaptor<std::string> >& stylesheet_;
-  VariableStack stack_;
+  VariableStack<std::string, Arabica::default_string_adaptor<std::string> > stack_;
   Arabica::XPath::ExecutionContext<std::string> xpathContext_;
   Output<std::string, Arabica::default_string_adaptor<std::string> >& sink_;
   StreamSink<std::string> message_sink_;
@@ -113,9 +113,11 @@ private:
 }; // class ExecutionContext
 
 ///////////////////////////
-class VariableClosure : public Variable_instance
+class VariableClosure : public Variable_instance<std::string, Arabica::default_string_adaptor<std::string> >
 {
 public:
+  typedef ScopeType<std::string, Arabica::default_string_adaptor<std::string> >::Variable_instance_ptr Variable_instance_ptr;
+
   static Variable_instance_ptr create(const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& var, 
                                       const DOM::Node<std::string>& node,
                                       ExecutionContext& context)
@@ -193,7 +195,7 @@ void ExecutionContext::freezeTopLevel()
   stack_.freezeTopLevel();
 } // freezeTopLevel
 
-void ExecutionContext::injectGlobalScope(const Scope& scope) 
+void ExecutionContext::injectGlobalScope(const ScopeType<std::string, Arabica::default_string_adaptor<std::string> >::Scope& scope) 
 {
   stack_.injectGlobalScope(scope);
 } // injectGlobalScope
