@@ -6,18 +6,19 @@ namespace Arabica
 namespace XSLT
 {
 
-class OutputHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class OutputHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  OutputHandler(CompilationContext<std::string>& context) :
+  OutputHandler(CompilationContext<string_type, string_adaptor>& context) :
     context_(context)
   {
   } // OutputHandler
 
-  virtual void startElement(const std::string& /* namespaceURI */,
-                            const std::string& /* localName */,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& /* namespaceURI */,
+                            const string_type& /* localName */,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(settings_.empty())
     {
@@ -42,41 +43,41 @@ public:
     throw SAX::SAXException(qName + " can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
     context_.stylesheet().output_settings(settings_, cdataElements_);
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     verifyNoCharacterData(ch, "xsl:output");
   } // characters
  
 private:
-  Output::CDATAElements extractCDATAElements(const std::string& cdata_section_elements) const
+  Output::CDATAElements extractCDATAElements(const string_type& cdata_section_elements) const
   {
     Output::CDATAElements elements;
 
     if(cdata_section_elements.empty())
       return elements;
 
-    std::istringstream is(text::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(cdata_section_elements));
+    std::istringstream is(text::normalize_whitespace<string_type, string_adaptor>(cdata_section_elements));
     while(!is.eof())
     {
-      std::string e;
+      string_type e;
       is >> e;
 
-      XML::QualifiedName<std::string> qualifiedName = context_.processElementQName(e);
+      XML::QualifiedName<string_type, string_adaptor> qualifiedName = context_.processElementQName(e);
       elements.insert(QName::create(qualifiedName));
     } // while
 
     return elements;
   } // extractCDATAElements
 
-  CompilationContext<std::string>& context_;
+  CompilationContext<string_type, string_adaptor>& context_;
   Output::Settings settings_;
   Output::CDATAElements cdataElements_;
 }; // class OutputHandler
