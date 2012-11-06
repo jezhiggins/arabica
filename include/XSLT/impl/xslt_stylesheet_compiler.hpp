@@ -201,7 +201,7 @@ const ChildElement<string_type, string_adaptor> StylesheetHandler<string_type, s
     //"import"
     //"include"
     { "key", CreateHandler<KeyHandler<string_type, string_adaptor> >},
-    { "namespace-alias", CreateHandler<NamespaceAliasHandler>},
+    { "namespace-alias", CreateHandler<NamespaceAliasHandler<string_type, string_adaptor> >},
     { "output", CreateHandler<OutputHandler>},
     { "param", CreateHandler<TopLevelVariableHandler<Param<string_type, string_adaptor> > >},
     { "preserve-space", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},

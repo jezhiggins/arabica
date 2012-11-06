@@ -8,19 +8,20 @@ namespace Arabica
 namespace XSLT
 {
 
-class NamespaceAliasHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class NamespaceAliasHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  NamespaceAliasHandler(CompilationContext<std::string>& context) : 
+  NamespaceAliasHandler(CompilationContext<string_type, string_adaptor>& context) : 
     context_(context),
     done_(false)
   {
   } // NamespaceAliasHandler
 
-  virtual void startElement(const std::string& /* namespaceURI */,
-                            const std::string& /* localName */,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& /* namespaceURI */,
+                            const string_type& /* localName */,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(!done_)
     {
@@ -28,16 +29,16 @@ public:
                                          { "result-prefix", true, 0, 0 },
                                          { 0, false, 0, 0 } };
 
-      std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
-      std::string stylesheet_prefix = attrs["stylesheet-prefix"];
-      std::string result_prefix = attrs["result-prefix"];
+      std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
+      string_type stylesheet_prefix = attrs["stylesheet-prefix"];
+      string_type result_prefix = attrs["result-prefix"];
 
       if(stylesheet_prefix == "#default") 
         stylesheet_prefix = "";
       if(result_prefix == "#default")
         result_prefix = "";
 
-      std::map<std::string, std::string> namespaces = context_.inScopeNamespaces();
+      std::map<string_type, string_type> namespaces = context_.inScopeNamespaces();
       if((namespaces.find(stylesheet_prefix) == namespaces.end()) && 
          (!stylesheet_prefix.empty()))
         throw SAX::SAXException("xslt:namespace-alias " + stylesheet_prefix + " is not a declared namespace prefix");
@@ -52,20 +53,20 @@ public:
     throw SAX::SAXException(qName + " can not contain elements");
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
     context_.pop();
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     verifyNoCharacterData(ch, "xsl:namespace-alias");
   } // characters
 
 private:
-  CompilationContext<std::string>& context_;
+  CompilationContext<string_type, string_adaptor>& context_;
   bool done_;
 }; // class NamespaceAliasHandler
 
