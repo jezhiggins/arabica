@@ -9,15 +9,19 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class stringT, class adaptorT>
 class Template : public ItemContainer
 {
 public:
-  typedef std::string string_type;
-  typedef Arabica::default_string_adaptor<std::string> string_adaptor;
+  typedef stringT string_type;
+  typedef adaptorT string_adaptor;
 
-  Template(const std::string& name,
-      	   const std::string& mode,
-           const std::string& /* priority */,
+  typedef Arabica::XPath::MatchExpr<string_type, string_adaptor> MatchExpr;
+  typedef std::vector<MatchExpr> MatchExprList;
+
+  Template(const string_type& name,
+      	   const string_type& mode,
+           const string_type& /* priority */,
 	   const Precedence& precedence) :
     matches_(),
     name_(name),
@@ -26,10 +30,10 @@ public:
   {
   } // Template
 
-  Template(const std::vector<Arabica::XPath::MatchExpr<std::string> >& matches,
-           const std::string& name,
-           const std::string& mode,
-           const std::string& priority,
+  Template(const MatchExprList& matches,
+           const string_type& name,
+           const string_type& mode,
+           const string_type& priority,
            const Precedence& precedence) :
     matches_(matches),
     name_(name),
@@ -38,8 +42,8 @@ public:
   {
     if(!priority.empty())
     {
-      double p = boost::lexical_cast<double>(Arabica::text::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(priority));
-      for(std::vector<Arabica::XPath::MatchExpr<std::string> >::iterator m = matches_.begin(), me = matches_.end(); m != me; ++m)
+      double p = boost::lexical_cast<double>(Arabica::text::normalize_whitespace<string_type, string_adaptor>(priority));
+      for(MatchExprList::iterator m = matches_.begin(), me = matches_.end(); m != me; ++m)
         m->override_priority(p);
     } // if ... 
   } // Template
@@ -48,21 +52,21 @@ public:
   {
   } // ~Template
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type>& node, ExecutionContext& context) const
   {
     execute_children(node, context);
   } // execute
 
-  const std::vector<Arabica::XPath::MatchExpr<std::string> >& compiled_matches() const { return matches_; }
+  const MatchExprList& compiled_matches() const { return matches_; }
   bool has_name() const { return !name_.empty(); }
-  const std::string& name() const { return name_; }
-  const std::string& mode() const { return mode_; }
+  const string_type& name() const { return name_; }
+  const string_type& mode() const { return mode_; }
   const Precedence& precedence() const { return precedence_; }
 
 private:
-  std::vector<Arabica::XPath::MatchExpr<std::string> > matches_;
-  std::string name_;
-  std::string mode_;
+  MatchExprList matches_;
+  string_type name_;
+  string_type mode_;
   const Precedence precedence_;
 }; // class Template
 

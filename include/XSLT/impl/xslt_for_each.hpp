@@ -17,7 +17,12 @@ public:
   typedef stringT string_type;
   typedef adaptorT string_adaptor; 
 
-  ForEach(const Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor>& select) : 
+  typedef Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> XPathExpressionPtr;
+  typedef Arabica::XPath::XPathValue<string_type, string_adaptor> XPathValue;
+  typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+
+  ForEach(const XPathExpressionPtr& select) : 
     Sortable<stringT, adaptorT>(),
     select_(select)
   {
@@ -27,14 +32,14 @@ public:
   {
   } // ForEach
 
-  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
+  virtual void execute(const DOMNode& node, 
                        ExecutionContext& context) const
   {
-    Arabica::XPath::XPathValue<string_type, string_adaptor> sel = select_->evaluate(node, context.xpathContext());
+    XPathValue sel = select_->evaluate(node, context.xpathContext());
     if(sel.type() != Arabica::XPath::NODE_SET)
       throw SAX::SAXException("xsl:for-each must select a node set");
 
-    Arabica::XPath::NodeSet<string_type, string_adaptor> nodes = sel.asNodeSet();
+    NodeSet nodes = sel.asNodeSet();
     sort(node, nodes, context);
 
     LastFrame last(context, nodes.size());
@@ -47,7 +52,7 @@ public:
   } // execute
 
 private:
-  Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> select_;
+  XPathExpressionPtr select_;
 }; // class ForEach
 
 } // namespace XSLT

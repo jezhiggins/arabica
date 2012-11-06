@@ -9,11 +9,13 @@ namespace Arabica
 namespace XSLT
 {
 
-class TemplateHandler : public ItemContainerHandler<Template>
+template<class string_type, class string_adaptor>
+class TemplateHandler : public ItemContainerHandler<Template<string_type, string_adaptor> >
 {
+  typedef ItemContainerHandler<Template<string_type, string_adaptor> > baseT;
 public:
-  TemplateHandler(CompilationContext<std::string>& context) :
-    ItemContainerHandler<Template>(context),
+  TemplateHandler(CompilationContext<string_type, string_adaptor>& context) :
+    baseT(context),
     done_params_(false)
   {
   } // TemplateHandler
@@ -22,7 +24,7 @@ public:
   {
     if(!done_params_)
     {
-     for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+     for(string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
       if(!Arabica::XML::is_space(*i))
       {
         done_params_ = true;
@@ -30,73 +32,73 @@ public:
       } // if ...
     } // if(!done_params_)
 
-    ItemContainerHandler<Template>::characters(ch);
+    baseT::characters(ch);
   } // characters
 
 protected:
-  virtual Template* createContainer(const std::string& /* namespaceURI */,
-                                    const std::string& /* localName */,
-                                    const std::string& qName,
-                                    const SAX::Attributes<std::string>& atts)
+  virtual Template<string_type, string_adaptor>* createContainer(const string_type& /* namespaceURI */,
+                                    const string_type& /* localName */,
+                                    const string_type& qName,
+                                    const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     static const ValueRule rules[] = { { "match", false, 0, 0 },
                                        { "mode", false, 0, 0 },
                                        { "name", false, 0, 0 }, 
                                        { "priority", false, 0, 0 },
 				       { 0, false, 0, 0 } };
-    std::map<std::string, std::string> attributes = gatherAttributes(qName, atts, rules);
+    std::map<string_type, string_type> attributes = gatherAttributes(qName, atts, rules);
                                        
-    const std::string& match = attributes["match"];
+    const string_type& match = attributes["match"];
     if((match == "") && (attributes["name"] == ""))
       throw SAX::SAXException("xsl:template must have a match and/or a name attribute");
 
     int index = atts.getIndex("mode");
     if(index != -1)
     {
-      const std::string& mode = attributes["mode"];
+      const string_type& mode = attributes["mode"];
       if(mode == "")
         throw SAX::SAXException("xsl:template mode cannot be empty");
       if(match == "")
         throw SAX::SAXException("xsl:template may not have a mode without a match");
     } // ...
 
-    const std::string& priority = attributes["priority"];
+    const string_type& priority = attributes["priority"];
     if((atts.getIndex("priority") != -1) && (priority == ""))
       throw SAX::SAXException("xsl:template priority cannot be empty");
 
-    std::string name;
+    string_type name;
     if(attributes["name"] != "")
-      name = context().processInternalQName(attributes["name"]).clarkName();
+      name = baseT::context().processInternalQName(attributes["name"]).clarkName();
 
-    std::string mode;
+    string_type mode;
     if(attributes["mode"] != "")
-      mode = context().processInternalQName(attributes["mode"]).clarkName();
+      mode = baseT::context().processInternalQName(attributes["mode"]).clarkName();
 
     if(match == "")
-      return new Template(name,
+      return new Template<string_type, string_adaptor>(name,
 			  mode,
 			  priority,
-        context().precedence());
+        baseT::context().precedence());
 
-    return new Template(context().xpath_match(match),
+    return new Template<string_type, string_adaptor>(baseT::context().xpath_match(match),
 			name,
 			mode,
 			priority,
-      context().precedence());
+      baseT::context().precedence());
   } // createContainer
 
-  virtual bool createChild(const std::string& namespaceURI,
-                           const std::string& localName,
-                           const std::string& qName,
-                           const SAX::Attributes<std::string>& atts)
+  virtual bool createChild(const string_type& namespaceURI,
+                           const string_type& localName,
+                           const string_type& qName,
+                           const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if((namespaceURI == StylesheetConstant::NamespaceURI()) &&
        (localName == "param"))
     {
       if(!done_params_)
       {
-        context().push(container(),
-                       new VariableHandler<Param>(context()),
+        baseT::context().push(container(),
+                       new VariableHandler<Param>(baseT::context()),
                        namespaceURI, 
                        localName, 
                        qName, 
@@ -108,16 +110,16 @@ protected:
     }
 
     done_params_ = true;
-    return ItemContainerHandler<Template>::createChild(namespaceURI, localName, qName, atts);
+    return baseT::createChild(namespaceURI, localName, qName, atts);
   } // createChild
 
 public:
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
-    context().stylesheet().add_template(container());
-    context().pop();
+    baseT::context().stylesheet().add_template(container());
+    baseT::context().pop();
   } // endElement
 
 private:

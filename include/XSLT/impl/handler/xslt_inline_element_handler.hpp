@@ -64,7 +64,8 @@ class LREStylesheetHandler : public InlineElementHandler<string_type, string_ada
 {
   typedef InlineElementHandler<string_type, string_adaptor> baseT;
 public:
-  LREStylesheetHandler(CompilationContext<string_type, string_adaptor>& context, Template* lreStylesheet) :
+  LREStylesheetHandler(CompilationContext<string_type, string_adaptor>& context, 
+                       Template<string_type, string_adaptor>* lreStylesheet) :
     baseT(context),
     lreStylesheet_(lreStylesheet)                                                         
   {
@@ -79,7 +80,7 @@ public:
   } // endElement
 
 private:
-  Template* lreStylesheet_;
+  Template<string_type, string_adaptor>* lreStylesheet_;
 }; // class LREStylesheetHandler
 
 

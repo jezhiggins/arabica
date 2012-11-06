@@ -94,7 +94,7 @@ public:
   ////////////////////////////////////////
   const DeclaredKeys& keys() const { return keys_; }
 
-  void add_template(Template* templat)
+  void add_template(Template<std::string, Arabica::default_string_adaptor<std::string> >* templat)
   {
     typedef std::vector<Arabica::XPath::MatchExpr<std::string> > MatchExprList;
     typedef MatchExprList::const_iterator MatchIterator;
@@ -285,7 +285,7 @@ private:
   class MatchTemplate
   {
   public:
-    MatchTemplate(const Arabica::XPath::MatchExpr<std::string>& matchExpr, Template* templat) :
+    MatchTemplate(const Arabica::XPath::MatchExpr<std::string>& matchExpr, Template<std::string, Arabica::default_string_adaptor<std::string> >* templat) :
       match_(matchExpr),
       template_(templat) 
     { 
@@ -297,7 +297,7 @@ private:
     } // MatchTemplate
 
     const Arabica::XPath::MatchExpr<std::string>& match() const { return match_; }
-    Template* action() const { return template_; }
+    Template<std::string, Arabica::default_string_adaptor<std::string> >* action() const { return template_; }
 
     bool operator<(const MatchTemplate& rhs) const
     {
@@ -306,14 +306,14 @@ private:
     } // operator<
   private:
     Arabica::XPath::MatchExpr<std::string> match_;
-    Template* template_;
+    Template<std::string, Arabica::default_string_adaptor<std::string> >* template_;
   }; // struct MatchTemplate
 
-  typedef std::vector<Template*> TemplateList;
+  typedef std::vector<Template<std::string, Arabica::default_string_adaptor<std::string> >*> TemplateList;
   typedef std::vector<MatchTemplate> MatchTemplates;
   typedef std::map<std::string, MatchTemplates> ModeTemplates;
   typedef std::map<Precedence, ModeTemplates> TemplateStack;
-  typedef std::map<std::string, Template*> NamedTemplates;
+  typedef std::map<std::string, Template<std::string, Arabica::default_string_adaptor<std::string> >*> NamedTemplates;
   
   typedef std::vector<Item*> VariableDeclList;
   typedef std::vector<TopLevelParam*> ParamList;

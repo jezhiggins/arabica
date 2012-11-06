@@ -124,7 +124,7 @@ private:
     if(version != StylesheetConstant::Version())
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
 
-    Template* lreStylesheet = new Template(context_.xpath_match("/"), "", "", "", context_.precedence());
+    Template<string_type, string_adaptor>* lreStylesheet = new Template<string_type, string_adaptor>(context_.xpath_match("/"), "", "", "", context_.precedence());
     context_.push(lreStylesheet,
                   new LREStylesheetHandler<string_type, string_adaptor>(context_, lreStylesheet),
                   namespaceURI, 
@@ -206,7 +206,7 @@ const ChildElement<string_type, string_adaptor> StylesheetHandler<string_type, s
     { "param", CreateHandler<TopLevelVariableHandler<Param> >},
     { "preserve-space", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
     { "strip-space", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { "template", CreateHandler<TemplateHandler> },
+    { "template", CreateHandler<TemplateHandler<string_type, string_adaptor> > },
     { "variable", CreateHandler<TopLevelVariableHandler<Variable<string_type, string_adaptor> > > },
     { 0, 0 }
   }; // StylesheetHandler::allowedChildren
