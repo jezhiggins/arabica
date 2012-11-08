@@ -37,7 +37,7 @@ public:
   virtual ~CompiledStylesheet()
   {
     // let's clean up!
-    for(VariableDeclList::const_iterator ci = topLevelVars_.begin(), ce = topLevelVars_.end(); ci != ce; ++ci)
+    for(VariableDeclListIterator ci = topLevelVars_.begin(), ce = topLevelVars_.end(); ci != ce; ++ci)
       delete *ci;
     for(ParamListIterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       delete *pi;
@@ -85,7 +85,7 @@ public:
     // set up variables and so forth
     for(ParamListIterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
       (*pi)->declare(context);
-    for(VariableDeclList::const_iterator ci = topLevelVars_.begin(), ce = topLevelVars_.end(); ci != ce; ++ci)
+    for(VariableDeclListIterator ci = topLevelVars_.begin(), ce = topLevelVars_.end(); ci != ce; ++ci)
       (*ci)->execute(initialNode, context);
     context.freezeTopLevel();
 
@@ -326,6 +326,7 @@ private:
   typedef typename NamedTemplates::const_iterator NamedTemplatesIterator;
   
   typedef std::vector<Item<string_type, string_adaptor>*> VariableDeclList;
+  typedef typename std::vector<Item<string_type, string_adaptor>*>::const_iterator VariableDeclListIterator;
   typedef std::vector<TopLevelParam<string_type, string_adaptor>*> ParamList;
   typedef typename ParamList::const_iterator ParamListIterator;
 
