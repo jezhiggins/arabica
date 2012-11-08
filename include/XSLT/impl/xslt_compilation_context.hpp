@@ -204,35 +204,35 @@ private:
                                          const std::vector<Arabica::XPath::XPathExpression<string_type> >& argExprs) const
   {
     if(!namespace_uri.empty())
-      return new Functions<string_type, string_adaptor>::UndefinedFunction(namespace_uri, name, argExprs);
+      return new UndefinedFunction<string_type, string_adaptor>(namespace_uri, name, argExprs);
 
     // document
     if(name == "document")
-      return new Functions<string_type, string_adaptor>::DocumentFunction(parser_.currentBase(), argExprs);
+      return new DocumentFunction<string_type, string_adaptor>(parser_.currentBase(), argExprs);
     // key
     if(name == "key")
-      return new Functions<string_type, string_adaptor>::KeyFunction(stylesheet_.keys(), parser_.inScopeNamespaces(), argExprs);
+      return new KeyFunction<string_type, string_adaptor>(stylesheet_.keys(), parser_.inScopeNamespaces(), argExprs);
     // format-number
     // current
     if((name == "current") && (current_allowed_))
-      return new Functions<string_type, string_adaptor>::CurrentFunction(argExprs);
+      return new CurrentFunction<string_type, string_adaptor>(argExprs);
     // unparsed-entity-uri
     //if(name == "unparsed-entity-uri")
     //  return new UnparsedEntityUriFunction(argExprs);
     // generate-id
     if(name == "generate-id")
-      return new Functions<string_type, string_adaptor>::GenerateIdFunction(argExprs);
+      return new GenerateIdFunction<string_type, string_adaptor>(argExprs);
     if(name == "system-property")
-      return new Functions<string_type, string_adaptor>::SystemPropertyFunction(argExprs);
+      return new SystemPropertyFunction<string_type, string_adaptor>(argExprs);
     // element-available
     if(name == "element-available")
     {
       std::vector<std::pair<string_type, string_type> > dummy;
-      return new Functions<string_type, string_adaptor>::ElementAvailableFunction(dummy, parser_.inScopeNamespaces(), argExprs);
+      return new ElementAvailableFunction<string_type, string_adaptor>(dummy, parser_.inScopeNamespaces(), argExprs);
     } 
     // function-available
     if(name == "function-available")
-      return new Functions<string_type, string_adaptor>::FunctionAvailableFunction(validNames(), parser_.inScopeNamespaces(), argExprs);
+      return new FunctionAvailableFunction<string_type, string_adaptor>(validNames(), parser_.inScopeNamespaces(), argExprs);
 
     return 0;
   } // resolveFunction

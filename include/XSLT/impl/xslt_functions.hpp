@@ -9,32 +9,25 @@ namespace Arabica
 namespace XSLT
 {
 
-template<class string_type, class string_adaptor>
-class Functions
-{
-public:
-
-typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
-typedef std::vector<XPathExpression> ArgList;
-
-typedef Arabica::XPath::XPathValue<string_type, string_adaptor> XPathValue;
-
-typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
-
-typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
-typedef DOM::Node<string_type, string_adaptor> DOMNode;
-
-typedef XML::QualifiedName<string_type, string_adaptor> QualifiedName;
-
 // node-set document(object, node-set?)
+template<class string_type, class string_adaptor>
 class DocumentFunction : public Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor>
 {
   typedef Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor> baseT;
 
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+
+  typedef Arabica::XPath::XPathValue<string_type, string_adaptor> XPathValue;
+  typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
+
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+  
 public:
   DocumentFunction(const string_type& currentBase, 
                    const ArgList& args) :
-      Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor>(1, 2, args),
+      baseT(1, 2, args),
       baseURI_(currentBase)
   { } 
 
@@ -77,14 +70,23 @@ private:
 }; // DocumentFunction
 
 // node-set key(string, object)
+template<class string_type, class string_adaptor>
 class KeyFunction : public Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor>
 {
   typedef Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor> baseT;
+
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+  typedef Arabica::XPath::XPathValue<string_type, string_adaptor> XPathValue;
+  typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+  typedef XML::QualifiedName<string_type, string_adaptor> QualifiedName;
 public:
   KeyFunction(const DeclaredKeys<string_type, string_adaptor>& keys,
               const std::map<string_type, string_type>& inscopeNamespaces,	      
               const ArgList& args) :
-    Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor>(2, 2, args),
+    baseT(2, 2, args),
     keys_(keys),
     namespaces_(inscopeNamespaces)
   { 
@@ -121,18 +123,24 @@ protected:
 private:
   const DeclaredKeys<string_type, string_adaptor>& keys_;
   std::map<string_type, string_type> namespaces_;
-
 }; // class KeyFunction
 
 // string format-number(number, string, string?)
 
 // node-set current()
+template<class string_type, class string_adaptor>
 class CurrentFunction : public Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor>
 {
   typedef Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor> baseT;
+
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+  typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
   CurrentFunction(const ArgList& args) :
-      Arabica::XPath::NodeSetXPathFunction<string_type, string_adaptor>(0, 0, args) { }
+    baseT(0, 0, args) { }
 
 protected:
   virtual NodeSet doEvaluate(const DOMNode& /* context */, 
@@ -145,11 +153,18 @@ protected:
 }; // CurrentFunction
 
 // string unparsed-entity-uri(string)
+template<class string_type, class string_adaptor>
 class UnparsedEntityUriFunction : public Arabica::XPath::StringXPathFunction<string_type, string_adaptor>
 {
+  typedef Arabica::XPath::StringXPathFunction<string_type, string_adaptor> baseT;
+
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
   UnparsedEntityUriFunction(const ArgList& args) :
-    Arabica::XPath::StringXPathFunction<string_type, string_adaptor>(1, 1, args) { }
+    baseT(1, 1, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOMNode& /* context */, 
@@ -161,12 +176,19 @@ protected:
 }; // UnparsedEntityUri
 
 // string generate-id(node-set?)
+template<class string_type, class string_adaptor>
 class GenerateIdFunction : public Arabica::XPath::StringXPathFunction<string_type, string_adaptor>
 {
   typedef Arabica::XPath::StringXPathFunction<string_type, string_adaptor> baseT;
+
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+  typedef Arabica::XPath::NodeSet<string_type, string_adaptor> NodeSet;
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
   GenerateIdFunction(const ArgList& args) :
-    Arabica::XPath::StringXPathFunction<string_type, string_adaptor>(0, 1, args) { }
+    baseT(0, 1, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOMNode& context, 
@@ -190,12 +212,18 @@ protected:
 }; // class GenerateIdFunction
 
 // object system-property(string)
+template<class string_type, class string_adaptor>
 class SystemPropertyFunction : public Arabica::XPath::StringXPathFunction<string_type, string_adaptor>
 {
   typedef Arabica::XPath::StringXPathFunction<string_type, string_adaptor> baseT;
+
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
   SystemPropertyFunction (const ArgList& args) :
-      Arabica::XPath::StringXPathFunction<string_type, string_adaptor>(1, 1, args) { }
+      baseT(1, 1, args) { }
 
 protected:
   virtual string_type doEvaluate(const DOMNode& context, 
@@ -214,14 +242,21 @@ protected:
 }; // SystemPropertyFunction
 
 // boolean element-available(string)
+template<class string_type, class string_adaptor>
 class ElementAvailableFunction : public Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor>
 {
   typedef Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor> baseT;
+
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+  typedef XML::QualifiedName<string_type, string_adaptor> QualifiedName;
 public:
   ElementAvailableFunction(const std::vector<std::pair<string_type, string_type> >& names,
 			                     const std::map<string_type, string_type>& inscopeNamespaces,
 			                     const ArgList& args) :
-    Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor>(1, 1, args),
+    baseT(1, 1, args),
     namespaces_(inscopeNamespaces),
     elementNames_(names)
   {
@@ -257,14 +292,21 @@ private:
 }; // class ElementAvailableFunction
 
 // boolean function-available(string)
+template<class string_type, class string_adaptor>
 class FunctionAvailableFunction : public Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor>
 {
   typedef Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor> baseT;
+
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
+  typedef XML::QualifiedName<string_type, string_adaptor> QualifiedName;
 public:
   FunctionAvailableFunction(const std::vector<std::pair<string_type, string_type> >& names, 
 			                      const std::map<string_type, string_type>& inscopeNamespaces,
 			                      const ArgList& args) :
-    Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor>(1, 1, args),
+    baseT(1, 1, args),
     namespaces_(inscopeNamespaces),
     functionNames_(names)
   { 
@@ -275,7 +317,7 @@ public:
 
 protected:
   virtual bool doEvaluate(const DOMNode& context,
-			  const XPathExecutionContext& executionContext) const
+                  			  const XPathExecutionContext& executionContext) const
   {
     const string_type functionName = baseT::argAsString(0, context, executionContext);
     const QualifiedName expandedName = QualifiedName::parseQName(functionName, true, namespaces_);
@@ -290,13 +332,20 @@ private:
   std::vector<std::pair<string_type, string_type> > functionNames_;
 }; // class FunctionAvailableFunction
 
+template<class string_type, class string_adaptor>
 class UndefinedFunction : public Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor>
 {
+  typedef Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor> baseT;
+
+  typedef Arabica::XPath::XPathExpression<string_type, string_adaptor> XPathExpression;
+  typedef std::vector<XPathExpression> ArgList;
+  typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
+  typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
   UndefinedFunction(const string_type namespace_uri,
-		    const string_type name,
-		    const ArgList& args) :
-    Arabica::XPath::BooleanXPathFunction<string_type, string_adaptor>(-1, -1, args)
+            		    const string_type name,
+		                const ArgList& args) :
+    baseT(-1, -1, args)
   {
     if(!namespace_uri.empty())
     {
@@ -309,16 +358,13 @@ public:
   } // UndefinedFunction
 
 protected:
-  virtual bool doEvaluate(const DOMNode&,
-			  const XPathExecutionContext&) const
+  virtual bool doEvaluate(const DOMNode&, const XPathExecutionContext&) const
   {
     throw Arabica::XPath::UndefinedFunctionException(error_);
   } // doEvaluate
 
   string_type error_;
 }; // class UndefinedFunction
-
-}; // class Functions
 
 } // namespace XSLT
 } // namespace Arabica
