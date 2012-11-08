@@ -137,7 +137,7 @@ protected:
     Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
-    std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
+    std::auto_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
     if(stylesheet.get() != 0)
       assertImplementation(false, "Expected " + input_xslt_ + " not to compile.  But it did :o");
     throw SkipException(reason_ + " : " + compiler.error());
@@ -168,11 +168,11 @@ protected:
     Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
-    std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
+    std::auto_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
 
-    Arabica::XSLT::DOMSink output;
+    Arabica::XSLT::DOMSink<std::string> output;
     stylesheet->set_output(output);
 
     std::ostringstream errors;
@@ -212,11 +212,11 @@ protected:
     Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
-    std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
+    std::auto_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       return;
 
-    Arabica::XSLT::DOMSink output;
+    Arabica::XSLT::DOMSink<std::string> output;
     stylesheet->set_output(output);
 
     std::ostringstream errors;
@@ -257,12 +257,12 @@ protected:
     Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
-    std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
+    std::auto_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
 
     std::ostringstream xml_output;
-    Arabica::XSLT::StreamSink output(xml_output);
+    Arabica::XSLT::StreamSink<std::string> output(xml_output);
     stylesheet->set_output(output);
 
     std::ostringstream errors;
@@ -352,11 +352,11 @@ protected:
     Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
-    std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
+    std::auto_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
 
-    Arabica::XSLT::DOMSink output;
+    Arabica::XSLT::DOMSink<std::string> output;
     stylesheet->set_output(output);
 
     std::ostringstream errors;
@@ -450,11 +450,11 @@ protected:
     Arabica::XSLT::StylesheetCompiler<std::string> compiler;
 
     Arabica::SAX::InputSource<std::string> source(input_xslt_);
-    std::auto_ptr<Arabica::XSLT::Stylesheet> stylesheet = compiler.compile(source);
+    std::auto_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
 
-    Arabica::XSLT::DOMSink output;
+    Arabica::XSLT::DOMSink<std::string> output;
     stylesheet->set_output(output);
 
     std::ostringstream errors;
