@@ -12,7 +12,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-class Variable_impl : public ItemContainer, public Variable_declaration<string_type, string_adaptor>
+class Variable_impl : public ItemContainer<string_type, string_adaptor>, public Variable_declaration<string_type, string_adaptor>
 {
 protected:
   typedef Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> XPathExpressionPtr;

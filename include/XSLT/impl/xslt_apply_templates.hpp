@@ -11,7 +11,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-class ApplyTemplates : public Item,
+class ApplyTemplates : public Item<string_type, string_adaptor>,
                        public Sortable<string_type, string_adaptor>,
                        public WithParamable<string_type, string_adaptor>
 {

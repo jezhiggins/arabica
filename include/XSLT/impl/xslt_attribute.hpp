@@ -9,7 +9,7 @@ namespace XSLT
 {
 
 template<class stringT, class adaptorT>
-class Attribute : public ItemContainer
+class Attribute : public ItemContainer<stringT, adaptorT>
 {
 public:
   typedef stringT string_type;

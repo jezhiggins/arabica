@@ -8,6 +8,7 @@ namespace XSLT
 
 class ExecutionContext;
 
+template<class string_type, class string_adaptor>
 class Item
 {
 public:
@@ -15,32 +16,35 @@ public:
   {
   } // ~Item
 
-  virtual void execute(const DOM::Node<std::string>& node, ExecutionContext& context) const = 0;
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const = 0;
 }; // class Item
 
-class ItemContainer : public Item
+template<class string_type, class string_adaptor>
+class ItemContainer : public Item<string_type, string_adaptor>
 {
 protected:
   virtual ~ItemContainer() 
   { 
-    for(Children::const_iterator ci = children_.begin(), ce = children_.end(); ci != ce; ++ci)
+    for(ChildrenIterator ci = children_.begin(), ce = children_.end(); ci != ce; ++ci)
       delete *ci;
   } // ~ItemContainer
 
-  void execute_children(const DOM::Node<std::string>& node, ExecutionContext& context) const
+  void execute_children(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
   {
-    for(Children::const_iterator ci = children_.begin(), ce = children_.end(); ci != ce; ++ci)
+    for(ChildrenIterator ci = children_.begin(), ce = children_.end(); ci != ce; ++ci)
       (*ci)->execute(node, context);
   } // execute
 
 public:
-  void add_item(Item* child) 
+  void add_item(Item<string_type, string_adaptor>* child) 
   {
     children_.push_back(child);
   } // add_child
 
 private:
-  typedef std::vector<Item*> Children;
+  typedef std::vector<Item<string_type, string_adaptor>*> Children;
+  typedef typename Children::const_iterator ChildrenIterator;
+
   Children children_;
 }; // ItemContainer
 

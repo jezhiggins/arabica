@@ -10,7 +10,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-class CallTemplate : public Item,
+class CallTemplate : public Item<string_type, string_adaptor>,
                      public WithParamable<string_type, string_adaptor>
 {
 public:

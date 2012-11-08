@@ -128,7 +128,7 @@ public:
     named_templates_[templat->name()] = templat;
   } // add_template
 
-  void add_variable(Item* item)
+  void add_variable(Item<string_type, string_adaptor>* item)
   {
     topLevelVars_.push_back(item);
   } // add_item
@@ -325,7 +325,7 @@ private:
   typedef std::map<string_type, Template<string_type, string_adaptor>*> NamedTemplates;
   typedef typename NamedTemplates::const_iterator NamedTemplatesIterator;
   
-  typedef std::vector<Item*> VariableDeclList;
+  typedef std::vector<Item<string_type, string_adaptor>*> VariableDeclList;
   typedef std::vector<TopLevelParam<string_type, string_adaptor>*> ParamList;
   typedef typename ParamList::const_iterator ParamListIterator;
 

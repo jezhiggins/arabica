@@ -9,7 +9,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-class Text : public Item
+class Text : public Item<string_type, string_adaptor>
 {
 public:
   Text(bool disable_output_escaping) : 

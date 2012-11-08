@@ -51,7 +51,7 @@ private:
 }; // class InlineAttribute
 
 template<class stringT, class adaptorT>
-class InlineElement : public ItemContainer
+class InlineElement : public ItemContainer<stringT, adaptorT>
 {
 public:
   typedef stringT string_type;

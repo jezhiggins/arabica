@@ -9,7 +9,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-class ValueOf : public Item
+class ValueOf : public Item<string_type, string_adaptor>
 {
 public:
   ValueOf(Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> expr,

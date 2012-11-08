@@ -10,7 +10,7 @@ namespace XSLT
 {
 
 template<class stringT, class adaptorT>
-class When : public ItemContainer
+class When : public ItemContainer<stringT, adaptorT>
 {
 public:
   typedef stringT string_type;
@@ -40,7 +40,7 @@ private:
 }; // class When
 
 template<class stringT, class adaptorT>
-class Otherwise : public ItemContainer
+class Otherwise : public ItemContainer<stringT, adaptorT>
 {
 public:
   typedef stringT string_type;
@@ -54,7 +54,7 @@ public:
 }; // class Otherwise
 
 template<class stringT, class adaptorT>
-class Choose : public Item
+class Choose : public Item<stringT, adaptorT>
 {
 public:
   typedef stringT string_type;

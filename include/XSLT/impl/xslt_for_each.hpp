@@ -10,7 +10,7 @@ namespace XSLT
 {
 
 template<class stringT, class adaptorT>
-class ForEach : public ItemContainer,
+class ForEach : public ItemContainer<stringT, adaptorT>,
                 public Sortable<stringT, adaptorT>
 {
 public:

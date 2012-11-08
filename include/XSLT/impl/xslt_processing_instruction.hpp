@@ -11,7 +11,7 @@ namespace XSLT
 {
 
 template<class stringT, class adaptorT>
-class ProcessingInstruction : public ItemContainer
+class ProcessingInstruction : public ItemContainer<stringT, adaptorT>
 {
 public:
   typedef stringT string_type;

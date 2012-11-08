@@ -7,7 +7,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-class ApplyImports : public Item
+class ApplyImports : public Item<string_type, string_adaptor>
 {
 public:
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 

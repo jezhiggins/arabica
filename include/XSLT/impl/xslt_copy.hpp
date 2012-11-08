@@ -9,7 +9,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-class Copy_base : public ItemContainer
+class Copy_base : public ItemContainer<string_type, string_adaptor>
 {
 protected:
   Copy_base()

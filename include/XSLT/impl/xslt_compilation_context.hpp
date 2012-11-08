@@ -15,7 +15,7 @@ namespace Arabica
 namespace XSLT
 {
 template<class string_type, class string_adaptor> class CompiledStylesheet;
-class ItemContainer;
+template<class string_type, class string_adaptor> class ItemContainer;
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class CompilationContext :
@@ -112,7 +112,7 @@ public:
     return parser_.currentBase();
   } // currentBase
 
-  void push(ItemContainer* parent,
+  void push(ItemContainer<string_type, string_adaptor>* parent,
             DefaultHandlerT* newHandler,
             const string_type& namespaceURI,
             const string_type& localName,
@@ -133,7 +133,7 @@ public:
     parser_.setContentHandler(*handlerStack_.top());
   } // pop
 
-  ItemContainer& parentContainer() const
+  ItemContainer<string_type, string_adaptor>& parentContainer() const
   { 
     return *parentStack_.top();
   } // parentContainer
@@ -267,7 +267,7 @@ private:
   Precedence precedence_;
   Arabica::XPath::XPath<string_type> xpath_;
   std::stack<SAX::DefaultHandler<string_type>*> handlerStack_;
-  std::stack<ItemContainer*> parentStack_;
+  std::stack<ItemContainer<string_type, string_adaptor>*> parentStack_;
   std::map<string_type, Namespace> namespaceRemap_;
 
   CompilationContext(const CompilationContext&);
