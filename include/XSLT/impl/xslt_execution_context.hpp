@@ -12,6 +12,8 @@ namespace XSLT
 
 template<class string_type, class string_adaptor> class CompiledStylesheet;
 template<class string_type, class string_adaptor> class ExecutionContext;
+template<class string_type, class string_adaptor> class StackFrame;
+template<class string_type, class string_adaptor> class ChainStackFrame;
 
 template<class string_type, class string_adaptor>
 class Variable_declaration
@@ -109,8 +111,8 @@ private:
   StreamSink<string_type, string_adaptor> message_sink_;
   int to_msg_;
 
-  template<class string_type, class string_adaptor> friend class StackFrame;
-  template<class string_type, class string_adaptor> friend class ChainStackFrame;
+  friend class StackFrame<string_type, string_adaptor> ;
+  friend class ChainStackFrame<string_type, string_adaptor> ;
 }; // class ExecutionContext
 
 ///////////////////////////
