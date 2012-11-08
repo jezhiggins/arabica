@@ -22,7 +22,7 @@ public:
 
   virtual ~Message() { }
 
-  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     RedirectionFrame toMessageSink(context);
     execute_children(node, context);
@@ -37,11 +37,11 @@ private:
   class RedirectionFrame
   {
   public:
-    RedirectionFrame(ExecutionContext& context) : context_(context) { context_.redirectToMessageSink(); }
+    RedirectionFrame(ExecutionContext<string_type, string_adaptor>& context) : context_(context) { context_.redirectToMessageSink(); }
     ~RedirectionFrame() { context_.revertFromMessageSink(); }
 
   private:
-    ExecutionContext& context_;
+    ExecutionContext<string_type, string_adaptor>& context_;
 
     RedirectionFrame();
     RedirectionFrame(const RedirectionFrame&);

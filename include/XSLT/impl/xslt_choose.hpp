@@ -24,13 +24,13 @@ public:
   virtual ~When() { }
 
   bool is_met(const DOM::Node<string_type, string_adaptor>& node, 
-              ExecutionContext& context) const
+              ExecutionContext<string_type, string_adaptor>& context) const
   {
     return test_->evaluateAsBool(node, context.xpathContext());
   } // is_met
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
-                       ExecutionContext& context) const
+                       ExecutionContext<string_type, string_adaptor>& context) const
   {
     execute_children(node, context);
   } // execute
@@ -47,7 +47,7 @@ public:
   typedef adaptorT string_adaptor;
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
-                       ExecutionContext& context) const
+                       ExecutionContext<string_type, string_adaptor>& context) const
   {
     execute_children(node, context);
   } // execute
@@ -74,9 +74,9 @@ public:
   } // ~Choose
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
-                       ExecutionContext& context) const
+                       ExecutionContext<string_type, string_adaptor>& context) const
   {
-    ChainStackFrame frame(context);
+    ChainStackFrame<string_type, string_adaptor> frame(context);
     for(typename WhenList::const_iterator w = when_.begin(), e = when_.end(); w != e; ++w)
       if((*w)->is_met(node, context))
       {

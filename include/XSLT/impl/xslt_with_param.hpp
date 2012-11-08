@@ -25,12 +25,12 @@ public:
   virtual ~WithParam() { }
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
-                       ExecutionContext& context) const 
+                       ExecutionContext<string_type, string_adaptor>& context) const 
   {
     name_ = context.passParam(node, *this);
   } // declare
 
-  void unpass(ExecutionContext& context) const
+  void unpass(ExecutionContext<string_type, string_adaptor>& context) const
   {
     context.unpassParam(name_);
   } // unpass
@@ -63,13 +63,13 @@ public:
 
 private:
   void passParams(const DOM::Node<string_type, string_adaptor>& node, 
-                  ExecutionContext& context) const
+                  ExecutionContext<string_type, string_adaptor>& context) const
   {
     for(WithParamListIterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
       (*s)->execute(node, context);
   } // execute
 
-  void unpassParams(ExecutionContext& context) const
+  void unpassParams(ExecutionContext<string_type, string_adaptor>& context) const
   {
     for(WithParamListIterator s = withparams_.begin(), e = withparams_.end(); s != e; ++s)
       (*s)->unpass(context);
@@ -88,7 +88,7 @@ class ParamPasser
 public:
   ParamPasser(const WithParamable<string_type, string_adaptor>& paramable,
               const DOM::Node<string_type, string_adaptor>& node, 
-              ExecutionContext& context) :
+              ExecutionContext<string_type, string_adaptor>& context) :
     paramable_(paramable),
     context_(context)
   {
@@ -102,7 +102,7 @@ public:
 
 private:
   const WithParamable<string_type, string_adaptor>& paramable_;
-  ExecutionContext& context_;
+  ExecutionContext<string_type, string_adaptor>& context_;
 
   ParamPasser(const ParamPasser&);
   ParamPasser& operator=(const ParamPasser&);

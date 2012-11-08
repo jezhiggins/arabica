@@ -26,7 +26,7 @@ public:
   void set(const string_type& text) { text_ = text; }
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& /* node */, 
-		                   ExecutionContext& context) const
+		                   ExecutionContext<string_type, string_adaptor>& context) const
   {
     if(disable_)
       context.sink().disableOutputEscaping(true);

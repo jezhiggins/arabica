@@ -11,7 +11,7 @@ class ApplyImports : public Item<string_type, string_adaptor>
 {
 public:
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
-                       ExecutionContext& context) const
+                       ExecutionContext<string_type, string_adaptor>& context) const
   {
     context.stylesheet().applyImports(node, context);
   } // execute

@@ -24,7 +24,7 @@ public:
 
   virtual ~ProcessingInstruction() { }
 
-  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     string_type name = name_->evaluateAsString(node, context.xpathContext());
     validate_name(name);

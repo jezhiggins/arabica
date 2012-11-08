@@ -19,6 +19,7 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class CompiledStylesheet : public Stylesheet<string_type, string_adaptor>
 {
+public:
   typedef Arabica::XPath::BoolValue<string_type, string_adaptor> BoolValue;
   typedef Arabica::XPath::NumericValue<string_type, string_adaptor> NumericValue;
   typedef Arabica::XPath::StringValue<string_type, string_adaptor> StringValue;
@@ -27,7 +28,6 @@ class CompiledStylesheet : public Stylesheet<string_type, string_adaptor>
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
   typedef DOM::NodeList<string_type, string_adaptor> DOMNodeList;
 
-public:
   CompiledStylesheet() :
       output_(new StreamSink<string_type, string_adaptor>(std::cout)),
       error_output_(&std::cerr)
@@ -80,7 +80,7 @@ public:
     NodeSet ns;
     ns.push_back(initialNode);
 
-    ExecutionContext context(*this, output_.get(), *error_output_);
+    ExecutionContext<string_type, string_adaptor> context(*this, output_.get(), *error_output_);
 
     // set up variables and so forth
     for(ParamListIterator pi = params_.begin(), pe = params_.end(); pi != pe; ++pi)
@@ -158,10 +158,10 @@ public:
   } // prepare
 
   ////////////////////////////////////////
-  void applyTemplates(const NodeSet& nodes, ExecutionContext& context, const string_type& mode) const 
+  void applyTemplates(const NodeSet& nodes, ExecutionContext<string_type, string_adaptor>& context, const string_type& mode) const 
   {
     // entirely simple so far
-    LastFrame last(context, nodes.size());
+    LastFrame<string_type, string_adaptor> last(context, nodes.size());
     int p = 1;
     for(typename NodeSet::const_iterator n = nodes.begin(), ne = nodes.end(); n != ne; ++n)
     {
@@ -170,10 +170,10 @@ public:
     }
   } // applyTemplates
 
-  void applyTemplates(const DOMNodeList& nodes, ExecutionContext& context, const string_type& mode) const 
+  void applyTemplates(const DOMNodeList& nodes, ExecutionContext<string_type, string_adaptor>& context, const string_type& mode) const 
   {
     // entirely simple so far
-    LastFrame last(context, (size_t)nodes.getLength());
+    LastFrame<string_type, string_adaptor> last(context, (size_t)nodes.getLength());
     for(int i = 0, ie = nodes.getLength(); i != ie; ++i)
     {
       context.setPosition(nodes.item(i), i+1);
@@ -181,16 +181,16 @@ public:
     }
   } // applyTemplates
 
-  void applyTemplates(const DOMNode& node, ExecutionContext& context, const string_type& mode) const
+  void applyTemplates(const DOMNode& node, ExecutionContext<string_type, string_adaptor>& context, const string_type& mode) const
   {
     LastFrame last(context, -1);
     context.setPosition(node, 1);
     doApplyTemplates(node, context, mode, Precedence::FrozenPrecedence());
   } // applyTemplates
 
-  void callTemplate(const string_type& name, const DOMNode& node, ExecutionContext& context) const
+  void callTemplate(const string_type& name, const DOMNode& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
-    StackFrame frame(context);
+    StackFrame<string_type, string_adaptor> frame(context);
 
     NamedTemplatesIterator t = named_templates_.find(name);
     if(t == named_templates_.end())
@@ -204,18 +204,18 @@ public:
     t->second->execute(node, context);
   } // callTemplate
 
-  void applyImports(const DOMNode& node, ExecutionContext& context) const
+  void applyImports(const DOMNode& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     doApplyTemplates(node, context, current_mode_, current_generation_);
   } // applyImports
 
 private:
   void doApplyTemplates(const DOMNode& node, 
-                        ExecutionContext& context, 
+                        ExecutionContext<string_type, string_adaptor>& context, 
                         const string_type& mode, 
                         const Precedence& generation) const
   {
-    StackFrame frame(context);
+    StackFrame<string_type, string_adaptor> frame(context);
 
     std::vector<Precedence> lower_precedences;
     for(TemplateStackIterator ts = templates_.begin(), tse = templates_.end(); ts != tse; ++ts)
@@ -245,7 +245,7 @@ private:
   } // doApplyTemplates
 
   void defaultAction(const DOMNode& node, 
-                     ExecutionContext& context, 
+                     ExecutionContext<string_type, string_adaptor>& context, 
                      const string_type& mode) const
   {
     switch(node.getNodeType())

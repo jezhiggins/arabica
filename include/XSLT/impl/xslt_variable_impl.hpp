@@ -37,7 +37,7 @@ public:
   virtual const string_type& name() const { return name_; } 
   
   virtual XPathValue value(const DOMNode& node, 
-                           ExecutionContext& context,
+                           ExecutionContext<string_type, string_adaptor>& context,
 	                         DOMSink<string_type, string_adaptor>& sink) const
   {
     if(select_)

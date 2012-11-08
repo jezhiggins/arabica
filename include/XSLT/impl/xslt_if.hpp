@@ -23,9 +23,9 @@ public:
   virtual ~If() { }
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
-                       ExecutionContext& context) const
+                       ExecutionContext<string_type, string_adaptor>& context) const
   {
-    ChainStackFrame frame(context);
+    ChainStackFrame<string_type, string_adaptor> frame(context);
     if(test_->evaluateAsBool(node, context.xpathContext()))
       execute_children(node, context);
   } // execute

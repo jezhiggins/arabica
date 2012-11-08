@@ -32,7 +32,7 @@ public:
   virtual ~Attribute() { }
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
-                       ExecutionContext& context) const
+                       ExecutionContext<string_type, string_adaptor>& context) const
   {
     string_type name = name_->evaluateAsString(node, context.xpathContext());
     if(name.empty())
@@ -55,7 +55,7 @@ public:
     } // if ...
 
     context.sink().start_attribute(name, namesp);
-    ChainStackFrame frame(context);
+    ChainStackFrame<string_type, string_adaptor> frame(context);
     execute_children(node, context);
     context.sink().end_attribute();
   } // execute

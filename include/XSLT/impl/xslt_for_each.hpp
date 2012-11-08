@@ -33,7 +33,7 @@ public:
   } // ForEach
 
   virtual void execute(const DOMNode& node, 
-                       ExecutionContext& context) const
+                       ExecutionContext<string_type, string_adaptor>& context) const
   {
     XPathValue sel = select_->evaluate(node, context.xpathContext());
     if(sel.type() != Arabica::XPath::NODE_SET)
@@ -42,10 +42,10 @@ public:
     NodeSet nodes = sel.asNodeSet();
     sort(node, nodes, context);
 
-    LastFrame last(context, nodes.size());
+    LastFrame<string_type, string_adaptor> last(context, nodes.size());
     for(size_t n = 0, e = nodes.size(); n != e; ++n)
     {
-      ChainStackFrame frame(context);
+      ChainStackFrame<string_type, string_adaptor> frame(context);
       context.setPosition(nodes[n], n+1);
       execute_children(nodes[n], context);
     } // for ...

@@ -6,7 +6,7 @@ namespace Arabica
 namespace XSLT
 {
 
-class ExecutionContext;
+template<class string_type, class string_adaptor> class ExecutionContext;
 
 template<class string_type, class string_adaptor>
 class Item
@@ -16,7 +16,7 @@ public:
   {
   } // ~Item
 
-  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const = 0;
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const = 0;
 }; // class Item
 
 template<class string_type, class string_adaptor>
@@ -29,7 +29,7 @@ protected:
       delete *ci;
   } // ~ItemContainer
 
-  void execute_children(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  void execute_children(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     for(ChildrenIterator ci = children_.begin(), ce = children_.end(); ci != ce; ++ci)
       (*ci)->execute(node, context);

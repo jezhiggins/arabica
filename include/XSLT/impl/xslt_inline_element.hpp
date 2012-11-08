@@ -37,7 +37,7 @@ public:
     return *this;
   } // operator==
 
-  void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     context.sink().start_attribute(name_, namespace_);
     context.sink().characters(value_->evaluateAsString(node, context.xpathContext()));
@@ -68,14 +68,14 @@ public:
 
   virtual ~InlineElement() { }
 
-  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     if(context.sink().start_element(name_, namespace_))
     {
       for(typename std::vector<InlineAttribute<string_type, string_adaptor> >::const_iterator a = attrs_.begin(), ae = attrs_.end(); a != ae; ++a)
         a->execute(node, context);
 
-      ChainStackFrame frame(context);
+      ChainStackFrame<string_type, string_adaptor> frame(context);
       execute_children(node, context);
       context.sink().end_element(name_, namespace_);
     }

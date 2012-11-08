@@ -25,7 +25,7 @@ public:
   virtual ~Param() { }
 
 protected:
-  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const 
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const 
   {
     context.declareParam(node, *this);
   } // declare

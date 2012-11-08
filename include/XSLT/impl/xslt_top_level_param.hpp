@@ -21,7 +21,7 @@ public:
 
   virtual ~TopLevelParam() { }
 
-  virtual void declare(ExecutionContext& context) const 
+  virtual void declare(ExecutionContext<string_type, string_adaptor>& context) const 
   {
     context.topLevelParam(null_node, *this);
   } // declare
@@ -29,7 +29,7 @@ public:
   virtual const string_type& namespace_uri() const { return namespace_uri_; }
   virtual const string_type& name() const { return name_; }
   virtual Arabica::XPath::XPathValue<string_type, string_adaptor> value(const DOM::Node<string_type, string_adaptor>& /* node */, 
-                                                        ExecutionContext& /* context */,
+                                                        ExecutionContext<string_type, string_adaptor>& /* context */,
                                                         DOMSink<string_type, string_adaptor>& /* sink */) const 
   {
     return value_;

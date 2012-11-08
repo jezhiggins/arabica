@@ -21,7 +21,7 @@ protected:
   virtual ~Copy_base() { }
 
 protected:
-  void copy(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  void copy(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     switch(node.getNodeType())
     {
@@ -59,7 +59,7 @@ protected:
     } // switch
   } // execute
 
-  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const = 0;
+  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const = 0;
 
 private:
   Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> namespace_select_;
@@ -79,13 +79,13 @@ public:
 
   virtual ~Copy() { }
 
-  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     copy(node, context);
   } // execute
 
 protected:
-  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     execute_children(node, context);
   } // process_content
@@ -108,7 +108,7 @@ public:
 
   virtual ~CopyOf() { }
 
-  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     Arabica::XPath::XPathValue<string_type, string_adaptor> value = select_->evaluate(node, context.xpathContext());
     if(value.type() != Arabica::XPath::NODE_SET)
@@ -123,7 +123,7 @@ public:
   } // execute
 
 protected:
-  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext& context) const
+  virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     if(node.hasAttributes())
     {

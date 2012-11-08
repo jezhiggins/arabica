@@ -11,7 +11,7 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor> class CompiledStylesheet;
-class ExecutionContext;
+template<class string_type, class string_adaptor> class ExecutionContext;
 
 template<class string_type, class string_adaptor>
 class Variable_declaration
@@ -22,7 +22,7 @@ protected:
 public:
   virtual const string_type& name() const = 0;
   virtual Arabica::XPath::XPathValue<string_type> value(const DOM::Node<string_type, string_adaptor>& node, 
-                                                        ExecutionContext& context,
+                                                        ExecutionContext<string_type, string_adaptor>& context,
                                                         DOMSink<string_type, string_adaptor>& sink) const = 0;
   virtual const Precedence& precedence() const = 0;
 
@@ -32,11 +32,12 @@ private:
   bool operator==(const Variable_declaration&) const;
 }; // class Variable_declaration
 
+template<class string_type, class string_adaptor>
 class ExecutionContext
 {
 public:
-  ExecutionContext(const CompiledStylesheet<std::string, Arabica::default_string_adaptor<std::string> >& stylesheet,
-                   Sink<std::string>& output,
+  ExecutionContext(const CompiledStylesheet<string_type, string_adaptor>& stylesheet,
+                   Sink<string_type, string_adaptor>& output,
                    std::ostream& error_output) :
       stylesheet_(stylesheet),
       sink_(output.asOutput()),
@@ -48,8 +49,8 @@ public:
     message_sink_.asOutput().set_warning_sink(message_sink_.asOutput());
   } // ExecutionContext
 
-  ExecutionContext(Sink<std::string>& output, 
-                   ExecutionContext& rhs) :
+  ExecutionContext(Sink<string_type, string_adaptor>& output, 
+                   ExecutionContext<string_type, string_adaptor>& rhs) :
     stylesheet_(rhs.stylesheet_),
     stack_(rhs.stack_),
     sink_(output.asOutput()),
@@ -62,27 +63,27 @@ public:
     xpathContext_.setLast(rhs.xpathContext().last());
   } // ExecutionContext
 
-  const CompiledStylesheet<std::string, Arabica::default_string_adaptor<std::string> >& stylesheet() const { return stylesheet_; }
+  const CompiledStylesheet<string_type, string_adaptor>& stylesheet() const { return stylesheet_; }
 
-  Output<std::string, Arabica::default_string_adaptor<std::string> >& sink() 
+  Output<string_type, string_adaptor>& sink() 
   { 
     return !to_msg_ ? sink_ : message_sink_.asOutput();
   } // sink
   void redirectToMessageSink() { ++to_msg_; }
   void revertFromMessageSink() { --to_msg_; }
 
-  const Arabica::XPath::ExecutionContext<std::string>& xpathContext() const { return xpathContext_; }
+  const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& xpathContext() const { return xpathContext_; }
 
-  void topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param);
-  std::string passParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param);
-  void unpassParam(const std::string& name);
-  void declareParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param); 
-  void declareVariable(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& variable); 
+  void topLevelParam(const DOM::Node<string_type, string_adaptor>& node, const Variable_declaration<string_type, string_adaptor>& param);
+  string_type passParam(const DOM::Node<string_type, string_adaptor>& node, const Variable_declaration<string_type, string_adaptor>& param);
+  void unpassParam(const string_type& name);
+  void declareParam(const DOM::Node<string_type, string_adaptor>& node, const Variable_declaration<string_type, string_adaptor>& param); 
+  void declareVariable(const DOM::Node<string_type, string_adaptor>& node, const Variable_declaration<string_type, string_adaptor>& variable); 
   void freezeTopLevel();
-  void injectGlobalScope(const ScopeType<std::string, Arabica::default_string_adaptor<std::string> >::Scope& scope);
+  void injectGlobalScope(const typename ScopeType<string_type, string_adaptor>::Scope& scope);
 
-  void setPosition(const DOM::Node<std::string>& current, size_t pos) { setPosition(current, static_cast<int>(pos)); }
-  void setPosition(const DOM::Node<std::string>& current, int pos) 
+  void setPosition(const DOM::Node<string_type, string_adaptor>& current, size_t pos) { setPosition(current, static_cast<int>(pos)); }
+  void setPosition(const DOM::Node<string_type, string_adaptor>& current, int pos) 
   {
     xpathContext_.setCurrentNode(current);
     xpathContext_.setPosition(pos);
@@ -101,32 +102,32 @@ private:
   void popStackFrame() { stack_.popScope(); }
 
 private:
-  const CompiledStylesheet<std::string, Arabica::default_string_adaptor<std::string> >& stylesheet_;
-  VariableStack<std::string, Arabica::default_string_adaptor<std::string> > stack_;
-  Arabica::XPath::ExecutionContext<std::string> xpathContext_;
-  Output<std::string, Arabica::default_string_adaptor<std::string> >& sink_;
-  StreamSink<std::string> message_sink_;
+  const CompiledStylesheet<string_type, string_adaptor>& stylesheet_;
+  VariableStack<string_type, string_adaptor> stack_;
+  Arabica::XPath::ExecutionContext<string_type, string_adaptor> xpathContext_;
+  Output<string_type, string_adaptor>& sink_;
+  StreamSink<string_type, string_adaptor> message_sink_;
   int to_msg_;
 
-  friend class StackFrame;
-  friend class ChainStackFrame;
+  template<class string_type, class string_adaptor> friend class StackFrame;
+  template<class string_type, class string_adaptor> friend class ChainStackFrame;
 }; // class ExecutionContext
 
 ///////////////////////////
 template<class string_type, class string_adaptor>
-class VariableClosure : public Variable_instance<std::string, Arabica::default_string_adaptor<std::string> >
+class VariableClosure : public Variable_instance<string_type, string_adaptor>
 {
 public:
   typedef typename ScopeType<string_type, string_adaptor>::Variable_instance_ptr Variable_instance_ptr;
 
   static Variable_instance_ptr create(const Variable_declaration<string_type, string_adaptor>& var, 
                                       const DOM::Node<string_type, string_adaptor>& node,
-                                      ExecutionContext& context)
+                                      ExecutionContext<string_type, string_adaptor>& context)
   {
     return Variable_instance_ptr(new VariableClosure(var, node, context));
   } // create
 
-  virtual const std::string& name() const { return var_.name(); }
+  virtual const string_type& name() const { return var_.name(); }
   virtual const Precedence& precedence() const { return var_.precedence(); }
 
   virtual Arabica::XPath::XPathValue<string_type, string_adaptor> value() const 
@@ -144,7 +145,7 @@ public:
 private:
   VariableClosure(const Variable_declaration<string_type, string_adaptor>& var, 
                   const DOM::Node<string_type, string_adaptor>& node, 
-                  ExecutionContext& context) :
+                  ExecutionContext<string_type, string_adaptor>& context) :
       var_(var),
       sink_(),
       node_(node),
@@ -155,7 +156,7 @@ private:
   const Variable_declaration<string_type, string_adaptor>& var_;
   mutable DOMSink<string_type, string_adaptor> sink_;
   const DOM::Node<string_type, string_adaptor> node_;
-  mutable ExecutionContext context_;
+  mutable ExecutionContext<string_type, string_adaptor> context_;
   mutable Arabica::XPath::XPathValue<string_type, string_adaptor> value_;
 
   VariableClosure();
@@ -165,65 +166,74 @@ private:
 }; // class VariableClosure
 
 ///////////////////////////
-void ExecutionContext::topLevelParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param)
+template<class string_type, class string_adaptor>
+void ExecutionContext<string_type, string_adaptor>::topLevelParam(const DOM::Node<string_type, string_adaptor>& node, const Variable_declaration<string_type, string_adaptor>& param)
 {
-  stack_.topLevelParam(VariableClosure<std::string, Arabica::default_string_adaptor<std::string> >::create(param, node, *this));
+  stack_.topLevelParam(VariableClosure<string_type, string_adaptor>::create(param, node, *this));
 } // topLevelParam
 
-std::string ExecutionContext::passParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param)
+template<class string_type, class string_adaptor>
+string_type ExecutionContext<string_type, string_adaptor>::passParam(const DOM::Node<string_type, string_adaptor>& node, const Variable_declaration<string_type, string_adaptor>& param)
 {
-  return stack_.passParam(VariableClosure<std::string, Arabica::default_string_adaptor<std::string> >::create(param, node, *this));
+  return stack_.passParam(VariableClosure<string_type, string_adaptor>::create(param, node, *this));
 } // passParam
 
-void ExecutionContext::unpassParam(const std::string& name)
+template<class string_type, class string_adaptor>
+void ExecutionContext<string_type, string_adaptor>::unpassParam(const string_type& name)
 {
   stack_.unpassParam(name);
 } // unpassParam
 
-void ExecutionContext::declareParam(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& param) 
+template<class string_type, class string_adaptor>
+void ExecutionContext<string_type, string_adaptor>::declareParam(const DOM::Node<string_type, string_adaptor>& node, const Variable_declaration<string_type, string_adaptor>& param) 
 {
   if(!stack_.findPassedParam(param.name()))
-    stack_.declareParam(VariableClosure<std::string, Arabica::default_string_adaptor<std::string> >::create(param, node, *this)); 
+    stack_.declareParam(VariableClosure<string_type, string_adaptor>::create(param, node, *this)); 
 } // declareParam
 
-void ExecutionContext::declareVariable(const DOM::Node<std::string>& node, const Variable_declaration<std::string, Arabica::default_string_adaptor<std::string> >& variable) 
+template<class string_type, class string_adaptor>
+void ExecutionContext<string_type, string_adaptor>::declareVariable(const DOM::Node<string_type, string_adaptor>& node, const Variable_declaration<string_type, string_adaptor>& variable) 
 { 
-  stack_.declareVariable(VariableClosure<std::string, Arabica::default_string_adaptor<std::string> >::create(variable, node, *this)); 
+  stack_.declareVariable(VariableClosure<string_type, string_adaptor>::create(variable, node, *this)); 
 } // declareVariable
 
-void ExecutionContext::freezeTopLevel()
+template<class string_type, class string_adaptor>
+void ExecutionContext<string_type, string_adaptor>::freezeTopLevel()
 {
   stack_.freezeTopLevel();
 } // freezeTopLevel
 
-void ExecutionContext::injectGlobalScope(const ScopeType<std::string, Arabica::default_string_adaptor<std::string> >::Scope& scope) 
+template<class string_type, class string_adaptor>
+void ExecutionContext<string_type, string_adaptor>::injectGlobalScope(const typename ScopeType<string_type, string_adaptor>::Scope& scope) 
 {
   stack_.injectGlobalScope(scope);
 } // injectGlobalScope
 
 ///////////////////////////
+template<class string_type, class string_adaptor>
 class StackFrame
 {
 public:
-  StackFrame(ExecutionContext& context) : context_(context) { context_.pushStackFrame(); }
+  StackFrame(ExecutionContext<string_type, string_adaptor>& context) : context_(context) { context_.pushStackFrame(); }
   ~StackFrame() { context_.popStackFrame(); }
 
 private:
-  ExecutionContext& context_;
+  ExecutionContext<string_type, string_adaptor>& context_;
   
   StackFrame(const StackFrame&);
   StackFrame& operator=(const StackFrame&);
   bool operator==(const StackFrame&) const;
 }; // class StackFrame
 
+template<class string_type, class string_adaptor>
 class ChainStackFrame
 {
 public:
-  ChainStackFrame(ExecutionContext& context) : context_(context) { context_.chainStackFrame(); }
+  ChainStackFrame(ExecutionContext<string_type, string_adaptor>& context) : context_(context) { context_.chainStackFrame(); }
   ~ChainStackFrame() { context_.popStackFrame(); }
 
 private:
-  ExecutionContext& context_;
+  ExecutionContext<string_type, string_adaptor>& context_;
 
   ChainStackFrame(const ChainStackFrame&);
   ChainStackFrame& operator=(const ChainStackFrame&);
@@ -231,15 +241,16 @@ private:
 }; // class ChainStackFrame
 
 ///////////////////////////
+template<class string_type, class string_adaptor>
 class LastFrame
 {
 public:
-  LastFrame(ExecutionContext& context, int last) : context_(context) 
+  LastFrame(ExecutionContext<string_type, string_adaptor>& context, int last) : context_(context) 
   { 
     oldLast_ = context_.setLast(last);
   } // LastFrame
 
-  LastFrame(ExecutionContext& context, size_t last) : context_(context) 
+  LastFrame(ExecutionContext<string_type, string_adaptor>& context, size_t last) : context_(context) 
   { 
     oldLast_ = context_.setLast(static_cast<int>(last));
   } // LastFrame
@@ -250,7 +261,7 @@ public:
   } // ~LastFrame
 
 private:
-  ExecutionContext& context_;
+  ExecutionContext<string_type, string_adaptor>& context_;
   int oldLast_;
 
   LastFrame(const LastFrame&);

@@ -20,7 +20,7 @@ public:
   { 
   } // ExecutionContext
 
-  ExecutionContext(size_t last, const ExecutionContext& parent) : 
+  ExecutionContext(size_t last, const ExecutionContext<string_type, string_adaptor>& parent) : 
       current_(parent.current_),
       position_(-1), 
       last_(static_cast<int>(last)),

@@ -34,7 +34,7 @@ public:
     delete sub_sort_;
   } // ~Sort
 
-  void set_context(const DOMNode& node, ExecutionContext& context)
+  void set_context(const DOMNode& node, ExecutionContext<string_type, string_adaptor>& context)
   {
     context_ = &context;
     const string_type datatype = datatype_->evaluateAsString(node, context_->xpathContext());
@@ -153,7 +153,7 @@ private:
   XPathExpressionPtr order_;
   XPathExpressionPtr caseorder_;
   Sort* sub_sort_;
-  ExecutionContext* context_;
+  ExecutionContext<string_type, string_adaptor>* context_;
   sortFn sort_fn_;
 
   Sort& operator=(const Sort&);
@@ -181,7 +181,7 @@ protected:
 
   void sort(const DOMNode& node, 
             NodeSet& nodes, 
-            ExecutionContext& context) const
+            ExecutionContext<string_type, string_adaptor>& context) const
   {
     if(!sort_)
     {
