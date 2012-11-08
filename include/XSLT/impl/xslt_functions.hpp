@@ -45,7 +45,7 @@ protected:
     NodeSet nodes;
      
     XPathValue a0 = arg(0, context, executionContext);
-    if(argCount() != 1)
+    if(baseT::argCount() != 1)
       throw Arabica::XPath::UnsupportedException("two arg version of document()");
     if(a0.type() != Arabica::XPath::STRING)
       throw Arabica::XPath::UnsupportedException("node-set arg version of document()");

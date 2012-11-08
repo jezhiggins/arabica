@@ -121,6 +121,7 @@ class VariableClosure : public Variable_instance<string_type, string_adaptor>
 {
 public:
   typedef typename ScopeType<string_type, string_adaptor>::Variable_instance_ptr Variable_instance_ptr;
+  typedef typename ScopeType<string_type, string_adaptor>::Scope Scope;
 
   static Variable_instance_ptr create(const Variable_declaration<string_type, string_adaptor>& var, 
                                       const DOM::Node<string_type, string_adaptor>& node,

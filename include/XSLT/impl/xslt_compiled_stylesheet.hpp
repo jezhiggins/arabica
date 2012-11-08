@@ -183,7 +183,7 @@ public:
 
   void applyTemplates(const DOMNode& node, ExecutionContext<string_type, string_adaptor>& context, const string_type& mode) const
   {
-    LastFrame last(context, -1);
+    LastFrame<string_type, string_adaptor> last(context, -1);
     context.setPosition(node, 1);
     doApplyTemplates(node, context, mode, Precedence::FrozenPrecedence());
   } // applyTemplates
