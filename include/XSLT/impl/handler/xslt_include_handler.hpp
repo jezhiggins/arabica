@@ -10,7 +10,8 @@ namespace Arabica
 namespace XSLT
 {
 
-class IncludeHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class IncludeHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   struct ImportHref;
 
@@ -22,16 +23,17 @@ public:
   {
   } // IncludeHandler
 
-  void context(CompilationContext<std::string>& context, SAX::DefaultHandler<std::string>* compiler)
+  void context(CompilationContext<string_type, string_adaptor>& context, 
+               SAX::DefaultHandler<string_type, string_adaptor>* compiler)
   {
     context_ = &context;
     compiler_ = compiler;
   } // context
 
-  void start_include(const std::string& namespaceURI,
-                     const std::string& localName,
-                     const std::string& qName,
-                     const SAX::Attributes<std::string>& atts)
+  void start_include(const string_type& namespaceURI,
+                     const string_type& localName,
+                     const string_type& qName,
+                     const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     context_->parser().setContentHandler(*this);
     startElement(namespaceURI, localName, qName, atts);
@@ -42,19 +44,19 @@ public:
     context_->parentHandler().startDocument();
   } // startDocument
 
-  virtual void startElement(const std::string& namespaceURI,
-                            const std::string& localName,
-                            const std::string& qName,
-                            const SAX::Attributes<std::string>& atts)
+  virtual void startElement(const string_type& namespaceURI,
+                            const string_type& localName,
+                            const string_type& qName,
+                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(no_content_)
       throw SAX::SAXException("xsl:include must be empty");
 
-    if(namespaceURI == StylesheetConstant<std::string>::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
     {
       if(localName == "import")
       {
-        std::string href = validate_href(qName, atts);
+        string_type href = validate_href(qName, atts);
         import_stack_.push_back(href, context_->next_precedence(), current_includes_);
         return;
       } // if(localName == "import")
@@ -71,18 +73,18 @@ public:
                                            atts); 
   } // startElement
 
-  virtual void startPrefixMapping(const std::string& prefix, const std::string& uri)
+  virtual void startPrefixMapping(const string_type& prefix, const string_type& uri)
   {
     context_->parentHandler().startPrefixMapping(prefix, uri);
   } // startPrefixMapping
 
 
-  virtual void endElement(const std::string& namespaceURI,
-                          const std::string& localName,
-                          const std::string& qName)
+  virtual void endElement(const string_type& namespaceURI,
+                          const string_type& localName,
+                          const string_type& qName)
   {
     if(no_content_ &&
-       (namespaceURI == StylesheetConstant<std::string>::NamespaceURI()))
+       (namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI()))
     {
       no_content_ = false;
       if(localName == "include")
@@ -100,10 +102,10 @@ public:
                                          qName);
   } // endElement
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     if(no_content_)
-      verifyNoCharacterData<std::string>(ch, "xsl:include/xsl:import");
+      verifyNoCharacterData<string_type>(ch, "xsl:include/xsl:import");
     context_->parentHandler().characters(ch);
   } // characters
 
@@ -117,21 +119,21 @@ public:
   } // unwind_imports
 
 private:
-  std::string validate_href(const std::string& qName, const SAX::Attributes<std::string>& atts)
+  string_type validate_href(const string_type& qName, const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     static const ValueRule rules[] = { { "href", true, 0, 0 },
 				       { 0, false, 0, 0 } };
-    std::string href = gatherAttributes(qName, atts, rules)["href"];
+    string_type href = gatherAttributes(qName, atts, rules)["href"];
     no_content_ = true;
     // std::cout << "Base : "  << context_->currentBase() << ", href : " << href << "\n";
     return context_->makeAbsolute(href);
   } // validate_href
 
-  void check_for_loops(const std::string& href)
+  void check_for_loops(const string_type& href)
   {
     if(std::find(current_includes_.begin(), current_includes_.end(), href) != current_includes_.end())
     {
-      std::string error = "Stylesheet '" + href + "' includes/imports itself ";
+      string_type error = "Stylesheet '" + href + "' includes/imports itself ";
       for(HrefStack::const_iterator i = current_includes_.begin(), ie = current_includes_.end(); i != ie; ++i)
         error += "\n  " + *i;
       throw std::runtime_error(error);
@@ -144,17 +146,17 @@ private:
     include_stylesheet(import.href, import.precedence);
   } // import_stylesheet
 
-  void include_stylesheet(const std::string& href, const Precedence& precedence)
+  void include_stylesheet(const string_type& href, const Precedence& precedence)
   {
     check_for_loops(href);
     current_includes_.push_back(href);
 
-    std::string prev = context_->setBase(href);
+    string_type prev = context_->setBase(href);
     context_->set_precedence(precedence);
 
-    SAX::InputSource<std::string> source(href);
-    SAX::XMLReader<std::string> include_parser;
-    SAX::CatchErrorHandler<std::string> errorHandler;
+    SAX::InputSource<string_type, string_adaptor> source(href);
+    SAX::XMLReader<string_type, string_adaptor> include_parser;
+    SAX::CatchErrorHandler<string_type, string_adaptor> errorHandler;
  
     include_parser.setContentHandler(*this);
     include_parser.setErrorHandler(errorHandler);
@@ -169,21 +171,21 @@ private:
     current_includes_.pop_back();
   } // include_stylesheet
 
-  CompilationContext<std::string>* context_;
-  SAX::DefaultHandler<std::string>* compiler_;
+  CompilationContext<string_type, string_adaptor>* context_;
+  SAX::DefaultHandler<string_type, string_adaptor>* compiler_;
   bool no_content_;
 
-  typedef std::vector<std::string> HrefStack;
+  typedef std::vector<string_type> HrefStack;
 
   struct ImportHref
   {
-    std::string href;
+    string_type href;
     Precedence precedence;
     HrefStack includes;
     
     ImportHref() { }
     
-    ImportHref(const std::string& h, const Precedence& p, const HrefStack& i) :
+    ImportHref(const string_type& h, const Precedence& p, const HrefStack& i) :
       href(h),
       precedence(p),
       includes(i)
@@ -204,7 +206,7 @@ private:
   public:
     ImportStack() { }
 
-    void push_back(const std::string& href, const Precedence& precedence, const HrefStack& includes)
+    void push_back(const string_type& href, const Precedence& precedence, const HrefStack& includes)
     {
       stack_.push_back(ImportHref(href, precedence, includes));
     } // push_back

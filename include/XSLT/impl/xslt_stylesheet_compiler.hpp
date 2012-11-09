@@ -187,7 +187,7 @@ private:
   
   CompilationContextT& context_;
   DefaultHandlerT* child_;
-  IncludeHandler includer_;
+  IncludeHandler<string_type, string_adaptor> includer_;
   bool top_;
 
   static const ChildElement<string_type, string_adaptor> allowedChildren[];
