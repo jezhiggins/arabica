@@ -343,7 +343,7 @@ private:
 
   void addNamespaceDeclarations()
   {
-    for(NamespaceStack::Scope::const_iterator n = namespaceStack_.begin(), ne = namespaceStack_.end(); n != ne; ++n)
+    for(typename NamespaceStack<string_type>::Scope::const_iterator n = namespaceStack_.begin(), ne = namespaceStack_.end(); n != ne; ++n)
     {
       if(n->first == "xml")
         continue;
@@ -374,7 +374,7 @@ private:
   string_type target_;
   SAX::AttributesImpl<string_type, string_adaptor> atts_;
   std::stringstream buffer_;
-  NamespaceStack namespaceStack_;
+  NamespaceStack<string_type> namespaceStack_;
 }; // class Output
 
 } // namespace XSLT

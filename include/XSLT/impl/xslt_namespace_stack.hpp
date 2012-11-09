@@ -9,10 +9,11 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type>
 class NamespaceStack 
 {
 public:
-  typedef std::map<std::string, std::string> Scope;
+  typedef std::map<string_type, string_type> Scope;
 
   NamespaceStack() :
     autoNs_(1)
@@ -33,36 +34,36 @@ public:
     uriStack_.pop_back();
   } // popScope
 
-  void declareNamespace(const std::string& given_prefix, const std::string& namespaceURI, bool attr = false)
+  void declareNamespace(const string_type& given_prefix, const string_type& namespaceURI, bool attr = false)
   {
     if(findPrefix(namespaceURI) != EMPTY_STRING)
       return;
 
     bool remap = (attr && given_prefix.empty()) || (given_prefix == "xmlns");
 
-    std::string prefix = !remap ? given_prefix : autoNamespacePrefix();
+    string_type prefix = !remap ? given_prefix : autoNamespacePrefix();
 
     prefixStack_.back()[prefix] = namespaceURI;
     uriStack_.back()[namespaceURI] = prefix;
   } // declareNamespace
 
-  const std::string& findURI(const std::string& prefix) const
+  const string_type& findURI(const string_type& prefix) const
   {
     return searchStack(prefixStack_, prefix);
   } // findURI
 
-  const std::string& findPrefix(const std::string& uri) const
+  const string_type& findPrefix(const string_type& uri) const
   {
     return searchStack(uriStack_, uri);
   } // findPrefix
 
-  Scope::const_iterator begin() { return prefixStack_.back().begin(); }
-  Scope::const_iterator end() { return prefixStack_.back().end(); }
+  typename Scope::const_iterator begin() { return prefixStack_.back().begin(); }
+  typename Scope::const_iterator end() { return prefixStack_.back().end(); }
 
 private:
   typedef std::vector<Scope> ScopeStack;
 
-  const std::string& searchStack(const ScopeStack& stack, const std::string& key) const
+  const string_type& searchStack(const ScopeStack& stack, const string_type& key) const
   {
     for(ScopeStack::const_reverse_iterator ss = stack.rbegin(), se = stack.rend(); ss != se; ss++)
     {      
@@ -73,7 +74,7 @@ private:
     return EMPTY_STRING;
   } // searchStack
 
-  std::string autoNamespacePrefix()
+  string_type autoNamespacePrefix()
   {
     std::ostringstream ss;
     ss << "auto-ns" << autoNs_++;
@@ -82,7 +83,7 @@ private:
 
   ScopeStack prefixStack_;
   ScopeStack uriStack_;
-  std::string EMPTY_STRING;
+  string_type EMPTY_STRING;
   unsigned int autoNs_;
 }; // class NamespaceStack
 
