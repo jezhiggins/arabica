@@ -53,7 +53,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData(ch, "xsl:output");
+    verifyNoCharacterData<string_type>(ch, "xsl:output");
   } // characters
  
 private:

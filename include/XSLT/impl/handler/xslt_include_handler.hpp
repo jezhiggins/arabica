@@ -50,7 +50,7 @@ public:
     if(no_content_)
       throw SAX::SAXException("xsl:include must be empty");
 
-    if(namespaceURI == StylesheetConstant::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<std::string>::NamespaceURI())
     {
       if(localName == "import")
       {
@@ -82,7 +82,7 @@ public:
                           const std::string& qName)
   {
     if(no_content_ &&
-       (namespaceURI == StylesheetConstant::NamespaceURI()))
+       (namespaceURI == StylesheetConstant<std::string>::NamespaceURI()))
     {
       no_content_ = false;
       if(localName == "include")
@@ -103,7 +103,7 @@ public:
   virtual void characters(const std::string& ch)
   {
     if(no_content_)
-      verifyNoCharacterData(ch, "xsl:include/xsl:import");
+      verifyNoCharacterData<std::string>(ch, "xsl:include/xsl:import");
     context_->parentHandler().characters(ch);
   } // characters
 

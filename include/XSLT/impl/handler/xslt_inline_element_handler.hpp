@@ -31,7 +31,7 @@ protected:
     {      
       if(atts.getQName(i).find("xmlns:") == 0)
         continue;
-      if(atts.getURI(i) == StylesheetConstant::NamespaceURI())
+      if(atts.getURI(i) == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
         continue;
       if(!baseT::context().isRemapped(atts.getURI(i)))
         inlineAtts.push_back(InlineAttribute<string_type, string_adaptor>(atts.getQName(i), 

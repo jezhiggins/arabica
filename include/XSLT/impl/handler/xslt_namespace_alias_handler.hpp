@@ -62,7 +62,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData(ch, "xsl:namespace-alias");
+    verifyNoCharacterData<string_type>(ch, "xsl:namespace-alias");
   } // characters
 
 private:

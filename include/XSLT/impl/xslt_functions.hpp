@@ -269,7 +269,7 @@ protected:
     const string_type functionName = baseT::argAsString(0, context, executionContext);
     const QualifiedName expandedName = QualifiedName::parseQName(functionName, true, namespaces_);
 
-    if((expandedName.namespaceUri() != StylesheetConstant::NamespaceURI()) &&
+    if((expandedName.namespaceUri() != StylesheetConstant<string_type, string_adaptor>::NamespaceURI()) &&
        (!expandedName.namespaceUri().empty()))
       return false;
 

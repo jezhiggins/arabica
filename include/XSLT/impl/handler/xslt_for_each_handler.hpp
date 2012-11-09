@@ -40,7 +40,7 @@ protected:
                            const string_type& qName,
                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    if((namespaceURI == StylesheetConstant::NamespaceURI()) &&
+    if((namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI()) &&
        (localName == "sort"))
     {
       if(!done_sort_)

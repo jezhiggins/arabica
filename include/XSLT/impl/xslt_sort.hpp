@@ -44,9 +44,9 @@ public:
     static const char* allowed_datatypes[] = { "text", "number", 0 };
     static const char* allowed_orders[] = { "ascending", "descending", 0 };
     static const char* allowed_case_orders[] = { "upper-first", "lower-first", 0 };
-    validateValues("xsl:sort", "data-type", datatype, allowed_datatypes);
-    validateValues("xsl:sort", "order", order, allowed_orders);
-    validateValues("xsl:sort", "case-order", caseorder, allowed_case_orders);
+    validateValues<string_type>("xsl:sort", "data-type", datatype, allowed_datatypes);
+    validateValues<string_type>("xsl:sort", "order", order, allowed_orders);
+    validateValues<string_type>("xsl:sort", "case-order", caseorder, allowed_case_orders);
 
     if(datatype == "number")
       if(order == "ascending")

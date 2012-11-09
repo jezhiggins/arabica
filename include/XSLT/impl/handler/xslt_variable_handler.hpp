@@ -14,50 +14,54 @@ template<class VType>
 class VariableHandler : public ItemContainerHandler<VType>
 {
 public:
-  VariableHandler(CompilationContext<std::string>& context) :
-    ItemContainerHandler<VType>(context),
+  typedef typename VType::string_type string_type;
+  typedef typename VType::string_adaptor string_adaptor;
+  typedef ItemContainerHandler<VType> baseT;
+
+  VariableHandler(CompilationContext<string_type, string_adaptor>& context) :
+    baseT(context),
     has_select_(false),
     precedence_(Precedence::FrozenPrecedence())
   {
   } // VariableHandler
 
-  VariableHandler(CompilationContext<std::string>& context, const Precedence& precedence) :
-    ItemContainerHandler<VType>(context),
+  VariableHandler(CompilationContext<string_type, string_adaptor>& context, const Precedence& precedence) :
+    baseT(context),
     has_select_(false),
     precedence_(precedence)
   {
   } // VariableHandler
 
 protected:
-  virtual VType* createContainer(const std::string& /* namespaceURI */,
-                                 const std::string& /* localName */,
-                                 const std::string& qName,
-                                 const SAX::Attributes<std::string>& atts)
+  virtual VType* createContainer(const string_type& /* namespaceURI */,
+                                 const string_type& /* localName */,
+                                 const string_type& qName,
+                                 const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     static const ValueRule rules[] = { { "name", true, 0, 0 },
                                        { "select", false, 0, 0 },
                                        { 0, false, 0, 0 } };
 
     
-    std::map<std::string, std::string> attrs = gatherAttributes(qName, atts, rules);
+    std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
 
-    const std::string& select = atts.getValue("select");
-    Arabica::XPath::XPathExpressionPtr<std::string> xpath;
+    const string_type& select = atts.getValue("select");
+    Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> xpath;
     if(select != "")
     {
-      xpath = this->context().xpath_expression(select);
+      xpath = baseT::context().xpath_expression(select);
       has_select_ = true;
     } // if ...
 
-    std::string name = this->context().processInternalQName(attrs["name"]).clarkName();
+    string_type name = baseT::context().processInternalQName(attrs["name"]).clarkName();
     return new VType(name, xpath, precedence_);
   } // createContainer
 
-  virtual void characters(const std::string& ch)
+  virtual void characters(const string_type& ch)
   {
     if(has_select_)
     {
-      for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+      for(string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
 	    if(!Arabica::XML::is_space(*i))
 	      throw SAX::SAXException("A variable or param can not have both a select attribute and text context");
     }
@@ -73,17 +77,21 @@ template<class VType>
 class TopLevelVariableHandler : public VariableHandler<VType>
 {
 public:
-  TopLevelVariableHandler(CompilationContext<std::string>& context) :
-      VariableHandler<VType>(context, context.precedence())
+  typedef typename VType::string_type string_type;
+  typedef typename VType::string_adaptor string_adaptor;
+  typedef VariableHandler<VType> baseT;
+
+  TopLevelVariableHandler(CompilationContext<string_type, string_adaptor>& context) :
+      baseT(context, context.precedence())
   {
   } // VariableHandler
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
-    this->context().stylesheet().add_variable(this->container());
-    this->context().pop();
+    baseT::context().stylesheet().add_variable(baseT::container());
+    baseT::context().pop();
   } // endElement
 
 }; // class TopLevelVariableHandler

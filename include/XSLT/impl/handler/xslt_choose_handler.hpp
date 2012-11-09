@@ -112,7 +112,7 @@ public:
       return;
     } // if ...
 
-    if(namespaceURI == StylesheetConstant::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
     {
       if(localName == "when")
       {
@@ -158,7 +158,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData(ch, "xsl:choose");
+    verifyNoCharacterData<string_type>(ch, "xsl:choose");
   } // characters
 
 private:

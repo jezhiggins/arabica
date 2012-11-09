@@ -58,7 +58,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData(ch, "xsl:key");
+    verifyNoCharacterData<string_type>(ch, "xsl:key");
   } // characters
 
 private:

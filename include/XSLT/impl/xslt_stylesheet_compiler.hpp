@@ -52,14 +52,14 @@ public:
     if(top_)
     {
       top_ = false;
-      if(namespaceURI == StylesheetConstant::NamespaceURI())
+      if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
         startStylesheet(namespaceURI, localName, qName, atts);
       else
         startLREAsStylesheet(namespaceURI, localName, qName, atts);
       return;
     } // if(top_)
 
-    if(namespaceURI == StylesheetConstant::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
       startXSLTElement(namespaceURI, localName, qName, atts);
     else if(!namespaceURI.empty())
       startForeignElement(namespaceURI, localName, qName, atts);
@@ -75,7 +75,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData(ch, "xsl:stylesheet/xsl:transform");
+    verifyNoCharacterData<string_type>(ch, "xsl:stylesheet/xsl:transform");
   } // characters
 
   virtual void endDocument()
@@ -99,7 +99,7 @@ private:
                                        { "id", false, 0, 0 },
                                        { 0, false, 0, 0 } };
     std::map<string_type, string_type> attributes = gatherAttributes(qName, atts, rules);
-    if(attributes["version"] != StylesheetConstant::Version())
+    if(attributes["version"] != StylesheetConstant<string_type, string_adaptor>::Version())
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
     if(!attributes["extension-element-prefixes"].empty())
       throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
@@ -112,7 +112,7 @@ private:
   {
     string_type version;
     for(int a = 0; a != atts.getLength(); ++a)
-      if((StylesheetConstant::NamespaceURI() == atts.getURI(a)) &&
+      if((StylesheetConstant<string_type, string_adaptor>::NamespaceURI() == atts.getURI(a)) &&
          ("version" == atts.getLocalName(a)))
       {
         version = atts.getValue(a);
@@ -121,7 +121,7 @@ private:
 
     if(version.empty())
       throw SAX::SAXException("The source file does not look like a stylesheet.");
-    if(version != StylesheetConstant::Version())
+    if(version != StylesheetConstant<string_type, string_adaptor>::Version())
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
 
     Template<string_type, string_adaptor>* lreStylesheet = new Template<string_type, string_adaptor>(context_.xpath_match("/"), "", "", "", context_.precedence());
@@ -165,7 +165,7 @@ private:
                            const AttributesT& atts)
   {
     context_.push(0,
-                  new ForeignElementHandler(context_),
+                  new ForeignElementHandler<string_type, string_adaptor>(context_),
                   namespaceURI,
                   localName,
                   qName,

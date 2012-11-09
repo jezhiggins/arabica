@@ -19,8 +19,11 @@ static const char* Yes = "yes";
 static const char* AllowedYesNo[] = { No, Yes, 0 };
 static const char* DefaultPreserve[] = { "default", "preserve", 0 };
 
-void validateValues(const std::string& parentElement, const std::string& name,
-                    const std::string& value, const char** allowed)
+template<class string_type>
+void validateValues(const string_type& parentElement, 
+                    const string_type& name,
+                    const string_type& value, 
+                    const char** allowed)
 {
   for(const char* const* a = allowed; *a != 0; ++a)
     if(value == *a)
@@ -33,9 +36,11 @@ void validateValues(const std::string& parentElement, const std::string& name,
   throw SAX::SAXException(os.str());
 } // validateValues
 
-void validateXmlAttribute(const std::string& parentElement,
-                          const std::string& name, const std::string& value,
-			  std::map<std::string, std::string>& results)
+template<class string_type>
+void validateXmlAttribute(const string_type& parentElement,
+                          const string_type& name, 
+                          const string_type& value,
+                  			  std::map<string_type, string_type>& results)
 {
   results[name] = value;
 
@@ -43,10 +48,12 @@ void validateXmlAttribute(const std::string& parentElement,
     validateValues(parentElement, name, value, DefaultPreserve);
 } // validateXmlAttribute
 
-void validateAttribute(const std::string& parentElement,
-                       const std::string& name, const std::string& value, 
+template<class string_type>
+void validateAttribute(const string_type& parentElement,
+                       const string_type& name, 
+                       const string_type& value, 
                        const ValueRule* rules, 
-		       std::map<std::string, std::string>& results)
+		                   std::map<string_type, string_type>& results)
 {
   while((rules->name != 0) && (name != rules->name))
     ++rules;
@@ -60,11 +67,12 @@ void validateAttribute(const std::string& parentElement,
     validateValues(parentElement, name, value, rules->allowed);
 } // validateAttribute
 
-std::map<std::string, std::string> gatherAttributes(const std::string& parentElement,
-                                                    const SAX::Attributes<std::string>& atts,
+template<class string_type, class string_adaptor>
+std::map<string_type, string_type> gatherAttributes(const string_type& parentElement,
+                                                    const SAX::Attributes<string_type, string_adaptor>& atts,
                                                     const ValueRule* rules)
 {
-  std::map<std::string, std::string> results;
+  std::map<string_type, string_type> results;
 
   for(const ValueRule* r = rules ; r->name != 0; ++r)
   {
@@ -90,10 +98,11 @@ std::map<std::string, std::string> gatherAttributes(const std::string& parentEle
   return results;
 } // validateAttributes
 
-void verifyNoCharacterData(const std::string& ch,
-                           const std::string& name)
+template<class string_type>
+void verifyNoCharacterData(const string_type& ch,
+                           const string_type& name)
 {
-  for(std::string::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+  for(typename string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
     if(!Arabica::XML::is_space(*i))
       throw SAX::SAXException(name + " element can not contain character data.");
 } // verifyNoCharacterContent

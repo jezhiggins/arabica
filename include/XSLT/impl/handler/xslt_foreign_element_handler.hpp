@@ -6,33 +6,34 @@ namespace Arabica
 namespace XSLT
 {
 
-class ForeignElementHandler : public SAX::DefaultHandler<std::string>
+template<class string_type, class string_adaptor>
+class ForeignElementHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
 public:
-  ForeignElementHandler(CompilationContext<std::string>& context) :
+  ForeignElementHandler(CompilationContext<string_type, string_adaptor>& context) :
          context_(context),
          depth_(0)
   {
   } // ForeignElementHandler
 
-  virtual void startElement(const std::string& /* namespaceURI */,
-                            const std::string& /* localName */,
-                            const std::string& /* qName */,
-                            const SAX::Attributes<std::string>& /* atts */)
+  virtual void startElement(const string_type& /* namespaceURI */,
+                            const string_type& /* localName */,
+                            const string_type& /* qName */,
+                            const SAX::Attributes<string_type, string_adaptor>& /* atts */)
   {
     ++depth_;
   } // startElement
 
-  virtual void endElement(const std::string& /* namespaceURI */,
-                          const std::string& /* localName */,
-                          const std::string& /* qName */)
+  virtual void endElement(const string_type& /* namespaceURI */,
+                          const string_type& /* localName */,
+                          const string_type& /* qName */)
   {
     if(--depth_ == 0)
       context_.pop();
   } // endElement
 
 private:
-  CompilationContext<std::string>& context_;
+  CompilationContext<string_type, string_adaptor>& context_;
   unsigned int depth_;
 }; // class ForeignElementHandler
 

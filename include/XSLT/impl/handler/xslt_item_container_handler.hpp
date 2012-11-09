@@ -85,7 +85,7 @@ protected:
                            const string_type& qName,
                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    if(namespaceURI == StylesheetConstant::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
     {
       for(const ChildElement<string_type, string_adaptor>* c = AllowedChildren<string_type, string_adaptor>(); c->name != 0; ++c)
         if(c->name == localName)

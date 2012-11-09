@@ -25,7 +25,7 @@ public:
   {
     static const ValueRule rules[] = { { "test", true, 0, 0 },
                                        { 0, false, 0, 0 } };
-    std::string test = gatherAttributes(qName, atts, rules)["test"];
+    string_type test = gatherAttributes(qName, atts, rules)["test"];
 
     return new If<string_type, string_adaptor>(ItemContainerHandler<If<string_type, string_adaptor> >::context().xpath_expression(test));
   } // startElement

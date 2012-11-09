@@ -40,7 +40,7 @@ public:
       return;
     } // if(callTemplate_ == 0)
 
-    if((namespaceURI == StylesheetConstant::NamespaceURI()) && (localName == "with-param"))
+    if((namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI()) && (localName == "with-param"))
     {
       context_.push(0,
                     new WithParamHandler<string_type, string_adaptor>(context_, *callTemplate_),

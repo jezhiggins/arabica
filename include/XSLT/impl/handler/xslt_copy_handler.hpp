@@ -69,7 +69,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData(ch, "xsl:copy-of");
+    verifyNoCharacterData<string_type>(ch, "xsl:copy-of");
   } // characters
 
 private:

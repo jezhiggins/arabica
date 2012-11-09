@@ -48,7 +48,7 @@ public:
       return;
     } // if(applyTemplates_ == 0)
 
-    if(namespaceURI == StylesheetConstant::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
     {
       if(localName == "sort")
       {
@@ -87,7 +87,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData(ch, "xsl:apply-templates");
+    verifyNoCharacterData<string_type>(ch, "xsl:apply-templates");
   } // characters
 
 private:
