@@ -20,7 +20,7 @@ public:
   virtual void set_parameter(const string_type& name, bool value) = 0;
   virtual void set_parameter(const string_type& name, double value) = 0;
   virtual void set_parameter(const string_type& name, const char* value) = 0;
-  virtual void set_parameter(const string_type& name, const std::string& value) = 0;
+  virtual void set_parameter(const string_type& name, const string_type& value) = 0;
 
   virtual void set_output(Sink<string_type, string_adaptor>& sink) = 0;
 
