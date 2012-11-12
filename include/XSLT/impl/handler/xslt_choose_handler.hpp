@@ -17,6 +17,7 @@ public:
 
 private:
   typedef ItemContainerHandler<When<string_type, string_adaptor> > baseT;
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 
 public:
   WhenHandler(Choose<string_type, string_adaptor>* choose,
@@ -31,9 +32,9 @@ public:
 				const string_type& qName,
 				const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule rules[] = { { "test", true, 0, 0 },
-                                       { 0, false, 0, 0 } };
-    string_type test = gatherAttributes(qName, atts, rules)["test"];
+    static const ValueRule<string_type> rules[] = { { SC::test, true, 0, 0 },
+                                                    { string_adaptor::empty_string(), false, 0, 0 } };
+    string_type test = gatherAttributes(qName, atts, rules)[SC::test];
 
     return new When<string_type, string_adaptor>(baseT::context().xpath_expression(test));
   } // startElement
@@ -54,6 +55,7 @@ template<class string_type, class string_adaptor>
 class OtherwiseHandler : public ItemContainerHandler<Otherwise<string_type, string_adaptor> >
 {
   typedef ItemContainerHandler<Otherwise<string_type, string_adaptor> > baseT;
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 
 public:
   OtherwiseHandler(Choose<string_type, string_adaptor>* choose,
@@ -89,6 +91,7 @@ private:
 template<class string_type, class string_adaptor>
 class ChooseHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   ChooseHandler(CompilationContext<string_type, string_adaptor>& context) :
       context_(context),
@@ -112,9 +115,9 @@ public:
       return;
     } // if ...
 
-    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI)
     {
-      if(localName == "when")
+      if(localName == SC::when)
       {
         seenWhere_ = true;
         if(seenOtherwise_)
@@ -129,7 +132,7 @@ public:
         return;
       } // if(localName == "when")
 
-      if(localName == "otherwise")
+      if(localName == SC::otherwise)
       {
         if(seenOtherwise_)
           throw SAX::SAXException("xsl:choose may only have one xsl:otherwise element");
@@ -143,7 +146,7 @@ public:
         return;
       } // if(localName == "otherwise")
     } // if ...
-    throw SAX::SAXException("xsl:choose can not contain " + qName + ".  Only xsl:when and xsl:otherwise are allowed");
+    throw SAX::SAXException("xsl:choose can not contain " + string_adaptor::asStdString(qName) + ".  Only xsl:when and xsl:otherwise are allowed");
   } // startElement
 
   virtual void endElement(const string_type& /* namespaceURI */,
@@ -158,7 +161,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData<string_type>(ch, "xsl:choose");
+    verifyNoCharacterData<string_type, string_adaptor>(ch, SC::choose);
   } // characters
 
 private:

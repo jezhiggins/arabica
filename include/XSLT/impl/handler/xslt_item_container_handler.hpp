@@ -58,7 +58,7 @@ public:
     if(createChild(namespaceURI, localName, qName, atts))
       return;
 
-    throw SAX::SAXException(qName + " <- Sorry, don't know about that yet :)");
+    throw SAX::SAXException(string_adaptor::asStdString(qName) + " <- Sorry, don't know about that yet :)");
   } // startElement
 
   virtual void endElement(const string_type& /* namespaceURI */,
@@ -85,9 +85,11 @@ protected:
                            const string_type& qName,
                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI)
     {
-      for(const ChildElement<string_type, string_adaptor>* c = AllowedChildren<string_type, string_adaptor>(); c->name != 0; ++c)
+      for(const ChildElement<string_type, string_adaptor>* c = AllowedChildren<string_type, string_adaptor>();
+          c->name != string_adaptor::empty_string(); 
+          ++c)
         if(c->name == localName)
         {
           context_.push(container_,
@@ -144,27 +146,29 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 const ChildElement<string_type, string_adaptor>* AllowedChildren()
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
+   
   static const ChildElement<string_type, string_adaptor> allowedChildren[] = 
   {
-    { "apply-imports", CreateHandler<ApplyImportsHandler<string_type, string_adaptor> > },
-    { "apply-templates", CreateHandler<ApplyTemplatesHandler<string_type, string_adaptor> > },
-    { "attribute", CreateHandler<AttributeHandler<string_type, string_adaptor> > },
-    { "call-template", CreateHandler<CallTemplateHandler<string_type, string_adaptor> > },
-    { "choose", CreateHandler<ChooseHandler<string_type, string_adaptor> > },
-    { "comment", CreateHandler<CommentHandler<string_type, string_adaptor> > },
-    { "copy", CreateHandler<CopyHandler<string_type, string_adaptor> > },
-    { "copy-of", CreateHandler<CopyOfHandler<string_type, string_adaptor> > },
-    { "element", CreateHandler<ElementHandler<string_type, string_adaptor> > },
-    { "fallback", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { "for-each", CreateHandler<ForEachHandler<string_type, string_adaptor> > },
-    { "if", CreateHandler<IfHandler<string_type, string_adaptor> > },
-    { "message", CreateHandler<MessageHandler<string_type, string_adaptor> >},
-    { "number", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { "processing-instruction", CreateHandler<ProcessingInstructionHandler<string_type, string_adaptor> > },
-    { "text", CreateHandler<TextHandler<string_type, string_adaptor> > },
-    { "value-of", CreateHandler<ValueOfHandler<string_type, string_adaptor> > },
-    { "variable", CreateHandler<VariableHandler<Variable<string_type, string_adaptor> > > },
-    { 0, 0 }
+    { SC::apply_imports, CreateHandler<ApplyImportsHandler<string_type, string_adaptor> > },
+    { SC::apply_templates, CreateHandler<ApplyTemplatesHandler<string_type, string_adaptor> > },
+    { SC::attribute, CreateHandler<AttributeHandler<string_type, string_adaptor> > },
+    { SC::call_template, CreateHandler<CallTemplateHandler<string_type, string_adaptor> > },
+    { SC::choose, CreateHandler<ChooseHandler<string_type, string_adaptor> > },
+    { SC::comment, CreateHandler<CommentHandler<string_type, string_adaptor> > },
+    { SC::copy, CreateHandler<CopyHandler<string_type, string_adaptor> > },
+    { SC::copy_of, CreateHandler<CopyOfHandler<string_type, string_adaptor> > },
+    { SC::element, CreateHandler<ElementHandler<string_type, string_adaptor> > },
+    { SC::fallback, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { SC::for_each, CreateHandler<ForEachHandler<string_type, string_adaptor> > },
+    { SC::if_, CreateHandler<IfHandler<string_type, string_adaptor> > },
+    { SC::message, CreateHandler<MessageHandler<string_type, string_adaptor> >},
+    { SC::number, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { SC::processing_instruction, CreateHandler<ProcessingInstructionHandler<string_type, string_adaptor> > },
+    { SC::text, CreateHandler<TextHandler<string_type, string_adaptor> > },
+    { SC::value_of, CreateHandler<ValueOfHandler<string_type, string_adaptor> > },
+    { SC::variable, CreateHandler<VariableHandler<Variable<string_type, string_adaptor> > > },
+    { string_adaptor::empty_string(), 0 }
   };
   return allowedChildren;
 } // AllowedChildren

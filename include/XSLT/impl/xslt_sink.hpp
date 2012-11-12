@@ -82,8 +82,10 @@ private:
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class StreamSink : public Sink<string_type, string_adaptor>, private Output<string_type, string_adaptor>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
+
 public:
-  StreamSink(std::ostream& stream) :
+  StreamSink(std::basic_ostream<typename string_adaptor::value_type>& stream) :
     stream_(stream),
     disable_output_escaping_(false),
     in_cdata_(false),
@@ -120,7 +122,7 @@ protected:
   {
     seen_root_ = false;
     settings_ = settings;
-    if(setting("indent") == "yes")
+    if(setting(SC::indent) == SC::yes)
       indent_ = 0;
   } // do_start_document
 
@@ -144,17 +146,17 @@ protected:
     {
       stream_ << ' ' << atts.getQName(a) << '=' << '\"';
       string_type ch = atts.getValue(a);
-      std::for_each(ch.begin(), ch.end(), Arabica::XML::attribute_escaper<char>(stream_));
+      std::for_each(ch.begin(), ch.end(), Arabica::XML::attribute_escaper<typename string_adaptor::value_type>(stream_));
       stream_ << '\"';
     }
     empty_ = true;
   } // do_start_element
 
   void do_end_element(const string_type& qName, 
-		      const string_type& /* namespaceURI */)
+		                  const string_type& /* namespaceURI */)
   { 
     if(!seen_root_)
-      do_decl("");
+      do_decl(string_adaptor::empty_string());
 
     preoutdent(empty_);
 
@@ -173,10 +175,10 @@ protected:
     close_element_if_empty();
 
     if(!disable_output_escaping_ && !in_cdata_)
-      std::for_each(ch.begin(), ch.end(), Arabica::XML::text_escaper<char>(stream_));
+      std::for_each(ch.begin(), ch.end(), Arabica::XML::text_escaper<typename string_adaptor::value_type>(stream_));
     else if(in_cdata_) 
     {
-      size_t breakAt = ch.find("]]>");
+      size_t breakAt = ch.find(SC::CDATAEnd);
       if(breakAt == string_type::npos)
       {
         stream_ << ch;
@@ -190,7 +192,7 @@ protected:
         do_end_CDATA();
         start = breakAt;
         do_start_CDATA();
-        breakAt = ch.find("]]>", breakAt);
+        breakAt = ch.find(SC::CDATAEnd, breakAt);
       }
       while(breakAt != string_type::npos);
       stream_ << ch.substr(start);
@@ -204,22 +206,22 @@ protected:
     close_element_if_empty();
 
     in_cdata_ = true;
-    stream_ << "<![CDATA[";
+    stream_ << SC::CDATAStart;
   } // do_start_CDATA
 
   void do_end_CDATA()
   {
     in_cdata_ = false;
-    stream_ << "]]>";
+    stream_ << SC::CDATAEnd;
   } // do_end_CDATA
 
   void do_comment(const string_type& ch)
   {
     close_element_if_empty();
 
-    stream_ << "<!--"
+    stream_ << SC::CommentStart
 	    << ch
-	    << "-->";
+	    << SC::CommentEnd;
   } // do_comment
 
   void do_processing_instruction(const string_type& target,
@@ -227,11 +229,11 @@ protected:
   {
     close_element_if_empty();
 
-    stream_ << "<?" 
+    stream_ << SC::PIStart 
 	    << target
 	    << " "
 	    << data
-	    << "?>";
+	    << SC::PIEnd;
   } // do_processing_instruction
 
   void do_disableOutputEscaping(bool disable) { disable_output_escaping_ = disable; }
@@ -248,7 +250,7 @@ private:
     }
 
     if(!seen_root_)
-      do_decl("");
+      do_decl(string_adaptor::empty_string());
   } // close_element_if_empty
 
   void indent()
@@ -287,17 +289,17 @@ private:
  
   void do_decl(const string_type& qName)
   {
-    if((setting("method") == "text") || (setting("omit-xml-declaration") == "yes"))
+    if((setting(SC::method) == SC::text) || (setting(SC::omit_xml_declaration) == SC::yes))
       return;
 
     {
-      string_type version = setting("version");
+      string_type version = setting(SC::version);
       if(version.empty())
-        version = "1.0";
+        version = SC::Version;
       stream_ << "<?xml version=\"" << version << "\""; 
     }
     {
-      string_type s = setting("standalone");
+      string_type s = setting(SC::standalone);
       if(!s.empty())
         stream_ << " standalone=\"" << s << "\"";
     }
@@ -305,8 +307,8 @@ private:
 
     if(!qName.empty())
     {
-      string_type pub = setting("doctype-public");
-      string_type sys = setting("doctype-system");
+      string_type pub = setting(SC::doctype_public);
+      string_type sys = setting(SC::doctype_system);
 
       if(!sys.empty())
       {
@@ -324,11 +326,11 @@ private:
   {
     typename Settings::const_iterator i = settings_.find(name);
     if(i == settings_.end())
-      return "";
+      return string_adaptor::empty_string();
     return i->second;
   } // setting
 
-  std::ostream& stream_;
+  std::basic_ostream<typename string_adaptor::value_type>& stream_;
   bool disable_output_escaping_;
   bool in_cdata_;
   bool empty_;
@@ -363,9 +365,9 @@ protected:
 
   void do_start_document(const Settings& settings)
   {
-    typename Settings::const_iterator i = settings.find("indent");
+    typename Settings::const_iterator i = settings.find(SC::indent);
     if((i != settings.end()) &&
-       (i->second == "yes"))
+       (i->second == SC::yes))
       indent_ = 0;
   } // do_start_document
 
@@ -437,7 +439,7 @@ private:
       return document_;
 
     DOM::DOMImplementation<string_type, string_adaptor> di = SimpleDOM::DOMImplementation<string_type, string_adaptor>::getDOMImplementation();
-    document_ = di.createDocument("", "", 0);
+    document_ = di.createDocument(string_adaptor::empty_string(), string_adaptor::empty_string(), 0);
     return document_;
   } // document
 
@@ -475,7 +477,7 @@ private:
       return;
 
     if(out_again_)
-      do_characters("\n");
+      do_characters(SC::newline);
 
     indent_ -= 2;
     out_again_ = true;

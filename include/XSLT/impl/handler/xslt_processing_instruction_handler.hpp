@@ -13,6 +13,7 @@ template<class string_type, class string_adaptor>
 class ProcessingInstructionHandler : public ItemContainerHandler<ProcessingInstruction<string_type, string_adaptor> >
 {
   typedef ItemContainerHandler<ProcessingInstruction<string_type, string_adaptor> > baseT;
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 
 public:
   ProcessingInstructionHandler(CompilationContext<string_type, string_adaptor>& context) :
@@ -25,9 +26,9 @@ public:
                                                  const string_type& qName,
                                                  const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule rules[] = { { "name", true, 0, 0 },
-                                       { 0, false, 0, 0} };
-    string_type name = gatherAttributes(qName, atts, rules)["name"];
+    static const ValueRule<string_type> rules[] = { { SC::name, true, 0, 0 },
+                                                    { string_adaptor::empty_string(), false, 0, 0} };
+    string_type name = gatherAttributes(qName, atts, rules)[SC::name];
 
     return new ProcessingInstruction<string_type, string_adaptor>(baseT::context().xpath_attribute_value_template(name));
   } // createContainer

@@ -13,6 +13,7 @@ template<class string_type, class string_adaptor>
 class MessageHandler : public ItemContainerHandler<Message<string_type, string_adaptor> >
 {
   typedef ItemContainerHandler<Message<string_type, string_adaptor> > baseT;
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   MessageHandler(CompilationContext<string_type, string_adaptor>& context) :
       baseT(context)
@@ -25,9 +26,9 @@ protected:
                                    const string_type& qName,
                                    const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule rules[] = { { "terminate", false, No, AllowedYesNo },
-                                       { 0, false, 0, 0 } };
-    return new Message<string_type, string_adaptor>(gatherAttributes(qName, atts, rules)["terminate"] == Yes);
+    static const ValueRule<string_type> rules[] = { { SC::terminate, false, SC::no, SC::AllowedYesNo },
+                                                    { string_adaptor::empty_string(), false, 0, 0 } };
+    return new Message<string_type, string_adaptor>(gatherAttributes(qName, atts, rules)[SC::terminate] == SC::yes);
   } // createContainer
 }; // class MessageHandler
 

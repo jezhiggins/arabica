@@ -93,7 +93,7 @@ public:
     Scope& params = params_.back();
 
     if(params.find(name) != params.end())
-      throw std::runtime_error("Duplicate parameter name in xsl:with-param - " + name);
+      throw std::runtime_error("Duplicate parameter name in xsl:with-param - " + string_adaptor::asStdString(name));
     params[name] = param;
     return name;
   } // passParam
@@ -127,7 +127,7 @@ public:
     {
       const Precedence& current_p = stack[name]->precedence();
       if(var->precedence() == current_p)
-        throw std::runtime_error("Duplicate variable name : " + name);
+        throw std::runtime_error("Duplicate variable name : " + string_adaptor::asStdString(name));
       if(current_p.is_descendant(var->precedence()))
         return;
       if(current_p > var->precedence())
@@ -157,9 +157,11 @@ public:
   virtual XPathValue resolveVariable(const string_type& namespace_uri,
                                      const string_type& name) const
   {
-    string_type clarkName = namespace_uri.empty() ? name : "{" + namespace_uri + "}" + name;
+    typedef Arabica::text::Unicode<string_adaptor::value_type> UnicodeT;
+
+    string_type clarkName = namespace_uri.empty() ? name : UnicodeT::LEFT_SQUARE_BRACKET + namespace_uri + UnicodeT::RIGHT_SQUARE_BRACKET + name;
     if(std::find(resolutionStack_.begin(), resolutionStack_.end(), clarkName) != resolutionStack_.end())
-      throw std::runtime_error("Circular dependency: " + clarkName + " refers to itself directly or indirectly.");
+      throw std::runtime_error("Circular dependency: " + string_adaptor::asStdString(clarkName) + " refers to itself directly or indirectly.");
 
     resolutionStack_.push_back(clarkName);
     XPathValue val = lookup(stack_.back(), clarkName);
@@ -170,7 +172,7 @@ public:
     
     val = lookup(stack_.front(), clarkName); // try our "global" scope
     if(val == 0)
-      throw Arabica::XPath::UnboundVariableException(clarkName);
+      throw Arabica::XPath::UnboundVariableException(string_adaptor::asStdString(clarkName));
     
     return val;
   } // resolveVariable

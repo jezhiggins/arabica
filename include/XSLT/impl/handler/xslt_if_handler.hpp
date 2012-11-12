@@ -12,6 +12,7 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class IfHandler : public ItemContainerHandler<If<string_type, string_adaptor> >
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   IfHandler(CompilationContext<string_type, string_adaptor>& context) :
       ItemContainerHandler<If<string_type, string_adaptor> >(context)
@@ -23,9 +24,9 @@ public:
                               const string_type& qName,
                               const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule rules[] = { { "test", true, 0, 0 },
-                                       { 0, false, 0, 0 } };
-    string_type test = gatherAttributes(qName, atts, rules)["test"];
+    static const ValueRule<string_type>  rules[] = { { SC::test, true, 0, 0 },
+                                                     { string_adaptor::empty_string(), false, 0, 0 } };
+    string_type test = gatherAttributes(qName, atts, rules)[SC::test];
 
     return new If<string_type, string_adaptor>(ItemContainerHandler<If<string_type, string_adaptor> >::context().xpath_expression(test));
   } // startElement

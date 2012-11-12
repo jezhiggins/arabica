@@ -13,6 +13,8 @@ namespace XSLT
 template<class stringT, class adaptorT>
 class ApplyTemplatesHandler : public SAX::DefaultHandler<stringT, adaptorT>
 {
+  typedef StylesheetConstant<stringT, adaptorT> SC;
+
 public:
   typedef stringT string_type;
   typedef adaptorT string_adaptor;
@@ -30,27 +32,27 @@ public:
   {
     if(applyTemplates_ == 0)
     {
-      static const ValueRule rules[] = { { "select", false, 0, 0 },
-                                         { "mode", false, 0, 0 },
-                                         { 0, false, 0, 0} };
+      static const ValueRule<string_type> rules[] = { { SC::select, false, 0, 0 },
+                                                      { SC::mode, false, 0, 0 },
+                                                      { string_adaptor::empty_string(), false, 0, 0} };
       std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
     
-      const string_type& select = attrs["select"];
+      const string_type& select = attrs[SC::select];
       Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> xpath;
-      if(select != "")
+      if(select != string_adaptor::empty_string())
         xpath = context_.xpath_expression(select);
 
       string_type mode;
-      if(attrs["mode"] != "")
-        mode = context_.processInternalQName(attrs["mode"]).clarkName();
+      if(attrs[SC::mode] != string_adaptor::empty_string())
+        mode = context_.processInternalQName(attrs[SC::mode]).clarkName();
       applyTemplates_ = new ApplyTemplates<string_type, string_adaptor>(xpath, mode);
 
       return;
     } // if(applyTemplates_ == 0)
 
-    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI)
     {
-      if(localName == "sort")
+      if(localName == SC::sort)
       {
 
         context_.push(0,
@@ -62,7 +64,7 @@ public:
         return;
       } // if(localName == "sort")
 
-      if(localName == "with-param")
+      if(localName == SC::with_param)
       {
         context_.push(0,
                       new WithParamHandler<string_type, string_adaptor>(context_, *applyTemplates_),
@@ -87,11 +89,11 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData<string_type>(ch, "xsl:apply-templates");
+    verifyNoCharacterData<string_type, string_adaptor>(ch, SC::apply_templates);
   } // characters
 
 private:
-  CompilationContext<string_type, string_adaptor>& context_;
+  CompilationContext<string_type>& context_;
   ApplyTemplates<string_type, string_adaptor>* applyTemplates_;
 }; // class ApplyTemplatesHandler
 

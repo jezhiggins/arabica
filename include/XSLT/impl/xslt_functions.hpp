@@ -25,6 +25,12 @@ class DocumentFunction : public Arabica::XPath::NodeSetXPathFunction<string_type
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
   
 public:
+  static const string_type& name()
+  {
+    static const string_type n = string_adaptor::construct_from_utf8("document");
+    return n;
+  } // name
+
   DocumentFunction(const string_type& currentBase, 
                    const ArgList& args) :
       baseT(1, 2, args),
@@ -54,10 +60,9 @@ private:
     SAX::CatchErrorHandler<string_type, string_adaptor> eh;
     domParser.setErrorHandler(eh);
 
-    Arabica::io::URI base(baseURI_);
-    Arabica::io::URI absolute(base, location);
-
-    SAX::InputSource<string_type, string_adaptor> is(absolute.as_string());
+    Arabica::io::URI base(string_adaptor::asStdString(baseURI_));
+    Arabica::io::URI absolute(base, string_adaptor::asStdString(location));
+    SAX::InputSource<string_type, string_adaptor> is(string_adaptor::construct_from_utf8(absolute.as_string().c_str()));
     domParser.parse(is);
 
     if(!eh.errorsReported())
@@ -83,6 +88,12 @@ class KeyFunction : public Arabica::XPath::NodeSetXPathFunction<string_type, str
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
   typedef XML::QualifiedName<string_type, string_adaptor> QualifiedName;
 public:
+  static const string_type& name()
+  {
+    static const string_type n = string_adaptor::construct_from_utf8("key");
+    return n;
+  } // name
+
   KeyFunction(const DeclaredKeys<string_type, string_adaptor>& keys,
               const std::map<string_type, string_type>& inscopeNamespaces,	      
               const ArgList& args) :
@@ -139,6 +150,12 @@ class CurrentFunction : public Arabica::XPath::NodeSetXPathFunction<string_type,
   typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
+  static const string_type& name()
+  {
+    static const string_type n = string_adaptor::construct_from_utf8("current");
+    return n;
+  } // name
+
   CurrentFunction(const ArgList& args) :
     baseT(0, 0, args) { }
 
@@ -163,6 +180,12 @@ class UnparsedEntityUriFunction : public Arabica::XPath::StringXPathFunction<str
   typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
+  static const string_type& name()
+  {
+    static const string_type n = string_adaptor::construct_from_utf8("unparsed-entity-uri");
+    return n;
+  } // name
+
   UnparsedEntityUriFunction(const ArgList& args) :
     baseT(1, 1, args) { }
 
@@ -171,7 +194,7 @@ protected:
                                  const XPathExecutionContext& /* executionContext */) const
   {
     // This is a minimal, but I think conformant, implementation
-    return "";
+    return string_adaptor::empty_string();
   } // evaluate
 }; // UnparsedEntityUri
 
@@ -187,6 +210,12 @@ class GenerateIdFunction : public Arabica::XPath::StringXPathFunction<string_typ
   typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
+  static const string_type& name()
+  {
+    static const string_type n = string_adaptor::construct_from_utf8("generate-id");
+    return n;
+  } // name
+
   GenerateIdFunction(const ArgList& args) :
     baseT(0, 1, args) { }
 
@@ -201,11 +230,11 @@ protected:
     {
       NodeSet ns = baseT::argAsNodeSet(0, context, executionContext);
       if(ns.size() == 0)
-        return "";
+        return string_adaptor::empty_string();
       node = ns.top();
     } // if ...
 
-    std::ostringstream os;
+    std::basic_ostringstream<typename string_adaptor::value_type> os;
     os << node.underlying_impl();
     return os.str();
   } // doEvaluate
@@ -222,6 +251,12 @@ class SystemPropertyFunction : public Arabica::XPath::StringXPathFunction<string
   typedef Arabica::XPath::ExecutionContext<string_type, string_adaptor> XPathExecutionContext;
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
 public:
+  static const string_type& name()
+  {
+    static const string_type n = string_adaptor::construct_from_utf8("system-property");
+    return n;
+  } // name
+
   SystemPropertyFunction (const ArgList& args) :
       baseT(1, 1, args) { }
 
@@ -229,15 +264,17 @@ protected:
   virtual string_type doEvaluate(const DOMNode& context, 
                                  const XPathExecutionContext& executionContext) const
   {
+    typedef StylesheetConstant<string_type, string_adaptor> SC;
+
     string_type property = baseT::argAsString(0, context, executionContext);
     string_type result;
-    if(property == "xsl:version")
-      return "1.0";
-    if(property == "xsl:vendor")
-      return "Jez Higgins, Jez UK Ltd";
-    else if(property == "xsl:vendor-url")
-      return "http://www.jezuk.co.uk/arabica";
-    return "";
+    if(property == SC::version_property)
+      return SC::Version;
+    if(property == SC::vendor_property)
+      return SC::Vendor;
+    else if(property == SC::vendor_url_property)
+      return SC::VendorUrl;
+    return string_adaptor::empty_string();
   } // evaluate
 }; // SystemPropertyFunction
 
@@ -253,6 +290,12 @@ class ElementAvailableFunction : public Arabica::XPath::BooleanXPathFunction<str
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
   typedef XML::QualifiedName<string_type, string_adaptor> QualifiedName;
 public:
+  static const string_type& name()
+  {
+    static const string_type n = string_adaptor::construct_from_utf8("element_available");
+    return n;
+  } // name
+
   ElementAvailableFunction(const std::vector<std::pair<string_type, string_type> >& names,
 			                     const std::map<string_type, string_type>& inscopeNamespaces,
 			                     const ArgList& args) :
@@ -266,20 +309,36 @@ protected:
   virtual bool doEvaluate(const DOMNode& context,
 			                    const XPathExecutionContext& executionContext) const
   {
+    typedef StylesheetConstant<string_type, string_adaptor> SC;
+
     const string_type functionName = baseT::argAsString(0, context, executionContext);
     const QualifiedName expandedName = QualifiedName::parseQName(functionName, true, namespaces_);
 
-    if((expandedName.namespaceUri() != StylesheetConstant<string_type, string_adaptor>::NamespaceURI()) &&
+    if((expandedName.namespaceUri() != StylesheetConstant<string_type, string_adaptor>::NamespaceURI) &&
        (!expandedName.namespaceUri().empty()))
       return false;
 
-    static const char* XSLTNames[] = { "apply-imports", "apply-templates", "attributes", 
-				       "call-template", "choose", "comment", "copy", 
-				       "copy-of", "element", "fallback", "for-each", 
-				       "if", "message", "number", "processing-instruction",
-				       "text", "value-of", "variable", 0 };
+    static string_type XSLTNames[] = { SC::apply_imports, 
+                                       SC::apply_templates, 
+                                       SC::attribute, 
+				                               SC::call_template, 
+                                       SC::choose, 
+                                       SC::comment, 
+                                       SC::copy, 
+				                               SC::copy_of, 
+                                       SC::element, 
+                                       SC::fallback, 
+                                       SC::for_each, 
+				                               SC::if_, 
+                                       SC::message, 
+                                       SC::number, 
+                                       SC::processing_instruction,
+				                               SC::text, 
+                                       SC::value_of, 
+                                       SC::variable, 
+                                       string_adaptor::empty_string() };
 
-    for(int i = 0; XSLTNames[i] != 0; ++i)
+    for(int i = 0; XSLTNames[i] != string_adaptor::empty_string(); ++i)
       if(expandedName.localName() == XSLTNames[i])
         return true;
     
@@ -303,6 +362,12 @@ class FunctionAvailableFunction : public Arabica::XPath::BooleanXPathFunction<st
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
   typedef XML::QualifiedName<string_type, string_adaptor> QualifiedName;
 public:
+  static const string_type& name()
+  {
+    static const string_type n = string_adaptor::construct_from_utf8("function-available");
+    return n;
+  } // name
+
   FunctionAvailableFunction(const std::vector<std::pair<string_type, string_type> >& names, 
 			                      const std::map<string_type, string_type>& inscopeNamespaces,
 			                      const ArgList& args) :
@@ -347,11 +412,13 @@ public:
 		                const ArgList& args) :
     baseT(-1, -1, args)
   {
+    typedef Arabica::text::Unicode<string_adaptor::value_type> UnicodeT;
+
     if(!namespace_uri.empty())
     {
-      error_ += "{";
+      error_ += UnicodeT::LEFT_SQUARE_BRACKET;
       error_ += namespace_uri;
-      error_ += "}";
+      error_ += UnicodeT::RIGHT_SQUARE_BRACKET;
     } // if .. 
 
     error_ += name;
@@ -360,7 +427,7 @@ public:
 protected:
   virtual bool doEvaluate(const DOMNode&, const XPathExecutionContext&) const
   {
-    throw Arabica::XPath::UndefinedFunctionException(error_);
+    throw Arabica::XPath::UndefinedFunctionException(string_adaptor::asStdString(error_));
   } // doEvaluate
 
   string_type error_;

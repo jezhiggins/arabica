@@ -90,7 +90,7 @@ private:
   void verifyQName(const QualifiedNameT& qName) const
   {
     if(qName.has_prefix() && !qName.has_namespaceUri())
-      throw SAX::SAXException("Namespace prefix '" + qName.prefix() + "' is not bound");
+      throw SAX::SAXException("Namespace prefix '" + string_adaptor::asStdString(qName.prefix()) + "' is not bound");
   } // verifyQName
   
   TextCoalescerT text_coalescer_;

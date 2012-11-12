@@ -13,6 +13,7 @@ template<class string_type, class string_adaptor>
 class TemplateHandler : public ItemContainerHandler<Template<string_type, string_adaptor> >
 {
   typedef ItemContainerHandler<Template<string_type, string_adaptor> > baseT;
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   TemplateHandler(CompilationContext<string_type, string_adaptor>& context) :
     baseT(context),
@@ -41,40 +42,40 @@ protected:
                                     const string_type& qName,
                                     const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule rules[] = { { "match", false, 0, 0 },
-                                       { "mode", false, 0, 0 },
-                                       { "name", false, 0, 0 }, 
-                                       { "priority", false, 0, 0 },
-				       { 0, false, 0, 0 } };
+    static const ValueRule<string_type> rules[] = { { SC::match, false, 0, 0 },
+                                                    { SC::mode, false, 0, 0 },
+                                                    { SC::name, false, 0, 0 }, 
+                                                    { SC::priority, false, 0, 0 },
+				                                            { string_adaptor::empty_string(), false, 0, 0 } };
     std::map<string_type, string_type> attributes = gatherAttributes(qName, atts, rules);
                                        
-    const string_type& match = attributes["match"];
-    if((match == "") && (attributes["name"] == ""))
+    const string_type& match = attributes[SC::match];
+    if((match == string_adaptor::empty_string()) && (attributes[SC::name] == string_adaptor::empty_string()))
       throw SAX::SAXException("xsl:template must have a match and/or a name attribute");
 
-    int index = atts.getIndex("mode");
+    int index = atts.getIndex(SC::mode);
     if(index != -1)
     {
-      const string_type& mode = attributes["mode"];
-      if(mode == "")
+      const string_type& mode = attributes[SC::mode];
+      if(mode == string_adaptor::empty_string())
         throw SAX::SAXException("xsl:template mode cannot be empty");
-      if(match == "")
+      if(match == string_adaptor::empty_string())
         throw SAX::SAXException("xsl:template may not have a mode without a match");
     } // ...
 
-    const string_type& priority = attributes["priority"];
-    if((atts.getIndex("priority") != -1) && (priority == ""))
+    const string_type& priority = attributes[SC::priority];
+    if((atts.getIndex(SC::priority) != -1) && (priority == string_adaptor::empty_string()))
       throw SAX::SAXException("xsl:template priority cannot be empty");
 
     string_type name;
-    if(attributes["name"] != "")
-      name = baseT::context().processInternalQName(attributes["name"]).clarkName();
+    if(attributes[SC::name] != string_adaptor::empty_string())
+      name = baseT::context().processInternalQName(attributes[SC::name]).clarkName();
 
     string_type mode;
-    if(attributes["mode"] != "")
-      mode = baseT::context().processInternalQName(attributes["mode"]).clarkName();
+    if(attributes[SC::mode] != string_adaptor::empty_string())
+      mode = baseT::context().processInternalQName(attributes[SC::mode]).clarkName();
 
-    if(match == "")
+    if(match == string_adaptor::empty_string())
       return new Template<string_type, string_adaptor>(name,
 			  mode,
 			  priority,
@@ -92,8 +93,8 @@ protected:
                            const string_type& qName,
                            const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    if((namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI()) &&
-       (localName == "param"))
+    if((namespaceURI == SC::NamespaceURI) &&
+       (localName == SC::param))
     {
       if(!done_params_)
       {

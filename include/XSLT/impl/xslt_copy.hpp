@@ -11,11 +11,12 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class Copy_base : public ItemContainer<string_type, string_adaptor>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 protected:
   Copy_base()
   {
     Arabica::XPath::XPath<string_type, string_adaptor> compiler;
-    namespace_select_ = compiler.compile("namespace::node()");
+    namespace_select_ = compiler.compile(SC::namespace_xpath);
   } // Copy_base
 
   virtual ~Copy_base() { }

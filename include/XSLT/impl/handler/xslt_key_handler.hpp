@@ -12,6 +12,7 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class KeyHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
   typedef typename Key<string_type, string_adaptor>::MatchExprList MatchExprList;
 public:
   KeyHandler(CompilationContext<string_type, string_adaptor>& context) :
@@ -26,19 +27,19 @@ public:
 			    const SAX::Attributes<string_type, string_adaptor>& atts)
   {
     if(key_ != 0)
-      throw SAX::SAXException(qName + " can not contain elements");
+      throw SAX::SAXException(string_adaptor::asStdString(qName) + " can not contain elements");
 
-    static const ValueRule rules[] = { { "name", true, 0, 0 },
-                                       { "match", true, 0, 0 }, 
-                                       { "use", true, 0, 0 },
-                                       { 0, false, 0, 0 } };
+    static const ValueRule<string_type> rules[] = { { SC::name, true, 0, 0 },
+                                                    { SC::match, true, 0, 0 }, 
+                                                    { SC::use, true, 0, 0 },
+                                                    { string_adaptor::empty_string(), false, 0, 0 } };
 
     std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
-    name_ = context_.processInternalQName(attrs["name"]).clarkName();
+    name_ = context_.processInternalQName(attrs[SC::name]).clarkName();
     try 
     {
-      MatchExprList matches = context_.xpath_match_no_variables(attrs["match"]);
-      Arabica::XPath::XPathExpression<string_type, string_adaptor> use = context_.xpath_expression_no_variables(attrs["use"]);
+      MatchExprList matches = context_.xpath_match_no_variables(attrs[SC::match]);
+      Arabica::XPath::XPathExpression<string_type, string_adaptor> use = context_.xpath_expression_no_variables(attrs[SC::use]);
 
       key_ = new Key<string_type, string_adaptor>(matches, use);
     } // try
@@ -49,8 +50,8 @@ public:
   } // startElement
 
   virtual void endElement(const string_type& /* namespaceURI */,
-			  const string_type& /* localName */,
-			  const string_type& /* qName */)
+		                      const string_type& /* localName */,
+		                      const string_type& /* qName */)
   {
     context_.stylesheet().add_key(name_, key_);
     context_.pop();
@@ -58,7 +59,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData<string_type>(ch, "xsl:key");
+    verifyNoCharacterData<string_type, string_adaptor>(ch, SC::key);
   } // characters
 
 private:

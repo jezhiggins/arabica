@@ -2,6 +2,7 @@
 #define ARABICA_XSLT_QNAME_HPP
 
 #include <XML/strings.hpp>
+#include "handler/xslt_constants.hpp"
 
 namespace Arabica
 {
@@ -11,6 +12,8 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 struct QName
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
+
   string_type prefix;
   string_type localName;
   string_type namespaceURI;
@@ -22,33 +25,31 @@ struct QName
     prefix(p),
     localName(lN),
     namespaceURI(uri),
-    qname(p.empty() ? lN : (p + ":" + lN))
+    qname(p.empty() ? lN : (p + SC::COLON + lN))
   {
   } // QName
 
   static QName create(const XML::QualifiedName<string_type>& qName)
   {
     if(qName.prefix().length() && qName.namespaceUri().empty())
-      throw SAX::SAXException("Prefix " + qName.prefix() + " is not declared.");
+      throw SAX::SAXException("Prefix " + string_adaptor::asStdString(qName.prefix()) + " is not declared.");
     return QName(qName.prefix(), qName.localName(), qName.namespaceUri());
   } // create
 
   static QName create(const string_type& qName)
   {
-    return create(qName, "");
+    return create(qName, string_adaptor::empty_string());
   } // create
 
   static QName create(const string_type& qName, const string_type& namespaceURI)
   {
     if(!Arabica::XML::is_qname<string_adaptor>(qName))
-      throw SAX::SAXException("Bad name : '" + qName + "'");
-
-    static char COLON = Arabica::text::Unicode<char>::COLON;
+      throw SAX::SAXException("Bad name : '" + string_adaptor::asStdString(qName) + "'");
 
     string_type prefix;
     string_type localName;
 
-    size_t colon = qName.find(COLON);
+    size_t colon = qName.find(SC::COLON);
      
     if(colon == string_type::npos) 
       localName = qName;

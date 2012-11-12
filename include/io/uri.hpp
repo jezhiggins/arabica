@@ -21,7 +21,7 @@ namespace Arabica
         host_(rhs.host_),
         path_(rhs.path_),
         port_(rhs.port_),
-	is_absolute_(rhs.is_absolute_)
+	      is_absolute_(rhs.is_absolute_)
         {
         } // URI
 
@@ -54,7 +54,7 @@ namespace Arabica
         std::swap(host_, rhs.host_);
         std::swap(path_, rhs.path_);
         std::swap(port_, rhs.port_);
-	std::swap(is_absolute_, rhs.is_absolute_);
+	      std::swap(is_absolute_, rhs.is_absolute_);
       } // swap
 
       const std::string& scheme() const { return scheme_; }

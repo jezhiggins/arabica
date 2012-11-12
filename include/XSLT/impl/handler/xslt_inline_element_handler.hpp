@@ -14,6 +14,8 @@ template<class string_type, class string_adaptor>
 class InlineElementHandler : public ItemContainerHandler<InlineElement<string_type, string_adaptor> >
 {
   typedef ItemContainerHandler<InlineElement<string_type, string_adaptor> > baseT;
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
+
 public:
   InlineElementHandler(CompilationContext<string_type, string_adaptor>& context) :
       baseT(context)
@@ -29,9 +31,9 @@ protected:
     std::vector<InlineAttribute<string_type, string_adaptor> > inlineAtts;
     for(int i = 0; i != atts.getLength(); ++i)
     {      
-      if(atts.getQName(i).find("xmlns:") == 0)
+      if(atts.getQName(i).find(SC::xmlns_colon) == 0)
         continue;
-      if(atts.getURI(i) == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
+      if(atts.getURI(i) == StylesheetConstant<string_type, string_adaptor>::NamespaceURI)
         continue;
       if(!baseT::context().isRemapped(atts.getURI(i)))
         inlineAtts.push_back(InlineAttribute<string_type, string_adaptor>(atts.getQName(i), 
@@ -42,7 +44,7 @@ protected:
         std::pair<string_type, string_type> remap = baseT::context().remappedNamespace(atts.getURI(i));
         if(remap.first.empty() && !remap.second.empty())
            remap.first = baseT::context().autoNamespacePrefix();
-        string_type name = remap.first + ":" + atts.getLocalName(i);
+        string_type name = remap.first + SC::COLON + atts.getLocalName(i);
         inlineAtts.push_back(InlineAttribute<string_type, string_adaptor>(name, 
                                              remap.second,
                                              baseT::context().xpath_attribute_value_template(atts.getValue(i))));
@@ -53,7 +55,7 @@ protected:
       return new InlineElement<string_type, string_adaptor>(qName, namespaceURI, inlineAtts);
 
     const std::pair<string_type, string_type>& remap = baseT::context().remappedNamespace(namespaceURI);
-    string_type name = remap.first + ":" + localName;
+    string_type name = remap.first + SC::COLON + localName;
     return new InlineElement<string_type, string_adaptor>(name, remap.second, inlineAtts);
   } // createContainer
 }; // class InlineElementHandler

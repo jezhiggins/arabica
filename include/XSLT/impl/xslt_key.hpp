@@ -103,7 +103,7 @@ public:
   {
     const KeysIterator k = keys_.find(name);
     if(k == keys_.end())
-      throw SAX::SAXException("No key named '" + name + "' has been defined.");
+      throw SAX::SAXException("No key named '" + string_adaptor::asStdString(name) + "' has been defined.");
     
     if(k->second.size() == 1)
       return k->second[0]->lookup(id, context);

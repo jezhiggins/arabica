@@ -11,6 +11,7 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class Sort
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   typedef Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> XPathExpressionPtr;
   typedef DOM::Node<string_type, string_adaptor> DOMNode;
@@ -41,20 +42,20 @@ public:
     const string_type order = order_->evaluateAsString(node, context_->xpathContext());
     const string_type caseorder = caseorder_->evaluateAsString(node, context_->xpathContext());
 
-    static const char* allowed_datatypes[] = { "text", "number", 0 };
-    static const char* allowed_orders[] = { "ascending", "descending", 0 };
-    static const char* allowed_case_orders[] = { "upper-first", "lower-first", 0 };
-    validateValues<string_type>("xsl:sort", "data-type", datatype, allowed_datatypes);
-    validateValues<string_type>("xsl:sort", "order", order, allowed_orders);
-    validateValues<string_type>("xsl:sort", "case-order", caseorder, allowed_case_orders);
+    static string_type allowed_datatypes[] = { SC::text, SC::number, string_adaptor::empty_string() };
+    static string_type allowed_orders[] = { SC::ascending, SC::descending, string_adaptor::empty_string() };
+    static string_type allowed_case_orders[] = { SC::upper_first, SC::lower_first, string_adaptor::empty_string() };
+    validateValues<string_type, string_adaptor>(SC::sort, SC::data_type, datatype, allowed_datatypes);
+    validateValues<string_type, string_adaptor>(SC::sort, SC::order, order, allowed_orders);
+    validateValues<string_type, string_adaptor>(SC::sort, SC::case_order, caseorder, allowed_case_orders);
 
-    if(datatype == "number")
-      if(order == "ascending")
+    if(datatype == SC::number)
+      if(order == SC::ascending)
         sort_fn_ = &Sort::numberAscending;
       else
         sort_fn_ = &Sort::numberDescending;
     else
-      if(order == "ascending")
+      if(order == SC::ascending)
         sort_fn_ = &Sort::stringAscending;
       else
         sort_fn_ = &Sort::stringDescending;

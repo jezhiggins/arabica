@@ -14,6 +14,7 @@ template<class string_type, class string_adaptor>
 class IncludeHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   struct ImportHref;
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 
 public:
   IncludeHandler() :
@@ -52,19 +53,19 @@ public:
     if(no_content_)
       throw SAX::SAXException("xsl:include must be empty");
 
-    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
+    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI)
     {
-      if(localName == "import")
+      if(localName == SC::import)
       {
         string_type href = validate_href(qName, atts);
         import_stack_.push_back(href, context_->next_precedence(), current_includes_);
         return;
-      } // if(localName == "import")
-      if(localName == "include")
+      } // if ...
+      if(localName == SC::include)
       {
         href_.push_back(validate_href(qName, atts));
         return;
-      } // if(localName == "include")
+      } // if ...
     } // if ...
 
     context_->parentHandler().startElement(namespaceURI,
@@ -84,10 +85,10 @@ public:
                           const string_type& qName)
   {
     if(no_content_ &&
-       (namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI()))
+       (namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI))
     {
       no_content_ = false;
-      if(localName == "include")
+      if(localName == SC::include)
       {
         include_stylesheet(href_.back(), context_->precedence());
         href_.pop_back();
@@ -105,7 +106,7 @@ public:
   virtual void characters(const string_type& ch)
   {
     if(no_content_)
-      verifyNoCharacterData<string_type>(ch, "xsl:include/xsl:import");
+      verifyNoCharacterData<string_type, string_adaptor>(ch, SC::include + SC::import);
     context_->parentHandler().characters(ch);
   } // characters
 
@@ -121,9 +122,9 @@ public:
 private:
   string_type validate_href(const string_type& qName, const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule rules[] = { { "href", true, 0, 0 },
-				       { 0, false, 0, 0 } };
-    string_type href = gatherAttributes(qName, atts, rules)["href"];
+    static const ValueRule<string_type> rules[] = { { SC::href, true, 0, 0 },
+				                                            { 0, false, 0, 0 } };
+    string_type href = gatherAttributes(qName, atts, rules)[SC::href];
     no_content_ = true;
     // std::cout << "Base : "  << context_->currentBase() << ", href : " << href << "\n";
     return context_->makeAbsolute(href);
@@ -133,9 +134,9 @@ private:
   {
     if(std::find(current_includes_.begin(), current_includes_.end(), href) != current_includes_.end())
     {
-      string_type error = "Stylesheet '" + href + "' includes/imports itself ";
+      std::string error = "Stylesheet '" + string_adaptor::asStdString(href) + "' includes/imports itself ";
       for(HrefStack::const_iterator i = current_includes_.begin(), ie = current_includes_.end(); i != ie; ++i)
-        error += "\n  " + *i;
+        error += "\n  " + string_adaptor::asStdString(*i);
       throw std::runtime_error(error);
     } // if ...
   } // check_for_loops
@@ -166,7 +167,7 @@ private:
     context_->setBase(prev);
 
     if(errorHandler.errorsReported())
-      throw std::runtime_error("Could not import/include stylesheet '" + href + "' - " + errorHandler.errors());
+      throw std::runtime_error("Could not import/include stylesheet '" + string_adaptor::asStdString(href) + "' - " + errorHandler.errors());
 
     current_includes_.pop_back();
   } // include_stylesheet

@@ -41,7 +41,7 @@ private:
       throw SAX::SAXException("xsl:processing-instruction : name attribute must evaluate to a valid name");
 
     if(!Arabica::XML::is_ncname<string_adaptor>(name))
-      throw SAX::SAXException("xsl:processing-instruction : '" + name + "' is not valid as the name");
+      throw SAX::SAXException("xsl:processing-instruction : '" + string_adaptor::asStdString(name) + "' is not valid as the name");
 
     if(name.length() != 3)
       return;

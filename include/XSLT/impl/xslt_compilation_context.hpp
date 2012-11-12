@@ -25,6 +25,7 @@ class CompilationContext :
 {
 private:
   typedef Arabica::XPath::DefaultVariableCompileTimeResolver<string_type, string_adaptor> CTVariableResolverT;
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 
 public:
   typedef StylesheetParser<string_type, string_adaptor> StylesheetParserT;
@@ -168,8 +169,8 @@ public:
   
   string_type autoNamespacePrefix() const
   {
-    std::ostringstream ss;
-    ss << "auto-ns" << autoNs_++;
+    std::basic_ostringstream<typename string_adaptor::value_type> ss;
+    ss << SC::auto_ns << autoNs_++;
     return ss.str();
   } // autoNamespacePrefix
 
@@ -207,31 +208,31 @@ private:
       return new UndefinedFunction<string_type, string_adaptor>(namespace_uri, name, argExprs);
 
     // document
-    if(name == "document")
+    if(name == DocumentFunction<string_type, string_adaptor>::name())
       return new DocumentFunction<string_type, string_adaptor>(parser_.currentBase(), argExprs);
     // key
-    if(name == "key")
+    if(name == KeyFunction<string_type, string_adaptor>::name())
       return new KeyFunction<string_type, string_adaptor>(stylesheet_.keys(), parser_.inScopeNamespaces(), argExprs);
     // format-number
     // current
-    if((name == "current") && (current_allowed_))
+    if((name == CurrentFunction<string_type, string_adaptor>::name()) && (current_allowed_))
       return new CurrentFunction<string_type, string_adaptor>(argExprs);
     // unparsed-entity-uri
-    //if(name == "unparsed-entity-uri")
-    //  return new UnparsedEntityUriFunction(argExprs);
+    if(name == UnparsedEntityUriFunction<string_type, string_adaptor>::name())
+      return new UnparsedEntityUriFunction<string_type, string_adaptor>(argExprs);
     // generate-id
-    if(name == "generate-id")
+    if(name == GenerateIdFunction<string_type, string_adaptor>::name())
       return new GenerateIdFunction<string_type, string_adaptor>(argExprs);
-    if(name == "system-property")
+    if(name == SystemPropertyFunction<string_type, string_adaptor>::name())
       return new SystemPropertyFunction<string_type, string_adaptor>(argExprs);
     // element-available
-    if(name == "element-available")
+    if(name == ElementAvailableFunction<string_type, string_adaptor>::name())
     {
       std::vector<std::pair<string_type, string_type> > dummy;
       return new ElementAvailableFunction<string_type, string_adaptor>(dummy, parser_.inScopeNamespaces(), argExprs);
     } 
     // function-available
-    if(name == "function-available")
+    if(name == FunctionAvailableFunction<string_type, string_adaptor>::name())
       return new FunctionAvailableFunction<string_type, string_adaptor>(validNames(), parser_.inScopeNamespaces(), argExprs);
 
     return 0;
@@ -239,14 +240,21 @@ private:
 
   virtual std::vector<std::pair<string_type, string_type> > validNames() const 
   {
-    static const char* functionNames[] = { "document", "key", /* format-number, */ "current",
-					   /* unparsed-entity-uri, */ "generate-id", "system-property", 
-					   /* element-available, */ "function-available", 0 };
+    static string_type functionNames[] = { DocumentFunction<string_type, string_adaptor>::name(), 
+                                           KeyFunction<string_type, string_adaptor>::name(), 
+                                           /* format-number, */ 
+                                           CurrentFunction<string_type, string_adaptor>::name(),
+					                                 UnparsedEntityUriFunction<string_type, string_adaptor>::name(), 
+                                           GenerateIdFunction<string_type, string_adaptor>::name(), 
+                                           SystemPropertyFunction<string_type, string_adaptor>::name(), 
+					                                 ElementAvailableFunction<string_type, string_adaptor>::name(),
+                                           FunctionAvailableFunction<string_type, string_adaptor>::name(), 
+                                           string_adaptor::empty_string() };
 
     std::vector<std::pair<string_type,string_type> > names;
 
-    for(int i = 0; functionNames[i] != 0; ++i)
-      names.push_back(std::make_pair("", functionNames[i]));
+    for(int i = 0; functionNames[i] != string_adaptor::empty_string(); ++i)
+      names.push_back(std::make_pair(string_adaptor::empty_string(), functionNames[i]));
 
     return names;
   } // validNames

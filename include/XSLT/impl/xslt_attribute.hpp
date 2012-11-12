@@ -49,7 +49,7 @@ public:
       {
         typename std::map<string_type, string_type>::const_iterator ns = namespaces_.find(qn.prefix);
         if(ns == namespaces_.end())
-          throw SAX::SAXException("xsl:attribute Runtime Error - Undeclared prefix " + qn.prefix);
+          throw SAX::SAXException("xsl:attribute Runtime Error - Undeclared prefix " + string_adaptor::asStdString(qn.prefix));
         namesp = ns->second;
       } // if(!qn.prefix.empty())
     } // if ...

@@ -4,14 +4,17 @@
 #include <map>
 #include <vector>
  
+#include "handler/xslt_constants.hpp"
+
 namespace Arabica
 {
 namespace XSLT
 {
 
-template<class string_type>
+template<class string_type, class string_adaptor>
 class NamespaceStack 
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   typedef std::map<string_type, string_type> Scope;
 
@@ -39,7 +42,7 @@ public:
     if(findPrefix(namespaceURI) != EMPTY_STRING)
       return;
 
-    bool remap = (attr && given_prefix.empty()) || (given_prefix == "xmlns");
+    bool remap = (attr && given_prefix.empty()) || (given_prefix == SC::xmlns);
 
     string_type prefix = !remap ? given_prefix : autoNamespacePrefix();
 
@@ -76,8 +79,8 @@ private:
 
   string_type autoNamespacePrefix()
   {
-    std::ostringstream ss;
-    ss << "auto-ns" << autoNs_++;
+    std::basic_ostringstream<typename string_adaptor::value_type> ss;
+    ss << SC::auto_ns << autoNs_++;
     return ss.str();
   } // autoNamespacePrefix
 

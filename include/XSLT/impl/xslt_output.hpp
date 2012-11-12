@@ -15,6 +15,7 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class Output
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   typedef std::map<string_type, string_type> Settings;
   typedef std::set<QName<string_type, string_adaptor> > CDATAElements;
@@ -36,8 +37,8 @@ protected:
 public:
   void start_document(const Settings& settings, const CDATAElements& cdataElements)
   {
-    typename Settings::const_iterator method = settings.find("method");
-    text_mode_ = (method != settings.end() && method->second == "text");
+    typename Settings::const_iterator method = settings.find(SC::method);
+    text_mode_ = (method != settings.end() && method->second == SC::text);
     if(text_mode_)
       do_disableOutputEscaping(true);
 
@@ -94,7 +95,7 @@ public:
     if(!text_mode_)
     {
       string_type mapped_prefix = namespaceStack_.findPrefix(namespaceURI);
-      do_end_element((!mapped_prefix.empty()) ? mapped_prefix + ':' + localName : localName, namespaceURI);
+      do_end_element((!mapped_prefix.empty()) ? mapped_prefix + SC::COLON + localName : localName, namespaceURI);
       element_stack_.pop();
     } // end_element
 
@@ -114,7 +115,7 @@ public:
 
     if(!pending_element_)
     {
-      warning("WARNING: Cannot write attribute, no open element");
+      warning(string_adaptor::construct_from_utf8("WARNING: Cannot write attribute, no open element"));
       return;
     } // if ...
 
@@ -122,13 +123,13 @@ public:
       namespaceStack_.declareNamespace(prefix, namespaceURI, true);
 
     string_type mapped_prefix = namespaceStack_.findPrefix(namespaceURI);
-    string_type qName = (!mapped_prefix.empty()) ? mapped_prefix + ':' + localName : localName;
+    string_type qName = (!mapped_prefix.empty()) ? mapped_prefix + SC::COLON + localName : localName;
 
     atts_.addOrReplaceAttribute(namespaceURI,
                                 localName,
                                 qName,
-                                "",
-                                "");
+                                string_adaptor::empty_string(),
+                                string_adaptor::empty_string());
     pending_attribute_ = atts_.getIndex(qName);
   } // start_attribute
 
@@ -152,11 +153,11 @@ public:
   {
     if(!pending_element_)
     {  
-      warning("WARNING: Cannot write attribute, no open element");
+      warning(string_adaptor::construct_from_utf8("WARNING: Cannot write attribute, no open element"));
       return;
     } // if ...
 
-    atts_.addAttribute(uri, localName, qName, "", value); 
+    atts_.addAttribute(uri, localName, qName, string_adaptor::empty_string(), value); 
   } // add_attribute
 
   void characters(const string_type& ch)
@@ -203,9 +204,9 @@ public:
 
     if(!text_mode_)
     {
-      string_type comment = escape(buffer_.str(), "--", "- -");
-      if(comment.length() && *(comment.rbegin()) == '-')
-        comment.append(" ");
+      string_type comment = escape(buffer_.str(), SC::double_hyphen, SC::escaped_double_hyphen);
+      if(comment.length() && *(comment.rbegin()) == SC::HYPHEN_MINUS)
+        comment += SC::SPACE;
       do_comment(comment);
     } // if ...
   } // end_comment
@@ -227,7 +228,7 @@ public:
 
     if(!text_mode_)
     {
-      string_type data = escape(buffer_.str(), "?>", "? >");
+      string_type data = escape(buffer_.str(), SC::PIEnd, SC::escaped_pi_end);
       do_processing_instruction(target_, data);
     } // if ...
   } // end_processing_instruction
@@ -276,7 +277,7 @@ private:
     if(is_buf)
       return true;
 
-    buffer_.str("");
+    buffer_.str(string_adaptor::empty_string());
     return false;
   } // push_buffering
 
@@ -284,7 +285,7 @@ private:
   {
     if(!buffering_)
       return false;
-    warning("WARNING: non-text ignored when creating processing instruction, comment or attribute");
+    warning(string_adaptor::construct_from_utf8("WARNING: non-text ignored when creating processing instruction, comment or attribute"));
     return true;
   } // is_buffering
 
@@ -343,16 +344,16 @@ private:
 
   void addNamespaceDeclarations()
   {
-    for(typename NamespaceStack<string_type>::Scope::const_iterator n = namespaceStack_.begin(), ne = namespaceStack_.end(); n != ne; ++n)
+    for(typename NamespaceStack<string_type, string_adaptor>::Scope::const_iterator n = namespaceStack_.begin(), ne = namespaceStack_.end(); n != ne; ++n)
     {
-      if(n->first == "xml")
+      if(n->first == SC::xml)
         continue;
 
-      string_type qName = (n->first.empty()) ? "xmlns" : "xmlns:" + n->first;
-      atts_.addAttribute("http://www.w3.org/2000/xmlns",
+      string_type qName = (n->first.empty()) ? SC::xmlns : SC::xmlns_colon + n->first;
+      atts_.addAttribute(SC::xmlns_uri,
                          n->first,
                          qName,
-                         "",
+                         string_adaptor::empty_string(),
                          n->second);
     }
   } // addNamespaceDeclarations
@@ -360,7 +361,7 @@ private:
   void warning(const string_type& warning_message)
   {
     warning_sink_->characters(warning_message);
-    warning_sink_->characters("\n");
+    warning_sink_->characters(SC::newline);
   } // warning
 
   int buffering_;
@@ -373,8 +374,8 @@ private:
   std::stack<QName<string_type, string_adaptor> > element_stack_;
   string_type target_;
   SAX::AttributesImpl<string_type, string_adaptor> atts_;
-  std::stringstream buffer_;
-  NamespaceStack<string_type> namespaceStack_;
+  std::basic_stringstream<typename string_adaptor::value_type> buffer_;
+  NamespaceStack<string_type, string_adaptor> namespaceStack_;
 }; // class Output
 
 } // namespace XSLT

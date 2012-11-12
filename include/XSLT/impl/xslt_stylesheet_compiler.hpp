@@ -24,6 +24,7 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class StylesheetHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   typedef string_type stringT;
   typedef string_adaptor string_adaptorT;
@@ -52,14 +53,14 @@ public:
     if(top_)
     {
       top_ = false;
-      if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
+      if(namespaceURI == SC::NamespaceURI)
         startStylesheet(namespaceURI, localName, qName, atts);
       else
         startLREAsStylesheet(namespaceURI, localName, qName, atts);
       return;
     } // if(top_)
 
-    if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI())
+    if(namespaceURI == SC::NamespaceURI)
       startXSLTElement(namespaceURI, localName, qName, atts);
     else if(!namespaceURI.empty())
       startForeignElement(namespaceURI, localName, qName, atts);
@@ -75,7 +76,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData<string_type>(ch, "xsl:stylesheet/xsl:transform");
+    verifyNoCharacterData<string_type, string_adaptor>(ch, SC::stylesheet);
   } // characters
 
   virtual void endDocument()
@@ -90,18 +91,18 @@ private:
                        const string_type& qName,
                        const AttributesT& atts)
   {
-    if(localName != "stylesheet" && localName != "transform")
+    if(localName != SC::stylesheet && localName != SC::transform)
       throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
     
-    static const ValueRule rules[] = { { "version", true, 0, 0 },
-                                       { "extension-element-prefixes", false, 0, 0 },
-                                       { "exclude-result-prefixes", false, 0, 0 },
-                                       { "id", false, 0, 0 },
-                                       { 0, false, 0, 0 } };
+    static const ValueRule<string_type> rules[] = { { SC::version, true, 0, 0 },
+                                                    { SC::extension_element_prefixes, false, 0, 0 },
+                                                    { SC::exclude_result_prefixes, false, 0, 0 },
+                                                    { SC::id, false, 0, 0 },
+                                                    { 0, false, 0, 0 } };
     std::map<string_type, string_type> attributes = gatherAttributes(qName, atts, rules);
-    if(attributes["version"] != StylesheetConstant<string_type, string_adaptor>::Version())
+    if(attributes[SC::version] != SC::Version)
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
-    if(!attributes["extension-element-prefixes"].empty())
+    if(!attributes[SC::extension_element_prefixes].empty())
       throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
   } // startStylesheet
 
@@ -112,8 +113,8 @@ private:
   {
     string_type version;
     for(int a = 0; a != atts.getLength(); ++a)
-      if((StylesheetConstant<string_type, string_adaptor>::NamespaceURI() == atts.getURI(a)) &&
-         ("version" == atts.getLocalName(a)))
+      if((SC::NamespaceURI == atts.getURI(a)) &&
+         (SC::version == atts.getLocalName(a)))
       {
         version = atts.getValue(a);
         break;
@@ -121,10 +122,15 @@ private:
 
     if(version.empty())
       throw SAX::SAXException("The source file does not look like a stylesheet.");
-    if(version != StylesheetConstant<string_type, string_adaptor>::Version())
+    if(version != SC::Version)
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
 
-    Template<string_type, string_adaptor>* lreStylesheet = new Template<string_type, string_adaptor>(context_.xpath_match("/"), "", "", "", context_.precedence());
+    Template<string_type, string_adaptor>* lreStylesheet = 
+            new Template<string_type, string_adaptor>(context_.xpath_match(SC::root_xpath), 
+                                                      string_adaptor::empty_string(), 
+                                                      string_adaptor::empty_string(), 
+                                                      string_adaptor::empty_string(), 
+                                                      context_.precedence());
     context_.push(lreStylesheet,
                   new LREStylesheetHandler<string_type, string_adaptor>(context_, lreStylesheet),
                   namespaceURI, 
@@ -138,13 +144,13 @@ private:
                         const string_type& qName,
                         const AttributesT& atts)
   {
-    if((localName == "import") || (localName == "include"))
+    if((localName == SC::import) || (localName == SC::include))
     {
       include_stylesheet(namespaceURI, localName, qName, atts);
       return;
     } // if ...
     
-    for(const ChildElement<string_type, string_adaptor>* c = allowedChildren; c->name != 0; ++c)
+    for(const ChildElement<string_type, string_adaptor>* c = allowedChildren; c->name != string_adaptor::empty_string(); ++c)
       if(c->name == localName)
       {
         context_.push(0,
@@ -182,7 +188,7 @@ private:
 
   void oops(const string_type& qName) const
   {
-    throw SAX::SAXException("xsl:stylesheet does not allow " + qName + " here.");  
+    throw SAX::SAXException("xsl:stylesheet does not allow " + string_adaptor::asStdString(qName) + " here.");  
   } // oops
   
   CompilationContextT& context_;
@@ -196,18 +202,18 @@ private:
 template<class string_type, class string_adaptor>
 const ChildElement<string_type, string_adaptor> StylesheetHandler<string_type, string_adaptor>::allowedChildren[] =
   {
-    { "attribute-set", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { "decimal-format", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { SC::attribute_set, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { SC::decimal_format, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
     //"import"
     //"include"
-    { "key", CreateHandler<KeyHandler<string_type, string_adaptor> >},
-    { "namespace-alias", CreateHandler<NamespaceAliasHandler<string_type, string_adaptor> >},
-    { "output", CreateHandler<OutputHandler<string_type, string_adaptor> >},
-    { "param", CreateHandler<TopLevelVariableHandler<Param<string_type, string_adaptor> > >},
-    { "preserve-space", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { "strip-space", CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { "template", CreateHandler<TemplateHandler<string_type, string_adaptor> > },
-    { "variable", CreateHandler<TopLevelVariableHandler<Variable<string_type, string_adaptor> > > },
+    { SC::key, CreateHandler<KeyHandler<string_type, string_adaptor> >},
+    { SC::namespace_alias, CreateHandler<NamespaceAliasHandler<string_type, string_adaptor> >},
+    { SC::output, CreateHandler<OutputHandler<string_type, string_adaptor> >},
+    { SC::param, CreateHandler<TopLevelVariableHandler<Param<string_type, string_adaptor> > >},
+    { SC::preserve_space, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { SC::strip_space, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
+    { SC::template_, CreateHandler<TemplateHandler<string_type, string_adaptor> > },
+    { SC::variable, CreateHandler<TopLevelVariableHandler<Variable<string_type, string_adaptor> > > },
     { 0, 0 }
   }; // StylesheetHandler::allowedChildren
 

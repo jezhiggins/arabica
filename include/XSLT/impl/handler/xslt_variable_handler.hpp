@@ -13,6 +13,7 @@ namespace XSLT
 template<class VType>
 class VariableHandler : public ItemContainerHandler<VType>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   typedef typename VType::string_type string_type;
   typedef typename VType::string_adaptor string_adaptor;
@@ -38,22 +39,22 @@ protected:
                                  const string_type& qName,
                                  const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule rules[] = { { "name", true, 0, 0 },
-                                       { "select", false, 0, 0 },
-                                       { 0, false, 0, 0 } };
+    static const ValueRule<string_type> rules[] = { { SC::name, true, 0, 0 },
+                                                    { SC::select, false, 0, 0 },
+                                                    { string_adaptor::empty_string(), false, 0, 0 } };
 
     
     std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
 
-    const string_type& select = atts.getValue("select");
+    const string_type& select = atts.getValue(SC::select);
     Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> xpath;
-    if(select != "")
+    if(select != string_adaptor::empty_string())
     {
       xpath = baseT::context().xpath_expression(select);
       has_select_ = true;
     } // if ...
 
-    string_type name = baseT::context().processInternalQName(attrs["name"]).clarkName();
+    string_type name = baseT::context().processInternalQName(attrs[SC::name]).clarkName();
     return new VType(name, xpath, precedence_);
   } // createContainer
 

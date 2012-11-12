@@ -46,7 +46,7 @@ public:
     execute_children(node, context);
 
     if(sink.node() == 0)
-      return StringValue::createValue("");
+      return StringValue::createValue(string_adaptor::empty_string());
 
     NodeSet nodeset;
     for(DOMNode n = sink.node().getFirstChild(); n != 0; n = n.getNextSibling())

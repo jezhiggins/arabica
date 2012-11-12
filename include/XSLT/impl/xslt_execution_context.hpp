@@ -40,7 +40,7 @@ class ExecutionContext
 public:
   ExecutionContext(const CompiledStylesheet<string_type, string_adaptor>& stylesheet,
                    Sink<string_type, string_adaptor>& output,
-                   std::ostream& error_output) :
+                   std::basic_ostream<typename string_adaptor::value_type>& error_output) :
       stylesheet_(stylesheet),
       sink_(output.asOutput()),
       message_sink_(error_output),

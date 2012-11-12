@@ -12,6 +12,7 @@ namespace XSLT
 template<class stringT, class adaptorT>
 class CallTemplateHandler : public SAX::DefaultHandler<stringT, adaptorT>
 {
+  typedef StylesheetConstant<stringT, adaptorT> SC;
 public:
   typedef stringT string_type;
   typedef adaptorT string_adaptor;
@@ -29,18 +30,18 @@ public:
   {
     if(callTemplate_ == 0)
     {
-      static const ValueRule rules[] = { { "name", true, 0, 0 },
-                                         { 0, false, 0, 0 } };
+      static const ValueRule<string_type> rules[] = { { SC::name, true, 0, 0 },
+                                                      { string_adaptor::empty_string(), false, 0, 0 } };
     
       std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
 
-      string_type name = context_.processInternalQName(attrs["name"]).clarkName();
+      string_type name = context_.processInternalQName(attrs[SC::name]).clarkName();
 
       callTemplate_ = new CallTemplate<string_type, string_adaptor>(name);
       return;
     } // if(callTemplate_ == 0)
 
-    if((namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI()) && (localName == "with-param"))
+    if((namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI) && (localName == SC::with_param))
     {
       context_.push(0,
                     new WithParamHandler<string_type, string_adaptor>(context_, *callTemplate_),

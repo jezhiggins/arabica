@@ -12,6 +12,7 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class ValueOfHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   ValueOfHandler(CompilationContext<string_type, string_adaptor>& context) : 
     context_(context),
@@ -26,17 +27,17 @@ public:
   {
     if(valueOf_ == 0)
     {
-      static const ValueRule rules[] = { { "select", true, 0, 0 },
-                                         { "disable-output-escaping", false, No, AllowedYesNo },
-                                         { 0, false, 0, 0 } };
+      static const ValueRule<string_type> rules[] = { { SC::select, true, 0, 0 },
+                                                      { SC::disable_output_escaping, false, SC::no, SC::AllowedYesNo },
+                                                      { 0, false, 0, 0 } };
 
       std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
-      valueOf_ = new ValueOf<string_type, string_adaptor>(context_.xpath_expression(attrs["select"]), 
-			                                               attrs["disable-output-escaping"] == Yes);
+      valueOf_ = new ValueOf<string_type, string_adaptor>(context_.xpath_expression(attrs[SC::select]), 
+			                                               attrs[SC::disable_output_escaping] == SC::yes);
       return;
     } // if(valueOf_ == 0)
 
-    throw SAX::SAXException(qName + " can not contain elements");
+    throw SAX::SAXException(string_adaptor::asStdString(qName) + " can not contain elements");
   } // startElement
 
   virtual void endElement(const string_type& /* namespaceURI */,
@@ -49,7 +50,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData<string_type>(ch, "xsl:value-of");
+    verifyNoCharacterData<string_type, string_adaptor>(ch, SC::value_of);
   } // characters
 
 private:

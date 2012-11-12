@@ -51,7 +51,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData<string_type>(ch, "xsl:apply-imports");
+    verifyNoCharacterData<string_type, string_adaptor>(ch, StylesheetConstant<string_type, string_adaptor>::apply_imports);
   } // characters
 
 private:

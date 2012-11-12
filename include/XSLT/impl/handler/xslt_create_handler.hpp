@@ -31,7 +31,7 @@ public:
                             const string_type& qName,
                             const SAX::Attributes<string_type, string_adaptor>& /* atts */)
   {
-    throw SAX::SAXException("Haven't implemented " + qName + " yet");
+    throw SAX::SAXException("Haven't implemented " + string_adaptor::asStdString(qName) + " yet");
   } // startElement
 }; // NotImplementedYetHandler
 
@@ -40,7 +40,7 @@ struct ChildElement
 {
   typedef SAX::DefaultHandler<string_type, string_adaptor>* (*CreateHandlerPtr)(CompilationContext<string_type, string_adaptor>&);
 
-  const char* const name;
+  const string_type name;
   CreateHandlerPtr createHandler;
 }; // struct ChildElement
 

@@ -11,6 +11,8 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class SortHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 { 
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
+
 public:
   SortHandler(CompilationContext<string_type, string_adaptor>& context,
               Sortable<string_type, string_adaptor>& sortee) : 
@@ -27,22 +29,22 @@ public:
   {
     if(sort_ == 0)
     {
-      static const ValueRule rules[] = { { "select", false, ".", 0 },
-                                         { "lang", false, 0, 0 },
-                                         { "data-type", false, "text", 0 },
-                                         { "order", false, "ascending", 0 },
-                                         { "case-order", false, "upper-first", 0 },
-                                         { 0, false, 0, 0 } };
+      static const ValueRule<string_type> rules[] = { { SC::select, false, SC::current_xpath, 0 },
+                                                      { SC::lang, false, 0, 0 },
+                                                      { SC::data_type, false, SC::text, 0 },
+                                                      { SC::order, false, SC::ascending, 0 },
+                                                      { SC::case_order, false, SC::upper_first, 0 },
+                                                      { 0, false, 0, 0 } };
 
       std::map<string_type, string_type> attr = gatherAttributes(qName, atts, rules);
 
       Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> select, lang, datatype, order, caseorder;
-      select = context_.xpath_expression(attr["select"]);
-      datatype = context_.xpath_attribute_value_template(attr["data-type"]);
-      order = context_.xpath_attribute_value_template(attr["order"]);
-      caseorder = context_.xpath_attribute_value_template(attr["case-order"]);
+      select = context_.xpath_expression(attr[SC::select]);
+      datatype = context_.xpath_attribute_value_template(attr[SC::data_type]);
+      order = context_.xpath_attribute_value_template(attr[SC::order]);
+      caseorder = context_.xpath_attribute_value_template(attr[SC::case_order]);
 
-      if(attr["lang"].length() != 0)
+      if(attr[SC::lang].length() != 0)
 	      std::cerr << "Sorry!  Don't support xsl:sort lang attribute yet" << std::endl;
  
       sort_ = new Sort<string_type, string_adaptor>(select,
@@ -66,7 +68,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    verifyNoCharacterData<string_type>(ch, "xsl:sort");
+    verifyNoCharacterData<string_type, string_adaptor>(ch, SC::sort);
   } // characters
 
 private:

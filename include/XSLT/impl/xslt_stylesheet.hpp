@@ -24,7 +24,7 @@ public:
 
   virtual void set_output(Sink<string_type, string_adaptor>& sink) = 0;
 
-  virtual void set_error_output(std::ostream& os) = 0;
+  virtual void set_error_output(std::basic_ostream<typename string_adaptor::value_type>& os) = 0;
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& initialNode) const = 0;
 }; // class Stylesheet

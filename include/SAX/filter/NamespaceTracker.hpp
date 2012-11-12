@@ -61,7 +61,7 @@ public:
 
       ns[*p] = namespaces_.getURI(*p);
     } // for ...
-    ns[""] = namespaces_.getURI("");
+    ns[string_adaptor::empty_string()] = namespaces_.getURI(string_adaptor::empty_string());
     return ns;
   } // inScopeNamespaces
 

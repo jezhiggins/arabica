@@ -29,8 +29,8 @@ public:
   typedef DOM::NodeList<string_type, string_adaptor> DOMNodeList;
 
   CompiledStylesheet() :
-      output_(new StreamSink<string_type, string_adaptor>(std::cout)),
-      error_output_(&std::cerr)
+      output_(new StreamSink<string_type, string_adaptor>(std::wcout)),
+      error_output_(&std::wcerr)
   {
   } // CompiledStylesheet
 
@@ -67,7 +67,7 @@ public:
     output_.reset(sink);
   } // set_output
 
-  virtual void set_error_output(std::ostream& os)
+  virtual void set_error_output(std::basic_ostream<typename string_adaptor::value_type>& os)
   {
     error_output_ = &os;
   } // set_error_output
@@ -91,7 +91,7 @@ public:
 
     // go!
     output_.get().asOutput().start_document(output_settings_, output_cdata_elements_);
-    applyTemplates(ns, context, "");
+    applyTemplates(ns, context, string_adaptor::empty_string());
     output_.get().asOutput().end_document();
   } // execute
 
@@ -121,7 +121,7 @@ public:
 
       if(existing_precedence == templat->precedence())
         	throw SAX::SAXException("Template named '" +
-                                  templat->name() + 
+                                  string_adaptor::asStdString(templat->name()) + 
 				                          "' already defined");
     } // if ...
      
@@ -196,8 +196,8 @@ public:
     if(t == named_templates_.end())
     {
       std::cerr << "No template named '"; 
-      std::cerr << name << "'.  I should be a compile-time error!" << std::endl;
-      throw SAX::SAXException("No template named " + name + ".  I should be a compile-time error.  Sorry!");
+      std::cerr << string_adaptor::asStdString(name) << "'.  I should be a compile-time error!" << std::endl;
+      throw SAX::SAXException("No template named " + string_adaptor::asStdString(name) + ".  I should be a compile-time error.  Sorry!");
       return;
     }
      
@@ -278,7 +278,7 @@ private:
 
   void set_parameter(const string_type& name, Value value)
   {
-    params_.push_back(new TopLevelParam<string_type, string_adaptor>("", name, value));
+    params_.push_back(new TopLevelParam<string_type, string_adaptor>(string_adaptor::empty_string(), name, value));
   } // set_parameter
 
   void set_parameter(const string_type& namespace_uri, const string_type& name, Value value)
@@ -343,7 +343,7 @@ private:
   typename Output<string_type, string_adaptor>::Settings output_settings_;
   typename Output<string_type, string_adaptor>::CDATAElements output_cdata_elements_;
   SinkHolder<string_type, string_adaptor> output_;
-  mutable std::ostream* error_output_;
+  mutable std::basic_ostream<typename string_adaptor::value_type>* error_output_;
 }; // class CompiledStylesheet
 
 } // namespace XSLT

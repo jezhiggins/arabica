@@ -11,6 +11,8 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 class TextHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
+
 public:
   TextHandler(CompilationContext<string_type, string_adaptor>& context) :
     context_(context),
@@ -25,13 +27,13 @@ public:
   {
     if(text_ == 0)
     {
-      static const ValueRule rules[] = { { "disable-output-escaping", false, No, AllowedYesNo },
-                                         { 0, false, 0, 0 } };
-      text_ = new Text<string_type, string_adaptor>(gatherAttributes(qName, atts, rules)["disable-output-escaping"] == Yes);
+      static const ValueRule<string_type> rules[] = { { SC::disable_output_escaping, false, SC::no, SC::AllowedYesNo },
+                                                      { string_adaptor::empty_string(), false, 0, 0 } };
+      text_ = new Text<string_type, string_adaptor>(gatherAttributes(qName, atts, rules)[SC::disable_output_escaping] == SC::yes);
       return;
     } // if(text_ == 0)
 
-    throw SAX::SAXException(qName + " can not contain elements");
+    throw SAX::SAXException(string_adaptor::asStdString(qName) + " can not contain elements");
   } // startElement
 
   virtual void endElement(const string_type& /* namespaceURI */,
