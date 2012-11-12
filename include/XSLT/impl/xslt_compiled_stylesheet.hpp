@@ -16,9 +16,31 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class value_type>
+struct standard_stream
+{
+  static std::basic_ostream<value_type>& out();
+  static std::basic_ostream<value_type>& err();
+};
+
+template<>
+struct standard_stream<char>
+{
+  static std::basic_ostream<char>& out() { return std::cout; }
+  static std::basic_ostream<char>& err() { return std::cerr; }
+};
+
+template<>
+struct standard_stream<wchar_t>
+{
+  static std::basic_ostream<wchar_t>& out() { return std::wcout; }
+  static std::basic_ostream<wchar_t>& err() { return std::wcerr; }
+};
+
 template<class string_type, class string_adaptor>
 class CompiledStylesheet : public Stylesheet<string_type, string_adaptor>
 {
+  typedef standard_stream<typename string_adaptor::value_type> streams;
 public:
   typedef Arabica::XPath::BoolValue<string_type, string_adaptor> BoolValue;
   typedef Arabica::XPath::NumericValue<string_type, string_adaptor> NumericValue;
@@ -29,8 +51,8 @@ public:
   typedef DOM::NodeList<string_type, string_adaptor> DOMNodeList;
 
   CompiledStylesheet() :
-      output_(new StreamSink<string_type, string_adaptor>(std::wcout)),
-      error_output_(&std::wcerr)
+      output_(new StreamSink<string_type, string_adaptor>(streams::out())),
+      error_output_(&streams::err())
   {
   } // CompiledStylesheet
 
