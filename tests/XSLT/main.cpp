@@ -69,7 +69,7 @@ std::set<std::string> parse_tests_to_run(int argc, const char* argv[])
     else
     {
       if(std::string(argv[a]) == "-log")
-	++a; // skip next
+	      ++a; // skip next
     } // if ...
      
   return tests;
