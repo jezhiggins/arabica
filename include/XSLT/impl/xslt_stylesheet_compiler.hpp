@@ -94,11 +94,11 @@ private:
     if(localName != SC::stylesheet && localName != SC::transform)
       throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
     
-    static const ValueRule<string_type> rules[] = { { SC::version, true, 0, 0 },
-                                                    { SC::extension_element_prefixes, false, 0, 0 },
-                                                    { SC::exclude_result_prefixes, false, 0, 0 },
-                                                    { SC::id, false, 0, 0 },
-                                                    { 0, false, 0, 0 } };
+    static const ValueRule<string_type> rules[] = { { SC::version, true },
+                                                    { SC::extension_element_prefixes, false },
+                                                    { SC::exclude_result_prefixes, false },
+                                                    { SC::id, false },
+                                                    { string_adaptor::empty_string(), false } };
     std::map<string_type, string_type> attributes = gatherAttributes(qName, atts, rules);
     if(attributes[SC::version] != SC::Version)
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
@@ -150,7 +150,9 @@ private:
       return;
     } // if ...
     
-    for(const ChildElement<string_type, string_adaptor>* c = allowedChildren; c->name != string_adaptor::empty_string(); ++c)
+    for(const ChildElement<string_type, string_adaptor>* c = allowedChildren; 
+        c->name != string_adaptor::empty_string(); 
+        ++c)
       if(c->name == localName)
       {
         context_.push(0,
@@ -202,19 +204,19 @@ private:
 template<class string_type, class string_adaptor>
 const ChildElement<string_type, string_adaptor> StylesheetHandler<string_type, string_adaptor>::allowedChildren[] =
   {
+    { SC::template_, CreateHandler<TemplateHandler<string_type, string_adaptor> > },
+    { SC::param, CreateHandler<TopLevelVariableHandler<Param<string_type, string_adaptor> > >},
+    { SC::variable, CreateHandler<TopLevelVariableHandler<Variable<string_type, string_adaptor> > > },
+    { SC::output, CreateHandler<OutputHandler<string_type, string_adaptor> >},
     { SC::attribute_set, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
     { SC::decimal_format, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
     //"import"
     //"include"
     { SC::key, CreateHandler<KeyHandler<string_type, string_adaptor> >},
     { SC::namespace_alias, CreateHandler<NamespaceAliasHandler<string_type, string_adaptor> >},
-    { SC::output, CreateHandler<OutputHandler<string_type, string_adaptor> >},
-    { SC::param, CreateHandler<TopLevelVariableHandler<Param<string_type, string_adaptor> > >},
     { SC::preserve_space, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
     { SC::strip_space, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { SC::template_, CreateHandler<TemplateHandler<string_type, string_adaptor> > },
-    { SC::variable, CreateHandler<TopLevelVariableHandler<Variable<string_type, string_adaptor> > > },
-    { 0, 0 }
+    { string_adaptor::empty_string(), 0 }
   }; // StylesheetHandler::allowedChildren
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
