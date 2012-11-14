@@ -150,21 +150,12 @@ private:
       return;
     } // if ...
     
-    for(const ChildElement<string_type, string_adaptor>* c = allowedChildren; 
-        c->name != string_adaptor::empty_string(); 
-        ++c)
-      if(c->name == localName)
-      {
-        context_.push(0,
-                      c->createHandler(context_),
-                      namespaceURI, 
-                      localName, 
-                      qName, 
-                      atts);
-        return;
-      } // if ...
+    SAX::DefaultHandler<string_type, string_adaptor>* child = allowedChildren().create(localName, context_);
 
-    oops(qName);
+    if(child != 0)
+      context_.push(0, child, namespaceURI, localName, qName, atts);
+    else
+      oops(qName);
   } // startXSLTElement
 
   void startForeignElement(const string_type& namespaceURI,
@@ -192,32 +183,32 @@ private:
   {
     throw SAX::SAXException("xsl:stylesheet does not allow " + string_adaptor::asStdString(qName) + " here.");  
   } // oops
+
+  ChildElements<string_type, string_adaptor>& allowedChildren() 
+  {
+    static ChildElements<string_type, string_adaptor> allowed = 
+        ChildElements<string_type, string_adaptor>::add(SC::template_, CreateHandler<TemplateHandler<string_type, string_adaptor> > )
+                      .add(SC::param, CreateHandler<TopLevelVariableHandler<Param<string_type, string_adaptor> > >)
+                      .add(SC::variable, CreateHandler<TopLevelVariableHandler<Variable<string_type, string_adaptor> > > )
+                      .add(SC::output, CreateHandler<OutputHandler<string_type, string_adaptor> >)
+                      .add(SC::attribute_set, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >)
+                      .add(SC::decimal_format, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >)
+                      //"import"
+                      //"include"
+                      .add(SC::key, CreateHandler<KeyHandler<string_type, string_adaptor> >)
+                      .add(SC::namespace_alias, CreateHandler<NamespaceAliasHandler<string_type, string_adaptor> >)
+                      .add(SC::preserve_space, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >)
+                      .add(SC::strip_space, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >);
+
+     return allowed;
+   } // allowedChildren
+
   
   CompilationContextT& context_;
   DefaultHandlerT* child_;
   IncludeHandler<string_type, string_adaptor> includer_;
   bool top_;
-
-  static const ChildElement<string_type, string_adaptor> allowedChildren[];
 }; // class StylesheetHandler
-
-template<class string_type, class string_adaptor>
-const ChildElement<string_type, string_adaptor> StylesheetHandler<string_type, string_adaptor>::allowedChildren[] =
-  {
-    { SC::template_, CreateHandler<TemplateHandler<string_type, string_adaptor> > },
-    { SC::param, CreateHandler<TopLevelVariableHandler<Param<string_type, string_adaptor> > >},
-    { SC::variable, CreateHandler<TopLevelVariableHandler<Variable<string_type, string_adaptor> > > },
-    { SC::output, CreateHandler<OutputHandler<string_type, string_adaptor> >},
-    { SC::attribute_set, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { SC::decimal_format, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    //"import"
-    //"include"
-    { SC::key, CreateHandler<KeyHandler<string_type, string_adaptor> >},
-    { SC::namespace_alias, CreateHandler<NamespaceAliasHandler<string_type, string_adaptor> >},
-    { SC::preserve_space, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { SC::strip_space, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { string_adaptor::empty_string(), 0 }
-  }; // StylesheetHandler::allowedChildren
 
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class StylesheetCompiler 

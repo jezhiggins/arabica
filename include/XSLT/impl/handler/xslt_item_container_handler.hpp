@@ -10,9 +10,6 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-const ChildElement<string_type, string_adaptor>* AllowedChildren();
-
-template<class string_type, class string_adaptor>
 SAX::DefaultHandler<string_type, string_adaptor>* createInlineElementHandler(CompilationContext<string_type, string_adaptor>& context);
 
 template<class container_type>
@@ -87,19 +84,13 @@ protected:
   {
     if(namespaceURI == StylesheetConstant<string_type, string_adaptor>::NamespaceURI)
     {
-      for(const ChildElement<string_type, string_adaptor>* c = AllowedChildren<string_type, string_adaptor>();
-          c->name != string_adaptor::empty_string(); 
-          ++c)
-        if(c->name == localName)
-        {
-          context_.push(container_,
-                        c->createHandler(context_),
-                        namespaceURI, 
-                        localName, 
-                        qName, 
-                        atts);
-          return true;
-        } // if ...
+      SAX::DefaultHandler<string_type, string_adaptor>* child = AllowedChildren<string_type, string_adaptor>().create(localName, context_);
+
+      if(child != 0)
+      {
+        context_.push(container_, child, namespaceURI, localName, qName, atts);
+        return true;
+      }
       return false;
     } // if(namespaceURI ...
 
@@ -144,32 +135,29 @@ namespace XSLT
 {
 
 template<class string_type, class string_adaptor>
-const ChildElement<string_type, string_adaptor>* AllowedChildren()
+const ChildElements<string_type, string_adaptor>& AllowedChildren()
 {
   typedef StylesheetConstant<string_type, string_adaptor> SC;
    
-  static const ChildElement<string_type, string_adaptor> allowedChildren[] = 
-  {
-    { SC::apply_imports, CreateHandler<ApplyImportsHandler<string_type, string_adaptor> > },
-    { SC::apply_templates, CreateHandler<ApplyTemplatesHandler<string_type, string_adaptor> > },
-    { SC::attribute, CreateHandler<AttributeHandler<string_type, string_adaptor> > },
-    { SC::call_template, CreateHandler<CallTemplateHandler<string_type, string_adaptor> > },
-    { SC::choose, CreateHandler<ChooseHandler<string_type, string_adaptor> > },
-    { SC::comment, CreateHandler<CommentHandler<string_type, string_adaptor> > },
-    { SC::copy, CreateHandler<CopyHandler<string_type, string_adaptor> > },
-    { SC::copy_of, CreateHandler<CopyOfHandler<string_type, string_adaptor> > },
-    { SC::element, CreateHandler<ElementHandler<string_type, string_adaptor> > },
-    { SC::fallback, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { SC::for_each, CreateHandler<ForEachHandler<string_type, string_adaptor> > },
-    { SC::if_, CreateHandler<IfHandler<string_type, string_adaptor> > },
-    { SC::message, CreateHandler<MessageHandler<string_type, string_adaptor> >},
-    { SC::number, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >},
-    { SC::processing_instruction, CreateHandler<ProcessingInstructionHandler<string_type, string_adaptor> > },
-    { SC::text, CreateHandler<TextHandler<string_type, string_adaptor> > },
-    { SC::value_of, CreateHandler<ValueOfHandler<string_type, string_adaptor> > },
-    { SC::variable, CreateHandler<VariableHandler<Variable<string_type, string_adaptor> > > },
-    { string_adaptor::empty_string(), 0 }
-  };
+  static const ChildElements<string_type, string_adaptor> allowedChildren = 
+      ChildElements<string_type, string_adaptor>::add(SC::apply_imports, CreateHandler<ApplyImportsHandler<string_type, string_adaptor> >)
+                                                 .add(SC::apply_templates, CreateHandler<ApplyTemplatesHandler<string_type, string_adaptor> >)
+                                                 .add(SC::attribute, CreateHandler<AttributeHandler<string_type, string_adaptor> >)
+                                                 .add(SC::call_template, CreateHandler<CallTemplateHandler<string_type, string_adaptor> >)
+                                                 .add(SC::choose, CreateHandler<ChooseHandler<string_type, string_adaptor> >)
+                                                 .add(SC::comment, CreateHandler<CommentHandler<string_type, string_adaptor> >)
+                                                 .add(SC::copy, CreateHandler<CopyHandler<string_type, string_adaptor> >)
+                                                 .add(SC::copy_of, CreateHandler<CopyOfHandler<string_type, string_adaptor> >)
+                                                 .add(SC::element, CreateHandler<ElementHandler<string_type, string_adaptor> >)
+                                                 .add(SC::fallback, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >)
+                                                 .add(SC::for_each, CreateHandler<ForEachHandler<string_type, string_adaptor> >)
+                                                 .add(SC::if_, CreateHandler<IfHandler<string_type, string_adaptor> >)
+                                                 .add(SC::message, CreateHandler<MessageHandler<string_type, string_adaptor> >)
+                                                 .add(SC::number, CreateHandler<NotImplementedYetHandler<string_type, string_adaptor> >)
+                                                 .add(SC::processing_instruction, CreateHandler<ProcessingInstructionHandler<string_type, string_adaptor> >)
+                                                 .add(SC::text, CreateHandler<TextHandler<string_type, string_adaptor> >)
+                                                 .add(SC::value_of, CreateHandler<ValueOfHandler<string_type, string_adaptor> >)
+                                                 .add(SC::variable, CreateHandler<VariableHandler<Variable<string_type, string_adaptor> > >);
   return allowedChildren;
 } // AllowedChildren
 
