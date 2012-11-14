@@ -6,6 +6,78 @@ namespace Arabica
 namespace XSLT
 {
 
+template<class string_type, class string_adaptor> class AttributeValidatorsBuilder;
+template<class string_type, class string_adaptor> class AttributeValidators;
+
+template<class string_type, class string_adaptor> 
+class AttributeValidator
+{
+private:
+  explicit AttributeValidator(bool required) :
+    required_(required)
+  {
+  } // AttributeValidator
+
+  bool required_;
+
+  friend class AttributeValidators<string_type, string_adaptor>;
+}; // class AttributeValidator
+
+template<class string_type, class string_adaptor>
+class AttributeValidators
+{
+public:
+  static AttributeValidatorsBuilder rule(const string_type& name, bool required);
+
+private:
+  void put(const string_type& name, bool required)
+  {
+    rules_[name] = AttributeValidate(required);
+  } // put
+
+  AttributeValidators() { }
+
+  typedef std::map<string_type, AttributeValidator<string_type, string_adaptor> > ValidatorMap;
+  typedef typename std::map<string_type, AttributeValidator<string_type, string_adaptor> >::const_iterator ValidatorMapIterator;
+
+  ValidatorMap rules_;
+};
+
+template<class string_type, class string_adaptor>
+class AttributeValidatorsBuilder
+{
+public:
+  operator AttributeValidator<string_type, string_adaptor>&() { return validators_; }
+
+  AttributeValidatorsBuilder& rule(const string_type& name, bool required)
+  {
+    validators_.put(name, required);
+    return *this;
+  } // rule
+
+private:
+  AttributeValidatorsBuilder() { }
+  AttributeValidatorsBuilder(const AttributeValidatorsBuilder& rhs) :
+    validators_(validators)
+  { 
+  } // AttributeValidatorsBuilder
+
+  AttributeValidator<string_type, string_adaptor> validators_;
+
+  friend class AttributeValidators<string_type, string_adaptor>;
+}; // class AttributeValidatorsBuilder
+ 
+template<class string_type, class string_adaptor>
+AttributeValidatorsBuilder<string_type, string_adaptor> 
+  AttributeValidators<string_type, string_adaptor>::rule(const string_type& name, bool required)
+{
+  AttributeValidatorsBuilder<string_type, string_adaptor> builder;
+  builder.rule(name, required);
+  return builder;
+} // AttributeValidator::rule
+
+////
+
 template<class string_type>
 struct ValueRule
 {
