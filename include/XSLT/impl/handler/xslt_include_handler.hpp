@@ -135,7 +135,7 @@ private:
     if(std::find(current_includes_.begin(), current_includes_.end(), href) != current_includes_.end())
     {
       std::string error = "Stylesheet '" + string_adaptor::asStdString(href) + "' includes/imports itself ";
-      for(HrefStack::const_iterator i = current_includes_.begin(), ie = current_includes_.end(); i != ie; ++i)
+      for(typename HrefStack::const_iterator i = current_includes_.begin(), ie = current_includes_.end(); i != ie; ++i)
         error += "\n  " + string_adaptor::asStdString(*i);
       throw std::runtime_error(error);
     } // if ...

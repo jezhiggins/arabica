@@ -61,7 +61,7 @@ protected:
   {
     if(has_select_)
     {
-      for(string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+      for(typename string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
 	    if(!Arabica::XML::is_space(*i))
 	      throw SAX::SAXException("A variable or param can not have both a select attribute and text context");
     }
