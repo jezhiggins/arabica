@@ -68,9 +68,9 @@ private:
 
   const string_type& searchStack(const ScopeStack& stack, const string_type& key) const
   {
-    for(ScopeStack::const_reverse_iterator ss = stack.rbegin(), se = stack.rend(); ss != se; ss++)
+    for(typename ScopeStack::const_reverse_iterator ss = stack.rbegin(), se = stack.rend(); ss != se; ss++)
     {      
-      Scope::const_iterator i = ss->find(key);
+      typename Scope::const_iterator i = ss->find(key);
       if(i != ss->end())
         return i->second;
     }
