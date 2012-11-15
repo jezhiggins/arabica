@@ -157,7 +157,7 @@ public:
   virtual XPathValue resolveVariable(const string_type& namespace_uri,
                                      const string_type& name) const
   {
-    typedef Arabica::text::Unicode<string_adaptor::value_type> UnicodeT;
+    typedef Arabica::text::Unicode<typename string_adaptor::value_type> UnicodeT;
 
     string_type clarkName = namespace_uri.empty() ? name : UnicodeT::LEFT_SQUARE_BRACKET + namespace_uri + UnicodeT::RIGHT_SQUARE_BRACKET + name;
     if(std::find(resolutionStack_.begin(), resolutionStack_.end(), clarkName) != resolutionStack_.end())

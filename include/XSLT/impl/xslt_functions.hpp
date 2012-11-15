@@ -412,7 +412,7 @@ public:
 		                const ArgList& args) :
     baseT(-1, -1, args)
   {
-    typedef Arabica::text::Unicode<string_adaptor::value_type> UnicodeT;
+    typedef Arabica::text::Unicode<typename string_adaptor::value_type> UnicodeT;
 
     if(!namespace_uri.empty())
     {

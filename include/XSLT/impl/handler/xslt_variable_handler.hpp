@@ -13,13 +13,15 @@ namespace XSLT
 template<class VType>
 class VariableHandler : public ItemContainerHandler<VType>
 {
-  typedef StylesheetConstant<string_type, string_adaptor> SC;
-  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   typedef typename VType::string_type string_type;
   typedef typename VType::string_adaptor string_adaptor;
+private:
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
   typedef ItemContainerHandler<VType> baseT;
 
+public:
   VariableHandler(CompilationContext<string_type, string_adaptor>& context) :
     baseT(context),
     has_select_(false),

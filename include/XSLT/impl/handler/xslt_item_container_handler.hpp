@@ -12,6 +12,9 @@ namespace XSLT
 template<class string_type, class string_adaptor>
 SAX::DefaultHandler<string_type, string_adaptor>* createInlineElementHandler(CompilationContext<string_type, string_adaptor>& context);
 
+template<class string_type, class string_adaptor>
+const ChildElements<string_type, string_adaptor>& AllowedChildren();
+
 template<class container_type>
 class ItemContainerHandler : public SAX::DefaultHandler<typename container_type::string_type, typename container_type::string_adaptor>
 {

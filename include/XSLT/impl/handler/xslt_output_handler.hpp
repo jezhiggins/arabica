@@ -69,7 +69,7 @@ private:
     if(cdata_section_elements.empty())
       return elements;
 
-    std::basic_istringstream<string_adaptor::value_type>
+    std::basic_istringstream<typename string_adaptor::value_type>
                  is(text::normalize_whitespace<string_type, string_adaptor>(cdata_section_elements));
     while(!is.eof())
     {
