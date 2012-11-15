@@ -25,6 +25,7 @@ template<class string_type, class string_adaptor>
 class StylesheetHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   typedef string_type stringT;
   typedef string_adaptor string_adaptorT;
@@ -94,12 +95,12 @@ private:
     if(localName != SC::stylesheet && localName != SC::transform)
       throw SAX::SAXException("Top-level element must be 'stylesheet' or 'transform'.");
     
-    static const ValueRule<string_type> rules[] = { { SC::version, true },
-                                                    { SC::extension_element_prefixes, false },
-                                                    { SC::exclude_result_prefixes, false },
-                                                    { SC::id, false },
-                                                    { string_adaptor::empty_string(), false } };
-    std::map<string_type, string_type> attributes = gatherAttributes(qName, atts, rules);
+    static const AV rules = AV::rule(SC::version, true)
+                               .rule(SC::extension_element_prefixes, false)
+                               .rule(SC::exclude_result_prefixes, false)
+                               .rule(SC::id, false);
+
+    std::map<string_type, string_type> attributes = rules.gather(qName, atts);
     if(attributes[SC::version] != SC::Version)
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
     if(!attributes[SC::extension_element_prefixes].empty())
