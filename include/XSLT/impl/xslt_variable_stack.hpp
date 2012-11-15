@@ -159,7 +159,7 @@ public:
   {
     typedef Arabica::text::Unicode<typename string_adaptor::value_type> UnicodeT;
 
-    string_type clarkName = namespace_uri.empty() ? name : UnicodeT::LEFT_SQUARE_BRACKET + namespace_uri + UnicodeT::RIGHT_SQUARE_BRACKET + name;
+    string_type clarkName = namespace_uri.empty() ? name : make_clark_name(namespace_uri, name);
     if(std::find(resolutionStack_.begin(), resolutionStack_.end(), clarkName) != resolutionStack_.end())
       throw std::runtime_error("Circular dependency: " + string_adaptor::asStdString(clarkName) + " refers to itself directly or indirectly.");
 
@@ -178,6 +178,16 @@ public:
   } // resolveVariable
   
 private:
+  string_type make_clark_name(const string_type& namespace_uri, const string_type& name) const
+  {
+    string_type cn;
+    string_adaptor::append(cn, string_adaptor::construct_from_utf8("{"));
+    string_adaptor::append(cn, namespace_uri);
+    string_adaptor::append(cn, string_adaptor::construct_from_utf8("}"));
+    string_adaptor::append(cn, name);
+    return cn;
+  } // make_clark_name
+
   XPathValue lookup(const Scope& scope, const string_type& name) const
   {
     typename Scope::const_iterator i = scope.find(name);
