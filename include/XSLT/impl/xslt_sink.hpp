@@ -346,6 +346,7 @@ private:
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class DOMSink : public Sink<string_type, string_adaptor>, private Output<string_type, string_adaptor>
 {
+  typedef StylesheetConstant<string_type, string_adaptor> SC;
 public:
   DOMSink() :
     indent_(-1),
