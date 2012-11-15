@@ -14,6 +14,7 @@ class TemplateHandler : public ItemContainerHandler<Template<string_type, string
 {
   typedef ItemContainerHandler<Template<string_type, string_adaptor> > baseT;
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   TemplateHandler(CompilationContext<string_type, string_adaptor>& context) :
     baseT(context),
@@ -42,12 +43,11 @@ protected:
                                     const string_type& qName,
                                     const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule<string_type> rules[] = { { SC::match, false, 0, 0 },
-                                                    { SC::mode, false, 0, 0 },
-                                                    { SC::name, false, 0, 0 }, 
-                                                    { SC::priority, false, 0, 0 },
-				                                            { string_adaptor::empty_string(), false, 0, 0 } };
-    std::map<string_type, string_type> attributes = gatherAttributes(qName, atts, rules);
+    static const AV rules = AV::rule(SC::match, false)
+                               .rule(SC::mode, false)
+                               .rule(SC::name, false) 
+                               .rule(SC::priority, false);
+    std::map<string_type, string_type> attributes = rules.gather(qName, atts);
                                        
     const string_type& match = attributes[SC::match];
     if((match == string_adaptor::empty_string()) && (attributes[SC::name] == string_adaptor::empty_string()))

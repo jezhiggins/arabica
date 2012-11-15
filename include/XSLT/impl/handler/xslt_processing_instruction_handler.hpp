@@ -14,6 +14,7 @@ class ProcessingInstructionHandler : public ItemContainerHandler<ProcessingInstr
 {
   typedef ItemContainerHandler<ProcessingInstruction<string_type, string_adaptor> > baseT;
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 
 public:
   ProcessingInstructionHandler(CompilationContext<string_type, string_adaptor>& context) :
@@ -26,9 +27,8 @@ public:
                                                  const string_type& qName,
                                                  const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule<string_type> rules[] = { { SC::name, true, 0, 0 },
-                                                    { string_adaptor::empty_string(), false, 0, 0} };
-    string_type name = gatherAttributes(qName, atts, rules)[SC::name];
+    static const AV rules = AV::rule(SC::name, true);
+    string_type name = rules.gather(qName, atts)[SC::name];
 
     return new ProcessingInstruction<string_type, string_adaptor>(baseT::context().xpath_attribute_value_template(name));
   } // createContainer

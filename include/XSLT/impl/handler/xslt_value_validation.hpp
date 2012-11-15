@@ -23,6 +23,13 @@ public:
     allowed_.insert(v2);
   } // AllowedValues
 
+  AllowedValues(const string_type& v1, const string_type& v2, const string_type& v3) 
+  {
+    allowed_.insert(v1);
+    allowed_.insert(v2);
+    allowed_.insert(v3);
+  } // AllowedValues
+
   AllowedValues(const AllowedValues& rhs) :
     allowed_(rhs.allowed_)
   {
@@ -45,46 +52,70 @@ private:
   std::set<string_type> allowed_;
 }; // AllowedValues
 
+template<class string_type>
+AllowedValues<string_type> makeAllowedValues(const string_type& a1, const string_type& a2)
+{
+  return AllowedValues<string_type>(a1, a2);
+} // makeAllowedValues
+template<class string_type>
+AllowedValues<string_type> makeAllowedValues(const string_type& a1, const string_type& a2, const string_type& a3)
+{
+  return AllowedValues<string_type>(a1, a2, a3);
+} // makeAllowedValues
+
 template<class string_type, class string_adaptor> 
 class AttributeValidator
 {
 public:
   AttributeValidator() :
-    required_(false)
+    required_(false),
+    has_def_(false)
   {
   } // AttributeValidator
 
   bool mandatory() const { return required_; }
-  bool has_default() const { return !def_.empty(); }
+  bool has_default() const { return has_def_; }
   const string_type& default_value() const { return def_; }
   bool is_allowed(const string_type& v) const { return allowed_.is_allowed(v); }
 
 private:
   explicit AttributeValidator(bool required) :
-    required_(required)
+    required_(required),
+    has_def_(false)
+  {
+  } // AttributeValidator
+
+  AttributeValidator(bool required, const string_type& def) :
+    required_(required),
+    def_(def),
+    has_def_(true)
   {
   } // AttributeValidator
 
   AttributeValidator(bool required, const string_type& def, const AllowedValues<string_type> allowed) :
     required_(required),
     def_(def),
+    has_def_(true),
     allowed_(allowed)
   {
   } // AttributeValidator
 
   bool required_;
+  bool has_def_;
   string_type def_;
   AllowedValues<string_type> allowed_;
 
   AttributeValidator& operator=(const AttributeValidator& rhs)
   {
     required_ = rhs.required_;
+    has_def_ = rhs.has_def_;
     def_ = rhs.def_;
     allowed_ = rhs.allowed_;
     return *this;
   } // operator=
 
   friend class AttributeValidators<string_type, string_adaptor>;
+  friend class AttributeValidatorsBuilder<string_type, string_adaptor>;
 }; // class AttributeValidator
 
 template<class string_type, class string_adaptor>
@@ -94,6 +125,13 @@ class AttributeValidators
 
 public:
   static AttributeValidatorsBuilder<string_type, string_adaptor> rule(const string_type& name, bool required);
+  static AttributeValidatorsBuilder<string_type, string_adaptor> rule(const string_type& name, 
+                                                                      bool required,
+                                                                      const string_type& def);
+  static AttributeValidatorsBuilder<string_type, string_adaptor> rule(const string_type& name, 
+                                                                      bool required,
+                                                                      const string_type& def,
+                                                                      const AllowedValues<string_type>& allowed);
 
   std::map<string_type, string_type> gather(const string_type& parentElement,
                                              const SAX::Attributes<string_type, string_adaptor>& atts) const
@@ -164,13 +202,13 @@ private:
     throw SAX::SAXException(string_adaptor::asStdString(value) + 
                             " is not an allowed value for " +
                             string_adaptor::asStdString(parentElement) + 
-                            "/@ " + 
+                            "/@" + 
                             string_adaptor::asStdString(name));
   } // validateValues
 
-  void put(const string_type& name, bool required)
+  void put(const string_type& name, const AttributeValidator<string_type, string_adaptor>& av)
   {
-    rules_[name] = AttributeValidator<string_type, string_adaptor>(required);
+    rules_[name] = av;
   } // put
 
   AttributeValidators() { }
@@ -200,7 +238,17 @@ public:
 
   AttributeValidatorsBuilder& rule(const string_type& name, bool required)
   {
-    validators_.put(name, required);
+    validators_.put(name, AttributeValidator<string_type, string_adaptor>(required));
+    return *this;
+  } // rule
+  AttributeValidatorsBuilder& rule(const string_type& name, bool required, const string_type& def)
+  {
+    validators_.put(name, AttributeValidator<string_type, string_adaptor>(required, def));
+    return *this;
+  } // rule
+  AttributeValidatorsBuilder& rule(const string_type& name, bool required, const string_type& def, const AllowedValues<string_type>& av)
+  {
+    validators_.put(name, AttributeValidator<string_type, string_adaptor>(required, def, av));
     return *this;
   } // rule
 
@@ -225,99 +273,28 @@ AttributeValidatorsBuilder<string_type, string_adaptor>
   return builder;
 } // AttributeValidator::rule
 
-////
-
-template<class string_type>
-struct ValueRule
+template<class string_type, class string_adaptor>
+AttributeValidatorsBuilder<string_type, string_adaptor> 
+  AttributeValidators<string_type, string_adaptor>::rule(const string_type& name, 
+                                                         bool required,
+                                                         const string_type& def)
 {
-  const string_type name;
-  bool mandatory;
-  const string_type default_value;
-  const string_type* allowed;
-}; // struct ValueRule
+  AttributeValidatorsBuilder<string_type, string_adaptor> builder;
+  builder.rule(name, required, def);
+  return builder;
+} // AttributeValidator::rule
 
 template<class string_type, class string_adaptor>
-void validateValues(const string_type& parentElement, 
-                    const string_type& name,
-                    const string_type& value, 
-                    const string_type allowed[])
+AttributeValidatorsBuilder<string_type, string_adaptor> 
+  AttributeValidators<string_type, string_adaptor>::rule(const string_type& name, 
+                                                         bool required,
+                                                         const string_type& def,
+                                                         const AllowedValues<string_type>& allowed)
 {
-  for(const string_type* a = allowed; *a != string_adaptor::empty_string(); ++a)
-    if(value == *a)
-      return;
-
-  std::ostringstream os;
-  os << string_adaptor::asStdString(parentElement) + ": " + string_adaptor::asStdString(name) + " may be one of ";
-  while(*allowed != string_adaptor::empty_string())
-    os << '\'' << string_adaptor::asStdString(*allowed++) << "' ";
-  throw SAX::SAXException(os.str());
-} // validateValues
-
-template<class string_type, class string_adaptor>
-void validateXmlAttribute(const string_type& parentElement,
-                          const string_type& name, 
-                          const string_type& value,
-                  			  std::map<string_type, string_type>& results)
-{
-  typedef StylesheetConstant<string_type, string_adaptor> SC;
-
-  results[name] = value;
-
-  if(name == SC::space)
-    validateValues<string_type, string_adaptor>(parentElement, name, value, SC::DefaultPreserve);
-} // validateXmlAttribute
-
-template<class string_type, class string_adaptor>
-void validateAttribute(const string_type& parentElement,
-                       const string_type& name, 
-                       const string_type& value, 
-                       const ValueRule<string_type>* rules, 
-		                   std::map<string_type, string_type>& results)
-{
-  while((rules->name != string_adaptor::empty_string()) && (name != rules->name))
-    ++rules;
-
-  if(rules->name == string_adaptor::empty_string())
-    throw SAX::SAXException(string_adaptor::asStdString(parentElement) + ": Illegal attribute " + string_adaptor::asStdString(name));
-
-  results[name] = value;
-
-  if(rules->allowed != 0)
-    validateValues<string_type, string_adaptor>(parentElement, name, value, rules->allowed);
-} // validateAttribute
-
-template<class string_type, class string_adaptor>
-std::map<string_type, string_type> gatherAttributes(const string_type& parentElement,
-                                                    const SAX::Attributes<string_type, string_adaptor>& atts,
-                                                    const ValueRule<string_type>* rules)
-{
-  typedef StylesheetConstant<string_type, string_adaptor> SC;
-
-  std::map<string_type, string_type> results;
-
-  for(const ValueRule<string_type>* r = rules ; r->name != string_adaptor::empty_string(); ++r)
-  {
-    if((r->mandatory) && (atts.getValue(r->name).empty()))
-      throw SAX::SAXException(string_adaptor::asStdString(parentElement) + ": Attribute " + string_adaptor::asStdString(r->name) + " must be specified");
-    if(r->default_value != string_adaptor::empty_string())
-      results[r->name] = r->default_value;
-  } // 
-
-  for(int a = 0; a < atts.getLength(); ++a)
-  {
-    if(atts.getLocalName(a) == string_adaptor::empty_string()) 
-      continue; // namespace decl
-    if(atts.getURI(a) == SC::xml_uri)
-    {
-      validateXmlAttribute<string_type, string_adaptor>(parentElement, atts.getLocalName(a), atts.getValue(a), results); // special xml: attributes
-      continue;
-    }
-    if(atts.getURI(a) == string_adaptor::empty_string())
-      validateAttribute<string_type, string_adaptor>(parentElement, atts.getLocalName(a), atts.getValue(a), rules, results);
-  }
-
-  return results;
-} // validateAttributes
+  AttributeValidatorsBuilder<string_type, string_adaptor> builder;
+  builder.rule(name, required, def, allowed);
+  return builder;
+} // AttributeValidator::rule
 
 template<class string_type, class string_adaptor>
 void verifyNoCharacterData(const string_type& ch,

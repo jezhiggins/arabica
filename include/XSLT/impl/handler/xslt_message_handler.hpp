@@ -14,6 +14,7 @@ class MessageHandler : public ItemContainerHandler<Message<string_type, string_a
 {
   typedef ItemContainerHandler<Message<string_type, string_adaptor> > baseT;
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   MessageHandler(CompilationContext<string_type, string_adaptor>& context) :
       baseT(context)
@@ -26,9 +27,8 @@ protected:
                                    const string_type& qName,
                                    const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule<string_type> rules[] = { { SC::terminate, false, SC::no, SC::AllowedYesNo },
-                                                    { string_adaptor::empty_string(), false, 0, 0 } };
-    return new Message<string_type, string_adaptor>(gatherAttributes(qName, atts, rules)[SC::terminate] == SC::yes);
+    static const AV rules = AV::rule(SC::terminate, false, SC::no, AllowedValues<string_type>(SC::yes, SC::no));
+    return new Message<string_type, string_adaptor>(rules.gather(qName, atts)[SC::terminate] == SC::yes);
   } // createContainer
 }; // class MessageHandler
 

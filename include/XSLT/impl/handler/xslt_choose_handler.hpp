@@ -18,7 +18,7 @@ public:
 private:
   typedef ItemContainerHandler<When<string_type, string_adaptor> > baseT;
   typedef StylesheetConstant<string_type, string_adaptor> SC;
-
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   WhenHandler(Choose<string_type, string_adaptor>* choose,
               CompilationContext<string_type, string_adaptor>& context) :
@@ -32,9 +32,8 @@ public:
 				const string_type& qName,
 				const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule<string_type> rules[] = { { SC::test, true, 0, 0 },
-                                                    { string_adaptor::empty_string(), false, 0, 0 } };
-    string_type test = gatherAttributes(qName, atts, rules)[SC::test];
+    static const AV rules = AV::rule(SC::test, true);
+    string_type test = rules.gather(qName, atts)[SC::test];
 
     return new When<string_type, string_adaptor>(baseT::context().xpath_expression(test));
   } // startElement

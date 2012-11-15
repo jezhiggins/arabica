@@ -13,6 +13,7 @@ template<class string_type, class string_adaptor>
 class KeyHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
   typedef typename Key<string_type, string_adaptor>::MatchExprList MatchExprList;
 public:
   KeyHandler(CompilationContext<string_type, string_adaptor>& context) :
@@ -29,12 +30,11 @@ public:
     if(key_ != 0)
       throw SAX::SAXException(string_adaptor::asStdString(qName) + " can not contain elements");
 
-    static const ValueRule<string_type> rules[] = { { SC::name, true, 0, 0 },
-                                                    { SC::match, true, 0, 0 }, 
-                                                    { SC::use, true, 0, 0 },
-                                                    { string_adaptor::empty_string(), false, 0, 0 } };
+    static const AV rules = AV::rule(SC::name, true)
+                               .rule(SC::match, true)
+                               .rule(SC::use, true);
 
-    std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
+    std::map<string_type, string_type> attrs = rules.gather(qName, atts);
     name_ = context_.processInternalQName(attrs[SC::name]).clarkName();
     try 
     {

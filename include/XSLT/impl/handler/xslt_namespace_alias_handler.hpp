@@ -14,6 +14,7 @@ template<class string_type, class string_adaptor>
 class NamespaceAliasHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 
 public:
   NamespaceAliasHandler(CompilationContext<string_type, string_adaptor>& context) : 
@@ -29,11 +30,10 @@ public:
   {
     if(!done_)
     {
-      static const ValueRule<string_type> rules[] = { { SC::stylesheet_prefix, true, 0, 0 },
-                                                      { SC::result_prefix, true, 0, 0 },
-                                                      { string_adaptor::empty_string(), false, 0, 0 } };
+      static const AV rules = AV::rule(SC::stylesheet_prefix, true)
+                                 .rule(SC::result_prefix, true);
 
-      std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
+      std::map<string_type, string_type> attrs = rules.gather(qName, atts);
       string_type stylesheet_prefix = attrs[SC::stylesheet_prefix];
       string_type result_prefix = attrs[SC::result_prefix];
 

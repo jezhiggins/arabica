@@ -42,12 +42,12 @@ public:
     const string_type order = order_->evaluateAsString(node, context_->xpathContext());
     const string_type caseorder = caseorder_->evaluateAsString(node, context_->xpathContext());
 
-    static string_type allowed_datatypes[] = { SC::text, SC::number, string_adaptor::empty_string() };
-    static string_type allowed_orders[] = { SC::ascending, SC::descending, string_adaptor::empty_string() };
-    static string_type allowed_case_orders[] = { SC::upper_first, SC::lower_first, string_adaptor::empty_string() };
-    validateValues<string_type, string_adaptor>(SC::sort, SC::data_type, datatype, allowed_datatypes);
-    validateValues<string_type, string_adaptor>(SC::sort, SC::order, order, allowed_orders);
-    validateValues<string_type, string_adaptor>(SC::sort, SC::case_order, caseorder, allowed_case_orders);
+    static AllowedValues<string_type> allowed_datatypes = makeAllowedValues(SC::text, SC::number);
+    static AllowedValues<string_type> allowed_orders = makeAllowedValues(SC::ascending, SC::descending);
+    static AllowedValues<string_type> allowed_case_orders = makeAllowedValues(SC::upper_first, SC::lower_first);
+    validate(SC::data_type, allowed_datatypes, datatype);
+    validate(SC::order, allowed_orders, order);
+    validate(SC::case_order, allowed_case_orders, caseorder);
 
     if(datatype == SC::number)
       if(order == SC::ascending)
@@ -78,6 +78,17 @@ public:
   } // add_sub_sort
 
 private:
+  void validate(const string_type& name, const AllowedValues<string_type>& allowed, const string_type& value)
+  {
+    if(allowed.is_allowed(value))
+      return;
+
+    throw SAX::SAXException(string_adaptor::asStdString(value) + 
+                            " is not an allowed value for xsl:sort/@" + 
+                            string_adaptor::asStdString(name));
+
+  } // validate
+
   typedef bool(Sort::*sortFn)(const DOMNode& n1, const DOMNode& n2) const;
   bool numberAscending(const DOMNode& n1, const DOMNode& n2) const
   {

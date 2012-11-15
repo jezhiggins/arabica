@@ -10,6 +10,7 @@ template<class string_type, class string_adaptor>
 class OutputHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 
 public:
   OutputHandler(CompilationContext<string_type, string_adaptor>& context) :
@@ -24,20 +25,18 @@ public:
   {
     if(settings_.empty())
     {
-      static string_type AllowedMethods[] = { SC::xml, SC::html, SC::text, string_adaptor::empty_string() };
-      static const ValueRule<string_type> rules[] = 
-                                       { { SC::method, false, SC::xml, AllowedMethods },
-                                         { SC::version, false, SC::Version, 0 },
-                                         { SC::encoding, false, SC::utf8, 0 },
-                                         { SC::omit_xml_declaration, false, SC::no, SC::AllowedYesNo },
-                                         { SC::standalone, false, string_adaptor::empty_string(), SC::AllowedYesNo },
-                                         { SC::doctype_public, false, string_adaptor::empty_string(), 0 },
-                                         { SC::doctype_system, false, string_adaptor::empty_string(), 0 },
-                                         { SC::cdata_section_elements, false, string_adaptor::empty_string(), 0 },
-                                         { SC::indent, false, SC::no, SC::AllowedYesNo },
-                                         { SC::media_type, false, string_adaptor::empty_string(), 0 },
-                                         { string_adaptor::empty_string(), false, 0, 0 } };
-      settings_ = gatherAttributes(qName, atts, rules);
+      static const AV rules = AV::rule(SC::method, false, SC::xml, AllowedValues<string_type>(SC::xml, SC::html, SC::text))
+                                 .rule(SC::version, false, SC::Version)
+                                 .rule(SC::encoding, false, SC::utf8)
+                                 .rule(SC::omit_xml_declaration, false, SC::no, AllowedValues<string_type>(SC::yes, SC::no))
+                                 .rule(SC::standalone, false, string_adaptor::empty_string(), AllowedValues<string_type>(SC::yes, SC::no))
+                                 .rule(SC::doctype_public, false, string_adaptor::empty_string())
+                                 .rule(SC::doctype_system, false, string_adaptor::empty_string())
+                                 .rule(SC::cdata_section_elements, false, string_adaptor::empty_string())
+                                 .rule(SC::indent, false, SC::no, AllowedValues<string_type>(SC::yes, SC::no))
+                                 .rule(SC::media_type, false, string_adaptor::empty_string());
+
+      settings_ = rules.gather(qName, atts);
       cdataElements_ = extractCDATAElements(settings_[SC::cdata_section_elements]);
 
       return;

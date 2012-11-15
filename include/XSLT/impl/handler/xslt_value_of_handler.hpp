@@ -13,6 +13,7 @@ template<class string_type, class string_adaptor>
 class ValueOfHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   ValueOfHandler(CompilationContext<string_type, string_adaptor>& context) : 
     context_(context),
@@ -27,11 +28,10 @@ public:
   {
     if(valueOf_ == 0)
     {
-      static const ValueRule<string_type> rules[] = { { SC::select, true, 0, 0 },
-                                                      { SC::disable_output_escaping, false, SC::no, SC::AllowedYesNo },
-                                                      { 0, false, 0, 0 } };
+      static const AV rules = AV::rule(SC::select, true)
+                                 .rule(SC::disable_output_escaping, false, SC::no, AllowedValues<string_type>(SC::yes, SC::no));
 
-      std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
+      std::map<string_type, string_type> attrs = rules.gather(qName, atts);
       valueOf_ = new ValueOf<string_type, string_adaptor>(context_.xpath_expression(attrs[SC::select]), 
 			                                               attrs[SC::disable_output_escaping] == SC::yes);
       return;

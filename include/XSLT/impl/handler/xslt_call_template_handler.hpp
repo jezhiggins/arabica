@@ -13,6 +13,7 @@ template<class stringT, class adaptorT>
 class CallTemplateHandler : public SAX::DefaultHandler<stringT, adaptorT>
 {
   typedef StylesheetConstant<stringT, adaptorT> SC;
+  typedef AttributeValidators<stringT, adaptorT> AV;
 public:
   typedef stringT string_type;
   typedef adaptorT string_adaptor;
@@ -30,10 +31,9 @@ public:
   {
     if(callTemplate_ == 0)
     {
-      static const ValueRule<string_type> rules[] = { { SC::name, true, 0, 0 },
-                                                      { string_adaptor::empty_string(), false, 0, 0 } };
-    
-      std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
+      static const AV rules = AV::rule(SC::name, true);
+
+      std::map<string_type, string_type> attrs = rules.gather(qName, atts);
 
       string_type name = context_.processInternalQName(attrs[SC::name]).clarkName();
 

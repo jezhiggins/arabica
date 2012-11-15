@@ -14,6 +14,7 @@ template<class stringT, class adaptorT>
 class ApplyTemplatesHandler : public SAX::DefaultHandler<stringT, adaptorT>
 {
   typedef StylesheetConstant<stringT, adaptorT> SC;
+  typedef AttributeValidators<stringT, adaptorT> AV;
 
 public:
   typedef stringT string_type;
@@ -32,10 +33,10 @@ public:
   {
     if(applyTemplates_ == 0)
     {
-      static const ValueRule<string_type> rules[] = { { SC::select, false, 0, 0 },
-                                                      { SC::mode, false, 0, 0 },
-                                                      { string_adaptor::empty_string(), false, 0, 0} };
-      std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
+      static const AV rules = AV::rule(SC::select, false)
+                                 .rule(SC::mode, false);
+
+      std::map<string_type, string_type> attrs = rules.gather(qName, atts);
     
       const string_type& select = attrs[SC::select];
       Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> xpath;

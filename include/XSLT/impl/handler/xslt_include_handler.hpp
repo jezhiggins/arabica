@@ -15,6 +15,7 @@ class IncludeHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   struct ImportHref;
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 
 public:
   IncludeHandler() :
@@ -122,9 +123,8 @@ public:
 private:
   string_type validate_href(const string_type& qName, const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule<string_type> rules[] = { { SC::href, true, 0, 0 },
-				                                            { 0, false, 0, 0 } };
-    string_type href = gatherAttributes(qName, atts, rules)[SC::href];
+    static const AV rules = AV::rule(SC::href, true);
+    string_type href = rules.gather(qName, atts)[SC::href];
     no_content_ = true;
     // std::cout << "Base : "  << context_->currentBase() << ", href : " << href << "\n";
     return context_->makeAbsolute(href);

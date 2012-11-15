@@ -12,7 +12,7 @@ template<class string_type, class string_adaptor>
 class TextHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 {
   typedef StylesheetConstant<string_type, string_adaptor> SC;
-
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   TextHandler(CompilationContext<string_type, string_adaptor>& context) :
     context_(context),
@@ -27,9 +27,8 @@ public:
   {
     if(text_ == 0)
     {
-      static const ValueRule<string_type> rules[] = { { SC::disable_output_escaping, false, SC::no, SC::AllowedYesNo },
-                                                      { string_adaptor::empty_string(), false, 0, 0 } };
-      text_ = new Text<string_type, string_adaptor>(gatherAttributes(qName, atts, rules)[SC::disable_output_escaping] == SC::yes);
+      static const AV rules = AV::rule(SC::disable_output_escaping, false, SC::no, AllowedValues<string_type>(SC::yes, SC::no));
+      text_ = new Text<string_type, string_adaptor>(rules.gather(qName, atts)[SC::disable_output_escaping] == SC::yes);
       return;
     } // if(text_ == 0)
 

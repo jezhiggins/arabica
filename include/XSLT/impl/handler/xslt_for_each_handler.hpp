@@ -14,6 +14,7 @@ template<class string_type, class string_adaptor>
 class ForEachHandler : public ItemContainerHandler<ForEach<string_type, string_adaptor> >
 {
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
   typedef ItemContainerHandler<ForEach<string_type, string_adaptor> > baseT;
 
 public:
@@ -29,9 +30,8 @@ protected:
                                    const string_type& qName,
                                    const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule<string_type> rules[] = { { SC::select, true, 0, 0 },
-                                                    { string_adaptor::empty_string(), false, 0, 0 } };
-    string_type select = gatherAttributes(qName, atts, rules)[SC::select];
+    static const AV rules = AV::rule(SC::select, true);
+    string_type select = rules.gather(qName, atts)[SC::select];
 
     return new ForEach<string_type, string_adaptor>(baseT::context().xpath_expression(select));
   } // createContainer

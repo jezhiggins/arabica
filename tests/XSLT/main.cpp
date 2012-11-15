@@ -51,8 +51,8 @@ int main(int argc, const char* argv[])
 
   Loader loader;
 
-  //add_tests(runner, loader, tests_to_run, xalan_tests);
-  //add_tests(runner, loader, tests_to_run, msft_tests);
+  add_tests(runner, loader, tests_to_run, xalan_tests);
+  add_tests(runner, loader, tests_to_run, msft_tests);
   add_arabica_tests(runner, loader, tests_to_run, arabica_tests);
 
   runner.run(argc, argv);

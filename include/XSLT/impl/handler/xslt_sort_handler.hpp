@@ -12,7 +12,7 @@ template<class string_type, class string_adaptor>
 class SortHandler : public SAX::DefaultHandler<string_type, string_adaptor>
 { 
   typedef StylesheetConstant<string_type, string_adaptor> SC;
-
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   SortHandler(CompilationContext<string_type, string_adaptor>& context,
               Sortable<string_type, string_adaptor>& sortee) : 
@@ -29,14 +29,13 @@ public:
   {
     if(sort_ == 0)
     {
-      static const ValueRule<string_type> rules[] = { { SC::select, false, SC::current_xpath, 0 },
-                                                      { SC::lang, false, 0, 0 },
-                                                      { SC::data_type, false, SC::text, 0 },
-                                                      { SC::order, false, SC::ascending, 0 },
-                                                      { SC::case_order, false, SC::upper_first, 0 },
-                                                      { 0, false, 0, 0 } };
+      static const AV rules = AV::rule(SC::select, false, SC::current_xpath)
+                                 .rule(SC::lang, false)
+                                 .rule(SC::data_type, false, SC::text)
+                                 .rule(SC::order, false, SC::ascending)
+                                 .rule(SC::case_order, false, SC::upper_first);
 
-      std::map<string_type, string_type> attr = gatherAttributes(qName, atts, rules);
+      std::map<string_type, string_type> attr = rules.gather(qName, atts);
 
       Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> select, lang, datatype, order, caseorder;
       select = context_.xpath_expression(attr[SC::select]);

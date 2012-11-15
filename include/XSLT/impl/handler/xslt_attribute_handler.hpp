@@ -14,6 +14,7 @@ class AttributeHandler : public ItemContainerHandler<Attribute<string_type, stri
 {
   typedef ItemContainerHandler<Attribute<string_type, string_adaptor> > baseT;
   typedef StylesheetConstant<string_type, string_adaptor> SC;
+  typedef AttributeValidators<string_type, string_adaptor> AV;
 public:
   AttributeHandler(CompilationContext<string_type, string_adaptor>& context) :
       baseT(context)
@@ -26,11 +27,10 @@ protected:
                                      const string_type& qName,
                                      const SAX::Attributes<string_type, string_adaptor>& atts)
   {
-    static const ValueRule<string_type> rules[] = { { SC::name, true, 0, 0 },
-                                                    { SC::namespace_, false, string_adaptor::empty_string(), 0 },
-                                                    { string_adaptor::empty_string(), false, 0, 0 } };
+    static const AV rules = AV::rule(SC::name, true)
+                               .rule(SC::namespace_, false, string_adaptor::empty_string());
 
-    std::map<string_type, string_type> attrs = gatherAttributes(qName, atts, rules);
+    std::map<string_type, string_type> attrs = rules.gather(qName, atts);
 
     Arabica::XPath::XPathExpressionPtr<string_type, string_adaptor> name = 
                          baseT::context().xpath_attribute_value_template(attrs[SC::name]);
