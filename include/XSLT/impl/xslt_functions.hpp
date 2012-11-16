@@ -292,7 +292,7 @@ class ElementAvailableFunction : public Arabica::XPath::BooleanXPathFunction<str
 public:
   static const string_type& name()
   {
-    static const string_type n = string_adaptor::construct_from_utf8("element_available");
+    static const string_type n = string_adaptor::construct_from_utf8("element-available");
     return n;
   } // name
 
