@@ -218,8 +218,8 @@ private:
     if((name == CurrentFunction<string_type, string_adaptor>::name()) && (current_allowed_))
       return new CurrentFunction<string_type, string_adaptor>(argExprs);
     // unparsed-entity-uri
-    if(name == UnparsedEntityUriFunction<string_type, string_adaptor>::name())
-      return new UnparsedEntityUriFunction<string_type, string_adaptor>(argExprs);
+    //if(name == UnparsedEntityUriFunction<string_type, string_adaptor>::name())
+    //  return new UnparsedEntityUriFunction<string_type, string_adaptor>(argExprs);
     // generate-id
     if(name == GenerateIdFunction<string_type, string_adaptor>::name())
       return new GenerateIdFunction<string_type, string_adaptor>(argExprs);
