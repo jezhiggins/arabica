@@ -115,7 +115,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\tests\Xslt\main.cpp" />
-    <ClCompile Include="..\tests\XSLT\xslt_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\Xslt\xslt_test.hpp" />
