@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}</ProjectGuid>
+    <ProjectGuid>{44BA3424-C58E-4A49-ADDD-6180C61E5E34}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -45,8 +45,8 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release_test_xslt\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xslt_test_wide</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xslt_test_wide</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xslt_test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xslt_test</TargetName>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\work\usr\include;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\work\usr\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -115,6 +115,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\tests\Xslt\main_wide.cpp" />
+    <ClCompile Include="..\tests\XSLT\xslt_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\tests\Xslt\xslt_test.hpp" />

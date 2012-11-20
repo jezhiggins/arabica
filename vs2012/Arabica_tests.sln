@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C++ Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArabicaLib", "lib_arabica.vcxproj", "{4CA72415-D03A-4447-BE4E-C093A5146CAC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_DOM", "test_DOM.vcxproj", "{74A66132-475A-4DA1-8EF7-9CB0EF71E3D8}"
@@ -25,6 +25,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xpath_wide", "test_xpath_wide.vcxproj", "{EA2AB1BF-D09C-4DCB-87C9-A6DB41BCC1FA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xslt", "test_xslt.vcxproj", "{44BA3424-C58E-4A49-ADDD-6180C61E5E34}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xslt_wide", "test_xslt_wide.vcxproj", "{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +86,10 @@ Global
 		{44BA3424-C58E-4A49-ADDD-6180C61E5E34}.Debug|Win32.Build.0 = Debug|Win32
 		{44BA3424-C58E-4A49-ADDD-6180C61E5E34}.Release|Win32.ActiveCfg = Release|Win32
 		{44BA3424-C58E-4A49-ADDD-6180C61E5E34}.Release|Win32.Build.0 = Release|Win32
+		{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}.Debug|Win32.Build.0 = Debug|Win32
+		{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}.Release|Win32.ActiveCfg = Release|Win32
+		{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
