@@ -60,26 +60,27 @@ const std::string SEPERATOR = "/";
 template<class string_type, class string_adaptor>
 Arabica::DOM::Document<string_type, string_adaptor> buildDOM(const std::string& filename)
 {
-  Arabica::SAX::InputSource<string_type, string_adaptor> is(filename);
+  Arabica::SAX::InputSource<string_type, string_adaptor> is(string_adaptor::construct(filename));
   Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
   parser.parse(is);       
 
-  Arabica::DOM::Documentstring_type, string_adaptor> d = parser.getDocument();
+  Arabica::DOM::Document<string_type, string_adaptor> d = parser.getDocument();
   if(d != 0)
     d.normalize();
   return d;
 } // buildDOM
 
-Arabica::DOM::Document<std::string> buildDOMFromString(const std::string& xml)
+template<class string_type, class string_adaptor>
+Arabica::DOM::Document<string_type, string_adaptor> buildDOMFromString(const std::string& xml)
 {
   std::stringstream ss;
   ss << xml;
-  Arabica::SAX::InputSource<std::string> is(ss);
+  Arabica::SAX::InputSource<string_type, string_adaptor> is(ss);
 
-  Arabica::SAX2DOM::Parser<std::string> parser;
+  Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
   parser.parse(is);       
 
-  Arabica::DOM::Document<std::string> d = parser.getDocument();
+  Arabica::DOM::Document<string_type, string_adaptor> d = parser.getDocument();
   if(d != 0)
     d.normalize();
   return d;
@@ -111,13 +112,17 @@ std::string readFragment(const std::string& filename)
   return frag;
 } // readFragment
 
-Arabica::XPath::NodeSet<std::string> selectNodes(const std::string& path, const Arabica::DOM::Node<std::string>& node)
+template<class string_type, class string_adaptor>
+Arabica::XPath::NodeSet<string_type, string_adaptor> selectNodes(const char* path, 
+                                                                 const Arabica::DOM::Node<string_type, string_adaptor>& node)
 {
-  Arabica::XPath::XPath<std::string> xpath;
-  return xpath.evaluate(path, node).asNodeSet();
+  Arabica::XPath::XPath<string_type, string_adaptor> xpath;
+  return xpath.evaluate(string_adaptor::construct(path), node).asNodeSet();
 } // selectNodes
 
-Arabica::DOM::Node<std::string> selectNode(const std::string& path, const Arabica::DOM::Node<std::string>& node)
+template<class string_type, class string_adaptor>
+Arabica::DOM::Node<string_type, string_adaptor> selectNode(const char* path, 
+                                           const Arabica::DOM::Node<string_type, string_adaptor>& node)
 {
   return selectNodes(path, node)[0];
 } // selectNode
@@ -171,7 +176,7 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler<string_type, string_adaptor> compiler;
 
-    Arabica::SAX::InputSource<string_type, string_adaptor> source(input_xslt_);
+    Arabica::SAX::InputSource<string_type, string_adaptor> source(string_adaptor::construct(input_xslt_));
     std::auto_ptr<Arabica::XSLT::Stylesheet<string_type, string_adaptor> > stylesheet = compiler.compile(source);
     if(stylesheet.get() != 0)
       assertImplementation(false, "Expected " + input_xslt_ + " not to compile.  But it did :o");
@@ -203,7 +208,7 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler<string_type, string_adaptor> compiler;
 
-    Arabica::SAX::InputSource<string_type, string_adaptor> source(input_xslt_);
+    Arabica::SAX::InputSource<string_type, string_adaptor> source(string_adaptor::construct(input_xslt_));
     std::auto_ptr<Arabica::XSLT::Stylesheet<string_type, string_adaptor> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
@@ -211,10 +216,10 @@ protected:
     Arabica::XSLT::DOMSink<string_type, string_adaptor> output;
     stylesheet->set_output(output);
 
-    std::ostringstream errors;
+    std::basic_ostringstream<typename string_adaptor::value_type> errors;
     stylesheet->set_error_output(errors);
 
-    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM(input_xml_); 
+    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM<string_type, string_adaptor>(input_xml_); 
     try {
       stylesheet->execute(document);
     }
@@ -248,7 +253,8 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler<string_type, string_adaptor> compiler;
 
-    Arabica::SAX::InputSource<string_type, string_adaptor> source(input_xslt_);
+    string_type input = string_adaptor::construct(input_xslt_);
+    Arabica::SAX::InputSource<string_type, string_adaptor> source(input);
     std::auto_ptr<Arabica::XSLT::Stylesheet<string_type, string_adaptor> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       return;
@@ -256,10 +262,10 @@ protected:
     Arabica::XSLT::DOMSink<string_type, string_adaptor> output;
     stylesheet->set_output(output);
 
-    std::ostringstream errors;
+    std::basic_ostringstream<typename string_adaptor::value_type> errors;
     stylesheet->set_error_output(errors);
 
-    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM(input_xml_); 
+    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM<string_type, string_adaptor>(input_xml_); 
     try {
       stylesheet->execute(document);
     }
@@ -294,19 +300,19 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler<string_type, string_adaptor> compiler;
 
-    Arabica::SAX::InputSource<string_type, string_adaptor> source(input_xslt_);
+    Arabica::SAX::InputSource<string_type, string_adaptor> source(string_adaptor::construct(input_xslt_));
     std::auto_ptr<Arabica::XSLT::Stylesheet<string_type, string_adaptor> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
 
-    std::ostringstream xml_output;
+    std::basic_ostringstream<typename string_adaptor::value_type> xml_output;
     Arabica::XSLT::StreamSink<string_type, string_adaptor> output(xml_output);
     stylesheet->set_output(output);
 
-    std::ostringstream errors;
+    std::basic_ostringstream<typename string_adaptor::value_type> errors;
     stylesheet->set_error_output(errors);
 
-    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM(input_xml_);
+    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM<string_type, string_adaptor>(input_xml_);
     try {
       stylesheet->execute(document);
     }
@@ -315,7 +321,7 @@ protected:
     } // catch
 
     std::string ref = readFile(output_xml_);
-    std::string out = xml_output.str();
+    std::string out = string_adaptor::asStdString(string_adaptor::construct(xml_output.str()));
 
     if(ref == out)
       return;
@@ -338,7 +344,7 @@ protected:
 private:
   std::string stripWhitespace(const std::string& str)
   {
-    std::string s = Arabica::text::normalize_whitespace<string_type, string_adaptor>(str);
+    std::string s = Arabica::text::normalize_whitespace<std::string, Arabica::default_string_adaptor<std::string> >(str);
     
     std::string::size_type i = s.find("> ");
     while(i != std::string::npos)
@@ -390,7 +396,7 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler<string_type, string_adaptor> compiler;
 
-    Arabica::SAX::InputSource<string_type, string_adaptor> source(input_xslt_);
+    Arabica::SAX::InputSource<string_type, string_adaptor> source(string_adaptor::construct(input_xslt_));
     std::auto_ptr<Arabica::XSLT::Stylesheet<string_type, string_adaptor> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
@@ -398,10 +404,10 @@ protected:
     Arabica::XSLT::DOMSink<string_type, string_adaptor> output;
     stylesheet->set_output(output);
 
-    std::ostringstream errors;
+    std::basic_ostringstream<typename string_adaptor::value_type> errors;
     stylesheet->set_error_output(errors);
 
-    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM(input_xml_); 
+    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM<string_type, string_adaptor>(input_xml_); 
     try {
       stylesheet->execute(document);
     }
@@ -410,7 +416,7 @@ protected:
     }
 
     std::string refStr = "<wrapper>" + readFragment(output_xml_) + "</wrapper>";
-    Arabica::DOM::Document<string_type, string_adaptor> refDoc = buildDOMFromString(refStr);
+    Arabica::DOM::Document<string_type, string_adaptor> refDoc = buildDOMFromString<string_type, string_adaptor>(refStr);
     if(refDoc == 0)
       assertImplementation(false, "Couldn't read " + output_xml_ + ". Perhaps it isn't well-formed XML?");
     Arabica::DOM::DocumentFragment<string_type, string_adaptor> ref = refDoc.createDocumentFragment();
@@ -439,28 +445,30 @@ protected:
 
   std::string docToString(Arabica::DOM::Node<string_type, string_adaptor> node)
   {
-    std::ostringstream ss;
+    std::basic_ostringstream<typename string_adaptor::value_type> ss;
     ss << node;
-    return Arabica::text::normalize_whitespace<string_type, string_adaptor>(ss.str());
+    string_type streamed = string_adaptor::construct(ss.str());
+    streamed = Arabica::text::normalize_whitespace<string_type, string_adaptor>(streamed);
+    return string_adaptor::asStdString(streamed);
   } // docToString
 
   void stripWhitespace(Arabica::DOM::Node<string_type, string_adaptor> doc)
   {
-    Arabica::XPath::NodeSet<string_type, string_adaptor> textNodes = selectNodes("//text()", doc);
+    Arabica::XPath::NodeSet<string_type, string_adaptor> textNodes = selectNodes<string_type, string_adaptor>("//text()", doc);
     for(size_t i = 0; i != textNodes.size(); ++i)
     {
       Arabica::DOM::Node<string_type, string_adaptor> t = textNodes[i];
-      std::string text = t.getNodeValue();
+      string_type text = t.getNodeValue();
       text = Arabica::text::normalize_whitespace<string_type, string_adaptor>(text);
-      size_t index = text.find_first_of(" ");
-      while(index != std::string::npos)
+      size_t index = string_adaptor::find(text, Arabica::text::Unicode<typename string_adaptor::value_type>::SPACE);
+      while(index != string_adaptor::npos())
       {
-        text.replace(index, 1, "");
-        index = text.find_first_of(" ");
+        text = string_adaptor::concat(string_adaptor::substr(text, 0, index), string_adaptor::substr(text, index+1));
+        index = string_adaptor::find(text, Arabica::text::Unicode<typename string_adaptor::value_type>::SPACE);
       }
       t.setNodeValue(text);
-      if(text.length() == 0)
-	t.getParentNode().removeChild(t);
+      if(string_adaptor::length(text) == 0)
+	      t.getParentNode().removeChild(t);
     }
   } // stripWhitespace
 
@@ -489,7 +497,7 @@ protected:
   {
     Arabica::XSLT::StylesheetCompiler<string_type, string_adaptor> compiler;
 
-    Arabica::SAX::InputSource<string_type, string_adaptor> source(input_xslt_);
+    Arabica::SAX::InputSource<string_type, string_adaptor> source(string_adaptor::construct(input_xslt_));
     std::auto_ptr<Arabica::XSLT::Stylesheet<string_type, string_adaptor> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
       assertImplementation(false, "Failed to compile " + input_xslt_ + " : " + compiler.error());
@@ -497,10 +505,10 @@ protected:
     Arabica::XSLT::DOMSink<string_type, string_adaptor> output;
     stylesheet->set_output(output);
 
-    std::ostringstream errors;
+    std::basic_ostringstream<typename string_adaptor::value_type> errors;
     stylesheet->set_error_output(errors);
 
-    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM(input_xml_); 
+    Arabica::DOM::Document<string_type, string_adaptor> document = buildDOM<string_type, string_adaptor>(input_xml_); 
     if(document == 0)
       assertImplementation(false, "Couldn't read " + input_xml_ + ". Perhaps it isn't well-formed XML?");
     try {
@@ -510,7 +518,7 @@ protected:
       assertImplementation(false, "Failed to run " + input_xslt_ + " : " + e.what());
     }
 
-    Arabica::DOM::Document<string_type, string_adaptor> ref = buildDOM(output_xml_);
+    Arabica::DOM::Document<string_type, string_adaptor> ref = buildDOM<string_type, string_adaptor>(output_xml_);
     if(ref == 0)
       assertImplementation(false, "Couldn't read " + output_xml_ + ". Perhaps it isn't well-formed XML?");
     Arabica::DOM::Node<string_type, string_adaptor> out = output.node();
@@ -535,9 +543,11 @@ protected:
 
   std::string docToString(Arabica::DOM::Node<string_type, string_adaptor> node)
   {
-    std::ostringstream ss;
+    std::basic_ostringstream<typename string_adaptor::value_type> ss;
     ss << node;
-    std::string xml = Arabica::text::normalize_whitespace<string_type, string_adaptor>(ss.str());
+    string_type streamed = string_adaptor::construct(ss.str());
+    streamed = Arabica::text::normalize_whitespace<string_type, string_adaptor>(streamed);
+    std::string xml = string_adaptor::asStdString(streamed);
     if(xml.find("<?xml version=\"1.0\"?> ") == 0)
       xml.replace(0, 22, "");
     return xml;
@@ -545,17 +555,17 @@ protected:
 
   void stripWhitespace(Arabica::DOM::Node<string_type, string_adaptor> doc)
   {
-    Arabica::XPath::NodeSet<string_type, string_adaptor> textNodes = selectNodes("//text()", doc);
+    Arabica::XPath::NodeSet<string_type, string_adaptor> textNodes = selectNodes<string_type, string_adaptor>("//text()", doc);
     for(size_t i = 0; i != textNodes.size(); ++i)
     {
       Arabica::DOM::Node<string_type, string_adaptor> t = textNodes[i];
-      std::string text = t.getNodeValue();
+      string_type text = t.getNodeValue();
       text = Arabica::text::normalize_whitespace<string_type, string_adaptor>(text);
-      size_t index = text.find_first_of(" ");
-      while(index != std::string::npos)
+      size_t index = string_adaptor::find(text, Arabica::text::Unicode<typename string_adaptor::value_type>::SPACE);
+      while(index != string_adaptor::npos())
       {
-        text.replace(index, 1, "");
-        index = text.find_first_of(" ");
+        text = string_adaptor::concat(string_adaptor::substr(text, 0, index), string_adaptor::substr(text, index+1));
+        index = string_adaptor::find(text, Arabica::text::Unicode<typename string_adaptor::value_type>::SPACE);
       }
       t.setNodeValue(text);
     }
@@ -579,8 +589,8 @@ public:
       return;
 
     std::cerr << "Loaded expected fails" << std::endl;
-    Arabica::DOM::Document<std::string> fail_doc = buildDOM<std::string>(PATH_PREFIX + "arabica-expected-fails.xml");
-    Arabica::XPath::NodeSet<std::string> failcases = selectNodes("/test-suite/test-case", fail_doc);
+    Arabica::DOM::Document<std::string> fail_doc = buildDOM<std::string, Arabica::default_string_adaptor<std::string> >(PATH_PREFIX + "arabica-expected-fails.xml");
+    Arabica::XPath::NodeSet<std::string> failcases = selectNodes<std::string, Arabica::default_string_adaptor<std::string> >("/test-suite/test-case", fail_doc);
     for(size_t i = 0; i != failcases.size(); ++i)
     {
       std::string name = selectString("@id", failcases[i]);
@@ -637,7 +647,7 @@ Arabica::DOM::Document<std::string> Loader<string_type, string_adaptor>::loadCat
   if(c == 0)
   {
     std::cerr << "Loading " << catalog_filename << std::endl;
-    c = buildDOM(PATH_PREFIX + catalog_filename);
+    c = buildDOM<std::string, Arabica::default_string_adaptor<std::string> >(PATH_PREFIX + catalog_filename);
     catalogs_[catalog_filename] = c;
   } // if(c == 0)
 
@@ -651,8 +661,9 @@ TestSuite* Loader<string_type, string_adaptor>::suite(const std::string& path, c
   
   TestSuite *suiteOfTests = new TestSuite;
 
+  std::string testNamesSelector = "/test-suite/test-catalog/test-case[file-path='" + path + "']";
   Arabica::XPath::NodeSet<std::string> tests = 
-      selectNodes("/test-suite/test-catalog/test-case[file-path='" + path + "']", catalog);
+      selectNodes<std::string, Arabica::default_string_adaptor<std::string> >(testNamesSelector.c_str(), catalog);
   std::cerr << "There are " << tests.size() << " " << path << " tests." << std::endl;
   for(size_t i = 0; i != tests.size(); ++i)
   {

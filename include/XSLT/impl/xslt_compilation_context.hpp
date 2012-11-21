@@ -79,7 +79,7 @@ public:
     Disallow current(current_allowed_);
     return xpath_.compile_match(match); 
   } // xpath_match
-  std::vector<Arabica::XPath::MatchExpr<string_type> > xpath_match_no_variables(const string_type& match) const
+  std::vector<Arabica::XPath::MatchExpr<string_type, string_adaptor> > xpath_match_no_variables(const string_type& match) const
   {
     Disallow variables(variables_allowed_);
     return xpath_match(match);
@@ -190,7 +190,7 @@ public:
   } // precedence
 
 private:
-  virtual Arabica::XPath::XPathExpression_impl<string_type, Arabica::default_string_adaptor<string_type> >* 
+  virtual Arabica::XPath::XPathExpression_impl<string_type, string_adaptor>* 
     compileVariable(const string_type& namespace_uri, const string_type& name) const 
   {
     if(!variables_allowed_)
@@ -199,10 +199,10 @@ private:
   } // compileVariable
 
   // FunctionResolver 
-  virtual Arabica::XPath::XPathFunction<string_type>* resolveFunction(
+  virtual Arabica::XPath::XPathFunction<string_type, string_adaptor>* resolveFunction(
                                          const string_type& namespace_uri, 
                                          const string_type& name,
-                                         const std::vector<Arabica::XPath::XPathExpression<string_type> >& argExprs) const
+                                         const std::vector<Arabica::XPath::XPathExpression<string_type, string_adaptor> >& argExprs) const
   {
     if(!string_adaptor::empty(namespace_uri))
       return new UndefinedFunction<string_type, string_adaptor>(namespace_uri, name, argExprs);
@@ -273,8 +273,8 @@ private:
   mutable bool current_allowed_;
   mutable bool variables_allowed_;
   Precedence precedence_;
-  Arabica::XPath::XPath<string_type> xpath_;
-  std::stack<SAX::DefaultHandler<string_type>*> handlerStack_;
+  Arabica::XPath::XPath<string_type, string_adaptor> xpath_;
+  std::stack<SAX::DefaultHandler<string_type, string_adaptor>*> handlerStack_;
   std::stack<ItemContainer<string_type, string_adaptor>*> parentStack_;
   std::map<string_type, Namespace> namespaceRemap_;
 

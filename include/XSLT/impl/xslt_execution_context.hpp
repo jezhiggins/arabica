@@ -23,7 +23,7 @@ protected:
 
 public:
   virtual const string_type& name() const = 0;
-  virtual Arabica::XPath::XPathValue<string_type> value(const DOM::Node<string_type, string_adaptor>& node, 
+  virtual Arabica::XPath::XPathValue<string_type, string_adaptor> value(const DOM::Node<string_type, string_adaptor>& node, 
                                                         ExecutionContext<string_type, string_adaptor>& context,
                                                         DOMSink<string_type, string_adaptor>& sink) const = 0;
   virtual const Precedence& precedence() const = 0;

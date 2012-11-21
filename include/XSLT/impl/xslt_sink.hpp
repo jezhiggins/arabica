@@ -378,7 +378,7 @@ protected:
 
   void do_characters(const string_type& ch)
   {
-    DOM::Node<string_type> lc = current().getLastChild();
+    DOM::Node<string_type, string_adaptor> lc = current().getLastChild();
     if(lc == 0 || lc.getNodeType() != DOM::Node_base::TEXT_NODE)
       current().appendChild(document().createTextNode(ch));
     else
@@ -391,7 +391,7 @@ protected:
 
   void do_end_CDATA()
   {
-    DOM::Node<string_type> lc = current().getLastChild();
+    DOM::Node<string_type, string_adaptor> lc = current().getLastChild();
     if(lc.getNodeType() == DOM::Node_base::TEXT_NODE)
       current().replaceChild(document().createCDATASection(lc.getNodeValue()), lc);
   } // do_end_CDATA
@@ -434,7 +434,7 @@ protected:
   } // do_end_element
 
 private:
-  DOM::Document<string_type>& document()
+  DOM::Document<string_type, string_adaptor>& document()
   {
     if(document_ != 0)
       return document_;
@@ -444,7 +444,7 @@ private:
     return document_;
   } // document
 
-  DOM::Node<string_type>& current()
+  DOM::Node<string_type, string_adaptor>& current()
   {
     if(current_ != 0)
       return current_;

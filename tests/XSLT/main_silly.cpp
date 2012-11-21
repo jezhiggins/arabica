@@ -1,5 +1,5 @@
 #ifdef _MSC_VER
-#pragma warning(disable : 4250)
+#pragma warning(disable : 4250 4244)
 #endif
 
 

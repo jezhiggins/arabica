@@ -176,6 +176,32 @@ public:
     return static_cast<wchar_t>(c);
   } // makeValueT
 
+  template<class InputIterator>
+  static inline string_type construct(InputIterator from, InputIterator to)
+  {
+    return string_type(from, to);
+  }
+
+  static inline string_type construct(const_iterator from, const_iterator to)
+  {
+    return string_type(from, to);
+  }
+
+  static inline string_type construct(const std::basic_string<value_type>& str)
+  {
+    return construct(str.begin(), str.end());
+  } // construct
+
+  static string_type construct(const value_type* str)
+  {
+    return str ? string_type(str) : string_type();
+  }
+
+  static std::wstring construct(const std::string& str)
+  {
+    return construct_from_utf8(str.c_str());
+  } 
+
   static std::wstring construct_from_utf8(const char* str)
   {
     widener_t w;

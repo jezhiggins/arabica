@@ -70,7 +70,8 @@ private:
       return elements;
 
     string_type norm_cdata_sec_elements = text::normalize_whitespace<string_type, string_adaptor>(cdata_section_elements);
-    std::basic_istringstream<typename string_adaptor::value_type> is(string_adaptor::asStdString(norm_cdata_sec_elements));
+    std::basic_stringstream<typename string_adaptor::value_type> is;
+    is << norm_cdata_sec_elements;
     while(!is.eof())
     {
       std::basic_string<typename string_adaptor::value_type> e;

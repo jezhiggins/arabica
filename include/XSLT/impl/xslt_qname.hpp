@@ -35,7 +35,7 @@ struct QName
     string_adaptor::append(qname, lN);
   } // QName
 
-  static QName create(const XML::QualifiedName<string_type>& qName)
+  static QName create(const XML::QualifiedName<string_type, string_adaptor>& qName)
   {
     if(string_adaptor::length(qName.prefix()) && string_adaptor::empty(qName.namespaceUri()))
       throw SAX::SAXException("Prefix " + string_adaptor::asStdString(qName.prefix()) + " is not declared.");

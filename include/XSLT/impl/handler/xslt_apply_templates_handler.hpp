@@ -94,7 +94,7 @@ public:
   } // characters
 
 private:
-  CompilationContext<string_type>& context_;
+  CompilationContext<string_type, string_adaptor>& context_;
   ApplyTemplates<string_type, string_adaptor>* applyTemplates_;
 }; // class ApplyTemplatesHandler
 
