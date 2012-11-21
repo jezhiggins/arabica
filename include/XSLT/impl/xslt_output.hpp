@@ -149,6 +149,7 @@ public:
     if(pending_attribute_ == -1)
       return;
 
+    atts_.setValue(pending_attribute_, string_adaptor::construct(buffer_.str()));
 
     pending_attribute_ = -1;
   } // end_attribute
