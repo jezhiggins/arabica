@@ -26,10 +26,6 @@
 #include <map>
 #include <string> 
 
-//#include <SAX/InputSource.hpp>
-//#include <SAX/Attributes.hpp>
-//#include <DOM/SAX2DOM/SAX2DOM.hpp>
-//#include <DOM/io/Stream.hpp>
 #include <fstream>
 
 class Expected;
@@ -61,13 +57,14 @@ const std::string PATH_PREFIX=test_path;
 const std::string SEPERATOR = "/";
 #endif
   
-Arabica::DOM::Document<std::string> buildDOM(const std::string& filename)
+template<class string_type, class string_adaptor>
+Arabica::DOM::Document<string_type, string_adaptor> buildDOM(const std::string& filename)
 {
-  Arabica::SAX::InputSource<std::string> is(filename);
-  Arabica::SAX2DOM::Parser<std::string> parser;
+  Arabica::SAX::InputSource<string_type, string_adaptor> is(filename);
+  Arabica::SAX2DOM::Parser<string_type, string_adaptor> parser;
   parser.parse(is);       
 
-  Arabica::DOM::Document<std::string> d = parser.getDocument();
+  Arabica::DOM::Documentstring_type, string_adaptor> d = parser.getDocument();
   if(d != 0)
     d.normalize();
   return d;
@@ -582,7 +579,7 @@ public:
       return;
 
     std::cerr << "Loaded expected fails" << std::endl;
-    Arabica::DOM::Document<std::string> fail_doc = buildDOM(PATH_PREFIX + "arabica-expected-fails.xml");
+    Arabica::DOM::Document<std::string> fail_doc = buildDOM<std::string>(PATH_PREFIX + "arabica-expected-fails.xml");
     Arabica::XPath::NodeSet<std::string> failcases = selectNodes("/test-suite/test-case", fail_doc);
     for(size_t i = 0; i != failcases.size(); ++i)
     {
@@ -754,7 +751,7 @@ bool XSLT_test_suite(int argc, const char* argv[])
 
   // runner.addTest("ScopeTest", ScopeTest_suite<string_type, string_adaptor>());
 
-  Loader<std::string, Arabica::default_string_adaptor<std::string> > loader;
+  Loader<string_type, string_adaptor> loader;
 
   //add_tests(runner, loader, tests_to_run, xalan_tests);
   //add_tests(runner, loader, tests_to_run, msft_tests);

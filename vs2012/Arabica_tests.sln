@@ -28,6 +28,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xslt", "test_xslt.vcxp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xslt_wide", "test_xslt_wide.vcxproj", "{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_xslt_silly", "test_xslt_silly.vcxproj", "{9FBD30C4-8588-49A8-95E4-471307B57F7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -90,6 +92,10 @@ Global
 		{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}.Debug|Win32.Build.0 = Debug|Win32
 		{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}.Release|Win32.ActiveCfg = Release|Win32
 		{B4FB0A94-1792-43F1-A57F-4D77AB7593DB}.Release|Win32.Build.0 = Release|Win32
+		{9FBD30C4-8588-49A8-95E4-471307B57F7E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9FBD30C4-8588-49A8-95E4-471307B57F7E}.Debug|Win32.Build.0 = Debug|Win32
+		{9FBD30C4-8588-49A8-95E4-471307B57F7E}.Release|Win32.ActiveCfg = Release|Win32
+		{9FBD30C4-8588-49A8-95E4-471307B57F7E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
