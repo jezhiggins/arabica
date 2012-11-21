@@ -764,8 +764,8 @@ bool XSLT_test_suite(int argc, const char* argv[])
 
   Loader<string_type, string_adaptor> loader;
 
-  //add_tests(runner, loader, tests_to_run, xalan_tests);
-  //add_tests(runner, loader, tests_to_run, msft_tests);
+  add_tests(runner, loader, tests_to_run, xalan_tests);
+  add_tests(runner, loader, tests_to_run, msft_tests);
   add_arabica_tests(runner, loader, tests_to_run, arabica_tests);
 
   return runner.run(argc, argv);
