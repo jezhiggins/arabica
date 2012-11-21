@@ -144,7 +144,7 @@ public:
     {
       const string_type& name = r->first;
       const AttributeValidator<string_type, string_adaptor>& av = r->second;
-      if((av.mandatory()) && (atts.getValue(name).empty()))
+      if((av.mandatory()) && (string_adaptor::empty(atts.getValue(name))))
         throw SAX::SAXException(string_adaptor::asStdString(parentElement) + ": Attribute " + string_adaptor::asStdString(name) + " must be specified");
       if(av.has_default())
         results[name] = av.default_value();
@@ -300,7 +300,7 @@ template<class string_type, class string_adaptor>
 void verifyNoCharacterData(const string_type& ch,
                            const string_type& name)
 {
-  for(typename string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+  for(typename string_adaptor::const_iterator i = string_adaptor::begin(ch), e = string_adaptor::end(ch); i != e; ++i)
     if(!Arabica::XML::is_space(*i))
       throw SAX::SAXException(string_adaptor::asStdString(name) + " element can not contain character data.");
 } // verifyNoCharacterContent

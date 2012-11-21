@@ -24,11 +24,14 @@ private:
   std::string s_;
 
   friend class silly_string_adaptor;
-  friend bool operator<(const silly_string& lhs, 
+  friend bool operator<(const silly_string& lhs,
+                        const silly_string& rhs);
+  friend bool operator>(const silly_string& lhs,
                         const silly_string& rhs);
 }; // class silly_string
 
 bool operator<(const silly_string& lhs, const silly_string& rhs);
+bool operator>(const silly_string& lhs, const silly_string& rhs);
 
 class silly_string_adaptor : public Arabica::string_adaptor_tag
 {
@@ -36,6 +39,7 @@ public:
   typedef silly_string string_type;
   typedef std::string::const_iterator const_iterator;
   typedef std::string::iterator mutable_iterator;
+  typedef std::string::const_reverse_iterator const_reverse_iterator;
   typedef char value_type;
   typedef std::string::size_type size_type;
   static size_type npos()
@@ -60,6 +64,11 @@ public:
     return ss;
   } // construct
 
+  static silly_string construct(const std::basic_string<value_type>& str)
+  {
+    return construct(str.c_str());
+  } // construct
+
   static char convert_from_utf8(char c);
   static silly_string construct_from_utf8(const char* str);
   static silly_string construct_from_utf8(const char* str, int length);
@@ -78,12 +87,16 @@ public:
   static silly_string substr(const silly_string& str, const size_type& offset, const size_type& count);
   static size_type length(const silly_string& str);
   static void append(silly_string& str, const silly_string& a);
+  static void append(silly_string& str, const char& a);
+  static silly_string concat(const silly_string& str, const silly_string& a);
+  static silly_string concat(const silly_string& str, const char& a);
   static void insert(silly_string& str, size_type offset, const silly_string& a);
   static void replace(silly_string& str, size_type offset, size_type count, const silly_string& a);
   static const_iterator begin(const silly_string& str) { return str.s_.begin(); }
   static mutable_iterator begin(silly_string& str) { return str.s_.begin(); }
   static const_iterator end(const silly_string& str) { return str.s_.end(); }
   static mutable_iterator end(silly_string& str) { return str.s_.end(); }
+  static const_reverse_iterator rbegin(const silly_string& str) { return str.s_.rbegin(); }
 
   // mainly used to constuct error strings - don't have to be highly efficient!
   static std::string asStdString(const silly_string& str);
@@ -103,10 +116,10 @@ namespace std {
 
 template<>
 struct less<silly_string> : public binary_function<silly_string, silly_string, bool>
-{	
+{
   // functor for operator<
   bool operator()(const silly_string& lhs, const silly_string& rhs) const
-  {	
+  {
     // apply operator< to operands
     return (silly_string_adaptor::asStdString(lhs) < silly_string_adaptor::asStdString(rhs));
   } // operator()

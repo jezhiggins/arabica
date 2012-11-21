@@ -63,7 +63,7 @@ public:
 
     if(namespaceURI == SC::NamespaceURI)
       startXSLTElement(namespaceURI, localName, qName, atts);
-    else if(!namespaceURI.empty())
+    else if(!string_adaptor::empty(namespaceURI))
       startForeignElement(namespaceURI, localName, qName, atts);
     else
       oops(qName);
@@ -103,7 +103,7 @@ private:
     std::map<string_type, string_type> attributes = rules.gather(qName, atts);
     if(attributes[SC::version] != SC::Version)
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");
-    if(!attributes[SC::extension_element_prefixes].empty())
+    if(!string_adaptor::empty(attributes[SC::extension_element_prefixes]))
       throw SAX::SAXException("Haven't implemented extension-element-prefixes yet");
   } // startStylesheet
 
@@ -121,7 +121,7 @@ private:
         break;
       }
 
-    if(version.empty())
+    if(string_adaptor::empty(version))
       throw SAX::SAXException("The source file does not look like a stylesheet.");
     if(version != SC::Version)
       throw SAX::SAXException("I'm only a poor version 1.0 XSLT Transformer.");

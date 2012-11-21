@@ -159,7 +159,7 @@ public:
   {
     typedef Arabica::text::Unicode<typename string_adaptor::value_type> UnicodeT;
 
-    string_type clarkName = namespace_uri.empty() ? name : make_clark_name(namespace_uri, name);
+    string_type clarkName = string_adaptor::empty(namespace_uri) ? name : make_clark_name(namespace_uri, name);
     if(std::find(resolutionStack_.begin(), resolutionStack_.end(), clarkName) != resolutionStack_.end())
       throw std::runtime_error("Circular dependency: " + string_adaptor::asStdString(clarkName) + " refers to itself directly or indirectly.");
 

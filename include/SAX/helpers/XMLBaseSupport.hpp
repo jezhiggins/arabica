@@ -63,7 +63,7 @@ public:
   {
     ++depth_;
     string_type base = atts.getValue(xbc_.xml_uri, xbc_.base);
-    if(base.empty())
+    if(string_adaptor::empty(base))
       return;
 
     string_type baseURI = absolutise(currentBase(), base);

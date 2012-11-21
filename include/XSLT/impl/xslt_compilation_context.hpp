@@ -171,7 +171,7 @@ public:
   {
     std::basic_ostringstream<typename string_adaptor::value_type> ss;
     ss << SC::auto_ns << autoNs_++;
-    return ss.str();
+    return string_adaptor::construct(ss.str());
   } // autoNamespacePrefix
 
   void set_precedence(const Precedence& prec)
@@ -204,7 +204,7 @@ private:
                                          const string_type& name,
                                          const std::vector<Arabica::XPath::XPathExpression<string_type> >& argExprs) const
   {
-    if(!namespace_uri.empty())
+    if(!string_adaptor::empty(namespace_uri))
       return new UndefinedFunction<string_type, string_adaptor>(namespace_uri, name, argExprs);
 
     // document

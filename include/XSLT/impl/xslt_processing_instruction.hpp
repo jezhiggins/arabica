@@ -37,25 +37,29 @@ public:
 private:
   void validate_name(const string_type& name) const
   {
-    if(name.empty())
+    if(string_adaptor::empty(name))
       throw SAX::SAXException("xsl:processing-instruction : name attribute must evaluate to a valid name");
 
     if(!Arabica::XML::is_ncname<string_adaptor>(name))
       throw SAX::SAXException("xsl:processing-instruction : '" + string_adaptor::asStdString(name) + "' is not valid as the name");
 
-    if(name.length() != 3)
+    if(string_adaptor::length(name) != 3)
       return;
 
     typedef Arabica::text::Unicode<char> UnicodeT;
 
-    if((name[0] != UnicodeT::CAPITAL_X) &&
-       (name[0] != UnicodeT::LOWERCASE_X))
+    typename string_adaptor::const_iterator i = string_adaptor::begin(name);
+
+    if((*i != UnicodeT::CAPITAL_X) &&
+       (*i != UnicodeT::LOWERCASE_X))
       return;
-    if((name[1] != UnicodeT::CAPITAL_M) &&
-       (name[1] != UnicodeT::LOWERCASE_M))
+    ++i;
+    if((*i != UnicodeT::CAPITAL_M) &&
+       (*i != UnicodeT::LOWERCASE_M))
       return;
-    if((name[2] != UnicodeT::CAPITAL_L) &&
-       (name[2] != UnicodeT::LOWERCASE_L))
+    ++i;
+    if((*i != UnicodeT::CAPITAL_L) &&
+       (*i != UnicodeT::LOWERCASE_L))
       return;
       
     throw SAX::SAXException("xsl:processing-instruction name can not be 'xml'");

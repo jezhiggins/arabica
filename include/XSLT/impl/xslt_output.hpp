@@ -65,7 +65,7 @@ public:
     flush_current();
 
     namespaceStack_.pushScope();
-    if(!namespaceURI.empty())
+    if(!string_adaptor::empty(namespaceURI))
       namespaceStack_.declareNamespace(prefix, namespaceURI);
 
     string_type mapped_prefix = namespaceStack_.findPrefix(namespaceURI);
@@ -95,12 +95,20 @@ public:
     if(!text_mode_)
     {
       string_type mapped_prefix = namespaceStack_.findPrefix(namespaceURI);
-      do_end_element((!mapped_prefix.empty()) ? mapped_prefix + SC::COLON + localName : localName, namespaceURI);
+      do_end_element((!string_adaptor::empty(mapped_prefix)) ? makeName(mapped_prefix, localName) : localName, namespaceURI);
       element_stack_.pop();
     } // end_element
 
     namespaceStack_.popScope();
   } // end_element
+
+  string_type makeName(const string_type& prefix, const string_type& localName) const
+  {
+    string_type n = prefix;
+    string_adaptor::append(n, SC::COLON);
+    string_adaptor::append(n, localName);
+    return n;
+  } // makeName
 
   void start_attribute(const string_type& qName, const string_type& namespaceURI)
   {
@@ -119,11 +127,11 @@ public:
       return;
     } // if ...
 
-    if(!namespaceURI.empty())
+    if(!string_adaptor::empty(namespaceURI))
       namespaceStack_.declareNamespace(prefix, namespaceURI, true);
 
     string_type mapped_prefix = namespaceStack_.findPrefix(namespaceURI);
-    string_type qName = (!mapped_prefix.empty()) ? mapped_prefix + SC::COLON + localName : localName;
+    string_type qName = (!string_adaptor::empty(mapped_prefix)) ? makeName(mapped_prefix, localName) : localName;
 
     atts_.addOrReplaceAttribute(namespaceURI,
                                 localName,
@@ -141,7 +149,6 @@ public:
     if(pending_attribute_ == -1)
       return;
 
-    atts_.setValue(pending_attribute_, buffer_.str());   
 
     pending_attribute_ = -1;
   } // end_attribute
@@ -173,7 +180,7 @@ public:
 
     if(pending_attribute_ != -1)
     {   
-      atts_.setValue(pending_attribute_, atts_.getValue(pending_attribute_) + ch);
+      atts_.setValue(pending_attribute_, string_adaptor::concat(atts_.getValue(pending_attribute_), ch));
       return;
     } // if ...
 
@@ -204,9 +211,9 @@ public:
 
     if(!text_mode_)
     {
-      string_type comment = escape(buffer_.str(), SC::double_hyphen, SC::escaped_double_hyphen);
-      if(comment.length() && *(comment.rbegin()) == SC::HYPHEN_MINUS)
-        comment += SC::SPACE;
+      string_type comment = escape(string_adaptor::construct(buffer_.str()), SC::double_hyphen, SC::escaped_double_hyphen);
+      if(string_adaptor::length(comment) && *(string_adaptor::rbegin(comment)) == SC::HYPHEN_MINUS)
+        string_adaptor::append(comment, SC::SPACE);
       do_comment(comment);
     } // if ...
   } // end_comment
@@ -228,7 +235,7 @@ public:
 
     if(!text_mode_)
     {
-      string_type data = escape(buffer_.str(), SC::PIEnd, SC::escaped_pi_end);
+      string_type data = escape(string_adaptor::construct(buffer_.str()), SC::PIEnd, SC::escaped_pi_end);
       do_processing_instruction(target_, data);
     } // if ...
   } // end_processing_instruction
@@ -260,11 +267,14 @@ protected:
 private:
   string_type escape(string_type str, const string_type& t, const string_type& r) const
   {
-    typename string_type::size_type naughty = str.find(t);
-    while(naughty != string_type::npos)
+    typename string_adaptor::size_type naughty = string_adaptor::find(str, t);
+    while(naughty != string_adaptor::npos())
     {
-      str.replace(naughty, t.length(), r, 0, r.length());
-      naughty = str.find(t, naughty);
+      string_type newstr = string_adaptor::substr(str, 0, naughty);
+      string_adaptor::append(newstr, r);
+      string_adaptor::append(newstr, string_adaptor::substr(str, naughty + string_adaptor::length(t)));
+      str = newstr;
+      naughty =  string_adaptor::find(str, t, naughty);
     } // while
     return str;
   } // escape
@@ -277,7 +287,7 @@ private:
     if(is_buf)
       return true;
 
-    buffer_.str(string_adaptor::empty_string());
+    buffer_.str(std::basic_string<typename string_adaptor::value_type>());
     return false;
   } // push_buffering
 
@@ -349,7 +359,7 @@ private:
       if(n->first == SC::xml)
         continue;
 
-      string_type qName = (n->first.empty()) ? SC::xmlns : SC::xmlns_colon + n->first;
+      string_type qName = (string_adaptor::empty(n->first)) ? SC::xmlns : string_adaptor::concat(SC::xmlns_colon, n->first);
       atts_.addAttribute(SC::xmlns_uri,
                          n->first,
                          qName,

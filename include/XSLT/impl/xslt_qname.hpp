@@ -20,18 +20,24 @@ struct QName
   string_type qname;
 
   QName(const string_type& p,
-              const string_type& lN,
-              const string_type& uri) :
+        const string_type& lN,
+        const string_type& uri) :
     prefix(p),
     localName(lN),
     namespaceURI(uri),
-    qname(p.empty() ? lN : (p + SC::COLON + lN))
+    qname()
   {
+    if(!string_adaptor::empty(p)) 
+    {
+      string_adaptor::append(qname, p);
+      string_adaptor::append(qname, SC::COLON);
+    } // if ...
+    string_adaptor::append(qname, lN);
   } // QName
 
   static QName create(const XML::QualifiedName<string_type>& qName)
   {
-    if(qName.prefix().length() && qName.namespaceUri().empty())
+    if(string_adaptor::length(qName.prefix()) && string_adaptor::empty(qName.namespaceUri()))
       throw SAX::SAXException("Prefix " + string_adaptor::asStdString(qName.prefix()) + " is not declared.");
     return QName(qName.prefix(), qName.localName(), qName.namespaceUri());
   } // create
@@ -49,14 +55,14 @@ struct QName
     string_type prefix;
     string_type localName;
 
-    size_t colon = qName.find(SC::COLON);
+    size_t colon = string_adaptor::find(qName, SC::COLON);
      
-    if(colon == string_type::npos) 
+    if(colon == string_adaptor::npos()) 
       localName = qName;
     else
     {
-      prefix = qName.substr(0, colon);
-     localName = qName.substr(colon+1);
+      prefix = string_adaptor::substr(qName, 0, colon);
+      localName = string_adaptor::substr(qName, colon+1);
     }
     return QName(prefix, localName, namespaceURI);
   } // create

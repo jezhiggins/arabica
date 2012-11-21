@@ -66,17 +66,17 @@ private:
   {
     CDATAElements elements;
 
-    if(cdata_section_elements.empty())
+    if(string_adaptor::empty(cdata_section_elements))
       return elements;
 
-    std::basic_istringstream<typename string_adaptor::value_type>
-                 is(text::normalize_whitespace<string_type, string_adaptor>(cdata_section_elements));
+    string_type norm_cdata_sec_elements = text::normalize_whitespace<string_type, string_adaptor>(cdata_section_elements);
+    std::basic_istringstream<typename string_adaptor::value_type> is(string_adaptor::asStdString(norm_cdata_sec_elements));
     while(!is.eof())
     {
-      string_type e;
+      std::basic_string<typename string_adaptor::value_type> e;
       is >> e;
 
-      XML::QualifiedName<string_type, string_adaptor> qualifiedName = context_.processElementQName(e);
+      XML::QualifiedName<string_type, string_adaptor> qualifiedName = context_.processElementQName(string_adaptor::construct(e));
       elements.insert(QName<string_type, string_adaptor>::create(qualifiedName));
     } // while
 

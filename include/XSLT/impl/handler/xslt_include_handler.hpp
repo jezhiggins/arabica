@@ -107,7 +107,7 @@ public:
   virtual void characters(const string_type& ch)
   {
     if(no_content_)
-      verifyNoCharacterData<string_type, string_adaptor>(ch, SC::include + SC::import);
+      verifyNoCharacterData<string_type, string_adaptor>(ch, SC::include); // + SC::import
     context_->parentHandler().characters(ch);
   } // characters
 

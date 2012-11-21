@@ -71,7 +71,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    for(typename string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
+    for(typename string_adaptor::const_iterator i = string_adaptor::begin(ch), e = string_adaptor::end(ch); i != e; ++i)
       if(!Arabica::XML::is_space(*i))
       {
         container_->add_item(new Text<string_type, string_adaptor>(ch));

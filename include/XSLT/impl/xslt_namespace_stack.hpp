@@ -42,7 +42,7 @@ public:
     if(findPrefix(namespaceURI) != EMPTY_STRING)
       return;
 
-    bool remap = (attr && given_prefix.empty()) || (given_prefix == SC::xmlns);
+    bool remap = (attr && string_adaptor::empty(given_prefix)) || (given_prefix == SC::xmlns);
 
     string_type prefix = !remap ? given_prefix : autoNamespacePrefix();
 
@@ -81,7 +81,7 @@ private:
   {
     std::basic_ostringstream<typename string_adaptor::value_type> ss;
     ss << SC::auto_ns << autoNs_++;
-    return ss.str();
+    return string_adaptor::construct(ss.str());
   } // autoNamespacePrefix
 
   ScopeStack prefixStack_;

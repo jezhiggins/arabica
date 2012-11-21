@@ -63,9 +63,9 @@ protected:
   {
     if(has_select_)
     {
-      for(typename string_type::const_iterator i = ch.begin(), e = ch.end(); i != e; ++i)
-	    if(!Arabica::XML::is_space(*i))
-	      throw SAX::SAXException("A variable or param can not have both a select attribute and text context");
+      for(typename string_adaptor::const_iterator i = string_adaptor::begin(ch), e = string_adaptor::end(ch); i != e; ++i)
+	      if(!Arabica::XML::is_space(*i))
+	        throw SAX::SAXException("A variable or param can not have both a select attribute and text context");
     }
     ItemContainerHandler<VType>::characters(ch);
   } // characters

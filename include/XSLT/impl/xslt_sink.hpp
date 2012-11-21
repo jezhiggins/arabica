@@ -146,7 +146,7 @@ protected:
     {
       stream_ << ' ' << atts.getQName(a) << '=' << '\"';
       string_type ch = atts.getValue(a);
-      std::for_each(ch.begin(), ch.end(), Arabica::XML::attribute_escaper<typename string_adaptor::value_type>(stream_));
+      std::for_each(string_adaptor::begin(ch), string_adaptor::end(ch), Arabica::XML::attribute_escaper<typename string_adaptor::value_type>(stream_));
       stream_ << '\"';
     }
     empty_ = true;
@@ -175,11 +175,11 @@ protected:
     close_element_if_empty();
 
     if(!disable_output_escaping_ && !in_cdata_)
-      std::for_each(ch.begin(), ch.end(), Arabica::XML::text_escaper<typename string_adaptor::value_type>(stream_));
+      std::for_each(string_adaptor::begin(ch), string_adaptor::end(ch), Arabica::XML::text_escaper<typename string_adaptor::value_type>(stream_));
     else if(in_cdata_) 
     {
-      size_t breakAt = ch.find(SC::CDATAEnd);
-      if(breakAt == string_type::npos)
+      size_t breakAt = string_adaptor::find(ch, SC::CDATAEnd);
+      if(breakAt == string_adaptor::npos())
       {
         stream_ << ch;
         return;
@@ -188,14 +188,14 @@ protected:
       do
       {
         breakAt += 2;
-        stream_ << ch.substr(start, breakAt);
+        stream_ << string_adaptor::substr(ch, start, breakAt);
         do_end_CDATA();
         start = breakAt;
         do_start_CDATA();
-        breakAt = ch.find(SC::CDATAEnd, breakAt);
+        breakAt = string_adaptor::find(ch, SC::CDATAEnd, breakAt);
       }
-      while(breakAt != string_type::npos);
-      stream_ << ch.substr(start);
+      while(breakAt != string_adaptor::npos());
+      stream_ << string_adaptor::substr(ch, start);
     }
     else
       stream_ << ch;
@@ -294,26 +294,26 @@ private:
 
     {
       string_type version = setting(SC::version);
-      if(version.empty())
+      if(string_adaptor::empty(version))
         version = SC::Version;
       stream_ << "<?xml version=\"" << version << "\""; 
     }
     {
       string_type s = setting(SC::standalone);
-      if(!s.empty())
+      if(!string_adaptor::empty(s))
         stream_ << " standalone=\"" << s << "\"";
     }
     stream_ << "?>\n";
 
-    if(!qName.empty())
+    if(!string_adaptor::empty(qName))
     {
       string_type pub = setting(SC::doctype_public);
       string_type sys = setting(SC::doctype_system);
 
-      if(!sys.empty())
+      if(!string_adaptor::empty(sys))
       {
         stream_ << "<!DOCTYPE " << qName << "\n";
-        if(!pub.empty())
+        if(!string_adaptor::empty(pub))
           stream_ << "  PUBLIC \"" << pub << "\" \"" << sys << "\">\n";
 	else
           stream_ << "  SYSTEM \"" << sys << "\">\n";
@@ -382,7 +382,7 @@ protected:
     if(lc == 0 || lc.getNodeType() != DOM::Node_base::TEXT_NODE)
       current().appendChild(document().createTextNode(ch));
     else
-      lc.setNodeValue(lc.getNodeValue() + ch);
+      lc.setNodeValue(string_adaptor::concat(lc.getNodeValue(), ch));
   } // do_characters
 
   void do_start_CDATA()
@@ -462,9 +462,10 @@ private:
     string_type sps;
     if(indent_ != 0)
     {
-      sps += '\n';
-      std::fill_n(std::back_inserter<string_type>(sps), indent_, ' ');
-      do_characters(sps);
+      std::basic_string<typename string_adaptor::value_type> sps;
+      sps += SC::CARRIAGE_RETURN;
+      std::fill_n(std::back_inserter<std::basic_string<typename string_adaptor::value_type> >(sps), indent_, SC::SPACE);
+      do_characters(string_adaptor::construct(sps));
     } // if ...
 
     indent_ += 2;

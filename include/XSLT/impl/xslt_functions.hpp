@@ -236,7 +236,7 @@ protected:
 
     std::basic_ostringstream<typename string_adaptor::value_type> os;
     os << node.underlying_impl();
-    return os.str();
+    return string_adaptor::construct(os.str());
   } // doEvaluate
 }; // class GenerateIdFunction
 
@@ -315,7 +315,7 @@ protected:
     const QualifiedName expandedName = QualifiedName::parseQName(functionName, true, namespaces_);
 
     if((expandedName.namespaceUri() != StylesheetConstant<string_type, string_adaptor>::NamespaceURI) &&
-       (!expandedName.namespaceUri().empty()))
+       (!string_adaptor::empty(expandedName.namespaceUri())))
       return false;
 
     static string_type XSLTNames[] = { SC::apply_imports, 
@@ -414,14 +414,14 @@ public:
   {
     typedef Arabica::text::Unicode<typename string_adaptor::value_type> UnicodeT;
 
-    if(!namespace_uri.empty())
+    if(!string_adaptor::empty(namespace_uri))
     {
-      error_ += UnicodeT::LEFT_SQUARE_BRACKET;
-      error_ += namespace_uri;
-      error_ += UnicodeT::RIGHT_SQUARE_BRACKET;
+      string_adaptor::append(error_, UnicodeT::LEFT_SQUARE_BRACKET);
+      string_adaptor::append(error_, namespace_uri);
+      string_adaptor::append(error_, UnicodeT::RIGHT_SQUARE_BRACKET);
     } // if .. 
 
-    error_ += name;
+    string_adaptor::append(error_, name);
   } // UndefinedFunction
 
 protected:

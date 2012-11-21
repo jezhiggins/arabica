@@ -304,7 +304,7 @@ class NamespaceSupport
       for(typename contextListT::const_reverse_iterator i = contexts_.rbegin(); i != contexts_.rend(); ++i)
       {
         for(typename stringMapT::const_iterator u = i->begin(); u != i->end(); ++u)
-          if(!u->first.empty())
+          if(!string_adaptor::empty(u->first))
             prefixes.push_back(u->first);
       } // for ...
        

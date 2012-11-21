@@ -43,7 +43,7 @@ public:
       order = context_.xpath_attribute_value_template(attr[SC::order]);
       caseorder = context_.xpath_attribute_value_template(attr[SC::case_order]);
 
-      if(attr[SC::lang].length() != 0)
+      if(string_adaptor::length(attr[SC::lang]) != 0)
 	      std::cerr << "Sorry!  Don't support xsl:sort lang attribute yet" << std::endl;
  
       sort_ = new Sort<string_type, string_adaptor>(select,

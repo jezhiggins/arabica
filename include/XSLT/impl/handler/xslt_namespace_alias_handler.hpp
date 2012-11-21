@@ -44,10 +44,10 @@ public:
 
       std::map<string_type, string_type> namespaces = context_.inScopeNamespaces();
       if((namespaces.find(stylesheet_prefix) == namespaces.end()) && 
-         (!stylesheet_prefix.empty()))
+         (!string_adaptor::empty(stylesheet_prefix)))
         throw SAX::SAXException(string_adaptor::asStdString(SC::namespace_alias) + " " + string_adaptor::asStdString(stylesheet_prefix) + " is not a declared namespace prefix");
       if((namespaces.find(result_prefix) == namespaces.end()) &&
-         (!result_prefix.empty()))
+         (!string_adaptor::empty(result_prefix)))
         throw SAX::SAXException(string_adaptor::asStdString(SC::namespace_alias) + " " + string_adaptor::asStdString(result_prefix) + " is not a declared namespace prefix");
 
       context_.addNamespaceAlias(namespaces[stylesheet_prefix], result_prefix, namespaces[result_prefix]);

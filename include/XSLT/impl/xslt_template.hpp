@@ -40,7 +40,7 @@ public:
     mode_(mode),
     precedence_(precedence)
   {
-    if(!priority.empty())
+    if(!string_adaptor::empty(priority))
     {
       double p = boost::lexical_cast<double>(Arabica::text::normalize_whitespace<string_type, string_adaptor>(priority));
       for(typename MatchExprList::iterator m = matches_.begin(), me = matches_.end(); m != me; ++m)
@@ -58,7 +58,7 @@ public:
   } // execute
 
   const MatchExprList& compiled_matches() const { return matches_; }
-  bool has_name() const { return !name_.empty(); }
+  bool has_name() const { return !string_adaptor::empty(name_); }
   const string_type& name() const { return name_; }
   const string_type& mode() const { return mode_; }
   const Precedence& precedence() const { return precedence_; }

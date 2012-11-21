@@ -19,6 +19,7 @@ public:
   typedef stringT string_type;
   typedef typename string_type::const_iterator const_iterator;
   typedef typename string_type::iterator mutable_iterator;
+  typedef typename string_type::const_reverse_iterator const_reverse_iterator;
   typedef typename string_type::iterator iterator;
   typedef typename string_type::value_type value_type;
   typedef typename string_type::size_type size_type;
@@ -42,6 +43,10 @@ public:
     return string_type(from, to);
   }
 
+  static inline string_type construct(const std::basic_string<value_type>& str)
+  {
+    return construct(str.begin(), str.end());
+  } // construct
 
   static string_type construct(const value_type* str)
   {
@@ -62,6 +67,9 @@ public:
   static string_type substr(const string_type& str, const size_type& offset) { return str.substr(offset); }
   static string_type substr(const string_type& str, const size_type& offset, const size_type& count) { return str.substr(offset, count); }
   static void append(string_type& str, const string_type& a) { str.append(a); }
+  static void append(string_type& str, const value_type& a) { str += a; }
+  static string_type concat(const string_type& str, const string_type& a) { return str + a; }
+  static string_type concat(const string_type& str, const value_type& a) { return str + a; }
   static void insert(string_type& str, size_type offset, const string_type& a) { str.insert(offset, a); }
   static void replace(string_type& str, size_type offset, size_type count, const string_type& a) { str.replace(offset, count, a); }
 
@@ -71,6 +79,7 @@ public:
   static iterator begin(string_type& str) { return str.begin(); }
   static iterator end(string_type& str) { return str.end(); }
 
+  static const_reverse_iterator rbegin(const string_type& str) { return str.rbegin(); }
 
   // only used to constuct error strings - don't have to be highly efficient!
   static std::string asStdString(const string_type& str);

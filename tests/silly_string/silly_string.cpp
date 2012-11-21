@@ -33,6 +33,11 @@ bool operator<(const silly_string& lhs, const silly_string& rhs)
   return lhs.s_ < rhs.s_;
 } // operator<
 
+bool operator>(const silly_string& lhs, const silly_string& rhs)
+{
+  return lhs.s_ > rhs.s_;
+} // operator<
+
 ////////////////////////////////////////
 ////////////////////////////////////////
 char silly_string_adaptor::convert_from_utf8(char c)
@@ -124,6 +129,22 @@ void silly_string_adaptor::append(silly_string& str, const silly_string& a)
 {
   str.s_.append(a.s_);
 } // append
+
+void silly_string_adaptor::append(silly_string& str, const char& a)
+{
+  str.s_ += a;
+} // append
+
+silly_string silly_string_adaptor::concat(const silly_string& str, const silly_string& a)
+{
+  return construct(str.s_ + a.s_);
+}
+
+silly_string silly_string_adaptor::concat(const silly_string& str, const char& a)
+{
+  return construct(str.s_ + a);
+}
+
 
 void silly_string_adaptor::insert(silly_string& str, size_type offset, const silly_string& a)
 {

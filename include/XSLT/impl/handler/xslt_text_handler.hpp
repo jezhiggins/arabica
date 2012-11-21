@@ -46,7 +46,7 @@ public:
 
   virtual void characters(const string_type& ch)
   {
-    buffer_ += ch;
+    string_adaptor::append(buffer_, ch);
   } // characters
 
 private:

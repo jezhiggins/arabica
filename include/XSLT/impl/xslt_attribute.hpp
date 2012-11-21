@@ -35,7 +35,7 @@ public:
                        ExecutionContext<string_type, string_adaptor>& context) const
   {
     string_type name = name_->evaluateAsString(node, context.xpathContext());
-    if(name.empty())
+    if(string_adaptor::empty(name))
       throw SAX::SAXException("xsl:attribute name attribute must evaluate to a valid element name");
 
     string_type namesp;
@@ -45,7 +45,7 @@ public:
     else
     { 
       QName<string_type, string_adaptor> qn = QName<string_type, string_adaptor>::create(name);
-      if(!qn.prefix.empty())
+      if(!string_adaptor::empty(qn.prefix))
       {
         typename std::map<string_type, string_type>::const_iterator ns = namespaces_.find(qn.prefix);
         if(ns == namespaces_.end())
