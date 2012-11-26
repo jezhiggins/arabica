@@ -1,5 +1,5 @@
 
-check_PROGRAMS = xslt_test
+check_PROGRAMS = xslt_test xslt_test_silly
 if HAS_STD_WSTRING
   check_PROGRAMS += xslt_test_wide
 endif
@@ -23,6 +23,11 @@ xslt_test_SOURCES = main.cpp \
                     $(test_sources)
 xslt_test_LDADD =  $(TESTLIBS) $(LIBELEPHANT) $(SYSLIBS)
 xslt_test_DEPENDENCIES = $(TESTLIBS)
+
+xslt_test_silly_SOURCES = main.cpp \
+                    $(test_sources)
+xslt_test_silly_LDADD =  $(TESTLIBS) $(LIBELEPHANT) $(SYSLIBS) $(LIBSILLY)
+xslt_test_silly_DEPENDENCIES = $(TESTLIBS)
 
 xslt_test_wide_SOURCES = main_wide.cpp \
                     $(test_sources)
