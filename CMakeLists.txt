@@ -20,6 +20,7 @@ option(BUILD_ARABICA_EXAMPLES "Build all arabica examples" ON)
 set_property(GLOBAL
   PROPERTY USE_FOLDERS ON)
 
+add_definitions("-Wno-parentheses-equality")
 
 #
 # Set the used xml backend
@@ -30,7 +31,7 @@ if(NOT ARABICA_XML_BACKEND)
   if(WIN32)
     set(ARABICA_XML_BACKEND USE_MSXML)
 else()
-    set(ARABICA_XML_BACKEND USE_EXPAT)
+    set(ARABICA_XML_BACKEND USE_LIBXML2)
   endif()
 endif()
 

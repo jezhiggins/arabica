@@ -7,7 +7,8 @@
 // $Id$
 ////////////////////////////
 
-#include <DOM/ImplProxy.hpp>
+#include <DOM/Proxy.hpp>
+#include <Arabica/StringAdaptor.hpp>
 
 namespace Arabica
 {
@@ -17,75 +18,89 @@ namespace DOM
 namespace Events
 {
 
-template<class stringT> class Event;
-template<class stringT> class EventListener;
-template<class stringT> class EventTarget_impl;
+template<class stringT, class string_adaptorT> class Event;
+template<class stringT, class string_adaptorT> class EventListener;
+template<class stringT, class string_adaptorT> class EventTarget_impl;
 
-template<class stringT>
-class EventTarget : protected DOM::Proxy
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
+  class EventTarget : protected Arabica::DOM::Proxy<EventTarget_impl<stringT, string_adaptorT> >
 {
   public:
-    EventTarget() : Proxy(0) { }
-    EventTarget(EventTarget_impl<stringT>* const impl) : Proxy(impl) { }
-    EventTarget(const EventTarget& rhs) : Proxy(rhs) { }
-    explicit EventTarget(const DOM::Node<stringT>& rhs) : Proxy(rhs.nImpl()) 
+    typedef EventTarget_impl<stringT, string_adaptorT> EventTarget_implT;
+    typedef Event<stringT, string_adaptorT> EventT;
+    typedef EventListener<stringT, string_adaptorT> EventListenerT;
+    typedef DOM::Proxy<EventTarget_implT> proxy_t;
+
+    EventTarget() : proxy_t(0) { }
+    EventTarget(EventTarget_implT* const impl) : proxy_t(impl) { }
+    EventTarget(const EventTarget& rhs) : proxy_t(rhs) { }
+    explicit EventTarget(const DOM::Node<stringT>& rhs) : proxy_t(dynamic_cast<EventTarget_implT*>(rhs.underlying_impl()))
     {
-      if(dynamic_cast<EventTarget_impl<stringT>*>(rhs.nImpl()) == 0)
+      if(dynamic_cast<EventTarget_implT*>(rhs.underlying_impl()) == 0)
         throw DOM::DOMException(DOM::DOMException::NOT_SUPPORTED_ERR); 
     } // DocumentTraversal
     virtual ~EventTarget() { }
-    bool operator==(const EventTarget& rhs) const { return Proxy::operator==(rhs); } 
-    bool operator!=(const EventTarget& rhs) const { return Proxy::operator!=(rhs); }
-    bool operator==(int dummy) const { return Proxy::operator==(dummy); }
-    bool operator!=(int dummy) const { return Proxy::operator!=(dummy); }
+    bool operator==(const EventTarget& rhs) const { return proxy_t::operator==(rhs); } 
+    bool operator!=(const EventTarget& rhs) const { return proxy_t::operator!=(rhs); }
+    bool operator==(int dummy) const { return proxy_t::operator==(dummy); }
+    bool operator!=(int dummy) const { return proxy_t::operator!=(dummy); }
 
     EventTarget& operator=(const EventTarget& rhs) 
     {
-      Proxy::operator=(rhs);
+      proxy_t::operator=(rhs);
       return *this;
     } // operator=
 
     ///////////////////////////////////////////////////////////////
     // EventTarget methods
     void addEventListener(const stringT type,
-                          EventListener<stringT>& listener,
+                          EventListenerT& listener,
                           bool useCapture)
     {
-      Impl()->addEventListener(type, listener, useCapture)
+      Impl()->addEventListener(type, listener, useCapture);
     } // addEventListener
 
     void removeEventListener(const stringT type,
-                             EventListener<stringT>& listener,
+                             EventListenerT& listener,
                              bool useCapture)
     {
       Impl()->removeEventListener(type, listener, useCapture);
     } // removeEventListener
 
-    bool dispatchEvent(Event<stringT>& event)
+    bool dispatchEvent(EventT& event)
     {
-      Impl()->dispatchEvent(event);
+      return Impl()->dispatchEvent(event);
     } // dispatchEvent
-
-  private:
-    EventTarget_impl<stringT>* Impl() const { return dynamic_cast<EventTarget_impl<stringT>*>(impl()); }
+  
+//  private:
+  EventTarget_implT* Impl() const { return dynamic_cast<EventTarget_implT*>(proxy_t::operator*()); }
 }; // class EventTarget
 
 //////////////////////////////////////////////////////////////////////
 // Event_impl
-template<class stringT>
-class EventTarget_impl : virtual public Impl
+template<class stringT, class string_adaptorT>
+class EventTarget_impl
 {
+  public:
+    typedef Event<stringT, string_adaptorT> EventT;
+    typedef EventListener<stringT, string_adaptorT> EventListenerT;
+
+    ///////////////////////////////////////////////////////
+    // Ref counting
+    virtual void addRef() = 0;
+    virtual void releaseRef() = 0;
+
     ///////////////////////////////////////////////////////////////
     // EventTarget methods
     virtual void addEventListener(const stringT type,
-                                  EventListener<stringT>& listener,
+                                  EventListenerT& listener,
                                   bool useCapture) = 0;
 
     virtual void removeEventListener(const stringT type,
-                                     EventListener<stringT>& listener,
+                                     EventListenerT& listener,
                                      bool useCapture) = 0;
 
-    virtual bool dispatchEvent(Event<stringT>& event) = 0;
+    virtual bool dispatchEvent(EventT& event) = 0;
 }; // class EventTarget_impl
 
 } // namespace Events
