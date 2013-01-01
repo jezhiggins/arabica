@@ -12,7 +12,7 @@ namespace Events
 template<class stringT, class string_adaptorT> class Event_impl;
 
 template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
-class Event : protected Arabica::DOM::Proxy<Event_impl<stringT, string_adaptorT> >
+class Event : public Arabica::DOM::Proxy<Event_impl<stringT, string_adaptorT> >
 {
   public:
     typedef Event_impl<stringT, string_adaptorT> Event_implT;
@@ -65,7 +65,7 @@ class Event : protected Arabica::DOM::Proxy<Event_impl<stringT, string_adaptorT>
       return Impl()->initEvent(eventTypeArg, canBubble, cancelable);
     } // initEvent
 
-//  protected:
+  protected:
   Event_impl<stringT, string_adaptorT>* Impl() const { return dynamic_cast<Event_impl<stringT, string_adaptorT>*>(proxy_t::operator*()); }
 }; // class Event
 

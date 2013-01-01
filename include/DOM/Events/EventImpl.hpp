@@ -20,6 +20,7 @@ namespace Events
 
 ////////////////////////////////////////////////////////////////////
 template<class stringT, class string_adaptorT> class DocumentImpl;
+template<class stringT, class string_adaptorT> class EventTargetImpl;
 
 template<class stringT, class string_adaptorT>
 class EventImpl : virtual public DOM::Events::Event_impl<stringT, string_adaptorT>
@@ -35,7 +36,7 @@ class EventImpl : virtual public DOM::Events::Event_impl<stringT, string_adaptor
     typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
     typedef DOM::Events::EventImpl<stringT, string_adaptorT> EventImplT;
 
-    EventImpl() : stopped_(false), defaultsPrevented_(false), timeStamp_(0)
+    EventImpl() : timeStamp_(0), stopped_(false), defaultsPrevented_(false)
     {
         //std::cout << std::endl << "born " << this << std::endl;
     } // EventImpl
@@ -100,14 +101,15 @@ class EventImpl : virtual public DOM::Events::Event_impl<stringT, string_adaptor
 
   protected:
     stringT type_;
-		EventTargetT target_;
-		EventTargetT currTarget_;
-		typename EventT::Phase phase_;
-		long timeStamp_;
+    EventTargetT target_;
+    EventTargetT currTarget_;
+    typename EventT::Phase phase_;
+    long timeStamp_;
     bool canBubble_;
     bool canCancel_;
     bool stopped_;
     bool defaultsPrevented_;
+    friend class EventTargetImpl<stringT, string_adaptorT>;
 }; // class EventImpl
 
 } // namespace DOM

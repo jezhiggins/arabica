@@ -26,7 +26,7 @@ class MutationEvent : public Event<stringT, string_adaptorT>
     MutationEvent(const MutationEvent& rhs) : Event<stringT, string_adaptorT>(rhs) { }
     explicit MutationEvent(const Event<stringT, string_adaptorT>& rhs) : Event<stringT, string_adaptorT>(rhs)  
     {
-      if(dynamic_cast<MutationEvent_impl<stringT, string_adaptorT>*>(rhs.Impl()) == 0)
+      if(dynamic_cast<MutationEvent_impl<stringT, string_adaptorT>*>(rhs.Event::proxy_t::operator*()) == 0)
         throw DOMBadCast("Element");
     } // Element
     virtual ~MutationEvent() { }

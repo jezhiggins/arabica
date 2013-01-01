@@ -12,6 +12,7 @@
 #include <deque>
 #include <algorithm>
 #include <map>
+#include <list>
 
 //#include <iostream>
 
@@ -30,14 +31,18 @@ class EventTargetImpl : virtual public DOM::Events::EventTarget_impl<stringT, st
 {
   public:
     typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
+    typedef DOM::Node<stringT, string_adaptorT> DOMNodeT;
     typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
     typedef DOM::Text_impl<stringT, string_adaptorT> DOMText_implT;
     typedef DOM::Document_impl<stringT, string_adaptorT> DOMDocument_implT;
     typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
     typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
     typedef DOM::Events::Event<stringT, string_adaptorT> EventT;
+    typedef DOM::Events::Event_impl<stringT, string_adaptorT> Event_implT;
+    typedef DOM::Events::EventImpl<stringT, string_adaptorT> EventImplT;
     typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
     typedef DOM::Events::EventTargetImpl<stringT, string_adaptorT> EventTargetImplT;
+    typedef DOM::Events::EventTarget_impl<stringT, string_adaptorT> EventTarget_implT;
     typedef DOM::Events::EventListener<stringT, string_adaptorT> EventListenerT;
 
     EventTargetImpl()
@@ -100,37 +105,56 @@ class EventTargetImpl : virtual public DOM::Events::EventTarget_impl<stringT, st
     {
       typedef typename std::multimap<stringT, EventListenerT*>::iterator eventListenerIterator;
 
-      std::list<EventTargetT> eventTargetChain;
+      EventImplT* eventImpl = dynamic_cast<EventImplT*>(*event);
+      eventImpl->target_ = EventTargetT(this);
+      
+      std::list<EventTargetT> eventAncestorChain;
       DOMNode_implT* curr = dynamic_cast<DOMNode_implT*>(this);
-      eventTargetChain.push_front(EventTargetT(curr));
       while((curr = curr->getParentNode())) {
-        eventTargetChain.push_front(EventTargetT(curr));
+        eventAncestorChain.push_front(EventTargetT(curr));
       }
       
       // capturing
-      typename std::list<EventTargetT>::iterator it = eventTargetChain.begin();
-      while(it != eventTargetChain.end()) {
+      eventImpl->phase_ = EventT::CAPTURING_PHASE;
+      typename std::list<EventTargetT>::iterator it = eventAncestorChain.begin();
+      while(it != eventAncestorChain.end()) {
         EventTargetImplT* nodeImpl = dynamic_cast<EventTargetImplT*>(it->Impl());
         if (nodeImpl != NULL) {
           std::pair<eventListenerIterator, eventListenerIterator> range = nodeImpl->eventCapturers_.equal_range(event.getType());
           for (eventListenerIterator it = range.first; it != range.second; ++it) {
             it->second->handleEvent(event);
           }
+          // stopPropagation was called on the event
+          if (eventImpl->stopped_)
+            return false;
         }
         ++it;
       }
 
+      // at target
+      eventImpl->phase_ = EventT::AT_TARGET;
+      std::pair<eventListenerIterator, eventListenerIterator> range = eventListeners_.equal_range(event.getType());
+      for (eventListenerIterator rit = range.first; rit != range.second; ++rit) {
+        rit->second->handleEvent(event);
+      }
+
       // bubbling
-      typename std::list<EventTargetT>::reverse_iterator rit = eventTargetChain.rbegin();
-      while(rit != eventTargetChain.rend()) {
-        EventTargetImplT* nodeImpl = dynamic_cast<EventTargetImplT*>(rit->Impl());
-        if (nodeImpl != NULL) {
-          std::pair<eventListenerIterator, eventListenerIterator> range = nodeImpl->eventListeners_.equal_range(event.getType());
-          for (eventListenerIterator rit = range.first; rit != range.second; ++rit) {
-            rit->second->handleEvent(event);
+      if (eventImpl->getBubbles()) {
+        eventImpl->phase_ = EventT::BUBBLING_PHASE;
+        typename std::list<EventTargetT>::reverse_iterator rit = eventAncestorChain.rbegin();
+        while(rit != eventAncestorChain.rend()) {
+          EventTargetImplT* nodeImpl = dynamic_cast<EventTargetImplT*>(rit->Impl());
+          if (nodeImpl != NULL) {
+            std::pair<eventListenerIterator, eventListenerIterator> range = nodeImpl->eventListeners_.equal_range(event.getType());
+            for (eventListenerIterator rit = range.first; rit != range.second; ++rit) {
+              rit->second->handleEvent(event);
+            }
+            // stopPropagation was called on the event
+            if (eventImpl->stopped_)
+              return false;
           }
+          ++rit;
         }
-        ++rit;
       }
 
       return true;
