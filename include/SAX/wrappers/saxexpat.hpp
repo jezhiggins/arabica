@@ -352,6 +352,7 @@ class expat_wrapper :
     const SAX::AttributeDefaults<string_type, string_adaptor> attrDefaults_;
 
     std::map<string_type, string_type> declaredExternalEnts_;
+    std::vector<bool> namespaceContextCreated_;
 }; // class expat_wrapper
 
 //////////////////////////////////////////////////////////////////
@@ -638,6 +639,7 @@ void expat_wrapper<string_type, T0, T1>::charHandler(const char* txt, int txtlen
 template<class string_type, class T0, class T1>
 void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const char** atts)
 {
+  bool pushedContext = false;
   if(!contentHandler_)
     return;
 
@@ -648,7 +650,6 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
   } // if(!namespaces)
 
   // OK we're doing Namespaces
-  nsSupport_.pushContext();
   SAX::AttributesImpl<string_type, string_adaptor> attributes;
 
   // take a first pass and copy all the attributes, noting any declarations
@@ -663,6 +664,12 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
       // declaration?
       if(SA::find(attQName, nsc_.xmlns) == 0) 
       {
+        if (!pushedContext)
+        {
+            nsSupport_.pushContext();
+            pushedContext = true;            
+        }
+
         string_type prefix;
         typename SA::size_type n = SA::find(attQName, nsc_.colon);
         if(n != SA::npos())
@@ -697,6 +704,7 @@ void expat_wrapper<string_type, T0, T1>::startElement(const char* qName, const c
     } // while ...
   } // if ...
 
+  namespaceContextCreated_.push_back(pushedContext);
   // at last! report the event
   qualifiedNameT name = processName(SA::construct_from_utf8(qName), false);
   contentHandler_->startElement(name.namespaceUri(), name.localName(), name.rawName(), attributes);
@@ -742,7 +750,13 @@ void expat_wrapper<string_type, T0, T1>::endElement(const char* qName)
   typename namespaceSupportT::stringListT prefixes = nsSupport_.getDeclaredPrefixes();
   for(size_t i = 0, end = prefixes.size(); i < end; ++i)
     contentHandler_->endPrefixMapping(prefixes[i]);
-  nsSupport_.popContext();
+  
+  bool pushedContext = namespaceContextCreated_.back();
+  namespaceContextCreated_.pop_back();
+  if (pushedContext)
+  {
+    nsSupport_.popContext();
+  }
 } // endElement
 
 template<class string_type, class T0, class T1>
