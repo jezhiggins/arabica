@@ -18,7 +18,6 @@
 
 #include <set>
 #include <algorithm>
-#include <boost/unordered_set.hpp>
 
 namespace Arabica
 {
@@ -533,7 +532,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     mutable std::set<NodeImplT*> orphans_;
     std::set<AttrImplT*> idNodes_;
-    mutable boost::unordered_set<stringT> stringPool_;
+    mutable std::set<stringT> stringPool_;
     const stringT empty_;
 }; // class DocumentImpl
 
