@@ -17,8 +17,8 @@
 #include <DOM/Simple/NodeImpl.hpp>
 
 #include <set>
-#include <list>
 #include <algorithm>
+#include <boost/unordered_set.hpp>
 
 namespace Arabica
 {
@@ -506,11 +506,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     stringT const* stringPool(const stringT& str) const
     {
-      typename std::list<stringT>::const_iterator i = std::find(stringPool_.begin(), stringPool_.end(), str);
-      if(i != stringPool_.end())
-        return &(*i);
-      stringPool_.push_back(str);
-      return &(stringPool_.back());
+      return &(*stringPool_.insert(str).first);
     } // stringPool
 
     const stringT& empty_string() const { return empty_; }
@@ -537,7 +533,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     mutable std::set<NodeImplT*> orphans_;
     std::set<AttrImplT*> idNodes_;
-    mutable std::list<stringT> stringPool_;
+    mutable boost::unordered_set<stringT> stringPool_;
     const stringT empty_;
 }; // class DocumentImpl
 
