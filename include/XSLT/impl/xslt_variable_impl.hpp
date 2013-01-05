@@ -43,7 +43,7 @@ public:
     if(select_)
       return select_->evaluate(node, context.xpathContext());
 
-    execute_children(node, context);
+    this->execute_children(node, context);
 
     if(sink.node() == 0)
       return StringValue::createValue(string_adaptor::empty_string());

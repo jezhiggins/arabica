@@ -48,7 +48,7 @@ public:
         throw std::runtime_error("apply-templates select expression is not a node-set");
       nodes = value.asNodeSet();
     }
-    sort(node, nodes, context);
+    this->sort(node, nodes, context);
     context.stylesheet().applyTemplates(nodes, context, mode_);
   } // execute
 

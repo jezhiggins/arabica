@@ -30,7 +30,7 @@ public:
     validate_name(name);
 
     context.sink().start_processing_instruction(name);
-    execute_children(node, context);
+    this->execute_children(node, context);
     context.sink().end_processing_instruction();
   } // execute
 

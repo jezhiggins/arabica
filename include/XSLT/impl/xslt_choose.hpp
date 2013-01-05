@@ -32,7 +32,7 @@ public:
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
                        ExecutionContext<string_type, string_adaptor>& context) const
   {
-    execute_children(node, context);
+    this->execute_children(node, context);
   } // execute
 
 private:
@@ -49,7 +49,7 @@ public:
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, 
                        ExecutionContext<string_type, string_adaptor>& context) const
   {
-    execute_children(node, context);
+    this->execute_children(node, context);
   } // execute
 }; // class Otherwise
 

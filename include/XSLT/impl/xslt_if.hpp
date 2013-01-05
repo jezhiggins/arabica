@@ -27,7 +27,7 @@ public:
   {
     ChainStackFrame<string_type, string_adaptor> frame(context);
     if(test_->evaluateAsBool(node, context.xpathContext()))
-      execute_children(node, context);
+      this->execute_children(node, context);
   } // execute
 
 private:

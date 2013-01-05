@@ -82,13 +82,13 @@ public:
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
-    copy(node, context);
+    this->copy(node, context);
   } // execute
 
 protected:
   virtual void process_content(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
-    execute_children(node, context);
+    this->execute_children(node, context);
   } // process_content
 
 private:
@@ -120,7 +120,7 @@ public:
 
     Arabica::XPath::NodeSet<string_type, string_adaptor> nodes = value.asNodeSet();
     for(typename Arabica::XPath::NodeSet<string_type, string_adaptor>::const_iterator n = nodes.begin(), e = nodes.end(); n != e; ++n)
-      copy(*n, context);
+      this->copy(*n, context);
   } // execute
 
 protected:
@@ -130,11 +130,11 @@ protected:
     {
       const DOM::NamedNodeMap<string_type, string_adaptor>& attrs = node.getAttributes();
       for(unsigned int a = 0; a < attrs.getLength(); ++a)
-        copy(attrs.item(a), context);
+        this->copy(attrs.item(a), context);
     } // if ...
 
     for(DOM::Node<string_type, string_adaptor> n = node.getFirstChild(); n != 0; n = n.getNextSibling())
-      copy(n, context);
+      this->copy(n, context);
   } // process_content
 
 private:

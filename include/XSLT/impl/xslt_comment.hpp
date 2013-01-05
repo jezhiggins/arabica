@@ -22,7 +22,7 @@ public:
   {
     context.sink().start_comment();
 
-    execute_children(node, context);
+    this->execute_children(node, context);
 
     context.sink().end_comment();
   } // execute

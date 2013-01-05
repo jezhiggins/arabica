@@ -76,7 +76,7 @@ public:
         a->execute(node, context);
 
       ChainStackFrame<string_type, string_adaptor> frame(context);
-      execute_children(node, context);
+      this->execute_children(node, context);
       context.sink().end_element(name_, namespace_);
     }
   } // execute

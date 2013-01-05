@@ -57,7 +57,7 @@ public:
     if(context.sink().start_element(name, namesp)) 
     {
       ChainStackFrame<string_type, string_adaptor> frame(context);
-      execute_children(node, context);
+      this->execute_children(node, context);
       context.sink().end_element(name, namesp);
     }
   } // execute

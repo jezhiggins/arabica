@@ -25,7 +25,7 @@ public:
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
     RedirectionFrame toMessageSink(context);
-    execute_children(node, context);
+    this->execute_children(node, context);
 
     if(terminate_)
       throw SAX::SAXException("Stylesheet terminated by xsl:message");

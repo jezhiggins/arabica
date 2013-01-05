@@ -54,7 +54,7 @@ public:
 
   virtual void execute(const DOM::Node<string_type, string_adaptor>& node, ExecutionContext<string_type, string_adaptor>& context) const
   {
-    execute_children(node, context);
+    this->execute_children(node, context);
   } // execute
 
   const MatchExprList& compiled_matches() const { return matches_; }

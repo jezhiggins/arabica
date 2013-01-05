@@ -43,7 +43,7 @@ protected:
   {
     NodeSet nodes;
      
-    XPathValue a0 = arg(0, context, executionContext);
+    XPathValue a0 = this->arg(0, context, executionContext);
     if(baseT::argCount() != 1)
       throw Arabica::XPath::UnsupportedException("two arg version of document()");
     if(a0.type() != Arabica::XPath::STRING)
@@ -107,7 +107,7 @@ protected:
   virtual NodeSet doEvaluate(const DOMNode& context,
                              const XPathExecutionContext& executionContext) const
   {
-    string_type keyname = argAsString(0, context, executionContext);
+    string_type keyname      = this->argAsString(0, context, executionContext);
     string_type keyClarkName = QualifiedName::parseQName(keyname, true, namespaces_).clarkName();
 
     XPathValue a1 = baseT::arg(1, context, executionContext);
