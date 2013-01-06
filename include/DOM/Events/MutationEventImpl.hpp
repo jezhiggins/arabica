@@ -92,11 +92,6 @@ class MutationEventImpl : virtual public DOM::Events::MutationEvent_impl<stringT
       attrChange_ = attrChangeArg;
     }
 
-    ///////////////////////////////////////////////////////
-    // Ref counting
-    virtual void addRef() {};
-    virtual void releaseRef() {};
-
   protected:
     DOM::Node<stringT> relatedNode_;
     stringT prevValue_;

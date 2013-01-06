@@ -54,6 +54,11 @@ class Node : public Node_base
     Node() : impl_() { }
     Node(Node_impl<stringT, string_adaptorT>* const impl) : impl_(impl) { }
     Node(const Node& rhs) : impl_(rhs.impl_) { }
+    explicit Node(const DOM::Events::EventTarget<stringT, string_adaptorT>& rhs): impl_(dynamic_cast<Node_impl<stringT, string_adaptorT>*>(rhs.Impl()))
+    {
+      if(dynamic_cast<Node_impl<stringT, string_adaptorT>*>(rhs.Impl()) == 0)
+        throw DOM::DOMException(DOM::DOMException::NOT_SUPPORTED_ERR);
+    }
     virtual ~Node() { }
 
     operator bool() const { return impl_; }

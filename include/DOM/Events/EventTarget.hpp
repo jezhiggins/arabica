@@ -38,7 +38,7 @@ template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<
     {
       if(dynamic_cast<EventTarget_implT*>(rhs.underlying_impl()) == 0)
         throw DOM::DOMException(DOM::DOMException::NOT_SUPPORTED_ERR); 
-    } // DocumentTraversal
+    }
     virtual ~EventTarget() { }
     bool operator==(const EventTarget& rhs) const { return proxy_t::operator==(rhs); } 
     bool operator!=(const EventTarget& rhs) const { return proxy_t::operator!=(rhs); }
@@ -51,6 +51,11 @@ template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<
       return *this;
     } // operator=
 
+#if 0
+    DOM::Node<stringT> asNode() {
+      return DOM::Node<stringT>(dynamic_cast<Node_impl<stringT, string_adaptorT>*>(proxy_t::operator*()));
+    }
+#endif
     ///////////////////////////////////////////////////////////////
     // EventTarget methods
     void addEventListener(const stringT type,

@@ -9,6 +9,19 @@
 #include <DOM/DOMException.hpp>
 #include <XML/XMLCharacterClasses.hpp>
 
+#ifdef _WIN32
+# ifndef WIN32_LEAN_AND_MEAN
+#   define WIN32_LEAN_AND_MEAN
+#   define __UNDEF_LEAN_AND_MEAN
+# endif
+# include <windows.h>
+# ifdef __UNDEF_LEAN_AND_MEAN
+#   undef WIN32_LEAN_AND_MEAN
+#   undef __UNDEF_LEAN_AND_MEAN
+# endif
+#else
+# include <sys/time.h>
+#endif
 //#include <iostream>
 
 namespace Arabica
@@ -39,6 +52,7 @@ class EventImpl : virtual public DOM::Events::Event_impl<stringT, string_adaptor
     EventImpl() : timeStamp_(0), stopped_(false), defaultsPrevented_(false)
     {
         //std::cout << std::endl << "born " << this << std::endl;
+        timeStamp_ = timeStamp();
     } // EventImpl
     
     virtual ~EventImpl() 
@@ -99,16 +113,49 @@ class EventImpl : virtual public DOM::Events::Event_impl<stringT, string_adaptor
       canCancel_ = cancelable;
     }
 
+    ///////////////////////////////////////////////////////
+    // Ref counting
+    virtual void addRef()
+    {
+      ++refCount_;
+    } // addRef
+
+    virtual void releaseRef()
+    {
+      if(--refCount_ == 0)
+        delete this;
+    } // releaseRef
+
   protected:
+  
+    virtual unsigned long long timeStamp() 
+    {
+      unsigned long long time = 0;
+#ifdef _WIN32
+      FILETIME tv;
+      GetSystemTimeAsFileTime(&tv); 
+      time = (((uint64_t) tv.dwHighDateTime) << 32) + tv.dwLowDateTime;
+      time /= 10000;
+#else
+      struct timeval tv;
+      gettimeofday(&tv, NULL);
+      time += tv.tv_sec * 1000;
+      time += tv.tv_usec / 1000;
+#endif
+      return time;
+    }
+
     stringT type_;
     EventTargetT target_;
     EventTargetT currTarget_;
     typename EventT::Phase phase_;
-    long timeStamp_;
+    unsigned long long timeStamp_;
     bool canBubble_;
     bool canCancel_;
     bool stopped_;
     bool defaultsPrevented_;
+    unsigned long refCount_;
+    
     friend class EventTargetImpl<stringT, string_adaptorT>;
 }; // class EventImpl
 
