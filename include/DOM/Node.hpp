@@ -62,6 +62,7 @@ class Node : public Node_base
     virtual ~Node() { }
 
     operator bool() const { return impl_; }
+    bool operator< (const Node& rhs) const { return impl_ < rhs.impl_; }
     bool operator==(const Node& rhs) const { return impl_ == rhs.impl_; }
     bool operator!=(const Node& rhs) const { return impl_ != rhs.impl_; }
     bool operator==(int dummy) const { return impl_ == dummy; } 
