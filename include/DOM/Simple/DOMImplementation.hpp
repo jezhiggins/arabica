@@ -41,7 +41,7 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT, string
     virtual bool hasFeature(const stringT& feature, const stringT& version) const
     {
       // need a proper case-insensitive compare here eventually
-      const char* names[] = { "Core", "core", "CORE", "XML", "xml", 0 };
+      const char* names[] = { "Core", "core", "CORE", "XML", "xml", "Events", "MutationEvents", 0 };
       for(int n = 0; names[n] != 0; ++n)
       {
         if((feature == string_adaptorT::construct_from_utf8(names[n])) &&

@@ -49,7 +49,7 @@ class EventImpl : virtual public DOM::Events::Event_impl<stringT, string_adaptor
     typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
     typedef DOM::Events::EventImpl<stringT, string_adaptorT> EventImplT;
 
-    EventImpl() : timeStamp_(0), stopped_(false), defaultsPrevented_(false)
+    EventImpl() : timeStamp_(0), stopped_(false), defaultsPrevented_(false), refCount_(0)
     {
         //std::cout << std::endl << "born " << this << std::endl;
         timeStamp_ = timeStamp();
