@@ -17,7 +17,7 @@ class DOMBadCast : public std::bad_cast
 {
 public:
   DOMBadCast(const char* expectedType) :
-      message_(std::string("Cannot cast to ") + std::string(expectedType))
+      message_(std::string("Cannot cast to ") + expectedType)
   {
   } // DOMBadCast
 
