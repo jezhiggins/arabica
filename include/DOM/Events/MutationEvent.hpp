@@ -11,29 +11,33 @@ namespace DOM
 namespace Events
 {
 
-template<class stringT> class MutationEvent_impl;
+template<class stringT, class string_adaptorT> class MutationEvent_impl;
 
-template<class stringT>
-class MutationEvent : public Event<stringT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
+class MutationEvent : public Event<stringT, string_adaptorT>
 {
   public:
-    MutationEvent() : Event<stringT>() { }
-    MutationEvent(MutationEvent_impl<stringT>* const impl) : Event<stringT>(impl) { }
-    MutationEvent(const MutationEvent& rhs) : Event<stringT>(rhs) { }
-    explicit MutationEvent(const Event<stringT>& rhs) : Event<stringT>(rhs)  
+    typedef MutationEvent_impl<stringT, string_adaptorT> MutationEvent_implT;
+    typedef Event<stringT, string_adaptorT> EventT;
+    typedef DOM::Proxy<MutationEvent_implT> proxy_t;
+
+    MutationEvent() : Event<stringT, string_adaptorT>() { }
+    MutationEvent(MutationEvent_impl<stringT, string_adaptorT>* const impl) : Event<stringT, string_adaptorT>(impl) { }
+    MutationEvent(const MutationEvent& rhs) : Event<stringT, string_adaptorT>(rhs) { }
+    explicit MutationEvent(const Event<stringT, string_adaptorT>& rhs) : Event<stringT, string_adaptorT>(rhs)  
     {
-      if(dynamic_cast<MutationEvent_impl<stringT>*>(rhs.Impl()) == 0)
-        throw sDOMBadCast("Element");
+      if(dynamic_cast<MutationEvent_impl<stringT, string_adaptorT>*>(rhs.Event<stringT, string_adaptorT>::proxy_t::operator*()) == 0)
+        throw DOMBadCast("Element");
     } // Element
     virtual ~MutationEvent() { }
-    bool operator==(const MutationEvent& rhs) const { return Proxy::operator==(rhs); } 
-    bool operator!=(const MutationEvent& rhs) const { return Proxy::operator!=(rhs); }
-    bool operator==(int dummy) const { return Proxy::operator==(dummy); }
-    bool operator!=(int dummy) const { return Proxy::operator!=(dummy); }
+    bool operator==(const MutationEvent& rhs) const { return proxy_t::operator==(rhs); } 
+    bool operator!=(const MutationEvent& rhs) const { return proxy_t::operator!=(rhs); }
+    bool operator==(int dummy) const { return proxy_t::operator==(dummy); }
+    bool operator!=(int dummy) const { return proxy_t::operator!=(dummy); }
 
     MutationEvent& operator=(const MutationEvent& rhs) 
     {
-      Proxy::operator=(rhs);
+      proxy_t::operator=(rhs);
       return *this;
     } // operator=
 
@@ -70,13 +74,13 @@ class MutationEvent : public Event<stringT>
     } // initMutationEvent
 
   private:
-    MutationEvent_impl<stringT>* mImpl() const { return dynamic_cast<MutationEvent_impl<stringT>*>(impl()); }
+  MutationEvent_implT* mImpl() const { return dynamic_cast<MutationEvent_implT*>(EventT::proxy_t::operator*()); }
 }; // class Event
 
 ///////////////////////////////////////////////////////////
 // Event_impl
-template<class stringT>
-class MutationEvent_impl : virtual public Event_impl<stringT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
+class MutationEvent_impl : virtual public Event_impl<stringT, string_adaptorT>
 {
   public:
     ///////////////////////////////////
@@ -89,7 +93,7 @@ class MutationEvent_impl : virtual public Event_impl<stringT>
 
     virtual stringT getAttrName() const = 0;
 
-    virtual MutationEvent<stringT>::AttrChange getAttrChange() const = 0;
+    virtual typename MutationEvent<stringT, string_adaptorT>::AttrChange getAttrChange() const = 0;
 
     virtual void initMutationEvent(const stringT& typeArg,
                                    bool canBubble,
@@ -98,7 +102,9 @@ class MutationEvent_impl : virtual public Event_impl<stringT>
                                    const stringT& prevValueArg,
                                    const stringT& nextValueArg,
                                    const stringT& attrNameArg,
-                                   MutationEvent<stringT>::AttrChange attrChangeArg) = 0;
+                                   typename MutationEvent<stringT, string_adaptorT>::AttrChange attrChangeArg) = 0;
+
+
 }; // class Event_impl
 
 } // namespace Events

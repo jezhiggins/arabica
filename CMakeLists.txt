@@ -20,6 +20,9 @@ option(BUILD_ARABICA_EXAMPLES "Build all arabica examples" ON)
 set_property(GLOBAL
   PROPERTY USE_FOLDERS ON)
 
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+	add_definitions("-Wno-parentheses-equality")
+endif()
 
 #
 # Set the used xml backend
@@ -29,7 +32,9 @@ set_property(GLOBAL
 if(NOT ARABICA_XML_BACKEND)
   if(WIN32)
     set(ARABICA_XML_BACKEND USE_MSXML)
-else()
+  elseif(APPLE)
+    set(ARABICA_XML_BACKEND USE_LIBXML2)
+  else()
     set(ARABICA_XML_BACKEND USE_EXPAT)
   endif()
 endif()

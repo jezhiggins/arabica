@@ -4,6 +4,12 @@
 #include <DOM/CharacterData.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
 
+#define DISPATCH_DOM_CHARACTERDATA_MODIFIED_EVENT(oldValue, newValue) \
+DOM::Events::MutationEvent<stringT> mutationEvent(NodeImpl<stringT, string_adaptorT>::ownerDoc_->createEvent("MutationEvent")); \
+mutationEvent.initMutationEvent("DOMCharacterDataModified", true, false, Arabica::DOM::Node<stringT>(), oldValue, newValue, "", Arabica::DOM::Events::MutationEvent<std::string>::MODIFICATION); \
+DOM::Events::EventTarget<stringT> eventTarget(this); \
+eventTarget.dispatchEvent(mutationEvent); \
+
 namespace Arabica
 {
 namespace SimpleDOM
@@ -33,7 +39,9 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT, string
     virtual void setData(const stringT& data)
     {
       NodeT::throwIfReadOnly();
+      stringT oldValue = data_;
       setNodeValue(data);
+      DISPATCH_DOM_CHARACTERDATA_MODIFIED_EVENT(oldValue, data_);
     } // setData
 
     virtual int getLength() const
@@ -54,7 +62,9 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT, string
     virtual void appendData(const stringT& arg)
     {
       NodeT::throwIfReadOnly();
+      stringT oldValue = data_;
       string_adaptorT::append(data_, arg);
+      DISPATCH_DOM_CHARACTERDATA_MODIFIED_EVENT(oldValue, data_);
     } // appendData
 
     virtual void insertData(int offset, const stringT& arg)
@@ -64,7 +74,9 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT, string
       if((offset < 0) || (offset > static_cast<int>(string_adaptorT::length(data_))))
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
 
+      stringT oldValue = data_;
       string_adaptorT::insert(data_, offset, arg);
+      DISPATCH_DOM_CHARACTERDATA_MODIFIED_EVENT(oldValue, data_);
     } // insertData
 
     virtual void deleteData(int offset, int count)
@@ -76,7 +88,9 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT, string
       if(count < 0)
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
 
+      stringT oldValue = data_;
       string_adaptorT::replace(data_, offset, count, stringT());
+      DISPATCH_DOM_CHARACTERDATA_MODIFIED_EVENT(oldValue, data_);
     } // deleteData
 
     virtual void replaceData(int offset, int count, const stringT& arg)
@@ -88,7 +102,9 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT, string
       if(count < 0)
         throw DOM::DOMException(DOM::DOMException::INDEX_SIZE_ERR);
 
+      stringT oldValue = data_;
       string_adaptorT::replace(data_, offset, count, arg);
+      DISPATCH_DOM_CHARACTERDATA_MODIFIED_EVENT(oldValue, data_);
     } // replaceData
 
     ///////////////////////////////////////////////////////
@@ -102,7 +118,9 @@ class CharacterDataImpl : virtual public DOM::CharacterData_impl<stringT, string
     {
       NodeT::throwIfReadOnly();
 
+      stringT oldValue = data_;
       data_ = data;
+      DISPATCH_DOM_CHARACTERDATA_MODIFIED_EVENT(oldValue, data_);
     } // setNodeValue
   private:
     stringT data_;

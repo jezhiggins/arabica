@@ -15,6 +15,7 @@
 #include <DOM/Simple/NotationImpl.hpp>
 #include <DOM/Simple/ElementByTagImpl.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
+#include <DOM/Events/DocumentEventImpl.hpp>
 
 #include <set>
 #include <algorithm>
@@ -40,7 +41,9 @@ class valueIs : public std::unary_function<AttrImpl<stringT, string_adaptorT>*, 
 
 template<class stringT, class string_adaptorT>
 class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
-                     public NodeImplWithChildren<stringT, string_adaptorT>
+                     public NodeImplWithChildren<stringT, string_adaptorT>,
+                     virtual public DOM::Events::DocumentEventImpl<stringT, string_adaptorT>
+
 {
     typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
     typedef AttrImpl<stringT, string_adaptorT> AttrImplT;

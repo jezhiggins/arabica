@@ -33,6 +33,7 @@ class Proxy
     bool operator!=(int dummy) const { return !(operator==(dummy)); }
     bool operator==(const Proxy& rhs) const { return (impl_ == rhs.impl_); }
     bool operator!=(const Proxy& rhs) const { return !(operator==(rhs)); }
+    bool operator< (const Proxy& rhs) const { return impl_ < rhs.impl_; }
     bool operator==(ImplementationT* const impl) const { return (impl_ == impl); }
     bool operator!=(ImplementationT* const impl) const { return !(operator==(impl)); }
 

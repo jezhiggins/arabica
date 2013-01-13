@@ -52,12 +52,31 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
     virtual void setAttribute(const stringT& name, const stringT& value)    
     {
       this->checkName(name);
+      stringT oldValue = getAttribute(name);
       attributes_.setAttribute(name, value);
+      
+      DOM::Events::MutationEvent<stringT> mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
+      if (oldValue != "") {
+        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), "", value, name, Arabica::DOM::Events::MutationEvent<std::string>::MODIFICATION);
+      } else {
+        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), oldValue, value, name, Arabica::DOM::Events::MutationEvent<std::string>::ADDITION);
+      }
+      DOM::Events::EventTarget<stringT> eventTarget(this);
+      eventTarget.dispatchEvent(mutationEvent);
+
     } // setAttribute
 
     virtual void removeAttribute(const stringT& name)    
     {
+      stringT oldValue = getAttribute(name);
       attributes_.removeAttribute(name);
+      
+      // dispatch DOMAttrModified event
+      DOM::Events::MutationEvent<stringT> mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), oldValue, "", name, Arabica::DOM::Events::MutationEvent<std::string>::REMOVAL);
+      DOM::Events::EventTarget<stringT> eventTarget(this);
+      eventTarget.dispatchEvent(mutationEvent);
+
     } // removeAttribute
 
     virtual DOMAttr_implT* getAttributeNode(const stringT& name) const    
@@ -90,12 +109,32 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
     virtual void setAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName, const stringT& value)    
     {
       this->checkName(qualifiedName);
+      stringT oldValue = getAttribute(qualifiedName);
       attributes_.setAttributeNS(namespaceURI, qualifiedName, value);
+
+      // dispatch DOMAttrModified event
+      DOM::Events::MutationEvent<stringT> mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
+      if (oldValue != "") {
+        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), "", value, qualifiedName, Arabica::DOM::Events::MutationEvent<std::string>::MODIFICATION);
+      } else {
+        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), oldValue, value, qualifiedName, Arabica::DOM::Events::MutationEvent<std::string>::ADDITION);
+      }
+      DOM::Events::EventTarget<stringT> eventTarget(this);
+      eventTarget.dispatchEvent(mutationEvent);
+
     } // setAttributeNS
 
-    virtual void removeAttributeNS(const stringT& namespaceURI, const stringT& localName)    
+    virtual void removeAttributeNS(const stringT& namespaceURI, const stringT& localName)
     {
+      stringT oldValue = getAttributeNS(namespaceURI, localName);
       attributes_.removeAttributeNS(namespaceURI, localName);
+
+      // dispatch DOMAttrModified event
+      DOM::Events::MutationEvent<stringT> mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), oldValue, "", localName, Arabica::DOM::Events::MutationEvent<std::string>::REMOVAL);
+      DOM::Events::EventTarget<stringT> eventTarget(this);
+      eventTarget.dispatchEvent(mutationEvent);
+
     } // removeAttributeNS
 
     virtual DOMAttr_implT* getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const

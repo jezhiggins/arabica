@@ -6,10 +6,14 @@
 ////////////////////////////
 
 #include <DOM/Node.hpp>
+#include <DOM/Events/Event.hpp>
+#include <DOM/Events/EventTargetImpl.hpp>
+#include <DOM/Events/EventListener.hpp>
 #include <DOM/DOMException.hpp>
 #include <XML/XMLCharacterClasses.hpp>
 #include <deque>
 #include <algorithm>
+#include <map>
 
 //#include <iostream>
 
@@ -22,7 +26,8 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT> class DocumentImpl;
 
 template<class stringT, class string_adaptorT>
-class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
+class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
+                 virtual public DOM::Events::EventTargetImpl<stringT, string_adaptorT>
 {
   public:
     typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
@@ -32,6 +37,9 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
     typedef DOM::Document_impl<stringT, string_adaptorT> DOMDocument_implT;
     typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
     typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
+    typedef DOM::Events::Event<stringT, string_adaptorT> EventT;
+    typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
+    typedef DOM::Events::EventListener<stringT, string_adaptorT> EventListenerT;
 
     NodeImpl(DocumentImplT* ownerDoc) :
       parentNode_(0),
@@ -202,6 +210,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
       if(readOnly_)
         throw DOM::DOMException(DOM::DOMException::NO_MODIFICATION_ALLOWED_ERR);
     } // throwIfReadOnly
+
 
   protected:
     void checkName(const stringT& str) const
@@ -422,6 +431,12 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
       markChanged();
 
+      // dispatch DOMNodeInserted event
+      DOM::Events::MutationEvent<stringT> mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMNodeInserted", true, false, Arabica::DOM::Node<stringT>(this), "", "", "", Arabica::DOM::Events::MutationEvent<std::string>::ADDITION);
+      DOM::Events::EventTarget<stringT> eventTarget(newChild);
+      eventTarget.dispatchEvent(mutationEvent);
+
       return newChild;
     } // insertBefore
 
@@ -459,12 +474,24 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
       markChanged();
 
+      // dispatch DOMSubtreeModified event
+      DOM::Events::MutationEvent<stringT> mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMSubtreeModified", true, false, Arabica::DOM::Node<stringT>(), "", "", "", Arabica::DOM::Events::MutationEvent<std::string>::MODIFICATION);
+      DOM::Events::EventTarget<stringT> eventTarget(this);
+      eventTarget.dispatchEvent(mutationEvent);
+
       return oldChild;
     } // replaceChild
 
     NodeImplT* do_removeChild(NodeImplT* oldChild)
     {
       NodeImplT::throwIfReadOnly();
+
+      // dispatch DOMNodeRemoved event
+      DOM::Events::MutationEvent<stringT> mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMNodeRemoved", true, false, Arabica::DOM::Node<stringT>(this), "", "", "", Arabica::DOM::Events::MutationEvent<std::string>::REMOVAL);
+      DOM::Events::EventTarget<stringT> eventTarget(oldChild);
+      eventTarget.dispatchEvent(mutationEvent);
 
       nodes_.erase(findChild(oldChild));
 
