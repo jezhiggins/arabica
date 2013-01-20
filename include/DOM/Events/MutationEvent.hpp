@@ -69,7 +69,7 @@ class MutationEvent : public Event<stringT, string_adaptorT>
                            const stringT& attrNameArg,
                            AttrChange attrChangeArg)
     {
-      mImpl()->initMutationEvent(string_adaptorT::convert_from_utf8(typeArg),      
+      mImpl()->initMutationEvent(string_adaptorT::construct_from_utf8(typeArg),
                                  canBubble, canCancel, relatedNode,
                                  prevValueArg, nextValueArg, attrNameArg, attrChangeArg);
     } // initMutationEvent
