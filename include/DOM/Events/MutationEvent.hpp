@@ -60,7 +60,7 @@ class MutationEvent : public Event<stringT, string_adaptorT>
 
     AttrChange getAttrChange() const { return mImpl()->getAttrChange(); }
 
-    void initMutationEvent(const stringT& typeArg,
+    void initMutationEvent(const char* typeArg,
                            bool canBubble,
                            bool canCancel,
                            DOM::Node<stringT> relatedNode,
@@ -69,7 +69,8 @@ class MutationEvent : public Event<stringT, string_adaptorT>
                            const stringT& attrNameArg,
                            AttrChange attrChangeArg)
     {
-      mImpl()->initMutationEvent(typeArg, canBubble, canCancel, relatedNode,
+      mImpl()->initMutationEvent(string_adaptorT::convert_from_utf8(typeArg),      
+                                 canBubble, canCancel, relatedNode,
                                  prevValueArg, nextValueArg, attrNameArg, attrChangeArg);
     } // initMutationEvent
 
