@@ -69,3 +69,6 @@ CMakeCache.txt
 CMakeFiles
 CMakeFiles/*
 cmake_install.cmake
+
+build/*
+*.DS_Store*

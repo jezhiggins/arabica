@@ -14,13 +14,13 @@ namespace DOM
 namespace Events
 {
 
-template<class stringT> class Event;
+template<class stringT, class string_adaptorT> class Event;
 
-template<class stringT>
+template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<stringT> >
 class EventListener
 {
 public:
-  void handleEvent(Event<stringT>& event) = 0;
+  virtual void handleEvent(Event<stringT, string_adaptorT>& event) = 0;
 
 protected:
   virtual ~EventListener() { }

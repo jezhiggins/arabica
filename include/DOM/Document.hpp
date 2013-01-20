@@ -22,6 +22,8 @@
 #include <DOM/Traversal/DocumentTraversal.hpp>
 #include <DOM/Traversal/DocumentTraversalImpl.hpp>
 
+#include <DOM/Events/DocumentEventImpl.hpp>
+
 namespace Arabica
 {
 namespace DOM
@@ -107,6 +109,14 @@ class Document : public Node<stringT, string_adaptorT>
       Traversal::DocumentTraversal<stringT, string_adaptorT> docTraversal(new Traversal::DocumentTraversalImpl<stringT, string_adaptorT>());
       return docTraversal;
     } // createDocumentTraversal
+
+    Events::Event_impl<stringT, string_adaptorT>* createEvent(const stringT& eventType)
+    {
+      DOM::Events::DocumentEvent_impl<stringT, string_adaptorT>* deImpl = dynamic_cast<DOM::Events::DocumentEvent_impl<stringT, string_adaptorT>* >(dImpl());
+      if (deImpl)
+	      return deImpl->createEvent(eventType);
+      return NULL;
+    } // createEvent
 
   private:
     Document_impl<stringT, string_adaptorT>* dImpl() const { return dynamic_cast<Document_impl<stringT, string_adaptorT>*>(*NodeT::impl_); }
