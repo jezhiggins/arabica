@@ -25,6 +25,8 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
     typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
     typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
     typedef DOM::Element_impl<stringT, string_adaptorT> DOMElement_implT;
+    typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
+    typedef DOM::Events::MutationEvent<stringT, string_adaptorT> MutationEventT;
 
   public:
     ElementImpl(DocumentImplT* ownerDoc, const stringT& tagName) : 
@@ -55,13 +57,13 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
       stringT oldValue = getAttribute(name);
       attributes_.setAttribute(name, value);
       
-      DOM::Events::MutationEvent<stringT> mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
-      if (oldValue != "") {
-        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), "", value, name, Arabica::DOM::Events::MutationEvent<std::string>::MODIFICATION);
+      MutationEventT mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
+      if (!string_adaptorT::empty(oldValue)) {
+        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), string_adaptorT::empty_string(), value, name, MutationEventT::MODIFICATION);
       } else {
-        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), oldValue, value, name, Arabica::DOM::Events::MutationEvent<std::string>::ADDITION);
+        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), oldValue, value, name, MutationEventT::ADDITION);
       }
-      DOM::Events::EventTarget<stringT> eventTarget(this);
+      EventTargetT eventTarget(this);
       eventTarget.dispatchEvent(mutationEvent);
 
     } // setAttribute
@@ -72,9 +74,9 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
       attributes_.removeAttribute(name);
       
       // dispatch DOMAttrModified event
-      DOM::Events::MutationEvent<stringT> mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), oldValue, "", name, Arabica::DOM::Events::MutationEvent<std::string>::REMOVAL);
-      DOM::Events::EventTarget<stringT> eventTarget(this);
+      MutationEventT mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), oldValue, string_adaptorT::empty_string(), name, MutationEventT::REMOVAL);
+      EventTargetT eventTarget(this);
       eventTarget.dispatchEvent(mutationEvent);
 
     } // removeAttribute
@@ -113,13 +115,13 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
       attributes_.setAttributeNS(namespaceURI, qualifiedName, value);
 
       // dispatch DOMAttrModified event
-      DOM::Events::MutationEvent<stringT> mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
-      if (oldValue != "") {
-        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), "", value, qualifiedName, Arabica::DOM::Events::MutationEvent<std::string>::MODIFICATION);
+      MutationEventT mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
+      if (!string_adaptorT::empty(oldValue)) {
+        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), string_adaptorT::empty_string(), value, qualifiedName, MutationEventT::MODIFICATION);
       } else {
-        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), oldValue, value, qualifiedName, Arabica::DOM::Events::MutationEvent<std::string>::ADDITION);
+        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), oldValue, value, qualifiedName, MutationEventT::ADDITION);
       }
-      DOM::Events::EventTarget<stringT> eventTarget(this);
+      EventTargetT eventTarget(this);
       eventTarget.dispatchEvent(mutationEvent);
 
     } // setAttributeNS
@@ -130,9 +132,9 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
       attributes_.removeAttributeNS(namespaceURI, localName);
 
       // dispatch DOMAttrModified event
-      DOM::Events::MutationEvent<stringT> mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT>(this), oldValue, "", localName, Arabica::DOM::Events::MutationEvent<std::string>::REMOVAL);
-      DOM::Events::EventTarget<stringT> eventTarget(this);
+      MutationEventT mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), oldValue, string_adaptorT::empty_string(), localName, MutationEventT::REMOVAL);
+      EventTargetT eventTarget(this);
       eventTarget.dispatchEvent(mutationEvent);
 
     } // removeAttributeNS

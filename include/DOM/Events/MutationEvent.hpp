@@ -50,7 +50,7 @@ class MutationEvent : public Event<stringT, string_adaptorT>
       REMOVAL = 3
     }; // enum Change
 
-    DOM::Node<stringT> getRelatedNode() const { return mImpl()->getRelatedNode(); }
+    DOM::Node<stringT, string_adaptorT> getRelatedNode() const { return mImpl()->getRelatedNode(); }
 
     stringT getPrevValue() const { return mImpl()->getPrevValue(); }
 
@@ -63,7 +63,7 @@ class MutationEvent : public Event<stringT, string_adaptorT>
     void initMutationEvent(const char* typeArg,
                            bool canBubble,
                            bool canCancel,
-                           DOM::Node<stringT> relatedNode,
+                           DOM::Node<stringT, string_adaptorT> relatedNode,
                            const stringT& prevValueArg,
                            const stringT& nextValueArg,
                            const stringT& attrNameArg,
@@ -75,7 +75,7 @@ class MutationEvent : public Event<stringT, string_adaptorT>
     } // initMutationEvent
 
   private:
-  MutationEvent_implT* mImpl() const { return dynamic_cast<MutationEvent_implT*>(EventT::proxy_t::operator*()); }
+    MutationEvent_implT* mImpl() const { return dynamic_cast<MutationEvent_implT*>(EventT::proxy_t::operator*()); }
 }; // class Event
 
 ///////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ class MutationEvent_impl : virtual public Event_impl<stringT, string_adaptorT>
   public:
     ///////////////////////////////////
     // MutationEvent methods
-    virtual DOM::Node<stringT> getRelatedNode() const = 0;
+    virtual DOM::Node<stringT, string_adaptorT> getRelatedNode() const = 0;
 
     virtual stringT getPrevValue() const = 0;
 
@@ -99,7 +99,7 @@ class MutationEvent_impl : virtual public Event_impl<stringT, string_adaptorT>
     virtual void initMutationEvent(const stringT& typeArg,
                                    bool canBubble,
                                    bool canCancel,
-                                   DOM::Node<stringT> relatedNode,
+                                   DOM::Node<stringT, string_adaptorT> relatedNode,
                                    const stringT& prevValueArg,
                                    const stringT& nextValueArg,
                                    const stringT& attrNameArg,

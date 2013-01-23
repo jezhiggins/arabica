@@ -5,9 +5,9 @@
 #include <DOM/Simple/NodeImpl.hpp>
 
 #define DISPATCH_DOM_CHARACTERDATA_MODIFIED_EVENT(oldValue, newValue) \
-DOM::Events::MutationEvent<stringT> mutationEvent(NodeImpl<stringT, string_adaptorT>::ownerDoc_->createEvent("MutationEvent")); \
-mutationEvent.initMutationEvent("DOMCharacterDataModified", true, false, Arabica::DOM::Node<stringT>(), oldValue, newValue, "", Arabica::DOM::Events::MutationEvent<std::string>::MODIFICATION); \
-DOM::Events::EventTarget<stringT> eventTarget(this); \
+  DOM::Events::MutationEvent<stringT, string_adaptorT> mutationEvent(NodeImpl<stringT, string_adaptorT>::ownerDoc_->createEvent("MutationEvent")); \
+  mutationEvent.initMutationEvent("DOMCharacterDataModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(), oldValue, newValue, string_adaptorT::empty_string(), Arabica::DOM::Events::MutationEvent<stringT, string_adaptorT>::MODIFICATION); \
+  DOM::Events::EventTarget<stringT, string_adaptorT> eventTarget(this);			\
 eventTarget.dispatchEvent(mutationEvent); \
 
 namespace Arabica

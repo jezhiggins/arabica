@@ -50,10 +50,10 @@ class DocumentEvent : protected Arabica::DOM::Proxy<DocumentEvent_impl<stringT, 
 
     ///////////////////////////////////////////////////
     // DocumentEvent methods
-    Event<stringT, string_adaptorT> createEvent(const stringT& eventType)
+    Event<stringT, string_adaptorT> createEvent(const char* eventType)
     {
       return Event<stringT, string_adaptorT>(Impl()->createEvent(eventType));
-    } // createTreeWalker
+    } // createEvent
 
   private:
   DocumentEvent_implT* Impl() const { return dynamic_cast<DocumentEvent_implT*>(Impl()); }
@@ -67,7 +67,7 @@ template<class stringT, class string_adaptorT>
 class DocumentEvent_impl
 {
   public:
-    virtual Event_impl<stringT, string_adaptorT>* createEvent(const stringT& eventType) = 0;
+    virtual Event_impl<stringT, string_adaptorT>* createEvent(const char* eventType) = 0;
 }; // class DocumentEvent_impl
 
 } // namespace Events

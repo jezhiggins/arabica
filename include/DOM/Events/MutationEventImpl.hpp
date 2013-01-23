@@ -48,7 +48,7 @@ class MutationEventImpl : virtual public DOM::Events::MutationEvent_impl<stringT
         //std::cout << std::endl << "die  " << this << std::endl;
     }
 
-    virtual DOM::Node<stringT> getRelatedNode() const
+    virtual DOM::Node<stringT, string_adaptorT> getRelatedNode() const
     {
       return relatedNode_;
     }
@@ -76,7 +76,7 @@ class MutationEventImpl : virtual public DOM::Events::MutationEvent_impl<stringT
     virtual void initMutationEvent(const stringT& typeArg,
                                    bool canBubble,
                                    bool canCancel,
-                                   DOM::Node<stringT> relatedNode,
+                                   DOM::Node<stringT, string_adaptorT> relatedNode,
                                    const stringT& prevValueArg,
                                    const stringT& nextValueArg,
                                    const stringT& attrNameArg,
@@ -93,7 +93,7 @@ class MutationEventImpl : virtual public DOM::Events::MutationEvent_impl<stringT
     }
 
   protected:
-    DOM::Node<stringT> relatedNode_;
+  DOM::Node<stringT, string_adaptorT> relatedNode_;
     stringT prevValue_;
     stringT nextValue_;
     stringT attrName_;

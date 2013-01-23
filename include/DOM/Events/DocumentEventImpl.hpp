@@ -47,9 +47,10 @@ class DocumentEventImpl : virtual public DOM::Events::DocumentEvent_impl<stringT
         //std::cout << std::endl << "die  " << this << std::endl;
     }
 
-    virtual Event_impl<stringT, string_adaptorT>* createEvent(const stringT& eventType)
+    virtual Event_impl<stringT, string_adaptorT>* createEvent(const char* eventType)
     {
-      if (eventType == string_adaptorT::construct_from_utf8("MutationEvent")) {
+      const stringT eT = string_adaptorT::construct_from_utf8(eventType);
+      if (eT == string_adaptorT::construct_from_utf8("MutationEvent")) {
         return new MutationEventImpl<stringT, string_adaptorT>();
       }
       return NULL;

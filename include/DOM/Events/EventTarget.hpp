@@ -34,7 +34,7 @@ template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<
     EventTarget() : proxy_t(0) { }
     EventTarget(EventTarget_implT* const impl) : proxy_t(impl) { }
     EventTarget(const EventTarget& rhs) : proxy_t(rhs) { }
-    explicit EventTarget(const DOM::Node<stringT>& rhs) : proxy_t(dynamic_cast<EventTarget_implT*>(rhs.underlying_impl()))
+  explicit EventTarget(const DOM::Node<stringT, string_adaptorT>& rhs) : proxy_t(dynamic_cast<EventTarget_implT*>(rhs.underlying_impl()))
     {
       if(dynamic_cast<EventTarget_implT*>(rhs.underlying_impl()) == 0)
         throw DOM::DOMException(DOM::DOMException::NOT_SUPPORTED_ERR); 

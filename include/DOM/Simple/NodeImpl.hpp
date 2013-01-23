@@ -38,6 +38,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
     typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
     typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
     typedef DOM::Events::Event<stringT, string_adaptorT> EventT;
+    typedef DOM::Events::MutationEvent<stringT, string_adaptorT> MutationEventT;
     typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
     typedef DOM::Events::EventListener<stringT, string_adaptorT> EventListenerT;
 
@@ -299,6 +300,10 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
     typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
     typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
     typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
+    typedef DOM::Events::Event<stringT, string_adaptorT> EventT;
+    typedef DOM::Events::MutationEvent<stringT, string_adaptorT> MutationEventT;
+    typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
+    typedef DOM::Events::EventListener<stringT, string_adaptorT> EventListenerT;
 
     NodeImplWithChildren(DocumentImplT* ownerDoc) :
       NodeImplT(ownerDoc)
@@ -432,9 +437,16 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       markChanged();
 
       // dispatch DOMNodeInserted event
-      DOM::Events::MutationEvent<stringT> mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMNodeInserted", true, false, Arabica::DOM::Node<stringT>(this), "", "", "", Arabica::DOM::Events::MutationEvent<std::string>::ADDITION);
-      DOM::Events::EventTarget<stringT> eventTarget(newChild);
+      MutationEventT mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMNodeInserted", 
+				      true, 
+				      false, 
+				      Arabica::DOM::Node<stringT, string_adaptorT>(this), 
+				      string_adaptorT::empty_string(), 
+				      string_adaptorT::empty_string(), 
+				      string_adaptorT::empty_string(), 
+				      MutationEventT::ADDITION);
+      EventTargetT eventTarget(newChild);
       eventTarget.dispatchEvent(mutationEvent);
 
       return newChild;
@@ -475,9 +487,16 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       markChanged();
 
       // dispatch DOMSubtreeModified event
-      DOM::Events::MutationEvent<stringT> mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMSubtreeModified", true, false, Arabica::DOM::Node<stringT>(), "", "", "", Arabica::DOM::Events::MutationEvent<std::string>::MODIFICATION);
-      DOM::Events::EventTarget<stringT> eventTarget(this);
+      MutationEventT mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMSubtreeModified", 
+				      true, 
+				      false, 
+				      Arabica::DOM::Node<stringT, string_adaptorT>(), 
+				      string_adaptorT::empty_string(), 
+				      string_adaptorT::empty_string(), 
+				      string_adaptorT::empty_string(), 
+				      MutationEventT::MODIFICATION);
+      EventTargetT eventTarget(this);
       eventTarget.dispatchEvent(mutationEvent);
 
       return oldChild;
@@ -488,9 +507,16 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       NodeImplT::throwIfReadOnly();
 
       // dispatch DOMNodeRemoved event
-      DOM::Events::MutationEvent<stringT> mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMNodeRemoved", true, false, Arabica::DOM::Node<stringT>(this), "", "", "", Arabica::DOM::Events::MutationEvent<std::string>::REMOVAL);
-      DOM::Events::EventTarget<stringT> eventTarget(oldChild);
+      MutationEventT mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
+      mutationEvent.initMutationEvent("DOMNodeRemoved", 
+				      true, 
+				      false, 
+				      Arabica::DOM::Node<stringT, string_adaptorT>(this), 
+				      string_adaptorT::empty_string(), 
+				      string_adaptorT::empty_string(), 
+				      string_adaptorT::empty_string(), 
+				      MutationEventT::REMOVAL);
+      EventTargetT eventTarget(oldChild);
       eventTarget.dispatchEvent(mutationEvent);
 
       nodes_.erase(findChild(oldChild));
