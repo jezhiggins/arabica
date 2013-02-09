@@ -37,6 +37,7 @@ vs9/mangle.sln
 vs10/mangle.sln
 *.stackdump
 *.lnk
+*.dll
 spec
 gmon.out
 examples/DOM/dom2pyx
