@@ -7,13 +7,15 @@
 
 #include <DOM/Node.hpp>
 #include <DOM/Events/Event.hpp>
-#include <DOM/Events/EventTargetImpl.hpp>
 #include <DOM/Events/EventListener.hpp>
 #include <DOM/DOMException.hpp>
 #include <XML/XMLCharacterClasses.hpp>
 #include <deque>
 #include <algorithm>
 #include <map>
+
+#include <DOM/Events/MutationEvent.hpp>
+#include <DOM/Simple/EventTargetImpl.hpp>
 
 //#include <iostream>
 
@@ -27,7 +29,7 @@ template<class stringT, class string_adaptorT> class DocumentImpl;
 
 template<class stringT, class string_adaptorT>
 class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
-                 virtual public DOM::Events::EventTargetImpl<stringT, string_adaptorT>
+                 virtual public EventTargetImpl<stringT, string_adaptorT>
 {
   public:
     typedef NodeImpl<stringT, string_adaptorT> NodeImplT;

@@ -56,7 +56,7 @@ class DocumentEvent : protected Arabica::DOM::Proxy<DocumentEvent_impl<stringT, 
     } // createEvent
 
   private:
-  DocumentEvent_implT* Impl() const { return dynamic_cast<DocumentEvent_implT*>(Impl()); }
+    DocumentEvent_implT* Impl() const { return dynamic_cast<DocumentEvent_implT*>(Impl()); }
 }; // class DocumentEvent
 
 //////////////////////////////////////////////////////////////
