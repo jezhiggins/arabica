@@ -64,10 +64,13 @@ class libxml2_base
     virtual xmlParserInputPtr SAXresolveEntity(const xmlChar* publicId, const xmlChar* systemId) = 0;
     virtual xmlParserCtxtPtr parserContext() = 0;
 
-
+    virtual void SAXstartCdataSection() = 0;
+    virtual void SAXendCdataSection() = 0;
+    
     friend void lwit_startDocument(void* user_data);
     friend void lwit_endDocument(void* user_data);
     friend void lwit_characters(void *user_data, const xmlChar* ch, int len);
+    friend void lwit_cdata(void *user_data, const xmlChar* ch, int len);
     friend void lwit_ignorableWhitespace(void *user_data, const xmlChar* ch, int len);
     friend void lwit_locator(void* user_data, xmlSAXLocatorPtr locator);
     friend void lwit_warning(void *user_data, const char* fmt, ...);
@@ -91,6 +94,7 @@ void lwit_endDocument(void* user_data);
 void lwit_startElement(void *user_data, const xmlChar* name, const xmlChar** attrs);
 void lwit_endElement(void *user_data, const xmlChar* name);
 void lwit_characters(void* user_data, const xmlChar* ch, int len);
+void lwit_cdata(void* user_data, const xmlChar* ch, int len);
 void lwit_ignorableWhitespace(void *user_data, const xmlChar* ch, int len);
 void lwit_processingInstruction(void *user_data, const xmlChar* target, const xmlChar* data);
 void lwit_comment(void *user_data, const xmlChar* comment);
@@ -196,6 +200,8 @@ class libxml2_wrapper :
     virtual void SAXfatalError(const std::string& fatal);
     virtual void SAXprocessingInstruction(const xmlChar* target, const xmlChar* data);
     virtual void SAXcomment(const xmlChar* comment);
+    virtual void SAXstartCdataSection();
+    virtual void SAXendCdataSection();
     virtual void SAXstartElement(const xmlChar* name, const xmlChar** attrs);
     virtual void SAXstartElementNoNS(const xmlChar* name, const xmlChar** attrs);
     virtual void SAXendElement(const xmlChar* name);
@@ -232,6 +238,7 @@ class libxml2_wrapper :
 
     bool namespaces_;
     bool prefixes_;
+    bool isInCData_;
 
     string_type emptyString_;
     const FeatureNames<string_type, string_adaptor> features_;
@@ -251,6 +258,7 @@ libxml2_wrapper<string_type, T0, T1>::libxml2_wrapper() :
   lexicalHandler_(0),
   locator_(0),
   parsing_(false),
+  isInCData_(false),
   namespaces_(true),
   prefixes_(true)
 {
@@ -477,6 +485,9 @@ void libxml2_wrapper<string_type, T0, T1>::parse(inputSourceT& source)
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXstartDocument()
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(contentHandler_)
     contentHandler_->startDocument();
 } // SAXstartDocument
@@ -484,6 +495,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartDocument()
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXendDocument()
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(contentHandler_)
     contentHandler_->endDocument();
 } // SAXendDocument
@@ -526,6 +540,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXfatalError(const std::string& fata
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXprocessingInstruction(const xmlChar* target, const xmlChar* data)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(contentHandler_)
     contentHandler_->processingInstruction(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(target)),
                                            string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(data)));
@@ -534,13 +551,36 @@ void libxml2_wrapper<string_type, T0, T1>::SAXprocessingInstruction(const xmlCha
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXcomment(const xmlChar* comment)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(lexicalHandler_)
     lexicalHandler_->comment(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(comment)));
 } // SAXcomment
 
 template<class string_type, class T0, class T1>
+void libxml2_wrapper<string_type, T0, T1>::SAXstartCdataSection()
+{
+  isInCData_ = true;
+	if(lexicalHandler_)
+		lexicalHandler_->startCDATA();
+} // startCdataSection
+
+template<class string_type, class T0, class T1>
+void libxml2_wrapper<string_type, T0, T1>::SAXendCdataSection()
+{
+	if(lexicalHandler_)
+		lexicalHandler_->endCDATA();
+	isInCData_ = false;
+} // endCdataSection
+
+template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXstartElement(const xmlChar* qName, const xmlChar** atts)
 {
+
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(!contentHandler_)
     return;
 
@@ -613,6 +653,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElementNoNS(const xmlChar* qN
 {
   SAX::AttributesImpl<string_type, string_adaptor> attributes;
 
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(atts && *atts != 0)
   {
     while(*atts != 0)
@@ -634,6 +677,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartElementNoNS(const xmlChar* qN
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXendElement(const xmlChar* qName)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(!contentHandler_)
     return;
 
@@ -656,6 +702,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXendElement(const xmlChar* qName)
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXendElementNoNS(const xmlChar* qName)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(contentHandler_)
     contentHandler_->endElement(emptyString_, emptyString_, string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(qName)));
 } // SAXendElementNoNS
@@ -663,6 +712,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXendElementNoNS(const xmlChar* qNam
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXnotationDecl(const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(dtdHandler_)
     dtdHandler_->notationDecl(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(name)),
                               string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(publicId)),
@@ -672,6 +724,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXnotationDecl(const xmlChar *name, 
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXunparsedEntityDecl(const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId, const xmlChar *notationName)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(dtdHandler_)
     dtdHandler_->unparsedEntityDecl(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(name)),
                                     string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(publicId)),
@@ -682,6 +737,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXunparsedEntityDecl(const xmlChar *
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXelementDecl(const xmlChar* name, int type, xmlElementContentPtr content)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(!declHandler_)
     return;
 
@@ -766,6 +824,9 @@ void libxml2_wrapper<string_type, T0, T1>::convertXML_Content(std::ostream& os, 
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXattributeDecl(const xmlChar *elem, const xmlChar *fullname, int type, int def, const xmlChar *defaultValue, xmlEnumerationPtr tree)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(!declHandler_)
     return;
 
@@ -838,6 +899,9 @@ string_type  libxml2_wrapper<string_type, T0, T1>::stringAttrEnum(xmlEnumeration
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXentityDecl(const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(!declHandler_)
     return;
 

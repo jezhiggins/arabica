@@ -58,6 +58,15 @@ void lwit_characters(void* user_data, const xmlChar* ch, int len)
   p->SAXcharacters(ch, len);
 } // lwit_characters
 
+void lwit_cdata(void* user_data, const xmlChar* ch, int len)
+{
+  libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
+  p->SAXstartCdataSection();
+  p->SAXcharacters(ch, len);
+// everyone else will call endCData if we are in cdata
+//  p->SAXendCdataSection();
+} // lwit_cdata
+
 void lwit_ignorableWhitespace(void *user_data, const xmlChar* ch, int len)
 {
   libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
@@ -193,7 +202,7 @@ static xmlSAXHandler saxHandler = {
 		lwit_error,		// errorSAXFunc error;
 		lwit_fatalError,		// fatalErrorSAXFunc fatalError;
 		0,		// getParameterEntitySAXFunc getParameterEntity;
-		lwit_characters,		// cdataBlockSAXFunc cdataBlock;
+		lwit_cdata,		// cdataBlockSAXFunc cdataBlock;
 		0,		// externalSubsetSAXFunc externalSubset;
     0,    //  initialized;
     /* The following fields are extensions available only on version 2 */
