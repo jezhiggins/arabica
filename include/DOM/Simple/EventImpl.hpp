@@ -130,7 +130,7 @@ class EventImpl : virtual public Arabica::DOM::Events::Event_impl<stringT, strin
 #ifdef _WIN32
       FILETIME tv;
       GetSystemTimeAsFileTime(&tv);
-      time = (((uint64_t) tv.dwHighDateTime) << 32) + tv.dwLowDateTime;
+      time = (((__int64) tv.dwHighDateTime) << 32) + tv.dwLowDateTime;
       time /= 10000;
 #else
       struct timeval tv;
