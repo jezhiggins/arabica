@@ -91,6 +91,10 @@ dom_headers = 	DOM/SAX2DOM/SAX2DOM.hpp \
 	DOM/EntityReference.hpp \
 	DOM/Attr.hpp \
 	DOM/NodeList.hpp \
+	DOM/Simple/EventImpl.hpp \
+	DOM/Simple/EventTargetImpl.hpp \
+	DOM/Simple/MutationEventImpl.hpp \
+	DOM/Simple/DocumentEventImpl.hpp \
 	DOM/Simple/ProcessingInstructionImpl.hpp \
 	DOM/Simple/EntityReferenceImpl.hpp \
 	DOM/Simple/CharacterDataImpl.hpp \
