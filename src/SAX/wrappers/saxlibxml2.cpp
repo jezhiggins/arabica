@@ -62,7 +62,7 @@ void lwit_cdata(void* user_data, const xmlChar* ch, int len)
 {
   libxml2_base* p = reinterpret_cast<libxml2_base*>(user_data);
   p->SAXstartCdataSection();
-  p->SAXcharacters(ch, len);
+  p->SAXcdata(ch, len);
 // everyone else will call endCData if we are in cdata
 //  p->SAXendCdataSection();
 } // lwit_cdata

@@ -48,6 +48,7 @@ class libxml2_base
     virtual void SAXendDocument() = 0;
     virtual void SAXlocator(xmlSAXLocatorPtr locator) = 0;
     virtual void SAXcharacters(const xmlChar* ch, int len) = 0;
+    virtual void SAXcdata(const xmlChar* ch, int len) = 0;
     virtual void SAXignorableWhitespace(const xmlChar* ch, int len) = 0;
     virtual void SAXwarning(const std::string& warning) = 0;
     virtual void SAXerror(const std::string& error) = 0;
@@ -194,6 +195,7 @@ class libxml2_wrapper :
     virtual void SAXendDocument();
     virtual void SAXlocator(xmlSAXLocatorPtr locator) { locator_ = locator; }
     virtual void SAXcharacters(const xmlChar* ch, int len);
+    virtual void SAXcdata(const xmlChar* ch, int len);
     virtual void SAXignorableWhitespace(const xmlChar* ch, int len);
     virtual void SAXwarning(const std::string& warning);
     virtual void SAXerror(const std::string& error);
@@ -505,9 +507,19 @@ void libxml2_wrapper<string_type, T0, T1>::SAXendDocument()
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXcharacters(const xmlChar* ch, int len)
 {
+  if(isInCData_)
+    SAXendCdataSection();
+
   if(contentHandler_)
     contentHandler_->characters(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(ch), len));
 } // SAXcharacters
+
+template<class string_type, class T0, class T1>
+void libxml2_wrapper<string_type, T0, T1>::SAXcdata(const xmlChar* ch, int len)
+{
+  if(contentHandler_)
+    contentHandler_->characters(string_adaptor::construct_from_utf8(reinterpret_cast<const char*>(ch), len));
+} // SAXcdata
 
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXignorableWhitespace(const xmlChar* ch, int len)
@@ -561,6 +573,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXcomment(const xmlChar* comment)
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXstartCdataSection()
 {
+  if (isInCData_)
+    return;
+
   isInCData_ = true;
 	if(lexicalHandler_)
 		lexicalHandler_->startCDATA();
@@ -569,6 +584,9 @@ void libxml2_wrapper<string_type, T0, T1>::SAXstartCdataSection()
 template<class string_type, class T0, class T1>
 void libxml2_wrapper<string_type, T0, T1>::SAXendCdataSection()
 {
+  if (!isInCData_)
+    return;
+
 	if(lexicalHandler_)
 		lexicalHandler_->endCDATA();
 	isInCData_ = false;
