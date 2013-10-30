@@ -50,7 +50,7 @@ private:
   {
 		elementType("<pcdata>", M_EMPTY, M_PCDATA, 0);
 		elementType("<root>", M_ROOT, M_EMPTY, 0);
-		elementType("a", M_PCDATA|M_NOLINK, M_INLINE, 0);
+		elementType("a", M_PCDATA|M_NOLINK|M_BLOCK, M_INLINE, 0);
 		elementType("abbr", M_PCDATA|M_INLINE, M_INLINE|M_NOLINK, F_RESTART);
 		elementType("acronym", M_PCDATA|M_INLINE, M_INLINE|M_NOLINK, F_RESTART);
 		elementType("address", M_PCDATA|M_INLINE|M_P, M_BLOCK, 0);
