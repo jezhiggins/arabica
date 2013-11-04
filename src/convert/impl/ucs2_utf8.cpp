@@ -20,10 +20,10 @@ namespace {
 
   static const Tab tab[] =
   {
-    { char(0x80),  char(0x00),   0*6,    0x7F,   },   // 1 byte sequence
-    { char(0xE0),  char(0xC0),   1*6,    0x7FF,  },   // 2 byte sequence
-    { char(0xF0),  char(0xE0),   2*6,    0xFFFF, },   // 3 byte sequence
-    { 0,           0,            0,      0,      }    // end of table
+    { (unsigned char)(0x80),  (unsigned char)(0x00),   0*6,    0x7F,   },   // 1 byte sequence
+    { (unsigned char)(0xE0),  (unsigned char)(0xC0),   1*6,    0x7FF,  },   // 2 byte sequence
+    { (unsigned char)(0xF0),  (unsigned char)(0xE0),   2*6,    0xFFFF, },   // 3 byte sequence
+    { 0,                      0,                       0,      0,      }    // end of table
   };
 } // namespace 
 
