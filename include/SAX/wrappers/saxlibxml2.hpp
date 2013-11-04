@@ -38,6 +38,32 @@ namespace libxml2_wrapper_impl_tiddle
 extern "C"
 {
 
+void lwit_startDocument(void* user_data);
+void lwit_endDocument(void* user_data);
+void lwit_startElement(void *user_data, const xmlChar* name, const xmlChar** attrs);
+void lwit_endElement(void *user_data, const xmlChar* name);
+void lwit_characters(void* user_data, const xmlChar* ch, int len);
+void lwit_cdata(void* user_data, const xmlChar* ch, int len);
+void lwit_ignorableWhitespace(void *user_data, const xmlChar* ch, int len);
+void lwit_processingInstruction(void *user_data, const xmlChar* target, const xmlChar* data);
+void lwit_comment(void *user_data, const xmlChar* comment);
+void lwit_warning(void *user_data, const char* fmt, ...);
+void lwit_error(void* user_data, const char* fmt, ...);
+void lwit_fatalError(void* user_data, const char* fmt, ...);
+void lwit_locator(void* user_data, xmlSAXLocatorPtr locator);
+void lwit_notationDecl(void* user_data, const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId);
+void lwit_unparsedEntityDecl(void* user_data,
+                             const xmlChar *name, const xmlChar *publicId,
+                             const xmlChar *systemId, const xmlChar *notationName);
+void lwit_elementDecl(void* user_date, const xmlChar *name, int type, xmlElementContentPtr content);
+void lwit_attributeDecl(void *user_data, const xmlChar *elem, const xmlChar *fullname, int type, int def, const xmlChar *defaultValue, xmlEnumerationPtr tree);
+void lwit_entityDecl(void* user_data, const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content);
+void lwit_setFeature(xmlParserCtxtPtr context, const char* name, bool value);
+bool lwit_getFeature(xmlParserCtxtPtr context, const char* name);
+xmlEntityPtr lwit_getEntity(void* user_data, const xmlChar* name);
+xmlParserInputPtr lwit_resolveEntity(void* user_data, const xmlChar* publicId, const xmlChar* systemId);
+xmlSAXHandler* lwit_SaxHandler();
+
 class libxml2_base
 {
   protected:
@@ -90,31 +116,6 @@ class libxml2_base
     friend xmlParserInputPtr lwit_resolveEntity(void* user_data, const xmlChar* publicId, const xmlChar* systemId);
 }; // class libxml2_base
 
-void lwit_startDocument(void* user_data);
-void lwit_endDocument(void* user_data);
-void lwit_startElement(void *user_data, const xmlChar* name, const xmlChar** attrs);
-void lwit_endElement(void *user_data, const xmlChar* name);
-void lwit_characters(void* user_data, const xmlChar* ch, int len);
-void lwit_cdata(void* user_data, const xmlChar* ch, int len);
-void lwit_ignorableWhitespace(void *user_data, const xmlChar* ch, int len);
-void lwit_processingInstruction(void *user_data, const xmlChar* target, const xmlChar* data);
-void lwit_comment(void *user_data, const xmlChar* comment);
-void lwit_warning(void *user_data, const char* fmt, ...);
-void lwit_error(void* user_data, const char* fmt, ...);
-void lwit_fatalError(void* user_data, const char* fmt, ...);
-void lwit_locator(void* user_data, xmlSAXLocatorPtr locator);
-void lwit_notationDecl(void* user_data, const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId);
-void lwit_unparsedEntityDecl(void* user_data,
-                           const xmlChar *name, const xmlChar *publicId,
-			                     const xmlChar *systemId, const xmlChar *notationName);
-void lwit_elementDecl(void* user_date, const xmlChar *name, int type, xmlElementContentPtr content);
-void lwit_attributeDecl(void *user_data, const xmlChar *elem, const xmlChar *fullname, int type, int def, const xmlChar *defaultValue, xmlEnumerationPtr tree);
-void lwit_entityDecl(void* user_data, const xmlChar *name, int type, const xmlChar *publicId, const xmlChar *systemId,	xmlChar *content);
-void lwit_setFeature(xmlParserCtxtPtr context, const char* name, bool value);
-bool lwit_getFeature(xmlParserCtxtPtr context, const char* name);
-xmlEntityPtr lwit_getEntity(void* user_data, const xmlChar* name);
-xmlParserInputPtr lwit_resolveEntity(void* user_data, const xmlChar* publicId, const xmlChar* systemId);
-xmlSAXHandler* lwit_SaxHandler();
 } // extern "C"
 
 } // namespace libxml2_wrapper_impl_tiddle
