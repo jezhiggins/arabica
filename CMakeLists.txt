@@ -379,6 +379,9 @@ set(SOURCE_FILES
 )
 source_group("Source Files" FILES ${SOURCE_FILES})
 
+install(
+  DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+  DESTINATION include/arabica)
 
 add_library (${LIBNAME}
   ${ARABICA_CONFIG_FILE}
@@ -394,10 +397,7 @@ set_property(TARGET ${LIBNAME}
   ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
   )
 
-install(TARGETS ${LIBNAME}
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib
-  )
+install(TARGETS ${LIBNAME} LIBRARY DESTINATION lib)
 
 set_source_files_properties(${ARABICA_CONFIG_FILE} PROPERTIES HEADER_FILE_ONLY TRUE)
 
