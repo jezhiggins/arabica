@@ -380,7 +380,7 @@ set(SOURCE_FILES
 source_group("Source Files" FILES ${SOURCE_FILES})
 
 
-add_library (${LIBNAME} STATIC
+add_library (${LIBNAME}
   ${ARABICA_CONFIG_FILE}
   ${GENERATED_HEADER_FILES}
   ${PUBLIC_HEADER_FILES}
