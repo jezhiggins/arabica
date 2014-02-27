@@ -1,6 +1,7 @@
 #ifndef ARABICA_SAX_TAGGLE_HTML_SCANNER_HPP
 #define ARABICA_SAX_TAGGLE_HTML_SCANNER_HPP
   
+#include <sstream>
 #include <SAX/SAXException.hpp>
 #include <SAX/Locator.hpp>
 #include <XML/XMLCharacterClasses.hpp>
@@ -473,7 +474,9 @@ public:
           outputBuffer_.clear();
           break;
         default:
-          throw std::runtime_error("Can't process state " + action);
+          throw std::runtime_error(
+              "Can't process state " + static_cast<std::stringstream const&>(
+                  std::stringstream() << action).str());
       } // switch ...
       state_ = nextState_;
     } // while (state_ != S_DONE) 
