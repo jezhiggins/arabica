@@ -44,6 +44,8 @@ vs10/mangle.sln
 *.dll
 spec
 gmon.out
+*.log
+*.trs
 examples/DOM/dom2pyx
 examples/DOM/domwriter
 examples/SAX/pyx
