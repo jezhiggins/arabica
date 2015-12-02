@@ -4,10 +4,14 @@ libtool
 config.log
 config.status
 configure
+compile
 autom4te.cache
+missing
+test-driver
 Makefile
 Makefile.in
 .deps
+.dirstamp
 aclocal.m4
 arabica.pc
 include/SAX/ArabicaConfig.hpp
