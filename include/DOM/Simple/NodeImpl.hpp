@@ -14,12 +14,7 @@
 #include <algorithm>
 #include <map>
 
-#include <DOM/Events/MutationEvent.hpp>
-#include <DOM/Simple/EventTargetImpl.hpp>
-
-//#include <iostream>
-
-namespace Arabica 
+namespace Arabica
 {
 namespace SimpleDOM
 {
@@ -28,8 +23,7 @@ namespace SimpleDOM
 template<class stringT, class string_adaptorT> class DocumentImpl;
 
 template<class stringT, class string_adaptorT>
-class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
-                 virtual public EventTargetImpl<stringT, string_adaptorT>
+class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
 {
   public:
     typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
@@ -39,10 +33,6 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
     typedef DOM::Document_impl<stringT, string_adaptorT> DOMDocument_implT;
     typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
     typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
-    typedef DOM::Events::Event<stringT, string_adaptorT> EventT;
-    typedef DOM::Events::MutationEvent<stringT, string_adaptorT> MutationEventT;
-    typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
-    typedef DOM::Events::EventListener<stringT, string_adaptorT> EventListenerT;
 
     NodeImpl(DocumentImplT* ownerDoc) :
       parentNode_(0),
@@ -53,9 +43,9 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
     {
         //std::cout << std::endl << "born " << this << std::endl;
     } // NodeImpl
-    
-    virtual ~NodeImpl() 
-    { 
+
+    virtual ~NodeImpl()
+    {
         //std::cout << std::endl << "die  " << this << std::endl;
     }
 
@@ -66,7 +56,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
       if(ownerDoc_)
         ownerDoc_->addRef();
     } // addRef
-    virtual void releaseRef() 
+    virtual void releaseRef()
     {
       if(ownerDoc_)
         ownerDoc_->releaseRef();
@@ -80,11 +70,11 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
     virtual void setNodeValue(const stringT& /*nodeValue*/) { }
 
     virtual DOM::Node_base::Type getNodeType() const = 0;
-    
+
     virtual DOMNode_implT* getParentNode() const { return parentNode_; }
 
     virtual DOMNodeList_implT* getChildNodes() const = 0;
-    
+
     virtual DOMNode_implT* getFirstChild() const = 0;
     virtual DOMNode_implT* getLastChild() const = 0;
 
@@ -107,7 +97,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
 
     virtual void normalize()
     {
-      DOMNode_implT*child = getFirstChild(); 
+      DOMNode_implT*child = getFirstChild();
       while(child != 0)
       {
         DOMNode_implT*next = child->getNextSibling();
@@ -115,21 +105,21 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
         if(child->getNodeType() == DOM::Node_base::TEXT_NODE)
         {
           DOMText_implT* textNode = dynamic_cast<DOMText_implT*>(child);
-          while((next != 0) && 
+          while((next != 0) &&
                 (next->getNodeType() == DOM::Node_base::TEXT_NODE))
           {
             textNode->appendData(next->getNodeValue());
             removeChild(next);
             next = textNode->getNextSibling();
-          } // while 
+          } // while
           if(string_adaptorT::empty(textNode->getData()))
             removeChild(textNode);
-        } 
+        }
         else
           child->normalize();
 
         child = next;
-      } // while 
+      } // while
 
       DOMNamedNodeMap_implT* attrs = getAttributes();
       if(attrs)
@@ -149,11 +139,11 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
 
     // additional methods - since C++ std::string (and by implication
     // stringT) don't differenciate between a null string and an empty string,
-    // but the DOM recommendation does, I have to introduce these three methods 
+    // but the DOM recommendation does, I have to introduce these three methods
     // to disambiguate.  If they return false, the corresponding attribute should be
-    // considered null.  If they return true, the attribute has been set EVEN IF 
+    // considered null.  If they return true, the attribute has been set EVEN IF
     // it has been set to the empty string
-    virtual bool hasNamespaceURI() const { return false; } 
+    virtual bool hasNamespaceURI() const { return false; }
     virtual bool hasPrefix() const { return false; }
 
     virtual bool hasAttributes() const { return false; }
@@ -246,7 +236,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>,
 }; // class NodeImpl
 
 template<class stringT, class string_adaptorT>
-class ChildlessNodeImpl : public NodeImpl<stringT, string_adaptorT>  
+class ChildlessNodeImpl : public NodeImpl<stringT, string_adaptorT>
 {
   public:
     typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
@@ -256,12 +246,12 @@ class ChildlessNodeImpl : public NodeImpl<stringT, string_adaptorT>
     ChildlessNodeImpl(DocumentImplT* ownerDoc) :
       NodeImpl<stringT, string_adaptorT>(ownerDoc)
     {
-    } // ChildlessNodeImpl 
+    } // ChildlessNodeImpl
 
     ///////////////////////////////////////////////////////
     // Node methods
     virtual DOMNodeList_implT* getChildNodes() const { return 0; }
-    
+
     virtual DOMNode_implT* getFirstChild() const { return 0; }
     virtual DOMNode_implT* getLastChild() const { return 0; }
 
@@ -302,18 +292,14 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
     typedef DocumentImpl<stringT, string_adaptorT> DocumentImplT;
     typedef DOM::Node_impl<stringT, string_adaptorT> DOMNode_implT;
     typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
-    typedef DOM::Events::Event<stringT, string_adaptorT> EventT;
-    typedef DOM::Events::MutationEvent<stringT, string_adaptorT> MutationEventT;
-    typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
-    typedef DOM::Events::EventListener<stringT, string_adaptorT> EventListenerT;
 
     NodeImplWithChildren(DocumentImplT* ownerDoc) :
       NodeImplT(ownerDoc)
     {
     } // NodeImplWithChildren
 
-    virtual ~NodeImplWithChildren() 
-    { 
+    virtual ~NodeImplWithChildren()
+    {
       for(typename NodeListT::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
         delete (*i);
     } // ~NodeImpl
@@ -324,18 +310,18 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
     {
       NodeImplT::addRef();
     } // addRef
-    virtual void releaseRef() 
+    virtual void releaseRef()
     {
       NodeImplT::releaseRef();
     } // releaseRef
 
     ///////////////////////////////////////////////////////
     // Node methods
-    virtual DOMNodeList_implT* getChildNodes() const 
-    { 
-      return const_cast<DOMNodeList_implT*>(static_cast<const DOMNodeList_implT*>(this)); 
+    virtual DOMNodeList_implT* getChildNodes() const
+    {
+      return const_cast<DOMNodeList_implT*>(static_cast<const DOMNodeList_implT*>(this));
     } // getChildNodes
-    
+
     virtual DOMNode_implT* getFirstChild() const
     {
       if(nodes_.size())
@@ -352,13 +338,13 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
     virtual DOMNode_implT* insertBefore(DOMNode_implT* newChild, DOMNode_implT* refChild)
     {
-      return do_insertBefore(dynamic_cast<NodeImplT*>(newChild), 
+      return do_insertBefore(dynamic_cast<NodeImplT*>(newChild),
                              dynamic_cast<NodeImplT*>(refChild));
     } // insertBefore
 
     virtual DOMNode_implT* replaceChild(DOMNode_implT* newChild, DOMNode_implT* oldChild)
     {
-      return do_replaceChild(dynamic_cast<NodeImplT*>(newChild), 
+      return do_replaceChild(dynamic_cast<NodeImplT*>(newChild),
                              dynamic_cast<NodeImplT*>(oldChild));
     } // replaceChild
 
@@ -377,8 +363,8 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       do_purgeChild(dynamic_cast<NodeImplT*>(oldChild));
     } // purgeChild
 
-    virtual bool hasChildNodes() const 
-    {  
+    virtual bool hasChildNodes() const
+    {
       return nodes_.size() != 0;
     } // hasChildNodes
 
@@ -423,33 +409,20 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
         newChild->setPrev(prev);
         newChild->setNext(refChild);
         refChild->setPrev(newChild);
-      } 
-      else 
+      }
+      else
       {
         if(!nodes_.empty())
         {
           (*nodes_.rbegin())->setNext(newChild);
           newChild->setPrev(*nodes_.rbegin());
-        } // 
+        } //
         nodes_.push_back(newChild);
       }
 
       newChild->setParentNode(this);
 
       markChanged();
-
-      // dispatch DOMNodeInserted event
-      MutationEventT mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMNodeInserted", 
-				      true, 
-				      false, 
-				      Arabica::DOM::Node<stringT, string_adaptorT>(this), 
-				      string_adaptorT::empty_string(), 
-				      string_adaptorT::empty_string(), 
-				      string_adaptorT::empty_string(), 
-				      MutationEventT::ADDITION);
-      EventTargetT eventTarget(newChild);
-      eventTarget.dispatchEvent(mutationEvent);
 
       return newChild;
     } // insertBefore
@@ -488,38 +461,12 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
 
       markChanged();
 
-      // dispatch DOMSubtreeModified event
-      MutationEventT mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMSubtreeModified", 
-				      true, 
-				      false, 
-				      Arabica::DOM::Node<stringT, string_adaptorT>(), 
-				      string_adaptorT::empty_string(), 
-				      string_adaptorT::empty_string(), 
-				      string_adaptorT::empty_string(), 
-				      MutationEventT::MODIFICATION);
-      EventTargetT eventTarget(this);
-      eventTarget.dispatchEvent(mutationEvent);
-
       return oldChild;
     } // replaceChild
 
     NodeImplT* do_removeChild(NodeImplT* oldChild)
     {
       NodeImplT::throwIfReadOnly();
-
-      // dispatch DOMNodeRemoved event
-      MutationEventT mutationEvent(NodeImplT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMNodeRemoved", 
-				      true, 
-				      false, 
-				      Arabica::DOM::Node<stringT, string_adaptorT>(this), 
-				      string_adaptorT::empty_string(), 
-				      string_adaptorT::empty_string(), 
-				      string_adaptorT::empty_string(), 
-				      MutationEventT::REMOVAL);
-      EventTargetT eventTarget(oldChild);
-      eventTarget.dispatchEvent(mutationEvent);
 
       nodes_.erase(findChild(oldChild));
 
@@ -574,9 +521,9 @@ class NodeImplWithChildren : public NodeImpl<stringT, string_adaptorT>,
       {
         child->setOwnerDoc(NodeImplT::getOwnerDoc());
         return;
-      } // 
+      } //
 
-      if(child->getNodeType() == DOM::Node_base::DOCUMENT_NODE) 
+      if(child->getNodeType() == DOM::Node_base::DOCUMENT_NODE)
       {
         if(childDoc != dynamic_cast<DocumentImplT*>(this))
           throw DOM::DOMException(DOM::DOMException::WRONG_DOCUMENT_ERR);

@@ -62,7 +62,7 @@ tests/DOM/dom_test*
 tests/XPath/xpath_test*
 tests/Taggle/taggle_test
 tests/Utils/utils_test*
-tests/XSLT/xslt_test
+tests/XSLT/xslt_test*
 bin/mandelbrot-*.html
 doc/html
 m4/lt~obsolete.m4

@@ -22,8 +22,6 @@
 #include <DOM/Traversal/DocumentTraversal.hpp>
 #include <DOM/Traversal/DocumentTraversalImpl.hpp>
 
-#include <DOM/Events/DocumentEvent.hpp>
-
 namespace Arabica
 {
 namespace DOM
@@ -31,7 +29,7 @@ namespace DOM
 
 namespace Events {
   template<class stringT, class string_adaptorT> class DocumentEvent;
-} // namespace Events 
+} // namespace Events
 
 template<class stringT, class string_adaptorT> class Document_impl;
 
@@ -43,7 +41,7 @@ class Document : public Node<stringT, string_adaptorT>
     Document() : Node<stringT, string_adaptorT>() { }
     Document(Document_impl<stringT, string_adaptorT>* impl) : Node<stringT, string_adaptorT>(impl) { }
     Document(const Document& rhs) : Node<stringT, string_adaptorT>(rhs) { }
-    explicit Document(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)  
+    explicit Document(const Node<stringT, string_adaptorT>& rhs) : Node<stringT, string_adaptorT>(rhs)
     {
       if(NodeT::impl_ == 0) // null nodes can always be cast
 	return;
@@ -52,7 +50,7 @@ class Document : public Node<stringT, string_adaptorT>
     } // Document
     ~Document() { }
 
-    Document& operator=(const Document& rhs) 
+    Document& operator=(const Document& rhs)
     {
       Node<stringT, string_adaptorT>::operator=(rhs);
       return *this;
@@ -76,7 +74,7 @@ class Document : public Node<stringT, string_adaptorT>
 
     ProcessingInstruction<stringT, string_adaptorT> createProcessingInstruction(const stringT& target, const stringT& data) const
     {
-      return ProcessingInstruction<stringT, string_adaptorT>(dImpl()->createProcessingInstruction(target, data)); 
+      return ProcessingInstruction<stringT, string_adaptorT>(dImpl()->createProcessingInstruction(target, data));
     } // createProcessingInstruction
 
     Attr<stringT, string_adaptorT> createAttribute(const stringT& name) const { return Attr<stringT, string_adaptorT>(dImpl()->createAttribute(name)); }
@@ -89,12 +87,12 @@ class Document : public Node<stringT, string_adaptorT>
 
     Element<stringT, string_adaptorT> createElementNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
-      return Element<stringT, string_adaptorT>(dImpl()->createElementNS(namespaceURI, qualifiedName)); 
+      return Element<stringT, string_adaptorT>(dImpl()->createElementNS(namespaceURI, qualifiedName));
     } // createElementNS
 
     Attr<stringT, string_adaptorT> createAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
-      return Attr<stringT, string_adaptorT>(dImpl()->createAttributeNS(namespaceURI, qualifiedName)); 
+      return Attr<stringT, string_adaptorT>(dImpl()->createAttributeNS(namespaceURI, qualifiedName));
     } // createAttributeNS
 
     NodeList<stringT, string_adaptorT> getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const
@@ -109,14 +107,6 @@ class Document : public Node<stringT, string_adaptorT>
       Traversal::DocumentTraversal<stringT, string_adaptorT> docTraversal(new Traversal::DocumentTraversalImpl<stringT, string_adaptorT>());
       return docTraversal;
     } // createDocumentTraversal
-
-    Events::Event_impl<stringT, string_adaptorT>* createEvent(const stringT& eventType)
-    {
-      DOM::Events::DocumentEvent_impl<stringT, string_adaptorT>* deImpl = dynamic_cast<DOM::Events::DocumentEvent_impl<stringT, string_adaptorT>* >(dImpl());
-      if (deImpl)
-	      return deImpl->createEvent(eventType);
-      return 0;
-    } // createEvent
 
   private:
     Document_impl<stringT, string_adaptorT>* dImpl() const { return dynamic_cast<Document_impl<stringT, string_adaptorT>*>(*NodeT::impl_); }
@@ -185,4 +175,3 @@ class Document_impl : virtual public Node_impl<stringT, string_adaptorT>
 } // namespace Arabica
 
 #endif
-
