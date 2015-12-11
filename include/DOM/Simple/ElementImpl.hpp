@@ -25,21 +25,19 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
     typedef DOM::NodeList_impl<stringT, string_adaptorT> DOMNodeList_implT;
     typedef DOM::NamedNodeMap_impl<stringT, string_adaptorT> DOMNamedNodeMap_implT;
     typedef DOM::Element_impl<stringT, string_adaptorT> DOMElement_implT;
-    typedef DOM::Events::EventTarget<stringT, string_adaptorT> EventTargetT;
-    typedef DOM::Events::MutationEvent<stringT, string_adaptorT> MutationEventT;
 
   public:
-    ElementImpl(DocumentImplT* ownerDoc, const stringT& tagName) : 
+    ElementImpl(DocumentImplT* ownerDoc, const stringT& tagName) :
         DOMElement_implT(),
         NodeT(ownerDoc),
         attributes_(ownerDoc),
         tagName_(ownerDoc->stringPool(tagName))
-    { 
+    {
       attributes_.setOwnerElement(this);
     } // ElementImpl
 
-    virtual ~ElementImpl() 
-    { 
+    virtual ~ElementImpl()
+    {
     } // ~ElementImpl
 
     /////////////////////////////////////////////////////
@@ -51,37 +49,20 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
       return attributes_.getAttribute(name);
     } // getAttribute
 
-    virtual void setAttribute(const stringT& name, const stringT& value)    
+    virtual void setAttribute(const stringT& name, const stringT& value)
     {
       this->checkName(name);
       stringT oldValue = getAttribute(name);
       attributes_.setAttribute(name, value);
-      
-      MutationEventT mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
-      if (!string_adaptorT::empty(oldValue)) {
-        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), string_adaptorT::empty_string(), value, name, MutationEventT::MODIFICATION);
-      } else {
-        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), oldValue, value, name, MutationEventT::ADDITION);
-      }
-      EventTargetT eventTarget(this);
-      eventTarget.dispatchEvent(mutationEvent);
-
     } // setAttribute
 
-    virtual void removeAttribute(const stringT& name)    
+    virtual void removeAttribute(const stringT& name)
     {
       stringT oldValue = getAttribute(name);
       attributes_.removeAttribute(name);
-      
-      // dispatch DOMAttrModified event
-      MutationEventT mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), oldValue, string_adaptorT::empty_string(), name, MutationEventT::REMOVAL);
-      EventTargetT eventTarget(this);
-      eventTarget.dispatchEvent(mutationEvent);
-
     } // removeAttribute
 
-    virtual DOMAttr_implT* getAttributeNode(const stringT& name) const    
+    virtual DOMAttr_implT* getAttributeNode(const stringT& name) const
     {
       return attributes_.getAttributeNode(name);
     } // getAttributeNode
@@ -91,52 +72,32 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
       return attributes_.setAttributeNode(newAttr);
     } // setAttributeNode
 
-    virtual DOMAttr_implT* removeAttributeNode(DOMAttr_implT* oldAttr)    
+    virtual DOMAttr_implT* removeAttributeNode(DOMAttr_implT* oldAttr)
     {
       return attributes_.removeAttributeNode(oldAttr);
     } // removeAttributeNode
 
-    virtual DOMNodeList_implT* getElementsByTagName(const stringT& tagName) const    
+    virtual DOMNodeList_implT* getElementsByTagName(const stringT& tagName) const
     {
       return new ElementByTagListT(NodeT::ownerDoc_,
                                    const_cast<ElementImpl*>(this),
                                    tagName);
     } // getElementsByTagName
 
-    virtual stringT getAttributeNS(const stringT& namespaceURI, const stringT& localName) const    
+    virtual stringT getAttributeNS(const stringT& namespaceURI, const stringT& localName) const
     {
       return attributes_.getAttributeNS(namespaceURI, localName);
     } // getAttributeNS
 
-    virtual void setAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName, const stringT& value)    
+    virtual void setAttributeNS(const stringT& namespaceURI, const stringT& qualifiedName, const stringT& value)
     {
       this->checkName(qualifiedName);
-      stringT oldValue = getAttribute(qualifiedName);
       attributes_.setAttributeNS(namespaceURI, qualifiedName, value);
-
-      // dispatch DOMAttrModified event
-      MutationEventT mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
-      if (!string_adaptorT::empty(oldValue)) {
-        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), string_adaptorT::empty_string(), value, qualifiedName, MutationEventT::MODIFICATION);
-      } else {
-        mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), oldValue, value, qualifiedName, MutationEventT::ADDITION);
-      }
-      EventTargetT eventTarget(this);
-      eventTarget.dispatchEvent(mutationEvent);
-
     } // setAttributeNS
 
     virtual void removeAttributeNS(const stringT& namespaceURI, const stringT& localName)
     {
-      stringT oldValue = getAttributeNS(namespaceURI, localName);
       attributes_.removeAttributeNS(namespaceURI, localName);
-
-      // dispatch DOMAttrModified event
-      MutationEventT mutationEvent(NodeT::ownerDoc_->createEvent("MutationEvent"));
-      mutationEvent.initMutationEvent("DOMAttrModified", true, false, Arabica::DOM::Node<stringT, string_adaptorT>(this), oldValue, string_adaptorT::empty_string(), localName, MutationEventT::REMOVAL);
-      EventTargetT eventTarget(this);
-      eventTarget.dispatchEvent(mutationEvent);
-
     } // removeAttributeNS
 
     virtual DOMAttr_implT* getAttributeNodeNS(const stringT& namespaceURI, const stringT& localName) const
@@ -144,25 +105,25 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
       return attributes_.getAttributeNodeNS(namespaceURI, localName);
     } // getAttributeNodeNS
 
-    virtual DOMAttr_implT* setAttributeNodeNS(DOMAttr_implT* newAttr)    
+    virtual DOMAttr_implT* setAttributeNodeNS(DOMAttr_implT* newAttr)
     {
       return attributes_.setAttributeNodeNS(newAttr);
     } // setAttributeNodeNS
 
-    virtual DOMNodeList_implT* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const    
+    virtual DOMNodeList_implT* getElementsByTagNameNS(const stringT& namespaceURI, const stringT& localName) const
     {
       return new ElementByTagListT(NodeT::ownerDoc_,
                                    const_cast<ElementImpl*>(this),
-                                   namespaceURI, 
+                                   namespaceURI,
                                    localName);
     } // getElementsByTagNameNS
 
-    virtual bool hasAttribute(const stringT& name) const    
+    virtual bool hasAttribute(const stringT& name) const
     {
       return attributes_.hasAttribute(name);
     } // hasAttribute
 
-    virtual bool hasAttributeNS(const stringT& namespaceURI, const stringT& localName) const    
+    virtual bool hasAttributeNS(const stringT& namespaceURI, const stringT& localName) const
     {
       return attributes_.hasAttributeNS(namespaceURI, localName);
     } // hasAttributeNS
@@ -233,12 +194,12 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
     virtual void checkChildType(DOMNode_implT* child)
     {
       typename DOM::Node_base::Type type = child->getNodeType();
-      if((type != DOM::Node_base::ELEMENT_NODE) && 
-         (type != DOM::Node_base::TEXT_NODE) && 
-         (type != DOM::Node_base::COMMENT_NODE) && 
-         (type != DOM::Node_base::PROCESSING_INSTRUCTION_NODE) && 
-         (type != DOM::Node_base::CDATA_SECTION_NODE) && 
-         (type != DOM::Node_base::ENTITY_REFERENCE_NODE)) 
+      if((type != DOM::Node_base::ELEMENT_NODE) &&
+         (type != DOM::Node_base::TEXT_NODE) &&
+         (type != DOM::Node_base::COMMENT_NODE) &&
+         (type != DOM::Node_base::PROCESSING_INSTRUCTION_NODE) &&
+         (type != DOM::Node_base::CDATA_SECTION_NODE) &&
+         (type != DOM::Node_base::ENTITY_REFERENCE_NODE))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // checkChildType
 
@@ -251,4 +212,3 @@ class ElementImpl : public DOM::Element_impl<stringT, string_adaptorT>,
 } // namespace Arabica
 
 #endif
-

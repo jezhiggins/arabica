@@ -13,13 +13,13 @@
 #include <algorithm>
 
 namespace Arabica
-{ 
+{
 namespace DOM
 {
 
 namespace Events {
   template<class stringT, class string_adaptorT> class EventTarget;
-} // namespace Events 
+} // namespace Events
 
 template<class stringT, class string_adaptorT> class Document;
 template<class stringT, class string_adaptorT> class NodeList;
@@ -54,21 +54,16 @@ class Node : public Node_base
     Node() : impl_() { }
     Node(Node_impl<stringT, string_adaptorT>* const impl) : impl_(impl) { }
     Node(const Node& rhs) : impl_(rhs.impl_) { }
-    explicit Node(const DOM::Events::EventTarget<stringT, string_adaptorT>& rhs): impl_(dynamic_cast<Node_impl<stringT, string_adaptorT>*>(rhs.Impl()))
-    {
-      if(dynamic_cast<Node_impl<stringT, string_adaptorT>*>(rhs.Impl()) == 0)
-        throw DOM::DOMException(DOM::DOMException::NOT_SUPPORTED_ERR);
-    }
     virtual ~Node() { }
 
     operator bool() const { return impl_; }
     bool operator< (const Node& rhs) const { return impl_ < rhs.impl_; }
     bool operator==(const Node& rhs) const { return impl_ == rhs.impl_; }
     bool operator!=(const Node& rhs) const { return impl_ != rhs.impl_; }
-    bool operator==(int dummy) const { return impl_ == dummy; } 
+    bool operator==(int dummy) const { return impl_ == dummy; }
     bool operator!=(int dummy) const { return impl_ != dummy; }
 
-    Node& operator=(const Node& rhs) 
+    Node& operator=(const Node& rhs)
     {
       impl_ = rhs.impl_;
       return *this;
@@ -80,11 +75,11 @@ class Node : public Node_base
     void setNodeValue(const stringT& nodeValue) { impl_->setNodeValue(nodeValue); }
 
     Type getNodeType() const { return impl_->getNodeType(); }
-    
+
     Node getParentNode() const { return impl_->getParentNode(); }
 
     const NodeList<stringT, string_adaptorT> getChildNodes() const { return NodeList<stringT, string_adaptorT>(impl_->getChildNodes()); }
-    
+
     Node getFirstChild() const { return impl_->getFirstChild(); }
     Node getLastChild() const { return impl_->getLastChild(); }
     Node getPreviousSibling() const { return impl_->getPreviousSibling(); }
@@ -94,17 +89,17 @@ class Node : public Node_base
 
     Document<stringT, string_adaptorT> getOwnerDocument() const { return impl_->getOwnerDocument(); }
 
-    Node insertBefore(const Node& newChild, const Node& refChild) { return impl_->insertBefore(*newChild.impl_, *refChild.impl_); } 
+    Node insertBefore(const Node& newChild, const Node& refChild) { return impl_->insertBefore(*newChild.impl_, *refChild.impl_); }
     Node replaceChild(const Node& newChild, const Node& oldChild) { return impl_->replaceChild(*newChild.impl_, *oldChild.impl_); }
-    Node removeChild(const Node& oldChild) { return impl_->removeChild(*oldChild.impl_); } 
+    Node removeChild(const Node& oldChild) { return impl_->removeChild(*oldChild.impl_); }
     Node appendChild(const Node& newChild) { return impl_->appendChild(*newChild.impl_); }
-    void purgeChild(Node& oldChild) 
-    { 
+    void purgeChild(Node& oldChild)
+    {
       Node_impl<stringT, string_adaptorT>* child = *oldChild.impl_;
       oldChild = 0;
 
       try {
-        impl_->purgeChild(child); 
+        impl_->purgeChild(child);
       }
       catch(DOMException&)
       {
@@ -112,7 +107,7 @@ class Node : public Node_base
         throw;
       } // catch
     } // purge
- 
+
     bool hasChildNodes() const { return impl_->hasChildNodes(); }
 
     Node cloneNode(bool deep) const { return impl_->cloneNode(deep); }
@@ -128,11 +123,11 @@ class Node : public Node_base
 
     // additional three methods - since C++ std::string (and by implication
     // stringT) don't differenciate between a null string and an empty string,
-    // but the DOM recommendation does, I have to introduce these three methods 
+    // but the DOM recommendation does, I have to introduce these three methods
     // to disambiguate.  If they return false, the corresponding attribute should be
-    // considered null.  If they return true, the attribute has been set EVEN IF 
+    // considered null.  If they return true, the attribute has been set EVEN IF
     // it has been set to the empty string
-    bool hasNamespaceURI() const { return impl_->hasNamespaceURI(); } 
+    bool hasNamespaceURI() const { return impl_->hasNamespaceURI(); }
     bool hasPrefix() const { return impl_->hasPrefix(); }
 
     bool hasAttributes() const { return impl_->hasAttributes(); }
@@ -177,11 +172,11 @@ class Node_impl
     virtual void setNodeValue(const stringT& nodeValue) = 0;
 
     virtual Node_base::Type getNodeType() const = 0;
-    
+
     virtual Node_impl<stringT, string_adaptorT>* getParentNode() const = 0;
 
     virtual NodeList_impl<stringT, string_adaptorT>* getChildNodes() const = 0;
-    
+
     virtual Node_impl<stringT, string_adaptorT>* getFirstChild() const = 0;
     virtual Node_impl<stringT, string_adaptorT>* getLastChild() const = 0;
 
@@ -213,9 +208,9 @@ class Node_impl
 
     // additional methods - since C++ std::string (and by implication
     // stringT) don't differenciate between a null string and an empty string,
-    // but the DOM recommendation does, I have to introduce these three methods 
+    // but the DOM recommendation does, I have to introduce these three methods
     // to disambiguate.  If they return false, the corresponding attribute should be
-    // considered null.  If they return true, the attribute has been set EVEN IF 
+    // considered null.  If they return true, the attribute has been set EVEN IF
     // it has been set to the empty string
     virtual bool hasNamespaceURI() const = 0;
     virtual bool hasPrefix() const = 0;
