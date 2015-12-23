@@ -1,6 +1,7 @@
 *.o
 *~
 libtool
+ltmain.sh
 config.log
 config.status
 configure
