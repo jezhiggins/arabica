@@ -1,6 +1,10 @@
 Using autotools
 ---------------
-If you've pulled the source from GitHub, you'll need to start with autoreconf, otherwise go directly to ...
+If you've pulled the source from GitHub, you'll need to start with 
+    libtoolize
+    automake --install-missing
+    autoreconf
+otherwise go directly to ...
     ./configure
     make
     Optionally make check to run the tests

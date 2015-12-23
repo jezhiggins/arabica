@@ -1,11 +1,11 @@
-AC_INIT([Arabica], [2015-Sometime], [jez@jezuk.co.uk])
+AC_INIT([Arabica],[2015-Sometime],[jez@jezuk.co.uk])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-bzip2 dist-zip subdir-objects])
  
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_PROG_CXX
-AC_PROG_LIBTOOL
+LT_INIT
 
 AC_LANG([C++])
 
