@@ -182,7 +182,7 @@ void URI::combinePath(const std::string& relPath)
   size_t dots = path_.find("/../", from);
   while(dots != std::string::npos)
   {
-    int preceding_slash = (dots > 0) ? path_.rfind(FORWARD_SLASH, dots-1) : 0;
+    size_t preceding_slash = (dots > 0) ? path_.rfind(FORWARD_SLASH, dots-1) : 0;
     path_.erase(preceding_slash, dots+3-preceding_slash);
     dots = path_.find("/../", preceding_slash);
   } // while

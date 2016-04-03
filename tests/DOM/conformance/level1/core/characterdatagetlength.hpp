@@ -79,14 +79,14 @@ class characterdatagetlength : public DOMTestCase<string_type, string_adaptor>
       Node nameNode;
       CharacterData child;
       String childValue;
-      int childLength;
+      size_t childLength;
       doc = (Document) baseT::load("staff", false);
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("name"));
       nameNode = elementList.item(0);
       child = (CharacterData) nameNode.getFirstChild();
       childValue = child.getData();
       childLength = SA::length(childValue);
-      baseT::assertEquals(15, childLength, __LINE__, __FILE__);
+      baseT::assertEquals(15, static_cast<int>(childLength), __LINE__, __FILE__);
   
    }
   
