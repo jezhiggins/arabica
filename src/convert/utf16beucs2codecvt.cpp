@@ -47,7 +47,7 @@ int utf16beucs2codecvt::do_length(const std::mbstate_t&,
                                 const char* end,
                                 size_t max) const
 {
-  return std::max<int>((end-from), max/2);
+  return std::max<int>(static_cast<int>(end-from), static_cast<int>(max/2));
 } // do_length
 
 #endif

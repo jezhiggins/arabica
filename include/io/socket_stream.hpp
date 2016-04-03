@@ -170,7 +170,7 @@ basic_socketbuf<charT, traitsT>* basic_socketbuf<charT, traitsT>::open(const cha
   sockAddr.sin_port = htons(port);
 
   // connect
-  int tmpsock = socket(AF_INET, SOCK_STREAM, 0);
+  int tmpsock = static_cast<int>(socket(AF_INET, SOCK_STREAM, 0));
   if(tmpsock == INVALID_SOCKET)
     return 0;
   if(connect(tmpsock, reinterpret_cast<sockaddr*>(&sockAddr), sizeof(sockaddr_in)) != 0)
@@ -267,7 +267,7 @@ bool basic_socketbuf<charT, traitsT>::writeSocket()
   if(!length)
     return true;
 
-  bool ok = (send(sock_, from_next, length, 0) != SOCKET_ERROR);
+  bool ok = (send(sock_, from_next, static_cast<int>(length), 0) != SOCKET_ERROR);
 
   if(ok)
     setp(from_next, from_next + outBuffer_.capacity());
@@ -289,13 +289,13 @@ int basic_socketbuf<charT, traitsT>::readSocket()
   if(!inBuffer_.capacity())
     growInBuffer();
 
-  size_t pbCount = std::min<int>(gptr() - eback(), pbSize_);
+  size_t pbCount = std::min<size_t>(gptr() - eback(), pbSize_);
 
   memcpy(&(inBuffer_[0]) + (pbSize_-pbCount)*sizeof(charT), 
          gptr() - pbCount*sizeof(charT),
          pbCount*sizeof(charT));
 
-  int res = recv(sock_, &(inBuffer_[0]) + pbSize_, inBuffer_.capacity() - pbSize_, 0);
+  int res = recv(sock_, &(inBuffer_[0]) + pbSize_, static_cast<int>(inBuffer_.capacity() - pbSize_), 0);
   if(res == 0)
   {
     // server closed the socket

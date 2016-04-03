@@ -150,7 +150,7 @@ int base64codecvt::do_length(const std::mbstate_t&,
     chars -= 3;
   } // while(chars > max)
 
-  return length;
+  return static_cast<int>(length);
 } // do_length
 
 int base64codecvt::do_max_length() const throw()
