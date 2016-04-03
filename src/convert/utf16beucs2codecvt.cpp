@@ -1,6 +1,7 @@
 //---------------------------------------------------------------------------
 // $Id$
 //---------------------------------------------------------------------------
+#include <algorithm>
 #include <convert/utf16beucs2codecvt.hpp>
 #ifndef ARABICA_NO_WCHAR_T
 #include <convert/impl/ucs2_utf16.hpp>

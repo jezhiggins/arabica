@@ -4,6 +4,7 @@
 //
 ///////////////////////////////////////////
 
+#include <algorithm>
 #include <convert/rot13codecvt.hpp>
 
 #include <algorithm>
