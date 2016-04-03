@@ -113,8 +113,8 @@ class EventTargetImpl : virtual public Arabica::DOM::Events::EventTarget_impl<st
         EventTargetImplT* nodeImpl = dynamic_cast<EventTargetImplT*>(it->Impl());
         if (nodeImpl != NULL) {
           std::pair<eventListenerIterator, eventListenerIterator> range = nodeImpl->eventCapturers_.equal_range(event.getType());
-          for (eventListenerIterator it = range.first; it != range.second; ++it) {
-            it->second->handleEvent(event);
+          for (eventListenerIterator itListener = range.first; itListener != range.second; ++itListener) {
+            itListener->second->handleEvent(event);
           }
           // stopPropagation was called on the event
           if (eventImpl->stopped_)
@@ -137,9 +137,9 @@ class EventTargetImpl : virtual public Arabica::DOM::Events::EventTarget_impl<st
         while(rit != eventAncestorChain.rend()) {
           EventTargetImplT* nodeImpl = dynamic_cast<EventTargetImplT*>(rit->Impl());
           if (nodeImpl != NULL) {
-            std::pair<eventListenerIterator, eventListenerIterator> range = nodeImpl->eventListeners_.equal_range(event.getType());
-            for (eventListenerIterator rit = range.first; rit != range.second; ++rit) {
-              rit->second->handleEvent(event);
+            std::pair<eventListenerIterator, eventListenerIterator> range1 = nodeImpl->eventListeners_.equal_range(event.getType());
+            for (eventListenerIterator ritListener = range1.first; ritListener != range1.second; ++ritListener) {
+              ritListener->second->handleEvent(event);
             }
             // stopPropagation was called on the event
             if (eventImpl->stopped_)

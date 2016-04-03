@@ -208,10 +208,10 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
         // attributes here
         for(int i = 0; i < atts.getLength(); ++i)
         {
-          stringT qName = atts.getQName(i);
-          if(string_adaptorT::empty(qName))
-            qName = atts.getLocalName(i);
-          elem.setAttributeNS(atts.getURI(i), qName, atts.getValue(i));
+          stringT attName = atts.getQName(i);
+          if(string_adaptorT::empty(attName))
+            attName = atts.getLocalName(i);
+          elem.setAttributeNS(atts.getURI(i), attName, atts.getValue(i));
         }
 
         currentNode_ = elem;
