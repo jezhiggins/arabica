@@ -15,7 +15,6 @@
 #include <DOM/Simple/NotationImpl.hpp>
 #include <DOM/Simple/ElementByTagImpl.hpp>
 #include <DOM/Simple/NodeImpl.hpp>
-#include <DOM/Simple/DocumentEventImpl.hpp>
 
 #include <set>
 #include <algorithm>
@@ -41,8 +40,7 @@ class valueIs : public std::unary_function<AttrImpl<stringT, string_adaptorT>*, 
 
 template<class stringT, class string_adaptorT>
 class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
-                     public NodeImplWithChildren<stringT, string_adaptorT>,
-                     virtual public DocumentEventImpl<stringT, string_adaptorT>
+                     public NodeImplWithChildren<stringT, string_adaptorT>
 
 {
     typedef NodeImpl<stringT, string_adaptorT> NodeImplT;
@@ -57,21 +55,21 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
     typedef DOM::DocumentType_impl<stringT, string_adaptorT> DOMDocumentType_implT;
     typedef DOM::DOMImplementation<stringT, string_adaptorT> DOMDOMImplementationT;
 
-    DocumentImpl() : 
+    DocumentImpl() :
         NodeWithChildrenT(0),
         documentElement_(0),
         documentType_(0),
-	domImplementation_(),
+	      domImplementation_(),
         namespaceURI_(),
         qualifiedName_(),
         changesCount_(0),
         refCount_(0),
         empty_()
-    { 
+    {
       NodeImplT::setOwnerDoc(this);
     } // DocumentBaseImpl
 
-    DocumentImpl(DOMDOMImplementationT domImpl) : 
+    DocumentImpl(DOMDOMImplementationT domImpl) :
         NodeWithChildrenT(0),
         documentElement_(0),
         documentType_(0),
@@ -80,14 +78,14 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
         qualifiedName_(),
         changesCount_(0),
         refCount_(0)
-    { 
+    {
       NodeImplT::setOwnerDoc(this);
     } // DocumentBaseImpl
 
     DocumentImpl(const stringT& namespaceURI,
                  const stringT& qualifiedName,
                  DOMDocumentType_implT* docType,
-                 DOMDOMImplementationT domImpl) : 
+                 DOMDOMImplementationT domImpl) :
         NodeWithChildrenT(0),
         documentElement_(0),
         documentType_(0),
@@ -96,7 +94,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
         qualifiedName_(qualifiedName),
         changesCount_(0),
         refCount_(0)
-    { 
+    {
       NodeImplT::setOwnerDoc(this);
       if(docType)
       {
@@ -106,8 +104,8 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
       } // if(docType)
     } // DocumentBaseImpl
 
-    virtual ~DocumentImpl() 
-    { 
+    virtual ~DocumentImpl()
+    {
       for(typename std::set<NodeImplT*>::iterator n = orphans_.begin(); n != orphans_.end(); ++n)
         delete *n;
     } // ~DocumentImpl
@@ -150,7 +148,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     DOMElement_implT* createElement_nocheck(const stringT& tagName) const
     {
-      ElementImplT* n = 
+      ElementImplT* n =
         new ElementImplT(const_cast<DocumentImpl*>(this), tagName);
       orphaned(n);
       return n;
@@ -192,7 +190,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
     } // createProcessingInstruction
 
     DOM::ProcessingInstruction_impl<stringT, string_adaptorT>* createProcessingInstruction_nocheck(const stringT& target, const stringT& data) const
-    {  
+    {
       ProcessingInstructionImpl<stringT, string_adaptorT>* n = new ProcessingInstructionImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), target, data);
       orphaned(n);
       return n;
@@ -291,7 +289,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
                                               entity->getPublicId(),
                                               entity->getSystemId(),
                                               entity->getNotationName());
-          } 
+          }
           break;
         case DOM::Node_base::ENTITY_REFERENCE_NODE:
           newNode = createEntityReference_nocheck(importedNode->getNodeName());
@@ -304,7 +302,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
                                                 entity->getNodeName(),
                                                 entity->getPublicId(),
                                                 entity->getSystemId());
-          } 
+          }
           break;
         case DOM::Node_base::PROCESSING_INSTRUCTION_NODE:
           newNode = createProcessingInstruction_nocheck(importedNode->getNodeName(), importedNode->getNodeValue());
@@ -343,7 +341,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     DOMElement_implT* createElementNS_nocheck(const stringT& namespaceURI, const stringT& qualifiedName) const
     {
-      ElementNSImpl<stringT, string_adaptorT>* n = 
+      ElementNSImpl<stringT, string_adaptorT>* n =
         new ElementNSImpl<stringT, string_adaptorT>(const_cast<DocumentImpl*>(this), namespaceURI, !string_adaptorT::empty(namespaceURI), qualifiedName);
       orphaned(n);
       return n;
@@ -378,12 +376,12 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
     } // getElementById
 
     ////////////////////////////////////////////////////////
-    // DOM Node methods 
+    // DOM Node methods
     virtual typename DOM::Node_base::Type getNodeType() const
     {
       return DOM::Node_base::DOCUMENT_NODE;
     } // getNodeType
-    
+
     virtual DOMNode_implT* getParentNode() const { return 0; }
 
     virtual DOMDocument_implT* getOwnerDocument() const { return 0; }
@@ -417,14 +415,14 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
       if((newChild->getNodeType() == DOM::Node_base::DOCUMENT_TYPE_NODE) && (documentType_ == oldChild))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
-      if((newChild->getNodeType() == DOM::Node_base::ELEMENT_NODE) && 
-         (documentElement_ != 0) && 
+      if((newChild->getNodeType() == DOM::Node_base::ELEMENT_NODE) &&
+         (documentElement_ != 0) &&
          (documentElement_ != oldChild))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
-      
+
       DOMNode_implT* result = NodeWithChildrenT::replaceChild(newChild, oldChild);
 
-      if((newChild->getNodeType() == DOM::Node_base::ELEMENT_NODE) && 
+      if((newChild->getNodeType() == DOM::Node_base::ELEMENT_NODE) &&
          ((documentElement_ == 0) || (documentElement_ == oldChild)))
         documentElement_ = dynamic_cast<DOMElement_implT*>(newChild);
 
@@ -433,10 +431,10 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
 
     virtual DOMNode_implT* removeChild(DOMNode_implT* oldChild)
     {
-      if((documentType_ == oldChild))
+      if(documentType_ == oldChild)
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
       DOMNode_implT* result = NodeWithChildrenT::removeChild(oldChild);
- 
+
       if(documentElement_ == oldChild)
         documentElement_ = static_cast<DOMElement_implT*>(0);
 
@@ -456,7 +454,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
         DocumentTypeImpl<stringT, string_adaptorT>* dt = dynamic_cast<DocumentTypeImpl<stringT, string_adaptorT>*>(documentType_->cloneNode(true));
         dt->setOwnerDoc(clone);
         clone->appendChild(dt);
-      } 
+      }
 
       if(deep)
         for(DOMNode_implT* child = NodeWithChildrenT::getFirstChild(); child != 0; child = child->getNextSibling())
@@ -472,8 +470,8 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
     unsigned long changes() const { return changesCount_; }
 
     void orphaned(NodeImplT* node) const
-    { 
-      orphans_.insert(node); 
+    {
+      orphans_.insert(node);
     } // orphaned
 
     bool isOrphaned(NodeImplT* node) const
@@ -481,8 +479,8 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
       return orphans_.find(node) != orphans_.end();
     } // isOrphaned
 
-    void purge(NodeImplT* node) 
-    {      
+    void purge(NodeImplT* node)
+    {
       orphans_.erase(node);
       delete node;
     } // purge
@@ -494,7 +492,7 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
         orphans_.erase(n);
     } // adopted
 
-    void setElementId(AttrImplT* attr) 
+    void setElementId(AttrImplT* attr)
     {
       idNodes_.insert(attr);
     } // setElementId
@@ -517,10 +515,10 @@ class DocumentImpl : public DOM::Document_impl<stringT, string_adaptorT>,
     void checkChildType(DOMNode_implT* child)
     {
       typename DOM::Node_base::Type type = child->getNodeType();
-      if((type != DOM::Node_base::ELEMENT_NODE) && 
-         (type != DOM::Node_base::PROCESSING_INSTRUCTION_NODE) && 
-         (type != DOM::Node_base::COMMENT_NODE) && 
-         (type != DOM::Node_base::DOCUMENT_TYPE_NODE)) 
+      if((type != DOM::Node_base::ELEMENT_NODE) &&
+         (type != DOM::Node_base::PROCESSING_INSTRUCTION_NODE) &&
+         (type != DOM::Node_base::COMMENT_NODE) &&
+         (type != DOM::Node_base::DOCUMENT_TYPE_NODE))
         throw DOM::DOMException(DOM::DOMException::HIERARCHY_REQUEST_ERR);
     } // checkChildType
 

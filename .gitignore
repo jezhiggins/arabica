@@ -1,13 +1,18 @@
 *.o
 *~
 libtool
+ltmain.sh
 config.log
 config.status
 configure
+compile
 autom4te.cache
+missing
+test-driver
 Makefile
 Makefile.in
 .deps
+.dirstamp
 aclocal.m4
 arabica.pc
 include/SAX/ArabicaConfig.hpp
@@ -40,6 +45,8 @@ vs10/mangle.sln
 *.dll
 spec
 gmon.out
+*.log
+*.trs
 examples/DOM/dom2pyx
 examples/DOM/domwriter
 examples/SAX/pyx
@@ -56,10 +63,14 @@ tests/DOM/dom_test*
 tests/XPath/xpath_test*
 tests/Taggle/taggle_test
 tests/Utils/utils_test*
-tests/XSLT/xslt_test
+tests/XSLT/xslt_test*
 bin/mandelbrot-*.html
 doc/html
 m4/lt~obsolete.m4
+m4/ltversion.m4
+m4/ltsugar.m4
+m4/ltoptions.m4
+m4/libtool.m4
 *.vcxproj.filters
 *.vcxproj.user
 *.sdf
@@ -73,3 +84,5 @@ cmake_install.cmake
 
 build/*
 *.DS_Store*
+compile
+test-driver

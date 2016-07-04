@@ -18,7 +18,7 @@ template<class stringT, class string_adaptorT = Arabica::default_string_adaptor<
 class DOMImplementation
 {
   public:
-    static DOM::DOMImplementation<stringT, string_adaptorT> getDOMImplementation() 
+    static DOM::DOMImplementation<stringT, string_adaptorT> getDOMImplementation()
     {
       static DOMImplementationImpl<stringT, string_adaptorT> domImpl;
       return DOM::DOMImplementation<stringT, string_adaptorT>(&domImpl);
@@ -41,15 +41,15 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT, string
     virtual bool hasFeature(const stringT& feature, const stringT& version) const
     {
       // need a proper case-insensitive compare here eventually
-      const char* names[] = { "Core", "core", "CORE", "XML", "xml", "Events", "MutationEvents", 0 };
+      const char* names[] = { "Core", "core", "CORE", "XML", "xml", 0 };
       for(int n = 0; names[n] != 0; ++n)
       {
         if((feature == string_adaptorT::construct_from_utf8(names[n])) &&
-           (string_adaptorT::empty(version) || 
-            version == string_adaptorT::construct_from_utf8("1.0") || 
+           (string_adaptorT::empty(version) ||
+            version == string_adaptorT::construct_from_utf8("1.0") ||
             version == string_adaptorT::construct_from_utf8("2.0")))
            return true;
-      } // while 
+      } // while
 
       return false;
     } // hasFeature

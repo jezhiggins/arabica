@@ -1,6 +1,8 @@
 Using autotools
 ---------------
-If you've pulled the source from GitHub, you'll need to start with autoreconf, otherwise go directly to ...
+If you've pulled the source from GitHub, you'll need to start with
+    autoreconf -i
+otherwise go directly to ...
     ./configure
     make
     Optionally make check to run the tests
@@ -17,4 +19,3 @@ Please see CMake.README
 Using Visual Studio
 -------------------
 See http://www.jezuk.co.uk/arabica/howtobuild
-
