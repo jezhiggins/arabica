@@ -5,6 +5,8 @@
 #ifndef ARABICA_NO_WCHAR_T
 #include <convert/impl/ucs2_utf16.hpp>
 
+#include <algorithm>
+
 //---------------------------------------------------------------------------
 using namespace Arabica::convert;
 
@@ -49,4 +51,3 @@ int utf16beucs2codecvt::do_length(const std::mbstate_t&,
 
 #endif
 // end of file
-
