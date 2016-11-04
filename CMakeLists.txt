@@ -113,24 +113,6 @@ else()
 endif()
 
 
-include_directories (
-  SYSTEM
-  ${ADDITIONAL_INC}
-  ${Boost_INCLUDE_DIRS}
-  )
-
-include_directories (
-  include
-  )
-
-
-#
-# configuration input file
-set(ARABICA_CONFIG_FILE
-  vs7/ArabicaConfig.S
-)
-source_group("Config Input" FILES ${ARABICA_CONFIG_FILE})
-
 set(GENERATED_HEADER_FILES
   ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp
 )
@@ -402,23 +384,17 @@ source_group("Source Files" FILES ${SOURCE_FILES})
 
 
 add_library (${LIBNAME} STATIC
-  ${ARABICA_CONFIG_FILE}
   ${GENERATED_HEADER_FILES}
   ${PUBLIC_HEADER_FILES}
   ${SOURCE_FILES}
 )
 target_compile_definitions(${LIBNAME} PUBLIC "$<$<CONFIG:Debug>:ARABICA_DEBUG>")
+target_compile_definitions(${LIBNAME} PUBLIC ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS)
 target_include_directories(${LIBNAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>)
-
-
-set_property(TARGET ${LIBNAME}
-  APPEND
-  PROPERTY COMPILE_DEFINITIONS
-  ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-  )
-
-set_source_files_properties(${ARABICA_CONFIG_FILE} PROPERTIES HEADER_FILE_ONLY TRUE)
-
+target_include_directories(${LIBNAME} PUBLIC ${ADDITIONAL_INC} ${Boost_INCLUDE_DIRS})
+target_include_directories(${LIBNAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
+# link backend
+target_link_libraries(${LIBNAME} ${ADDITIONAL_LIB})
 
 # VS2010 bug for 64bit builds
 if(MSVC)
@@ -439,11 +415,6 @@ if(MSVC)
     )
 endif()
 
-# link chosen backend
-target_link_libraries(${LIBNAME}
-  ${ADDITIONAL_LIB}
-)
-
 
 #
 # Add build dependency to boost if boost is part of the same project
@@ -460,10 +431,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example Dom writer:
   set(EXAMPLE_NAME dom_writer)
   add_executable(${EXAMPLE_NAME} examples/DOM/DOMWriter.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -473,10 +440,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX pyx:
   set(EXAMPLE_NAME pyx)
   add_executable(${EXAMPLE_NAME} examples/SAX/pyx.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -492,10 +455,6 @@ if(BUILD_ARABICA_EXAMPLES)
     examples/SAX/wrapper.cpp
     )
   add_executable(${EXAMPLE_NAME} ${SIMPLE_HANDLER_SOURCES})
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -505,10 +464,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX taggle:
   set(EXAMPLE_NAME taggle)
   add_executable(${EXAMPLE_NAME} examples/Taggle/taggle.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -518,10 +473,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX writer:
   set(EXAMPLE_NAME writer)
   add_executable(${EXAMPLE_NAME} examples/SAX/writer.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -531,10 +482,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX xmlbase:
   set(EXAMPLE_NAME xmlbase)
   add_executable(${EXAMPLE_NAME} examples/SAX/xmlbase.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -544,10 +491,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX transcode:
   set(EXAMPLE_NAME transcode)
   add_executable(${EXAMPLE_NAME} examples/Utils/transcode.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -557,10 +500,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX xgrep:
   set(EXAMPLE_NAME xgrep)
   add_executable(${EXAMPLE_NAME} examples/XPath/xgrep.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -580,10 +519,6 @@ if(BUILD_ARABICA_EXAMPLES)
       )
   endif()
 
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
