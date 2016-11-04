@@ -20,10 +20,6 @@ option(BUILD_ARABICA_EXAMPLES "Build all arabica examples" ON)
 set_property(GLOBAL
   PROPERTY USE_FOLDERS ON)
 
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
-	add_definitions("-Wno-parentheses-equality")
-endif()
-
 #
 # Set the used xml backend
 # options: USE_MSXML, USE_EXPAT, USE_LIBXML2, USE_XERCES
