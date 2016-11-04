@@ -46,7 +46,7 @@ if(NOT TARGET boost)
   if(NOT DEFINED BOOST_ROOT)
     set(BOOST_ROOT "../boost") # reasonable default: boost is in a parallel directory
   endif()
-  find_package(Boost)
+  find_package(Boost REQUIRED)
 endif()
 
 #
@@ -587,5 +587,3 @@ if(BUILD_ARABICA_EXAMPLES)
   set_target_properties(${EXAMPLE_NAME} PROPERTIES FOLDER "3rdparty/arabica_examples")
 
 endif()
-
-
