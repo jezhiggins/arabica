@@ -3,7 +3,7 @@
 # author: Gunther Laure
 #
 
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.6)
 
 project(arabica)
 
@@ -14,6 +14,27 @@ set(LIBNAME arabica)
 #
 option(BUILD_ARABICA_EXAMPLES "Build all arabica examples" ON)
 
+
+#
+# Enable/Disable Boost
+#
+option(BUILD_WITH_BOOST "Build with Boost" OFF)
+
+#
+# Set variables for configuration
+#
+if(WIN32)
+  set(ARABICA_NO_CODECVT_SPECIALISATIONS TRUE)
+  set(ARABICA_USE_WINSOCK TRUE)
+  set(ARABICA_WINDOWS TRUE)
+  if(MSVC_VERSION LESS 1300)
+    set(ARABICA_VS6_WORKAROUND TRUE)
+  endif()
+endif()
+
+if(BUILD_WITH_BOOST)
+  set(ARABICA_HAVE_BOOST TRUE)
+endif()
 
 #
 # Enable target folders in Visual Studio and other IDEs
@@ -35,14 +56,18 @@ if(NOT ARABICA_XML_BACKEND)
   endif()
 endif()
 
+configure_file(${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp)
+
 #
 # Find boost
-if(NOT TARGET boost)
-  ## BOOST_ROOT has to be set correctly
-  if(NOT DEFINED BOOST_ROOT)
-    set(BOOST_ROOT "../boost") # reasonable default: boost is in a parallel directory
+if(BUILD_WITH_BOOST)
+  if(NOT TARGET boost)
+    ## BOOST_ROOT has to be set correctly
+    if(NOT DEFINED BOOST_ROOT)
+      set(BOOST_ROOT "../boost") # reasonable default: boost is in a parallel directory
+    endif()
+    find_package(Boost REQUIRED)
   endif()
-  find_package(Boost REQUIRED)
 endif()
 
 #
@@ -107,7 +132,7 @@ set(ARABICA_CONFIG_FILE
 source_group("Config Input" FILES ${ARABICA_CONFIG_FILE})
 
 set(GENERATED_HEADER_FILES
-  include/SAX/ArabicaConfig.hpp
+  ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp
 )
 source_group("Generated Header Files" FILES ${GENERATED_HEADER_FILES})
 
@@ -382,6 +407,8 @@ add_library (${LIBNAME} STATIC
   ${PUBLIC_HEADER_FILES}
   ${SOURCE_FILES}
 )
+target_compile_definitions(${LIBNAME} PUBLIC "$<$<CONFIG:Debug>:ARABICA_DEBUG>")
+target_include_directories(${LIBNAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>)
 
 
 set_property(TARGET ${LIBNAME}
@@ -391,26 +418,6 @@ set_property(TARGET ${LIBNAME}
   )
 
 set_source_files_properties(${ARABICA_CONFIG_FILE} PROPERTIES HEADER_FILE_ONLY TRUE)
-
-
-#
-# Configure XML backend
-if(MSVC)
-  #
-  # Preprocess configuration file for windows
-  add_custom_command(OUTPUT include/SAX/ArabicaConfig.hpp
-    COMMAND ${CMAKE_CXX_COMPILER} /TC /EP -D ${ARABICA_XML_BACKEND} ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} >  ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp
-    )
-else()
-  #
-  # Preprocess configuration file for Linux/GCC
-  message("${CMAKE_CXX_COMPILER} -E  -D ${ARABICA_XML_BACKEND} -D NO_WINDOWS ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} -o  ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpps")
-
-  add_custom_command(OUTPUT include/SAX/ArabicaConfig.hpp
-    COMMAND ${CMAKE_CXX_COMPILER} -E  -D ${ARABICA_XML_BACKEND} -D NO_WINDOWS ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} -o  ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp
-    )
-endif()
-
 
 
 # VS2010 bug for 64bit builds
