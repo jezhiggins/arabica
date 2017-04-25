@@ -21,7 +21,7 @@ set_property(GLOBAL
   PROPERTY USE_FOLDERS ON)
 
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
-	add_definitions("-Wno-parentheses-equality")
+  add_definitions("-Wno-parentheses-equality")
 endif()
 
 #
@@ -379,8 +379,11 @@ set(SOURCE_FILES
 )
 source_group("Source Files" FILES ${SOURCE_FILES})
 
+install(
+  DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+  DESTINATION include/arabica)
 
-add_library (${LIBNAME} STATIC
+add_library (${LIBNAME}
   ${ARABICA_CONFIG_FILE}
   ${GENERATED_HEADER_FILES}
   ${PUBLIC_HEADER_FILES}
@@ -393,6 +396,8 @@ set_property(TARGET ${LIBNAME}
   PROPERTY COMPILE_DEFINITIONS
   ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
   )
+
+install(TARGETS ${LIBNAME} LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 
 set_source_files_properties(${ARABICA_CONFIG_FILE} PROPERTIES HEADER_FILE_ONLY TRUE)
 
@@ -587,5 +592,3 @@ if(BUILD_ARABICA_EXAMPLES)
   set_target_properties(${EXAMPLE_NAME} PROPERTIES FOLDER "3rdparty/arabica_examples")
 
 endif()
-
-
