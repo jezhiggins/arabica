@@ -411,8 +411,7 @@ else()
   message("${CMAKE_CXX_COMPILER} -E  -D ${ARABICA_XML_BACKEND} -D NO_WINDOWS ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} -o  ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpps")
 
   add_custom_command(OUTPUT include/SAX/ArabicaConfig.hpp
-    COMMAND ${CMAKE_CXX_COMPILER} -E  -D ${ARABICA_XML_BACKEND} -D NO_WINDOWS ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} -o  ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp
-    )
+   COMMAND ${CMAKE_CXX_COMPILER} -E  -D ${ARABICA_XML_BACKEND} -D NO_WINDOWS ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} -o ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp.new && ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp.new ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp && ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp.new)
 endif()
 
 
