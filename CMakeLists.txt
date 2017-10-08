@@ -3,7 +3,7 @@
 # author: Gunther Laure
 #
 
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.6)
 
 project(arabica)
 
@@ -16,13 +16,30 @@ option(BUILD_ARABICA_EXAMPLES "Build all arabica examples" ON)
 
 
 #
+# Enable/Disable Boost
+#
+option(BUILD_WITH_BOOST "Build with Boost" OFF)
+
+#
+# Set variables for configuration
+#
+if(WIN32)
+  set(ARABICA_NO_CODECVT_SPECIALISATIONS TRUE)
+  set(ARABICA_USE_WINSOCK TRUE)
+  set(ARABICA_WINDOWS TRUE)
+  if(MSVC_VERSION LESS 1300)
+    set(ARABICA_VS6_WORKAROUND TRUE)
+  endif()
+endif()
+
+if(BUILD_WITH_BOOST)
+  set(ARABICA_HAVE_BOOST TRUE)
+endif()
+
+#
 # Enable target folders in Visual Studio and other IDEs
 set_property(GLOBAL
   PROPERTY USE_FOLDERS ON)
-
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
-	add_definitions("-Wno-parentheses-equality")
-endif()
 
 #
 # Set the used xml backend
@@ -39,14 +56,18 @@ if(NOT ARABICA_XML_BACKEND)
   endif()
 endif()
 
+configure_file(${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp)
+
 #
 # Find boost
-if(NOT TARGET boost)
-  ## BOOST_ROOT has to be set correctly
-  if(NOT DEFINED BOOST_ROOT)
-    set(BOOST_ROOT "../boost") # reasonable default: boost is in a parallel directory
+if(BUILD_WITH_BOOST)
+  if(NOT TARGET boost)
+    ## BOOST_ROOT has to be set correctly
+    if(NOT DEFINED BOOST_ROOT)
+      set(BOOST_ROOT "../boost") # reasonable default: boost is in a parallel directory
+    endif()
+    find_package(Boost REQUIRED)
   endif()
-  find_package(Boost)
 endif()
 
 #
@@ -92,26 +113,8 @@ else()
 endif()
 
 
-include_directories (
-  SYSTEM
-  ${ADDITIONAL_INC}
-  ${Boost_INCLUDE_DIRS}
-  )
-
-include_directories (
-  include
-  )
-
-
-#
-# configuration input file
-set(ARABICA_CONFIG_FILE
-  vs7/ArabicaConfig.S
-)
-source_group("Config Input" FILES ${ARABICA_CONFIG_FILE})
-
 set(GENERATED_HEADER_FILES
-  include/SAX/ArabicaConfig.hpp
+  ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp
 )
 source_group("Generated Header Files" FILES ${GENERATED_HEADER_FILES})
 
@@ -381,41 +384,17 @@ source_group("Source Files" FILES ${SOURCE_FILES})
 
 
 add_library (${LIBNAME} STATIC
-  ${ARABICA_CONFIG_FILE}
   ${GENERATED_HEADER_FILES}
   ${PUBLIC_HEADER_FILES}
   ${SOURCE_FILES}
 )
-
-
-set_property(TARGET ${LIBNAME}
-  APPEND
-  PROPERTY COMPILE_DEFINITIONS
-  ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-  )
-
-set_source_files_properties(${ARABICA_CONFIG_FILE} PROPERTIES HEADER_FILE_ONLY TRUE)
-
-
-#
-# Configure XML backend
-if(MSVC)
-  #
-  # Preprocess configuration file for windows
-  add_custom_command(OUTPUT include/SAX/ArabicaConfig.hpp
-    COMMAND ${CMAKE_CXX_COMPILER} /TC /EP -D ${ARABICA_XML_BACKEND} ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} >  ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp
-    )
-else()
-  #
-  # Preprocess configuration file for Linux/GCC
-  message("${CMAKE_CXX_COMPILER} -E  -D ${ARABICA_XML_BACKEND} -D NO_WINDOWS ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} -o  ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpps")
-
-  add_custom_command(OUTPUT include/SAX/ArabicaConfig.hpp
-    COMMAND ${CMAKE_CXX_COMPILER} -E  -D ${ARABICA_XML_BACKEND} -D NO_WINDOWS ${CMAKE_CURRENT_LIST_DIR}/${ARABICA_CONFIG_FILE} -o  ${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp
-    )
-endif()
-
-
+target_compile_definitions(${LIBNAME} PUBLIC "$<$<CONFIG:Debug>:ARABICA_DEBUG>")
+target_compile_definitions(${LIBNAME} PUBLIC ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS)
+target_include_directories(${LIBNAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>)
+target_include_directories(${LIBNAME} PUBLIC ${ADDITIONAL_INC} ${Boost_INCLUDE_DIRS})
+target_include_directories(${LIBNAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
+# link backend
+target_link_libraries(${LIBNAME} ${ADDITIONAL_LIB})
 
 # VS2010 bug for 64bit builds
 if(MSVC)
@@ -436,11 +415,6 @@ if(MSVC)
     )
 endif()
 
-# link chosen backend
-target_link_libraries(${LIBNAME}
-  ${ADDITIONAL_LIB}
-)
-
 
 #
 # Add build dependency to boost if boost is part of the same project
@@ -457,10 +431,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example Dom writer:
   set(EXAMPLE_NAME dom_writer)
   add_executable(${EXAMPLE_NAME} examples/DOM/DOMWriter.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -470,10 +440,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX pyx:
   set(EXAMPLE_NAME pyx)
   add_executable(${EXAMPLE_NAME} examples/SAX/pyx.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -489,10 +455,6 @@ if(BUILD_ARABICA_EXAMPLES)
     examples/SAX/wrapper.cpp
     )
   add_executable(${EXAMPLE_NAME} ${SIMPLE_HANDLER_SOURCES})
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -502,10 +464,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX taggle:
   set(EXAMPLE_NAME taggle)
   add_executable(${EXAMPLE_NAME} examples/Taggle/taggle.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -515,10 +473,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX writer:
   set(EXAMPLE_NAME writer)
   add_executable(${EXAMPLE_NAME} examples/SAX/writer.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -528,10 +482,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX xmlbase:
   set(EXAMPLE_NAME xmlbase)
   add_executable(${EXAMPLE_NAME} examples/SAX/xmlbase.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -541,10 +491,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX transcode:
   set(EXAMPLE_NAME transcode)
   add_executable(${EXAMPLE_NAME} examples/Utils/transcode.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -554,10 +500,6 @@ if(BUILD_ARABICA_EXAMPLES)
   # Example SAX xgrep:
   set(EXAMPLE_NAME xgrep)
   add_executable(${EXAMPLE_NAME} examples/XPath/xgrep.cpp)
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
@@ -577,15 +519,9 @@ if(BUILD_ARABICA_EXAMPLES)
       )
   endif()
 
-  set_property(TARGET ${EXAMPLE_NAME}
-    APPEND PROPERTY COMPILE_DEFINITIONS
-    ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS
-    )
   target_link_libraries(${EXAMPLE_NAME}
     arabica
     )
   set_target_properties(${EXAMPLE_NAME} PROPERTIES FOLDER "3rdparty/arabica_examples")
 
 endif()
-
-
