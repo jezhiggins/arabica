@@ -10,6 +10,11 @@ project(arabica)
 set(LIBNAME arabica)
 
 #
+# Build as shared library
+#
+option(BUILD_SHARED_LIBS "Build as shared libaries" OFF)
+
+#
 # Enable/Disable example build
 #
 option(BUILD_ARABICA_EXAMPLES "Build all arabica examples" ON)
@@ -383,7 +388,7 @@ set(SOURCE_FILES
 source_group("Source Files" FILES ${SOURCE_FILES})
 
 
-add_library (${LIBNAME} STATIC
+add_library (${LIBNAME}
   ${GENERATED_HEADER_FILES}
   ${PUBLIC_HEADER_FILES}
   ${SOURCE_FILES}
