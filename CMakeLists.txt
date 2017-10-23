@@ -431,6 +431,15 @@ endif()
 
 set_target_properties(${LIBNAME} PROPERTIES FOLDER "3rdparty/arabica")
 
+#
+# Install library
+#
+install(TARGETS ${LIBNAME}
+  RUNTIME DESTINATION bin
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib/static
+)
+install(DIRECTORY include DESTINATION .)
 
 if(BUILD_ARABICA_EXAMPLES)
 
