@@ -8,6 +8,7 @@ cmake_minimum_required (VERSION 3.6)
 project(arabica)
 
 set(LIBNAME arabica)
+set(CMAKE_CXX_STANDARD 11)
 
 #
 # Build as shared library
@@ -439,7 +440,17 @@ install(TARGETS ${LIBNAME}
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib/static
 )
-install(DIRECTORY include DESTINATION .)
+
+install(DIRECTORY include/
+  DESTINATION include/${PROJECT_NAME}
+  FILES_MATCHING
+    PATTERN *.hpp
+    PATTERN *.h
+)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp
+  DESTINATION include/${PROJECT_NAME}/SAX
+)
 
 if(BUILD_ARABICA_EXAMPLES)
 
@@ -541,3 +552,4 @@ if(BUILD_ARABICA_EXAMPLES)
   set_target_properties(${EXAMPLE_NAME} PROPERTIES FOLDER "3rdparty/arabica_examples")
 
 endif()
+
