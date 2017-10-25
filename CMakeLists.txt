@@ -7,7 +7,7 @@ cmake_minimum_required (VERSION 3.6)
 
 project(arabica)
 
-set(LIBNAME arabica)
+set(LIB_NAME arabica)
 set(CMAKE_CXX_STANDARD 11)
 
 #
@@ -115,9 +115,9 @@ endif()
 
 
 if(BUILD_ARABICA_EXAMPLES)
-  message(STATUS "Building ${LIBNAME} with ${ARABICA_XML_BACKEND} compile flag with examples")
+  message(STATUS "Building ${LIB_NAME} with ${ARABICA_XML_BACKEND} compile flag with examples")
 else()
-  message(STATUS "Building ${LIBNAME} with ${ARABICA_XML_BACKEND} compile flag library only")
+  message(STATUS "Building ${LIB_NAME} with ${ARABICA_XML_BACKEND} compile flag library only")
 endif()
 
 
@@ -391,23 +391,23 @@ set(SOURCE_FILES
 source_group("Source Files" FILES ${SOURCE_FILES})
 
 
-add_library (${LIBNAME}
+add_library (${LIB_NAME}
   ${GENERATED_HEADER_FILES}
   ${PUBLIC_HEADER_FILES}
   ${SOURCE_FILES}
 )
-target_compile_definitions(${LIBNAME} PUBLIC "$<$<CONFIG:Debug>:ARABICA_DEBUG>")
-target_compile_definitions(${LIBNAME} PUBLIC ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS)
-target_include_directories(${LIBNAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>)
-target_include_directories(${LIBNAME} PUBLIC ${ADDITIONAL_INC} ${Boost_INCLUDE_DIRS})
-target_include_directories(${LIBNAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
+target_compile_definitions(${LIB_NAME} PUBLIC "$<$<CONFIG:Debug>:ARABICA_DEBUG>")
+target_compile_definitions(${LIB_NAME} PUBLIC ARABICA_NOT_USE_PRAGMA_LINKER_OPTIONS)
+target_include_directories(${LIB_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>)
+target_include_directories(${LIB_NAME} PUBLIC ${ADDITIONAL_INC} ${Boost_INCLUDE_DIRS})
+target_include_directories(${LIB_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
 # link backend
-target_link_libraries(${LIBNAME} ${ADDITIONAL_LIB})
+target_link_libraries(${LIB_NAME} ${ADDITIONAL_LIB})
 
 # VS2010 bug for 64bit builds
 if(MSVC)
   if(BUILD_X64)
-    set_property(TARGET ${LIBNAME}
+    set_property(TARGET ${LIB_NAME}
       APPEND
       PROPERTY STATIC_LIBRARY_FLAGS
       /MACHINE:X64
@@ -418,7 +418,7 @@ endif()
 
 if(MSVC)
   # link socket library in windows
-  target_link_libraries(${LIBNAME}
+  target_link_libraries(${LIB_NAME}
     ws2_32.lib
     )
 endif()
@@ -427,15 +427,15 @@ endif()
 #
 # Add build dependency to boost if boost is part of the same project
 if(TARGET boost)
-  add_dependencies(${LIBNAME} boost)
+  add_dependencies(${LIB_NAME} boost)
 endif()
 
-set_target_properties(${LIBNAME} PROPERTIES FOLDER "3rdparty/arabica")
+set_target_properties(${LIB_NAME} PROPERTIES FOLDER "3rdparty/arabica")
 
 #
 # Install library
 #
-install(TARGETS ${LIBNAME}
+install(TARGETS ${LIB_NAME}
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib/static
