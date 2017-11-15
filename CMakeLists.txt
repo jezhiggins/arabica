@@ -3,12 +3,14 @@
 # author: Gunther Laure
 #
 
-cmake_minimum_required (VERSION 3.6)
+cmake_minimum_required(VERSION 3.6)
 
 project(arabica)
 
-set(LIB_NAME arabica)
+# Enable C++11 support
 set(CMAKE_CXX_STANDARD 11)
+
+set(LIB_NAME arabica)
 
 #
 # Build as shared library
@@ -46,8 +48,7 @@ endif()
 
 #
 # Enable target folders in Visual Studio and other IDEs
-set_property(GLOBAL
-  PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 #
 # Set the used xml backend
@@ -420,7 +421,7 @@ if(MSVC)
   # link socket library in windows
   target_link_libraries(${LIB_NAME}
     ws2_32.lib
-    )
+  )
 endif()
 
 
