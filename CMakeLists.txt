@@ -3,7 +3,7 @@
 # author: Gunther Laure
 #
 
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.5)
 
 project(arabica)
 
@@ -11,6 +11,33 @@ project(arabica)
 set(CMAKE_CXX_STANDARD 11)
 
 set(LIB_NAME arabica)
+
+set(ARABICA_MAJOR_VERSION 2016)
+set(ARABICA_MINOR_VERSION January)
+
+#
+# Packaging details
+#
+set(CPACK_PACKAGE_NAME "libarabica")
+set(CPACK_PACKAGE_VENDOR "Jez Higgins <jez@jezuk.co.uk>")
+set(CPACK_PACKAGE_CONTACT "Steffen Vogel <post@steffenvogel.de>")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Arabica is an XML and HTML processing toolkit, providing SAX2, DOM, XPath, and XSLT implementations, written in Standard C++")
+set(CPACK_PACKAGE_VERSION_MAJOR ${ARABICA_MAJOR_VERSION})
+set(CPACK_PACKAGE_VERSION_MINOR ${ARABICA_MINOR_VERSION})
+
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README")
+
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libexpat1")
+set(CPACK_DEBIAN_PACKAGE_SECTION "devel")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/jezhiggins/arabica")
+
+set(CPACK_RPM_PACKAGE_LICENSE "BSD 3-clause")
+set(CPACK_RPM_PACKAGE_URL "https://github.com/jezhiggins/arabica")
+set(CPACK_RPM_PACKAGE_REQUIRES "expat")
+set(CPACK_RPM_PACKAGE_GROUP "Development/Libraries")
+
+set(CPACK_GENERATOR "TGZ;DEB;RPM")
 
 #
 # Build as shared library
@@ -553,4 +580,6 @@ if(BUILD_ARABICA_EXAMPLES)
   set_target_properties(${EXAMPLE_NAME} PROPERTIES FOLDER "3rdparty/arabica_examples")
 
 endif()
+
+include(CPack)
 
