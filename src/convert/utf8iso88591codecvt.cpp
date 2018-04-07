@@ -76,7 +76,7 @@ int utf8iso88591codecvt::do_length(const std::mbstate_t&,
     }
   } // while
 
-  return (from_next-from);
+  return static_cast<int>(from_next-from);
 } // do_length
 
 // end of file

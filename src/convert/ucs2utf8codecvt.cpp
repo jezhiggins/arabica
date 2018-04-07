@@ -58,7 +58,7 @@ int ucs2utf8codecvt::do_length(const std::mbstate_t&,
     ++from_next;
   } // while
 
-  return (from_next-from);
+  return static_cast<int>(from_next-from);
 } // do_length
 
 // end of file

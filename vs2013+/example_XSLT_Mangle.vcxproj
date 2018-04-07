@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FDF423F0-ACF8-4963-81A4-C886B9174B72}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <PlatformToolset Condition="'$(VisualStudioVersion)'=='12.0'">v120</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)'=='14.0'">v140</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)'=='15.0'">v141</PlatformToolset>
+    <LatestTargetPlatformVersion Condition="'$(VisualStudioVersion)'=='14.0' OR '$(VisualStudioVersion)'=='15.0'">$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(VisualStudioVersion)'=='14.0' OR '$(VisualStudioVersion)'=='15.0'">$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)'==''">8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Arabica.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Arabica.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Arabica.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="Arabica.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <TargetName>mangle</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/bigobj</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/bigobj</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/bigobj</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/bigobj</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\examples\Xslt\mangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Xslt\XSLT.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_apply_imports.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_apply_templates.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_attribute.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_call_template.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_choose.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_comment.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_compilation_context.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_compiled_stylesheet.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_copy.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_element.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_execution_context.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_for_each.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_functions.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_if.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_inline_element.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_item.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_key.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_message.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_namespace_stack.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_output.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_param.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\xslt_precedence.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_processing_instruction.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_qname.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_sink.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_sort.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_stylesheet.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_stylesheet_compiler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_template.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_text.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_top_level_param.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_value_of.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_variable.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_variable_impl.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_variable_stack.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\xslt_with_param.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_apply_imports_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_apply_templates_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_attribute_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_call_template_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_choose_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_comment_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_copy_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_create_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_element_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_for_each_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_if_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_include_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_inline_element_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_item_container_handler.hpp" />
+    <ClInclude Include="..\include\XSLT\impl\handler\xslt_key_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_message_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_namespace_alias_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_output_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_processing_instruction_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_sort_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_template_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_text_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_value_of_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_value_validation.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_variable_handler.hpp" />
+    <ClInclude Include="..\include\Xslt\impl\handler\xslt_with_param_handler.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\tests\XSLT\TO-DO" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="lib_arabica.vcxproj">
+      <Project>{4ca72415-d03a-4447-be4e-c093a5146cac}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

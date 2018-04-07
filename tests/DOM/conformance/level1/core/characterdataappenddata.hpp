@@ -83,7 +83,7 @@ class characterdataappenddata : public DOMTestCase<string_type, string_adaptor>
       Node nameNode;
       CharacterData child;
       String childValue;
-      int childLength;
+      size_t childLength;
       doc = (Document) baseT::load("staff", true);
       elementList = doc.getElementsByTagName(SA::construct_from_utf8("name"));
       nameNode = elementList.item(0);
@@ -91,7 +91,7 @@ class characterdataappenddata : public DOMTestCase<string_type, string_adaptor>
       child.appendData(SA::construct_from_utf8(", Esquire"));
       childValue = child.getData();
       childLength = SA::length(childValue);
-      baseT::assertEquals(24, childLength, __LINE__, __FILE__);
+      baseT::assertEquals(24, static_cast<int>(childLength), __LINE__, __FILE__);
   
    }
   

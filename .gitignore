@@ -40,6 +40,12 @@ tests/XSLT/test_path.hpp
 vs9/mangle.sln
 vs9/*.user
 vs10/mangle.sln
+/vs2013+/Arabica.VC.db
+/vs2013+/Arabica.VC.VC.opendb
+/vc12
+/vc14
+/vs2013+/int/vc12
+/vs2013+/int/vc14
 *.vcxproj.filters
 *.vcxproj.user
 

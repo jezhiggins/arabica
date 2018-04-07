@@ -23,6 +23,11 @@
 #include <comdef.h>
 _COM_SMARTPTR_TYPEDEF(ISAXXMLReader, __uuidof(ISAXXMLReader));
 
+#if defined(_MSC_VER)
+#  pragma warning( push )
+#  pragma warning( disable : 6031 )
+#endif
+
 namespace Arabica
 {
 namespace SAX
@@ -1071,6 +1076,10 @@ void msxml2_wrapper<string_type, T0, T1>::parse(inputSourceT& source)
 
 } // namespace SAX
 } // namespace Arabica
+
+#if defined(_MSC_VER)
+#  pragma warning( pop )
+#endif
 
 #endif
 // end of file

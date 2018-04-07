@@ -66,7 +66,7 @@ public:
     if(other.precedence_.size() <= precedence_.size())
       return false;
 
-    for(int i = 0, ie = precedence_.size(); i != ie; ++i)
+    for(size_t i = 0, ie = precedence_.size(); i != ie; ++i)
       if(other.precedence_[i] != precedence_[i])
         return false;
 
@@ -93,8 +93,8 @@ bool operator<(const Precedence& lhs, const Precedence& rhs)
   if(lhs.precedence_ == rhs.precedence_)
     return false;
 
-  int len = (std::min)(lhs.precedence_.size(), rhs.precedence_.size());
-  for(int c = 0; c != len; ++c)
+  size_t len = (std::min)(lhs.precedence_.size(), rhs.precedence_.size());
+  for(size_t c = 0; c != len; ++c)
   {
     if(lhs.precedence_[c] < rhs.precedence_[c])
       return true;

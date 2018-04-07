@@ -4,6 +4,7 @@
 //
 ///////////////////////////////////////////
 
+#include <algorithm>
 #include <convert/rot13codecvt.hpp>
 
 #include <algorithm>
@@ -42,7 +43,7 @@ int rot13codecvt::do_length(const std::mbstate_t&,
                         const char* end,
                         size_t max) const
 {
-  return std::max<int>(end - from, max);
+  return std::max<int>(static_cast<int>(end - from), static_cast<int>(max));
 } // do_length
 
 // end of file

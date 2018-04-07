@@ -1,6 +1,18 @@
 #ifndef ARABICA_IMPL_CODECVT_SPECIALISATIONS_H
 #define ARABICA_IMPL_CODECVT_SPECIALISATIONS_H
 
+#if defined(_MSC_VER)
+#  if defined(max)
+#    pragma push_macro("max")
+#    undef max
+#  endif
+#  if defined(min)
+#    pragma push_macro("min")
+#    undef min
+#  endif
+#endif
+
+#include <algorithm>
 #include <locale>
 
 namespace std
@@ -128,4 +140,14 @@ protected:
 }; // class codecvt<char, wchar_t, std::mbstate_t> :
 
 } // namespace std
+
+#if defined(_MSC_VER)
+#  if defined(max)
+#    pragma pop_macro("max")
+#  endif
+#  if defined(min)
+#    pragma pop_macro("min")
+#  endif
+#endif
+
 #endif

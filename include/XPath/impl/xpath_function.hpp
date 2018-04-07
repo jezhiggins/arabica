@@ -202,7 +202,7 @@ public:
   virtual double doEvaluate(const DOM::Node<string_type, string_adaptor>& context,
                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
-    return baseT::argAsNodeSet(0, context, executionContext).size();
+    return static_cast<double>(baseT::argAsNodeSet(0, context, executionContext).size());
   } // evaluate
 }; // class CountFn
 
@@ -480,7 +480,7 @@ protected:
     if(startAt < 0)
       startAt = 0;
     if((isInfinite(endAt)) || (endAt > string_adaptor::length(value)))
-      endAt = string_adaptor::length(value);
+      endAt = static_cast<double>(string_adaptor::length(value));
 
     return string_adaptor::substr(value, static_cast<int>(startAt), static_cast<int>(endAt - startAt));
   } // evaluate
@@ -498,7 +498,7 @@ public:
                                             const ExecutionContext<string_type, string_adaptor>& executionContext) const
   {
     string_type v = (baseT::argCount() > 0) ? baseT::argAsString(0, context, executionContext) : nodeStringValue<string_type, string_adaptor>(context);
-    return string_adaptor::length(v);
+    return static_cast<double>(string_adaptor::length(v));
   } // evaluate
 }; // StringLengthFn
 
