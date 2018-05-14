@@ -8,7 +8,7 @@
     <TargetPlatform Condition="'$(Platform)'=='x64'">x64</TargetPlatform>
     <VCSubDir Condition="'$(VisualStudioVersion)'=='12.0'">vc12</VCSubDir>
     <VCSubDir Condition="'$(VisualStudioVersion)'=='14.0'">vc14</VCSubDir>
-    <VCSubDir Condition="'$(VisualStudioVersion)'=='14.0'">vc15</VCSubDir>
+    <VCSubDir Condition="'$(VisualStudioVersion)'=='15.0'">vc141</VCSubDir>
     <OutDir>$([System.IO.Path]::GetFullPath('$(SolutionDir)..\$(VCSubDir)\$(TargetPlatform)\$(Configuration)\'))</OutDir>
     <IntDir>$(SolutionDir)int\$(VCSubDir)\$(TargetPlatform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
