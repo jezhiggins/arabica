@@ -10,7 +10,10 @@ namespace Arabica
     class URI
     {
     public:
-      URI() { }
+      URI():
+          is_absolute_(false)
+      {
+      }
 
       URI(const std::string& URI);
 
@@ -21,9 +24,9 @@ namespace Arabica
         host_(rhs.host_),
         path_(rhs.path_),
         port_(rhs.port_),
-	      is_absolute_(rhs.is_absolute_)
-        {
-        } // URI
+	    is_absolute_(rhs.is_absolute_)
+      {
+      } // URI
 
       URI& operator=(const URI& rhs)
       {

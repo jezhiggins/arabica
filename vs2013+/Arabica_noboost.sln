@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 12.0.40629.0
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "example_SAX_pyx", "example_SAX_pyx.vcxproj", "{5214A867-2768-4CD0-9E29-6EED20718556}"
 EndProject

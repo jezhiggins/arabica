@@ -9,6 +9,7 @@
     <VCSubDir Condition="'$(VisualStudioVersion)'=='12.0'">vc12</VCSubDir>
     <VCSubDir Condition="'$(VisualStudioVersion)'=='14.0'">vc14</VCSubDir>
     <VCSubDir Condition="'$(VisualStudioVersion)'=='15.0'">vc141</VCSubDir>
+    <VCSubDir Condition="'$(VisualStudioVersion)'=='16.0'">vc142</VCSubDir>
     <OutDir>$([System.IO.Path]::GetFullPath('$(SolutionDir)..\$(VCSubDir)\$(TargetPlatform)\$(Configuration)\'))</OutDir>
     <IntDir>$(SolutionDir)int\$(VCSubDir)\$(TargetPlatform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -18,7 +19,7 @@
       <BasicRuntimeChecks Condition="'$(Configuration)'=='Debug'">EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>      
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <DisableSpecificWarnings>4503</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4503;26439;26444;26451;26495;26812</DisableSpecificWarnings>
       <EnablePREfast>true</EnablePREfast>
       <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
       <FunctionLevelLinking Condition="'$(Configuration)'=='Release'">true</FunctionLevelLinking>

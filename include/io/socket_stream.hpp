@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <vector>
 #include <cstdlib>
+#include <cstdint>
 #include <cstring>
 
 #ifndef INADDR_NONE
@@ -49,6 +50,11 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
 {
   public:
     typedef typename traitsT::int_type int_type;
+#if defined(ARABICA_USE_WINSOCK) && defined(UINTPTR_MAX)
+    typedef std::uintptr_t socket_type;
+#else
+    typedef int socket_type;
+#endif
 
     using std::basic_streambuf<charT, traitsT>::setp;
     using std::basic_streambuf<charT, traitsT>::setg;
@@ -77,7 +83,8 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
   private:
     typedef typename traitsT::state_type state_t;
 
-    int sock_;
+    socket_type sock_;
+
     std::vector<charT> outBuffer_;
     state_t outState_;
     std::vector<charT> inBuffer_;
@@ -87,7 +94,7 @@ class basic_socketbuf : public std::basic_streambuf<charT, traitsT>
     bool writeSocket();
     void growInBuffer();
     int readSocket();
-    int closeSocket(int sock) const;
+    int closeSocket(socket_type sock) const;
 
     static const size_t bufferSize_;
     static const size_t pbSize_;
@@ -325,7 +332,7 @@ int basic_socketbuf<charT, traitsT>::readSocket()
 } // readSocket
 
 template <class charT, class traitsT>
-int basic_socketbuf<charT, traitsT>::closeSocket(int sock) const
+int basic_socketbuf<charT, traitsT>::closeSocket(socket_type sock) const
 {
 #ifdef ARABICA_USE_WINSOCK
   return closesocket(sock);
