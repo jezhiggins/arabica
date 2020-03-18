@@ -96,7 +96,8 @@ public:
   explicit basic_iconvertstream(std::ios_base::openmode mode = std::ios_base::in) :
       convertstreambuf_initT(mode | std::ios_base::in),
       std::basic_istream<charT, traitsT>(convertstreambuf_initT::buf())
-  { 
+  {
+      std::fill_n(to_, toSize_, 0);
   } // basic_iconvertstream
 
   explicit basic_iconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::in) : 
@@ -190,6 +191,7 @@ public:
       convertstreambuf_initT(mode | std::ios_base::out),
       std::basic_ostream<charT, traitsT>(convertstreambuf_initT::buf())
   { 
+      std::fill_n(to_, toSize_, 0);
   } // basic_oconvertstream
 
   explicit basic_oconvertstream(const stringT& str, std::ios_base::openmode mode = std::ios_base::out) :

@@ -16,8 +16,9 @@
     <PlatformToolset Condition="'$(VisualStudioVersion)'=='12.0'">v120</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)'=='14.0'">v140</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)'=='15.0'">v141</PlatformToolset>
-    <LatestTargetPlatformVersion Condition="'$(VisualStudioVersion)'=='14.0' OR '$(VisualStudioVersion)'=='15.0'">$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(VisualStudioVersion)'=='14.0' OR '$(VisualStudioVersion)'=='15.0'">$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
+    <PlatformToolset Condition="'$(VisualStudioVersion)'=='16.0'">v142</PlatformToolset>
+    <LatestTargetPlatformVersion Condition="'$(VisualStudioVersion)'=='14.0' OR '$(VisualStudioVersion)'=='15.0' OR '$(VisualStudioVersion)'=='16.0'">$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(LatestTargetPlatformVersion)'!=''">$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)'==''">8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

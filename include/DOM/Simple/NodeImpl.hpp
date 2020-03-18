@@ -112,7 +112,7 @@ class NodeImpl : virtual public DOM::Node_impl<stringT, string_adaptorT>
             removeChild(next);
             next = textNode->getNextSibling();
           } // while
-          if(string_adaptorT::empty(textNode->getData()))
+          if(textNode != 0 && string_adaptorT::empty(textNode->getData()))
             removeChild(textNode);
         }
         else
