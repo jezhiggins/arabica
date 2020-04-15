@@ -1,4 +1,4 @@
-AC_INIT([Arabica],[2016-January],[jez@jezuk.co.uk])
+AC_INIT([Arabica],[2020-April],[jez@jezuk.co.uk])
 
 AM_INIT_AUTOMAKE([1.9 tar-ustar dist-bzip2 dist-zip subdir-objects])
  
