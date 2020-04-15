@@ -105,7 +105,7 @@ public:
    * @param byteStream The raw byte stream containing the document.  The
    *                   InputSource does not assume ownership of 
    *                   this byteStream.
-   * @see #InputSource(std::auto_ptr<std::istream>)
+   * @see #InputSource(std::unique_ptr<std::istream>)
    * @see #setPublicId
    * @see #setSystemId
    * @see #setEncoding
@@ -136,15 +136,15 @@ public:
    * @see #setEncoding 
    * @see #setByteStream 
    */
-  InputSource(std::auto_ptr<std::istream> byteStream) :
-      byteStream_(byteStream),
+  InputSource(std::unique_ptr<std::istream>&& byteStream) :
+      byteStream_(std::move(byteStream)),
       publicId_(),
       systemId_(),
       encoding_()
   { }
   
-  InputSource(std::auto_ptr<std::iostream> byteStream) :
-      byteStream_(byteStream),
+  InputSource(std::unique_ptr<std::iostream>&& byteStream) :
+      byteStream_(std::move(byteStream)),
       publicId_(),
       systemId_(),
       encoding_()
@@ -233,7 +233,7 @@ public:
    * @param byteStream A byte stream containing an XML document or
    *        other entity. The InputSource does not assume 
    *                   ownership of byteStream. 
-   * @see #setByteStream(std::auto_ptr<std::istream>) To transfer ownership of 
+   * @see #setByteStream(std::unique_ptr<std::istream>) To transfer ownership of
    *                                  an std::istream to an  InputSource
    * @see #setEncoding
    * @see #getByteStream
@@ -261,7 +261,7 @@ public:
    * @see #getByteStream 
    * @see #getEncoding 
    */
-  void setByteStream(std::auto_ptr<std::istream> byteStream)
+  void setByteStream(std::unique_ptr<std::istream> byteStream)
   {
     byteStream_ = byteStream;
   } // setByteStream
