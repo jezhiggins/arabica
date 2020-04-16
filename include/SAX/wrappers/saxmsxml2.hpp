@@ -10,7 +10,6 @@
 #include <SAX/SAXParseException.hpp>
 #include <SAX/SAXNotRecognizedException.hpp>
 #include <SAX/SAXNotSupportedException.hpp>
-#include <SAX/helpers/PropertyNames.hpp>
 #include <Arabica/StringAdaptor.hpp>
 #include <iostream>
 #include <Arabica/getparam.hpp>
@@ -118,48 +117,7 @@ class msxml2_wrapper :
     // Parsing
     virtual void parse(inputSourceT& input);
 
-  protected:
-  	virtual std::auto_ptr<typename XMLReaderT::PropertyBase> doGetProperty(const string_type& name)
-    {
-      if(name == properties_.lexicalHandler)
-      {
-        Property<lexicalHandlerT*>* prop = new Property<lexicalHandlerT*>(lexicalHandler_.getLexicalHandler());
-        return std::auto_ptr<XMLReaderT::PropertyBase>(prop);
-      }
-      if(name == properties_.declHandler)
-      {
-        Property<declHandlerT*>* prop = new Property<declHandlerT*>(declHandler_.getDeclHandler());
-        return std::auto_ptr<XMLReaderT::PropertyBase>(prop);
-      }
-      throw SAX::SAXNotRecognizedException("Property not recognized ");    
-    } // doGetProperty
-
-	  virtual void doSetProperty(const string_type& name, std::auto_ptr<typename XMLReaderT::PropertyBase> value)
-    {
-      if(name == properties_.lexicalHandler)
-      {
-	      Property<lexicalHandlerT&>* prop = dynamic_cast<Property<lexicalHandlerT&>*>(value.get());
-
-        if(!prop)
-          throw std::runtime_error("bad_cast: Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
-
-        lexicalHandler_.setLexicalHandler(prop->get());
-        return;
-      } // if ...
-      if(name == properties_.declHandler)
-      {
-        Property<declHandlerT&>* prop = dynamic_cast<Property<declHandlerT&>*>(value.get());
-
-        if(!prop)
-          throw std::runtime_error("bad_cast: Property DeclHandler is wrong type, should be SAX::DeclHandler&");
-
-        declHandler_.setDeclHandler(prop->get());
-        return;
-      } // if ...
-      throw SAX::SAXNotRecognizedException("Property not recognized ");    
-    } // doSetProperty
-
-	private:
+  private:
     //////////////////////////////////////////////////////
     // COM interface -> C++ interface adaptors
     class LocatorAdaptor : public locatorT
@@ -987,7 +945,6 @@ class msxml2_wrapper :
     DeclHandlerAdaptor declHandler_;
 
     ISAXXMLReaderPtr reader_;
-    SAX::PropertyNames<string_type, string_adaptor> properties_;
 }; // class msxml
 
 template<class string_type, class T0, class T1>
@@ -998,8 +955,7 @@ msxml2_wrapper<string_type, T0, T1>::msxml2_wrapper() :
     contentHandler_(errorHandler_),
     lexicalHandler_(),
     declHandler_(),
-    reader_(),
-    properties_()
+    reader_()
 {
   reader_.CreateInstance("Msxml2.SAXXMLReader.6.0");
   if(reader_.GetInterfacePtr() == 0)

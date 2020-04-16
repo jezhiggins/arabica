@@ -13,7 +13,6 @@
 #include <DOM/SAX2DOM/DocumentTypeImpl.hpp>
 #include <map>
 #include <SAX/helpers/FeatureNames.hpp>
-#include <SAX/helpers/PropertyNames.hpp>
 #include <SAX/SAXParseException.hpp>
 
 namespace Arabica
@@ -97,8 +96,6 @@ class Parser : protected Arabica::SAX::DefaultHandler<stringT, typename ParserTy
 
     bool parse(InputSourceT& source)
     {
-      Arabica::SAX::PropertyNames<stringT, string_adaptorT> pNames;
-      
       DOM::DOMImplementation<stringT, string_adaptorT> di = Arabica::SimpleDOM::DOMImplementation<stringT, string_adaptorT>::getDOMImplementation();
       document_ = di.createDocument(string_adaptorT::construct_from_utf8(""), string_adaptorT::construct_from_utf8(""), 0);
       currentNode_ = document_;

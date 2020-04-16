@@ -5,7 +5,6 @@
  */
 
 #include <Arabica/StringAdaptor.hpp>
-#include <SAX/helpers/PropertyNames.hpp>
 
 namespace Arabica
 {
@@ -13,8 +12,7 @@ namespace SAX
 {
   template<class string_type,
            class string_adaptor_type = Arabica::default_string_adaptor<string_type> >
-  struct XercesPropertyNames : public PropertyNames<string_type,
-                                                    string_adaptor_type>
+  struct XercesPropertyNames 
   {
     /** \name Xerces properties.
      * @{ */

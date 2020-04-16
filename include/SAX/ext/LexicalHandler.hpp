@@ -28,21 +28,13 @@ namespace SAX
  * endDocument events.</p>
  *
  * <p>To set the LexicalHandler for an XML reader, use the
- * {@link XMLReader#setProperty setProperty} method
- * with the propertyId "http://xml.org/sax/properties/lexical-handler".
- * If the reader does not support lexical events, it will throw a
- * {@link SAXNotRecognizedException SAXNotRecognizedException}
- * or a
- * {@link SAXNotSupportedException SAXNotSupportedException}
- * when you attempt to register the handler.</p>
+ * {@link XMLReader#setLexicalHandler setLexicalHandler} method.</p>
  *
  * @since 2.0
  * @author Jez Higgins, 
  *         <a href="mailto:jez@jezuk.co.uk">jez@jezuk.co.uk</a>
  * @version 1.0
- * @see XMLReader#setProperty
- * @see SAXNotRecognizedException
- * @see SAXNotSupportedException
+ * @see XMLReader#setLexicalHandler
  */
 template<class string_type, class string_adaptor = Arabica::default_string_adaptor<string_type> >
 class LexicalHandler

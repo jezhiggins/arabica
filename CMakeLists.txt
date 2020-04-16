@@ -196,7 +196,6 @@ set(PUBLIC_HEADER_FILES
   include/SAX/helpers/InputSourceResolver.hpp
   include/SAX/helpers/LocatorImpl.hpp
   include/SAX/helpers/NamespaceSupport.hpp
-        include/SAX/helpers/PropertyNames.hpp
   include/SAX/helpers/XMLBaseSupport.hpp
   include/SAX/helpers/XMLFilterImpl.hpp
   include/SAX/parsers/saxgarden.hpp

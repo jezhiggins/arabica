@@ -8,7 +8,6 @@
 #include <SAX/ext/LexicalHandler.hpp>
 #include <SAX/ext/DeclHandler.hpp>
 #include <text/UnicodeCharacters.hpp>
-#include <SAX/helpers/PropertyNames.hpp>
 #include <XML/escaper.hpp>
 #include <Arabica/StringAdaptor.hpp>
 #include <Arabica/getparam.hpp>
@@ -42,7 +41,6 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
     typedef LexicalHandler<string_type, string_adaptor> LexicalHandlerT;
     typedef DeclHandler<string_type, string_adaptor> DeclHandlerT;
     typedef typename XMLReaderT::InputSourceT InputSourceT;
-    typedef typename XMLReaderT::PropertyBase PropertyBaseT;
     using XMLFilterT::getParent;
 
   public:
@@ -167,8 +165,6 @@ class Writer : public XMLFilterImpl<string_type, string_adaptor>
     ostreamT* stream_;
     string_type encoding_;
     enum { startTag, endTag, docTag } lastTag_;
-    const SAX::PropertyNames<string_type> properties_;
-
 }; // class Writer
 
 template<class string_type, class string_adaptor>

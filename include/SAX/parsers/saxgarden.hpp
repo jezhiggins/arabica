@@ -48,7 +48,6 @@ public:
   typedef ErrorHandler<string_type, string_adaptor> ErrorHandlerT;
   typedef DeclHandler<string_type, string_adaptor> declHandlerT;
   typedef LexicalHandler<string_type, string_adaptor> lexicalHandlerT;
-  typedef typename XMLReaderT::PropertyBase PropertyBaseT;
 
   Garden();
 
@@ -69,9 +68,6 @@ public:
   virtual lexicalHandlerT* getLexicalHandler() const { throw SAXNotSupportedException("lexical-handler"); }
 
   virtual void parse(InputSourceT& input);
-
-  virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& name);
-  virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value);
 
 private:
   void reportError(const std::string& message, bool fatal = false);
@@ -255,20 +251,6 @@ void Garden<string_type, T0, T1>::setFeature(const string_type& name, bool value
 {
   throw SAXNotRecognizedException(string_adaptor::asStdString(name));
 } // setFeature
-
-///////////////////////////////////////
-// properties
-template<class string_type, class T0, class T1>
-std::auto_ptr<typename Garden<string_type, T0, T1>::PropertyBaseT> Garden<string_type, T0, T1>::doGetProperty(const string_type& name)
-{
-  throw SAXNotRecognizedException(string_adaptor::asStdString(name));
-} // doGetProperty
-
-template<class string_type, class T0, class T1>
-void Garden<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value)
-{
-  throw SAXNotRecognizedException(string_adaptor::asStdString(name));
-} // doSetProperty
 
 //////////////////////////////////////////
 // parse

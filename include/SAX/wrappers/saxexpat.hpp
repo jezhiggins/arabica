@@ -19,7 +19,6 @@
 #include <SAX/helpers/NamespaceSupport.hpp>
 #include <SAX/helpers/InputSourceResolver.hpp>
 #include <SAX/helpers/FeatureNames.hpp>
-#include <SAX/helpers/PropertyNames.hpp>
 #include <Arabica/StringAdaptor.hpp>
 #include <SAX/helpers/AttributeDefaults.hpp>
 #include <typeinfo>
@@ -226,11 +225,6 @@ class expat_wrapper :
     typedef SAX::NamespaceSupport<string_type, string_adaptor> namespaceSupportT;
     typedef SAX::ErrorHandler<string_type, string_adaptor> errorHandlerT;
     typedef SAX::SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
-    typedef typename XMLReaderT::PropertyBase PropertyBaseT;
-    typedef typename XMLReaderT::template Property<lexicalHandlerT*> getLexicalHandlerT;
-    typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
-    typedef typename XMLReaderT::template Property<declHandlerT*> getDeclHandlerT;
-    typedef typename XMLReaderT::template Property<declHandlerT&> setDeclHandlerT;
     typedef XML::QualifiedName<string_type, string_adaptor> qualifiedNameT;
 
     expat_wrapper();
@@ -270,11 +264,6 @@ class expat_wrapper :
     virtual size_t getLineNumber() const;
     virtual size_t getColumnNumber() const;
 
-    ///////////////////////////////////////////////////
-    // properties
-  protected:
-    virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& name);
-    virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value);
   private:
     qualifiedNameT processName(const string_type& qName, bool isAttribute);
     void reportError(const std::string& message, bool fatal = false);
@@ -347,7 +336,6 @@ class expat_wrapper :
 
     string_type emptyString_;
     const SAX::FeatureNames<string_type, string_adaptor> features_;
-    const SAX::PropertyNames<string_type, string_adaptor> properties_;
     const SAX::NamespaceConstants<string_type, string_adaptor> nsc_;
     const SAX::AttributeDefaults<string_type, string_adaptor> attrDefaults_;
 
@@ -519,52 +507,6 @@ bool expat_wrapper<string_type, T0, T1>::do_parse(inputSourceT& source, XML_Pars
 
   return true;
 } // do_parse
-
-template<class string_type, class T0, class T1>
-std::auto_ptr<typename expat_wrapper<string_type, T0, T1>::PropertyBaseT> expat_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-{
-  if(name == properties_.lexicalHandler)
-  {
-    getLexicalHandlerT* prop = new getLexicalHandlerT(lexicalHandler_);
-    return std::auto_ptr<PropertyBaseT>(prop);
-  }
-  if(name == properties_.declHandler)
-  {
-    getDeclHandlerT* prop = new getDeclHandlerT(declHandler_);
-    return std::auto_ptr<PropertyBaseT>(prop);
-  }
-
-  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + SA::asStdString(name));    
-} // doGetProperty
-
-template<class string_type, class T0, class T1>
-void expat_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value)
-{
-  if(name == properties_.lexicalHandler)
-  {
-    setLexicalHandlerT* prop = dynamic_cast<setLexicalHandlerT*>(value.get());
-
-    if(!prop)
-      throw std::bad_cast();
-
-    lexicalHandler_ = &(prop->get());
-  }
-  else if(name == properties_.declHandler)
-  {
-    setDeclHandlerT* prop = dynamic_cast<setDeclHandlerT*>(value.get());
-
-    if(!prop)
-      throw std::bad_cast();
-
-    declHandler_ = &(prop->get());
-  }
-  else
-  {
-    std::ostringstream os;
-    os << "Property not recognized " << SA::asStdString(name);
-    throw SAX::SAXNotRecognizedException(os.str());
-  }
-} // doSetProperty
 
 // Locator implementation
 template<class string_type, class T0, class T1>

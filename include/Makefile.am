@@ -42,7 +42,6 @@ sax_headers = SAX/SAXParseException.hpp \
 	SAX/helpers/LocatorImpl.hpp \
 	SAX/helpers/NamespaceSupport.hpp \
 	SAX/helpers/XMLFilterImpl.hpp \
-	SAX/helpers/PropertyNames.hpp \
 	SAX/helpers/AttributesImpl.hpp \
 	SAX/helpers/DefaultHandler.hpp \
 	SAX/helpers/InputSourceResolver.hpp \
