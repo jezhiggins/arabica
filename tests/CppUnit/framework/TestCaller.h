@@ -56,16 +56,16 @@ public:
 
 protected:
     void                    runTest () 
-                            { (m_fixture.get ()->*m_test)(); }  
+                            { (m_fixture.get ()->*m_test)(); }
 
     void                    setUp ()
-                            { m_fixture.get ()->setUp (); }
+                            { m_fixture->setUp (); }
 
     void                    tearDown ()
-                            { m_fixture.get ()->tearDown (); }
+                            { m_fixture->tearDown (); }
 
 private:
-   std::auto_ptr<Fixture>   m_fixture;
+   std::unique_ptr<Fixture>   m_fixture;
    TestMethod               m_test;
 
 };
