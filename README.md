@@ -1,5 +1,10 @@
 # Arabica - An XML and HTML processing toolkit
 
+*[Latest Arabica news](https://www.jezuk.co.uk/tags/arabica.html)* 
+* maintenance release expected April 2020.
+
+----
+
 *Arabica is an XML and HTML processing toolkit*, providing *SAX2*, *DOM*, *XPath*, and *XSLT* implementations, written in *Standard C++*
 
 * *SAX* is an event-based XML processing API. Arabica is a full SAX2 implementation, including the optional interfaces and helper classes. It provides uniform SAX2 wrappers for the Expat parser, Xerces, Libxml2 and, on Windows, for the Microsoft XML parser.
