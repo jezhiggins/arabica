@@ -89,7 +89,7 @@ class Event_impl
 
     virtual bool getCancelable() const = 0;
 
-    virtual long getTimeStamp() const = 0;
+    virtual unsigned long long getTimeStamp() const = 0;
 
     virtual void stopPropagation() = 0;
 
