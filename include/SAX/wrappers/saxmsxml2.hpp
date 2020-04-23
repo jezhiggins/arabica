@@ -646,6 +646,10 @@ class msxml2_wrapper :
               HRESULT hr = attributes_->getIndexFromName(wUri.data(), static_cast<int>(wUri.length()),
                                                          wLocalName.data(), static_cast<int>(wLocalName.length()),
                                                          &index);
+              if (FAILED(hr))
+              {
+                index = -1;
+              }
               return index;
             } // getIndex
 
@@ -653,7 +657,11 @@ class msxml2_wrapper :
             {
               int index = -1;
               std::wstring wQName(string_adaptor::asStdWString(qName));
-              attributes_->getIndexFromQName(wQName.data(), static_cast<int>(wQName.length()), &index);
+              HRESULT hr = attributes_->getIndexFromQName(wQName.data(), static_cast<int>(wQName.length()), &index);
+              if (FAILED(hr))
+              {
+                index = -1;
+              }
 			  return index;
             } // getIndex
 
