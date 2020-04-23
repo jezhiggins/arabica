@@ -86,7 +86,7 @@ class EventImpl : virtual public Arabica::DOM::Events::Event_impl<stringT, strin
       return canCancel_;
     }
 
-    virtual long getTimeStamp() const
+    virtual unsigned long long getTimeStamp() const
     {
       return timeStamp_;
     }
