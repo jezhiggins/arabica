@@ -131,7 +131,7 @@ STYLESHEETCONSTANT(Version, "1.0");
 STYLESHEETCONSTANT(Vendor, "Jez Higgins, JezUK Ltd");
 STYLESHEETCONSTANT(VendorUrl, "http://www.jezuk.co.uk/arabica/");
 
-STYLESHEETCONSTANT(CDATAStart, "<[CDATA[");
+STYLESHEETCONSTANT(CDATAStart, "<![CDATA[");
 STYLESHEETCONSTANT(CDATAEnd, "]]>");
 STYLESHEETCONSTANT(CommentStart, "<!--");
 STYLESHEETCONSTANT(CommentEnd, "-->");
