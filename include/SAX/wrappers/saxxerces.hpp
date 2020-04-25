@@ -4,35 +4,6 @@
 // A SAX2 wrapper class for Xerces.
 //---------------------------------------------------------------------------
 
-// Debugging code for the doSetProperty and doGetProperty methods.
-// Since these methods use runtime casting, it is often helpful to
-// know the exact type of a method's arguments to compare with
-// what is expected.  This is hard, even with current (2003)
-// debuggers, so this code can print it out, assuming you've
-// compiled with gcc 3.2
-//
-// Example usage is given in doSetProperty
-
-// Use only with GCC 3.2
-#ifdef SAXXERCES_DEBUG
-
-#include <iostream>
-#include <typeinfo>
-#include <cxxabi.h>
-
-// Demangle Run-Time Type Information std::type_info struct.
-std::ostream& operator<<(std::ostream& o, const std::type_info& ti)
-{
-  int status;
-  char *realname = abi::__cxa_demangle(ti.name(), 0, 0, &status);
-  if (status != 0)
-    o.setstate(std::ios_base::failbit);
-  o << realname;
-  free(realname);
-  return o;
-}
-#endif
-
 #include <iterator>
 #include <memory>
 #include <string>
@@ -189,10 +160,6 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
     virtual void parseReset(XMLPScanToken& token);
     //@}
 
-  protected:
-    virtual std::auto_ptr<typename XMLReaderT::PropertyBase> doGetProperty(const string_type& name);
-    virtual void doSetProperty(const string_type& name, std::auto_ptr<typename XMLReaderT::PropertyBase> value);
-
   private:
     ///////////////////////////////
     // String adaptor for XMLCh
@@ -282,7 +249,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
           return base::construct_from_utf8(reinterpret_cast<const char*>(bytes), length);
         } // construct_from_XMLByte
 
-        static std::auto_ptr<XERCES_CPP_NAMESPACE::XMLTranscoder> transcoder_;
+        static std::unique_ptr<XERCES_CPP_NAMESPACE::XMLTranscoder> transcoder_;
         static void kickoff()
         {
           XERCES_CPP_NAMESPACE::XMLTransService::Codes  res;
@@ -841,7 +808,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
 
     /////////////////////////////////////////////
     // Member variables
-    std::auto_ptr<XercesImpl::xerces_initializer> initializer_;
+    std::unique_ptr<XercesImpl::xerces_initializer> initializer_;
     XERCES_CPP_NAMESPACE::SAX2XMLReader* xerces_;
     ContentHandlerAdaptor contentHandlerAdaptor_;
     EntityResolverAdaptor entityResolverAdaptor_;
@@ -858,7 +825,7 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
 
 #ifdef ARABICA_NO_WCHAR_T
 template<class string_type, class T0, class T1>
-std::auto_ptr<XERCES_CPP_NAMESPACE::XMLTranscoder> xerces_wrapper<string_type, T0, T1>::xerces_string_adaptor::transcoder_;
+std::unique_ptr<XERCES_CPP_NAMESPACE::XMLTranscoder> xerces_wrapper<string_type, T0, T1>::xerces_string_adaptor::transcoder_;
 #endif
 
 template<class string_type, class T0, class T1>
@@ -866,8 +833,7 @@ xerces_wrapper<string_type, T0, T1>::xerces_wrapper()
 {
   try
   {
-    std::auto_ptr<XercesImpl::xerces_initializer> init(new XercesImpl::xerces_initializer());
-    initializer_ = init;
+    initializer_.reset(new XercesImpl::xerces_initializer());
 #ifdef ARABICA_NO_WCHAR_T
     xerces_string_adaptor::kickoff();
 #endif
@@ -934,143 +900,6 @@ void xerces_wrapper<string_type, T0, T1>::setFeature(const string_type& name, bo
 } // setFeature
 
 template<class string_type, class T0, class T1>
-std::auto_ptr<typename xerces_wrapper<string_type, T0, T1>::XMLReaderT::PropertyBase> xerces_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-{
-  if(name == properties_.lexicalHandler)
-  {
-    typedef typename XMLReaderT::template Property<LexicalHandlerT *> Prop;
-    Prop *prop = new Prop(lexicalHandlerAdaptor_.getLexicalHandler());
-    return std::auto_ptr<typename XMLReaderT::PropertyBase>(prop);
-  }
-  if(name == properties_.declHandler)
-  {
-    typedef typename XMLReaderT::template Property<DeclHandlerT*> Prop;
-    Prop* prop = new Prop(declHandlerAdaptor_.getDeclHandler());
-    return std::auto_ptr<typename XMLReaderT::PropertyBase>(prop);
-  }
-  if (name == properties_.externalSchemaLocation)
-  {
-    typedef typename XMLReaderT::template Property<string_type&> StringPropertyType;
-
-    XMLCh* xercesExternalSchemaLocation =
-        static_cast<XMLCh*>(xerces_->getProperty(
-            XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalSchemaLocation));
-
-    externalSchemaLocation_ = XSA::makeStringT(xercesExternalSchemaLocation);
-    std::auto_ptr<typename XMLReaderT::PropertyBase> toReturn(new StringPropertyType(externalSchemaLocation_));
-#ifdef SAXXERCES_DEBUG
-    std::cerr << "Returning " << typeid(toReturn)
-              << "(*(" << typeid(*toReturn.get()) << ")"
-              <<  toReturn.get() << ")"
-              << " containing value [" << externalSchemaLocation_ << "]"
-              <<  std::endl;
-#endif
-    return toReturn;
-  }
-  if (name == properties_.externalNoNamespaceSchemaLocation)
-  {
-    typedef typename XMLReaderT::template Property<string_type&> StringPropertyType;
-
-    XMLCh* xercesExternalNoNamespaceSchemaLocation =
-        static_cast<XMLCh*>(xerces_->getProperty(
-            XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalNoNameSpaceSchemaLocation));
-
-    externalNoNamespaceSchemaLocation_ = XSA::makeStringT(xercesExternalNoNamespaceSchemaLocation);
-    return std::auto_ptr<typename XMLReaderT::PropertyBase>(new StringPropertyType(externalNoNamespaceSchemaLocation_));
-  }
-  throw SAX::SAXNotRecognizedException("Property not recognized ");
-} // doGetProperty
-
-template<class string_type, class T0, class T1>
-void xerces_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<typename XMLReaderT::PropertyBase> value)
-{
-  if(name == properties_.lexicalHandler)
-  {
-    typedef typename XMLReaderT::template Property<LexicalHandlerT&> Prop;
-    Prop* prop = dynamic_cast<Prop*>(value.get());
-
-    if(!prop)
-      throw std::runtime_error("bad_cast: Property LexicalHandler is wrong type, should be SAX::LexicalHandler&");
-
-    lexicalHandlerAdaptor_.setLexicalHandler(prop->get());
-    return;
-  } // if ...
-
-  if(name == properties_.declHandler)
-  {
-    typedef typename XMLReaderT::template Property<DeclHandlerT&> Prop;
-    Prop* prop = dynamic_cast<Prop*>(value.get());
-
-    if(!prop)
-      throw std::runtime_error("bad_cast: Property DeclHandler is wrong type, should be SAX::DeclHandler&");
-
-    declHandlerAdaptor_.setDeclHandler(prop->get());
-    return;
-  } // if ...
-
-  if (name == properties_.externalSchemaLocation)
-  {
-    typename XMLReaderT::PropertyBase* propBase = value.get();
-#ifdef SAXXERCES_DEBUG
-    std::cerr << "doSetProperty(externalSchemaLocation, &("
-              << typeid(*propBase) << "))" << std::endl;
-#endif
-    typedef typename XMLReaderT::template Property<string_type&> propertyType;
-    propertyType* prop = dynamic_cast<propertyType*>(propBase);
-#ifdef SAXXERCES_DEBUG
-    std::cerr << "    Extracted property to " << typeid(prop)
-              << "(" << prop << ")" << std::endl;
-#endif
-    if (prop)
-    {
-      externalSchemaLocation_ = prop->get();
-#ifdef SAXXERCES_DEBUG
-      std::cerr << "    Setting property to " << externalSchemaLocation_ << std::endl;
-#endif
-      xerces_string_janitor<XMLCh> toDelete(XSA::asXMLChString(externalSchemaLocation_));
-      xerces_->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalSchemaLocation, const_cast<XMLCh*>(toDelete.get()));
-    }
-    else
-    {
-      throw SAXNotSupportedException("Property ExternalShemaLocation is wrong type, should be string_type");
-    }
-    return;
-  }
-
-  if (name == properties_.externalNoNamespaceSchemaLocation)
-  {
-    typename XMLReaderT::PropertyBase* propBase = value.get();
-    typedef typename XMLReaderT::template Property<string_type&> propertyType;
-#ifdef SAXXERCES_DEBUG
-    std::cerr << "doSetProperty(externalNoNamespaceSchemaLocation, &("
-              << typeid(*propBase) << "))" << std::endl;
-#endif
-    propertyType* prop = dynamic_cast<propertyType*>(propBase);
-#ifdef SAXXERCES_DEBUG
-    std::cerr << "    Extracted property to " << typeid(prop)
-              << "(" << prop << ")" << std::endl;
-#endif
-    if (prop)
-    {
-      externalNoNamespaceSchemaLocation_ = prop->get();
-#ifdef SAXXERCES_DEBUG
-      std::cerr << "    Setting property to " << externalNoNamespaceSchemaLocation_ << std::endl;
-#endif
-      xerces_string_janitor<XMLCh> toDelete(XSA::asXMLChString(externalNoNamespaceSchemaLocation_));
-      xerces_->setProperty(XERCES_CPP_NAMESPACE::XMLUni::fgXercesSchemaExternalNoNameSpaceSchemaLocation, const_cast<XMLCh*>(toDelete.get()));
-    }
-    else
-    {
-      throw SAXNotSupportedException("Property ExternalNoNamespaceSchemaLocation is wrong type, should be string_type");
-    }
-    return;
-  }
-
-  throw SAX::SAXNotRecognizedException("Property not recognized ");
-}
-
-
-template<class string_type, class T0, class T1>
 void xerces_wrapper<string_type, T0, T1>::parse(InputSourceT& source)
 {
   // if no stream is open, let Xerces deal with it
@@ -1089,7 +918,7 @@ bool xerces_wrapper<string_type,
                     T0, T1>::parseFirst(InputSourceT& input,
                                         XMLPScanToken& toFill)
 {
-  std::auto_ptr<XercesXMLPScanToken> newToken(new XercesXMLPScanToken);
+  auto newToken = std::make_unique<XercesXMLPScanToken>();
   // To store the result from Xerces parseFirst().
   bool result = false;
   if (input.getByteStream() == 0)
@@ -1110,9 +939,9 @@ bool xerces_wrapper<string_type,
     result = xerces_->parseFirst(isAdaptor, newToken->token_);
   }
   if (result) {
-    // We need to explicitly convert to auto_ptr<base class>.
-    std::auto_ptr<XMLPScanTokenParserImpl> toSet(newToken.release());
-    toFill.setParserData(toSet);
+    // We need to explicitly convert to unique_ptr<base class>.
+    std::unique_ptr<XMLPScanTokenParserImpl> toSet(newToken.release());
+    toFill.setParserData(std::move(toSet));
   }
   return result;
 } // parseFirst

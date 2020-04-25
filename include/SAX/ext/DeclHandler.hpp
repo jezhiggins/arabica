@@ -31,13 +31,7 @@ namespace SAX
  * {@link LexicalHandler#endDTD endDTD} events.</p>
  *
  * <p>To set the DeclHandler for an XML reader, use the
- * {@link XMLReader#setProperty setProperty} method
- * with the propertyId "http://xml.org/sax/properties/declaration-handler".
- * If the reader does not support declaration events, it will throw a
- * {@link SAXNotRecognizedException SAXNotRecognizedException}
- * or a
- * {@link SAXNotSupportedException SAXNotSupportedException}
- * when you attempt to register the handler.</p>
+ * {@link XMLReader#setDeclHandler setDeclHandler}.</P>
  *
  * @since 2.0
  * @author Jez Higgins, 

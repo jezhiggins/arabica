@@ -7,13 +7,13 @@ cmake_minimum_required(VERSION 3.5)
 
 project(arabica)
 
-# Enable C++11 support
-set(CMAKE_CXX_STANDARD 11)
+# Enable C++14 support
+set(CMAKE_CXX_STANDARD 14)
 
 set(LIB_NAME arabica)
 
-set(ARABICA_MAJOR_VERSION 2016)
-set(ARABICA_MINOR_VERSION January)
+set(ARABICA_MAJOR_VERSION 2020)
+set(ARABICA_MINOR_VERSION April)
 
 #
 # Packaging details
@@ -196,8 +196,6 @@ set(PUBLIC_HEADER_FILES
   include/SAX/helpers/InputSourceResolver.hpp
   include/SAX/helpers/LocatorImpl.hpp
   include/SAX/helpers/NamespaceSupport.hpp
-  include/SAX/helpers/ParserAdaptor.hpp
-  include/SAX/helpers/PropertyNames.hpp
   include/SAX/helpers/XMLBaseSupport.hpp
   include/SAX/helpers/XMLFilterImpl.hpp
   include/SAX/parsers/saxgarden.hpp
@@ -582,4 +580,5 @@ if(BUILD_ARABICA_EXAMPLES)
 endif()
 
 include(CPack)
-
+
+

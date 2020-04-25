@@ -219,8 +219,8 @@ public:
                                     Axis axis,
                                     bool is_attr = false)
   {
-    std::auto_ptr<NodeTest<string_type, string_adaptor> > test(getTest(node, end, !is_attr ? axis : ATTRIBUTE, context.namespaceContext()));
-    std::auto_ptr<XPathExpression_impl<string_type, string_adaptor> > thing;
+    std::unique_ptr<NodeTest<string_type, string_adaptor> > test(getTest(node, end, !is_attr ? axis : ATTRIBUTE, context.namespaceContext()));
+    std::unique_ptr<XPathExpression_impl<string_type, string_adaptor> > thing;
     if(test.get() == 0)
       thing.reset(XPath<string_type, string_adaptor>::compile_expression(node++, end, context));
 

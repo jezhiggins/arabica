@@ -173,7 +173,7 @@ int prefix_mapper(std::basic_ostream<charT, traitsT>& stream,
   {
     //DOM::Node<stringT, string_adaptorT> attr = attrs.getNamedItem(*a);
     const DOM::Node<stringT, string_adaptorT> attr = attrNodes[a];
-    if(attr.getNodeName().empty() ||
+    if(string_adaptorT::empty(attr.getNodeName()) ||
        isXmlns<stringT, string_adaptorT, charT>(attr.getNodeName()) ||
        isXmlns<stringT, string_adaptorT, charT>(attr.getPrefix()))
       continue;

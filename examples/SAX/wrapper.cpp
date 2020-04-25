@@ -5,7 +5,6 @@
 #include "SimpleHandler.hpp"
 #include <SAX/InputSource.hpp>
 #include <SAX/helpers/FeatureNames.hpp>
-#include <SAX/helpers/PropertyNames.hpp>
 #include <iostream>
 #include <sstream>
 
@@ -20,7 +19,6 @@ int main(int argc, char* argv[])
 
   SimpleHandler myHandler;
   Arabica::SAX::FeatureNames<std::string> fNames;
-  Arabica::SAX::PropertyNames<std::string> pNames;
 
   for(int i = 1; i < argc; ++i)
   {

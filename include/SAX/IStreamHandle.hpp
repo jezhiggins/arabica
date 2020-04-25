@@ -34,12 +34,12 @@ namespace SAX {
  *
  * \par
  * Ownership of a std::istream is passed to an IStreamHandle via a
- * <code>std::auto_ptr<std::istream></code>.  Ownership of a
+ * <code>std::unique_ptr<std::istream></code>.  Ownership of a
  * std::istream is passed between IStreamHandle by assignment.
  *
- * \see IStreamHandle(std::auto_ptr<std::istream>) for passing
+ * \see IStreamHandle(std::unique_ptr<std::istream>) for passing
  *      ownership at construction.
- * \see IStreamHandle::operator=(std::auto_ptr<std::istream>) for
+ * \see IStreamHandle::operator=(std::unique_ptr<std::istream>) for
  *      passing ownership after construction.
  * \see IStreamHandle(std::istream&) for constructing without
  *      passing ownership
@@ -89,7 +89,7 @@ namespace SAX {
  *
  * \par
  *      If an IStreamHandle is constructed with or assigned a
- *      std::auto_ptr<std::istream>, it <i>takes ownership</i> of
+ *      std::unique_ptr<std::istream>, it <i>takes ownership</i> of
  *      the pointee.  If an IStreamHandle is constructed with or
  *      assigned a std::istream&, it <i>does not take
  *      ownership</i> of the pointee.
@@ -117,9 +117,9 @@ namespace SAX {
  *
  * \par
  * All public API methods of IStreamHandle that take an
- * auto_ptr<std::istream> parameter conform to the follow post-conditions.
+ * unique_ptr<std::istream> parameter conform to the follow post-conditions.
  * For the purposes of these post-conditions, <code>rhs</code> will represent
- * the std::auto_ptr parameter.
+ * the std::unique_ptr parameter.
  * - <code>is_</code> contains the value returned by <code>rhs.release()</code>.
  * - <code>rhs.get() == 0</code> (ownership has been transfered).
  * - <code>owner_ = true</code>
@@ -169,8 +169,8 @@ public:
      * other IStreamHandle objects.
      *
      */
-    explicit IStreamHandle(std::auto_ptr<std::istream> is);
-    explicit IStreamHandle(std::auto_ptr<std::iostream> is);
+    explicit IStreamHandle(std::unique_ptr<std::istream> is);
+    explicit IStreamHandle(std::unique_ptr<std::iostream> is);
 
     /** Construct an IStreamHandle sharing a std::istream with <em>rhs</em>.
      * 
@@ -225,8 +225,8 @@ public:
      * shared with other IStreamHandle objects.
      *
      */
-    IStreamHandle& operator=(std::auto_ptr<std::istream> rhs);
-    IStreamHandle& operator=(std::auto_ptr<std::iostream> rhs);
+    IStreamHandle& operator=(std::unique_ptr<std::istream> rhs);
+    IStreamHandle& operator=(std::unique_ptr<std::iostream> rhs);
 
     /** Assign a new std::istream to <code>this</code>.  This destroys the
      * std::istream held by <code>this</code> if <code>this</code> <i>owns</i>
@@ -296,7 +296,7 @@ IStreamHandle::IStreamHandle(std::istream& is)
 }
 
 inline
-IStreamHandle::IStreamHandle(std::auto_ptr<std::istream> is)
+IStreamHandle::IStreamHandle(std::unique_ptr<std::istream> is)
 :   is_(is.release()),
     counter_(new int(0)),
     owner_(true)
@@ -307,7 +307,7 @@ IStreamHandle::IStreamHandle(std::auto_ptr<std::istream> is)
 }
 
 inline
-IStreamHandle::IStreamHandle(std::auto_ptr<std::iostream> is)
+IStreamHandle::IStreamHandle(std::unique_ptr<std::iostream> is)
 :   is_(is.release()),
     counter_(new int(0)),
     owner_(true)
@@ -352,7 +352,7 @@ IStreamHandle& IStreamHandle::operator=(const IStreamHandle& rhs)
 }
 
 inline
-IStreamHandle& IStreamHandle::operator=(std::auto_ptr<std::istream> rhs)
+IStreamHandle& IStreamHandle::operator=(std::unique_ptr<std::istream> rhs)
 {
     removeRef();
     set(rhs.release(), true);
@@ -365,7 +365,7 @@ IStreamHandle& IStreamHandle::operator=(std::auto_ptr<std::istream> rhs)
 }
 
 inline
-IStreamHandle& IStreamHandle::operator=(std::auto_ptr<std::iostream> rhs)
+IStreamHandle& IStreamHandle::operator=(std::unique_ptr<std::iostream> rhs)
 {
     removeRef();
     set(rhs.release(), true);

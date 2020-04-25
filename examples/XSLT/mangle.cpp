@@ -25,7 +25,7 @@ int main(int argc, const char* argv[])
   try 
   {
     Arabica::SAX::InputSource<std::string> source(argv[2]);
-    std::auto_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
+    std::unique_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
     {
       std::cerr << "Couldn't compile stylesheet: " << compiler.error() << std::endl;

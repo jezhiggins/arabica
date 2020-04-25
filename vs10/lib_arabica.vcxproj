@@ -151,8 +151,6 @@
     <ClInclude Include="..\include\Sax\helpers\InputSourceResolver.hpp" />
     <ClInclude Include="..\include\Sax\helpers\LocatorImpl.hpp" />
     <ClInclude Include="..\include\Sax\helpers\NamespaceSupport.hpp" />
-    <ClInclude Include="..\include\Sax\helpers\ParserAdaptor.hpp" />
-    <ClInclude Include="..\include\Sax\helpers\PropertyNames.hpp" />
     <ClInclude Include="..\include\Sax\helpers\XMLBaseSupport.hpp" />
     <ClInclude Include="..\include\Sax\helpers\XMLFilterImpl.hpp" />
     <ClInclude Include="..\include\Sax\parsers\saxgarden.hpp" />

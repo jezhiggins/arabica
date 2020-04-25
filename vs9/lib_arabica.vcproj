@@ -355,14 +355,6 @@
 						>
 					</File>
 					<File
-						RelativePath="..\include\Sax\helpers\ParserAdaptor.hpp"
-						>
-					</File>
-					<File
-						RelativePath="..\include\Sax\helpers\PropertyNames.hpp"
-						>
-					</File>
-					<File
 						RelativePath="..\include\Sax\helpers\XMLBaseSupport.hpp"
 						>
 					</File>

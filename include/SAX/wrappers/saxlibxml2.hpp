@@ -17,7 +17,6 @@
 #include <typeinfo>
 
 #include <SAX/helpers/FeatureNames.hpp>
-#include <SAX/helpers/PropertyNames.hpp>
 #include <SAX/helpers/NamespaceSupport.hpp>
 #include <SAX/helpers/AttributeDefaults.hpp>
 #include <SAX/helpers/AttributeTypes.hpp>
@@ -145,11 +144,6 @@ class libxml2_wrapper :
     typedef SAX::NamespaceSupport<string_type, string_adaptor> namespaceSupportT;
     typedef SAX::ErrorHandler<string_type, string_adaptor> errorHandlerT;
     typedef SAX::SAXParseException<string_type, string_adaptor> SAXParseExceptionT;
-    typedef typename XMLReaderT::PropertyBase PropertyBaseT;
-    typedef typename XMLReaderT::template Property<lexicalHandlerT*> getLexicalHandlerT;
-    typedef typename XMLReaderT::template Property<lexicalHandlerT&> setLexicalHandlerT;
-    typedef typename XMLReaderT::template Property<declHandlerT*> getDeclHandlerT;
-    typedef typename XMLReaderT::template Property<declHandlerT&> setDeclHandlerT;
     typedef XML::QualifiedName<string_type, string_adaptor> qualifiedNameT;
 
     libxml2_wrapper();
@@ -178,12 +172,6 @@ class libxml2_wrapper :
     ////////////////////////////////////////////////
     // parsing
     virtual void parse(inputSourceT& source);
-
-  protected:
-    ////////////////////////////////////////////////
-    // properties
-    virtual std::auto_ptr<PropertyBaseT> doGetProperty(const string_type& name);
-    virtual void doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value);
 
   public:
     virtual string_type getPublicId() const;
@@ -245,7 +233,6 @@ class libxml2_wrapper :
 
     string_type emptyString_;
     const FeatureNames<string_type, string_adaptor> features_;
-    const PropertyNames<string_type, string_adaptor> properties_;
     const NamespaceConstants<string_type, string_adaptor> nsc_;
     const AttributeDefaults<string_type, string_adaptor> attrDefaults_;
     const AttributeTypes<string_type, string_adaptor> attrTypes_;
@@ -353,48 +340,6 @@ void libxml2_wrapper<string_type, T0, T1>::setFeature(const string_type& name, b
     throw SAX::SAXNotRecognizedException(os.str());
   }
 } // setFeature
-
-template<class string_type, class T0, class T1>
-std::auto_ptr<typename libxml2_wrapper<string_type, T0, T1>::PropertyBaseT> libxml2_wrapper<string_type, T0, T1>::doGetProperty(const string_type& name)
-{
-  if(name == properties_.declHandler)
-  {
-    getDeclHandlerT* prop = new getDeclHandlerT(declHandler_);
-    return std::auto_ptr<PropertyBaseT>(prop);
-  }
-	if(name == properties_.lexicalHandler)
-  {
-    getLexicalHandlerT* prop = new getLexicalHandlerT(lexicalHandler_);
-    return std::auto_ptr<PropertyBaseT>(prop);
-  }
-
-  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptor::asStdString(name));
-} // doGetProperty
-
-template<class string_type, class T0, class T1>
-void libxml2_wrapper<string_type, T0, T1>::doSetProperty(const string_type& name, std::auto_ptr<PropertyBaseT> value)
-{
-  if(name == properties_.declHandler)
-  {
-    setDeclHandlerT* prop = dynamic_cast<setDeclHandlerT*>(value.get());
-
-    if(!prop)
-      throw std::bad_cast();
-
-    declHandler_ = &(prop->get());
-  }
-	if(name == properties_.lexicalHandler)
-  {
-    setLexicalHandlerT* prop = dynamic_cast<setLexicalHandlerT*>(value.get());
-
-    if(!prop)
-      throw std::bad_cast();
-
-    lexicalHandler_ = &(prop->get());
-  }
-
-  throw SAX::SAXNotRecognizedException(std::string("Property not recognized ") + string_adaptor::asStdString(name));
-} // doSetProperty
 
 template<class string_type, class T0, class T1>
 typename XML::QualifiedName<string_type, typename libxml2_wrapper<string_type, T0, T1>::string_adaptor> libxml2_wrapper<string_type, T0, T1>::processName(const string_type& qName, bool isAttribute)
