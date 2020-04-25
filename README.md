@@ -1,6 +1,6 @@
 # Arabica - An XML and HTML processing toolkit
 
-*New release - https://github.com/jezhiggins/arabica/releases/tag/2020-April(April 2020 available now).*
+*New release - [April 2020 available now](https://github.com/jezhiggins/arabica/releases/tag/2020-April).*
 
 ----
 
