@@ -1,7 +1,6 @@
 # Arabica - An XML and HTML processing toolkit
 
-*[Latest Arabica news](https://www.jezuk.co.uk/tags/arabica.html)* 
-* maintenance release expected April 2020.
+*New release - https://github.com/jezhiggins/arabica/releases/tag/2020-April(April 2020 available now).*
 
 ----
 
