@@ -29,107 +29,114 @@ class WhitespaceStripperTest : public TestCase
     {
     } // setUp
 
+    void expect(char const* expected, std::basic_ostringstream<typename string_adaptor::value_type>& result) {
+        assertEquals(
+            expected,
+            string_adaptor::asStdString(string_adaptor::construct(result.str().c_str()))
+        );
+    }
+
     void testNoStrip() 
     {
-      std::ostringstream o;
-      Arabica::SAX::XMLReader<std::string> parser;
-      Arabica::SAX::PYXWriter<std::string> writer(o, parser);
+      std::basic_ostringstream<typename string_adaptor::value_type> o;
+      Arabica::SAX::XMLReader<string_type, string_adaptor> parser;
+      Arabica::SAX::PYXWriter<string_type, string_adaptor> writer(o, parser);
       writer.parse(*source("<test><p>  Woo baby   hooray    </p></test>"));
-      assertEquals("(test\n(p\n-  Woo baby   hooray    \n)p\n)test\n", o.str());
+      expect("(test\n(p\n-  Woo baby   hooray    \n)p\n)test\n", o);
     } // testNoStrip
 
-    void testStripLeading() 
+    void testStripLeading()
     {
-      std::ostringstream o;
-      Arabica::SAX::XMLReader<std::string> parser;
-      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
-      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
+      std::basic_ostringstream<typename string_adaptor::value_type> o;
+      Arabica::SAX::XMLReader<string_type, string_adaptor> parser;
+      Arabica::SAX::WhitespaceStripper<string_type, string_adaptor> stripper(parser);
+      Arabica::SAX::PYXWriter<string_type, string_adaptor> writer(o, stripper);
       writer.parse(*source("<test><p>Woo</p></test>"));
-      assertEquals("(test\n(p\n-Woo\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo\n)p\n)test\n", o);
       
-      o.str("");
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p> Woo</p></test>"));
-      assertEquals("(test\n(p\n-Woo\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo\n)p\n)test\n", o);
       
-      o.str("");
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p>      Woo</p></test>"));
-      assertEquals("(test\n(p\n-Woo\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo\n)p\n)test\n", o);
     } // testStripLeading
 
-    void testStripTrailing() 
+    void testStripTrailing()
     {
-      std::ostringstream o;
-      Arabica::SAX::XMLReader<std::string> parser;
-      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
-      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
+      std::basic_ostringstream<typename string_adaptor::value_type> o;
+      Arabica::SAX::XMLReader<string_type, string_adaptor> parser;
+      Arabica::SAX::WhitespaceStripper<string_type, string_adaptor> stripper(parser);
+      Arabica::SAX::PYXWriter<string_type, string_adaptor> writer(o, stripper);
       writer.parse(*source("<test><p>Woo</p></test>"));
-      assertEquals("(test\n(p\n-Woo\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo\n)p\n)test\n", o);
       
-      o.str("");
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p>Woo </p></test>"));
-      assertEquals("(test\n(p\n-Woo\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo\n)p\n)test\n", o);
       
-      o.str("");
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p>Woo     </p></test>"));
-      assertEquals("(test\n(p\n-Woo\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo\n)p\n)test\n", o);
     } // testStripTrailing
 
     void testStripMid() 
     {
-      std::ostringstream o;
-      Arabica::SAX::XMLReader<std::string> parser;
-      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
-      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
+      std::basic_ostringstream<typename string_adaptor::value_type> o;
+      Arabica::SAX::XMLReader<string_type, string_adaptor> parser;
+      Arabica::SAX::WhitespaceStripper<string_type, string_adaptor> stripper(parser);
+      Arabica::SAX::PYXWriter<string_type, string_adaptor> writer(o, stripper);
       writer.parse(*source("<test><p>Woo yea</p></test>"));
-      assertEquals("(test\n(p\n-Woo yea\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo yea\n)p\n)test\n", o);
       
-      o.str("");
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p>Woo  yea</p></test>"));
-      assertEquals("(test\n(p\n-Woo yea\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo yea\n)p\n)test\n", o);
       
-      o.str("");
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p>Woo     yea</p></test>"));
-      assertEquals("(test\n(p\n-Woo yea\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo yea\n)p\n)test\n", o);
     } // testStripMid
 
     void testStripMid2() 
     {
-      std::ostringstream o;
-      Arabica::SAX::XMLReader<std::string> parser;
-      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
-      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
+      std::basic_ostringstream<typename string_adaptor::value_type> o;
+      Arabica::SAX::XMLReader<string_type, string_adaptor> parser;
+      Arabica::SAX::WhitespaceStripper<string_type, string_adaptor> stripper(parser);
+      Arabica::SAX::PYXWriter<string_type, string_adaptor> writer(o, stripper);
       writer.parse(*source("<test><p>Woo yea man</p></test>"));
-      assertEquals("(test\n(p\n-Woo yea man\n)p\n)test\n", o.str());
-      
-      o.str("");
+      expect("(test\n(p\n-Woo yea man\n)p\n)test\n", o);
+
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p>Woo yea  man</p></test>"));
-      assertEquals("(test\n(p\n-Woo yea man\n)p\n)test\n", o.str());
-      
-      o.str("");
+      expect("(test\n(p\n-Woo yea man\n)p\n)test\n", o);
+
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p>Woo     yea man</p></test>"));
-      assertEquals("(test\n(p\n-Woo yea man\n)p\n)test\n", o.str());
-      
-      o.str("");
+      expect("(test\n(p\n-Woo yea man\n)p\n)test\n", o);
+
+      o.str(string_adaptor::empty_string());
       writer.parse(*source("<test><p>Woo     yea    man</p></test>"));
-      assertEquals("(test\n(p\n-Woo yea man\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo yea man\n)p\n)test\n", o);
     } // testStripMid2
 
     void testStrip() 
     {
-      std::ostringstream o;
-      Arabica::SAX::XMLReader<std::string> parser;
-      Arabica::SAX::WhitespaceStripper<std::string> stripper(parser);
-      Arabica::SAX::PYXWriter<std::string> writer(o, stripper);
+      std::basic_ostringstream<typename string_adaptor::value_type> o;
+      Arabica::SAX::XMLReader<string_type, string_adaptor> parser;
+      Arabica::SAX::WhitespaceStripper<string_type, string_adaptor> stripper(parser);
+      Arabica::SAX::PYXWriter<string_type, string_adaptor> writer(o, stripper);
       writer.parse(*source("<test><p>  Woo baby   hooray    </p><!-- yo mama --></test>"));
-      assertEquals("(test\n(p\n-Woo baby hooray\n)p\n)test\n", o.str());
+      expect("(test\n(p\n-Woo baby hooray\n)p\n)test\n", o);
     } // testStrip
 
   private:
-    std::unique_ptr<Arabica::SAX::InputSource<std::string> > source(const std::string& str)
+    std::unique_ptr<Arabica::SAX::InputSource<string_type, string_adaptor> > source(const std::string& str)
     {
       std::unique_ptr<std::iostream> ss(new std::stringstream());
       (*ss) << str;
-      return std::make_unique<Arabica::SAX::InputSource<std::string>>(std::move(ss));
+      return std::make_unique<Arabica::SAX::InputSource<string_type, string_adaptor>>(std::move(ss));
     } // source
 }; // WhitespaceStripperTest
 

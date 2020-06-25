@@ -18,9 +18,8 @@ class PYXWriter : public XMLFilterImpl<string_type, string_adaptor>
     typedef XMLReaderInterface<string_type, string_adaptor> XMLReaderT;
     typedef XMLFilterImpl<string_type, string_adaptor> XMLFilterT;
     typedef typename XMLFilterT::AttributesT AttributesT;
-    typedef typename string_type::value_type charT;
-    typedef typename string_type::traits_type traitsT;
-    typedef std::basic_ostream<charT, traitsT> ostreamT;
+    typedef typename string_adaptor::value_type charT;
+    typedef std::basic_ostream<charT> ostreamT;
     typedef Arabica::text::Unicode<charT> UnicodeT;
   private:
     using XMLFilterT::getParent;
@@ -103,7 +102,7 @@ void PYXWriter<string_type, string_adaptor>::processingInstruction(const string_
 template<class string_type, class string_adaptor>
 void PYXWriter<string_type, string_adaptor>::escape(const string_type& ch)
 {
-  for(typename string_type::const_iterator s = ch.begin(), se = ch.end(); s != se; ++s)
+  for(typename string_adaptor::const_iterator s = string_adaptor::begin(ch), se = string_adaptor::end(ch); s != se; ++s)
     if(*s == UnicodeT::LINE_FEED)
       *stream_ << UnicodeT::BACK_SLASH << UnicodeT::LOWERCASE_N;
     else
