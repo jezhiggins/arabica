@@ -115,11 +115,7 @@ public:
   virtual void setFeature(const string_type& name, bool value)
   {
   	if(!parent_)
-    {
-      string_type ex = string_adaptor::construct_from_utf8("Feature: ");
-      string_adaptor::append(ex, name);
-      throw SAXNotRecognizedException(string_adaptor::asStdString(ex));
-    } // if ...
+      throw SAXNotRecognizedException("Feature: " + string_adaptor::asStdString(name));
 
     parent_->setFeature(name, value);
   } // setFeature
@@ -140,11 +136,7 @@ public:
   virtual bool getFeature(const string_type& name) const
   {
   	if(!parent_)
-    {
-      string_type ex = string_adaptor::construct_from_utf8("Feature: ");
-      string_adaptor::append(ex, name);
-      throw SAXNotRecognizedException(string_adaptor::asStdString(ex));
-    } // if ...
+      throw SAXNotRecognizedException("Feature: " + string_adaptor::asStdString(name));
 
     return parent_->getFeature(name);
   } // setFeature
