@@ -19,8 +19,6 @@
 #include <SAX/ext/LexicalHandler.hpp>
 #include <SAX/ext/DeclHandler.hpp>
 #include <SAX/IStreamHandle.hpp>
-#include <SAX/wrappers/XercesPropertyNames.hpp>
-#include <SAX/wrappers/XercesFeatureNames.hpp>
 #include <Arabica/getparam.hpp>
 
 // Xerces Includes
@@ -110,8 +108,6 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
     typedef DeclHandler<string_type, string_adaptor> DeclHandlerT;
     typedef ErrorHandler<string_type, string_adaptor> ErrorHandlerT;
     typedef typename ErrorHandlerT::SAXParseExceptionT SAXParseExceptionT;
-
-    typedef SAX::XercesFeatureNames<string_type, string_adaptor> featuresT;
 
     xerces_wrapper();
     virtual ~xerces_wrapper();
@@ -816,11 +812,6 @@ class xerces_wrapper : public ProgressiveParser<string_type, typename Arabica::g
     ErrorHandlerAdaptor errorHandlerAdaptor_;
     LexicalHandlerAdaptor lexicalHandlerAdaptor_;
     DeclHandlerAdaptor declHandlerAdaptor_;
-    Arabica::SAX::XercesPropertyNames<string_type, string_adaptor> properties_;
-
-    // Property values to return by reference
-    string_type externalSchemaLocation_;
-    string_type externalNoNamespaceSchemaLocation_;
 }; // class xerces_wrapper
 
 #ifdef ARABICA_NO_WCHAR_T
