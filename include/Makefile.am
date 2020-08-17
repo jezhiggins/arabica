@@ -27,8 +27,6 @@ sax_headers = SAX/SAXParseException.hpp \
 	SAX/wrappers/saxlibxml2.hpp \
 	SAX/wrappers/saxxerces.hpp \
 	SAX/wrappers/saxmsxml2.hpp \
-	SAX/wrappers/XercesFeatureNames.hpp \
-	SAX/wrappers/XercesPropertyNames.hpp \
 	SAX/saxfwd.hpp \
 	SAX/ext/Attributes2.hpp \
 	SAX/ext/DefaultHandler2.hpp \
