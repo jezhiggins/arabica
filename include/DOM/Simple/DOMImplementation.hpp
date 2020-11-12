@@ -68,7 +68,7 @@ class DOMImplementationImpl : public DOM::DOMImplementation_impl<stringT, string
                                                                          DOM::DocumentType_impl<stringT, string_adaptorT>* docType)
     {
       DocumentImpl<stringT, string_adaptorT>* doc = new DocumentImpl<stringT, string_adaptorT>(namespaceURI, qualifiedName, docType, this);
-
+      doc->addRef();
       if(!string_adaptorT::empty(qualifiedName))
         doc->appendChild(doc->createElementNS(namespaceURI, qualifiedName));
 
