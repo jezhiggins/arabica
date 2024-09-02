@@ -37,7 +37,7 @@ cmake ..
 A Makefile for arabica will be generated. (default using expat)
 
 cmake -D ARABICA_XML_BACKEND=USE_LIBXML2 ..
-A Makefile for arabica usng libcml2 will be generated.
+A Makefile for arabica using libxml2 will be generated.
 
 
 
