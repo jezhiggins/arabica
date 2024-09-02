@@ -1,7 +1,7 @@
 #ifndef ARABICA_PARSERCONFIG_H
 #define ARABICA_PARSERCONFIG_H
 
-#ifdef ARABICA_USE_LIBXML2
+#ifdef USE_LIBXML2
 #include <SAX/wrappers/saxlibxml2.hpp>
 #undef DEF_SAX_P
 #define DEF_SAX_P libxml2_wrapper
@@ -11,7 +11,7 @@
 #endif
 #endif
 
-#ifdef ARABICA_USE_MSXML
+#ifdef USE_MSXML
 #ifndef _MSC_VER
 #error "Can only use MSXML on Windows"
 #endif
@@ -21,7 +21,7 @@
 #define DEF_SAX_P msxml2_wrapper
 #endif 
 
-#ifdef ARABICA_USE_XERCES
+#ifdef USE_XERCES
 #include <SAX/wrappers/saxxerces.hpp>
 #undef DEF_SAX_P
 #define DEF_SAX_P xerces_wrapper
@@ -37,7 +37,7 @@
 #endif
 #endif
 
-#ifdef ARABICA_USE_GARDEN
+#ifdef USE_GARDEN
 #ifdef _MSC_VER
 #pragma message("Including Garden")
 #endif
@@ -46,7 +46,7 @@
 #define DEF_SAX_P Garden
 #endif
 
-#ifdef ARABICA_USE_EXPAT
+#ifdef USE_EXPAT
 #include <SAX/wrappers/saxexpat.hpp>
 #undef DEF_SAX_P
 #define DEF_SAX_P expat_wrapper

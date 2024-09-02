@@ -110,7 +110,7 @@ namespace
 
   std::istream* httpResolver(const std::string& httpURI)
   {
-#ifdef ARABICA_USE_WINSOCK
+#ifdef USE_WINSOCK
     WORD wVersionRequested;
     WSADATA wsaData;
     int err;

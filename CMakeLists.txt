@@ -60,7 +60,7 @@ option(BUILD_WITH_BOOST "Build with Boost" OFF)
 #
 if(WIN32)
   set(ARABICA_NO_CODECVT_SPECIALISATIONS TRUE)
-  set(ARABICA_USE_WINSOCK TRUE)
+  set(USE_WINSOCK TRUE)
   set(ARABICA_WINDOWS TRUE)
   if(MSVC_VERSION LESS 1300)
     set(ARABICA_VS6_WORKAROUND TRUE)
@@ -203,8 +203,6 @@ set(PUBLIC_HEADER_FILES
   include/SAX/wrappers/saxlibxml2.hpp
   include/SAX/wrappers/saxmsxml2.hpp
   include/SAX/wrappers/saxxerces.hpp
-  include/SAX/wrappers/XercesFeatureNames.hpp
-  include/SAX/wrappers/XercesPropertyNames.hpp
   include/DOM/Attr.hpp
   include/DOM/CDATASection.hpp
   include/DOM/CharacterData.hpp
