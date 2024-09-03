@@ -46,7 +46,7 @@
 #define DEF_SAX_P Garden
 #endif
 
-#ifdef USE_EXPAT
+#ifdef ARABICA_USE_EXPAT
 #include <SAX/wrappers/saxexpat.hpp>
 #undef DEF_SAX_P
 #define DEF_SAX_P expat_wrapper

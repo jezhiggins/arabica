@@ -1,36 +1,33 @@
-/* include/SAX/ArabicaConfig.hpp.in.  Generated from configure.ac by autoheader.  */
 
 /* define if the Boost library is available */
-#undef ARABICA_HAVE_BOOST
+#cmakedefine ARABICA_HAVE_BOOST
 
 /* defined if we don't need extra codecvt template specialisations */
-#undef NO_CODECVT_SPECIALISATIONS
+#cmakedefine NO_CODECVT_SPECIALISATIONS
 
 /* no mbstate_t */
-#undef NO_MBSTATE_T
+#cmakedefine NO_MBSTATE_T
 
 /* no std::mbstate_t */
-#undef NO_STD_MBSTATE_T
+#cmakedefine NO_STD_MBSTATE_T
 
 /* disables wchar_t */
-#undef NO_WCHAR_T
-
-#undef ARABICA_XML_BACKEND
+#cmakedefine NO_WCHAR_T
 
 /* define to build against Expat */
-#define USE_EXPAT
-
-/* define to build using Garden */
-#undef USE_GARDEN
+#cmakedefine ARABICA_USE_EXPAT
 
 /* define to build against LibXML2 */
-#undef USE_LIBXML2
-
-/* defined for Windows builds using Winsock rather than BSD-style sockets */
-#undef USE_WINSOCK
+#cmakedefine ARABICA_USE_LIBXML2
 
 /* define to build against Xerces */
-#undef USE_XERCES
+#cmakedefine USE_XERCES
+
+/* define to build using Garden */
+#cmakedefine USE_GARDEN
+
+/* defined for Windows builds using Winsock rather than BSD-style sockets */
+#cmakedefine USE_WINSOCK
 
 /* Version number of package */
-#undef VERSION
+#cmakedefine VERSION

@@ -92,8 +92,6 @@ if(NOT ARABICA_XML_BACKEND)
   endif()
 endif()
 
-configure_file(${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp)
-
 #
 # Find boost
 if(BUILD_WITH_BOOST)
@@ -109,6 +107,7 @@ endif()
 #
 # Find expat
 if(ARABICA_XML_BACKEND STREQUAL USE_EXPAT)
+  set(ARABICA_USE_EXPAT TRUE)
   if(NOT TARGET expat)
     find_package(EXPAT REQUIRED)
     set(ADDITIONAL_INC ${EXPAT_INCLUDE_DIRS})
@@ -123,11 +122,11 @@ endif()
 #
 # find libxml2: LIBXML2_INCLUDE_DIR LIBXML2_LIBRARIES
 if(ARABICA_XML_BACKEND STREQUAL USE_LIBXML2)
+  set(ARABICA_USE_LIBXML2 TRUE)
   find_package(LibXml2)
   set(ADDITIONAL_INC ${LIBXML2_INCLUDE_DIR})
   set(ADDITIONAL_LIB ${LIBXML2_LIBRARIES})
 endif()
-
 
 #
 # platform check
@@ -148,6 +147,7 @@ else()
   message(STATUS "Building ${LIB_NAME} with ${ARABICA_XML_BACKEND} compile flag library only")
 endif()
 
+configure_file(${CMAKE_CURRENT_LIST_DIR}/include/SAX/ArabicaConfig.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp)
 
 set(GENERATED_HEADER_FILES
   ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp
@@ -475,6 +475,37 @@ install(DIRECTORY include/
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp
   DESTINATION include/${PROJECT_NAME}/SAX
 )
+
+#
+# tests
+set(CPP_UNIT_SOURCES
+  tests/CppUnit/TestRunner.hpp
+  tests/CppUnit/framework/CppUnitException.h
+  tests/CppUnit/framework/estring.h
+  tests/CppUnit/framework/Guards.h
+  tests/CppUnit/framework/Test.h
+  tests/CppUnit/framework/TestCaller.h
+  tests/CppUnit/framework/TestCase.h
+  tests/CppUnit/framework/TestFailure.h
+  tests/CppUnit/framework/TestResult.h
+  tests/CppUnit/framework/TestSuite.h
+  tests/CppUnit/textui/TextTestResult.h
+  tests/CppUnit/textui/TableTestResult.hpp
+  tests/CppUnit/textui/XmlTestResult.hpp
+  tests/CppUnit/framework/TestCase.cpp
+  tests/CppUnit/framework/TestFailure.cpp
+  tests/CppUnit/framework/TestResult.cpp
+  tests/CppUnit/framework/TestSuite.cpp
+  tests/CppUnit/TestRunner.cpp
+  tests/CppUnit/textui/TextTestResult.cpp
+  tests/CppUnit/textui/TableTestResult.cpp
+  tests/CppUnit/textui/XmlTestResult.cpp
+)
+add_library(cppunit STATIC
+        ${CPP_UNIT_SOURCES})
+
+add_executable(test_sax_filter tests/SAX/filter_test.cpp)
+target_link_libraries(test_sax_filter arabica cppunit)
 
 if(BUILD_ARABICA_EXAMPLES)
 

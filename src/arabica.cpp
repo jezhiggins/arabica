@@ -6,7 +6,7 @@
 
 #include <SAX/ArabicaConfig.hpp>
 
-#ifdef USE_EXPAT
+#ifdef ARABICA_USE_EXPAT
 #include "SAX/wrappers/saxexpat.cpp"
 #ifdef _MSC_VER
 #pragma message("Pulling in Expat wrappers")
