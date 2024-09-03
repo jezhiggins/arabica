@@ -1,7 +1,7 @@
 #ifndef ARABICA_PARSERCONFIG_H
 #define ARABICA_PARSERCONFIG_H
 
-#ifdef USE_LIBXML2
+#ifdef ARABICA_USE_LIBXML2
 #include <SAX/wrappers/saxlibxml2.hpp>
 #undef DEF_SAX_P
 #define DEF_SAX_P libxml2_wrapper
