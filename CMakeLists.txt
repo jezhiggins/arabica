@@ -37,7 +37,8 @@ set(CPACK_RPM_PACKAGE_URL "https://github.com/jezhiggins/arabica")
 set(CPACK_RPM_PACKAGE_REQUIRES "expat")
 set(CPACK_RPM_PACKAGE_GROUP "Development/Libraries")
 
-set(CPACK_GENERATOR "TGZ;DEB;RPM")
+#set(CPACK_GENERATOR "TGZ;DEB;RPM")
+set(CPACK_GENERATOR "TGZ;DEB;")
 
 #
 # Build as shared library
@@ -88,7 +89,7 @@ if(NOT ARABICA_XML_BACKEND)
   elseif(APPLE)
     set(ARABICA_XML_BACKEND USE_LIBXML2)
   else()
-    set(ARABICA_XML_BACKEND USE_XERCES)
+    set(ARABICA_XML_BACKEND USE_EXPAT)
   endif()
 endif()
 
@@ -487,6 +488,8 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp
 
 #
 # tests
+include(CTest)
+
 set(CPP_UNIT_SOURCES
   tests/CppUnit/TestRunner.hpp
   tests/CppUnit/framework/CppUnitException.h
@@ -515,6 +518,7 @@ add_library(cppunit STATIC
 
 add_executable(test_sax_filter tests/SAX/filter_test.cpp)
 target_link_libraries(test_sax_filter arabica cppunit)
+add_test(sax_filter test_sax_filter)
 
 if(BUILD_ARABICA_EXAMPLES)
 
