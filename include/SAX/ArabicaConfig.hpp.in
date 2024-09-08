@@ -21,7 +21,7 @@
 #cmakedefine ARABICA_USE_LIBXML2
 
 /* define to build against Xerces */
-#cmakedefine USE_XERCES
+#cmakedefine ARABICA_USE_XERCES
 
 /* define to build using Garden */
 #cmakedefine USE_GARDEN

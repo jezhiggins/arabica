@@ -20,7 +20,7 @@
 #endif
 #endif
 
-#ifdef USE_XERCES
+#ifdef ARABICA_USE_XERCES
 #include "SAX/wrappers/saxxerces.cpp"
 #ifdef _MSC_VER
 #pragma message("Pulling in Xerces wrappers")

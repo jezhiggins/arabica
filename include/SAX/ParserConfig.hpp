@@ -21,7 +21,7 @@
 #define DEF_SAX_P msxml2_wrapper
 #endif 
 
-#ifdef USE_XERCES
+#ifdef ARABICA_USE_XERCES
 #include <SAX/wrappers/saxxerces.hpp>
 #undef DEF_SAX_P
 #define DEF_SAX_P xerces_wrapper
