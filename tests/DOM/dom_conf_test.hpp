@@ -7,13 +7,7 @@
 
 #include <DOM/Simple/DOMImplementation.hpp>
 
-
-#ifdef ARABICA_WINDOWS
 const std::string PATH_PREFIX="../tests/DOM/conformance/files/";
-#else
-#include "test_path.hpp"
-const std::string PATH_PREFIX=test_path;
-#endif
 
 template<class string_type, class string_adaptor>
 class DOMTestCase : public TestCase 

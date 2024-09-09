@@ -51,6 +51,8 @@ option(BUILD_SHARED_LIBS "Build as shared libaries" OFF)
 option(BUILD_ARABICA_EXAMPLES "Build all arabica examples" ON)
 
 
+option(BUILD_ARABICA_TESTS "Build tests" OFF)
+
 #
 # Enable/Disable Boost
 #
@@ -488,37 +490,121 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/SAX/ArabicaConfig.hpp
 
 #
 # tests
-include(CTest)
+if(BUILD_ARABICA_TESTS)
+  message(STATUS "Building tests with ${ARABICA_XML_BACKEND} compile flag")
 
-set(CPP_UNIT_SOURCES
-  tests/CppUnit/TestRunner.hpp
-  tests/CppUnit/framework/CppUnitException.h
-  tests/CppUnit/framework/estring.h
-  tests/CppUnit/framework/Guards.h
-  tests/CppUnit/framework/Test.h
-  tests/CppUnit/framework/TestCaller.h
-  tests/CppUnit/framework/TestCase.h
-  tests/CppUnit/framework/TestFailure.h
-  tests/CppUnit/framework/TestResult.h
-  tests/CppUnit/framework/TestSuite.h
-  tests/CppUnit/textui/TextTestResult.h
-  tests/CppUnit/textui/TableTestResult.hpp
-  tests/CppUnit/textui/XmlTestResult.hpp
-  tests/CppUnit/framework/TestCase.cpp
-  tests/CppUnit/framework/TestFailure.cpp
-  tests/CppUnit/framework/TestResult.cpp
-  tests/CppUnit/framework/TestSuite.cpp
-  tests/CppUnit/TestRunner.cpp
-  tests/CppUnit/textui/TextTestResult.cpp
-  tests/CppUnit/textui/TableTestResult.cpp
-  tests/CppUnit/textui/XmlTestResult.cpp
-)
-add_library(cppunit STATIC
-        ${CPP_UNIT_SOURCES})
+  include(CTest)
 
-add_executable(test_sax_filter tests/SAX/filter_test.cpp)
-target_link_libraries(test_sax_filter arabica cppunit)
-add_test(sax_filter test_sax_filter)
+  set(CPP_UNIT_SOURCES
+    tests/CppUnit/TestRunner.hpp
+    tests/CppUnit/framework/CppUnitException.h
+    tests/CppUnit/framework/estring.h
+    tests/CppUnit/framework/Guards.h
+    tests/CppUnit/framework/Test.h
+    tests/CppUnit/framework/TestCaller.h
+    tests/CppUnit/framework/TestCase.h
+    tests/CppUnit/framework/TestFailure.h
+    tests/CppUnit/framework/TestResult.h
+    tests/CppUnit/framework/TestSuite.h
+    tests/CppUnit/textui/TextTestResult.h
+    tests/CppUnit/textui/TableTestResult.hpp
+    tests/CppUnit/textui/XmlTestResult.hpp
+    tests/CppUnit/framework/TestCase.cpp
+    tests/CppUnit/framework/TestFailure.cpp
+    tests/CppUnit/framework/TestResult.cpp
+    tests/CppUnit/framework/TestSuite.cpp
+    tests/CppUnit/TestRunner.cpp
+    tests/CppUnit/textui/TextTestResult.cpp
+    tests/CppUnit/textui/TableTestResult.cpp
+    tests/CppUnit/textui/XmlTestResult.cpp
+  )
+  add_library(cppunit STATIC
+          ${CPP_UNIT_SOURCES})
+
+  add_executable(test_sax_filter tests/SAX/filter_test.cpp)
+  target_link_libraries(test_sax_filter arabica cppunit)
+  add_executable(test_sax_filter_wide tests/SAX/filter_test_wide.cpp)
+  target_link_libraries(test_sax_filter_wide arabica cppunit)
+  add_test(sax_filter test_sax_filter -v)
+  add_test(sax_filter_wide test_sax_filter_wide -v)
+
+  set(DOM_TEST_SOURCES
+    tests/DOM/dom_test_suite.hpp
+    tests/DOM/dom_conf_test.hpp
+    tests/DOM/test_Attribute.hpp
+    tests/DOM/test_CDATA.hpp
+    tests/DOM/test_CharacterData.hpp
+    tests/DOM/test_DOMImplementation.hpp
+    tests/DOM/test_Document.hpp
+    tests/DOM/test_DocumentFragment.hpp
+    tests/DOM/test_DocumentType.hpp
+    tests/DOM/test_Element.hpp
+    tests/DOM/test_NamedNodeMap.hpp
+    tests/DOM/test_ProcessingInstruction.hpp
+    tests/DOM/test_Siblings.hpp
+    tests/DOM/test_Text.hpp
+    tests/DOM/test_SAX2DOM.hpp
+    tests/DOM/test_TreeWalker.hpp
+    tests/DOM/test_Stream.hpp
+  )
+  add_executable(test_dom tests/DOM/main.cpp ${DOM_TEST_SOURCES})
+  include_directories(test_dom tests/DOM)
+  target_link_libraries(test_dom arabica cppunit)
+  add_executable(test_dom_wide tests/DOM/main_wide.cpp ${DOM_TEST_SOURCES})
+  include_directories(test_dom_wide tests/DOM)
+  target_link_libraries(test_dom_wide arabica cppunit)
+  add_test(dom test_dom -v)
+  add_test(dom_wide test_dom_wide -v)
+
+  add_executable(test_taggle tests/Taggle/taggle_test.cpp tests/Taggle/test_Taggle.hpp)
+  target_link_libraries(test_taggle arabica cppunit)
+  add_test(taggle test_taggle -v)
+
+  set(UTIL_TEST_SOURCES
+    tests/Utils/test_base64.hpp
+    tests/Utils/test_normalize_whitespace.hpp
+    tests/Utils/test_qname.hpp
+    tests/Utils/test_uri.hpp
+    tests/Utils/test_xml_strings.hpp
+    tests/Utils/util_test_suite.hpp
+  )
+  add_executable(test_util tests/Utils/utils_test.cpp ${UTIL_TEST_SOURCES})
+  target_link_libraries(test_util arabica cppunit)
+  add_executable(test_util_wide tests/Utils/utils_test_wide.cpp ${UTIL_TEST_SOURCES})
+  target_link_libraries(test_util_wide arabica cppunit)
+  add_test(util test_util -v)
+  add_test(util_wide test_util_wide -v)
+
+  set(XPATH_TEST_SOURCES
+    tests/XPath/arithmetic_test.hpp
+    tests/XPath/attr_value_test.hpp
+    tests/XPath/axis_enumerator_test.hpp
+    tests/XPath/execute_test.hpp
+    tests/XPath/expression_test.hpp
+    tests/XPath/logical_test.hpp
+    tests/XPath/match_test.hpp
+    tests/XPath/node_test_test.hpp
+    tests/XPath/parse_test.hpp
+    tests/XPath/relational_test.hpp
+    tests/XPath/step_test.hpp
+    tests/XPath/text_node_test.hpp
+    tests/XPath/value_test.hpp
+    tests/XPath/xpath_test_suite.hpp
+  )
+  add_executable(test_xpath tests/XPath/main.cpp ${XPATH_TEST_SOURCES})
+  target_link_libraries(test_xpath arabica cppunit)
+  add_executable(test_xpath_wide tests/XPath/main_wide.cpp ${XPATH_TEST_SOURCES})
+  target_link_libraries(test_xpath_wide arabica cppunit)
+  add_test(xpath test_xpath -v)
+  add_test(xpath_wide test_xpath_wide -v)
+
+  add_executable(test_xslt tests/XSLT/main.cpp tests/XSLT/xslt_test.hpp)
+  target_link_libraries(test_xslt arabica cppunit)
+  add_executable(test_xslt_wide tests/XSLT/main_wide.cpp tests/XSLT/xslt_test.hpp)
+  target_link_libraries(test_xslt_wide arabica cppunit)
+  add_test(xslt test_xslt -v)
+  add_test(xslt_wide test_xslt_wide -v)
+  endif()
 
 if(BUILD_ARABICA_EXAMPLES)
 

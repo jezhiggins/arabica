@@ -48,15 +48,9 @@ private:
   TestSuite* suite(const std::string& path, const std::string& catalog_filename);
 };
 
-#ifdef ARABICA_WINDOWS
 const std::string PATH_PREFIX="../tests/XSLT/testsuite/TESTS/";
 const std::string SEPERATOR = "/";
-#else
-#include "test_path.hpp"
-const std::string PATH_PREFIX=test_path;
-const std::string SEPERATOR = "/";
-#endif
-  
+
 template<class string_type, class string_adaptor>
 Arabica::DOM::Document<string_type, string_adaptor> buildDOM(const std::string& filename)
 {
