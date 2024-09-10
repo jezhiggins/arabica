@@ -115,7 +115,9 @@ public:
 
   virtual Output<string_type, string_adaptor>& asOutput() { return *this; }
 
-  void flush() { stream_ << std::endl; }
+  void flush() {
+    stream_.flush();
+  }
 
 protected:
   typedef typename Output<string_type, string_adaptor>::Settings Settings;
