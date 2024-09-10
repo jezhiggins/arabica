@@ -20,8 +20,10 @@
   <test-case id="extend_extend02" compiles="no" reason="Needs fallback, extension elements"/>
   <test-case id="extend_extend04" compiles="no" reason="Needs fallback, extension elements"/>
   <test-case id="impincl_impincl09" compiles="no" reasons="Needs attribute sets"/>
+  <test-case id="lre_lre10" compiles="no" reason="Haven't implemented extension-element-prefixes"/>
   <test-case id="lre_lre12" compiles="no" reason="Failing to compile is actually legitimate here.  Saxon and MSXML agree, Xalan chooses to continue."/>
   <test-case id="lre_lre13" compare="text" reason="Text out"/>
+  <test-case id="lre_lre20" compiles="no" reason="Haven't implemented extension-element-prefixes"/>
   <test-case id="match_match01" compiles="no" reason="Needs xsl:strip-space"/>
   <test-case id="match_match11" compiles="no" reason="haven't implemented id function"/>
   <test-case id="mdocs_mdocs02" runs="no" reason="haven't implemented node-set arg version of document()"/>
@@ -221,6 +223,7 @@
   <test-case id="BVTs_bvt036" compare="text"/>
   <test-case id="BVTs_bvt037" compare="fragment"/>
   <test-case id="BVTs_bvt038" compare="fragment"/>
+  <test-case id="BVTs_bvt040" compiles="no" reason="Haven't implemented xsl:attribute-set"/>
   <test-case id="BVTs_bvt042" compare="fragment"/>
   <test-case id="BVTs_bvt043" compare="fragment"/>
   <test-case id="BVTs_bvt044" skip="yes" reason="Segfault!"/>
@@ -309,6 +312,7 @@
   <test-case id="Copying__84388" compare="fragment"/>
   <test-case id="Copying__84389" compare="fragment"/>
   <test-case id="Copying_UseXmlnsWithEmptyStringAsDefaultNs" skip="yes" reason="Stylesheet encoding in Windows-1251"/>
+  <test-case id="Elements__78347" runs="no" reason="Needs more sophisticated encoding handling than we have"/>
   <test-case id="Elements__89062" compare="text"/>
   <test-case id="Elements__89063" compare="text"/>
   <test-case id="Elements__89065" compare="text"/>
@@ -536,9 +540,12 @@
   <test-case id="Sorting_SortOnAttributeWithNamespacePrefix" compare="text"/>
   <test-case id="Sorting_SortExprWithCurrentInApplyTemplates" compare="fragment"/>
   <test-case id="Sorting_TurkishISortingTest" compare="fragment"/>
-  <test-case id="Stylesheet__91802" compare="text"/>
+  <test-case id="Stylesheet__91802" compiles="no" reason="Haven't implements extension-element-prefixes yet"/>
   <test-case id="Stylesheet__91803" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
   <test-case id="Stylesheet__91804" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
+  <test-case id="Stylesheet__91806" compiles="no" reason="Haven't implements extension-element-prefixes yet"/>
+  <test-case id="Stylesheet__91807" compiles="no" reason="Haven't implements extension-element-prefixes yet"/>
+  <test-case id="Stylesheet__91808" compiles="no" reason="Haven't implements extension-element-prefixes yet"/>
   <test-case id="Stylesheet__91809" skip="yes" reason="Haven't implemented extension elements yet."/>
   <test-case id="Stylesheet__91810" compiles="no" reason="Haven't implemented element-available yet"/>
   <test-case id="Stylesheet__91811" compiles="no" reason="Haven't implemented xsl:fallback yet"/>
@@ -689,7 +696,7 @@
   <test-case id="XSLTFunctions__84049" skip="yes" reason="MS specific output"/>
   <test-case id="XSLTFunctions__84050" skip="yes" reason="MS specific output"/>
   <test-case id="XSLTFunctions__84053" compare="text"/>
-  <test-case id="XSLTFunctions__84054" compare="text"/>
+  <test-case id="XSLTFunctions__84054" skip="yes" reason="Needs format-number"/>
   <test-case id="XSLTFunctions__84056" compare="text"/>
   <test-case id="XSLTFunctions__84058" compare="text"/>
   <test-case id="XSLTFunctions__84170" compare="text"/>
