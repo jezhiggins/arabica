@@ -72,7 +72,11 @@ public:
     return !to_msg_ ? sink_ : message_sink_.asOutput();
   } // sink
   void redirectToMessageSink() { ++to_msg_; }
-  void revertFromMessageSink() { --to_msg_; }
+  void revertFromMessageSink() {
+    --to_msg_;
+    if (to_msg_ == 0)
+      message_sink_.flush();
+  }
 
   const Arabica::XPath::ExecutionContext<string_type, string_adaptor>& xpathContext() const { return xpathContext_; }
 

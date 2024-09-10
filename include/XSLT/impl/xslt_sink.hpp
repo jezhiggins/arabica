@@ -110,10 +110,12 @@ public:
 
   ~StreamSink() 
   { 
-    stream_.flush();
+    flush();
   } // ~StreamSink
 
   virtual Output<string_type, string_adaptor>& asOutput() { return *this; }
+
+  void flush() { stream_ << std::endl; }
 
 protected:
   typedef typename Output<string_type, string_adaptor>::Settings Settings;
