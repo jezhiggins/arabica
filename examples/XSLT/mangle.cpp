@@ -20,11 +20,10 @@ int main(int argc, const char* argv[])
     return 0;
   } // if ...
 
-  Arabica::XSLT::StylesheetCompiler<std::string> compiler;
-  std::ostringstream errors;
-  try 
+  try
   {
     Arabica::SAX::InputSource<std::string> source(argv[2]);
+    Arabica::XSLT::StylesheetCompiler<std::string> compiler;
     std::unique_ptr<Arabica::XSLT::Stylesheet<std::string> > stylesheet = compiler.compile(source);
     if(stylesheet.get() == 0)
     {
@@ -32,7 +31,7 @@ int main(int argc, const char* argv[])
       return -1;
     } // if ...
 
-    stylesheet->set_error_output(errors);
+    stylesheet->set_error_output(std::cerr);
 
     Arabica::DOM::Document<std::string> document = buildDOM(argv[1]); 
     if(document == 0)
@@ -46,8 +45,6 @@ int main(int argc, const char* argv[])
   {
     std::cerr << ex.what() << std::endl;
   } // catch
-
-  std::cerr << "\n\n" << errors.str() << std::endl;
 
   return 0;
 } // main
