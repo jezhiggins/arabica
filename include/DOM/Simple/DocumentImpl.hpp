@@ -25,10 +25,10 @@ namespace SimpleDOM
 {
 
 template<class stringT, class string_adaptorT>
-class valueIs : public std::unary_function<AttrImpl<stringT, string_adaptorT>*, bool>
+class valueIs
 {
   public:
-    valueIs(const stringT& value) : value_(value) { }
+    explicit valueIs(const stringT& value) : value_(value) { }
     bool operator()(const AttrImpl<stringT, string_adaptorT>* node) const
     {
       return (node->getNodeValue() == value_);
