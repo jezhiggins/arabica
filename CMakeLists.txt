@@ -1,6 +1,5 @@
 #
 # CMakeLists.txt file for arabica xml
-# author: Gunther Laure
 #
 
 cmake_minimum_required(VERSION 3.5)
@@ -20,7 +19,7 @@ set(ARABICA_MINOR_VERSION September)
 #
 set(CPACK_PACKAGE_NAME "libarabica")
 set(CPACK_PACKAGE_VENDOR "Jez Higgins <jez@jezuk.co.uk>")
-set(CPACK_PACKAGE_CONTACT "Steffen Vogel <post@steffenvogel.de>")
+set(CPACK_PACKAGE_CONTACT "Jez Higgins <jez@jezuk.co.uk>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Arabica is an XML and HTML processing toolkit, providing SAX2, DOM, XPath, and XSLT implementations, written in Standard C++")
 set(CPACK_PACKAGE_VERSION_MAJOR ${ARABICA_MAJOR_VERSION})
 set(CPACK_PACKAGE_VERSION_MINOR ${ARABICA_MINOR_VERSION})
